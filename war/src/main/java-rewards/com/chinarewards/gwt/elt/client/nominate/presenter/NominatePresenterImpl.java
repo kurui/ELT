@@ -69,7 +69,7 @@ public class NominatePresenterImpl extends
 						display.setIntegral("integral");
 						display.setRecordName("recordName");
 						display.setNumber("number");
-						display.setNominate("nominate");
+						display.setNominate(nominateList);
 						display.setCandidate(candidateList);
 						display.setAwardNature("awardNature");
 						display.setBegindate("begindate");
