@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+	<ui:style>
+		.important {
+			font-weight: bold;
+		}
+	</ui:style>
+	<g:HTMLPanel>
+		<div>
+			<g:Label text="HR信息初始化" />
+			<table width="500" height="183" border="0" cellpadding="0"
+				cellspacing="0">
+				<tr>
+					<td width="10%" height="41" class="">邮箱：</td>
+
+					<td width="20%">
+						<div>
+							<g:TextBox width="112px" height="15px" ui:field="email" />
+						</div>
+					</td>
+					<td width="10%" height="41" class="">账号：</td>
+
+					<td width="20%">
+						<div>
+							<g:TextBox ui:field="username" />
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td width="28%" height="41" class="">密码：</td>
+
+					<td width="42%" colspan='3'>
+						<div>
+							<g:TextBox width="113px" height="16px" ui:field="password" />
+						</div>
+					</td>
+
+				</tr>
+				<tr>
+					<td width="28%" height="41" class="">确认密码：</td>
+
+					<td width="42%" colspan='3'>
+						<div>
+							<g:TextBox width="112px" height="17px" ui:field="validatePassword" />
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td width="28%" height="41" class="">姓名：</td>
+
+					<td width="42%">
+						<div>
+							<g:TextBox width="113px" height="17px" ui:field="name" />
+						</div>
+					</td>
+					<td width="28%" height="41" class="">联系电话：</td>
+
+					<td width="42%">
+						<div>
+							<g:TextBox ui:field="tell" />
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td width="28%" height="41" colspan='4'>
+						<center>
+							<g:Button styleName="{style.important}" ui:field="hrRegisterbutton"
+								text="确定" width="120px" height="21px" />
+						</center>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<g:Label text="请初始化hr信息后，就可以用hr账号去登录，进行下一步操作！" width="364px"
+			height="16px" />
+	</g:HTMLPanel>
+</ui:UiBinder> 

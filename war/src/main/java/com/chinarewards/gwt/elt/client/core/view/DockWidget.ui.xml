@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:image field="logo" resource="logo.jpg"></ui:image>
+	<ui:image field="logo_name" resource="logo_name.jpg"></ui:image>
+	<ui:image field="help" resource="help.jpg"></ui:image>
+	<ui:image field="helpover" resource="helpover.jpg"></ui:image>
+	<ui:image field="helpdown" resource="helpdown.jpg"></ui:image>
+	<ui:image field="log" resource="log.jpg"></ui:image>
+	<ui:image field="logover" resource="logover.jpg"></ui:image>
+	<ui:image field="logdown" resource="logdown.jpg"></ui:image>
+	<ui:image field="exit" resource="exit.jpg"></ui:image>
+	<ui:image field="exitover" resource="exitover.jpg"></ui:image>
+	<ui:image field="exitdown" resource="exitdown.jpg"></ui:image>
+	<ui:image field="title01" resource="title01.jpg"></ui:image>
+	<ui:image field="title02" resource="title02.jpg" repeatStyle="Horizontal"></ui:image>
+	<ui:image field="title03" resource="title03.jpg"></ui:image>
+	<ui:image field="center" resource="center.jpg" repeatStyle="Vertical"></ui:image>
+	<ui:image field="topbg" resource="topbg.jpg" repeatStyle="Horizontal"></ui:image>
+	<ui:image field="top02" resource="top02.jpg" repeatStyle="Horizontal"></ui:image>
+	<ui:image field="footer" resource="footer.jpg" repeatStyle="Horizontal"></ui:image>
+
+	<ui:style src="index.css"></ui:style>
+	<g:DockLayoutPanel ui:field="dock" unit='PX'>
+		<g:north size="88">
+			<g:HTMLPanel>
+				<table width="100%" border="0" cellpadding="0" cellspacing="0">
+					<!-- header -->
+					<tr>
+						<td height="88" align="top">
+							<div id="header">
+								<ul>
+									<li>
+									</li>
+									<li>
+										<g:Button ui:field="logBtn" styleName="log"></g:Button>
+									</li>
+								</ul>
+
+								<g:Image resource="{logo}" width="125" height="37" />
+								<g:Image resource="{logo_name}" width="380" height="36" />
+							</div>
+							<div id="header02">
+								<g:Label ui:field="message"></g:Label>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</g:HTMLPanel>
+		</g:north>
+		<g:south size="27">
+			<g:HTMLPanel>
+				<table width="100%" border="0" cellpadding="0" cellspacing="0">
+					<tr>
+						<td height="27">
+							<div id="footer">深圳积享通信息技术有限公司</div>
+						</td>
+					</tr>
+				</table>
+			</g:HTMLPanel>
+		</g:south>
+		<g:west size="259">
+			<g:HTMLPanel>
+				<table width="100%" height="100%" border="0" cellspacing="0"
+					cellpadding="0" id="container">
+					<tr>
+						<!-- menu -->
+						<td width="250" valign="top" height="100%">
+							<div class="{style.title}">
+								<table width="100%" border="0" cellspacing="0"
+									cellpadding="0">
+									<tr>
+										<td><g:Image resource="{title01}"></g:Image></td>
+										<td>操作导航</td>
+										<td id="title03"></td>
+									</tr>
+								</table>
+							</div>
+							<div id="menu">
+								<!-- here insert menu widget -->
+								<g:FlowPanel ui:field="menu">
+
+								</g:FlowPanel>
+							</div>
+						</td>
+						<td width="9" height="100%" class="{style.td-center}">
+							<div id="center">
+							</div>
+						</td>
+					</tr>
+				</table>
+			</g:HTMLPanel>
+		</g:west>
+
+	</g:DockLayoutPanel>
+</ui:UiBinder>

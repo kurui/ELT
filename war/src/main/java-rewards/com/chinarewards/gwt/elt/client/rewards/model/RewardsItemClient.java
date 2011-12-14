@@ -1,0 +1,283 @@
+package com.chinarewards.gwt.elt.client.rewards.model;
+
+import java.io.Serializable;
+import java.util.Date;
+
+public class RewardsItemClient implements Serializable,
+		Comparable<RewardsItemClient> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7771222164734049059L;
+
+	/** 基本信息 **/
+	private RewardsBaseInfo baseInfo = new RewardsBaseInfo();
+
+	/** 频率规则 **/
+	// 频率是否有效
+	private boolean enable;
+	// 频率
+	private FrequencyClient frequency;
+
+	// 开始时间
+	private Date startTime;
+
+	// 下次奖励时间
+	private Date nextTime;
+
+	// 下次奖励公布时间
+	private Date nextPublishTime;
+
+	// 上一次颁奖时间--没有为Null
+	private Date lastRewardedDate;
+
+	// 结束时间
+	private Date endTime;
+
+	// 是否自动奖项
+	private boolean isAuto = false;
+
+	// 是否有特殊条件(关于自动奖项。如生日)
+	private boolean hasSpecialCondition;
+
+	// 特殊条件
+	private SpecialCondition condition;
+
+	// 是否已经生成奖励
+	private boolean isGeneratedRewards;
+
+	@Override
+	public int compareTo(RewardsItemClient o) {
+		return o == null ? -1 : o.getId().compareTo(this.getId());
+	}
+
+	@Override
+	public String toString() {
+		return "RewardsItemClient [baseInfo=" + baseInfo + ", enable=" + enable
+				+ ", frequency=" + frequency + ", startTime=" + startTime
+				+ ", nextTime=" + nextTime + ", nextPublishTime="
+				+ nextPublishTime + ", lastRewardedDate=" + lastRewardedDate
+				+ ", endTime=" + endTime + ", isAuto=" + isAuto
+				+ ", hasSpecialCondition=" + hasSpecialCondition
+				+ ", condition=" + condition + ", isGeneratedRewards="
+				+ isGeneratedRewards + "]";
+	}
+
+	public RewardsBaseInfo getBaseInfo() {
+		return baseInfo;
+	}
+
+	public void setBaseInfo(RewardsBaseInfo baseInfo) {
+		this.baseInfo = baseInfo;
+	}
+
+	public boolean isEnable() {
+		return enable;
+	}
+
+	public void setEnable(boolean enable) {
+		this.enable = enable;
+	}
+
+	public FrequencyClient getFrequency() {
+		return frequency;
+	}
+
+	public void setFrequency(FrequencyClient frequency) {
+		this.frequency = frequency;
+	}
+
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+
+	public Date getNextTime() {
+		return nextTime;
+	}
+
+	public void setNextTime(Date nextTime) {
+		this.nextTime = nextTime;
+	}
+
+	public Date getNextPublishTime() {
+		return nextPublishTime;
+	}
+
+	public void setNextPublishTime(Date nextPublishTime) {
+		this.nextPublishTime = nextPublishTime;
+	}
+
+	public Date getLastRewardedDate() {
+		return lastRewardedDate;
+	}
+
+	public void setLastRewardedDate(Date lastRewardedDate) {
+		this.lastRewardedDate = lastRewardedDate;
+	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
+
+	public boolean isAuto() {
+		return isAuto;
+	}
+
+	public void setAuto(boolean isAuto) {
+		this.isAuto = isAuto;
+	}
+
+	public boolean isHasSpecialCondition() {
+		return hasSpecialCondition;
+	}
+
+	public void setHasSpecialCondition(boolean hasSpecialCondition) {
+		this.hasSpecialCondition = hasSpecialCondition;
+	}
+
+	public SpecialCondition getCondition() {
+		return condition;
+	}
+
+	public void setCondition(SpecialCondition condition) {
+		this.condition = condition;
+	}
+
+	public String getId() {
+		return baseInfo.getId();
+	}
+
+	public void setId(String id) {
+		baseInfo.setId(id);
+	}
+
+	public String getDefinition() {
+		return baseInfo.getDefinition();
+	}
+
+	public void setDefinition(String definition) {
+		baseInfo.setDefinition(definition);
+	}
+
+	public String getStandard() {
+		return baseInfo.getStandard();
+	}
+
+	public void setStandard(String standard) {
+		baseInfo.setStandard(standard);
+	}
+
+	public RewardsAmountRuleClient getAmountRule() {
+		return baseInfo.getAmountRule();
+	}
+
+	public void setAmountRule(RewardsAmountRuleClient amountRule) {
+		baseInfo.setAmountRule(amountRule);
+	}
+
+	public String getName() {
+		return baseInfo.getName();
+	}
+
+	public void setName(String name) {
+		baseInfo.setName(name);
+	}
+
+	public RewardsTypeClient getType() {
+		return baseInfo.getType();
+	}
+
+	public void setType(RewardsTypeClient type) {
+		baseInfo.setType(type);
+	}
+
+	public DepartmentClient getBuilderDept() {
+		return baseInfo.getBuilderDept();
+	}
+
+	public int getSizeLimit() {
+		return baseInfo.getSizeLimit();
+	}
+
+	public void setSizeLimit(int sizeLimit) {
+		baseInfo.setSizeLimit(sizeLimit);
+	}
+
+	public StaffClient getStaff() {
+		return baseInfo.getStaff();
+	}
+
+	public void setStaff(StaffClient staff) {
+		baseInfo.setStaff(staff);
+	}
+
+	public void setBuilderDept(DepartmentClient builderDept) {
+		baseInfo.setBuilderDept(builderDept);
+	}
+
+	public DepartmentClient getAccountDept() {
+		return baseInfo.getAccountDept();
+	}
+
+	public void setAccountDept(DepartmentClient accountDept) {
+		baseInfo.setAccountDept(accountDept);
+	}
+
+	public Date getCreateAt() {
+		return baseInfo.getCreateAt();
+	}
+
+	public void setCreateAt(Date createAt) {
+		baseInfo.setCreateAt(createAt);
+	}
+
+	public String getCreatedBy() {
+		return baseInfo.getCreatedBy();
+	}
+
+	public void setCreatedBy(String createdBy) {
+		baseInfo.setCreatedBy(createdBy);
+	}
+
+	public String getRewardsUnit() {
+		return baseInfo.getRewardsUnit();
+	}
+
+	public void setRewardsUnit(String rewardsUnit) {
+		baseInfo.setRewardsUnit(rewardsUnit);
+	}
+
+	public boolean isPeopleSizeLimit() {
+		return baseInfo.isPeopleSizeLimit();
+	}
+
+	public void setPeopleSizeLimit(boolean isPeopleSizeLimit) {
+		baseInfo.setPeopleSizeLimit(isPeopleSizeLimit);
+	}
+
+	public ParticipateInfoClient getParticipateInfo() {
+		return baseInfo.getParticipateInfo();
+	}
+
+	public void setParticipateInfo(ParticipateInfoClient participateInfo) {
+		baseInfo.setParticipateInfo(participateInfo);
+	}
+
+	public boolean isGeneratedRewards() {
+		return isGeneratedRewards;
+	}
+
+	public void setGeneratedRewards(boolean isGeneratedRewards) {
+		this.isGeneratedRewards = isGeneratedRewards;
+	}
+
+}

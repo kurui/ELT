@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+   	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:p1="urn:import:com.google.gwt.user.cellview.client"
+   	xmlns:d='urn:import:com.google.gwt.user.datepicker.client'>
+   	<ui:image resource="input_text.jpg" field="input_text" repeatStyle="Horizontal"></ui:image>
+	<ui:image resource="button_addpe.jpg" field="button_addpe"></ui:image>
+	<ui:style src="staffBlock.css" ></ui:style>
+	<g:HTMLPanel ui:field="select1">
+		
+		<table border="0" cellspacing="0" cellpadding="0" class="">
+            <tr>
+            	<td valign="top" class="" ><span>*</span>  获奖对象：</td>
+		        <td class="">
+			            <g:RadioButton ui:field="everyoneRbtn" name="chooseRadio">全体员工</g:RadioButton>
+						<g:RadioButton ui:field="someoneRbtn" name="chooseRadio">以下部门/员工</g:RadioButton>
+				</td>
+				<td><div style="width:100px"></div></td>		
+            </tr>
+           
+            <tr>
+            	<td colspan="3" id="noPaddingTd" >
+            		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="">
+            			 <tr>
+				              <td valign="top" class="" ><span>*</span> 快速选择：</td>
+				              <td class="" id="specialTextCss">
+				               		<g:HorizontalPanel ui:field="suggestBoxPanel"/>
+				              </td>
+				              <td><g:Button ui:field="chooseBtn" styleName="button-addpe">选择</g:Button></td>
+				         </tr>
+				         <tr>
+				               <td valign="top" class="">合格人选：</td>
+				               <td class=""><g:FlowPanel ui:field="staffTextAreaPanel"/> </td>
+				               <td></td>
+				         </tr>
+            		</table>
+            	</td>
+            </tr>
+            
+        </table>
+        <!--  
+		<table cellspacing="0" border="0" width="100%">
+			<tr>
+				<td valign="top">合格人选：</td>
+				<td>
+					<g:RadioButton ui:field="everyoneRbtn" name="chooseRadio">全体员工
+					</g:RadioButton>
+					<g:RadioButton ui:field="someoneRbtn" name="chooseRadio">以下部门/员工
+					</g:RadioButton>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2"><g:FlowPanel ui:field="choosePanel" /></td>
+			</tr>
+		</table>
+		-->
+	</g:HTMLPanel>
+</ui:UiBinder>

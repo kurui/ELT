@@ -1,0 +1,216 @@
+package com.chinarewards.gwt.elt.client.rewardItem.presenter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import net.customware.gwt.dispatch.client.DispatchAsync;
+
+import com.chinarewards.gwt.elt.client.core.Platform;
+import com.chinarewards.gwt.elt.client.core.ui.DialogCloseListener;
+import com.chinarewards.gwt.elt.client.dataprovider.OrganizationSuggestOracle;
+import com.chinarewards.gwt.elt.client.dataprovider.OrganizationSuggestOracle.OrganizationSuggest;
+import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
+import com.chinarewards.gwt.elt.client.mvp.EventBus;
+import com.chinarewards.gwt.elt.client.rewardItem.dialog.ChooseStaffWinDialog;
+import com.chinarewards.gwt.elt.client.rewardItem.event.ChooseStaffEvent;
+import com.chinarewards.gwt.elt.client.rewardItem.handler.ChooseStaffHandler;
+import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
+import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient;
+import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient.EveryoneClient;
+import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient.SomeoneClient;
+import com.chinarewards.gwt.elt.client.rewards.model.StaffClient;
+import com.chinarewards.gwt.elt.client.rewards.model.StaffOrDepartmentAC;
+import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.logical.shared.SelectionEvent;
+import com.google.gwt.event.logical.shared.SelectionHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.SuggestBox;
+import com.google.gwt.user.client.ui.SuggestOracle;
+import com.google.gwt.user.client.ui.SuggestOracle.Suggestion;
+import com.google.gwt.user.client.ui.TextBox;
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+
+public class ChooseStaffBlockPresenterImpl extends
+		BasePresenter<ChooseStaffBlockPresenter.ChooseStaffBlockDisplay>
+		implements ChooseStaffBlockPresenter {
+
+	private final Provider<ChooseStaffWinDialog> chooseStaffDialogProvider;
+	private final SessionManager sessionManager;
+	private final DispatchAsync dispatcher;
+
+	@Inject
+	public ChooseStaffBlockPresenterImpl(EventBus eventBus,
+			ChooseStaffBlockDisplay display,
+			Provider<ChooseStaffWinDialog> chooseStaffDialogProvider,
+			DispatchAsync dispatcher, SessionManager sessionManager) {
+		super(eventBus, display);
+		this.chooseStaffDialogProvider = chooseStaffDialogProvider;
+		this.dispatcher = dispatcher;
+		this.sessionManager = sessionManager;
+	}
+
+	private void initSuggestion() {
+		final TextBox suggestTextBox = new TextBox();
+		SuggestOracle suggest = new OrganizationSuggestOracle(dispatcher);
+		final SuggestBox box = new SuggestBox(suggest, suggestTextBox);
+		box.addSelectionHandler(new SelectionHandler<SuggestOracle.Suggestion>() {
+			@Override
+			public void onSelection(SelectionEvent<Suggestion> selectionEvent) {
+				// restore data.
+				OrganizationSuggest suggest = (OrganizationSuggest) selectionEvent
+						.getSelectedItem();
+				StaffOrDepartmentAC sd = suggest.getSd();
+				OrganicationClient org = new OrganicationClient(sd.getId(), sd
+						.getName());
+				if (!display.getSpecialTextArea().containsItem(org)) {
+					// display.getStaffMap().put(org.getId(), org);
+					display.getSpecialTextArea().addItem(org);
+				}
+				suggestTextBox.setValue("");
+				suggestTextBox.setFocus(true);
+			}
+		});
+		box.setFocus(true);
+		box.setStyleName("text");
+		display.getSuggestBoxPanel().add(box);
+		display.getSuggestBoxPanel().add(new Label("可输入员工/部门信息"));
+	}
+
+	public void bind() {
+		initSuggestion();
+		display.isEveryone().setValue(true, true);
+		registerHandler(display.getChooseStaffBtnClick().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent arg0) {
+						final ChooseStaffWinDialog dialog = chooseStaffDialogProvider
+								.get();
+						dialog.setNominee(false, true, null);// The key is the
+																// first
+																// parameter(false).
+						final HandlerRegistration registration = eventBus.addHandler(ChooseStaffEvent.getType(),	new ChooseStaffHandler() {
+											@Override
+											public void chosenStaff(List<StaffClient> list) {
+												for (StaffClient r : list) {
+													if (!display
+															.getSpecialTextArea()
+															.containsItem(r)) {
+														// OrganicationClient sd
+														// = new
+														// OrganicationClient(
+														// r.getId(),
+														// r.getName());
+														// display.getStaffMap()
+														// .put(r.getId(),
+														// sd);
+														display.getSpecialTextArea()
+																.addItem(r);
+													}
+												}
+											}
+										});
+
+						Platform.getInstance().getSiteManager()
+								.openDialog(dialog, new DialogCloseListener() {
+									public void onClose(String dialogId,
+											String instanceId) {
+										registration.removeHandler();
+									}
+								});
+					}
+				}));
+	}
+
+	/**
+	 * click radio("以下部门员工")
+	 */
+	// private void initChoosePanel() {
+	// display.getChoosePanel().clear();
+	//
+	// final TextBox textBox = new TextBox();
+	// final SpecialTextArea<OrganicationClient> textArea = display
+	// .getSpecialTextArea();
+	// SuggestOracle suggest = new OrganizationSuggestOracle(dispatcher);
+	// final SuggestBox box = new SuggestBox(suggest, textBox);
+	// box.addSelectionHandler(new SelectionHandler<SuggestOracle.Suggestion>()
+	// {
+	// @Override
+	// public void onSelection(SelectionEvent<Suggestion> selectionEvent) {
+	// // restore data.
+	// OrganizationSuggest suggest = (OrganizationSuggest) selectionEvent
+	// .getSelectedItem();
+	// StaffOrDepartmentAC sd = suggest.getSd();
+	// OrganicationClient org = new OrganicationClient(sd.getId(), sd
+	// .getName());
+	// if (!textArea.containsItem(org)) {
+	// display.getStaffMap().put(org.getId(), org);
+	// textArea.addItem(org);
+	// }
+	// textBox.setValue("");
+	// textBox.setFocus(true);
+	// }
+	// });
+	// box.setFocus(true);
+	// Button btn = new Button("选择");
+	// btn.addClickHandler(new ClickHandler() {
+	// @Override
+	// public void onClick(ClickEvent arg0) {
+	// final ChooseStaffWinDialog dialog = chooseStaffDialogProvider
+	// .get();
+	// dialog.setNominee(false, true, null);// The key is the first
+	// // parameter(false).
+	// final HandlerRegistration registration = eventBus.addHandler(
+	// ChooseStaffEvent.getType(), new ChooseStaffHandler() {
+	// @Override
+	// public void chosenStaff(List<StaffClient> list) {
+	// for (StaffClient r : list) {
+	// if (!textArea.containsItem(r)) {
+	// OrganicationClient sd = new OrganicationClient(
+	// r.getId(), r.getName());
+	// display.getStaffMap()
+	// .put(r.getId(), sd);
+	// textArea.addItem(r);
+	// }
+	// }
+	// }
+	// });
+	//
+	// Platform.getInstance().getSiteManager()
+	// .openDialog(dialog, new DialogCloseListener() {
+	// public void onClose(String dialogId,
+	// String instanceId) {
+	// registration.removeHandler();
+	// }
+	// });
+	// }
+	// });
+	// Grid g = new Grid(1, 2);
+	// g.setWidth("100%");
+	// g.setWidget(0, 0, box);
+	// g.setWidget(0, 1, btn);
+	// display.getChoosePanel().add(g);
+	// display.getChoosePanel().add(textArea);
+	//
+	// }
+
+	@Override
+	public ParticipateInfoClient getparticipateInfo() {
+		ParticipateInfoClient participateInfo = null;
+		if (display.isEveryone().getValue()) {
+			participateInfo = new EveryoneClient(sessionManager.getSession().getToken());//.getCorporationId()
+		} else if (display.isSomeone().getValue()) {
+			List<OrganicationClient> orgs = new ArrayList<OrganicationClient>();
+			for (String orgId : display.getRealOrginzationIds()) {
+				orgs.add(new OrganicationClient(orgId, ""));
+			}
+			participateInfo = new SomeoneClient(orgs);
+		}
+		return participateInfo;
+	}
+
+	
+}
