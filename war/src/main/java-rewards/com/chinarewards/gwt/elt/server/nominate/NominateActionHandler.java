@@ -1,4 +1,5 @@
-package com.chinarewards.gwt.elt.client.server.nominate;
+package com.chinarewards.gwt.elt.server.nominate;
+
 
 import java.util.ArrayList;
 import java.util.List;
