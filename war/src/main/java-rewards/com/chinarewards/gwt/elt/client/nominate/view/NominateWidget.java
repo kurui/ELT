@@ -5,8 +5,6 @@ import java.util.List;
 
 import com.chinarewards.gwt.elt.client.nominate.presenter.NominatePresenter.NominateDisplay;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.client.NodeList;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;

@@ -61,8 +61,8 @@ public class NominatePresenterImpl extends
 					@Override
 					public void onSuccess(NominateInitResponse response) {
 						String awardsVo=response.getAwardsVo();
-						List candidateList=response.getCandidateList();
-						List nominateList=response.getNominateList();
+						List<String> candidateList=response.getCandidateList();
+						List<String> nominateList=response.getNominateList();
 						display.setName(awardsVo);
 						display.setExplain("explain");
 						display.setCondition("condition");
