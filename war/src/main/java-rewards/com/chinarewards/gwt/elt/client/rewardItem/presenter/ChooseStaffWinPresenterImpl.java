@@ -14,7 +14,6 @@ import com.chinarewards.gwt.elt.client.dataprovider.StaffAsyncDataProvider;
 import com.chinarewards.gwt.elt.client.mvp.BaseDialogPresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
-import com.chinarewards.gwt.elt.client.rewardItem.dialog.PersonalRewardsHistoryDialog;
 import com.chinarewards.gwt.elt.client.rewardItem.event.ChooseStaffEvent;
 import com.chinarewards.gwt.elt.client.rewardItem.presenter.ChooseStaffWinPresenter.ChooseStaffWinDisplay;
 import com.chinarewards.gwt.elt.client.rewards.model.StaffClient;
@@ -32,6 +31,7 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.cellview.client.SimplePager.TextLocation;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SelectionModel;
@@ -46,12 +46,11 @@ public class ChooseStaffWinPresenterImpl extends
 	final DispatchAsync dispatch;
 	final ErrorHandler errorHandler;
 	final SessionManager sessionManager;
-	final Provider<PersonalRewardsHistoryDialog> historyDialogProvider;
 
-	SimplePager pager;
+	 final SimplePager simplePager = new SimplePager(); 
 	ListCellTable<StaffClient> resultTable;
 	StaffAsyncDataProvider listViewAdapter;
-	PersonalRewardsHistoryDialog dialog;
+	
 
 	// 为StaffAsyncDataProvider准备的数据。
 	boolean isChooseAll = false;
@@ -68,13 +67,13 @@ public class ChooseStaffWinPresenterImpl extends
 	@Inject
 	public ChooseStaffWinPresenterImpl(EventBus eventBus,
 			ChooseStaffWinDisplay display, DispatchAsync dispatch,
-			ErrorHandler errorHandler, SessionManager sessionManager,
-			Provider<PersonalRewardsHistoryDialog> historyDialogProvider) {
+			ErrorHandler errorHandler, SessionManager sessionManager
+			) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
-		this.historyDialogProvider = historyDialogProvider;
+		
 	}
 
 	public Widget asWidget() {
@@ -125,17 +124,18 @@ public class ChooseStaffWinPresenterImpl extends
 	}
 
 	private void buildTable() {
+		
 		resultTable = new ListCellTable<StaffClient>();
 		final SingleSelectionModel<StaffClient> selectionModel = setSelectionModel(resultTable);
 		initTableColumns(selectionModel);
-		//pager = new DefaultPager(TextLocation.CENTER);
-		pager.setDisplay(resultTable);
+		
+		simplePager.setDisplay(resultTable);
 		resultTable.setWidth(ViewConstants.page_width);
 		resultTable.setPageSize(ViewConstants.per_page_number_in_dialog);
 		resultTable.setPageStart(0);
 		display.getResultPanel().clear();
 		display.getResultPanel().add(resultTable);
-		display.getResultPanel().add(pager);
+		display.getResultPanel().add(simplePager);
 	}
 
 	private SingleSelectionModel<StaffClient> setSelectionModel(
@@ -170,7 +170,7 @@ public class ChooseStaffWinPresenterImpl extends
 		Sorting<StaffClient> ref = new Sorting<StaffClient>() {
 			@Override
 			public void sortingCurrentPage(Comparator<StaffClient> comparator) {
-				//listViewAdapter.sortCurrentPage(comparator);
+				listViewAdapter.sortCurrentPage(comparator);
 			}
 
 			@Override
@@ -220,7 +220,7 @@ public class ChooseStaffWinPresenterImpl extends
 						}
 					}, ref, "lastRewardsTime");
 
-//			resultTable.addColumn("", new HyperLinkCell(),
+//			resultTable.addColumn("", new TextCell(),
 //					new GetValue<StaffClient, String>() {
 //						@Override
 //						public String getValue(StaffClient arg0) {
@@ -230,11 +230,11 @@ public class ChooseStaffWinPresenterImpl extends
 //						@Override
 //						public void update(int index, StaffClient o,
 //								String value) {
-//							dialog = historyDialogProvider.get();
-//							// open a dialog
-//							dialog.setStaffData(o.getId(), o.getName());
-//							Platform.getInstance().getSiteManager()
-//									.openDialog(dialog, null);
+////							dialog = historyDialogProvider.get();
+////							// open a dialog
+////							dialog.setStaffData(o.getId(), o.getName());
+////							Platform.getInstance().getSiteManager()
+////									.openDialog(dialog, null);
 //						}
 //					});
 		}
@@ -288,21 +288,5 @@ public class ChooseStaffWinPresenterImpl extends
 		doSearch();
 	}
 
-	@Override
-	public void setDialog(Dialog parent) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void unbind() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public ChooseStaffWinDisplay getDisplay() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 }
