@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.chinarewards.elt.dao.org.StaffDao;
 import com.chinarewards.elt.dao.reward.CandidateDao;
 import com.chinarewards.elt.dao.reward.PreWinnerDao;
 import com.chinarewards.elt.dao.reward.PreWinnerLotDao;
 import com.chinarewards.elt.dao.reward.RewardDao;
-import com.chinarewards.elt.dao.staff.StaffDao;
+import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.domain.reward.base.Reward;
 import com.chinarewards.elt.domain.reward.person.Candidate;
 import com.chinarewards.elt.domain.reward.person.PreWinner;
 import com.chinarewards.elt.domain.reward.person.PreWinnerLot;
-import com.chinarewards.elt.domain.staff.Staff;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.reward.base.PreWinnerLotStatus;
 import com.chinarewards.elt.model.reward.exception.NoEffectivePreWinnerException;

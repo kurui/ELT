@@ -2,7 +2,9 @@ package com.chinarewards.elt.service.staff;
 
 import java.util.List;
 
-import com.chinarewards.elt.domain.staff.Staff;
+import com.chinarewards.elt.domain.org.Staff;
+import com.chinarewards.elt.domain.user.SysUser;
+import com.chinarewards.elt.model.org.StaffVo;
 
 /**
  * Provides some useful methods to manipulate Staff.
@@ -11,6 +13,16 @@ import com.chinarewards.elt.domain.staff.Staff;
  * @since 1.0
  */
 public interface StaffLogic {
+
+	/**
+	 * Create or update a staff.Maybe here should create a user to the created
+	 * staff.
+	 * 
+	 * @param caller
+	 * @param staff
+	 * @return
+	 */
+	public Staff saveStaff(SysUser caller, StaffVo staff);
 
 	/**
 	 * Get list of Staff by Department id.

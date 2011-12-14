@@ -48,10 +48,10 @@ public class PlatformModule extends AbstractGinModule {
 
 	@Provides
 	PluginSet providePluginSet(
-	// ---- PLUGINS DEFINE BELOW (2) ----
+			// ---- PLUGINS DEFINE BELOW (2) ----
 			CorePluginDescriptor core, // core
-			SamplePluginDescriptor sample, UserPluginDescriptor user,HrRegisterPluginDescriptor hrregister,NominatePluginDescriptor nominate
-			,RewardsItemPluginDescriptor rewardsItem) {
+			SamplePluginDescriptor sample, UserPluginDescriptor user,
+			HrRegisterPluginDescriptor hrregister) {
 
 		if (pluginSet == null) {
 			pluginSet = new InMemoryPluginSet();
@@ -59,8 +59,8 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(sample);
 			pluginSet.registerPlugin(user);
 			pluginSet.registerPlugin(hrregister);
-			pluginSet.registerPlugin(nominate);
-			pluginSet.registerPlugin(rewardsItem);
+			// pluginSet.registerPlugin(nominate);
+			// pluginSet.registerPlugin(rewardsItem);
 		}
 
 		return pluginSet;

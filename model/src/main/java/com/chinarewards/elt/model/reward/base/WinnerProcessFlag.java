@@ -1,4 +1,4 @@
-package com.chinarewards.elt.model.rewards;
+package com.chinarewards.elt.model.reward.base;
 
 /**
  * 得奖者处理状态

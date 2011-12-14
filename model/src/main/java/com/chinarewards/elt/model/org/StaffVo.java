@@ -1,48 +1,30 @@
-package com.chinarewards.elt.domain.staff;
+package com.chinarewards.elt.model.org;
 
 import java.util.Date;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.ManyToOne;
-
-import com.chinarewards.elt.domain.org.Corporation;
-import com.chinarewards.elt.domain.org.Department;
-import com.chinarewards.elt.domain.org.Organization;
-import com.chinarewards.elt.model.org.Gender;
-import com.chinarewards.elt.model.org.NoticeMode;
-
 /**
- * It defines a staff in a corporation.
+ * The model to save or update Staff.
  * 
  * @author yanxin
  * @since 1.0
  */
-@Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorValue(value = "staff")
-public class Staff extends Organization {
+public class StaffVo {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 3618719256920413167L;
+	private String id;
+
+	private String name;
+
+	private String description;
 
 	/**
 	 * It associate to a Department.
 	 */
-	@ManyToOne
-	private Department department;
+	private String deptId;
 
 	/**
 	 * It associate a corporation.
 	 */
-	@ManyToOne
-	private Corporation corporation;
+	private String corpId;
 
 	/**
 	 * mobile phone number
@@ -57,7 +39,6 @@ public class Staff extends Organization {
 	/**
 	 * notification mode
 	 */
-	@Enumerated(EnumType.STRING)
 	private NoticeMode noticeMode;
 
 	/**
@@ -103,7 +84,6 @@ public class Staff extends Organization {
 	/**
 	 * gender
 	 */
-	@Enumerated(EnumType.STRING)
 	private Gender gender;
 
 	/**
@@ -126,20 +106,44 @@ public class Staff extends Organization {
 	 */
 	private String location;
 
-	public Department getDepartment() {
-		return department;
+	public String getId() {
+		return id;
 	}
 
-	public void setDepartment(Department department) {
-		this.department = department;
+	public void setId(String id) {
+		this.id = id;
 	}
 
-	public Corporation getCorporation() {
-		return corporation;
+	public String getName() {
+		return name;
 	}
 
-	public void setCorporation(Corporation corporation) {
-		this.corporation = corporation;
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getDeptId() {
+		return deptId;
+	}
+
+	public void setDeptId(String deptId) {
+		this.deptId = deptId;
+	}
+
+	public String getCorpId() {
+		return corpId;
+	}
+
+	public void setCorpId(String corpId) {
+		this.corpId = corpId;
 	}
 
 	public String getPhone() {

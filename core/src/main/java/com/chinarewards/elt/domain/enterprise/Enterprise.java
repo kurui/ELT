@@ -5,12 +5,14 @@ import javax.persistence.*;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import java.util.Date;
+import com.chinarewards.elt.domain.org.Corporation;
 
+import java.util.Date;
 
 /**
  * The persistent class for the enterprise database table.
  * 
+ * @deprecated This class should merge to {@link Corporation}
  */
 @Entity(name = "enterprise")
 public class Enterprise implements Serializable {
@@ -19,12 +21,11 @@ public class Enterprise implements Serializable {
 	@Id
 	@GeneratedValue(generator = "system-uuid")
 	@GenericGenerator(name = "system-uuid", strategy = "uuid")
-	@Column(name = "id", nullable = false, updatable = false,length=32)
+	@Column(name = "id", nullable = false, updatable = false, length = 32)
 	private String id;
 
 	private String address;
 
-  
 	private Date begindate;
 
 	private String cellphone;
@@ -55,8 +56,8 @@ public class Enterprise implements Serializable {
 
 	private String web;
 
-    public Enterprise() {
-    }
+	public Enterprise() {
+	}
 
 	public String getId() {
 		return this.id;

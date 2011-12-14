@@ -13,8 +13,4 @@ public class UserDao extends BaseDao<SysUser> {
 				.createQuery("FROM SysUser u WHERE u.userName = :userName")
 				.setParameter("userName", userName).getResultList();
 	}
-	public String createUser(SysUser user) {
-		this.save(user);	
-		return user.getId();
-	}
 }

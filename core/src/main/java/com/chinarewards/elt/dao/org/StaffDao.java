@@ -3,7 +3,7 @@ package com.chinarewards.elt.dao.org;
 import java.util.List;
 
 import com.chinarewards.elt.common.BaseDao;
-import com.chinarewards.elt.domain.staff.Staff;
+import com.chinarewards.elt.domain.org.Staff;
 
 /**
  * Dao of {@link Staff}

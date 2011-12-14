@@ -3,16 +3,16 @@ package com.chinarewards.elt.service.reward.rule;
 import java.util.Date;
 import java.util.List;
 
+import com.chinarewards.elt.dao.org.StaffDao;
 import com.chinarewards.elt.dao.reward.JudgeDao;
 import com.chinarewards.elt.dao.reward.NomineeDao;
 import com.chinarewards.elt.dao.reward.NomineeLotDao;
 import com.chinarewards.elt.dao.reward.RewardDao;
-import com.chinarewards.elt.dao.staff.StaffDao;
+import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.domain.reward.base.Reward;
 import com.chinarewards.elt.domain.reward.person.Judge;
 import com.chinarewards.elt.domain.reward.person.Nominee;
 import com.chinarewards.elt.domain.reward.person.NomineeLot;
-import com.chinarewards.elt.domain.staff.Staff;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.reward.base.JudgeStatus;
 import com.chinarewards.elt.model.reward.exception.JudgeException;

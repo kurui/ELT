@@ -7,8 +7,8 @@ import java.util.List;
 
 import com.chinarewards.elt.common.BaseDao;
 import com.chinarewards.elt.domain.org.Department;
+import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.domain.org.manager.DepartmentManager;
-import com.chinarewards.elt.domain.staff.Staff;
 
 public class DepartmentManagerDao extends BaseDao<DepartmentManager> {
 

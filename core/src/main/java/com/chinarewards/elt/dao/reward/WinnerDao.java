@@ -8,9 +8,9 @@ import javax.persistence.Query;
 
 import com.chinarewards.elt.common.BaseDao;
 import com.chinarewards.elt.dao.org.StaffDao;
+import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.domain.reward.person.Winner;
-import com.chinarewards.elt.domain.staff.Staff;
-import com.chinarewards.elt.model.rewards.WinnerProcessFlag;
+import com.chinarewards.elt.model.reward.base.WinnerProcessFlag;
 import com.google.inject.Inject;
 
 /**

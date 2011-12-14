@@ -4,11 +4,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.domain.reward.rule.CandidateRule;
 import com.chinarewards.elt.domain.reward.rule.DirectCandidateData;
 import com.chinarewards.elt.domain.reward.rule.DirectCandidateRule;
 import com.chinarewards.elt.domain.reward.rule.DobRule;
-import com.chinarewards.elt.domain.staff.Staff;
 import com.chinarewards.elt.domain.user.SysUser;
 
 /**

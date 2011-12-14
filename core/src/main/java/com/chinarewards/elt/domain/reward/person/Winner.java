@@ -13,10 +13,10 @@ import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.domain.reward.base.Reward;
-import com.chinarewards.elt.domain.staff.Staff;
 import com.chinarewards.elt.domain.user.SysUser;
-import com.chinarewards.elt.model.rewards.WinnerProcessFlag;
+import com.chinarewards.elt.model.reward.base.WinnerProcessFlag;
 import com.chinarewards.elt.model.transaction.TransactionUnit;
 
 /**

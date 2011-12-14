@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.chinarewards.elt.model.common.PaginationDetail;
 import com.chinarewards.elt.model.common.SortingDetail;
-import com.chinarewards.elt.model.rewards.WinnerProcessFlag;
+import com.chinarewards.elt.model.reward.base.WinnerProcessFlag;
 
 public class WinnersRecordQueryVo {
 	private PaginationDetail paginationDetail;

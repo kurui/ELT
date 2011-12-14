@@ -1,21 +1,30 @@
 package com.chinarewards.elt.domain.user;
 
+import java.io.Serializable;
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 
 import com.chinarewards.elt.domain.org.Corporation;
-import com.chinarewards.elt.domain.staff.Staff;
+import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.model.user.UserStatus;
 
 @Entity
-public class SysUser {
+public class SysUser implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4076124377833291323L;
 
 	@Id
 	@GeneratedValue(generator = "system-uuid")
@@ -34,6 +43,16 @@ public class SysUser {
 
 	@OneToOne(fetch = FetchType.EAGER)
 	private Corporation corporation;
+
+	private Date createdAt;
+
+	private Date lastModifiedAt;
+
+	@ManyToOne
+	private SysUser createdBy;
+
+	@ManyToOne
+	private SysUser lastModifiedBy;
 
 	public String getId() {
 		return id;
@@ -83,4 +102,35 @@ public class SysUser {
 		this.corporation = corporation;
 	}
 
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public Date getLastModifiedAt() {
+		return lastModifiedAt;
+	}
+
+	public void setLastModifiedAt(Date lastModifiedAt) {
+		this.lastModifiedAt = lastModifiedAt;
+	}
+
+	public SysUser getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(SysUser createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public SysUser getLastModifiedBy() {
+		return lastModifiedBy;
+	}
+
+	public void setLastModifiedBy(SysUser lastModifiedBy) {
+		this.lastModifiedBy = lastModifiedBy;
+	}
 }

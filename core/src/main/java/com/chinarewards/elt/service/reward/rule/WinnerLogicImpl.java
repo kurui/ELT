@@ -12,7 +12,7 @@ import com.chinarewards.elt.domain.reward.person.PreWinnerLot;
 import com.chinarewards.elt.domain.reward.person.Winner;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.reward.base.PreWinnerLotStatus;
-import com.chinarewards.elt.model.rewards.WinnerProcessFlag;
+import com.chinarewards.elt.model.reward.base.WinnerProcessFlag;
 import com.chinarewards.elt.tx.exception.BalanceLackException;
 import com.chinarewards.elt.tx.service.TransactionService;
 import com.chinarewards.elt.util.DateUtil;
