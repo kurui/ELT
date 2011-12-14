@@ -1,0 +1,142 @@
+package com.chinarewards.elt.dao.org;
+
+import java.util.Date;
+import java.util.List;
+
+import com.chinarewards.elt.common.BaseDao;
+import com.chinarewards.elt.domain.org.Corporation;
+import com.chinarewards.elt.domain.org.Department;
+import com.chinarewards.elt.util.DateUtil;
+
+/**
+ * Dao of {@link Department}
+ * 
+ * @author yanxin
+ * @since 1.0
+ */
+public class DepartmentDao extends BaseDao<Department> {
+
+	public static final String ROOT_NAME = "ROOT_DEPT";
+
+	/**
+	 * Get the root Department.
+	 * 
+	 * @return
+	 */
+	public Department getRootDepartmentOfCorp(String corporationId) {
+		String name = ROOT_NAME + corporationId;
+		return (Department) getEm()
+				.createQuery(
+						"FROM Department dept WHERE dept.name = :name AND dept.corporation.id = :corpId")
+				.setParameter("name", name)
+				.setParameter("corpId", corporationId).getSingleResult();
+	}
+
+	public Department addRootDepartment(Corporation corp) {
+		String name = ROOT_NAME + corp.getId();
+		Date now = DateUtil.getTime();
+		Department dept = new Department();
+		dept.setCorporation(corp);
+		dept.setName(name);
+		dept.setLft(1);
+		dept.setRgt(2);
+		dept.setCreatedAt(now);
+		getEm().persist(dept);
+
+		return dept;
+	}
+
+	/**
+	 * Maintain index of Department after adding a new Department node.Every
+	 * corporation maintain a series of independent index.
+	 * 
+	 * @param index
+	 */
+	public void maintainIndexAfterAddNode(int index, String corpId) {
+		getEm().createQuery(
+				"UPDATE Departmen d SET d.lft = (d.lft+2) WHERE d.lft >= :index AND d.corporation.id =:corpId")
+				.setParameter("index", index).setParameter("corpId", corpId)
+				.executeUpdate();
+		getEm().createQuery(
+				"UPDATE Departmen d SET d.rgt = (d.rgt+2) WHERE d.rgt >= :index AND d.corporation.id =:corpId")
+				.setParameter("index", index).setParameter("corpId", corpId)
+				.executeUpdate();
+	}
+
+	/**
+	 * Maintain index of Department after a leaf Department node.Every
+	 * corporation maintain a series of independent index.
+	 * 
+	 * @param index
+	 */
+	public void maintainIndexAfterDeleteNode(int index, String corpId) {
+		getEm().createQuery(
+				"UPDATE Departmen d SET d.lft = (d.lft-2) WHERE d.lft >= :index AND d.corporation.id =:corpId")
+				.setParameter("index", index).setParameter("corpId", corpId)
+				.executeUpdate();
+		getEm().createQuery(
+				"UPDATE Departmen d SET d.rgt = (d.rgt-2) WHERE d.rgt >= :index AND d.corporation.id =:corpId")
+				.setParameter("index", index).setParameter("corpId", corpId)
+				.executeUpdate();
+	}
+
+	/**
+	 * Find list of department by parent id.
+	 * 
+	 * @param deptId
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Department> findDepartmentsByParentId(String deptId) {
+		return getEm()
+				.createQuery("FROM Department d WHERE d.parent.id =:deptId")
+				.setParameter("deptId", deptId).getResultList();
+	}
+
+	/**
+	 * Find list of department by corporation id. It should not contain root
+	 * department of the corporation.
+	 * 
+	 * @param deptId
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Department> findDepartmentsByCoporationId(String corporationId) {
+		return getEm()
+				.createQuery(
+						"FROM Department d WHERE d.corporation.id =:corpId AND d.parent IS NOT NULL")
+				.setParameter("corpId", corporationId).getResultList();
+	}
+
+	/**
+	 * Find list of department by parent id and corporation id.
+	 * 
+	 * @param deptId
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Department> findDepartmentsByParentIdAndCoporationId(
+			String deptId, String corporationId) {
+		return getEm()
+				.createQuery(
+						"FROM Department d WHERE d.parent.id =:deptId AND d.corporation.id =:corpId")
+				.setParameter("deptId", deptId)
+				.setParameter("corpId", corporationId).getResultList();
+	}
+
+	/**
+	 * Find list of department by index(lft and rgt).
+	 * 
+	 * @param lft
+	 * @param rgt
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Department> findDepartmentsByLefRgt(int lft, int rgt) {
+		return getEm()
+				.createQuery(
+						"FROM Department d WHERE d.lft > :lft AND d.rgt < :rgt")
+				.setParameter("lft", lft).setParameter("rgt", rgt)
+				.getResultList();
+	}
+}

@@ -1,0 +1,54 @@
+package com.chinarewards.elt.service.reward.frequency;
+
+import java.util.Date;
+
+import com.chinarewards.elt.domain.reward.base.RewardItem;
+import com.chinarewards.elt.domain.reward.frequency.Frequency;
+import com.chinarewards.elt.domain.user.SysUser;
+import com.chinarewards.elt.model.common.DateRangeModel;
+import com.chinarewards.elt.model.reward.frequency.RewardsFrequency;
+
+/**
+ * It provides some useful methods to manipulate {@link Frequency}
+ * 
+ * @author yanxin
+ * @since 1.0
+ */
+public interface FrequencyLogic {
+
+	/**
+	 * Remove frequency from a specified {@link RewardItem}.
+	 * 
+	 * @param rewardItemId
+	 */
+	public void removeFrequencyFromRewardItem(String rewardItemId);
+
+	/**
+	 * Bind a frequency to a specified {@link RewardItem}.
+	 * 
+	 * @param rewardItemId
+	 * @param frequency
+	 */
+	public void bindFrequencyToRewardItem(SysUser caller, String rewardItemId,
+			RewardsFrequency frequency);
+
+	/**
+	 * Get list of frequency about the specified RewardItem. All the frequency
+	 * must be complete. e.g. WeekFrequency must contains all the
+	 * WeekFrequencyDay data.
+	 * 
+	 * @param rewardItemId
+	 * @return
+	 */
+	public Frequency getFrequencyOfRewardItem(String rewardItemId);
+
+	/**
+	 * Calculate the date range from the specified frequency.
+	 * 
+	 * @param frequency
+	 * @param currTime
+	 * @return
+	 */
+	public DateRangeModel calDateRangeFromFrequency(Frequency frequency,
+			Date currTime);
+}

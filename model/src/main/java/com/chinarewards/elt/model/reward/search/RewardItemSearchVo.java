@@ -1,0 +1,205 @@
+/**
+ * 
+ */
+package com.chinarewards.elt.model.reward.search;
+
+import java.util.List;
+
+import com.chinarewards.elt.model.common.PaginationDetail;
+import com.chinarewards.elt.model.common.SortingDetail;
+
+/**
+ * This class contains all the require parameters to search RewardItem.
+ * 
+ * @author yanxin
+ * @since 1.0
+ */
+public class RewardItemSearchVo {
+
+	/**
+	 * The paging detail, contains the info it requires.
+	 */
+	private PaginationDetail paginationDetail;
+
+	/**
+	 * Sorting detail.
+	 */
+	private SortingDetail sortingDetail;
+
+	private String name;
+
+	/**
+	 * Search by id of RewardItem
+	 */
+	private String typeId;
+
+	/**
+	 * Search by name of RewardItem
+	 */
+	private String typeName;
+
+	private String definition;
+
+	private String standard;
+
+	/**
+	 * The award amount range.
+	 */
+	private Double awardFrom;
+
+	/**
+	 * The award amount range.
+	 */
+	private Double awardTo;
+
+	/**
+	 * Search the RewardItem by the specified department manage directly.
+	 * 
+	 * Notice:
+	 * 
+	 * This filed should not have value when {@link #deptIds} have value.
+	 * Because the query should use {@link #deptIds} first.
+	 */
+	private String departmentId;
+
+	/**
+	 * Search the RewardItem by the list of department.
+	 */
+	private List<String> deptIds;
+
+	/**
+	 * Whether search the RewardItem managed by all the children departments of
+	 * the specified department. This value if false by default! When it is true
+	 * ,the query maybe become slowly.
+	 */
+	private boolean subDepartmentChosen = false;
+
+	private String accountDeptName;
+
+	private String buildDeptName;
+
+	/**
+	 * Search all the RewardItem of the specified corporation.
+	 */
+	private String corporationId;
+
+	public PaginationDetail getPaginationDetail() {
+		return paginationDetail;
+	}
+
+	public void setPaginationDetail(PaginationDetail paginationDetail) {
+		this.paginationDetail = paginationDetail;
+	}
+
+	public SortingDetail getSortingDetail() {
+		return sortingDetail;
+	}
+
+	public void setSortingDetail(SortingDetail sortingDetail) {
+		this.sortingDetail = sortingDetail;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getTypeId() {
+		return typeId;
+	}
+
+	public void setTypeId(String typeId) {
+		this.typeId = typeId;
+	}
+
+	public String getTypeName() {
+		return typeName;
+	}
+
+	public void setTypeName(String typeName) {
+		this.typeName = typeName;
+	}
+
+	public String getDefinition() {
+		return definition;
+	}
+
+	public void setDefinition(String definition) {
+		this.definition = definition;
+	}
+
+	public String getStandard() {
+		return standard;
+	}
+
+	public void setStandard(String standard) {
+		this.standard = standard;
+	}
+
+	public Double getAwardFrom() {
+		return awardFrom;
+	}
+
+	public void setAwardFrom(Double awardFrom) {
+		this.awardFrom = awardFrom;
+	}
+
+	public Double getAwardTo() {
+		return awardTo;
+	}
+
+	public void setAwardTo(Double awardTo) {
+		this.awardTo = awardTo;
+	}
+
+	public String getDepartmentId() {
+		return departmentId;
+	}
+
+	public void setDepartmentId(String departmentId) {
+		this.departmentId = departmentId;
+	}
+
+	public boolean isSubDepartmentChosen() {
+		return subDepartmentChosen;
+	}
+
+	public void setSubDepartmentChosen(boolean subDepartmentChosen) {
+		this.subDepartmentChosen = subDepartmentChosen;
+	}
+
+	public String getAccountDeptName() {
+		return accountDeptName;
+	}
+
+	public void setAccountDeptName(String accountDeptName) {
+		this.accountDeptName = accountDeptName;
+	}
+
+	public String getBuildDeptName() {
+		return buildDeptName;
+	}
+
+	public void setBuildDeptName(String buildDeptName) {
+		this.buildDeptName = buildDeptName;
+	}
+
+	public String getCorporationId() {
+		return corporationId;
+	}
+
+	public void setCorporationId(String corporationId) {
+		this.corporationId = corporationId;
+	}
+
+	public List<String> getDeptIds() {
+		return deptIds;
+	}
+
+	public void setDeptIds(List<String> deptIds) {
+		this.deptIds = deptIds;
+	}
+}
