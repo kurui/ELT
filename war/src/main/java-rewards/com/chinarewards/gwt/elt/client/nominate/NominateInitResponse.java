@@ -4,6 +4,8 @@ import java.util.List;
 
 import net.customware.gwt.dispatch.shared.Result;
 
+import com.chinarewards.elt.model.reward.search.RewardSearchVo;
+
 /**
  * Models the response after user process request.
  * 
@@ -13,8 +15,8 @@ import net.customware.gwt.dispatch.shared.Result;
 public class NominateInitResponse implements Result {
 
 	private String awardsVo; //奖项Vo
-	private List candidateList;//候选人列表
-	private List nominateList;//提名人列表
+	private List<String> candidateList;//候选人列表
+	private List<String> nominateList;//提名人列表
 
 	public String getAwardsVo() {
 		return awardsVo;
@@ -24,19 +26,19 @@ public class NominateInitResponse implements Result {
 		this.awardsVo = awardsVo;
 	}
 
-	public List getCandidateList() {
+	public List<String> getCandidateList() {
 		return candidateList;
 	}
 
-	public void setCandidateList(List candidateList) {
+	public void setCandidateList(List<String> candidateList) {
 		this.candidateList = candidateList;
 	}
 
-	public List getNominateList() {
+	public List<String> getNominateList() {
 		return nominateList;
 	}
 
-	public void setNominateList(List nominateList) {
+	public void setNominateList(List<String> nominateList) {
 		this.nominateList = nominateList;
 	}
 
@@ -44,7 +46,7 @@ public class NominateInitResponse implements Result {
 
 	}
 
-	public NominateInitResponse(String awardsVo,List candidateList,List nominateList) {
+	public NominateInitResponse(String awardsVo,List<String> candidateList,List<String> nominateList) {
 		this.awardsVo = awardsVo;
 		this.candidateList = candidateList;
 		this.nominateList = nominateList;
