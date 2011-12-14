@@ -4,6 +4,8 @@ import java.util.List;
 
 import net.customware.gwt.dispatch.shared.Result;
 
+import com.chinarewards.elt.model.reward.search.RewardSearchVo;
+
 /**
  * Models the response after user process request.
  * 

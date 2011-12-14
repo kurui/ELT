@@ -135,7 +135,6 @@
 						<div>
 							<g:Label text="KM" ui:field="awardName" />
 
-							<g:Label text="ELT项目奖" />
 						</div>
 					</td>
 
