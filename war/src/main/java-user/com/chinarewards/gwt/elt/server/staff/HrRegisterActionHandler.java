@@ -1,4 +1,5 @@
-package com.chinarewards.gwt.elt.client.server.staff;
+package com.chinarewards.gwt.elt.server.staff;
+
 
 import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.DispatchException;

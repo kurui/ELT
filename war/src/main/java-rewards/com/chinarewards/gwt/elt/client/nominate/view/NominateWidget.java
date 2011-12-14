@@ -5,8 +5,6 @@ import java.util.List;
 
 import com.chinarewards.gwt.elt.client.nominate.presenter.NominatePresenter.NominateDisplay;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.client.NodeList;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -36,7 +34,7 @@ public class NominateWidget extends Composite implements NominateDisplay {
 	@UiField
 	Label number;
 	@UiField
-	Label nominate;
+	VerticalPanel nominate;
 	@UiField
 	VerticalPanel candidate;
 	@UiField
@@ -102,13 +100,14 @@ public class NominateWidget extends Composite implements NominateDisplay {
 	}
 
 	@Override
-	public void setNominate(String nominate) {
-		this.nominate.setText(nominate);
+	public void setNominate(List<String> nominate) {
+		HTML nominatelab = new HTML("显示提名人");
+		this.nominate.add(nominatelab);
 
 	}
 
 	@Override
-	public void setCandidate(List candidate) {
+	public void setCandidate(List<String> candidate) {
 		boolean fal = false;//是否创建人界面
 		if (fal) {
 			String str = "";
@@ -170,6 +169,7 @@ public class NominateWidget extends Composite implements NominateDisplay {
 		this.awardName.setText(awardName);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public List<String> getCandidateList() {
 		List<String> idlist = new ArrayList<String>();

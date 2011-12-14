@@ -19,8 +19,8 @@ public interface NominatePresenter extends Presenter<NominatePresenter.NominateD
 		public void setIntegral(String integral);
 		public void setRecordName(String recordName);
 		public void setNumber(String number);
-		public void setNominate(String nominate);
-		public void setCandidate(List candidate);
+		public void setNominate(List<String> nominate);
+		public void setCandidate(List<String> candidate);
 		public void setAwardNature(String awardNature);
 		public void setBegindate(String begindate);
 		public void setAwarddate(String awarddate);
