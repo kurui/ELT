@@ -87,8 +87,7 @@ public class ChooseStaffBlockPresenterImpl extends
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent arg0) {
-						final ChooseStaffWinDialog dialog = chooseStaffDialogProvider
-								.get();
+						final ChooseStaffWinDialog dialog = chooseStaffDialogProvider.get();
 						dialog.setNominee(false, true, null);// The key is the
 																// first
 																// parameter(false).
@@ -96,6 +95,7 @@ public class ChooseStaffBlockPresenterImpl extends
 											@Override
 											public void chosenStaff(List<StaffClient> list) {
 												for (StaffClient r : list) {
+													System.out.println("ds=="+r);
 													if (!display
 															.getSpecialTextArea()
 															.containsItem(r)) {
