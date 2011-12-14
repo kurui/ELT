@@ -7,35 +7,34 @@
 	<ui:style src="staffBlock.css" ></ui:style>
 	<g:HTMLPanel ui:field="select1">
 		
+	
 		<table border="0" cellspacing="0" cellpadding="0" class="">
             <tr>
-            	<td valign="top" class="" ><span>*</span>  获奖对象：</td>
-		        <td class="">
+            	<td valign="top" class="{style.title}" ><span>*</span> 选择人员：</td>
+		        <td class="{style.intext}">
 			            <g:RadioButton ui:field="everyoneRbtn" name="chooseRadio">全体员工</g:RadioButton>
 						<g:RadioButton ui:field="someoneRbtn" name="chooseRadio">以下部门/员工</g:RadioButton>
 				</td>
 				<td><div style="width:100px"></div></td>		
             </tr>
-           
             <tr>
-            	<td colspan="3" id="noPaddingTd" >
+            	<td colspan="3" id="noPaddingTd">
             		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="">
             			 <tr>
-				              <td valign="top" class="" ><span>*</span> 快速选择：</td>
-				              <td class="" id="specialTextCss">
+				              <td valign="top" class="{style.title}" ><span>*</span> 快速选择：</td>
+				              <td class="{style.intext}" id="specialTextCss">
 				               		<g:HorizontalPanel ui:field="suggestBoxPanel"/>
 				              </td>
 				              <td><g:Button ui:field="chooseBtn" styleName="button-addpe">选择</g:Button></td>
 				         </tr>
 				         <tr>
-				               <td valign="top" class="">合格人选：</td>
-				               <td class=""><g:FlowPanel ui:field="staffTextAreaPanel"/> </td>
+				               <td valign="top" class="{style.title}">合格人选：</td>
+				               <td class="{style.intext}"><g:FlowPanel ui:field="staffTextAreaPanel"/> </td>
 				               <td></td>
 				         </tr>
             		</table>
             	</td>
             </tr>
-            
         </table>
         <!--  
 		<table cellspacing="0" border="0" width="100%">
