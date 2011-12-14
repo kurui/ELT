@@ -10,9 +10,11 @@ import com.chinarewards.elt.dao.org.DeptIdResolverDao;
 import com.chinarewards.elt.dao.org.IndustryDao;
 import com.chinarewards.elt.dao.org.OrganizationDao;
 import com.chinarewards.elt.service.org.CorporationLogic;
+import com.chinarewards.elt.service.org.CorporationService;
 import com.chinarewards.elt.service.org.DepartmentLogic;
 import com.chinarewards.elt.service.org.OrganizationLogic;
 import com.chinarewards.elt.service.org.impl.CorporationLogicImpl;
+import com.chinarewards.elt.service.org.impl.CorporationServiceImpl;
 import com.chinarewards.elt.service.org.impl.DepartmentLogicImpl;
 import com.chinarewards.elt.service.org.impl.OrganizationLogicImpl;
 import com.google.inject.AbstractModule;
@@ -33,6 +35,8 @@ public class OrgModule extends AbstractModule {
 		bind(IndustryDao.class).in(Singleton.class);
 		bind(DepartmentManagerDao.class).in(Singleton.class);
 		bind(CorporationLogic.class).to(CorporationLogicImpl.class).in(
+				Singleton.class);
+		bind(CorporationService.class).to(CorporationServiceImpl.class).in(
 				Singleton.class);
 		bind(OrganizationLogic.class).to(OrganizationLogicImpl.class).in(
 				Singleton.class);
