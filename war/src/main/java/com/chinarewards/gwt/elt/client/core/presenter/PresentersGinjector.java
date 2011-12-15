@@ -1,5 +1,6 @@
 package com.chinarewards.gwt.elt.client.core.presenter;
 
+import com.chinarewards.gwt.elt.client.PresenterModule;
 import com.google.gwt.inject.client.GinModules;
 
 /**

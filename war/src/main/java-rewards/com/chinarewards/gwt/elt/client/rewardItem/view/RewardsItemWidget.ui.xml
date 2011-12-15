@@ -1,157 +1,130 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
-   	xmlns:g="urn:import:com.google.gwt.user.client.ui" 
-   	xmlns:p1="urn:import:com.google.gwt.user.cellview.client" 
-   	xmlns:d='urn:import:com.google.gwt.user.datepicker.client'	>
-
-	<!--  xmlns:c="urn:import:com.google.gwt.user.cellview.client" xmlns:v="urn:import:com.chinarewards.hr.gwt.mvp.client.transaction.reports.view">-->
-	
-	<ui:style>
-		.important {
-			font-weight: bold;
-		}
-	</ui:style>
+   	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:p1="urn:import:com.google.gwt.user.cellview.client"
+   	xmlns:d='urn:import:com.google.gwt.user.datepicker.client'>
+   	
+   	<ui:image resource="input_text.jpg" field="input_text" repeatStyle="Horizontal"></ui:image>
+	<ui:image resource="preview_bg.jpg" field="preview_bg" repeatStyle="Horizontal"></ui:image>
+	<ui:image field="post_bg" resource="post_bg.jpg" repeatStyle="Horizontal"></ui:image>
+	<ui:style src="rewardsItem.css" field="item"></ui:style>
 	<g:HTMLPanel>
-		<g:AbsolutePanel height="972px" width="687px" ui:field="panel1">
-			<g:at left="10" top="10">
-				<g:Label text="基本设置"/>
-			</g:at>
-			<g:at left="91" top="61">
-				<g:Label text="奖项名称"/>
-			</g:at>
-			<g:at left="170" top="54">
-				<g:TextBox width="256px" height="15px" ui:field="rewardsName"/>
-			</g:at>
-			<g:at left="91" top="99">
-				<g:Label text="奖项说明" ui:field="sd"/>
-			</g:at>
-			<g:at left="170" top="92">
-				<g:TextBox width="256px" height="15px" ui:field="rewardsDefinition"/>
-			</g:at>
-			<g:at left="91" top="139">
-				<g:Label text="奖项条件"/>
-			</g:at>
-			<g:at left="170" top="132">
-				<g:TextBox width="255px" height="15px" ui:field="standard"/>
-			</g:at>
-			<g:at left="170" top="172">
-				<g:TextBox width="255px" height="15px" ui:field="rewardsItemPrice"/>
-			</g:at>
-			<g:at left="91" top="215">
-				<g:Label width="60px" height="16px" text="获奖名额"/>
-			</g:at>
-			<g:at left="171" top="208">
-				<g:TextBox width="255px" height="15px" ui:field="peopleSizeLimit"/>
-			</g:at>
-			<g:at left="78" top="179">
-				<g:Label text="奖项总积分"/>
-			</g:at>
-			<g:at left="63" top="256">
-				<g:Label width="80px" height="16px" text="每人得奖积分"/>
-			</g:at>
-			<g:at left="170" top="249">
-				<g:TextBox width="255px" height="15px" ui:field="rewardsFrom"/>
-			</g:at>
-			<g:at left="91" top="290">
-				<g:Label width="60px" height="16px" text="提名人"/>
-			</g:at>
-			<g:at left="171" top="283">
-				<g:TextBox width="255px" height="15px"/>
-			</g:at>
-			<g:at left="91" top="332">
-				<g:Label width="60px" height="16px" text="创建人"/>
-			</g:at>
-			<g:at left="171" top="325">
-				<g:TextBox width="255px" height="15px" ui:field="createBy"/>
-			</g:at>
-			<g:at left="91" top="365">
-				<g:FlowPanel ui:field="staffPanel" width="586px" height="98px"/>
-			</g:at>
-			<g:at left="473" top="283">
-				<g:Button width="60px" height="23px" text="增加" ui:field="addTM"/>
-			</g:at>
-			<g:at left="91" top="502">
-				<g:Label text="奖项模式"/>
-			</g:at>
-			<g:at left="179" top="502">
-				<g:RadioButton name="period" text="一次性" ui:field="onetimes" width="73px" height="21px"/>
-			</g:at>
-			<g:at left="354" top="502">
-				<g:RadioButton name="period" text="周期性" ui:field="moretimes" width="80px" height="21px"/>
-			</g:at>
-			<g:at left="29" top="612">
-				<g:AbsolutePanel width="648px" height="212px" ui:field="periodPlan">
-					<g:at left="36" top="10">
-						<g:Label width="78px" height="16px" text="设置频率"/>
-					</g:at>
-					<g:at left="140" top="10">
-						<g:Label width="213px" height="16px" ui:field="settingText"/>
-					</g:at>
-					<g:at left="36" top="43">
-						<g:CheckBox text="自动颁奖" ui:field="autoCbx"/>
-					</g:at>
-					<g:at left="130" top="45">
-						<g:Label text="自动颁奖: 到颁奖当日, 如果奖金规则不能确定每一个合资格人选应得的奖励, 系统会要求设立部门手动输入该批员工所获得的明确奖励. 请在&quot;奖励查询&quot;寻找&quot;待颁奖&quot;的奖励." width="508px" height="32px"/>
-					</g:at>
-					<g:at left="43" top="135">
-						<g:CheckBox text="特殊条件" ui:field="specialCbx"/>
-					</g:at>
-					<g:at left="136" top="135">
-						<g:RadioButton name="condition" text="员工生日" ui:field="birthRadio"/>
-					</g:at>
-					<g:at left="40" top="99">
-						<g:Label width="78px" height="16px" text="下次颁奖时间"/>
-					</g:at>
-					<g:at left="137" top="99">
-						<d:DateBox width="210px" height="15px" ui:field="nextRewardsTime"/>
-					</g:at>
-					<g:at left="36" top="138">
-						<g:Label/>
-					</g:at>
-					<g:at left="390" top="99">
-						<g:Label width="91px" height="16px" text="提前通知的天数"/>
-					</g:at>
-					<g:at left="500" top="99">
-						<g:TextBox width="43px" height="15px" ui:field="calldays"/>
-					</g:at>
-					<g:at left="40" top="181">
-						<g:Label width="78px" height="16px" text="公布时间" ui:field="lblnextPublicTime"/>
-					</g:at>
-					<g:at left="137" top="181">
-						<d:DateBox width="210px" height="15px" ui:field="nextPublicTime"/>
-					</g:at>
-				</g:AbsolutePanel>
-			</g:at>
-			<g:at left="78" top="540">
-				<g:Label width="78px" height="16px" text="奖项开始时间"/>
-			</g:at>
-			<g:at left="175" top="540">
-				<d:DateBox width="210px" height="15px" ui:field="startTime"/>
-			</g:at>
-			<g:at left="78" top="585">
-				<g:Label width="78px" height="16px" text="奖项结束时间"/>
-			</g:at>
-			<g:at left="175" top="585">
-				<d:DateBox width="210px" height="15px" ui:field="endTime"/>
-			</g:at>
-			<g:at left="291" top="847">
-				<g:Button width="100px" height="23px" ui:field="save" text="保存"/>
-			</g:at>
-			<g:at left="96" top="469">
-				<g:Label width="60px" height="16px" text="颁奖人"/>
-			</g:at>
-			<g:at left="171" top="469">
-				<g:TextBox width="255px" height="15px" ui:field="awarder"/>
-			</g:at>
-			<g:at left="430" top="590">
-				<g:Label width="91px" height="16px" text="提前通知的天数"/>
-			</g:at>
-			<g:at left="544" top="583">
-				<g:TextBox width="43px" height="15px" ui:field="callday"/>
-			</g:at>
-			
-		</g:AbsolutePanel>
-		<g:Label/>
-	
+	<!-- add form tag, using to resolve radioButton groupname -->
+				<!-- 1内容 -->
+                <div class="{item.detail-content}">    
+                <!-- 2基本设置 -->
+                  <div class="{item.setDetail}">
+                    <h3>基本设置
+                   		 <!--
+	                      <input type="button" class="up"/>
+	                      <input type="button" class="down"/>
+  						-->
+                    </h3>
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="{item.mmtable}">
+                      <tr>
+                        <td valign="top" class="{item.title}"><span>*</span> 奖项名称：</td>
+                        <td class="{item.intext}"><g:TextBox ui:field="rewardsName" styleName="textmy"/></td>
+                      	<td align="left"></td>
+                      </tr>
+                      
+                      <tr>
+                        <td valign="top" class="{item.title}"> 奖项说明：</td>
+                        <td class="{item.intext}"><g:TextArea ui:field="rewardsDefinition" visibleLines="3" styleName="textmy" /></td>
+                    	<td></td>
+                      </tr>
+                      <tr>
+                        <td valign="top" class="{item.title}"> 奖项条件：</td>
+                        <td class="{item.intext}"><g:TextArea ui:field="standard" visibleLines="3" styleName="textmy" /></td>
+                     	<td></td>
+                      </tr>
+					  <tr>
+                        <td valign="top" class="{item.title}"> 获奖名额：</td>
+                        <td class="{item.intext}"><g:TextBox ui:field="peopleSizeLimit" /></td>
+                     	<td></td>
+                      </tr>
+                      <tr>
+                        <td valign="top" class="{item.title}"> 总积分：</td>
+                        <td class="{item.intext}"><g:TextBox ui:field="totalJF" /></td>
+                     	<td></td>
+                      </tr>
+                      <tr>
+                        <td valign="top" class="{item.title}"> 每人得奖积分：</td>
+                        <td class="{item.intext}"><g:TextBox ui:field="rewardsFrom" /></td>
+                     	<td></td>
+                      </tr>
+                      <tr>
+                        <td valign="top" class="{item.title}"> 提名人：</td>
+                        <td class="{item.intext}"><g:TextBox ui:field="rewardsTM" /></td>
+                     	<td></td>
+                      </tr>
+                      <tr>
+                        <td colspan="3" id="noPaddingTd"><g:FlowPanel ui:field="staffPanel"/> </td>                     
+                      </tr>
+                     
+					  <tr>
+					  <td valign="top" class="{item.title}">奖项模式</td>
+					  <td colspan="2"   >
+					     <g:RadioButton name="period" text="一次性" ui:field="onetimes" checked="true"/>
+                         <g:RadioButton name="period" ui:field="moretimes" text="周期性"/> </td>
+					  </tr>
+                       <tr>
+                        <td class="{item.title}"><span>*</span> 开始时间： </td>
+                        <td class="{item.intext}"><d:DateBox ui:field="startTime" styleName="textmy"/></td>
+                      	<td></td>
+                      </tr>
+                     
+                      <tr>
+                        <td valign="top" class="{item.title}">预计(下次)颁奖时间：</td>
+                        <td class="{item.intext}"><d:DateBox ui:field="nextRewardsTime" styleName="textmy"/></td>
+						<td>提前<g:TextBox ui:field="tmdays" width="30px"/>天提名<g:Label ui:field="lastRewardsTime"/></td>
+                      </tr>
+                      
+                      <tbody id="period">                      	
+                      <tr id="tr1" name="re">
+                        <td valign="top" class="{item.title}"><span>*</span> 颁奖周期： </td>
+                        <td class="{item.intext}">
+                        	<g:Label ui:field="settingText" styleName="textmy"/>
+                       	</td>
+                       	<td><g:Button ui:field="setting" >设置频率</g:Button></td>
+                      </tr>
+                       <tr>
+                        <td class="{item.title}"><span>*</span>结束时间： </td>
+                        <td class="{item.intext}"><d:DateBox ui:field="endTime" styleName="textmy"/></td>
+                      	<td></td>
+                      </tr>
+                      <tr>
+                        <td class="{item.title}" valign="top">自动颁奖：</td>
+                        <td class="{item.intext}"><g:CheckBox ui:field="autoCbx"/></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                      	<td class="{item.title}" valign="top"></td>
+                      	<td class="{item.intext}">
+                      		自动颁奖: 到颁奖当日, 如果奖金规则不能确定每一个合资格人选应得的奖励, 系统会要求设立部门手动输入该批员工所获得的明确奖励. 请在"奖励查询"寻找"待颁奖"的奖励.
+                      	</td>
+                      	<td></td>
+                      </tr>
+                      <tr>
+                        <td valign="top" class="{item.title}">下次公布时间：</td>
+                        <td class="{item.intext}"><d:DateBox ui:field="nextPublicTime" styleName="textmy"/></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td class="{item.title}" valign="top">特殊条件：</td>
+                        <td class="{item.intext}"><g:CheckBox ui:field="specialCbx"></g:CheckBox><g:RadioButton ui:field="birthRadio" name="condition"> 员工生日</g:RadioButton></td>
+                     	<td>
+                     	 
+                     	</td>
+                      </tr>
+                      </tbody>
+                       <tr>
+					  <td colspan="3"  align="center" >
+					     <g:Button ui:field="save" styleName="button-ok">保存</g:Button></td>
+					  </tr>
+                    </table>
+                  </div>	
+				  
+				</div>
+				
+				
 	</g:HTMLPanel>
-</ui:UiBinder> 
+</ui:UiBinder>
