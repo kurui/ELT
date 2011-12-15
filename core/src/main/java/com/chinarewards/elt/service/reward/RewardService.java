@@ -10,7 +10,6 @@ import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.reward.base.RewardParam;
 import com.chinarewards.elt.model.reward.exception.ApproveRewardException;
 import com.chinarewards.elt.model.reward.exception.DenyRewardException;
-import com.chinarewards.elt.model.reward.exception.JudgeException;
 import com.chinarewards.elt.model.reward.exception.NominateRewardException;
 import com.chinarewards.elt.model.reward.search.RewardQueryVo;
 import com.chinarewards.elt.model.user.UserContext;
