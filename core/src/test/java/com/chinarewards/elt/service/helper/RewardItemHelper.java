@@ -10,6 +10,7 @@ import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.domain.reward.base.RewardItem;
 import com.chinarewards.elt.domain.user.SysUser;
+import com.chinarewards.elt.model.RequireApproval;
 import com.chinarewards.elt.model.reward.base.RequireAutoAward;
 import com.chinarewards.elt.model.reward.base.RequireAutoGenerate;
 import com.chinarewards.elt.model.reward.base.RewardItemParam;
@@ -113,7 +114,8 @@ public class RewardItemHelper {
 	 * 
 	 * @return
 	 */
-	public static RewardItem getDefaultAutoAwardRewardItem(Injector injector) {
+	public static RewardItem getDefaultAutoAwardRewardItem(Injector injector,
+			RequireApproval require) {
 		// need some services
 		RewardItemLogic rewardItemLogic = injector
 				.getInstance(RewardItemLogic.class);
@@ -127,8 +129,10 @@ public class RewardItemHelper {
 		Corporation corp = CorporationHelper.getDefaultCorporation(injector);
 		// Prepare department
 		Department dept = DepartmentHelper.getDefaultDept(injector);
-		// Allow no approval
-		DepartmentHelper.permitDepartmentNoApproval(dept.getId(), injector);
+		if (RequireApproval.None == require) {
+			// Allow no approval
+			DepartmentHelper.permitDepartmentNoApproval(dept.getId(), injector);
+		}
 		// Prepare Staff list
 		List<Staff> staffList = StaffHelper.getDefaultStaffList(injector);
 

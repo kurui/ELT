@@ -12,10 +12,12 @@ import com.chinarewards.elt.domain.reward.person.PreWinnerLot;
 import com.chinarewards.elt.domain.reward.person.Winner;
 import com.chinarewards.elt.domain.reward.rule.CandidateRule;
 import com.chinarewards.elt.domain.user.SysUser;
+import com.chinarewards.elt.model.RequireApproval;
 import com.chinarewards.elt.model.reward.base.RewardStatus;
 import com.chinarewards.elt.model.reward.base.WinnerProcessFlag;
 import com.chinarewards.elt.model.reward.exception.NoEffectivePreWinnerException;
 import com.chinarewards.elt.service.common.JPATestCase;
+import com.chinarewards.elt.service.helper.CorporationHelper;
 import com.chinarewards.elt.service.helper.RewardItemHelper;
 import com.chinarewards.elt.service.helper.UserHelper;
 import com.chinarewards.elt.service.org.CorporationLogic;
@@ -82,7 +84,7 @@ public class RewardLogicTest extends JPATestCase {
 	/**
 	 * Award a reward from the rewarditem which need to award automatic.
 	 */
-	public void testAward_autoAward() {
+	public void testAward_autoAward_noApproval() {
 		// need services
 		RewardLogic rewardLogic = injector.getInstance(RewardLogic.class);
 		PreWinnerLogic preWinnerLogic = injector
@@ -95,7 +97,7 @@ public class RewardLogicTest extends JPATestCase {
 				.getInstance(CorporationLogic.class);
 
 		RewardItem autoAwardItem = RewardItemHelper
-				.getDefaultAutoAwardRewardItem(injector);
+				.getDefaultAutoAwardRewardItem(injector, RequireApproval.None);
 		assertNotNull(autoAwardItem);
 		// prepare default caller
 		SysUser caller = UserHelper.getDefaultUser(injector);
@@ -139,6 +141,8 @@ public class RewardLogicTest extends JPATestCase {
 		// check corporation balance
 		Corporation corp = autoAwardItem.getCorporation();
 		double corpBalance = corporationLogic.callBalance(corp.getId());
-		assertEquals((double) 10000 - 300, corpBalance);
+		double expectBalance = CorporationHelper.getInitBalance() - 3
+				* autoAwardItem.getAwardAmt();
+		assertEquals(expectBalance, corpBalance);
 	}
 }

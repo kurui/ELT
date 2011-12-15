@@ -20,6 +20,7 @@ import com.google.inject.Injector;
 public class CorporationHelper {
 
 	private static Corporation defaultCorp = null;
+	private static double initBalance = 10000;
 
 	/**
 	 * Get a new Corporation.
@@ -54,7 +55,7 @@ public class CorporationHelper {
 			// should not be here
 		}
 		// Deposit a amount of money
-		transactionService.deposit(accountId, code, 10000);
+		transactionService.deposit(accountId, code, initBalance);
 		corp.setTxAccountId(accountId);
 		SysUser caller = UserHelper.getDefaultUser(injector);
 		defaultCorp = corporationLogic.saveCorporation(caller, corp);
@@ -69,5 +70,14 @@ public class CorporationHelper {
 	 */
 	public static TransactionUnit getDefaultTxUnit() {
 		return TransactionUnit.BEANPOINTS;
+	}
+
+	/**
+	 * Get the initialize balance of the default corporation.
+	 * 
+	 * @return
+	 */
+	public static double getInitBalance() {
+		return initBalance;
 	}
 }

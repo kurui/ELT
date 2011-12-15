@@ -337,4 +337,10 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void runAutoRewardGeneratorBatch(Date currDate) {
+		// TODO Auto-generated method stub
+		
+	}
 }

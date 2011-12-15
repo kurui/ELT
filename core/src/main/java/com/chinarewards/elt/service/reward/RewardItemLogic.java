@@ -104,4 +104,9 @@ public interface RewardItemLogic {
 	 * @return
 	 */
 	public RewardItemVo fetchEntireRewardById(String rewardId);
+
+	/**
+	 * Run batch to generate rewards automatic.
+	 */
+	public void runAutoRewardGeneratorBatch(Date currDate);
 }
