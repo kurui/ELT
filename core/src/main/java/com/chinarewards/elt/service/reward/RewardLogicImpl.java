@@ -331,8 +331,8 @@ public class RewardLogicImpl implements RewardLogic ,RewardService{
 		rewardQueryVo.setExpectAwardDate(reward.getExpectAwardDate());
 		rewardQueryVo.setExpectNominateDate(reward.getExpectNominateDate());
 		rewardQueryVo.setCreatedStaffName(reward.getCreatedBy().getStaff().getName());
-		rewardQueryVo.setAwardMode("奖项模式");//wanting......
-		rewardQueryVo.setAwardingStaffName("颁奖人");//wanting...........
+		rewardQueryVo.setAwardMode(reward.getRewardItem().getAutoGenerate().toString());//wanting......
+		rewardQueryVo.setAwardingStaffName(reward.getCreatedBy().getStaff().getName());//wanting.......same CreateStaff
 		
 		List<CandidateParam> candidateListParam=new ArrayList<CandidateParam>();
 		for (int i = 0; i < candidateList.size(); i++) {
