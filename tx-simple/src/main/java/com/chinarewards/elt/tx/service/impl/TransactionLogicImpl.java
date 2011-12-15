@@ -4,6 +4,9 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.chinarewards.elt.tx.dao.AccountBalanceDao;
 import com.chinarewards.elt.tx.dao.AccountDao;
 import com.chinarewards.elt.tx.dao.TransactionDao;
@@ -27,6 +30,8 @@ public class TransactionLogicImpl implements TransactionLogic {
 	AccountDao accountDao;
 	AccountBalanceDao accountBalanceDao;
 
+	Logger logger = LoggerFactory.getLogger(getClass());
+
 	@Inject
 	public TransactionLogicImpl(TransactionDao transactionDao,
 			TransactionDetailDao transactionDetailDao, TxUnitDao txUnitDao,
@@ -41,6 +46,10 @@ public class TransactionLogicImpl implements TransactionLogic {
 	@Override
 	public String deposit(Transaction tx, String accountId, String unitCode,
 			double amount, Date transDate) {
+		logger.debug(
+				"Invoking method deposit(), param[accountId={}, unitCode={}, amount={}, transDate={}]",
+				new Object[] { accountId, unitCode, amount, transDate });
+
 		TransactionDetail td = new TransactionDetail();
 		td.setTransaction(tx);
 		td.setAccountId(accountId);
@@ -68,6 +77,7 @@ public class TransactionLogicImpl implements TransactionLogic {
 		} else {
 			// exist nothing, create a new
 			AccountBalance balance = new AccountBalance();
+			logger.debug("accountId={}", accountId);
 			Account account = accountDao.findById(Account.class, accountId);
 			TxUnit unit = txUnitDao.findUnitByCode(unitCode);
 			balance.setAccount(account);
@@ -133,16 +143,16 @@ public class TransactionLogicImpl implements TransactionLogic {
 	}
 
 	@Override
-	public String createNewAccount() {
+	public Account createNewAccount() {
 		Date now = new Date();
 		Account account = new Account();
 		account.setCreateAt(now);
 		accountDao.save(account);
-		return account.getId();
+		return account;
 	}
 
 	@Override
-	public String createNewUnit(String name, String unitCode, double rate)
+	public TxUnit createNewUnit(String name, String unitCode, double rate)
 			throws DuplicateUnitCodeException {
 		TxUnit unit = txUnitDao.findUnitByCode(unitCode);
 		if (unit != null) {
@@ -154,6 +164,11 @@ public class TransactionLogicImpl implements TransactionLogic {
 		unit.setRate(rate);
 		txUnitDao.save(unit);
 
-		return unit.getId();
+		return unit;
+	}
+
+	@Override
+	public TxUnit getTxUnitByCode(String code) {
+		return txUnitDao.findUnitByCode(code);
 	}
 }

@@ -60,6 +60,9 @@ public class DepartmentDao extends BaseDao<Department> {
 	 * @param index
 	 */
 	public void maintainIndexAfterAddNode(int index, String corpId) {
+		logger.debug(
+				"Invoking method maintainIndexAfterAddNode, param[index={}, corpId={}]",
+				new Object[] { index, corpId });
 		getEm().createQuery(
 				"UPDATE Department d SET d.lft = (d.lft+2) WHERE d.lft >= :index AND d.corporation.id =:corpId")
 				.setParameter("index", index).setParameter("corpId", corpId)

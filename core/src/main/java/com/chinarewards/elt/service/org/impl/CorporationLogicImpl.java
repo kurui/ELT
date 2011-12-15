@@ -11,10 +11,10 @@ import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.org.Industry;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.Amount;
-import com.chinarewards.elt.model.common.Unit;
 import com.chinarewards.elt.model.org.CorporationVo;
 import com.chinarewards.elt.service.exception.GetMaxConsumeErrorException;
 import com.chinarewards.elt.service.org.CorporationLogic;
+import com.chinarewards.elt.tx.model.Unit;
 import com.chinarewards.elt.tx.service.TransactionService;
 import com.chinarewards.elt.util.DateUtil;
 import com.chinarewards.elt.util.StringUtil;
@@ -59,6 +59,7 @@ public class CorporationLogicImpl implements CorporationLogic {
 			corp.setName(corporation.getName());
 			corp.setDescription(corporation.getDescription());
 			corp.setTxAccountId(corporation.getTxAccountId());
+			corp.setDefaultUnitCode(corporation.getUnitCode());
 			corp.setCreatedAt(now);
 			corp.setCreatedBy(caller);
 			corp.setLastModifiedAt(now);
@@ -77,6 +78,7 @@ public class CorporationLogicImpl implements CorporationLogic {
 			corp.setName(corporation.getName());
 			corp.setDescription(corporation.getDescription());
 			corp.setTxAccountId(corporation.getTxAccountId());
+			corp.setDefaultUnitCode(corporation.getUnitCode());
 			corp.setCreatedAt(now);
 			corp.setCreatedBy(caller);
 			corp.setLastModifiedAt(now);
@@ -100,18 +102,21 @@ public class CorporationLogicImpl implements CorporationLogic {
 	}
 
 	@Override
-	public double callBalance(String corporationId, String unitCode) {
+	public double callBalance(String corporationId) {
 		Corporation corp = corporationDao.findById(Corporation.class,
 				corporationId);
 		String accountId = corp.getTxAccountId();
+		String unitCode = corp.getDefaultUnitCode();
 
 		return transactionService.getBalance(accountId, unitCode);
 	}
 
 	@Override
 	public Unit getDefaultUnit(String corporationId) {
-		// TODO Auto-generated method stub
-		return null;
+		Corporation corp = corporationDao.findById(Corporation.class,
+				corporationId);
+		String unitCode = corp.getDefaultUnitCode();
+		return transactionService.getUnitInfoByUnitCode(unitCode);
 	}
 
 	@Override

@@ -34,8 +34,7 @@ public interface CorporationService {
 	 * code.
 	 * 
 	 * @param corporationId
-	 * @param unitCode
 	 * @return
 	 */
-	public double callBalance(String corporationId, String unitCode);
+	public double callBalance(String corporationId);
 }

@@ -1,5 +1,7 @@
 package com.chinarewards.elt.service.helper;
 
+import javax.persistence.EntityManager;
+
 import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.org.CorporationVo;
@@ -26,7 +28,9 @@ public class CorporationHelper {
 	 * @return
 	 */
 	public static Corporation getDefaultCorporation(Injector injector) {
-		if (defaultCorp != null) {
+		EntityManager em = injector.getInstance(EntityManager.class);
+		if (defaultCorp != null
+				&& em.find(Corporation.class, defaultCorp.getId()) != null) {
 			return defaultCorp;
 		}
 
@@ -43,6 +47,7 @@ public class CorporationHelper {
 
 		// Create the default unit code.
 		String code = getDefaultTxUnit().toString();
+		corp.setUnitCode(code);
 		try {
 			transactionService.createNewUnit("缤分", code, 0.8);
 		} catch (DuplicateUnitCodeException e) {

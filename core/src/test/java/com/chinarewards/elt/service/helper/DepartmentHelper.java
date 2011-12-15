@@ -1,5 +1,7 @@
 package com.chinarewards.elt.service.helper;
 
+import javax.persistence.EntityManager;
+
 import com.chinarewards.elt.dao.org.DepartmentDao;
 import com.chinarewards.elt.dao.org.OrgPolicyDao;
 import com.chinarewards.elt.domain.org.Corporation;
@@ -23,7 +25,9 @@ public class DepartmentHelper {
 	private static Department defaultDept = null;
 
 	public static Department getDefaultDept(Injector injector) {
-		if (defaultDept != null)
+		EntityManager em = injector.getInstance(EntityManager.class);
+		if (defaultDept != null
+				&& em.find(Department.class, defaultDept.getId()) != null)
 			return defaultDept;
 		// require some services
 		DepartmentLogic departmentLogic = injector
@@ -35,6 +39,8 @@ public class DepartmentHelper {
 		dept.setCorporationId(corp.getId());
 		SysUser caller = UserHelper.getDefaultUser(injector);
 		defaultDept = departmentLogic.addDepartment(caller, dept);
+		System.out.println("lft=" + defaultDept.getLft() + ", rgt="
+				+ defaultDept.getRgt());
 		return defaultDept;
 	}
 

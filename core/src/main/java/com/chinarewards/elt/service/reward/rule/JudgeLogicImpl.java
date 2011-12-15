@@ -70,6 +70,10 @@ public class JudgeLogicImpl implements JudgeLogic {
 		return judgeDao.findJudgesFromRewardItem(rewardItemId);
 	}
 
+	public List<Judge> findJudgesFromReward(String rewardId) {
+		return judgeDao.findJudgesFromReward(rewardId);
+	}
+
 	@Override
 	public void cloneJudgesFromRewardItemToReward(SysUser caller,
 			String fromRewardItemId, String toRewardId) {

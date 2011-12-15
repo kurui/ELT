@@ -3,6 +3,9 @@ package com.chinarewards.elt.service.reward.rule;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.chinarewards.elt.dao.reward.PreWinnerDao;
 import com.chinarewards.elt.dao.reward.PreWinnerLotDao;
 import com.chinarewards.elt.dao.reward.RewardDao;
@@ -32,6 +35,8 @@ public class WinnerLogicImpl implements WinnerLogic {
 	RewardDao rewardDao;
 	TransactionService transactionService;
 
+	Logger logger = LoggerFactory.getLogger(getClass());
+
 	@Inject
 	public WinnerLogicImpl(PreWinnerLotDao preWinnerLotDao,
 			PreWinnerDao preWinnerDao, WinnerDao winnerDao,
@@ -51,6 +56,7 @@ public class WinnerLogicImpl implements WinnerLogic {
 		List<PreWinner> preWinners = preWinnerDao
 				.findPreWinnerByPreWinnerLotId(lotId);
 		for (PreWinner preWinner : preWinners) {
+			logger.debug("xxxxxxxxx--------={}", preWinner.getStaff());
 			Winner winner = new Winner();
 			winner.setPreWinner(preWinner);
 			winner.setReward(lot.getReward());
@@ -83,6 +89,7 @@ public class WinnerLogicImpl implements WinnerLogic {
 				.findCorporationTxIdByRewardId(rewardId);
 		for (Winner w : untreatedWinners) {
 			String toAccountId = w.getStaff().getTxAccountId();
+			logger.debug("toAccountId={}", w.getStaff().getTxAccountId());
 			String unitCode = w.getUnit().toString();
 			double amt = w.getAmt();
 			try {
@@ -96,6 +103,11 @@ public class WinnerLogicImpl implements WinnerLogic {
 				winnerDao.update(w);
 			}
 		}
+	}
+
+	@Override
+	public List<Winner> getWinnersOfReward(String rewardId) {
+		return winnerDao.findWinnersByRewardId(rewardId);
 	}
 
 }

@@ -45,6 +45,11 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 	}
 
 	@Override
+	public Department findDepartmentById(String id) {
+		return deptDao.findById(Department.class, id);
+	}
+
+	@Override
 	public RewardsApprovalPolicyEnum getDepartmentRewardApprovalPolicy(
 			String departmentId) {
 		String policyKey = DepartmentPolicyConstants.REWARDS_APPROVAL_POLICY;
@@ -86,6 +91,9 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 		}
 
 		int index = parent.getRgt();
+		// maintain index
+		deptDao.maintainIndexAfterAddNode(index, corporation.getId());
+
 		Date now = DateUtil.getTime();
 		Department dept = new Department();
 		dept.setName(department.getName());
@@ -99,9 +107,6 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 		dept.setLastModifiedAt(now);
 		dept.setLastModifiedBy(caller);
 		deptDao.save(dept);
-
-		// maintain index
-		deptDao.maintainIndexAfterAddNode(index, corporation.getId());
 
 		return dept;
 	}

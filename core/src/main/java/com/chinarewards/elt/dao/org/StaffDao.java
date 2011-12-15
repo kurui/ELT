@@ -36,9 +36,12 @@ public class StaffDao extends BaseDao<Staff> {
 	@SuppressWarnings("unchecked")
 	public List<Staff> findStaffsByDepartmentLftRgt(String corpId, int lft,
 			int rgt) {
+		logger.debug(
+				"Invoking method findStaffsByDepartmentLftRgt, param[corpId={}, lft={}, rgt={}]",
+				new Object[] { corpId, lft, rgt });
 		return getEm()
 				.createQuery(
-						"FROM Staff s WHERE s.corporation.id =:corpId AND s.department.lft > :lft AND s.department < :rgt")
+						"FROM Staff s WHERE s.corporation.id =:corpId AND s.department.lft = :lft AND s.department.rgt = :rgt")
 				.setParameter("corpId", corpId).setParameter("lft", lft)
 				.setParameter("rgt", rgt).getResultList();
 	}

@@ -38,6 +38,7 @@ public class PreWinner implements Serializable {
 	/**
 	 * Owns to which lot
 	 */
+	@ManyToOne
 	private PreWinnerLot preWinnerLot;
 
 	/**

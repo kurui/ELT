@@ -37,4 +37,6 @@ public interface StaffLogic {
 	 */
 	public List<Staff> getStaffsFromDeptId(String deptId,
 			boolean includeChildren);
+
+	public double getBalance(String staffId);
 }

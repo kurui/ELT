@@ -266,4 +266,17 @@ public class Staff extends Organization {
 	public void setLocation(String location) {
 		this.location = location;
 	}
+
+	@Override
+	public String toString() {
+		return "Staff [department=" + department + ", corporation="
+				+ corporation + ", phone=" + phone + ", email=" + email
+				+ ", noticeMode=" + noticeMode + ", deleted=" + deleted
+				+ ", txAccountId=" + txAccountId + ", surname=" + surname
+				+ ", personalName=" + personalName + ", jobNo=" + jobNo
+				+ ", dob=" + dob + ", entryDate=" + entryDate
+				+ ", jobPosition=" + jobPosition + ", gender=" + gender
+				+ ", nativePlace=" + nativePlace + ", nation=" + nation
+				+ ", IDCardNo=" + IDCardNo + ", location=" + location + "]";
+	}
 }

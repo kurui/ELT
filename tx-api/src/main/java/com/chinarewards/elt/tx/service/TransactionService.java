@@ -2,6 +2,7 @@ package com.chinarewards.elt.tx.service;
 
 import com.chinarewards.elt.tx.exception.BalanceLackException;
 import com.chinarewards.elt.tx.exception.DuplicateUnitCodeException;
+import com.chinarewards.elt.tx.model.Unit;
 
 public interface TransactionService {
 
@@ -17,6 +18,8 @@ public interface TransactionService {
 
 	public String createNewAccount();
 
-	public String createNewUnit(String name, String unitCode, double rate)
+	public Unit createNewUnit(String name, String unitCode, double rate)
 			throws DuplicateUnitCodeException;
+
+	public Unit getUnitInfoByUnitCode(String unitCode);
 }

@@ -1,5 +1,6 @@
 package com.chinarewards.elt.domain.org;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -31,6 +32,11 @@ public class Corporation extends Organization {
 	 */
 	private String txAccountId;
 
+	/**
+	 * Which unit code this corporation use.
+	 */
+	private String defaultUnitCode;
+
 	public Industry getIndustry() {
 		return industry;
 	}
@@ -46,4 +52,13 @@ public class Corporation extends Organization {
 	public void setTxAccountId(String txAccountId) {
 		this.txAccountId = txAccountId;
 	}
+
+	public String getDefaultUnitCode() {
+		return defaultUnitCode;
+	}
+
+	public void setDefaultUnitCode(String defaultUnitCode) {
+		this.defaultUnitCode = defaultUnitCode;
+	}
+
 }

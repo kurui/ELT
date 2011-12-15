@@ -3,6 +3,8 @@ package com.chinarewards.elt.service.helper;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.org.Staff;
@@ -28,7 +30,9 @@ public class StaffHelper {
 	 * @return
 	 */
 	public static List<Staff> getDefaultStaffList(Injector injector) {
-		if (staffList != null)
+		EntityManager em = injector.getInstance(EntityManager.class);
+		if (staffList != null
+				&& em.find(Staff.class, staffList.get(0).getId()) != null)
 			return staffList;
 		staffList = new ArrayList<Staff>();
 		// need some services
@@ -39,7 +43,6 @@ public class StaffHelper {
 		SysUser caller = UserHelper.getDefaultUser(injector);
 		Corporation corp = CorporationHelper.getDefaultCorporation(injector);
 		Department dept = DepartmentHelper.getDefaultDept(injector);
-
 		StaffVo one = new StaffVo();
 		one.setCorpId(corp.getId());
 		one.setDeptId(dept.getId());
@@ -67,7 +70,7 @@ public class StaffHelper {
 		// create a tx account
 		accountId = transactionService.createNewAccount();
 		three.setTxAccountId(accountId);
-		Staff sthree = staffLogic.saveStaff(caller, two);
+		Staff sthree = staffLogic.saveStaff(caller, three);
 		staffList.add(sthree);
 
 		return staffList;
