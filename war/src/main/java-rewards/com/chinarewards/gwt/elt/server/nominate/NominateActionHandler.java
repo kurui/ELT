@@ -10,6 +10,7 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 import org.slf4j.Logger;
 
 import com.chinarewards.elt.model.reward.search.RewardSearchVo;
+import com.chinarewards.elt.service.reward.RewardService;
 import com.chinarewards.gwt.elt.client.nominate.NominateInitRequest;
 import com.chinarewards.gwt.elt.client.nominate.NominateInitResponse;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
@@ -28,17 +29,20 @@ public class NominateActionHandler extends
 	@InjectLogger
 	Logger logger;
 
-
+	RewardService rewardService;
 
 	@Inject
-	public NominateActionHandler() {
-
+	public NominateActionHandler(RewardService rewardService) {
+		this.rewardService=rewardService;
 	}
 
 	@Override
 	public NominateInitResponse execute(NominateInitRequest request,
 			ExecutionContext response) throws DispatchException {
-
+		//获取信息
+		//rewardService.fetchEntireRewardById(arg0);
+		
+		
 		NominateInitResponse Nomresponse = new NominateInitResponse();
 		RewardSearchVo awardsVo=new RewardSearchVo();
 	//	awardsVo.setName("奖励名称");

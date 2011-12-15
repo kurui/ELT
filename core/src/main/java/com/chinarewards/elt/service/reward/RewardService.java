@@ -11,7 +11,7 @@ import com.chinarewards.elt.model.reward.base.RewardParam;
 import com.chinarewards.elt.model.reward.exception.ApproveRewardException;
 import com.chinarewards.elt.model.reward.exception.DenyRewardException;
 import com.chinarewards.elt.model.reward.exception.NominateRewardException;
-import com.chinarewards.elt.model.reward.vo.RewardVo;
+import com.chinarewards.elt.model.reward.search.RewardQueryVo;
 import com.chinarewards.elt.model.user.UserContext;
 
 /**
@@ -92,6 +92,6 @@ public interface RewardService {
 	 * @param rewardId
 	 * @return
 	 */
-	public RewardVo fetchEntireRewardById(String rewardId);
+	public RewardQueryVo fetchEntireRewardQueryVoById(String rewardId);
 
 }

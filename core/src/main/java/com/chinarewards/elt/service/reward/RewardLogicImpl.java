@@ -1,7 +1,10 @@
 package com.chinarewards.elt.service.reward;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +16,8 @@ import com.chinarewards.elt.dao.user.SysUserDao;
 import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.reward.base.Reward;
 import com.chinarewards.elt.domain.reward.base.RewardItem;
+import com.chinarewards.elt.domain.reward.person.Candidate;
+import com.chinarewards.elt.domain.reward.person.Judge;
 import com.chinarewards.elt.domain.reward.person.NomineeLot;
 import com.chinarewards.elt.domain.reward.person.PreWinnerLot;
 import com.chinarewards.elt.domain.reward.rule.CandidateRule;
@@ -25,6 +30,9 @@ import com.chinarewards.elt.model.reward.exception.DenyRewardException;
 import com.chinarewards.elt.model.reward.exception.JudgeException;
 import com.chinarewards.elt.model.reward.exception.NoEffectivePreWinnerException;
 import com.chinarewards.elt.model.reward.exception.NominateRewardException;
+import com.chinarewards.elt.model.reward.search.CandidateParam;
+import com.chinarewards.elt.model.reward.search.JudgeParam;
+import com.chinarewards.elt.model.reward.search.RewardQueryVo;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.reward.rule.AwardApprovalDeterminer;
 import com.chinarewards.elt.service.reward.rule.CandidateLogic;
@@ -43,7 +51,7 @@ import com.google.inject.Inject;
  * @author yanxin
  * @since 1.0
  */
-public class RewardLogicImpl implements RewardLogic {
+public class RewardLogicImpl implements RewardLogic ,RewardService{
 	Logger logger = LoggerFactory.getLogger(getClass());
 
 	private final RewardDao rewardDao;
@@ -296,6 +304,61 @@ public class RewardLogicImpl implements RewardLogic {
 		rewardDao.update(reward);
 
 		return reward;
+	}
+
+	@Override
+	public RewardQueryVo fetchEntireRewardQueryVoById(String rewardId) {
+		//获取奖励
+		Reward reward = rewardDao.findById(Reward.class, rewardId);
+		//获取被提名人
+		List<Candidate> candidateList= candidateLogic.getCandidatesFromReward(rewardId);
+		//获取提名人
+		List<Judge> judgeList=judgeLogic.findJudgesFromReward(rewardId);
+		
+		
+		
+		RewardQueryVo rewardQueryVo=new RewardQueryVo();
+		
+		rewardQueryVo.setRewardId(reward.getId());
+		rewardQueryVo.setRewardName(reward.getName());
+		rewardQueryVo.setRewardItemName(reward.getRewardItem().getName());
+		rewardQueryVo.setDefinition(reward.getDefinition());
+		rewardQueryVo.setStandard(reward.getStandard());
+		rewardQueryVo.setHeadcountLimit(reward.getHeadcountLimit());
+		rewardQueryVo.setTotalAmtLimit(reward.getTotalAmtLimit());
+		rewardQueryVo.setAwardAmt(reward.getAwardAmt());
+		rewardQueryVo.setCreatedAt(reward.getCreatedAt());
+		rewardQueryVo.setExpectAwardDate(reward.getExpectAwardDate());
+		rewardQueryVo.setExpectNominateDate(reward.getExpectNominateDate());
+		rewardQueryVo.setCreatedStaffName(reward.getCreatedBy().getStaff().getName());
+		rewardQueryVo.setAwardMode("奖项模式");//wanting......
+		rewardQueryVo.setAwardingStaffName("颁奖人");//wanting...........
+		
+		List<CandidateParam> candidateListParam=new ArrayList<CandidateParam>();
+		for (int i = 0; i < candidateList.size(); i++) {
+			Candidate candidate=candidateList.get(i);
+			CandidateParam candparam=new CandidateParam();
+			candparam.setId(candidate.getId());
+			candparam.setName(candidate.getStaff().getName());
+			candidateListParam.add(candparam);
+		}
+		//设置被提名人
+		rewardQueryVo.setCandidateList(candidateListParam);
+		
+		
+		List<JudgeParam> JudgeListParam=new ArrayList<JudgeParam>();
+		for (int i = 0; i < judgeList.size(); i++) {
+			Judge judge=judgeList.get(i);
+			JudgeParam judgeParam=new JudgeParam();
+			judgeParam.setId(judge.getId());
+			judgeParam.setName(judge.getStaff().getName());
+			JudgeListParam.add(judgeParam);
+		}
+		
+		//设置提名人
+		rewardQueryVo.setJudgeList(JudgeListParam);
+		
+		return rewardQueryVo;
 	}
 
 }
