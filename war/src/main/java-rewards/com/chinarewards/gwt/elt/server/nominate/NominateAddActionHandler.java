@@ -5,7 +5,7 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 
 import org.slf4j.Logger;
 
-import com.chinarewards.elt.service.reward.RewardService;
+import com.chinarewards.elt.service.reward.rule.NomineeLogic;
 import com.chinarewards.gwt.elt.client.nominate.NominateAddRequest;
 import com.chinarewards.gwt.elt.client.nominate.NominateAddResponse;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
@@ -24,11 +24,11 @@ public class NominateAddActionHandler extends
 	@InjectLogger
 	Logger logger;
 
-	RewardService rewardService;
+	NomineeLogic nomineeService;
 
 	@Inject
-	public NominateAddActionHandler(RewardService rewardService) {
-		this.rewardService = rewardService;
+	public NominateAddActionHandler(NomineeLogic nomineeService) {
+		this.nomineeService = nomineeService;
 	}
 
 	@Override
@@ -36,6 +36,8 @@ public class NominateAddActionHandler extends
 			ExecutionContext response) throws DispatchException {
 		NominateAddResponse Nomresponse=new NominateAddResponse();
 		Nomresponse.setNomineeLotId("11111111xxx");
+		
+	//	nomineeService.addNomineeLotToReward(caller, rewardId, staffIds);
 		return Nomresponse;
 	}
 
