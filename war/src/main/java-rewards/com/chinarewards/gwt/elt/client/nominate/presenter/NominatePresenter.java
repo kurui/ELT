@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.chinarewards.gwt.elt.client.mvp.Display;
 import com.chinarewards.gwt.elt.client.mvp.Presenter;
+import com.chinarewards.gwt.elt.model.nominate.CandidateParamVo;
+import com.chinarewards.gwt.elt.model.nominate.JudgeParamVo;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 
 public interface NominatePresenter extends Presenter<NominatePresenter.NominateDisplay> {
@@ -19,12 +21,14 @@ public interface NominatePresenter extends Presenter<NominatePresenter.NominateD
 		public void setIntegral(String integral);
 		public void setRecordName(String recordName);
 		public void setNumber(String number);
-		public void setNominate(List<String> nominate);
-		public void setCandidate(List<String> candidate);
+		public void setJudge(List<JudgeParamVo> nominate);
+		public void setCandidate(List<CandidateParamVo> candidate);
 		public void setAwardNature(String awardNature);
 		public void setBegindate(String begindate);
 		public void setAwarddate(String awarddate);
 		public void setNominateMessage(String nominateMessage);
+		public void setExpectNominateDate(String expectNominateDate);
+		public void setNominateStaff(String nominateStaff);
 		public void setAwardName(String awardName);
 
 		

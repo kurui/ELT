@@ -62,21 +62,23 @@ public class NominatePresenterImpl extends
 					@Override
 					public void onSuccess(NominateInitResponse response) {
 					//	RewardSearchVo awardsVo=response.getAwardsVo();
-						List<String> candidateList=response.getCandidateList();
-						List<String> nominateList=response.getNominateList();
-						display.setName(response.getAwardsVo());
-						display.setExplain("explain");
-						display.setCondition("condition");
-						display.setIntegral("integral");
-						display.setRecordName("recordName");
-						display.setNumber("number");
-						display.setNominate(nominateList);
-						display.setCandidate(candidateList);
-						display.setAwardNature("awardNature");
-						display.setBegindate("begindate");
-						display.setAwarddate("awarddate");
-						display.setNominateMessage("nominateMessage");
-						display.setAwardName("awardName");
+//						List<String> candidateList=response.getCandidateList();
+//						List<String> nominateList=response.getNominateList();
+						display.setName(response.getRewardName());
+						display.setExplain(response.getDefinition());
+						display.setCondition(response.getStandard());
+						display.setIntegral(response.getTotalAmtLimit()+"");
+						display.setRecordName(response.getCreatedStaffName());
+						display.setNumber(response.getAwardAmt()+"");
+						display.setJudge(response.getJudgeList());
+						display.setCandidate(response.getCandidateList());
+						display.setAwardNature(response.getAwardMode());
+						display.setBegindate(response.getCreatedAt()+"");
+						display.setAwarddate(response.getExpectAwardDate()+"");
+						display.setNominateMessage("提名信息");//wating.........
+						display.setNominateStaff("当前用户");
+						display.setExpectNominateDate(response.getExpectNominateDate()+"");
+						display.setAwardName(response.getAwardingStaffName());
 						
 					}
 				});
