@@ -6,9 +6,10 @@ import java.util.List;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
-import com.chinarewards.elt.model.reward.search.RewardSearchVo;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
+import com.chinarewards.gwt.elt.client.nominate.NominateAddRequest;
+import com.chinarewards.gwt.elt.client.nominate.NominateAddResponse;
 import com.chinarewards.gwt.elt.client.nominate.NominateInitRequest;
 import com.chinarewards.gwt.elt.client.nominate.NominateInitResponse;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -42,10 +43,30 @@ public class NominatePresenterImpl extends
 							message+=idList.get(i)+"提名次数+1";
 						}
 						Window.alert(message);
+						addNominateData();
 					}
 				}));
 	}
 
+	/**
+	 * 提名数据添加
+	 */
+	private void addNominateData()
+	{
+		dispatcher.execute(new NominateAddRequest("1"),
+				new AsyncCallback<NominateAddResponse>() {
+					public void onFailure(Throwable t) {
+						Window.alert(t.getMessage());
+					}
+
+					@Override
+					public void onSuccess(NominateAddResponse response) {
+						Window.alert(response.getNomineeLotId());
+					}
+				});
+	}
+	
+	
 	 /**
 		 * 加载初始化数据
 		 */
