@@ -70,6 +70,7 @@ public class JudgeLogicImpl implements JudgeLogic {
 		return judgeDao.findJudgesFromRewardItem(rewardItemId);
 	}
 
+	@Override
 	public List<Judge> findJudgesFromReward(String rewardId) {
 		return judgeDao.findJudgesFromReward(rewardId);
 	}
