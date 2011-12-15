@@ -3,6 +3,16 @@ package com.chinarewards.elt.model.reward.search;
 public class CandidateParam {
 	private String id;
 	private String name;
+	/**
+	 * 提名次数
+	 */
+	private int nominateCount;
+	public int getNominateCount() {
+		return nominateCount;
+	}
+	public void setNominateCount(int nominateCount) {
+		this.nominateCount = nominateCount;
+	}
 	public String getId() {
 		return id;
 	}

@@ -7,7 +7,6 @@ import com.chinarewards.elt.domain.reward.person.NomineeLot;
 import com.chinarewards.elt.domain.reward.person.PreWinner;
 import com.chinarewards.elt.domain.reward.person.Winner;
 import com.chinarewards.elt.domain.user.SysUser;
-import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.reward.base.RewardParam;
 import com.chinarewards.elt.model.reward.exception.ApproveRewardException;
 import com.chinarewards.elt.model.reward.exception.DenyRewardException;

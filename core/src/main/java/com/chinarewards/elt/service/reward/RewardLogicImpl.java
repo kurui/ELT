@@ -2,9 +2,7 @@ package com.chinarewards.elt.service.reward;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -340,6 +338,7 @@ public class RewardLogicImpl implements RewardLogic ,RewardService{
 			CandidateParam candparam=new CandidateParam();
 			candparam.setId(candidate.getId());
 			candparam.setName(candidate.getStaff().getName());
+			candparam.setNominateCount(nomineeLogic.getNomineeCount(rewardId, candidate.getStaff().getId()));
 			candidateListParam.add(candparam);
 		}
 		//设置被提名人
@@ -352,6 +351,7 @@ public class RewardLogicImpl implements RewardLogic ,RewardService{
 			JudgeParam judgeParam=new JudgeParam();
 			judgeParam.setId(judge.getId());
 			judgeParam.setName(judge.getStaff().getName());
+			judgeParam.setIsNominate(nomineeLogic.isNomineeByJudge(rewardId, judge.getId()));
 			JudgeListParam.add(judgeParam);
 		}
 		
