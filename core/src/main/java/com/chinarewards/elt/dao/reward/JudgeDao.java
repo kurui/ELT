@@ -20,30 +20,6 @@ public class JudgeDao extends BaseDao<Judge> {
 						"FROM Judge j WHERE j.rewardItem.id =:rewardItemId")
 				.setParameter("rewardItemId", rewardItemId).getResultList();
 	}
-	/**
-	 * Find list of judge by id of a Reward.
-	 * 
-	 * @param rewardItemId
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	public List<Judge> findJudgesFromReward(String rewardId) {
-		return getEm()
-				.createQuery(
-						"FROM Judge j WHERE j.reward.id =:rewardId")
-				.setParameter("rewardId", rewardId).getResultList();
-	}
-	/**
-	 * Find list of judge by id of a Reward.
-	 * 
-	 * @param rewardId
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	public List<Judge> findJudgesFromReward(String rewardId) {
-		return getEm().createQuery("FROM Judge j WHERE j.reward.id =:rewardId")
-				.setParameter("rewardId", rewardId).getResultList();
-	}
 
 	/**
 	 * Find list of judge by id of a Reward.
