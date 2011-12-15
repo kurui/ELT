@@ -1,5 +1,7 @@
 package com.chinarewards.elt.service.helper;
 
+import javax.persistence.EntityManager;
+
 import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.org.CorporationVo;
@@ -18,6 +20,7 @@ import com.google.inject.Injector;
 public class CorporationHelper {
 
 	private static Corporation defaultCorp = null;
+	private static double initBalance = 10000;
 
 	/**
 	 * Get a new Corporation.
@@ -26,7 +29,9 @@ public class CorporationHelper {
 	 * @return
 	 */
 	public static Corporation getDefaultCorporation(Injector injector) {
-		if (defaultCorp != null) {
+		EntityManager em = injector.getInstance(EntityManager.class);
+		if (defaultCorp != null
+				&& em.find(Corporation.class, defaultCorp.getId()) != null) {
 			return defaultCorp;
 		}
 
@@ -43,13 +48,14 @@ public class CorporationHelper {
 
 		// Create the default unit code.
 		String code = getDefaultTxUnit().toString();
+		corp.setUnitCode(code);
 		try {
 			transactionService.createNewUnit("缤分", code, 0.8);
 		} catch (DuplicateUnitCodeException e) {
 			// should not be here
 		}
 		// Deposit a amount of money
-		transactionService.deposit(accountId, code, 10000);
+		transactionService.deposit(accountId, code, initBalance);
 		corp.setTxAccountId(accountId);
 		SysUser caller = UserHelper.getDefaultUser(injector);
 		defaultCorp = corporationLogic.saveCorporation(caller, corp);
@@ -64,5 +70,14 @@ public class CorporationHelper {
 	 */
 	public static TransactionUnit getDefaultTxUnit() {
 		return TransactionUnit.BEANPOINTS;
+	}
+
+	/**
+	 * Get the initialize balance of the default corporation.
+	 * 
+	 * @return
+	 */
+	public static double getInitBalance() {
+		return initBalance;
 	}
 }

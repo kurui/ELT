@@ -27,8 +27,8 @@ public class CorporationServiceImpl implements CorporationService {
 	}
 
 	@Override
-	public double callBalance(String corporationId, String unitCode) {
-		return corporationLogic.callBalance(corporationId, unitCode);
+	public double callBalance(String corporationId) {
+		return corporationLogic.callBalance(corporationId);
 	}
 
 }

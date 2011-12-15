@@ -74,4 +74,10 @@ public class Department extends Organization {
 	public void setRgt(int rgt) {
 		this.rgt = rgt;
 	}
+
+	@Override
+	public String toString() {
+		return "Department [corporation=" + corporation + ", parent=" + parent
+				+ ", lft=" + lft + ", rgt=" + rgt + "]";
+	}
 }

@@ -7,8 +7,10 @@ import org.slf4j.LoggerFactory;
 
 import com.chinarewards.elt.tx.dao.TransactionDao;
 import com.chinarewards.elt.tx.domain.Transaction;
+import com.chinarewards.elt.tx.domain.TxUnit;
 import com.chinarewards.elt.tx.exception.BalanceLackException;
 import com.chinarewards.elt.tx.exception.DuplicateUnitCodeException;
+import com.chinarewards.elt.tx.model.Unit;
 import com.chinarewards.elt.tx.service.TransactionLogic;
 import com.chinarewards.elt.tx.service.TransactionService;
 import com.google.inject.Inject;
@@ -60,6 +62,10 @@ public class TransactionServiceImpl implements TransactionService {
 	@Override
 	public String transaction(String fromAccountId, String toAccountId,
 			String unitCode, double amount) throws BalanceLackException {
+		logger.debug(
+				"Invoking method transaction(), param[fromAccountId={}, toAccountId={}, unitCode={}, amount={}]",
+				new Object[] { fromAccountId, toAccountId, unitCode, amount });
+
 		Date now = new Date();
 		Transaction tx = new Transaction();
 		tx.setTransDate(now);
@@ -83,13 +89,30 @@ public class TransactionServiceImpl implements TransactionService {
 
 	@Override
 	public String createNewAccount() {
-		return transactionLogic.createNewAccount();
+		return transactionLogic.createNewAccount().getId();
 	}
 
 	@Override
-	public String createNewUnit(String name, String unitCode, double rate)
+	public Unit createNewUnit(String name, String unitCode, double rate)
 			throws DuplicateUnitCodeException {
-		return transactionLogic.createNewUnit(name, unitCode, rate);
+		TxUnit unit = transactionLogic.createNewUnit(name, unitCode, rate);
+		Unit u = new Unit();
+		u.setId(unit.getId());
+		u.setName(unit.getName());
+		u.setRate(unit.getRate());
+		u.setCode(unit.getCode());
+		return u;
+	}
+
+	@Override
+	public Unit getUnitInfoByUnitCode(String unitCode) {
+		TxUnit unit = transactionLogic.getTxUnitByCode(unitCode);
+		Unit u = new Unit();
+		u.setId(unit.getId());
+		u.setName(unit.getName());
+		u.setRate(unit.getRate());
+		u.setCode(unit.getCode());
+		return u;
 	}
 
 }

@@ -23,6 +23,7 @@ import com.chinarewards.elt.service.reward.RewardItemLogic;
 import com.chinarewards.elt.service.reward.RewardItemLogicImpl;
 import com.chinarewards.elt.service.reward.RewardLogic;
 import com.chinarewards.elt.service.reward.RewardLogicImpl;
+import com.chinarewards.elt.service.reward.RewardService;
 import com.chinarewards.elt.service.reward.acl.RewardAclProcessor;
 import com.chinarewards.elt.service.reward.acl.RewardAclProcessorDept;
 import com.chinarewards.elt.service.reward.acl.RewardAclProcessorFactory;
@@ -87,7 +88,7 @@ public class RewardModule extends AbstractModule {
 		bind(YearFrequencyDao.class).in(Singleton.class);
 
 		// Service of logic
-		// bind(RewardService.class).to(rewardser)
+		bind(RewardService.class).to(RewardLogicImpl.class).in(Singleton.class);
 		bind(RewardItemLogic.class).to(RewardItemLogicImpl.class).in(
 				Singleton.class);
 		bind(RewardLogic.class).to(RewardLogicImpl.class).in(Singleton.class);

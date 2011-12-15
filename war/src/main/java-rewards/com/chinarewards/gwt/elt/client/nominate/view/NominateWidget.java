@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.chinarewards.gwt.elt.client.nominate.presenter.NominatePresenter.NominateDisplay;
+import com.chinarewards.gwt.elt.model.nominate.CandidateParamVo;
+import com.chinarewards.gwt.elt.model.nominate.JudgeParamVo;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -34,7 +36,7 @@ public class NominateWidget extends Composite implements NominateDisplay {
 	@UiField
 	Label number;
 	@UiField
-	VerticalPanel nominate;
+	VerticalPanel judge;
 	@UiField
 	VerticalPanel candidate;
 	@UiField
@@ -48,6 +50,11 @@ public class NominateWidget extends Composite implements NominateDisplay {
 	@UiField
 	Label nominateMessage;
 
+	@UiField
+	Label expectNominateDate;
+	@UiField
+	Label nominateStaff;
+	
 	private static HrRegisterWidgetUiBinder uiBinder = GWT
 			.create(HrRegisterWidgetUiBinder.class);
 
@@ -100,14 +107,14 @@ public class NominateWidget extends Composite implements NominateDisplay {
 	}
 
 	@Override
-	public void setNominate(List<String> nominate) {
+	public void setJudge(List<JudgeParamVo> judge) {
 		HTML nominatelab = new HTML("显示提名人");
-		this.nominate.add(nominatelab);
+		this.judge.add(nominatelab);
 
 	}
 
 	@Override
-	public void setCandidate(List<String> candidate) {
+	public void setCandidate(List<CandidateParamVo> candidate) {
 		boolean fal = false;//是否创建人界面
 		if (fal) {
 			String str = "";
@@ -168,7 +175,17 @@ public class NominateWidget extends Composite implements NominateDisplay {
 	public void setAwardName(String awardName) {
 		this.awardName.setText(awardName);
 	}
+	@Override
+	public void setExpectNominateDate(String expectNominateDate) {
+		this.expectNominateDate.setText(expectNominateDate);
+		
+	}
 
+	@Override
+	public void setNominateStaff(String nominateStaff) {
+		this.nominateStaff.setText(nominateStaff);
+	}
+	
 	@SuppressWarnings("deprecation")
 	@Override
 	public List<String> getCandidateList() {
@@ -186,12 +203,9 @@ public class NominateWidget extends Composite implements NominateDisplay {
 
 		}
 
-//		NodeList<Element> nodelist = this.candidate.getElement().getElementsByTagName("checkBox");
-//		for (int i = 0; i < nodelist.getLength(); i++) {
-//			String xx = nodelist.getItem(i).getAttribute("ensureDebugId");
-//			
-//		}
 		return idlist;
 	}
+
+	
 
 }

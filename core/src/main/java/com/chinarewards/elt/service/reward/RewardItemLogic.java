@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.chinarewards.elt.domain.reward.base.RewardItem;
+import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.reward.base.RewardItemParam;
 import com.chinarewards.elt.model.reward.search.RewardItemSearchVo;
@@ -22,10 +23,11 @@ public interface RewardItemLogic {
 	 * Add or update a record of RewardItem. See more detail at
 	 * {@link RewardItemParam}.
 	 * 
+	 * @param caller
 	 * @param param
 	 * @return
 	 */
-	public RewardItem saveRewardItem(UserContext context, RewardItemParam param);
+	public RewardItem saveRewardItem(SysUser caller, RewardItemParam param);
 
 	/**
 	 * Delete the specified RewardItem. Just delete in a logical way.
@@ -102,4 +104,9 @@ public interface RewardItemLogic {
 	 * @return
 	 */
 	public RewardItemVo fetchEntireRewardById(String rewardId);
+
+	/**
+	 * Run batch to generate rewards automatic.
+	 */
+	public void runAutoRewardGeneratorBatch(Date currDate);
 }

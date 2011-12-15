@@ -17,6 +17,13 @@ import com.chinarewards.elt.model.org.exception.DepartmentDeleteException;
 public interface DepartmentLogic {
 
 	/**
+	 * Find department by id.
+	 * 
+	 * @return
+	 */
+	public Department findDepartmentById(String id);
+
+	/**
 	 * Add a new department.
 	 * 
 	 * @param caller

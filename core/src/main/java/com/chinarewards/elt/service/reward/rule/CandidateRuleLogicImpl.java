@@ -197,7 +197,9 @@ public class CandidateRuleLogicImpl implements CandidateRuleLogic {
 	private Set<Staff> getQualifiedStaffsFromDirectCandidateRule(
 			DirectCandidateRule candidateRule) {
 		Set<Staff> staffs = new HashSet<Staff>();
-		List<DirectCandidateData> list = candidateRule.getCandidateDataList();
+		List<DirectCandidateData> list = directCandidateDataDao
+				.findDirectCandidateDataListByDirectRuleId(candidateRule
+						.getId());
 		for (DirectCandidateData data : list) {
 			if (data.getOrg() instanceof Department) {
 				staffs.addAll(staffLogic.getStaffsFromDeptId(data.getOrg()

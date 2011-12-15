@@ -12,6 +12,8 @@ public class CorporationVo {
 	private String name;
 	private String description;
 	private String txAccountId;
+	private String unitCode;
+
 	/**
 	 * This field may be null.
 	 */
@@ -55,5 +57,13 @@ public class CorporationVo {
 
 	public void setIndustryId(String industryId) {
 		this.industryId = industryId;
+	}
+
+	public String getUnitCode() {
+		return unitCode;
+	}
+
+	public void setUnitCode(String unitCode) {
+		this.unitCode = unitCode;
 	}
 }

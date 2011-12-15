@@ -47,11 +47,13 @@ public class Winner implements Serializable {
 	/**
 	 * Who win this Reward
 	 */
+	@ManyToOne
 	private Staff staff;
 
 	/**
 	 * Which Reward result it.
 	 */
+	@ManyToOne
 	private Reward reward;
 
 	/**

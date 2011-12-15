@@ -1,7 +1,5 @@
 package com.chinarewards.elt.domain.org;
 
-import java.io.Serializable;
-
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
@@ -21,7 +19,7 @@ import javax.persistence.InheritanceType;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorValue(value = "industry")
-public class Industry extends Organization implements Serializable {
+public class Industry extends Organization {
 
 	private static final long serialVersionUID = -8896795998357995582L;
 }

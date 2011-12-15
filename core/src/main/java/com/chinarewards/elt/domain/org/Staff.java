@@ -10,9 +10,6 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 
-import com.chinarewards.elt.domain.org.Corporation;
-import com.chinarewards.elt.domain.org.Department;
-import com.chinarewards.elt.domain.org.Organization;
 import com.chinarewards.elt.model.org.Gender;
 import com.chinarewards.elt.model.org.NoticeMode;
 
@@ -98,7 +95,7 @@ public class Staff extends Organization {
 	/**
 	 * position in the corporation(职位)
 	 */
-	private String position;
+	private String jobPosition;
 
 	/**
 	 * gender
@@ -222,12 +219,12 @@ public class Staff extends Organization {
 		this.entryDate = entryDate;
 	}
 
-	public String getPosition() {
-		return position;
+	public String getJobPosition() {
+		return jobPosition;
 	}
 
-	public void setPosition(String position) {
-		this.position = position;
+	public void setJobPosition(String jobPosition) {
+		this.jobPosition = jobPosition;
 	}
 
 	public Gender getGender() {
@@ -268,5 +265,18 @@ public class Staff extends Organization {
 
 	public void setLocation(String location) {
 		this.location = location;
+	}
+
+	@Override
+	public String toString() {
+		return "Staff [department=" + department + ", corporation="
+				+ corporation + ", phone=" + phone + ", email=" + email
+				+ ", noticeMode=" + noticeMode + ", deleted=" + deleted
+				+ ", txAccountId=" + txAccountId + ", surname=" + surname
+				+ ", personalName=" + personalName + ", jobNo=" + jobNo
+				+ ", dob=" + dob + ", entryDate=" + entryDate
+				+ ", jobPosition=" + jobPosition + ", gender=" + gender
+				+ ", nativePlace=" + nativePlace + ", nation=" + nation
+				+ ", IDCardNo=" + IDCardNo + ", location=" + location + "]";
 	}
 }

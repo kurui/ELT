@@ -448,4 +448,24 @@ public class RewardItem implements Serializable {
 		this.lastModifiedBy = lastModifiedBy;
 	}
 
+	@Override
+	public String toString() {
+		return "RewardItem [id=" + id + ", name=" + name + ", type=" + type
+				+ ", definition=" + definition + ", standard=" + standard
+				+ ", headcountLimit=" + headcountLimit + ", totalAmtLimit="
+				+ totalAmtLimit + ", awardAmt=" + awardAmt + ", awardUnit="
+				+ awardUnit + ", builderDept=" + builderDept + ", accountDept="
+				+ accountDept + ", deleted=" + deleted + ", degree=" + degree
+				+ ", lastAwardDate=" + lastAwardDate + ", expectAwardDate="
+				+ expectAwardDate + ", corporation=" + corporation
+				+ ", autoGenerate=" + autoGenerate + ", candidateRule="
+				+ candidateRule + ", frequency=" + frequency + ", createdAt="
+				+ createdAt + ", lastModifiedAt=" + lastModifiedAt
+				+ ", createdBy=" + createdBy + ", lastModifiedBy="
+				+ lastModifiedBy + ", autoAward=" + autoAward
+				+ ", nominateAheadDays=" + nominateAheadDays
+				+ ", nominateDate=" + nominateDate + ", enabled=" + enabled
+				+ ", publishDate=" + publishDate + ", nexRunBatchTime="
+				+ nexRunBatchTime + "]";
+	}
 }

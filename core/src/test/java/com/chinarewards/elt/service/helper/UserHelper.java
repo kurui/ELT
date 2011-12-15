@@ -1,5 +1,7 @@
 package com.chinarewards.elt.service.helper;
 
+import javax.persistence.EntityManager;
+
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.service.user.UserLogic;
 import com.google.inject.Injector;
@@ -20,7 +22,9 @@ public class UserHelper {
 	 * @return
 	 */
 	public static SysUser getDefaultUser(Injector injector) {
-		if (defaultUser != null)
+		EntityManager em = injector.getInstance(EntityManager.class);
+		if (defaultUser != null
+				&& em.find(SysUser.class, defaultUser.getId()) != null)
 			return defaultUser;
 		// require some services
 		UserLogic userLogic = injector.getInstance(UserLogic.class);

@@ -77,7 +77,7 @@
 
 					<td width="20%" colspan='3'>
 						<div>
-							<g:VerticalPanel  ui:field="nominate" />
+							<g:VerticalPanel  ui:field="judge" />
 						</div>
 					</td>
 
@@ -123,7 +123,12 @@
 
 					<td width="20%" colspan='3'>
 						<div>
-							<g:Label text="领导提名，提名时间:2011-12-28,提名人：PC.Lueng; Anthony" ui:field="nominateMessage" />
+							<g:Label text="领导提名" ui:field="nominateMessage" />
+							提名时间:
+							<g:Label text="2011-12-28" ui:field="expectNominateDate" />
+							提名人：
+							<g:Label text="Lueng; Anthony" ui:field="nominateStaff" />
+			
 						</div>
 					</td>
 
