@@ -10,9 +10,6 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 
-import com.chinarewards.elt.domain.org.Corporation;
-import com.chinarewards.elt.domain.org.Department;
-import com.chinarewards.elt.domain.org.Organization;
 import com.chinarewards.elt.model.org.Gender;
 import com.chinarewards.elt.model.org.NoticeMode;
 
@@ -98,7 +95,7 @@ public class Staff extends Organization {
 	/**
 	 * position in the corporation(职位)
 	 */
-	private String position;
+	private String jobPosition;
 
 	/**
 	 * gender
@@ -222,12 +219,12 @@ public class Staff extends Organization {
 		this.entryDate = entryDate;
 	}
 
-	public String getPosition() {
-		return position;
+	public String getJobPosition() {
+		return jobPosition;
 	}
 
-	public void setPosition(String position) {
-		this.position = position;
+	public void setJobPosition(String jobPosition) {
+		this.jobPosition = jobPosition;
 	}
 
 	public Gender getGender() {

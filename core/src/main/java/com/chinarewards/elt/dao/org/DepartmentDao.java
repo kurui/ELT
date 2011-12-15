@@ -3,6 +3,8 @@ package com.chinarewards.elt.dao.org;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.NoResultException;
+
 import com.chinarewards.elt.common.BaseDao;
 import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.org.Department;
@@ -25,11 +27,16 @@ public class DepartmentDao extends BaseDao<Department> {
 	 */
 	public Department getRootDepartmentOfCorp(String corporationId) {
 		String name = ROOT_NAME + corporationId;
-		return (Department) getEm()
-				.createQuery(
-						"FROM Department dept WHERE dept.name = :name AND dept.corporation.id = :corpId")
-				.setParameter("name", name)
-				.setParameter("corpId", corporationId).getSingleResult();
+		try {
+			Department dept = (Department) getEm()
+					.createQuery(
+							"FROM Department dept WHERE dept.name = :name AND dept.corporation.id = :corpId")
+					.setParameter("name", name)
+					.setParameter("corpId", corporationId).getSingleResult();
+			return dept;
+		} catch (NoResultException e) {
+			return null;
+		}
 	}
 
 	public Department addRootDepartment(Corporation corp) {
@@ -54,11 +61,11 @@ public class DepartmentDao extends BaseDao<Department> {
 	 */
 	public void maintainIndexAfterAddNode(int index, String corpId) {
 		getEm().createQuery(
-				"UPDATE Departmen d SET d.lft = (d.lft+2) WHERE d.lft >= :index AND d.corporation.id =:corpId")
+				"UPDATE Department d SET d.lft = (d.lft+2) WHERE d.lft >= :index AND d.corporation.id =:corpId")
 				.setParameter("index", index).setParameter("corpId", corpId)
 				.executeUpdate();
 		getEm().createQuery(
-				"UPDATE Departmen d SET d.rgt = (d.rgt+2) WHERE d.rgt >= :index AND d.corporation.id =:corpId")
+				"UPDATE Department d SET d.rgt = (d.rgt+2) WHERE d.rgt >= :index AND d.corporation.id =:corpId")
 				.setParameter("index", index).setParameter("corpId", corpId)
 				.executeUpdate();
 	}
