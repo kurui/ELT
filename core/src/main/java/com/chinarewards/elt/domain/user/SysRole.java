@@ -4,6 +4,7 @@
 package com.chinarewards.elt.domain.user;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +12,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -38,6 +40,16 @@ public class SysRole implements Serializable {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "ROLENAME")
 	private UserRole name;
+
+	private Date createdAt;
+
+	private Date lastModifiedAt;
+
+	@ManyToOne
+	private SysUser createdBy;
+
+	@ManyToOne
+	private SysUser lastModifiedBy;
 
 	/**
 	 * @return the id
@@ -69,11 +81,35 @@ public class SysRole implements Serializable {
 		this.name = name;
 	}
 
-	/**
-	 * @return the serialversionuid
-	 */
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public Date getCreatedAt() {
+		return createdAt;
 	}
 
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public Date getLastModifiedAt() {
+		return lastModifiedAt;
+	}
+
+	public void setLastModifiedAt(Date lastModifiedAt) {
+		this.lastModifiedAt = lastModifiedAt;
+	}
+
+	public SysUser getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(SysUser createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public SysUser getLastModifiedBy() {
+		return lastModifiedBy;
+	}
+
+	public void setLastModifiedBy(SysUser lastModifiedBy) {
+		this.lastModifiedBy = lastModifiedBy;
+	}
 }

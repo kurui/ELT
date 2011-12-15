@@ -13,7 +13,6 @@ import com.chinarewards.elt.dao.org.DepartmentDao;
 import com.chinarewards.elt.dao.org.DeptIdResolverDao;
 import com.chinarewards.elt.dao.reward.RewardItemDao;
 import com.chinarewards.elt.dao.reward.RewardItemTypeDao;
-import com.chinarewards.elt.dao.user.SysUserDao;
 import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.reward.base.RewardItem;
 import com.chinarewards.elt.domain.reward.base.RewardItemType;
@@ -53,7 +52,6 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 	private final JudgeLogic judgeLogic;
 	private final RewardAclProcessorFactory rewardAclProcessorFactory;
 
-	private final SysUserDao sysUserDao;
 	private final DepartmentDao deptDao;
 	private final DeptIdResolverDao deptIdResolverDao;
 
@@ -62,8 +60,7 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 			RewardItemDao rewardItemDao, FrequencyLogic frequencyLogic,
 			CandidateRuleLogic candidateRuleLogic, JudgeLogic judgeLogic,
 			RewardAclProcessorFactory rewardAclProcessorFactory,
-			SysUserDao userDao, DepartmentDao deptDao,
-			DeptIdResolverDao deptIdResolverDao) {
+			DepartmentDao deptDao, DeptIdResolverDao deptIdResolverDao) {
 		this.rewardItemTypeDao = rewardItemTypeDao;
 		this.rewardItemDao = rewardItemDao;
 		this.frequencyLogic = frequencyLogic;
@@ -71,7 +68,6 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 		this.judgeLogic = judgeLogic;
 		this.rewardAclProcessorFactory = rewardAclProcessorFactory;
 
-		this.sysUserDao = userDao;
 		this.deptDao = deptDao;
 		this.deptIdResolverDao = deptIdResolverDao;
 	}
@@ -143,10 +139,8 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 	}
 
 	@Override
-	public RewardItem saveRewardItem(UserContext context, RewardItemParam param) {
+	public RewardItem saveRewardItem(SysUser caller, RewardItemParam param) {
 		logger.debug("Invoking method saveRewardItem(), parameter:{}", param);
-		SysUser caller = sysUserDao
-				.findById(SysUser.class, context.getUserId());
 		RewardItem itemObj = assembleRewardItemObject(caller, param);
 		if (StringUtil.isEmptyString(itemObj.getId())) {
 			// Create

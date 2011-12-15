@@ -1,13 +1,11 @@
 package com.chinarewards.gwt.elt.server.staff;
 
-
 import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.DispatchException;
 
 import org.slf4j.Logger;
 
 import com.chinarewards.elt.service.staff.IStaffService;
-import com.chinarewards.elt.service.user.IUserService;
 import com.chinarewards.gwt.elt.client.staff.HrRegisterRequest;
 import com.chinarewards.gwt.elt.client.staff.HrRegisterResponse;
 import com.chinarewards.gwt.elt.model.staff.StaffUserProcess;
@@ -28,13 +26,13 @@ public class HrRegisterActionHandler extends
 	Logger logger;
 
 	IStaffService staffService;
-	IUserService userService;
+
+	// IUserService userService;
 
 	@Inject
-	public HrRegisterActionHandler(IStaffService staffService,
-			IUserService userService) {
+	public HrRegisterActionHandler(IStaffService staffService) {
 		this.staffService = staffService;
-		this.userService = userService;
+		// this.userService = userService;
 	}
 
 	@Override
@@ -49,9 +47,9 @@ public class HrRegisterActionHandler extends
 		process.setPassword(request.getStaffvo().getPassword());
 		process.setTell(request.getStaffvo().getTell());
 
-		//hrResponse.setStaffId(staffService.createStaff(process));
-		
-		 hrResponse.setUserId(userService.createUser(process));
+		// hrResponse.setStaffId(staffService.createStaff(process));
+
+		// hrResponse.setUserId(userService.createUser(process));
 		return hrResponse;
 	}
 

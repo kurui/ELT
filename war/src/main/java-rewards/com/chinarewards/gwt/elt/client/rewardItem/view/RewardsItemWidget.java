@@ -123,6 +123,7 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 		startTime.setFormat(new DateBox.DefaultFormat(dateFormat));
 		endTime.setFormat(new DateBox.DefaultFormat(dateFormat));
 		nextRewardsTime.setFormat(new DateBox.DefaultFormat(dateFormat));
+		nextPublicTime.setFormat(new DateBox.DefaultFormat(dateFormat));
 		// settingText.setText("每1天一次");
 		periodPlan.setVisible(false);
 		onetimes.setChecked(true);

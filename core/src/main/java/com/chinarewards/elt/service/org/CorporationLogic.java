@@ -3,9 +3,9 @@ package com.chinarewards.elt.service.org;
 import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.Amount;
-import com.chinarewards.elt.model.common.Unit;
 import com.chinarewards.elt.model.org.CorporationVo;
 import com.chinarewards.elt.service.exception.GetMaxConsumeErrorException;
+import com.chinarewards.elt.tx.model.Unit;
 
 /**
  * The logic to do with {@link Corporation}
@@ -33,19 +33,17 @@ public interface CorporationLogic {
 	public Corporation findCorporationById(String id);
 
 	/**
-	 * Find the balance of the specified corporation about the specified unit
+	 * Find the balance of the specified corporation about the default unit
 	 * code.
 	 * 
 	 * @param corporationId
-	 * @param unitCode
 	 * @return
 	 */
-	public double callBalance(String corporationId, String unitCode);
+	public double callBalance(String corporationId);
 
 	/**
 	 * Get the default unit of the specified corporation.
 	 * 
-	 * @deprecated
 	 * @param corporationId
 	 */
 	public Unit getDefaultUnit(String corporationId);

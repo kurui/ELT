@@ -2,7 +2,9 @@ package com.chinarewards.elt.tx.service;
 
 import java.util.Date;
 
+import com.chinarewards.elt.tx.domain.Account;
 import com.chinarewards.elt.tx.domain.Transaction;
+import com.chinarewards.elt.tx.domain.TxUnit;
 import com.chinarewards.elt.tx.exception.DuplicateUnitCodeException;
 
 public interface TransactionLogic {
@@ -15,8 +17,10 @@ public interface TransactionLogic {
 
 	public double getBalance(String accountId, String unitCode);
 
-	public String createNewAccount();
+	public Account createNewAccount();
 
-	public String createNewUnit(String name, String unitCode, double rate)
+	public TxUnit createNewUnit(String name, String unitCode, double rate)
 			throws DuplicateUnitCodeException;
+
+	public TxUnit getTxUnitByCode(String code);
 }

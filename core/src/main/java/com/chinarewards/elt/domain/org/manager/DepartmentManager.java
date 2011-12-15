@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.chinarewards.elt.domain.org.Department;
-import com.chinarewards.elt.domain.staff.Staff;
+import com.chinarewards.elt.domain.org.Staff;
 
 /**
  * The manager of Department.

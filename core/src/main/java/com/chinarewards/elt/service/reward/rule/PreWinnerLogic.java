@@ -47,6 +47,24 @@ public interface PreWinnerLogic {
 			throws NoEffectivePreWinnerException;
 
 	/**
+	 * Get passed Pre-Winner Lot from the specified Reward.
+	 * 
+	 * @param rewardId
+	 * @return
+	 * @throws NoEffectivePreWinnerException
+	 */
+	public PreWinnerLot getPassedPreWinnerOfReward(String rewardId)
+			throws NoEffectivePreWinnerException;
+
+	/**
+	 * Get the list of PreWinner from lot id.
+	 * 
+	 * @param lotId
+	 * @return
+	 */
+	public List<PreWinner> getPreWinnerListFromLot(String lotId);
+
+	/**
 	 * Deny a Pre-Winner lot.
 	 * 
 	 * @param caller

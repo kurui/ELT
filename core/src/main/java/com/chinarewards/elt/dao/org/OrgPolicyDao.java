@@ -6,7 +6,7 @@ import javax.persistence.Query;
 import com.chinarewards.elt.common.BaseDao;
 import com.chinarewards.elt.domain.org.OrgPolicy;
 
-public class OrganizationPolicyDao extends BaseDao<OrgPolicy> {
+public class OrgPolicyDao extends BaseDao<OrgPolicy> {
 
 	/**
 	 * Find single record with matching owner organization ID and policy key.
@@ -20,7 +20,7 @@ public class OrganizationPolicyDao extends BaseDao<OrgPolicy> {
 			String policyKey) {
 
 		Query q = getEm().createQuery(
-				"FROM OrganizationPolicy WHERE owner.id = :orgId"
+				"FROM OrgPolicy WHERE owner.id = :orgId"
 						+ " AND key2 = :policyKey");
 		q.setParameter("orgId", orgId);
 		q.setParameter("policyKey", policyKey);

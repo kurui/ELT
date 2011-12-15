@@ -6,7 +6,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import com.chinarewards.elt.dao.org.CorporationDao;
-import com.chinarewards.elt.dao.user.SysUserDao;
+import com.chinarewards.elt.dao.user.UserDao;
 import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.user.UserContext;
@@ -87,7 +87,7 @@ public abstract class JPATestCase extends GuiceTestCase {
 		caller.setUserName("aa80064a4b4");
 		caller.setPassword("12345680064a4b480064a4b4");
 		caller.setCorporation(corporation);
-		SysUserDao dao = this.injector.getInstance(SysUserDao.class);
+		UserDao dao = this.injector.getInstance(UserDao.class);
 		dao.save(caller);
 
 		// prepare user context

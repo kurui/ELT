@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.chinarewards.elt.dao.org.StaffDao;
 import com.chinarewards.elt.dao.reward.CandidateDao;
 import com.chinarewards.elt.dao.reward.PreWinnerDao;
 import com.chinarewards.elt.dao.reward.PreWinnerLotDao;
 import com.chinarewards.elt.dao.reward.RewardDao;
-import com.chinarewards.elt.dao.staff.StaffDao;
+import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.domain.reward.base.Reward;
 import com.chinarewards.elt.domain.reward.person.Candidate;
 import com.chinarewards.elt.domain.reward.person.PreWinner;
 import com.chinarewards.elt.domain.reward.person.PreWinnerLot;
-import com.chinarewards.elt.domain.staff.Staff;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.reward.base.PreWinnerLotStatus;
 import com.chinarewards.elt.model.reward.exception.NoEffectivePreWinnerException;
@@ -126,6 +126,20 @@ public class PreWinnerLogicImpl implements PreWinnerLogic {
 	}
 
 	@Override
+	public PreWinnerLot getPassedPreWinnerOfReward(String rewardId)
+			throws NoEffectivePreWinnerException {
+		List<PreWinnerLotStatus> statusList = new ArrayList<PreWinnerLotStatus>();
+		statusList.add(PreWinnerLotStatus.PASS);
+		List<PreWinnerLot> lotList = preWinnerLotDao
+				.getPreWinnerLotsByRewardIdAndStatusList(rewardId, statusList);
+		if (lotList == null || lotList.isEmpty() || lotList.size() > 1) {
+			throw new NoEffectivePreWinnerException();
+		} else {
+			return lotList.get(0);
+		}
+	}
+
+	@Override
 	public void denyPreWinnerLot(SysUser caller, String lotId, String reason) {
 		Date now = DateUtil.getTime();
 		PreWinnerLot lot = preWinnerLotDao.findById(PreWinnerLot.class, lotId);
@@ -135,5 +149,10 @@ public class PreWinnerLogicImpl implements PreWinnerLogic {
 		lot.setLastModifiedBy(caller);
 
 		preWinnerLotDao.update(lot);
+	}
+
+	@Override
+	public List<PreWinner> getPreWinnerListFromLot(String lotId) {
+		return preWinnerDao.findPreWinnerByPreWinnerLotId(lotId);
 	}
 }

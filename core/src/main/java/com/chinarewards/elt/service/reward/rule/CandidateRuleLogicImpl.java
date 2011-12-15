@@ -14,6 +14,7 @@ import com.chinarewards.elt.dao.reward.RewardDao;
 import com.chinarewards.elt.dao.reward.RewardItemDao;
 import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.org.Organization;
+import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.domain.reward.base.Reward;
 import com.chinarewards.elt.domain.reward.base.RewardItem;
 import com.chinarewards.elt.domain.reward.frequency.Frequency;
@@ -21,7 +22,6 @@ import com.chinarewards.elt.domain.reward.rule.CandidateRule;
 import com.chinarewards.elt.domain.reward.rule.DirectCandidateData;
 import com.chinarewards.elt.domain.reward.rule.DirectCandidateRule;
 import com.chinarewards.elt.domain.reward.rule.DobRule;
-import com.chinarewards.elt.domain.staff.Staff;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.DateRangeModel;
 import com.chinarewards.elt.service.reward.frequency.FrequencyLogic;
@@ -197,7 +197,9 @@ public class CandidateRuleLogicImpl implements CandidateRuleLogic {
 	private Set<Staff> getQualifiedStaffsFromDirectCandidateRule(
 			DirectCandidateRule candidateRule) {
 		Set<Staff> staffs = new HashSet<Staff>();
-		List<DirectCandidateData> list = candidateRule.getCandidateDataList();
+		List<DirectCandidateData> list = directCandidateDataDao
+				.findDirectCandidateDataListByDirectRuleId(candidateRule
+						.getId());
 		for (DirectCandidateData data : list) {
 			if (data.getOrg() instanceof Department) {
 				staffs.addAll(staffLogic.getStaffsFromDeptId(data.getOrg()

@@ -11,22 +11,18 @@
 //
 //import com.chinarewards.elt.dao.org.DepartmentDao;
 //import com.chinarewards.elt.dao.org.IndustryDao;
-//import com.chinarewards.elt.dao.org.OrganizationPolicyDao;
+//import com.chinarewards.elt.dao.org.OrgPolicyDao;
 //import com.chinarewards.elt.dao.reward.CandidateRuleDao;
 //import com.chinarewards.elt.dao.reward.RewardItemDao;
-//import com.chinarewards.elt.dao.user.SysUserDao;
 //import com.chinarewards.elt.domain.org.Corporation;
 //import com.chinarewards.elt.domain.org.Department;
 //import com.chinarewards.elt.domain.org.Industry;
-//import com.chinarewards.elt.domain.org.OrganizationPolicy;
-//import com.chinarewards.elt.domain.org.StaffLevel;
+//import com.chinarewards.elt.domain.org.Staff;
 //import com.chinarewards.elt.domain.reward.base.Reward;
 //import com.chinarewards.elt.domain.reward.base.RewardItem;
-//import com.chinarewards.elt.domain.reward.person.Candidate;
 //import com.chinarewards.elt.domain.reward.person.Nominee;
 //import com.chinarewards.elt.domain.reward.person.PreWinnerLot;
 //import com.chinarewards.elt.domain.reward.rule.DobRule;
-//import com.chinarewards.elt.domain.staff.Staff;
 //import com.chinarewards.elt.domain.user.SysUser;
 //import com.chinarewards.elt.model.common.PageStore;
 //import com.chinarewards.elt.model.org.DepartmentPolicyConstants;
@@ -57,12 +53,6 @@
 //import com.chinarewards.elt.tx.service.TransactionService;
 //import com.chinarewards.elt.util.DateUtil;
 //
-///**
-// * FIXME test frequency
-// * 
-// * @author Cream
-// * @since 0.2.0 2010-12-16
-// */
 //public class RewardsLogicTest extends JPATestCase {
 //
 //	// 不需要审核直接成功
@@ -77,8 +67,8 @@
 //				.getInstance(DepartmentDao.class);
 //		CandidateRuleDao rewardsItemRuleDao = this.injector
 //				.getInstance(CandidateRuleDao.class);
-//		OrganizationPolicyDao policyDao = injector
-//				.getInstance(OrganizationPolicyDao.class);
+//		OrgPolicyDao policyDao = injector
+//				.getInstance(OrgPolicyDao.class);
 //		SysUserDao userDao = injector.getInstance(SysUserDao.class);
 //
 //		RewardItem item = prepareRewardItem();
@@ -357,8 +347,8 @@
 //		assertNotNull(rewardsLogic);
 //		DepartmentDao departmentDao = this.injector
 //				.getInstance(DepartmentDao.class);
-//		OrganizationPolicyDao policyDao = injector
-//				.getInstance(OrganizationPolicyDao.class);
+//		OrgPolicyDao policyDao = injector
+//				.getInstance(OrgPolicyDao.class);
 //		GeneratorRewardsModel rewardsModel = prepareGeneratorRewardsModel();
 //		// 设置为不需审核
 //		String rewardsItemId = rewardsModel.getRewardsParameter()

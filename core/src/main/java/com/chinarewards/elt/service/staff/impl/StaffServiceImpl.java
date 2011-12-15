@@ -1,7 +1,7 @@
 package com.chinarewards.elt.service.staff.impl;
 
-import com.chinarewards.elt.dao.staff.StaffDao;
-import com.chinarewards.elt.domain.staff.Staff;
+import com.chinarewards.elt.dao.org.StaffDao;
+import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.service.staff.IStaffService;
 import com.chinarewards.gwt.elt.model.staff.StaffUserProcess;
 import com.google.inject.Inject;

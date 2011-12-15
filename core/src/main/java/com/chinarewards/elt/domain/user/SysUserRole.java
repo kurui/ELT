@@ -4,6 +4,7 @@
 package com.chinarewards.elt.domain.user;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -37,6 +38,16 @@ public class SysUserRole implements Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	private SysUser user;
+
+	private Date createdAt;
+
+	private Date lastModifiedAt;
+
+	@ManyToOne
+	private SysUser createdBy;
+
+	@ManyToOne
+	private SysUser lastModifiedBy;
 
 	/**
 	 * @return the id
@@ -83,4 +94,35 @@ public class SysUserRole implements Serializable {
 		this.user = user;
 	}
 
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public Date getLastModifiedAt() {
+		return lastModifiedAt;
+	}
+
+	public void setLastModifiedAt(Date lastModifiedAt) {
+		this.lastModifiedAt = lastModifiedAt;
+	}
+
+	public SysUser getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(SysUser createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public SysUser getLastModifiedBy() {
+		return lastModifiedBy;
+	}
+
+	public void setLastModifiedBy(SysUser lastModifiedBy) {
+		this.lastModifiedBy = lastModifiedBy;
+	}
 }

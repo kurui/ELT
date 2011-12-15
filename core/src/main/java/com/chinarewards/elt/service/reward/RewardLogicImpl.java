@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import com.chinarewards.elt.dao.org.DepartmentDao;
 import com.chinarewards.elt.dao.reward.RewardDao;
 import com.chinarewards.elt.dao.reward.RewardItemDao;
-import com.chinarewards.elt.dao.user.SysUserDao;
+import com.chinarewards.elt.dao.user.UserDao;
 import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.reward.base.Reward;
 import com.chinarewards.elt.domain.reward.base.RewardItem;
@@ -55,7 +55,7 @@ public class RewardLogicImpl implements RewardLogic ,RewardService{
 	private final RewardDao rewardDao;
 	private final RewardItemDao rewardItemDao;
 	private final DepartmentDao deptDao;
-	private final SysUserDao sysUserDao;
+	private final UserDao sysUserDao;
 	private final CandidateLogic candidateLogic;
 	private final CandidateRuleLogic candidateRuleLogic;
 	private final JudgeLogic judgeLogic;
@@ -66,7 +66,7 @@ public class RewardLogicImpl implements RewardLogic ,RewardService{
 
 	@Inject
 	public RewardLogicImpl(RewardDao rewardDao, RewardItemDao rewardItemDao,
-			DepartmentDao deptDao, SysUserDao sysUserDao,
+			DepartmentDao deptDao, UserDao sysUserDao,
 			CandidateLogic candidateLogic,
 			CandidateRuleLogic candidateRuleLogic, JudgeLogic judgeLogic,
 			PreWinnerLogic preWinnerLogic, WinnerLogic winnerLogic,

@@ -5,7 +5,6 @@ import java.util.List;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
-import com.chinarewards.elt.model.rewards.RewardsStatus;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsResponse;

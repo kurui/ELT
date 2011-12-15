@@ -3,6 +3,9 @@ package com.chinarewards.elt.service.reward.rule;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.chinarewards.elt.dao.reward.PreWinnerDao;
 import com.chinarewards.elt.dao.reward.PreWinnerLotDao;
 import com.chinarewards.elt.dao.reward.RewardDao;
@@ -12,7 +15,7 @@ import com.chinarewards.elt.domain.reward.person.PreWinnerLot;
 import com.chinarewards.elt.domain.reward.person.Winner;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.reward.base.PreWinnerLotStatus;
-import com.chinarewards.elt.model.rewards.WinnerProcessFlag;
+import com.chinarewards.elt.model.reward.base.WinnerProcessFlag;
 import com.chinarewards.elt.tx.exception.BalanceLackException;
 import com.chinarewards.elt.tx.service.TransactionService;
 import com.chinarewards.elt.util.DateUtil;
@@ -31,6 +34,8 @@ public class WinnerLogicImpl implements WinnerLogic {
 	WinnerDao winnerDao;
 	RewardDao rewardDao;
 	TransactionService transactionService;
+
+	Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Inject
 	public WinnerLogicImpl(PreWinnerLotDao preWinnerLotDao,
@@ -51,6 +56,7 @@ public class WinnerLogicImpl implements WinnerLogic {
 		List<PreWinner> preWinners = preWinnerDao
 				.findPreWinnerByPreWinnerLotId(lotId);
 		for (PreWinner preWinner : preWinners) {
+			logger.debug("xxxxxxxxx--------={}", preWinner.getStaff());
 			Winner winner = new Winner();
 			winner.setPreWinner(preWinner);
 			winner.setReward(lot.getReward());
@@ -83,6 +89,7 @@ public class WinnerLogicImpl implements WinnerLogic {
 				.findCorporationTxIdByRewardId(rewardId);
 		for (Winner w : untreatedWinners) {
 			String toAccountId = w.getStaff().getTxAccountId();
+			logger.debug("toAccountId={}", w.getStaff().getTxAccountId());
 			String unitCode = w.getUnit().toString();
 			double amt = w.getAmt();
 			try {
@@ -96,6 +103,11 @@ public class WinnerLogicImpl implements WinnerLogic {
 				winnerDao.update(w);
 			}
 		}
+	}
+
+	@Override
+	public List<Winner> getWinnersOfReward(String rewardId) {
+		return winnerDao.findWinnersByRewardId(rewardId);
 	}
 
 }

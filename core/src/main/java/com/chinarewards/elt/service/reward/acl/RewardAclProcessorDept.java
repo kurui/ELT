@@ -11,7 +11,7 @@ import com.chinarewards.elt.dao.org.DepartmentManagerDao;
 import com.chinarewards.elt.dao.org.DeptIdResolverDao;
 import com.chinarewards.elt.dao.reward.RewardDao;
 import com.chinarewards.elt.dao.reward.RewardItemDao;
-import com.chinarewards.elt.dao.user.SysUserDao;
+import com.chinarewards.elt.dao.user.UserDao;
 import com.chinarewards.elt.domain.reward.base.Reward;
 import com.chinarewards.elt.domain.reward.base.RewardItem;
 import com.chinarewards.elt.domain.user.SysUser;
@@ -25,13 +25,13 @@ import com.google.inject.Inject;
 
 public class RewardAclProcessorDept extends AbstractRewardAclProcessor {
 	private final RewardDao rewardsDao;
-	private final SysUserDao userDao;
+	private final UserDao userDao;
 	private final RewardItemDao rewardsItemDao;
 	private final DepartmentManagerDao deptMgrDao;
 	private final DeptIdResolverDao deptIdDao;
 
 	@Inject
-	public RewardAclProcessorDept(RewardDao rewardsDao, SysUserDao userDao,
+	public RewardAclProcessorDept(RewardDao rewardsDao, UserDao userDao,
 			RewardItemDao rewardsItemDao, DepartmentManagerDao deptMgrDao,
 			DeptIdResolverDao deptIdDao) {
 		this.rewardsDao = rewardsDao;

@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import com.chinarewards.elt.dao.org.CorporationDao;
 import com.chinarewards.elt.dao.org.DepartmentDao;
-import com.chinarewards.elt.dao.org.OrganizationPolicyDao;
+import com.chinarewards.elt.dao.org.OrgPolicyDao;
 import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.org.OrgPolicy;
@@ -32,16 +32,21 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 
 	Logger logger = LoggerFactory.getLogger(getClass());
 
-	OrganizationPolicyDao organizationPolicyDao;
+	OrgPolicyDao organizationPolicyDao;
 	DepartmentDao deptDao;
 	CorporationDao corporationDao;
 
 	@Inject
-	public DepartmentLogicImpl(OrganizationPolicyDao organizationPolicyDao,
+	public DepartmentLogicImpl(OrgPolicyDao organizationPolicyDao,
 			DepartmentDao deptDao, CorporationDao corporationDao) {
 		this.organizationPolicyDao = organizationPolicyDao;
 		this.deptDao = deptDao;
 		this.corporationDao = corporationDao;
+	}
+
+	@Override
+	public Department findDepartmentById(String id) {
+		return deptDao.findById(Department.class, id);
 	}
 
 	@Override
@@ -86,6 +91,9 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 		}
 
 		int index = parent.getRgt();
+		// maintain index
+		deptDao.maintainIndexAfterAddNode(index, corporation.getId());
+
 		Date now = DateUtil.getTime();
 		Department dept = new Department();
 		dept.setName(department.getName());
@@ -99,9 +107,6 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 		dept.setLastModifiedAt(now);
 		dept.setLastModifiedBy(caller);
 		deptDao.save(dept);
-
-		// maintain index
-		deptDao.maintainIndexAfterAddNode(index, corporation.getId());
 
 		return dept;
 	}

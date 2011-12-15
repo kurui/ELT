@@ -45,6 +45,14 @@ public interface JudgeLogic {
 	 */
 	public List<Judge> findJudgesFromReward(String rewardId);
 	/**
+	 * Find list of Judge from the specified Reward.
+	 * 
+	 * @param rewarId
+	 * @return
+	 */
+	public List<Judge> findJudgesFromReward(String rewardId);
+
+	/**
 	 * Clone list of Judge from the specified RewardItem to Reward.
 	 * 
 	 * @param caller

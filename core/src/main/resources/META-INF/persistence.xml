@@ -20,9 +20,7 @@
 		<class>com.chinarewards.elt.domain.org.manager.DepartmentManager</class>
 		<class>com.chinarewards.elt.domain.org.Industry</class>
 		<class>com.chinarewards.elt.domain.org.OrgPolicy</class>
-
-		<!-- staff -->
-		<class>com.chinarewards.elt.domain.staff.Staff</class>
+		<class>com.chinarewards.elt.domain.org.Staff</class>
 
 		<!-- reward -->
 		<class>com.chinarewards.elt.domain.reward.base.Reward</class>

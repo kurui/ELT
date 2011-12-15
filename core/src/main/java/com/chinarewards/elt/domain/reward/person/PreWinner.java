@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.chinarewards.elt.domain.staff.Staff;
+import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.transaction.TransactionUnit;
 
@@ -38,6 +38,7 @@ public class PreWinner implements Serializable {
 	/**
 	 * Owns to which lot
 	 */
+	@ManyToOne
 	private PreWinnerLot preWinnerLot;
 
 	/**

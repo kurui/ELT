@@ -3,7 +3,7 @@
  */
 package com.chinarewards.elt.guice.sub;
 
-import com.chinarewards.elt.dao.staff.StaffDao;
+import com.chinarewards.elt.dao.org.StaffDao;
 import com.chinarewards.elt.service.staff.IStaffService;
 import com.chinarewards.elt.service.staff.StaffLogic;
 import com.chinarewards.elt.service.staff.impl.StaffLogicImpl;
