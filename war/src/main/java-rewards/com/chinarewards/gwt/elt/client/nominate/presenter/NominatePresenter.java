@@ -30,7 +30,7 @@ public interface NominatePresenter extends Presenter<NominatePresenter.NominateD
 		public void setExpectNominateDate(String expectNominateDate);
 		public void setNominateStaff(String nominateStaff);
 		public void setAwardName(String awardName);
-
+		public void setAwardAmt(String awardAmt);
 		
 		public List<String> getCandidateList();
 	}

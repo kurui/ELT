@@ -90,14 +90,15 @@ public class NominatePresenterImpl extends
 						display.setCondition(response.getStandard());
 						display.setIntegral(response.getTotalAmtLimit()+"");
 						display.setRecordName(response.getCreatedStaffName());
-						display.setNumber(response.getAwardAmt()+"");
+						display.setNumber(response.getHeadcountLimit()+"");
+						display.setAwardAmt(response.getAwardAmt()+"");
 						display.setJudge(response.getJudgeList());
 						display.setCandidate(response.getCandidateList());
 						display.setAwardNature(response.getAwardMode());
 						display.setBegindate(response.getCreatedAt()+"");
 						display.setAwarddate(response.getExpectAwardDate()+"");
 						display.setNominateMessage("提名信息");//wating.........
-						display.setNominateStaff("当前用户");
+						display.setNominateStaff("当前用户是谁");
 						display.setExpectNominateDate(response.getExpectNominateDate()+"");
 						display.setAwardName(response.getAwardingStaffName());
 						

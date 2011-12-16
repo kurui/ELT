@@ -1,6 +1,7 @@
 package com.chinarewards.gwt.elt.server.nominate;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import net.customware.gwt.dispatch.server.ExecutionContext;
@@ -43,9 +44,9 @@ public class NominateActionHandler extends
 	public NominateInitResponse execute(NominateInitRequest request,
 			ExecutionContext response) throws DispatchException {
 		// 获取信息
-		RewardQueryVo rewardQueryVo = rewardService
-				.fetchEntireRewardQueryVoById(request.getAwardsId());
-
+	//	RewardQueryVo rewardQueryVo = rewardService.fetchEntireRewardQueryVoById(request.getAwardsId());
+		RewardQueryVo rewardQueryVo =getTestData();
+		
 		NominateInitResponse Nomresponse = new NominateInitResponse();
 
 		Nomresponse.setRewardId(rewardQueryVo.getRewardId());
@@ -111,6 +112,51 @@ public class NominateActionHandler extends
 	public void rollback(NominateInitRequest request,
 			NominateInitResponse response, ExecutionContext context)
 			throws DispatchException {
+	}
+	
+	
+	private RewardQueryVo getTestData(){
+		RewardQueryVo rewardQueryVo=new RewardQueryVo();
+		rewardQueryVo.setRewardId("奖励ID");
+		rewardQueryVo.setRewardName("奖励名称2011年12月16日 13:35:58");
+		rewardQueryVo.setRewardItemName("奖项名称2011年12月16日 13:36:13");
+		rewardQueryVo.setDefinition("为激励ELT产品开发团队，提高产品开发效率，设立这个奖项2011年12月16日 14:09:25");
+		rewardQueryVo.setStandard("12月23日前完成1.5版本所有功能并正式上线2011年12月16日 14:09:29");
+		rewardQueryVo.setHeadcountLimit(8);
+		rewardQueryVo.setTotalAmtLimit(8000);
+		rewardQueryVo.setAwardAmt(1000);
+		rewardQueryVo.setCreatedAt(new Date());
+		rewardQueryVo.setExpectAwardDate(new Date());
+		rewardQueryVo.setExpectNominateDate(new Date());
+		rewardQueryVo.setCreatedStaffName("创建人是谁");
+		rewardQueryVo.setAwardMode("奖励类型:自动奖,一次性.");//wanting......
+		rewardQueryVo.setAwardingStaffName("颁奖者是谁");//wanting.......same CreateStaff
+		
+		List<CandidateParam> candidateListParam=new ArrayList<CandidateParam>();
+		for (int i = 0; i < 5; i++) {
+		
+			CandidateParam candparam=new CandidateParam();
+			candparam.setId(i+"");
+			candparam.setName("被提名者"+i+"号");
+			candparam.setNominateCount(i+1);
+			candidateListParam.add(candparam);
+		}
+		//设置被提名人
+		rewardQueryVo.setCandidateList(candidateListParam);
+		
+		
+		List<JudgeParam> JudgeListParam=new ArrayList<JudgeParam>();
+		for (int i = 0; i < 3; i++) {
+			JudgeParam judgeParam=new JudgeParam();
+			judgeParam.setId(i+"");
+			judgeParam.setName("提名者"+i+"号");
+			judgeParam.setIsNominate("NONE");
+			JudgeListParam.add(judgeParam);
+		}
+		
+		//设置提名人
+		rewardQueryVo.setJudgeList(JudgeListParam);
+		return rewardQueryVo;
 	}
 
 }

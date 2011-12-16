@@ -15,6 +15,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -34,7 +35,7 @@ public class NominateWidget extends Composite implements NominateDisplay {
 	@UiField
 	Label recordName;
 	@UiField
-	Label number;
+	InlineLabel number;
 	@UiField
 	VerticalPanel judge;
 	@UiField
@@ -48,13 +49,14 @@ public class NominateWidget extends Composite implements NominateDisplay {
 	@UiField
 	Label awardName;
 	@UiField
-	Label nominateMessage;
+	InlineLabel nominateMessage;
 
 	@UiField
-	Label expectNominateDate;
+	InlineLabel expectNominateDate;
 	@UiField
-	Label nominateStaff;
-	
+	InlineLabel nominateStaff;
+	@UiField
+	InlineLabel awardAmt;
 	private static HrRegisterWidgetUiBinder uiBinder = GWT
 			.create(HrRegisterWidgetUiBinder.class);
 
@@ -105,7 +107,11 @@ public class NominateWidget extends Composite implements NominateDisplay {
 		this.number.setText(number);
 
 	}
+	@Override
+	public void setAwardAmt(String awardAmt) {
+		this.awardAmt.setText(awardAmt);
 
+	}
 	@Override
 	public void setJudge(List<JudgeParamVo> judge) {
 		HTML nominatelab = new HTML("显示提名人");

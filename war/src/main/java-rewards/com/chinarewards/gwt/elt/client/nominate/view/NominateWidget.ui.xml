@@ -10,6 +10,7 @@
 	<ui:image field="post_bg" resource="post_bg.jpg" repeatStyle="Horizontal"></ui:image>
 	<ui:style src="rewardsItem.css" field="item"></ui:style>
 	<g:HTMLPanel>
+
 		<!-- 1内容 -->
 		<div class="{item.detail-content}">
 			<!-- 2基本设置 -->
@@ -55,15 +56,17 @@
 					<tr>
 						<td valign="top" class="{item.title}">提名奖项：</td>
 
-						<td class="" colspan="3">
-
+						<td colspan="3">
 							项目奖，共
-							<g:Label text="5" ui:field="number" />
-							名，每人奖励 1000 积分
-
+							<g:InlineLabel text="5" ui:field="number"  />
+							名，每人奖励
+							<g:InlineLabel text="5" ui:field="awardAmt" />
+							积分
 						</td>
 
 					</tr>
+
+
 					<tr>
 						<td valign="top" class="{item.title}">创建人：</td>
 
@@ -125,11 +128,11 @@
 
 						<td class="" colspan="3">
 
-							<g:Label text="领导提名" ui:field="nominateMessage" />
+							<g:InlineLabel text="领导提名" ui:field="nominateMessage" />
 							提名时间:
-							<g:Label text="2011-12-28" ui:field="expectNominateDate" />
+							<g:InlineLabel text="2011-12-28" ui:field="expectNominateDate" />
 							提名人：
-							<g:Label text="Lueng; Anthony" ui:field="nominateStaff" />
+							<g:InlineLabel text="Lueng; Anthony" ui:field="nominateStaff" />
 
 
 						</td>
