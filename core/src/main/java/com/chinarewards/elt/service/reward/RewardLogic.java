@@ -1,5 +1,6 @@
 package com.chinarewards.elt.service.reward;
 
+import java.util.Date;
 import java.util.List;
 
 import com.chinarewards.elt.domain.reward.base.Reward;
@@ -7,10 +8,14 @@ import com.chinarewards.elt.domain.reward.person.NomineeLot;
 import com.chinarewards.elt.domain.reward.person.PreWinner;
 import com.chinarewards.elt.domain.reward.person.Winner;
 import com.chinarewards.elt.domain.user.SysUser;
+import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.reward.base.RewardParam;
 import com.chinarewards.elt.model.reward.exception.ApproveRewardException;
 import com.chinarewards.elt.model.reward.exception.DenyRewardException;
 import com.chinarewards.elt.model.reward.exception.NominateRewardException;
+import com.chinarewards.elt.model.reward.search.RewardQueryVo;
+import com.chinarewards.elt.model.reward.search.RewardSearchVo;
+import com.chinarewards.elt.model.reward.vo.RewardVo;
 import com.chinarewards.elt.model.user.UserContext;
 
 /**
@@ -39,9 +44,11 @@ public interface RewardLogic {
 	 * 
 	 * @param caller
 	 * @param rewardItemId
+	 * @param currTime
 	 * @return
 	 */
-	public Reward awardFromRewardItem(SysUser caller, String rewardItemId);
+	public Reward awardFromRewardItem(SysUser caller, String rewardItemId,
+			Date currTime);
 
 	/**
 	 * The caller nominate someone to be nominees. The result is result a record
@@ -88,6 +95,32 @@ public interface RewardLogic {
 	 */
 	public Reward denyReward(SysUser caller, String rewardId, String reason)
 			throws DenyRewardException;
-	
 
+	/**
+	 * Fetch the entire information about the specified Reward. It contains all
+	 * the external informations.
+	 * 
+	 * @param rewardItemId
+	 * @return
+	 */
+	public RewardVo fetchEntireRewardById(String rewardId);
+
+	/**
+	 * Fetch the entire information about the specified Reward. It contains all
+	 * the external informations.
+	 * 
+	 * @param rewardId
+	 * @return
+	 */
+	public RewardQueryVo fetchEntireRewardQueryVoById(String rewardId);
+
+	/**
+	 * Obtain the list of {@link RewardVo} managed by the login user.
+	 * 
+	 * @param context
+	 * @param criteria
+	 * @return
+	 */
+	public PageStore<RewardVo> fetchRewards(UserContext context,
+			RewardSearchVo criteria);
 }

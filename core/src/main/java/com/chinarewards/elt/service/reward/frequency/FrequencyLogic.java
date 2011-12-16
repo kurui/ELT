@@ -51,4 +51,24 @@ public interface FrequencyLogic {
 	 */
 	public DateRangeModel calDateRangeFromFrequency(Frequency frequency,
 			Date currTime);
+
+	/**
+	 * Calculate the reward name from the frequency and the specified name.
+	 * 
+	 * @param name
+	 * @param frequency
+	 * @param currTime
+	 * @return
+	 */
+	public String calRewardNameFromFrequency(String name, Frequency frequency,
+			Date currTime);
+
+	/**
+	 * Calculate next award time.
+	 * 
+	 * @param frequency
+	 * @param lastRunTime
+	 * @return
+	 */
+	public Date calNextAwardTime(Frequency frequency, Date lastRunTime);
 }

@@ -17,4 +17,11 @@ public class CandidateRuleDao extends BaseDao<CandidateRule> {
 						"SELECT ri.candidateRule FROM RewardItem ri WHERE ri.id=:rewardItemId ")
 				.setParameter("rewardItemId", rewardItemId).getSingleResult();
 	}
+
+	public CandidateRule findCandidateRuleByRewardId(String rewardId) {
+		return (CandidateRule) getEm()
+				.createQuery(
+						"SELECT r.candidateRule FROM Reward r WHERE r.id=:rewardId ")
+				.setParameter("rewardId", rewardId).getSingleResult();
+	}
 }

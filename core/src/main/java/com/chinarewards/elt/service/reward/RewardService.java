@@ -7,12 +7,10 @@ import com.chinarewards.elt.domain.reward.person.NomineeLot;
 import com.chinarewards.elt.domain.reward.person.PreWinner;
 import com.chinarewards.elt.domain.reward.person.Winner;
 import com.chinarewards.elt.domain.user.SysUser;
-import com.chinarewards.elt.model.reward.base.RewardParam;
 import com.chinarewards.elt.model.reward.exception.ApproveRewardException;
 import com.chinarewards.elt.model.reward.exception.DenyRewardException;
 import com.chinarewards.elt.model.reward.exception.NominateRewardException;
 import com.chinarewards.elt.model.reward.search.RewardQueryVo;
-import com.chinarewards.elt.model.user.UserContext;
 
 /**
  * The interface is to provide Reward services. Some useful methods should be
@@ -22,19 +20,6 @@ import com.chinarewards.elt.model.user.UserContext;
  * @since 1.0
  */
 public interface RewardService {
-
-	/**
-	 * Save Reward information by hand. The {@link RewardParam} come from the
-	 * manual choose.
-	 * 
-	 * @param context
-	 * @param param
-	 * @return
-	 * @deprecated Maybe this method do not need any more. Because all of Reward
-	 *             would be from RewardItem and Reward can not change after it
-	 *             is generated.
-	 */
-	public Reward awardByHand(UserContext context, RewardParam param);
 
 	/**
 	 * Generate Reward from the specified RewardItem.
@@ -83,8 +68,7 @@ public interface RewardService {
 	 */
 	public Reward denyReward(SysUser caller, String rewardId, String reason)
 			throws DenyRewardException;
-	
-	
+
 	/**
 	 * Fetch the entire information about the specified Reward. It contains all
 	 * the external informations.

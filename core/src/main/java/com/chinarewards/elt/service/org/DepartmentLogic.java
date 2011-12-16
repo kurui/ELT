@@ -79,9 +79,24 @@ public interface DepartmentLogic {
 	 * departments and the every sub nodes.
 	 * 
 	 * @param deptId
+	 * @param containItSelf
+	 *            true - contain itself <br>
+	 *            false - contain no itself
 	 * @return
 	 */
-	public List<Department> getWholeChildren(String deptId);
+	public List<Department> getWholeChildren(String deptId,
+			boolean containItSelf);
+
+	/**
+	 * Get the whole children id.
+	 * 
+	 * More detail see {@link #getWholeChildren(String, boolean)}
+	 * 
+	 * @param deptId
+	 * @param containItSelf
+	 * @return
+	 */
+	public List<String> getWholeChildrenIds(String deptId, boolean containItSelf);
 
 	/**
 	 * Get immediacy departments of the specified corporation. e.g. a

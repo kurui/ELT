@@ -15,7 +15,7 @@ import com.google.inject.Singleton;
  * Staff module.
  * 
  * @author yanxin
- * @since 0.0.1
+ * @since 1.0
  */
 public class StaffModule extends AbstractModule {
 

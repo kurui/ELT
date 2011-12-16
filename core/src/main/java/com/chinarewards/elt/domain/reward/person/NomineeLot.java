@@ -2,11 +2,13 @@ package com.chinarewards.elt.domain.reward.person;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -40,6 +42,9 @@ public class NomineeLot implements Serializable {
 	@ManyToOne
 	private Judge judge;
 
+	@Transient
+	private List<Nominee> nominees;
+
 	private Date createdAt;
 
 	private Date lastModifiedAt;
@@ -72,6 +77,14 @@ public class NomineeLot implements Serializable {
 
 	public void setJudge(Judge judge) {
 		this.judge = judge;
+	}
+
+	public List<Nominee> getNominees() {
+		return nominees;
+	}
+
+	public void setNominees(List<Nominee> nominees) {
+		this.nominees = nominees;
 	}
 
 	public Date getCreatedAt() {

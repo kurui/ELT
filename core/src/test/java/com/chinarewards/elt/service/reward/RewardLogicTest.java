@@ -1,5 +1,6 @@
 package com.chinarewards.elt.service.reward;
 
+import java.util.Date;
 import java.util.List;
 
 import com.chinarewards.elt.domain.org.Corporation;
@@ -26,6 +27,7 @@ import com.chinarewards.elt.service.reward.rule.JudgeLogic;
 import com.chinarewards.elt.service.reward.rule.PreWinnerLogic;
 import com.chinarewards.elt.service.reward.rule.WinnerLogic;
 import com.chinarewards.elt.service.staff.StaffLogic;
+import com.chinarewards.elt.util.DateUtil;
 
 /**
  * The test case of {@link RewardLogic}
@@ -45,8 +47,9 @@ public class RewardLogicTest extends JPATestCase {
 		RewardItem noneItem = RewardItemHelper.getDefaultRewardItem(injector);
 		// prepare default caller
 		SysUser caller = UserHelper.getDefaultUser(injector);
+		Date now = DateUtil.getTime();
 		Reward reward = rewardLogic.awardFromRewardItem(caller,
-				noneItem.getId());
+				noneItem.getId(), now);
 		// check reward
 		assertNotNull(reward.getId());
 		assertEquals(RewardStatus.NEW, reward.getStatus());
@@ -62,14 +65,14 @@ public class RewardLogicTest extends JPATestCase {
 	public void testAward_needNominate() {
 		RewardLogic rewardLogic = injector.getInstance(RewardLogic.class);
 		JudgeLogic judgeLogic = injector.getInstance(JudgeLogic.class);
-
+		Date now = DateUtil.getTime();
 		RewardItem nominateItem = RewardItemHelper
 				.getDefaultNominateRewardItem(injector);
 		assertNotNull(nominateItem);
 		// prepare default caller
 		SysUser caller = UserHelper.getDefaultUser(injector);
 		Reward reward = rewardLogic.awardFromRewardItem(caller,
-				nominateItem.getId());
+				nominateItem.getId(), now);
 		// check reward
 		assertNotNull(reward.getId());
 		assertEquals(RewardStatus.PENDING_NOMINATE, reward.getStatus());
@@ -95,14 +98,14 @@ public class RewardLogicTest extends JPATestCase {
 		StaffLogic staffLogic = injector.getInstance(StaffLogic.class);
 		CorporationLogic corporationLogic = injector
 				.getInstance(CorporationLogic.class);
-
+		Date now = DateUtil.getTime();
 		RewardItem autoAwardItem = RewardItemHelper
 				.getDefaultAutoAwardRewardItem(injector, RequireApproval.None);
 		assertNotNull(autoAwardItem);
 		// prepare default caller
 		SysUser caller = UserHelper.getDefaultUser(injector);
 		Reward reward = rewardLogic.awardFromRewardItem(caller,
-				autoAwardItem.getId());
+				autoAwardItem.getId(), now);
 		// check reward
 		assertNotNull(reward.getId());
 		assertEquals(RewardStatus.REWARDED, reward.getStatus());

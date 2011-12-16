@@ -10,7 +10,6 @@ import java.util.Set;
 import javax.persistence.Query;
 
 import com.chinarewards.elt.common.BaseDao;
-import com.chinarewards.elt.dao.org.DeptIdResolverDao;
 import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.org.Organization;
@@ -20,6 +19,7 @@ import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.reward.base.PreWinnerLotStatus;
 import com.chinarewards.elt.model.reward.base.RewardStatus;
 import com.chinarewards.elt.model.reward.search.RewardSearchVo;
+import com.chinarewards.elt.service.org.DepartmentLogic;
 import com.chinarewards.elt.util.StringUtil;
 import com.google.inject.Inject;
 
@@ -31,11 +31,14 @@ import com.google.inject.Inject;
  */
 public class RewardDao extends BaseDao<Reward> {
 
-	DeptIdResolverDao deptIdDao;
+	/**
+	 * XXX here appear logic, it is strange!
+	 */
+	DepartmentLogic departmentLogic;
 
 	@Inject
-	public RewardDao(DeptIdResolverDao deptIdDao) {
-		this.deptIdDao = deptIdDao;
+	public RewardDao(DepartmentLogic departmentLogic) {
+		this.departmentLogic = departmentLogic;
 	}
 
 	/**
@@ -56,7 +59,7 @@ public class RewardDao extends BaseDao<Reward> {
 		// 是否查某部门所有子部门下的数据
 		if (!StringUtil.isEmptyString(criteria.getBuilderDeptId())
 				&& criteria.isSubDepartmentChosen()) {
-			Set<String> childrenIds = deptIdDao.findSiblingIds(
+			List<String> childrenIds = departmentLogic.getWholeChildrenIds(
 					criteria.getBuilderDeptId(), true);
 			criteria.setDeptIds(new ArrayList<String>(childrenIds));
 		}
@@ -73,7 +76,7 @@ public class RewardDao extends BaseDao<Reward> {
 		// 是否查某部门所有子部门下的数据
 		if (!StringUtil.isEmptyString(criteria.getBuilderDeptId())
 				&& criteria.isSubDepartmentChosen()) {
-			Set<String> childrenIds = deptIdDao.findSiblingIds(
+			List<String> childrenIds = departmentLogic.getWholeChildrenIds(
 					criteria.getBuilderDeptId(), true);
 			criteria.setDeptIds(new ArrayList<String>(childrenIds));
 		}
@@ -266,8 +269,8 @@ public class RewardDao extends BaseDao<Reward> {
 			hql.append(" AND w.reward.organization.id = :corporationId");
 			params.put("corporationId", org.getId());
 		} else if (org instanceof Department) {
-			Set<String> childrenIds = deptIdDao.findSiblingIds(org.getId(),
-					true);
+			List<String> childrenIds = departmentLogic.getWholeChildrenIds(
+					org.getId(), true);
 			hql.append(" AND w.reward.accountDept.id IN (:departmentIds)");
 			params.put("departmentIds", childrenIds);
 		} else if (org instanceof Staff) {
@@ -336,8 +339,8 @@ public class RewardDao extends BaseDao<Reward> {
 			hql.append(" AND w.reward.organization.id = :corporationId");
 			params.put("corporationId", org.getId());
 		} else if (org instanceof Department) {
-			Set<String> childrenIds = deptIdDao.findSiblingIds(org.getId(),
-					true);
+			List<String> childrenIds = departmentLogic.getWholeChildrenIds(
+					org.getId(), true);
 			logger.debug("childrenIds = {}", childrenIds);
 			hql.append(" AND w.reward.accountDept.id IN (:departmentIds)");
 			params.put("departmentIds", childrenIds);

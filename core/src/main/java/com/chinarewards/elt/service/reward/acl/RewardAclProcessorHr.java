@@ -2,10 +2,7 @@ package com.chinarewards.elt.service.reward.acl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
-import com.chinarewards.elt.dao.org.DeptIdResolverDao;
 import com.chinarewards.elt.dao.reward.RewardDao;
 import com.chinarewards.elt.dao.reward.RewardItemDao;
 import com.chinarewards.elt.domain.reward.base.Reward;
@@ -14,6 +11,7 @@ import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.reward.search.RewardItemSearchVo;
 import com.chinarewards.elt.model.reward.search.RewardSearchVo;
 import com.chinarewards.elt.model.user.UserContext;
+import com.chinarewards.elt.service.org.DepartmentLogic;
 import com.chinarewards.elt.util.StringUtil;
 import com.google.inject.Inject;
 
@@ -21,14 +19,14 @@ public class RewardAclProcessorHr extends AbstractRewardAclProcessor {
 
 	private final RewardDao rewardsDao;
 	private final RewardItemDao rewardsItemDao;
-	private final DeptIdResolverDao deptIdDao;
+	private final DepartmentLogic departmentLogic;
 
 	@Inject
 	public RewardAclProcessorHr(RewardDao rewardsDao,
-			RewardItemDao rewardsItemDao, DeptIdResolverDao deptIdDao) {
+			RewardItemDao rewardsItemDao, DepartmentLogic departmentLogic) {
 		this.rewardsDao = rewardsDao;
 		this.rewardsItemDao = rewardsItemDao;
-		this.deptIdDao = deptIdDao;
+		this.departmentLogic = departmentLogic;
 	}
 
 	@Override
@@ -46,12 +44,12 @@ public class RewardAclProcessorHr extends AbstractRewardAclProcessor {
 			// The depIds have priority. If it exist, do not need to observe
 			// departmentId again.
 		} else if (!StringUtil.isEmptyString(criteria.getDepartmentId())) {
-			Set<String> deptIds = null;
+			List<String> deptIds = null;
 			if (criteria.isSubDepartmentChosen()) {
-				deptIds = deptIdDao.findSiblingIds(criteria.getDepartmentId(),
-						true);
+				deptIds = departmentLogic.getWholeChildrenIds(
+						criteria.getDepartmentId(), true);
 			} else {
-				deptIds = new TreeSet<String>();
+				deptIds = new ArrayList<String>();
 				deptIds.add(criteria.getDepartmentId());
 			}
 			criteria.setDeptIds(new ArrayList<String>(deptIds));

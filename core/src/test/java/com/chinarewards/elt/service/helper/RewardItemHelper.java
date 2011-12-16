@@ -1,6 +1,7 @@
 package com.chinarewards.elt.service.helper;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -144,6 +145,9 @@ public class RewardItemHelper {
 		SysUser caller = UserHelper.getDefaultUser(injector);
 		// create rewarditem
 		autoAwardItem = rewardItemLogic.saveRewardItem(caller, param);
+		// enable it to make it can auto run
+		rewardItemLogic.enableRewardItem(caller, autoAwardItem.getId());
+
 		return autoAwardItem;
 	}
 
@@ -158,8 +162,12 @@ public class RewardItemHelper {
 
 		param.setBuilderDeptId(dept.getId());
 		param.setAccountDeptId(dept.getId());
-		param.setAutoGenerate(RequireAutoGenerate.requireOneOff);
+		param.setAutoGenerate(RequireAutoGenerate.requireCyclic);
 		param.setAutoAward(RequireAutoAward.requireAutoAward);
+		Date publishDate = DateHelper.getDate(2011, 12, 1);
+		Date expectAwardDate = DateHelper.getDate(2011, 12, 10);
+		param.setPublishDate(publishDate);
+		param.setExpectAwardDate(expectAwardDate);
 		// Prepare candidate list
 		List<String> canList = new ArrayList<String>();
 		canList.add(dept.getId());
@@ -176,5 +184,4 @@ public class RewardItemHelper {
 
 		return param;
 	}
-
 }

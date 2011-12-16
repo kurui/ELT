@@ -1,5 +1,6 @@
 package com.chinarewards.elt.dao.reward;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -29,10 +30,13 @@ public class WinnerDao extends BaseDao<Winner> {
 
 	@SuppressWarnings("unchecked")
 	public List<Winner> findUntreatedWinnersByRewardId(String rewardId) {
+		List<WinnerProcessFlag> processFlags = new ArrayList<WinnerProcessFlag>();
+		processFlags.add(WinnerProcessFlag.UNPROCESS);
+		processFlags.add(WinnerProcessFlag.PROCESS_FAIL);
 		return getEm()
 				.createQuery(
-						" FROM Winner win WHERE win.reward.id=:rewardId AND win.processFlag=:processFlag ")
-				.setParameter("processFlag", WinnerProcessFlag.UNPROCESS)
+						" FROM Winner win WHERE win.reward.id=:rewardId AND win.processFlag IN (:processFlags) ")
+				.setParameter("processFlags", processFlags)
 				.setParameter("rewardId", rewardId).getResultList();
 
 	}

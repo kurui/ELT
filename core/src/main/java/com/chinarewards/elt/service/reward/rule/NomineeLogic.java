@@ -25,6 +25,12 @@ public interface NomineeLogic {
 	 */
 	public NomineeLot addNomineeLotToReward(SysUser caller, String rewardId,
 			List<String> staffIds) throws JudgeException;
-	
-	
+
+	/**
+	 * Get list of nominee lot from the specified reward.
+	 * 
+	 * @param rewardId
+	 * @return
+	 */
+	public List<NomineeLot> getNomineeLotsFromReward(String rewardId);
 }

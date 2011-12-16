@@ -94,4 +94,10 @@ public interface RewardItemService {
 	 */
 	public RewardItem disableRewardItem(UserContext context, String rewardItemId);
 
+	/**
+	 * Run batch to generate rewards automatic.
+	 * 
+	 * @param flagTime
+	 */
+	public void runAutoRewardGeneratorBatch(Date flagTime);
 }

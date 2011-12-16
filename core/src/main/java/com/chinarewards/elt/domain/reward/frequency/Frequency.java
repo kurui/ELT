@@ -37,7 +37,7 @@ public class Frequency implements Serializable {
 	/**
 	 * interval, maybe days|weeks|months|years
 	 */
-	private int interval;
+	private int interval2;
 
 	private Date createdAt;
 
@@ -58,11 +58,11 @@ public class Frequency implements Serializable {
 	}
 
 	public int getInterval() {
-		return interval;
+		return interval2;
 	}
 
 	public void setInterval(int interval) {
-		this.interval = interval;
+		this.interval2 = interval;
 	}
 
 	public Date getCreatedAt() {

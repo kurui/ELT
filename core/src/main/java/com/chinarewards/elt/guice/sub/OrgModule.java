@@ -6,7 +6,6 @@ package com.chinarewards.elt.guice.sub;
 import com.chinarewards.elt.dao.org.CorporationDao;
 import com.chinarewards.elt.dao.org.DepartmentDao;
 import com.chinarewards.elt.dao.org.DepartmentManagerDao;
-import com.chinarewards.elt.dao.org.DeptIdResolverDao;
 import com.chinarewards.elt.dao.org.IndustryDao;
 import com.chinarewards.elt.dao.org.OrganizationDao;
 import com.chinarewards.elt.service.org.CorporationLogic;
@@ -21,15 +20,16 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 
 /**
- * @author roger
- * @since 0.2.0 2010-12-20
+ * Configure of organization module.
+ * 
+ * @author yanxin
+ * @since 1.0
  */
 public class OrgModule extends AbstractModule {
 
 	@Override
 	protected void configure() {
 		bind(DepartmentDao.class).in(Singleton.class);
-		bind(DeptIdResolverDao.class).in(Singleton.class);
 		bind(OrganizationDao.class).in(Singleton.class);
 		bind(CorporationDao.class).in(Singleton.class);
 		bind(IndustryDao.class).in(Singleton.class);

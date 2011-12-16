@@ -66,20 +66,20 @@ public class FrequencyProcessorMonth implements FrequencyProcessor {
 	}
 
 	@Override
-	public String generateRewardName(String name, RewardsFrequency frequency) {
-		Date now = DateUtil.getTime();
-		return name + " -" + DateUtil.formatData(" yyyy年MM月", now);
+	public String generateRewardName(String name, Frequency frequency,
+			Date runTime) {
+		return name + " -" + DateUtil.formatData(" yyyy年MM月", runTime);
 	}
 
 	@Override
-	public Date calNextRunTime(RewardsFrequency frequency, Date lastRunTime) {
-		Monthly freq = cast(frequency);
-		logger.debug(" process in nextRewardsTime method,parameter DaySelectortUnit.toString:"
-				+ freq
-				+ ",beforeRunTime:"
-				+ DateUtil.formatData(null, lastRunTime));
+	public Date calNextRunTime(Frequency frequency, Date lastRunTime) {
+		MonthFrequency freq = (MonthFrequency) frequency;
+		logger.debug(
+				" process in calNextRunTime method,param[frequency={}, lastRunTime={}]:",
+				new Object[] { frequency,
+						DateUtil.formatData(null, lastRunTime) });
 
-		return getNextDate(lastRunTime, freq.getInterval(), freq.getDay());
+		return getNextDate(lastRunTime, freq.getInterval(), freq.getMonthDay());
 	}
 
 	/**
