@@ -25,7 +25,15 @@ public interface NomineeLogic {
 	 */
 	public NomineeLot addNomineeLotToReward(SysUser caller, String rewardId,
 			List<String> staffIds) throws JudgeException;
-	
+
+	/**
+	 * Get list of nominee lot from the specified reward.
+	 * 
+	 * @param rewardId
+	 * @return
+	 */
+	public List<NomineeLot> getNomineeLotsFromReward(String rewardId);
+
 	/**
 	 * 获取提名的次数
 	 * 
@@ -33,9 +41,8 @@ public interface NomineeLogic {
 	 * @param staffIds
 	 * @return
 	 */
-	public int getNomineeCount(String rewardId,String staffId);
-	
-	
+	public int getNomineeCount(String rewardId, String staffId);
+
 	/**
 	 * 提名人是否已经提名
 	 * 
@@ -43,5 +50,5 @@ public interface NomineeLogic {
 	 * @param staffIds
 	 * @return
 	 */
-	public boolean isNomineeByJudge(String rewardId,String judgeId);
+	public boolean isNomineeByJudge(String rewardId, String judgeId);
 }

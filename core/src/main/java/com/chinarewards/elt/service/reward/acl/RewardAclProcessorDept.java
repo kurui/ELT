@@ -5,10 +5,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 
 import com.chinarewards.elt.dao.org.DepartmentManagerDao;
-import com.chinarewards.elt.dao.org.DeptIdResolverDao;
 import com.chinarewards.elt.dao.reward.RewardDao;
 import com.chinarewards.elt.dao.reward.RewardItemDao;
 import com.chinarewards.elt.dao.user.UserDao;
@@ -20,6 +18,7 @@ import com.chinarewards.elt.model.reward.search.RewardItemSearchVo;
 import com.chinarewards.elt.model.reward.search.RewardSearchVo;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.user.UserRole;
+import com.chinarewards.elt.service.org.DepartmentLogic;
 import com.chinarewards.elt.util.StringUtil;
 import com.google.inject.Inject;
 
@@ -28,17 +27,17 @@ public class RewardAclProcessorDept extends AbstractRewardAclProcessor {
 	private final UserDao userDao;
 	private final RewardItemDao rewardsItemDao;
 	private final DepartmentManagerDao deptMgrDao;
-	private final DeptIdResolverDao deptIdDao;
+	private final DepartmentLogic departmentLogic;
 
 	@Inject
 	public RewardAclProcessorDept(RewardDao rewardsDao, UserDao userDao,
 			RewardItemDao rewardsItemDao, DepartmentManagerDao deptMgrDao,
-			DeptIdResolverDao deptIdDao) {
+			DepartmentLogic departmentLogic) {
 		this.rewardsDao = rewardsDao;
 		this.userDao = userDao;
 		this.rewardsItemDao = rewardsItemDao;
 		this.deptMgrDao = deptMgrDao;
-		this.deptIdDao = deptIdDao;
+		this.departmentLogic = departmentLogic;
 	}
 
 	private List<String> getSupportedDeptIds(String staffId) {
@@ -48,7 +47,8 @@ public class RewardAclProcessorDept extends AbstractRewardAclProcessor {
 		// XXX it is slow!
 		Set<String> allDepartmentIds = new HashSet<String>();
 		for (String id : departmentIds) {
-			allDepartmentIds.addAll(deptIdDao.findSiblingIds(id, true));
+			allDepartmentIds.addAll(departmentLogic.getWholeChildrenIds(id,
+					true));
 		}
 		departmentIds.clear();
 		departmentIds.addAll(allDepartmentIds);
@@ -80,16 +80,16 @@ public class RewardAclProcessorDept extends AbstractRewardAclProcessor {
 			// The depIds have priority. If it exist, do not need to observe
 			// departmentId again.
 		} else if (!StringUtil.isEmptyString(criteria.getDepartmentId())) {
-			Set<String> deptIds = null;
+			List<String> deptIds = null;
 			logger.debug("criteria.isSubDepartmentChoose: {}",
 					criteria.isSubDepartmentChosen());
 			if (criteria.isSubDepartmentChosen()) {
-				deptIds = deptIdDao.findSiblingIds(criteria.getDepartmentId(),
-						true);
+				deptIds = departmentLogic.getWholeChildrenIds(
+						criteria.getDepartmentId(), true);
 				logger.debug("Siblings dept IDs of {}: {}",
 						criteria.getDepartmentId(), deptIds);
 			} else {
-				deptIds = new TreeSet<String>();
+				deptIds = new ArrayList<String>();
 				deptIds.add(criteria.getDepartmentId());
 			}
 			criteria.setDeptIds(new ArrayList<String>(deptIds));
@@ -155,7 +155,8 @@ public class RewardAclProcessorDept extends AbstractRewardAclProcessor {
 				.findDepartmentIdsManagedByStaffId(hrUser.getStaff().getId());
 		Set<String> allDepartmentIds = new HashSet<String>();
 		for (String id : departmentIds) {
-			allDepartmentIds.addAll(deptIdDao.findSiblingIds(id, true));
+			allDepartmentIds.addAll(departmentLogic.getWholeChildrenIds(id,
+					true));
 		}
 		departmentIds.clear();
 		departmentIds.addAll(allDepartmentIds);

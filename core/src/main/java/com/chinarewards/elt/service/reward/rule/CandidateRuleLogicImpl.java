@@ -142,6 +142,19 @@ public class CandidateRuleLogicImpl implements CandidateRuleLogic {
 	}
 
 	@Override
+	public CandidateRule findCandidateRuleFromReward(String rewardId) {
+		CandidateRule rule = candidateRuleDao
+				.findCandidateRuleByRewardId(rewardId);
+		if (rule instanceof DirectCandidateRule) {
+			List<DirectCandidateData> CandidateList = directCandidateDataDao
+					.findDirectCandidateDataListByDirectRuleId(rule.getId());
+			DirectCandidateRule candidateRule = (DirectCandidateRule) rule;
+			candidateRule.setCandidateDataList(CandidateList);
+		}
+		return rule;
+	}
+
+	@Override
 	public CandidateRule cloneCandidateRuleFromRewardItemToReward(
 			SysUser caller, String fromRewardItemId, String toRewardId,
 			Date currTime) {

@@ -65,18 +65,18 @@ public class FrequencyProcessorYear implements FrequencyProcessor {
 	}
 
 	@Override
-	public String generateRewardName(String name, RewardsFrequency frequency) {
-		Date now = DateUtil.getTime();
-		return name + " -" + DateUtil.formatData(" yyyy年", now);
+	public String generateRewardName(String name, Frequency frequency,
+			Date runTime) {
+		return name + " -" + DateUtil.formatData(" yyyy年", runTime);
 	}
 
 	@Override
-	public Date calNextRunTime(RewardsFrequency frequency, Date lastRunTime) {
-		Yearly freq = cast(frequency);
-		logger.debug(" process in nextRewardsTime method,parameter DaySelectortUnit.toString:"
-				+ freq
-				+ ",beforeRunTime:"
-				+ DateUtil.formatData(null, lastRunTime));
+	public Date calNextRunTime(Frequency frequency, Date lastRunTime) {
+		YearFrequency freq = (YearFrequency) frequency;
+		logger.debug(
+				" process in calNextRunTime method,param:[frequency={}, lastRunTime={}]",
+				new Object[] { frequency,
+						DateUtil.formatData(null, lastRunTime) });
 		return DateUtil.getDateOfParameterOnYear(lastRunTime,
 				freq.getInterval());
 	}

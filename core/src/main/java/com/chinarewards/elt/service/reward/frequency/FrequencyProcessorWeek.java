@@ -1,7 +1,6 @@
 package com.chinarewards.elt.service.reward.frequency;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -82,38 +81,31 @@ public class FrequencyProcessorWeek implements FrequencyProcessor {
 	}
 
 	@Override
-	public String generateRewardName(String name, RewardsFrequency frequency) {
-		Date now = DateUtil.getTime();
-		return name + " -" + DateUtil.formatData(" yyyy年MM月dd日 ", now);
+	public String generateRewardName(String name, Frequency frequency,
+			Date runTime) {
+		return name + " -" + DateUtil.formatData(" yyyy年MM月dd日 ", runTime);
 	}
 
 	@Override
-	public Date calNextRunTime(RewardsFrequency frequency, Date lastRunTime) {
-		Weekly freq = cast(frequency);
+	public Date calNextRunTime(Frequency frequency, Date lastRunTime) {
+		WeekFrequency freq = (WeekFrequency) frequency;
 
 		int intervalInt = freq.getInterval();
-		logger.debug(" Process in nextRewardsTime method, WeekSelectorUnit.toString:"
-				+ freq);
-
+		logger.debug(
+				" Process in calNextRunTime method,param [frequency={}, lastRunTime={}]:",
+				new Object[] { frequency, lastRunTime });
+		List<WeekFrequencyDays> daysList = weekFrequencyDaysDao
+				.findWeekFrequencyDaysByFrequencyId(frequency.getId());
 		List<WeekDays> weekList = new ArrayList<WeekDays>();
-		if (freq.getWeekdays() != null) {
-			for (WeekDays wd : freq.getWeekdays()) {
-				weekList.add(wd);
-			}
+		for (WeekFrequencyDays d : daysList) {
+			weekList.add(d.getWeekDays());
 		}
 
 		WeekDays currWeek = WeekUtil.getCurrTimeWeek(lastRunTime);
-		// sort it
-		WeekDays[] weekDays = new WeekDays[0];
-		if (freq.getWeekdays() != null) {
-			weekDays = Arrays.copyOf(freq.getWeekdays(),
-					freq.getWeekdays().length);
-			weekDays = WeekUtil.sort(weekDays);
-		}
 
 		// the int value is already sorted
 		List<Integer> days = new ArrayList<Integer>();
-		for (WeekDays weekConst : weekDays) {
+		for (WeekDays weekConst : weekList) {
 			days.add(weekConst.getFlag());
 		}
 

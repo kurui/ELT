@@ -155,4 +155,16 @@ public class PreWinnerLogicImpl implements PreWinnerLogic {
 	public List<PreWinner> getPreWinnerListFromLot(String lotId) {
 		return preWinnerDao.findPreWinnerByPreWinnerLotId(lotId);
 	}
+
+	@Override
+	public List<PreWinnerLot> getPreWinnerLotsFromReward(String rewardId) {
+		List<PreWinnerLot> lots = preWinnerLotDao
+				.getPreWinnerLotsByRewardId(rewardId);
+		for (PreWinnerLot lot : lots) {
+			List<PreWinner> preWinners = preWinnerDao
+					.findPreWinnerByPreWinnerLotId(lot.getId());
+			lot.setPreWinners(preWinners);
+		}
+		return lots;
+	}
 }

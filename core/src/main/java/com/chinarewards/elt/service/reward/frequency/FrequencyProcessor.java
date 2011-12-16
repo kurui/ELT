@@ -32,9 +32,11 @@ public interface FrequencyProcessor {
 	 * 
 	 * @param name
 	 * @param frequency
+	 * @param runTime
 	 * @return
 	 */
-	public String generateRewardName(String name, RewardsFrequency frequency);
+	public String generateRewardName(String name, Frequency frequency,
+			Date runTime);
 
 	/**
 	 * Calculate next run time according to the frequency.
@@ -43,7 +45,7 @@ public interface FrequencyProcessor {
 	 * @param lastRunTime
 	 * @return
 	 */
-	public Date calNextRunTime(RewardsFrequency frequency, Date lastRunTime);
+	public Date calNextRunTime(Frequency frequency, Date lastRunTime);
 
 	/**
 	 * Calculate the data range from the specified {@link RewardsFrequency}.

@@ -72,4 +72,17 @@ public class FrequencyLogicImpl implements FrequencyLogic {
 		return frequencyFactory.getProcessor(frequency).generateDateRange(
 				frequency, currTime);
 	}
+
+	@Override
+	public String calRewardNameFromFrequency(String name, Frequency frequency,
+			Date runTime) {
+		return frequencyFactory.getProcessor(frequency).generateRewardName(
+				name, frequency, runTime);
+	}
+
+	@Override
+	public Date calNextAwardTime(Frequency frequency, Date lastRunTime) {
+		return frequencyFactory.getProcessor(frequency).calNextRunTime(
+				frequency, lastRunTime);
+	}
 }

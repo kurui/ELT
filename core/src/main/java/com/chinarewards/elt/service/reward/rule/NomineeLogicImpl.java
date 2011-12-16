@@ -59,6 +59,12 @@ public class NomineeLogicImpl implements NomineeLogic {
 			throw new JudgeException("Should not judge duplicate.");
 		}
 
+		// update judge status to Nominated
+		judge.setStatus(JudgeStatus.NOMINATED);
+		judge.setLastModifiedAt(now);
+		judge.setLastModifiedBy(caller);
+		judgeDao.update(judge);
+
 		NomineeLot lot = new NomineeLot();
 		lot.setJudge(judge);
 		lot.setReward(reward);
@@ -95,5 +101,17 @@ public class NomineeLogicImpl implements NomineeLogic {
 			fal = true;
 		}
 		return fal;
+	}
+
+	@Override
+	public List<NomineeLot> getNomineeLotsFromReward(String rewardId) {
+		List<NomineeLot> lots = nomineeLotDao
+				.findNomineeLotsByRewardId(rewardId);
+		for (NomineeLot lot : lots) {
+			List<Nominee> nominees = nomineeDao.findNomineesByNomineeLotId(lot
+					.getId());
+			lot.setNominees(nominees);
+		}
+		return lots;
 	}
 }
