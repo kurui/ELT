@@ -54,16 +54,16 @@ public class Candidate implements Serializable {
 	private SysUser lastModifiedBy;
 	
 	/**
-	 * 被提名次数
+	 * 被提名
 	 */
-	private int count;
+	private int nominatecount;
 
-	public int getCount() {
-		return count;
+	public int getNominatecount() {
+		return nominatecount;
 	}
 
-	public void setCount(int count) {
-		this.count = count;
+	public void setNominatecount(int nominatecount) {
+		this.nominatecount = nominatecount;
 	}
 
 	public String getId() {

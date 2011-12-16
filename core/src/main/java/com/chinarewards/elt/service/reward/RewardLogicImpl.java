@@ -338,7 +338,7 @@ public class RewardLogicImpl implements RewardLogic ,RewardService{
 			CandidateParam candparam=new CandidateParam();
 			candparam.setId(candidate.getId());
 			candparam.setName(candidate.getStaff().getName());
-			candparam.setNominateCount(candidate.getCount());
+			candparam.setNominateCount(candidate.getNominatecount());
 			candidateListParam.add(candparam);
 		}
 		//设置被提名人
