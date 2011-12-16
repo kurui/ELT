@@ -78,14 +78,15 @@ public class ChooseStaffBlockWidget extends Composite implements ChooseStaffBloc
 		staffTextArea = new OrganizationSpecialTextArea();
 		staffTextAreaPanel.add(staffTextArea);
 		 everyoneRbtn.setValue(true);
-		 chooseBtn.setVisible(false);
-		 suggestBoxPanel.setVisible(false);
+		 //隐藏多人选择
+		 chooseBtn.getElement().getParentElement().getParentElement().getParentElement()
+		   .getParentElement().getParentElement()
+			.addClassName(CssStyleConstants.hidden);
 		everyoneRbtn.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
 			@Override
 			public void onValueChange(ValueChangeEvent<Boolean> event) {
 				if (event.getValue()) {
-					suggestBoxPanel.setVisible(false);
-					chooseBtn.setVisible(false);
+					
 					chooseBtn.getElement().getParentElement()
 							.getParentElement().getParentElement()
 							.getParentElement().getParentElement()
@@ -96,8 +97,8 @@ public class ChooseStaffBlockWidget extends Composite implements ChooseStaffBloc
 							.getParentElement().getParentElement()
 							.getParentElement().getParentElement()
 							.removeClassName(CssStyleConstants.hidden);
-					suggestBoxPanel.setVisible(true);
-					chooseBtn.setVisible(true);
+					
+					
 				}
 			}
 		});
@@ -105,15 +106,13 @@ public class ChooseStaffBlockWidget extends Composite implements ChooseStaffBloc
 			@Override
 			public void onValueChange(ValueChangeEvent<Boolean> event) {
 				if (event.getValue()) {
-					suggestBoxPanel.setVisible(true);
-					chooseBtn.setVisible(true);
+					
 					chooseBtn.getElement().getParentElement()
 							.getParentElement().getParentElement()
 							.getParentElement().getParentElement()
 							.removeClassName(CssStyleConstants.hidden);
 				} else {
-					suggestBoxPanel.setVisible(false);
-					chooseBtn.setVisible(false);
+					
 					chooseBtn.getElement().getParentElement()
 							.getParentElement().getParentElement()
 							.getParentElement().getParentElement()

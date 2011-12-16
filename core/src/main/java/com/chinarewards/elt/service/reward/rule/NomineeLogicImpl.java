@@ -90,20 +90,6 @@ public class NomineeLogicImpl implements NomineeLogic {
 	}
 
 	@Override
-	public int getNomineeCount(String rewardId, String staffId) {
-		return nomineeDao.findNomineeList(rewardId, staffId).size();
-	}
-
-	@Override
-	public boolean isNomineeByJudge(String rewardId, String judgeId) {
-		boolean fal = false;
-		if (nomineeLotDao.findNomineeLotList(judgeId, rewardId).size() > 0) {
-			fal = true;
-		}
-		return fal;
-	}
-
-	@Override
 	public List<NomineeLot> getNomineeLotsFromReward(String rewardId) {
 		List<NomineeLot> lots = nomineeLotDao
 				.findNomineeLotsByRewardId(rewardId);

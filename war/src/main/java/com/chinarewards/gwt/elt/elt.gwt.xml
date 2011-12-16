@@ -12,4 +12,5 @@
 	
 	<!-- Specify the app entry point class. -->
 	<entry-point class="com.chinarewards.gwt.elt.client.Elt" />
+	<stylesheet src="elt.css"/>
 </module>
