@@ -1,4 +1,4 @@
-package com.chinarewards.elt.service.rewards;
+package com.chinarewards.elt.service.reward;
 
 import java.util.Calendar;
 import java.util.Date;
