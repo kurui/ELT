@@ -106,4 +106,10 @@ public class NominatePresenterImpl extends
 				});
 	}
 
+	@Override
+	public void setNominateByRewards(String rewardId) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -11,6 +11,8 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 
 public interface NominatePresenter extends Presenter<NominatePresenter.NominateDisplay> {
 	
+	public void setNominateByRewards(String rewardId);
+	
 	public static interface NominateDisplay extends Display {
 
 		public HasClickHandlers getNominateClickHandlers();
