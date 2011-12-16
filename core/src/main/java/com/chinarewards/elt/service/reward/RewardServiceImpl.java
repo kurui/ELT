@@ -20,6 +20,7 @@ public class RewardServiceImpl implements RewardService {
 
 	@Override
 	public Reward awardFromRewardItem(SysUser caller, String rewardItemId) {
+		
 		// TODO Auto-generated method stub
 		return null;
 	}

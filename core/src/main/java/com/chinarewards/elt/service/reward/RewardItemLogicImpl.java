@@ -360,7 +360,8 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 			Date thisRunTime = item.getNexRunBatchTime();
 			// failure times
 			int errorTimes = 0;
-			while (flagTime.after(thisRunTime) && errorTimes < 3) {
+			boolean isRunnable = true;
+			while (flagTime.after(thisRunTime) && errorTimes < 3 && isRunnable) {
 				try {
 					Date nextRunTime = calNextRunBatchTime(item.getId());
 					rewardLogic.awardFromRewardItem(caller, item.getId(),
@@ -402,6 +403,14 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 						item.setPublishDate(nextPublishDate);
 						item.setNominateDate(nextNominateDate);
 					}
+
+					// Set it to false which means it can not work again.
+					if (RequireAutoGenerate.requireOneOff == item
+							.getAutoGenerate()) {
+						item.setEnabled(false);
+						isRunnable = false;
+					}
+
 					rewardItemDao.update(item);
 					thisRunTime = nextRunTime;
 					errorTimes = 0;

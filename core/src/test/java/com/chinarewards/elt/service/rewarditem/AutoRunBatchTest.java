@@ -12,7 +12,6 @@ import com.chinarewards.elt.service.common.JPATestCase;
 import com.chinarewards.elt.service.helper.DateHelper;
 import com.chinarewards.elt.service.helper.RewardItemHelper;
 import com.chinarewards.elt.service.reward.RewardItemLogic;
-import com.chinarewards.elt.service.reward.RewardLogic;
 
 /**
  * Test the auto run batch which is in charge of generating reward.
@@ -28,11 +27,11 @@ public class AutoRunBatchTest extends JPATestCase {
 	/**
 	 * The normal case
 	 */
+	@SuppressWarnings("unchecked")
 	public void testRunAutoRewardBatch_ok() {
 		// need some services
 		RewardItemLogic rewardItemLogic = injector
 				.getInstance(RewardItemLogic.class);
-		RewardLogic rewardLogic = injector.getInstance(RewardLogic.class);
 
 		// Prepare some auto-generate RewardItems.
 		RewardItem item = RewardItemHelper.getDefaultAutoAwardRewardItem(

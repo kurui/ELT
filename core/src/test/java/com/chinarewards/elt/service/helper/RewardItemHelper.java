@@ -162,7 +162,7 @@ public class RewardItemHelper {
 
 		param.setBuilderDeptId(dept.getId());
 		param.setAccountDeptId(dept.getId());
-		param.setAutoGenerate(RequireAutoGenerate.requireOneOff);
+		param.setAutoGenerate(RequireAutoGenerate.requireCyclic);
 		param.setAutoAward(RequireAutoAward.requireAutoAward);
 		Date publishDate = DateHelper.getDate(2011, 12, 1);
 		Date expectAwardDate = DateHelper.getDate(2011, 12, 10);
