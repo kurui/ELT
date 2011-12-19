@@ -58,4 +58,15 @@ public class CandidateLogicImpl implements CandidateLogic {
 		return candidateDao.findCandidatesByRewardId(rewardId);
 	}
 
+	@Override
+	public void updateCandidatesCount(List<String> candidateIds) {
+		for (int i = 0; i < candidateIds.size(); i++) {
+			Candidate candBo=candidateDao.findById(Candidate.class, candidateIds.get(i));
+			candBo.setNominatecount(candBo.getNominatecount()+1);
+			candidateDao.save(candBo);
+		}
+
+		
+	}
+
 }

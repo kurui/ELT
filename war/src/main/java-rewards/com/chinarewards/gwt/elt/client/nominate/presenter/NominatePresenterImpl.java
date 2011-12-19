@@ -23,6 +23,7 @@ public class NominatePresenterImpl extends
 		NominatePresenter {
 
 	private final DispatchAsync dispatcher;
+	private String awardsId="8a83834534544f870134544f8bfb001f";
 	
 	@Inject
 	public NominatePresenterImpl(EventBus eventBus,
@@ -37,13 +38,14 @@ public class NominatePresenterImpl extends
 		registerHandler(display.getNominateClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
-						List<String> idList=display.getCandidateList();
+						List<String> staffidList=display.getStaffList();
+						List<String> candidateidList=display.getCandidateList();
 						String message="";
-						for (int i = 0; i < idList.size(); i++) {
-							message+=idList.get(i)+"提名次数+1";
+						for (int i = 0; i < candidateidList.size(); i++) {
+							message+="提名ID:"+candidateidList.get(i)+"----提名次数+1;";
 						}
 						Window.alert(message);
-						addNominateData();
+						addNominateData(staffidList,candidateidList,awardsId);
 					}
 				}));
 	}
@@ -51,9 +53,9 @@ public class NominatePresenterImpl extends
 	/**
 	 * 提名数据添加
 	 */
-	private void addNominateData()
+	private void addNominateData(List<String> staffidList,List<String> candidateidList,String rewardId)
 	{
-		dispatcher.execute(new NominateAddRequest("1"),
+		dispatcher.execute(new NominateAddRequest(staffidList,candidateidList,rewardId),
 				new AsyncCallback<NominateAddResponse>() {
 					public void onFailure(Throwable t) {
 						Window.alert(t.getMessage());
@@ -61,7 +63,7 @@ public class NominatePresenterImpl extends
 
 					@Override
 					public void onSuccess(NominateAddResponse response) {
-						Window.alert(response.getNomineeLotId());
+						Window.alert("提名记录ID:"+response.getNomineeLotId());
 					}
 				});
 	}
@@ -73,7 +75,7 @@ public class NominatePresenterImpl extends
 	private void init()
 	{
 		//根据传入ID初始化提名页面
-		String awardsId="1";
+	
 		dispatcher.execute(new NominateInitRequest(awardsId),
 				new AsyncCallback<NominateInitResponse>() {
 					public void onFailure(Throwable t) {

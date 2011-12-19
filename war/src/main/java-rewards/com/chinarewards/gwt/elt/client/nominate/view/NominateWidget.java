@@ -140,18 +140,19 @@ public class NominateWidget extends Composite implements NominateDisplay {
 		for (int i = 0; i < candidate.size(); i++) {
 			CandidateParamVo candidateVo =candidate.get(i);
 			String checkBoxName=candidateVo.getName();
-			String count=candidateVo.getName();
+			String name=candidateVo.getName();
+
 			if (fal) {
 				String str2 = "";
-				for (int j = count.length(); j < 20; j++) {
+				for (int j = name.length(); j < 20; j++) {
 					str2 += "-";
 				}
-				checkBoxName =count+ str2 + candidateVo.getNominateCount();// 是否显示被提名次数
+				checkBoxName =name+ str2 + candidateVo.getNominateCount();// 是否显示被提名次数
 			}
 			CheckBox checkBox = new CheckBox(checkBoxName);
-			checkBox.ensureDebugId("cwCheckBox-" + checkBoxName);
-			checkBox.setName(count);
-
+			checkBox.getElement().setAttribute("staffid", candidateVo.getStaffid());
+			checkBox.getElement().setAttribute("candidateid", candidateVo.getId());
+	
 
 
 			this.candidate.add(checkBox);
@@ -197,6 +198,26 @@ public class NominateWidget extends Composite implements NominateDisplay {
 	
 	@SuppressWarnings("deprecation")
 	@Override
+	public List<String> getStaffList() {
+		List<String> idlist = new ArrayList<String>();
+		
+		for (int i=0;i<candidate.getWidgetCount();i++){
+		    Widget widget = candidate.getWidget(i);
+		    if (widget instanceof CheckBox){
+		        CheckBox checkBox = (CheckBox) widget;
+		        if(checkBox.isChecked()==true)
+		        {
+		        	idlist.add(checkBox.getElement().getAttribute("staffid"));
+		        }
+		    }
+
+		}
+
+		return idlist;
+	}
+	
+	@SuppressWarnings("deprecation")
+	@Override
 	public List<String> getCandidateList() {
 		List<String> idlist = new ArrayList<String>();
 		
@@ -206,7 +227,7 @@ public class NominateWidget extends Composite implements NominateDisplay {
 		        CheckBox checkBox = (CheckBox) widget;
 		        if(checkBox.isChecked()==true)
 		        {
-		        	idlist.add(checkBox.getName());
+		        	idlist.add(checkBox.getElement().getAttribute("candidateid"));
 		        }
 		    }
 

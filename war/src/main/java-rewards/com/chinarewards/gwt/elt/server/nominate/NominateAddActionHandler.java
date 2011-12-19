@@ -5,7 +5,9 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 
 import org.slf4j.Logger;
 
-import com.chinarewards.elt.service.reward.rule.NomineeLogic;
+import com.chinarewards.elt.domain.reward.person.NomineeLot;
+import com.chinarewards.elt.model.reward.exception.JudgeException;
+import com.chinarewards.elt.service.reward.nominee.NomineeService;
 import com.chinarewards.gwt.elt.client.nominate.NominateAddRequest;
 import com.chinarewards.gwt.elt.client.nominate.NominateAddResponse;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
@@ -24,10 +26,10 @@ public class NominateAddActionHandler extends
 	@InjectLogger
 	Logger logger;
 
-	NomineeLogic nomineeService;
+	NomineeService nomineeService;
 
 	@Inject
-	public NominateAddActionHandler(NomineeLogic nomineeService) {
+	public NominateAddActionHandler(NomineeService nomineeService) {
 		this.nomineeService = nomineeService;
 	}
 
@@ -35,9 +37,14 @@ public class NominateAddActionHandler extends
 	public NominateAddResponse execute(NominateAddRequest request,
 			ExecutionContext response) throws DispatchException {
 		NominateAddResponse Nomresponse=new NominateAddResponse();
-		Nomresponse.setNomineeLotId("11111111xxx");
 		
-	//	nomineeService.addNomineeLotToReward(caller, rewardId, staffIds);
+		try {
+			NomineeLot lot=nomineeService.addNomineeLotToReward(request.getRewardId(), request.getStaffIds(),request.getCandidateIds());
+			Nomresponse.setNomineeLotId(lot.getId());
+		} catch (JudgeException e) {
+			e.printStackTrace();
+		}
+	
 		return Nomresponse;
 	}
 

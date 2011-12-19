@@ -54,7 +54,7 @@ public class Candidate implements Serializable {
 	private SysUser lastModifiedBy;
 	
 	/**
-	 * 被提名
+	 * 被提名次数
 	 */
 	private int nominatecount;
 

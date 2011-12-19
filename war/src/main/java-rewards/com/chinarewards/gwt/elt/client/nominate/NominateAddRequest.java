@@ -3,6 +3,8 @@
  */
 package com.chinarewards.gwt.elt.client.nominate;
 
+import java.util.List;
+
 import net.customware.gwt.dispatch.shared.Action;
 
 /**
@@ -13,24 +15,44 @@ import net.customware.gwt.dispatch.shared.Action;
  */
 public class NominateAddRequest implements Action<NominateAddResponse> {
 
-	private String awardsId;//奖项ID
-
-	public String getAwardsId() {
-		return awardsId;
+	List<String> staffIds;
+	List<String> candidateIds;
+	public List<String> getCandidateIds() {
+		return candidateIds;
 	}
 
-	public void setAwardsId(String awardsId) {
-		this.awardsId = awardsId;
+	public void setCandidateIds(List<String> candidateIds) {
+		this.candidateIds = candidateIds;
 	}
 
+	String rewardId;
 	
+	public String getRewardId() {
+		return rewardId;
+	}
+
+	public void setRewardId(String rewardId) {
+		this.rewardId = rewardId;
+	}
+
 	/**
 	 * For serialization
 	 */
 	public NominateAddRequest() {
 	}
 
-	public NominateAddRequest(String awardsId) {
-		this.awardsId=awardsId;
+	public List<String> getStaffIds() {
+		return staffIds;
 	}
+
+	public void setStaffIds(List<String> staffIds) {
+		this.staffIds = staffIds;
+	}
+
+	public NominateAddRequest(List<String> staffIds,List<String> candidateIds,String rewardId) {
+		this.staffIds=staffIds;
+		this.candidateIds=candidateIds;
+		this.rewardId=rewardId;
+	}
+
 }

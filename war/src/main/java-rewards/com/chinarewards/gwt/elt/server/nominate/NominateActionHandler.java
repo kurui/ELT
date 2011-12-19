@@ -44,8 +44,8 @@ public class NominateActionHandler extends
 	public NominateInitResponse execute(NominateInitRequest request,
 			ExecutionContext response) throws DispatchException {
 		// 获取信息
-	//	RewardQueryVo rewardQueryVo = rewardService.fetchEntireRewardQueryVoById(request.getAwardsId());
-		RewardQueryVo rewardQueryVo =getTestData();
+		RewardQueryVo rewardQueryVo = rewardService.fetchEntireRewardQueryVoById(request.getAwardsId());
+	//	RewardQueryVo rewardQueryVo =getTestData();
 		
 		NominateInitResponse Nomresponse = new NominateInitResponse();
 
@@ -84,6 +84,7 @@ public class NominateActionHandler extends
 			cpv.setId(cp.getId());
 			cpv.setName(cp.getName());
 			cpv.setNominateCount(cp.getNominateCount());
+			cpv.setStaffid(cp.getStaffid());
 			candidateVoList.add(cpv);
 		}
 		List<JudgeParam> judgeList = rewardQueryVo.getJudgeList();
@@ -93,6 +94,7 @@ public class NominateActionHandler extends
 			jpv.setId(jp.getId());
 			jpv.setName(jp.getName());
 			jpv.setIsNominate(jp.getIsNominate());
+			jpv.setStaffid(jp.getStaffid());
 			judgeVoList.add(jpv);
 
 		}

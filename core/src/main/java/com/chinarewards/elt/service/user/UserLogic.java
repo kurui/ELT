@@ -1,5 +1,6 @@
 package com.chinarewards.elt.service.user;
 
+import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.user.UserVo;
 
@@ -18,6 +19,13 @@ public interface UserLogic {
 	 * @return
 	 */
 	public SysUser getDefaultUser();
+	
+	/**
+	 * 获取用户时.传入固定员工ID
+	 * @param staff
+	 * @return
+	 */
+	public SysUser getDefaultUserByStaff(Staff staff);
 
 	/**
 	 * Create a {@link SysUser}

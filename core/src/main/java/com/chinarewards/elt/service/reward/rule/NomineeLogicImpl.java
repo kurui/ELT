@@ -33,14 +33,16 @@ public class NomineeLogicImpl implements NomineeLogic {
 	private final RewardDao rewardDao;
 	private final StaffDao staffDao;
 
+
 	@Inject
 	public NomineeLogicImpl(NomineeLotDao nomineeLotDao, NomineeDao nomineeDao,
-			JudgeDao judgeDao, RewardDao rewardDao, StaffDao staffDao) {
+			JudgeDao judgeDao, RewardDao rewardDao, StaffDao staffDao,CandidateLogic candidateLogic) {
 		this.nomineeLotDao = nomineeLotDao;
 		this.nomineeDao = nomineeDao;
 		this.judgeDao = judgeDao;
 		this.rewardDao = rewardDao;
 		this.staffDao = staffDao;
+
 	}
 
 	@Override
@@ -48,16 +50,15 @@ public class NomineeLogicImpl implements NomineeLogic {
 			List<String> staffIds) throws JudgeException {
 		Date now = DateUtil.getTime();
 		Reward reward = rewardDao.findById(Reward.class, rewardId);
-		Judge judge = judgeDao.findJudgeByStaffIdAndRewardId(caller.getStaff()
-				.getId(), rewardId);
+		Judge judge = judgeDao.findJudgeByStaffIdAndRewardId(caller.getStaff().getId(), rewardId);
 		if (judge == null) {
 			throw new JudgeException(
 					"Can not found correct judge by login user.");
 		}
 
-		if (JudgeStatus.NONE != judge.getStatus()) {
-			throw new JudgeException("Should not judge duplicate.");
-		}
+//		if (JudgeStatus.NONE != judge.getStatus()) {
+//			throw new JudgeException("Should not judge duplicate.");
+//		}
 
 		// update judge status to Nominated
 		judge.setStatus(JudgeStatus.NOMINATED);
@@ -85,6 +86,8 @@ public class NomineeLogicImpl implements NomineeLogic {
 			nominee.setLastModifiedBy(caller);
 			nomineeDao.save(nominee);
 		}
+		
+
 
 		return lot;
 	}

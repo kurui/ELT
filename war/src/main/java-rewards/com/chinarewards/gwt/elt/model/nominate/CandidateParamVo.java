@@ -9,6 +9,13 @@ public class CandidateParamVo implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String id;
 	private String name;
+	private String staffid;
+	public String getStaffid() {
+		return staffid;
+	}
+	public void setStaffid(String staffid) {
+		this.staffid = staffid;
+	}
 	/**
 	 * 提名次数
 	 */
