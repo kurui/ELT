@@ -56,7 +56,6 @@ public class WinnerLogicImpl implements WinnerLogic {
 		List<PreWinner> preWinners = preWinnerDao
 				.findPreWinnerByPreWinnerLotId(lotId);
 		for (PreWinner preWinner : preWinners) {
-			logger.debug("xxxxxxxxx--------={}", preWinner.getStaff());
 			Winner winner = new Winner();
 			winner.setPreWinner(preWinner);
 			winner.setReward(lot.getReward());

@@ -8,7 +8,10 @@ import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.reward.base.Reward;
 import com.chinarewards.elt.domain.reward.base.RewardItem;
-import com.chinarewards.elt.domain.reward.person.PreWinner;
+import com.chinarewards.elt.domain.reward.person.Candidate;
+import com.chinarewards.elt.domain.reward.person.Judge;
+import com.chinarewards.elt.domain.reward.person.NomineeLot;
+import com.chinarewards.elt.domain.reward.person.PreWinnerLot;
 import com.chinarewards.elt.domain.reward.person.Winner;
 import com.chinarewards.elt.domain.reward.rule.CandidateRule;
 import com.chinarewards.elt.domain.user.SysUser;
@@ -25,9 +28,15 @@ public class RewardVo {
 
 	private Reward reward = new Reward();
 
-	private List<CandidateRule> candidateRule = new ArrayList<CandidateRule>();
+	private CandidateRule candidateRule;
 
-	private List<PreWinner> preWinners = new ArrayList<PreWinner>();
+	private List<Candidate> candidates = new ArrayList<Candidate>();
+
+	private List<Judge> judges = new ArrayList<Judge>();
+
+	private List<NomineeLot> nomineeLots = new ArrayList<NomineeLot>();
+
+	private List<PreWinnerLot> preWinnerLots = new ArrayList<PreWinnerLot>();
 
 	private List<Winner> winners = new ArrayList<Winner>();
 
@@ -39,20 +48,44 @@ public class RewardVo {
 		this.reward = reward;
 	}
 
-	public List<CandidateRule> getCandidateRule() {
+	public CandidateRule getCandidateRule() {
 		return candidateRule;
 	}
 
-	public void setCandidateRule(List<CandidateRule> candidateRule) {
+	public void setCandidateRule(CandidateRule candidateRule) {
 		this.candidateRule = candidateRule;
 	}
 
-	public List<PreWinner> getPreWinners() {
-		return preWinners;
+	public List<Candidate> getCandidates() {
+		return candidates;
 	}
 
-	public void setPreWinners(List<PreWinner> preWinners) {
-		this.preWinners = preWinners;
+	public void setCandidates(List<Candidate> candidates) {
+		this.candidates = candidates;
+	}
+
+	public List<Judge> getJudges() {
+		return judges;
+	}
+
+	public void setJudges(List<Judge> judges) {
+		this.judges = judges;
+	}
+
+	public List<NomineeLot> getNomineeLots() {
+		return nomineeLots;
+	}
+
+	public void setNomineeLots(List<NomineeLot> nomineeLots) {
+		this.nomineeLots = nomineeLots;
+	}
+
+	public List<PreWinnerLot> getPreWinnerLots() {
+		return preWinnerLots;
+	}
+
+	public void setPreWinnerLots(List<PreWinnerLot> preWinnerLots) {
+		this.preWinnerLots = preWinnerLots;
 	}
 
 	public List<Winner> getWinners() {

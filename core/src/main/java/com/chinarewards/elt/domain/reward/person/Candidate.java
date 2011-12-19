@@ -52,6 +52,19 @@ public class Candidate implements Serializable {
 
 	@ManyToOne
 	private SysUser lastModifiedBy;
+	
+	/**
+	 * 被提名
+	 */
+	private int nominatecount;
+
+	public int getNominatecount() {
+		return nominatecount;
+	}
+
+	public void setNominatecount(int nominatecount) {
+		this.nominatecount = nominatecount;
+	}
 
 	public String getId() {
 		return id;

@@ -210,6 +210,11 @@ public class RewardItem implements Serializable {
 	private Date publishDate;
 
 	/**
+	 * How many days about the publish date ahead of award date.
+	 */
+	private int publishAheadDays;
+
+	/**
 	 * The date to run batch, usually calculate from awardDate or publishDate.
 	 * In actually, it is awardDate when the RewardItem is full- automatic.
 	 * Otherwise, it is publishDate.
@@ -362,6 +367,14 @@ public class RewardItem implements Serializable {
 
 	public Date getPublishDate() {
 		return publishDate;
+	}
+
+	public int getPublishAheadDays() {
+		return publishAheadDays;
+	}
+
+	public void setPublishAheadDays(int publishAheadDays) {
+		this.publishAheadDays = publishAheadDays;
 	}
 
 	public void setPublishDate(Date publishDate) {

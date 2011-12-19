@@ -83,30 +83,33 @@ public interface RewardItemLogic {
 	/**
 	 * Make the specified RewardItem enabled.
 	 * 
+	 * @param caller
 	 * @param rewardItemId
 	 * @return
 	 */
-	public RewardItem enableRewardItem(UserContext context, String rewardItemId);
+	public RewardItem enableRewardItem(SysUser caller, String rewardItemId);
 
 	/**
 	 * Make the specified RewardItem disabled.
 	 * 
+	 * @param caller
 	 * @param rewardItemId
 	 * @return
 	 */
-	public RewardItem disableRewardItem(UserContext context, String rewardItemId);
-
-	/**
-	 * Fetch the entire information about the specified Reward. It contains all
-	 * the external informations.
-	 * 
-	 * @param rewardId
-	 * @return
-	 */
-	public RewardItemVo fetchEntireRewardById(String rewardId);
+	public RewardItem disableRewardItem(SysUser caller, String rewardItemId);
 
 	/**
 	 * Run batch to generate rewards automatic.
+	 * 
+	 * @param flagTime
 	 */
-	public void runAutoRewardGeneratorBatch(Date currDate);
+	public void runAutoRewardGeneratorBatch(Date flagTime);
+
+	/**
+	 * Calculate the next run batch time of the specified rewarditem.
+	 * 
+	 * @param rewardItemId
+	 * @return
+	 */
+	public Date calNextRunBatchTime(String rewardItemId);
 }

@@ -66,6 +66,14 @@ public interface CandidateRuleLogic {
 			Date currTime);
 
 	/**
+	 * Get {@link CandidateRule} list from the specified Reward.
+	 * 
+	 * @param rewardId
+	 * @return
+	 */
+	public CandidateRule findCandidateRuleFromReward(String rewardId);
+
+	/**
 	 * Get qualified staffs from the specified RewardItem.
 	 * 
 	 * @param candidateRuleId

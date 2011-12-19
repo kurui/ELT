@@ -18,8 +18,10 @@ import com.chinarewards.elt.domain.reward.person.Candidate;
 import com.chinarewards.elt.domain.reward.person.Judge;
 import com.chinarewards.elt.domain.reward.person.NomineeLot;
 import com.chinarewards.elt.domain.reward.person.PreWinnerLot;
+import com.chinarewards.elt.domain.reward.person.Winner;
 import com.chinarewards.elt.domain.reward.rule.CandidateRule;
 import com.chinarewards.elt.domain.user.SysUser;
+import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.reward.base.RequireAutoAward;
 import com.chinarewards.elt.model.reward.base.RewardParam;
 import com.chinarewards.elt.model.reward.base.RewardStatus;
@@ -31,7 +33,11 @@ import com.chinarewards.elt.model.reward.exception.NominateRewardException;
 import com.chinarewards.elt.model.reward.search.CandidateParam;
 import com.chinarewards.elt.model.reward.search.JudgeParam;
 import com.chinarewards.elt.model.reward.search.RewardQueryVo;
+import com.chinarewards.elt.model.reward.search.RewardSearchVo;
+import com.chinarewards.elt.model.reward.vo.RewardVo;
 import com.chinarewards.elt.model.user.UserContext;
+import com.chinarewards.elt.service.reward.acl.RewardAclProcessorFactory;
+import com.chinarewards.elt.service.reward.frequency.FrequencyLogic;
 import com.chinarewards.elt.service.reward.rule.AwardApprovalDeterminer;
 import com.chinarewards.elt.service.reward.rule.CandidateLogic;
 import com.chinarewards.elt.service.reward.rule.CandidateRuleLogic;
@@ -49,7 +55,8 @@ import com.google.inject.Inject;
  * @author yanxin
  * @since 1.0
  */
-public class RewardLogicImpl implements RewardLogic ,RewardService{
+public class RewardLogicImpl implements RewardLogic {
+
 	Logger logger = LoggerFactory.getLogger(getClass());
 
 	private final RewardDao rewardDao;
@@ -63,6 +70,8 @@ public class RewardLogicImpl implements RewardLogic ,RewardService{
 	private final WinnerLogic winnerLogic;
 	private final NomineeLogic nomineeLogic;
 	private final AwardApprovalDeterminer awardApprovalDeterminer;
+	private final FrequencyLogic frequencyLogic;
+	private final RewardAclProcessorFactory rewardAclProcessorFactory;
 
 	@Inject
 	public RewardLogicImpl(RewardDao rewardDao, RewardItemDao rewardItemDao,
@@ -71,7 +80,9 @@ public class RewardLogicImpl implements RewardLogic ,RewardService{
 			CandidateRuleLogic candidateRuleLogic, JudgeLogic judgeLogic,
 			PreWinnerLogic preWinnerLogic, WinnerLogic winnerLogic,
 			NomineeLogic nomineeLogic,
-			AwardApprovalDeterminer awardApprovalDeterminer) {
+			AwardApprovalDeterminer awardApprovalDeterminer,
+			FrequencyLogic frequencyLogic,
+			RewardAclProcessorFactory rewardAclProcessorFactory) {
 		this.rewardDao = rewardDao;
 		this.rewardItemDao = rewardItemDao;
 		this.deptDao = deptDao;
@@ -83,6 +94,8 @@ public class RewardLogicImpl implements RewardLogic ,RewardService{
 		this.winnerLogic = winnerLogic;
 		this.nomineeLogic = nomineeLogic;
 		this.awardApprovalDeterminer = awardApprovalDeterminer;
+		this.frequencyLogic = frequencyLogic;
+		this.rewardAclProcessorFactory = rewardAclProcessorFactory;
 	}
 
 	/**
@@ -153,7 +166,8 @@ public class RewardLogicImpl implements RewardLogic ,RewardService{
 	}
 
 	@Override
-	public Reward awardFromRewardItem(SysUser caller, String rewardItemId) {
+	public Reward awardFromRewardItem(SysUser caller, String rewardItemId,
+			Date currTime) {
 		logger.debug(
 				"Invoking method generateRewardFromRewardItem(), parameter:{}",
 				rewardItemId);
@@ -161,7 +175,9 @@ public class RewardLogicImpl implements RewardLogic ,RewardService{
 		RewardItem item = rewardItemDao
 				.findById(RewardItem.class, rewardItemId);
 		Reward reward = new Reward();
-		reward.setName(item.getName());
+		String name = frequencyLogic.calRewardNameFromFrequency(item.getName(),
+				item.getFrequency(), currTime);
+		reward.setName(name);
 		reward.setRewardItem(item);
 		reward.setCorporation(item.getCorporation());
 		reward.setStatus(RewardStatus.NEW);
@@ -306,17 +322,16 @@ public class RewardLogicImpl implements RewardLogic ,RewardService{
 
 	@Override
 	public RewardQueryVo fetchEntireRewardQueryVoById(String rewardId) {
-		//获取奖励
+		// 获取奖励
 		Reward reward = rewardDao.findById(Reward.class, rewardId);
-		//获取被提名人
-		List<Candidate> candidateList= candidateLogic.getCandidatesFromReward(rewardId);
-		//获取提名人
-		List<Judge> judgeList=judgeLogic.findJudgesFromReward(rewardId);
-		
-		
-		
-		RewardQueryVo rewardQueryVo=new RewardQueryVo();
-		
+		// 获取被提名人
+		List<Candidate> candidateList = candidateLogic
+				.getCandidatesFromReward(rewardId);
+		// 获取提名人
+		List<Judge> judgeList = judgeLogic.findJudgesFromReward(rewardId);
+
+		RewardQueryVo rewardQueryVo = new RewardQueryVo();
+
 		rewardQueryVo.setRewardId(reward.getId());
 		rewardQueryVo.setRewardName(reward.getName());
 		rewardQueryVo.setRewardItemName(reward.getRewardItem().getName());
@@ -328,37 +343,118 @@ public class RewardLogicImpl implements RewardLogic ,RewardService{
 		rewardQueryVo.setCreatedAt(reward.getCreatedAt());
 		rewardQueryVo.setExpectAwardDate(reward.getExpectAwardDate());
 		rewardQueryVo.setExpectNominateDate(reward.getExpectNominateDate());
-		rewardQueryVo.setCreatedStaffName(reward.getCreatedBy().getStaff().getName());
-		rewardQueryVo.setAwardMode(reward.getRewardItem().getAutoGenerate().toString());//wanting......
-		rewardQueryVo.setAwardingStaffName(reward.getCreatedBy().getStaff().getName());//wanting.......same CreateStaff
-		
-		List<CandidateParam> candidateListParam=new ArrayList<CandidateParam>();
+		rewardQueryVo.setCreatedStaffName(reward.getCreatedBy().getStaff()
+				.getName());
+		rewardQueryVo.setAwardMode(reward.getRewardItem().getAutoGenerate()
+				.toString());// wanting......
+		rewardQueryVo.setAwardingStaffName(reward.getCreatedBy().getStaff()
+				.getName());// wanting.......same CreateStaff
+
+		List<CandidateParam> candidateListParam = new ArrayList<CandidateParam>();
 		for (int i = 0; i < candidateList.size(); i++) {
-			Candidate candidate=candidateList.get(i);
-			CandidateParam candparam=new CandidateParam();
+			Candidate candidate = candidateList.get(i);
+			CandidateParam candparam = new CandidateParam();
 			candparam.setId(candidate.getId());
 			candparam.setName(candidate.getStaff().getName());
-			candparam.setNominateCount(nomineeLogic.getNomineeCount(rewardId, candidate.getStaff().getId()));
+			candparam.setNominateCount(candidate.getNominatecount());
 			candidateListParam.add(candparam);
 		}
-		//设置被提名人
+		// 设置被提名人
 		rewardQueryVo.setCandidateList(candidateListParam);
-		
-		
-		List<JudgeParam> JudgeListParam=new ArrayList<JudgeParam>();
+
+		List<JudgeParam> JudgeListParam = new ArrayList<JudgeParam>();
 		for (int i = 0; i < judgeList.size(); i++) {
-			Judge judge=judgeList.get(i);
-			JudgeParam judgeParam=new JudgeParam();
+			Judge judge = judgeList.get(i);
+			JudgeParam judgeParam = new JudgeParam();
 			judgeParam.setId(judge.getId());
 			judgeParam.setName(judge.getStaff().getName());
-			judgeParam.setIsNominate(nomineeLogic.isNomineeByJudge(rewardId, judge.getId()));
+			judgeParam.setIsNominate(judge.getStatus().toString());
 			JudgeListParam.add(judgeParam);
 		}
-		
-		//设置提名人
+
+		// 设置提名人
 		rewardQueryVo.setJudgeList(JudgeListParam);
-		
+
 		return rewardQueryVo;
 	}
 
+	@Override
+	public RewardVo fetchEntireRewardById(String rewardId) {
+		Reward reward = rewardDao.findById(Reward.class, rewardId);
+		return convertFromRewardToVo(reward, true);
+	}
+
+	/**
+	 * Convert from {@link Reward} to {@link RewardVo}. Here have two choices:
+	 * <ul>
+	 * <li>1. Just copy from Reward, do not need to query more detail
+	 * informations.</li>
+	 * <li>2. Need to query more detail informations. Maybe it is slow, please
+	 * be careful.</li>
+	 * </ul>
+	 * 
+	 * @param reward
+	 * @param isEntire
+	 *            true - get more details according to query database. It is
+	 *            slow. <br>
+	 *            false - just copy from Reward.
+	 * @return
+	 */
+	private RewardVo convertFromRewardToVo(Reward reward, boolean isEntire) {
+		RewardVo rewardVo = new RewardVo();
+		if (isEntire) {
+			String rewardId = reward.getId();
+			// candidate rule
+			CandidateRule candidateRule = candidateRuleLogic
+					.findCandidateRuleFromReward(rewardId);
+			// candidate list
+			List<Candidate> candidates = candidateLogic
+					.getCandidatesFromReward(rewardId);
+			// Judge list
+			List<Judge> judges = judgeLogic.findJudgesFromReward(rewardId);
+			// nominee lot
+			List<NomineeLot> nomineeLots = nomineeLogic
+					.getNomineeLotsFromReward(rewardId);
+			// pre-winner
+			List<PreWinnerLot> preWinnerLots = preWinnerLogic
+					.getPreWinnerLotsFromReward(rewardId);
+			// winner
+			List<Winner> winners = winnerLogic.getWinnersOfReward(rewardId);
+			;
+
+			rewardVo.setReward(reward);
+			rewardVo.setCandidateRule(candidateRule);
+			rewardVo.setCandidates(candidates);
+			rewardVo.setJudges(judges);
+			rewardVo.setNomineeLots(nomineeLots);
+			rewardVo.setPreWinnerLots(preWinnerLots);
+			rewardVo.setWinners(winners);
+		}
+		rewardVo.setReward(reward);
+
+		return rewardVo;
+	}
+
+	@Override
+	public PageStore<RewardVo> fetchRewards(UserContext context,
+			RewardSearchVo criteria) {
+		PageStore<Reward> pageStore = rewardAclProcessorFactory
+				.generateRewardAclProcessor(context.getUserRoles())
+				.fetchRewards(context, criteria);
+
+		List<Reward> list = pageStore.getResultList();
+		// post-process and convert
+		List<RewardVo> rewardVoList = new ArrayList<RewardVo>();
+		for (Reward reward : list) {
+			rewardVoList.add(convertFromRewardToVo(reward, true));
+		}
+		logger.debug("The result size:{}, total:{}", new Object[] {
+				rewardVoList.size(), pageStore.getResultCount() });
+
+		PageStore<RewardVo> storeVo = new PageStore<RewardVo>();
+		storeVo.setResultCount(pageStore.getResultCount());
+		storeVo.setResultList(rewardVoList);
+
+		return storeVo;
+	}
 }

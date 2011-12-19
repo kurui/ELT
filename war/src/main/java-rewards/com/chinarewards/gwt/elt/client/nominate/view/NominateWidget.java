@@ -10,11 +10,11 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.Random;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -34,7 +34,7 @@ public class NominateWidget extends Composite implements NominateDisplay {
 	@UiField
 	Label recordName;
 	@UiField
-	Label number;
+	InlineLabel number;
 	@UiField
 	VerticalPanel judge;
 	@UiField
@@ -48,13 +48,14 @@ public class NominateWidget extends Composite implements NominateDisplay {
 	@UiField
 	Label awardName;
 	@UiField
-	Label nominateMessage;
+	InlineLabel nominateMessage;
 
 	@UiField
-	Label expectNominateDate;
+	InlineLabel expectNominateDate;
 	@UiField
-	Label nominateStaff;
-	
+	InlineLabel nominateStaff;
+	@UiField
+	InlineLabel awardAmt;
 	private static HrRegisterWidgetUiBinder uiBinder = GWT
 			.create(HrRegisterWidgetUiBinder.class);
 
@@ -105,17 +106,27 @@ public class NominateWidget extends Composite implements NominateDisplay {
 		this.number.setText(number);
 
 	}
+	@Override
+	public void setAwardAmt(String awardAmt) {
+		this.awardAmt.setText(awardAmt);
 
+	}
 	@Override
 	public void setJudge(List<JudgeParamVo> judge) {
-		HTML nominatelab = new HTML("显示提名人");
+		String judgeStr="";
+		for (int i = 0; i < judge.size(); i++) {
+			judgeStr+=judge.get(i).getName()+",";
+			
+		}
+		InlineLabel nominatelab = new InlineLabel(judgeStr);
 		this.judge.add(nominatelab);
+		
 
 	}
 
 	@Override
 	public void setCandidate(List<CandidateParamVo> candidate) {
-		boolean fal = false;//是否创建人界面
+		boolean fal = true;//是否创建人界面
 		if (fal) {
 			String str = "";
 			for (int i = 0; i < 20; i++) {
@@ -127,23 +138,21 @@ public class NominateWidget extends Composite implements NominateDisplay {
 		}
 
 		for (int i = 0; i < candidate.size(); i++) {
-			String count = candidate.get(i).toString();
-			String checkBoxName=count;
+			CandidateParamVo candidateVo =candidate.get(i);
+			String checkBoxName=candidateVo.getName();
+			String count=candidateVo.getName();
 			if (fal) {
 				String str2 = "";
 				for (int j = count.length(); j < 20; j++) {
 					str2 += "-";
 				}
-				checkBoxName =count+ str2 + Random.nextInt(10);// 是否显示被提名次数
+				checkBoxName =count+ str2 + candidateVo.getNominateCount();// 是否显示被提名次数
 			}
 			CheckBox checkBox = new CheckBox(checkBoxName);
 			checkBox.ensureDebugId("cwCheckBox-" + checkBoxName);
 			checkBox.setName(count);
 
-			// // Disable the weekends
-			// if (i >= 5) {
-			// checkBox.setEnabled(false);
-			// }
+
 
 			this.candidate.add(checkBox);
 		}

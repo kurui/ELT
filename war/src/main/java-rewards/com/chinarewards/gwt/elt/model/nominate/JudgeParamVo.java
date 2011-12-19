@@ -12,11 +12,11 @@ public class JudgeParamVo implements Serializable{
 	/**
 	 * 是否提名过
 	 */
-	private boolean isNominate;
-	public boolean getIsNominate() {
+	private String isNominate;
+	public String getIsNominate() {
 		return isNominate;
 	}
-	public void setIsNominate(boolean isNominate) {
+	public void setIsNominate(String isNominate) {
 		this.isNominate = isNominate;
 	}
 	public String getId() {

@@ -1,5 +1,6 @@
 package com.chinarewards.elt.service.org.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -153,11 +154,27 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 	}
 
 	@Override
-	public List<Department> getWholeChildren(String deptId) {
+	public List<Department> getWholeChildren(String deptId,
+			boolean containItSelf) {
 		Department dept = deptDao.findById(Department.class, deptId);
 		logger.debug("Prepare to search by lft={} and rgt={}", new Object[] {
 				dept.getLft(), dept.getRgt() });
-		return deptDao.findDepartmentsByLefRgt(dept.getLft(), dept.getRgt());
+		List<Department> depts = deptDao.findDepartmentsByLefRgt(dept.getLft(),
+				dept.getRgt());
+		if (containItSelf) {
+			depts.add(dept);
+		}
+		return depts;
+	}
+
+	@Override
+	public List<String> getWholeChildrenIds(String deptId, boolean containItSelf) {
+		List<String> list = new ArrayList<String>();
+		List<Department> depts = getWholeChildren(deptId, containItSelf);
+		for (Department dept : depts) {
+			list.add(dept.getId());
+		}
+		return list;
 	}
 
 	@Override

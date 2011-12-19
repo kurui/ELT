@@ -60,17 +60,17 @@ public class FrequencyProcessorDay implements FrequencyProcessor {
 	}
 
 	@Override
-	public String generateRewardName(String name, RewardsFrequency frequency) {
-		Date now = DateUtil.getTime();
-		return name + " -" + DateUtil.formatData(" yyyy年MM月dd日", now);
+	public String generateRewardName(String name, Frequency frequency,
+			Date runTime) {
+		return name + " -" + DateUtil.formatData(" yyyy年MM月dd日", runTime);
 	}
 
 	@Override
-	public Date calNextRunTime(RewardsFrequency frequency, Date lastRunTime) {
-		Daily freq = cast(frequency);
-		logger.debug("Process in nextRewardsTime method, parameter frequency: "
-				+ freq + ",beforeRunTime: "
-				+ DateUtil.formatData(null, lastRunTime));
+	public Date calNextRunTime(Frequency frequency, Date lastRunTime) {
+		DayFrequency freq = (DayFrequency) frequency;
+		logger.debug(
+				"Process in calNextRunTime method, param[frequency={}, lastRunTime={}]",
+				new Object[] { freq, DateUtil.formatData(null, lastRunTime) });
 		return DateUtil
 				.getDateOfParameterOnDay(lastRunTime, freq.getInterval());
 	}

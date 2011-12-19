@@ -27,4 +27,18 @@ public class NomineeDao extends BaseDao<Nominee> {
 				.setParameter("rewardId", rewardId)
 				.setParameter("staffId", staffId).getResultList();
 	}
+
+	/**
+	 * Find nominees by id of nomineelot.
+	 * 
+	 * @param nomineeLotId
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Nominee> findNomineesByNomineeLotId(String nomineeLotId) {
+		return getEm()
+				.createQuery(
+						"FROM Nominee n WHERE n.nomineeLot.id =:nomineeLotId")
+				.setParameter("nomineeLotId", nomineeLotId).getResultList();
+	}
 }
