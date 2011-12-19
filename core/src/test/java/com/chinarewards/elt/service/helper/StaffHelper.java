@@ -23,6 +23,7 @@ import com.google.inject.Injector;
 public class StaffHelper {
 
 	private static List<Staff> staffList;
+	private static List<String> staffListById;
 
 	/**
 	 * Get a default list of {@link Staff}
@@ -74,5 +75,52 @@ public class StaffHelper {
 		staffList.add(sthree);
 
 		return staffList;
+	}
+	
+	public static List<String> getDefaultStaffListById(Injector injector) {
+		EntityManager em = injector.getInstance(EntityManager.class);
+		if (staffListById != null
+				&& em.find(Staff.class, staffListById.get(0)) != null)
+			return staffListById;
+		staffListById = new ArrayList<String>();
+		// need some services
+		StaffLogic staffLogic = injector.getInstance(StaffLogic.class);
+		TransactionService transactionService = injector
+				.getInstance(TransactionService.class);
+
+		SysUser caller = UserHelper.getDefaultUser(injector);
+		Corporation corp = CorporationHelper.getDefaultCorporation(injector);
+		Department dept = DepartmentHelper.getDefaultDept(injector);
+		StaffVo one = new StaffVo();
+		one.setCorpId(corp.getId());
+		one.setDeptId(dept.getId());
+		one.setName("mervyn");
+		// create a tx account
+		String accountId = transactionService.createNewAccount();
+		one.setTxAccountId(accountId);
+		Staff sone = staffLogic.saveStaff(caller, one);
+		staffListById.add(sone.getId());
+
+		StaffVo two = new StaffVo();
+		two.setCorpId(corp.getId());
+		two.setDeptId(dept.getId());
+		two.setName("damon");
+		// create a tx account
+		accountId = transactionService.createNewAccount();
+		two.setTxAccountId(accountId);
+		Staff stwo = staffLogic.saveStaff(caller, two);
+		staffListById.add(stwo.getId());
+
+		StaffVo three = new StaffVo();
+		three.setCorpId(corp.getId());
+		three.setDeptId(dept.getId());
+		three.setName("rock");
+		// create a tx account
+		accountId = transactionService.createNewAccount();
+		three.setTxAccountId(accountId);
+		Staff sthree = staffLogic.saveStaff(caller, three);
+		staffListById.add(sthree.getId());
+
+		return staffListById;
 	}
 }

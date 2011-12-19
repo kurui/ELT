@@ -6,6 +6,7 @@ import java.util.List;
 import com.chinarewards.elt.dao.org.CorporationDao;
 import com.chinarewards.elt.dao.user.UserDao;
 import com.chinarewards.elt.domain.org.Corporation;
+import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.user.UserStatus;
 import com.chinarewards.elt.model.user.UserVo;
@@ -47,6 +48,27 @@ public class UserLogicImpl implements UserLogic {
 			user.setStatus(UserStatus.Inactive);
 			user.setCreatedAt(now);
 			user.setLastModifiedAt(now);
+			userDao.save(user);
+		} else {
+			user = users.get(0);
+		}
+
+		return user;
+	}
+	
+	@Override
+	public SysUser getDefaultUserByStaff(Staff staff) {
+		List<SysUser> users = userDao.findUserByUserName(DEFAULT_NAME);
+		SysUser user;
+		if (users.isEmpty()) {
+			// Create a new user.
+			Date now = DateUtil.getTime();
+			user = new SysUser();
+			user.setUserName(DEFAULT_NAME);
+			user.setStatus(UserStatus.Inactive);
+			user.setCreatedAt(now);
+			user.setLastModifiedAt(now);
+			user.setStaff(staff);
 			userDao.save(user);
 		} else {
 			user = users.get(0);

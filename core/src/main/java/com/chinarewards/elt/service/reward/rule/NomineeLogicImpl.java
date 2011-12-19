@@ -48,8 +48,7 @@ public class NomineeLogicImpl implements NomineeLogic {
 			List<String> staffIds) throws JudgeException {
 		Date now = DateUtil.getTime();
 		Reward reward = rewardDao.findById(Reward.class, rewardId);
-		Judge judge = judgeDao.findJudgeByStaffIdAndRewardId(caller.getStaff()
-				.getId(), rewardId);
+		Judge judge = judgeDao.findJudgeByStaffIdAndRewardId(caller.getStaff().getId(), rewardId);
 		if (judge == null) {
 			throw new JudgeException(
 					"Can not found correct judge by login user.");
