@@ -40,6 +40,11 @@ public class NominatePresenterImpl extends
 					public void onClick(ClickEvent paramClickEvent) {
 						List<String> staffidList=display.getStaffList();
 						List<String> candidateidList=display.getCandidateList();
+						if(staffidList.size()<=0)
+						{
+							Window.alert("请选择需要提名的人...");
+							return ;
+						}
 						String message="";
 						for (int i = 0; i < candidateidList.size(); i++) {
 							message+="提名ID:"+candidateidList.get(i)+"----提名次数+1;";
