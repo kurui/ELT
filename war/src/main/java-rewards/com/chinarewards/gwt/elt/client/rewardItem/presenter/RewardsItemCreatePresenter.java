@@ -18,11 +18,11 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
 public interface RewardsItemCreatePresenter extends Presenter<RewardsItemCreatePresenter.RewardsItemDisplay> {
-	void initRewardsItemOrRewardsTemplate(Object item);
+	//void initRewardsItemOrRewardsTemplate(Object item);
 
-	void initInstanceId(String instanceId);
+	//void initInstanceId(String instanceId);
 	
-	void checkIsAmountRoleLevel();
+	//void checkIsAmountRoleLevel();
 	public static interface RewardsItemDisplay extends Display {
 
 		public HasValue<String> getRewardsName();
@@ -31,13 +31,18 @@ public interface RewardsItemCreatePresenter extends Presenter<RewardsItemCreateP
 
 		public HasValue<String> getStandard();
     
-		public HasValue<String> getTmdays();
+		public Integer getTmdays();
 
 		public HasClickHandlers getFrequencySettingClick();
 
 		public HasValue<Date> getStartTime();
-
-	    
+        
+		public Integer getTotalJF();
+		
+		
+		
+		public String getRewardsType();
+		
 		public HasValue<Date> getEndTime();
 		
 		public HasValue<Date> getNextPublishTime();
@@ -57,7 +62,7 @@ public interface RewardsItemCreatePresenter extends Presenter<RewardsItemCreateP
 		public HasClickHandlers getSaveClick();
 
 		public void clear();
-
+       
 		public FrequencyClient getFrequencyObj();
 
 		/**

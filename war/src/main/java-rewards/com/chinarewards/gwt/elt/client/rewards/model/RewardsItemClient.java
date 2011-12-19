@@ -14,9 +14,33 @@ public class RewardsItemClient implements Serializable,
 	/** 基本信息 **/
 	private RewardsBaseInfo baseInfo = new RewardsBaseInfo();
 
+	public boolean isPeriodEnable() {
+		return periodEnable;
+	}
+
+	public void setPeriodEnable(boolean periodEnable) {
+		this.periodEnable = periodEnable;
+	}
+
+	public Integer getTotalJF() {
+		return totalJF;
+	}
+
+	public void setTotalJF(Integer totalJF) {
+		this.totalJF = totalJF;
+	}
+
+	public Integer getRewardsFrom() {
+		return rewardsFrom;
+	}
+
+	public void setRewardsFrom(Integer rewardsFrom) {
+		this.rewardsFrom = rewardsFrom;
+	}
+
 	/** 频率规则 **/
-	// 频率是否有效
-	private boolean enable;
+	// 频率是否有效(周期性)
+	private boolean periodEnable;
 	// 频率
 	private FrequencyClient frequency;
 
@@ -46,6 +70,23 @@ public class RewardsItemClient implements Serializable,
 
 	// 是否已经生成奖励
 	private boolean isGeneratedRewards;
+	
+	//总积分
+	private Integer totalJF;
+	
+	//每人得的积分
+	private Integer rewardsFrom;
+	
+	//提前的天数
+	private Integer tmdays;
+
+	public Integer getTmdays() {
+		return tmdays;
+	}
+
+	public void setTmdays(Integer tmdays) {
+		this.tmdays = tmdays;
+	}
 
 	@Override
 	public int compareTo(RewardsItemClient o) {
@@ -54,7 +95,7 @@ public class RewardsItemClient implements Serializable,
 
 	@Override
 	public String toString() {
-		return "RewardsItemClient [baseInfo=" + baseInfo + ", enable=" + enable
+		return "RewardsItemClient [baseInfo=" + baseInfo + ", enable=" + periodEnable
 				+ ", frequency=" + frequency + ", startTime=" + startTime
 				+ ", nextTime=" + nextTime + ", nextPublishTime="
 				+ nextPublishTime + ", lastRewardedDate=" + lastRewardedDate
@@ -72,13 +113,7 @@ public class RewardsItemClient implements Serializable,
 		this.baseInfo = baseInfo;
 	}
 
-	public boolean isEnable() {
-		return enable;
-	}
-
-	public void setEnable(boolean enable) {
-		this.enable = enable;
-	}
+	
 
 	public FrequencyClient getFrequency() {
 		return frequency;
@@ -176,13 +211,6 @@ public class RewardsItemClient implements Serializable,
 		baseInfo.setStandard(standard);
 	}
 
-	public RewardsAmountRuleClient getAmountRule() {
-		return baseInfo.getAmountRule();
-	}
-
-	public void setAmountRule(RewardsAmountRuleClient amountRule) {
-		baseInfo.setAmountRule(amountRule);
-	}
 
 	public String getName() {
 		return baseInfo.getName();
@@ -256,13 +284,13 @@ public class RewardsItemClient implements Serializable,
 		baseInfo.setRewardsUnit(rewardsUnit);
 	}
 
-	public boolean isPeopleSizeLimit() {
-		return baseInfo.isPeopleSizeLimit();
-	}
-
-	public void setPeopleSizeLimit(boolean isPeopleSizeLimit) {
-		baseInfo.setPeopleSizeLimit(isPeopleSizeLimit);
-	}
+//	public boolean isPeopleSizeLimit() {
+//		return baseInfo.isPeopleSizeLimit();
+//	}
+//
+//	public void setPeopleSizeLimit(boolean isPeopleSizeLimit) {
+//		baseInfo.setPeopleSizeLimit(isPeopleSizeLimit);
+//	}
 
 	public ParticipateInfoClient getParticipateInfo() {
 		return baseInfo.getParticipateInfo();
