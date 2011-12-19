@@ -41,6 +41,8 @@ import com.chinarewards.elt.service.reward.frequency.FrequencyProcessorDay;
 import com.chinarewards.elt.service.reward.frequency.FrequencyProcessorMonth;
 import com.chinarewards.elt.service.reward.frequency.FrequencyProcessorWeek;
 import com.chinarewards.elt.service.reward.frequency.FrequencyProcessorYear;
+import com.chinarewards.elt.service.reward.nominee.NomineeService;
+import com.chinarewards.elt.service.reward.nominee.NomineeServiceImpl;
 import com.chinarewards.elt.service.reward.rule.AwardApprovalDeterminer;
 import com.chinarewards.elt.service.reward.rule.CandidateLogic;
 import com.chinarewards.elt.service.reward.rule.CandidateLogicImpl;
@@ -91,6 +93,9 @@ public class RewardModule extends AbstractModule {
 		bind(YearFrequencyDao.class).in(Singleton.class);
 
 		// Service of logic
+		
+		bind(NomineeService.class).to(NomineeServiceImpl.class).in(
+				Singleton.class);
 		bind(RewardService.class).to(RewardServiceImpl.class).in(
 				Singleton.class);
 		bind(RewardItemService.class).to(RewardItemServiceImpl.class).in(

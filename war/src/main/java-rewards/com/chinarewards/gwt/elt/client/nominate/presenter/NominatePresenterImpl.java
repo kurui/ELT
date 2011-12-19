@@ -23,6 +23,7 @@ public class NominatePresenterImpl extends
 		NominatePresenter {
 
 	private final DispatchAsync dispatcher;
+	private String awardsId="8a83834534544f870134544f8bfb001f";
 	
 	@Inject
 	public NominatePresenterImpl(EventBus eventBus,
@@ -40,10 +41,10 @@ public class NominatePresenterImpl extends
 						List<String> idList=display.getCandidateList();
 						String message="";
 						for (int i = 0; i < idList.size(); i++) {
-							message+=idList.get(i)+"提名次数+1";
+							message+=idList.get(i)+"提名次数+1;";
 						}
 						Window.alert(message);
-						addNominateData();
+						addNominateData(idList,awardsId);
 					}
 				}));
 	}
@@ -51,9 +52,9 @@ public class NominatePresenterImpl extends
 	/**
 	 * 提名数据添加
 	 */
-	private void addNominateData()
+	private void addNominateData(List<String> idList,String rewardId)
 	{
-		dispatcher.execute(new NominateAddRequest("1"),
+		dispatcher.execute(new NominateAddRequest(idList,rewardId),
 				new AsyncCallback<NominateAddResponse>() {
 					public void onFailure(Throwable t) {
 						Window.alert(t.getMessage());
@@ -73,7 +74,7 @@ public class NominatePresenterImpl extends
 	private void init()
 	{
 		//根据传入ID初始化提名页面
-		String awardsId="1";
+	
 		dispatcher.execute(new NominateInitRequest(awardsId),
 				new AsyncCallback<NominateInitResponse>() {
 					public void onFailure(Throwable t) {

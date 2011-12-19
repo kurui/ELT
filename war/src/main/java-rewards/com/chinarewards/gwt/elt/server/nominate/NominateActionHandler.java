@@ -44,8 +44,8 @@ public class NominateActionHandler extends
 	public NominateInitResponse execute(NominateInitRequest request,
 			ExecutionContext response) throws DispatchException {
 		// 获取信息
-	//	RewardQueryVo rewardQueryVo = rewardService.fetchEntireRewardQueryVoById(request.getAwardsId());
-		RewardQueryVo rewardQueryVo =getTestData();
+		RewardQueryVo rewardQueryVo = rewardService.fetchEntireRewardQueryVoById(request.getAwardsId());
+	//	RewardQueryVo rewardQueryVo =getTestData();
 		
 		NominateInitResponse Nomresponse = new NominateInitResponse();
 

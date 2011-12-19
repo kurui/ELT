@@ -32,4 +32,8 @@ public interface CandidateLogic {
 	 */
 	public List<Candidate> getCandidatesFromReward(String rewardId);
 
+	/**
+	 * 被提名人次数+1
+	 */
+	public void updateCandidatesCount(List<String> staffsid);
 }

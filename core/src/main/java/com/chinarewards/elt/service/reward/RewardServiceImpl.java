@@ -9,6 +9,7 @@ import com.chinarewards.elt.model.reward.exception.ApproveRewardException;
 import com.chinarewards.elt.model.reward.exception.DenyRewardException;
 import com.chinarewards.elt.model.reward.exception.NominateRewardException;
 import com.chinarewards.elt.model.reward.search.RewardQueryVo;
+import com.google.inject.Inject;
 
 /**
  * The implementation of {@link RewardService}
@@ -17,7 +18,13 @@ import com.chinarewards.elt.model.reward.search.RewardQueryVo;
  * @since 1.0
  */
 public class RewardServiceImpl implements RewardService {
-
+	private final RewardLogic rewardLogic;
+	
+	@Inject
+	public RewardServiceImpl(RewardLogic rewardLogic)
+	{
+		this.rewardLogic=rewardLogic;
+	}
 	@Override
 	public Reward awardFromRewardItem(SysUser caller, String rewardItemId) {
 		
@@ -55,8 +62,7 @@ public class RewardServiceImpl implements RewardService {
 
 	@Override
 	public RewardQueryVo fetchEntireRewardQueryVoById(String rewardId) {
-		// TODO Auto-generated method stub
-		return null;
+		return rewardLogic.fetchEntireRewardQueryVoById(rewardId);
 	}
 
 }
