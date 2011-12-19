@@ -55,12 +55,14 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 	// 标准
 	@UiField
 	TextArea standard;
-	// 是否限制人数
+	
 	
 	// 限制人数
 	@UiField
 	TextBox peopleSizeLimit;
-	
+	@UiField
+	//总积分
+	TextBox totalJF;
 	@UiField
 	TextBox rewardsFrom;
    //提前几天提名
@@ -219,27 +221,7 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 			}
 		});
 
-		// 入账部门
-//		needAccountDept
-//				.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
-//
-//					@Override
-//					public void onValueChange(ValueChangeEvent<Boolean> event) {
-//						if (event.getValue()) {
-//							accountDeptPanel.getElement().getParentElement()
-//									.getParentElement()
-//									.removeClassName(CssStyleConstants.hidden);
-//							if (buildDept.getSelectedItem() != null) {
-//								accountDept.setDefaultValue(buildDept
-//										.getSelectedItem());
-//							}
-//						} else {
-//							accountDeptPanel.getElement().getParentElement()
-//									.getParentElement()
-//									.addClassName(CssStyleConstants.hidden);
-//						}
-//					}
-//				});
+		
 		// 自动颁奖
 		autoCbx.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
 
@@ -493,16 +475,26 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 
 
 	@Override
-	public HasValue<String> getTmdays() {
+	public Integer getTmdays() {
 		
-		return tmdays;
+		if (tmdays.getText() == null
+				|| "".equals(tmdays.getText().trim())) {
+			return null;
+		} else {
+			try {
+				int d = Integer.parseInt(tmdays.getText().trim());
+				return d;
+			} catch (Exception e) {
+				return new Integer(-1);
+			}
+		}
 	}
 
 
 	@Override
 	public HasValue<Boolean> getEnableCbx() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return moretimes;
 	}
 
 
@@ -525,6 +517,34 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 		// TODO Auto-generated method stub
 		return this.endTime;
 	}
+
+
+	@Override
+	public String getRewardsType() {
+		// 暂时没有设置启用
+		return "客户自定义";
+	}
+
+
+	@Override
+	public Integer getTotalJF() {
+		
+		if (totalJF.getText() == null
+				|| "".equals(totalJF.getText().trim())) {
+			return null;
+		} else {
+			try {
+				int d = Integer.parseInt(totalJF.getText().trim());
+				return d;
+			} catch (Exception e) {
+				return new Integer(-1);
+			}
+		}
+	}
+
+
+	
+	
 
 
 	

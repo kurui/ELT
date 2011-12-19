@@ -19,13 +19,29 @@ import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.rewardItem.dialog.FrequencySettingDialog;
 import com.chinarewards.gwt.elt.client.rewardItem.event.FrequencySettingEvent;
 import com.chinarewards.gwt.elt.client.rewardItem.handler.FrequencySettingHandler;
+import com.chinarewards.gwt.elt.client.rewardItem.request.CreateRewardsItemRequest;
+import com.chinarewards.gwt.elt.client.rewardItem.request.CreateRewardsItemResponse;
+import com.chinarewards.gwt.elt.client.rewards.model.DayFrequencyClient;
+import com.chinarewards.gwt.elt.client.rewards.model.DepartmentClient;
 import com.chinarewards.gwt.elt.client.rewards.model.FrequencyClient;
+import com.chinarewards.gwt.elt.client.rewards.model.MonthFrequencyClient;
+import com.chinarewards.gwt.elt.client.rewards.model.RewardsClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemClient;
+import com.chinarewards.gwt.elt.client.rewards.model.RewardsTypeClient;
+import com.chinarewards.gwt.elt.client.rewards.model.SpecialCondition;
+import com.chinarewards.gwt.elt.client.rewards.model.WeekFrequencyClient;
+import com.chinarewards.gwt.elt.client.rewards.model.YearFrequencyClient;
+import com.chinarewards.gwt.elt.client.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.util.DateTool;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.FocusEvent;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.i18n.shared.DateTimeFormat;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
@@ -37,6 +53,7 @@ public class RewardsItemCreatePresenterImpl extends
 	 * 是否为修改页，默认为false
 	 */
 	private boolean isEditPage = false;
+	private String rewardsItemId;
 	/** 上一次颁奖时间 **/
 	private Date lastRewardsDate;
 	/**
@@ -84,59 +101,256 @@ public class RewardsItemCreatePresenterImpl extends
 
 	@Override
 	public void bind() {
-		// handles the event for the frequency settings
-				registerHandler(display.getFrequencySettingClick().addClickHandler(
-						new ClickHandler() {
-							@Override
-							public void onClick(ClickEvent arg0) {
-								FrequencySettingDialog dialog = freProvider.get();
-								// load default values
-								dialog.initNewFrequency();
-
-								if (display.getFrequencyObj() != null) {
-									dialog.initFrequency(display.getFrequencyObj(),
-											true);
-								}
-								final HandlerRegistration registration = eventBus
-										.addHandler(FrequencySettingEvent.getType(),
-												new FrequencySettingHandler() {
-													@Override
-													public void setting(FrequencyClient frequency) {
-														doSettingFrequency(frequency);
-													}
-												});
-								Platform.getInstance().getSiteManager()
-										.openDialog(dialog, new DialogCloseListener() {
-											public void onClose(String dialogId,
-													String instanceId) {
-												registration.removeHandler();
-											}
-										});
-							}
-						}));
+		//绑定事件
+		 init();
+		//候选人面板显示
 		staffBlock.bind();
 		display.initStaffBlock(staffBlock.getDisplay().asWidget());
 	}
+	private void init(){
+		//频率设置
+		registerHandler(display.getFrequencySettingClick().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent arg0) {
+						FrequencySettingDialog dialog = freProvider.get();
+						// load default values
+						dialog.initNewFrequency();
+
+						if (display.getFrequencyObj() != null) {
+							dialog.initFrequency(display.getFrequencyObj(),
+									true);
+						}
+						final HandlerRegistration registration = eventBus
+								.addHandler(FrequencySettingEvent.getType(),
+										new FrequencySettingHandler() {
+											@Override
+											public void setting(FrequencyClient frequency) {
+												doSettingFrequency(frequency);
+											}
+										});
+						Platform.getInstance().getSiteManager()
+								.openDialog(dialog, new DialogCloseListener() {
+									public void onClose(String dialogId,
+											String instanceId) {
+										registration.removeHandler();
+									}
+								});
+					}
+				}));
+		
+		// handles the event when the start time is clicked.
+					registerHandler(display.getStartTimeChangeHandler()
+							.addValueChangeHandler(new ValueChangeHandler<Date>() {
+								@Override
+								public void onValueChange(ValueChangeEvent<Date> e) {
+
+									Date startDate = display.getStartTime().getValue();
+									FrequencyClient frequency = display.getFrequencyObj();
+
+									Date endDateTime = display.getEndTime().getValue();
+									if (endDateTime != null) {
+										if (startDate.getTime() > endDateTime.getTime()) {
+											Window.alert("请重新修改结束时间！");
+											display.getEndTime().setValue(startDate);
+											endDateCopy = startDate;
+										}
+									}
+
+									// 没设定频率的时候，终止！
+									if (frequency == null) {
+										return;
+									}
+
+									Date endDate = display.getEndTime().getValue();
+									Date currentDate = new Date();
+
+									RewardDateInfo info = new SimpleRewardDateInfo(
+											startDate, endDate, currentDate,
+											lastRewardsDate);
+									// The begin time which to cal
+									// the next rewarded time.
+									Date startTime = startDateCalculator
+											.calculateStartDate(info);
+									NextRewardsDateCalculator cal = factory.getCalculator();
+									Date nextRewardsDate = cal.calNextRewardsDate(
+											startTime, frequency);
+									display.getStartTime().setValue(nextRewardsDate);
+									display.getNextRewardsTime().setValue(nextRewardsDate);
+
+									if (display.getEndTime().getValue() != null) {
+										if (display.getEndTime().getValue().getTime() < nextRewardsDate
+												.getTime()) {
+											display.getEndTime().setValue(nextRewardsDate);
+											endDateCopy = nextRewardsDate;
+										}
+									}
+									// 修改下次公布时间
+									modifyNextPublishTime();
+								}
+							}));
+
+					// 结束时间值的改变事件
+					registerHandler(display.getEndTime().addValueChangeHandler(
+							new ValueChangeHandler<Date>() {
+								@Override
+								public void onValueChange(ValueChangeEvent<Date> e) {
+									Date endDate = display.getEndTime().getValue();
+									Date startDate = display.getStartTime().getValue();
+									Date nextRewardsDateT = display.getNextRewardsTime()
+											.getValue();
+									if (endDate.getTime() < startDate.getTime()) {
+										display.getEndTime().setValue(endDateCopy);
+									} else if (nextRewardsDateT != null) {
+										if (endDate.getTime() < nextRewardsDateT.getTime()) {
+											display.getEndTime().setValue(endDateCopy);
+										} else {
+											endDateCopy = endDate;
+										}
+									} else {
+										endDateCopy = endDate;
+									}
+								}
+							}));
+
+					// 下次公布时间值的改变事件
+					registerHandler(display.getNextPublishTime().addValueChangeHandler(
+							new ValueChangeHandler<Date>() {
+								@Override
+								public void onValueChange(ValueChangeEvent<Date> e) {
+									Date nextPublishDate = e.getValue();
+									Date nextRewardsDate = display.getNextRewardsTime()
+											.getValue();
+									if (nextRewardsDate.getTime() < nextPublishDate
+											.getTime()) {
+										display.getNextPublishTime().setValue(
+												nextPublishCopy);
+									} else {
+										nextPublishCopy = nextPublishDate;
+										day = DateTool.getIntervalDays(nextPublishDate,
+												nextRewardsDate);
+									}
+								}
+							}));
+
+					registerHandler(display.getNextRewardsTime().addValueChangeHandler(
+							new ValueChangeHandler<Date>() {
+								@Override
+								public void onValueChange(ValueChangeEvent<Date> e) {
+									Date rewardsDate = display.getNextRewardsTime()
+											.getValue();
+
+									modifyNextRewardsSetDate(rewardsDate);
+									if (rewardsDateCopuy != null) {
+										modifyNextPublishTimeClew();
+									}
+
+								}
+							}));
+					
+					// 添加人数限制输入框即时改动输入值
+					registerHandler(display.getPeopleSizeLimit().addValueChangeHandler(
+							new ValueChangeHandler<String>() {
+
+								@Override
+								public void onValueChange(ValueChangeEvent<String> event) {
+									try {
+										int peopleSizeLimitParse = Integer.parseInt(display
+												.getPeopleSizeLimit().getValue());
+										display.getPeopleSizeLimit().setValue(
+												peopleSizeLimitParse + "");
+									} catch (Exception e) {
+										e.getStackTrace();
+									}
+
+								}
+
+							}));
+		
+		//保存事件
+		registerHandler(display.getSaveClick().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent arg0) {
+						// validate first!
+						if (!validateFirst()) {
+							return;
+						}
+						
+						RewardsItemClient rewardsItem = new RewardsItemClient();
+						// 基本信息
+						rewardsItem.setName(display.getRewardsName().getValue().trim());
+						rewardsItem.setType(new RewardsTypeClient(display.getRewardsType(), ""));//
+						rewardsItem.setDefinition(display.getDefinition().getValue().trim());
+						rewardsItem.setStandard(display.getStandard().getValue().trim());
+						// 候选限额
+						rewardsItem.setSizeLimit(Integer.parseInt(display.getPeopleSizeLimit().getValue()));
+						
+						//定义设置奖项和入帐的部门，现为同一部门，以后从session中得到，现为固定部门
+						rewardsItem.setBuilderDept(new DepartmentClient("1", "人事部"));
+						rewardsItem.setAccountDept(new DepartmentClient("1", "人事部"));
+
+						// 候选人信息
+						rewardsItem.setParticipateInfo(staffBlock.getparticipateInfo());
+						rewardsItem.setStartTime(display.getStartTime().getValue());
+						rewardsItem.setNextTime(display.getNextRewardsTime().getValue());
+						// 周期性频率信息
+						
+						rewardsItem.setPeriodEnable(display.getEnableCbx().getValue());
+						//总积分
+						rewardsItem.setTotalJF(Integer.parseInt(display.getTotalJF().toString()));
+						//每人积分
+						rewardsItem.setRewardsFrom(Integer.parseInt(display.getRewardsFrom().toString()));
+						//提前的天数
+						if(display.getTmdays()!=null&&!display.getTmdays().toString().equals(""))
+						 rewardsItem.setTmdays(Integer.parseInt(display.getTmdays().toString()));
+						
+						if (display.getEnableCbx().getValue() || isEditPage) {
+							rewardsItem.setFrequency(display.getFrequencyObj());
+							
+							rewardsItem.setEndTime(display.getEndTime()	.getValue());
+							rewardsItem.setNextPublishTime(display.getNextPublishTime().getValue());
+							
+							rewardsItem	.setAuto(display.getAutoCbx().getValue());
+							rewardsItem.setRewardsUnit(display.getRewardsUnit());
+							rewardsItem.setHasSpecialCondition(display.getSpecialCbx().getValue());
+							if (display.getSpecialCbx().getValue()&& display.getBirthRadio().getValue()) {
+								rewardsItem.setCondition(SpecialCondition.birth);
+							}
+						}
+
+					
+						if (!isEditPage) {
+							rewardsItem.setId("");
+							doSave(rewardsItem);
+						} else {
+							rewardsItem.setId(rewardsItemId);
+						//	doEdit(rewardsItem);//修改功能
+						}
+					}
+				}));
+	}
+	
 	private void doSave(RewardsItemClient rewardsItem) {
 
-//		dispatcher.execute(new CreateRewardsItemRequest(rewardsItem),
-//				new AsyncCallback<CreateRewardsItemResponse>() {
-//					@Override
-//					public void onFailure(Throwable t) {
-//						errorHandler.alert(t);
-//					}
-//
-//					@Override
-//					public void onSuccess(CreateRewardsItemResponse response) {
-//						win.alert("添加成功");
+		dispatcher.execute(new CreateRewardsItemRequest(rewardsItem),
+				new AsyncCallback<CreateRewardsItemResponse>() {
+					@Override
+					public void onFailure(Throwable t) {
+						errorHandler.alert(t.toString());
+					}
+
+					@Override
+					public void onSuccess(CreateRewardsItemResponse response) {
+						Window.alert("添加成功");
 //						Platform.getInstance()
 //								.getEditorRegistry()
 //								.closeEditor(
 //										RewardsConstants.EDITOR_REWARDS_ITEM_CREATE,
 //										instanceId);
-//
-//					}
-//				});
+
+					}
+				});
 	}
 	
 	// setting a new frequency.
@@ -179,9 +393,58 @@ public class RewardsItemCreatePresenterImpl extends
 					display.getEndTime().setValue(nextRewardsDate);
 					endDateCopy = nextRewardsDate;
 				}
+				modifyNextPublishTime();
 			}
-			modifyNextPublishTime();
+			
 
+		}
+		private void modifyNextRewardsSetDate(Date rewardsDate) {
+			FrequencyClient frequency = display.getFrequencyObj();
+
+			Date endDateTime = display.getEndTime().getValue();
+
+			boolean toD = false;
+			if (endDateTime != null) {
+				if (rewardsDate.getTime() > endDateTime.getTime()) {
+					Window.alert("请重新修改结束时间！");
+					toD = true;
+					display.getEndTime().setValue(rewardsDate);
+					endDateCopy = rewardsDate;
+				}
+			}
+
+			// 没设定频率的时候，终止！
+			if (frequency == null) {
+				return;
+			}
+
+			Date endDate = display.getEndTime().getValue();
+			Date currentDate = new Date();
+			RewardDateInfo info = new SimpleRewardDateInfo(rewardsDate, endDate,
+					currentDate, lastRewardsDate);
+			// The begin time which to cal
+			// the next rewarded time.
+			Date startTime = startDateCalculator.calculateStartDate(info);
+			NextRewardsDateCalculator cal = factory.getCalculator();
+			Date nextRewardsDate = cal.calNextRewardsDate(startTime, frequency);
+			display.getNextRewardsTime().setValue(nextRewardsDate);
+
+			rewardsDate = display.getNextRewardsTime().getValue();
+			Window.alert("startDateCopy.getTime()="+startDateCopy.getTime());
+			
+			if (rewardsDate.getTime() < startDateCopy.getTime()) {
+				display.getStartTime().setValue(rewardsDate);
+			} else {
+				display.getStartTime().setValue(startDateCopy);
+			}
+
+			if (toD) {
+				display.getEndTime().setValue(nextRewardsDate);
+				endDateCopy = nextRewardsDate;
+			}
+
+			// 修改下次公布时间
+			modifyNextPublishTime();
 		}
 		// 修改下次颁奖时间
 		private void modifyNextPublishTime() {
@@ -190,23 +453,185 @@ public class RewardsItemCreatePresenterImpl extends
 			display.getNextPublishTime().setValue(date);
 			nextPublishCopy = date;
 		}
-	@Override
-	public void initRewardsItemOrRewardsTemplate(Object item) {
-		// TODO Auto-generated method stub
 		
-	}
+		private void modifyNextPublishTimeClew() {
+			DateTimeFormat format = DateTimeFormat.getFormat(ViewConstants.date_format);
+			Date NextRewardsTimeDate = display.getNextRewardsTime().getValue();
+			if ((NextRewardsTimeDate.getTime() <= rewardsDateCopuy.getTime())
+					&& !okAndNo) {
+				okAndNo = true;
+				Window.confirm("建议下次颁奖时间应该在上次颁奖时间(" + format.format(rewardsDateCopuy)
+								+ ")之后！<br/>按“确定”回复到以前的设置！<br/>按“取消”使用新的时间！");
 
-	@Override
-	public void initInstanceId(String instanceId) {
-		// TODO Auto-generated method stub
+			} else if (NextRewardsTimeDate.getTime() > rewardsDateCopuy.getTime()) {
+				okAndNo = false;
+				nextRewardsDateCopy = NextRewardsTimeDate;
+
+			}
+		}
 		
-	}
+		//奖项验证方法
+				private boolean validateFirst() {
+					boolean flag = true;
+					StringBuilder errorMsg = new StringBuilder();
+					if (display.getRewardsName().getValue() == null
+							|| "".equals(display.getRewardsName().getValue().trim())) {
+						errorMsg.append("请填写奖项名称!<br>");
 
-	@Override
-	public void checkIsAmountRoleLevel() {
-		// TODO Auto-generated method stub
-		
-	}
+						flag = false;
+					}
+					
+				
 
+					
+					// 员工选择
+					if (staffBlock.getDisplay().isSomeone().getValue() == true) {
+						if (staffBlock.getDisplay().getRealOrginzationIds() == null) {
+							errorMsg.append("请选择候奖员工!<br>");
+							flag = false;
+
+						}
+						if (staffBlock.getDisplay().getRealOrginzationIds() != null
+								&& staffBlock.getDisplay().getRealOrginzationIds().size() == 0) {
+							errorMsg.append("请选择候奖员工!<br>");
+							flag = false;
+
+						}
+					}
+
+					if (display.getRewardsType() == null|| "".equals(display.getRewardsType().trim())) {
+						errorMsg.append("请选择奖项类型!<br>");
+						flag = false;
+					}
+		            
+					if (display.getTotalJF() == null|| display.getTotalJF().intValue() < 0) {
+						errorMsg.append("总积分额度出错，总积分要是整数!<br>");
+						flag = false;
+					}else	if (display.getRewardsFrom() == null
+								|| display.getRewardsFrom().intValue() < 0) {
+							errorMsg.append("每人积分额度出错，积分要是整数!<br>");
+							flag = false;
+					} else if (display.getTmdays() != null&& display.getTmdays().intValue() < 0) {
+							errorMsg.append(" 要提前的天数是整数!<br>");
+							flag = false;
+					}else	if (display.getTotalJF().intValue()/Integer.parseInt(display.getPeopleSizeLimit().getValue())!=display.getRewardsFrom().intValue() ) {
+						errorMsg.append("每人积分额度出错，总积分除以人数不等于每人得的积分数!<br>");
+						flag = false;
+					}
+					if (display.getRewardsFrom() != null) {
+						if (display.getRewardsFrom().intValue() == 0) {
+							errorMsg.append("个人得分不能为“0”!<br>");
+							flag = false;
+						}
+						if (display.getRewardsFrom().intValue() > display.getTotalJF().intValue()) {
+							errorMsg.append("总积分不能小于个人得分!<br>");
+							flag = false;
+						}
+					}
+					
+					if (display.getStartTime().getValue() == null|| "".equals(display.getStartTime().getValue())) {
+						errorMsg.append("开始时间不能为空<br>");
+						flag = false;
+					}
+					if (display.getNextRewardsTime().getValue() == null|| "".equals(display.getNextRewardsTime().getValue())) {
+						errorMsg.append("预计颁奖时间不能为空!<br>");
+						flag = false;
+					}else if(display.getStartTime().getValue().getTime()>=display.getNextRewardsTime().getValue().getTime()){
+						errorMsg.append("开始时间要小于预计颁奖时间<br>");
+					}
+							
+
+					try {
+
+							int limitPeople = Integer.parseInt(display.getPeopleSizeLimit()
+									.getValue());
+							if (display.getPeopleSizeLimit().getValue() != null) {
+								if (limitPeople == 0 || limitPeople < 0) {
+									errorMsg.append("请正确填写获奖名额(正整数)!<br>");
+									flag = false;
+								}
+							}
+						} catch (Exception e) {
+							errorMsg.append("请正确填写获奖名额!<br>");
+							flag = false;
+						}
+					
+
+					if (display.getEnableCbx().getValue()) {
+						if (display.getEndTime().getValue() ==null) {
+							errorMsg.append("结束时间不能为空!<br>");
+							flag = false;
+						}
+						
+						// 生日奖校验
+						if (display.getSpecialCbx().getValue()
+								&& display.getBirthRadio().getValue()) {
+							if (display.getFrequencyObj() == null) {
+								errorMsg.append("请选择频率!<br>");
+								flag = false;
+							} else if (display.getFrequencyObj() instanceof WeekFrequencyClient) {
+								errorMsg.append("生日奖不能为按周的频率!<br>");
+								flag = false;
+							} else if (display.getFrequencyObj() instanceof YearFrequencyClient) {
+								errorMsg.append("生日奖不能为按年的频率!<br>");
+								flag = false;
+							} else if (display.getFrequencyObj() instanceof DayFrequencyClient
+									&& display.getFrequencyObj().getInterval() > 200) {
+								errorMsg.append("生日奖按日的频率，最大只能设到每200日<br>");
+								flag = false;
+							} else if (display.getFrequencyObj() instanceof MonthFrequencyClient
+									&& display.getFrequencyObj().getInterval() > 12) {
+								errorMsg.append("生日奖按月的频率，最大只能设到每12月<br>");
+								flag = false;
+							}
+						} else {
+							// 普通有频率奖校验
+							if (display.getFrequencyObj() == null) {
+								errorMsg.append("请选择频率!<br>");
+								flag = false;
+							} else if (display.getFrequencyObj() instanceof WeekFrequencyClient
+									&& display.getFrequencyObj().getInterval() > 20) {
+								errorMsg.append("按周的频率，最大只能设到每20周!<br>");
+								flag = false;
+							} else if (display.getFrequencyObj() instanceof YearFrequencyClient
+									&& display.getFrequencyObj().getInterval() > 5) {
+								errorMsg.append("按年的频率，最大只能设到每5年!<br>");
+								flag = false;
+							} else if (display.getFrequencyObj() instanceof DayFrequencyClient
+									&& display.getFrequencyObj().getInterval() > 200) {
+								errorMsg.append("按日的频率，最大只能设到每200日<br>");
+								flag = false;
+							} else if (display.getFrequencyObj() instanceof MonthFrequencyClient
+									&& display.getFrequencyObj().getInterval() > 36) {
+								errorMsg.append("按月的频率，最大只能设到每36月<br>");
+								flag = false;
+							}
+						}
+
+						
+						if (!display.getAutoCbx().getValue()) {
+							if (display.getNextPublishTime().getValue() == null) {
+								errorMsg.append("请填写下一次公布颁奖时间!<br>");
+								flag = false;
+							} else if (display.getNextPublishTime().getValue() != null
+									&& display.getNextRewardsTime().getValue() != null
+									&& display.getNextPublishTime().getValue()
+											.after(display.getNextRewardsTime().getValue())) {
+								errorMsg.append("下一次公布奖励时间必须在下一次颁奖时间之前!<br>");
+								flag = false;
+							}
+						}
+					}
+
+					
+
+					if (!flag) {
+
+						errorHandler.alert(errorMsg.toString());
+						// win.alert(errorMsg.toString(), true); // true = HTML escape
+					}
+
+					return flag;
+				}
 
 }
