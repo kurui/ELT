@@ -41,7 +41,7 @@ public class NominatePresenterImpl extends
 						List<String> idList=display.getCandidateList();
 						String message="";
 						for (int i = 0; i < idList.size(); i++) {
-							message+=idList.get(i)+"提名次数+1;";
+							message+="员工ID:"+idList.get(i)+"----提名次数+1;";
 						}
 						Window.alert(message);
 						addNominateData(idList,awardsId);
@@ -62,7 +62,7 @@ public class NominatePresenterImpl extends
 
 					@Override
 					public void onSuccess(NominateAddResponse response) {
-						Window.alert(response.getNomineeLotId());
+						Window.alert("提名记录ID:"+response.getNomineeLotId());
 					}
 				});
 	}

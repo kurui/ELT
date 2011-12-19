@@ -357,6 +357,7 @@ public class RewardLogicImpl implements RewardLogic {
 			candparam.setId(candidate.getId());
 			candparam.setName(candidate.getStaff().getName());
 			candparam.setNominateCount(candidate.getNominatecount());
+			candparam.setStaffid(candidate.getStaff().getId());		
 			candidateListParam.add(candparam);
 		}
 		// 设置被提名人
@@ -369,6 +370,7 @@ public class RewardLogicImpl implements RewardLogic {
 			judgeParam.setId(judge.getId());
 			judgeParam.setName(judge.getStaff().getName());
 			judgeParam.setIsNominate(judge.getStatus().toString());
+			judgeParam.setStaffid(judge.getStaff().getId());
 			JudgeListParam.add(judgeParam);
 		}
 

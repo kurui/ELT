@@ -84,6 +84,7 @@ public class NominateActionHandler extends
 			cpv.setId(cp.getId());
 			cpv.setName(cp.getName());
 			cpv.setNominateCount(cp.getNominateCount());
+			cpv.setStaffid(cp.getStaffid());
 			candidateVoList.add(cpv);
 		}
 		List<JudgeParam> judgeList = rewardQueryVo.getJudgeList();
@@ -93,6 +94,7 @@ public class NominateActionHandler extends
 			jpv.setId(jp.getId());
 			jpv.setName(jp.getName());
 			jpv.setIsNominate(jp.getIsNominate());
+			jpv.setStaffid(jp.getStaffid());
 			judgeVoList.add(jpv);
 
 		}

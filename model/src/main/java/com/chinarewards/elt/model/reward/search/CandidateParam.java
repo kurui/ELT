@@ -2,6 +2,8 @@ package com.chinarewards.elt.model.reward.search;
 
 public class CandidateParam {
 	private String id;
+	private String staffid;
+
 	private String name;
 	/**
 	 * 提名次数
@@ -24,5 +26,11 @@ public class CandidateParam {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public String getStaffid() {
+		return staffid;
+	}
+	public void setStaffid(String staffid) {
+		this.staffid = staffid;
 	}
 }

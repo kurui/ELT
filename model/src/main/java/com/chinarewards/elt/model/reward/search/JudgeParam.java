@@ -2,6 +2,13 @@ package com.chinarewards.elt.model.reward.search;
 
 public class JudgeParam {
 	private String id;
+	private String staffid;
+	public String getStaffid() {
+		return staffid;
+	}
+	public void setStaffid(String staffid) {
+		this.staffid = staffid;
+	}
 	private String name;
 	/**
 	 * 是否提名过

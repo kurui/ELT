@@ -140,18 +140,18 @@ public class NominateWidget extends Composite implements NominateDisplay {
 		for (int i = 0; i < candidate.size(); i++) {
 			CandidateParamVo candidateVo =candidate.get(i);
 			String checkBoxName=candidateVo.getName();
-			String count=candidateVo.getName();
+			String name=candidateVo.getName();
+			String staffid=candidateVo.getStaffid();
 			if (fal) {
 				String str2 = "";
-				for (int j = count.length(); j < 20; j++) {
+				for (int j = name.length(); j < 20; j++) {
 					str2 += "-";
 				}
-				checkBoxName =count+ str2 + candidateVo.getNominateCount();// 是否显示被提名次数
+				checkBoxName =name+ str2 + candidateVo.getNominateCount();// 是否显示被提名次数
 			}
 			CheckBox checkBox = new CheckBox(checkBoxName);
-			checkBox.ensureDebugId("cwCheckBox-" + checkBoxName);
-			checkBox.setName(count);
-
+			checkBox.getElement().setAttribute("staffid", staffid);
+	
 
 
 			this.candidate.add(checkBox);
@@ -206,7 +206,7 @@ public class NominateWidget extends Composite implements NominateDisplay {
 		        CheckBox checkBox = (CheckBox) widget;
 		        if(checkBox.isChecked()==true)
 		        {
-		        	idlist.add(checkBox.getName());
+		        	idlist.add(checkBox.getElement().getAttribute("staffid"));
 		        }
 		    }
 
