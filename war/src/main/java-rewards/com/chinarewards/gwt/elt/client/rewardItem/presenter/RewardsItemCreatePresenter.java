@@ -43,8 +43,6 @@ public interface RewardsItemCreatePresenter extends Presenter<RewardsItemCreateP
 		
 		public String getRewardsType();
 		
-		public HasValue<Date> getEndTime();
-		
 		public HasValue<Date> getNextPublishTime();
 
 		public HasValue<Date> getNextRewardsTime();

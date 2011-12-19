@@ -30,12 +30,7 @@ public class SimpleRewardStartDateCalculator implements
 //			startDate = info.getLastRewardDate();
 //		}
 
-		// 有结束时间
-		if (info.getEndDate() != null) {
-			if (startDate.after(info.getEndDate())) {
-				startDate = null;
-			}
-		}
+		
 		return startDate;
 	}
 }

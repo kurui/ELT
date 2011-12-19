@@ -82,9 +82,7 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 	// 开始时间
 	@UiField
 	DateBox startTime;
-	//结束时间
-	@UiField
-	DateBox endTime;
+	
 	// 下次公布时间
 	@UiField
 	DateBox nextPublicTime;
@@ -155,7 +153,7 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 		rewardsDefinition.setHeight("2.5em");
 		standard.setHeight("2.5em");
 		startTime.setFormat(new DateBox.DefaultFormat(dateFormat));
-		endTime.setFormat(new DateBox.DefaultFormat(dateFormat));
+		
 	//	String siteId = DOM.getElementById("tr1").getNodeName();
 
          //隐藏周期性
@@ -280,7 +278,6 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 		rewardsDefinition.setText("");
 		standard.setText("");
 		startTime.setValue(null);
-		endTime.setValue(null);
 		
 		peopleSizeLimit.setValue("");
 		frequency = null;
@@ -512,12 +509,7 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 	}
 
 
-	@Override
-	public HasValue<Date> getEndTime() {
-		// TODO Auto-generated method stub
-		return this.endTime;
-	}
-
+	
 
 	@Override
 	public String getRewardsType() {

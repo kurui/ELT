@@ -26,7 +26,7 @@ public interface RewardItemService {
 	 * @return
 	 */
 	public RewardItem saveRewardItem(UserContext context, RewardItemParam param);
-
+         
 	/**
 	 * Delete the specified RewardItem. Just delete in a logical way.
 	 * 

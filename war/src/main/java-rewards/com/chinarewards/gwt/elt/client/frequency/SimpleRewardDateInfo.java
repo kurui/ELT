@@ -23,10 +23,10 @@ public class SimpleRewardDateInfo implements RewardDateInfo {
 
 	private Date lastRewardDate;
 
-	public SimpleRewardDateInfo(Date startDate, Date endDate, Date currentDate,
+	public SimpleRewardDateInfo(Date startDate, Date currentDate,
 			Date lastRewardDate) {
 		this.startDate = startDate;
-		this.endDate = endDate;
+		
 		this.currentDate = currentDate;
 		this.lastRewardDate = lastRewardDate;
 	}

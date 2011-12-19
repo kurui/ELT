@@ -86,11 +86,7 @@
                        	</td>
                        	<td><g:Button ui:field="setting" >设置频率</g:Button></td>
                       </tr>
-                       <tr>
-                        <td class="{item.title}"><span>*</span>结束时间： </td>
-                        <td class="{item.intext}"><d:DateBox ui:field="endTime" styleName="textmy"/></td>
-                      	<td></td>
-                      </tr>
+                      
                       <tr>
                         <td class="{item.title}" valign="top">自动颁奖：</td>
                         <td class="{item.intext}"><g:CheckBox ui:field="autoCbx"/></td>

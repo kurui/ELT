@@ -228,7 +228,7 @@ public class RewardsItemClient implements Serializable,
 		baseInfo.setType(type);
 	}
 
-	public DepartmentClient getBuilderDept() {
+	public String getBuilderDept() {
 		return baseInfo.getBuilderDept();
 	}
 
@@ -248,15 +248,15 @@ public class RewardsItemClient implements Serializable,
 		baseInfo.setStaff(staff);
 	}
 
-	public void setBuilderDept(DepartmentClient builderDept) {
+	public void setBuilderDept(String builderDept) {
 		baseInfo.setBuilderDept(builderDept);
 	}
 
-	public DepartmentClient getAccountDept() {
+	public String getAccountDept() {
 		return baseInfo.getAccountDept();
 	}
 
-	public void setAccountDept(DepartmentClient accountDept) {
+	public void setAccountDept(String accountDept) {
 		baseInfo.setAccountDept(accountDept);
 	}
 
