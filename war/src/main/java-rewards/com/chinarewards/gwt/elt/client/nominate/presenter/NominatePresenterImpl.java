@@ -38,13 +38,14 @@ public class NominatePresenterImpl extends
 		registerHandler(display.getNominateClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
-						List<String> idList=display.getCandidateList();
+						List<String> staffidList=display.getStaffList();
+						List<String> candidateidList=display.getCandidateList();
 						String message="";
-						for (int i = 0; i < idList.size(); i++) {
-							message+="员工ID:"+idList.get(i)+"----提名次数+1;";
+						for (int i = 0; i < candidateidList.size(); i++) {
+							message+="提名ID:"+candidateidList.get(i)+"----提名次数+1;";
 						}
 						Window.alert(message);
-						addNominateData(idList,awardsId);
+						addNominateData(staffidList,candidateidList,awardsId);
 					}
 				}));
 	}
@@ -52,9 +53,9 @@ public class NominatePresenterImpl extends
 	/**
 	 * 提名数据添加
 	 */
-	private void addNominateData(List<String> idList,String rewardId)
+	private void addNominateData(List<String> staffidList,List<String> candidateidList,String rewardId)
 	{
-		dispatcher.execute(new NominateAddRequest(idList,rewardId),
+		dispatcher.execute(new NominateAddRequest(staffidList,candidateidList,rewardId),
 				new AsyncCallback<NominateAddResponse>() {
 					public void onFailure(Throwable t) {
 						Window.alert(t.getMessage());

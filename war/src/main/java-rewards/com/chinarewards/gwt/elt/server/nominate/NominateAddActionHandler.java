@@ -39,7 +39,7 @@ public class NominateAddActionHandler extends
 		NominateAddResponse Nomresponse=new NominateAddResponse();
 		
 		try {
-			NomineeLot lot=nomineeService.addNomineeLotToReward(request.getRewardId(), request.getStaffIds());
+			NomineeLot lot=nomineeService.addNomineeLotToReward(request.getRewardId(), request.getStaffIds(),request.getCandidateIds());
 			Nomresponse.setNomineeLotId(lot.getId());
 		} catch (JudgeException e) {
 			e.printStackTrace();

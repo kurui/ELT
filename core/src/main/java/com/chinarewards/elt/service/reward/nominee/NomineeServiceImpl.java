@@ -8,6 +8,7 @@ import com.chinarewards.elt.domain.reward.person.Judge;
 import com.chinarewards.elt.domain.reward.person.NomineeLot;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.reward.exception.JudgeException;
+import com.chinarewards.elt.service.reward.rule.CandidateLogic;
 import com.chinarewards.elt.service.reward.rule.JudgeLogic;
 import com.chinarewards.elt.service.reward.rule.NomineeLogic;
 import com.chinarewards.elt.service.user.UserLogic;
@@ -18,20 +19,22 @@ public class NomineeServiceImpl implements NomineeService {
 	private final UserLogic userLogic;
 	private final JudgeLogic judgeLogic;
 	private final EntityManager em;
+	private final CandidateLogic candidateLogic;
 
 	@Inject
 	public NomineeServiceImpl(NomineeLogic nomineeLogic, UserLogic userLogic,
-			JudgeLogic judgeLogic, EntityManager em) {
+			JudgeLogic judgeLogic, EntityManager em,CandidateLogic candidateLogic) {
 		this.nomineeLogic = nomineeLogic;
 		this.userLogic = userLogic;
 		this.judgeLogic = judgeLogic;
 		this.em = em;
+		this.candidateLogic=candidateLogic;
 
 	}
 
 	@Override
 	public NomineeLot addNomineeLotToReward(String rewardId,
-			List<String> staffIds) throws JudgeException {
+			List<String> staffIds,List<String> candidateIds) throws JudgeException {
 		// 获取当前登录人.登录没实现,先默认当前第一个提名人
 		if (em.getTransaction().isActive() != true) {
 			em.getTransaction().begin();
@@ -39,8 +42,11 @@ public class NomineeServiceImpl implements NomineeService {
 		SysUser caller = userLogic.getDefaultUser();
 		List<Judge> judgeList = judgeLogic.findJudgesFromReward(rewardId);
 		caller.setStaff(judgeList.get(0).getStaff());
-		NomineeLot lot = nomineeLogic.addNomineeLotToReward(caller, rewardId,
-				staffIds);
+		NomineeLot lot = nomineeLogic.addNomineeLotToReward(caller, rewardId,staffIds);
+		
+		//被提名者,提名次数的调整
+		candidateLogic.updateCandidatesCount(candidateIds);
+		
 		em.getTransaction().commit();
 
 		return lot;

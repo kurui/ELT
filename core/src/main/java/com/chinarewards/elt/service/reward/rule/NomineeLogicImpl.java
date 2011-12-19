@@ -32,7 +32,7 @@ public class NomineeLogicImpl implements NomineeLogic {
 	private final JudgeDao judgeDao;
 	private final RewardDao rewardDao;
 	private final StaffDao staffDao;
-	private final CandidateLogic candidateLogic;
+
 
 	@Inject
 	public NomineeLogicImpl(NomineeLotDao nomineeLotDao, NomineeDao nomineeDao,
@@ -42,7 +42,7 @@ public class NomineeLogicImpl implements NomineeLogic {
 		this.judgeDao = judgeDao;
 		this.rewardDao = rewardDao;
 		this.staffDao = staffDao;
-		this.candidateLogic=candidateLogic;
+
 	}
 
 	@Override
@@ -87,8 +87,7 @@ public class NomineeLogicImpl implements NomineeLogic {
 			nomineeDao.save(nominee);
 		}
 		
-		//被提名者,提名次数的调整
-		candidateLogic.updateCandidatesCount(staffIds);
+
 
 		return lot;
 	}

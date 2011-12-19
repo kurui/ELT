@@ -35,5 +35,6 @@ public interface NominatePresenter extends Presenter<NominatePresenter.NominateD
 		public void setAwardAmt(String awardAmt);
 		
 		public List<String> getCandidateList();
+		public List<String> getStaffList();
 	}
 }

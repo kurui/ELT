@@ -16,6 +16,15 @@ import net.customware.gwt.dispatch.shared.Action;
 public class NominateAddRequest implements Action<NominateAddResponse> {
 
 	List<String> staffIds;
+	List<String> candidateIds;
+	public List<String> getCandidateIds() {
+		return candidateIds;
+	}
+
+	public void setCandidateIds(List<String> candidateIds) {
+		this.candidateIds = candidateIds;
+	}
+
 	String rewardId;
 	
 	public String getRewardId() {
@@ -40,8 +49,10 @@ public class NominateAddRequest implements Action<NominateAddResponse> {
 		this.staffIds = staffIds;
 	}
 
-	public NominateAddRequest(List<String> staffIds,String rewardId) {
+	public NominateAddRequest(List<String> staffIds,List<String> candidateIds,String rewardId) {
 		this.staffIds=staffIds;
+		this.candidateIds=candidateIds;
 		this.rewardId=rewardId;
 	}
+
 }

@@ -141,7 +141,7 @@ public class NominateWidget extends Composite implements NominateDisplay {
 			CandidateParamVo candidateVo =candidate.get(i);
 			String checkBoxName=candidateVo.getName();
 			String name=candidateVo.getName();
-			String staffid=candidateVo.getStaffid();
+
 			if (fal) {
 				String str2 = "";
 				for (int j = name.length(); j < 20; j++) {
@@ -150,7 +150,8 @@ public class NominateWidget extends Composite implements NominateDisplay {
 				checkBoxName =name+ str2 + candidateVo.getNominateCount();// 是否显示被提名次数
 			}
 			CheckBox checkBox = new CheckBox(checkBoxName);
-			checkBox.getElement().setAttribute("staffid", staffid);
+			checkBox.getElement().setAttribute("staffid", candidateVo.getStaffid());
+			checkBox.getElement().setAttribute("candidateid", candidateVo.getId());
 	
 
 
@@ -197,7 +198,7 @@ public class NominateWidget extends Composite implements NominateDisplay {
 	
 	@SuppressWarnings("deprecation")
 	@Override
-	public List<String> getCandidateList() {
+	public List<String> getStaffList() {
 		List<String> idlist = new ArrayList<String>();
 		
 		for (int i=0;i<candidate.getWidgetCount();i++){
@@ -207,6 +208,26 @@ public class NominateWidget extends Composite implements NominateDisplay {
 		        if(checkBox.isChecked()==true)
 		        {
 		        	idlist.add(checkBox.getElement().getAttribute("staffid"));
+		        }
+		    }
+
+		}
+
+		return idlist;
+	}
+	
+	@SuppressWarnings("deprecation")
+	@Override
+	public List<String> getCandidateList() {
+		List<String> idlist = new ArrayList<String>();
+		
+		for (int i=0;i<candidate.getWidgetCount();i++){
+		    Widget widget = candidate.getWidget(i);
+		    if (widget instanceof CheckBox){
+		        CheckBox checkBox = (CheckBox) widget;
+		        if(checkBox.isChecked()==true)
+		        {
+		        	idlist.add(checkBox.getElement().getAttribute("candidateid"));
 		        }
 		    }
 

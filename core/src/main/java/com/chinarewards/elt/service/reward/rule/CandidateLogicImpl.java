@@ -59,13 +59,13 @@ public class CandidateLogicImpl implements CandidateLogic {
 	}
 
 	@Override
-	public void updateCandidatesCount(List<String> staffsid) {
-		List<Candidate> candBo=candidateDao.findCandidatesByStaffIds(staffsid);
-		for(Candidate cand :candBo)
-		{
-			cand.setNominatecount(cand.getNominatecount()+1);
-			candidateDao.save(cand);
+	public void updateCandidatesCount(List<String> candidateIds) {
+		for (int i = 0; i < candidateIds.size(); i++) {
+			Candidate candBo=candidateDao.findById(Candidate.class, candidateIds.get(i));
+			candBo.setNominatecount(candBo.getNominatecount()+1);
+			candidateDao.save(candBo);
 		}
+
 		
 	}
 
