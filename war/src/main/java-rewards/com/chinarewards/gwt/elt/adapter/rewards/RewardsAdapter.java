@@ -34,6 +34,9 @@ public class RewardsAdapter {
 		result.setRewardsItemId(rewards.getRewardItem().getId());
 		result.setStandard(rewards.getStandard());
 		result.setRewardsDate(rewards.getAwardDate());
+		result.setCreatedBy(rewards.getCreatedBy().getStaff().getName());
+		result.setTotalAmtLimit(rewards.getTotalAmtLimit());
+		result.setExpectNominateDate(rewards.getExpectNominateDate());
 		if (rewards.getStatus() != null) {
 			result.setStatus(RewardsStatus.valueOf(rewards.getStatus()
 					.toString()));
