@@ -7,10 +7,14 @@ import com.chinarewards.elt.domain.reward.person.NomineeLot;
 import com.chinarewards.elt.domain.reward.person.PreWinner;
 import com.chinarewards.elt.domain.reward.person.Winner;
 import com.chinarewards.elt.domain.user.SysUser;
+import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.reward.exception.ApproveRewardException;
 import com.chinarewards.elt.model.reward.exception.DenyRewardException;
 import com.chinarewards.elt.model.reward.exception.NominateRewardException;
 import com.chinarewards.elt.model.reward.search.RewardQueryVo;
+import com.chinarewards.elt.model.reward.search.RewardSearchVo;
+import com.chinarewards.elt.model.reward.vo.RewardVo;
+import com.chinarewards.elt.model.user.UserContext;
 
 /**
  * The interface is to provide Reward services. Some useful methods should be
@@ -77,5 +81,14 @@ public interface RewardService {
 	 * @return
 	 */
 	public RewardQueryVo fetchEntireRewardQueryVoById(String rewardId);
+	
+	/**
+	 * 查询奖励列表
+	 * @param context
+	 * @param criteria
+	 * @return
+	 */
+	public PageStore<RewardVo> fetchRewards(UserContext context,
+			RewardSearchVo criteria);
 
 }

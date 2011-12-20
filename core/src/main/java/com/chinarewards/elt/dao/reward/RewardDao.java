@@ -128,7 +128,7 @@ public class RewardDao extends BaseDao<Reward> {
 
 		Map<String, Object> param = new HashMap<String, Object>();
 		if (isHrManager) {
-			hql.append(" AND rew.organization.id=:corporationId ");
+			hql.append(" AND rew.corporation.id=:corporationId ");
 			param.put("corporationId", corporationId);
 		} else {
 			hql.append(" AND rew.builderDept.id IN (:departmentIds) ");

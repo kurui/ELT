@@ -138,7 +138,7 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 				new GetValue<RewardsClient, String>() {
 					@Override
 					public String getValue(RewardsClient rewards) {
-						return rewards.getStatus().getDisplayName();
+						return "2";
 					}
 				}, ref, "status");
 

@@ -5,10 +5,14 @@ import java.util.List;
 import com.chinarewards.elt.domain.reward.base.Reward;
 import com.chinarewards.elt.domain.reward.person.NomineeLot;
 import com.chinarewards.elt.domain.user.SysUser;
+import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.reward.exception.ApproveRewardException;
 import com.chinarewards.elt.model.reward.exception.DenyRewardException;
 import com.chinarewards.elt.model.reward.exception.NominateRewardException;
 import com.chinarewards.elt.model.reward.search.RewardQueryVo;
+import com.chinarewards.elt.model.reward.search.RewardSearchVo;
+import com.chinarewards.elt.model.reward.vo.RewardVo;
+import com.chinarewards.elt.model.user.UserContext;
 import com.google.inject.Inject;
 
 /**
@@ -63,6 +67,11 @@ public class RewardServiceImpl implements RewardService {
 	@Override
 	public RewardQueryVo fetchEntireRewardQueryVoById(String rewardId) {
 		return rewardLogic.fetchEntireRewardQueryVoById(rewardId);
+	}
+	@Override
+	public PageStore<RewardVo> fetchRewards(UserContext context,
+			RewardSearchVo criteria) {
+		return rewardLogic.fetchRewards(context, criteria);
 	}
 
 }

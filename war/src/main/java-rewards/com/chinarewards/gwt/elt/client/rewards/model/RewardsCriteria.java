@@ -18,6 +18,9 @@ public class RewardsCriteria implements IsSerializable {
 		/* 待颁奖 */
 		TO_BE_ISSUE("待颁奖"),
 
+		/* 待提名 */
+		PENDING_NOMINATE("待提名"),
+		
 		/* 待审批 */
 		PENDING_APPLICATION("待审核"),
 		
@@ -38,8 +41,6 @@ public class RewardsCriteria implements IsSerializable {
 		}
 
 	}
-
-	private static final long serialVersionUID = -8953684368191416991L;
 
 	private PaginationDetailClient pagination;
 
