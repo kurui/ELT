@@ -27,6 +27,19 @@ public class StaffSearchCriteria implements Serializable {
 	private boolean chooseAll = true;
 
 	private List<String> orgIds;
+	
+	/**
+	 * 奖励ID
+	 */
+	private String  rewardId;
+
+	public String getRewardId() {
+		return rewardId;
+	}
+
+	public void setRewardId(String rewardId) {
+		this.rewardId = rewardId;
+	}
 
 	public PaginationDetailClient getPagination() {
 		return pagination;

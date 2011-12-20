@@ -45,6 +45,7 @@ public class NominatePresenterImpl extends
 	@Override
 	public void bind() {
 		init();
+		staffPanel.setRewardId(awardsId);
 		//候选人面板显示
 		staffPanel.bind();
 		display.initStaffPanel(staffPanel.getDisplay().asWidget());

@@ -38,10 +38,10 @@ public class ChooseStaffListPresenterImpl extends
 	final ErrorHandler errorHandler;
 	final SessionManager sessionManager;
 
-	 final SimplePager simplePager = new SimplePager(); 
+	String rewardId;
+	final SimplePager simplePager = new SimplePager();
 	ListCellTable<StaffClient> resultTable;
 	StaffAsyncDataProvider listViewAdapter;
-	
 
 	// 为StaffAsyncDataProvider准备的数据。
 	boolean isChooseAll = false;
@@ -58,13 +58,12 @@ public class ChooseStaffListPresenterImpl extends
 	@Inject
 	public ChooseStaffListPresenterImpl(EventBus eventBus,
 			ChooseStaffListDisplay display, DispatchAsync dispatch,
-			ErrorHandler errorHandler, SessionManager sessionManager
-			) {
+			ErrorHandler errorHandler, SessionManager sessionManager) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
-		
+
 	}
 
 	public Widget asWidget() {
@@ -78,23 +77,23 @@ public class ChooseStaffListPresenterImpl extends
 	public void bind() {
 		init();
 
-		/*** 查询员工 ***/
-		registerHandler(display.getSearchBtn().addClickHandler(
-				new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent arg0) {
-						doSearch();
-					}
-				}));
-
-		/*** 重置查询信息 ***/
-		registerHandler(display.getResetBtn().addClickHandler(
-				new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent arg0) {
-						display.reset();
-					}
-				}));
+		// /*** 查询员工 ***/
+		// registerHandler(display.getSearchBtn().addClickHandler(
+		// new ClickHandler() {
+		// @Override
+		// public void onClick(ClickEvent arg0) {
+		// doSearch();
+		// }
+		// }));
+		//
+		// /*** 重置查询信息 ***/
+		// registerHandler(display.getResetBtn().addClickHandler(
+		// new ClickHandler() {
+		// @Override
+		// public void onClick(ClickEvent arg0) {
+		// display.reset();
+		// }
+		// }));
 		// add
 		registerHandler(display.getChooseBtn().addClickHandler(
 				new ClickHandler() {
@@ -115,7 +114,7 @@ public class ChooseStaffListPresenterImpl extends
 	}
 
 	private void buildTable() {
-		
+
 		resultTable = new ListCellTable<StaffClient>();
 		final SingleSelectionModel<StaffClient> selectionModel = setSelectionModel(resultTable);
 		initTableColumns(selectionModel);
@@ -184,7 +183,7 @@ public class ChooseStaffListPresenterImpl extends
 						return staff.getName();
 					}
 				}, ref, "staffName");
-	
+
 	}
 
 	/**
@@ -205,12 +204,13 @@ public class ChooseStaffListPresenterImpl extends
 	 */
 	private void doSearch() {
 		StaffSearchCriteria criteriaVo = new StaffSearchCriteria();
-		criteriaVo.setKey(display.getName().getValue());
-		criteriaVo.setDeptId(display.getDeptId());
-		if (isLimitByNominee) {
-			criteriaVo.setChooseAll(isChooseAll);
-			criteriaVo.setOrgIds(orgIds);
-		}
+		// criteriaVo.setKey(display.getName().getValue());
+		// criteriaVo.setDeptId(display.getDeptId());
+		// if (isLimitByNominee) {
+		// criteriaVo.setChooseAll(isChooseAll);
+		// criteriaVo.setOrgIds(orgIds);
+		// }
+		criteriaVo.setRewardId(rewardId);
 		resultTable.setPageStart(0);
 		resultTable.setRowCount(0, false);
 		listViewAdapter = new StaffAsyncDataProvider(dispatch, errorHandler,
@@ -235,5 +235,10 @@ public class ChooseStaffListPresenterImpl extends
 		doSearch();
 	}
 
-	
+	@Override
+	public void setRewardId(String rewardId) {
+		this.rewardId = rewardId;
+
+	}
+
 }

@@ -10,7 +10,6 @@ import com.chinarewards.gwt.elt.client.core.ui.DialogCloseListener;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.rewardItem.dialog.ChooseStaffListDialog;
-import com.chinarewards.gwt.elt.client.rewardItem.dialog.ChooseStaffWinDialog;
 import com.chinarewards.gwt.elt.client.rewardItem.event.ChooseStaffEvent;
 import com.chinarewards.gwt.elt.client.rewardItem.handler.ChooseStaffHandler;
 import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
@@ -31,6 +30,7 @@ public class ChooseStaffPanelPresenterImpl extends
 	// private final SessionManager sessionManager;
 	private final DispatchAsync dispatcher;
 
+	String rewardId;
 	@Inject
 	public ChooseStaffPanelPresenterImpl(EventBus eventBus,
 			ChooseStaffPanelDisplay display,
@@ -50,7 +50,7 @@ public class ChooseStaffPanelPresenterImpl extends
 					public void onClick(ClickEvent arg0) {
 						final ChooseStaffListDialog dialog = chooseStaffDialogProvider.get();
 						dialog.setNominee(false, true, null);// The key is the
-																// first
+						dialog.setRewardId(rewardId);									// first
 																// parameter(false).
 						final HandlerRegistration registration = eventBus.addHandler(ChooseStaffEvent.getType(),
 										new ChooseStaffHandler() {
@@ -87,6 +87,12 @@ public class ChooseStaffPanelPresenterImpl extends
 		participateInfo = new SomeoneClient(orgs);
 
 		return participateInfo;
+	}
+
+	@Override
+	public void setRewardId(String rewardId) {
+		this.rewardId=rewardId;
+		
 	}
 
 }

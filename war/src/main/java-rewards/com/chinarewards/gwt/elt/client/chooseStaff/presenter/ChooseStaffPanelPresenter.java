@@ -29,6 +29,7 @@ public interface ChooseStaffPanelPresenter extends	Presenter<ChooseStaffPanelPre
 	 */
 	public ParticipateInfoClient getparticipateInfo();
 
+	public void setRewardId(String rewardId);
 	public static interface ChooseStaffPanelDisplay extends Display {
 
 		

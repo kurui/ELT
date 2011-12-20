@@ -6,7 +6,7 @@
 	<g:HTMLPanel>
 		<div class="{style.center}" style="width:778px;">
 			<div class="{style.fmtable}">
-				<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<!--  				<table width="100%" border="0" cellspacing="0" cellpadding="0">
 					<tr>
 						<td class="{style.title}">部门：</td>
 						<td>
@@ -21,7 +21,7 @@
 							<g:Button ui:field="resetBtn" styleName="button-reset">重置</g:Button>
 						</td>
 					</tr>
-				</table>
+				</table>-->
 			</div>
 			<div class="{style.listtable}">
 				<g:FlowPanel ui:field="result"></g:FlowPanel>

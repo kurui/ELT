@@ -7,7 +7,6 @@ import com.chinarewards.gwt.elt.client.mvp.Display;
 import com.chinarewards.gwt.elt.client.rewards.model.StaffClient;
 import com.chinarewards.gwt.elt.client.widget.SpecialTextArea;
 import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -18,13 +17,13 @@ public interface ChooseStaffListPresenter extends
 			List<String> orgIds);
 
 	void setStaffOnly(boolean staffOnly);
-
+    void setRewardId(String rewardId);
 	public static interface ChooseStaffListDisplay extends Display {
-		HasValue<String> getName();
-
-		HasClickHandlers getSearchBtn();
-
-		HasClickHandlers getResetBtn();
+//		HasValue<String> getName();
+//
+//		HasClickHandlers getSearchBtn();
+//
+//		HasClickHandlers getResetBtn();
 
 		HasClickHandlers getChooseBtn();
 
@@ -35,7 +34,7 @@ public interface ChooseStaffListPresenter extends
 		/**
 		 * 重置查询信息
 		 */
-		void reset();
+//		void reset();
 
 		SpecialTextArea<StaffClient> getSpecialTextBox();
 
