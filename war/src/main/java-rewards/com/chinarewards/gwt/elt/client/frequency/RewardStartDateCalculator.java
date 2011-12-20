@@ -16,8 +16,7 @@ public interface RewardStartDateCalculator {
 
 		public Date getStartDate();
 
-		public Date getEndDate();
-
+	
 		public Date getCurrentDate();
 
 		public Date getLastRewardDate();

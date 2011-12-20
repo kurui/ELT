@@ -25,8 +25,8 @@ public class RewardsAdapter {
 
 		RewardsClient result = new RewardsClient();
 
-		result.setAccountDept(adapter(rewards.getAccountDept()));
-		result.setBuilderDept(adapter(rewards.getBuilderDept()));
+		result.setAccountDept(rewards.getAccountDept().getId());
+		result.setBuilderDept(rewards.getBuilderDept().getId());
 		result.setCreateAt(rewards.getCreatedAt());
 		result.setDefinition(rewards.getDefinition());
 		result.setId(rewards.getId());

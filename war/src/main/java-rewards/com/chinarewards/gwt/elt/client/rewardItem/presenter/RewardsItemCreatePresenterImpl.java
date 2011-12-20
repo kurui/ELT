@@ -6,6 +6,7 @@ import java.util.Date;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import com.chinarewards.elt.model.reward.base.RequireAutoGenerate;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.ui.DialogCloseListener;
 import com.chinarewards.gwt.elt.client.frequency.CalculatorSelectFactory;
@@ -31,6 +32,7 @@ import com.chinarewards.gwt.elt.client.rewards.model.RewardsTypeClient;
 import com.chinarewards.gwt.elt.client.rewards.model.SpecialCondition;
 import com.chinarewards.gwt.elt.client.rewards.model.WeekFrequencyClient;
 import com.chinarewards.gwt.elt.client.rewards.model.YearFrequencyClient;
+import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.util.DateTool;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -64,7 +66,7 @@ public class RewardsItemCreatePresenterImpl extends
 	private final ErrorHandler errorHandler;
 	private final Provider<FrequencySettingDialog> freProvider;
 	//private final Win win;
-//	private final SessionManager sessionManager;
+	private final SessionManager sessionManager;
 	private final RewardStartDateCalculator startDateCalculator;
 	private final CalculatorSelectFactory factory;
 	
@@ -83,13 +85,15 @@ public class RewardsItemCreatePresenterImpl extends
 		private Date rewardsDateCopuy;
 		// 保存修改前一次的下次颁奖日期
 		private Date nextRewardsDateCopy;
+		
+		private  Date tmdays;//提前提名的日期
 
 		// 用来判断修改前是否有平率
 		private boolean isFrequency = false;
 	@Inject
 	public RewardsItemCreatePresenterImpl(EventBus eventBus,ChooseStaffBlockPresenter staffBlock,
 			RewardsItemDisplay display,DispatchAsync dispatcher,ErrorHandler errorHandler,Provider<FrequencySettingDialog> freProvider
-			,RewardStartDateCalculator startDateCalculator,CalculatorSelectFactory factory) {
+			,RewardStartDateCalculator startDateCalculator,CalculatorSelectFactory factory,SessionManager sessionManager) {
 		super(eventBus, display);
 		this.dispatcher=dispatcher;
 		this.staffBlock = staffBlock;
@@ -97,6 +101,7 @@ public class RewardsItemCreatePresenterImpl extends
 		this.freProvider = freProvider;
 		this.startDateCalculator = startDateCalculator;
 		this.factory = factory;
+		this.sessionManager = sessionManager;
 	}
 
 	@Override
@@ -148,26 +153,16 @@ public class RewardsItemCreatePresenterImpl extends
 									Date startDate = display.getStartTime().getValue();
 									FrequencyClient frequency = display.getFrequencyObj();
 
-									Date endDateTime = display.getEndTime().getValue();
-									if (endDateTime != null) {
-										if (startDate.getTime() > endDateTime.getTime()) {
-											Window.alert("请重新修改结束时间！");
-											display.getEndTime().setValue(startDate);
-											endDateCopy = startDate;
-										}
-									}
+									
 
 									// 没设定频率的时候，终止！
 									if (frequency == null) {
 										return;
 									}
 
-									Date endDate = display.getEndTime().getValue();
 									Date currentDate = new Date();
-
 									RewardDateInfo info = new SimpleRewardDateInfo(
-											startDate, endDate, currentDate,
-											lastRewardsDate);
+											startDate, currentDate,	lastRewardsDate);
 									// The begin time which to cal
 									// the next rewarded time.
 									Date startTime = startDateCalculator
@@ -178,40 +173,13 @@ public class RewardsItemCreatePresenterImpl extends
 									display.getStartTime().setValue(nextRewardsDate);
 									display.getNextRewardsTime().setValue(nextRewardsDate);
 
-									if (display.getEndTime().getValue() != null) {
-										if (display.getEndTime().getValue().getTime() < nextRewardsDate
-												.getTime()) {
-											display.getEndTime().setValue(nextRewardsDate);
-											endDateCopy = nextRewardsDate;
-										}
-									}
+									
 									// 修改下次公布时间
 									modifyNextPublishTime();
 								}
 							}));
 
-					// 结束时间值的改变事件
-					registerHandler(display.getEndTime().addValueChangeHandler(
-							new ValueChangeHandler<Date>() {
-								@Override
-								public void onValueChange(ValueChangeEvent<Date> e) {
-									Date endDate = display.getEndTime().getValue();
-									Date startDate = display.getStartTime().getValue();
-									Date nextRewardsDateT = display.getNextRewardsTime()
-											.getValue();
-									if (endDate.getTime() < startDate.getTime()) {
-										display.getEndTime().setValue(endDateCopy);
-									} else if (nextRewardsDateT != null) {
-										if (endDate.getTime() < nextRewardsDateT.getTime()) {
-											display.getEndTime().setValue(endDateCopy);
-										} else {
-											endDateCopy = endDate;
-										}
-									} else {
-										endDateCopy = endDate;
-									}
-								}
-							}));
+					
 
 					// 下次公布时间值的改变事件
 					registerHandler(display.getNextPublishTime().addValueChangeHandler(
@@ -287,33 +255,33 @@ public class RewardsItemCreatePresenterImpl extends
 						rewardsItem.setSizeLimit(Integer.parseInt(display.getPeopleSizeLimit().getValue()));
 						
 						//定义设置奖项和入帐的部门，现为同一部门，以后从session中得到，现为固定部门
-						rewardsItem.setBuilderDept(new DepartmentClient("1", "人事部"));
-						rewardsItem.setAccountDept(new DepartmentClient("1", "人事部"));
+						rewardsItem.setBuilderDept("1");
+						rewardsItem.setAccountDept("1");
 
 						// 候选人信息
 						rewardsItem.setParticipateInfo(staffBlock.getparticipateInfo());
 						rewardsItem.setStartTime(display.getStartTime().getValue());
 						rewardsItem.setNextTime(display.getNextRewardsTime().getValue());
-						// 周期性频率信息
 						
+						//创建人和日期（直接传systemuser）
+						//rewardsItem.setCreateAt(new Date());
+						//rewardsItem.setCreatedBy(sessionManager.getSession().getToken());//暂时没有用户ID或用户名
 						rewardsItem.setPeriodEnable(display.getEnableCbx().getValue());
 						//总积分
 						rewardsItem.setTotalJF(Integer.parseInt(display.getTotalJF().toString()));
 						//每人积分
 						rewardsItem.setRewardsFrom(Integer.parseInt(display.getRewardsFrom().toString()));
-						//提前的天数
+						//提前的天数中得到要提前的日期
 						if(display.getTmdays()!=null&&!display.getTmdays().toString().equals(""))
-						 rewardsItem.setTmdays(Integer.parseInt(display.getTmdays().toString()));
-						
+						  rewardsItem.setTmdays(display.getTmdays().intValue());
+						// 周期性频率信息启用
 						if (display.getEnableCbx().getValue() || isEditPage) {
 							rewardsItem.setFrequency(display.getFrequencyObj());
-							
-							rewardsItem.setEndTime(display.getEndTime()	.getValue());
 							rewardsItem.setNextPublishTime(display.getNextPublishTime().getValue());
-							
 							rewardsItem	.setAuto(display.getAutoCbx().getValue());
 							rewardsItem.setRewardsUnit(display.getRewardsUnit());
 							rewardsItem.setHasSpecialCondition(display.getSpecialCbx().getValue());
+							rewardsItem.setGeneratedRewards(false);
 							if (display.getSpecialCbx().getValue()&& display.getBirthRadio().getValue()) {
 								rewardsItem.setCondition(SpecialCondition.birth);
 							}
@@ -357,11 +325,10 @@ public class RewardsItemCreatePresenterImpl extends
 		private void doSettingFrequency(FrequencyClient frequency) {
 			display.showFrequencyInfo(frequency);
 			Date startDate = display.getStartTime().getValue();
-			Date endDate = display.getEndTime().getValue();
+			
 			Date currentDate = new Date();
 			// 开始时间设为依据时间
-			RewardDateInfo info = new SimpleRewardDateInfo(startDate, endDate,
-					currentDate, lastRewardsDate);
+			RewardDateInfo info = new SimpleRewardDateInfo(startDate, currentDate, lastRewardsDate);
 			Date startTime = startDateCalculator.calculateStartDate(info);
 			// 初始化时默认开始时间是当日时间
 			if (startTime == null) {
@@ -386,42 +353,25 @@ public class RewardsItemCreatePresenterImpl extends
 			}
 
 			display.getNextRewardsTime().setValue(nextRewardsDate);
-			if (display.getEndTime().getValue() != null) {
-				if (display.getEndTime().getValue().getTime() < nextRewardsDate
-						.getTime()) {
-					Window.alert("请重新修改结束时间！");
-					display.getEndTime().setValue(nextRewardsDate);
-					endDateCopy = nextRewardsDate;
-				}
-				modifyNextPublishTime();
-			}
+			
 			
 
 		}
 		private void modifyNextRewardsSetDate(Date rewardsDate) {
 			FrequencyClient frequency = display.getFrequencyObj();
 
-			Date endDateTime = display.getEndTime().getValue();
-
+			
 			boolean toD = false;
-			if (endDateTime != null) {
-				if (rewardsDate.getTime() > endDateTime.getTime()) {
-					Window.alert("请重新修改结束时间！");
-					toD = true;
-					display.getEndTime().setValue(rewardsDate);
-					endDateCopy = rewardsDate;
-				}
-			}
+			
 
 			// 没设定频率的时候，终止！
 			if (frequency == null) {
 				return;
 			}
 
-			Date endDate = display.getEndTime().getValue();
+			
 			Date currentDate = new Date();
-			RewardDateInfo info = new SimpleRewardDateInfo(rewardsDate, endDate,
-					currentDate, lastRewardsDate);
+			RewardDateInfo info = new SimpleRewardDateInfo(rewardsDate, currentDate, lastRewardsDate);
 			// The begin time which to cal
 			// the next rewarded time.
 			Date startTime = startDateCalculator.calculateStartDate(info);
@@ -430,7 +380,6 @@ public class RewardsItemCreatePresenterImpl extends
 			display.getNextRewardsTime().setValue(nextRewardsDate);
 
 			rewardsDate = display.getNextRewardsTime().getValue();
-			Window.alert("startDateCopy.getTime()="+startDateCopy.getTime());
 			
 			if (rewardsDate.getTime() < startDateCopy.getTime()) {
 				display.getStartTime().setValue(rewardsDate);
@@ -439,7 +388,7 @@ public class RewardsItemCreatePresenterImpl extends
 			}
 
 			if (toD) {
-				display.getEndTime().setValue(nextRewardsDate);
+				
 				endDateCopy = nextRewardsDate;
 			}
 
@@ -452,8 +401,18 @@ public class RewardsItemCreatePresenterImpl extends
 			Date date = DateTool.addSomeDay(startDate, 0 - day);
 			display.getNextPublishTime().setValue(date);
 			nextPublishCopy = date;
-		}
 		
+		}
+		// 得到提前提名的时间
+		private void getTMTime() {
+			if(display.getTmdays().intValue()>0)
+			{
+				Date startDate = display.getNextRewardsTime().getValue();//预计颁奖时间
+				int tmday = display.getTmdays().intValue();
+				Date date = DateTool.addSomeDay(startDate, 0 - tmday);
+				tmdays = date;	
+			}
+		}
 		private void modifyNextPublishTimeClew() {
 			DateTimeFormat format = DateTimeFormat.getFormat(ViewConstants.date_format);
 			Date NextRewardsTimeDate = display.getNextRewardsTime().getValue();
@@ -556,12 +515,9 @@ public class RewardsItemCreatePresenterImpl extends
 							flag = false;
 						}
 					
-
+                   //周期性
 					if (display.getEnableCbx().getValue()) {
-						if (display.getEndTime().getValue() ==null) {
-							errorMsg.append("结束时间不能为空!<br>");
-							flag = false;
-						}
+						
 						
 						// 生日奖校验
 						if (display.getSpecialCbx().getValue()

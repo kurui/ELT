@@ -88,12 +88,12 @@ public class RewardItem implements Serializable {
 	private int headcountLimit;
 
 	/**
-	 * Total amount limit
+	 * Total amount limit（总积分）
 	 */
 	private double totalAmtLimit;
 
 	/**
-	 * award amount
+	 * award amount(每人积分)
 	 */
 	private double awardAmt;
 
@@ -163,6 +163,20 @@ public class RewardItem implements Serializable {
 	private Frequency frequency;
 
 	private Date createdAt;
+   
+	private Date startTime;
+	
+	
+	
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+
+	
 
 	private Date lastModifiedAt;
 

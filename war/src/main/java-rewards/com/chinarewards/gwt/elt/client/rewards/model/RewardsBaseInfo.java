@@ -38,10 +38,10 @@ public class RewardsBaseInfo implements Serializable {
 	private int SizeLimit;
 
 	// 设立部门
-	private DepartmentClient builderDept;
+	private String builderDept;
 
 	// 入账部门
-	private DepartmentClient accountDept;
+	private String accountDept;
 
 	// 设立日期
 	private Date createAt;
@@ -117,19 +117,19 @@ public class RewardsBaseInfo implements Serializable {
 		this.participateInfo = participateInfo;
 	}
 
-	public DepartmentClient getBuilderDept() {
+	public String getBuilderDept() {
 		return builderDept;
 	}
 
-	public void setBuilderDept(DepartmentClient builderDept) {
+	public void setBuilderDept(String builderDept) {
 		this.builderDept = builderDept;
 	}
 
-	public DepartmentClient getAccountDept() {
+	public String getAccountDept() {
 		return accountDept;
 	}
 
-	public void setAccountDept(DepartmentClient accountDept) {
+	public void setAccountDept(String accountDept) {
 		this.accountDept = accountDept;
 	}
 
