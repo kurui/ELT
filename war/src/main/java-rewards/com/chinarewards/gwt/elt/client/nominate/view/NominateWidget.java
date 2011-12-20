@@ -17,6 +17,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -57,6 +58,13 @@ public class NominateWidget extends Composite implements NominateDisplay {
 	InlineLabel nominateStaff;
 	@UiField
 	InlineLabel awardAmt;
+	
+	
+	// 选人模块
+	@UiField
+	Panel staffPanel;
+	
+	
 	private static HrRegisterWidgetUiBinder uiBinder = GWT
 			.create(HrRegisterWidgetUiBinder.class);
 
@@ -224,6 +232,9 @@ public class NominateWidget extends Composite implements NominateDisplay {
 	}
 	
 	
-	
+	@Override
+	public void initStaffPanel(Widget w) {
+		staffPanel.add(w);
+	}
 
 }

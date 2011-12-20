@@ -7,6 +7,7 @@ import java.util.List;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import com.chinarewards.gwt.elt.client.chooseStaff.presenter.ChooseStaffPanelPresenter;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
@@ -31,16 +32,24 @@ public class NominatePresenterImpl extends
 	private String instanceId;
 	private int headcount;
 	
+	private final ChooseStaffPanelPresenter staffPanel;
+	
 	@Inject
 	public NominatePresenterImpl(EventBus eventBus,
-			NominateDisplay display,DispatchAsync dispatcher) {
+			NominateDisplay display,DispatchAsync dispatcher,ChooseStaffPanelPresenter staffPanel) {
 		super(eventBus, display);
 		this.dispatcher=dispatcher;
+		this.staffPanel=staffPanel;
 	}
 
 	@Override
 	public void bind() {
 		init();
+		//候选人面板显示
+		staffPanel.bind();
+		display.initStaffPanel(staffPanel.getDisplay().asWidget());
+		
+		
 		registerHandler(display.getNominateClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {

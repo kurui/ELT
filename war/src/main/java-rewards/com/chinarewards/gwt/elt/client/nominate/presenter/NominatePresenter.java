@@ -9,6 +9,7 @@ import com.chinarewards.gwt.elt.model.nominate.CandidateParamVo;
 import com.chinarewards.gwt.elt.model.nominate.JudgeParamVo;
 import com.chinarewards.gwt.elt.model.nominate.NominateCheckBox;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.user.client.ui.Widget;
 
 public interface NominatePresenter extends Presenter<NominatePresenter.NominateDisplay> {
 	
@@ -36,6 +37,8 @@ public interface NominatePresenter extends Presenter<NominatePresenter.NominateD
 		public void setAwardAmt(String awardAmt);
 		
 		public List<NominateCheckBox> getNominateCheckBoxList();
-
+		
+		
+		public void initStaffPanel(Widget w);
 	}
 }

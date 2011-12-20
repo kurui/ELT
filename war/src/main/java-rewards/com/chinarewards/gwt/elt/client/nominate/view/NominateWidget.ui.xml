@@ -58,7 +58,7 @@
 
 						<td colspan="3">
 							项目奖，共
-							<g:InlineLabel text="等待数据加载..." ui:field="number"  />
+							<g:InlineLabel text="等待数据加载..." ui:field="number" />
 							名，每人奖励
 							<g:InlineLabel text="等待数据加载..." ui:field="awardAmt" />
 							积分
@@ -97,6 +97,15 @@
 						</td>
 
 					</tr>
+					<!-- 测试通用选人 -->
+					<tr>
+
+						<td colspan="3" id="noPaddingTd">
+							<g:FlowPanel ui:field="staffPanel" />
+						</td>
+					</tr>
+
+
 					<tr>
 						<td valign="top" class="{item.title}">奖项模式：</td>
 
