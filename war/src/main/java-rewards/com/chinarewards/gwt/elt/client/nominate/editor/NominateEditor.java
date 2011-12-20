@@ -45,7 +45,7 @@ public class NominateEditor extends AbstractEditor {
 
 	public void setModel(String instanceId, Object model) {
 		if (model instanceof RewardsClient) {
-			nominatePresenter.initReward(((RewardsClient) model).getId(),instanceId);
+			nominatePresenter.initReward(((RewardsClient) model).getId(),instanceId,((RewardsClient) model).getHeadcountLimit());
 		}
 		nominatePresenter.bind();
 	}

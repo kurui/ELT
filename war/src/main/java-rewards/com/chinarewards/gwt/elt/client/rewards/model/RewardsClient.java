@@ -31,6 +31,18 @@ public class RewardsClient implements Serializable, Comparable<RewardsClient> {
 	private double totalAmtLimit;
 	/** 预计提名时间 **/
 	private Date expectNominateDate;
+	/**
+	 * Headcount limit
+	 */
+	private int headcountLimit;
+
+	public int getHeadcountLimit() {
+		return headcountLimit;
+	}
+
+	public void setHeadcountLimit(int headcountLimit) {
+		this.headcountLimit = headcountLimit;
+	}
 
 	/** 获奖人信息 **/
 	private List<NomineeModelClient> rewardList;

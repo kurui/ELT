@@ -12,7 +12,7 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 
 public interface NominatePresenter extends Presenter<NominatePresenter.NominateDisplay> {
 	
-	public void initReward(String rewardId,String instanceId);
+	public void initReward(String rewardModel,String instanceId,int headcount);
 	
 	public static interface NominateDisplay extends Display {
 

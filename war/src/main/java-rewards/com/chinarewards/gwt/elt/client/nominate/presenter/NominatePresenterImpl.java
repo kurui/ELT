@@ -27,8 +27,9 @@ public class NominatePresenterImpl extends
 		NominatePresenter {
 
 	private final DispatchAsync dispatcher;
-	private String awardsId="";//"8a83834534544f870134544f8bfb001f";
-	private String instanceId="";
+	private String awardsId;//"8a83834534544f870134544f8bfb001f";
+	private String instanceId;
+	private int headcount;
 	
 	@Inject
 	public NominatePresenterImpl(EventBus eventBus,
@@ -49,6 +50,12 @@ public class NominatePresenterImpl extends
 							Window.alert("请选择需要提名的人...");
 							return ;
 						}
+						if(checkBoxList.size()>headcount)
+						{
+							if(!Window.confirm("允许超额提名?"))
+								return ;
+						}
+						
 						String nominateName="";
 						List<String> staffidList=new ArrayList<String>();
 						List<String> candidateidList=new ArrayList<String>();
@@ -127,10 +134,11 @@ public class NominatePresenterImpl extends
 
 	
 	@Override
-	public void initReward(String rewardId,String instanceId) {
+	public void initReward(String rewardId,String instanceId,int headcount) {
 		// 加载数据
 		this.awardsId=rewardId;
 		this.instanceId=instanceId;
+		this.headcount=headcount;
 	}
 
 
