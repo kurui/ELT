@@ -6,6 +6,7 @@ import java.util.List;
 import com.chinarewards.gwt.elt.client.nominate.presenter.NominatePresenter.NominateDisplay;
 import com.chinarewards.gwt.elt.model.nominate.CandidateParamVo;
 import com.chinarewards.gwt.elt.model.nominate.JudgeParamVo;
+import com.chinarewards.gwt.elt.model.nominate.NominateCheckBox;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -152,6 +153,7 @@ public class NominateWidget extends Composite implements NominateDisplay {
 			CheckBox checkBox = new CheckBox(checkBoxName);
 			checkBox.getElement().setAttribute("staffid", candidateVo.getStaffid());
 			checkBox.getElement().setAttribute("candidateid", candidateVo.getId());
+			checkBox.getElement().setAttribute("staffName", candidateVo.getName());
 	
 
 
@@ -198,8 +200,8 @@ public class NominateWidget extends Composite implements NominateDisplay {
 	
 	@SuppressWarnings("deprecation")
 	@Override
-	public List<String> getStaffList() {
-		List<String> idlist = new ArrayList<String>();
+	public List<NominateCheckBox> getNominateCheckBoxList() {
+		List<NominateCheckBox> idlist = new ArrayList<NominateCheckBox>();
 		
 		for (int i=0;i<candidate.getWidgetCount();i++){
 		    Widget widget = candidate.getWidget(i);
@@ -207,7 +209,12 @@ public class NominateWidget extends Composite implements NominateDisplay {
 		        CheckBox checkBox = (CheckBox) widget;
 		        if(checkBox.isChecked()==true)
 		        {
-		        	idlist.add(checkBox.getElement().getAttribute("staffid"));
+		        	NominateCheckBox box=new NominateCheckBox();
+		        	box.setStaffId(checkBox.getElement().getAttribute("staffid"));
+		        	box.setCandidateId(checkBox.getElement().getAttribute("candidateid"));
+		        	box.setStaffName(checkBox.getElement().getAttribute("staffName"));
+		        	
+		        	idlist.add(box);
 		        }
 		    }
 
@@ -216,26 +223,7 @@ public class NominateWidget extends Composite implements NominateDisplay {
 		return idlist;
 	}
 	
-	@SuppressWarnings("deprecation")
-	@Override
-	public List<String> getCandidateList() {
-		List<String> idlist = new ArrayList<String>();
-		
-		for (int i=0;i<candidate.getWidgetCount();i++){
-		    Widget widget = candidate.getWidget(i);
-		    if (widget instanceof CheckBox){
-		        CheckBox checkBox = (CheckBox) widget;
-		        if(checkBox.isChecked()==true)
-		        {
-		        	idlist.add(checkBox.getElement().getAttribute("candidateid"));
-		        }
-		    }
-
-		}
-
-		return idlist;
-	}
-
+	
 	
 
 }

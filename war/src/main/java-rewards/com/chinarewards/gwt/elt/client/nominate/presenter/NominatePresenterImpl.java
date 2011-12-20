@@ -2,16 +2,20 @@ package com.chinarewards.gwt.elt.client.nominate.presenter;
 
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.nominate.NominateAddRequest;
 import com.chinarewards.gwt.elt.client.nominate.NominateAddResponse;
 import com.chinarewards.gwt.elt.client.nominate.NominateInitRequest;
 import com.chinarewards.gwt.elt.client.nominate.NominateInitResponse;
+import com.chinarewards.gwt.elt.client.nominate.plugin.NominateConstants;
+import com.chinarewards.gwt.elt.model.nominate.NominateCheckBox;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
@@ -23,7 +27,8 @@ public class NominatePresenterImpl extends
 		NominatePresenter {
 
 	private final DispatchAsync dispatcher;
-	private String awardsId="8a83834534544f870134544f8bfb001f";
+	private String awardsId="";//"8a83834534544f870134544f8bfb001f";
+	private String instanceId="";
 	
 	@Inject
 	public NominatePresenterImpl(EventBus eventBus,
@@ -38,19 +43,24 @@ public class NominatePresenterImpl extends
 		registerHandler(display.getNominateClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
-						List<String> staffidList=display.getStaffList();
-						List<String> candidateidList=display.getCandidateList();
-						if(staffidList.size()<=0)
+						List<NominateCheckBox> checkBoxList=display.getNominateCheckBoxList();
+						if(checkBoxList.size()<=0)
 						{
 							Window.alert("请选择需要提名的人...");
 							return ;
 						}
-						String message="";
-						for (int i = 0; i < candidateidList.size(); i++) {
-							message+="提名ID:"+candidateidList.get(i)+"----提名次数+1;";
+						String nominateName="";
+						List<String> staffidList=new ArrayList<String>();
+						List<String> candidateidList=new ArrayList<String>();
+						for (int i = 0; i < checkBoxList.size(); i++) {
+							nominateName+=checkBoxList.get(i).getStaffName()+";";
+							staffidList.add(checkBoxList.get(i).getStaffId());
+							candidateidList.add(checkBoxList.get(i).getCandidateId());
 						}
-						Window.alert(message);
-						addNominateData(staffidList,candidateidList,awardsId);
+						if(Window.confirm("确定提名:"+nominateName+"?"))
+						{
+							addNominateData(staffidList,candidateidList,awardsId);
+						}
 					}
 				}));
 	}
@@ -68,7 +78,8 @@ public class NominatePresenterImpl extends
 
 					@Override
 					public void onSuccess(NominateAddResponse response) {
-						Window.alert("提名记录ID:"+response.getNomineeLotId());
+						Window.alert("提名成功!---提名记录ID:"+response.getNomineeLotId());
+						Platform.getInstance().getEditorRegistry().closeEditor(NominateConstants.EDITOR_NOMINATE_SEARCH, instanceId);
 					}
 				});
 	}
@@ -113,10 +124,14 @@ public class NominatePresenterImpl extends
 				});
 	}
 
+
+	
 	@Override
-	public void setNominateByRewards(String rewardId) {
-		// TODO Auto-generated method stub
-		
+	public void initReward(String rewardId,String instanceId) {
+		// 加载数据
+		this.awardsId=rewardId;
+		this.instanceId=instanceId;
 	}
+
 
 }

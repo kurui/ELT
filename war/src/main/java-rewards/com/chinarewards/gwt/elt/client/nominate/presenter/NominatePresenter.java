@@ -7,11 +7,12 @@ import com.chinarewards.gwt.elt.client.mvp.Display;
 import com.chinarewards.gwt.elt.client.mvp.Presenter;
 import com.chinarewards.gwt.elt.model.nominate.CandidateParamVo;
 import com.chinarewards.gwt.elt.model.nominate.JudgeParamVo;
+import com.chinarewards.gwt.elt.model.nominate.NominateCheckBox;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 
 public interface NominatePresenter extends Presenter<NominatePresenter.NominateDisplay> {
 	
-	public void setNominateByRewards(String rewardId);
+	public void initReward(String rewardId,String instanceId);
 	
 	public static interface NominateDisplay extends Display {
 
@@ -34,7 +35,7 @@ public interface NominatePresenter extends Presenter<NominatePresenter.NominateD
 		public void setAwardName(String awardName);
 		public void setAwardAmt(String awardAmt);
 		
-		public List<String> getCandidateList();
-		public List<String> getStaffList();
+		public List<NominateCheckBox> getNominateCheckBoxList();
+
 	}
 }

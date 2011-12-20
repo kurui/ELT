@@ -165,7 +165,6 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 
 					@Override
 					public void update(int index, RewardsClient o, String value) {
-						Window.alert("!!");
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(

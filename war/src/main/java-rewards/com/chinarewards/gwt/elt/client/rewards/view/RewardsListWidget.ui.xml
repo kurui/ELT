@@ -10,7 +10,7 @@
 		<!-- 查询条件 -->
 		<div class="{rewards.fmtable}">
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
-
+<g:Button ui:field="addBtn" styleName="button-rewards">测试</g:Button>
 			</table>
 		</div>
 
@@ -18,7 +18,7 @@
 			<g:FlowPanel ui:field="resultPanel" />
 		</div>
 		<div id="post">
-			<g:Button ui:field="addBtn" styleName="button-rewards">奖励员工</g:Button>
+			
 		</div>
 	</g:HTMLPanel>
 </ui:UiBinder>
