@@ -180,9 +180,9 @@ public class ChooseStaffListPresenterImpl extends
 				new GetValue<StaffClient, String>() {
 					@Override
 					public String getValue(StaffClient staff) {
-						return staff.getName();
+						return staff.getNominateCount()+"";
 					}
-				}, ref, "staffName");
+				}, ref, "nominateCount");
 
 	}
 

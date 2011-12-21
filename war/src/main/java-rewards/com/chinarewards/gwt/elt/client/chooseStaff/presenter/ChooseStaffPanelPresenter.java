@@ -33,8 +33,8 @@ public interface ChooseStaffPanelPresenter extends	Presenter<ChooseStaffPanelPre
 	public static interface ChooseStaffPanelDisplay extends Display {
 
 		
-		// 得到候选人的id
-		List<String> getRealOrginzationIds();
+		// 得到候选人的id,和名称
+		List<String[]> getRealOrginzationIds();
 
 
 		SpecialTextArea<OrganicationClient> getSpecialTextArea();

@@ -40,7 +40,7 @@ public interface ChooseStaffListPresenter extends
 
 		Panel getResultPanel();
 
-		String getDeptId();
+	//	String getDeptId();
 
 	}
 

@@ -59,14 +59,20 @@ public class CandidateLogicImpl implements CandidateLogic {
 	}
 
 	@Override
-	public void updateCandidatesCount(List<String> candidateIds) {
-		for (int i = 0; i < candidateIds.size(); i++) {
-			Candidate candBo=candidateDao.findById(Candidate.class, candidateIds.get(i));
-			candBo.setNominatecount(candBo.getNominatecount()+1);
+	public void updateCandidatesCount(List<String> staffIds, String rewardId) {
+		String sqlStaffIds="";
+		for (String staffid:staffIds) {
+			sqlStaffIds+="'"+staffid+"',";
+		}
+		
+		List<Candidate> candidateList = candidateDao.findCandidatesByRewardIdandStaffIds(rewardId, sqlStaffIds.substring(0, sqlStaffIds.length()-1));
+
+		for (int i = 0; i < candidateList.size(); i++) {
+			Candidate candBo = candidateList.get(i);
+			candBo.setNominatecount(candBo.getNominatecount() + 1);
 			candidateDao.save(candBo);
 		}
 
-		
 	}
 
 }

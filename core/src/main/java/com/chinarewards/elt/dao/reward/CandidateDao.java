@@ -20,4 +20,10 @@ public class CandidateDao extends BaseDao<Candidate> {
 				.setParameter("rewardId", rewardId).getResultList();
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<Candidate> findCandidatesByRewardIdandStaffIds(String rewardId,String staffIds) {
+		return getEm()
+				.createQuery("FROM Candidate c WHERE c.reward.id = :rewardId and c.staff.id in (:staffids)")
+				.setParameter("rewardId", rewardId).setParameter("staffids", staffIds).getResultList();
+	}
 }

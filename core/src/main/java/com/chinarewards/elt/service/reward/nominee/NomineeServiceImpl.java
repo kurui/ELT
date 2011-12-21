@@ -37,7 +37,7 @@ public class NomineeServiceImpl implements NomineeService {
 
 	@Override
 	public NomineeLot addNomineeLotToReward(String rewardId,
-			List<String> staffIds, List<String> candidateIds)
+			List<String> staffIds)
 			throws JudgeException {
 		// 获取当前登录人.登录没实现,先默认当前第一个提名人
 		if (em.getTransaction().isActive() != true) {
@@ -50,7 +50,7 @@ public class NomineeServiceImpl implements NomineeService {
 				staffIds);
 
 		// 被提名者,提名次数的调整
-		candidateLogic.updateCandidatesCount(candidateIds);
+		candidateLogic.updateCandidatesCount(staffIds,rewardId);
 
 		em.getTransaction().commit();
 

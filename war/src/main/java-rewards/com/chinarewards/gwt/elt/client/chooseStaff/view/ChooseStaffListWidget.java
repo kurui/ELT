@@ -6,6 +6,7 @@ import com.chinarewards.gwt.elt.client.chooseStaff.presenter.ChooseStaffListPres
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.rewards.model.StaffClient;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.chinarewards.gwt.elt.client.ui.StaffSpecialTextArea;
 import com.chinarewards.gwt.elt.client.widget.SpecialTextArea;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -66,8 +67,8 @@ public class ChooseStaffListWidget extends Composite implements	ChooseStaffListD
 	}
 
 	private void initSpecialTextBox() {
-	//	textBox = new StaffSpecialTextArea();
-	//	specialBoxPanel.add(textBox);
+		textBox = new StaffSpecialTextArea();
+		specialBoxPanel.add(textBox);
 	}
 
 	public Widget asWidget() {
@@ -115,10 +116,10 @@ public class ChooseStaffListWidget extends Composite implements	ChooseStaffListD
 		return result;
 	}
 
-	@Override
-	public String getDeptId() {
-		return null;//deptCombo.getSelectedItem() != null ? deptCombo
-				//.getSelectedItem().getId() : null;
-	}
+//	@Override
+//	public String getDeptId() {
+//		return null;//deptCombo.getSelectedItem() != null ? deptCombo
+//				//.getSelectedItem().getId() : null;
+//	}
 
 }

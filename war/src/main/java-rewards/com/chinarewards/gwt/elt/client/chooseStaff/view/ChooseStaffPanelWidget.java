@@ -76,14 +76,14 @@ public class ChooseStaffPanelWidget extends Composite implements ChooseStaffPane
 	}
 
 	@Override
-	public List<String> getRealOrginzationIds() {
-		List<String> realOrginzationIds = new ArrayList<String>();
+	public List<String[]> getRealOrginzationIds() {
+		List<String[]> realOrginzationIds = new ArrayList<String[]>();
 		List<OrganicationClient> existKeys = staffTextArea.getItemList();
 		for (OrganicationClient key : existKeys) {
-			// if (staffMap.containsKey(key.getId())) {
-			// OrganicationClient org = staffMap.get(key.getId());
-			realOrginzationIds.add(key.getId());
-			// }
+			String [] nameAndId=new String[2];
+			nameAndId[0]=key.getId();
+			nameAndId[1]=key.getName();
+			realOrginzationIds.add(nameAndId);
 		}
 		return realOrginzationIds;
 	}

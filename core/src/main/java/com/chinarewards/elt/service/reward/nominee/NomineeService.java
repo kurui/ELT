@@ -8,6 +8,6 @@ import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.reward.exception.JudgeException;
 
 public interface NomineeService {
-	public NomineeLot addNomineeLotToReward(String rewardId,List<String> staffIds,List<String> CandidateIds) throws JudgeException;
+	public NomineeLot addNomineeLotToReward(String rewardId,List<String> staffIds) throws JudgeException;
 	public PageStore<Candidate> getCandidatesFromReward(String rewardId);
 }

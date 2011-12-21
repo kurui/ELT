@@ -39,8 +39,8 @@ public class NominateWidget extends Composite implements NominateDisplay {
 	InlineLabel number;
 	@UiField
 	VerticalPanel judge;
-	@UiField
-	VerticalPanel candidate;
+	//@UiField
+	//VerticalPanel candidate;
 	@UiField
 	Label awardNature;
 	@UiField
@@ -133,42 +133,42 @@ public class NominateWidget extends Composite implements NominateDisplay {
 
 	}
 
-	@Override
-	public void setCandidate(List<CandidateParamVo> candidate) {
-		boolean fal = true;//是否创建人界面
-		if (fal) {
-			String str = "";
-			for (int i = 0; i < 20; i++) {
-				str += "&nbsp";
-			}
-			HTML label = new HTML(str + "被提名次数");
-
-			this.candidate.add(label);
-		}
-
-		for (int i = 0; i < candidate.size(); i++) {
-			CandidateParamVo candidateVo =candidate.get(i);
-			String checkBoxName=candidateVo.getName();
-			String name=candidateVo.getName();
-
-			if (fal) {
-				String str2 = "";
-				for (int j = name.length(); j < 20; j++) {
-					str2 += "-";
-				}
-				checkBoxName =name+ str2 + candidateVo.getNominateCount();// 是否显示被提名次数
-			}
-			CheckBox checkBox = new CheckBox(checkBoxName);
-			checkBox.getElement().setAttribute("staffid", candidateVo.getStaffid());
-			checkBox.getElement().setAttribute("candidateid", candidateVo.getId());
-			checkBox.getElement().setAttribute("staffName", candidateVo.getName());
-	
-
-
-			this.candidate.add(checkBox);
-		}
-
-	}
+//	@Override
+//	public void setCandidate(List<CandidateParamVo> candidate) {
+//		boolean fal = true;//是否创建人界面
+//		if (fal) {
+//			String str = "";
+//			for (int i = 0; i < 20; i++) {
+//				str += "&nbsp";
+//			}
+//			HTML label = new HTML(str + "被提名次数");
+//
+//			this.candidate.add(label);
+//		}
+//
+//		for (int i = 0; i < candidate.size(); i++) {
+//			CandidateParamVo candidateVo =candidate.get(i);
+//			String checkBoxName=candidateVo.getName();
+//			String name=candidateVo.getName();
+//
+//			if (fal) {
+//				String str2 = "";
+//				for (int j = name.length(); j < 20; j++) {
+//					str2 += "-";
+//				}
+//				checkBoxName =name+ str2 + candidateVo.getNominateCount();// 是否显示被提名次数
+//			}
+//			CheckBox checkBox = new CheckBox(checkBoxName);
+//			checkBox.getElement().setAttribute("staffid", candidateVo.getStaffid());
+//			checkBox.getElement().setAttribute("candidateid", candidateVo.getId());
+//			checkBox.getElement().setAttribute("staffName", candidateVo.getName());
+//	
+//
+//
+//			this.candidate.add(checkBox);
+//		}
+//
+//	}
 
 	@Override
 	public void setAwardNature(String awardNature) {
@@ -206,30 +206,30 @@ public class NominateWidget extends Composite implements NominateDisplay {
 		this.nominateStaff.setText(nominateStaff);
 	}
 	
-	@SuppressWarnings("deprecation")
-	@Override
-	public List<NominateCheckBox> getNominateCheckBoxList() {
-		List<NominateCheckBox> idlist = new ArrayList<NominateCheckBox>();
-		
-		for (int i=0;i<candidate.getWidgetCount();i++){
-		    Widget widget = candidate.getWidget(i);
-		    if (widget instanceof CheckBox){
-		        CheckBox checkBox = (CheckBox) widget;
-		        if(checkBox.isChecked()==true)
-		        {
-		        	NominateCheckBox box=new NominateCheckBox();
-		        	box.setStaffId(checkBox.getElement().getAttribute("staffid"));
-		        	box.setCandidateId(checkBox.getElement().getAttribute("candidateid"));
-		        	box.setStaffName(checkBox.getElement().getAttribute("staffName"));
-		        	
-		        	idlist.add(box);
-		        }
-		    }
-
-		}
-
-		return idlist;
-	}
+//	@SuppressWarnings("deprecation")
+//	@Override
+//	public List<NominateCheckBox> getNominateCheckBoxList() {
+//		List<NominateCheckBox> idlist = new ArrayList<NominateCheckBox>();
+//		
+//		for (int i=0;i<candidate.getWidgetCount();i++){
+//		    Widget widget = candidate.getWidget(i);
+//		    if (widget instanceof CheckBox){
+//		        CheckBox checkBox = (CheckBox) widget;
+//		        if(checkBox.isChecked()==true)
+//		        {
+//		        	NominateCheckBox box=new NominateCheckBox();
+//		        	box.setStaffId(checkBox.getElement().getAttribute("staffid"));
+//		        	box.setCandidateId(checkBox.getElement().getAttribute("candidateid"));
+//		        	box.setStaffName(checkBox.getElement().getAttribute("staffName"));
+//		        	
+//		        	idlist.add(box);
+//		        }
+//		    }
+//
+//		}
+//
+//		return idlist;
+//	}
 	
 	
 	@Override

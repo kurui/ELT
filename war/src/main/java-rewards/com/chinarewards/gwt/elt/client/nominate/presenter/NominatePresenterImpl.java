@@ -16,7 +16,9 @@ import com.chinarewards.gwt.elt.client.nominate.NominateAddResponse;
 import com.chinarewards.gwt.elt.client.nominate.NominateInitRequest;
 import com.chinarewards.gwt.elt.client.nominate.NominateInitResponse;
 import com.chinarewards.gwt.elt.client.nominate.plugin.NominateConstants;
-import com.chinarewards.gwt.elt.model.nominate.NominateCheckBox;
+import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
+import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient;
+import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient.SomeoneClient;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
@@ -54,40 +56,71 @@ public class NominatePresenterImpl extends
 		registerHandler(display.getNominateClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
-						List<NominateCheckBox> checkBoxList=display.getNominateCheckBoxList();
-						if(checkBoxList.size()<=0)
+						
+						ParticipateInfoClient participate = staffPanel.getparticipateInfo();
+						List<String> staffIds = new ArrayList<String>();
+						String nominateName="";
+						if (participate instanceof SomeoneClient) {
+							List<OrganicationClient> staffs = ((SomeoneClient) participate).getOrganizations();
+							for (OrganicationClient staff : staffs) {
+								staffIds.add(staff.getId());
+								nominateName+=staff.getName()+";";
+							}
+						}
+					
+						
+					//	List<NominateCheckBox> checkBoxList=display.getNominateCheckBoxList();
+						if(staffIds.size()<=0)
 						{
 							Window.alert("请选择需要提名的人...");
 							return ;
 						}
-						if(checkBoxList.size()>headcount)
+						if(staffIds.size()>headcount)
 						{
 							if(!Window.confirm("允许超额提名?"))
 								return ;
 						}
 						
-						String nominateName="";
-						List<String> staffidList=new ArrayList<String>();
-						List<String> candidateidList=new ArrayList<String>();
-						for (int i = 0; i < checkBoxList.size(); i++) {
-							nominateName+=checkBoxList.get(i).getStaffName()+";";
-							staffidList.add(checkBoxList.get(i).getStaffId());
-							candidateidList.add(checkBoxList.get(i).getCandidateId());
-						}
+//						String nominateName="";
+//						List<String> staffidList=new ArrayList<String>();
+//						List<String> candidateidList=new ArrayList<String>();
+//						for (int i = 0; i < checkBoxList.size(); i++) {
+//							nominateName+=checkBoxList.get(i).getStaffName()+";";
+//							staffidList.add(checkBoxList.get(i).getStaffId());
+//							candidateidList.add(checkBoxList.get(i).getCandidateId());
+//						}
 						if(Window.confirm("确定提名:"+nominateName+"?"))
 						{
-							addNominateData(staffidList,candidateidList,awardsId);
+							addNominateData(staffIds,awardsId);
 						}
 					}
 				}));
 	}
 
+//	/**
+//	 * 提名数据添加 old
+//	 */
+//	private void addNominateData(List<String> staffidList,List<String> candidateidList,String rewardId)
+//	{
+//		dispatcher.execute(new NominateAddRequest(staffidList,candidateidList,rewardId),
+//				new AsyncCallback<NominateAddResponse>() {
+//					public void onFailure(Throwable t) {
+//						Window.alert(t.getMessage());
+//					}
+//
+//					@Override
+//					public void onSuccess(NominateAddResponse response) {
+//						Window.alert("提名成功!---提名记录ID:"+response.getNomineeLotId());
+//						Platform.getInstance().getEditorRegistry().closeEditor(NominateConstants.EDITOR_NOMINATE_SEARCH, instanceId);
+//					}
+//				});
+//	}
 	/**
 	 * 提名数据添加
 	 */
-	private void addNominateData(List<String> staffidList,List<String> candidateidList,String rewardId)
+	private void addNominateData(List<String> staffidList,String rewardId)
 	{
-		dispatcher.execute(new NominateAddRequest(staffidList,candidateidList,rewardId),
+		dispatcher.execute(new NominateAddRequest(staffidList,rewardId),
 				new AsyncCallback<NominateAddResponse>() {
 					public void onFailure(Throwable t) {
 						Window.alert(t.getMessage());
@@ -100,7 +133,6 @@ public class NominatePresenterImpl extends
 					}
 				});
 	}
-	
 	
 	 /**
 		 * 加载初始化数据
@@ -128,7 +160,7 @@ public class NominatePresenterImpl extends
 						display.setNumber(response.getHeadcountLimit()+"");
 						display.setAwardAmt(response.getAwardAmt()+"");
 						display.setJudge(response.getJudgeList());
-						display.setCandidate(response.getCandidateList());
+						//display.setCandidate(response.getCandidateList());
 						display.setAwardNature(response.getAwardMode());
 						display.setBegindate(response.getCreatedAt()+"");
 						display.setAwarddate(response.getExpectAwardDate()+"");

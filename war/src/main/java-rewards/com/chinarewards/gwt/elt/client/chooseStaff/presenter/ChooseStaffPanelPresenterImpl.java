@@ -3,8 +3,6 @@ package com.chinarewards.gwt.elt.client.chooseStaff.presenter;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.customware.gwt.dispatch.client.DispatchAsync;
-
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.ui.DialogCloseListener;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
@@ -28,17 +26,17 @@ public class ChooseStaffPanelPresenterImpl extends
 
 	private final Provider<ChooseStaffListDialog> chooseStaffDialogProvider;
 	// private final SessionManager sessionManager;
-	private final DispatchAsync dispatcher;
+	// private final DispatchAsync dispatcher;
 
 	String rewardId;
+
 	@Inject
 	public ChooseStaffPanelPresenterImpl(EventBus eventBus,
 			ChooseStaffPanelDisplay display,
-			Provider<ChooseStaffListDialog> chooseStaffDialogProvider,
-			DispatchAsync dispatcher) {
+			Provider<ChooseStaffListDialog> chooseStaffDialogProvider) {
 		super(eventBus, display);
 		this.chooseStaffDialogProvider = chooseStaffDialogProvider;
-		this.dispatcher = dispatcher;
+		// this.dispatcher = dispatcher;DispatchAsync dispatcher
 		// this.sessionManager = sessionManager;, SessionManager sessionManager
 	}
 
@@ -48,19 +46,26 @@ public class ChooseStaffPanelPresenterImpl extends
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent arg0) {
-						final ChooseStaffListDialog dialog = chooseStaffDialogProvider.get();
+						final ChooseStaffListDialog dialog = chooseStaffDialogProvider
+								.get();
 						dialog.setRewardId(rewardId);
 						dialog.setNominee(false, true, null);// The key is the
-															   // first
+																// first
 																// parameter(false).
-						final HandlerRegistration registration = eventBus.addHandler(ChooseStaffEvent.getType(),
+						final HandlerRegistration registration = eventBus
+								.addHandler(ChooseStaffEvent.getType(),
 										new ChooseStaffHandler() {
 											@Override
-											public void chosenStaff(List<StaffClient> list) {
+											public void chosenStaff(
+													List<StaffClient> list) {
 												for (StaffClient r : list) {
-													System.out.println("ds=="+ r);
-													if (!display.getSpecialTextArea().containsItem(r)) {
-														display.getSpecialTextArea().addItem(r);
+													System.out.println("ds=="
+															+ r);
+													if (!display
+															.getSpecialTextArea()
+															.containsItem(r)) {
+														display.getSpecialTextArea()
+																.addItem(r);
 													}
 												}
 											}
@@ -82,8 +87,9 @@ public class ChooseStaffPanelPresenterImpl extends
 		ParticipateInfoClient participateInfo = null;
 
 		List<OrganicationClient> orgs = new ArrayList<OrganicationClient>();
-		for (String orgId : display.getRealOrginzationIds()) {
-			orgs.add(new OrganicationClient(orgId, ""));
+
+		for (String[] orgId : display.getRealOrginzationIds()) {
+			orgs.add(new OrganicationClient(orgId[0], orgId[1]));
 		}
 		participateInfo = new SomeoneClient(orgs);
 
@@ -92,8 +98,8 @@ public class ChooseStaffPanelPresenterImpl extends
 
 	@Override
 	public void setRewardId(String rewardId) {
-		this.rewardId=rewardId;
-		
+		this.rewardId = rewardId;
+
 	}
 
 }

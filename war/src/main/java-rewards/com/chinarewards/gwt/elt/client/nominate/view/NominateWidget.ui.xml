@@ -87,7 +87,7 @@
 						</td>
 
 					</tr>
-					<tr>
+			<!--		<tr>
 						<td valign="top" class="{item.title}">待提名人：</td>
 
 						<td class="" colspan="3">
@@ -96,8 +96,8 @@
 
 						</td>
 
-					</tr>
-					<!-- 测试通用选人 -->
+					</tr>-->
+					<!-- 选待提名人 -->
 					<tr>
 
 						<td colspan="3" id="noPaddingTd">
