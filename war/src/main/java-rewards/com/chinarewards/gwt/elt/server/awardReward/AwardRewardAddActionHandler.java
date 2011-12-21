@@ -5,9 +5,7 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 
 import org.slf4j.Logger;
 
-import com.chinarewards.elt.domain.reward.person.NomineeLot;
-import com.chinarewards.elt.model.reward.exception.JudgeException;
-import com.chinarewards.elt.service.reward.nominee.NomineeService;
+import com.chinarewards.elt.service.reward.RewardService;
 import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardAddRequest;
 import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardAddResponse;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
@@ -26,26 +24,23 @@ public class AwardRewardAddActionHandler extends
 	@InjectLogger
 	Logger logger;
 
-	NomineeService nomineeService;
+	RewardService rewardService;
 
 	@Inject
-	public AwardRewardAddActionHandler(NomineeService nomineeService) {
-		this.nomineeService = nomineeService;
+	public AwardRewardAddActionHandler(RewardService rewardService) {
+		this.rewardService = rewardService;
 	}
 
 	@Override
 	public AwardRewardAddResponse execute(AwardRewardAddRequest request,
 			ExecutionContext response) throws DispatchException {
-		AwardRewardAddResponse Nomresponse=new AwardRewardAddResponse();
-		
-		try {
-			NomineeLot lot=nomineeService.addNomineeLotToReward(request.getRewardId(), request.getStaffIds());
-			Nomresponse.setNomineeLotId(lot.getId());
-		} catch (JudgeException e) {
-			e.printStackTrace();
-		}
-	
-		return Nomresponse;
+		AwardRewardAddResponse awardresponse = new AwardRewardAddResponse();
+
+		String lot = rewardService.awardReward(null, request.getRewardId(),
+				request.getStaffIds());
+		awardresponse.setLotId(lot);
+
+		return awardresponse;
 	}
 
 	@Override

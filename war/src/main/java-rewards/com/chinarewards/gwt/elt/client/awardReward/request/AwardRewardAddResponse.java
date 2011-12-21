@@ -10,15 +10,21 @@ import net.customware.gwt.dispatch.shared.Result;
  */
 public class AwardRewardAddResponse implements Result {
 
-	String nomineeLotId;
+	String LotId;
 
-	public String getNomineeLotId() {
-		return nomineeLotId;
+
+
+	public String getLotId() {
+		return LotId;
 	}
 
-	public void setNomineeLotId(String nomineeLotId) {
-		this.nomineeLotId = nomineeLotId;
+
+
+	public void setLotId(String lotId) {
+		LotId = lotId;
 	}
+
+
 
 	public AwardRewardAddResponse() {
 
