@@ -13,11 +13,18 @@ import com.chinarewards.elt.service.org.CorporationService;
 import com.chinarewards.elt.service.org.DepartmentLogic;
 import com.chinarewards.elt.service.org.OrganizationLogic;
 import com.chinarewards.elt.service.org.impl.CorporationLogicImpl;
+import com.chinarewards.elt.service.org.impl.CorporationProcessor;
 import com.chinarewards.elt.service.org.impl.CorporationServiceImpl;
 import com.chinarewards.elt.service.org.impl.DepartmentLogicImpl;
+import com.chinarewards.elt.service.org.impl.DeptmentProcessor;
 import com.chinarewards.elt.service.org.impl.OrganizationLogicImpl;
+import com.chinarewards.elt.service.org.impl.OrganizationProcessor;
+import com.chinarewards.elt.service.org.impl.Organizationfactory;
+import com.chinarewards.elt.service.org.impl.OrganizationfactoryImpl;
+import com.chinarewards.elt.service.org.impl.StaffProcessor;
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
+import com.google.inject.name.Names;
 
 /**
  * Configure of organization module.
@@ -41,6 +48,14 @@ public class OrgModule extends AbstractModule {
 		bind(OrganizationLogic.class).to(OrganizationLogicImpl.class).in(
 				Singleton.class);
 		bind(DepartmentLogic.class).to(DepartmentLogicImpl.class);
+		bind(Organizationfactory.class).to(OrganizationfactoryImpl.class).in(Singleton.class);
+		bind(OrganizationProcessor.class).annotatedWith(
+				Names.named("StaffProcessor")).to(StaffProcessor.class);
+		bind(OrganizationProcessor.class).annotatedWith(
+				Names.named("DeptmentProcessor")).to(DeptmentProcessor.class);
+		bind(OrganizationProcessor.class).annotatedWith(
+				Names.named("CorporationProcessor")).to(
+				CorporationProcessor.class);
 	}
 
 }

@@ -2,6 +2,8 @@ package com.chinarewards.elt.service.rewarditem;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.org.Staff;
@@ -32,6 +34,8 @@ public class RewardItemLogicTest extends JPATestCase {
 	 * Test about creating a new {@link RewardItem} successful.
 	 */
 	public void testCreateNewRewardItem_ok() {
+		EntityManager em = injector.getInstance(EntityManager.class);
+		em.getTransaction().begin();
 		// Need some services
 		RewardItemLogic rewardItemLogic = injector
 				.getInstance(RewardItemLogic.class);
@@ -65,5 +69,6 @@ public class RewardItemLogicTest extends JPATestCase {
 		assertNotNull(directRule.getId());
 		List<DirectCandidateData> dataList = directRule.getCandidateDataList();
 		assertEquals(1, dataList.size());
+		em.getTransaction().commit();
 	}
 }

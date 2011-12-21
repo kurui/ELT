@@ -15,9 +15,10 @@ public class SearchOrganizationRequest implements
 		Action<SearchOrganizationResponse> {
 
 	private String key;
-
-	public SearchOrganizationRequest(String key) {
+    private String corporationId;
+	public SearchOrganizationRequest(String corporationId, String key) {
 		this.key = key;
+		this.corporationId =corporationId;
 	}
 
 	public SearchOrganizationRequest() {
@@ -26,5 +27,8 @@ public class SearchOrganizationRequest implements
 
 	public String getKey() {
 		return key;
+	}
+	public String getCorporationId(){
+		return corporationId;
 	}
 }

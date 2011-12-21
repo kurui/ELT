@@ -8,6 +8,7 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 import com.chinarewards.gwt.elt.client.rewardItem.request.SearchOrganizationRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.SearchOrganizationResponse;
 import com.chinarewards.gwt.elt.client.rewards.model.StaffOrDepartmentAC;
+import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -54,12 +55,15 @@ public class OrganizationSuggestOracle extends SuggestOracle {
 	public void requestSuggestions(final Request request,
 			final Callback callback) {
 		String query = request.getQuery();
-		if (!GWT.isScript()) {
-			final List<OrganizationSuggest> suggestions = getSuggestions(query);
-			Response response = new Response(suggestions);
-			callback.onSuggestionsReady(request, response);
-		} else {
-			dispatcher.execute(new SearchOrganizationRequest(query),
+//		if (!GWT.isScript()) {
+//			final List<OrganizationSuggest> suggestions = getSuggestions(query);
+//			Response response = new Response(suggestions);
+//			callback.onSuggestionsReady(request, response);
+//		} else {
+		final SessionManager sessionManager;
+		     
+		    String corporationId = "8a83835134598ab30134598ab6cc0004" ;//固定为企业ID   //sessionManager.getSession().getCorporationId();
+			dispatcher.execute(new SearchOrganizationRequest(corporationId,query),
 					new AsyncCallback<SearchOrganizationResponse>() {
 						@Override
 						public void onFailure(Throwable arg0) {
@@ -78,7 +82,7 @@ public class OrganizationSuggestOracle extends SuggestOracle {
 						}
 					});
 		}
-	}
+	//}
 
 	// mock data..
 	private List<OrganizationSuggest> getSuggestions(String query) {

@@ -9,6 +9,7 @@ import com.chinarewards.elt.model.reward.base.RewardItemParam;
 import com.chinarewards.elt.model.reward.search.RewardItemSearchVo;
 import com.chinarewards.elt.model.reward.vo.RewardItemVo;
 import com.chinarewards.elt.model.user.UserContext;
+import com.chinarewards.elt.model.vo.StaffAndDeptmentAutoCompile;
 
 /**
  * Some useful methods list here to help us to manipulate {@link RewardItem}
@@ -100,4 +101,14 @@ public interface RewardItemService {
 	 * @param flagTime
 	 */
 	public void runAutoRewardGeneratorBatch(Date flagTime);
+	
+	/**
+	 * 员工和部门的auto compile 功能的接口
+	 * 
+	 * @param falg
+	 * @param limit
+	 * @return
+	 */
+	public List<StaffAndDeptmentAutoCompile> staffAndDeptmentAutoCompile(String corporationId,String falg, int limit);
+
 }

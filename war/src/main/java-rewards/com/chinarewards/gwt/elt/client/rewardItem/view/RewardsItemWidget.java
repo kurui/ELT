@@ -65,10 +65,12 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 	TextBox totalJF;
 	@UiField
 	TextBox rewardsFrom;
-   //提前几天提名
+   //一次性的提前几天提名
 	@UiField
 	TextBox tmdays;
-
+	//多次性的提前几天提名
+	@UiField
+	TextBox tmday;
 	/** 频率规则 **/
 	// 频率是否生效
 	@UiField RadioButton onetimes;
@@ -92,6 +94,9 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 	// 下次颁奖时间
 	@UiField
 	DateBox nextRewardsTime;
+	//期望颁奖时间
+	@UiField
+	DateBox expectTime;
 	// 是否自动
 	@UiField
 	CheckBox autoCbx;
@@ -160,6 +165,7 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 		settingText.getElement().getParentElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
 		nextRewardsTime.setFormat(new DateBox.DefaultFormat(dateFormat));
 		nextPublicTime.setFormat(new DateBox.DefaultFormat(dateFormat));
+		expectTime.setFormat(new DateBox.DefaultFormat(dateFormat));
 		// settingText.setText("每1天一次");
 		birthRadio.getElement().addClassName(CssStyleConstants.hidden);
 		//周期性选择
@@ -168,8 +174,10 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 			public void onValueChange(ValueChangeEvent<Boolean> event) {
 				if (event.getValue()) {
 					settingText.getElement().getParentElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
+					expectTime.getElement().getParentElement().getParentElement().getParentElement().removeClassName(CssStyleConstants.hidden);
 				} else {
 					settingText.getElement().getParentElement().getParentElement().getParentElement().removeClassName(CssStyleConstants.hidden);
+					expectTime.getElement().getParentElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
 				}
 			}
 		});
@@ -178,8 +186,10 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 			public void onValueChange(ValueChangeEvent<Boolean> event) {
 				if (event.getValue()) {
 					settingText.getElement().getParentElement().getParentElement().getParentElement().removeClassName(CssStyleConstants.hidden);
+					expectTime.getElement().getParentElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
 				} else {
 					settingText.getElement().getParentElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
+					expectTime.getElement().getParentElement().getParentElement().getParentElement().removeClassName(CssStyleConstants.hidden);
 				}
 			}
 		});
@@ -376,20 +386,6 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 		return birthRadio;
 	}
 
-
-	
-
-	
-	private void showLastRewardsPanel(Date lastRewardsDate) {
-		if (lastRewardsDate != null) {
-			lastRewardsTime.setText("上次颁奖时间："
-					+ dateFormat.format(lastRewardsDate));
-		} else {
-			lastRewardsTime.setText("没有找到上次颁奖时间");
-		}
-
-	}
-
 	
 	@Override
 	public HasValue<String> getPeopleSizeLimit() {
@@ -397,42 +393,6 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 	}
 
 	
-
-	
-
-	// show amount rule data
-	private void showAmountRuleData(RewardsAmountRuleClient ruleClient) {
-		if (ruleClient == null) {
-			// do nothing
-		} else if (ruleClient instanceof UnifiedAmountRuleClient) {
-			// unified rule
-			
-			rewardsFrom.setValue(StringUtil
-					.valueOf(((UnifiedAmountRuleClient) ruleClient)
-							.getRewardsFrom()));
-			
-		} 
-	}
-
-//	// 显示设立部门和入账部门
-//	private void showBuilderAndAccountDept(DepartmentClient builderDept,
-//			DepartmentClient accountDept) {
-//		if (builderDept != null && builderDept.getId() != null
-//				&& accountDept.getId() != null) {
-//			if (builderDept.getId().equals(accountDept.getId())) {
-//				needAccountDept.setValue(false, true);
-//				this.buildDept.setDefaultValue(new DepartmentClient(builderDept
-//						.getId(), builderDept.getName()));
-//			} else {
-//				needAccountDept.setValue(true, true);
-//				this.buildDept.setDefaultValue(new DepartmentClient(builderDept
-//						.getId(), builderDept.getName()));
-//				this.accountDept.setDefaultValue(new DepartmentClient(
-//						accountDept.getId(), accountDept.getName()));
-//			}
-//		}
-//	}
-
 	@Override
 	public void showFrequencyInfo(FrequencyClient frequency) {
 		String text = FrequencyCalculator.getTextFromFrequency(frequency);
@@ -535,11 +495,27 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 	}
 
 
-	
-	
+	@Override
+	public Integer getTmday() {
+		
+		if (tmday.getText() == null
+				|| "".equals(tmday.getText().trim())) {
+			return null;
+		} else {
+			try {
+				int d = Integer.parseInt(tmday.getText().trim());
+				return d;
+			} catch (Exception e) {
+				return new Integer(-1);
+			}
+		}
+	}
 
-
-	
+	@Override
+	public HasValue<Date> getExpectTime() {
+		// TODO Auto-generated method stub
+		return this.expectTime;
+	}
 
 
 	

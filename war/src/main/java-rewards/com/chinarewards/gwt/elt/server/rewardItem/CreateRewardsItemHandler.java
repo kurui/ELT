@@ -22,6 +22,7 @@ import com.chinarewards.elt.model.reward.frequency.YearlyVo;
 import com.chinarewards.elt.model.transaction.TransactionUnit;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.reward.RewardItemService;
+import com.chinarewards.elt.service.reward.nominee.NomineeService;
 import com.chinarewards.gwt.elt.client.rewardItem.request.CreateRewardsItemRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.CreateRewardsItemResponse;
 import com.chinarewards.gwt.elt.client.rewards.model.DayFrequencyClient;
@@ -43,13 +44,18 @@ import com.chinarewards.gwt.elt.server.BaseActionHandler;
 import com.chinarewards.gwt.elt.server.logger.InjectLogger;
 import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.libideas.validation.client.ValidationException;
+import com.google.inject.Inject;
 
-public class CreateRewardsItemHandler extends
-		BaseActionHandler<CreateRewardsItemRequest, CreateRewardsItemResponse> {
+public class CreateRewardsItemHandler extends	BaseActionHandler<CreateRewardsItemRequest, CreateRewardsItemResponse> {
 
 	@InjectLogger
 	Logger logger;
+	RewardItemService rewardItemService;
 
+	@Inject
+	public CreateRewardsItemHandler(RewardItemService rewardItemService) {
+		this.rewardItemService = rewardItemService;
+	}
 	@Override
 	public Class<CreateRewardsItemRequest> getActionType() {
 		return CreateRewardsItemRequest.class;
@@ -63,16 +69,11 @@ public class CreateRewardsItemHandler extends
 		RewardsItemClient rewardsItemClient = action.getRewardsItem();
 		RewardItemParam param = assembleParameter(rewardsItemClient);
 		
-		RewardItemService rewardsItemService = null ;//=// ServiceLocatorUtil.getServiceLocator().getRewardsItemService();
-		logger.debug("GeneratorRewardsItemModel:startTime="
-				+ param.getStartTime());
-		RewardItem createdItem = null;
+		logger.debug("GeneratorRewardsItemModel:startTime="	+ param.getStartTime());
 		UserContext user = null;
-		try {
-			createdItem = rewardsItemService.saveRewardItem(user, param);
-		} catch (Exception e) {
-			
-		}
+		
+		RewardItem createdItem = rewardItemService.saveRewardItem(user, param);
+		
 
 		return new CreateRewardsItemResponse(createdItem.getId());
 	}
@@ -93,10 +94,17 @@ public class CreateRewardsItemHandler extends
 		parameter.setBuilderDeptId(client.getBuilderDept());
 		parameter.setAccountDeptId(client.getAccountDept());
 		parameter.setNominateAheadDays(client.getTmdays());//提名提前的天数
-		if(client.isPeriodEnable()==true)//如果是周期性的
+		if(client.isPeriodEnable()==true){//如果是周期性的
+			// 奖项的频率
+			parameter.setFrequency(adapterFrequency( client.getFrequency()));
+			parameter.setPublishDate(client.getNextPublishTime());	
 		   parameter.setAutoGenerate(RequireAutoGenerate.requireCyclic);//循环
-		else
+		}else{
 			parameter.setAutoGenerate(RequireAutoGenerate.requireOneOff);//只生成一次
+			parameter.setPublishDate(client.getStartTime());// 如果是一次性的，下次公布时间为现在时间
+			// 奖项的频率没有
+			parameter.setFrequency(null);
+		}
 		// 奖励员工的单位（元/缤纷）,如果没值默认BINFEN
 		if (StringUtil.isEmpty(client.getRewardsUnit())) {
 			parameter.setAwardUnit(TransactionUnit.BEANPOINTS);
@@ -104,15 +112,13 @@ public class CreateRewardsItemHandler extends
 			parameter.setAwardUnit(TransactionUnit.valueOf(client.getRewardsUnit()));
 		}
 		parameter.setStartTime(client.getStartTime());
-		
 		parameter.setExpectAwardDate(client.getNextTime());
-		parameter.setPublishDate(client.getNextPublishTime());
+		
 
-		// 奖项的频率
-		parameter.setFrequency(adapterFrequency( client.getFrequency()));
+		
 		
 		// 入围者
-		// -- 所有人
+		// -- 所有人candidateList
 		ParticipateInfoClient participate = client.getParticipateInfo();
 		List<String> orgIds = new ArrayList<String>();
 		if (participate instanceof EveryoneClient) {
@@ -124,7 +130,7 @@ public class CreateRewardsItemHandler extends
 				orgIds.add(org.getId());
 			}
 		}
-
+        parameter.setCandidateList(orgIds);
 		
 		// 生日奖
 		if (client.isHasSpecialCondition()

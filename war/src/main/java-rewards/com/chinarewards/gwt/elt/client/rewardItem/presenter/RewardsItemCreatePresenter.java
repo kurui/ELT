@@ -31,7 +31,9 @@ public interface RewardsItemCreatePresenter extends Presenter<RewardsItemCreateP
 
 		public HasValue<String> getStandard();
     
-		public Integer getTmdays();
+		public Integer getTmdays();//预期提名的天数
+		
+		public Integer getTmday();//周期性中用一的下次提名的天数
 
 		public HasClickHandlers getFrequencySettingClick();
 
@@ -46,6 +48,9 @@ public interface RewardsItemCreatePresenter extends Presenter<RewardsItemCreateP
 		public HasValue<Date> getNextPublishTime();
 
 		public HasValue<Date> getNextRewardsTime();
+		
+		public HasValue<Date> getExpectTime();
+
 
 		public Integer getRewardsFrom();
 		

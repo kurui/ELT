@@ -98,17 +98,14 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 		}
 
 		// Found build department and account department
-		Department builderDept = deptLogic.findDepartmentById(param
-				.getBuilderDeptId());
-		Department accountDept = deptLogic.findDepartmentById(param
-				.getAccountDeptId());
+		Department builderDept = deptLogic.findDepartmentById(param	.getBuilderDeptId());
+		Department accountDept = deptLogic.findDepartmentById(param	.getAccountDeptId());
 		item.setBuilderDept(builderDept);
 		item.setAccountDept(accountDept);
 		item.setCorporation(builderDept.getCorporation());
 
 		// Calculate publish date and ahead publish days
-		int publishAheadDays = DateUtil.betweenDays(param.getPublishDate(),
-				param.getExpectAwardDate());
+		int publishAheadDays = DateUtil.betweenDays(param.getPublishDate(),	param.getExpectAwardDate());
 		item.setPublishDate(param.getPublishDate());
 		item.setPublishAheadDays(publishAheadDays);
 
@@ -166,8 +163,8 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 		}
 
 		// Add frequency
-		frequencyLogic.bindFrequencyToRewardItem(caller, itemObj.getId(),
-				param.getFrequency());
+		if(param.getFrequency()!=null)
+		frequencyLogic.bindFrequencyToRewardItem(caller, itemObj.getId(),param.getFrequency());
 		// Add short-list rule
 		if (param.getCandidateList() != null
 				&& !param.getCandidateList().isEmpty()) {

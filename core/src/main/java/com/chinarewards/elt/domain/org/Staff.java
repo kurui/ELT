@@ -60,7 +60,7 @@ public class Staff extends Organization {
 	/**
 	 * Flag whether is deleted
 	 */
-	private boolean deleted;
+	private Integer deleted;
 
 	/**
 	 * account id of outer tx.
@@ -163,11 +163,11 @@ public class Staff extends Organization {
 		this.noticeMode = noticeMode;
 	}
 
-	public boolean isDeleted() {
+	public Integer isDeleted() {
 		return deleted;
 	}
 
-	public void setDeleted(boolean deleted) {
+	public void setDeleted(Integer deleted) {
 		this.deleted = deleted;
 	}
 
