@@ -19,11 +19,23 @@ public class CandidateDao extends BaseDao<Candidate> {
 				.createQuery("FROM Candidate c WHERE c.reward.id = :rewardId")
 				.setParameter("rewardId", rewardId).getResultList();
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public List<Candidate> findCandidatesByRewardIdandStaffIds(String rewardId,String staffIds) {
+	public List<Candidate> findCandidatesByRewardIdandStaffIds(String rewardId,
+			List<String> staffIds) {
 		return getEm()
-				.createQuery("FROM Candidate c WHERE c.reward.id = :rewardId and c.staff.id in (:staffids)")
-				.setParameter("rewardId", rewardId).setParameter("staffids", staffIds).getResultList();
+				.createQuery(
+						"FROM Candidate c  WHERE c.reward.id = :rewardId and c.staff.id IN (:staffIds)")
+				.setParameter("rewardId", rewardId)
+				.setParameter("staffIds", staffIds).getResultList();
+	}
+
+	public int updateCandidatesNominateCount(String rewardId,
+			List<String> staffIds) {
+		return getEm()
+				.createQuery(
+						"UPDATE  Candidate c  SET c.nominatecount=c.nominatecount+1  WHERE c.reward.id = :rewardId and c.staff.id IN (:staffIds)")
+				.setParameter("rewardId", rewardId)
+				.setParameter("staffIds", staffIds).executeUpdate();
 	}
 }
