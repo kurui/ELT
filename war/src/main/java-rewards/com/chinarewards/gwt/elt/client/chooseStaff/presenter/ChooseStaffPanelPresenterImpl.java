@@ -49,8 +49,9 @@ public class ChooseStaffPanelPresenterImpl extends
 					@Override
 					public void onClick(ClickEvent arg0) {
 						final ChooseStaffListDialog dialog = chooseStaffDialogProvider.get();
+						dialog.setRewardId(rewardId);
 						dialog.setNominee(false, true, null);// The key is the
-						dialog.setRewardId(rewardId);									// first
+															   // first
 																// parameter(false).
 						final HandlerRegistration registration = eventBus.addHandler(ChooseStaffEvent.getType(),
 										new ChooseStaffHandler() {

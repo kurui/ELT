@@ -13,7 +13,7 @@ public class ChooseStaffListDialog extends AbstractDialog {
 	final Provider<ChooseStaffListPresenter> presenterProvider;
 
 	ChooseStaffListPresenter presenter;
-String rewardId;
+
 	@Inject
 	public ChooseStaffListDialog(
 			Provider<ChooseStaffListPresenter> presenterProvider) {
@@ -27,7 +27,6 @@ String rewardId;
 
 	public void init() {
 		setTitle("选择员工");
-		presenter.setRewardId(rewardId);
 		presenter.bind();
 	}
 
@@ -47,7 +46,6 @@ String rewardId;
 		presenter.setNominee(isLimitByNominee, isChooseAll, orgIds);
 	}
 	public void setRewardId(String rewardId) {
-		this.rewardId=rewardId;
 		presenter.setRewardId(rewardId);
 	}
 	public void setStaffOnly(boolean staffOnly) {
