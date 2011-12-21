@@ -7,14 +7,14 @@ import java.util.List;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardAddRequest;
+import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardAddResponse;
+import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardInitRequest;
+import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardInitResponse;
 import com.chinarewards.gwt.elt.client.chooseStaff.presenter.ChooseStaffPanelPresenter;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
-import com.chinarewards.gwt.elt.client.nominate.NominateAddRequest;
-import com.chinarewards.gwt.elt.client.nominate.NominateAddResponse;
-import com.chinarewards.gwt.elt.client.nominate.NominateInitRequest;
-import com.chinarewards.gwt.elt.client.nominate.NominateInitResponse;
 import com.chinarewards.gwt.elt.client.nominate.plugin.NominateConstants;
 import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
 import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient;
@@ -83,7 +83,7 @@ public class AwardRewardPresenterImpl extends
 
 						if(Window.confirm("确定获奖人:"+nominateName+"?"))
 						{
-							addNominateData(staffIds,awardsId);
+							addAwardRewardData(staffIds,awardsId);
 						}
 					}
 				}));
@@ -91,19 +91,19 @@ public class AwardRewardPresenterImpl extends
 
 
 	/**
-	 * 提名数据添加
+	 * 颁奖数据添加
 	 */
-	private void addNominateData(List<String> staffidList,String rewardId)
+	private void addAwardRewardData(List<String> staffidList,String rewardId)
 	{
-		dispatcher.execute(new NominateAddRequest(staffidList,rewardId),
-				new AsyncCallback<NominateAddResponse>() {
+		dispatcher.execute(new AwardRewardAddRequest(staffidList,rewardId),
+				new AsyncCallback<AwardRewardAddResponse>() {
 					public void onFailure(Throwable t) {
 						Window.alert(t.getMessage());
 					}
 
 					@Override
-					public void onSuccess(NominateAddResponse response) {
-						Window.alert("提名成功!---提名记录ID:"+response.getNomineeLotId());
+					public void onSuccess(AwardRewardAddResponse response) {
+						Window.alert("颁奖成功!---提名记录ID:"+response.getNomineeLotId());
 						Platform.getInstance().getEditorRegistry().closeEditor(NominateConstants.EDITOR_NOMINATE_SEARCH, instanceId);
 					}
 				});
@@ -116,14 +116,14 @@ public class AwardRewardPresenterImpl extends
 	{
 		//根据传入ID初始化提名页面
 	
-		dispatcher.execute(new NominateInitRequest(awardsId),
-				new AsyncCallback<NominateInitResponse>() {
+		dispatcher.execute(new AwardRewardInitRequest(awardsId),
+				new AsyncCallback<AwardRewardInitResponse>() {
 					public void onFailure(Throwable t) {
 						Window.alert(t.getMessage());
 					}
 
 					@Override
-					public void onSuccess(NominateInitResponse response) {
+					public void onSuccess(AwardRewardInitResponse response) {
 
 						display.setName(response.getRewardName());
 						display.setExplain(response.getDefinition());

@@ -46,8 +46,14 @@ public interface RewardService {
 	 */
 	public NomineeLot nominateReward(SysUser caller, String rewardId,
 			List<String> staffIds) throws NominateRewardException;
-
-	public void awardReward(SysUser caller, String rewardId,
+/**
+ * 颁奖方法,返回颁奖记录ID
+ * @param caller
+ * @param rewardId
+ * @param staffIds
+ * @return
+ */
+	public String awardReward(SysUser caller, String rewardId,
 			List<String> staffIds);
 
 	/**

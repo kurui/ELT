@@ -256,7 +256,7 @@ public class RewardLogicImpl implements RewardLogic {
 	}
 
 	@Override
-	public void awardReward(SysUser caller, String rewardId,
+	public String awardReward(SysUser caller, String rewardId,
 			List<String> staffIds) {
 		Reward reward = rewardDao.findById(Reward.class, rewardId);
 		String lotId = preWinnerLogic.addPreWinnerFromOuter(caller, rewardId,
@@ -271,6 +271,7 @@ public class RewardLogicImpl implements RewardLogic {
 			winnerLogic.processWinnerAward(reward.getId());
 			rewardDao.update(reward);
 		}
+		return lotId;
 	}
 
 	@Override

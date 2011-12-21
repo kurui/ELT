@@ -70,7 +70,7 @@ public interface RewardLogic {
 	 * @param rewardId
 	 * @param staffIds
 	 */
-	public void awardReward(SysUser caller, String rewardId,
+	public String awardReward(SysUser caller, String rewardId,
 			List<String> staffIds);
 
 	/**
