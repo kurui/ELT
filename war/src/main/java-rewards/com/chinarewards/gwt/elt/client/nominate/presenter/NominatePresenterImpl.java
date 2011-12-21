@@ -19,6 +19,7 @@ import com.chinarewards.gwt.elt.client.nominate.plugin.NominateConstants;
 import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
 import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient;
 import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient.SomeoneClient;
+import com.chinarewards.gwt.elt.util.DateTool;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
@@ -162,11 +163,11 @@ public class NominatePresenterImpl extends
 						display.setJudge(response.getJudgeList());
 						//display.setCandidate(response.getCandidateList());
 						display.setAwardNature(response.getAwardMode());
-						display.setBegindate(response.getCreatedAt()+"");
-						display.setAwarddate(response.getExpectAwardDate()+"");
+						display.setBegindate(DateTool.dateToString(response.getCreatedAt()));
+						display.setAwarddate(DateTool.dateToString(response.getExpectAwardDate()));
 						display.setNominateMessage("提名信息");//wating.........
-						display.setNominateStaff("当前用户是谁");
-						display.setExpectNominateDate(response.getExpectNominateDate()+"");
+						display.setNominateStaff("当前用户");
+						display.setExpectNominateDate(DateTool.dateToString(response.getExpectNominateDate()));
 						display.setAwardName(response.getAwardingStaffName());
 						
 					}
