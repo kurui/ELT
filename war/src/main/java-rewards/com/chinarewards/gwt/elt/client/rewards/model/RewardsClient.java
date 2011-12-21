@@ -27,6 +27,23 @@ public class RewardsClient implements Serializable, Comparable<RewardsClient> {
 
 	private String rewardsItemName;
 
+	/** 奖项积分 **/
+	private double totalAmtLimit;
+	/** 预计提名时间 **/
+	private Date expectNominateDate;
+	/**
+	 * Headcount limit
+	 */
+	private int headcountLimit;
+
+	public int getHeadcountLimit() {
+		return headcountLimit;
+	}
+
+	public void setHeadcountLimit(int headcountLimit) {
+		this.headcountLimit = headcountLimit;
+	}
+
 	/** 获奖人信息 **/
 	private List<NomineeModelClient> rewardList;
 
@@ -233,5 +250,23 @@ public class RewardsClient implements Serializable, Comparable<RewardsClient> {
 	public int compareTo(RewardsClient o) {
 		return o == null ? -1 : o.getId().compareTo(this.getId());
 	}
+
+	public double getTotalAmtLimit() {
+		return totalAmtLimit;
+	}
+
+	public void setTotalAmtLimit(double totalAmtLimit) {
+		this.totalAmtLimit = totalAmtLimit;
+	}
+
+	public Date getExpectNominateDate() {
+		return expectNominateDate;
+	}
+
+	public void setExpectNominateDate(Date expectNominateDate) {
+		this.expectNominateDate = expectNominateDate;
+	}
+
+
 
 }

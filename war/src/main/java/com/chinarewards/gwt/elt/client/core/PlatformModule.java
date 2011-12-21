@@ -12,6 +12,7 @@ import com.chinarewards.gwt.elt.client.core.ui.impl.SimpleMenuProcessor;
 import com.chinarewards.gwt.elt.client.core.ui.impl.SimpleSiteManager;
 import com.chinarewards.gwt.elt.client.nominate.plugin.NominatePluginDescriptor;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemPluginDescriptor;
+import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.sample.SamplePluginDescriptor;
 import com.chinarewards.gwt.elt.client.sample.SamplePluginModule;
 import com.chinarewards.gwt.elt.client.staff.plugin.HrRegisterPluginDescriptor;
@@ -52,7 +53,7 @@ public class PlatformModule extends AbstractGinModule {
 			CorePluginDescriptor core, // core
 
 			SamplePluginDescriptor sample, UserPluginDescriptor user,
-			HrRegisterPluginDescriptor hrregister,NominatePluginDescriptor nominate,RewardsItemPluginDescriptor rewardsItem) {
+			HrRegisterPluginDescriptor hrregister,NominatePluginDescriptor nominate,RewardsItemPluginDescriptor rewardsItem,RewardsListPluginDescriptor rewardsList) {
 
 
 		if (pluginSet == null) {
@@ -64,6 +65,7 @@ public class PlatformModule extends AbstractGinModule {
 
 			pluginSet.registerPlugin(nominate);
 			pluginSet.registerPlugin(rewardsItem);
+			pluginSet.registerPlugin(rewardsList);
 
 		}
 

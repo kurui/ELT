@@ -23,14 +23,14 @@
 					<tr>
 						<td valign="top" class="{item.title}">奖项名称：</td>
 						<td class="" colspan="3">
-							<g:Label text="ELT项目奖" ui:field="name" />
+							<g:Label text="等待数据加载..." ui:field="name" />
 						</td>
 
 					</tr>
 					<tr>
 						<td valign="top" class="{item.title}">奖项说明：</td>
 						<td class="" colspan="3">
-							<g:Label text="为激励ELT产品开发团队，提高产品开发效率，设立这个奖项" ui:field="explain" />
+							<g:Label text="等待数据加载..." ui:field="explain" />
 						</td>
 
 					</tr>
@@ -39,7 +39,7 @@
 						<td valign="top" class="{item.title}">获奖条件：</td>
 
 						<td class="" colspan="3">
-							<g:Label text="12月23日前完成1.5版本所有功能并正式上线" ui:field="condition" />
+							<g:Label text="等待数据加载..." ui:field="condition" />
 						</td>
 
 					</tr>
@@ -48,7 +48,7 @@
 
 						<td class="" colspan="3">
 
-							<g:Label text="5000" ui:field="integral" />
+							<g:Label text="等待数据加载..." ui:field="integral" />
 
 						</td>
 
@@ -58,9 +58,9 @@
 
 						<td colspan="3">
 							项目奖，共
-							<g:InlineLabel text="5" ui:field="number"  />
+							<g:InlineLabel text="等待数据加载..." ui:field="number" />
 							名，每人奖励
-							<g:InlineLabel text="5" ui:field="awardAmt" />
+							<g:InlineLabel text="等待数据加载..." ui:field="awardAmt" />
 							积分
 						</td>
 
@@ -72,7 +72,7 @@
 
 						<td class="" colspan="3">
 
-							<g:Label text="KM(IT部总监)" ui:field="recordName" />
+							<g:Label text="等待数据加载..." ui:field="recordName" />
 
 						</td>
 
@@ -87,7 +87,7 @@
 						</td>
 
 					</tr>
-					<tr>
+			<!--		<tr>
 						<td valign="top" class="{item.title}">待提名人：</td>
 
 						<td class="" colspan="3">
@@ -96,13 +96,22 @@
 
 						</td>
 
+					</tr>-->
+					<!-- 选待提名人 -->
+					<tr>
+
+						<td colspan="3" id="noPaddingTd">
+							<g:FlowPanel ui:field="staffPanel" />
+						</td>
 					</tr>
+
+
 					<tr>
 						<td valign="top" class="{item.title}">奖项模式：</td>
 
 						<td class="" colspan="3">
 
-							<g:Label text="一次性奖项" ui:field="awardNature" />
+							<g:Label text="等待数据加载..." ui:field="awardNature" />
 
 						</td>
 
@@ -112,14 +121,14 @@
 
 						<td>
 
-							<g:Label text="2011-9-23" ui:field="begindate" />
+							<g:Label text="等待数据加载..." ui:field="begindate" />
 
 						</td>
 						<td valign="left" class="{item.title}">预计颁奖时间：</td>
 
 						<td>
 
-							<g:Label text="2011-10-23" ui:field="awarddate" />
+							<g:Label text="等待数据加载..." ui:field="awarddate" />
 
 						</td>
 					</tr>
@@ -128,11 +137,11 @@
 
 						<td class="" colspan="3">
 
-							<g:InlineLabel text="领导提名" ui:field="nominateMessage" />
+							<g:InlineLabel text="等待数据加载..." ui:field="nominateMessage" />
 							提名时间:
-							<g:InlineLabel text="2011-12-28" ui:field="expectNominateDate" />
+							<g:InlineLabel text="等待数据加载..." ui:field="expectNominateDate" />
 							提名人：
-							<g:InlineLabel text="Lueng; Anthony" ui:field="nominateStaff" />
+							<g:InlineLabel text="等待数据加载..." ui:field="nominateStaff" />
 
 
 						</td>
@@ -143,7 +152,7 @@
 
 						<td class="" colspan="3">
 
-							<g:Label text="KM" ui:field="awardName" />
+							<g:Label text="等待数据加载..." ui:field="awardName" />
 
 
 						</td>

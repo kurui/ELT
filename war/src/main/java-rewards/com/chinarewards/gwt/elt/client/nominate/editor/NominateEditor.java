@@ -2,6 +2,7 @@ package com.chinarewards.gwt.elt.client.nominate.editor;
 
 import com.chinarewards.gwt.elt.client.core.ui.impl.AbstractEditor;
 import com.chinarewards.gwt.elt.client.nominate.presenter.NominatePresenter;
+import com.chinarewards.gwt.elt.client.rewards.model.RewardsClient;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
@@ -42,8 +43,10 @@ public class NominateEditor extends AbstractEditor {
 
 	}
 
-	public void setModel(Object model) {
-		this.model = model;
+	public void setModel(String instanceId, Object model) {
+		if (model instanceof RewardsClient) {
+			nominatePresenter.initReward(((RewardsClient) model).getId(),instanceId,((RewardsClient) model).getHeadcountLimit());
+		}
 		nominatePresenter.bind();
 	}
 }

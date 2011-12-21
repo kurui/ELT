@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:d='urn:import:com.google.gwt.user.datepicker.client'
+	xmlns:c="urn:import:com.google.gwt.user.cellview.client">
+	<ui:style src="myMain.css"></ui:style>
+	<g:HTMLPanel>
+		<div class="{style.center}" style="width:778px;">
+			<div class="{style.fmtable}">
+<!--  				<table width="100%" border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td class="{style.title}">部门：</td>
+						<td>
+							<g:FlowPanel ui:field="deptPanel"/>
+						</td>
+						<td class="{style.title}">搜索条件(名称，手机，邮件，卡号)：</td>
+						<td class="{style.intext2}">
+							<g:TextBox ui:field="name"></g:TextBox>
+						</td>
+						<td class="{style.caozuo}">
+							<g:Button ui:field="searchBtn" styleName="button-search">查询</g:Button>
+							<g:Button ui:field="resetBtn" styleName="button-reset">重置</g:Button>
+						</td>
+					</tr>
+				</table>-->
+			</div>
+			<div class="{style.listtable}">
+				<g:FlowPanel ui:field="result"></g:FlowPanel>
+			</div>
+			<div class="{style.listtable}">
+				<table width="100%">
+					<tr>
+						<td>准备添加的员工：</td>
+						<td><g:FlowPanel ui:field="specialBoxPanel" /></td>
+					</tr>
+				</table>
+			</div>
+			<div style="height:10px"></div>
+			<div id="post" >
+				<g:Button ui:field="chooseBtn" styleName="button-ok">添加</g:Button>
+				<g:Button ui:field="cancelBtn" styleName="button-cancel">取消</g:Button>
+			</div>
+		</div>
+	</g:HTMLPanel>
+</ui:UiBinder>

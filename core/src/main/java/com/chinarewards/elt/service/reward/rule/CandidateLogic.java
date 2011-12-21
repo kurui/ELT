@@ -35,5 +35,5 @@ public interface CandidateLogic {
 	/**
 	 * 被提名人次数+1
 	 */
-	public void updateCandidatesCount(List<String> CandidateIds);
+	public void updateCandidatesCount(List<String> staffIds,String rewardId);
 }

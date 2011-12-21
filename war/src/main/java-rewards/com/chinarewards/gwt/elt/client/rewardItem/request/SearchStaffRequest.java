@@ -17,6 +17,7 @@ public class SearchStaffRequest implements Action<SearchStaffResponse> {
 
 	private UserSession userSession;
 
+
 	private boolean limitDataByUserRole = false;
 
 	public SearchStaffRequest() {

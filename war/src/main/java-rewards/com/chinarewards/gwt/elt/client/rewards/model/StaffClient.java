@@ -72,6 +72,20 @@ public class StaffClient extends OrganicationClient implements Serializable,
 	 */
 	private StaffLevelClient staffLevel;
 
+	/**
+	 * 被提名次数
+	 */
+	private int nominateCount;
+	
+	
+	public int getNominateCount() {
+		return nominateCount;
+	}
+
+	public void setNominateCount(int nominateCount) {
+		this.nominateCount = nominateCount;
+	}
+
 	public String getName() {
 		return name;
 	}

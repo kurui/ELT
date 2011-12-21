@@ -21,6 +21,17 @@ public class RewardSearchVo {
 	private PaginationDetail paginationDetail;
 
 	private SortingDetail sortingDetail;
+	/**
+	 * id of Reward
+	 */
+	private String rewardId;
+	public String getRewardId() {
+		return rewardId;
+	}
+
+	public void setRewardId(String rewardId) {
+		this.rewardId = rewardId;
+	}
 
 	/**
 	 * name

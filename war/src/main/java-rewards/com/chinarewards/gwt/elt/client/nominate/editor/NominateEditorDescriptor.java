@@ -32,7 +32,7 @@ public class NominateEditorDescriptor implements EditorDescriptor {
 		NominateEditor e = editProvider.get();
 		e.setInstanceId(instanceId);
 		e.setTitle("提名");
-		e.setModel(model);
+		e.setModel(instanceId,model);
 		return e;
 	}
 

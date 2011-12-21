@@ -2,16 +2,23 @@ package com.chinarewards.gwt.elt.client.nominate.presenter;
 
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import com.chinarewards.gwt.elt.client.chooseStaff.presenter.ChooseStaffPanelPresenter;
+import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.nominate.NominateAddRequest;
 import com.chinarewards.gwt.elt.client.nominate.NominateAddResponse;
 import com.chinarewards.gwt.elt.client.nominate.NominateInitRequest;
 import com.chinarewards.gwt.elt.client.nominate.NominateInitResponse;
+import com.chinarewards.gwt.elt.client.nominate.plugin.NominateConstants;
+import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
+import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient;
+import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient.SomeoneClient;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
@@ -23,39 +30,97 @@ public class NominatePresenterImpl extends
 		NominatePresenter {
 
 	private final DispatchAsync dispatcher;
-	private String awardsId="8a83834534544f870134544f8bfb001f";
+	private String awardsId;//"8a83834534544f870134544f8bfb001f";
+	private String instanceId;
+	private int headcount;
+	
+	private final ChooseStaffPanelPresenter staffPanel;
 	
 	@Inject
 	public NominatePresenterImpl(EventBus eventBus,
-			NominateDisplay display,DispatchAsync dispatcher) {
+			NominateDisplay display,DispatchAsync dispatcher,ChooseStaffPanelPresenter staffPanel) {
 		super(eventBus, display);
 		this.dispatcher=dispatcher;
+		this.staffPanel=staffPanel;
 	}
 
 	@Override
 	public void bind() {
 		init();
+		staffPanel.setRewardId(awardsId);
+		//候选人面板显示
+		staffPanel.bind();
+		display.initStaffPanel(staffPanel.getDisplay().asWidget());
+		
+		
 		registerHandler(display.getNominateClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
-						List<String> staffidList=display.getStaffList();
-						List<String> candidateidList=display.getCandidateList();
-						String message="";
-						for (int i = 0; i < candidateidList.size(); i++) {
-							message+="提名ID:"+candidateidList.get(i)+"----提名次数+1;";
+						
+						ParticipateInfoClient participate = staffPanel.getparticipateInfo();
+						List<String> staffIds = new ArrayList<String>();
+						String nominateName="";
+						if (participate instanceof SomeoneClient) {
+							List<OrganicationClient> staffs = ((SomeoneClient) participate).getOrganizations();
+							for (OrganicationClient staff : staffs) {
+								staffIds.add(staff.getId());
+								nominateName+=staff.getName()+";";
+							}
 						}
-						Window.alert(message);
-						addNominateData(staffidList,candidateidList,awardsId);
+					
+						
+					//	List<NominateCheckBox> checkBoxList=display.getNominateCheckBoxList();
+						if(staffIds.size()<=0)
+						{
+							Window.alert("请选择需要提名的人...");
+							return ;
+						}
+						if(staffIds.size()>headcount)
+						{
+							if(!Window.confirm("允许超额提名?"))
+								return ;
+						}
+						
+//						String nominateName="";
+//						List<String> staffidList=new ArrayList<String>();
+//						List<String> candidateidList=new ArrayList<String>();
+//						for (int i = 0; i < checkBoxList.size(); i++) {
+//							nominateName+=checkBoxList.get(i).getStaffName()+";";
+//							staffidList.add(checkBoxList.get(i).getStaffId());
+//							candidateidList.add(checkBoxList.get(i).getCandidateId());
+//						}
+						if(Window.confirm("确定提名:"+nominateName+"?"))
+						{
+							addNominateData(staffIds,awardsId);
+						}
 					}
 				}));
 	}
 
+//	/**
+//	 * 提名数据添加 old
+//	 */
+//	private void addNominateData(List<String> staffidList,List<String> candidateidList,String rewardId)
+//	{
+//		dispatcher.execute(new NominateAddRequest(staffidList,candidateidList,rewardId),
+//				new AsyncCallback<NominateAddResponse>() {
+//					public void onFailure(Throwable t) {
+//						Window.alert(t.getMessage());
+//					}
+//
+//					@Override
+//					public void onSuccess(NominateAddResponse response) {
+//						Window.alert("提名成功!---提名记录ID:"+response.getNomineeLotId());
+//						Platform.getInstance().getEditorRegistry().closeEditor(NominateConstants.EDITOR_NOMINATE_SEARCH, instanceId);
+//					}
+//				});
+//	}
 	/**
 	 * 提名数据添加
 	 */
-	private void addNominateData(List<String> staffidList,List<String> candidateidList,String rewardId)
+	private void addNominateData(List<String> staffidList,String rewardId)
 	{
-		dispatcher.execute(new NominateAddRequest(staffidList,candidateidList,rewardId),
+		dispatcher.execute(new NominateAddRequest(staffidList,rewardId),
 				new AsyncCallback<NominateAddResponse>() {
 					public void onFailure(Throwable t) {
 						Window.alert(t.getMessage());
@@ -63,11 +128,11 @@ public class NominatePresenterImpl extends
 
 					@Override
 					public void onSuccess(NominateAddResponse response) {
-						Window.alert("提名记录ID:"+response.getNomineeLotId());
+						Window.alert("提名成功!---提名记录ID:"+response.getNomineeLotId());
+						Platform.getInstance().getEditorRegistry().closeEditor(NominateConstants.EDITOR_NOMINATE_SEARCH, instanceId);
 					}
 				});
 	}
-	
 	
 	 /**
 		 * 加载初始化数据
@@ -95,7 +160,7 @@ public class NominatePresenterImpl extends
 						display.setNumber(response.getHeadcountLimit()+"");
 						display.setAwardAmt(response.getAwardAmt()+"");
 						display.setJudge(response.getJudgeList());
-						display.setCandidate(response.getCandidateList());
+						//display.setCandidate(response.getCandidateList());
 						display.setAwardNature(response.getAwardMode());
 						display.setBegindate(response.getCreatedAt()+"");
 						display.setAwarddate(response.getExpectAwardDate()+"");
@@ -108,10 +173,15 @@ public class NominatePresenterImpl extends
 				});
 	}
 
+
+	
 	@Override
-	public void setNominateByRewards(String rewardId) {
-		// TODO Auto-generated method stub
-		
+	public void initReward(String rewardId,String instanceId,int headcount) {
+		// 加载数据
+		this.awardsId=rewardId;
+		this.instanceId=instanceId;
+		this.headcount=headcount;
 	}
+
 
 }

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:d='urn:import:com.google.gwt.user.datepicker.client'
+	xmlns:c="urn:import:com.google.gwt.user.cellview.client">
+	<ui:image field="post_bg" resource="post_bg.jpg" repeatStyle="Horizontal"></ui:image>
+	<ui:image field="button_search" resource="button_search.jpg"></ui:image>
+	<ui:image field="button_add" resource="button_add.jpg"></ui:image>
+	<ui:style src="rewardsSearch.css" field="rewards"></ui:style>
+	<g:HTMLPanel>
+		<!-- 查询条件 -->
+		<div class="{rewards.fmtable}">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<g:Button ui:field="addBtn" styleName="button-rewards">测试</g:Button>
+			</table>
+		</div>
+
+		<div class="{rewards.listtable}">
+			<g:FlowPanel ui:field="resultPanel" />
+		</div>
+		<div id="post">
+			
+		</div>
+	</g:HTMLPanel>
+</ui:UiBinder>
