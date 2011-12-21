@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.chinarewards.gwt.elt.client.rewardItem.request;
+package com.chinarewards.gwt.elt.client.rewards.request;
 
 import java.util.List;
 

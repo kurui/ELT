@@ -1,4 +1,4 @@
-package com.chinarewards.gwt.elt.client.rewardItem.request;
+package com.chinarewards.gwt.elt.client.chooseStaff.request;
 
 import net.customware.gwt.dispatch.shared.Action;
 
@@ -11,7 +11,7 @@ import com.chinarewards.gwt.elt.client.support.UserSession;
  * @author cyril
  *
  */
-public class SearchStaffRequest implements Action<SearchStaffResponse> {
+public class SearchStaffChooseRequest implements Action<SearchStaffChooseResponse> {
 
 	private StaffSearchCriteria criteria;
 
@@ -20,10 +20,10 @@ public class SearchStaffRequest implements Action<SearchStaffResponse> {
 
 	private boolean limitDataByUserRole = false;
 
-	public SearchStaffRequest() {
+	public SearchStaffChooseRequest() {
 	}
 
-	public SearchStaffRequest(StaffSearchCriteria criteria,
+	public SearchStaffChooseRequest(StaffSearchCriteria criteria,
 			UserSession userSession, boolean limitDataByUserRole) {
 		this.criteria = criteria;
 		this.userSession = userSession;

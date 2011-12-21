@@ -2,16 +2,16 @@ package com.chinarewards.gwt.elt.client.dataprovider;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import com.chinarewards.gwt.elt.client.chooseStaff.request.SearchStaffChooseRequest;
+import com.chinarewards.gwt.elt.client.chooseStaff.request.SearchStaffChooseResponse;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
-import com.chinarewards.gwt.elt.client.rewardItem.request.SearchStaffRequest;
-import com.chinarewards.gwt.elt.client.rewardItem.request.SearchStaffResponse;
 import com.chinarewards.gwt.elt.client.rewards.model.StaffClient;
 import com.chinarewards.gwt.elt.client.rewards.model.StaffSearchCriteria;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.model.PaginationDetailClient;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-public class StaffAsyncDataProvider extends BaseDataProvider<StaffClient> {
+public class StaffChooseAsyncDataProvider extends BaseDataProvider<StaffClient> {
 
 	final DispatchAsync dispatch;
 	final ErrorHandler errorHandler;
@@ -19,7 +19,7 @@ public class StaffAsyncDataProvider extends BaseDataProvider<StaffClient> {
 	final StaffSearchCriteria criteria;
 	final boolean filterByAcl;
 
-	public StaffAsyncDataProvider(DispatchAsync dispatch,
+	public StaffChooseAsyncDataProvider(DispatchAsync dispatch,
 			ErrorHandler errorHandler, SessionManager sessionManager,
 			StaffSearchCriteria criteria, boolean filterByAcl) {
 		this.dispatch = dispatch;
@@ -47,8 +47,8 @@ public class StaffAsyncDataProvider extends BaseDataProvider<StaffClient> {
 		criteria.setPagination(pagination);
 		criteria.setSorting(getSorting());
 		dispatch.execute(
-				new SearchStaffRequest(criteria, sessionManager.getSession(),
-						filterByAcl), new AsyncCallback<SearchStaffResponse>() {
+				new SearchStaffChooseRequest(criteria, sessionManager.getSession(),
+						filterByAcl), new AsyncCallback<SearchStaffChooseResponse>() {
 
 					@Override
 					public void onFailure(Throwable e) {
@@ -56,7 +56,7 @@ public class StaffAsyncDataProvider extends BaseDataProvider<StaffClient> {
 					}
 
 					@Override
-					public void onSuccess(SearchStaffResponse response) {
+					public void onSuccess(SearchStaffChooseResponse response) {
 						updateRowData(start, response.getResult().getResult());
 						updateRowCount(response.getResult().getTotal(), true);
 					}

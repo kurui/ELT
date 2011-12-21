@@ -3,10 +3,10 @@ package com.chinarewards.gwt.elt.client.dataprovider;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
-import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsRequest;
-import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsResponse;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsCriteria;
+import com.chinarewards.gwt.elt.client.rewards.request.SearchRewardsRequest;
+import com.chinarewards.gwt.elt.client.rewards.request.SearchRewardsResponse;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.model.PaginationDetailClient;
 import com.google.gwt.user.client.rpc.AsyncCallback;

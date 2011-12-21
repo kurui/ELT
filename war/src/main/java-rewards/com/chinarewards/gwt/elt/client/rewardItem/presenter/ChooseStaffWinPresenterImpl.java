@@ -10,7 +10,7 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.ui.Dialog;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
-import com.chinarewards.gwt.elt.client.dataprovider.StaffAsyncDataProvider;
+import com.chinarewards.gwt.elt.client.dataprovider.StaffChooseAsyncDataProvider;
 import com.chinarewards.gwt.elt.client.mvp.BaseDialogPresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
@@ -49,7 +49,7 @@ public class ChooseStaffWinPresenterImpl extends
 
 	 final SimplePager simplePager = new SimplePager(); 
 	ListCellTable<StaffClient> resultTable;
-	StaffAsyncDataProvider listViewAdapter;
+	StaffChooseAsyncDataProvider listViewAdapter;
 	
 
 	// 为StaffAsyncDataProvider准备的数据。
@@ -266,7 +266,7 @@ public class ChooseStaffWinPresenterImpl extends
 		}
 		resultTable.setPageStart(0);
 		resultTable.setRowCount(0, false);
-		listViewAdapter = new StaffAsyncDataProvider(dispatch, errorHandler,
+		listViewAdapter = new StaffChooseAsyncDataProvider(dispatch, errorHandler,
 				sessionManager, criteriaVo, false);
 		listViewAdapter.addDataDisplay(resultTable);
 	}
