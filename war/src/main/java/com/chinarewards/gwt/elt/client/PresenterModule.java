@@ -1,5 +1,6 @@
 package com.chinarewards.gwt.elt.client;
 
+import com.chinarewards.gwt.elt.client.awardReward.module.AwardRewardModule;
 import com.chinarewards.gwt.elt.client.chooseStaff.module.ChooseStaffModule;
 import com.chinarewards.gwt.elt.client.core.presenter.DockModule;
 import com.chinarewards.gwt.elt.client.enterprise.presenter.EnterprisesModule;
@@ -22,6 +23,7 @@ public class PresenterModule extends AbstractGinModule {
 		install(new RewardsItemModule());
 		install(new RewardsListModule());
 		install(new ChooseStaffModule());
+		install(new AwardRewardModule());
 	}
 
 }

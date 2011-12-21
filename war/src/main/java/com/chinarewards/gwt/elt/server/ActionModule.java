@@ -5,6 +5,8 @@ package com.chinarewards.gwt.elt.server;
 
 import net.customware.gwt.dispatch.server.guice.ActionHandlerModule;
 
+import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardAddRequest;
+import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardInitRequest;
 import com.chinarewards.gwt.elt.client.chooseStaff.request.SearchStaffChooseRequest;
 import com.chinarewards.gwt.elt.client.enterprise.EnterpriseInitRequest;
 import com.chinarewards.gwt.elt.client.enterprise.EnterpriseRequest;
@@ -16,6 +18,8 @@ import com.chinarewards.gwt.elt.client.rewardItem.request.SearchOrganizationRequ
 import com.chinarewards.gwt.elt.client.rewards.request.SearchRewardsRequest;
 import com.chinarewards.gwt.elt.client.staff.HrRegisterRequest;
 import com.chinarewards.gwt.elt.client.user.UserSearchRequest;
+import com.chinarewards.gwt.elt.server.awardReward.AwardRewardActionHandler;
+import com.chinarewards.gwt.elt.server.awardReward.AwardRewardAddActionHandler;
 import com.chinarewards.gwt.elt.server.chooseStaff.SearchStaffActionHandler;
 import com.chinarewards.gwt.elt.server.enterprise.EnterpriseActionHandler;
 import com.chinarewards.gwt.elt.server.enterprise.EnterpriseInitActionHandler;
@@ -67,5 +71,10 @@ public class ActionModule extends ActionHandlerModule {
 		bindHandler(SearchRewardsRequest.class, SearchRewardsHandler.class);
 		bindHandler(SearchStaffChooseRequest.class, SearchStaffActionHandler.class);
 
+		//颁奖
+		bindHandler(AwardRewardInitRequest.class, AwardRewardActionHandler.class);
+
+		bindHandler(AwardRewardAddRequest.class, AwardRewardAddActionHandler.class);
+		
 	}
 }

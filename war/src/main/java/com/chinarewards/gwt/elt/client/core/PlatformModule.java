@@ -1,5 +1,6 @@
 package com.chinarewards.gwt.elt.client.core;
 
+import com.chinarewards.gwt.elt.client.awardReward.plugin.AwardRewardPluginDescriptor;
 import com.chinarewards.gwt.elt.client.core.impl.CorePluginDescriptor;
 import com.chinarewards.gwt.elt.client.core.impl.GinPluginManager;
 import com.chinarewards.gwt.elt.client.core.impl.InMemoryMenuRoleStore;
@@ -49,12 +50,15 @@ public class PlatformModule extends AbstractGinModule {
 
 	@Provides
 	PluginSet providePluginSet(
-	// ---- PLUGINS DEFINE BELOW (2) ----
+			// ---- PLUGINS DEFINE BELOW (2) ----
 			CorePluginDescriptor core, // core
 
 			SamplePluginDescriptor sample, UserPluginDescriptor user,
-			HrRegisterPluginDescriptor hrregister,NominatePluginDescriptor nominate,RewardsItemPluginDescriptor rewardsItem,RewardsListPluginDescriptor rewardsList) {
-
+			HrRegisterPluginDescriptor hrregister,
+			NominatePluginDescriptor nominate,
+			RewardsItemPluginDescriptor rewardsItem,
+			RewardsListPluginDescriptor rewardsList,
+			AwardRewardPluginDescriptor awardreward) {
 
 		if (pluginSet == null) {
 			pluginSet = new InMemoryPluginSet();
@@ -66,6 +70,7 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(nominate);
 			pluginSet.registerPlugin(rewardsItem);
 			pluginSet.registerPlugin(rewardsList);
+			pluginSet.registerPlugin(awardreward);
 
 		}
 
