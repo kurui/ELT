@@ -71,15 +71,20 @@
                         <td class="{item.intext}"><d:DateBox ui:field="startTime" styleName="textmy"/></td>
                       	<td></td>
                       </tr>
-                     
+                     <tbody id="ones">
                       <tr>
-                        <td valign="top" class="{item.title}">预计(下次)颁奖时间：</td>
-                        <td class="{item.intext}"><d:DateBox ui:field="nextRewardsTime" styleName="textmy"/></td>
+                        <td valign="top" class="{item.title}">预计颁奖时间：</td>
+                        <td class="{item.intext}"><d:DateBox ui:field="expectTime" styleName="textmy"/></td>
 						<td>提前<g:TextBox ui:field="tmdays" width="30px"/>天提名<g:Label ui:field="lastRewardsTime"/></td>
                       </tr>
-                      
-                      <tbody id="period">                      	
-                      <tr id="tr1" name="re">
+                      </tbody>
+                      <tbody id="period"> 
+                       <tr>
+                        <td valign="top" class="{item.title}">下次颁奖时间：</td>
+                        <td class="{item.intext}"><d:DateBox ui:field="nextRewardsTime" styleName="textmy"/></td>
+						<td>提前<g:TextBox ui:field="tmday" width="30px"/>天提名</td>
+                      </tr>                     	
+                      <tr>
                         <td valign="top" class="{item.title}"><span>*</span> 颁奖周期： </td>
                         <td class="{item.intext}">
                         	<g:Label ui:field="settingText" styleName="textmy"/>
@@ -95,7 +100,7 @@
                       <tr>
                       	<td class="{item.title}" valign="top"></td>
                       	<td class="{item.intext}">
-                      		自动颁奖: 到颁奖当日, 如果奖金规则不能确定每一个合资格人选应得的奖励, 系统会要求设立部门手动输入该批员工所获得的明确奖励. 请在"奖励查询"寻找"待颁奖"的奖励.
+                      		自动颁奖: 到颁奖当日, 如果不能确定每一个合资格人选应得的奖励, 系统会要求设立部门手动输入该批员工所获得的明确奖励. 请在"奖励查询"寻找"待颁奖"的奖励.
                       	</td>
                       	<td></td>
                       </tr>

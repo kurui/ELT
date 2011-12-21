@@ -1,9 +1,13 @@
 package com.chinarewards.elt.dao.org;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.NoResultException;
+import javax.persistence.Query;
 
 import com.chinarewards.elt.common.BaseDao;
 import com.chinarewards.elt.domain.org.Corporation;
@@ -149,4 +153,6 @@ public class DepartmentDao extends BaseDao<Department> {
 				.setParameter("lft", lft).setParameter("rgt", rgt)
 				.getResultList();
 	}
+	
+	
 }

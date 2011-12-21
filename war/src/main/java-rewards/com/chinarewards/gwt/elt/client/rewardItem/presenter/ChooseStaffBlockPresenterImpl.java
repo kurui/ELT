@@ -61,8 +61,7 @@ public class ChooseStaffBlockPresenterImpl extends
 			@Override
 			public void onSelection(SelectionEvent<Suggestion> selectionEvent) {
 				// restore data.
-				OrganizationSuggest suggest = (OrganizationSuggest) selectionEvent
-						.getSelectedItem();
+				OrganizationSuggest suggest = (OrganizationSuggest) selectionEvent.getSelectedItem();
 				StaffOrDepartmentAC sd = suggest.getSd();
 				OrganicationClient org = new OrganicationClient(sd.getId(), sd
 						.getName());
@@ -77,7 +76,7 @@ public class ChooseStaffBlockPresenterImpl extends
 		box.setFocus(true);
 		box.setStyleName("text");
 		display.getSuggestBoxPanel().add(box);
-		display.getSuggestBoxPanel().add(new Label("可输入员工/部门信息"));
+		display.getSuggestBoxPanel().add(new Label("可输入员工/部门名称后按回车"));
 	}
 
 	public void bind() {
@@ -95,26 +94,16 @@ public class ChooseStaffBlockPresenterImpl extends
 											@Override
 											public void chosenStaff(List<StaffClient> list) {
 												for (StaffClient r : list) {
-													System.out.println("ds=="+r);
-													if (!display
-															.getSpecialTextArea()
-															.containsItem(r)) {
-														// OrganicationClient sd
-														// = new
-														// OrganicationClient(
-														// r.getId(),
-														// r.getName());
-														// display.getStaffMap()
-														// .put(r.getId(),
-														// sd);
-														display.getSpecialTextArea()
-																.addItem(r);
+													
+													if (!display.getSpecialTextArea().containsItem(r)) {
+														
+														display.getSpecialTextArea().addItem(r);
 													}
 												}
 											}
 										});
 
-						Platform.getInstance().getSiteManager()
+						       Platform.getInstance().getSiteManager()
 								.openDialog(dialog, new DialogCloseListener() {
 									public void onClose(String dialogId,
 											String instanceId) {
@@ -125,83 +114,12 @@ public class ChooseStaffBlockPresenterImpl extends
 				}));
 	}
 
-	/**
-	 * click radio("以下部门员工")
-	 */
-	// private void initChoosePanel() {
-	// display.getChoosePanel().clear();
-	//
-	// final TextBox textBox = new TextBox();
-	// final SpecialTextArea<OrganicationClient> textArea = display
-	// .getSpecialTextArea();
-	// SuggestOracle suggest = new OrganizationSuggestOracle(dispatcher);
-	// final SuggestBox box = new SuggestBox(suggest, textBox);
-	// box.addSelectionHandler(new SelectionHandler<SuggestOracle.Suggestion>()
-	// {
-	// @Override
-	// public void onSelection(SelectionEvent<Suggestion> selectionEvent) {
-	// // restore data.
-	// OrganizationSuggest suggest = (OrganizationSuggest) selectionEvent
-	// .getSelectedItem();
-	// StaffOrDepartmentAC sd = suggest.getSd();
-	// OrganicationClient org = new OrganicationClient(sd.getId(), sd
-	// .getName());
-	// if (!textArea.containsItem(org)) {
-	// display.getStaffMap().put(org.getId(), org);
-	// textArea.addItem(org);
-	// }
-	// textBox.setValue("");
-	// textBox.setFocus(true);
-	// }
-	// });
-	// box.setFocus(true);
-	// Button btn = new Button("选择");
-	// btn.addClickHandler(new ClickHandler() {
-	// @Override
-	// public void onClick(ClickEvent arg0) {
-	// final ChooseStaffWinDialog dialog = chooseStaffDialogProvider
-	// .get();
-	// dialog.setNominee(false, true, null);// The key is the first
-	// // parameter(false).
-	// final HandlerRegistration registration = eventBus.addHandler(
-	// ChooseStaffEvent.getType(), new ChooseStaffHandler() {
-	// @Override
-	// public void chosenStaff(List<StaffClient> list) {
-	// for (StaffClient r : list) {
-	// if (!textArea.containsItem(r)) {
-	// OrganicationClient sd = new OrganicationClient(
-	// r.getId(), r.getName());
-	// display.getStaffMap()
-	// .put(r.getId(), sd);
-	// textArea.addItem(r);
-	// }
-	// }
-	// }
-	// });
-	//
-	// Platform.getInstance().getSiteManager()
-	// .openDialog(dialog, new DialogCloseListener() {
-	// public void onClose(String dialogId,
-	// String instanceId) {
-	// registration.removeHandler();
-	// }
-	// });
-	// }
-	// });
-	// Grid g = new Grid(1, 2);
-	// g.setWidth("100%");
-	// g.setWidget(0, 0, box);
-	// g.setWidget(0, 1, btn);
-	// display.getChoosePanel().add(g);
-	// display.getChoosePanel().add(textArea);
-	//
-	// }
 
 	@Override
 	public ParticipateInfoClient getparticipateInfo() {
 		ParticipateInfoClient participateInfo = null;
 		if (display.isEveryone().getValue()) {
-			participateInfo = new EveryoneClient(sessionManager.getSession().getToken());//.getCorporationId()
+			participateInfo = new EveryoneClient("8a83835134598ab30134598ab6cc0004");//测试时换为固定的企业ID ///sessionManager.getSession().getCorporationId()//登录人所在的企业的ID
 		} else if (display.isSomeone().getValue()) {
 			List<OrganicationClient> orgs = new ArrayList<OrganicationClient>();
 			for (String orgId : display.getRealOrginzationIds()) {

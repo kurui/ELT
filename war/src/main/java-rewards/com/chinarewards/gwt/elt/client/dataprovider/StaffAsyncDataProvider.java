@@ -34,17 +34,18 @@ public class StaffAsyncDataProvider extends BaseDataProvider<StaffClient> {
 	}
 
 	@Override
-	public void fetchData(final int start, final int length) {
-		if (!GWT.isScript()) {
-			List<StaffClient> list = new ArrayList<StaffClient>();
-			for (int i = start; i < start + length; i++) {
-				list.add(new StaffClient("" + i,
-						criteria.getKey() == null ? "name" : criteria.getKey()
-								+ i, "cardNo" + i, "deptName" + i, "email" + i));
-			}
-			updateRowData(start, list);
-			updateRowCount(100, true);
-		} else {
+	public void fetchData(final int start, final int length) 
+	{
+//		if (!GWT.isScript()) {
+//			List<StaffClient> list = new ArrayList<StaffClient>();
+//			for (int i = start; i < start + length; i++) {
+//				list.add(new StaffClient("" + i,
+//						criteria.getKey() == null ? "name" : criteria.getKey()
+//								+ i, "cardNo" + i, "deptName" + i, "email" + i));
+//			}
+//			updateRowData(start, list);
+//			updateRowCount(100, true);
+//		} else {
 			PaginationDetailClient pagination = new PaginationDetailClient();
 			pagination.setStart(start);
 			pagination.setLimit(length);
@@ -69,6 +70,6 @@ public class StaffAsyncDataProvider extends BaseDataProvider<StaffClient> {
 						}
 					});
 		}
-	}
+	//}
 
 }

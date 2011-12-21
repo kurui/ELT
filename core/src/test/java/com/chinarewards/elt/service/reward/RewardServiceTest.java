@@ -23,7 +23,7 @@ import com.chinarewards.elt.util.DateUtil;
 public class RewardServiceTest extends JPATestCase {
 	public void testNominate() {
 		EntityManager em = injector.getInstance(EntityManager.class);
-		//em.getTransaction().begin();
+		em.getTransaction().begin();
 		
 		List<String> staffList = StaffHelper.getDefaultStaffListById(injector);
 		
@@ -66,7 +66,7 @@ public class RewardServiceTest extends JPATestCase {
 		
 			NomineeLot lot=rewardLogic.nominateReward(caller, reward.getId(), staffList);
 			assertNotNull(lot.getId());
-			//em.getTransaction().commit();
+			em.getTransaction().commit();
 		} catch (NominateRewardException e) {
 			e.printStackTrace();
 		}

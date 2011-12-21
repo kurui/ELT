@@ -37,19 +37,19 @@ public abstract class JPATestCase extends GuiceTestCase {
 		em.getTransaction().rollback();
 	}
 
-	protected void setUp() throws Exception {
-		super.setUp();
-		logger.debug("Begin a Transaction");
-		em.getTransaction().begin();
-	}
+//	protected void setUp() throws Exception {
+//		super.setUp();
+//		logger.debug("Begin a Transaction");
+//		em.getTransaction().begin();
+//	}
 
-	protected void tearDown() throws Exception {
-		if (em.getTransaction().isActive()) {
-			rollback();
-			logger.debug("Shutdown testcase, rolled-back transaction!");
-		}
-		super.tearDown();
-	}
+//	protected void tearDown() throws Exception {
+//		if (em.getTransaction().isActive()) {
+//			rollback();
+//			logger.debug("Shutdown testcase, rolled-back transaction!");
+//		}
+//		super.tearDown();
+//	}
 
 	protected void initSysParams() {
 		// system parameter configuration.
