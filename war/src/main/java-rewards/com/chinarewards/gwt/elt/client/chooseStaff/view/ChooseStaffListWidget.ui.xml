@@ -36,7 +36,7 @@
 			</div>
 			<div style="height:10px"></div>
 			<div id="post" >
-				<g:Button ui:field="chooseBtn" styleName="button-ok">添加</g:Button>
+				<g:Button ui:field="chooseBtn" styleName="button-ok">确定</g:Button>
 				<g:Button ui:field="cancelBtn" styleName="button-cancel">取消</g:Button>
 			</div>
 		</div>
