@@ -15,7 +15,9 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
@@ -24,14 +26,14 @@ public class ChooseStaffListWidget extends Composite implements	ChooseStaffListD
 //	@UiField
 //	Panel deptPanel;
 //
-//	@UiField
-//	TextBox name;
-//
-//	@UiField
-//	Button searchBtn;
-//
-//	@UiField
-//	Button resetBtn;
+	@UiField
+	TextBox name;
+
+	@UiField
+	Button searchBtn;
+
+	@UiField
+	Button resetBtn;
 
 	
 	@UiField
@@ -76,26 +78,26 @@ public class ChooseStaffListWidget extends Composite implements	ChooseStaffListD
 		return this;
 	}
 
-//	@Override
-//	public HasValue<String> getName() {
-//		return name;
-//	}
-//
-//	@Override
-//	public HasClickHandlers getResetBtn() {
-//		return resetBtn;
-//	}
-//
-//	@Override
-//	public HasClickHandlers getSearchBtn() {
-//		return searchBtn;
-//	}
-//
-//	@Override
-//	public void reset() {
-//		name.setValue("");
-//		//deptCombo.setDefaultValue(null);
-//	}
+	@Override
+	public HasValue<String> getName() {
+		return name;
+	}
+
+	@Override
+	public HasClickHandlers getResetBtn() {
+		return resetBtn;
+	}
+
+	@Override
+	public HasClickHandlers getSearchBtn() {
+		return searchBtn;
+	}
+
+	@Override
+	public void reset() {
+		name.setValue("");
+		//deptCombo.setDefaultValue(null);
+	}
 
 	@Override
 	public HasClickHandlers getChooseBtn() {

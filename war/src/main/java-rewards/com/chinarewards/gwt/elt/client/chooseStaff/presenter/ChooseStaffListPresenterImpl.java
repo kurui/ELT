@@ -78,23 +78,23 @@ public class ChooseStaffListPresenterImpl extends
 	public void bind() {
 		init();
 
-		// /*** 查询员工 ***/
-		// registerHandler(display.getSearchBtn().addClickHandler(
-		// new ClickHandler() {
-		// @Override
-		// public void onClick(ClickEvent arg0) {
-		// doSearch();
-		// }
-		// }));
-		//
-		// /*** 重置查询信息 ***/
-		// registerHandler(display.getResetBtn().addClickHandler(
-		// new ClickHandler() {
-		// @Override
-		// public void onClick(ClickEvent arg0) {
-		// display.reset();
-		// }
-		// }));
+		/*** 查询员工 ***/
+		registerHandler(display.getSearchBtn().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent arg0) {
+						doSearch();
+					}
+				}));
+
+		/*** 重置查询信息 ***/
+		registerHandler(display.getResetBtn().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent arg0) {
+						display.reset();
+					}
+				}));
 		// add
 		registerHandler(display.getChooseBtn().addClickHandler(
 				new ClickHandler() {
@@ -181,7 +181,7 @@ public class ChooseStaffListPresenterImpl extends
 				new GetValue<StaffClient, String>() {
 					@Override
 					public String getValue(StaffClient staff) {
-						return staff.getNominateCount()+"";
+						return staff.getNominateCount() + "";
 					}
 				}, ref, "nominateCount");
 
@@ -205,7 +205,7 @@ public class ChooseStaffListPresenterImpl extends
 	 */
 	private void doSearch() {
 		StaffSearchCriteria criteriaVo = new StaffSearchCriteria();
-		// criteriaVo.setKey(display.getName().getValue());
+		 criteriaVo.setKey(display.getName().getValue());
 		// criteriaVo.setDeptId(display.getDeptId());
 		// if (isLimitByNominee) {
 		// criteriaVo.setChooseAll(isChooseAll);
@@ -214,8 +214,8 @@ public class ChooseStaffListPresenterImpl extends
 		criteriaVo.setRewardId(rewardId);
 		resultTable.setPageStart(0);
 		resultTable.setRowCount(0, false);
-		listViewAdapter = new StaffChooseAsyncDataProvider(dispatch, errorHandler,
-				sessionManager, criteriaVo, false);
+		listViewAdapter = new StaffChooseAsyncDataProvider(dispatch,
+				errorHandler, sessionManager, criteriaVo, false);
 		listViewAdapter.addDataDisplay(resultTable);
 	}
 
@@ -244,11 +244,11 @@ public class ChooseStaffListPresenterImpl extends
 
 	@Override
 	public void initChooseList(InitChooseListParam initChooseListParam) {
-		if(initChooseListParam.isHiddenSpecialBoxPanel())
+		if (initChooseListParam.isHiddenSpecialBoxPanel())
 			display.hiddenSpecialBoxPanel();
-		if(initChooseListParam.isHiddenChooseBtn())
+		if (initChooseListParam.isHiddenChooseBtn())
 			display.hiddenChooseBtn();
-		if(initChooseListParam.getCancelBtnText()!=null)
+		if (initChooseListParam.getCancelBtnText() != null)
 			display.setCancelBtnText(initChooseListParam.getCancelBtnText());
 	}
 
