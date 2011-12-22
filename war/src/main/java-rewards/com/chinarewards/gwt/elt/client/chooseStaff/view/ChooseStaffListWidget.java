@@ -7,6 +7,7 @@ import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.rewards.model.StaffClient;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.ui.StaffSpecialTextArea;
+import com.chinarewards.gwt.elt.client.view.constant.CssStyleConstants;
 import com.chinarewards.gwt.elt.client.widget.SpecialTextArea;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -114,6 +115,24 @@ public class ChooseStaffListWidget extends Composite implements	ChooseStaffListD
 	@Override
 	public Panel getResultPanel() {
 		return result;
+	}
+
+	@Override
+	public void hiddenSpecialBoxPanel() {
+		this.specialBoxPanel.getElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
+		
+	}
+
+	@Override
+	public void hiddenChooseBtn() {
+		this.chooseBtn.getElement().addClassName(CssStyleConstants.hidden);
+		
+	}
+
+	@Override
+	public void setCancelBtnText(String text) {
+		this.cancelBtn.setText(text);
+		
 	}
 
 //	@Override

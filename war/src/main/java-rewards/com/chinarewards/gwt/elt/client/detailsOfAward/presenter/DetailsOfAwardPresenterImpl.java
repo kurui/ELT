@@ -9,7 +9,8 @@ import com.chinarewards.gwt.elt.client.detailsOfAward.request.DetailsOfAwardInit
 import com.chinarewards.gwt.elt.client.detailsOfAward.request.DetailsOfAwardInitResponse;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
-import com.chinarewards.gwt.elt.model.ChoosePanel.InitChooseParam;
+import com.chinarewards.gwt.elt.model.ChoosePanel.InitChooseListParam;
+import com.chinarewards.gwt.elt.model.ChoosePanel.InitChoosePanelParam;
 import com.chinarewards.gwt.elt.util.DateTool;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -39,10 +40,18 @@ public class DetailsOfAwardPresenterImpl extends
 	@Override
 	public void bind() {
 		init();
-		InitChooseParam initChooseParam =new InitChooseParam();
+		InitChoosePanelParam initChooseParam =new InitChoosePanelParam();
 		initChooseParam.setTopName("待提名人：");
 		initChooseParam.setChooseBtnName("查看");
 		initChooseParam.setIscleanStaffTextAreaPanel(true);
+		
+		
+		InitChooseListParam initChooseListParam=new InitChooseListParam();
+		initChooseListParam.setCancelBtnText("关闭");
+		initChooseListParam.setHiddenChooseBtn(true);
+		initChooseListParam.setHiddenSpecialBoxPanel(true);
+		
+		initChooseParam.setInitChooseListParam(initChooseListParam);
 		staffPanel.initChoosePanel(initChooseParam);
 		staffPanel.setRewardId(awardsId);
 		// 候选人面板显示

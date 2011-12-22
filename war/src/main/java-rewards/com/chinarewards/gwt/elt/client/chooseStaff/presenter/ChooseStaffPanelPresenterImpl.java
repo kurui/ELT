@@ -14,7 +14,8 @@ import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
 import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient;
 import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient.SomeoneClient;
 import com.chinarewards.gwt.elt.client.rewards.model.StaffClient;
-import com.chinarewards.gwt.elt.model.ChoosePanel.InitChooseParam;
+import com.chinarewards.gwt.elt.model.ChoosePanel.InitChooseListParam;
+import com.chinarewards.gwt.elt.model.ChoosePanel.InitChoosePanelParam;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
@@ -31,6 +32,7 @@ public class ChooseStaffPanelPresenterImpl extends
 
 	String rewardId;
 	String topName;
+	InitChooseListParam initChooseListParam;
 
 	@Inject
 	public ChooseStaffPanelPresenterImpl(EventBus eventBus,
@@ -49,6 +51,8 @@ public class ChooseStaffPanelPresenterImpl extends
 					public void onClick(ClickEvent arg0) {
 						final ChooseStaffListDialog dialog = chooseStaffDialogProvider
 								.get();
+						if (initChooseListParam != null)
+							dialog.initChooseList(initChooseListParam);
 						dialog.setRewardId(rewardId);
 						dialog.setNominee(false, true, null);// The key is the
 																// first
@@ -104,12 +108,15 @@ public class ChooseStaffPanelPresenterImpl extends
 	}
 
 	@Override
-	public void initChoosePanel(InitChooseParam initChooseParam) {
+	public void initChoosePanel(InitChoosePanelParam initChooseParam) {
 		if (initChooseParam.getTopName() != null)
 			display.setTopName(initChooseParam.getTopName());
 		if (initChooseParam.getChooseBtnName() != null)
 			display.setChooseBtnName(initChooseParam.getChooseBtnName());
-		if(initChooseParam.getIscleanStaffTextAreaPanel())
+		if (initChooseParam.getIscleanStaffTextAreaPanel())
 			display.cleanStaffTextAreaPanel();
+		if (initChooseParam.getInitChooseListParam() != null)
+			this.initChooseListParam = initChooseParam.getInitChooseListParam();
+
 	}
 }

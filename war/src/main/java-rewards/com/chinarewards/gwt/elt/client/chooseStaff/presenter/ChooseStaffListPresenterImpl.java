@@ -19,6 +19,7 @@ import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.widget.GetValue;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.widget.Sorting;
+import com.chinarewards.gwt.elt.model.ChoosePanel.InitChooseListParam;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -239,6 +240,16 @@ public class ChooseStaffListPresenterImpl extends
 	public void setRewardId(String rewardId) {
 		this.rewardId = rewardId;
 
+	}
+
+	@Override
+	public void initChooseList(InitChooseListParam initChooseListParam) {
+		if(initChooseListParam.isHiddenSpecialBoxPanel())
+			display.hiddenSpecialBoxPanel();
+		if(initChooseListParam.isHiddenChooseBtn())
+			display.hiddenChooseBtn();
+		if(initChooseListParam.getCancelBtnText()!=null)
+			display.setCancelBtnText(initChooseListParam.getCancelBtnText());
 	}
 
 }

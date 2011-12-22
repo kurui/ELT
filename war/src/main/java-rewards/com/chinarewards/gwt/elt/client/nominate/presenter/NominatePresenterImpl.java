@@ -19,7 +19,7 @@ import com.chinarewards.gwt.elt.client.nominate.plugin.NominateConstants;
 import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
 import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient;
 import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient.SomeoneClient;
-import com.chinarewards.gwt.elt.model.ChoosePanel.InitChooseParam;
+import com.chinarewards.gwt.elt.model.ChoosePanel.InitChoosePanelParam;
 import com.chinarewards.gwt.elt.util.DateTool;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -49,7 +49,7 @@ public class NominatePresenterImpl extends
 	@Override
 	public void bind() {
 		init();
-		InitChooseParam initChooseParam =new InitChooseParam();
+		InitChoosePanelParam initChooseParam =new InitChoosePanelParam();
 		initChooseParam.setTopName("待提名人：");
 		staffPanel.initChoosePanel(initChooseParam);
 		staffPanel.setRewardId(awardsId);
