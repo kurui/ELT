@@ -29,6 +29,7 @@ public class ChooseStaffPanelPresenterImpl extends
 	// private final DispatchAsync dispatcher;
 
 	String rewardId;
+	String topName;
 
 	@Inject
 	public ChooseStaffPanelPresenterImpl(EventBus eventBus,
@@ -41,7 +42,7 @@ public class ChooseStaffPanelPresenterImpl extends
 	}
 
 	public void bind() {
-
+		init();
 		registerHandler(display.getChooseStaffBtnClick().addClickHandler(
 				new ClickHandler() {
 					@Override
@@ -102,4 +103,15 @@ public class ChooseStaffPanelPresenterImpl extends
 
 	}
 
+	void init() {
+		if(topName!=null)
+			display.setTopName(topName);
+		
+	}
+
+	@Override
+	public void initChoosePanel(String topName) {
+		this.topName=topName;
+		
+	}
 }

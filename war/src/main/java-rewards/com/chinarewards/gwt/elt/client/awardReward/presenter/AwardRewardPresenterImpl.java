@@ -47,6 +47,7 @@ public class AwardRewardPresenterImpl extends
 	@Override
 	public void bind() {
 		init();
+		staffPanel.initChoosePanel("获奖人：");
 		staffPanel.setRewardId(awardsId);
 		// 候选人面板显示
 		staffPanel.bind();

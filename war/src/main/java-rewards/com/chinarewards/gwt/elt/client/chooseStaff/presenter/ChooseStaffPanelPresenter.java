@@ -30,6 +30,7 @@ public interface ChooseStaffPanelPresenter extends	Presenter<ChooseStaffPanelPre
 	public ParticipateInfoClient getparticipateInfo();
 
 	public void setRewardId(String rewardId);
+	public void initChoosePanel(String topName);
 	public static interface ChooseStaffPanelDisplay extends Display {
 
 		
@@ -41,6 +42,6 @@ public interface ChooseStaffPanelPresenter extends	Presenter<ChooseStaffPanelPre
 
 		HasClickHandlers getChooseStaffBtnClick();
 
-		
+		void setTopName(String topName);
 	}
 }

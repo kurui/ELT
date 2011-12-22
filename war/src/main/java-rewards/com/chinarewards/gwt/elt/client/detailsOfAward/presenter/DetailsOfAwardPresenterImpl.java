@@ -38,6 +38,7 @@ public class DetailsOfAwardPresenterImpl extends
 	@Override
 	public void bind() {
 		init();
+		staffPanel.initChoosePanel("待提名人：");
 		staffPanel.setRewardId(awardsId);
 		// 候选人面板显示
 		staffPanel.bind();

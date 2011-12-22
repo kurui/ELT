@@ -13,7 +13,7 @@
             	<td colspan="3" id="noPaddingTd">
             		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="{style.mmtable1}">
 				         <tr>
-				               <td valign="top" class="{style.title}">合格人选：</td>
+				               <td valign="top" class="{style.title}"><g:InlineLabel text="合格人选：" ui:field="topName" /></td>
 				               <td class="{style.intext}"><g:FlowPanel ui:field="staffTextAreaPanel"/> </td>
 				               <td><g:Button ui:field="chooseBtn" styleName="button-addpe">选择</g:Button></td>
 				         </tr>
