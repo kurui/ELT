@@ -6,6 +6,7 @@ import java.util.List;
 import com.chinarewards.gwt.elt.client.chooseStaff.presenter.ChooseStaffPanelPresenter.ChooseStaffPanelDisplay;
 import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
 import com.chinarewards.gwt.elt.client.view.OrganizationSpecialTextArea;
+import com.chinarewards.gwt.elt.client.view.constant.CssStyleConstants;
 import com.chinarewards.gwt.elt.client.widget.SpecialTextArea;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -102,10 +103,18 @@ public class ChooseStaffPanelWidget extends Composite implements
 		this.topName.setText(topName);
 
 	}
+
 	@Override
 	public void setChooseBtnName(String name) {
 		this.chooseBtn.setText(name);
 
 	}
-	
+
+	@Override
+	public void cleanStaffTextAreaPanel() {
+		this.staffTextAreaPanel.clear();
+		this.staffTextAreaPanel.getElement().getParentElement().addClassName(CssStyleConstants.hidden);
+		
+	}
+
 }

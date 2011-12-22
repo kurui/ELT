@@ -42,6 +42,7 @@ public class DetailsOfAwardPresenterImpl extends
 		InitChooseParam initChooseParam =new InitChooseParam();
 		initChooseParam.setTopName("待提名人：");
 		initChooseParam.setChooseBtnName("查看");
+		initChooseParam.setIscleanStaffTextAreaPanel(true);
 		staffPanel.initChoosePanel(initChooseParam);
 		staffPanel.setRewardId(awardsId);
 		// 候选人面板显示

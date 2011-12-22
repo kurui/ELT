@@ -109,6 +109,7 @@ public class ChooseStaffPanelPresenterImpl extends
 			display.setTopName(initChooseParam.getTopName());
 		if (initChooseParam.getChooseBtnName() != null)
 			display.setChooseBtnName(initChooseParam.getChooseBtnName());
-
+		if(initChooseParam.getIscleanStaffTextAreaPanel())
+			display.cleanStaffTextAreaPanel();
 	}
 }

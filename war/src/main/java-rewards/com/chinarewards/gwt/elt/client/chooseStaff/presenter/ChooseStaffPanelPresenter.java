@@ -45,5 +45,6 @@ public interface ChooseStaffPanelPresenter extends	Presenter<ChooseStaffPanelPre
 
 		void setTopName(String topName);
 		void setChooseBtnName(String name);
+		void cleanStaffTextAreaPanel();
 	}
 }
