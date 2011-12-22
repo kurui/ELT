@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.chinarewards.gwt.elt.client.mvp.Display;
 import com.chinarewards.gwt.elt.client.mvp.Presenter;
+import com.chinarewards.gwt.elt.model.awardReward.WinnerParamVo;
 import com.chinarewards.gwt.elt.model.nominate.JudgeParamVo;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.Widget;
@@ -47,8 +48,8 @@ public interface DetailsOfAwardPresenter extends
 
 		public void setAwardAmt(String awardAmt);
 
-
-
 		public void initStaffPanel(Widget w);
+		
+		public void setWinners(List<WinnerParamVo> winners);
 	}
 }

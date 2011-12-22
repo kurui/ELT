@@ -11,9 +11,11 @@ import org.slf4j.Logger;
 import com.chinarewards.elt.model.reward.search.CandidateParam;
 import com.chinarewards.elt.model.reward.search.JudgeParam;
 import com.chinarewards.elt.model.reward.search.RewardQueryVo;
+import com.chinarewards.elt.model.reward.search.WinnerParam;
 import com.chinarewards.elt.service.reward.RewardService;
 import com.chinarewards.gwt.elt.client.detailsOfAward.request.DetailsOfAwardInitRequest;
 import com.chinarewards.gwt.elt.client.detailsOfAward.request.DetailsOfAwardInitResponse;
+import com.chinarewards.gwt.elt.model.awardReward.WinnerParamVo;
 import com.chinarewards.gwt.elt.model.nominate.CandidateParamVo;
 import com.chinarewards.gwt.elt.model.nominate.JudgeParamVo;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
@@ -26,7 +28,8 @@ import com.google.inject.Inject;
  * @author nicho
  * @since 2011年12月22日 10:36:14
  */
-public class DetailsOfAwardActionHandler extends
+public class DetailsOfAwardActionHandler
+		extends
 		BaseActionHandler<DetailsOfAwardInitRequest, DetailsOfAwardInitResponse> {
 
 	@InjectLogger
@@ -40,11 +43,12 @@ public class DetailsOfAwardActionHandler extends
 	}
 
 	@Override
-	public DetailsOfAwardInitResponse execute(DetailsOfAwardInitRequest request,
-			ExecutionContext response) throws DispatchException {
+	public DetailsOfAwardInitResponse execute(
+			DetailsOfAwardInitRequest request, ExecutionContext response)
+			throws DispatchException {
 		// 获取信息
 		RewardQueryVo rewardQueryVo = rewardService
-				.fetchEntireRewardQueryVoById(request.getAwardsId());
+				.fetchWinRewardQueryVoById(request.getAwardsId());
 
 		DetailsOfAwardInitResponse awardresponse = new DetailsOfAwardInitResponse();
 
@@ -92,6 +96,17 @@ public class DetailsOfAwardActionHandler extends
 
 		awardresponse.setJudgeList(judgeVoList);
 		awardresponse.setCandidateList(candidateVoList);
+
+		// 设置获奖人信息
+
+		List<WinnerParamVo> winnerList = new ArrayList<WinnerParamVo>();
+		for (WinnerParam wp : rewardQueryVo.getWinnerList()) {
+			WinnerParamVo wpv = new WinnerParamVo();
+			wpv.setId(wp.getId());
+			wpv.setName(wp.getName());
+			winnerList.add(wpv);
+		}
+		awardresponse.setWinnerList(winnerList);
 
 		return awardresponse;
 	}

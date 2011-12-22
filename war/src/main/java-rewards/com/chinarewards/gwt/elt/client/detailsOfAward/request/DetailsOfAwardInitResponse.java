@@ -5,6 +5,7 @@ import java.util.List;
 
 import net.customware.gwt.dispatch.shared.Result;
 
+import com.chinarewards.gwt.elt.model.awardReward.WinnerParamVo;
 import com.chinarewards.gwt.elt.model.nominate.CandidateParamVo;
 import com.chinarewards.gwt.elt.model.nominate.JudgeParamVo;
 
@@ -81,6 +82,22 @@ public class DetailsOfAwardInitResponse implements Result {
 	List<JudgeParamVo> judgeList;
 
 	
+/**
+ * 获奖人List
+ * @return
+ */
+	List<WinnerParamVo> WinnerList;
+	public List<WinnerParamVo> getWinnerList() {
+	return WinnerList;
+}
+
+
+
+public void setWinnerList(List<WinnerParamVo> winnerList) {
+	WinnerList = winnerList;
+}
+
+
 
 	public String getRewardId() {
 		return rewardId;

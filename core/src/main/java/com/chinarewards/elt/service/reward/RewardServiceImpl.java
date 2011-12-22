@@ -1,5 +1,6 @@
 package com.chinarewards.elt.service.reward;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -7,6 +8,7 @@ import javax.persistence.EntityManager;
 import com.chinarewards.elt.domain.reward.base.Reward;
 import com.chinarewards.elt.domain.reward.person.Judge;
 import com.chinarewards.elt.domain.reward.person.NomineeLot;
+import com.chinarewards.elt.domain.reward.person.Winner;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.reward.exception.ApproveRewardException;
@@ -14,9 +16,11 @@ import com.chinarewards.elt.model.reward.exception.DenyRewardException;
 import com.chinarewards.elt.model.reward.exception.NominateRewardException;
 import com.chinarewards.elt.model.reward.search.RewardQueryVo;
 import com.chinarewards.elt.model.reward.search.RewardSearchVo;
+import com.chinarewards.elt.model.reward.search.WinnerParam;
 import com.chinarewards.elt.model.reward.vo.RewardVo;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.reward.rule.JudgeLogic;
+import com.chinarewards.elt.service.reward.rule.WinnerLogic;
 import com.chinarewards.elt.service.user.UserLogic;
 import com.google.inject.Inject;
 
@@ -31,14 +35,16 @@ public class RewardServiceImpl implements RewardService {
 	private final EntityManager em;
 	private final UserLogic userLogic;
 	private final JudgeLogic judgeLogic;
+	private final WinnerLogic winnerLogic;
 
 	@Inject
 	public RewardServiceImpl(RewardLogic rewardLogic, EntityManager em,
-			UserLogic userLogic, JudgeLogic judgeLogic) {
+			UserLogic userLogic, JudgeLogic judgeLogic, WinnerLogic winnerLogic) {
 		this.rewardLogic = rewardLogic;
 		this.em = em;
 		this.userLogic = userLogic;
 		this.judgeLogic = judgeLogic;
+		this.winnerLogic = winnerLogic;
 	}
 
 	@Override
@@ -97,6 +103,24 @@ public class RewardServiceImpl implements RewardService {
 	public PageStore<RewardVo> fetchRewards(UserContext context,
 			RewardSearchVo criteria) {
 		return rewardLogic.fetchRewards(context, criteria);
+	}
+
+	@Override
+	public RewardQueryVo fetchWinRewardQueryVoById(String rewardId) {
+		RewardQueryVo rewardVo = rewardLogic
+				.fetchEntireRewardQueryVoById(rewardId);
+		// 查询获奖人
+		List<Winner> winners = winnerLogic.getWinnersOfReward(rewardId);
+		List<WinnerParam> winnerList = new ArrayList<WinnerParam>();
+
+		for (Winner wn : winners) {
+			WinnerParam winnerparam = new WinnerParam();
+			winnerparam.setId(wn.getId());
+			winnerparam.setName(wn.getStaff().getName());
+			winnerList.add(winnerparam);
+		}
+		rewardVo.setWinnerList(winnerList);
+		return rewardVo;
 	}
 
 }

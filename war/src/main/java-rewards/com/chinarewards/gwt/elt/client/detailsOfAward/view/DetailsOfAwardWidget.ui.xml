@@ -95,7 +95,16 @@
 						</td>
 					</tr>
 
+					<tr>
+						<td valign="top" class="{item.title}">获奖人：</td>
 
+						<td class="" colspan="3">
+
+							<g:VerticalPanel ui:field="winners" />
+
+						</td>
+
+					</tr>
 					<tr>
 						<td valign="top" class="{item.title}">奖项模式：</td>
 

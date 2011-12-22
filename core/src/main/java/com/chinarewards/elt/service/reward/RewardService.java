@@ -87,6 +87,12 @@ public interface RewardService {
 	 * @return
 	 */
 	public RewardQueryVo fetchEntireRewardQueryVoById(String rewardId);
+	/**
+	 * 获取已颁奖的奖励信息..包括获奖人信息
+	 * @param rewardId
+	 * @return
+	 */
+	public RewardQueryVo fetchWinRewardQueryVoById(String rewardId);
 	
 	/**
 	 * 查询奖励列表

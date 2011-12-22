@@ -2,11 +2,11 @@ package com.chinarewards.gwt.elt.client.detailsOfAward.presenter;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
-import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardInitRequest;
-import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardInitResponse;
 import com.chinarewards.gwt.elt.client.chooseStaff.presenter.ChooseStaffPanelPresenter;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.detailsOfAward.plugin.DetailsOfAwardConstants;
+import com.chinarewards.gwt.elt.client.detailsOfAward.request.DetailsOfAwardInitRequest;
+import com.chinarewards.gwt.elt.client.detailsOfAward.request.DetailsOfAwardInitResponse;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.util.DateTool;
@@ -62,14 +62,14 @@ public class DetailsOfAwardPresenterImpl extends
 	private void init() {
 		// 根据传入ID初始化提名页面
 
-		dispatcher.execute(new AwardRewardInitRequest(awardsId),
-				new AsyncCallback<AwardRewardInitResponse>() {
+		dispatcher.execute(new DetailsOfAwardInitRequest(awardsId),
+				new AsyncCallback<DetailsOfAwardInitResponse>() {
 					public void onFailure(Throwable t) {
 						Window.alert(t.getMessage());
 					}
 
 					@Override
-					public void onSuccess(AwardRewardInitResponse response) {
+					public void onSuccess(DetailsOfAwardInitResponse response) {
 
 						display.setName(response.getRewardName());
 						display.setExplain(response.getDefinition());
@@ -90,6 +90,7 @@ public class DetailsOfAwardPresenterImpl extends
 						display.setExpectNominateDate(DateTool
 								.dateToString(response.getExpectNominateDate()));
 						display.setAwardName(response.getAwardingStaffName());
+						display.setWinners(response.getWinnerList());
 
 					}
 				});
