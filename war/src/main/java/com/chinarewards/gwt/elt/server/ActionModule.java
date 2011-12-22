@@ -16,7 +16,6 @@ import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.SearchStaffRequest;
 import com.chinarewards.gwt.elt.client.staff.HrRegisterRequest;
 import com.chinarewards.gwt.elt.client.user.UserSearchRequest;
-import com.chinarewards.gwt.elt.server.chooseStaff.SearchStaffActionHandler;
 import com.chinarewards.gwt.elt.server.enterprise.EnterpriseActionHandler;
 import com.chinarewards.gwt.elt.server.enterprise.EnterpriseInitActionHandler;
 import com.chinarewards.gwt.elt.server.login.LoginActionHandler;
@@ -24,7 +23,8 @@ import com.chinarewards.gwt.elt.server.nominate.NominateActionHandler;
 import com.chinarewards.gwt.elt.server.nominate.NominateAddActionHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.CreateRewardsItemHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.SearchOrganizationHandler;
-import com.chinarewards.gwt.elt.server.rewards.SearchRewardsHandler;
+import com.chinarewards.gwt.elt.server.rewardItem.SearchRewardsHandler;
+import com.chinarewards.gwt.elt.server.rewardItem.SearchStaffActionHandler;
 import com.chinarewards.gwt.elt.server.staff.HrRegisterActionHandler;
 import com.chinarewards.gwt.elt.server.user.UserSearchActionHandler;
 
@@ -56,7 +56,7 @@ public class ActionModule extends ActionHandlerModule {
 		//Nominate add module
 		bindHandler(NominateAddRequest.class, NominateAddActionHandler.class);
 		
-
+		//奖 项
 		bindHandler(EnterpriseRequest.class, EnterpriseActionHandler.class);
 		bindHandler(EnterpriseInitRequest.class, EnterpriseInitActionHandler.class);
         bindHandler(CreateRewardsItemRequest.class,CreateRewardsItemHandler.class);

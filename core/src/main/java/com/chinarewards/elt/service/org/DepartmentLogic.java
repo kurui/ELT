@@ -140,4 +140,7 @@ public interface DepartmentLogic {
 	 * @return
 	 */
 	public Department getRootDepartmentOfCorporation(String corpId);
+	
+	
+	
 }

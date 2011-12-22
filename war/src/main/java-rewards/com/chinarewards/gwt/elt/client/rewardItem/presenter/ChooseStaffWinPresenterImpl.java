@@ -190,35 +190,35 @@ public class ChooseStaffWinPresenterImpl extends
 				new GetValue<StaffClient, String>() {
 					@Override
 					public String getValue(StaffClient staff) {
-						return staff.getDeptTreeName();
+						return staff.getDeptName();
 					}
 				}, ref, "deptName");
-		if (!staffOnly) {
-			resultTable.addColumn("年资", new TextCell(),
-					new GetValue<StaffClient, String>() {
-						@Override
-						public String getValue(StaffClient staff) {
-							return staff.getEmployYears() == null ? "" : (staff
-									.getEmployYears() + "");
-						}
-					}, ref, "staff.dateOfEmployment");
-			resultTable.addColumn("获奖次数", new TextCell(),
-					new GetValue<StaffClient, String>() {
-						@Override
-						public String getValue(StaffClient staff) {
-							return staff.getReweardsTimes() == null ? "0"
-									: (staff.getReweardsTimes() + "");
-						}
-					}, ref, "num");
+//		if (!staffOnly) {
+//			resultTable.addColumn("年资", new TextCell(),
+//					new GetValue<StaffClient, String>() {
+//						@Override
+//						public String getValue(StaffClient staff) {
+//							return staff.getEmployYears() == null ? "" : (staff
+//									.getEmployYears() + "");
+//						}
+//					}, ref, "staff.dateOfEmployment");
+//			resultTable.addColumn("获奖次数", new TextCell(),
+//					new GetValue<StaffClient, String>() {
+//						@Override
+//						public String getValue(StaffClient staff) {
+//							return staff.getReweardsTimes() == null ? "0"
+//									: (staff.getReweardsTimes() + "");
+//						}
+//					}, ref, "num");
 
-			resultTable.addColumn("上一次获奖",
-					new DateCell(DateTimeFormat.getFormat("yyyy-MM-dd")),
-					new GetValue<StaffClient, Date>() {
-						@Override
-						public Date getValue(StaffClient staff) {
-							return staff.getLastRewardsDate();
-						}
-					}, ref, "lastRewardsTime");
+//			resultTable.addColumn("上一次获奖",
+//					new DateCell(DateTimeFormat.getFormat("yyyy-MM-dd")),
+//					new GetValue<StaffClient, Date>() {
+//						@Override
+//						public Date getValue(StaffClient staff) {
+//							return staff.getLastRewardsDate();
+//						}
+//					}, ref, "lastRewardsTime");
 
 //			resultTable.addColumn("", new TextCell(),
 //					new GetValue<StaffClient, String>() {
@@ -237,7 +237,7 @@ public class ChooseStaffWinPresenterImpl extends
 ////									.openDialog(dialog, null);
 //						}
 //					});
-		}
+	//	}
 	}
 
 	/**
@@ -266,8 +266,7 @@ public class ChooseStaffWinPresenterImpl extends
 		}
 		resultTable.setPageStart(0);
 		resultTable.setRowCount(0, false);
-		listViewAdapter = new StaffAsyncDataProvider(dispatch, errorHandler,
-				sessionManager, criteriaVo, false);
+		listViewAdapter = new StaffAsyncDataProvider(dispatch, errorHandler,sessionManager, criteriaVo, false);//提供数据
 		listViewAdapter.addDataDisplay(resultTable);
 	}
 

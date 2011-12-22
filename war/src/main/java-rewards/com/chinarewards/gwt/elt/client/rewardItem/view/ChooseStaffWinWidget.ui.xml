@@ -8,11 +8,8 @@
 			<div class="{style.fmtable}">
 				<table width="100%" border="0" cellspacing="0" cellpadding="0">
 					<tr>
-						<td class="{style.title}">部门：</td>
-						<td>
-							<g:FlowPanel ui:field="deptPanel"/>
-						</td>
-						<td class="{style.title}">搜索条件(名称，手机，邮件，卡号)：</td>
+						
+						<td class="{style.title}">搜索条件(名称，手机，邮件)：</td>
 						<td class="{style.intext2}">
 							<g:TextBox ui:field="name"></g:TextBox>
 						</td>

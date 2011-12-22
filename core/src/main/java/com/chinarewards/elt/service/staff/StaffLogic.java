@@ -4,7 +4,10 @@ import java.util.List;
 
 import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.domain.user.SysUser;
+import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.org.StaffVo;
+import com.chinarewards.elt.model.vo.WinnersRecordQueryResult;
+import com.chinarewards.elt.model.vo.WinnersRecordQueryVo;
 
 /**
  * Provides some useful methods to manipulate Staff.
@@ -45,4 +48,7 @@ public interface StaffLogic {
 	 * @return
 	 */
 	public double getBalance(String staffId);
+	
+	
+	public PageStore<WinnersRecordQueryResult> queryWinnerRecords(	WinnersRecordQueryVo queryVo,String corporationId, boolean filterByAcl);
 }

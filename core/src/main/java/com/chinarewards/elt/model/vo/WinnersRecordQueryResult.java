@@ -7,28 +7,45 @@ import com.chinarewards.elt.domain.org.Staff;
 
 public class WinnersRecordQueryResult {
 
-	private Staff staff;
-
-	private Department department;
-
+	private String staffName;
+	private String staffId;
+	private String depName;
+	private String depId;
 	private int count;
-
 	private Date lastWinnerTime;
 
-	public Staff getStaff() {
-		return staff;
+	
+
+	public String getStaffName() {
+		return staffName;
 	}
 
-	public void setStaff(Staff staff) {
-		this.staff = staff;
+	public void setStaffName(String staffName) {
+		this.staffName = staffName;
 	}
 
-	public Department getDepartment() {
-		return department;
+	public String getStaffId() {
+		return staffId;
 	}
 
-	public void setDepartment(Department department) {
-		this.department = department;
+	public void setStaffId(String staffId) {
+		this.staffId = staffId;
+	}
+
+	public String getDepName() {
+		return depName;
+	}
+
+	public void setDepName(String depName) {
+		this.depName = depName;
+	}
+
+	public String getDepId() {
+		return depId;
+	}
+
+	public void setDepId(String depId) {
+		this.depId = depId;
 	}
 
 	public int getCount() {

@@ -496,8 +496,8 @@ public class RewardsItemCreatePresenterImpl extends
 						if (display.getNextRewardsTime().getValue() == null|| "".equals(display.getNextRewardsTime().getValue())) {
 							errorMsg.append("下次颁奖时间不能为空!<br>");
 							flag = false;
-						}else if(display.getStartTime().getValue().getTime()>=display.getNextRewardsTime().getValue().getTime()){
-							errorMsg.append("开始时间要小于下次颁奖时间<br>");
+						}else if(display.getStartTime().getValue().getTime()>display.getNextRewardsTime().getValue().getTime()){
+							errorMsg.append("开始时间要小于或等于下次颁奖时间<br>");
 						}
 						if (display.getTmday() != null&& display.getTmday().intValue() < 0) {
 							errorMsg.append(" 要提前的天数是整数!<br>");
