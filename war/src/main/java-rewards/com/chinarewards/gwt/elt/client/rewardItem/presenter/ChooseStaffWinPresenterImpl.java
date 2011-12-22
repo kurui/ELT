@@ -2,13 +2,10 @@ package com.chinarewards.gwt.elt.client.rewardItem.presenter;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
-import com.chinarewards.gwt.elt.client.core.Platform;
-import com.chinarewards.gwt.elt.client.core.ui.Dialog;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.dataprovider.StaffAsyncDataProvider;
 import com.chinarewards.gwt.elt.client.mvp.BaseDialogPresenter;
@@ -22,22 +19,16 @@ import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.widget.GetValue;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.widget.Sorting;
-import com.google.gwt.cell.client.DateCell;
-import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.SimplePager;
-import com.google.gwt.user.cellview.client.SimplePager.TextLocation;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SelectionModel;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.inject.Inject;
-import com.google.inject.Provider;
 
 public class ChooseStaffWinPresenterImpl extends
 		BaseDialogPresenter<ChooseStaffWinDisplay> implements
@@ -266,6 +257,7 @@ public class ChooseStaffWinPresenterImpl extends
 		}
 		resultTable.setPageStart(0);
 		resultTable.setRowCount(0, false);
+
 		listViewAdapter = new StaffAsyncDataProvider(dispatch, errorHandler,sessionManager, criteriaVo, false);//提供数据
 		listViewAdapter.addDataDisplay(resultTable);
 	}

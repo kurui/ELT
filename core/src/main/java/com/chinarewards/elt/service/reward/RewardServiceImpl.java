@@ -2,7 +2,10 @@ package com.chinarewards.elt.service.reward;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import com.chinarewards.elt.domain.reward.base.Reward;
+import com.chinarewards.elt.domain.reward.person.Judge;
 import com.chinarewards.elt.domain.reward.person.NomineeLot;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
@@ -13,6 +16,8 @@ import com.chinarewards.elt.model.reward.search.RewardQueryVo;
 import com.chinarewards.elt.model.reward.search.RewardSearchVo;
 import com.chinarewards.elt.model.reward.vo.RewardVo;
 import com.chinarewards.elt.model.user.UserContext;
+import com.chinarewards.elt.service.reward.rule.JudgeLogic;
+import com.chinarewards.elt.service.user.UserLogic;
 import com.google.inject.Inject;
 
 /**
@@ -23,15 +28,22 @@ import com.google.inject.Inject;
  */
 public class RewardServiceImpl implements RewardService {
 	private final RewardLogic rewardLogic;
-	
+	private final EntityManager em;
+	private final UserLogic userLogic;
+	private final JudgeLogic judgeLogic;
+
 	@Inject
-	public RewardServiceImpl(RewardLogic rewardLogic)
-	{
-		this.rewardLogic=rewardLogic;
+	public RewardServiceImpl(RewardLogic rewardLogic, EntityManager em,
+			UserLogic userLogic, JudgeLogic judgeLogic) {
+		this.rewardLogic = rewardLogic;
+		this.em = em;
+		this.userLogic = userLogic;
+		this.judgeLogic = judgeLogic;
 	}
+
 	@Override
 	public Reward awardFromRewardItem(SysUser caller, String rewardItemId) {
-		
+
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -44,10 +56,22 @@ public class RewardServiceImpl implements RewardService {
 	}
 
 	@Override
-	public void awardReward(SysUser caller, String rewardId,
+	public String awardReward(SysUser caller, String rewardId,
 			List<String> staffIds) {
-		// TODO Auto-generated method stub
-		
+
+		// 获取当前登录人.登录没实现,先默认当前第一个提名人
+		if (em.getTransaction().isActive() != true) {
+			em.getTransaction().begin();
+		}
+		caller = userLogic.getDefaultUser();
+		List<Judge> judgeList = judgeLogic.findJudgesFromReward(rewardId);
+		caller.setStaff(judgeList.get(0).getStaff());
+		// ---------------------------------------
+
+		String awardLogId = rewardLogic.awardReward(caller, rewardId, staffIds);
+
+		em.getTransaction().commit();
+		return awardLogId;
 	}
 
 	@Override
@@ -68,6 +92,7 @@ public class RewardServiceImpl implements RewardService {
 	public RewardQueryVo fetchEntireRewardQueryVoById(String rewardId) {
 		return rewardLogic.fetchEntireRewardQueryVoById(rewardId);
 	}
+
 	@Override
 	public PageStore<RewardVo> fetchRewards(UserContext context,
 			RewardSearchVo criteria) {

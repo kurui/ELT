@@ -1,4 +1,4 @@
-package com.chinarewards.gwt.elt.server.rewardItem;
+package com.chinarewards.gwt.elt.server.rewards;
 
 import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.DispatchException;
@@ -14,9 +14,9 @@ import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.service.reward.RewardService;
 import com.chinarewards.gwt.elt.adapter.rewards.RewardsAdapter;
-import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsRequest;
-import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsResponse;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsCriteria;
+import com.chinarewards.gwt.elt.client.rewards.request.SearchRewardsRequest;
+import com.chinarewards.gwt.elt.client.rewards.request.SearchRewardsResponse;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
 import com.chinarewards.gwt.elt.server.logger.InjectLogger;
 import com.google.inject.Inject;

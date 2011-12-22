@@ -88,6 +88,19 @@ public abstract class DateTool {
 	}
 
 	/**
+	 * 去掉时间,留下年月日
+	 * 
+	 * @param d
+	 * @return
+	 */
+	public static String dateToString(Date d) {
+		if (d == null) {
+			return null;
+		}
+		return (1900+d.getYear())+"-"+(d.getMonth()+1)+"-"+d.getDate();
+	}
+
+	/**
 	 * 精确到半年
 	 * 
 	 * @return

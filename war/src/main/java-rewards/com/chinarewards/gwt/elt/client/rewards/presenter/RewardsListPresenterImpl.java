@@ -5,6 +5,7 @@ import java.util.Date;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import com.chinarewards.gwt.elt.client.awardReward.plugin.AwardRewardConstants;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.dataprovider.RewardsListViewAdapter;
@@ -170,6 +171,26 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 								.openEditor(
 										NominateConstants.EDITOR_NOMINATE_SEARCH,
 										NominateConstants.EDITOR_NOMINATE_SEARCH
+												+ o.getId(), o);
+
+					}
+
+				});
+		cellTable.addColumn("操作", new HyperLinkCell(),
+				new GetValue<RewardsClient, String>() {
+					@Override
+					public String getValue(RewardsClient rewards) {
+						return "颁奖";
+					}
+				}, new FieldUpdater<RewardsClient, String>() {
+
+					@Override
+					public void update(int index, RewardsClient o, String value) {
+						Platform.getInstance()
+								.getEditorRegistry()
+								.openEditor(
+										AwardRewardConstants.EDITOR_AWARDREWARD_SEARCH,
+										AwardRewardConstants.EDITOR_AWARDREWARD_SEARCH
 												+ o.getId(), o);
 
 					}

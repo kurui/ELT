@@ -13,8 +13,8 @@ import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.reward.person.Candidate;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.service.reward.nominee.NomineeService;
-import com.chinarewards.gwt.elt.client.rewardItem.request.SearchStaffRequest;
-import com.chinarewards.gwt.elt.client.rewardItem.request.SearchStaffResponse;
+import com.chinarewards.gwt.elt.client.chooseStaff.request.SearchStaffChooseRequest;
+import com.chinarewards.gwt.elt.client.chooseStaff.request.SearchStaffChooseResponse;
 import com.chinarewards.gwt.elt.client.rewards.model.StaffClient;
 import com.chinarewards.gwt.elt.client.rewards.model.StaffSearchResult;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
@@ -22,7 +22,7 @@ import com.chinarewards.gwt.elt.server.logger.InjectLogger;
 import com.google.inject.Inject;
 
 public class SearchStaffActionHandler extends
-		BaseActionHandler<SearchStaffRequest, SearchStaffResponse> {
+		BaseActionHandler<SearchStaffChooseRequest, SearchStaffChooseResponse> {
 
 	@InjectLogger
 	Logger log;
@@ -35,7 +35,7 @@ public class SearchStaffActionHandler extends
 		this.nomineeService=nomineeService;
 	}
 	@Override
-	public SearchStaffResponse execute(SearchStaffRequest request,
+	public SearchStaffChooseResponse execute(SearchStaffChooseRequest request,
 			ExecutionContext arg1) throws DispatchException {
 		log.debug(
 				"Process in method SearchStaffActionHandler execute. Parameter deptId:{}, phone:{}",
@@ -55,7 +55,7 @@ public class SearchStaffActionHandler extends
 		result.setResult(adapter(store.getResultList()));
 		result.setTotal(store.getResultCount());
 
-		return new SearchStaffResponse(result);
+		return new SearchStaffChooseResponse(result);
 	}
 
 //	private WinnersRecordQueryVo buildWinnersRecordQueryVo(
@@ -132,12 +132,12 @@ public class SearchStaffActionHandler extends
 	}
 
 	@Override
-	public Class<SearchStaffRequest> getActionType() {
-		return SearchStaffRequest.class;
+	public Class<SearchStaffChooseRequest> getActionType() {
+		return SearchStaffChooseRequest.class;
 	}
 
 	@Override
-	public void rollback(SearchStaffRequest arg0, SearchStaffResponse arg1,
+	public void rollback(SearchStaffChooseRequest arg0, SearchStaffChooseResponse arg1,
 			ExecutionContext arg2) throws DispatchException {
 
 	}

@@ -23,6 +23,7 @@ import com.chinarewards.elt.domain.reward.rule.CandidateRule;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.reward.base.RequireAutoAward;
+import com.chinarewards.elt.model.reward.base.RequireAutoGenerate;
 import com.chinarewards.elt.model.reward.base.RewardParam;
 import com.chinarewards.elt.model.reward.base.RewardStatus;
 import com.chinarewards.elt.model.reward.exception.ApproveRewardException;
@@ -255,7 +256,7 @@ public class RewardLogicImpl implements RewardLogic {
 	}
 
 	@Override
-	public void awardReward(SysUser caller, String rewardId,
+	public String awardReward(SysUser caller, String rewardId,
 			List<String> staffIds) {
 		Reward reward = rewardDao.findById(Reward.class, rewardId);
 		String lotId = preWinnerLogic.addPreWinnerFromOuter(caller, rewardId,
@@ -270,6 +271,7 @@ public class RewardLogicImpl implements RewardLogic {
 			winnerLogic.processWinnerAward(reward.getId());
 			rewardDao.update(reward);
 		}
+		return lotId;
 	}
 
 	@Override
@@ -345,8 +347,17 @@ public class RewardLogicImpl implements RewardLogic {
 		rewardQueryVo.setExpectNominateDate(reward.getExpectNominateDate());
 		rewardQueryVo.setCreatedStaffName(reward.getCreatedBy().getStaff()
 				.getName());
-		rewardQueryVo.setAwardMode(reward.getRewardItem().getAutoGenerate()
-				.toString());// wanting......
+
+		String awardMode = "";
+		RequireAutoGenerate rag = reward.getRewardItem().getAutoGenerate();
+		if (rag == RequireAutoGenerate.requireCyclic) {
+			awardMode = "周期性奖项";
+		} else if (rag == RequireAutoGenerate.requireOneOff) {
+			awardMode = "一次性奖项";
+		} else {
+			awardMode = "nothing";
+		}
+		rewardQueryVo.setAwardMode(awardMode);
 		rewardQueryVo.setAwardingStaffName(reward.getCreatedBy().getStaff()
 				.getName());// wanting.......same CreateStaff
 
@@ -357,7 +368,7 @@ public class RewardLogicImpl implements RewardLogic {
 			candparam.setId(candidate.getId());
 			candparam.setName(candidate.getStaff().getName());
 			candparam.setNominateCount(candidate.getNominatecount());
-			candparam.setStaffid(candidate.getStaff().getId());		
+			candparam.setStaffid(candidate.getStaff().getId());
 			candidateListParam.add(candparam);
 		}
 		// 设置被提名人

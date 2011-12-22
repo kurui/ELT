@@ -24,14 +24,14 @@ import com.chinarewards.gwt.elt.server.BaseActionHandler;
 import com.chinarewards.gwt.elt.server.logger.InjectLogger;
 import com.google.inject.Inject;
 
-public class SearchStaffActionHandler extends	BaseActionHandler<SearchStaffRequest, SearchStaffResponse> {
+public class SearchStaffHandler extends	BaseActionHandler<SearchStaffRequest, SearchStaffResponse> {
 
 	@InjectLogger
 	Logger log;
 	IStaffService staffService;
 
 	@Inject
-	public SearchStaffActionHandler(IStaffService staffService)
+	public SearchStaffHandler(IStaffService staffService)
 	{
 		this.staffService=staffService;
 	}
