@@ -9,6 +9,7 @@ import com.chinarewards.gwt.elt.client.awardReward.plugin.AwardRewardConstants;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.dataprovider.RewardsListViewAdapter;
+import com.chinarewards.gwt.elt.client.detailsOfAward.plugin.DetailsOfAwardConstants;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
@@ -191,6 +192,26 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 								.openEditor(
 										AwardRewardConstants.EDITOR_AWARDREWARD_SEARCH,
 										AwardRewardConstants.EDITOR_AWARDREWARD_SEARCH
+												+ o.getId(), o);
+
+					}
+
+				});
+		cellTable.addColumn("操作", new HyperLinkCell(),
+				new GetValue<RewardsClient, String>() {
+					@Override
+					public String getValue(RewardsClient rewards) {
+						return "颁奖详细";
+					}
+				}, new FieldUpdater<RewardsClient, String>() {
+
+					@Override
+					public void update(int index, RewardsClient o, String value) {
+						Platform.getInstance()
+								.getEditorRegistry()
+								.openEditor(
+										DetailsOfAwardConstants.EDITOR_DETAILSOFAWARD_SEARCH,
+										DetailsOfAwardConstants.EDITOR_DETAILSOFAWARD_SEARCH
 												+ o.getId(), o);
 
 					}

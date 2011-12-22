@@ -11,6 +11,7 @@ import com.chinarewards.gwt.elt.client.core.ui.SiteManager;
 import com.chinarewards.gwt.elt.client.core.ui.impl.SimpleEditorRegistry;
 import com.chinarewards.gwt.elt.client.core.ui.impl.SimpleMenuProcessor;
 import com.chinarewards.gwt.elt.client.core.ui.impl.SimpleSiteManager;
+import com.chinarewards.gwt.elt.client.detailsOfAward.plugin.DetailsOfAwardPluginDescriptor;
 import com.chinarewards.gwt.elt.client.nominate.plugin.NominatePluginDescriptor;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemPluginDescriptor;
 import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListPluginDescriptor;
@@ -58,7 +59,8 @@ public class PlatformModule extends AbstractGinModule {
 			NominatePluginDescriptor nominate,
 			RewardsItemPluginDescriptor rewardsItem,
 			RewardsListPluginDescriptor rewardsList,
-			AwardRewardPluginDescriptor awardreward) {
+			AwardRewardPluginDescriptor awardreward,
+			DetailsOfAwardPluginDescriptor detailsAward) {
 
 		if (pluginSet == null) {
 			pluginSet = new InMemoryPluginSet();
@@ -71,7 +73,7 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(rewardsItem);
 			pluginSet.registerPlugin(rewardsList);
 			pluginSet.registerPlugin(awardreward);
-
+			pluginSet.registerPlugin(detailsAward);
 		}
 
 		return pluginSet;

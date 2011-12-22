@@ -1,22 +1,14 @@
-package com.chinarewards.gwt.elt.client.awardReward.presenter;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.chinarewards.gwt.elt.client.detailsOfAward.presenter;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
-import com.chinarewards.gwt.elt.client.awardReward.plugin.AwardRewardConstants;
-import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardAddRequest;
-import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardAddResponse;
 import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardInitRequest;
 import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardInitResponse;
 import com.chinarewards.gwt.elt.client.chooseStaff.presenter.ChooseStaffPanelPresenter;
 import com.chinarewards.gwt.elt.client.core.Platform;
+import com.chinarewards.gwt.elt.client.detailsOfAward.plugin.DetailsOfAwardConstants;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
-import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
-import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient;
-import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient.SomeoneClient;
 import com.chinarewards.gwt.elt.util.DateTool;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -24,20 +16,19 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
-public class AwardRewardPresenterImpl extends
-		BasePresenter<AwardRewardPresenter.AwardRewardDisplay> implements
-		AwardRewardPresenter {
+public class DetailsOfAwardPresenterImpl extends
+		BasePresenter<DetailsOfAwardPresenter.DetailsOfAwardDisplay> implements
+		DetailsOfAwardPresenter {
 
 	private final DispatchAsync dispatcher;
 	private String awardsId;
 	private String instanceId;
-	private int headcount;
 
 	private final ChooseStaffPanelPresenter staffPanel;
 
 	@Inject
-	public AwardRewardPresenterImpl(EventBus eventBus,
-			AwardRewardDisplay display, DispatchAsync dispatcher,
+	public DetailsOfAwardPresenterImpl(EventBus eventBus,
+			DetailsOfAwardDisplay display, DispatchAsync dispatcher,
 			ChooseStaffPanelPresenter staffPanel) {
 		super(eventBus, display);
 		this.dispatcher = dispatcher;
@@ -52,62 +43,17 @@ public class AwardRewardPresenterImpl extends
 		staffPanel.bind();
 		display.initStaffPanel(staffPanel.getDisplay().asWidget());
 
-		registerHandler(display.getNominateClickHandlers().addClickHandler(
+		registerHandler(display.getreturnClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
 
-						ParticipateInfoClient participate = staffPanel
-								.getparticipateInfo();
-						List<String> staffIds = new ArrayList<String>();
-						String nominateName = "";
-						if (participate instanceof SomeoneClient) {
-							List<OrganicationClient> staffs = ((SomeoneClient) participate)
-									.getOrganizations();
-							for (OrganicationClient staff : staffs) {
-								staffIds.add(staff.getId());
-								nominateName += staff.getName() + ";";
-							}
-						}
-
-						if (staffIds.size() <= 0) {
-							Window.alert("请选择获奖的人!");
-							return;
-						}
-						if (staffIds.size() > headcount) {
-							Window.alert("获奖的人超出预定人数!");
-							return;
-						}
-						if (staffIds.size() < headcount) {
-							if (!Window.confirm("获奖的人少于预定人数!,是否继续颁奖?"))
-								return;
-						}
-						if (Window.confirm("确定获奖人:" + nominateName + "?")) {
-							addAwardRewardData(staffIds, awardsId);
-						}
-					}
-				}));
-	}
-
-	/**
-	 * 颁奖数据添加
-	 */
-	private void addAwardRewardData(List<String> staffidList, String rewardId) {
-		dispatcher.execute(new AwardRewardAddRequest(staffidList, rewardId),
-				new AsyncCallback<AwardRewardAddResponse>() {
-					public void onFailure(Throwable t) {
-						Window.alert(t.getMessage());
-					}
-
-					@Override
-					public void onSuccess(AwardRewardAddResponse response) {
-						Window.alert("颁奖成功!---颁奖记录ID:" + response.getLotId());
 						Platform.getInstance()
 								.getEditorRegistry()
 								.closeEditor(
-										AwardRewardConstants.EDITOR_AWARDREWARD_SEARCH,
+										DetailsOfAwardConstants.EDITOR_DETAILSOFAWARD_SEARCH,
 										instanceId);
 					}
-				});
+				}));
 	}
 
 	/**
@@ -154,7 +100,7 @@ public class AwardRewardPresenterImpl extends
 		// 加载数据
 		this.awardsId = rewardId;
 		this.instanceId = instanceId;
-		this.headcount = headcount;
+
 	}
 
 }
