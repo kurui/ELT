@@ -14,6 +14,7 @@ import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
 import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient;
 import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient.SomeoneClient;
 import com.chinarewards.gwt.elt.client.rewards.model.StaffClient;
+import com.chinarewards.gwt.elt.model.ChoosePanel.InitChooseParam;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
@@ -42,7 +43,6 @@ public class ChooseStaffPanelPresenterImpl extends
 	}
 
 	public void bind() {
-		init();
 		registerHandler(display.getChooseStaffBtnClick().addClickHandler(
 				new ClickHandler() {
 					@Override
@@ -103,15 +103,12 @@ public class ChooseStaffPanelPresenterImpl extends
 
 	}
 
-	void init() {
-		if(topName!=null)
-			display.setTopName(topName);
-		
-	}
-
 	@Override
-	public void initChoosePanel(String topName) {
-		this.topName=topName;
-		
+	public void initChoosePanel(InitChooseParam initChooseParam) {
+		if (initChooseParam.getTopName() != null)
+			display.setTopName(initChooseParam.getTopName());
+		if (initChooseParam.getChooseBtnName() != null)
+			display.setChooseBtnName(initChooseParam.getChooseBtnName());
+
 	}
 }

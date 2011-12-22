@@ -7,6 +7,7 @@ import com.chinarewards.gwt.elt.client.mvp.Presenter;
 import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
 import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient;
 import com.chinarewards.gwt.elt.client.widget.SpecialTextArea;
+import com.chinarewards.gwt.elt.model.ChoosePanel.InitChooseParam;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 
 public interface ChooseStaffPanelPresenter extends	Presenter<ChooseStaffPanelPresenter.ChooseStaffPanelDisplay> {
@@ -30,7 +31,7 @@ public interface ChooseStaffPanelPresenter extends	Presenter<ChooseStaffPanelPre
 	public ParticipateInfoClient getparticipateInfo();
 
 	public void setRewardId(String rewardId);
-	public void initChoosePanel(String topName);
+	public void initChoosePanel(InitChooseParam initChooseParam);
 	public static interface ChooseStaffPanelDisplay extends Display {
 
 		
@@ -43,5 +44,6 @@ public interface ChooseStaffPanelPresenter extends	Presenter<ChooseStaffPanelPre
 		HasClickHandlers getChooseStaffBtnClick();
 
 		void setTopName(String topName);
+		void setChooseBtnName(String name);
 	}
 }

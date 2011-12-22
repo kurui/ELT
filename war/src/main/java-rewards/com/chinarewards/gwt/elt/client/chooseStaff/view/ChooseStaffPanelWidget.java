@@ -102,5 +102,10 @@ public class ChooseStaffPanelWidget extends Composite implements
 		this.topName.setText(topName);
 
 	}
+	@Override
+	public void setChooseBtnName(String name) {
+		this.chooseBtn.setText(name);
 
+	}
+	
 }

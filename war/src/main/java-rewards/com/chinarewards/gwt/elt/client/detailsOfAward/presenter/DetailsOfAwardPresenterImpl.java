@@ -9,6 +9,7 @@ import com.chinarewards.gwt.elt.client.detailsOfAward.request.DetailsOfAwardInit
 import com.chinarewards.gwt.elt.client.detailsOfAward.request.DetailsOfAwardInitResponse;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
+import com.chinarewards.gwt.elt.model.ChoosePanel.InitChooseParam;
 import com.chinarewards.gwt.elt.util.DateTool;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -38,7 +39,10 @@ public class DetailsOfAwardPresenterImpl extends
 	@Override
 	public void bind() {
 		init();
-		staffPanel.initChoosePanel("待提名人：");
+		InitChooseParam initChooseParam =new InitChooseParam();
+		initChooseParam.setTopName("待提名人：");
+		initChooseParam.setChooseBtnName("查看");
+		staffPanel.initChoosePanel(initChooseParam);
 		staffPanel.setRewardId(awardsId);
 		// 候选人面板显示
 		staffPanel.bind();
