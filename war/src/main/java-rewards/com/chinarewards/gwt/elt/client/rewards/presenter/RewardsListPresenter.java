@@ -13,7 +13,8 @@ public interface RewardsListPresenter extends Presenter<RewardsListPresenter.Rew
 
 		public HasClickHandlers getSearchBtnClickHandlers();
 		HasValue<String> getName();
-
+		HasValue<String> getDefinition();
+		
 		Panel getResultPanel();
 
 	}

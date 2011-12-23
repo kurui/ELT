@@ -20,6 +20,8 @@ public class RewardsListWidget extends Composite implements RewardsListDisplay {
 	
 	@UiField
 	TextBox rewardsName;
+	@UiField
+	TextBox definition;
 	
 	private static HrRegisterWidgetUiBinder uiBinder = GWT
 			.create(HrRegisterWidgetUiBinder.class);
@@ -44,6 +46,11 @@ public class RewardsListWidget extends Composite implements RewardsListDisplay {
 	@Override
 	public HasValue<String> getName() {
 		return rewardsName;
+	}
+
+	@Override
+	public HasValue<String> getDefinition() {
+		return definition;
 	}
 
 

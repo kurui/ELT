@@ -75,6 +75,7 @@ public class SearchRewardsHandler extends
 		criteria.setAccountDeptId(rewards.getAccountDeptId());
 		criteria.setRewardItemId(rewards.getRewardsItemId());
 		criteria.setName(rewards.getName());
+		criteria.setDefinition(rewards.getDefinition());
 		// criteria.setStaffId(rewards.getStaffId());
 		if (rewards.getPagination() != null) {
 			PaginationDetail detail = new PaginationDetail();

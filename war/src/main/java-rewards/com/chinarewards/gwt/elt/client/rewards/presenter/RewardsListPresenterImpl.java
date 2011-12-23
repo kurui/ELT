@@ -88,6 +88,7 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 	private void doSearch(){
 		RewardsCriteria criteria = new RewardsCriteria();
 		criteria.setName(display.getName().getValue());
+		criteria.setDefinition(display.getDefinition().getValue());
 		listViewAdapter = new RewardsListViewAdapter(dispatch, criteria,
 				errorHandler, sessionManager);
 		listViewAdapter.addDataDisplay(cellTable);

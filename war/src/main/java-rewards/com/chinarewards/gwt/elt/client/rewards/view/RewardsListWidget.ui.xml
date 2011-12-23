@@ -15,6 +15,10 @@
 					<td width="3%">
 						<g:TextBox ui:field="rewardsName" />
 					</td>
+					<td width="2%" align="left">说明:</td>
+					<td width="3%">
+						<g:TextBox ui:field="definition" />
+					</td>
 <!-- 					<td width="21%" align="right">部门:
 				   </td>
 					<td width="3%" align="right">
