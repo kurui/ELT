@@ -57,6 +57,8 @@ public class RewardsBaseInfo implements Serializable {
 
 	/** 候选人信息 **/
 	private ParticipateInfoClient participateInfo;
+	
+	
 
 	// 从welcome页面传过来需要给其颁奖。
 	private StaffClient staff;

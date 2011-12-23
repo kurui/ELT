@@ -51,11 +51,11 @@
                         <td class="{item.intext}"><g:TextBox ui:field="rewardsFrom" /></td>
                      	<td></td>
                       </tr>
-                      <tr>
-                        <td valign="top" class="{item.title}"> 提名人：</td>
-                        <td class="{item.intext}"><g:TextBox ui:field="rewardsTM" /></td>
-                     	<td></td>
-                      </tr>
+                       <tr>
+				               <td valign="top" class="{item.title}"> 提名人：</td>
+				               <td class="{item.intext}"><g:FlowPanel ui:field="staffAreaPanel" width="326px"/> </td>
+				               <td><g:Button ui:field="chooseBtns" styleName="button-addpe">选择</g:Button></td>
+				         </tr>
                       <tr>
                         <td colspan="3" id="noPaddingTd"><g:FlowPanel ui:field="staffPanel"/> </td>                     
                       </tr>

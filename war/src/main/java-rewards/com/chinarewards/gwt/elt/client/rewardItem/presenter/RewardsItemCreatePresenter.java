@@ -7,11 +7,11 @@ import java.util.List;
 import com.chinarewards.gwt.elt.client.mvp.Display;
 import com.chinarewards.gwt.elt.client.mvp.Presenter;
 import com.chinarewards.gwt.elt.client.rewards.model.FrequencyClient;
-import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemClient;
-import com.chinarewards.gwt.elt.client.rewards.model.RewardsTemplateClient;
-import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
-import com.chinarewards.gwt.elt.client.rewards.model.RewardsTypeClient;
+import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
+import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient;
+import com.chinarewards.gwt.elt.client.widget.SpecialTextArea;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.TextBox;
@@ -23,6 +23,7 @@ public interface RewardsItemCreatePresenter extends Presenter<RewardsItemCreateP
 	//void initInstanceId(String instanceId);
 	
 	//void checkIsAmountRoleLevel();
+	public ParticipateInfoClient getNominateInfo();
 	public static interface RewardsItemDisplay extends Display {
 
 		public HasValue<String> getRewardsName();
@@ -120,5 +121,12 @@ public interface RewardsItemCreatePresenter extends Presenter<RewardsItemCreateP
 		HasValueChangeHandlers<Boolean> onetimesClick();
 		HasValueChangeHandlers<Boolean> moretimesClick();
 		CheckBox getAutoCbxElement();
+		
+		HasClickHandlers getChooseStaffBtnClick();
+		SpecialTextArea<OrganicationClient> getSpecialTextArea();
+		
+		
+		// 得到提名人的id
+		List<String> getNominateIds();
 	}
 }

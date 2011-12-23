@@ -2,11 +2,12 @@ package com.chinarewards.gwt.elt.client.rewardItem.presenter;
 
 
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
-import com.chinarewards.elt.model.reward.base.RequireAutoGenerate;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.ui.DialogCloseListener;
 import com.chinarewards.gwt.elt.client.frequency.CalculatorSelectFactory;
@@ -17,19 +18,24 @@ import com.chinarewards.gwt.elt.client.frequency.SimpleRewardDateInfo;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
+import com.chinarewards.gwt.elt.client.rewardItem.dialog.ChooseStaffWinDialog;
 import com.chinarewards.gwt.elt.client.rewardItem.dialog.FrequencySettingDialog;
+import com.chinarewards.gwt.elt.client.rewardItem.event.ChooseStaffEvent;
 import com.chinarewards.gwt.elt.client.rewardItem.event.FrequencySettingEvent;
+import com.chinarewards.gwt.elt.client.rewardItem.handler.ChooseStaffHandler;
 import com.chinarewards.gwt.elt.client.rewardItem.handler.FrequencySettingHandler;
 import com.chinarewards.gwt.elt.client.rewardItem.request.CreateRewardsItemRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.CreateRewardsItemResponse;
 import com.chinarewards.gwt.elt.client.rewards.model.DayFrequencyClient;
-import com.chinarewards.gwt.elt.client.rewards.model.DepartmentClient;
 import com.chinarewards.gwt.elt.client.rewards.model.FrequencyClient;
 import com.chinarewards.gwt.elt.client.rewards.model.MonthFrequencyClient;
-import com.chinarewards.gwt.elt.client.rewards.model.RewardsClient;
+import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient.SomeoneClient;
+import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
+import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsTypeClient;
 import com.chinarewards.gwt.elt.client.rewards.model.SpecialCondition;
+import com.chinarewards.gwt.elt.client.rewards.model.StaffClient;
 import com.chinarewards.gwt.elt.client.rewards.model.WeekFrequencyClient;
 import com.chinarewards.gwt.elt.client.rewards.model.YearFrequencyClient;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
@@ -37,7 +43,6 @@ import com.chinarewards.gwt.elt.client.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.util.DateTool;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
@@ -90,10 +95,12 @@ public class RewardsItemCreatePresenterImpl extends
 
 		// 用来判断修改前是否有平率
 		private boolean isFrequency = false;
+		private final Provider<ChooseStaffWinDialog> chooseStaffDialogProvider;
 	@Inject
 	public RewardsItemCreatePresenterImpl(EventBus eventBus,ChooseStaffBlockPresenter staffBlock,
 			RewardsItemDisplay display,DispatchAsync dispatcher,ErrorHandler errorHandler,Provider<FrequencySettingDialog> freProvider
-			,RewardStartDateCalculator startDateCalculator,CalculatorSelectFactory factory,SessionManager sessionManager) {
+			,RewardStartDateCalculator startDateCalculator,CalculatorSelectFactory factory,SessionManager sessionManager
+			,Provider<ChooseStaffWinDialog> chooseStaffDialogProvider) {
 		super(eventBus, display);
 		this.dispatcher=dispatcher;
 		this.staffBlock = staffBlock;
@@ -102,6 +109,7 @@ public class RewardsItemCreatePresenterImpl extends
 		this.startDateCalculator = startDateCalculator;
 		this.factory = factory;
 		this.sessionManager = sessionManager;
+		this.chooseStaffDialogProvider = chooseStaffDialogProvider;
 	}
 
 	@Override
@@ -208,26 +216,35 @@ public class RewardsItemCreatePresenterImpl extends
 
 								}
 							}));
-					
-//					// 添加人数限制输入框即时改动输入值
-//					registerHandler(display.getPeopleSizeLimit().addValueChangeHandler(
-//							new ValueChangeHandler<String>() {
-//
-//								@Override
-//								public void onValueChange(ValueChangeEvent<String> event) {
-//									try {
-//										int peopleSizeLimitParse = Integer.parseInt(display
-//												.getPeopleSizeLimit().getValue());
-//										display.getPeopleSizeLimit().setValue(
-//												peopleSizeLimitParse + "");
-//									} catch (Exception e) {
-//										e.getStackTrace();
-//									}
-//
-//								}
-//
-//							}));
-		
+					//提名人按钮事件
+					registerHandler(display.getChooseStaffBtnClick().addClickHandler(
+							new ClickHandler() {
+								@Override
+								public void onClick(ClickEvent arg0) {
+									final ChooseStaffWinDialog dialog = chooseStaffDialogProvider.get();
+									dialog.setNominee(false, true, null);
+									final HandlerRegistration registration = eventBus.addHandler(ChooseStaffEvent.getType(),new ChooseStaffHandler() {
+														@Override
+														public void chosenStaff(List<StaffClient> list) {
+															for (StaffClient r : list) {
+																
+																if (!display.getSpecialTextArea().containsItem(r)) {
+																	
+																	display.getSpecialTextArea().addItem(r);
+																}
+															}
+														}
+													});
+
+									       Platform.getInstance().getSiteManager()
+											.openDialog(dialog, new DialogCloseListener() {
+												public void onClose(String dialogId,
+														String instanceId) {
+													registration.removeHandler();
+												}
+											});
+								}
+							}));
 		//保存事件
 		registerHandler(display.getSaveClick().addClickHandler(
 				new ClickHandler() {
@@ -254,8 +271,10 @@ public class RewardsItemCreatePresenterImpl extends
 						// 候选人信息
 						rewardsItem.setParticipateInfo(staffBlock.getparticipateInfo());
 						rewardsItem.setStartTime(display.getStartTime().getValue());
+						//提名人的信息
+						rewardsItem.setTmInfo(getNominateInfo());
 						
-						
+						//是否是周期性选择
 						rewardsItem.setPeriodEnable(display.getEnableCbx().getValue());
 						//总积分
 						rewardsItem.setTotalJF(Integer.parseInt(display.getTotalJF().toString()));
@@ -298,7 +317,16 @@ public class RewardsItemCreatePresenterImpl extends
 					}
 				}));
 	}
-	
+	public ParticipateInfoClient getNominateInfo(){
+		
+		ParticipateInfoClient nominateInfo = null;
+		List<OrganicationClient> orgs = new ArrayList<OrganicationClient>();
+			for (String orgId : display.getNominateIds()) {
+				 orgs.add(new OrganicationClient(orgId, ""));
+			}
+			nominateInfo = new SomeoneClient(orgs);
+			return nominateInfo;
+	}
 	private void doSave(RewardsItemClient rewardsItem) {
 
 		dispatcher.execute(new CreateRewardsItemRequest(rewardsItem),
@@ -572,7 +600,11 @@ public class RewardsItemCreatePresenterImpl extends
 							errorMsg.append(" 要提前的天数是整数!<br>");
 							flag = false;
 					     }
-						
+					
+						if(display.getNominateIds().size()==0){
+							errorMsg.append("请选择提名人!<br>");
+							flag = false;
+						}
 					}
 
 					

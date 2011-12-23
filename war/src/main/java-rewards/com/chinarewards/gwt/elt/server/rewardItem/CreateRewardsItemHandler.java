@@ -22,7 +22,6 @@ import com.chinarewards.elt.model.reward.frequency.YearlyVo;
 import com.chinarewards.elt.model.transaction.TransactionUnit;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.reward.RewardItemService;
-import com.chinarewards.elt.service.reward.nominee.NomineeService;
 import com.chinarewards.gwt.elt.client.rewardItem.request.CreateRewardsItemRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.CreateRewardsItemResponse;
 import com.chinarewards.gwt.elt.client.rewards.model.DayFrequencyClient;
@@ -32,18 +31,14 @@ import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
 import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient;
 import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient.EveryoneClient;
 import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient.SomeoneClient;
-import com.chinarewards.gwt.elt.client.rewards.model.RewardsAmountRuleClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemClient;
 import com.chinarewards.gwt.elt.client.rewards.model.SpecialCondition;
-import com.chinarewards.gwt.elt.client.rewards.model.StaffLevelAmountDataClient;
-import com.chinarewards.gwt.elt.client.rewards.model.StaffLevelAmountRuleClient;
-import com.chinarewards.gwt.elt.client.rewards.model.UnifiedAmountRuleClient;
 import com.chinarewards.gwt.elt.client.rewards.model.WeekFrequencyClient;
 import com.chinarewards.gwt.elt.client.rewards.model.YearFrequencyClient;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
 import com.chinarewards.gwt.elt.server.logger.InjectLogger;
 import com.chinarewards.gwt.elt.util.StringUtil;
-import com.google.gwt.libideas.validation.client.ValidationException;
+import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
 
 public class CreateRewardsItemHandler extends	BaseActionHandler<CreateRewardsItemRequest, CreateRewardsItemResponse> {
@@ -87,7 +82,7 @@ public class CreateRewardsItemHandler extends	BaseActionHandler<CreateRewardsIte
 		parameter.setTypeId(client.getType().getId());
 		parameter.setDefinition(client.getDefinition());
 		parameter.setStandard(client.getStandard());
-	//	parameter.setJudgeIds(judgeIds）        //提名人列表
+		
 		parameter.setHeadcountLimit(client.getSizeLimit());//人数
 		parameter.setTotalAmtLimit(client.getTotalJF());//总积分
 		parameter.setAwardAmt(client.getRewardsFrom());
@@ -131,6 +126,18 @@ public class CreateRewardsItemHandler extends	BaseActionHandler<CreateRewardsIte
 			}
 		}
         parameter.setCandidateList(orgIds);
+        
+     // 提名者
+
+        ParticipateInfoClient nominater = client.getTmInfo();
+     	List<String> orgId = new ArrayList<String>();
+     	List<OrganicationClient> orgs = ((SomeoneClient) nominater).getOrganizations();
+     		for (OrganicationClient org : orgs) {
+     			
+     			orgId.add(org.getId());
+     		}
+     	parameter.setJudgeIds(orgId);        //提名人列表
+            
 		
 		// 生日奖
 		if (client.isHasSpecialCondition()

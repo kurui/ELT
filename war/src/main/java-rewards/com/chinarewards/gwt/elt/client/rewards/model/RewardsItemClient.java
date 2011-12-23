@@ -1,7 +1,9 @@
 package com.chinarewards.gwt.elt.client.rewards.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class RewardsItemClient implements Serializable,
 		Comparable<RewardsItemClient> {
@@ -79,6 +81,16 @@ public class RewardsItemClient implements Serializable,
 	
 	//提前的天数
 	private Integer tmdays;
+   
+	/** 提名人人信息 **/
+	private ParticipateInfoClient tmInfo;
+	public ParticipateInfoClient getTmInfo() {
+		return tmInfo;
+	}
+
+	public void setTmInfo(ParticipateInfoClient tmInfo) {
+		this.tmInfo = tmInfo;
+	}
 
 	public Integer getTmdays() {
 		return tmdays;
@@ -87,7 +99,7 @@ public class RewardsItemClient implements Serializable,
 	public void setTmdays(Integer tmdays) {
 		this.tmdays = tmdays;
 	}
-
+	
 	@Override
 	public int compareTo(RewardsItemClient o) {
 		return o == null ? -1 : o.getId().compareTo(this.getId());
@@ -284,13 +296,6 @@ public class RewardsItemClient implements Serializable,
 		baseInfo.setRewardsUnit(rewardsUnit);
 	}
 
-//	public boolean isPeopleSizeLimit() {
-//		return baseInfo.isPeopleSizeLimit();
-//	}
-//
-//	public void setPeopleSizeLimit(boolean isPeopleSizeLimit) {
-//		baseInfo.setPeopleSizeLimit(isPeopleSizeLimit);
-//	}
 
 	public ParticipateInfoClient getParticipateInfo() {
 		return baseInfo.getParticipateInfo();
@@ -299,7 +304,8 @@ public class RewardsItemClient implements Serializable,
 	public void setParticipateInfo(ParticipateInfoClient participateInfo) {
 		baseInfo.setParticipateInfo(participateInfo);
 	}
-
+   
+	
 	public boolean isGeneratedRewards() {
 		return isGeneratedRewards;
 	}

@@ -274,8 +274,8 @@ public class StaffDao extends BaseDao<Staff> {
 
 				// if corporation id is missing, will return empty result.
 				
-						
-                 System.out.println("ddddddddddd="+sql);
+				
+                
 				logger.debug("native sql:{}", sql);
 
 				// XXX make this EQL instead of native query
