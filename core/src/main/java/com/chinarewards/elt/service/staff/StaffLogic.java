@@ -51,4 +51,11 @@ public interface StaffLogic {
 	
 	
 	public PageStore<WinnersRecordQueryResult> queryWinnerRecords(	WinnersRecordQueryVo queryVo,String corporationId, boolean filterByAcl);
+	
+	/**
+	 *  查询员工,根据员工ID List
+	 * @param staffIds
+	 * @return staffList(Staff)
+	 */
+	public List<Staff> findStaffsByStaffIds(List<String> staffIds);
 }

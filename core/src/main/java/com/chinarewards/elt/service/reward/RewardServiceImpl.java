@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.domain.reward.base.Reward;
 import com.chinarewards.elt.domain.reward.person.Judge;
 import com.chinarewards.elt.domain.reward.person.NomineeLot;
@@ -21,6 +22,7 @@ import com.chinarewards.elt.model.reward.vo.RewardVo;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.reward.rule.JudgeLogic;
 import com.chinarewards.elt.service.reward.rule.WinnerLogic;
+import com.chinarewards.elt.service.staff.StaffLogic;
 import com.chinarewards.elt.service.user.UserLogic;
 import com.google.inject.Inject;
 
@@ -36,15 +38,18 @@ public class RewardServiceImpl implements RewardService {
 	private final UserLogic userLogic;
 	private final JudgeLogic judgeLogic;
 	private final WinnerLogic winnerLogic;
+	private final StaffLogic staffLogic;
+	
 
 	@Inject
 	public RewardServiceImpl(RewardLogic rewardLogic, EntityManager em,
-			UserLogic userLogic, JudgeLogic judgeLogic, WinnerLogic winnerLogic) {
+			UserLogic userLogic, JudgeLogic judgeLogic, WinnerLogic winnerLogic,StaffLogic staffLogic) {
 		this.rewardLogic = rewardLogic;
 		this.em = em;
 		this.userLogic = userLogic;
 		this.judgeLogic = judgeLogic;
 		this.winnerLogic = winnerLogic;
+		this.staffLogic=staffLogic;
 	}
 
 	@Override
@@ -121,6 +126,20 @@ public class RewardServiceImpl implements RewardService {
 		}
 		rewardVo.setWinnerList(winnerList);
 		return rewardVo;
+	}
+
+	@Override
+	public List<String> getIsDeleteStaff(List<String> staffIds) {
+		List<Staff> staffList=staffLogic.findStaffsByStaffIds(staffIds);
+		List<String> deleteStaffNames=new ArrayList<String>();
+		for(Staff sf:staffList)
+		{
+			if(sf.isDeleted()==1)
+			{
+				deleteStaffNames.add(sf.getName());
+			}
+		}
+		return deleteStaffNames;
 	}
 
 }

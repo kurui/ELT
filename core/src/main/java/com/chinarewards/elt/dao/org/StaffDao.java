@@ -1,7 +1,6 @@
 package com.chinarewards.elt.dao.org;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,9 +12,7 @@ import javax.persistence.Query;
 import org.apache.commons.beanutils.BeanUtils;
 
 import com.chinarewards.elt.common.BaseDao;
-import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.org.Staff;
-import com.chinarewards.elt.model.vo.DepartmentSearchVo;
 import com.chinarewards.elt.model.vo.StaffSearchVo;
 import com.chinarewards.elt.model.vo.StaffSearchVo.MultipleIdParam;
 import com.chinarewards.elt.model.vo.StaffSearchVo.OneIdParam;
@@ -327,5 +324,17 @@ public class StaffDao extends BaseDao<Staff> {
 		}
 
 		return result;
+	}
+	
+	/**
+	 * Find list of staff by ids
+	 * 
+	 * @param deptId
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Staff> findStaffsByStaffIds(List<String> staffIds) {
+		return getEm()
+				.createQuery("FROM Staff s WHERE s.id IN (:staffIds)")
+				.setParameter("staffIds", staffIds).getResultList();
 	}
 }

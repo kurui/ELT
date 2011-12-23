@@ -102,5 +102,11 @@ public interface RewardService {
 	 */
 	public PageStore<RewardVo> fetchRewards(UserContext context,
 			RewardSearchVo criteria);
-
+	
+	/**
+	 * 颁奖时...查询给定员工中有无离职人员
+	 * @param staffIds
+	 * @return staffList(String)
+	 */
+	public List<String> getIsDeleteStaff(List<String> staffIds);
 }
