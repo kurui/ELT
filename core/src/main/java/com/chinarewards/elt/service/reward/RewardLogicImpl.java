@@ -382,6 +382,7 @@ public class RewardLogicImpl implements RewardLogic {
 			judgeParam.setName(judge.getStaff().getName());
 			judgeParam.setIsNominate(judge.getStatus().toString());
 			judgeParam.setStaffid(judge.getStaff().getId());
+			judgeParam.setJudgeStatus(judge.getStatus()+"");
 			JudgeListParam.add(judgeParam);
 		}
 

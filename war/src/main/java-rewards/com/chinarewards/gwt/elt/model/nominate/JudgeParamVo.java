@@ -10,6 +10,13 @@ public class JudgeParamVo implements Serializable{
 	private String id;
 	private String name;
 	private String staffid;
+	private String judgeStatus;
+ 	public String getJudgeStatus() {
+		return judgeStatus;
+	}
+	public void setJudgeStatus(String judgeStatus) {
+		this.judgeStatus = judgeStatus;
+	}
 	public String getStaffid() {
 		return staffid;
 	}

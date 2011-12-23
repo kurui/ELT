@@ -3,6 +3,13 @@ package com.chinarewards.elt.model.reward.search;
 public class JudgeParam {
 	private String id;
 	private String staffid;
+	private String judgeStatus;
+ 	public String getJudgeStatus() {
+		return judgeStatus;
+	}
+	public void setJudgeStatus(String judgeStatus) {
+		this.judgeStatus = judgeStatus;
+	}
 	public String getStaffid() {
 		return staffid;
 	}
