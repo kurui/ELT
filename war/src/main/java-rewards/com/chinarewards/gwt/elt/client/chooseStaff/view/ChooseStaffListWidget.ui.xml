@@ -6,22 +6,22 @@
 	<g:HTMLPanel>
 		<div class="{style.center}" style="width:778px;">
 			<div class="{style.fmtable}">
-<!--  				<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  				<table width="100%" border="0" cellspacing="0" cellpadding="0">
 					<tr>
-						<td class="{style.title}">部门：</td>
+					<!--  	<td class="{style.title}">部门：</td>
 						<td>
 							<g:FlowPanel ui:field="deptPanel"/>
-						</td>
-						<td class="{style.title}">搜索条件(名称，手机，邮件，卡号)：</td>
+						</td>-->
+						<td class="{style.title}">搜索条件(名称)：</td>
 						<td class="{style.intext2}">
 							<g:TextBox ui:field="name"></g:TextBox>
 						</td>
 						<td class="{style.caozuo}">
 							<g:Button ui:field="searchBtn" styleName="button-search">查询</g:Button>
-							<g:Button ui:field="resetBtn" styleName="button-reset">重置</g:Button>
+							<g:Button ui:field="resetBtn" styleName="button-search">重置</g:Button>
 						</td>
 					</tr>
-				</table>-->
+				</table>
 			</div>
 			<div class="{style.listtable}">
 				<g:FlowPanel ui:field="result"></g:FlowPanel>
@@ -36,8 +36,8 @@
 			</div>
 			<div style="height:10px"></div>
 			<div id="post" >
-				<g:Button ui:field="chooseBtn" styleName="button-ok">添加</g:Button>
-				<g:Button ui:field="cancelBtn" styleName="button-cancel">取消</g:Button>
+				<g:Button ui:field="chooseBtn" styleName="button-ok" text="确定"></g:Button>
+				<g:Button ui:field="cancelBtn" styleName="button-cancel" text="取消"></g:Button>
 			</div>
 		</div>
 	</g:HTMLPanel>

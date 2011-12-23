@@ -7,6 +7,7 @@ import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.rewards.model.StaffClient;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.ui.StaffSpecialTextArea;
+import com.chinarewards.gwt.elt.client.view.constant.CssStyleConstants;
 import com.chinarewards.gwt.elt.client.widget.SpecialTextArea;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -14,7 +15,9 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
@@ -23,14 +26,14 @@ public class ChooseStaffListWidget extends Composite implements	ChooseStaffListD
 //	@UiField
 //	Panel deptPanel;
 //
-//	@UiField
-//	TextBox name;
-//
-//	@UiField
-//	Button searchBtn;
-//
-//	@UiField
-//	Button resetBtn;
+	@UiField
+	TextBox name;
+
+	@UiField
+	Button searchBtn;
+
+	@UiField
+	Button resetBtn;
 
 	
 	@UiField
@@ -75,26 +78,26 @@ public class ChooseStaffListWidget extends Composite implements	ChooseStaffListD
 		return this;
 	}
 
-//	@Override
-//	public HasValue<String> getName() {
-//		return name;
-//	}
-//
-//	@Override
-//	public HasClickHandlers getResetBtn() {
-//		return resetBtn;
-//	}
-//
-//	@Override
-//	public HasClickHandlers getSearchBtn() {
-//		return searchBtn;
-//	}
-//
-//	@Override
-//	public void reset() {
-//		name.setValue("");
-//		//deptCombo.setDefaultValue(null);
-//	}
+	@Override
+	public HasValue<String> getName() {
+		return name;
+	}
+
+	@Override
+	public HasClickHandlers getResetBtn() {
+		return resetBtn;
+	}
+
+	@Override
+	public HasClickHandlers getSearchBtn() {
+		return searchBtn;
+	}
+
+	@Override
+	public void reset() {
+		name.setValue("");
+		//deptCombo.setDefaultValue(null);
+	}
 
 	@Override
 	public HasClickHandlers getChooseBtn() {
@@ -114,6 +117,24 @@ public class ChooseStaffListWidget extends Composite implements	ChooseStaffListD
 	@Override
 	public Panel getResultPanel() {
 		return result;
+	}
+
+	@Override
+	public void hiddenSpecialBoxPanel() {
+		this.specialBoxPanel.getElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
+		
+	}
+
+	@Override
+	public void hiddenChooseBtn() {
+		this.chooseBtn.getElement().addClassName(CssStyleConstants.hidden);
+		
+	}
+
+	@Override
+	public void setCancelBtnText(String text) {
+		this.cancelBtn.setText(text);
+		
 	}
 
 //	@Override

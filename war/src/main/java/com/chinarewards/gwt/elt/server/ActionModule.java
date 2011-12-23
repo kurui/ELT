@@ -8,6 +8,7 @@ import net.customware.gwt.dispatch.server.guice.ActionHandlerModule;
 import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardAddRequest;
 import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardInitRequest;
 import com.chinarewards.gwt.elt.client.chooseStaff.request.SearchStaffChooseRequest;
+import com.chinarewards.gwt.elt.client.detailsOfAward.request.DetailsOfAwardInitRequest;
 import com.chinarewards.gwt.elt.client.enterprise.EnterpriseInitRequest;
 import com.chinarewards.gwt.elt.client.enterprise.EnterpriseRequest;
 import com.chinarewards.gwt.elt.client.login.LoginRequest;
@@ -23,6 +24,7 @@ import com.chinarewards.gwt.elt.server.awardReward.AwardRewardActionHandler;
 import com.chinarewards.gwt.elt.server.awardReward.AwardRewardAddActionHandler;
 import com.chinarewards.gwt.elt.server.chooseStaff.SearchStaffActionHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.SearchStaffHandler;
+import com.chinarewards.gwt.elt.server.detailsOfAward.DetailsOfAwardActionHandler;
 import com.chinarewards.gwt.elt.server.enterprise.EnterpriseActionHandler;
 import com.chinarewards.gwt.elt.server.enterprise.EnterpriseInitActionHandler;
 import com.chinarewards.gwt.elt.server.login.LoginActionHandler;
@@ -62,11 +64,14 @@ public class ActionModule extends ActionHandlerModule {
 		//Nominate add module
 		bindHandler(NominateAddRequest.class, NominateAddActionHandler.class);
 		
-		//奖 项
+		//企业注册以后要改
 		bindHandler(EnterpriseRequest.class, EnterpriseActionHandler.class);
 		bindHandler(EnterpriseInitRequest.class, EnterpriseInitActionHandler.class);
+		//奖 项
         bindHandler(CreateRewardsItemRequest.class,CreateRewardsItemHandler.class);
+        //奖 项快速选人
         bindHandler(SearchOrganizationRequest.class,SearchOrganizationHandler.class);
+        //奖 项弹出选择员工
         bindHandler(SearchStaffRequest.class,SearchStaffHandler.class);
 
 		
@@ -78,6 +83,10 @@ public class ActionModule extends ActionHandlerModule {
 		bindHandler(AwardRewardInitRequest.class, AwardRewardActionHandler.class);
 
 		bindHandler(AwardRewardAddRequest.class, AwardRewardAddActionHandler.class);
+
+		//奖励详细
+		bindHandler(DetailsOfAwardInitRequest.class, DetailsOfAwardActionHandler.class);
+		
 		
 	}
 }

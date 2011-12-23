@@ -6,6 +6,7 @@ import java.util.List;
 import com.chinarewards.gwt.elt.client.chooseStaff.presenter.ChooseStaffPanelPresenter.ChooseStaffPanelDisplay;
 import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
 import com.chinarewards.gwt.elt.client.view.OrganizationSpecialTextArea;
+import com.chinarewards.gwt.elt.client.view.constant.CssStyleConstants;
 import com.chinarewards.gwt.elt.client.widget.SpecialTextArea;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -14,6 +15,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -23,15 +25,19 @@ import com.google.gwt.user.client.ui.Widget;
  * @author nicho
  * 
  */
-public class ChooseStaffPanelWidget extends Composite implements ChooseStaffPanelDisplay {
-
+public class ChooseStaffPanelWidget extends Composite implements
+		ChooseStaffPanelDisplay {
 
 	@UiField
 	Button chooseBtn;
 
 	@UiField
 	Panel staffTextAreaPanel;
-	@UiField HTMLPanel select1;
+	@UiField
+	HTMLPanel select1;
+
+	@UiField
+	InlineLabel topName;
 
 	SpecialTextArea<OrganicationClient> staffTextArea;
 
@@ -54,13 +60,12 @@ public class ChooseStaffPanelWidget extends Composite implements ChooseStaffPane
 			.create(ChooseStaffPanelBinder.class);
 
 	void init() {
-		
+
 		staffTextArea = new OrganizationSpecialTextArea();
 		staffTextAreaPanel.add(staffTextArea);
-		
+
 	}
-    
- 
+
 	/*
 	 * @Override public Map<String, OrganicationClient> getStaffMap() { return
 	 * staffMap; }
@@ -80,20 +85,36 @@ public class ChooseStaffPanelWidget extends Composite implements ChooseStaffPane
 		List<String[]> realOrginzationIds = new ArrayList<String[]>();
 		List<OrganicationClient> existKeys = staffTextArea.getItemList();
 		for (OrganicationClient key : existKeys) {
-			String [] nameAndId=new String[2];
-			nameAndId[0]=key.getId();
-			nameAndId[1]=key.getName();
+			String[] nameAndId = new String[2];
+			nameAndId[0] = key.getId();
+			nameAndId[1] = key.getName();
 			realOrginzationIds.add(nameAndId);
 		}
 		return realOrginzationIds;
 	}
 
-
-	
 	@Override
 	public HasClickHandlers getChooseStaffBtnClick() {
 		return chooseBtn;
 	}
 
+	@Override
+	public void setTopName(String topName) {
+		this.topName.setText(topName);
+
+	}
+
+	@Override
+	public void setChooseBtnName(String name) {
+		this.chooseBtn.setText(name);
+
+	}
+
+	@Override
+	public void cleanStaffTextAreaPanel() {
+		this.staffTextAreaPanel.clear();
+		this.staffTextAreaPanel.getElement().getParentElement().addClassName(CssStyleConstants.hidden);
+		
+	}
 
 }

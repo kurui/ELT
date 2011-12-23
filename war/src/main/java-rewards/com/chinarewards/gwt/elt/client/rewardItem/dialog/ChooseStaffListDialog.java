@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.chinarewards.gwt.elt.client.chooseStaff.presenter.ChooseStaffListPresenter;
 import com.chinarewards.gwt.elt.client.core.ui.impl.AbstractDialog;
+import com.chinarewards.gwt.elt.model.ChoosePanel.InitChooseListParam;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -48,6 +49,10 @@ public class ChooseStaffListDialog extends AbstractDialog {
 	public void setRewardId(String rewardId) {
 		presenter.setRewardId(rewardId);
 	}
+	public void initChooseList(InitChooseListParam initChooseListParam) {
+		presenter.initChooseList(initChooseListParam);
+	}
+
 	public void setStaffOnly(boolean staffOnly) {
 		presenter.setStaffOnly(staffOnly);
 	}

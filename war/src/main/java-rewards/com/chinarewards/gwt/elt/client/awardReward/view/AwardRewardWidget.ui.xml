@@ -153,7 +153,7 @@
 
 						<td valign="top" class="" colspan="4">
 
-							<g:Button styleName="" ui:field="nominatebutton" text="提交提名"
+							<g:Button styleName="" ui:field="nominatebutton" text="提交颁奖"
 								width="100px" height="25px" />
 
 
