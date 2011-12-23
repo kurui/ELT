@@ -176,14 +176,14 @@ public class ChooseStaffListPresenterImpl extends
 					public String getValue(StaffClient staff) {
 						return staff.getName();
 					}
-				}, ref, "staffName");
+				}, ref, "staff.name");
 		resultTable.addColumn("被提名次数", new TextCell(),
 				new GetValue<StaffClient, String>() {
 					@Override
 					public String getValue(StaffClient staff) {
 						return staff.getNominateCount() + "";
 					}
-				}, ref, "nominateCount");
+				}, ref, "nominatecount");
 
 	}
 

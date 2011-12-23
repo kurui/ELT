@@ -37,6 +37,13 @@ public class CandidateDao extends BaseDao<Candidate> {
 			sql.append(" AND ( Upper(staff.name) LIKE Upper(:key))");
 			param.put("key", "%" + queryVo.getKey() + "%");
 		}
+		if (queryVo.getSortingDetail() != null) {
+			sql.append(" ORDER BY "
+					+ queryVo.getSortingDetail().getSort() + " "
+					+ queryVo.getSortingDetail().getDirection());
+		} else {
+			sql.append(" ORDER BY reward.createdAt DESC ");
+		}
 		Query q = getEm().createQuery(sql.toString());
 
 		for (String key : param.keySet()) {
