@@ -2,15 +2,12 @@ package com.chinarewards.gwt.elt.client.rewardItem.presenter;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
-import com.chinarewards.gwt.elt.client.core.Platform;
-import com.chinarewards.gwt.elt.client.core.ui.Dialog;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
-import com.chinarewards.gwt.elt.client.dataprovider.StaffChooseAsyncDataProvider;
+import com.chinarewards.gwt.elt.client.dataprovider.StaffAsyncDataProvider;
 import com.chinarewards.gwt.elt.client.mvp.BaseDialogPresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
@@ -22,22 +19,16 @@ import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.widget.GetValue;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.widget.Sorting;
-import com.google.gwt.cell.client.DateCell;
-import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.SimplePager;
-import com.google.gwt.user.cellview.client.SimplePager.TextLocation;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SelectionModel;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.inject.Inject;
-import com.google.inject.Provider;
 
 public class ChooseStaffWinPresenterImpl extends
 		BaseDialogPresenter<ChooseStaffWinDisplay> implements
@@ -49,7 +40,7 @@ public class ChooseStaffWinPresenterImpl extends
 
 	 final SimplePager simplePager = new SimplePager(); 
 	ListCellTable<StaffClient> resultTable;
-	StaffChooseAsyncDataProvider listViewAdapter;
+	StaffAsyncDataProvider listViewAdapter;
 	
 
 	// 为StaffAsyncDataProvider准备的数据。
@@ -190,35 +181,35 @@ public class ChooseStaffWinPresenterImpl extends
 				new GetValue<StaffClient, String>() {
 					@Override
 					public String getValue(StaffClient staff) {
-						return staff.getDeptTreeName();
+						return staff.getDeptName();
 					}
 				}, ref, "deptName");
-		if (!staffOnly) {
-			resultTable.addColumn("年资", new TextCell(),
-					new GetValue<StaffClient, String>() {
-						@Override
-						public String getValue(StaffClient staff) {
-							return staff.getEmployYears() == null ? "" : (staff
-									.getEmployYears() + "");
-						}
-					}, ref, "staff.dateOfEmployment");
-			resultTable.addColumn("获奖次数", new TextCell(),
-					new GetValue<StaffClient, String>() {
-						@Override
-						public String getValue(StaffClient staff) {
-							return staff.getReweardsTimes() == null ? "0"
-									: (staff.getReweardsTimes() + "");
-						}
-					}, ref, "num");
+//		if (!staffOnly) {
+//			resultTable.addColumn("年资", new TextCell(),
+//					new GetValue<StaffClient, String>() {
+//						@Override
+//						public String getValue(StaffClient staff) {
+//							return staff.getEmployYears() == null ? "" : (staff
+//									.getEmployYears() + "");
+//						}
+//					}, ref, "staff.dateOfEmployment");
+//			resultTable.addColumn("获奖次数", new TextCell(),
+//					new GetValue<StaffClient, String>() {
+//						@Override
+//						public String getValue(StaffClient staff) {
+//							return staff.getReweardsTimes() == null ? "0"
+//									: (staff.getReweardsTimes() + "");
+//						}
+//					}, ref, "num");
 
-			resultTable.addColumn("上一次获奖",
-					new DateCell(DateTimeFormat.getFormat("yyyy-MM-dd")),
-					new GetValue<StaffClient, Date>() {
-						@Override
-						public Date getValue(StaffClient staff) {
-							return staff.getLastRewardsDate();
-						}
-					}, ref, "lastRewardsTime");
+//			resultTable.addColumn("上一次获奖",
+//					new DateCell(DateTimeFormat.getFormat("yyyy-MM-dd")),
+//					new GetValue<StaffClient, Date>() {
+//						@Override
+//						public Date getValue(StaffClient staff) {
+//							return staff.getLastRewardsDate();
+//						}
+//					}, ref, "lastRewardsTime");
 
 //			resultTable.addColumn("", new TextCell(),
 //					new GetValue<StaffClient, String>() {
@@ -237,7 +228,7 @@ public class ChooseStaffWinPresenterImpl extends
 ////									.openDialog(dialog, null);
 //						}
 //					});
-		}
+	//	}
 	}
 
 	/**
@@ -266,8 +257,8 @@ public class ChooseStaffWinPresenterImpl extends
 		}
 		resultTable.setPageStart(0);
 		resultTable.setRowCount(0, false);
-		listViewAdapter = new StaffChooseAsyncDataProvider(dispatch, errorHandler,
-				sessionManager, criteriaVo, false);
+
+		listViewAdapter = new StaffAsyncDataProvider(dispatch, errorHandler,sessionManager, criteriaVo, false);//提供数据
 		listViewAdapter.addDataDisplay(resultTable);
 	}
 

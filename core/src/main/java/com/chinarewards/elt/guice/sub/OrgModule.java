@@ -11,11 +11,13 @@ import com.chinarewards.elt.dao.org.OrganizationDao;
 import com.chinarewards.elt.service.org.CorporationLogic;
 import com.chinarewards.elt.service.org.CorporationService;
 import com.chinarewards.elt.service.org.DepartmentLogic;
+import com.chinarewards.elt.service.org.DepartmentManagerLogic;
 import com.chinarewards.elt.service.org.OrganizationLogic;
 import com.chinarewards.elt.service.org.impl.CorporationLogicImpl;
 import com.chinarewards.elt.service.org.impl.CorporationProcessor;
 import com.chinarewards.elt.service.org.impl.CorporationServiceImpl;
 import com.chinarewards.elt.service.org.impl.DepartmentLogicImpl;
+import com.chinarewards.elt.service.org.impl.DepartmentManagerLogicImpl;
 import com.chinarewards.elt.service.org.impl.DeptmentProcessor;
 import com.chinarewards.elt.service.org.impl.OrganizationLogicImpl;
 import com.chinarewards.elt.service.org.impl.OrganizationProcessor;
@@ -56,6 +58,7 @@ public class OrgModule extends AbstractModule {
 		bind(OrganizationProcessor.class).annotatedWith(
 				Names.named("CorporationProcessor")).to(
 				CorporationProcessor.class);
+		bind(DepartmentManagerLogic.class).to(DepartmentManagerLogicImpl.class).in(Singleton.class);
 	}
 
 }

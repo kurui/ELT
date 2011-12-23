@@ -6,6 +6,7 @@ import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.rewardItem.presenter.ChooseStaffWinPresenter.ChooseStaffWinDisplay;
 import com.chinarewards.gwt.elt.client.rewards.model.StaffClient;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.chinarewards.gwt.elt.client.ui.StaffSpecialTextArea;
 import com.chinarewards.gwt.elt.client.widget.SpecialTextArea;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -21,9 +22,7 @@ import com.google.inject.Inject;
 
 public class ChooseStaffWinWidget extends Composite implements	ChooseStaffWinDisplay {
 
-	@UiField
-	Panel deptPanel;
-
+	
 	@UiField
 	TextBox name;
 
@@ -67,8 +66,8 @@ public class ChooseStaffWinWidget extends Composite implements	ChooseStaffWinDis
 	}
 
 	private void initSpecialTextBox() {
-	//	textBox = new StaffSpecialTextArea();
-	//	specialBoxPanel.add(textBox);
+		textBox = new StaffSpecialTextArea();
+		specialBoxPanel.add(textBox);
 	}
 
 	public Widget asWidget() {

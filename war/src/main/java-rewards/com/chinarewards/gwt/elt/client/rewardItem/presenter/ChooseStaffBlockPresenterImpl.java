@@ -87,10 +87,8 @@ public class ChooseStaffBlockPresenterImpl extends
 					@Override
 					public void onClick(ClickEvent arg0) {
 						final ChooseStaffWinDialog dialog = chooseStaffDialogProvider.get();
-						dialog.setNominee(false, true, null);// The key is the
-																// first
-																// parameter(false).
-						final HandlerRegistration registration = eventBus.addHandler(ChooseStaffEvent.getType(),	new ChooseStaffHandler() {
+						dialog.setNominee(false, true, null);
+						final HandlerRegistration registration = eventBus.addHandler(ChooseStaffEvent.getType(),new ChooseStaffHandler() {
 											@Override
 											public void chosenStaff(List<StaffClient> list) {
 												for (StaffClient r : list) {

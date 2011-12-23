@@ -1,6 +1,8 @@
 package com.chinarewards.gwt.elt.client.rewardItem.view;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
@@ -9,16 +11,16 @@ import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemCreatePresenter.RewardsItemDisplay;
 import com.chinarewards.gwt.elt.client.rewards.model.DayFrequencyClient;
 import com.chinarewards.gwt.elt.client.rewards.model.FrequencyClient;
-import com.chinarewards.gwt.elt.client.rewards.model.RewardsAmountRuleClient;
-import com.chinarewards.gwt.elt.client.rewards.model.UnifiedAmountRuleClient;
+import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
+import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient;
 import com.chinarewards.gwt.elt.client.rewards.model.WeekFrequencyClient;
 import com.chinarewards.gwt.elt.client.rewards.model.YearFrequencyClient;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.chinarewards.gwt.elt.client.view.OrganizationSpecialTextArea;
 import com.chinarewards.gwt.elt.client.view.constant.CssStyleConstants;
 import com.chinarewards.gwt.elt.client.view.constant.ViewConstants;
-import com.chinarewards.gwt.elt.util.StringUtil;
+import com.chinarewards.gwt.elt.client.widget.SpecialTextArea;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -26,7 +28,6 @@ import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
@@ -35,7 +36,6 @@ import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RadioButton;
-import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
@@ -110,7 +110,7 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 	
 	
 	/** 选人规则 **/
-	// 选人模块
+	// 候选人模块
 	@UiField
 	Panel staffPanel;
 
@@ -122,7 +122,15 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 	/** 存储有用的信息 **/
 	FrequencyClient frequency;
 	String rewardsUnit;
-
+	
+   //提名选人的按钮
+	@UiField
+	Button chooseBtns;
+	//显示提名人的面板
+	@UiField
+	Panel staffAreaPanel;
+	
+	SpecialTextArea<OrganicationClient> staffArea;
 	// is inject
 //	final DepartmentComboTree buildDept;
 //	final DepartmentComboTree accountDept;
@@ -145,21 +153,17 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 		public RewardsItemWidget( DispatchAsync dispatch,
 				ErrorHandler errorHandler, SessionManager sessionManager) {
 			initWidget(uiBinder.createAndBindUi(this));
-		//	this.buildDept = new DepartmentComboTree(dispatch, errorHandler,sessionManager);
-		//	buildDept.setStyleName("text");
-		//	this.accountDept = new DepartmentComboTree(dispatch, errorHandler,sessionManager);
-		//	accountDept.setStyleName("text");
-		//	this.win = win;
 			init();
 		}
 
 
 	private void init() {
+		staffArea = new OrganizationSpecialTextArea();
+		staffAreaPanel.add(staffArea);//提名人面板
 		rewardsDefinition.setHeight("2.5em");
 		standard.setHeight("2.5em");
 		startTime.setFormat(new DateBox.DefaultFormat(dateFormat));
-		
-	//	String siteId = DOM.getElementById("tr1").getNodeName();
+		//	String siteId = DOM.getElementById("tr1").getNodeName();
 
          //隐藏周期性
 		settingText.getElement().getParentElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
@@ -264,12 +268,20 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 		return setting;
 	}
 
+	
 	@Override
 	public HasValue<Date> getNextPublishTime() {
 		return nextPublicTime;
 	}
-
-	
+    
+	@Override
+	public HasClickHandlers getChooseStaffBtnClick() {//提名人选择事件
+		return chooseBtns;
+	}
+	@Override
+	public SpecialTextArea<OrganicationClient> getSpecialTextArea() {
+		return staffArea;
+	}
 
 	
 	@Override
@@ -518,5 +530,23 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 	}
 
 
+	
+
+
+	@Override
+	public List<String> getNominateIds() {
+		List<String> nominateIds = new ArrayList<String>();
+		List<OrganicationClient> existKeys = staffArea.getItemList();
+		for (OrganicationClient key : existKeys) {
+			// if (staffMap.containsKey(key.getId())) {
+			// OrganicationClient org = staffMap.get(key.getId());
+			nominateIds.add(key.getId());
+			// }
+		}
+		return nominateIds;
+	}
+
+
+		
 	
 }

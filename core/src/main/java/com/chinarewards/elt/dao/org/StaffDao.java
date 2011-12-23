@@ -1,6 +1,7 @@
 package com.chinarewards.elt.dao.org;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,10 +13,14 @@ import javax.persistence.Query;
 import org.apache.commons.beanutils.BeanUtils;
 
 import com.chinarewards.elt.common.BaseDao;
+import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.org.Staff;
+import com.chinarewards.elt.model.vo.DepartmentSearchVo;
 import com.chinarewards.elt.model.vo.StaffSearchVo;
 import com.chinarewards.elt.model.vo.StaffSearchVo.MultipleIdParam;
 import com.chinarewards.elt.model.vo.StaffSearchVo.OneIdParam;
+import com.chinarewards.elt.model.vo.WinnersRecordQueryResult;
+import com.chinarewards.elt.model.vo.WinnersRecordQueryVo;
 import com.chinarewards.elt.util.StringUtil;
 
 /**
@@ -212,6 +217,83 @@ public class StaffDao extends BaseDao<Staff> {
 		}
 		return query;
 	}
+	public int queryWinnerRewardsCount(WinnersRecordQueryVo queryVo,String corporationId) {
+		int total = Integer.parseInt(getWinnerRewardsQueryBySql(queryVo, COUNT,	corporationId).getSingleResult().toString());
+		logger.debug("total num:{}", total);
+		return total;
+	}
+	@SuppressWarnings("unchecked")
+	public List<WinnersRecordQueryResult> queryWinnerRewardsData(
+			WinnersRecordQueryVo queryVo, String corporationId) {
+		List<WinnersRecordQueryResult> res = new ArrayList<WinnersRecordQueryResult>();
+		List<Object[]> staffs = getWinnerRewardsQueryBySql(queryVo, SEARCH,	corporationId).getResultList();
+		logger.debug("staff size:{}", staffs.size());
+		for (Object[] o : staffs) {
+
+			WinnersRecordQueryResult re = new WinnersRecordQueryResult();
+			//
+			re.setStaffId((String) o[0]);
+			re.setStaffName((String) o[1]);
+			re.setDepName((String) o[2]);
+			re.setDepId((String) o[3]);
+			
+			res.add(re);
+		}
+		return res;
+	};
+	public Query getWinnerRewardsQueryBySql(WinnersRecordQueryVo queryVo,
+			String type, String corporationId) {
+
+				logger.debug(" Process in getWinnerRewardsQueryBySql method, type:{}, corpId:{}, queryVo:{}",new Object[] { type, corporationId, queryVo.toString() });
+
+				StringBuffer sql = new StringBuffer();
+				Map<String, Object> param = new HashMap<String, Object>();
+				if (SEARCH.equals(type)) {
+					sql.append(" select staff.id, staff.name as staffName,(select dept.name from organization dept where dept.id=staff.department_id)  as deptName,(select dept.id from organization dept where dept.id=staff.department_id) AS deptId");
+					sql.append(" from organization staff  where staff.org_type = 'staff' ");
+				} else if (COUNT.equals(type)) {
+					sql.append("select count(*) from organization staff where staff.org_type='staff' ");
+				}
+				sql.append(" AND staff.deleted = :deleted ");
+				param.put("deleted", 0);
+				sql.append(" AND staff.corporation_id=:corporationId ");
+				logger.debug("corporationId:{}", corporationId);
+				param.put("corporationId", corporationId);
+				if (!StringUtil.isEmptyString(queryVo.getKey())) {
+					sql.append(" AND ( Upper(staff.name) LIKE Upper(:key)");
+					sql.append(" OR Upper(staff.phone) LIKE Upper(:key)");
+					sql.append(" OR Upper(staff.email) LIKE Upper(:key))");
+					param.put("key", "%" + queryVo.getKey() + "%");
+				}
+
+				if (queryVo.getSubDeptIds() != null
+						&& !queryVo.getSubDeptIds().isEmpty()) {
+					sql.append(" AND staff.department_id in (:deptIds)");
+					param.put("deptIds", queryVo.getSubDeptIds());
+				}
+
+				// if corporation id is missing, will return empty result.
+				
+				
+                
+				logger.debug("native sql:{}", sql);
+
+				// XXX make this EQL instead of native query
+				Query q = getEm().createNativeQuery(sql.toString());
+				if (SEARCH.equals(type)) {
+					
+					if (queryVo.getPaginationDetail() != null) {
+						q.setMaxResults(queryVo.getPaginationDetail().getLimit());
+						q.setFirstResult(queryVo.getPaginationDetail().getStart());
+					}
+				}
+				for (String key : param.keySet()) {
+					q.setParameter(key, param.get(key));
+				}
+				return q;
+			}
+
+	
 	
 	@SuppressWarnings("unchecked")
 	public Set<String> findSiblingIds(String rootId, boolean includeRoot) {

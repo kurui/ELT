@@ -154,5 +154,37 @@ public class DepartmentDao extends BaseDao<Department> {
 				.getResultList();
 	}
 	
+	@SuppressWarnings("unchecked")
+	public Set<String> findSiblingIds(String rootId, boolean includeRoot) {
+
+		logger.debug(" Process in findSiblingIds, rootId:{}, includeRoot:{}",new Object[] { rootId, includeRoot });
+
+		Set<String> result = new TreeSet<String>();
+		List<String> currectList = new ArrayList<String>();
+
+		currectList.add(rootId);
+
+		StringBuffer eql = new StringBuffer();
+		eql.append(" SELECT dept.id FROM Department dept WHERE dept.parent.id IN (:parentIds) ");
+		logger.debug(" EQL:{}", eql.toString());
+
+		while (true) {
+			Query query = getEm().createQuery(eql.toString());
+			currectList = query.setParameter("parentIds", currectList)
+					.getResultList();
+			logger.trace("currectList:{}", currectList);
+			if (currectList == null || currectList.size() == 0) {
+				break;
+			} else {
+				result.addAll(currectList);
+			}
+		}
+
+		if (includeRoot) {
+			result.add(rootId);
+		}
+
+		return result;
+	}
 	
 }
