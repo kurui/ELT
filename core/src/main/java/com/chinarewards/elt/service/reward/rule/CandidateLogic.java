@@ -5,6 +5,7 @@ import java.util.List;
 import com.chinarewards.elt.domain.reward.person.Candidate;
 import com.chinarewards.elt.domain.reward.rule.CandidateRule;
 import com.chinarewards.elt.domain.user.SysUser;
+import com.chinarewards.elt.model.vo.WinnersRecordQueryVo;
 
 /**
  * Provides some methods to deal with {@link Candidate}
@@ -32,6 +33,13 @@ public interface CandidateLogic {
 	 */
 	public List<Candidate> getCandidatesFromReward(String rewardId);
 
+	/**
+	 * Get list of candidate from the specified Reward and query
+	 * 
+	 * @param rewardId,WinnersRecordQueryVo
+	 * @return
+	 */
+	public List<Candidate> getCandidatesFromRewardAndQueryVo(String rewardId,WinnersRecordQueryVo queryVo);
 	/**
 	 * 被提名人次数+1
 	 */

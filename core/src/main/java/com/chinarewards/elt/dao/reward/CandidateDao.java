@@ -1,9 +1,15 @@
 package com.chinarewards.elt.dao.reward;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.persistence.Query;
 
 import com.chinarewards.elt.common.BaseDao;
 import com.chinarewards.elt.domain.reward.person.Candidate;
+import com.chinarewards.elt.model.vo.WinnersRecordQueryVo;
+import com.chinarewards.elt.util.StringUtil;
 
 /**
  * Dao of {@link Candidate}
@@ -18,6 +24,27 @@ public class CandidateDao extends BaseDao<Candidate> {
 		return getEm()
 				.createQuery("FROM Candidate c WHERE c.reward.id = :rewardId")
 				.setParameter("rewardId", rewardId).getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Candidate> findCandidatesByRewardIdAndQueryVo(String rewardId,
+			WinnersRecordQueryVo queryVo) {
+		StringBuffer sql = new StringBuffer();
+		Map<String, Object> param = new HashMap<String, Object>();
+		sql.append("FROM Candidate  WHERE reward.id = (:rewardId)");
+		param.put("rewardId", rewardId);
+		if (!StringUtil.isEmptyString(queryVo.getKey())) {
+			sql.append(" AND ( Upper(staff.name) LIKE Upper(:key))");
+			param.put("key", "%" + queryVo.getKey() + "%");
+		}
+		Query q = getEm().createQuery(sql.toString());
+
+		for (String key : param.keySet()) {
+			q.setParameter(key, param.get(key));
+		}
+
+		return q.getResultList();
+
 	}
 
 	@SuppressWarnings("unchecked")
