@@ -106,13 +106,13 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 
 			}
 		};
-		cellTable.addColumn("奖项编号", new TextCell(),
-				new GetValue<RewardsClient, String>() {
-					@Override
-					public String getValue(RewardsClient rewards) {
-						return "01";
-					}
-				}, ref, "id");
+//		cellTable.addColumn("奖项编号", new TextCell(),
+//				new GetValue<RewardsClient, String>() {
+//					@Override
+//					public String getValue(RewardsClient rewards) {
+//						return "01";
+//					}
+//				}, ref, "id");
 
 		cellTable.addColumn("奖励名称", new TextCell(),
 				new GetValue<RewardsClient, String>() {
