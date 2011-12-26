@@ -234,21 +234,28 @@ public class RewardsItemListPresenterImpl extends
 				new GetValue<RewardsItemClient, String>() {
 					@Override
 					public String getValue(RewardsItemClient arg0) {
-						//为了测试.暂时屏蔽已经激活的.重复激活
-				//		if (arg0.isEnabled() == false)
+						
+						if (arg0.isEnabled() == false)
 							return "激活";
-				//		else
-				//			return "已激活";
+						else
+							return "已激活";
 					}
 				}, new FieldUpdater<RewardsItemClient, String>() {
 					@Override
 					public void update(int index, RewardsItemClient object,
 							String value) {
-					//	if (object.isEnabled() == false) {
+						if (object.isEnabled() == false) {
 							if (Window.confirm("确定激活?")) {
 								activationRewardItem(object.getId());
 							}
-					//	}
+						}
+						else
+						{
+							Window.alert("失败，"+object.getName()+"已经处于激活状态");
+							if (Window.confirm("为了测试,重新激活,再运行一次batch?")) {
+								activationRewardItem(object.getId());
+							}
+						}
 					}
 				});
 
