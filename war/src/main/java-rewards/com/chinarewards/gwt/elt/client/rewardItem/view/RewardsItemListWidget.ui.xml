@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+   	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:p1="urn:import:com.google.gwt.user.cellview.client"
+   	xmlns:d='urn:import:com.google.gwt.user.datepicker.client'>
+	<ui:image field="post_bg" resource="post_bg.jpg" repeatStyle="Horizontal"></ui:image>
+	<ui:image field="button_search" resource="button_search.jpg"></ui:image>
+	<ui:image field="button_add" resource="button_add.jpg"></ui:image>
+	<ui:style src="rewardsItemSearch.css" field="item"></ui:style>
+	<g:HTMLPanel>
+		<!-- 查询条件 -->
+		<div class="{item.fmtable}" >
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+			<tr>
+				<td width="20%" align="right">奖项名称:</td>
+				<td width="8%">
+					<g:TextBox ui:field="name" />
+				</td>
+				<!-- <td>状态:</td> <td></td> -->
+				<td width="19%" align="right">设立部门:</td>
+				<td width="19%">
+					<g:FlowPanel ui:field="departmentName" />
+
+				</td>
+				<td width="20%">
+					<g:CheckBox ui:field="chooseSubDepartment" />
+					包含子部门
+				</td>
+				<td width="14%">
+					<g:Button ui:field="search" styleName="button-search">搜索</g:Button>
+				</td>
+			</tr>
+			
+		</table>
+		</div>
+		<div class="{item.listtable}">
+			<g:FlowPanel ui:field="result"></g:FlowPanel>
+		</div>
+		<div id="post">
+				<g:Button ui:field="addBtn" styleName="button-add">新增
+						</g:Button>
+		
+		</div>
+		
+		
+	</g:HTMLPanel>
+</ui:UiBinder>

@@ -1,0 +1,153 @@
+/**
+ * 
+ */
+package com.chinarewards.gwt.elt.server.rewardItem;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import net.customware.gwt.dispatch.server.ExecutionContext;
+import net.customware.gwt.dispatch.shared.DispatchException;
+
+import org.slf4j.Logger;
+
+import com.chinarewards.elt.domain.reward.frequency.Frequency;
+import com.chinarewards.elt.model.common.PageStore;
+import com.chinarewards.elt.model.common.PaginationDetail;
+import com.chinarewards.elt.model.common.SortingDetail;
+import com.chinarewards.elt.model.reward.base.RequireAutoAward;
+import com.chinarewards.elt.model.reward.search.RewardItemSearchVo;
+import com.chinarewards.elt.model.reward.vo.RewardItemVo;
+import com.chinarewards.elt.model.user.UserContext;
+import com.chinarewards.elt.model.user.UserRole;
+import com.chinarewards.elt.service.reward.RewardItemService;
+import com.chinarewards.gwt.elt.client.rewardItem.request.CreateRewardsItemRequest;
+import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsItemRequest;
+import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsItemResponse;
+import com.chinarewards.gwt.elt.client.rewards.model.DepartmentClient;
+import com.chinarewards.gwt.elt.client.rewards.model.FrequencyClient;
+import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemClient;
+import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemCriteria;
+import com.chinarewards.gwt.elt.client.rewards.model.RewardsTypeClient;
+import com.chinarewards.gwt.elt.server.BaseActionHandler;
+import com.chinarewards.gwt.elt.server.logger.InjectLogger;
+import com.google.inject.Inject;
+
+/**
+ * @author Cream
+ * @since 0.2.0 2010-12-26
+ */
+public class SearchRewardsItemHandler extends	BaseActionHandler<SearchRewardsItemRequest, SearchRewardsItemResponse> {
+
+	@InjectLogger
+	Logger logger;
+	RewardItemService rewardItemService;
+
+	@Inject
+	public SearchRewardsItemHandler(RewardItemService rewardItemService) {
+		this.rewardItemService = rewardItemService;
+	}
+	
+
+	@Override
+	public SearchRewardsItemResponse execute(SearchRewardsItemRequest request,
+			ExecutionContext context) throws DispatchException {
+		logger.debug(" request parameters: {}", request);
+
+		SearchRewardsItemResponse resp = new SearchRewardsItemResponse();
+
+		RewardsItemCriteria rewardsItemClient = request.getRewardsItem();
+		RewardItemSearchVo model = adapter(rewardsItemClient);
+		logger.debug("RewardsItemSearchVo: {}", model);
+		// 模拟一条用户数据------------------
+				UserContext uc = new UserContext();
+				uc.setCorporationId("8a83835134598ab30134598ab6cc0004");
+				UserRole[] ur = new UserRole[1];
+				ur[0] = UserRole.CORP_ADMIN;
+				uc.setUserRoles(ur);
+		// ---------------------------------------
+		PageStore<RewardItemVo> items = rewardItemService.fetchRewardItems(uc,model);
+
+		resp.setTotal(items.getResultCount());
+		resp.setResult(adapter(items.getResultList(), rewardItemService));
+
+		return resp;
+	}
+
+	// Convert from RewardsItemSearchCriteria to GeneratorRewardsItemModel.
+	//从奖项查询的VO转为model的VO
+	private RewardItemSearchVo adapter(RewardsItemCriteria criteria) {
+		RewardItemSearchVo model = new RewardItemSearchVo();
+		model.setAccountDeptName(criteria.getAccountDeptName());
+		model.setBuildDeptName(criteria.getBuildDeptName());
+		model.setCorporationId(criteria.getCorporationId());
+		model.setDefinition(criteria.getDefinition());
+		model.setDeptIds(criteria.getDeptIds());
+		model.setId(criteria.getId());
+		model.setName(criteria.getName());
+		model.setDepartmentId(criteria.getDepartmentId());
+//		model.setSubDepartmentChoose(criteria.isSubDepartmentChoose());
+//		model.setRewardFrom(criteria.getRewardFrom());
+		model.setStandard(criteria.getStandard());
+		model.setStartTime(criteria.getStartTime());
+		model.setTypeId(criteria.getTypeId());
+		model.setTypeName(criteria.getTypeName());
+
+		if (criteria.getPagination() != null) {
+			PaginationDetail paginationDetail = new PaginationDetail();
+			paginationDetail.setStart(criteria.getPagination().getStart());
+			paginationDetail.setLimit(criteria.getPagination().getLimit());
+			model.setPaginationDetail(paginationDetail);
+		}
+
+		if (criteria.getSorting() != null) {
+			SortingDetail sortingDetail = new SortingDetail();
+			sortingDetail.setSort(criteria.getSorting().getSort());
+			sortingDetail.setDirection(criteria.getSorting().getDirection());
+			model.setSortingDetail(sortingDetail);
+		}
+		return model;
+	}
+
+	private List<RewardsItemClient> adapter(List<RewardItemVo> items,RewardItemService rewardsItemService) {
+		List<RewardsItemClient> resultList = new ArrayList<RewardsItemClient>();
+
+		for (RewardItemVo item : items) {
+			RewardsItemClient client = new RewardsItemClient();
+			client.setId(item.getId());
+			client.setName(item.getName());
+			client.setStandard(item.getStandard());
+		//	client.setType(new RewardsTypeClient(item.getType().getId(), item.getType().getName()));
+			client.setAccountDept(item.getAccountDept().getId());
+			client.setAuto(item.getAutoAward() == RequireAutoAward.requireAutoAward);
+			client.setBuilderDept(item.getBuilderDept().getId());
+			client.setDefinition(item.getDefinition());
+			client.setEnabled(item.isEnabled());
+			
+			client.setStartTime(item.getItem().getStartTime());
+			client.setCreateAt(item.getItem().getCreatedAt());
+			client.setNextPublishTime(item.getExpectAwardDate());
+	//		FrequencyHelper helper = new FrequencyHelper();
+			// frequency
+//			List<Frequency> units = item.getFrequency();
+			FrequencyClient frequency = null;  //helper.getFrequencyFromUnitList(rewardsItemService, item.getFrequency());
+			client.setFrequency(frequency);
+
+			resultList.add(client);
+		}
+
+		return resultList;
+	}
+
+	@Override
+	public Class<SearchRewardsItemRequest> getActionType() {
+		return SearchRewardsItemRequest.class;
+	}
+
+	@Override
+	public void rollback(SearchRewardsItemRequest arg0,
+			SearchRewardsItemResponse arg1, ExecutionContext arg2)
+			throws DispatchException {
+	}
+
+}

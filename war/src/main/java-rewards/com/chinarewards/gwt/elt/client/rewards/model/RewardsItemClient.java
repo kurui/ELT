@@ -72,7 +72,26 @@ public class RewardsItemClient implements Serializable,
 
 	// 是否已经生成奖励
 	private boolean isGeneratedRewards;
+	// 生成奖励的次数
+	private int degree;
+	private boolean enabled;//是否激活
 	
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public int getDegree() {
+		return degree;
+	}
+
+	public void setDegree(int degree) {
+		this.degree = degree;
+	}
+
 	//总积分
 	private Integer totalJF;
 	

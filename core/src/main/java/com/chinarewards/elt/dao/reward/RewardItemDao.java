@@ -64,6 +64,7 @@ public class RewardItemDao extends BaseDao<RewardItem> {
 			RewardItemSearchVo criteria) {
 		Map<String, Object> param = new HashMap<String, Object>();
 		StringBuffer eql = new StringBuffer();
+		System.out.println("RewardItemSearchVo : " + criteria);
 		if (SEARCH.equals(type)) {
 			eql.append(" SELECT item FROM RewardItem item WHERE 1 = 1 ");
 		} else if (COUNT.equals(type)) {
@@ -111,17 +112,13 @@ public class RewardItemDao extends BaseDao<RewardItem> {
 					+ criteria.getTypeName().trim().toUpperCase() + "%");
 		}
 		/**
-		 * 类型id来查询
+		 * id来查询
 		 */
-		if (!StringUtil.isEmptyString(criteria.getTypeId())) {
-			eql.append(" AND item.type.id = :typeId");
-			param.put("typeId", criteria.getTypeId());
+		if (!StringUtil.isEmptyString(criteria.getId())) {
+			eql.append(" AND item.id = :Id");
+			param.put("typeId", criteria.getId());
 		}
-		if (criteria.getAwardFrom() != null && criteria.getAwardTo() != null) {
-			eql.append(" AND (item.awardAmt < :to AND item.awardAmt > :from) ");
-			param.put("from", criteria.getAwardFrom());
-			param.put("to", criteria.getAwardTo());
-		}
+		
 		// if (criteria.getStartTime() != null && criteria.getEndTime() != null)
 		// {
 		// eql.append(" AND ((item.endTime IS NULL AND item.startTime IS NULL) ");
@@ -147,7 +144,7 @@ public class RewardItemDao extends BaseDao<RewardItem> {
 					+ criteria.getSortingDetail().getDirection());
 		}
 
-		logger.debug("EQL : " + eql);
+		System.out.println("EQL : " + eql);
 		Query query = getEm().createQuery(eql.toString());
 		if (SEARCH.equals(type)) {
 			if (criteria.getPaginationDetail() != null) {

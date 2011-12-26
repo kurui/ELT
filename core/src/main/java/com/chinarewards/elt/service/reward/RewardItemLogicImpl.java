@@ -237,8 +237,7 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 
 	@Override
 	public RewardItemVo fetchEntireRewardItemById(String rewardItemId) {
-		RewardItem rewardItem = rewardItemDao.findById(RewardItem.class,
-				rewardItemId);
+		RewardItem rewardItem = rewardItemDao.findById(RewardItem.class,rewardItemId);
 		RewardItemVo itemVo = convertFromRewardItemToVo(rewardItem, true);
 		return itemVo;
 	}
@@ -248,8 +247,7 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 			RewardItemSearchVo criteria) {
 		logger.debug("Process in fetchRewardItems method, parameter RewardItemSearchVo.toString:"
 				+ criteria);
-		PageStore<RewardItem> pageStore = rewardAclProcessorFactory
-				.generateRewardAclProcessor(context.getUserRoles())
+		PageStore<RewardItem> pageStore = rewardAclProcessorFactory.generateRewardAclProcessor(context.getUserRoles())
 				.fetchRewardItems(context, criteria);
 
 		List<RewardItem> itemList = pageStore.getResultList();

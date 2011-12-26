@@ -16,6 +16,7 @@ import com.chinarewards.gwt.elt.client.core.ui.MenuItem;
 import com.chinarewards.gwt.elt.client.plugin.MenuConstants;
 import com.chinarewards.gwt.elt.client.plugin.PluginConstants;
 import com.chinarewards.gwt.elt.client.rewardItem.editor.RewardsItemEditorDescriptor;
+import com.chinarewards.gwt.elt.client.rewardItem.editor.RewardsItemListEditorDescriptor;
 import com.google.gwt.user.client.ui.Image;
 import com.google.inject.Inject;
 
@@ -23,17 +24,17 @@ import com.google.inject.Inject;
  * @author lw
  * @since 2011年12月9日 15:36:15
  */
-public class RewardsItemPluginDescriptor implements PluginDescriptor {
+public class RewardsItemListPluginDescriptor implements PluginDescriptor {
 
 	final static Set<Extension> ext = new HashSet<Extension>();
-	final RewardsItemPlugin rewardsItemPlugin;
-	final RewardsItemEditorDescriptor rewardsItemEditorDescriptor;
+	final RewardsItemListPlugin rewardsItemListPlugin;
+	final RewardsItemListEditorDescriptor rewardsItemListEditorDescriptor;
 
 	@Inject
-	public RewardsItemPluginDescriptor(
-			final RewardsItemEditorDescriptor rewardsItemEditorDescriptor) {
-		this.rewardsItemEditorDescriptor = rewardsItemEditorDescriptor;
-		rewardsItemPlugin = new RewardsItemPlugin(this);
+	public RewardsItemListPluginDescriptor(
+			final RewardsItemListEditorDescriptor rewardsItemListEditorDescriptor) {
+		this.rewardsItemListEditorDescriptor = rewardsItemListEditorDescriptor;
+		rewardsItemListPlugin = new RewardsItemListPlugin(this);
 
 		/**
 		 * Search user menu
@@ -51,12 +52,12 @@ public class RewardsItemPluginDescriptor implements PluginDescriptor {
 
 					@Override
 					public int getOrder() {
-						return MenuConstants.MENU_ORDER_REWARDSITEM_ADD;
+						return MenuConstants.MENU_ORDER_REWARDSITEM_List;
 					}
 
 					@Override
 					public String getMenuId() {
-						return RewardsItemConstants.MENU_REWARDSITEM_ADD;
+						return RewardsItemConstants.MENU_REWARDSITEM_List;
 					}
 
 					@Override
@@ -66,7 +67,7 @@ public class RewardsItemPluginDescriptor implements PluginDescriptor {
 
 					@Override
 					public String getTitle() {
-						return "新建奖项";
+						return "奖项列表";
 					}
 
 					@Override
@@ -74,8 +75,8 @@ public class RewardsItemPluginDescriptor implements PluginDescriptor {
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(
-										RewardsItemConstants.EDITOR_REWARDSITEM_ADD,
-										"EDITOR_REWARDSITEM_ADD_DO_ID", null);
+										RewardsItemConstants.EDITOR_REWARDSITEM_List,
+										"EDITOR_REWARDSITEM_List_DO_ID", null);
 					}
 
 					@Override
@@ -88,7 +89,7 @@ public class RewardsItemPluginDescriptor implements PluginDescriptor {
 
 			@Override
 			public PluginDescriptor getPluginDescriptor() {
-				return RewardsItemPluginDescriptor.this;
+				return RewardsItemListPluginDescriptor.this;
 			}
 
 		});
@@ -102,12 +103,12 @@ public class RewardsItemPluginDescriptor implements PluginDescriptor {
 
 			@Override
 			public Object getInstance() {
-				return rewardsItemEditorDescriptor;
+				return rewardsItemListEditorDescriptor;
 			}
 
 			@Override
 			public PluginDescriptor getPluginDescriptor() {
-				return RewardsItemPluginDescriptor.this;
+				return RewardsItemListPluginDescriptor.this;
 			}
 
 		});
@@ -120,7 +121,7 @@ public class RewardsItemPluginDescriptor implements PluginDescriptor {
 
 	@Override
 	public Plugin getInstance() {
-		return rewardsItemPlugin;
+		return rewardsItemListPlugin;
 	}
 
 	@Override
