@@ -245,6 +245,12 @@ public class RewardsItemListPresenterImpl extends
 					public void update(int index, RewardsItemClient object,
 							String value) {
 						if (object.isEnabled() == false) {
+							if(object.getStartTime()==null)
+							{
+								Window.alert("失败，"+object.getName()+"资料不完整，影响其正常运作，请完善后再应用");
+								return;
+							}
+							
 							if (Window.confirm("确定激活?")) {
 								activationRewardItem(object.getId());
 							}
