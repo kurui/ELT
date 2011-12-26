@@ -52,7 +52,8 @@ public class RewardsItemListPresenterImpl extends
 	final ErrorHandler errorHandler;
 	final SessionManager sessionManager;
 
-	DateTimeFormat dateFormat = DateTimeFormat.getFormat(ViewConstants.date_format_all);
+	DateTimeFormat dateFormat = DateTimeFormat
+			.getFormat(ViewConstants.date_format_all);
 
 	// 是否部门管理员
 	boolean isHr = false;
@@ -62,13 +63,12 @@ public class RewardsItemListPresenterImpl extends
 	public RewardsItemListPresenterImpl(EventBus eventBus,
 			RewardsItemListDisplay display, DispatchAsync dispatch,
 			ErrorHandler errorHandler, SessionManager sessionManager
-		
-			) {
+
+	) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
-	
 
 	}
 
@@ -84,16 +84,16 @@ public class RewardsItemListPresenterImpl extends
 						doSearch();
 					}
 				}));
-		registerHandler(display.getAddBut().addClickHandler(
-				new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent event) {
-						Platform.getInstance()
+		registerHandler(display.getAddBut().addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				Platform.getInstance()
 						.getEditorRegistry()
-						.openEditor(RewardsItemConstants.EDITOR_REWARDSITEM_ADD,
+						.openEditor(
+								RewardsItemConstants.EDITOR_REWARDSITEM_ADD,
 								"EDITOR_REWARDSITEM_ADD_DO_ID", null);
-					}
-				}));
+			}
+		}));
 	}
 
 	private void buildTable() {
@@ -103,7 +103,8 @@ public class RewardsItemListPresenterImpl extends
 		pager.setDisplay(resultTable);
 		resultTable.setWidth(ViewConstants.page_width);
 		resultTable.setPageSize(ViewConstants.per_page_number_in_dialog);
-		listViewAdapter = new RewardsItemListViewAdapter(dispatch,errorHandler, sessionManager);
+		listViewAdapter = new RewardsItemListViewAdapter(dispatch,
+				errorHandler, sessionManager);
 		listViewAdapter.addDataDisplay(resultTable);
 
 		display.getDataContainer().clear();
@@ -113,41 +114,42 @@ public class RewardsItemListPresenterImpl extends
 
 	// init department name
 	private void init() {
-//		if (!GWT.isScript()) {
-//			isDepartmentManager = false;
-//		} else {
-//			List<UserRoleVo> roleList = Arrays.asList(sessionManager.getSession().getUserRoles());
-//			if (roleList.contains(UserRoleVo.CORP_ADMIN)) {	isHr = true;
-//			} else if (roleList.contains(UserRoleVo.DEPT_MGR)) {
-//				isDepartmentManager = true;
-//			}
-//			if (isHr) {
-//				//display.showDept(null);
-//			} else if (isDepartmentManager) {
-//				dispatch.execute(new DepartmentIdRequest(),
-//						new AsyncCallback<DepartmentIdResponse>() {
-//
-//							@Override
-//							public void onFailure(Throwable t) {
-//								errorHandler.alert(t);
-//							}
-//
-//							@Override
-//							public void onSuccess(DepartmentIdResponse resp) {
-//								display.showDept(resp.getDeptIds());
-//							}
-//						});
-//			} else {
-//				// local test
-//				display.showDept(null);
-//			}
-//		}
+		// if (!GWT.isScript()) {
+		// isDepartmentManager = false;
+		// } else {
+		// List<UserRoleVo> roleList =
+		// Arrays.asList(sessionManager.getSession().getUserRoles());
+		// if (roleList.contains(UserRoleVo.CORP_ADMIN)) { isHr = true;
+		// } else if (roleList.contains(UserRoleVo.DEPT_MGR)) {
+		// isDepartmentManager = true;
+		// }
+		// if (isHr) {
+		// //display.showDept(null);
+		// } else if (isDepartmentManager) {
+		// dispatch.execute(new DepartmentIdRequest(),
+		// new AsyncCallback<DepartmentIdResponse>() {
+		//
+		// @Override
+		// public void onFailure(Throwable t) {
+		// errorHandler.alert(t);
+		// }
+		//
+		// @Override
+		// public void onSuccess(DepartmentIdResponse resp) {
+		// display.showDept(resp.getDeptIds());
+		// }
+		// });
+		// } else {
+		// // local test
+		// display.showDept(null);
+		// }
+		// }
 
 		// comboTree = new DepartmentComboTree(dispatch, errorHandler,
 		// sessionManager);
 		// display.getDepartmentPanel().add(comboTree);
 		// deptId = comboTree.getSelectedItem().getId();
-//		setRewardsTypeList();
+		// setRewardsTypeList();
 	}
 
 	private void initTableColumns() {
@@ -155,7 +157,7 @@ public class RewardsItemListPresenterImpl extends
 			@Override
 			public void sortingCurrentPage(
 					Comparator<RewardsItemClient> comparator) {
-				 listViewAdapter.sortCurrentPage(comparator);
+				listViewAdapter.sortCurrentPage(comparator);
 			}
 
 			@Override
@@ -203,11 +205,11 @@ public class RewardsItemListPresenterImpl extends
 					}
 				});
 
-		resultTable.addColumn("生成奖励次数",new TextCell(),
-					new GetValue<RewardsItemClient, String>() {
+		resultTable.addColumn("生成奖励次数", new TextCell(),
+				new GetValue<RewardsItemClient, String>() {
 					@Override
 					public String getValue(RewardsItemClient rewards) {
-						return rewards.getDegree()+"";
+						return rewards.getDegree() + "";
 					}
 				}, ref, "nexRunBatchTime");
 		resultTable.addColumn("修改", new HyperLinkCell(),
@@ -222,7 +224,8 @@ public class RewardsItemListPresenterImpl extends
 							String value) {
 						Platform.getInstance()
 								.getEditorRegistry()
-								.openEditor(RewardsItemConstants.EDITOR_REWARDSITEM_ADD,
+								.openEditor(
+										RewardsItemConstants.EDITOR_REWARDSITEM_ADD,
 										"EDITOR_REWARDS_ITEM_ADD"
 												+ object.getId(), object);
 					}
@@ -231,44 +234,48 @@ public class RewardsItemListPresenterImpl extends
 				new GetValue<RewardsItemClient, String>() {
 					@Override
 					public String getValue(RewardsItemClient arg0) {
-						return "激活";
+						//为了测试.暂时屏蔽已经激活的.重复激活
+				//		if (arg0.isEnabled() == false)
+							return "激活";
+				//		else
+				//			return "已激活";
 					}
 				}, new FieldUpdater<RewardsItemClient, String>() {
 					@Override
 					public void update(int index, RewardsItemClient object,
 							String value) {
-						if(Window.confirm("确定激活?"))
-						{									
-							activationRewardItem(object.getId());
-						}
+					//	if (object.isEnabled() == false) {
+							if (Window.confirm("确定激活?")) {
+								activationRewardItem(object.getId());
+							}
+					//	}
 					}
 				});
 
-		
 	}
 
-	public void activationRewardItem(String rewardsItemId)
-	{
-		
+	public void activationRewardItem(String rewardsItemId) {
+
 		dispatch.execute(new ActivationRewardsItemRequest(rewardsItemId),
-		new AsyncCallback<ActivationRewardsItemResponse>() {
+				new AsyncCallback<ActivationRewardsItemResponse>() {
 
-			@Override
-			public void onFailure(Throwable t) {
-				Window.alert(t.getMessage());
-			}
+					@Override
+					public void onFailure(Throwable t) {
+						Window.alert(t.getMessage());
+					}
 
-			@Override
-			public void onSuccess(ActivationRewardsItemResponse resp) {
-				Window.alert(resp.getName()+"----已激活!");
-			}
-		});
+					@Override
+					public void onSuccess(ActivationRewardsItemResponse resp) {
+						Window.alert(resp.getName() + "----已激活!");
+					}
+				});
 	}
 
 	public void doSearch() {
 		RewardsItemCriteria criteria = new RewardsItemCriteria();
-		//criteria.setDepartmentId(display.getBuildDept());
-		criteria.setSubDepartmentChoose(display.getChooseSubDepartment().getValue());
+		// criteria.setDepartmentId(display.getBuildDept());
+		criteria.setSubDepartmentChoose(display.getChooseSubDepartment()
+				.getValue());
 		criteria.setName(display.getSearchName().getValue());
 		listViewAdapter.setCriteria(criteria);
 		listViewAdapter.reloadToFirstPage();
