@@ -220,9 +220,12 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 		RewardItemVo itemVo = new RewardItemVo();
 		if (isEntire) {
 			String rewardItemId = item.getId();
-			// Get frequency info
-			Frequency frequencie = frequencyLogic
-					.getFrequencyOfRewardItem(rewardItemId);
+			// Get frequency info,判断是否周期
+			if (item.getAutoGenerate() == RequireAutoGenerate.requireCyclic) {
+				Frequency frequencie = frequencyLogic
+						.getFrequencyOfRewardItem(rewardItemId);
+				itemVo.setFrequency(frequencie);
+			}
 			// Get candidate list rule
 			CandidateRule candidateRule = candidateRuleLogic
 					.findCandidateRuleFromRewardItem(rewardItemId);
@@ -230,7 +233,6 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 			List<Judge> judges = judgeLogic
 					.findJudgesFromRewardItem(rewardItemId);
 
-			itemVo.setFrequency(frequencie);
 			itemVo.setCandidateRule(candidateRule);
 			itemVo.setJudgeList(judges);
 		}
@@ -516,9 +518,10 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 
 	@Override
 	public void updateRewardItemCount(String rewardItemId) {
-		RewardItem rewardItem=rewardItemDao.findById(RewardItem.class, rewardItemId);
-		rewardItem.setDegree(rewardItem.getDegree()+1);
+		RewardItem rewardItem = rewardItemDao.findById(RewardItem.class,
+				rewardItemId);
+		rewardItem.setDegree(rewardItem.getDegree() + 1);
 		rewardItemDao.update(rewardItem);
-		
+
 	}
 }
