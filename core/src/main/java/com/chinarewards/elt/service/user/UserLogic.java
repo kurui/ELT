@@ -35,4 +35,10 @@ public interface UserLogic {
 	 * @return
 	 */
 	public SysUser createUser(SysUser caller, UserVo user);
+	
+	/**
+	 * find User By   Id
+	 * @return
+	 */
+	public SysUser findUserById(String id);
 }

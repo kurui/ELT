@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import com.chinarewards.elt.domain.reward.base.RewardItem;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
+import com.chinarewards.elt.model.reward.base.RequireAutoGenerate;
 import com.chinarewards.elt.model.reward.base.RewardItemParam;
 import com.chinarewards.elt.model.reward.search.RewardItemSearchVo;
 import com.chinarewards.elt.model.reward.vo.RewardItemVo;
@@ -17,6 +18,7 @@ import com.chinarewards.elt.service.org.OrganizationLogic;
 import com.chinarewards.elt.service.reward.rule.CandidateLogic;
 import com.chinarewards.elt.service.reward.rule.JudgeLogic;
 import com.chinarewards.elt.service.user.UserLogic;
+import com.chinarewards.elt.util.DateUtil;
 import com.google.inject.Inject;
 
 /**
@@ -27,6 +29,7 @@ import com.google.inject.Inject;
  */
 public class RewardItemServiceImpl implements RewardItemService {
 	private final RewardItemLogic rewardItemLogic;
+	private final RewardLogic rewardLogic;
 	private final UserLogic userLogic;
 	private final JudgeLogic judgeLogic;
 	private final EntityManager em;
@@ -36,13 +39,14 @@ public class RewardItemServiceImpl implements RewardItemService {
 	@Inject
 	public RewardItemServiceImpl(RewardItemLogic rewardItemLogic,
 			UserLogic userLogic, JudgeLogic judgeLogic, EntityManager em,
-			CandidateLogic candidateLogic, OrganizationLogic organizationLogic) {
+			CandidateLogic candidateLogic, OrganizationLogic organizationLogic,RewardLogic rewardLogic) {
 		this.rewardItemLogic = rewardItemLogic;
 		this.userLogic = userLogic;
 		this.judgeLogic = judgeLogic;
 		this.em = em;
 		this.candidateLogic = candidateLogic;
 		this.organizationLogic = organizationLogic;
+		this.rewardLogic=rewardLogic;
 
 	}
 
@@ -99,14 +103,27 @@ public class RewardItemServiceImpl implements RewardItemService {
 
 	@Override
 	public String enableRewardItem(UserContext context, String rewardItemId) {
-		SysUser suser = new SysUser();
-		suser.setId(context.getUserId());
+		SysUser suser = userLogic.findUserById(context.getUserId());
+		
 		if (em.getTransaction().isActive() != true) {
 			em.getTransaction().begin();
 		}
-		String name=rewardItemLogic.enableRewardItem(suser, rewardItemId).getName();
+		RewardItem rewardItem=rewardItemLogic.enableRewardItem(suser, rewardItemId);
+		Date expectAwardDate=rewardItem.getExpectAwardDate();
+		if(DateUtil.compareData(expectAwardDate, DateUtil.getTime()))
+		{
+			//如果开始时间是当前日.调用生成奖励方法
+			rewardLogic.awardFromRewardItem(suser, rewardItemId, DateUtil.getTime());
+			
+			if(rewardItem.getAutoGenerate()==RequireAutoGenerate.requireOneOff)
+			{
+				//如果是一次性,生成完成后设置 disable
+				rewardItemLogic.disableRewardItem(suser, rewardItemId);
+			}
+		}
+		
 		em.getTransaction().commit();
-		return name;
+		return rewardItem.getName();
 	}
 
 	@Override
