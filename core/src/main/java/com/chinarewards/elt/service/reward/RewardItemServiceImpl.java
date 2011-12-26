@@ -39,14 +39,15 @@ public class RewardItemServiceImpl implements RewardItemService {
 	@Inject
 	public RewardItemServiceImpl(RewardItemLogic rewardItemLogic,
 			UserLogic userLogic, JudgeLogic judgeLogic, EntityManager em,
-			CandidateLogic candidateLogic, OrganizationLogic organizationLogic,RewardLogic rewardLogic) {
+			CandidateLogic candidateLogic, OrganizationLogic organizationLogic,
+			RewardLogic rewardLogic) {
 		this.rewardItemLogic = rewardItemLogic;
 		this.userLogic = userLogic;
 		this.judgeLogic = judgeLogic;
 		this.em = em;
 		this.candidateLogic = candidateLogic;
 		this.organizationLogic = organizationLogic;
-		this.rewardLogic=rewardLogic;
+		this.rewardLogic = rewardLogic;
 
 	}
 
@@ -104,24 +105,28 @@ public class RewardItemServiceImpl implements RewardItemService {
 	@Override
 	public String enableRewardItem(UserContext context, String rewardItemId) {
 		SysUser suser = userLogic.findUserById(context.getUserId());
-		
+
 		if (em.getTransaction().isActive() != true) {
 			em.getTransaction().begin();
 		}
-		RewardItem rewardItem=rewardItemLogic.enableRewardItem(suser, rewardItemId);
-		Date expectAwardDate=rewardItem.getExpectAwardDate();
-		if(DateUtil.compareData(expectAwardDate, DateUtil.getTime()))
-		{
-			//如果开始时间是当前日.调用生成奖励方法
-			rewardLogic.awardFromRewardItem(suser, rewardItemId, DateUtil.getTime());
-			
-			if(rewardItem.getAutoGenerate()==RequireAutoGenerate.requireOneOff)
-			{
-				//如果是一次性,生成完成后设置 disable
+		RewardItem rewardItem = rewardItemLogic.enableRewardItem(suser,
+				rewardItemId);
+		Date expectAwardDate = rewardItem.getExpectAwardDate();
+		if (DateUtil.compareData(expectAwardDate, DateUtil.getTime())) {
+
+			if (rewardItem.getAutoGenerate() == RequireAutoGenerate.requireOneOff) {
+				// 如果开始时间是当前日.调用生成奖励方法
+				rewardLogic.awardFromRewardItem(suser, rewardItemId,DateUtil.getTime());
+				// 如果是一次性,生成完成后设置 disable
 				rewardItemLogic.disableRewardItem(suser, rewardItemId);
+
+			} else if (rewardItem.getAutoGenerate() == RequireAutoGenerate.requireCyclic) {
+				// 如果是周期性,运行Batch
+				rewardItemLogic.runAutoRewardGeneratorBatch(DateUtil.getTime());
 			}
+
 		}
-		
+
 		em.getTransaction().commit();
 		return rewardItem.getName();
 	}
@@ -133,7 +138,8 @@ public class RewardItemServiceImpl implements RewardItemService {
 		if (em.getTransaction().isActive() != true) {
 			em.getTransaction().begin();
 		}
-		String name=rewardItemLogic.disableRewardItem(suser, rewardItemId).getName();
+		String name = rewardItemLogic.disableRewardItem(suser, rewardItemId)
+				.getName();
 		em.getTransaction().commit();
 		return name;
 	}
