@@ -31,37 +31,44 @@ public class RewardItemServiceImpl implements RewardItemService {
 	private final JudgeLogic judgeLogic;
 	private final EntityManager em;
 	private final CandidateLogic candidateLogic;
-    private final OrganizationLogic organizationLogic;
+	private final OrganizationLogic organizationLogic;
+
 	@Inject
-	public RewardItemServiceImpl(RewardItemLogic rewardItemLogic, UserLogic userLogic,
-			JudgeLogic judgeLogic, EntityManager em,CandidateLogic candidateLogic,OrganizationLogic organizationLogic) {
+	public RewardItemServiceImpl(RewardItemLogic rewardItemLogic,
+			UserLogic userLogic, JudgeLogic judgeLogic, EntityManager em,
+			CandidateLogic candidateLogic, OrganizationLogic organizationLogic) {
 		this.rewardItemLogic = rewardItemLogic;
 		this.userLogic = userLogic;
 		this.judgeLogic = judgeLogic;
 		this.em = em;
-		this.candidateLogic=candidateLogic;
+		this.candidateLogic = candidateLogic;
 		this.organizationLogic = organizationLogic;
 
 	}
+
 	@Override
 	public RewardItem saveRewardItem(UserContext context, RewardItemParam param) {
 		// 获取当前登录人.登录没实现,先默认当前第一个提名人
 		if (em.getTransaction().isActive() != true) {
 			em.getTransaction().begin();
 		}
-		SysUser caller = userLogic.getDefaultUser();//暂时用
+		SysUser caller = userLogic.getDefaultUser();// 暂时用
 		RewardItem rewardItem = rewardItemLogic.saveRewardItem(caller, param);
 		em.getTransaction().commit();
 		return rewardItem;
 	}
+
 	@Override
-	public List<StaffAndDeptmentAutoCompile> staffAndDeptmentAutoCompile(String corporationId,	String falg, int limit) {
-		return organizationLogic.staffAndDeptmentAutoCompile(corporationId,falg, limit);
+	public List<StaffAndDeptmentAutoCompile> staffAndDeptmentAutoCompile(
+			String corporationId, String falg, int limit) {
+		return organizationLogic.staffAndDeptmentAutoCompile(corporationId,
+				falg, limit);
 	}
+
 	@Override
 	public void deleteRewardItem(String rewardItemId) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -71,9 +78,10 @@ public class RewardItemServiceImpl implements RewardItemService {
 	}
 
 	@Override
-	public PageStore<RewardItemVo> fetchRewardItems(UserContext context,RewardItemSearchVo criteria) {
-		
-		return  rewardItemLogic.fetchRewardItems(context, criteria);
+	public PageStore<RewardItemVo> fetchRewardItems(UserContext context,
+			RewardItemSearchVo criteria) {
+
+		return rewardItemLogic.fetchRewardItems(context, criteria);
 	}
 
 	@Override
@@ -90,23 +98,33 @@ public class RewardItemServiceImpl implements RewardItemService {
 	}
 
 	@Override
-	public RewardItem enableRewardItem(UserContext context, String rewardItemId) {
-		// TODO Auto-generated method stub
-		return null;
+	public String enableRewardItem(UserContext context, String rewardItemId) {
+		SysUser suser = new SysUser();
+		suser.setId(context.getUserId());
+		if (em.getTransaction().isActive() != true) {
+			em.getTransaction().begin();
+		}
+		String name=rewardItemLogic.enableRewardItem(suser, rewardItemId).getName();
+		em.getTransaction().commit();
+		return name;
 	}
 
 	@Override
-	public RewardItem disableRewardItem(UserContext context, String rewardItemId) {
-		// TODO Auto-generated method stub
-		return null;
+	public String disableRewardItem(UserContext context, String rewardItemId) {
+		SysUser suser = new SysUser();
+		suser.setId(context.getUserId());
+		if (em.getTransaction().isActive() != true) {
+			em.getTransaction().begin();
+		}
+		String name=rewardItemLogic.disableRewardItem(suser, rewardItemId).getName();
+		em.getTransaction().commit();
+		return name;
 	}
 
 	@Override
 	public void runAutoRewardGeneratorBatch(Date flagTime) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
-	
 
 }
