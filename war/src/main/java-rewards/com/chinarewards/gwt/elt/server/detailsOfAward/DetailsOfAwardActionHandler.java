@@ -90,6 +90,7 @@ public class DetailsOfAwardActionHandler
 			jpv.setName(jp.getName());
 			jpv.setIsNominate(jp.getIsNominate());
 			jpv.setStaffid(jp.getStaffid());
+			jpv.setJudgeStatus(jp.getJudgeStatus());
 			judgeVoList.add(jpv);
 
 		}

@@ -51,6 +51,15 @@ public class RewardsCriteria implements IsSerializable {
 	private String name;
 
 	private String rewardsItemId;
+	private String definition;
+
+	public String getDefinition() {
+		return definition;
+	}
+
+	public void setDefinition(String definition) {
+		this.definition = definition;
+	}
 
 	/**
 	 * 奖项设立之部门

@@ -65,7 +65,7 @@ public class RewardsListPluginDescriptor implements PluginDescriptor {
 
 					@Override
 					public String getTitle() {
-						return "奖励列表";
+						return "奖励列表(提名/颁奖/颁奖详细)";
 					}
 
 					@Override

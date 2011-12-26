@@ -120,7 +120,10 @@ public class DetailsOfAwardWidget extends Composite implements DetailsOfAwardDis
 	public void setJudge(List<JudgeParamVo> judge) {
 		String judgeStr="";
 		for (int i = 0; i < judge.size(); i++) {
-			judgeStr+=judge.get(i).getName()+",";
+			if ("NOMINATED".equals(judge.get(i).getJudgeStatus()))
+				judgeStr += judge.get(i).getName() + "(已完成提名),";
+			else
+				judgeStr += judge.get(i).getName() + ",";
 			
 		}
 		InlineLabel nominatelab = new InlineLabel(judgeStr);

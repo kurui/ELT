@@ -11,6 +11,7 @@ import com.chinarewards.elt.domain.reward.base.Reward;
 import com.chinarewards.elt.domain.reward.person.Candidate;
 import com.chinarewards.elt.domain.reward.rule.CandidateRule;
 import com.chinarewards.elt.domain.user.SysUser;
+import com.chinarewards.elt.model.vo.WinnersRecordQueryVo;
 import com.chinarewards.elt.util.DateUtil;
 import com.google.inject.Inject;
 
@@ -68,6 +69,13 @@ public class CandidateLogicImpl implements CandidateLogic {
 //		int xxx=candidateDao.updateCandidatesNominateCount(rewardId, staffIds);
 //		System.out.println(xxx);
 
+
+	}
+
+	@Override
+	public List<Candidate> getCandidatesFromRewardAndQueryVo(String rewardId,
+			WinnersRecordQueryVo queryVo) {
+		return candidateDao.findCandidatesByRewardIdAndQueryVo(rewardId,queryVo);
 
 	}
 

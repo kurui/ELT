@@ -31,7 +31,6 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.cellview.client.SimplePager.TextLocation;
-import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
 
 public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
@@ -59,18 +58,17 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 	@Override
 	public void bind() {
 		init();
-		registerHandler(display.getNominateClickHandlers().addClickHandler(
+		registerHandler(display.getSearchBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
-
-						Window.alert(".................");
-
+						init();
 					}
 				}));
 	}
 
 	private void init() {
 		buildTable();
+		doSearch();
 	}
 
 	private void buildTable() {
@@ -82,16 +80,19 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 		pager.setDisplay(cellTable);
 		cellTable.setWidth(ViewConstants.page_width);
 		cellTable.setPageSize(ViewConstants.per_page_number_in_dialog);
-
-		RewardsCriteria criteria = new RewardsCriteria();
-		listViewAdapter = new RewardsListViewAdapter(dispatch, criteria,
-				errorHandler, sessionManager);
-		listViewAdapter.addDataDisplay(cellTable);
+		
 		display.getResultPanel().clear();
 		display.getResultPanel().add(cellTable);
 		display.getResultPanel().add(pager);
 	}
-
+	private void doSearch(){
+		RewardsCriteria criteria = new RewardsCriteria();
+		criteria.setName(display.getName().getValue());
+		criteria.setDefinition(display.getDefinition().getValue());
+		listViewAdapter = new RewardsListViewAdapter(dispatch, criteria,
+				errorHandler, sessionManager);
+		listViewAdapter.addDataDisplay(cellTable);
+	}
 	private void initTableColumns() {
 		Sorting<RewardsClient> ref = new Sorting<RewardsClient>() {
 			@Override

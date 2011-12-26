@@ -1,6 +1,5 @@
 package com.chinarewards.gwt.elt.server.chooseStaff;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +11,9 @@ import org.slf4j.Logger;
 import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.reward.person.Candidate;
 import com.chinarewards.elt.model.common.PageStore;
+import com.chinarewards.elt.model.common.PaginationDetail;
+import com.chinarewards.elt.model.common.SortingDetail;
+import com.chinarewards.elt.model.vo.WinnersRecordQueryVo;
 import com.chinarewards.elt.service.reward.nominee.NomineeService;
 import com.chinarewards.gwt.elt.client.chooseStaff.request.SearchStaffChooseRequest;
 import com.chinarewards.gwt.elt.client.chooseStaff.request.SearchStaffChooseResponse;
@@ -26,14 +28,14 @@ public class SearchStaffActionHandler extends
 
 	@InjectLogger
 	Logger log;
-	
+
 	NomineeService nomineeService;
 
 	@Inject
-	public SearchStaffActionHandler(NomineeService nomineeService)
-	{
-		this.nomineeService=nomineeService;
+	public SearchStaffActionHandler(NomineeService nomineeService) {
+		this.nomineeService = nomineeService;
 	}
+
 	@Override
 	public SearchStaffChooseResponse execute(SearchStaffChooseRequest request,
 			ExecutionContext arg1) throws DispatchException {
@@ -42,11 +44,12 @@ public class SearchStaffActionHandler extends
 				new String[] { request.getCriteria().getKey(),
 						request.getCriteria().getDeptId(), });
 
+		WinnersRecordQueryVo criteria = buildWinnersRecordQueryVo(request);
 
-//		WinnersRecordQueryVo criteria = buildWinnersRecordQueryVo(request);
+		PageStore<Candidate> store = nomineeService
+				.getCandidatesFromRewardAndQueryVo(request.getCriteria()
+						.getRewardId(), criteria);
 
-		PageStore<Candidate> store = nomineeService.getCandidatesFromReward(request.getCriteria().getRewardId());
-	//			.queryWinnerRecords(criteria, request.isLimitDataByUserRole());
 		StaffSearchResult result = new StaffSearchResult();
 
 		log.debug("Total num:{}, size:{}",
@@ -58,54 +61,52 @@ public class SearchStaffActionHandler extends
 		return new SearchStaffChooseResponse(result);
 	}
 
-//	private WinnersRecordQueryVo buildWinnersRecordQueryVo(
-//			SearchStaffRequest request) {
-//		
-//		
-//		boolean isOrgIdsLimit = false;
-//		List<String> orgIds = new ArrayList<String>();
-//		if (!request.getCriteria().isChooseAll()) {
-//			isOrgIdsLimit = true;
-//			orgIds = request.getCriteria().getOrgIds();
-//		}
-//		WinnersRecordQueryVo criteria = new WinnersRecordQueryVo();
-//		criteria.setFilterRewardsParticipants(isOrgIdsLimit);
-//		criteria.setOrgIds(orgIds);
-//		criteria.setKey(request.getCriteria().getKey());
-//		//criteria.setDeptId(request.getCriteria().getDeptId());
-//		
-//		if (request.getCriteria().getDeptId() != null) {
-//			ArrayList<String> list = new ArrayList<String>();
-//			list.add(request.getCriteria().getDeptId());
-//			criteria.setSubDeptIds(list);
-//			criteria.setIncludeSubDepts(true);	// retain original behavior
-//		}
-//		
-//
-//		if (request.getCriteria().getPagination() != null) {
-//			PaginationDetail paginationDetail = new PaginationDetail();
-//			paginationDetail.setStart(request.getCriteria().getPagination()
-//					.getStart());
-//			paginationDetail.setLimit(request.getCriteria().getPagination()
-//					.getLimit());
-//			criteria.setPaginationDetail(paginationDetail);
-//		}
-//
-//		if (request.getCriteria().getSorting() != null) {
-//			SortingDetail sorting = new SortingDetail();
-//			sorting.setSort(request.getCriteria().getSorting().getSort());
-//			sorting.setDirection(request.getCriteria().getSorting()
-//					.getDirection());
-//			criteria.setSortingDetail(sorting);
-//		}
-//
-//		criteria.setProcessFlag(WinnerProcessFlag.PROCESS_SUCCESS);
-//
-//		return criteria;
-//	}
+	private WinnersRecordQueryVo buildWinnersRecordQueryVo(
+			SearchStaffChooseRequest request) {
+
+		boolean isOrgIdsLimit = false;
+		List<String> orgIds = new ArrayList<String>();
+		if (!request.getCriteria().isChooseAll()) {
+			isOrgIdsLimit = true;
+			orgIds = request.getCriteria().getOrgIds();
+		}
+		WinnersRecordQueryVo criteria = new WinnersRecordQueryVo();
+		criteria.setFilterRewardsParticipants(isOrgIdsLimit);
+		criteria.setOrgIds(orgIds);
+		criteria.setKey(request.getCriteria().getKey());
+		// criteria.setDeptId(request.getCriteria().getDeptId());
+
+		if (request.getCriteria().getDeptId() != null) {
+			ArrayList<String> list = new ArrayList<String>();
+			list.add(request.getCriteria().getDeptId());
+			criteria.setSubDeptIds(list);
+			criteria.setIncludeSubDepts(true); // retain original behavior
+		}
+
+		if (request.getCriteria().getPagination() != null) {
+			PaginationDetail paginationDetail = new PaginationDetail();
+			paginationDetail.setStart(request.getCriteria().getPagination()
+					.getStart());
+			paginationDetail.setLimit(request.getCriteria().getPagination()
+					.getLimit());
+			criteria.setPaginationDetail(paginationDetail);
+		}
+
+		if (request.getCriteria().getSorting() != null) {
+			SortingDetail sorting = new SortingDetail();
+			sorting.setSort(request.getCriteria().getSorting().getSort());
+			sorting.setDirection(request.getCriteria().getSorting()
+					.getDirection());
+			criteria.setSortingDetail(sorting);
+		}
+
+		// criteria.setProcessFlag(WinnerProcessFlag.PROCESS_SUCCESS);
+
+		return criteria;
+	}
 
 	private List<StaffClient> adapter(List<Candidate> records) {
-		
+
 		List<StaffClient> list = new ArrayList<StaffClient>();
 		for (Candidate record : records) {
 			StaffClient staff = new StaffClient();
@@ -117,7 +118,7 @@ public class SearchStaffActionHandler extends
 
 		return list;
 	}
-	
+
 	protected String buildDepartmentHierarchyName(Department d) {
 		Department i = d;
 		String s = "";
@@ -137,8 +138,9 @@ public class SearchStaffActionHandler extends
 	}
 
 	@Override
-	public void rollback(SearchStaffChooseRequest arg0, SearchStaffChooseResponse arg1,
-			ExecutionContext arg2) throws DispatchException {
+	public void rollback(SearchStaffChooseRequest arg0,
+			SearchStaffChooseResponse arg1, ExecutionContext arg2)
+			throws DispatchException {
 
 	}
 

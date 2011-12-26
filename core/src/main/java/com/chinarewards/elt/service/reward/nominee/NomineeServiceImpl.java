@@ -10,6 +10,7 @@ import com.chinarewards.elt.domain.reward.person.NomineeLot;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.reward.exception.JudgeException;
+import com.chinarewards.elt.model.vo.WinnersRecordQueryVo;
 import com.chinarewards.elt.service.reward.rule.CandidateLogic;
 import com.chinarewards.elt.service.reward.rule.JudgeLogic;
 import com.chinarewards.elt.service.reward.rule.NomineeLogic;
@@ -70,5 +71,17 @@ public class NomineeServiceImpl implements NomineeService {
 		return storeVo;
 
 	}
+	@Override
+	public PageStore<Candidate> getCandidatesFromRewardAndQueryVo(String rewardId,WinnersRecordQueryVo queryVo) {
 
+		List<Candidate> candidateList = candidateLogic.getCandidatesFromRewardAndQueryVo(rewardId, queryVo);
+
+		PageStore<Candidate> storeVo = new PageStore<Candidate>();
+		storeVo.setResultCount(candidateList.size());
+		storeVo.setResultList(candidateList);
+
+		return storeVo;
+
+	}
+	
 }

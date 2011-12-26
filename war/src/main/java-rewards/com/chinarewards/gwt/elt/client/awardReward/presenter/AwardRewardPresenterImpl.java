@@ -74,15 +74,28 @@ public class AwardRewardPresenterImpl extends
 						}
 
 						if (staffIds.size() <= 0) {
-							Window.alert("请选择获奖的人!");
-							return;
+							if (Window.confirm("没有选人，是否需要选人并颁奖？"))
+							{
+								return;
+							}
+							else
+							{
+								
+								Platform.getInstance()
+								.getEditorRegistry()
+								.closeEditor(
+										AwardRewardConstants.EDITOR_AWARDREWARD_SEARCH,
+										instanceId);
+								return;
+							}
+							
 						}
 						if (staffIds.size() > headcount) {
-							Window.alert("获奖的人超出预定人数!");
+							Window.alert("颁奖人数超过奖励名额，请重新选择!");
 							return;
 						}
 						if (staffIds.size() < headcount) {
-							if (!Window.confirm("获奖的人少于预定人数!,是否继续颁奖?"))
+							if (!Window.confirm("只选了"+staffIds.size()+"人，还可以选择"+(headcount-staffIds.size())+"个名额，继续颁奖还是返回选人?"))
 								return;
 						}
 						if (Window.confirm("确定获奖人:" + nominateName + "?")) {

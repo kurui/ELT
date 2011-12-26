@@ -82,7 +82,7 @@ public class NominatePresenterImpl extends
 						}
 						if(staffIds.size()>headcount)
 						{
-							if(!Window.confirm("允许超额提名?"))
+							if(!Window.confirm("超过名额，需要减少提名人数!.....允许超额提名?"))
 								return ;
 						}
 						

@@ -1,20 +1,15 @@
 package com.chinarewards.gwt.elt.client.nominate.view;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.chinarewards.gwt.elt.client.nominate.presenter.NominatePresenter.NominateDisplay;
-import com.chinarewards.gwt.elt.model.nominate.CandidateParamVo;
 import com.chinarewards.gwt.elt.model.nominate.JudgeParamVo;
-import com.chinarewards.gwt.elt.model.nominate.NominateCheckBox;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
@@ -39,8 +34,8 @@ public class NominateWidget extends Composite implements NominateDisplay {
 	InlineLabel number;
 	@UiField
 	VerticalPanel judge;
-	//@UiField
-	//VerticalPanel candidate;
+	// @UiField
+	// VerticalPanel candidate;
 	@UiField
 	Label awardNature;
 	@UiField
@@ -58,13 +53,11 @@ public class NominateWidget extends Composite implements NominateDisplay {
 	InlineLabel nominateStaff;
 	@UiField
 	InlineLabel awardAmt;
-	
-	
+
 	// 选人模块
 	@UiField
 	Panel staffPanel;
-	
-	
+
 	private static HrRegisterWidgetUiBinder uiBinder = GWT
 			.create(HrRegisterWidgetUiBinder.class);
 
@@ -115,60 +108,64 @@ public class NominateWidget extends Composite implements NominateDisplay {
 		this.number.setText(number);
 
 	}
+
 	@Override
 	public void setAwardAmt(String awardAmt) {
 		this.awardAmt.setText(awardAmt);
 
 	}
+
 	@Override
 	public void setJudge(List<JudgeParamVo> judge) {
-		String judgeStr="";
+		String judgeStr = "";
 		for (int i = 0; i < judge.size(); i++) {
-			judgeStr+=judge.get(i).getName()+",";
-			
+			if ("NOMINATED".equals(judge.get(i).getJudgeStatus()))
+				judgeStr += judge.get(i).getName() + "(已完成提名),";
+			else
+				judgeStr += judge.get(i).getName() + ",";
+
 		}
 		InlineLabel nominatelab = new InlineLabel(judgeStr);
 		this.judge.add(nominatelab);
-		
 
 	}
 
-//	@Override
-//	public void setCandidate(List<CandidateParamVo> candidate) {
-//		boolean fal = true;//是否创建人界面
-//		if (fal) {
-//			String str = "";
-//			for (int i = 0; i < 20; i++) {
-//				str += "&nbsp";
-//			}
-//			HTML label = new HTML(str + "被提名次数");
-//
-//			this.candidate.add(label);
-//		}
-//
-//		for (int i = 0; i < candidate.size(); i++) {
-//			CandidateParamVo candidateVo =candidate.get(i);
-//			String checkBoxName=candidateVo.getName();
-//			String name=candidateVo.getName();
-//
-//			if (fal) {
-//				String str2 = "";
-//				for (int j = name.length(); j < 20; j++) {
-//					str2 += "-";
-//				}
-//				checkBoxName =name+ str2 + candidateVo.getNominateCount();// 是否显示被提名次数
-//			}
-//			CheckBox checkBox = new CheckBox(checkBoxName);
-//			checkBox.getElement().setAttribute("staffid", candidateVo.getStaffid());
-//			checkBox.getElement().setAttribute("candidateid", candidateVo.getId());
-//			checkBox.getElement().setAttribute("staffName", candidateVo.getName());
-//	
-//
-//
-//			this.candidate.add(checkBox);
-//		}
-//
-//	}
+	// @Override
+	// public void setCandidate(List<CandidateParamVo> candidate) {
+	// boolean fal = true;//是否创建人界面
+	// if (fal) {
+	// String str = "";
+	// for (int i = 0; i < 20; i++) {
+	// str += "&nbsp";
+	// }
+	// HTML label = new HTML(str + "被提名次数");
+	//
+	// this.candidate.add(label);
+	// }
+	//
+	// for (int i = 0; i < candidate.size(); i++) {
+	// CandidateParamVo candidateVo =candidate.get(i);
+	// String checkBoxName=candidateVo.getName();
+	// String name=candidateVo.getName();
+	//
+	// if (fal) {
+	// String str2 = "";
+	// for (int j = name.length(); j < 20; j++) {
+	// str2 += "-";
+	// }
+	// checkBoxName =name+ str2 + candidateVo.getNominateCount();// 是否显示被提名次数
+	// }
+	// CheckBox checkBox = new CheckBox(checkBoxName);
+	// checkBox.getElement().setAttribute("staffid", candidateVo.getStaffid());
+	// checkBox.getElement().setAttribute("candidateid", candidateVo.getId());
+	// checkBox.getElement().setAttribute("staffName", candidateVo.getName());
+	//
+	//
+	//
+	// this.candidate.add(checkBox);
+	// }
+	//
+	// }
 
 	@Override
 	public void setAwardNature(String awardNature) {
@@ -195,43 +192,43 @@ public class NominateWidget extends Composite implements NominateDisplay {
 	public void setAwardName(String awardName) {
 		this.awardName.setText(awardName);
 	}
+
 	@Override
 	public void setExpectNominateDate(String expectNominateDate) {
 		this.expectNominateDate.setText(expectNominateDate);
-		
+
 	}
 
 	@Override
 	public void setNominateStaff(String nominateStaff) {
 		this.nominateStaff.setText(nominateStaff);
 	}
-	
-//	@SuppressWarnings("deprecation")
-//	@Override
-//	public List<NominateCheckBox> getNominateCheckBoxList() {
-//		List<NominateCheckBox> idlist = new ArrayList<NominateCheckBox>();
-//		
-//		for (int i=0;i<candidate.getWidgetCount();i++){
-//		    Widget widget = candidate.getWidget(i);
-//		    if (widget instanceof CheckBox){
-//		        CheckBox checkBox = (CheckBox) widget;
-//		        if(checkBox.isChecked()==true)
-//		        {
-//		        	NominateCheckBox box=new NominateCheckBox();
-//		        	box.setStaffId(checkBox.getElement().getAttribute("staffid"));
-//		        	box.setCandidateId(checkBox.getElement().getAttribute("candidateid"));
-//		        	box.setStaffName(checkBox.getElement().getAttribute("staffName"));
-//		        	
-//		        	idlist.add(box);
-//		        }
-//		    }
-//
-//		}
-//
-//		return idlist;
-//	}
-	
-	
+
+	// @SuppressWarnings("deprecation")
+	// @Override
+	// public List<NominateCheckBox> getNominateCheckBoxList() {
+	// List<NominateCheckBox> idlist = new ArrayList<NominateCheckBox>();
+	//
+	// for (int i=0;i<candidate.getWidgetCount();i++){
+	// Widget widget = candidate.getWidget(i);
+	// if (widget instanceof CheckBox){
+	// CheckBox checkBox = (CheckBox) widget;
+	// if(checkBox.isChecked()==true)
+	// {
+	// NominateCheckBox box=new NominateCheckBox();
+	// box.setStaffId(checkBox.getElement().getAttribute("staffid"));
+	// box.setCandidateId(checkBox.getElement().getAttribute("candidateid"));
+	// box.setStaffName(checkBox.getElement().getAttribute("staffName"));
+	//
+	// idlist.add(box);
+	// }
+	// }
+	//
+	// }
+	//
+	// return idlist;
+	// }
+
 	@Override
 	public void initStaffPanel(Widget w) {
 		staffPanel.add(w);
