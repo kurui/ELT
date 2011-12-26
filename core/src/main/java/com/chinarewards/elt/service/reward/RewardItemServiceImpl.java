@@ -111,18 +111,22 @@ public class RewardItemServiceImpl implements RewardItemService {
 		}
 		RewardItem rewardItem = rewardItemLogic.enableRewardItem(suser,
 				rewardItemId);
-		Date expectAwardDate = rewardItem.getExpectAwardDate();
-		if (DateUtil.compareData(expectAwardDate, DateUtil.getTime())) {
+		Date startDate = rewardItem.getStartTime();
+		if (DateUtil.compareData(startDate, DateUtil.getTime())) {
 
 			if (rewardItem.getAutoGenerate() == RequireAutoGenerate.requireOneOff) {
 				// 如果开始时间是当前日.调用生成奖励方法
 				rewardLogic.awardFromRewardItem(suser, rewardItemId,DateUtil.getTime());
 				// 如果是一次性,生成完成后设置 disable
 				rewardItemLogic.disableRewardItem(suser, rewardItemId);
+				//修改次数
+				rewardItemLogic.updateRewardItemCount(rewardItemId);
 
 			} else if (rewardItem.getAutoGenerate() == RequireAutoGenerate.requireCyclic) {
-				// 如果是周期性,运行Batch
-				rewardItemLogic.runAutoRewardGeneratorBatch(DateUtil.getTime());
+				// 如果是周期性,单独运行这个奖项
+				rewardItemLogic.runAutoRewardGeneratorByRewardItem(DateUtil.getTime(),rewardItemId);
+				//修改次数
+				rewardItemLogic.updateRewardItemCount(rewardItemId);
 			}
 
 		}
@@ -149,5 +153,7 @@ public class RewardItemServiceImpl implements RewardItemService {
 		// TODO Auto-generated method stub
 
 	}
+
+
 
 }

@@ -110,5 +110,7 @@ public interface RewardItemService {
 	 * @return
 	 */
 	public List<StaffAndDeptmentAutoCompile> staffAndDeptmentAutoCompile(String corporationId,String falg, int limit);
+	
+
 
 }

@@ -106,10 +106,22 @@ public interface RewardItemLogic {
 	public void runAutoRewardGeneratorBatch(Date flagTime);
 
 	/**
+	 * Run batch to generate rewards automatic.
+	 * 
+	 * @param flagTime
+	 */
+	public void runAutoRewardGeneratorByRewardItem(Date flagTime,String RewardItemid);
+	
+	/**
 	 * Calculate the next run batch time of the specified rewarditem.
 	 * 
 	 * @param rewardItemId
 	 * @return
 	 */
 	public Date calNextRunBatchTime(String rewardItemId);
+	
+	/**
+	 * 奖项激活后,奖项次数+1
+	 */
+	public void updateRewardItemCount(String rewardItemId);
 }
