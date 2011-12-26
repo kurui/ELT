@@ -11,8 +11,12 @@ public abstract class RewardsItemConstants {
 
 	// Plugin name
 	public static final String PLUGIN_REWARDSITEM = "PLUGIN_REWARDSITEM";
-
+		
 	// The menu and editor of finding user.
-	public static final String MENU_REWARDSITEM_SEARCH = "MENU_REWARDSITEM_SEARCH";
-	public static final String EDITOR_REWARDSITEM_SEARCH = "EDITOR_REWARDSITEM_SEARCH";
+	public static final String MENU_REWARDSITEM_ADD = "MENU_REWARDSITEM_ADD";
+	public static final String EDITOR_REWARDSITEM_ADD = "EDITOR_REWARDSITEM_ADD";
+	
+	// The menu and editor of finding user.
+	public static final String MENU_REWARDSITEM_List = "MENU_REWARDSITEM_List";
+	public static final String EDITOR_REWARDSITEM_List = "EDITOR_REWARDSITEM_List";
 }

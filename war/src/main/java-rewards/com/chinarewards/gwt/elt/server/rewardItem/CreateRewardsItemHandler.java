@@ -85,7 +85,7 @@ public class CreateRewardsItemHandler extends	BaseActionHandler<CreateRewardsIte
 		
 		parameter.setHeadcountLimit(client.getSizeLimit());//人数
 		parameter.setTotalAmtLimit(client.getTotalJF());//总积分
-		parameter.setAwardAmt(client.getRewardsFrom());
+		parameter.setAwardAmt(client.getRewardsFrom());//个人要得的积分
 		parameter.setBuilderDeptId(client.getBuilderDept());
 		parameter.setAccountDeptId(client.getAccountDept());
 		parameter.setNominateAheadDays(client.getTmdays());//提名提前的天数
@@ -149,9 +149,11 @@ public class CreateRewardsItemHandler extends	BaseActionHandler<CreateRewardsIte
 		// 自动奖项
 		if (client.isAuto()) {
 			parameter.setAutoAward(RequireAutoAward.requireAutoAward);
-		}else
+		}else if(orgIds.size()>0)
 		{
 			parameter.setAutoAward(RequireAutoAward.requireNominate);//要求提名
+		}else {
+			parameter.setAutoAward(RequireAutoAward.requireNone);//没有要求
 		}
 		
 		return parameter;

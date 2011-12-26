@@ -3,6 +3,7 @@
  */
 package com.chinarewards.elt.model.reward.search;
 
+import java.util.Date;
 import java.util.List;
 
 import com.chinarewards.elt.model.common.PaginationDetail;
@@ -32,6 +33,60 @@ public class RewardItemSearchVo {
 	 * Search by id of RewardItem
 	 */
 	private String typeId;
+	private Integer totalJF;//总积分
+	private double rewardFrom;//个人得分
+	private int headcountLimit;//总人数
+	private Integer tmdays;//提前的天数
+	private int degree;// 生成奖励的次数
+	public int getDegree() {
+		return degree;
+	}
+    private String id;
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public void setDegree(int degree) {
+		this.degree = degree;
+	}
+
+	public Integer getTotalJF() {
+		return totalJF;
+	}
+
+	public void setTotalJF(Integer totalJF) {
+		this.totalJF = totalJF;
+	}
+
+	
+
+	public double getRewardFrom() {
+		return rewardFrom;
+	}
+
+	public void setRewardFrom(double rewardFrom) {
+		this.rewardFrom = rewardFrom;
+	}
+
+	public int getHeadcountLimit() {
+		return headcountLimit;
+	}
+
+	public void setHeadcountLimit(int headcountLimit) {
+		this.headcountLimit = headcountLimit;
+	}
+
+	public Integer getTmdays() {
+		return tmdays;
+	}
+
+	public void setTmdays(Integer tmdays) {
+		this.tmdays = tmdays;
+	}
 
 	/**
 	 * Search by name of RewardItem
@@ -45,13 +100,9 @@ public class RewardItemSearchVo {
 	/**
 	 * The award amount range.
 	 */
-	private Double awardFrom;
+	private Date startTime;
 
-	/**
-	 * The award amount range.
-	 */
-	private Double awardTo;
-
+	
 	/**
 	 * Search the RewardItem by the specified department manage directly.
 	 * 
@@ -139,20 +190,14 @@ public class RewardItemSearchVo {
 		this.standard = standard;
 	}
 
-	public Double getAwardFrom() {
-		return awardFrom;
+		
+
+	public Date getStartTime() {
+		return startTime;
 	}
 
-	public void setAwardFrom(Double awardFrom) {
-		this.awardFrom = awardFrom;
-	}
-
-	public Double getAwardTo() {
-		return awardTo;
-	}
-
-	public void setAwardTo(Double awardTo) {
-		this.awardTo = awardTo;
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
 	}
 
 	public String getDepartmentId() {

@@ -265,8 +265,8 @@ public class RewardsItemCreatePresenterImpl extends
 						rewardsItem.setSizeLimit(Integer.parseInt(display.getPeopleSizeLimit().getValue()));
 						
 						//定义设置奖项和入帐的部门，现为同一部门，以后从session中得到，现为固定部门
-						rewardsItem.setBuilderDept("8a83835134598a790134598a7c920008");
-						rewardsItem.setAccountDept("8a83835134598a790134598a7c920008");
+						rewardsItem.setBuilderDept("8a83835134598ab30134598ab6eb0006");
+						rewardsItem.setAccountDept("8a83835134598ab30134598ab6eb0006");
 
 						// 候选人信息
 						rewardsItem.setParticipateInfo(staffBlock.getparticipateInfo());
@@ -312,7 +312,7 @@ public class RewardsItemCreatePresenterImpl extends
 							doSave(rewardsItem);
 						} else {
 							rewardsItem.setId(rewardsItemId);
-						//	doEdit(rewardsItem);//修改功能
+						//	doEdit(rewardsItem);/修改功能
 						}
 					}
 				}));

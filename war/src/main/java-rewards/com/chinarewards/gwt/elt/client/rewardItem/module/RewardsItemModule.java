@@ -15,9 +15,13 @@ import com.chinarewards.gwt.elt.client.rewardItem.presenter.FrequencySettingPres
 import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemCreatePresenter;
 import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemCreatePresenter.RewardsItemDisplay;
 import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemCreatePresenterImpl;
+import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemListPresenter;
+import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemListPresenter.RewardsItemListDisplay;
+import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemListPresenterImpl;
 import com.chinarewards.gwt.elt.client.rewardItem.view.ChooseStaffBlockWidget;
 import com.chinarewards.gwt.elt.client.rewardItem.view.ChooseStaffWinWidget;
 import com.chinarewards.gwt.elt.client.rewardItem.view.FrequencySettingWidget;
+import com.chinarewards.gwt.elt.client.rewardItem.view.RewardsItemListWidget;
 import com.chinarewards.gwt.elt.client.rewardItem.view.RewardsItemWidget;
 import com.google.gwt.inject.client.AbstractGinModule;
 
@@ -38,6 +42,9 @@ public class RewardsItemModule extends AbstractGinModule {
 		bind(FrequencySettingDisplay.class).to(FrequencySettingWidget.class);
 		
 		bind(RewardStartDateCalculator.class).to(SimpleRewardStartDateCalculator.class);
+		//列表
+		bind(RewardsItemListPresenter.class).to(RewardsItemListPresenterImpl.class);
+		bind(RewardsItemListDisplay.class).to(RewardsItemListWidget.class);
 	}
 	
 

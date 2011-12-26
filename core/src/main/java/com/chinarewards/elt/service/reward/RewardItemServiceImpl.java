@@ -71,10 +71,9 @@ public class RewardItemServiceImpl implements RewardItemService {
 	}
 
 	@Override
-	public PageStore<RewardItemVo> fetchRewardItems(UserContext context,
-			RewardItemSearchVo criteria) {
-		// TODO Auto-generated method stub
-		return null;
+	public PageStore<RewardItemVo> fetchRewardItems(UserContext context,RewardItemSearchVo criteria) {
+		
+		return  rewardItemLogic.fetchRewardItems(context, criteria);
 	}
 
 	@Override
