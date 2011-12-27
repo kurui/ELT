@@ -194,7 +194,7 @@ public class RewardsItemListPresenterImpl extends
 					public Date getValue(RewardsItemClient object) {
 						return object.getCreateAt();
 					}
-				}, ref, "createTime");
+				});
 
 		resultTable.addColumn("开始日期",
 				new DateCell(DateTimeFormat.getFormat("yyyy-MM-dd")),
@@ -203,7 +203,7 @@ public class RewardsItemListPresenterImpl extends
 					public Date getValue(RewardsItemClient rewards) {
 						return rewards.getStartTime();
 					}
-				});
+				}, ref, "startTime");
 
 		resultTable.addColumn("生成奖励次数", new TextCell(),
 				new GetValue<RewardsItemClient, String>() {

@@ -16,6 +16,7 @@ import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.common.PaginationDetail;
 import com.chinarewards.elt.model.common.SortingDetail;
 import com.chinarewards.elt.model.reward.base.RequireAutoAward;
+import com.chinarewards.elt.model.reward.base.RequireAutoGenerate;
 import com.chinarewards.elt.model.reward.search.RewardItemSearchVo;
 import com.chinarewards.elt.model.reward.vo.RewardItemVo;
 import com.chinarewards.elt.model.user.UserContext;
@@ -75,7 +76,7 @@ public class SearchRewardsItemHandler extends	BaseActionHandler<SearchRewardsIte
 	}
 
 	// Convert from RewardsItemSearchCriteria to GeneratorRewardsItemModel.
-	//从奖项查询的VO转为model的VO
+	//从奖项查询的VO转为model的VO,主要是传查询的条件
 	private RewardItemSearchVo adapter(RewardsItemCriteria criteria) {
 		RewardItemSearchVo model = new RewardItemSearchVo();
 		model.setAccountDeptName(criteria.getAccountDeptName());
@@ -108,7 +109,7 @@ public class SearchRewardsItemHandler extends	BaseActionHandler<SearchRewardsIte
 		}
 		return model;
 	}
-
+    //从服务端得到的数据到客户端在列表显示的数据
 	private List<RewardsItemClient> adapter(List<RewardItemVo> items,RewardItemService rewardsItemService) {
 		List<RewardsItemClient> resultList = new ArrayList<RewardsItemClient>();
 
@@ -116,23 +117,12 @@ public class SearchRewardsItemHandler extends	BaseActionHandler<SearchRewardsIte
 			RewardsItemClient client = new RewardsItemClient();
 			client.setId(item.getId());
 			client.setName(item.getName());
-			client.setStandard(item.getStandard());
-		//	client.setType(new RewardsTypeClient(item.getType().getId(), item.getType().getName()));
-			client.setAccountDept(item.getAccountDept().getId());
-			client.setAuto(item.getAutoAward() == RequireAutoAward.requireAutoAward);
-			client.setBuilderDept(item.getBuilderDept().getId());
-			client.setDefinition(item.getDefinition());
-			client.setEnabled(item.isEnabled());
-			
+			client.setAuto(item.getAutoAward() == RequireAutoAward.requireAutoAward);//自动奖
+			client.setDegree(item.getItem().getDegree());
+			client.setPeriodEnable(item.getAutoGenerate()==RequireAutoGenerate.requireCyclic);//周期性
 			client.setStartTime(item.getItem().getStartTime());
 			client.setCreateAt(item.getItem().getCreatedAt());
 			client.setNextPublishTime(item.getExpectAwardDate());
-	//		FrequencyHelper helper = new FrequencyHelper();
-			// frequency
-//			List<Frequency> units = item.getFrequency();
-			FrequencyClient frequency = null;  //helper.getFrequencyFromUnitList(rewardsItemService, item.getFrequency());
-			client.setFrequency(frequency);
-
 			resultList.add(client);
 		}
 

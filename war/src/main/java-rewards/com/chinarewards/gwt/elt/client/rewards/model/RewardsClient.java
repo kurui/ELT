@@ -205,13 +205,7 @@ public class RewardsClient implements Serializable, Comparable<RewardsClient> {
 		baseInfo.setRewardsUnit(rewardsUnit);
 	}
 
-	public boolean isPeopleSizeLimit() {
-		return baseInfo.isPeopleSizeLimit();
-	}
-
-	public void setPeopleSizeLimit(boolean isPeopleSizeLimit) {
-		baseInfo.setPeopleSizeLimit(isPeopleSizeLimit);
-	}
+	
 
 	public ParticipateInfoClient getParticipateInfo() {
 		return baseInfo.getParticipateInfo();

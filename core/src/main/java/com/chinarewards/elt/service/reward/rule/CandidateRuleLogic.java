@@ -81,4 +81,7 @@ public interface CandidateRuleLogic {
 	 */
 	public Set<Staff> getQualifiedStaffsFromCandidateRuleId(
 			String candidateRuleId);
+	
+	//修改时得到候选人的列表
+	public List<DirectCandidateData> findDirectCandidateDataListByDirectRuleId(	String directRuleId);
 }

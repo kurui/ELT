@@ -31,9 +31,7 @@ public class RewardsBaseInfo implements Serializable {
 	// 评判标准
 	private String standard;
 
-	// 是否人数限制
-	private boolean isPeopleSizeLimit;
-
+	
 	// 人数限制
 	private int SizeLimit;
 
@@ -159,10 +157,7 @@ public class RewardsBaseInfo implements Serializable {
 		this.rewardsUnit = rewardsUnit;
 	}
 
-	public boolean isPeopleSizeLimit() {
-		return isPeopleSizeLimit;
-	}
-
+	
 	public int getSizeLimit() {
 		return SizeLimit;
 	}
@@ -171,10 +166,7 @@ public class RewardsBaseInfo implements Serializable {
 		SizeLimit = sizeLimit;
 	}
 
-	public void setPeopleSizeLimit(boolean isPeopleSizeLimit) {
-		this.isPeopleSizeLimit = isPeopleSizeLimit;
-	}
-
+	
 	public StaffClient getStaff() {
 		return staff;
 	}
@@ -187,7 +179,7 @@ public class RewardsBaseInfo implements Serializable {
 	public String toString() {
 		return "RewardsBaseInfo [id=" + id + ", name=" + name + ", type="
 				+ type + ", definition=" + definition + ", standard="
-				+ standard + ", isPeopleSizeLimit=" + isPeopleSizeLimit
+				+ standard 
 				+ ", SizeLimit=" + SizeLimit + ", builderDept=" + builderDept
 				+ ", accountDept=" + accountDept + ", createAt=" + createAt
 				+ ", createdBy=" + createdBy + ", rewardsUnit=" + rewardsUnit

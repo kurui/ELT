@@ -89,25 +89,29 @@ public class CreateRewardsItemHandler extends	BaseActionHandler<CreateRewardsIte
 		parameter.setBuilderDeptId(client.getBuilderDept());
 		parameter.setAccountDeptId(client.getAccountDept());
 		parameter.setNominateAheadDays(client.getTmdays());//提名提前的天数
+		parameter.setPublishDate(client.getNextPublishTime());	
+		parameter.setStartTime(client.getStartTime());
+		parameter.setExpectAwardDate(client.getExpectAwardDate());
+		
+		System.out.println("client.getFrequency()"+client.getFrequency());
 		if(client.isPeriodEnable()==true){//如果是周期性的
 			// 奖项的频率
 			parameter.setFrequency(adapterFrequency( client.getFrequency()));
-			parameter.setPublishDate(client.getNextPublishTime());	
+			
 		   parameter.setAutoGenerate(RequireAutoGenerate.requireCyclic);//循环
 		}else{
 			parameter.setAutoGenerate(RequireAutoGenerate.requireOneOff);//只生成一次
-			parameter.setPublishDate(client.getStartTime());// 如果是一次性的，下次公布时间为现在时间
 			// 奖项的频率没有
 			parameter.setFrequency(null);
 		}
+		System.out.println("parameter.getFrequency()"+parameter.getFrequency());
 		// 奖励员工的单位（元/缤纷）,如果没值默认BINFEN
 		if (StringUtil.isEmpty(client.getRewardsUnit())) {
 			parameter.setAwardUnit(TransactionUnit.BEANPOINTS);
 		} else {
 			parameter.setAwardUnit(TransactionUnit.valueOf(client.getRewardsUnit()));
 		}
-		parameter.setStartTime(client.getStartTime());
-		parameter.setExpectAwardDate(client.getNextTime());
+		
 		
 
 		

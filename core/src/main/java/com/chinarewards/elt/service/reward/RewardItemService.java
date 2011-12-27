@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 
 import com.chinarewards.elt.domain.reward.base.RewardItem;
+import com.chinarewards.elt.domain.reward.frequency.WeekFrequencyDays;
+import com.chinarewards.elt.domain.reward.rule.DirectCandidateData;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.reward.base.RewardItemParam;
 import com.chinarewards.elt.model.reward.search.RewardItemSearchVo;
@@ -110,6 +112,17 @@ public interface RewardItemService {
 	 * @return
 	 */
 	public List<StaffAndDeptmentAutoCompile> staffAndDeptmentAutoCompile(String corporationId,String falg, int limit);
+
+    /**
+     * 
+     * @param weekSelectorUnitId
+     * @return
+     */
+	public List<WeekFrequencyDays> findWeekFrequencyDaysByFrequencyId(String weekSelectorId);
+	
+	
+	public List<DirectCandidateData> findDirectCandidateDataListByDirectRuleId(String directRuleId);
+
 	
 
 
