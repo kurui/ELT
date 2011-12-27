@@ -8,17 +8,16 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.frequency.FrequencyCalculator;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
-import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemCreatePresenter.RewardsItemDisplay;
+import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemViewPresenter.RewardsItemViewDisplay;
 import com.chinarewards.gwt.elt.client.rewards.model.DayFrequencyClient;
 import com.chinarewards.gwt.elt.client.rewards.model.FrequencyClient;
 import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
 import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient;
+import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient.SomeoneClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemClient;
 import com.chinarewards.gwt.elt.client.rewards.model.SpecialCondition;
 import com.chinarewards.gwt.elt.client.rewards.model.WeekFrequencyClient;
 import com.chinarewards.gwt.elt.client.rewards.model.YearFrequencyClient;
-import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient.EveryoneClient;
-import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient.SomeoneClient;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.view.OrganizationSpecialTextArea;
 import com.chinarewards.gwt.elt.client.view.constant.CssStyleConstants;
@@ -47,7 +46,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.datepicker.client.DateBox;
 import com.google.inject.Inject;
 
-public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
+public class RewardsItemViewWidget extends Composite implements RewardsItemViewDisplay {
 
 	/** 基本信息 **/
 	// 名称
@@ -84,8 +83,7 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 	@UiField
 	Label settingText;
 	// 频率设定按钮
-	@UiField
-	Button setting;
+	
 	// 开始时间
 	@UiField
 	DateBox startTime;
@@ -120,17 +118,13 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 	Panel staffPanel;
 
 	
-	// 保存或修改
-	@UiField
-	Button save;
+	
 
 	/** 存储有用的信息 **/
 	FrequencyClient frequency;
 	String rewardsUnit;
 	
-   //提名选人的按钮
-	@UiField
-	Button chooseBtns;
+  
 	//显示提名人的面板
 	@UiField
 	Panel staffAreaPanel;
@@ -144,18 +138,18 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 	DateTimeFormat dateFormat = DateTimeFormat
 			.getFormat(ViewConstants.date_format);
 
-	interface RewardsItemWidgetBinder extends
-			UiBinder<Widget, RewardsItemWidget> {
+	interface RewardsItemViewWidgetBinder extends
+			UiBinder<Widget, RewardsItemViewWidget> {
 
 	}
 
-	private static RewardsItemWidgetBinder uiBinder = GWT
-			.create(RewardsItemWidgetBinder.class);
+	private static RewardsItemViewWidgetBinder uiBinder = GWT
+			.create(RewardsItemViewWidgetBinder.class);
 
 	//Win win;
 
 		@Inject
-		public RewardsItemWidget( DispatchAsync dispatch,
+		public RewardsItemViewWidget( DispatchAsync dispatch,
 				ErrorHandler errorHandler, SessionManager sessionManager) {
 			initWidget(uiBinder.createAndBindUi(this));
 			init();
@@ -268,57 +262,25 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 		return this;
 	}
 
-	@Override
-	public HasClickHandlers getFrequencySettingClick() {
-		return setting;
-	}
-
+	
 	
 	@Override
 	public HasValue<Date> getNextPublishTime() {
 		return nextPublicTime;
 	}
     
-	@Override
-	public HasClickHandlers getChooseStaffBtnClick() {//提名人选择事件
-		return chooseBtns;
-	}
+	
 	@Override
 	public SpecialTextArea<OrganicationClient> getSpecialTextArea() {
 		return staffArea;
 	}
 
 	
-	@Override
-	public HasClickHandlers getSaveClick() {
-		return save;
-	}
-
 	
 	
 	
-	@Override
-	public void clear() {
-		rewardsName.setTitle("");
-		/* 增加请选择下拉选项 */
-		//rewardsType.setSelectedIndex(0);
-		rewardsDefinition.setText("");
-		standard.setText("");
-		startTime.setValue(null);
-		
-		peopleSizeLimit.setValue("");
-		frequency = null;
-		settingText.setText("");
-		autoCbx.setValue(false, true);
-		specialCbx.setValue(false, true);
-		birthRadio.setValue(false, true);
-
-		//nextPublicTime.setValue(null);
-		nextRewardsTime.setValue(null);
-		//lastRewardsTime.setText("");
-		// 清空设定规则为为设定
-		//setIsAmountLevel("未设定");
-	}
+	
+	
 	@Override
 	public HasValue<String> getRewardsName() {
 		return rewardsName;
@@ -383,15 +345,7 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 		return rewardsUnit;
 	}
 
-	@Override
-	public HasValueChangeHandlers<Date> getStartTimeChangeHandler() {
-		return startTime;
-	}
-
-	@Override
-	public HasValueChangeHandlers<Date> getRewardsTimeChangeHandler() {
-		return nextRewardsTime;
-	}
+	
 
 	@Override
 	public HasValue<Boolean> getSpecialCbx() {
@@ -434,12 +388,6 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 
 	
 
-	@Override
-	public TextBox getRewardsFromFocus() {
-		return rewardsFrom;
-	}
-
-	
 	
 
 	@Override
@@ -468,20 +416,6 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 	@Override
 	public HasValue<Boolean> getEnableCbx() {
 		
-		return moretimes;
-	}
-
-
-	@Override
-	public HasValueChangeHandlers<Boolean> onetimesClick() {
-		// TODO Auto-generated method stub
-		return onetimes;
-	}
-
-
-	@Override
-	public HasValueChangeHandlers<Boolean> moretimesClick() {
-		// TODO Auto-generated method stub
 		return moretimes;
 	}
 

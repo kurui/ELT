@@ -117,7 +117,7 @@ public class ChooseStaffBlockPresenterImpl extends
 	public ParticipateInfoClient getparticipateInfo() {
 		ParticipateInfoClient participateInfo = null;
 		if (display.isEveryone().getValue()) {
-			participateInfo = new EveryoneClient("8a83834534544f870134544f8bdc0006");//测试时换为固定的企业ID ///sessionManager.getSession().getCorporationId()//登录人所在的企业的ID
+			participateInfo = new EveryoneClient("8a83835134598ab30134598ab6cc0004");//李伟测试时换为固定的企业ID ///sessionManager.getSession().getCorporationId()//登录人所在的企业的ID
 		} else if (display.isSomeone().getValue()) {
 			List<OrganicationClient> orgs = new ArrayList<OrganicationClient>();
 			for (String orgId : display.getRealOrginzationIds()) {

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+   	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:p1="urn:import:com.google.gwt.user.cellview.client"
+   	xmlns:d='urn:import:com.google.gwt.user.datepicker.client'>
+   	
+   	<ui:image resource="input_text.jpg" field="input_text" repeatStyle="Horizontal"></ui:image>
+	<ui:image resource="preview_bg.jpg" field="preview_bg" repeatStyle="Horizontal"></ui:image>
+	<ui:image field="post_bg" resource="post_bg.jpg" repeatStyle="Horizontal"></ui:image>
+	<ui:style src="rewardsItem.css" field="item"></ui:style>
+	<g:HTMLPanel>
+	<!-- add form tag, using to resolve radioButton groupname -->
+				<!-- 1内容 -->
+                <div class="{item.detail-content}">    
+                <!-- 2基本设置 -->
+                  <div class="{item.setDetail}">
+                    <h3>基本设置
+                   		 <!--
+	                      <input type="button" class="up"/>
+	                      <input type="button" class="down"/>
+  						-->
+                    </h3>
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="{item.mmtable}">
+                      <tr>
+                        <td valign="top" class="{item.title}"><span>*</span> 奖项名称：</td>
+                        <td class="{item.intext}"><g:TextBox ui:field="rewardsName" styleName="textmy"/></td>
+                      	<td align="left"></td>
+                      </tr>
+                      
+                      <tr>
+                        <td valign="top" class="{item.title}"> 奖项说明：</td>
+                        <td class="{item.intext}"><g:TextArea ui:field="rewardsDefinition" visibleLines="3" styleName="textmy" /></td>
+                    	<td></td>
+                      </tr>
+                      <tr>
+                        <td valign="top" class="{item.title}"> 奖项条件：</td>
+                        <td class="{item.intext}"><g:TextArea ui:field="standard" visibleLines="3" styleName="textmy" /></td>
+                     	<td></td>
+                      </tr>
+					  <tr>
+                        <td valign="top" class="{item.title}"> 获奖名额：</td>
+                        <td class="{item.intext}"><g:TextBox ui:field="peopleSizeLimit" /></td>
+                     	<td></td>
+                      </tr>
+                      <tr>
+                        <td valign="top" class="{item.title}"> 总积分：</td>
+                        <td class="{item.intext}"><g:TextBox ui:field="totalJF" /></td>
+                     	<td></td>
+                      </tr>
+                      <tr>
+                        <td valign="top" class="{item.title}"> 每人得奖积分：</td>
+                        <td class="{item.intext}"><g:TextBox ui:field="rewardsFrom" /></td>
+                     	<td></td>
+                      </tr>
+                       <tr>
+				               <td valign="top" class="{item.title}"> 提名人：</td>
+				               <td class="{item.intext}"><g:FlowPanel ui:field="staffAreaPanel" width="326px"/> </td>
+				               <td><g:Button ui:field="chooseBtns" styleName="button-addpe">选择</g:Button></td>
+				         </tr>
+                      <tr>
+                        <td colspan="3" id="noPaddingTd"><g:FlowPanel ui:field="staffPanel"/> </td>                     
+                      </tr>
+                     
+					  <tr>
+					  <td valign="top" class="{item.title}">奖项模式</td>
+					  <td colspan="2"   >
+					     <g:RadioButton name="period" text="一次性" ui:field="onetimes" checked="true"/>
+                         <g:RadioButton name="period" ui:field="moretimes" text="周期性"/> </td>
+					  </tr>
+                       <tr>
+                        <td class="{item.title}"><span>*</span> 开始时间： </td>
+                        <td class="{item.intext}"><d:DateBox ui:field="startTime" styleName="textmy"/></td>
+                      	<td></td>
+                      </tr>
+                     <tbody id="ones">
+                      <tr>
+                        <td valign="top" class="{item.title}">预计颁奖时间：</td>
+                        <td class="{item.intext}"><d:DateBox ui:field="expectTime" styleName="textmy"/></td>
+						<td>提前<g:TextBox ui:field="tmdays" width="30px"/>天提名<g:Label ui:field="lastRewardsTime"/></td>
+                      </tr>
+                      </tbody>
+                      <tbody id="period"> 
+                       <tr>
+                        <td valign="top" class="{item.title}">下次颁奖时间：</td>
+                        <td class="{item.intext}"><d:DateBox ui:field="nextRewardsTime" styleName="textmy"/></td>
+						<td>提前<g:TextBox ui:field="tmday" width="30px"/>天提名</td>
+                      </tr>                     	
+                      <tr>
+                        <td valign="top" class="{item.title}"><span>*</span> 颁奖周期： </td>
+                        <td class="{item.intext}">
+                        	<g:Label ui:field="settingText" styleName="textmy"/>
+                       	</td>
+                       	<td><g:Button ui:field="setting" >设置频率</g:Button></td>
+                      </tr>
+                      
+                      <tr>
+                        <td class="{item.title}" valign="top">自动颁奖：</td>
+                        <td class="{item.intext}"><g:CheckBox ui:field="autoCbx"/></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                      	<td class="{item.title}" valign="top"></td>
+                      	<td class="{item.intext}">
+                      		
+                      	</td>
+                      	<td></td>
+                      </tr>
+                      <tr>
+                        <td valign="top" class="{item.title}">下次公布时间：</td>
+                        <td class="{item.intext}"><d:DateBox ui:field="nextPublicTime" styleName="textmy"/></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td class="{item.title}" valign="top">特殊条件：</td>
+                        <td class="{item.intext}"><g:CheckBox ui:field="specialCbx"></g:CheckBox><g:RadioButton ui:field="birthRadio" name="condition"> 员工生日</g:RadioButton></td>
+                     	<td>
+                     	 
+                     	</td>
+                      </tr>
+                      </tbody>
+                       
+                    </table>
+                  </div>	
+				  
+				</div>
+				
+				
+	</g:HTMLPanel>
+</ui:UiBinder>

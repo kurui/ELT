@@ -34,8 +34,8 @@ import com.chinarewards.gwt.elt.client.rewards.model.FrequencyClient;
 import com.chinarewards.gwt.elt.client.rewards.model.MonthFrequencyClient;
 import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
 import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient;
-import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient.SomeoneClient;
 import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient.EveryoneClient;
+import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient.SomeoneClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsBaseInfo;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsTypeClient;
@@ -46,7 +46,6 @@ import com.chinarewards.gwt.elt.client.rewards.model.YearFrequencyClient;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.util.DateTool;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -268,9 +267,9 @@ public class RewardsItemCreatePresenterImpl extends
 						// 候选限额
 						rewardsItem.setSizeLimit(Integer.parseInt(display.getPeopleSizeLimit().getValue()));
 						
-						//定义设置奖项和入帐的部门，现为同一部门，以后从session中得到，现为固定部门
-						rewardsItem.setBuilderDept("8a83834534544f870134544f8bfb0008");
-						rewardsItem.setAccountDept("8a83834534544f870134544f8bfb0008");
+						//李伟定义设置奖项和入帐的部门，现为同一部门，以后从session中得到，现为固定部门
+						rewardsItem.setBuilderDept("8a83835134598ab30134598ab6eb0006");
+						rewardsItem.setAccountDept("8a83835134598ab30134598ab6eb0006");
 
 						// 候选人信息
 						rewardsItem.setParticipateInfo(staffBlock.getparticipateInfo());
@@ -357,19 +356,26 @@ public class RewardsItemCreatePresenterImpl extends
 				});
 	}
 	private void doEdit(RewardsItemClient rewardsItem) {
-
+		if (Window.confirm("确定修改?")) {
 		dispatcher.execute(new CreateRewardsItemRequest(rewardsItem),
 				new AsyncCallback<CreateRewardsItemResponse>() {
 					@Override
 					public void onFailure(Throwable t) {
 						Window.alert("修改失败");
+						Platform.getInstance()
+						.getEditorRegistry()
+						.closeEditor(RewardsItemConstants.EDITOR_REWARDSITEM_ADD,instanceId);
 					}
 
 					@Override
 					public void onSuccess(CreateRewardsItemResponse arg0) {
 						Window.alert("修改成功");
+						Platform.getInstance()
+						.getEditorRegistry()
+						.closeEditor(RewardsItemConstants.EDITOR_REWARDSITEM_ADD,instanceId);
 					}
 				});
+		}
 	}
 	// setting a new frequency.
 		private void doSettingFrequency(FrequencyClient frequency) {
@@ -649,7 +655,7 @@ public class RewardsItemCreatePresenterImpl extends
 				
 				private void initDataToEditRewardsItem(final RewardsItemClient item) {
 					String id = item.getId();
-					  System.out.println("===="+id);
+					  
 					isEditPage  = true;
 					{
 						dispatcher.execute(new SearchRewardsItemByIdRequest(id),
