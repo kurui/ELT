@@ -24,19 +24,19 @@ public class RewardsItemClient implements Serializable,
 		this.periodEnable = periodEnable;
 	}
 
-	public Integer getTotalJF() {
+	public int getTotalJF() {
 		return totalJF;
 	}
 
-	public void setTotalJF(Integer totalJF) {
+	public void setTotalJF(int totalJF) {
 		this.totalJF = totalJF;
 	}
 
-	public Integer getRewardsFrom() {
+	public int getRewardsFrom() {
 		return rewardsFrom;
 	}
 
-	public void setRewardsFrom(Integer rewardsFrom) {
+	public void setRewardsFrom(int rewardsFrom) {
 		this.rewardsFrom = rewardsFrom;
 	}
 
@@ -60,6 +60,18 @@ public class RewardsItemClient implements Serializable,
 
 	// 结束时间
 	private Date endTime;
+	
+	// 预期时间
+	private Date expectAwardDate;
+
+
+	public Date getExpectAwardDate() {
+		return expectAwardDate;
+	}
+
+	public void setExpectAwardDate(Date expectAwardDate) {
+		this.expectAwardDate = expectAwardDate;
+	}
 
 	// 是否自动奖项
 	private boolean isAuto = false;
@@ -93,10 +105,10 @@ public class RewardsItemClient implements Serializable,
 	}
 
 	//总积分
-	private Integer totalJF;
+	private int totalJF;
 	
 	//每人得的积分
-	private Integer rewardsFrom;
+	private int rewardsFrom;
 	
 	//提前的天数
 	private Integer tmdays;

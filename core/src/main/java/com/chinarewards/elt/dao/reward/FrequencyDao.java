@@ -17,4 +17,6 @@ public class FrequencyDao extends BaseDao<Frequency> {
 						"SELECT ri.frequency FROM RewardItem ri WHERE ri.id=:rewardItemId")
 				.setParameter("rewardItemId", rewardItemId).getSingleResult();
 	}
+	
+	
 }

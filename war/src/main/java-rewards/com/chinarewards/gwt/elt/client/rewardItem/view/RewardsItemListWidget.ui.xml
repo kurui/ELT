@@ -15,16 +15,17 @@
 				<td width="8%">
 					<g:TextBox ui:field="name" />
 				</td>
-				<!-- <td>状态:</td> <td></td> -->
-				<td width="19%" align="right">设立部门:</td>
-				<td width="19%">
+				
+				<td width="19%" align="right" style="display:none">设立部门:</td>
+				<td width="19%" style="display:none">
 					<g:FlowPanel ui:field="departmentName" />
 
 				</td>
-				<td width="20%">
+				<td width="20%" style="display:none">
 					<g:CheckBox ui:field="chooseSubDepartment" />
 					包含子部门
 				</td>
+				
 				<td width="14%">
 					<g:Button ui:field="search" styleName="button-search">搜索</g:Button>
 				</td>

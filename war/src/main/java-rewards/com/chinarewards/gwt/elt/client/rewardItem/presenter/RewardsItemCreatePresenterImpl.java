@@ -24,14 +24,19 @@ import com.chinarewards.gwt.elt.client.rewardItem.event.ChooseStaffEvent;
 import com.chinarewards.gwt.elt.client.rewardItem.event.FrequencySettingEvent;
 import com.chinarewards.gwt.elt.client.rewardItem.handler.ChooseStaffHandler;
 import com.chinarewards.gwt.elt.client.rewardItem.handler.FrequencySettingHandler;
+import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemConstants;
 import com.chinarewards.gwt.elt.client.rewardItem.request.CreateRewardsItemRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.CreateRewardsItemResponse;
+import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsItemByIdRequest;
+import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsItemByIdResponse;
 import com.chinarewards.gwt.elt.client.rewards.model.DayFrequencyClient;
 import com.chinarewards.gwt.elt.client.rewards.model.FrequencyClient;
 import com.chinarewards.gwt.elt.client.rewards.model.MonthFrequencyClient;
-import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient.SomeoneClient;
 import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
 import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient;
+import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient.SomeoneClient;
+import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient.EveryoneClient;
+import com.chinarewards.gwt.elt.client.rewards.model.RewardsBaseInfo;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsTypeClient;
 import com.chinarewards.gwt.elt.client.rewards.model.SpecialCondition;
@@ -41,6 +46,7 @@ import com.chinarewards.gwt.elt.client.rewards.model.YearFrequencyClient;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.util.DateTool;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -55,7 +61,7 @@ import com.google.inject.Provider;
 public class RewardsItemCreatePresenterImpl extends
 		BasePresenter<RewardsItemCreatePresenter.RewardsItemDisplay> implements
 		RewardsItemCreatePresenter {
-   
+	String instanceId;//修改时传过来的ID
 	/**
 	 * 是否为修改页，默认为false
 	 */
@@ -74,7 +80,7 @@ public class RewardsItemCreatePresenterImpl extends
 	private final SessionManager sessionManager;
 	private final RewardStartDateCalculator startDateCalculator;
 	private final CalculatorSelectFactory factory;
-	
+	RewardsItemClient item;
 	// 保存上一次修改正确的结束时间
 		private Date endDateCopy;
 		// 保存下次公布时间副本
@@ -142,10 +148,9 @@ public class RewardsItemCreatePresenterImpl extends
 												doSettingFrequency(frequency);
 											}
 										});
-						Platform.getInstance().getSiteManager()
+						        Platform.getInstance().getSiteManager()
 								.openDialog(dialog, new DialogCloseListener() {
-									public void onClose(String dialogId,
-											String instanceId) {
+									public void onClose(String dialogId,String instanceId) {
 										registration.removeHandler();
 									}
 								});
@@ -238,8 +243,7 @@ public class RewardsItemCreatePresenterImpl extends
 
 									       Platform.getInstance().getSiteManager()
 											.openDialog(dialog, new DialogCloseListener() {
-												public void onClose(String dialogId,
-														String instanceId) {
+												public void onClose(String dialogId,String instanceId) {
 													registration.removeHandler();
 												}
 											});
@@ -270,6 +274,7 @@ public class RewardsItemCreatePresenterImpl extends
 
 						// 候选人信息
 						rewardsItem.setParticipateInfo(staffBlock.getparticipateInfo());
+						//开始时间
 						rewardsItem.setStartTime(display.getStartTime().getValue());
 						//提名人的信息
 						rewardsItem.setTmInfo(getNominateInfo());
@@ -282,24 +287,28 @@ public class RewardsItemCreatePresenterImpl extends
 						rewardsItem.setRewardsFrom(Integer.parseInt(display.getRewardsFrom().toString()));
 						
 						// 周期性频率信息启用
-						if (display.getEnableCbx().getValue() || isEditPage) {
+						if (display.getEnableCbx().getValue() ) {
 							if(display.getTmday()!=null&&!display.getTmday().toString().equals("")){//把周期性的提名提前的天数放在一个rewardsItem
 							 rewardsItem.setTmdays(display.getTmday().intValue());
 							}else{
 								 rewardsItem.setTmdays(0);
 							}
+							rewardsItem.setExpectAwardDate(display.getNextRewardsTime().getValue());
 							rewardsItem.setNextTime(display.getNextRewardsTime().getValue());//下次颁奖的时间
-							rewardsItem.setFrequency(display.getFrequencyObj());
+							rewardsItem.setFrequency(display.getFrequencyObj());//周期频率设置
 							rewardsItem.setNextPublishTime(display.getNextPublishTime().getValue());
 							rewardsItem	.setAuto(display.getAutoCbx().getValue());
 							rewardsItem.setRewardsUnit(display.getRewardsUnit());
 							rewardsItem.setHasSpecialCondition(display.getSpecialCbx().getValue());
+							
 							rewardsItem.setGeneratedRewards(false);
 							if (display.getSpecialCbx().getValue()&& display.getBirthRadio().getValue()) {
 								rewardsItem.setCondition(SpecialCondition.birth);
 							}
 						}else{// 一次性质
-							rewardsItem.setNextTime(display.getExpectTime().getValue());//期望的时间
+							rewardsItem.setFrequency(null);//周期频率设置为null
+							rewardsItem.setNextPublishTime(display.getStartTime().getValue());
+							rewardsItem.setExpectAwardDate(display.getExpectTime().getValue());//期望的时间
 							if(display.getTmdays()!=null&&!display.getTmdays().toString().equals(""))//把一次性的提名提前的天数放在一个rewardsItem
 								 rewardsItem.setTmdays(display.getTmdays().intValue());
 							else
@@ -312,7 +321,7 @@ public class RewardsItemCreatePresenterImpl extends
 							doSave(rewardsItem);
 						} else {
 							rewardsItem.setId(rewardsItemId);
-						//	doEdit(rewardsItem);/修改功能
+							doEdit(rewardsItem);//修改功能
 						}
 					}
 				}));
@@ -339,16 +348,29 @@ public class RewardsItemCreatePresenterImpl extends
 					@Override
 					public void onSuccess(CreateRewardsItemResponse response) {
 						Window.alert("添加成功");
-//						Platform.getInstance()
-//								.getEditorRegistry()
-//								.closeEditor(
-//										RewardsConstants.EDITOR_REWARDS_ITEM_CREATE,
-//										instanceId);
+						if(instanceId!=null||!instanceId.equals(""))
+						Platform.getInstance()
+								.getEditorRegistry()
+								.closeEditor(RewardsItemConstants.EDITOR_REWARDSITEM_ADD,instanceId);
 
 					}
 				});
 	}
-	
+	private void doEdit(RewardsItemClient rewardsItem) {
+
+		dispatcher.execute(new CreateRewardsItemRequest(rewardsItem),
+				new AsyncCallback<CreateRewardsItemResponse>() {
+					@Override
+					public void onFailure(Throwable t) {
+						Window.alert("修改失败");
+					}
+
+					@Override
+					public void onSuccess(CreateRewardsItemResponse arg0) {
+						Window.alert("修改成功");
+					}
+				});
+	}
 	// setting a new frequency.
 		private void doSettingFrequency(FrequencyClient frequency) {
 			display.showFrequencyInfo(frequency);
@@ -401,16 +423,17 @@ public class RewardsItemCreatePresenterImpl extends
 			display.getNextRewardsTime().setValue(nextRewardsDate);
 
 			rewardsDate = display.getNextRewardsTime().getValue();
-			if (rewardsDate.getTime() < startTime.getTime()) {
-					display.getStartTime().setValue(rewardsDate);
-				} else {
-					display.getStartTime().setValue(startTime);
-				}
-			
+			if (rewardsDate.getTime() < startDateCopy.getTime()) {
+				display.getStartTime().setValue(rewardsDate);
+			} else {
+				display.getStartTime().setValue(startDateCopy);
+			}
+
 			if (toD) {
 				
 				endDateCopy = nextRewardsDate;
 			}
+
 
 			// 修改下次公布时间
 			modifyNextPublishTime();
@@ -617,5 +640,79 @@ public class RewardsItemCreatePresenterImpl extends
 
 					return flag;
 				}
+        
+				@Override
+				public void initInstanceId(String instanceId,RewardsItemClient item) {
+					this.instanceId = instanceId;
+					initDataToEditRewardsItem( item);
+				}
+				
+				private void initDataToEditRewardsItem(final RewardsItemClient item) {
+					String id = item.getId();
+					  System.out.println("===="+id);
+					isEditPage  = true;
+					{
+						dispatcher.execute(new SearchRewardsItemByIdRequest(id),
+								new AsyncCallback<SearchRewardsItemByIdResponse>() {
+									@Override
+									public void onFailure(Throwable arg0) {
+										errorHandler.alert("查询奖项出错!");
 
+									}
+
+									@Override
+									public void onSuccess(SearchRewardsItemByIdResponse response) {
+										RewardsItemClient item = response.getRewardsItem();
+										clear();
+										display.showRewardsItem(item);
+
+										// 初始前一次颁奖时间
+										rewardsDateCopuy = item.getLastRewardedDate();
+										// 初始结束时间副本
+										endDateCopy = item.getEndTime();
+										// 初始下次公布时间副本
+										nextPublishCopy = item.getNextPublishTime();
+										// 记录最初的开始时间
+										Date stD = item.getStartTime();
+										if (stD == null)
+											stD = new Date();
+										startDateCopy = stD;
+										// 记录第一次赋值的颁奖时间
+										nextRewardsDateCopy = item.getNextTime();
+										if (nextPublishCopy != null
+												&& nextRewardsDateCopy != null) {
+											day = DateTool.getIntervalDays(nextPublishCopy,
+													nextRewardsDateCopy);
+										}
+										// 用了记录修改前是否有平率
+										if (item.getFrequency() != null) {
+											isFrequency = true;
+										}
+										//display.showHistoryBtn();
+										staffBlock.getDisplay().showParticipateInfo(item.getBaseInfo());
+										setId(item.getId());
+										lastRewardsDate = item.getLastRewardedDate();
+										
+
+									}
+
+								});
+					}
+
+				}
+				// clear
+				private void clear() {
+					lastRewardsDate = null;
+					
+					RewardsBaseInfo baseInfo = new RewardsBaseInfo();
+					baseInfo.setParticipateInfo(new EveryoneClient());
+					staffBlock.getDisplay().showParticipateInfo(baseInfo);
+					display.clear();
+
+				}
+
+				public void setId(String id) {
+					this.rewardsItemId = id;
+					isEditPage = true;
+				}
 }

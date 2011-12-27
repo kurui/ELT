@@ -242,4 +242,8 @@ public class CandidateRuleLogicImpl implements CandidateRuleLogic {
 		}
 		return set;
 	}
+	
+	public List<DirectCandidateData> findDirectCandidateDataListByDirectRuleId(	String directRuleId){
+		return directCandidateDataDao.findDirectCandidateDataListByDirectRuleId(directRuleId);
+	}
 }

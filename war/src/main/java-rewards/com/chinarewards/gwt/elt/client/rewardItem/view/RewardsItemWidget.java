@@ -12,13 +12,19 @@ import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemCreatePre
 import com.chinarewards.gwt.elt.client.rewards.model.DayFrequencyClient;
 import com.chinarewards.gwt.elt.client.rewards.model.FrequencyClient;
 import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
+import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient;
+import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemClient;
+import com.chinarewards.gwt.elt.client.rewards.model.SpecialCondition;
 import com.chinarewards.gwt.elt.client.rewards.model.WeekFrequencyClient;
 import com.chinarewards.gwt.elt.client.rewards.model.YearFrequencyClient;
+import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient.EveryoneClient;
+import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient.SomeoneClient;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.view.OrganizationSpecialTextArea;
 import com.chinarewards.gwt.elt.client.view.constant.CssStyleConstants;
 import com.chinarewards.gwt.elt.client.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.widget.SpecialTextArea;
+import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
@@ -544,8 +550,65 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 		}
 		return nominateIds;
 	}
+   
+	// 显示提名人
+	@Override
+	public void showJudgeInfo(RewardsItemClient info){
+			staffArea.clear();
+			ParticipateInfoClient participateInfo = info.getTmInfo();
+			 if (participateInfo instanceof SomeoneClient) {
+					for (OrganicationClient org : ((SomeoneClient) participateInfo)	.getOrganizations()) {
+						if (!staffArea.containsItem(org)) {
+							staffArea.addItem(org);
+						}
+					}
+			}
+	}
 
+	public void showRewardsItem(RewardsItemClient rewardsItem) {
+		if (rewardsItem.getFrequency() != null) {
+			// 显示出下次颁奖时间
+			nextRewardsTime.getElement().getParentElement().getParentElement()
+					.removeClassName(CssStyleConstants.hidden);
+			// 把开始时间设成只读
+			//startTime.setEnabled(false);
+			
+		} 
+       
+		rewardsName.setText(rewardsItem.getName());
+		rewardsDefinition.setText(rewardsItem.getDefinition());
+		standard.setText(rewardsItem.getStandard());
+		rewardsUnit = rewardsItem.getRewardsUnit();
 
 		
+		if (rewardsItem.getFrequency() != null	&& rewardsItem.isGeneratedRewards()) {
+			//startTime.setEnabled(false);
+		}
+	
+	  showJudgeInfo(rewardsItem);//显示要修改的提名人
+	  startTime.setValue(rewardsItem.getStartTime());
+	  nextRewardsTime.setValue(rewardsItem.getNextTime());
+	  nextPublicTime.setValue(rewardsItem.getNextPublishTime());
+	  peopleSizeLimit.setValue(StringUtil.valueOf(rewardsItem.getSizeLimit()));
+      rewardsFrom.setValue(StringUtil.valueOf(rewardsItem.getRewardsFrom()));
+      tmday.setValue(StringUtil.valueOf(rewardsItem.getTmdays()));
+	  tmdays.setValue(StringUtil.valueOf(rewardsItem.getTmdays()));
+	  totalJF.setValue(StringUtil.valueOf(rewardsItem.getTotalJF()));
+	  onetimes.setValue(rewardsItem.isPeriodEnable(),false);
+	  moretimes.setValue(rewardsItem.isPeriodEnable(),true);
+	  expectTime.setValue(rewardsItem.getNextTime());
+	  nextPublicTime.setValue(rewardsItem.getNextPublishTime());
+	  showFrequencyInfo(rewardsItem.getFrequency());
+	  autoCbx.setValue(rewardsItem.isAuto(), true);
+	 
+		specialCbx.setValue(rewardsItem.isHasSpecialCondition(), true);
+		if (SpecialCondition.birth == rewardsItem.getCondition()) {
+			birthRadio.setValue(true);
+		} else {
+			birthRadio.setValue(false);
+		}
+
+		
+	}	
 	
 }

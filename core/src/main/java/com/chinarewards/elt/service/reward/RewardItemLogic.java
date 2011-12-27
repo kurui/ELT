@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.chinarewards.elt.domain.reward.base.RewardItem;
+import com.chinarewards.elt.domain.reward.frequency.WeekFrequencyDays;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.reward.base.RewardItemParam;
@@ -112,4 +113,7 @@ public interface RewardItemLogic {
 	 * @return
 	 */
 	public Date calNextRunBatchTime(String rewardItemId);
+	//查找星期的频率
+	public List<WeekFrequencyDays> findWeekSelectorUnitDataByWSUId(	String weekSelectorUnitId);
+
 }

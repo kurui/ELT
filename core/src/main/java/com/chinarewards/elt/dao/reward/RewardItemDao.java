@@ -119,25 +119,6 @@ public class RewardItemDao extends BaseDao<RewardItem> {
 			param.put("typeId", criteria.getId());
 		}
 		
-		// if (criteria.getStartTime() != null && criteria.getEndTime() != null)
-		// {
-		// eql.append(" AND ((item.endTime IS NULL AND item.startTime IS NULL) ");
-		// eql.append(" OR (item.startTime IS NULL AND item.endTime >= :startTime");
-		// eql.append(" OR (item.endTime IS NULL AND item.startTime <= :endTime");
-		// eql.append(" OR (item.endTime >= :startTime AND item.startTime <= :endTime");
-		// param.put("startTime",
-		// DateUtil.getEarlierTimeOfThisDay(criteria.getStartTime()));
-		// param.put("endTime",
-		// DateUtil.getLastTimeOfThisDay(criteria.getEndTime()));
-		// } else if (criteria.getEndTime() != null) {
-		// eql.append(" AND ((item.startTime <= :endTime AND item.startTime IS NOT NULL) OR item.startTime IS NULL) ");
-		// param.put("endTime",
-		// DateUtil.getLastTimeOfThisDay(criteria.getEndTime()));
-		// } else if (criteria.getStartTime() != null) {
-		// eql.append(" AND ((item.endTime >= :startTime AND item.endTime IS NOT NULL) OR item.endTime IS NULL) ");
-		// param.put("startTime",
-		// DateUtil.getEarlierTimeOfThisDay(criteria.getStartTime()));
-		// }
 		if (criteria.getSortingDetail() != null) {
 			eql.append(" ORDER BY item."
 					+ criteria.getSortingDetail().getSort() + " "

@@ -11,10 +11,12 @@ import org.slf4j.LoggerFactory;
 
 import com.chinarewards.elt.dao.reward.RewardItemDao;
 import com.chinarewards.elt.dao.reward.RewardItemTypeDao;
+import com.chinarewards.elt.dao.reward.WeekFrequencyDaysDao;
 import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.reward.base.RewardItem;
 import com.chinarewards.elt.domain.reward.base.RewardItemType;
 import com.chinarewards.elt.domain.reward.frequency.Frequency;
+import com.chinarewards.elt.domain.reward.frequency.WeekFrequencyDays;
 import com.chinarewards.elt.domain.reward.person.Judge;
 import com.chinarewards.elt.domain.reward.rule.CandidateRule;
 import com.chinarewards.elt.domain.user.SysUser;
@@ -54,14 +56,14 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 	private final DepartmentLogic deptLogic;
 	private final RewardLogic rewardLogic;
 	private final UserLogic userLogic;
-
+    private final WeekFrequencyDaysDao weekFrequencyDaysDao;
 	@Inject
 	protected RewardItemLogicImpl(RewardItemTypeDao rewardItemTypeDao,
 			RewardItemDao rewardItemDao, FrequencyLogic frequencyLogic,
 			CandidateRuleLogic candidateRuleLogic, JudgeLogic judgeLogic,
 			RewardAclProcessorFactory rewardAclProcessorFactory,
 			DepartmentLogic deptLogic, RewardLogic rewardLogic,
-			UserLogic userLogic) {
+			UserLogic userLogic,WeekFrequencyDaysDao weekFrequencyDaysDao) {
 		this.rewardItemTypeDao = rewardItemTypeDao;
 		this.rewardItemDao = rewardItemDao;
 		this.frequencyLogic = frequencyLogic;
@@ -71,6 +73,7 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 		this.deptLogic = deptLogic;
 		this.rewardLogic = rewardLogic;
 		this.userLogic = userLogic;
+		this.weekFrequencyDaysDao = weekFrequencyDaysDao;
 	}
 
 	private RewardItem assembleRewardItemObject(SysUser caller,
@@ -103,7 +106,7 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 		item.setBuilderDept(builderDept);
 		item.setAccountDept(accountDept);
 		item.setCorporation(builderDept.getCorporation());
-
+       // item.setFrequency(param.getFrequency());
 		// Calculate publish date and ahead publish days
 		int publishAheadDays = DateUtil.betweenDays(param.getPublishDate(),	param.getExpectAwardDate());
 		item.setPublishDate(param.getPublishDate());
@@ -127,7 +130,7 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 				item.setNexRunBatchTime(param.getPublishDate());
 			}
 		}
-
+        item.setStartTime(param.getStartTime());
 		item.setName(param.getName());
 		item.setStandard(param.getStandard());
 		item.setDefinition(param.getDefinition());
@@ -147,19 +150,22 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 	public RewardItem saveRewardItem(SysUser caller, RewardItemParam param) {
 		logger.debug("Invoking method saveRewardItem(), parameter:{}", param);
 		RewardItem itemObj = assembleRewardItemObject(caller, param);
+		System.out.println("itemObj="+itemObj.getFrequency());
 		if (StringUtil.isEmptyString(itemObj.getId())) {
 			// Create
 			rewardItemDao.save(itemObj);
 		} else {
 			// Update
-			rewardItemDao.update(itemObj);
+			
 			// clear frequency
 			frequencyLogic.removeFrequencyFromRewardItem(itemObj.getId());
 			// clear short-list rule
-			candidateRuleLogic.removeCandidateRuleFromRewardItem(itemObj
-					.getId());
+			candidateRuleLogic.removeCandidateRuleFromRewardItem(itemObj.getId());
 			// clear judge list
 			judgeLogic.removeJudgesFromRewardItem(itemObj.getId());
+			if(param.getFrequency()==null)
+				itemObj.setFrequency(null);
+			rewardItemDao.update(itemObj);
 		}
 
 		// Add frequency
@@ -434,5 +440,11 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 				.findById(RewardItem.class, rewardItemId);
 		return frequencyLogic.calNextAwardTime(item.getFrequency(),
 				item.getNexRunBatchTime());
+	}
+	
+	@Override
+	public List<WeekFrequencyDays> findWeekSelectorUnitDataByWSUId(	String weekSelectorUnitId) {
+		logger.debug(" Process in findWeekSelectorUnitDataByWSUId method, parameter weekSelectorUnitId:"+ weekSelectorUnitId);
+		return weekFrequencyDaysDao.findWeekFrequencyDaysByFrequencyId(weekSelectorUnitId);
 	}
 }

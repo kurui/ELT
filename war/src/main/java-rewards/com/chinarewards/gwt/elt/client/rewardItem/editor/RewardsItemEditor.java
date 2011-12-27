@@ -2,6 +2,7 @@ package com.chinarewards.gwt.elt.client.rewardItem.editor;
 
 import com.chinarewards.gwt.elt.client.core.ui.impl.AbstractEditor;
 import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemCreatePresenter;
+import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemClient;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
@@ -42,8 +43,13 @@ public class RewardsItemEditor extends AbstractEditor {
 
 	}
 
-	public void setModel(Object model) {
-		this.model = model;
-		rewardsItemPresenter.bind();
+	public void setModel(String instanceId, Object model) {
+		
+	 	rewardsItemPresenter.bind();
+	 	if(model !=null){
+	 	String id = ((RewardsItemClient) model).getId();
+		rewardsItemPresenter.initInstanceId(id,(RewardsItemClient) model);
+	 	}
+		
 	}
 }

@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import com.chinarewards.elt.domain.reward.base.RewardItem;
+import com.chinarewards.elt.domain.reward.frequency.WeekFrequencyDays;
+import com.chinarewards.elt.domain.reward.rule.DirectCandidateData;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.reward.base.RewardItemParam;
@@ -15,6 +17,7 @@ import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.vo.StaffAndDeptmentAutoCompile;
 import com.chinarewards.elt.service.org.OrganizationLogic;
 import com.chinarewards.elt.service.reward.rule.CandidateLogic;
+import com.chinarewards.elt.service.reward.rule.CandidateRuleLogic;
 import com.chinarewards.elt.service.reward.rule.JudgeLogic;
 import com.chinarewards.elt.service.user.UserLogic;
 import com.google.inject.Inject;
@@ -30,16 +33,16 @@ public class RewardItemServiceImpl implements RewardItemService {
 	private final UserLogic userLogic;
 	private final JudgeLogic judgeLogic;
 	private final EntityManager em;
-	private final CandidateLogic candidateLogic;
+	private final CandidateRuleLogic candidateRuleLogic;
     private final OrganizationLogic organizationLogic;
 	@Inject
 	public RewardItemServiceImpl(RewardItemLogic rewardItemLogic, UserLogic userLogic,
-			JudgeLogic judgeLogic, EntityManager em,CandidateLogic candidateLogic,OrganizationLogic organizationLogic) {
+			JudgeLogic judgeLogic, EntityManager em,CandidateRuleLogic candidateRuleLogic,OrganizationLogic organizationLogic) {
 		this.rewardItemLogic = rewardItemLogic;
 		this.userLogic = userLogic;
 		this.judgeLogic = judgeLogic;
 		this.em = em;
-		this.candidateLogic=candidateLogic;
+		this.candidateRuleLogic=candidateRuleLogic;
 		this.organizationLogic = organizationLogic;
 
 	}
@@ -67,7 +70,7 @@ public class RewardItemServiceImpl implements RewardItemService {
 	@Override
 	public RewardItemVo fetchEntireRewardItemById(String rewardItemId) {
 		// TODO Auto-generated method stub
-		return null;
+		return rewardItemLogic.fetchEntireRewardItemById( rewardItemId);
 	}
 
 	@Override
@@ -107,6 +110,14 @@ public class RewardItemServiceImpl implements RewardItemService {
 		
 	}
 	
+	public List<WeekFrequencyDays> findWeekFrequencyDaysByFrequencyId(String weekSelectorId){
+		
+		return rewardItemLogic.findWeekSelectorUnitDataByWSUId(	weekSelectorId);
+	}
 	
-
+   //得到候选人数据
+	public List<DirectCandidateData> findDirectCandidateDataListByDirectRuleId(String directRuleId){
+		return candidateRuleLogic.findDirectCandidateDataListByDirectRuleId(directRuleId);
+		//findDirectCandidateDataListByDirectRuleId
+	}
 }

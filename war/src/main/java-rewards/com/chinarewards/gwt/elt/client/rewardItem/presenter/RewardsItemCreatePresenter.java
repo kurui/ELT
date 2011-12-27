@@ -9,6 +9,8 @@ import com.chinarewards.gwt.elt.client.mvp.Presenter;
 import com.chinarewards.gwt.elt.client.rewards.model.FrequencyClient;
 import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
 import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient;
+import com.chinarewards.gwt.elt.client.rewards.model.RewardsBaseInfo;
+import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemClient;
 import com.chinarewards.gwt.elt.client.widget.SpecialTextArea;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
@@ -20,7 +22,7 @@ import com.google.gwt.user.client.ui.Widget;
 public interface RewardsItemCreatePresenter extends Presenter<RewardsItemCreatePresenter.RewardsItemDisplay> {
 	//void initRewardsItemOrRewardsTemplate(Object item);
 
-	//void initInstanceId(String instanceId);
+     void initInstanceId(String instanceId,RewardsItemClient item);
 	
 	//void checkIsAmountRoleLevel();
 	public ParticipateInfoClient getNominateInfo();
@@ -100,7 +102,7 @@ public interface RewardsItemCreatePresenter extends Presenter<RewardsItemCreateP
 		public HasValue<String> getPeopleSizeLimit();
 		
 		// 显示奖项
-	//	public void showRewardsItem(RewardsItemClient rewardsItem);
+		public void showRewardsItem(RewardsItemClient rewardsItem);
 
 		// 显示模板
 	//	public void showRewardsTemplate(RewardsTemplateClient tmeplate,boolean initDo);
@@ -108,7 +110,8 @@ public interface RewardsItemCreatePresenter extends Presenter<RewardsItemCreateP
 		// 显示频率
 		public void showFrequencyInfo(FrequencyClient frequency);
 
-		
+		// 显示提名人
+		void showJudgeInfo(RewardsItemClient info);
 		
 		public void setNextRewardsTimeVisible(boolean visible);
 		
