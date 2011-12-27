@@ -8,39 +8,35 @@ import org.slf4j.LoggerFactory;
 
 import com.chinarewards.elt.service.reward.RewardItemService;
 import com.chinarewards.elt.util.DateUtil;
-import com.google.inject.Inject;
 
 public class AutoGenerateRewardTask extends TimerTask {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
-	
-	
-	public  RewardItemService rewardItemService;
 
-	@Inject
-	public AutoGenerateRewardTask(RewardItemService rewardItemService) {
-		this.rewardItemService = rewardItemService;
+
+	private RewardItemService rewardItemService;
+	private static AutoGenerateRewardTask instance;
+
+
+	private AutoGenerateRewardTask() {
 	}
-
-	public AutoGenerateRewardTask() {
-
-	}
-
-	static AutoGenerateRewardTask task = new AutoGenerateRewardTask();
-
 
 	public static AutoGenerateRewardTask getInstance() {
-		if (task == null)
-			return new AutoGenerateRewardTask();
-		else
-			return task;
+		if (instance == null) {
+			instance = new AutoGenerateRewardTask();
+		}
+
+		return instance;
 	}
-	
+
+
 	@Override
 	public void run() {
 		logger.info(" BEGIN to RUN AutoGenerateRewardTask ");
 		Date now = DateUtil.getTime();
-//@Inject 进不来..waiting............
-	//	rewardItemService.runAutoRewardGeneratorBatch(now);
+		rewardItemService.runAutoRewardGeneratorBatch(now);
 	}
 
+	public void setRewardItemService(RewardItemService rewardItemService) {
+		this.rewardItemService = rewardItemService;
+	}
 }
