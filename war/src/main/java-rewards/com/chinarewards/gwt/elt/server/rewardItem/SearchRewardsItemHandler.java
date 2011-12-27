@@ -11,7 +11,6 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 
 import org.slf4j.Logger;
 
-import com.chinarewards.elt.domain.reward.frequency.Frequency;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.common.PaginationDetail;
 import com.chinarewards.elt.model.common.SortingDetail;
@@ -22,14 +21,10 @@ import com.chinarewards.elt.model.reward.vo.RewardItemVo;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.service.reward.RewardItemService;
-import com.chinarewards.gwt.elt.client.rewardItem.request.CreateRewardsItemRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsItemRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsItemResponse;
-import com.chinarewards.gwt.elt.client.rewards.model.DepartmentClient;
-import com.chinarewards.gwt.elt.client.rewards.model.FrequencyClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemCriteria;
-import com.chinarewards.gwt.elt.client.rewards.model.RewardsTypeClient;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
 import com.chinarewards.gwt.elt.server.logger.InjectLogger;
 import com.google.inject.Inject;
@@ -123,6 +118,7 @@ public class SearchRewardsItemHandler extends	BaseActionHandler<SearchRewardsIte
 			client.setStartTime(item.getItem().getStartTime());
 			client.setCreateAt(item.getItem().getCreatedAt());
 			client.setNextPublishTime(item.getExpectAwardDate());
+			client.setEnabled(item.isEnabled());
 			resultList.add(client);
 		}
 
