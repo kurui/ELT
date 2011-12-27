@@ -162,6 +162,7 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 				new GetValue<RewardsClient, String>() {
 					@Override
 					public String getValue(RewardsClient rewards) {
+						;
 						return "提名";
 					}
 				}, new FieldUpdater<RewardsClient, String>() {
@@ -218,6 +219,13 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 					}
 
 				});
+		cellTable.addColumn("状态", new TextCell(),
+				new GetValue<RewardsClient, String>() {
+					@Override
+					public String getValue(RewardsClient rewards) {
+						return rewards.getStatus().getDisplayName();
+					}
+				}, ref, "name");
 
 	}
 }
