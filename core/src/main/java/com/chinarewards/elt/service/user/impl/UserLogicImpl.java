@@ -94,4 +94,9 @@ public class UserLogicImpl implements UserLogic {
 		userDao.save(u);
 		return u;
 	}
+
+	@Override
+	public SysUser findUserById(String id) {
+		return userDao.findById(SysUser.class, id);
+	}
 }

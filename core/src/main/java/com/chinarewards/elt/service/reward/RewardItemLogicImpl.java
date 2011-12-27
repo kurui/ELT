@@ -101,14 +101,17 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 		}
 
 		// Found build department and account department
-		Department builderDept = deptLogic.findDepartmentById(param	.getBuilderDeptId());
-		Department accountDept = deptLogic.findDepartmentById(param	.getAccountDeptId());
+		Department builderDept = deptLogic.findDepartmentById(param
+				.getBuilderDeptId());
+		Department accountDept = deptLogic.findDepartmentById(param
+				.getAccountDeptId());
 		item.setBuilderDept(builderDept);
 		item.setAccountDept(accountDept);
 		item.setCorporation(builderDept.getCorporation());
        // item.setFrequency(param.getFrequency());
 		// Calculate publish date and ahead publish days
-		int publishAheadDays = DateUtil.betweenDays(param.getPublishDate(),	param.getExpectAwardDate());
+		int publishAheadDays = DateUtil.betweenDays(param.getPublishDate(),
+				param.getExpectAwardDate());
 		item.setPublishDate(param.getPublishDate());
 		item.setPublishAheadDays(publishAheadDays);
 
@@ -169,8 +172,9 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 		}
 
 		// Add frequency
-		if(param.getFrequency()!=null)
-		frequencyLogic.bindFrequencyToRewardItem(caller, itemObj.getId(),param.getFrequency());
+		if (param.getFrequency() != null)
+			frequencyLogic.bindFrequencyToRewardItem(caller, itemObj.getId(),
+					param.getFrequency());
 		// Add short-list rule
 		if (param.getCandidateList() != null
 				&& !param.getCandidateList().isEmpty()) {
@@ -222,9 +226,12 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 		RewardItemVo itemVo = new RewardItemVo();
 		if (isEntire) {
 			String rewardItemId = item.getId();
-			// Get frequency info
-			Frequency frequencie = frequencyLogic
-					.getFrequencyOfRewardItem(rewardItemId);
+			// Get frequency info,判断是否周期
+			if (item.getAutoGenerate() == RequireAutoGenerate.requireCyclic) {
+				Frequency frequencie = frequencyLogic
+						.getFrequencyOfRewardItem(rewardItemId);
+				itemVo.setFrequency(frequencie);
+			}
 			// Get candidate list rule
 			CandidateRule candidateRule = candidateRuleLogic
 					.findCandidateRuleFromRewardItem(rewardItemId);
@@ -232,7 +239,6 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 			List<Judge> judges = judgeLogic
 					.findJudgesFromRewardItem(rewardItemId);
 
-			itemVo.setFrequency(frequencie);
 			itemVo.setCandidateRule(candidateRule);
 			itemVo.setJudgeList(judges);
 		}
@@ -243,7 +249,8 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 
 	@Override
 	public RewardItemVo fetchEntireRewardItemById(String rewardItemId) {
-		RewardItem rewardItem = rewardItemDao.findById(RewardItem.class,rewardItemId);
+		RewardItem rewardItem = rewardItemDao.findById(RewardItem.class,
+				rewardItemId);
 		RewardItemVo itemVo = convertFromRewardItemToVo(rewardItem, true);
 		return itemVo;
 	}
@@ -253,7 +260,8 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 			RewardItemSearchVo criteria) {
 		logger.debug("Process in fetchRewardItems method, parameter RewardItemSearchVo.toString:"
 				+ criteria);
-		PageStore<RewardItem> pageStore = rewardAclProcessorFactory.generateRewardAclProcessor(context.getUserRoles())
+		PageStore<RewardItem> pageStore = rewardAclProcessorFactory
+				.generateRewardAclProcessor(context.getUserRoles())
 				.fetchRewardItems(context, criteria);
 
 		List<RewardItem> itemList = pageStore.getResultList();
@@ -441,10 +449,94 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 		return frequencyLogic.calNextAwardTime(item.getFrequency(),
 				item.getNexRunBatchTime());
 	}
+
 	
 	@Override
 	public List<WeekFrequencyDays> findWeekSelectorUnitDataByWSUId(	String weekSelectorUnitId) {
 		logger.debug(" Process in findWeekSelectorUnitDataByWSUId method, parameter weekSelectorUnitId:"+ weekSelectorUnitId);
 		return weekFrequencyDaysDao.findWeekFrequencyDaysByFrequencyId(weekSelectorUnitId);
+	}
+
+
+	@Override
+	public void runAutoRewardGeneratorByRewardItem(Date flagTime,
+			String RewardItemid) {
+
+		SysUser caller = userLogic.getDefaultUser();
+		RewardItem item = rewardItemDao
+				.findById(RewardItem.class, RewardItemid);
+		// this time to run
+		Date thisRunTime = item.getNexRunBatchTime();
+		// failure times
+		int errorTimes = 0;
+		boolean isRunnable = true;
+		while (flagTime.after(thisRunTime) && errorTimes < 3 && isRunnable) {
+			try {
+				Date nextRunTime = calNextRunBatchTime(item.getId());
+				rewardLogic.awardFromRewardItem(caller, item.getId(), flagTime);
+				// update next run batch date
+				item.setNexRunBatchTime(nextRunTime);
+				// update publish date and expect award date
+				// Notice: [1] .If a require auto award RewardItem, the run
+				// batch time = expect award time. [2] . If not, the run
+				// batch
+				// time = next publish time.
+				if (RequireAutoAward.requireAutoAward == item.getAutoAward()) {
+					// Calculate next publish date
+					Date nextPublishDate = DateUtil.getDateOfParameterOnDay(
+							nextRunTime, -item.getPublishAheadDays());
+					// Calculate next expect award date
+					Date nextExpectAwardDate = nextRunTime;
+					// Calculate next nominate date
+					Date nextNominateDate = DateUtil.getDateOfParameterOnDay(
+							nextRunTime, -item.getNominateAheadDays());
+					item.setExpectAwardDate(nextExpectAwardDate);
+					item.setPublishDate(nextPublishDate);
+					item.setNominateDate(nextNominateDate);
+				} else {
+					// Calculate next publish date
+					Date nextPublishDate = nextRunTime;
+					// Calculate next expect award date
+					Date nextExpectAwardDate = DateUtil
+							.getDateOfParameterOnDay(nextPublishDate,
+									item.getPublishAheadDays());
+					// Calculate next nominate date
+					Date nextNominateDate = DateUtil.getDateOfParameterOnDay(
+							nextExpectAwardDate, -item.getNominateAheadDays());
+					item.setExpectAwardDate(nextExpectAwardDate);
+					item.setPublishDate(nextPublishDate);
+					item.setNominateDate(nextNominateDate);
+				}
+
+				// Set it to false which means it can not work again.
+				if (RequireAutoGenerate.requireOneOff == item.getAutoGenerate()) {
+					item.setEnabled(false);
+					isRunnable = false;
+				}
+
+				rewardItemDao.update(item);
+				thisRunTime = nextRunTime;
+				errorTimes = 0;
+				logger.debug(
+						"Reward item id:{},name={}, generate a reward successful, nextRunBatchTime: {}, lastRunBatchTime:{}",
+						new Object[] { item.getId(), nextRunTime, thisRunTime });
+			} catch (RuntimeException e) {
+				errorTimes++;
+				logger.warn(
+						"Rewarditem id:{}, name:{}, generate a reward failure {} Times",
+						new Object[] { item.getId(), item.getName(), errorTimes });
+			}
+		}
+
+	}
+
+	@Override
+	public void updateRewardItemCount(String rewardItemId) {
+		RewardItem rewardItem = rewardItemDao.findById(RewardItem.class,
+				rewardItemId);
+		rewardItem.setDegree(rewardItem.getDegree() + 1);
+		rewardItemDao.update(rewardItem);
+
+
 	}
 }

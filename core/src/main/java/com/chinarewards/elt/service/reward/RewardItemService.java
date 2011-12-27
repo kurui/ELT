@@ -87,7 +87,7 @@ public interface RewardItemService {
 	 * @param rewardItemId
 	 * @return
 	 */
-	public RewardItem enableRewardItem(UserContext context, String rewardItemId);
+	public String enableRewardItem(UserContext context, String rewardItemId);
 
 	/**
 	 * Make the specified RewardItem disabled.
@@ -95,7 +95,7 @@ public interface RewardItemService {
 	 * @param rewardItemId
 	 * @return
 	 */
-	public RewardItem disableRewardItem(UserContext context, String rewardItemId);
+	public String disableRewardItem(UserContext context, String rewardItemId);
 
 	/**
 	 * Run batch to generate rewards automatic.
@@ -112,6 +112,7 @@ public interface RewardItemService {
 	 * @return
 	 */
 	public List<StaffAndDeptmentAutoCompile> staffAndDeptmentAutoCompile(String corporationId,String falg, int limit);
+
     /**
      * 
      * @param weekSelectorUnitId
@@ -121,5 +122,8 @@ public interface RewardItemService {
 	
 	
 	public List<DirectCandidateData> findDirectCandidateDataListByDirectRuleId(String directRuleId);
+
+	
+
 
 }

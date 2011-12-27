@@ -31,7 +31,7 @@ public class RewardsListEditorDescriptor implements EditorDescriptor {
 	public Editor createEditor(String instanceId, Object model) {
 		RewardsListEditor e = editProvider.get();
 		e.setInstanceId(instanceId);
-		e.setTitle("奖项列表");
+		e.setTitle("奖励列表");
 		e.setModel(model);
 		return e;
 	}

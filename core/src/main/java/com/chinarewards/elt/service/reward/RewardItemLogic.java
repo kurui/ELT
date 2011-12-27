@@ -107,13 +107,28 @@ public interface RewardItemLogic {
 	public void runAutoRewardGeneratorBatch(Date flagTime);
 
 	/**
+	 * Run batch to generate rewards automatic.
+	 * 
+	 * @param flagTime
+	 */
+	public void runAutoRewardGeneratorByRewardItem(Date flagTime,String RewardItemid);
+	
+	/**
 	 * Calculate the next run batch time of the specified rewarditem.
 	 * 
 	 * @param rewardItemId
 	 * @return
 	 */
 	public Date calNextRunBatchTime(String rewardItemId);
+
 	//查找星期的频率
 	public List<WeekFrequencyDays> findWeekSelectorUnitDataByWSUId(	String weekSelectorUnitId);
+
+
+	
+	/**
+	 * 奖项激活后,奖项次数+1
+	 */
+	public void updateRewardItemCount(String rewardItemId);
 
 }

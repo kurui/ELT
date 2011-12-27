@@ -57,7 +57,7 @@ public class RewardsItemListViewAdapter extends	BaseDataProvider<RewardsItemClie
 //			updateRowData(start, list);
 //			updateRowCount(100, true);
 //		} else
-		{
+	//	{
 			PaginationDetailClient pagination = new PaginationDetailClient();
 			pagination.setStart(start);
 			pagination.setLimit(length);
@@ -79,7 +79,7 @@ public class RewardsItemListViewAdapter extends	BaseDataProvider<RewardsItemClie
 						}
 
 					});
-		}
+		//}
 	}
 
 	public void setCriteria(RewardsItemCriteria criteria) {
