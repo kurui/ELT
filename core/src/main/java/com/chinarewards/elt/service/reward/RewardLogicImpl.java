@@ -74,6 +74,7 @@ public class RewardLogicImpl implements RewardLogic {
 	private final FrequencyLogic frequencyLogic;
 	private final RewardAclProcessorFactory rewardAclProcessorFactory;
 
+
 	@Inject
 	public RewardLogicImpl(RewardDao rewardDao, RewardItemDao rewardItemDao,
 			DepartmentDao deptDao, UserDao sysUserDao,
@@ -97,6 +98,7 @@ public class RewardLogicImpl implements RewardLogic {
 		this.awardApprovalDeterminer = awardApprovalDeterminer;
 		this.frequencyLogic = frequencyLogic;
 		this.rewardAclProcessorFactory = rewardAclProcessorFactory;
+
 	}
 
 	/**
@@ -471,4 +473,5 @@ public class RewardLogicImpl implements RewardLogic {
 
 		return storeVo;
 	}
+
 }

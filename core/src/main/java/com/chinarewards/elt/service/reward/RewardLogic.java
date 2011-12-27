@@ -123,4 +123,6 @@ public interface RewardLogic {
 	 */
 	public PageStore<RewardVo> fetchRewards(UserContext context,
 			RewardSearchVo criteria);
+	
+
 }

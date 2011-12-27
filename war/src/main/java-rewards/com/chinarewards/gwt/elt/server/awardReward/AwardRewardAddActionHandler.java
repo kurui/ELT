@@ -46,12 +46,13 @@ public class AwardRewardAddActionHandler extends
 			for (String name : deleteStaffNameList) {
 				message += name + "已经离职;";
 			}
-			message+="请重新选择获奖人!";
+			message += "请重新选择获奖人!";
 			throw new ClientException(message);
 		}
 
 		String lot = rewardService.awardReward(null, request.getRewardId(),
 				request.getStaffIds());
+
 		awardresponse.setLotId(lot);
 
 		return awardresponse;
