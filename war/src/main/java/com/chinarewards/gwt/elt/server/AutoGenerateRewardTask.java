@@ -12,19 +12,35 @@ import com.google.inject.Inject;
 
 public class AutoGenerateRewardTask extends TimerTask {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
-
-	private final RewardItemService rewardItemService;
+	
+	
+	public  RewardItemService rewardItemService;
 
 	@Inject
 	public AutoGenerateRewardTask(RewardItemService rewardItemService) {
 		this.rewardItemService = rewardItemService;
 	}
 
+	public AutoGenerateRewardTask() {
+
+	}
+
+	static AutoGenerateRewardTask task = new AutoGenerateRewardTask();
+
+
+	public static AutoGenerateRewardTask getInstance() {
+		if (task == null)
+			return new AutoGenerateRewardTask();
+		else
+			return task;
+	}
+	
 	@Override
 	public void run() {
 		logger.info(" BEGIN to RUN AutoGenerateRewardTask ");
 		Date now = DateUtil.getTime();
-		rewardItemService.runAutoRewardGeneratorBatch(now);
+//@Inject 进不来..waiting............
+	//	rewardItemService.runAutoRewardGeneratorBatch(now);
 	}
 
 }
