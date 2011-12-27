@@ -74,7 +74,7 @@ public class SimpleSiteManager implements SiteManager, EditorCloseHandler,
 		openedEditors.add(e);
 
 		HorizontalPanel panel = new HorizontalPanel();
-		Label close = new Label("X");
+		Label close = new Label("  ");
 		close.setStyleName("close");
 		close.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent paramClickEvent) {
