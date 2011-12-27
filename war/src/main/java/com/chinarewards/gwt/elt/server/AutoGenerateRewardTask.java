@@ -8,16 +8,22 @@ import org.slf4j.LoggerFactory;
 
 import com.chinarewards.elt.service.reward.RewardItemService;
 import com.chinarewards.elt.util.DateUtil;
-import com.google.inject.Inject;
 
 public class AutoGenerateRewardTask extends TimerTask {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	private final RewardItemService rewardItemService;
+	private RewardItemService rewardItemService;
+	private static AutoGenerateRewardTask instance;
 
-	@Inject
-	public AutoGenerateRewardTask(RewardItemService rewardItemService) {
-		this.rewardItemService = rewardItemService;
+	private AutoGenerateRewardTask() {
+	}
+
+	public static AutoGenerateRewardTask getInstance() {
+		if (instance == null) {
+			instance = new AutoGenerateRewardTask();
+		}
+
+		return instance;
 	}
 
 	@Override
@@ -27,4 +33,7 @@ public class AutoGenerateRewardTask extends TimerTask {
 		rewardItemService.runAutoRewardGeneratorBatch(now);
 	}
 
+	public void setRewardItemService(RewardItemService rewardItemService) {
+		this.rewardItemService = rewardItemService;
+	}
 }

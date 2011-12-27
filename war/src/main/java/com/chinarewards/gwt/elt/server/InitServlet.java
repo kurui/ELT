@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.chinarewards.elt.service.reward.RewardItemService;
 import com.google.inject.Inject;
 
 /**
@@ -29,7 +30,7 @@ public class InitServlet extends HttpServlet {
 	private static Timer batchTimer = new Timer();
 
 	@Inject
-	AutoGenerateRewardTask autoGenerateRewardTask;
+	RewardItemService rewardItemService;
 
 	public void init() throws ServletException {
 		// this must be invoked.
@@ -52,6 +53,9 @@ public class InitServlet extends HttpServlet {
 
 	private void autoGenerateRewardTask() {
 		logger.debug(" begin to autoRewardsTask ");
+		AutoGenerateRewardTask autoGenerateRewardTask = AutoGenerateRewardTask
+				.getInstance();
+		autoGenerateRewardTask.setRewardItemService(rewardItemService);
 		try {
 			Calendar calendar = Calendar.getInstance();
 			calendar.set(Calendar.HOUR_OF_DAY, 01);
