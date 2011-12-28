@@ -43,7 +43,6 @@ public class RewardsItemViewWidget extends Composite implements RewardsItemViewD
 	@UiField
 	Label standard;
 	
-	
 	// 限制人数
 	@UiField
 	Label peopleSizeLimit;
@@ -59,9 +58,8 @@ public class RewardsItemViewWidget extends Composite implements RewardsItemViewD
 	@UiField
 	InlineLabel tmday;
 	/** 频率规则 **/
-	// 频率是否生效
-	@UiField RadioButton onetimes;
-	@UiField RadioButton moretimes;
+	// 奖项模式
+	@UiField Label itemModel;
 	// 频率设定文字
 	@UiField
 	Label settingText;
@@ -158,15 +156,6 @@ public class RewardsItemViewWidget extends Composite implements RewardsItemViewD
 	public HasValue<Boolean> getAutoCbx() {
 		return autoCbx;
 	}
-	
-
-	@Override
-	public HasValue<Boolean> getEnableCbx() {
-		
-		return moretimes;
-	}
-
-
 	// 显示提名人
 	@Override
 	public void showJudgeInfo(RewardsItemClient info){
@@ -225,6 +214,10 @@ public class RewardsItemViewWidget extends Composite implements RewardsItemViewD
 		  showFrequencyInfo(rewardsItem.getFrequency());
 		  autoCbx.setValue(rewardsItem.isAuto(), true);
 	 	  specialCbx.setValue(rewardsItem.isHasSpecialCondition(), true);
+	 	 if(rewardsItem.isAuto()==false)//是自动奖隐藏提名
+	 		 staffPanel.getElement().getParentElement().getParentElement().removeClassName(CssStyleConstants.hidden);
+		  else
+			 staffPanel.getElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);  
 		if (SpecialCondition.birth == rewardsItem.getCondition()) {
 			birthRadio.setValue(true);
 			birthRadio.getElement().removeClassName(CssStyleConstants.hidden);
@@ -233,11 +226,11 @@ public class RewardsItemViewWidget extends Composite implements RewardsItemViewD
 			birthRadio.getElement().addClassName(CssStyleConstants.hidden);
 		}
        if(rewardsItem.isPeriodEnable()==true){
-    	   moretimes.setValue(true,true);
-    	   settingText.getElement().getParentElement().getParentElement().getParentElement().removeClassName(CssStyleConstants.hidden);
+    	    itemModel.setText("周期性"); 
+    	    settingText.getElement().getParentElement().getParentElement().getParentElement().removeClassName(CssStyleConstants.hidden);
 			expectTime.getElement().getParentElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
        }else{
-    	   onetimes.setValue(true,true);
+    	   itemModel.setText("一次性");
     	   settingText.getElement().getParentElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
 		   expectTime.getElement().getParentElement().getParentElement().getParentElement().removeClassName(CssStyleConstants.hidden);
        }

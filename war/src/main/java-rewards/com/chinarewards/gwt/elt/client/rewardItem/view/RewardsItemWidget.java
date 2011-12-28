@@ -245,12 +245,16 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 			@Override
 			public void onValueChange(ValueChangeEvent<Boolean> event) {
 				if (event.getValue()) {
-					
+					chooseBtns.getElement().getParentElement()//隐藏提名
+					.getParentElement()
+					.addClassName(CssStyleConstants.hidden);
 					nextPublicTime.getElement().getParentElement()
 							.getParentElement()
 							.addClassName(CssStyleConstants.hidden);
 				} else {
-					
+					chooseBtns.getElement().getParentElement()//隐藏提名
+					.getParentElement()
+					.removeClassName(CssStyleConstants.hidden);
 					nextPublicTime.getElement().getParentElement()
 							.getParentElement()
 							.removeClassName(CssStyleConstants.hidden);
@@ -598,7 +602,10 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 	  nextPublicTime.setValue(rewardsItem.getNextPublishTime());
 	  showFrequencyInfo(rewardsItem.getFrequency());
 	  autoCbx.setValue(rewardsItem.isAuto(), true);
-	 
+	  if(rewardsItem.isAuto()==false)//隐藏提名
+	     chooseBtns.getElement().getParentElement().getParentElement().removeClassName(CssStyleConstants.hidden);
+	  else
+		  chooseBtns.getElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
 		specialCbx.setValue(rewardsItem.isHasSpecialCondition(), true);
 		if (SpecialCondition.birth == rewardsItem.getCondition()) {
 			birthRadio.setValue(true);

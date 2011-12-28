@@ -22,101 +22,91 @@
                     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="{item.mmtable}">
                       <tr>
                         <td valign="top" class="{item.title}"> 奖项名称：</td>
-                        <td class="{item.intext}"><g:Label ui:field="rewardsName" /></td>
-                      	<td align="left"></td>
+                        <td class="{item.intext}" colspan="2"><g:Label ui:field="rewardsName" styleName="textmy"/></td>
+                      	
                       </tr>
                       
                       <tr>
                         <td valign="top" class="{item.title}"> 奖项说明：</td>
-                        <td class="{item.intext}"><g:Label ui:field="rewardsDefinition"   /></td>
-                    	<td></td>
+                        <td class="{item.intext}" colspan="2"><g:Label ui:field="rewardsDefinition"  styleName="textmy" /></td>
+                    	
                       </tr>
                       <tr>
                         <td valign="top" class="{item.title}"> 奖项条件：</td>
-                        <td class="{item.intext}"><g:Label ui:field="standard"   /></td>
-                     	<td></td>
+                        <td class="{item.intext}" colspan="2"><g:Label ui:field="standard"  styleName="textmy" /></td>
+                     	
                       </tr>
 					  <tr>
                         <td valign="top" class="{item.title}"> 获奖名额：</td>
-                        <td class="{item.intext}"><g:Label ui:field="peopleSizeLimit" /></td>
-                     	<td></td>
+                        <td class="{item.intext}" colspan="2"><g:Label ui:field="peopleSizeLimit" styleName="textmy"/></td>
                       </tr>
                       <tr>
                         <td valign="top" class="{item.title}"> 总积分：</td>
-                        <td class="{item.intext}"><g:Label ui:field="totalJF" /></td>
-                     	<td></td>
+                        <td class="{item.intext}" colspan="2"><g:Label ui:field="totalJF" styleName="textmy"/></td>
+                     	
                       </tr>
                       <tr>
                         <td valign="top" class="{item.title}"> 每人得奖积分：</td>
-                        <td class="{item.intext}"><g:Label ui:field="rewardsFrom" /></td>
-                     	<td></td>
+                        <td class="{item.intext}" colspan="2"><g:Label ui:field="rewardsFrom" styleName="textmy"/></td>
+                     	
                       </tr>
+                       <tbody id="tm">
                        <tr>
-				               <td valign="top" class="{item.title}"> 提名人：</td>
-				               <td class="{item.intext}"><g:FlowPanel ui:field="staffAreaPanel" /> </td>
-				               <td></td>
+				           <td valign="top" class="{item.title}"> 提名人：</td>
+				           <td class="{item.intext}" colspan="2"><g:FlowPanel ui:field="staffAreaPanel" styleName="textmy"/> </td>
+				              
 				       </tr>
+				       </tbody>
                       <tr>
-				               <td valign="top" class="{item.title}"> 候选人：</td>
-				               <td class="{item.intext}"><g:FlowPanel ui:field="staffPanel" /> </td>
-				               <td></td>
+				            <td valign="top" class="{item.title}"> 候选人：</td>
+				            <td class="{item.intext}" colspan="2"><g:FlowPanel ui:field="staffPanel" styleName="textmy"/> </td>
+				               
 				       </tr>
                      
 					  <tr>
 					  <td valign="top" class="{item.title}">奖项模式</td>
-					  <td colspan="2"   >
-					     <g:RadioButton name="period" text="一次性" ui:field="onetimes" checked="true"/>
-                         <g:RadioButton name="period" ui:field="moretimes" text="周期性"/> </td>
+					  <td  class="{item.intext}" colspan="2" ><g:Label ui:field="itemModel" styleName="textmy"/></td>
 					  </tr>
                        <tr>
                         <td class="{item.title}"> 开始时间： </td>
-                        <td class="{item.intext}"><g:Label ui:field="startTime" /></td>
-                      	<td></td>
+                        <td class="{item.intext}" colspan="2"><g:Label ui:field="startTime" styleName="textmy"/></td>
+                      	
                       </tr>
                      <tbody id="ones">
                       <tr>
                         <td valign="top" class="{item.title}">预计颁奖时间：</td>
-                        <td class="{item.intext}"><g:InlineLabel ui:field="expectTime" />     提前<g:InlineLabel ui:field="tmdays" />天提名</td>
-						<td></td>
+                        <td class="{item.intext}" colspan="2"><g:InlineLabel ui:field="expectTime" styleName="textmy"/>     提前<g:InlineLabel ui:field="tmdays" />天提名</td>
+						
                       </tr>
                       </tbody>
                       <tbody id="period"> 
                        <tr>
                         <td valign="top" class="{item.title}">下次颁奖时间：</td>
-                        <td class="{item.intext}"><g:InlineLabel ui:field="nextRewardsTime" />   提前<g:InlineLabel ui:field="tmday" />天提名</td>
-						<td></td>
+                        <td class="{item.intext}" colspan="2"><g:InlineLabel ui:field="nextRewardsTime" styleName="textmy" />   提前<g:InlineLabel ui:field="tmday" />天提名</td>
+						
                       </tr>                     	
                       <tr>
                         <td valign="top" class="{item.title}"> 颁奖周期： </td>
-                        <td class="{item.intext}">
-                        	<g:Label ui:field="settingText" />
+                        <td class="{item.intext}" colspan="2"><g:Label ui:field="settingText" styleName="textmy"/>
                        	</td>
-                       	<td></td>
+                       	
                       </tr>
                       
                       <tr>
                         <td class="{item.title}" valign="top">自动颁奖：</td>
-                        <td class="{item.intext}"><g:CheckBox ui:field="autoCbx"/></td>
-                        <td></td>
+                        <td class="{item.intext}" colspan="2"><g:CheckBox ui:field="autoCbx" /></td>
+                       
                       </tr>
-                      <tr>
-                      	<td class="{item.title}" valign="top"></td>
-                      	<td class="{item.intext}">
-                      		
-                      	</td>
-                      	<td></td>
-                      </tr>
+                     
                       <tr>
                         <td valign="top" class="{item.title}">下次公布时间：</td>
-                        <td class="{item.intext}"><g:Label ui:field="nextPublicTime" /></td>
-                        <td></td>
+                        <td class="{item.intext}" colspan="2"><g:Label ui:field="nextPublicTime" styleName="textmy"/></td>
+                        
                       </tr>
                       <tr>
                         <td class="{item.title}" valign="top">特殊条件：</td>
-                        <td class="{item.intext}"><g:CheckBox ui:field="specialCbx"></g:CheckBox><g:RadioButton ui:field="birthRadio" name="condition"> 员工生日</g:RadioButton></td>
-                     	<td>
-                     	 
-                     	</td>
+                        <td class="{item.intext}" colspan="2"><g:CheckBox ui:field="specialCbx"></g:CheckBox><g:RadioButton ui:field="birthRadio" name="condition"> 员工生日</g:RadioButton></td>
+                     	
                       </tr>
                       </tbody>
                        
