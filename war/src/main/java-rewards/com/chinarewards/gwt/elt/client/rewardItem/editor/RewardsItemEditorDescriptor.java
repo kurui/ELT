@@ -37,7 +37,7 @@ public class RewardsItemEditorDescriptor implements EditorDescriptor {
 		if (model instanceof RewardsItemClient) {
 			String name = ((RewardsItemClient) model).getName();
 			String subName = name.length() > 6 ? name.substring(0, 6) : name;
-			String title = "修改奖项-" + subName;
+			String title =  subName+"-修改" ;
 			e.setTitle(title);
 		} else {
 			e.setTitle("新建奖项");

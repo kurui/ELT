@@ -6,6 +6,7 @@ package com.chinarewards.gwt.elt.client.rewardItem.editor;
 import com.chinarewards.gwt.elt.client.core.ui.Editor;
 import com.chinarewards.gwt.elt.client.core.ui.EditorDescriptor;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemConstants;
+import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemClient;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
@@ -31,7 +32,12 @@ public class RewardsItemViewEditorDescriptor implements EditorDescriptor {
 	public Editor createEditor(String instanceId, Object model) {
 		RewardsItemViewEditor e = editProvider.get();
 		e.setInstanceId(instanceId);
-		e.setTitle("奖项详细");
+		
+		String name = ((RewardsItemClient) model).getName();
+		String subName = name.length() > 6 ? name.substring(0, 6) : name;
+		String title =subName+ "-详细" ;
+		e.setTitle(title);
+	
 		e.setModel(instanceId,model);
 		return e;
 	}

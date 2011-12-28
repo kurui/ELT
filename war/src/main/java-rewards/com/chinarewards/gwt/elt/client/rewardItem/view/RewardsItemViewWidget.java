@@ -174,7 +174,7 @@ public class RewardsItemViewWidget extends Composite implements RewardsItemViewD
 			ParticipateInfoClient participateInfo = info.getTmInfo();
 			 if (participateInfo instanceof SomeoneClient) {
 					for (OrganicationClient org : ((SomeoneClient) participateInfo)	.getOrganizations()) {
-						 judgeStr +=org.getName()+",";
+						 judgeStr +=org.getName()+"   ";
 					}
 			}
 			 InlineLabel nominatelab = new InlineLabel(judgeStr);
@@ -186,12 +186,10 @@ public class RewardsItemViewWidget extends Composite implements RewardsItemViewD
 	public void showParticipateInfo(RewardsBaseInfo info) {
 		String candidate="";
 		ParticipateInfoClient participateInfo = info.getParticipateInfo();
-		
-			
 		if (participateInfo instanceof SomeoneClient) {
-			//someoneRbtn.setValue(true, true);
+			
 			for (OrganicationClient org : ((SomeoneClient) participateInfo)	.getOrganizations()) {
-				candidate +=org.getName()+"，";
+				candidate +=org.getName()+"    ";
 			}
 		}else{
 			candidate="全体员工";
