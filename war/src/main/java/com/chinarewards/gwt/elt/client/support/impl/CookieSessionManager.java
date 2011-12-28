@@ -34,6 +34,7 @@ public class CookieSessionManager implements SessionManager {
 	final UserSession session;
 	final EventBus eventBus;
 	final DispatchAsync dispatchAsync;
+
 	private static final int COOKIE_TIMEOUT = 1000 * 60 * 60;
 	List<HandlerRegistration> handlerRegistrations = new ArrayList<HandlerRegistration>();
 
@@ -43,6 +44,7 @@ public class CookieSessionManager implements SessionManager {
 		this.session = session;
 		this.eventBus = eventBus;
 		this.dispatchAsync = dispatchAsync;
+
 	}
 
 	public void authenticate(String username, String password, String verifyCode) {
@@ -125,7 +127,8 @@ public class CookieSessionManager implements SessionManager {
 			session.setCorporationId(rep.getCorporationId());
 			session.setUserRoles(rep.getUserRoles());
 			Date expires = new Date((new Date()).getTime() + COOKIE_TIMEOUT);
-			Cookies.setCookie("token", rep.getToken(),expires);
+			Cookies.setCookie("token", rep.getToken(), expires);
+
 		} else {
 			session.setToken(null);
 			Cookies.removeCookie("token");
@@ -139,7 +142,8 @@ public class CookieSessionManager implements SessionManager {
 			session.setCorporationId(rep.getCorporationId());
 			session.setUserRoles(rep.getUserRoles());
 			Date expires = new Date((new Date()).getTime() + COOKIE_TIMEOUT);
-			Cookies.setCookie("token", rep.getToken(),expires);
+			Cookies.setCookie("token", rep.getToken(), expires);
+
 		} else {
 			session.setToken(null);
 			Cookies.removeCookie("token");
@@ -174,7 +178,6 @@ public class CookieSessionManager implements SessionManager {
 							eventBus.fireEvent(new PlatformInitEvent(true));
 						}
 					});
-
 
 		} else {
 			eventBus.fireEvent(new PlatformInitEvent(false));
