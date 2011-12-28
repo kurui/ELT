@@ -5,7 +5,6 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
-import com.chinarewards.gwt.elt.client.nominate.plugin.NominateConstants;
 import com.chinarewards.gwt.elt.client.staff.HrRegisterRequest;
 import com.chinarewards.gwt.elt.client.staff.HrRegisterResponse;
 import com.chinarewards.gwt.elt.client.staff.model.StaffVo;
@@ -58,7 +57,7 @@ public class HrRegisterPresenterImpl extends
 		vo.setPassword(display.getPassword().getValue());
 		vo.setUsername(display.getUsername().getValue());
 		vo.setCreateUserId(sessionManager.getSession().getToken());
-		vo.setDeptId("8a83834534544f870134544f8bdc0007");
+		vo.setDeptId("8a83834534544f870134544f8bfb0008");
 
 		dispatcher.execute(new HrRegisterRequest(vo),
 				new AsyncCallback<HrRegisterResponse>() {
