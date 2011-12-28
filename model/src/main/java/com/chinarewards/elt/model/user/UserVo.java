@@ -11,6 +11,15 @@ public class UserVo {
 	private String username;
 	private String password;
 	private String corporationId;
+	private String staffId;
+
+	public String getStaffId() {
+		return staffId;
+	}
+
+	public void setStaffId(String staffId) {
+		this.staffId = staffId;
+	}
 
 	public String getId() {
 		return id;

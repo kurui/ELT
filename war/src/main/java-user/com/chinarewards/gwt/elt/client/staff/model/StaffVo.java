@@ -11,7 +11,28 @@ public class StaffVo implements Serializable, Comparable<StaffVo> {
 	private String password;
 	private String tell;
 	private String email;
+	private String createUserId;
+	private String deptId;
+	public String getDeptId() {
+		return deptId;
+	}
+	public void setDeptId(String deptId) {
+		this.deptId = deptId;
+	}
+	public String getCorpId() {
+		return corpId;
+	}
+	public void setCorpId(String corpId) {
+		this.corpId = corpId;
+	}
 
+	private String corpId;
+	public String getCreateUserId() {
+		return createUserId;
+	}
+	public void setCreateUserId(String createUserId) {
+		this.createUserId = createUserId;
+	}
 	public String getId() {
 		return id;
 	}

@@ -31,7 +31,7 @@ public class HrRegisterEditorDescriptor implements EditorDescriptor {
 	public Editor createEditor(String instanceId, Object model) {
 		HrRegisterEditor e = editProvider.get();
 		e.setInstanceId(instanceId);
-		e.setTitle("HR注册");
+		e.setTitle("注册");
 		e.setModel(model);
 		return e;
 	}

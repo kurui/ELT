@@ -1,14 +1,16 @@
 package com.chinarewards.gwt.elt.client.staff.presenter;
 
-
-
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
+import com.chinarewards.gwt.elt.client.nominate.plugin.NominateConstants;
 import com.chinarewards.gwt.elt.client.staff.HrRegisterRequest;
 import com.chinarewards.gwt.elt.client.staff.HrRegisterResponse;
 import com.chinarewards.gwt.elt.client.staff.model.StaffVo;
+import com.chinarewards.gwt.elt.client.staff.plugin.HrRegisterConstants;
+import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.util.StringUtil;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -21,12 +23,16 @@ public class HrRegisterPresenterImpl extends
 		HrRegisterPresenter {
 
 	private final DispatchAsync dispatcher;
-	
+	private final SessionManager sessionManager;
+	private  String instanceId;
+
 	@Inject
 	public HrRegisterPresenterImpl(EventBus eventBus,
-			HrRegisterDisplay display,DispatchAsync dispatcher) {
+			HrRegisterDisplay display, DispatchAsync dispatcher,
+			SessionManager sessionManager) {
 		super(eventBus, display);
-		this.dispatcher=dispatcher;
+		this.dispatcher = dispatcher;
+		this.sessionManager = sessionManager;
 	}
 
 	@Override
@@ -51,7 +57,8 @@ public class HrRegisterPresenterImpl extends
 		vo.setTell(display.getTell().getValue());
 		vo.setPassword(display.getPassword().getValue());
 		vo.setUsername(display.getUsername().getValue());
-		
+		vo.setCreateUserId(sessionManager.getSession().getToken());
+		vo.setDeptId("8a83834534544f870134544f8bdc0007");
 
 		dispatcher.execute(new HrRegisterRequest(vo),
 				new AsyncCallback<HrRegisterResponse>() {
@@ -62,12 +69,16 @@ public class HrRegisterPresenterImpl extends
 					@Override
 					public void onSuccess(HrRegisterResponse response) {
 
-						Window.alert("添加成功！StallID="+response.getStaffId()+"  UserId="+response.getUserId());
-						// eventBus.fireEvent(new
-						// StaffCreatedEvent(response.getStaffId()));
-						// closeDialog();
+						Window.alert("添加成功！ UserId=" + response.getUserId());
+						Platform.getInstance().getEditorRegistry().closeEditor(HrRegisterConstants.EDITOR_HRREGISTER_SEARCH, HrRegisterConstants.EDITOR_HRREGISTER_SEARCH+instanceId);
 					}
 				});
+	}
+
+	@Override
+	public void initRegister(String instanceId) {
+		this.instanceId=instanceId;
+		
 	}
 
 }

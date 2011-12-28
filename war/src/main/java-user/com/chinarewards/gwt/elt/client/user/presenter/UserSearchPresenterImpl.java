@@ -8,9 +8,11 @@ import java.util.Map;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
+import com.chinarewards.gwt.elt.client.staff.plugin.HrRegisterConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.user.dp.UserSearchAsyncDataProvider;
 import com.chinarewards.gwt.elt.client.user.model.UserSearchVo;
@@ -18,7 +20,6 @@ import com.chinarewards.gwt.elt.client.user.presenter.UserSearchPresenter.UserSe
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
 
 /**
@@ -54,8 +55,23 @@ public class UserSearchPresenterImpl extends BasePresenter<UserSearchDisplay>
 					@Override
 					public void onClick(ClickEvent event) {
 						GWT.log("running click handlers. search");
-						Window.alert("开始查询");
 						doSearch();
+					}
+				}));
+		// add btn
+		registerHandler(display.getAddHandlers().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						GWT.log("running click handlers. add");
+						Platform.getInstance()
+								.getEditorRegistry()
+								.openEditor(
+										HrRegisterConstants.EDITOR_HRREGISTER_SEARCH,
+										HrRegisterConstants.EDITOR_HRREGISTER_SEARCH
+												+ sessionManager.getSession()
+														.getToken(),
+										sessionManager.getSession().getToken());
 					}
 				}));
 	}

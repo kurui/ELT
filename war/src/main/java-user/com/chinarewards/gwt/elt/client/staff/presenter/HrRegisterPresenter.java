@@ -8,6 +8,7 @@ import com.google.gwt.user.client.ui.HasValue;
 
 public interface HrRegisterPresenter extends Presenter<HrRegisterPresenter.HrRegisterDisplay> {
 	
+	public void initRegister(String instanceId);
 	public static interface HrRegisterDisplay extends Display {
 
 		public HasClickHandlers getHrRegisterClickHandlers();

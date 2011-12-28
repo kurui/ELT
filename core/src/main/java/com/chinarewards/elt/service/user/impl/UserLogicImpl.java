@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.chinarewards.elt.dao.org.CorporationDao;
+import com.chinarewards.elt.dao.org.StaffDao;
 import com.chinarewards.elt.dao.user.UserDao;
 import com.chinarewards.elt.dao.user.UserRoleDao;
 import com.chinarewards.elt.domain.org.Corporation;
@@ -36,15 +37,17 @@ public class UserLogicImpl implements UserLogic {
 	public static final String DEFAULT_NAME = "_damon_4076124377";
 
 	UserDao userDao;
+	StaffDao staffDao;
 	CorporationDao corporationDao;
 	UserRoleDao userRoleDao;
 
 	@Inject
 	public UserLogicImpl(UserDao userDao, CorporationDao corporationDao,
-			UserRoleDao userRoleDao) {
+			UserRoleDao userRoleDao, StaffDao staffDao) {
 		this.userDao = userDao;
 		this.corporationDao = corporationDao;
 		this.userRoleDao = userRoleDao;
+		this.staffDao = staffDao;
 	}
 
 	@Override
@@ -102,6 +105,11 @@ public class UserLogicImpl implements UserLogic {
 		u.setCreatedBy(caller);
 		u.setLastModifiedAt(now);
 		u.setLastModifiedBy(caller);
+		u.setStatus(UserStatus.Active);
+		if (user.getStaffId() != null && user.getStaffId() != "" && !"".equals(user.getStaffId())) {
+			Staff staff = staffDao.findById(Staff.class, user.getStaffId());
+			u.setStaff(staff);
+		}
 		userDao.save(u);
 		return u;
 	}
