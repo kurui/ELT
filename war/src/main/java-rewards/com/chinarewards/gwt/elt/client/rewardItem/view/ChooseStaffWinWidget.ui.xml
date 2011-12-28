@@ -26,7 +26,7 @@
 			<div class="{style.listtable}">
 				<table width="100%">
 					<tr>
-						<td>准备添加的员工：</td>
+						<td>添加的员工：</td>
 						<td><g:FlowPanel ui:field="specialBoxPanel" /></td>
 					</tr>
 				</table>
