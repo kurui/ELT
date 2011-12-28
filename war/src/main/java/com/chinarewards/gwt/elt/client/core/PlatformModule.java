@@ -67,9 +67,9 @@ public class PlatformModule extends AbstractGinModule {
 		if (pluginSet == null) {
 			pluginSet = new InMemoryPluginSet();
 			pluginSet.registerPlugin(core);
-		//	pluginSet.registerPlugin(sample);
-		//	pluginSet.registerPlugin(user);
-		//	pluginSet.registerPlugin(hrregister);
+			pluginSet.registerPlugin(sample);
+			pluginSet.registerPlugin(user);
+			pluginSet.registerPlugin(hrregister);
             pluginSet.registerPlugin(rewardsItemList);
 			pluginSet.registerPlugin(nominate);
 			pluginSet.registerPlugin(rewardsItem);
