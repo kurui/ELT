@@ -1,13 +1,18 @@
 package com.chinarewards.elt.service.user.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import com.chinarewards.elt.dao.org.CorporationDao;
 import com.chinarewards.elt.dao.user.UserDao;
+import com.chinarewards.elt.dao.user.UserRoleDao;
 import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.domain.user.SysUser;
+import com.chinarewards.elt.domain.user.SysUserRole;
+import com.chinarewards.elt.model.user.UserRole;
+import com.chinarewards.elt.model.user.UserSessionVo;
 import com.chinarewards.elt.model.user.UserStatus;
 import com.chinarewards.elt.model.user.UserVo;
 import com.chinarewards.elt.service.user.UserLogic;
@@ -29,11 +34,14 @@ public class UserLogicImpl implements UserLogic {
 
 	UserDao userDao;
 	CorporationDao corporationDao;
+	UserRoleDao userRoleDao;
 
 	@Inject
-	public UserLogicImpl(UserDao userDao, CorporationDao corporationDao) {
+	public UserLogicImpl(UserDao userDao, CorporationDao corporationDao,
+			UserRoleDao userRoleDao) {
 		this.userDao = userDao;
 		this.corporationDao = corporationDao;
+		this.userRoleDao = userRoleDao;
 	}
 
 	@Override
@@ -55,7 +63,7 @@ public class UserLogicImpl implements UserLogic {
 
 		return user;
 	}
-	
+
 	@Override
 	public SysUser getDefaultUserByStaff(Staff staff) {
 		List<SysUser> users = userDao.findUserByUserName(DEFAULT_NAME);
@@ -98,5 +106,35 @@ public class UserLogicImpl implements UserLogic {
 	@Override
 	public SysUser findUserById(String id) {
 		return userDao.findById(SysUser.class, id);
+	}
+
+	@Override
+	public UserSessionVo findUserByNameAndPwd(String userName, String pwd) {
+		SysUser user = userDao.findUserByNameAndPwd(userName, pwd);
+		return findUserRolebySysUser(user);
+	}
+
+	@Override
+	public UserSessionVo tokenVaild(String token) {
+		SysUser user = userDao.findById(SysUser.class, token);
+		return findUserRolebySysUser(user);
+	}
+
+	private UserSessionVo findUserRolebySysUser(SysUser user) {
+		UserSessionVo vo = new UserSessionVo();
+		List<SysUserRole> listRole = userRoleDao.findUserRoleByUserId(user
+				.getId());
+		List<UserRole> userRoles = new ArrayList<UserRole>();
+		if (listRole != null && listRole.size() > 0) {
+			for (SysUserRole role : listRole) {
+				userRoles.add(role.getRole().getName());
+			}
+		}
+
+		vo.setId(user.getId());
+		vo.setCorporationId(user.getCorporation().getId());
+		vo.setUsername(user.getUserName());
+		vo.setUserRoles(userRoles);
+		return vo;
 	}
 }

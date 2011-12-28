@@ -12,6 +12,7 @@ import com.chinarewards.gwt.elt.client.detailsOfAward.request.DetailsOfAwardInit
 import com.chinarewards.gwt.elt.client.enterprise.EnterpriseInitRequest;
 import com.chinarewards.gwt.elt.client.enterprise.EnterpriseRequest;
 import com.chinarewards.gwt.elt.client.login.LoginRequest;
+import com.chinarewards.gwt.elt.client.login.TokenValidRequest;
 import com.chinarewards.gwt.elt.client.nominate.NominateAddRequest;
 import com.chinarewards.gwt.elt.client.nominate.NominateInitRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.ActivationRewardsItemRequest;
@@ -30,6 +31,7 @@ import com.chinarewards.gwt.elt.server.detailsOfAward.DetailsOfAwardActionHandle
 import com.chinarewards.gwt.elt.server.enterprise.EnterpriseActionHandler;
 import com.chinarewards.gwt.elt.server.enterprise.EnterpriseInitActionHandler;
 import com.chinarewards.gwt.elt.server.login.LoginActionHandler;
+import com.chinarewards.gwt.elt.server.login.TokenValidActionHandler;
 import com.chinarewards.gwt.elt.server.nominate.NominateActionHandler;
 import com.chinarewards.gwt.elt.server.nominate.NominateAddActionHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.ActivationRewardsItemHandler;
@@ -100,5 +102,7 @@ public class ActionModule extends ActionHandlerModule {
 		//激活(应用)奖项
 		bindHandler(ActivationRewardsItemRequest.class, ActivationRewardsItemHandler.class);
 		
+		//登录验证token
+		bindHandler(TokenValidRequest.class, TokenValidActionHandler.class);
 	}
 }

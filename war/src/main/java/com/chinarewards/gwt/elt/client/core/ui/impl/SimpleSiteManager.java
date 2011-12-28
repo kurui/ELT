@@ -118,7 +118,7 @@ public class SimpleSiteManager implements SiteManager, EditorCloseHandler,
 		// dock.addSouth(new HTML("<em>Footer</em>"), 50);
 		// FIXME 20111130
 		dockPresenter.getDisplay().setMessage(
-				sessionManager.getSession().getToken());
+				sessionManager.getSession().getLoginName());
 		// menu = new LayoutPanel();
 		menu = dockPresenter.getDisplay().getMenu();
 		// dock.addWest(menu, 200);
