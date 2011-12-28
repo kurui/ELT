@@ -11,7 +11,10 @@ import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.domain.user.SysUserRole;
+import com.chinarewards.elt.model.user.SearchUserInfo;
 import com.chinarewards.elt.model.user.UserRole;
+import com.chinarewards.elt.model.user.UserSearchCriteria;
+import com.chinarewards.elt.model.user.UserSearchResult;
 import com.chinarewards.elt.model.user.UserSessionVo;
 import com.chinarewards.elt.model.user.UserStatus;
 import com.chinarewards.elt.model.user.UserVo;
@@ -136,5 +139,22 @@ public class UserLogicImpl implements UserLogic {
 		vo.setUsername(user.getUserName());
 		vo.setUserRoles(userRoles);
 		return vo;
+	}
+
+	@Override
+	public UserSearchResult searchHrAdminUserPaging(UserSearchCriteria criteria) {
+
+		UserSearchResult result = new UserSearchResult();
+		List<SysUser> hrUsers = userDao.searchHrAdminUserByCriteria(criteria);
+		List<SearchUserInfo> userInfos = new ArrayList<SearchUserInfo>();
+		for (SysUser user : hrUsers) {
+			SearchUserInfo info = new SearchUserInfo();
+			info.setUser(user);
+			info.setEnterpriseName(user.getCorporation().getName());
+			userInfos.add(info);
+		}
+		result.setResult(userInfos);
+		result.setTotal(userDao.countHrAdminUserByCriteria(criteria));
+		return result;
 	}
 }

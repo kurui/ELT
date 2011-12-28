@@ -1,5 +1,7 @@
 package com.chinarewards.elt.service.user.impl;
 
+import com.chinarewards.elt.model.user.UserSearchCriteria;
+import com.chinarewards.elt.model.user.UserSearchResult;
 import com.chinarewards.elt.model.user.UserSessionVo;
 import com.chinarewards.elt.service.user.UserLogic;
 import com.chinarewards.elt.service.user.UserService;
@@ -21,6 +23,10 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserSessionVo tokenVaild(String token) {
 		return userLogic.tokenVaild(token);
+	}
+	@Override
+	public UserSearchResult searchHrAdminUserPaging(UserSearchCriteria criteria) {
+		return userLogic.searchHrAdminUserPaging(criteria);
 	}
 
 }
