@@ -4,7 +4,7 @@
 	xmlns:c="urn:import:com.google.gwt.user.cellview.client">
 	<ui:style src="myMain.css"></ui:style>
 	<g:HTMLPanel>
-		<div class="{style.center}" style="width:778px;">
+		<div class="{style.center}" style="width:578px;">
 			<div class="{style.fmtable}">
 				<table width="100%" border="0" cellspacing="0" cellpadding="0">
 					<tr>

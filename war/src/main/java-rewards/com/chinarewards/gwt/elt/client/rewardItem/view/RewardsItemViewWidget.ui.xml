@@ -21,44 +21,46 @@
                     </h3>
                     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="{item.mmtable}">
                       <tr>
-                        <td valign="top" class="{item.title}"><span>*</span> 奖项名称：</td>
-                        <td class="{item.intext}"><g:TextBox ui:field="rewardsName" styleName="textmy"/></td>
+                        <td valign="top" class="{item.title}"> 奖项名称：</td>
+                        <td class="{item.intext}"><g:Label ui:field="rewardsName" /></td>
                       	<td align="left"></td>
                       </tr>
                       
                       <tr>
                         <td valign="top" class="{item.title}"> 奖项说明：</td>
-                        <td class="{item.intext}"><g:TextArea ui:field="rewardsDefinition" visibleLines="3" styleName="textmy" /></td>
+                        <td class="{item.intext}"><g:Label ui:field="rewardsDefinition"   /></td>
                     	<td></td>
                       </tr>
                       <tr>
                         <td valign="top" class="{item.title}"> 奖项条件：</td>
-                        <td class="{item.intext}"><g:TextArea ui:field="standard" visibleLines="3" styleName="textmy" /></td>
+                        <td class="{item.intext}"><g:Label ui:field="standard"   /></td>
                      	<td></td>
                       </tr>
 					  <tr>
                         <td valign="top" class="{item.title}"> 获奖名额：</td>
-                        <td class="{item.intext}"><g:TextBox ui:field="peopleSizeLimit" /></td>
+                        <td class="{item.intext}"><g:Label ui:field="peopleSizeLimit" /></td>
                      	<td></td>
                       </tr>
                       <tr>
                         <td valign="top" class="{item.title}"> 总积分：</td>
-                        <td class="{item.intext}"><g:TextBox ui:field="totalJF" /></td>
+                        <td class="{item.intext}"><g:Label ui:field="totalJF" /></td>
                      	<td></td>
                       </tr>
                       <tr>
                         <td valign="top" class="{item.title}"> 每人得奖积分：</td>
-                        <td class="{item.intext}"><g:TextBox ui:field="rewardsFrom" /></td>
+                        <td class="{item.intext}"><g:Label ui:field="rewardsFrom" /></td>
                      	<td></td>
                       </tr>
                        <tr>
 				               <td valign="top" class="{item.title}"> 提名人：</td>
-				               <td class="{item.intext}"><g:FlowPanel ui:field="staffAreaPanel" width="326px"/> </td>
-				               <td><g:Button ui:field="chooseBtns" styleName="button-addpe">选择</g:Button></td>
-				         </tr>
+				               <td class="{item.intext}"><g:FlowPanel ui:field="staffAreaPanel" /> </td>
+				               <td></td>
+				       </tr>
                       <tr>
-                        <td colspan="3" id="noPaddingTd"><g:FlowPanel ui:field="staffPanel"/> </td>                     
-                      </tr>
+				               <td valign="top" class="{item.title}"> 候选人：</td>
+				               <td class="{item.intext}"><g:FlowPanel ui:field="staffPanel" /> </td>
+				               <td></td>
+				       </tr>
                      
 					  <tr>
 					  <td valign="top" class="{item.title}">奖项模式</td>
@@ -67,29 +69,29 @@
                          <g:RadioButton name="period" ui:field="moretimes" text="周期性"/> </td>
 					  </tr>
                        <tr>
-                        <td class="{item.title}"><span>*</span> 开始时间： </td>
-                        <td class="{item.intext}"><d:DateBox ui:field="startTime" styleName="textmy"/></td>
+                        <td class="{item.title}"> 开始时间： </td>
+                        <td class="{item.intext}"><g:Label ui:field="startTime" /></td>
                       	<td></td>
                       </tr>
                      <tbody id="ones">
                       <tr>
                         <td valign="top" class="{item.title}">预计颁奖时间：</td>
-                        <td class="{item.intext}"><d:DateBox ui:field="expectTime" styleName="textmy"/></td>
-						<td>提前<g:TextBox ui:field="tmdays" width="30px"/>天提名<g:Label ui:field="lastRewardsTime"/></td>
+                        <td class="{item.intext}"><g:InlineLabel ui:field="expectTime" />     提前<g:InlineLabel ui:field="tmdays" />天提名</td>
+						<td></td>
                       </tr>
                       </tbody>
                       <tbody id="period"> 
                        <tr>
                         <td valign="top" class="{item.title}">下次颁奖时间：</td>
-                        <td class="{item.intext}"><d:DateBox ui:field="nextRewardsTime" styleName="textmy"/></td>
-						<td>提前<g:TextBox ui:field="tmday" width="30px"/>天提名</td>
+                        <td class="{item.intext}"><g:InlineLabel ui:field="nextRewardsTime" />   提前<g:InlineLabel ui:field="tmday" />天提名</td>
+						<td></td>
                       </tr>                     	
                       <tr>
-                        <td valign="top" class="{item.title}"><span>*</span> 颁奖周期： </td>
+                        <td valign="top" class="{item.title}"> 颁奖周期： </td>
                         <td class="{item.intext}">
-                        	<g:Label ui:field="settingText" styleName="textmy"/>
+                        	<g:Label ui:field="settingText" />
                        	</td>
-                       	<td><g:Button ui:field="setting" >设置频率</g:Button></td>
+                       	<td></td>
                       </tr>
                       
                       <tr>
@@ -106,7 +108,7 @@
                       </tr>
                       <tr>
                         <td valign="top" class="{item.title}">下次公布时间：</td>
-                        <td class="{item.intext}"><d:DateBox ui:field="nextPublicTime" styleName="textmy"/></td>
+                        <td class="{item.intext}"><g:Label ui:field="nextPublicTime" /></td>
                         <td></td>
                       </tr>
                       <tr>

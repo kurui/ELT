@@ -115,7 +115,6 @@ public class SearchRewardsItemByIdHandler
 				client.setHasSpecialCondition(true);
 				client.setCondition(SpecialCondition.birth);
 			} else if (itemRule instanceof DirectCandidateRule) {
-				//public CandidateRule findCandidateRuleFromRewardItem(String rewardItemId)
 				List<DirectCandidateData> directRuleSelecteds = rewardsItemService.findDirectCandidateDataListByDirectRuleId(itemRule.getId());
 				logger.debug("itemRuleId:{},directRuleSelecteds size:{}",new Object[] { itemRule.getId(),directRuleSelecteds.size() });
 				ParticipateInfoClient participate = null;
@@ -151,8 +150,7 @@ public class SearchRewardsItemByIdHandler
 	private List<OrganicationClient> getOrgsFromParticipants(List<DirectCandidateData> participants) {
 		List<OrganicationClient> orgs = new ArrayList<OrganicationClient>();
 		for (DirectCandidateData p : participants) {
-			orgs.add(new OrganicationClient(p.getOrg().getId(), p
-					.getOrg().getName()));
+			orgs.add(new OrganicationClient(p.getOrg().getId(), p.getOrg().getName()));
 		}
 		return orgs;
 	}

@@ -481,8 +481,6 @@ public class RewardsItemCreatePresenterImpl extends
 					}
 					
 				
-
-					
 					// 员工选择
 					if (staffBlock.getDisplay().isSomeone().getValue() == true) {
 						if (staffBlock.getDisplay().getRealOrginzationIds() == null) {
@@ -529,24 +527,21 @@ public class RewardsItemCreatePresenterImpl extends
 						errorMsg.append("开始时间不能为空<br>");
 						flag = false;
 					}
-					
-							
+				try {
 
-					try {
-
-							int limitPeople = Integer.parseInt(display.getPeopleSizeLimit()
-									.getValue());
-							if (display.getPeopleSizeLimit().getValue() != null) {
-								if (limitPeople == 0 || limitPeople < 0) {
-									errorMsg.append("请正确填写获奖名额(正整数)!<br>");
-									flag = false;
-								}
-							}
-						} catch (Exception e) {
-							errorMsg.append("请正确填写获奖名额!<br>");
+					int limitPeople = Integer.parseInt(display.getPeopleSizeLimit()
+							.getValue());
+					if (display.getPeopleSizeLimit().getValue() != null) {
+						if (limitPeople == 0 || limitPeople < 0) {
+							errorMsg.append("请正确填写获奖名额(正整数)!<br>");
 							flag = false;
 						}
-					
+					}
+				} catch (Exception e) {
+					errorMsg.append("请正确填写获奖名额!<br>");
+					flag = false;
+				}
+			
                    //周期性
 					if (display.getEnableCbx().getValue()) {
 						
@@ -641,7 +636,7 @@ public class RewardsItemCreatePresenterImpl extends
 					if (!flag) {
 
 						errorHandler.alert(errorMsg.toString());
-						// win.alert(errorMsg.toString(), true); // true = HTML escape
+						
 					}
 
 					return flag;
@@ -663,7 +658,9 @@ public class RewardsItemCreatePresenterImpl extends
 									@Override
 									public void onFailure(Throwable arg0) {
 										errorHandler.alert("查询奖项出错!");
-
+										Platform.getInstance()
+										.getEditorRegistry()
+										.closeEditor(RewardsItemConstants.EDITOR_REWARDSITEM_ADD,instanceId);
 									}
 
 									@Override
