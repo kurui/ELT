@@ -39,6 +39,7 @@ import com.chinarewards.gwt.elt.client.rewards.model.YearFrequencyClient;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
 import com.chinarewards.gwt.elt.server.logger.InjectLogger;
 import com.chinarewards.gwt.elt.util.StringUtil;
+import com.chinarewards.gwt.elt.util.UserRoleTool;
 import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
 
@@ -66,16 +67,12 @@ public class CreateRewardsItemHandler extends	BaseActionHandler<CreateRewardsIte
 		RewardItemParam param = assembleParameter(rewardsItemClient);
 		
 		logger.debug("GeneratorRewardsItemModel:startTime="	+ param.getStartTime());
-		// 李伟模拟一条用户数据------------------
+		
 		UserContext uc = new UserContext();
 		uc.setCorporationId(action.getUserSession().getCorporationId());
 		uc.setLoginName(action.getUserSession().getLoginName());
 		uc.setUserId(action.getUserSession().getToken());
-		UserRole[] ur = new UserRole[1];
-		ur[0] = UserRole.CORP_ADMIN;//固定为管理员
-		uc.setUserRoles(ur);
-// ---------------------------------------
-		
+		uc.setUserRoles(UserRoleTool.adaptToRole(action.getUserSession().getUserRoles()));
 		RewardItem createdItem = rewardItemService.saveRewardItem(uc, param);
 		
 
