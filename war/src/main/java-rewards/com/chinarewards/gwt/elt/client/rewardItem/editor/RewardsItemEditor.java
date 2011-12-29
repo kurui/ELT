@@ -47,8 +47,7 @@ public class RewardsItemEditor extends AbstractEditor {
 		
 	 	rewardsItemPresenter.bind();
 	 	if(model !=null){
-	 	String id = ((RewardsItemClient) model).getId();
-		rewardsItemPresenter.initInstanceId(id,(RewardsItemClient) model);
+	 	rewardsItemPresenter.initInstanceId(instanceId,(RewardsItemClient) model);
 	 	}
 		
 	}

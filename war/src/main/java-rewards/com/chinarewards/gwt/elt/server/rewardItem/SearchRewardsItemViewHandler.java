@@ -22,8 +22,10 @@ import com.chinarewards.elt.model.reward.base.RequireAutoAward;
 import com.chinarewards.elt.model.reward.base.RequireAutoGenerate;
 import com.chinarewards.elt.model.reward.vo.RewardItemVo;
 import com.chinarewards.elt.service.reward.RewardItemService;
-import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsItemByIdRequest;
-import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsItemByIdResponse;
+import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsItemViewRequest;
+import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsItemViewResponse;
+import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsItemViewRequest;
+import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsItemViewResponse;
 import com.chinarewards.gwt.elt.client.rewards.model.FrequencyClient;
 import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
 import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient;
@@ -39,28 +41,28 @@ import com.google.inject.Inject;
  * @author Cream
  * @since 0.2.0 2010-12-26
  */
-public class SearchRewardsItemByIdHandler
+public class SearchRewardsItemViewHandler
 		extends
-		BaseActionHandler<SearchRewardsItemByIdRequest, SearchRewardsItemByIdResponse> {
+		BaseActionHandler<SearchRewardsItemViewRequest, SearchRewardsItemViewResponse> {
 	@InjectLogger
 	Logger logger;
 	RewardItemService rewardItemService;
 
 	@Inject
-	public SearchRewardsItemByIdHandler(RewardItemService rewardItemService) {
+	public SearchRewardsItemViewHandler(RewardItemService rewardItemService) {
 		this.rewardItemService = rewardItemService;
 	}
 	
 
 
 	@Override
-	public SearchRewardsItemByIdResponse execute(
-			SearchRewardsItemByIdRequest request, ExecutionContext context)
+	public SearchRewardsItemViewResponse execute(
+			SearchRewardsItemViewRequest request, ExecutionContext context)
 			throws DispatchException {
 		logger.debug(" parameters:{}", request.getId());
 		
 		RewardItemVo rewardsItem = rewardItemService.fetchEntireRewardItemById(request.getId());
-		return new SearchRewardsItemByIdResponse(adapter(rewardItemService,
+		return new SearchRewardsItemViewResponse(adapter(rewardItemService,
 				rewardsItem));
 	}
 
@@ -115,6 +117,7 @@ public class SearchRewardsItemByIdHandler
 				client.setHasSpecialCondition(true);
 				client.setCondition(SpecialCondition.birth);
 			} else if (itemRule instanceof DirectCandidateRule) {
+				//public CandidateRule findCandidateRuleFromRewardItem(String rewardItemId)
 				List<DirectCandidateData> directRuleSelecteds = rewardsItemService.findDirectCandidateDataListByDirectRuleId(itemRule.getId());
 				logger.debug("itemRuleId:{},directRuleSelecteds size:{}",new Object[] { itemRule.getId(),directRuleSelecteds.size() });
 				ParticipateInfoClient participate = null;
@@ -150,7 +153,8 @@ public class SearchRewardsItemByIdHandler
 	private List<OrganicationClient> getOrgsFromParticipants(List<DirectCandidateData> participants) {
 		List<OrganicationClient> orgs = new ArrayList<OrganicationClient>();
 		for (DirectCandidateData p : participants) {
-			orgs.add(new OrganicationClient(p.getOrg().getId(), p.getOrg().getName()));
+			orgs.add(new OrganicationClient(p.getOrg().getId(), p
+					.getOrg().getName()));
 		}
 		return orgs;
 	}
@@ -164,13 +168,13 @@ public class SearchRewardsItemByIdHandler
 	}
 
 	@Override
-	public Class<SearchRewardsItemByIdRequest> getActionType() {
-		return SearchRewardsItemByIdRequest.class;
+	public Class<SearchRewardsItemViewRequest> getActionType() {
+		return SearchRewardsItemViewRequest.class;
 	}
 
 	@Override
-	public void rollback(SearchRewardsItemByIdRequest arg0,
-			SearchRewardsItemByIdResponse arg1, ExecutionContext arg2)
+	public void rollback(SearchRewardsItemViewRequest arg0,
+			SearchRewardsItemViewResponse arg1, ExecutionContext arg2)
 			throws DispatchException {
 	}
 

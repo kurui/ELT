@@ -93,7 +93,7 @@ public class CreateRewardsItemHandler extends	BaseActionHandler<CreateRewardsIte
 		parameter.setStartTime(client.getStartTime());
 		parameter.setExpectAwardDate(client.getExpectAwardDate());
 		
-		System.out.println("client.getFrequency()"+client.getFrequency());
+		
 		if(client.isPeriodEnable()==true){//如果是周期性的
 			// 奖项的频率
 			parameter.setFrequency(adapterFrequency( client.getFrequency()));

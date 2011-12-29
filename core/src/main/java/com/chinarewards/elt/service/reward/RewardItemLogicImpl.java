@@ -161,6 +161,7 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 			// Update
 			
 			// clear frequency
+			if(itemObj.getFrequency()!=null)
 			frequencyLogic.removeFrequencyFromRewardItem(itemObj.getId());
 			// clear short-list rule
 			candidateRuleLogic.removeCandidateRuleFromRewardItem(itemObj.getId());

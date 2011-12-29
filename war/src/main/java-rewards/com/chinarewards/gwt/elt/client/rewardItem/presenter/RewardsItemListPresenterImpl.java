@@ -230,6 +230,24 @@ public class RewardsItemListPresenterImpl extends
 												+ object.getId(), object);
 					}
 				});
+		resultTable.addColumn("查看", new HyperLinkCell(),
+				new GetValue<RewardsItemClient, String>() {
+					@Override
+					public String getValue(RewardsItemClient arg0) {
+						return "查看";
+					}
+				}, new FieldUpdater<RewardsItemClient, String>() {
+					@Override
+					public void update(int index, RewardsItemClient object,
+							String value) {
+						Platform.getInstance()
+								.getEditorRegistry()
+								.openEditor(
+										RewardsItemConstants.EDITOR_REWARDSITEM_View,
+										"EDITOR_REWARDS_ITEM_VIEW"
+												+ object.getId(), object);
+					}
+				});
 		resultTable.addColumn("操作", new HyperLinkCell(),
 				new GetValue<RewardsItemClient, String>() {
 					@Override

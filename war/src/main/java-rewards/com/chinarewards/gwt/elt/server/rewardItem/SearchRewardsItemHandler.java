@@ -55,9 +55,9 @@ public class SearchRewardsItemHandler extends	BaseActionHandler<SearchRewardsIte
 		RewardsItemCriteria rewardsItemClient = request.getRewardsItem();
 		RewardItemSearchVo model = adapter(rewardsItemClient);
 		logger.debug("RewardsItemSearchVo: {}", model);
-		// 模拟一条用户数据------------------
+		// 李伟模拟一条用户数据------------------
 				UserContext uc = new UserContext();
-				uc.setCorporationId("8a83834534544f870134544f8bdc0006");
+				uc.setCorporationId("8a83835134598ab30134598ab6cc0004");
 				UserRole[] ur = new UserRole[1];
 				ur[0] = UserRole.CORP_ADMIN;
 				uc.setUserRoles(ur);
