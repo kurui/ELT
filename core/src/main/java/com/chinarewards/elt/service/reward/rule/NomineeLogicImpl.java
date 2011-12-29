@@ -15,7 +15,6 @@ import com.chinarewards.elt.domain.reward.person.Nominee;
 import com.chinarewards.elt.domain.reward.person.NomineeLot;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.reward.base.JudgeStatus;
-import com.chinarewards.elt.model.reward.base.RewardStatus;
 import com.chinarewards.elt.model.reward.exception.JudgeException;
 import com.chinarewards.elt.util.DateUtil;
 import com.google.inject.Inject;
@@ -88,9 +87,9 @@ public class NomineeLogicImpl implements NomineeLogic {
 			nomineeDao.save(nominee);
 		}
 		
-		//提名..修改状态
-		reward.setStatus(RewardStatus.NEW);
-		rewardDao.update(reward);
+//		//提名..修改状态
+//		reward.setStatus(RewardStatus.NEW);
+//		rewardDao.update(reward);
 		
 		return lot;
 	}
