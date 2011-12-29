@@ -27,6 +27,7 @@ import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemCriteria;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
 import com.chinarewards.gwt.elt.server.logger.InjectLogger;
+import com.chinarewards.gwt.elt.util.UserRoleTool;
 import com.google.inject.Inject;
 
 /**
@@ -54,16 +55,10 @@ public class SearchRewardsItemHandler extends	BaseActionHandler<SearchRewardsIte
      
 		RewardsItemCriteria rewardsItemClient = request.getRewardsItem();
 		RewardItemSearchVo model = adapter(rewardsItemClient);
-		
-		// 李伟模拟一条用户数据------------------
-				UserContext uc = new UserContext();
-				uc.setCorporationId(request.getUserSession().getCorporationId());
-				uc.setLoginName(request.getUserSession().getLoginName());
-				
-				UserRole[] ur = new UserRole[1];
-				ur[0] = UserRole.CORP_ADMIN;//固定为管理员
-				uc.setUserRoles(ur);
-		// ---------------------------------------
+		UserContext uc = new UserContext();
+		uc.setCorporationId(request.getUserSession().getCorporationId());
+		uc.setLoginName(request.getUserSession().getLoginName());
+		uc.setUserRoles(UserRoleTool.adaptToRole(request.getUserSession().getUserRoles()));
 		PageStore<RewardItemVo> items = rewardItemService.fetchRewardItems(uc,model);
 
 		resp.setTotal(items.getResultCount());
