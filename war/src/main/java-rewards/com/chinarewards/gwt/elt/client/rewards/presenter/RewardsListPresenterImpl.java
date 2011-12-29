@@ -104,6 +104,14 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 		{
 			criteria.setStatus(RewardsStatus.PENDING_NOMINATE);
 		}
+		if(pageType==RewardPageType.AWARDREWARDPAGE)
+		{
+			criteria.setStatus(RewardsStatus.NEW);
+		}
+		if(pageType==RewardPageType.DETAILSOFAWARDPAGE)
+		{
+			criteria.setStatus(RewardsStatus.REWARDED);
+		}
 		listViewAdapter = new RewardsListViewAdapter(dispatch, criteria,
 				errorHandler, sessionManager);
 		listViewAdapter.addDataDisplay(cellTable);

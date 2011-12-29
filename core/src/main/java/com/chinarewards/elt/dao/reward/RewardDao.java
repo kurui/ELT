@@ -140,8 +140,20 @@ public class RewardDao extends BaseDao<Reward> {
 		}
 
 		if (criteria.getStatus() != null) {
-			hql.append(" AND rew.status = :status");
-			param.put("status", criteria.getStatus());
+			List<RewardStatus> rstatus=new ArrayList<RewardStatus>();
+			if(criteria.getStatus()==RewardStatus.PENDING_NOMINATE || criteria.getStatus()==RewardStatus.NEW)
+			{
+				rstatus.add(RewardStatus.PENDING_NOMINATE);
+				rstatus.add(RewardStatus.NEW);
+				hql.append(" AND rew.status IN (:status)");
+				param.put("status", rstatus);
+			}
+			else
+			{
+				hql.append(" AND rew.status = :status");
+				param.put("status", criteria.getStatus());
+			}
+
 		}
 		
 		if (!StringUtil.isEmptyString(criteria.getName())) {
