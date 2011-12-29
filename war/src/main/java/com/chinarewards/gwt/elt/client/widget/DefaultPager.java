@@ -145,7 +145,7 @@ public class DefaultPager extends SimplePager {
 
 		// return formatter.format(pageStart) + "-" + formatter.format(endIndex)
 		// + (exact ? " of " : " of over ") + formatter.format(dataSize);
-		return "当前第 " + currentPage + " 页";
+		return "当前第 " + currentPage + " 页,"+"共"+totalPage+"页,共"+dataSize+"条";
 	}
 
 	@Override
