@@ -10,11 +10,13 @@ import java.util.Set;
 import javax.persistence.Query;
 
 import com.chinarewards.elt.common.BaseDao;
+import com.chinarewards.elt.dao.user.UserDao;
 import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.org.Organization;
 import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.domain.reward.base.Reward;
+import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.reward.base.PreWinnerLotStatus;
 import com.chinarewards.elt.model.reward.base.RewardStatus;
@@ -35,10 +37,12 @@ public class RewardDao extends BaseDao<Reward> {
 	 * XXX here appear logic, it is strange!
 	 */
 	DepartmentLogic departmentLogic;
+	UserDao userDao;
 
 	@Inject
-	public RewardDao(DepartmentLogic departmentLogic) {
+	public RewardDao(DepartmentLogic departmentLogic,UserDao userDao) {
 		this.departmentLogic = departmentLogic;
+		this.userDao=userDao;
 	}
 
 	/**
@@ -252,6 +256,13 @@ public class RewardDao extends BaseDao<Reward> {
 			if (!StringUtil.isEmptyString(criteria.getWinnerStaffId())) {
 				hql.append(" AND rew.id IN(SELECT w.reward.id FROM Winner w WHERE w.staff.id = :staffId)");
 				param.put("staffId", criteria.getWinnerStaffId());
+			}
+			
+			//添加当前用户需要提名的数据
+			if (!StringUtil.isEmptyString(criteria.getJudgeUserId())) {
+				String staffid=userDao.findById(SysUser.class, criteria.getJudgeUserId()).getStaff().getId();
+				hql.append(" AND rew.id IN(SELECT w.reward.id FROM Judge w WHERE w.staff.id = :judgeUserId)");
+				param.put("judgeUserId", staffid);
 			}
 		}
 	}

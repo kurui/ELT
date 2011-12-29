@@ -16,6 +16,7 @@ import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.nominate.plugin.NominateConstants;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsCriteria;
+import com.chinarewards.gwt.elt.client.rewards.model.RewardsCriteria.RewardsStatus;
 import com.chinarewards.gwt.elt.client.rewards.presenter.RewardsListPresenter.RewardsListDisplay;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
@@ -95,6 +96,14 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 		RewardsCriteria criteria = new RewardsCriteria();
 		criteria.setName(display.getName().getValue());
 		criteria.setDefinition(display.getDefinition().getValue());
+		if(display.getNowJudge().getValue())
+		{
+			criteria.setJudgeUserId(sessionManager.getSession().getToken());
+		}
+		if(pageType==RewardPageType.NOMINATEPAGE)
+		{
+			criteria.setStatus(RewardsStatus.PENDING_NOMINATE);
+		}
 		listViewAdapter = new RewardsListViewAdapter(dispatch, criteria,
 				errorHandler, sessionManager);
 		listViewAdapter.addDataDisplay(cellTable);

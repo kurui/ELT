@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.common.PaginationDetail;
 import com.chinarewards.elt.model.common.SortingDetail;
+import com.chinarewards.elt.model.reward.base.RewardStatus;
 import com.chinarewards.elt.model.reward.search.RewardSearchVo;
 import com.chinarewards.elt.model.reward.vo.RewardVo;
 import com.chinarewards.elt.model.user.UserContext;
@@ -33,7 +34,6 @@ public class SearchRewardsHandler extends
 
 	RewardService rewardService;
 
-	
 	@Inject
 	public SearchRewardsHandler(RewardService rewardService) {
 		this.rewardService = rewardService;
@@ -50,11 +50,10 @@ public class SearchRewardsHandler extends
 		RewardSearchVo criteria = adapter(rewards);
 		PageStore<RewardVo> rewardsPage = null;
 
-		
-		UserContext uc = new UserContext();	
+		UserContext uc = new UserContext();
 		uc.setCorporationId(request.getCorporationId());
 		uc.setUserRoles(UserRoleTool.adaptToRole(request.getUserRoles()));
-		
+
 		rewardsPage = rewardService.fetchRewards(uc, criteria);
 		resp.setTotal(rewardsPage.getResultCount());
 		resp.setResult(RewardsAdapter.adapter(rewardsPage.getResultList()));
@@ -76,6 +75,11 @@ public class SearchRewardsHandler extends
 		criteria.setRewardItemId(rewards.getRewardsItemId());
 		criteria.setName(rewards.getName());
 		criteria.setDefinition(rewards.getDefinition());
+		if (rewards.getJudgeUserId() != null)
+			criteria.setJudgeUserId(rewards.getJudgeUserId());
+		if (rewards.getStatus() != null)
+			criteria.setStatus(RewardStatus.valueOf(rewards.getStatus()
+					.toString()));
 		// criteria.setStaffId(rewards.getStaffId());
 		if (rewards.getPagination() != null) {
 			PaginationDetail detail = new PaginationDetail();

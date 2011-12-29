@@ -22,6 +22,18 @@ public class RewardSearchVo {
 
 	private SortingDetail sortingDetail;
 	/**
+	 * 提名人-用户ID
+	 */
+	private String judgeUserId;
+	public String getJudgeUserId() {
+		return judgeUserId;
+	}
+
+	public void setJudgeUserId(String judgeUserId) {
+		this.judgeUserId = judgeUserId;
+	}
+
+	/**
 	 * id of Reward
 	 */
 	private String rewardId;
