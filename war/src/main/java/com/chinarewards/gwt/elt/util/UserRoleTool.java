@@ -11,8 +11,12 @@ public class UserRoleTool {
 		String s = role.toString();
 		return UserRoleVo.valueOf(s);
 	}
-
-	public static UserRoleVo[] adapt(List<UserRole> roles) {
+	public static UserRole adapt(UserRoleVo role) {
+		String s = role.toString();
+		return UserRole.valueOf(s);
+	}
+	
+	public static UserRoleVo[] adaptToRoleVo(List<UserRole> roles) {
 		if (roles == null)
 			return null;
 		List<UserRoleVo> cli = new ArrayList<UserRoleVo>();
@@ -21,5 +25,16 @@ public class UserRoleTool {
 			cli.add(c);
 		}
 		return cli.toArray(new UserRoleVo[0]);
+	}
+	
+	public static UserRole[] adaptToRole(UserRoleVo[] userRoleVos) {
+		if (userRoleVos == null)
+			return null;
+		List<UserRole> cli = new ArrayList<UserRole>();
+		for (UserRoleVo role : userRoleVos) {
+			UserRole c = adapt(role);
+			cli.add(c);
+		}
+		return cli.toArray(new UserRole[0]);
 	}
 }

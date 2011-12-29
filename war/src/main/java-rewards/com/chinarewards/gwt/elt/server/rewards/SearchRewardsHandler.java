@@ -11,7 +11,6 @@ import com.chinarewards.elt.model.common.SortingDetail;
 import com.chinarewards.elt.model.reward.search.RewardSearchVo;
 import com.chinarewards.elt.model.reward.vo.RewardVo;
 import com.chinarewards.elt.model.user.UserContext;
-import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.service.reward.RewardService;
 import com.chinarewards.gwt.elt.adapter.rewards.RewardsAdapter;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsCriteria;
@@ -19,6 +18,7 @@ import com.chinarewards.gwt.elt.client.rewards.request.SearchRewardsRequest;
 import com.chinarewards.gwt.elt.client.rewards.request.SearchRewardsResponse;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
 import com.chinarewards.gwt.elt.server.logger.InjectLogger;
+import com.chinarewards.gwt.elt.util.UserRoleTool;
 import com.google.inject.Inject;
 
 /**
@@ -33,9 +33,11 @@ public class SearchRewardsHandler extends
 
 	RewardService rewardService;
 
+	
 	@Inject
 	public SearchRewardsHandler(RewardService rewardService) {
 		this.rewardService = rewardService;
+
 	}
 
 	@Override
@@ -48,13 +50,11 @@ public class SearchRewardsHandler extends
 		RewardSearchVo criteria = adapter(rewards);
 		PageStore<RewardVo> rewardsPage = null;
 
-		// 模拟一条用户数据------------------
-		UserContext uc = new UserContext();
-		uc.setCorporationId("8a83834534544f870134544f8bdc0006");
-		UserRole[] ur = new UserRole[1];
-		ur[0] = UserRole.CORP_ADMIN;
-		uc.setUserRoles(ur);
-		// ---------------------------------------
+		
+		UserContext uc = new UserContext();	
+		uc.setCorporationId(request.getCorporationId());
+		uc.setUserRoles(UserRoleTool.adaptToRole(request.getUserRoles()));
+		
 		rewardsPage = rewardService.fetchRewards(uc, criteria);
 		resp.setTotal(rewardsPage.getResultCount());
 		resp.setResult(RewardsAdapter.adapter(rewardsPage.getResultList()));
