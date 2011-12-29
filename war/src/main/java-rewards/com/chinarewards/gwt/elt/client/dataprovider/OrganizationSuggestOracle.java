@@ -18,9 +18,10 @@ import com.google.gwt.user.client.ui.SuggestOracle;
 public class OrganizationSuggestOracle extends SuggestOracle {
 
 	private DispatchAsync dispatcher;
-
-	public OrganizationSuggestOracle(DispatchAsync dispatcher) {
+	private SessionManager sessionManager ;
+	public OrganizationSuggestOracle(DispatchAsync dispatcher,SessionManager sessionManager) {
 		this.dispatcher = dispatcher;
+		this.sessionManager = sessionManager;
 	}
 
 	public static class OrganizationSuggest implements Suggestion,
@@ -60,9 +61,9 @@ public class OrganizationSuggestOracle extends SuggestOracle {
 //			Response response = new Response(suggestions);
 //			callback.onSuggestionsReady(request, response);
 //		} else {
-		final SessionManager sessionManager;
+		
 		     
-		    String corporationId = "8a83835134598ab30134598ab6cc0004" ;//固定为企业ID   //sessionManager.getSession().getCorporationId();
+		    String corporationId = sessionManager.getSession().getCorporationId() ;
 			dispatcher.execute(new SearchOrganizationRequest(corporationId,query),
 					new AsyncCallback<SearchOrganizationResponse>() {
 						@Override

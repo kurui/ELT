@@ -267,9 +267,9 @@ public class RewardsItemCreatePresenterImpl extends
 						// 候选限额
 						rewardsItem.setSizeLimit(Integer.parseInt(display.getPeopleSizeLimit().getValue()));
 						
-						//李伟定义设置奖项和入帐的部门，现为同一部门，以后从session中得到，现为固定部门
-						rewardsItem.setBuilderDept("8a83835134598ab30134598ab6eb0006");
-						rewardsItem.setAccountDept("8a83835134598ab30134598ab6eb0006");
+						//定义设置奖项和入帐的部门，现为同一部门，从session中得到
+						rewardsItem.setBuilderDept(sessionManager.getSession().getDepartmentId());
+						rewardsItem.setAccountDept(sessionManager.getSession().getDepartmentId());
 
 						// 候选人信息
 						rewardsItem.setParticipateInfo(staffBlock.getparticipateInfo());
@@ -327,7 +327,7 @@ public class RewardsItemCreatePresenterImpl extends
 	public ParticipateInfoClient getNominateInfo(){
 		ParticipateInfoClient nominateInfo = null;
 		List<OrganicationClient> orgs = new ArrayList<OrganicationClient>();
-	     if(display.getAutoCbx().getValue()==false){	//自动奖时才有提名人ID 
+	     if(display.getAutoCbx().getValue()==false){	//自动奖时没有提名人ID 
 			for (String orgId : display.getNominateIds()) {
 				 orgs.add(new OrganicationClient(orgId, ""));
 			}
@@ -336,7 +336,7 @@ public class RewardsItemCreatePresenterImpl extends
 		return nominateInfo;
 	 }
 	private void doSave(RewardsItemClient rewardsItem) {
-		dispatcher.execute(new CreateRewardsItemRequest(rewardsItem),
+		dispatcher.execute(new CreateRewardsItemRequest(rewardsItem,sessionManager.getSession()),
 				new AsyncCallback<CreateRewardsItemResponse>() {
 					@Override
 					public void onFailure(Throwable t) {
@@ -356,7 +356,7 @@ public class RewardsItemCreatePresenterImpl extends
 	}
 	private void doEdit(RewardsItemClient rewardsItem) {
 		if (Window.confirm("确定修改?")) {
-		dispatcher.execute(new CreateRewardsItemRequest(rewardsItem),
+		dispatcher.execute(new CreateRewardsItemRequest(rewardsItem,sessionManager.getSession()),
 				new AsyncCallback<CreateRewardsItemResponse>() {
 					@Override
 					public void onFailure(Throwable t) {
