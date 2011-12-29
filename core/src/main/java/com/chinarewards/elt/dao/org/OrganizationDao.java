@@ -35,7 +35,7 @@ public class OrganizationDao extends BaseDao<Organization> {
 		return getEm()
 				.createNativeQuery(
 						" SELECT staff.id FROM organization staff LEFT OUTER JOIN organization dept ON staff.department_id = dept.id WHERE staff.ORG_TYPE='staff' AND (UPPER(staff.name) LIKE :falg "
-								+ " OR UPPER(staff.emailAddress) LIKE :falg ) "
+								+ " OR UPPER(staff.email) LIKE :falg ) "
 								+ " AND staff.deleted=:deleted AND staff.corporation_id=:corporationId "
 								+ " UNION ALL "
 								+ " SELECT dp.id FROM organization dp WHERE dp.ORG_TYPE='department' AND UPPER(dp.name) LIKE :falg AND dp.corporation_id=:corporationId ")

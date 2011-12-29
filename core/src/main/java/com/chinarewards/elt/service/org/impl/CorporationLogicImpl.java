@@ -12,8 +12,10 @@ import com.chinarewards.elt.domain.org.Industry;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.Amount;
 import com.chinarewards.elt.model.org.CorporationVo;
+import com.chinarewards.elt.model.transaction.TransactionUnit;
 import com.chinarewards.elt.service.exception.GetMaxConsumeErrorException;
 import com.chinarewards.elt.service.org.CorporationLogic;
+import com.chinarewards.elt.tx.exception.DuplicateUnitCodeException;
 import com.chinarewards.elt.tx.model.Unit;
 import com.chinarewards.elt.tx.service.TransactionService;
 import com.chinarewards.elt.util.DateUtil;
@@ -55,11 +57,34 @@ public class CorporationLogicImpl implements CorporationLogic {
 						corporation.getIndustryId());
 				corp.setIndustry(industry);
 			}
+			String accountId = transactionService.createNewAccount();
+
+			// Create the default unit code.
+			String UnitCode = TransactionUnit.BEANPOINTS.toString();
+			corp.setDefaultUnitCode(UnitCode);
+//			===============================================================
+			//设置企业积分比例暂时不用-李伟
+//			try {
+//				transactionService.createNewUnit("缤分", UnitCode, 0.8);
+//			} catch (DuplicateUnitCodeException e) {
+//				// should not be here
+//			}
+			// 存入的企业积分暂时不用-李伟
+			//transactionService.deposit(accountId, UnitCode, 100000);
+	//=======================================================================		
+			corp.setTxAccountId(accountId);//产生一个交易账户ID
 			Date now = DateUtil.getTime();
 			corp.setName(corporation.getName());
 			corp.setDescription(corporation.getDescription());
-			corp.setTxAccountId(corporation.getTxAccountId());
 			corp.setDefaultUnitCode(corporation.getUnitCode());
+			corp.setAddress(corporation.getAddress());
+            corp.setCellphone(corporation.getCellphone());
+            corp.setCorporation(corporation.getCorporation());
+            corp.setEmailAddress(corporation.getEmailAddress());
+            corp.setFax(corporation.getFax());
+            corp.setLinkman(corporation.getLinkman());
+            corp.setTell(corporation.getTell());
+            corp.setWeb(corporation.getWeb());
 			corp.setCreatedAt(now);
 			corp.setCreatedBy(caller);
 			corp.setLastModifiedAt(now);
@@ -79,6 +104,15 @@ public class CorporationLogicImpl implements CorporationLogic {
 			corp.setDescription(corporation.getDescription());
 			corp.setTxAccountId(corporation.getTxAccountId());
 			corp.setDefaultUnitCode(corporation.getUnitCode());
+			corp.setAddress(corporation.getAddress());
+            corp.setCellphone(corporation.getCellphone());
+            corp.setCorporation(corporation.getCorporation());
+            corp.setEmailAddress(corporation.getEmailAddress());
+            corp.setFax(corporation.getFax());
+            corp.setLinkman(corporation.getLinkman());
+            corp.setTell(corporation.getTell());
+            corp.setWeb(corporation.getWeb());
+
 			corp.setCreatedAt(now);
 			corp.setCreatedBy(caller);
 			corp.setLastModifiedAt(now);

@@ -74,8 +74,6 @@ public class CreateRewardsItemHandler extends	BaseActionHandler<CreateRewardsIte
 		uc.setUserId(action.getUserSession().getToken());
 		uc.setUserRoles(UserRoleTool.adaptToRole(action.getUserSession().getUserRoles()));
 		RewardItem createdItem = rewardItemService.saveRewardItem(uc, param);
-		
-
 		return new CreateRewardsItemResponse(createdItem.getId());
 	}
 

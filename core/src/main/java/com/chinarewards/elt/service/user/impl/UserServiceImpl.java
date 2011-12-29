@@ -1,5 +1,6 @@
 package com.chinarewards.elt.service.user.impl;
 
+import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.user.UserSearchCriteria;
 import com.chinarewards.elt.model.user.UserSearchResult;
 import com.chinarewards.elt.model.user.UserSessionVo;
@@ -28,5 +29,7 @@ public class UserServiceImpl implements UserService {
 	public UserSearchResult searchHrAdminUserPaging(UserSearchCriteria criteria) {
 		return userLogic.searchHrAdminUserPaging(criteria);
 	}
-
+	public SysUser findUserById(String id){
+		return userLogic.findUserById(id);
+	}
 }

@@ -1,5 +1,7 @@
 package com.chinarewards.elt.domain.org;
 
+import java.util.Date;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -35,7 +37,87 @@ public class Corporation extends Organization {
 	 * Which unit code this corporation use.
 	 */
 	private String defaultUnitCode;
+	
+	private String address;//企业地址
+	private String cellphone;//手机
 
+	private String corporation;//法人
+	
+	private String emailAddress;//邮箱地址
+
+	private String fax;//传真
+	
+	private String linkman;//联系人
+	
+	private String tell;//联系电话
+
+	private String web;//企业网站
+	
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getCellphone() {
+		return cellphone;
+	}
+
+	public void setCellphone(String cellphone) {
+		this.cellphone = cellphone;
+	}
+
+	public String getCorporation() {
+		return corporation;
+	}
+
+	public void setCorporation(String corporation) {
+		this.corporation = corporation;
+	}
+
+	public String getEmailAddress() {
+		return emailAddress;
+	}
+
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
+	}
+
+	public String getFax() {
+		return fax;
+	}
+
+	public void setFax(String fax) {
+		this.fax = fax;
+	}
+
+	public String getLinkman() {
+		return linkman;
+	}
+
+	public void setLinkman(String linkman) {
+		this.linkman = linkman;
+	}
+
+	public String getTell() {
+		return tell;
+	}
+
+	public void setTell(String tell) {
+		this.tell = tell;
+	}
+
+	public String getWeb() {
+		return web;
+	}
+
+	public void setWeb(String web) {
+		this.web = web;
+	}
+
+	
 	public Industry getIndustry() {
 		return industry;
 	}

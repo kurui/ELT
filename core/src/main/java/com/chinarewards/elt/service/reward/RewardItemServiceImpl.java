@@ -58,7 +58,7 @@ public class RewardItemServiceImpl implements RewardItemService {
 
 	@Override
 	public RewardItem saveRewardItem(UserContext context, RewardItemParam param) {
-		// 获取当前登录人.登录没实现,先默认当前第一个提名人
+		
 		if (em.getTransaction().isActive() != true) {
 			em.getTransaction().begin();
 		}
