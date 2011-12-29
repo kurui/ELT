@@ -57,9 +57,9 @@ public class NomineeLogicImpl implements NomineeLogic {
 					"Can not found correct judge by login user.");
 		}
 
-//		if (JudgeStatus.NONE != judge.getStatus()) {
-//			throw new JudgeException("Should not judge duplicate.");
-//		}
+		if (JudgeStatus.NONE != judge.getStatus()) {
+			throw new JudgeException("Should not judge duplicate.");
+		}
 
 		// update judge status to Nominated
 		judge.setStatus(JudgeStatus.NOMINATED);

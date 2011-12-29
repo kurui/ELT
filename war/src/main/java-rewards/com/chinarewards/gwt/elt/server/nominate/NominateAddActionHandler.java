@@ -10,6 +10,7 @@ import com.chinarewards.elt.model.reward.exception.JudgeException;
 import com.chinarewards.elt.service.reward.nominee.NomineeService;
 import com.chinarewards.gwt.elt.client.nominate.NominateAddRequest;
 import com.chinarewards.gwt.elt.client.nominate.NominateAddResponse;
+import com.chinarewards.gwt.elt.model.ClientException;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
 import com.chinarewards.gwt.elt.server.logger.InjectLogger;
 import com.google.inject.Inject;
@@ -39,10 +40,10 @@ public class NominateAddActionHandler extends
 		NominateAddResponse Nomresponse=new NominateAddResponse();
 		
 		try {
-			NomineeLot lot=nomineeService.addNomineeLotToReward(request.getRewardId(), request.getStaffIds());
+			NomineeLot lot=nomineeService.addNomineeLotToReward(request.getRewardId(), request.getStaffIds(),request.getNowUserId());
 			Nomresponse.setNomineeLotId(lot.getId());
 		} catch (JudgeException e) {
-			e.printStackTrace();
+			throw new ClientException(e.getMessage());
 		}
 	
 		return Nomresponse;
