@@ -65,7 +65,7 @@ public class RewardsItemListViewAdapter extends	BaseDataProvider<RewardsItemClie
 			if (getSorting() != null) {
 				getCriteria().setSorting(getSorting());
 			}
-			dispatch.execute(new SearchRewardsItemRequest(getCriteria()),
+			dispatch.execute(new SearchRewardsItemRequest(getCriteria(),sessionManager.getSession()),
 					new AsyncCallback<SearchRewardsItemResponse>() {
 						@Override
 						public void onFailure(Throwable e) {

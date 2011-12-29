@@ -44,7 +44,7 @@ public class SearchStaffHandler extends	BaseActionHandler<SearchStaffRequest, Se
 						request.getCriteria().getDeptId(), });
 
 		WinnersRecordQueryVo criteria = buildWinnersRecordQueryVo(request);
-		String corporationId = "8a83835134598ab30134598ab6cc0004" ;//李伟固定为企业ID   //sessionManager.getSession().getCorporationId();
+		String corporationId = request.getUserSession().getCorporationId() ;//企业ID  
 		PageStore<WinnersRecordQueryResult> store = staffService.queryWinnerRecords(criteria, corporationId, request.isLimitDataByUserRole());
 		StaffSearchResult result = new StaffSearchResult();
 

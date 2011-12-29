@@ -50,10 +50,7 @@ public class RewardItemServiceImpl implements RewardItemService {
 		this.userLogic = userLogic;
 		this.judgeLogic = judgeLogic;
 		this.em = em;
-
 		this.candidateRuleLogic=candidateRuleLogic;
-
-	
 		this.organizationLogic = organizationLogic;
 		this.rewardLogic = rewardLogic;
 
@@ -65,7 +62,8 @@ public class RewardItemServiceImpl implements RewardItemService {
 		if (em.getTransaction().isActive() != true) {
 			em.getTransaction().begin();
 		}
-		SysUser caller = userLogic.getDefaultUser();// 暂时用
+		
+		SysUser caller = userLogic.findUserById(context.getUserId());
 		RewardItem rewardItem = rewardItemLogic.saveRewardItem(caller, param);
 		em.getTransaction().commit();
 		return rewardItem;
@@ -74,8 +72,7 @@ public class RewardItemServiceImpl implements RewardItemService {
 	@Override
 	public List<StaffAndDeptmentAutoCompile> staffAndDeptmentAutoCompile(
 			String corporationId, String falg, int limit) {
-		return organizationLogic.staffAndDeptmentAutoCompile(corporationId,
-				falg, limit);
+		return organizationLogic.staffAndDeptmentAutoCompile(corporationId,	falg, limit);
 	}
 
 	@Override

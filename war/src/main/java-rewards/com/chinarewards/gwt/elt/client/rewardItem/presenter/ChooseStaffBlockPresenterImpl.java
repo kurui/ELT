@@ -55,7 +55,7 @@ public class ChooseStaffBlockPresenterImpl extends
 
 	private void initSuggestion() {
 		final TextBox suggestTextBox = new TextBox();
-		SuggestOracle suggest = new OrganizationSuggestOracle(dispatcher);
+		SuggestOracle suggest = new OrganizationSuggestOracle(dispatcher,sessionManager);
 		final SuggestBox box = new SuggestBox(suggest, suggestTextBox);
 		box.addSelectionHandler(new SelectionHandler<SuggestOracle.Suggestion>() {
 			@Override

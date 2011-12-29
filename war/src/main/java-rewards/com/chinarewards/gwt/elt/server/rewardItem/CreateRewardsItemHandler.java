@@ -21,6 +21,7 @@ import com.chinarewards.elt.model.reward.frequency.WeeklyVo;
 import com.chinarewards.elt.model.reward.frequency.YearlyVo;
 import com.chinarewards.elt.model.transaction.TransactionUnit;
 import com.chinarewards.elt.model.user.UserContext;
+import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.service.reward.RewardItemService;
 import com.chinarewards.gwt.elt.client.rewardItem.request.CreateRewardsItemRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.CreateRewardsItemResponse;
@@ -65,9 +66,17 @@ public class CreateRewardsItemHandler extends	BaseActionHandler<CreateRewardsIte
 		RewardItemParam param = assembleParameter(rewardsItemClient);
 		
 		logger.debug("GeneratorRewardsItemModel:startTime="	+ param.getStartTime());
-		UserContext user = null;
+		// 李伟模拟一条用户数据------------------
+		UserContext uc = new UserContext();
+		uc.setCorporationId(action.getUserSession().getCorporationId());
+		uc.setLoginName(action.getUserSession().getLoginName());
+		uc.setUserId(action.getUserSession().getToken());
+		UserRole[] ur = new UserRole[1];
+		ur[0] = UserRole.CORP_ADMIN;//固定为管理员
+		uc.setUserRoles(ur);
+// ---------------------------------------
 		
-		RewardItem createdItem = rewardItemService.saveRewardItem(user, param);
+		RewardItem createdItem = rewardItemService.saveRewardItem(uc, param);
 		
 
 		return new CreateRewardsItemResponse(createdItem.getId());
