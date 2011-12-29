@@ -8,6 +8,7 @@ import com.chinarewards.elt.service.user.UserService;
 import com.chinarewards.gwt.elt.client.login.TokenValidRequest;
 import com.chinarewards.gwt.elt.client.login.TokenValidResponse;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
+import com.chinarewards.gwt.elt.util.UserRoleTool;
 import com.google.inject.Inject;
 
 public class TokenValidActionHandler extends
@@ -33,8 +34,8 @@ public class TokenValidActionHandler extends
 		tokenRep.setCorporationId(userSessionVo.getCorporationId());
 		tokenRep.setLoginName(userSessionVo.getUsername());
 		tokenRep.setToken(userSessionVo.getId());
-	//	tokenRep.setUserRoles(userSessionVo.getUserRoles());
-		
+		tokenRep.setUserRoles(UserRoleTool.adapt(userSessionVo.getUserRoles()));
+		tokenRep.setDepartmentId(userSessionVo.getDepartmentId());
 		return tokenRep;
 	}
 

@@ -32,8 +32,13 @@ public class UserDao extends BaseDao<SysUser> {
 		SysUser user = (SysUser) getEm().createQuery("FROM SysUser u WHERE u.id = :id").setParameter("id", id).getSingleResult();
 		return user;
 	}
+	@SuppressWarnings("unchecked")
 	public SysUser findUserByNameAndPwd(String userName,String pwd) {
-		SysUser user = (SysUser) getEm().createQuery("FROM SysUser u WHERE u.userName = :userName and u.password=:password").setParameter("userName", userName).setParameter("password", pwd).getSingleResult();
+		List<SysUser> userList = getEm().createQuery("FROM SysUser u WHERE u.userName = :userName and u.password=:password").setParameter("userName", userName).setParameter("password", pwd).getResultList();
+		SysUser user=null;
+		if(userList.size()>0)
+			user=userList.get(0);
+		
 		return user;
 	}
 	
