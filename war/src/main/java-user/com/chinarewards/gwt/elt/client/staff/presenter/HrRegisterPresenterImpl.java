@@ -57,7 +57,7 @@ public class HrRegisterPresenterImpl extends
 		vo.setPassword(display.getPassword().getValue());
 		vo.setUsername(display.getUsername().getValue());
 		vo.setCreateUserId(sessionManager.getSession().getToken());
-		vo.setDeptId("8a83834534544f870134544f8bfb0008");
+		vo.setDeptId(sessionManager.getSession().getDepartmentId());
 
 		dispatcher.execute(new HrRegisterRequest(vo),
 				new AsyncCallback<HrRegisterResponse>() {
