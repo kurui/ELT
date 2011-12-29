@@ -16,6 +16,7 @@ import com.chinarewards.gwt.elt.client.rewardItem.presenter.ChooseStaffWinPresen
 import com.chinarewards.gwt.elt.client.rewards.model.StaffClient;
 import com.chinarewards.gwt.elt.client.rewards.model.StaffSearchCriteria;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.chinarewards.gwt.elt.client.widget.DefaultPager;
 import com.chinarewards.gwt.elt.client.widget.GetValue;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.widget.Sorting;
@@ -24,6 +25,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.SimplePager;
+import com.google.gwt.user.cellview.client.SimplePager.TextLocation;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SelectionModel;
@@ -38,7 +40,7 @@ public class ChooseStaffWinPresenterImpl extends
 	final ErrorHandler errorHandler;
 	final SessionManager sessionManager;
 
-	 final SimplePager simplePager = new SimplePager(); 
+	 final SimplePager simplePager = new DefaultPager(TextLocation.CENTER); 
 	ListCellTable<StaffClient> resultTable;
 	StaffAsyncDataProvider listViewAdapter;
 	

@@ -40,11 +40,16 @@ public class JudgeDao extends BaseDao<Judge> {
 	 * @param rewardId
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	public Judge findJudgeByStaffIdAndRewardId(String staffId, String rewardId) {
-		return (Judge) getEm()
+		List<Judge> judgeList = getEm()
 				.createQuery(
 						"FROM Judge j WHERE j.reward.id =:rewardId AND j.staff.id =:staffId")
 				.setParameter("rewardId", rewardId)
-				.setParameter("staffId", staffId).getSingleResult();
+				.setParameter("staffId", staffId).getResultList();
+		if (judgeList.size() > 0)
+			return judgeList.get(0);
+		else
+			return null;
 	}
 }

@@ -9,7 +9,7 @@ import com.chinarewards.elt.model.reward.exception.JudgeException;
 import com.chinarewards.elt.model.vo.WinnersRecordQueryVo;
 
 public interface NomineeService {
-	public NomineeLot addNomineeLotToReward(String rewardId,List<String> staffIds) throws JudgeException;
+	public NomineeLot addNomineeLotToReward(String rewardId,List<String> staffIds,String nowUserId) throws JudgeException;
 	public PageStore<Candidate> getCandidatesFromReward(String rewardId);
 	public PageStore<Candidate> getCandidatesFromRewardAndQueryVo(String rewardId,WinnersRecordQueryVo queryVo);
 }

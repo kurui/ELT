@@ -89,6 +89,7 @@ public class StaffLogicImpl implements StaffLogic {
 			ff.setTxAccountId(staff.getTxAccountId());
 			ff.setCreatedBy(caller);
 			ff.setCreatedAt(DateUtil.getTime());
+			ff.setDeleted(0);
 			staffDao.save(ff);
 			return ff;
 		} else {

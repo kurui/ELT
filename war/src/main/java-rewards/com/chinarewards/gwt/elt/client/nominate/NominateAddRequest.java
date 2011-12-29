@@ -11,14 +11,24 @@ import net.customware.gwt.dispatch.shared.Action;
  * An action which perform request to search user.
  * 
  * @author nicho
- * @since 2011年12月12日 
+ * @since 2011年12月12日
  */
 public class NominateAddRequest implements Action<NominateAddResponse> {
 
 	List<String> staffIds;
 
 	String rewardId;
-	
+
+	String nowUserId;
+
+	public String getNowUserId() {
+		return nowUserId;
+	}
+
+	public void setNowUserId(String nowUserId) {
+		this.nowUserId = nowUserId;
+	}
+
 	public String getRewardId() {
 		return rewardId;
 	}
@@ -41,10 +51,11 @@ public class NominateAddRequest implements Action<NominateAddResponse> {
 		this.staffIds = staffIds;
 	}
 
-	public NominateAddRequest(List<String> staffIds,String rewardId) {
-		this.staffIds=staffIds;
-	
-		this.rewardId=rewardId;
+	public NominateAddRequest(List<String> staffIds, String rewardId,
+			String nowUserId) {
+		this.staffIds = staffIds;
+		this.nowUserId = nowUserId;
+		this.rewardId = rewardId;
 	}
 
 }
