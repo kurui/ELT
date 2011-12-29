@@ -118,6 +118,7 @@ public class SearchRewardsItemHandler extends	BaseActionHandler<SearchRewardsIte
 			client.setStartTime(item.getItem().getStartTime());
 			client.setCreateAt(item.getItem().getCreatedAt());
 			client.setNextPublishTime(item.getExpectAwardDate());
+			client.setEnabled(item.isEnabled());
 			resultList.add(client);
 		}
 

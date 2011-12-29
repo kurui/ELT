@@ -97,6 +97,7 @@ public class RewardLogicImpl implements RewardLogic {
 		this.awardApprovalDeterminer = awardApprovalDeterminer;
 		this.frequencyLogic = frequencyLogic;
 		this.rewardAclProcessorFactory = rewardAclProcessorFactory;
+
 	}
 
 	/**
@@ -176,9 +177,15 @@ public class RewardLogicImpl implements RewardLogic {
 		RewardItem item = rewardItemDao
 				.findById(RewardItem.class, rewardItemId);
 		Reward reward = new Reward();
-		String name = frequencyLogic.calRewardNameFromFrequency(item.getName(),
-				item.getFrequency(), currTime);
-		reward.setName(name);
+		if (item.getFrequency() != null) {
+			String name = frequencyLogic.calRewardNameFromFrequency(
+					item.getName(), item.getFrequency(), currTime);
+			reward.setName(name);
+		}
+		else
+		{
+			reward.setName(item.getName());
+		}
 		reward.setRewardItem(item);
 		reward.setCorporation(item.getCorporation());
 		reward.setStatus(RewardStatus.NEW);
@@ -382,7 +389,7 @@ public class RewardLogicImpl implements RewardLogic {
 			judgeParam.setName(judge.getStaff().getName());
 			judgeParam.setIsNominate(judge.getStatus().toString());
 			judgeParam.setStaffid(judge.getStaff().getId());
-			judgeParam.setJudgeStatus(judge.getStatus()+"");
+			judgeParam.setJudgeStatus(judge.getStatus() + "");
 			JudgeListParam.add(judgeParam);
 		}
 
@@ -471,4 +478,5 @@ public class RewardLogicImpl implements RewardLogic {
 
 		return storeVo;
 	}
+
 }

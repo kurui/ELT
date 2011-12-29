@@ -44,6 +44,7 @@ public class HrRegisterEditor extends AbstractEditor {
 
 	public void setModel(Object model) {
 		this.model = model;
+		hrPresenter.initRegister((String)model.toString());
 		hrPresenter.bind();
 	}
 }

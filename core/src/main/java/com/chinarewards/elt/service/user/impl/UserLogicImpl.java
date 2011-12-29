@@ -1,13 +1,22 @@
 package com.chinarewards.elt.service.user.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import com.chinarewards.elt.dao.org.CorporationDao;
+import com.chinarewards.elt.dao.org.StaffDao;
 import com.chinarewards.elt.dao.user.UserDao;
+import com.chinarewards.elt.dao.user.UserRoleDao;
 import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.domain.user.SysUser;
+import com.chinarewards.elt.domain.user.SysUserRole;
+import com.chinarewards.elt.model.user.SearchUserInfo;
+import com.chinarewards.elt.model.user.UserRole;
+import com.chinarewards.elt.model.user.UserSearchCriteria;
+import com.chinarewards.elt.model.user.UserSearchResult;
+import com.chinarewards.elt.model.user.UserSessionVo;
 import com.chinarewards.elt.model.user.UserStatus;
 import com.chinarewards.elt.model.user.UserVo;
 import com.chinarewards.elt.service.user.UserLogic;
@@ -28,12 +37,17 @@ public class UserLogicImpl implements UserLogic {
 	public static final String DEFAULT_NAME = "_damon_4076124377";
 
 	UserDao userDao;
+	StaffDao staffDao;
 	CorporationDao corporationDao;
+	UserRoleDao userRoleDao;
 
 	@Inject
-	public UserLogicImpl(UserDao userDao, CorporationDao corporationDao) {
+	public UserLogicImpl(UserDao userDao, CorporationDao corporationDao,
+			UserRoleDao userRoleDao, StaffDao staffDao) {
 		this.userDao = userDao;
 		this.corporationDao = corporationDao;
+		this.userRoleDao = userRoleDao;
+		this.staffDao = staffDao;
 	}
 
 	@Override
@@ -55,7 +69,7 @@ public class UserLogicImpl implements UserLogic {
 
 		return user;
 	}
-	
+
 	@Override
 	public SysUser getDefaultUserByStaff(Staff staff) {
 		List<SysUser> users = userDao.findUserByUserName(DEFAULT_NAME);
@@ -91,6 +105,11 @@ public class UserLogicImpl implements UserLogic {
 		u.setCreatedBy(caller);
 		u.setLastModifiedAt(now);
 		u.setLastModifiedBy(caller);
+		u.setStatus(UserStatus.Active);
+		if (user.getStaffId() != null && user.getStaffId() != "" && !"".equals(user.getStaffId())) {
+			Staff staff = staffDao.findById(Staff.class, user.getStaffId());
+			u.setStaff(staff);
+		}
 		userDao.save(u);
 		return u;
 	}
@@ -98,5 +117,52 @@ public class UserLogicImpl implements UserLogic {
 	@Override
 	public SysUser findUserById(String id) {
 		return userDao.findById(SysUser.class, id);
+	}
+
+	@Override
+	public UserSessionVo findUserByNameAndPwd(String userName, String pwd) {
+		SysUser user = userDao.findUserByNameAndPwd(userName, pwd);
+		return findUserRolebySysUser(user);
+	}
+
+	@Override
+	public UserSessionVo tokenVaild(String token) {
+		SysUser user = userDao.findById(SysUser.class, token);
+		return findUserRolebySysUser(user);
+	}
+
+	private UserSessionVo findUserRolebySysUser(SysUser user) {
+		UserSessionVo vo = new UserSessionVo();
+		List<SysUserRole> listRole = userRoleDao.findUserRoleByUserId(user
+				.getId());
+		List<UserRole> userRoles = new ArrayList<UserRole>();
+		if (listRole != null && listRole.size() > 0) {
+			for (SysUserRole role : listRole) {
+				userRoles.add(role.getRole().getName());
+			}
+		}
+
+		vo.setId(user.getId());
+		vo.setCorporationId(user.getCorporation().getId());
+		vo.setUsername(user.getUserName());
+		vo.setUserRoles(userRoles);
+		return vo;
+	}
+
+	@Override
+	public UserSearchResult searchHrAdminUserPaging(UserSearchCriteria criteria) {
+
+		UserSearchResult result = new UserSearchResult();
+		List<SysUser> hrUsers = userDao.searchHrAdminUserByCriteria(criteria);
+		List<SearchUserInfo> userInfos = new ArrayList<SearchUserInfo>();
+		for (SysUser user : hrUsers) {
+			SearchUserInfo info = new SearchUserInfo();
+			info.setUser(user);
+			info.setEnterpriseName(user.getCorporation().getName());
+			userInfos.add(info);
+		}
+		result.setResult(userInfos);
+		result.setTotal(userDao.countHrAdminUserByCriteria(criteria));
+		return result;
 	}
 }

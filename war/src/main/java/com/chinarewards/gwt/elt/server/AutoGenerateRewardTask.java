@@ -12,8 +12,10 @@ import com.chinarewards.elt.util.DateUtil;
 public class AutoGenerateRewardTask extends TimerTask {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 
+
 	private RewardItemService rewardItemService;
 	private static AutoGenerateRewardTask instance;
+
 
 	private AutoGenerateRewardTask() {
 	}
@@ -25,6 +27,7 @@ public class AutoGenerateRewardTask extends TimerTask {
 
 		return instance;
 	}
+
 
 	@Override
 	public void run() {

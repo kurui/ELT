@@ -3,6 +3,7 @@ package com.chinarewards.gwt.elt.client;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.support.impl.CookieSessionManager;
 import com.google.gwt.inject.client.AbstractGinModule;
+import com.google.inject.Singleton;
 
 /**
  * Define the main initializer
@@ -18,7 +19,7 @@ public class MainModule extends AbstractGinModule {
 		// bind(ExceptionHandler.class).to(DefaultExceptionHandler.class);
 
 		bind(Main.class).to(MainImpl.class);
-		bind(SessionManager.class).to(CookieSessionManager.class);
+		bind(SessionManager.class).to(CookieSessionManager.class).in(Singleton.class);
 	}
 
 }

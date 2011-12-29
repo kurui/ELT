@@ -7,7 +7,29 @@ public class StaffUserProcess {
 	private String password;
 	private String tell;
 	private String email;
+	private String deptId;
+	private String corpId;
+	public String getDeptId() {
+		return deptId;
+	}
+	public void setDeptId(String deptId) {
+		this.deptId = deptId;
+	}
+	public String getCorpId() {
+		return corpId;
+	}
+	public void setCorpId(String corpId) {
+		this.corpId = corpId;
+	}
 
+
+	private String createUserId;
+	public String getCreateUserId() {
+		return createUserId;
+	}
+	public void setCreateUserId(String createUserId) {
+		this.createUserId = createUserId;
+	}
 	public String getName() {
 		return name;
 	}

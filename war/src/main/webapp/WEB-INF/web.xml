@@ -45,5 +45,7 @@
 		<servlet-name>Kaptcha</servlet-name>
 		<url-pattern>/kaptcha.jpg</url-pattern>
 	</servlet-mapping>
+	<!--<servlet> <servlet-name>init</servlet-name> <servlet-class>com.chinarewards.gwt.elt.server.InitServlet</servlet-class> 
+		<load-on-startup>2</load-on-startup> </servlet> -->
 	<!-- google image end -->
 </web-app>

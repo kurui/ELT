@@ -158,7 +158,7 @@ public class RewardItemServiceImpl implements RewardItemService {
 
 	@Override
 	public void runAutoRewardGeneratorBatch(Date flagTime) {
-		// TODO Auto-generated method stub
+		rewardItemLogic.runAutoRewardGeneratorBatch(flagTime);
 
 	}
 

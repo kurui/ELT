@@ -65,7 +65,7 @@ public class HrRegisterPluginDescriptor implements PluginDescriptor {
 
 					@Override
 					public String getTitle() {
-						return "Hr注册";
+						return "注册";
 					}
 
 					@Override

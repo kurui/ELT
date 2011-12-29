@@ -1,6 +1,7 @@
 package com.chinarewards.gwt.elt.client.support.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
@@ -8,6 +9,8 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 import com.chinarewards.gwt.elt.client.core.ui.event.PlatformInitEvent;
 import com.chinarewards.gwt.elt.client.login.LoginRequest;
 import com.chinarewards.gwt.elt.client.login.LoginResponse;
+import com.chinarewards.gwt.elt.client.login.TokenValidRequest;
+import com.chinarewards.gwt.elt.client.login.TokenValidResponse;
 import com.chinarewards.gwt.elt.client.login.event.LoginEvent;
 import com.chinarewards.gwt.elt.client.login.event.LoginHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
@@ -32,6 +35,7 @@ public class CookieSessionManager implements SessionManager {
 	final EventBus eventBus;
 	final DispatchAsync dispatchAsync;
 
+	private static final int COOKIE_TIMEOUT = 1000 * 60 * 60;
 	List<HandlerRegistration> handlerRegistrations = new ArrayList<HandlerRegistration>();
 
 	@Inject
@@ -40,9 +44,10 @@ public class CookieSessionManager implements SessionManager {
 		this.session = session;
 		this.eventBus = eventBus;
 		this.dispatchAsync = dispatchAsync;
+
 	}
 
-	public void authenticate(String username, String password,String verifyCode) {
+	public void authenticate(String username, String password, String verifyCode) {
 		if (null == username || username.trim().equals("")) {
 			Window.alert("账号不能为空!");
 			return;
@@ -51,8 +56,8 @@ public class CookieSessionManager implements SessionManager {
 			Window.alert("密码不能为空!");
 			return;
 		}
-		
-		LoginRequest req = new LoginRequest(username, password,verifyCode);
+
+		LoginRequest req = new LoginRequest(username, password, verifyCode);
 		dispatchAsync.execute(req, new AsyncCallback<LoginResponse>() {
 
 			@Override
@@ -65,8 +70,8 @@ public class CookieSessionManager implements SessionManager {
 
 			@Override
 			public void onSuccess(LoginResponse resp) {
-				tokenObtained(resp.getToken());
-				Window.alert(resp.getToken());
+				tokenObtained(resp);
+				// Window.alert(resp.getToken());
 				eventBus.fireEvent(new LoginEvent(
 						LoginEvent.LoginStatus.LOGIN_OK));
 			}
@@ -109,18 +114,36 @@ public class CookieSessionManager implements SessionManager {
 			// LoginEvent.LoginStatus.LOGIN_OK));
 			// }
 			// });
-			eventBus.fireEvent(new LoginEvent(
-					LoginEvent.LoginStatus.LOGOUT));
+			eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGOUT));
 		} else {
-			eventBus.fireEvent(new LoginEvent(
-					LoginEvent.LoginStatus.LOGOUT));
+			eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGOUT));
 		}
 	}
 
-	protected void tokenObtained(String token) {
-		if (token != null) {
-			session.setToken(token);
-			Cookies.setCookie("token", token);
+	protected void tokenObtained(LoginResponse rep) {
+		if (rep != null && rep.getToken() != null) {
+			session.setToken(rep.getToken());
+			session.setLoginName(rep.getLoginName());
+			session.setCorporationId(rep.getCorporationId());
+			session.setUserRoles(rep.getUserRoles());
+			Date expires = new Date((new Date()).getTime() + COOKIE_TIMEOUT);
+			Cookies.setCookie("token", rep.getToken(), expires);
+
+		} else {
+			session.setToken(null);
+			Cookies.removeCookie("token");
+		}
+	}
+
+	protected void tokenObtainedToo(TokenValidResponse rep) {
+		if (rep != null && rep.getToken() != null) {
+			session.setToken(rep.getToken());
+			session.setLoginName(rep.getLoginName());
+			session.setCorporationId(rep.getCorporationId());
+			session.setUserRoles(rep.getUserRoles());
+			Date expires = new Date((new Date()).getTime() + COOKIE_TIMEOUT);
+			Cookies.setCookie("token", rep.getToken(), expires);
+
 		} else {
 			session.setToken(null);
 			Cookies.removeCookie("token");
@@ -130,21 +153,36 @@ public class CookieSessionManager implements SessionManager {
 	public void resetLogin() {
 		tokenObtained(null);
 	}
-	
+
 	@Override
 	public void initialize() {
 		// Check Cookie Validity
-				GWT.log("Initializing SessionManager...");
-				String token = Cookies.getCookie("token");
-				System.out.println("token=========="+token);
-				if (null != token && !token.trim().equals("")) {
-					// check the token value.
-					eventBus.fireEvent(new PlatformInitEvent(true));
-				} else {
-					eventBus.fireEvent(new PlatformInitEvent(false));
-				}
+		GWT.log("Initializing SessionManager...");
+		String token = Cookies.getCookie("token");
+
+		System.out.println("token==========" + token);
+		if (null != token && !token.trim().equals("")) {
+			// check the token value.
+			dispatchAsync.execute(new TokenValidRequest(token),
+					new AsyncCallback<TokenValidResponse>() {
+
+						@Override
+						public void onFailure(Throwable e) {
+							tokenObtained(null);
+							eventBus.fireEvent(new PlatformInitEvent(false));
+						}
+
+						@Override
+						public void onSuccess(TokenValidResponse resp) {
+							tokenObtainedToo(resp);
+							eventBus.fireEvent(new PlatformInitEvent(true));
+						}
+					});
+
+		} else {
+			eventBus.fireEvent(new PlatformInitEvent(false));
+		}
 
 	}
-
 
 }

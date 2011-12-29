@@ -4,7 +4,7 @@ import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 
 import net.customware.gwt.dispatch.shared.Result;
 
-public class LoginResponse implements Result {
+public class TokenValidResponse implements Result {
 	private String token;
 	String loginName;
 
@@ -35,7 +35,7 @@ public class LoginResponse implements Result {
 		this.userRoles = userRoles;
 	}
 
-	public LoginResponse(){
+	public TokenValidResponse(){
 		
 	}
 	

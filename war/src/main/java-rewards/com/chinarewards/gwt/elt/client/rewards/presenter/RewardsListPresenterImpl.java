@@ -31,6 +31,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.cellview.client.SimplePager.TextLocation;
+import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
 
 public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
@@ -61,6 +62,7 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 		registerHandler(display.getSearchBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
+						Window.alert(sessionManager.getSession().getLoginName());
 						init();
 					}
 				}));
@@ -162,18 +164,27 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 				new GetValue<RewardsClient, String>() {
 					@Override
 					public String getValue(RewardsClient rewards) {
+						;
 						return "提名";
 					}
 				}, new FieldUpdater<RewardsClient, String>() {
 
 					@Override
 					public void update(int index, RewardsClient o, String value) {
+						if("PENDING_NOMINATE".equals(o.getStatus().name()))
+						{
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(
 										NominateConstants.EDITOR_NOMINATE_SEARCH,
 										NominateConstants.EDITOR_NOMINATE_SEARCH
 												+ o.getId(), o);
+						}
+						else
+						{
+							Window.alert("已经提名");
+							return;
+						}
 
 					}
 
@@ -188,13 +199,25 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 
 					@Override
 					public void update(int index, RewardsClient o, String value) {
+						if("NEW".equals(o.getStatus().name()))
+						{
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(
 										AwardRewardConstants.EDITOR_AWARDREWARD_SEARCH,
 										AwardRewardConstants.EDITOR_AWARDREWARD_SEARCH
 												+ o.getId(), o);
-
+						}
+						else if("PENDING_NOMINATE".equals(o.getStatus().name()))
+						{
+							Window.alert("还没有提名");
+							return;
+						}
+						else
+						{
+							Window.alert("已经颁奖");
+							return;
+						}
 					}
 
 				});
@@ -218,6 +241,13 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 					}
 
 				});
+		cellTable.addColumn("状态", new TextCell(),
+				new GetValue<RewardsClient, String>() {
+					@Override
+					public String getValue(RewardsClient rewards) {
+						return rewards.getStatus().getDisplayName();
+					}
+				}, ref, "name");
 
 	}
 }

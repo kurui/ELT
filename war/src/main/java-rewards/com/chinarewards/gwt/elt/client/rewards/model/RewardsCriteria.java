@@ -16,7 +16,7 @@ public class RewardsCriteria implements IsSerializable {
 	public static enum RewardsStatus {
 
 		/* 待颁奖 */
-		TO_BE_ISSUE("待颁奖"),
+		NEW("待颁奖"),
 
 		/* 待提名 */
 		PENDING_NOMINATE("待提名"),

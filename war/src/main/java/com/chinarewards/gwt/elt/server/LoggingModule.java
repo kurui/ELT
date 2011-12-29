@@ -22,7 +22,7 @@ public class LoggingModule extends AbstractModule {
 	protected void configure() {
 
 		logger.info("Initializing logging module...");
-
+		bind(InitServlet.class);
 		configureLoggers();
 
 		logger.info("Initializing logging module completed");

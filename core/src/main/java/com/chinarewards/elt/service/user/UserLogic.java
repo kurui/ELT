@@ -2,6 +2,9 @@ package com.chinarewards.elt.service.user;
 
 import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.domain.user.SysUser;
+import com.chinarewards.elt.model.user.UserSearchCriteria;
+import com.chinarewards.elt.model.user.UserSearchResult;
+import com.chinarewards.elt.model.user.UserSessionVo;
 import com.chinarewards.elt.model.user.UserVo;
 
 /**
@@ -41,4 +44,23 @@ public interface UserLogic {
 	 * @return
 	 */
 	public SysUser findUserById(String id);
+	/**
+	 * find User By   name and pwd
+	 * @return
+	 */
+	public UserSessionVo findUserByNameAndPwd(String userName,String pwd);
+	
+	/**
+	 * find User By   Id
+	 * @return
+	 */
+	public UserSessionVo tokenVaild(String token);
+	/**
+	 * Search user by paging.
+	 * 
+	 * @param criteria
+	 * @return
+	 */
+
+	public UserSearchResult searchHrAdminUserPaging(UserSearchCriteria criteria);
 }

@@ -27,18 +27,16 @@ public class HrRegisterActionHandler extends
 
 	IStaffService staffService;
 
-	// IUserService userService;
 
 	@Inject
 	public HrRegisterActionHandler(IStaffService staffService) {
 		this.staffService = staffService;
-		// this.userService = userService;
 	}
 
 	@Override
 	public HrRegisterResponse execute(HrRegisterRequest request,
 			ExecutionContext response) throws DispatchException {
-		// FIXME implement this method
+
 		HrRegisterResponse hrResponse = new HrRegisterResponse();
 		StaffUserProcess process = new StaffUserProcess();
 		process.setUsername(request.getStaffvo().getUsername());
@@ -46,10 +44,10 @@ public class HrRegisterActionHandler extends
 		process.setEmail(request.getStaffvo().getEmail());
 		process.setPassword(request.getStaffvo().getPassword());
 		process.setTell(request.getStaffvo().getTell());
-
-		// hrResponse.setStaffId(staffService.createStaff(process));
-
-		// hrResponse.setUserId(userService.createUser(process));
+		process.setCreateUserId(request.getStaffvo().getCreateUserId());
+		process.setDeptId(request.getStaffvo().getDeptId());
+		String userId=staffService.createStaff(process);
+		hrResponse.setUserId(userId);
 		return hrResponse;
 	}
 

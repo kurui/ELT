@@ -3,11 +3,16 @@
  */
 package com.chinarewards.gwt.elt.client.user.presenter;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
+import com.chinarewards.gwt.elt.client.staff.plugin.HrRegisterConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.user.dp.UserSearchAsyncDataProvider;
 import com.chinarewards.gwt.elt.client.user.model.UserSearchVo;
@@ -15,6 +20,7 @@ import com.chinarewards.gwt.elt.client.user.presenter.UserSearchPresenter.UserSe
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
 
 /**
@@ -42,7 +48,8 @@ public class UserSearchPresenterImpl extends BasePresenter<UserSearchDisplay>
 
 	@Override
 	public void bind() {
-
+		// doSearch();
+		init();
 		// search btn
 		registerHandler(display.getSearchHandlers().addClickHandler(
 				new ClickHandler() {
@@ -52,6 +59,48 @@ public class UserSearchPresenterImpl extends BasePresenter<UserSearchDisplay>
 						doSearch();
 					}
 				}));
+		// add btn
+		registerHandler(display.getAddHandlers().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						GWT.log("running click handlers. add");
+						Platform.getInstance()
+								.getEditorRegistry()
+								.openEditor(
+										HrRegisterConstants.EDITOR_HRREGISTER_SEARCH,
+										HrRegisterConstants.EDITOR_HRREGISTER_SEARCH
+												+ sessionManager.getSession()
+														.getToken(),
+										sessionManager.getSession().getToken());
+					}
+				}));
+		// Active btn
+		registerHandler(display.getActiveHandlers().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						GWT.log("running click handlers. Active");
+						Window.alert("激活");
+					}
+				}));
+		// LogOff btn
+		registerHandler(display.getLogOffHandlers().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						GWT.log("running click handlers. LogOff");
+						Window.alert("注销");
+					}
+				}));
+	}
+
+	void init() {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("Active", "已激活");
+		map.put("Inactive", "已注销");
+		display.initUserStatus(map);
+		doSearch();
 	}
 
 	private void doSearch() {

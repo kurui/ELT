@@ -27,6 +27,7 @@ import com.chinarewards.elt.service.org.DepartmentManagerLogic;
 import com.chinarewards.elt.service.staff.StaffLogic;
 import com.chinarewards.elt.tx.model.Unit;
 import com.chinarewards.elt.tx.service.TransactionService;
+import com.chinarewards.elt.util.DateUtil;
 import com.chinarewards.elt.util.StringUtil;
 import com.google.inject.Inject;
 
@@ -86,7 +87,8 @@ public class StaffLogicImpl implements StaffLogic {
 			ff.setName(staff.getName());
 			ff.setDescription(staff.getDescription());
 			ff.setTxAccountId(staff.getTxAccountId());
-
+			ff.setCreatedBy(caller);
+			ff.setCreatedAt(DateUtil.getTime());
 			staffDao.save(ff);
 			return ff;
 		} else {

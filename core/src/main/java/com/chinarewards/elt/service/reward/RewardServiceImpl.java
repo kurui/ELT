@@ -39,17 +39,19 @@ public class RewardServiceImpl implements RewardService {
 	private final JudgeLogic judgeLogic;
 	private final WinnerLogic winnerLogic;
 	private final StaffLogic staffLogic;
-	
+
 
 	@Inject
 	public RewardServiceImpl(RewardLogic rewardLogic, EntityManager em,
-			UserLogic userLogic, JudgeLogic judgeLogic, WinnerLogic winnerLogic,StaffLogic staffLogic) {
+			UserLogic userLogic, JudgeLogic judgeLogic,
+			WinnerLogic winnerLogic, StaffLogic staffLogic) {
 		this.rewardLogic = rewardLogic;
 		this.em = em;
 		this.userLogic = userLogic;
 		this.judgeLogic = judgeLogic;
 		this.winnerLogic = winnerLogic;
-		this.staffLogic=staffLogic;
+		this.staffLogic = staffLogic;
+
 	}
 
 	@Override
@@ -68,7 +70,7 @@ public class RewardServiceImpl implements RewardService {
 
 	@Override
 	public String awardReward(SysUser caller, String rewardId,
-			List<String> staffIds) {
+			List<String> staffIds){
 
 		// 获取当前登录人.登录没实现,先默认当前第一个提名人
 		if (em.getTransaction().isActive() != true) {
@@ -80,6 +82,7 @@ public class RewardServiceImpl implements RewardService {
 		// ---------------------------------------
 
 		String awardLogId = rewardLogic.awardReward(caller, rewardId, staffIds);
+
 
 		em.getTransaction().commit();
 		return awardLogId;
@@ -130,12 +133,10 @@ public class RewardServiceImpl implements RewardService {
 
 	@Override
 	public List<String> getIsDeleteStaff(List<String> staffIds) {
-		List<Staff> staffList=staffLogic.findStaffsByStaffIds(staffIds);
-		List<String> deleteStaffNames=new ArrayList<String>();
-		for(Staff sf:staffList)
-		{
-			if(sf.isDeleted()==1)
-			{
+		List<Staff> staffList = staffLogic.findStaffsByStaffIds(staffIds);
+		List<String> deleteStaffNames = new ArrayList<String>();
+		for (Staff sf : staffList) {
+			if (sf.isDeleted() == 1) {
 				deleteStaffNames.add(sf.getName());
 			}
 		}
