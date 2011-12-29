@@ -23,6 +23,7 @@ import com.chinarewards.gwt.elt.client.widget.DefaultPager;
 import com.chinarewards.gwt.elt.client.widget.GetValue;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.widget.Sorting;
+import com.chinarewards.gwt.elt.model.rewards.RewardPageType;
 import com.google.gwt.cell.client.DateCell;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
@@ -40,6 +41,8 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 	final DispatchAsync dispatch;
 	final ErrorHandler errorHandler;
 	final SessionManager sessionManager;
+
+	RewardPageType pageType;
 
 	SimplePager pager;
 	ListCellTable<RewardsClient> cellTable;
@@ -62,7 +65,7 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 		registerHandler(display.getSearchBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
-						//Window.alert(sessionManager.getSession().getLoginName());
+						// Window.alert(sessionManager.getSession().getLoginName());
 						init();
 					}
 				}));
@@ -82,12 +85,13 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 		pager.setDisplay(cellTable);
 		cellTable.setWidth(ViewConstants.page_width);
 		cellTable.setPageSize(ViewConstants.per_page_number_in_dialog);
-		
+
 		display.getResultPanel().clear();
 		display.getResultPanel().add(cellTable);
 		display.getResultPanel().add(pager);
 	}
-	private void doSearch(){
+
+	private void doSearch() {
 		RewardsCriteria criteria = new RewardsCriteria();
 		criteria.setName(display.getName().getValue());
 		criteria.setDefinition(display.getDefinition().getValue());
@@ -95,6 +99,7 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 				errorHandler, sessionManager);
 		listViewAdapter.addDataDisplay(cellTable);
 	}
+
 	private void initTableColumns() {
 		Sorting<RewardsClient> ref = new Sorting<RewardsClient>() {
 			@Override
@@ -108,13 +113,13 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 
 			}
 		};
-//		cellTable.addColumn("奖项编号", new TextCell(),
-//				new GetValue<RewardsClient, String>() {
-//					@Override
-//					public String getValue(RewardsClient rewards) {
-//						return "01";
-//					}
-//				}, ref, "id");
+		// cellTable.addColumn("奖项编号", new TextCell(),
+		// new GetValue<RewardsClient, String>() {
+		// @Override
+		// public String getValue(RewardsClient rewards) {
+		// return "01";
+		// }
+		// }, ref, "id");
 
 		cellTable.addColumn("奖励名称", new TextCell(),
 				new GetValue<RewardsClient, String>() {
@@ -160,35 +165,37 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 						return rewards.getExpectNominateDate();
 					}
 				}, ref, "expectNominateDate");
-		cellTable.addColumn("操作", new HyperLinkCell(),
-				new GetValue<RewardsClient, String>() {
-					@Override
-					public String getValue(RewardsClient rewards) {
-						;
-						return "提名";
-					}
-				}, new FieldUpdater<RewardsClient, String>() {
 
-					@Override
-					public void update(int index, RewardsClient o, String value) {
-						if("PENDING_NOMINATE".equals(o.getStatus().name()))
-						{
-						Platform.getInstance()
-								.getEditorRegistry()
-								.openEditor(
-										NominateConstants.EDITOR_NOMINATE_SEARCH,
-										NominateConstants.EDITOR_NOMINATE_SEARCH
-												+ o.getId(), o);
+		if (pageType == RewardPageType.NOMINATEPAGE) {
+			cellTable.addColumn("操作", new HyperLinkCell(),
+					new GetValue<RewardsClient, String>() {
+						@Override
+						public String getValue(RewardsClient rewards) {
+							;
+							return "提名";
 						}
-						else
-						{
-							Window.alert("已经提名");
-							return;
+					}, new FieldUpdater<RewardsClient, String>() {
+
+						@Override
+						public void update(int index, RewardsClient o,
+								String value) {
+							if ("PENDING_NOMINATE".equals(o.getStatus().name())) {
+								Platform.getInstance()
+										.getEditorRegistry()
+										.openEditor(
+												NominateConstants.EDITOR_NOMINATE_SEARCH,
+												NominateConstants.EDITOR_NOMINATE_SEARCH
+														+ o.getId(), o);
+							} else {
+								Window.alert("已经提名");
+								return;
+							}
+
 						}
 
-					}
-
-				});
+					});
+		}
+		if (pageType == RewardPageType.AWARDREWARDPAGE) {
 		cellTable.addColumn("操作", new HyperLinkCell(),
 				new GetValue<RewardsClient, String>() {
 					@Override
@@ -199,28 +206,26 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 
 					@Override
 					public void update(int index, RewardsClient o, String value) {
-						if("NEW".equals(o.getStatus().name()))
-						{
-						Platform.getInstance()
-								.getEditorRegistry()
-								.openEditor(
-										AwardRewardConstants.EDITOR_AWARDREWARD_SEARCH,
-										AwardRewardConstants.EDITOR_AWARDREWARD_SEARCH
-												+ o.getId(), o);
-						}
-						else if("PENDING_NOMINATE".equals(o.getStatus().name()))
-						{
+						if ("NEW".equals(o.getStatus().name())) {
+							Platform.getInstance()
+									.getEditorRegistry()
+									.openEditor(
+											AwardRewardConstants.EDITOR_AWARDREWARD_SEARCH,
+											AwardRewardConstants.EDITOR_AWARDREWARD_SEARCH
+													+ o.getId(), o);
+						} else if ("PENDING_NOMINATE".equals(o.getStatus()
+								.name())) {
 							Window.alert("还没有提名");
 							return;
-						}
-						else
-						{
+						} else {
 							Window.alert("已经颁奖");
 							return;
 						}
 					}
 
 				});
+		}
+		if (pageType == RewardPageType.DETAILSOFAWARDPAGE) {
 		cellTable.addColumn("操作", new HyperLinkCell(),
 				new GetValue<RewardsClient, String>() {
 					@Override
@@ -241,6 +246,7 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 					}
 
 				});
+		}
 		cellTable.addColumn("状态", new TextCell(),
 				new GetValue<RewardsClient, String>() {
 					@Override
@@ -249,5 +255,10 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 					}
 				}, ref, "name");
 
+	}
+
+	@Override
+	public void initRewardsList(RewardPageType pageType) {
+		this.pageType = pageType;
 	}
 }
