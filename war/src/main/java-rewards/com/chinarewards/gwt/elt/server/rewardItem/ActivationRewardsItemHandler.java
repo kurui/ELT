@@ -32,7 +32,7 @@ public class ActivationRewardsItemHandler extends	BaseActionHandler<ActivationRe
 	public ActivationRewardsItemResponse execute(ActivationRewardsItemRequest action,
 			ExecutionContext context) throws DispatchException {
 		UserContext uc=new UserContext();
-		uc.setUserId("8a83834534544f870134544f8bac0001");//模拟用户ID
+		uc.setUserId(action.getNowUserId());
 		String name=rewardItemService.enableRewardItem(uc, action.getRewardsItemId());
 
 		return new ActivationRewardsItemResponse(name);

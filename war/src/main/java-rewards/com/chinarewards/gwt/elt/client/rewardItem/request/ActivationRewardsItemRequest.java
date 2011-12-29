@@ -13,6 +13,16 @@ public class ActivationRewardsItemRequest implements
 		Action<ActivationRewardsItemResponse> {
 
 	private String rewardsItemId;
+	private String nowUserId;
+	
+
+	public String getNowUserId() {
+		return nowUserId;
+	}
+
+	public void setNowUserId(String nowUserId) {
+		this.nowUserId = nowUserId;
+	}
 
 	public String getRewardsItemId() {
 		return rewardsItemId;
@@ -22,8 +32,9 @@ public class ActivationRewardsItemRequest implements
 		this.rewardsItemId = rewardsItemId;
 	}
 
-	public ActivationRewardsItemRequest(String rewardsItemId) {
+	public ActivationRewardsItemRequest(String rewardsItemId,String nowUserId) {
 		this.rewardsItemId=rewardsItemId;
+		this.nowUserId=nowUserId;
 
 	}
 	public ActivationRewardsItemRequest() {
