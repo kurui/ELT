@@ -14,6 +14,7 @@ import com.chinarewards.gwt.elt.client.enterprise.EnterpriseInitResponse;
 import com.chinarewards.gwt.elt.client.enterprise.presenter.EnterprisePresenter.EnterpriseDisplay;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
+import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
@@ -30,16 +31,17 @@ public class EnterprisePresenterImpl extends BasePresenter<EnterpriseDisplay> im
 
 	
 	final DispatchAsync dispatchAsync;
-
+	private final SessionManager sessionManager;
 	List<HandlerRegistration> handlerRegistrations = new ArrayList<HandlerRegistration>();
 
 	EnterpriseVo enterpriseVo = new EnterpriseVo();
 	
 	@Inject
 	public EnterprisePresenterImpl(final EventBus eventBus, EnterpriseDisplay display,
-			DispatchAsync dispatchAsync) {
+			DispatchAsync dispatchAsync,SessionManager sessionManager) {
 		super(eventBus, display);
 		this.dispatchAsync = dispatchAsync;
+		this.sessionManager = sessionManager;
 	}
 
 	@Override
@@ -68,11 +70,11 @@ public class EnterprisePresenterImpl extends BasePresenter<EnterpriseDisplay> im
     	enterpriseVo.setAddress(display.getAddress().getValue());
     	enterpriseVo.setCellphone(display.getCellphone().getValue());
     	enterpriseVo.setCorporation(display.getCorporation().getValue());
-    	enterpriseVo.setEmail(display.getEmail().getValue());
-    	enterpriseVo.setEnterpriseName(display.getEnterpriseName().getValue());
+    	enterpriseVo.setEmailAddress(display.getEmail().getValue());
+    	enterpriseVo.setName(display.getEnterpriseName().getValue());
     	enterpriseVo.setFax(display.getFax().getValue());
     	enterpriseVo.setLinkman(display.getLinkman().getValue());
-    	enterpriseVo.setRemark(display.getRemark().getValue());
+    	enterpriseVo.setDescription(display.getRemark().getValue());
     	enterpriseVo.setTell(display.getTell().getValue());
     	enterpriseVo.setWeb(display.getWeb().getValue());
     	enterpriseVo.setId(display.getEnterpriseId().trim());
@@ -81,12 +83,12 @@ public class EnterprisePresenterImpl extends BasePresenter<EnterpriseDisplay> im
     
     public void sendService(EnterpriseVo enterprise) {
 
-		if (null == enterprise.getEnterpriseName() || enterprise.getEnterpriseName() .trim().equals("")) {
+		if (null == enterprise.getName() || enterprise.getName() .trim().equals("")) {
 			Window.alert("企业名称不能为空!");
 			return;
 		}
 		
-		EnterpriseRequest req = new EnterpriseRequest(enterprise);
+		EnterpriseRequest req = new EnterpriseRequest(enterprise,sessionManager.getSession());
 		dispatchAsync.execute(req, new AsyncCallback<EnterpriseResponse>() {
 					public void onFailure(Throwable caught) {
 						
@@ -105,7 +107,7 @@ public class EnterprisePresenterImpl extends BasePresenter<EnterpriseDisplay> im
 	 */
 	private void initialization() {
 		
-		EnterpriseInitRequest req = new EnterpriseInitRequest();
+		EnterpriseInitRequest req = new EnterpriseInitRequest(sessionManager.getSession());
 		dispatchAsync.execute(req, new AsyncCallback<EnterpriseInitResponse>() {
 			public void onFailure(Throwable caught) {
 				
@@ -119,11 +121,11 @@ public class EnterprisePresenterImpl extends BasePresenter<EnterpriseDisplay> im
 		          display.setAddress(enterpriseVo.getAddress());
 				  display.setCellphone(enterpriseVo.getCellphone());
 				  display.setCorporation(enterpriseVo.getCorporation());
-				  display.setEmail(enterpriseVo.getEmail());
-				  display.setEnterpriseName(enterpriseVo.getEnterpriseName());
+				  display.setEmail(enterpriseVo.getEmailAddress());
+				  display.setEnterpriseName(enterpriseVo.getName());
 				  display.setFax(enterpriseVo.getFax());
 				  display.setLinkman(enterpriseVo.getLinkman());
-				  display.setRemark(enterpriseVo.getRemark());
+				  display.setRemark(enterpriseVo.getDescription());
 				  display.setTell(enterpriseVo.getTell());
 				  display.setWeb(enterpriseVo.getWeb());
 				  display.setEnterpriseId(enterpriseVo.getId());

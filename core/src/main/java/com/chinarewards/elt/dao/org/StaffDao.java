@@ -150,7 +150,7 @@ public class StaffDao extends BaseDao<Staff> {
 		if (!StringUtil.isEmptyString(searchVo.getKeywords())) {
 			hql.append(" AND (UPPER(staff.name) LIKE :keywords "
 					// + " OR UPPER(staff.department.name) LIKE :keywords "
-					+ " OR UPPER(staff.emailAddress) LIKE :keywords "
+					+ " OR UPPER(staff.email) LIKE :keywords "
 					+ " OR UPPER(staff.memberCardNumber) LIKE :keywords)");
 			param.put("keywords", "%"
 					+ searchVo.getKeywords().trim().toUpperCase() + "%");

@@ -1,5 +1,6 @@
 package com.chinarewards.elt.service.user;
 
+import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.user.UserSearchCriteria;
 import com.chinarewards.elt.model.user.UserSearchResult;
 import com.chinarewards.elt.model.user.UserSessionVo;
@@ -14,4 +15,6 @@ public interface UserService {
 	 * @return
 	 */
 	public UserSearchResult searchHrAdminUserPaging(UserSearchCriteria criteria);
+	
+	public SysUser findUserById(String id);
 }
