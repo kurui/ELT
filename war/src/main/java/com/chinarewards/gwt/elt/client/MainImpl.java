@@ -81,6 +81,7 @@ public class MainImpl implements Main, PlatformInitHandler, LoginHandler {
 			// }
 			// win.alert("Logout event received");
 			// sessionManager.logout();
+			sessionManager.resetLogin();
 			Window.Location.reload();
 			// rootLayoutPanel.clear();
 			// login.bind();
