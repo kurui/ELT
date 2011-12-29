@@ -7,10 +7,18 @@ import net.customware.gwt.dispatch.shared.Result;
 public class TokenValidResponse implements Result {
 	private String token;
 	String loginName;
-
 	String corporationId;
-
+	String departmentId;
 	UserRoleVo[] userRoles;
+
+	public String getDepartmentId() {
+		return departmentId;
+	}
+
+	public void setDepartmentId(String departmentId) {
+		this.departmentId = departmentId;
+	}
+
 	public String getLoginName() {
 		return loginName;
 	}
@@ -35,10 +43,10 @@ public class TokenValidResponse implements Result {
 		this.userRoles = userRoles;
 	}
 
-	public TokenValidResponse(){
-		
+	public TokenValidResponse() {
+
 	}
-	
+
 	public String getToken() {
 		return token;
 	}

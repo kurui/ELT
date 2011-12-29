@@ -9,6 +9,7 @@ import com.chinarewards.gwt.elt.client.login.LoginRequest;
 import com.chinarewards.gwt.elt.client.login.LoginResponse;
 import com.chinarewards.gwt.elt.model.ClientException;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
+import com.chinarewards.gwt.elt.util.UserRoleTool;
 import com.google.inject.Inject;
 
 public class LoginActionHandler extends
@@ -36,7 +37,8 @@ public class LoginActionHandler extends
 			resp.setCorporationId(u.getCorporationId());
 			resp.setLoginName(u.getUsername());
 			resp.setToken(u.getId());
-			//resp.setUserRoles(u.getUserRoles());
+			resp.setDepartmentId(u.getDepartmentId());
+			resp.setUserRoles(UserRoleTool.adapt(u.getUserRoles()));
 
 		} else {
 			throw new ClientException("login failure!");
@@ -51,5 +53,6 @@ public class LoginActionHandler extends
 			ExecutionContext context) throws DispatchException {
 
 	}
+
 
 }

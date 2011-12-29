@@ -13,11 +13,18 @@ public class UserSession implements Serializable {
 
 	String token;
 	String loginName;
-
 	String corporationId;
-
+	String departmentId;
 	UserRoleVo[] userRoles;
-	
+
+	public String getDepartmentId() {
+		return departmentId;
+	}
+
+	public void setDepartmentId(String departmentId) {
+		this.departmentId = departmentId;
+	}
+
 	public String getLoginName() {
 		return loginName;
 	}
