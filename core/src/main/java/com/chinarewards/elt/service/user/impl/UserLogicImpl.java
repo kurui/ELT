@@ -106,7 +106,8 @@ public class UserLogicImpl implements UserLogic {
 		u.setLastModifiedAt(now);
 		u.setLastModifiedBy(caller);
 		u.setStatus(UserStatus.Active);
-		if (user.getStaffId() != null && user.getStaffId() != "" && !"".equals(user.getStaffId())) {
+		if (user.getStaffId() != null && user.getStaffId() != ""
+				&& !"".equals(user.getStaffId())) {
 			Staff staff = staffDao.findById(Staff.class, user.getStaffId());
 			u.setStaff(staff);
 		}
@@ -122,13 +123,19 @@ public class UserLogicImpl implements UserLogic {
 	@Override
 	public UserSessionVo findUserByNameAndPwd(String userName, String pwd) {
 		SysUser user = userDao.findUserByNameAndPwd(userName, pwd);
-		return findUserRolebySysUser(user);
+		if (user != null)
+			return findUserRolebySysUser(user);
+		else
+			return null;
 	}
 
 	@Override
 	public UserSessionVo tokenVaild(String token) {
 		SysUser user = userDao.findById(SysUser.class, token);
-		return findUserRolebySysUser(user);
+		if (user != null)
+			return findUserRolebySysUser(user);
+		else
+			return null;
 	}
 
 	private UserSessionVo findUserRolebySysUser(SysUser user) {
