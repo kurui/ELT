@@ -40,7 +40,12 @@ public interface StaffLogic {
 	 */
 	public List<Staff> getStaffsFromDeptId(String deptId,
 			boolean includeChildren);
-
+/**
+ * 根据机构ID.返回所有员工
+ * @param corporationId
+ * @return
+ */
+	public List<Staff> getStaffsFromCorporationId(String corporationId);
 	/**
 	 * Get the current balance of the specified Staff.
 	 * 

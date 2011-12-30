@@ -337,4 +337,11 @@ public class StaffDao extends BaseDao<Staff> {
 				.createQuery("FROM Staff s WHERE s.id IN (:staffIds)")
 				.setParameter("staffIds", staffIds).getResultList();
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Staff> findStaffsByCorporationId(String corporationId) {
+		return getEm()
+				.createQuery("FROM Staff s WHERE s.corporation.id = :corporationId")
+				.setParameter("corporationId", corporationId).getResultList();
+	}
 }
