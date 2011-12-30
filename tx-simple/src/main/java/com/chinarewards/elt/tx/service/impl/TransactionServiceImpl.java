@@ -31,6 +31,9 @@ public class TransactionServiceImpl implements TransactionService {
 
 	@Override
 	public String deposit(String accountId, String unitCode, double amount) {
+		logger.debug(
+				"Invoking deposit, param[accountId={}, unitCode={},amount={}]",
+				new Object[] { accountId, unitCode, amount });
 		Date now = new Date();
 		Transaction tx = new Transaction();
 		tx.setTransDate(now);
@@ -44,6 +47,9 @@ public class TransactionServiceImpl implements TransactionService {
 	@Override
 	public String withdraw(String accountId, String unitCode, double amount)
 			throws BalanceLackException {
+		logger.debug(
+				"Invoking withdraw, param[accountId={}, unitCode={},amount={}]",
+				new Object[] { accountId, unitCode, amount });
 		Date now = new Date();
 		Transaction tx = new Transaction();
 		tx.setTransDate(now);
@@ -52,6 +58,7 @@ public class TransactionServiceImpl implements TransactionService {
 		try {
 			transactionLogic.withdraw(tx, accountId, unitCode, amount, now);
 		} catch (RuntimeException e) {
+			logger.error("something wrong!", e);
 			// FIXME Here should roll back!
 			throw new BalanceLackException();
 		}
@@ -74,6 +81,7 @@ public class TransactionServiceImpl implements TransactionService {
 		try {
 			transactionLogic.withdraw(tx, fromAccountId, unitCode, amount, now);
 		} catch (RuntimeException e) {
+			logger.error("something wrong!", e);
 			// FIXME Here should roll back!
 			throw new BalanceLackException();
 		}

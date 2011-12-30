@@ -11,14 +11,17 @@ import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.user.UserRole;
+import com.google.inject.persist.PersistService;
+import com.google.inject.persist.UnitOfWork;
 
 public abstract class JPATestCase extends GuiceTestCase {
 
-	final protected EntityManager em;
+	protected EntityManager em;
+	protected UnitOfWork uom;
+	protected static PersistService eltPs;
 
 	public JPATestCase() {
 		super();
-		this.em = injector.getInstance(EntityManager.class);
 	}
 
 	public EntityManager getEm() {
@@ -39,6 +42,13 @@ public abstract class JPATestCase extends GuiceTestCase {
 
 	protected void setUp() throws Exception {
 		super.setUp();
+		if (eltPs == null) {
+			eltPs = injector.getInstance(PersistService.class);
+			eltPs.start();
+		}
+		// uom = injector.getInstance(UnitOfWork.class);
+		// uom.begin();
+		this.em = injector.getInstance(EntityManager.class);
 		logger.debug("Begin a Transaction");
 		em.getTransaction().begin();
 	}
@@ -48,6 +58,7 @@ public abstract class JPATestCase extends GuiceTestCase {
 			rollback();
 			logger.debug("Shutdown testcase, rolled-back transaction!");
 		}
+		// uom.end();
 		super.tearDown();
 	}
 

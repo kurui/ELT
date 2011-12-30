@@ -1,8 +1,5 @@
 package com.chinarewards.elt.guice;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
-
 import com.chinarewards.elt.guice.sub.OrgModule;
 import com.chinarewards.elt.guice.sub.RewardModule;
 import com.chinarewards.elt.guice.sub.StaffModule;
@@ -14,9 +11,9 @@ public class EltModule extends AbstractModule {
 
 	@Override
 	protected void configure() {
-		EntityManager em = Persistence.createEntityManagerFactory("elt")
-				.createEntityManager();
-		install(new CommonModule(em));
+
+		install(new CommonModule());
+
 		install(new TxModule());
 
 		install(new RewardModule());

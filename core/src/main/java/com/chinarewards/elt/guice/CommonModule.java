@@ -1,26 +1,20 @@
 package com.chinarewards.elt.guice;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
 
 import com.chinarewards.elt.common.BaseDao;
 import com.google.inject.AbstractModule;
+import com.google.inject.persist.jpa.JpaPersistModule;
 
 public class CommonModule extends AbstractModule {
 
-	EntityManager em;
-
-	public CommonModule(EntityManager em) {
-		this.em = em;
-	}
-
-	public CommonModule() {
-		
-	}
-
 	@Override
 	protected void configure() {
-		// install(new JpaPersistModule("elt"));
-		bind(EntityManager.class).toInstance(em);
+		install(new JpaPersistModule("elt"));
+//		 EntityManager em = Persistence.createEntityManagerFactory("elt")
+//		 .createEntityManager();
+//		 bind(EntityManager.class).toInstance(em);
 		bind(BaseDao.class);
 	}
 

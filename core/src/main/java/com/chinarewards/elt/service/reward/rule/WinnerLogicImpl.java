@@ -97,6 +97,7 @@ public class WinnerLogicImpl implements WinnerLogic {
 				w.setProcessFlag(WinnerProcessFlag.PROCESS_SUCCESS);
 				w.setRefTransactionId(txId);
 			} catch (BalanceLackException e) {
+				logger.warn("No enough balance!", e);
 				w.setProcessFlag(WinnerProcessFlag.PROCESS_FAIL);
 			} finally {
 				winnerDao.update(w);

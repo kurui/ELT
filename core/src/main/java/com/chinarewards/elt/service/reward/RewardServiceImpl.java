@@ -3,8 +3,6 @@ package com.chinarewards.elt.service.reward;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-
 import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.domain.reward.base.Reward;
 import com.chinarewards.elt.domain.reward.person.Judge;
@@ -25,6 +23,7 @@ import com.chinarewards.elt.service.reward.rule.WinnerLogic;
 import com.chinarewards.elt.service.staff.StaffLogic;
 import com.chinarewards.elt.service.user.UserLogic;
 import com.google.inject.Inject;
+import com.google.inject.persist.Transactional;
 
 /**
  * The implementation of {@link RewardService}
@@ -32,21 +31,19 @@ import com.google.inject.Inject;
  * @author yanxin
  * @since 1.0
  */
+@Transactional
 public class RewardServiceImpl implements RewardService {
 	private final RewardLogic rewardLogic;
-	private final EntityManager em;
 	private final UserLogic userLogic;
 	private final JudgeLogic judgeLogic;
 	private final WinnerLogic winnerLogic;
 	private final StaffLogic staffLogic;
 
-
 	@Inject
-	public RewardServiceImpl(RewardLogic rewardLogic, EntityManager em,
-			UserLogic userLogic, JudgeLogic judgeLogic,
-			WinnerLogic winnerLogic, StaffLogic staffLogic) {
+	public RewardServiceImpl(RewardLogic rewardLogic, UserLogic userLogic,
+			JudgeLogic judgeLogic, WinnerLogic winnerLogic,
+			StaffLogic staffLogic) {
 		this.rewardLogic = rewardLogic;
-		this.em = em;
 		this.userLogic = userLogic;
 		this.judgeLogic = judgeLogic;
 		this.winnerLogic = winnerLogic;
@@ -70,12 +67,12 @@ public class RewardServiceImpl implements RewardService {
 
 	@Override
 	public String awardReward(SysUser caller, String rewardId,
-			List<String> staffIds){
+			List<String> staffIds) {
 
 		// 获取当前登录人.登录没实现,先默认当前第一个提名人
-		if (em.getTransaction().isActive() != true) {
-			em.getTransaction().begin();
-		}
+		// if (em.getTransaction().isActive() != true) {
+		// em.getTransaction().begin();
+		// }
 		caller = userLogic.getDefaultUser();
 		List<Judge> judgeList = judgeLogic.findJudgesFromReward(rewardId);
 		caller.setStaff(judgeList.get(0).getStaff());
@@ -83,8 +80,7 @@ public class RewardServiceImpl implements RewardService {
 
 		String awardLogId = rewardLogic.awardReward(caller, rewardId, staffIds);
 
-
-		em.getTransaction().commit();
+		// em.getTransaction().commit();
 		return awardLogId;
 	}
 

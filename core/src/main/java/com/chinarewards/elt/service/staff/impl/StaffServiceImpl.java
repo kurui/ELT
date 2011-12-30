@@ -1,7 +1,5 @@
 package com.chinarewards.elt.service.staff.impl;
 
-import javax.persistence.EntityManager;
-
 import com.chinarewards.elt.dao.org.StaffDao;
 import com.chinarewards.elt.dao.user.RoleDao;
 import com.chinarewards.elt.dao.user.UserRoleDao;
@@ -21,7 +19,9 @@ import com.chinarewards.elt.tx.service.TransactionService;
 import com.chinarewards.elt.util.DateUtil;
 import com.chinarewards.gwt.elt.model.staff.StaffUserProcess;
 import com.google.inject.Inject;
+import com.google.inject.persist.Transactional;
 
+@Transactional
 public class StaffServiceImpl implements IStaffService {
 
 	StaffDao staffDao;
@@ -30,29 +30,26 @@ public class StaffServiceImpl implements IStaffService {
 	TransactionService transactionService;
 	UserRoleDao userRoleDao;
 	RoleDao roleDao;
-	private final EntityManager em;
 
 	@Inject
 	public StaffServiceImpl(StaffDao staffDao, StaffLogic staffLogic,
 			UserLogic userLogic, TransactionService transactionService,
-			EntityManager em, UserRoleDao userRoleDao,RoleDao roleDao) {
+			UserRoleDao userRoleDao, RoleDao roleDao) {
 		this.staffDao = staffDao;
 		this.staffLogic = staffLogic;
 		this.userLogic = userLogic;
 		this.transactionService = transactionService;
-		this.em = em;
 		this.userRoleDao = userRoleDao;
-		this.roleDao=roleDao;
+		this.roleDao = roleDao;
 	}
 
 	@Override
 	public String createStaff(StaffUserProcess staffProcess) {
-		
-		SysUser caller =userLogic.findUserById(staffProcess.getCreateUserId());
-		if(!em.getTransaction().isActive())
-		{
-			em.getTransaction().begin();
-		}
+
+		SysUser caller = userLogic.findUserById(staffProcess.getCreateUserId());
+		// if (!em.getTransaction().isActive()) {
+		// em.getTransaction().begin();
+		// }
 		StaffVo staffVo = new StaffVo();
 		staffVo.setName(staffProcess.getName());
 		staffVo.setPhone(staffProcess.getTell());
@@ -61,18 +58,18 @@ public class StaffServiceImpl implements IStaffService {
 		staffVo.setTxAccountId(accountId);
 		staffVo.setCorpId(caller.getCorporation().getId());
 		staffVo.setDeptId(staffProcess.getDeptId());
-		Staff staff=staffLogic.saveStaff(caller, staffVo);
-		
-		UserVo userVo=new UserVo();
+		Staff staff = staffLogic.saveStaff(caller, staffVo);
+
+		UserVo userVo = new UserVo();
 		userVo.setCorporationId(caller.getCorporation().getId());
 		userVo.setPassword(staffProcess.getPassword());
 		userVo.setUsername(staffProcess.getUsername());
 		userVo.setStaffId(staff.getId());
-		SysUser user=userLogic.createUser(caller, userVo);
-		
-		//添加角色...先默认全部HR
-		
-		SysUserRole userRole=new SysUserRole();
+		SysUser user = userLogic.createUser(caller, userVo);
+
+		// 添加角色...先默认全部HR
+
+		SysUserRole userRole = new SysUserRole();
 		userRole.setRole(roleDao.findRoleByRoleName(UserRole.CORP_ADMIN));
 		userRole.setCreatedBy(user);
 		userRole.setCreatedAt(DateUtil.getTime());
@@ -80,7 +77,7 @@ public class StaffServiceImpl implements IStaffService {
 		userRole.setLastModifiedBy(user);
 		userRole.setUser(user);
 		userRoleDao.createUserRole(userRole);
-		em.getTransaction().commit();
+		// em.getTransaction().commit();
 		return user.getId();
 	}
 

@@ -101,6 +101,8 @@ public class RewardLogicTest extends JPATestCase {
 		Date now = DateUtil.getTime();
 		RewardItem autoAwardItem = RewardItemHelper
 				.getDefaultAutoAwardRewardItem(injector, RequireApproval.None);
+		logger.debug("------------corpId- txAccount={}", autoAwardItem
+				.getCorporation().getTxAccountId());
 		assertNotNull(autoAwardItem);
 		// prepare default caller
 		SysUser caller = UserHelper.getDefaultUser(injector);
