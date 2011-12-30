@@ -7,16 +7,19 @@ import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.org.CorporationVo;
 import com.chinarewards.elt.service.org.CorporationLogic;
 import com.chinarewards.elt.service.org.CorporationService;
+import com.chinarewards.elt.tx.service.TransactionService;
 import com.google.inject.Inject;
 
 public class CorporationServiceImpl implements CorporationService {
 
 	private final CorporationLogic corporationLogic;
 	private final EntityManager em;
+	private final TransactionService transactionService;
 	@Inject
-	public CorporationServiceImpl(CorporationLogic corporationLogic,EntityManager em) {
+	public CorporationServiceImpl(CorporationLogic corporationLogic,EntityManager em,TransactionService transactionService) {
 		this.corporationLogic = corporationLogic;
 		this.em = em;
+        this. transactionService = transactionService;
 	}
 
 	@Override
@@ -24,6 +27,8 @@ public class CorporationServiceImpl implements CorporationService {
 		if (em.getTransaction().isActive() != true) {
 			em.getTransaction().begin();
 		}
+		String accountId = transactionService.createNewAccount();
+		corporationVo.setTxAccountId(accountId);
 		Corporation corporation =  corporationLogic.saveCorporation(caller, corporationVo);
 		em.getTransaction().commit();
 		return corporation;
