@@ -23,9 +23,10 @@ public class OrganizationLogicImpl implements OrganizationLogic {
 
 	private final OrganizationDao organizationDao;
 	private final Organizationfactory organizationfactory;
+
 	@Inject
-	protected OrganizationLogicImpl(EntityManager em,
-			OrganizationDao organizationDao,Organizationfactory organizationfactory) {
+	protected OrganizationLogicImpl(OrganizationDao organizationDao,
+			Organizationfactory organizationfactory) {
 		this.organizationDao = organizationDao;
 		this.organizationfactory = organizationfactory;
 	}
@@ -43,25 +44,30 @@ public class OrganizationLogicImpl implements OrganizationLogic {
 		}
 		return organization;
 	}
+
 	@Override
-	public List<StaffAndDeptmentAutoCompile> staffAndDeptmentAutoCompile(String corporationId,
-			String falg, int limit) {
-		logger.debug(" process in staffAndDeptmentAutoCompile method, parameter name:"	+ falg + ",limit:" + limit);
-	//	Principal principal = UserContextProvider.get().getPrincipal();
-	//	logger.debug(" principal.toString :" + principal.printTheProperty());
+	public List<StaffAndDeptmentAutoCompile> staffAndDeptmentAutoCompile(
+			String corporationId, String falg, int limit) {
+		logger.debug(" process in staffAndDeptmentAutoCompile method, parameter name:"
+				+ falg + ",limit:" + limit);
+		// Principal principal = UserContextProvider.get().getPrincipal();
+		// logger.debug(" principal.toString :" + principal.printTheProperty());
 		List<StaffAndDeptmentAutoCompile> res = new ArrayList<StaffAndDeptmentAutoCompile>();
-		List<String> orgIds = organizationDao.findOrganizationBySomePropertyPageAction(corporationId, falg, limit);//查找出的符合条件的ID
+		List<String> orgIds = organizationDao
+				.findOrganizationBySomePropertyPageAction(corporationId, falg,
+						limit);// 查找出的符合条件的ID
 		System.out.println("  orgIds.size : " + orgIds.size());
 		if (orgIds.size() != 0) {
-			Map<String, Organization> maps = organizationDao.findOrganizationByIds(orgIds);
+			Map<String, Organization> maps = organizationDao
+					.findOrganizationByIds(orgIds);
 			for (String key : maps.keySet()) {
-				Organization organization = maps.get(key);//得到企业内的组织机构所有的ID
-				res.add(organizationfactory.generatorProcessor(organization).setAutoCompileInfo(organization));
+				Organization organization = maps.get(key);// 得到企业内的组织机构所有的ID
+				res.add(organizationfactory.generatorProcessor(organization)
+						.setAutoCompileInfo(organization));
 			}
 		}
 
 		return res;
 	}
 
-	
 }

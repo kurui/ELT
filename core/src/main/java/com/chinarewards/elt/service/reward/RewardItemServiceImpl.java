@@ -3,8 +3,6 @@ package com.chinarewards.elt.service.reward;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-
 import com.chinarewards.elt.domain.reward.base.RewardItem;
 import com.chinarewards.elt.domain.reward.frequency.WeekFrequencyDays;
 import com.chinarewards.elt.domain.reward.rule.DirectCandidateData;
@@ -23,6 +21,7 @@ import com.chinarewards.elt.service.reward.rule.JudgeLogic;
 import com.chinarewards.elt.service.user.UserLogic;
 import com.chinarewards.elt.util.DateUtil;
 import com.google.inject.Inject;
+import com.google.inject.persist.Transactional;
 
 /**
  * The implementation of {@link RewardItemService}
@@ -30,27 +29,26 @@ import com.google.inject.Inject;
  * @author yanxin
  * @since 1.0
  */
+@Transactional
 public class RewardItemServiceImpl implements RewardItemService {
 	private final RewardItemLogic rewardItemLogic;
 	private final RewardLogic rewardLogic;
 	private final UserLogic userLogic;
 	private final JudgeLogic judgeLogic;
-	private final EntityManager em;
 
 	private final CandidateRuleLogic candidateRuleLogic;
-    private final OrganizationLogic organizationLogic;
-	@Inject
+	private final OrganizationLogic organizationLogic;
 
-	public RewardItemServiceImpl(RewardItemLogic rewardItemLogic,CandidateRuleLogic candidateRuleLogic,
-			UserLogic userLogic, JudgeLogic judgeLogic, EntityManager em,
-			CandidateLogic candidateLogic, OrganizationLogic organizationLogic,
-			RewardLogic rewardLogic) {
+	@Inject
+	public RewardItemServiceImpl(RewardItemLogic rewardItemLogic,
+			CandidateRuleLogic candidateRuleLogic, UserLogic userLogic,
+			JudgeLogic judgeLogic, CandidateLogic candidateLogic,
+			OrganizationLogic organizationLogic, RewardLogic rewardLogic) {
 
 		this.rewardItemLogic = rewardItemLogic;
 		this.userLogic = userLogic;
 		this.judgeLogic = judgeLogic;
-		this.em = em;
-		this.candidateRuleLogic=candidateRuleLogic;
+		this.candidateRuleLogic = candidateRuleLogic;
 		this.organizationLogic = organizationLogic;
 		this.rewardLogic = rewardLogic;
 
@@ -58,21 +56,22 @@ public class RewardItemServiceImpl implements RewardItemService {
 
 	@Override
 	public RewardItem saveRewardItem(UserContext context, RewardItemParam param) {
-		
-		if (em.getTransaction().isActive() != true) {
-			em.getTransaction().begin();
-		}
-		
+
+		// if (em.getTransaction().isActive() != true) {
+		// em.getTransaction().begin();
+		// }
+
 		SysUser caller = userLogic.findUserById(context.getUserId());
 		RewardItem rewardItem = rewardItemLogic.saveRewardItem(caller, param);
-		em.getTransaction().commit();
+		// em.getTransaction().commit();
 		return rewardItem;
 	}
 
 	@Override
 	public List<StaffAndDeptmentAutoCompile> staffAndDeptmentAutoCompile(
 			String corporationId, String falg, int limit) {
-		return organizationLogic.staffAndDeptmentAutoCompile(corporationId,	falg, limit);
+		return organizationLogic.staffAndDeptmentAutoCompile(corporationId,
+				falg, limit);
 	}
 
 	@Override
@@ -84,7 +83,7 @@ public class RewardItemServiceImpl implements RewardItemService {
 	@Override
 	public RewardItemVo fetchEntireRewardItemById(String rewardItemId) {
 		// TODO Auto-generated method stub
-		return rewardItemLogic.fetchEntireRewardItemById( rewardItemId);
+		return rewardItemLogic.fetchEntireRewardItemById(rewardItemId);
 	}
 
 	@Override
@@ -111,9 +110,9 @@ public class RewardItemServiceImpl implements RewardItemService {
 	public String enableRewardItem(UserContext context, String rewardItemId) {
 		SysUser suser = userLogic.findUserById(context.getUserId());
 
-		if (em.getTransaction().isActive() != true) {
-			em.getTransaction().begin();
-		}
+		// if (em.getTransaction().isActive() != true) {
+		// em.getTransaction().begin();
+		// }
 		RewardItem rewardItem = rewardItemLogic.enableRewardItem(suser,
 				rewardItemId);
 		Date startDate = rewardItem.getStartTime();
@@ -121,22 +120,24 @@ public class RewardItemServiceImpl implements RewardItemService {
 
 			if (rewardItem.getAutoGenerate() == RequireAutoGenerate.requireOneOff) {
 				// 如果开始时间是当前日.调用生成奖励方法
-				rewardLogic.awardFromRewardItem(suser, rewardItemId,DateUtil.getTime());
+				rewardLogic.awardFromRewardItem(suser, rewardItemId,
+						DateUtil.getTime());
 				// 如果是一次性,生成完成后设置 disable
 				rewardItemLogic.disableRewardItem(suser, rewardItemId);
-				//修改次数
+				// 修改次数
 				rewardItemLogic.updateRewardItemCount(rewardItemId);
 
 			} else if (rewardItem.getAutoGenerate() == RequireAutoGenerate.requireCyclic) {
 				// 如果是周期性,单独运行这个奖项
-				rewardItemLogic.runAutoRewardGeneratorByRewardItem(DateUtil.getTime(),rewardItemId);
-				//修改次数
+				rewardItemLogic.runAutoRewardGeneratorByRewardItem(
+						DateUtil.getTime(), rewardItemId);
+				// 修改次数
 				rewardItemLogic.updateRewardItemCount(rewardItemId);
 			}
 
 		}
 
-		em.getTransaction().commit();
+		// em.getTransaction().commit();
 		return rewardItem.getName();
 	}
 
@@ -144,12 +145,12 @@ public class RewardItemServiceImpl implements RewardItemService {
 	public String disableRewardItem(UserContext context, String rewardItemId) {
 		SysUser suser = new SysUser();
 		suser.setId(context.getUserId());
-		if (em.getTransaction().isActive() != true) {
-			em.getTransaction().begin();
-		}
+		// if (em.getTransaction().isActive() != true) {
+		// em.getTransaction().begin();
+		// }
 		String name = rewardItemLogic.disableRewardItem(suser, rewardItemId)
 				.getName();
-		em.getTransaction().commit();
+		// em.getTransaction().commit();
 		return name;
 	}
 
@@ -159,20 +160,18 @@ public class RewardItemServiceImpl implements RewardItemService {
 
 	}
 
-	
-	public List<WeekFrequencyDays> findWeekFrequencyDaysByFrequencyId(String weekSelectorId){
-		
-		return rewardItemLogic.findWeekSelectorUnitDataByWSUId(	weekSelectorId);
-	}
-	
-   //得到候选人数据
-	public List<DirectCandidateData> findDirectCandidateDataListByDirectRuleId(String directRuleId){
-		return candidateRuleLogic.findDirectCandidateDataListByDirectRuleId(directRuleId);
-		//findDirectCandidateDataListByDirectRuleId
+	public List<WeekFrequencyDays> findWeekFrequencyDaysByFrequencyId(
+			String weekSelectorId) {
+
+		return rewardItemLogic.findWeekSelectorUnitDataByWSUId(weekSelectorId);
 	}
 
-
-
-
+	// 得到候选人数据
+	public List<DirectCandidateData> findDirectCandidateDataListByDirectRuleId(
+			String directRuleId) {
+		return candidateRuleLogic
+				.findDirectCandidateDataListByDirectRuleId(directRuleId);
+		// findDirectCandidateDataListByDirectRuleId
+	}
 
 }

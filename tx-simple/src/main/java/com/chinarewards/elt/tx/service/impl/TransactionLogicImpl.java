@@ -105,10 +105,12 @@ public class TransactionLogicImpl implements TransactionLogic {
 		// change balance
 		List<AccountBalance> balances = accountBalanceDao
 				.findBalanceByUnitCode(accountId, unitCode);
+		logger.debug("The found balance size={}", balances.size());
 		Iterator<AccountBalance> it = balances.iterator();
 		double remain = amount;
 		while (it.hasNext()) {
 			AccountBalance balance = it.next();
+			logger.debug("balance={}", balance.getBalance());
 			if (balance.getBalance() >= remain) {
 				double expect = balance.getBalance() - remain;
 				balance.setBalance(expect);
@@ -123,7 +125,7 @@ public class TransactionLogicImpl implements TransactionLogic {
 		}
 
 		if (remain > 0) {
-			throw new RuntimeException("Should rollback!");
+			throw new RuntimeException("Should rollback!" + remain);
 		}
 
 		return td.getId();

@@ -26,11 +26,11 @@ public abstract class GuiceTestCase extends TestCase {
 	public GuiceTestCase() {
 		this.injector = TestInjectorUtil.getTestInjector();
 	}
-	
+
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
-		
+
 		fileDeleteOnExit = new ArrayList<File>();
 	}
 
@@ -39,8 +39,6 @@ public abstract class GuiceTestCase extends TestCase {
 		removeTempFiles();
 		super.tearDown();
 	}
-
-
 
 	/**
 	 * Sleep for the specified milliseconds.
@@ -71,9 +69,10 @@ public abstract class GuiceTestCase extends TestCase {
 	protected File createTempFile(InputStream is) throws IOException {
 
 		if (is == null) {
-			throw new IllegalArgumentException("input stream should not be null");
+			throw new IllegalArgumentException(
+					"input stream should not be null");
 		}
-		
+
 		File tmpFile = File.createTempFile("bsc-import-", null);
 		tmpFile.deleteOnExit();
 

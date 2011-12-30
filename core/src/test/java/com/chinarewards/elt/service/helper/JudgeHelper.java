@@ -21,8 +21,9 @@ public class JudgeHelper {
 			return defaultJudge;
 		// require some services
 		JudgeLogic judgeLogic = injector.getInstance(JudgeLogic.class);
-	//	defaultJudge = judgeLogic.bindJudgesToRewardItem(caller, rewardItemId, staffIds)
-//占时不需要..还没实现
+		// defaultJudge = judgeLogic.bindJudgesToRewardItem(caller,
+		// rewardItemId, staffIds)
+		// 占时不需要..还没实现
 		return defaultJudge;
 	}
 }
