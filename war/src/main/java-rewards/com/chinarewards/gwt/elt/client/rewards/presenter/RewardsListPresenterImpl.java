@@ -196,17 +196,13 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 						@Override
 						public void update(int index, RewardsClient o,
 								String value) {
-							if ("PENDING_NOMINATE".equals(o.getStatus().name())) {
 								Platform.getInstance()
 										.getEditorRegistry()
 										.openEditor(
 												NominateConstants.EDITOR_NOMINATE_SEARCH,
 												NominateConstants.EDITOR_NOMINATE_SEARCH
 														+ o.getId(), o);
-							} else {
-								Window.alert("已经提名");
-								return;
-							}
+						
 
 						}
 
