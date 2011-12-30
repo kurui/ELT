@@ -5,6 +5,7 @@ import javax.persistence.EntityManager;
 import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.org.CorporationVo;
+import com.chinarewards.elt.model.transaction.TransactionUnit;
 import com.chinarewards.elt.service.org.CorporationLogic;
 import com.chinarewards.elt.service.org.CorporationService;
 import com.chinarewards.elt.tx.service.TransactionService;
@@ -28,7 +29,19 @@ public class CorporationServiceImpl implements CorporationService {
 			em.getTransaction().begin();
 		}
 		String accountId = transactionService.createNewAccount();
+		String unitCode = TransactionUnit.BEANPOINTS.toString();
 		corporationVo.setTxAccountId(accountId);
+		corporationVo.setUnitCode(unitCode);
+//		===============================================================
+		//设置企业积分比例暂时不用-李伟
+//		try {
+//			transactionService.createNewUnit("缤分", UnitCode, 0.8);
+//		} catch (DuplicateUnitCodeException e) {
+//			// should not be here
+//		}
+		// 存入的企业积分暂时不用-李伟
+		//transactionService.deposit(accountId, UnitCode, 100000);
+//=======================================================================		
 		Corporation corporation =  corporationLogic.saveCorporation(caller, corporationVo);
 		em.getTransaction().commit();
 		return corporation;

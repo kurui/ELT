@@ -59,18 +59,8 @@ public class CorporationLogicImpl implements CorporationLogic {
 			
 
 			// Create the default unit code.
-			String UnitCode = TransactionUnit.BEANPOINTS.toString();
-			corp.setDefaultUnitCode(UnitCode);
-//			===============================================================
-			//设置企业积分比例暂时不用-李伟
-//			try {
-//				transactionService.createNewUnit("缤分", UnitCode, 0.8);
-//			} catch (DuplicateUnitCodeException e) {
-//				// should not be here
-//			}
-			// 存入的企业积分暂时不用-李伟
-			//transactionService.deposit(accountId, UnitCode, 100000);
-	//=======================================================================		
+			
+			corp.setDefaultUnitCode(corporation.getUnitCode());
 			corp.setTxAccountId(corporation.getTxAccountId());//产生一个交易账户ID
 			Date now = DateUtil.getTime();
 			corp.setName(corporation.getName());
