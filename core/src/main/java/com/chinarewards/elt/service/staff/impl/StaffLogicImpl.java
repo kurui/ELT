@@ -229,4 +229,13 @@ public class StaffLogicImpl implements StaffLogic {
 		return staffDao.findStaffsByStaffIds(staffIds);
 
 	}
+
+	@Override
+	public List<Staff> getStaffsFromCorporationId(String corporationId) {
+
+		List<Staff> result = staffDao.findStaffsByCorporationId(corporationId);
+		logger.debug("The gotten staff size={}", result.size());
+		return result;
+
+	}
 }

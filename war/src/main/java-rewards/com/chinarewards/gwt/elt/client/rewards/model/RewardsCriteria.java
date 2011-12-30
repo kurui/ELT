@@ -52,7 +52,17 @@ public class RewardsCriteria implements IsSerializable {
 
 	private String rewardsItemId;
 	private String definition;
+	/**
+	 * 提名人-用户ID
+	 */
+	private String judgeUserId;
+	public String getJudgeUserId() {
+		return judgeUserId;
+	}
 
+	public void setJudgeUserId(String judgeUserId) {
+		this.judgeUserId = judgeUserId;
+	}
 	public String getDefinition() {
 		return definition;
 	}

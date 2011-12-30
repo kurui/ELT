@@ -287,7 +287,7 @@ public class RewardsItemListPresenterImpl extends
 
 	public void activationRewardItem(String rewardsItemId) {
 
-		dispatch.execute(new ActivationRewardsItemRequest(rewardsItemId),
+		dispatch.execute(new ActivationRewardsItemRequest(rewardsItemId,sessionManager.getSession().getToken()),
 				new AsyncCallback<ActivationRewardsItemResponse>() {
 
 					@Override
@@ -297,7 +297,7 @@ public class RewardsItemListPresenterImpl extends
 
 					@Override
 					public void onSuccess(ActivationRewardsItemResponse resp) {
-						Window.alert(resp.getName() + "----已激活!");
+						Window.alert(resp.getName() + "--------------已激活!");
 					}
 				});
 	}

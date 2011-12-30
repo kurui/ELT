@@ -11,13 +11,17 @@
 		<div class="{rewards.fmtable}" >
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
-					<td width="2%" align="left">奖励名称:</td>
+					<td width="4%" align="left">奖励名称:</td>
 					<td width="3%">
 						<g:TextBox ui:field="rewardsName" />
 					</td>
 					<td width="2%" align="left">说明:</td>
 					<td width="3%">
 						<g:TextBox ui:field="definition" />
+					</td>
+					<td width="5%" align="left">
+						<g:CheckBox ui:field="nowJudge" />
+						当前用户需提名数据
 					</td>
 <!-- 					<td width="21%" align="right">部门:
 				   </td>
