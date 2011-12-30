@@ -16,6 +16,7 @@ import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.nominate.plugin.NominateConstants;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsCriteria;
+import com.chinarewards.gwt.elt.client.rewards.model.RewardsCriteria.RewardsStatus;
 import com.chinarewards.gwt.elt.client.rewards.presenter.RewardsListPresenter.RewardsListDisplay;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
@@ -95,6 +96,22 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 		RewardsCriteria criteria = new RewardsCriteria();
 		criteria.setName(display.getName().getValue());
 		criteria.setDefinition(display.getDefinition().getValue());
+		if(display.getNowJudge().getValue())
+		{
+			criteria.setJudgeUserId(sessionManager.getSession().getToken());
+		}
+		if(pageType==RewardPageType.NOMINATEPAGE)
+		{
+			criteria.setStatus(RewardsStatus.PENDING_NOMINATE);
+		}
+		if(pageType==RewardPageType.AWARDREWARDPAGE)
+		{
+			criteria.setStatus(RewardsStatus.NEW);
+		}
+		if(pageType==RewardPageType.DETAILSOFAWARDPAGE)
+		{
+			criteria.setStatus(RewardsStatus.REWARDED);
+		}
 		listViewAdapter = new RewardsListViewAdapter(dispatch, criteria,
 				errorHandler, sessionManager);
 		listViewAdapter.addDataDisplay(cellTable);
@@ -206,18 +223,14 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 
 					@Override
 					public void update(int index, RewardsClient o, String value) {
-						if ("NEW".equals(o.getStatus().name())) {
+						if ("NEW".equals(o.getStatus().name()) || "PENDING_NOMINATE".equals(o.getStatus().name())) {
 							Platform.getInstance()
 									.getEditorRegistry()
 									.openEditor(
 											AwardRewardConstants.EDITOR_AWARDREWARD_SEARCH,
 											AwardRewardConstants.EDITOR_AWARDREWARD_SEARCH
 													+ o.getId(), o);
-						} else if ("PENDING_NOMINATE".equals(o.getStatus()
-								.name())) {
-							Window.alert("还没有提名");
-							return;
-						} else {
+						}  else {
 							Window.alert("已经颁奖");
 							return;
 						}

@@ -43,6 +43,9 @@ public class CorporationHelper {
 		CorporationVo corp = new CorporationVo();
 		corp.setName("深圳积享通信息技术有限公司");
 		corp.setDescription("一家专业的会员管理和咨询服务公司");
+		// Create a new tx account.
+		String accountId = transactionService.createNewAccount();
+
 		// Create the default unit code.
 		String code = getDefaultTxUnit().toString();
 		corp.setUnitCode(code);
@@ -51,14 +54,12 @@ public class CorporationHelper {
 		} catch (DuplicateUnitCodeException e) {
 			// should not be here
 		}
+		// Deposit a amount of money
+		transactionService.deposit(accountId, code, initBalance);
+		corp.setTxAccountId(accountId);
 		SysUser caller = UserHelper.getDefaultUser(injector);
 		defaultCorp = corporationLogic.saveCorporation(caller, corp);
 
-		// Create a new tx account.
-		String accountId = defaultCorp.getTxAccountId();
-
-		// Deposit a amount of money
-		transactionService.deposit(accountId, code, initBalance);
 		return defaultCorp;
 	}
 

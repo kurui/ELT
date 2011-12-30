@@ -12,6 +12,7 @@ import com.chinarewards.elt.dao.reward.DirectCandidateRuleDao;
 import com.chinarewards.elt.dao.reward.DobRuleDao;
 import com.chinarewards.elt.dao.reward.RewardDao;
 import com.chinarewards.elt.dao.reward.RewardItemDao;
+import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.org.Organization;
 import com.chinarewards.elt.domain.org.Staff;
@@ -215,10 +216,11 @@ public class CandidateRuleLogicImpl implements CandidateRuleLogic {
 						.getId());
 		for (DirectCandidateData data : list) {
 			if (data.getOrg() instanceof Department) {
-				staffs.addAll(staffLogic.getStaffsFromDeptId(data.getOrg()
-						.getId(), true));
+				staffs.addAll(staffLogic.getStaffsFromDeptId(data.getOrg().getId(), true));
 			} else if (data.getOrg() instanceof Staff) {
 				staffs.add((Staff) data.getOrg());
+			}else if (data.getOrg() instanceof Corporation) {
+				staffs.addAll(staffLogic.getStaffsFromCorporationId(data.getOrg().getId()));
 			}
 		}
 
