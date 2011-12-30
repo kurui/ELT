@@ -2,8 +2,6 @@ package com.chinarewards.elt.service.reward.nominee;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-
 import com.chinarewards.elt.domain.reward.person.Candidate;
 import com.chinarewards.elt.domain.reward.person.NomineeLot;
 import com.chinarewards.elt.domain.user.SysUser;
@@ -14,20 +12,20 @@ import com.chinarewards.elt.service.reward.rule.CandidateLogic;
 import com.chinarewards.elt.service.reward.rule.NomineeLogic;
 import com.chinarewards.elt.service.user.UserLogic;
 import com.google.inject.Inject;
+import com.google.inject.persist.Transactional;
 
+@Transactional
 public class NomineeServiceImpl implements NomineeService {
 	private final NomineeLogic nomineeLogic;
 	private final UserLogic userLogic;
-	private final EntityManager em;
 	private final CandidateLogic candidateLogic;
 
 	@Inject
 	public NomineeServiceImpl(NomineeLogic nomineeLogic, UserLogic userLogic,
-			EntityManager em, CandidateLogic candidateLogic) {
+			CandidateLogic candidateLogic) {
 		this.nomineeLogic = nomineeLogic;
 		this.userLogic = userLogic;
 
-		this.em = em;
 		this.candidateLogic = candidateLogic;
 
 	}
@@ -36,9 +34,9 @@ public class NomineeServiceImpl implements NomineeService {
 	public NomineeLot addNomineeLotToReward(String rewardId,
 			List<String> staffIds, String nowUserId) throws JudgeException {
 
-		if (em.getTransaction().isActive() != true) {
-			em.getTransaction().begin();
-		}
+		// if (em.getTransaction().isActive() != true) {
+		// em.getTransaction().begin();
+		// }
 		SysUser caller = userLogic.findUserById(nowUserId);
 
 		NomineeLot lot = nomineeLogic.addNomineeLotToReward(caller, rewardId,
@@ -47,7 +45,7 @@ public class NomineeServiceImpl implements NomineeService {
 		// 被提名者,提名次数的调整
 		candidateLogic.updateCandidatesCount(staffIds, rewardId);
 
-		em.getTransaction().commit();
+		// em.getTransaction().commit();
 
 		return lot;
 	}

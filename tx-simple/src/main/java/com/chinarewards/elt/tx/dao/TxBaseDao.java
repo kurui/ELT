@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 public class TxBaseDao<T> {
 
@@ -15,7 +16,7 @@ public class TxBaseDao<T> {
 	protected final String COUNT = "COUNT";
 
 	@Inject
-	private EntityManager entityManager;
+	private Provider<EntityManager> entityManager;
 
 	/**
 	 * 
@@ -23,7 +24,7 @@ public class TxBaseDao<T> {
 	 * @return
 	 */
 	public EntityManager getEm() {
-		return entityManager;
+		return entityManager.get();
 	}
 
 	/**
@@ -33,8 +34,7 @@ public class TxBaseDao<T> {
 	 *            one of your entity bean instance
 	 */
 	public T save(T t) {
-		entityManager = getEm();
-		entityManager.persist(t);
+		getEm().persist(t);
 
 		return t;
 	}
@@ -46,8 +46,7 @@ public class TxBaseDao<T> {
 	 *            one of your entity bean instance
 	 */
 	public T update(T t) {
-		entityManager = getEm();
-		entityManager.merge(t);
+		getEm().merge(t);
 
 		return t;
 	}
@@ -59,8 +58,7 @@ public class TxBaseDao<T> {
 	 * @param t
 	 */
 	public void delete(T t) {
-		entityManager = getEm();
-		entityManager.remove(t);
+		getEm().remove(t);
 	}
 
 	/**
@@ -75,7 +73,6 @@ public class TxBaseDao<T> {
 	 * 
 	 */
 	public T findById(Class<T> entityClass, Object id) {
-		entityManager = getEm();
-		return (T) entityManager.find(entityClass, id);
+		return (T) getEm().find(entityClass, id);
 	}
 }
