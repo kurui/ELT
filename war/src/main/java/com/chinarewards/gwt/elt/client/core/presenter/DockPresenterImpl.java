@@ -47,7 +47,7 @@ this.menuProcessor=menuProcessor;
 			@Override
 			public void onClick(ClickEvent event) {
 				display.setMenuTitle("广播");
-				menuProcessor.initrender(display.getMenu(),"xx");	
+				display.setMenu(null);
 			}
 		}));
 		registerHandler(display.getBtnReward().addClickHandler(new ClickHandler() {

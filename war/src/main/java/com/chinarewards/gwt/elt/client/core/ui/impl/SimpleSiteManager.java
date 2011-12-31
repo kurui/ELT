@@ -30,10 +30,11 @@ import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
-import com.google.gwt.user.client.ui.TabLayoutPanel;
+import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
 public class SimpleSiteManager implements SiteManager, EditorCloseHandler,
@@ -53,7 +54,7 @@ public class SimpleSiteManager implements SiteManager, EditorCloseHandler,
 
 	Panel menu;
 
-	TabLayoutPanel editor;
+	LayoutPanel editor;
 
 	List<Editor> openedEditors = new LinkedList<Editor>();
 
@@ -99,7 +100,7 @@ public class SimpleSiteManager implements SiteManager, EditorCloseHandler,
 		panel.setCellHorizontalAlignment(rightImg, HorizontalPanel.ALIGN_RIGHT);
 
 		ScrollPanel sp = new ScrollPanel(e.asWidget());
-		editor.add(sp, panel);
+		editor.add(sp);
 		// editor.add(e.asWidget(), g);
 
 		// show editor panels only if there is at least one editor opened.
@@ -124,7 +125,7 @@ public class SimpleSiteManager implements SiteManager, EditorCloseHandler,
 		// dock.addWest(menu, 200);
 
 		// initialize editors area.
-		editor = new TabLayoutPanel(43, Unit.PX);
+		editor = new LayoutPanel();
 		editor.setVisible(false);
 		dock.add(editor);
 
@@ -174,8 +175,10 @@ public class SimpleSiteManager implements SiteManager, EditorCloseHandler,
 	}
 
 	public void focusEditor(Editor e) {
-		int idx = openedEditors.indexOf(e);
-		editor.selectTab(idx);
+	//	int idx = openedEditors.indexOf(e);
+		editor.clear();
+		editor.add(e.asWidget());
+		editor.forceLayout();
 	}
 
 	public void onValueChange(ValueChangeEvent<String> event) {
