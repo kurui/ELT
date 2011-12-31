@@ -13,12 +13,14 @@ import com.chinarewards.gwt.elt.client.nominate.NominateAddRequest;
 import com.chinarewards.gwt.elt.client.nominate.NominateAddResponse;
 import com.chinarewards.gwt.elt.client.nominate.NominateInitRequest;
 import com.chinarewards.gwt.elt.client.nominate.NominateInitResponse;
-import com.chinarewards.gwt.elt.client.nominate.plugin.NominateConstants;
 import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
 import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient;
 import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient.SomeoneClient;
+import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.model.ChoosePanel.InitChoosePanelParam;
+import com.chinarewards.gwt.elt.model.rewards.RewardPageType;
+import com.chinarewards.gwt.elt.model.rewards.RewardsPageClient;
 import com.chinarewards.gwt.elt.util.DateTool;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -32,7 +34,7 @@ public class NominatePresenterImpl extends
 
 	private final DispatchAsync dispatcher;
 	private String awardsId;
-	private String instanceId;
+//	private String instanceId;
 	private int headcount;
 	final SessionManager sessionManager;
 
@@ -105,11 +107,14 @@ public class NominatePresenterImpl extends
 					@Override
 					public void onSuccess(NominateAddResponse response) {
 						Window.alert("提名成功!");
+						RewardsPageClient rpc=new RewardsPageClient();
+						rpc.setTitleName("提名列表");
+						rpc.setPageType(RewardPageType.NOMINATEPAGE);
 						Platform.getInstance()
 								.getEditorRegistry()
-								.closeEditor(
-										NominateConstants.EDITOR_NOMINATE_SEARCH,
-										instanceId);
+								.openEditor(
+										RewardsListConstants.EDITOR_REWARDSLIST_SEARCH,
+										"EDITOR_REWARDSLIST_"+RewardPageType.NOMINATEPAGE,rpc);
 					}
 				});
 	}
@@ -160,7 +165,7 @@ public class NominatePresenterImpl extends
 	public void initReward(String rewardId, String instanceId, int headcount) {
 		// 加载数据
 		this.awardsId = rewardId;
-		this.instanceId = instanceId;
+		//this.instanceId = instanceId;
 		this.headcount = headcount;
 	}
 
