@@ -16,11 +16,6 @@ public class HSQLDBServletContextListener implements ServletContextListener {
               String dbName = "mydb";
               int port = 9001;
               startServer(dbPath,dbName,port);
-//            org.hsqldb.Server server = new org.hsqldb.Server();
-//            server.putPropertiesFromString(params);
-//            server.setLogWriter(null);
-//            server.setErrWriter(null);
-//            server.start();
         } catch (Exception e) {
             System.err.println("起动出错===="+e);
         }
