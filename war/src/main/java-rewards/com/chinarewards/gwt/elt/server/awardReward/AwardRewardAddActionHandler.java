@@ -50,7 +50,7 @@ public class AwardRewardAddActionHandler extends
 			throw new ClientException(message);
 		}
 
-		String lot = rewardService.awardReward(null, request.getRewardId(),
+		String lot = rewardService.awardReward(request.getNowUserId(), request.getRewardId(),
 				request.getStaffIds());
 
 		awardresponse.setLotId(lot);

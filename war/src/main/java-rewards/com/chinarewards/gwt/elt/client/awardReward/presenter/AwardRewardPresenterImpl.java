@@ -5,7 +5,6 @@ import java.util.List;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
-import com.chinarewards.gwt.elt.client.awardReward.plugin.AwardRewardConstants;
 import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardAddRequest;
 import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardAddResponse;
 import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardInitRequest;
@@ -17,7 +16,11 @@ import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
 import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient;
 import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient.SomeoneClient;
+import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListConstants;
+import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.model.ChoosePanel.InitChoosePanelParam;
+import com.chinarewards.gwt.elt.model.rewards.RewardPageType;
+import com.chinarewards.gwt.elt.model.rewards.RewardsPageClient;
 import com.chinarewards.gwt.elt.util.DateTool;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -33,16 +36,18 @@ public class AwardRewardPresenterImpl extends
 	private String awardsId;
 	private String instanceId;
 	private int headcount;
+	private SessionManager sessionManager;
 
 	private final ChooseStaffPanelPresenter staffPanel;
 
 	@Inject
 	public AwardRewardPresenterImpl(EventBus eventBus,
 			AwardRewardDisplay display, DispatchAsync dispatcher,
-			ChooseStaffPanelPresenter staffPanel) {
+			ChooseStaffPanelPresenter staffPanel,SessionManager sessionManager) {
 		super(eventBus, display);
 		this.dispatcher = dispatcher;
 		this.staffPanel = staffPanel;
+		this.sessionManager=sessionManager;
 	}
 
 	@Override
@@ -81,11 +86,14 @@ public class AwardRewardPresenterImpl extends
 							else
 							{
 								
+								RewardsPageClient rpc=new RewardsPageClient();
+								rpc.setTitleName("颁奖列表");
+								rpc.setPageType(RewardPageType.AWARDREWARDPAGE);
 								Platform.getInstance()
-								.getEditorRegistry()
-								.closeEditor(
-										AwardRewardConstants.EDITOR_AWARDREWARD_SEARCH,
-										instanceId);
+										.getEditorRegistry()
+										.openEditor(
+												RewardsListConstants.EDITOR_REWARDSLIST_SEARCH,
+												"EDITOR_REWARDSLIST_"+RewardPageType.AWARDREWARDPAGE,rpc);
 								return;
 							}
 							
@@ -109,7 +117,7 @@ public class AwardRewardPresenterImpl extends
 	 * 颁奖数据添加
 	 */
 	private void addAwardRewardData(List<String> staffidList, String rewardId) {
-		dispatcher.execute(new AwardRewardAddRequest(staffidList, rewardId),
+		dispatcher.execute(new AwardRewardAddRequest(staffidList, rewardId,sessionManager.getSession().getToken()),
 				new AsyncCallback<AwardRewardAddResponse>() {
 					public void onFailure(Throwable t) {
 						Window.alert(t.getMessage());
@@ -117,12 +125,15 @@ public class AwardRewardPresenterImpl extends
 
 					@Override
 					public void onSuccess(AwardRewardAddResponse response) {
-						Window.alert("颁奖成功!---颁奖记录ID:" + response.getLotId());
+						Window.alert("颁奖成功!");
+						RewardsPageClient rpc=new RewardsPageClient();
+						rpc.setTitleName("颁奖列表");
+						rpc.setPageType(RewardPageType.AWARDREWARDPAGE);
 						Platform.getInstance()
 								.getEditorRegistry()
-								.closeEditor(
-										AwardRewardConstants.EDITOR_AWARDREWARD_SEARCH,
-										instanceId);
+								.openEditor(
+										RewardsListConstants.EDITOR_REWARDSLIST_SEARCH,
+										"EDITOR_REWARDSLIST_"+RewardPageType.AWARDREWARDPAGE,rpc);
 					}
 				});
 	}

@@ -53,7 +53,7 @@ public interface RewardService {
  * @param staffIds
  * @return
  */
-	public String awardReward(SysUser caller, String rewardId,
+	public String awardReward(String nowUserId, String rewardId,
 			List<String> staffIds);
 
 	/**

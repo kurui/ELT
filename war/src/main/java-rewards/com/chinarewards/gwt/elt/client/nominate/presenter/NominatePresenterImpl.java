@@ -104,8 +104,7 @@ public class NominatePresenterImpl extends
 
 					@Override
 					public void onSuccess(NominateAddResponse response) {
-						Window.alert("提名成功!---提名记录ID:"
-								+ response.getNomineeLotId());
+						Window.alert("提名成功!");
 						Platform.getInstance()
 								.getEditorRegistry()
 								.closeEditor(

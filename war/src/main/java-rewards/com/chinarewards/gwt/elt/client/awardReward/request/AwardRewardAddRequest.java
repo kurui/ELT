@@ -18,7 +18,16 @@ public class AwardRewardAddRequest implements Action<AwardRewardAddResponse> {
 	List<String> staffIds;
 
 	String rewardId;
+	String nowUserId;
 	
+	public String getNowUserId() {
+		return nowUserId;
+	}
+
+	public void setNowUserId(String nowUserId) {
+		this.nowUserId = nowUserId;
+	}
+
 	public String getRewardId() {
 		return rewardId;
 	}
@@ -41,9 +50,9 @@ public class AwardRewardAddRequest implements Action<AwardRewardAddResponse> {
 		this.staffIds = staffIds;
 	}
 
-	public AwardRewardAddRequest(List<String> staffIds,String rewardId) {
+	public AwardRewardAddRequest(List<String> staffIds,String rewardId,String nowUserId) {
 		this.staffIds=staffIds;
-	
+	this.nowUserId=nowUserId;
 		this.rewardId=rewardId;
 	}
 

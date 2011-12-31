@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.domain.reward.base.Reward;
-import com.chinarewards.elt.domain.reward.person.Judge;
 import com.chinarewards.elt.domain.reward.person.NomineeLot;
 import com.chinarewards.elt.domain.reward.person.Winner;
 import com.chinarewards.elt.domain.user.SysUser;
@@ -66,21 +65,13 @@ public class RewardServiceImpl implements RewardService {
 	}
 
 	@Override
-	public String awardReward(SysUser caller, String rewardId,
+	public String awardReward(String nowUserId, String rewardId,
 			List<String> staffIds) {
-
-		// 获取当前登录人.登录没实现,先默认当前第一个提名人
-		// if (em.getTransaction().isActive() != true) {
-		// em.getTransaction().begin();
-		// }
-		caller = userLogic.getDefaultUser();
-		List<Judge> judgeList = judgeLogic.findJudgesFromReward(rewardId);
-		caller.setStaff(judgeList.get(0).getStaff());
-		// ---------------------------------------
+		SysUser caller=userLogic.findUserById(nowUserId);
 
 		String awardLogId = rewardLogic.awardReward(caller, rewardId, staffIds);
 
-		// em.getTransaction().commit();
+
 		return awardLogId;
 	}
 
