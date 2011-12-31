@@ -50,7 +50,7 @@ public class SimpleEditorRegistry implements EditorRegistry, EditorCloseHandler 
 			platform.getSiteManager().openEditor(editor);
 			// put it in opened list
 			// avoid instanceId mismatch, use passed-in parameter
-			openedEditors.put(instanceId, editor);
+			//openedEditors.put(instanceId, editor);
 			e = editor;
 			// alert to the user for development time correction
 			if (instanceId != null
