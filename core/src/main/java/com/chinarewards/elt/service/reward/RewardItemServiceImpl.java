@@ -17,7 +17,6 @@ import com.chinarewards.elt.model.vo.StaffAndDeptmentAutoCompile;
 import com.chinarewards.elt.service.org.OrganizationLogic;
 import com.chinarewards.elt.service.reward.rule.CandidateLogic;
 import com.chinarewards.elt.service.reward.rule.CandidateRuleLogic;
-import com.chinarewards.elt.service.reward.rule.JudgeLogic;
 import com.chinarewards.elt.service.user.UserLogic;
 import com.chinarewards.elt.util.DateUtil;
 import com.google.inject.Inject;
@@ -34,7 +33,6 @@ public class RewardItemServiceImpl implements RewardItemService {
 	private final RewardItemLogic rewardItemLogic;
 	private final RewardLogic rewardLogic;
 	private final UserLogic userLogic;
-	private final JudgeLogic judgeLogic;
 
 	private final CandidateRuleLogic candidateRuleLogic;
 	private final OrganizationLogic organizationLogic;
@@ -42,12 +40,12 @@ public class RewardItemServiceImpl implements RewardItemService {
 	@Inject
 	public RewardItemServiceImpl(RewardItemLogic rewardItemLogic,
 			CandidateRuleLogic candidateRuleLogic, UserLogic userLogic,
-			JudgeLogic judgeLogic, CandidateLogic candidateLogic,
-			OrganizationLogic organizationLogic, RewardLogic rewardLogic) {
+			CandidateLogic candidateLogic, OrganizationLogic organizationLogic,
+			RewardLogic rewardLogic) {
 
 		this.rewardItemLogic = rewardItemLogic;
 		this.userLogic = userLogic;
-		this.judgeLogic = judgeLogic;
+
 		this.candidateRuleLogic = candidateRuleLogic;
 		this.organizationLogic = organizationLogic;
 		this.rewardLogic = rewardLogic;
@@ -57,13 +55,10 @@ public class RewardItemServiceImpl implements RewardItemService {
 	@Override
 	public RewardItem saveRewardItem(UserContext context, RewardItemParam param) {
 
-		// if (em.getTransaction().isActive() != true) {
-		// em.getTransaction().begin();
-		// }
-
 		SysUser caller = userLogic.findUserById(context.getUserId());
 		RewardItem rewardItem = rewardItemLogic.saveRewardItem(caller, param);
-		// em.getTransaction().commit();
+		rewardItemLogic.saveOrgPolicy(rewardItem.getBuilderDept());
+
 		return rewardItem;
 	}
 

@@ -3,6 +3,7 @@ package com.chinarewards.elt.service.reward;
 import java.util.Date;
 import java.util.List;
 
+import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.reward.base.RewardItem;
 import com.chinarewards.elt.domain.reward.frequency.WeekFrequencyDays;
 import com.chinarewards.elt.domain.user.SysUser;
@@ -130,5 +131,7 @@ public interface RewardItemLogic {
 	 * 奖项激活后,奖项次数+1
 	 */
 	public void updateRewardItemCount(String rewardItemId);
+	
+	public void saveOrgPolicy(Department dep);
 
 }

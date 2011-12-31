@@ -9,10 +9,12 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.chinarewards.elt.dao.org.OrgPolicyDao;
 import com.chinarewards.elt.dao.reward.RewardItemDao;
 import com.chinarewards.elt.dao.reward.RewardItemTypeDao;
 import com.chinarewards.elt.dao.reward.WeekFrequencyDaysDao;
 import com.chinarewards.elt.domain.org.Department;
+import com.chinarewards.elt.domain.org.OrgPolicy;
 import com.chinarewards.elt.domain.reward.base.RewardItem;
 import com.chinarewards.elt.domain.reward.base.RewardItemType;
 import com.chinarewards.elt.domain.reward.frequency.Frequency;
@@ -21,6 +23,8 @@ import com.chinarewards.elt.domain.reward.person.Judge;
 import com.chinarewards.elt.domain.reward.rule.CandidateRule;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
+import com.chinarewards.elt.model.org.DepartmentPolicyConstants;
+import com.chinarewards.elt.model.org.RewardsApprovalPolicyEnum;
 import com.chinarewards.elt.model.reward.base.RequireAutoAward;
 import com.chinarewards.elt.model.reward.base.RequireAutoGenerate;
 import com.chinarewards.elt.model.reward.base.RewardItemParam;
@@ -56,14 +60,17 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 	private final DepartmentLogic deptLogic;
 	private final RewardLogic rewardLogic;
 	private final UserLogic userLogic;
-    private final WeekFrequencyDaysDao weekFrequencyDaysDao;
+	private final WeekFrequencyDaysDao weekFrequencyDaysDao;
+
+	private final OrgPolicyDao orgPolicyDao;
+
 	@Inject
 	protected RewardItemLogicImpl(RewardItemTypeDao rewardItemTypeDao,
 			RewardItemDao rewardItemDao, FrequencyLogic frequencyLogic,
 			CandidateRuleLogic candidateRuleLogic, JudgeLogic judgeLogic,
 			RewardAclProcessorFactory rewardAclProcessorFactory,
-			DepartmentLogic deptLogic, RewardLogic rewardLogic,
-			UserLogic userLogic,WeekFrequencyDaysDao weekFrequencyDaysDao) {
+			DepartmentLogic deptLogic, RewardLogic rewardLogic, UserLogic userLogic,
+			WeekFrequencyDaysDao weekFrequencyDaysDao, OrgPolicyDao orgPolicyDao) {
 		this.rewardItemTypeDao = rewardItemTypeDao;
 		this.rewardItemDao = rewardItemDao;
 		this.frequencyLogic = frequencyLogic;
@@ -72,8 +79,10 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 		this.rewardAclProcessorFactory = rewardAclProcessorFactory;
 		this.deptLogic = deptLogic;
 		this.rewardLogic = rewardLogic;
+		this.orgPolicyDao = orgPolicyDao;
 		this.userLogic = userLogic;
 		this.weekFrequencyDaysDao = weekFrequencyDaysDao;
+
 	}
 
 	private RewardItem assembleRewardItemObject(SysUser caller,
@@ -108,7 +117,7 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 		item.setBuilderDept(builderDept);
 		item.setAccountDept(accountDept);
 		item.setCorporation(builderDept.getCorporation());
-       // item.setFrequency(param.getFrequency());
+		// item.setFrequency(param.getFrequency());
 		// Calculate publish date and ahead publish days
 		int publishAheadDays = DateUtil.betweenDays(param.getPublishDate(),
 				param.getExpectAwardDate());
@@ -133,7 +142,7 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 				item.setNexRunBatchTime(param.getPublishDate());
 			}
 		}
-        item.setStartTime(param.getStartTime());
+		item.setStartTime(param.getStartTime());
 		item.setName(param.getName());
 		item.setStandard(param.getStandard());
 		item.setDefinition(param.getDefinition());
@@ -153,21 +162,22 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 	public RewardItem saveRewardItem(SysUser caller, RewardItemParam param) {
 		logger.debug("Invoking method saveRewardItem(), parameter:{}", param);
 		RewardItem itemObj = assembleRewardItemObject(caller, param);
-		System.out.println("itemObj="+itemObj.getFrequency());
+		System.out.println("itemObj=" + itemObj.getFrequency());
 		if (StringUtil.isEmptyString(itemObj.getId())) {
 			// Create
 			rewardItemDao.save(itemObj);
 		} else {
 			// Update
-			
+
 			// clear frequency
-			if(itemObj.getFrequency()!=null)
-			frequencyLogic.removeFrequencyFromRewardItem(itemObj.getId());
+			if (itemObj.getFrequency() != null)
+				frequencyLogic.removeFrequencyFromRewardItem(itemObj.getId());
 			// clear short-list rule
-			candidateRuleLogic.removeCandidateRuleFromRewardItem(itemObj.getId());
+			candidateRuleLogic.removeCandidateRuleFromRewardItem(itemObj
+					.getId());
 			// clear judge list
 			judgeLogic.removeJudgesFromRewardItem(itemObj.getId());
-			if(param.getFrequency()==null)
+			if (param.getFrequency() == null)
 				itemObj.setFrequency(null);
 			rewardItemDao.update(itemObj);
 		}
@@ -451,13 +461,14 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 				item.getNexRunBatchTime());
 	}
 
-	
 	@Override
-	public List<WeekFrequencyDays> findWeekSelectorUnitDataByWSUId(	String weekSelectorUnitId) {
-		logger.debug(" Process in findWeekSelectorUnitDataByWSUId method, parameter weekSelectorUnitId:"+ weekSelectorUnitId);
-		return weekFrequencyDaysDao.findWeekFrequencyDaysByFrequencyId(weekSelectorUnitId);
+	public List<WeekFrequencyDays> findWeekSelectorUnitDataByWSUId(
+			String weekSelectorUnitId) {
+		logger.debug(" Process in findWeekSelectorUnitDataByWSUId method, parameter weekSelectorUnitId:"
+				+ weekSelectorUnitId);
+		return weekFrequencyDaysDao
+				.findWeekFrequencyDaysByFrequencyId(weekSelectorUnitId);
 	}
-
 
 	@Override
 	public void runAutoRewardGeneratorByRewardItem(Date flagTime,
@@ -537,7 +548,17 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 				rewardItemId);
 		rewardItem.setDegree(rewardItem.getDegree() + 1);
 		rewardItemDao.update(rewardItem);
+	}
 
+	public void saveOrgPolicy(Department dep) {
 
+		if (orgPolicyDao.findByOrganizationIdPolicyKey(dep.getId(),
+				DepartmentPolicyConstants.REWARDS_APPROVAL_POLICY) == null) {
+			OrgPolicy policy = new OrgPolicy();
+			policy.setKey2(DepartmentPolicyConstants.REWARDS_APPROVAL_POLICY);
+			policy.setValue(RewardsApprovalPolicyEnum.NOT_REQUIRED.toString());
+			policy.setOwner(dep);
+			orgPolicyDao.save(policy);
+		}
 	}
 }
