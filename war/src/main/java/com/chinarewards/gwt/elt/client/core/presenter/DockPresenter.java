@@ -13,13 +13,14 @@ public interface DockPresenter extends Presenter<DockPresenter.DockDisplay> {
 		HasClickHandlers getlogBtn();
 		HasClickHandlers getBtnEmail();
 		HasClickHandlers getBtnGb();
-		
+		HasClickHandlers getBtnReward();
 		DockLayoutPanel getDock();
 		
 		Panel getMenu();
 		
 		void setMessage(String userName);
 		void setMenu(Panel panel);
+		void setMenuTitle(String title);
 	}
 	
 	

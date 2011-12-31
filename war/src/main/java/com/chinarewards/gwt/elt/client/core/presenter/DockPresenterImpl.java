@@ -39,16 +39,22 @@ this.menuProcessor=menuProcessor;
 		registerHandler(display.getBtnEmail().addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
+				display.setMenuTitle("收件箱");
 				display.setMenu(null);
 			}
 		}));
 		registerHandler(display.getBtnGb().addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-		
-				menuProcessor.initrender(display.getMenu(),"xx");
-				
-				
+				display.setMenuTitle("广播");
+				menuProcessor.initrender(display.getMenu(),"xx");	
+			}
+		}));
+		registerHandler(display.getBtnReward().addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				display.setMenuTitle("奖项");
+				menuProcessor.initrender(display.getMenu(),"xx");	
 			}
 		}));
 		

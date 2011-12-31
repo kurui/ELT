@@ -41,7 +41,8 @@
 								<g:Image resource="{logo_name}" width="380" height="36" />
 							</div>
 							<div id="header02">				
-								<g:Button text="收件箱" ui:field="btnEmail" ></g:Button><g:Button text="广播" ui:field="btnGb"></g:Button>
+								<g:Button text="收件箱" ui:field="btnEmail" ></g:Button> <g:Button text="广播" ui:field="btnGb"></g:Button>
+								<g:Button text="奖项" ui:field="btnReward"></g:Button>
 							</div>
 						</td>
 					</tr>
@@ -71,7 +72,7 @@
 									cellpadding="0">
 									<tr>
 										<td><g:Image resource="{title01}"></g:Image></td>
-										<td>操作导航</td>
+										<td><g:InlineLabel text="操作导航" ui:field="menuTitle" /></td>
 										<td id="title03"></td>
 									</tr>
 								</table>

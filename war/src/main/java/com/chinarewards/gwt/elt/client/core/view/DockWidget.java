@@ -19,6 +19,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
@@ -36,13 +37,18 @@ public class DockWidget extends Composite implements DockDisplay {
 
 	@UiField
 	Label message;
-	
+
 	@UiField
 	Button btnEmail;
-	
+
 	@UiField
 	Button btnGb;
+	@UiField
+	Button btnReward;
 	
+	@UiField
+	InlineLabel menuTitle;
+
 	// Set the format of datepicker.
 	DateTimeFormat dateFormat = DateTimeFormat
 			.getFormat(ViewConstants.date_format_chinese);
@@ -116,13 +122,22 @@ public class DockWidget extends Composite implements DockDisplay {
 	@Override
 	public void setMenu(Panel panel) {
 		menu.clear();
-	
-		
+
 	}
 
 	@Override
 	public HasClickHandlers getBtnGb() {
 		return btnGb;
+	}
+
+	@Override
+	public void setMenuTitle(String title) {
+		menuTitle.setText(title);
+	}
+
+	@Override
+	public HasClickHandlers getBtnReward() {
+		return btnReward;
 	}
 
 }

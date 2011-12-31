@@ -8,8 +8,8 @@ import com.chinarewards.gwt.elt.client.core.impl.InMemoryPluginSet;
 import com.chinarewards.gwt.elt.client.core.ui.EditorRegistry;
 import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
 import com.chinarewards.gwt.elt.client.core.ui.SiteManager;
+import com.chinarewards.gwt.elt.client.core.ui.impl.ButtonMenuProcessor;
 import com.chinarewards.gwt.elt.client.core.ui.impl.SimpleEditorRegistry;
-import com.chinarewards.gwt.elt.client.core.ui.impl.SimpleMenuProcessor;
 import com.chinarewards.gwt.elt.client.core.ui.impl.SimpleSiteManager;
 import com.chinarewards.gwt.elt.client.detailsOfAward.plugin.DetailsOfAwardPluginDescriptor;
 import com.chinarewards.gwt.elt.client.nominate.plugin.NominatePluginDescriptor;
@@ -35,7 +35,7 @@ public class PlatformModule extends AbstractGinModule {
 		bind(PluginManager.class).to(GinPluginManager.class)
 				.in(Singleton.class);
 
-		bind(MenuProcessor.class).to(SimpleMenuProcessor.class).in(
+		bind(MenuProcessor.class).to(ButtonMenuProcessor.class).in(
 				Singleton.class);
 		bind(SiteManager.class).to(SimpleSiteManager.class).in(Singleton.class);
 		bind(EditorRegistry.class).to(SimpleEditorRegistry.class).in(

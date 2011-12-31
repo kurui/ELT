@@ -75,10 +75,11 @@ public class ButtonMenuProcessor implements MenuProcessor {
 
 		VerticalPanel grid = new VerticalPanel();
 		grid.setWidth("100%");
-		int i = 0;
+//		int i = 0;
 		for (MenuNode node : root.getChildren()) {
 			Button button = new Button();
 			final MenuItem menuItem = node.getValue();
+			System.out.println(menuItem.getTitle());
 			button.setText(menuItem.getTitle());
 			button.setStyleName("gwt-menu-Button");
 			button.addClickHandler(new ClickHandler() {
@@ -87,7 +88,7 @@ public class ButtonMenuProcessor implements MenuProcessor {
 				}
 			});
 			grid.add(button);
-			i++;
+	//		i++;
 		}
 
 		return grid;
@@ -95,7 +96,24 @@ public class ButtonMenuProcessor implements MenuProcessor {
 
 	@Override
 	public void initrender(Panel container, String name) {
-		// TODO Auto-generated method stub
+		// organize tree
+		// sort according to menuID string length
+		Collections.sort(items, new Comparator<MenuItem>() {
+			public int compare(MenuItem paramT1, MenuItem paramT2) {
+				return paramT1.getMenuId().length()
+						- paramT2.getMenuId().length();
+			}
+		});
+
+		// pack into the MenuNode structure
+//		for (MenuItem m : items) {
+//			// append children recursively
+//			root.appendChild(new MenuNode(m));
+//		}
+
+		ScrollPanel menuWrapper = new ScrollPanel(createButtonMenuWidget());
+		container.clear();
+		container.add(menuWrapper);
 		
 	}
 
