@@ -12,7 +12,7 @@ public class HSQLDBServletContextListener implements ServletContextListener {
         try {
             ServletContext context = evt.getServletContext();
             String params = "port=9001;silent=true;trace=false;database.0=" + context.getRealPath("/") + "/WEB-INF/lib/db/mydb";
-              String dbPath =  context.getRealPath("/") + "/WEB-INF/lib/db";
+              String dbPath =  context.getRealPath("/") + "/WEB-INF/db";
               String dbName = "mydb";
               int port = 9001;
               startServer(dbPath,dbName,port);
@@ -42,7 +42,7 @@ private void startServer(String dbPath, String dbName, int port) {
    }    
     server.setSilent(true);    
     server.start();    
-    System.out.println("hsqldb started...");    
+    System.out.println("hsqldb 服务启动了...");    
    
      
 }  
