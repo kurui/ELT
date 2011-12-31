@@ -31,38 +31,36 @@ public class StaffChooseAsyncDataProvider extends BaseDataProvider<StaffClient> 
 
 	@Override
 	public void fetchData(final int start, final int length) {
-		// if (!GWT.isScript()) {
-		// List<StaffClient> list = new ArrayList<StaffClient>();
-		// for (int i = start; i < start + length; i++) {
-		// list.add(new StaffClient("" + i,
-		// criteria.getKey() == null ? "name" : criteria.getKey()
-		// + i, "cardNo" + i, "deptName" + i, "email" + i));
-		// }
-		// updateRowData(start, list);
-		// updateRowCount(100, true);
-		// } else {
-		PaginationDetailClient pagination = new PaginationDetailClient();
-		pagination.setStart(start);
-		pagination.setLimit(length);
-		criteria.setPagination(pagination);
-		criteria.setSorting(getSorting());
-		dispatch.execute(
-				new SearchStaffChooseRequest(criteria, sessionManager
-						.getSession(), filterByAcl),
-				new AsyncCallback<SearchStaffChooseResponse>() {
+//		if (false) {
+//			List<StaffClient> list = new ArrayList<StaffClient>();
+//			for (int i = start; i < start + length; i++) {
+//				list.add(new StaffClient("" + i,
+//						criteria.getKey() == null ? "name" : criteria.getKey()
+//								+ i, "cardNo" + i, "deptName" + i, "email" + i));
+//			}
+//			updateRowData(start, list);
+//			updateRowCount(100, true);
+//		} else {
+			PaginationDetailClient pagination = new PaginationDetailClient();
+			pagination.setStart(start);
+			pagination.setLimit(length);
+			criteria.setPagination(pagination);
+			criteria.setSorting(getSorting());
+			dispatch.execute(new SearchStaffChooseRequest(criteria,	sessionManager.getSession(), filterByAcl),
+					new AsyncCallback<SearchStaffChooseResponse>() {
 
-					@Override
-					public void onFailure(Throwable e) {
-						errorHandler.alert(e.getMessage());
-					}
+						@Override
+						public void onFailure(Throwable e) {
+							errorHandler.alert(e.getMessage());
+						}
 
-					@Override
-					public void onSuccess(SearchStaffChooseResponse response) {
-						updateRowData(start, response.getResult().getResult());
-						updateRowCount(response.getResult().getTotal(), true);
-					}
-				});
-	}
-	// }
+						@Override
+						public void onSuccess(SearchStaffChooseResponse response) {
+							updateRowData(start, response.getResult().getResult());
+							updateRowCount(response.getResult().getTotal(),true);
+						}
+					});
+		}
+//	}
 
 }

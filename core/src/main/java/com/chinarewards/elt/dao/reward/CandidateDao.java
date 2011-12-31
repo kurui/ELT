@@ -49,7 +49,10 @@ public class CandidateDao extends BaseDao<Candidate> {
 		for (String key : param.keySet()) {
 			q.setParameter(key, param.get(key));
 		}
-
+		if (queryVo.getPaginationDetail() != null) {
+			q.setMaxResults(queryVo.getPaginationDetail().getLimit());
+			q.setFirstResult(queryVo.getPaginationDetail().getStart());
+		}
 		return q.getResultList();
 
 	}

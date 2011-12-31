@@ -68,11 +68,12 @@ public class NomineeServiceImpl implements NomineeService {
 	public PageStore<Candidate> getCandidatesFromRewardAndQueryVo(
 			String rewardId, WinnersRecordQueryVo queryVo) {
 
-		List<Candidate> candidateList = candidateLogic
-				.getCandidatesFromRewardAndQueryVo(rewardId, queryVo);
+		List<Candidate> candidateList = candidateLogic.getCandidatesFromRewardAndQueryVo(rewardId, queryVo);
+		queryVo.setPaginationDetail(null);
+		int sizeList = candidateLogic.getCandidatesFromRewardAndQueryVo(rewardId, queryVo).size();
 
 		PageStore<Candidate> storeVo = new PageStore<Candidate>();
-		storeVo.setResultCount(candidateList.size());
+		storeVo.setResultCount(sizeList);
 		storeVo.setResultList(candidateList);
 
 		return storeVo;
