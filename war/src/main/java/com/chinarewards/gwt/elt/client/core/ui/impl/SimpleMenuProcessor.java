@@ -12,7 +12,6 @@ import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Grid;
-import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.ScrollPanel;
@@ -63,7 +62,7 @@ public class SimpleMenuProcessor implements MenuProcessor {
 			addSubTreeNode(rootItem, n);
 		}
 		
-		boolean addToRoot = false;
+		boolean addToRoot = true;
 		if (addToRoot) {
 			// re-root child elements to the root of tree
 			while (rootItem.getChildCount() > 0) {
@@ -96,12 +95,12 @@ public class SimpleMenuProcessor implements MenuProcessor {
 
 		TreeItem item = new TreeItem();
 		Grid grid = new Grid(1, 2);
-		if (node.getValue().getIcon() != null) {
-			grid.setWidget(0, 0, node.getValue().getIcon());
-		} else {
-			// default menu icon
-			grid.setWidget(0, 0, new Image(resources.getDefaultMenuIcon()));
-		}
+//		if (node.getValue().getIcon() != null) {
+//	//		grid.setWidget(0, 0, node.getValue().getIcon());
+//		} else {
+//			// default menu icon
+//	//		grid.setWidget(0, 0, new Image(resources.getDefaultMenuIcon()));
+//		}
 
 		// setup handler to fire menu click event
 		Label text = new Label(node.getValue().getTitle());
@@ -134,5 +133,42 @@ public class SimpleMenuProcessor implements MenuProcessor {
 			}
 		}
 		return null;
+	}
+
+	public void initrender(Panel container, String name) {
+		Collections.sort(items, new Comparator<MenuItem>() {
+			public int compare(MenuItem paramT1, MenuItem paramT2) {
+				return paramT1.getMenuId().length()
+						- paramT2.getMenuId().length();
+			}
+		});
+
+//		// pack into the MenuNode structure
+//		for (MenuItem m : items) {
+//			// append children recursively
+//			root.appendChild(new MenuNode(m));
+//		}
+		
+		Tree tree = new Tree();
+		tree.addStyleName("hihi");
+		TreeItem rootItem = new TreeItem("收件箱");
+		for (MenuNode n : root.getChildren()) {
+			System.out.println(n.getValue().getTitle());
+			addSubTreeNode(rootItem, n);
+		}
+
+			// re-root child elements to the root of tree
+			while (rootItem.getChildCount() > 0) {
+			//for (int i = 0; i < rootItem.getChildCount(); i++) {
+				TreeItem item = rootItem.getChild(0);
+				tree.addItem(item);
+				item.setState(true);
+			}
+	
+		
+		ScrollPanel menuWrapper = new ScrollPanel(tree);
+		container.clear();
+		container.add(menuWrapper);
+		
 	}
 }

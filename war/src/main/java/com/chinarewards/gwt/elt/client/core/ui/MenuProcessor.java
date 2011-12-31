@@ -9,5 +9,7 @@ public interface MenuProcessor {
 	MenuItem getMenuItem(String menuId);
 
 	void render(Panel container);
+	void initrender(Panel container,String name);
+	
 
 }

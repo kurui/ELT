@@ -11,12 +11,15 @@ public interface DockPresenter extends Presenter<DockPresenter.DockDisplay> {
 	public static interface DockDisplay extends Display {
 		
 		HasClickHandlers getlogBtn();
+		HasClickHandlers getBtnEmail();
+		HasClickHandlers getBtnGb();
 		
 		DockLayoutPanel getDock();
 		
 		Panel getMenu();
 		
 		void setMessage(String userName);
+		void setMenu(Panel panel);
 	}
 	
 	

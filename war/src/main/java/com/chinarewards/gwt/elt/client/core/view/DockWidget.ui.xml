@@ -30,7 +30,7 @@
 						<td height="88" align="top">
 							<div id="header">
 								<ul>
-									<li>
+									<li><g:Label ui:field="message"></g:Label>
 									</li>
 									<li>
 										<g:Button ui:field="logBtn" styleName="log"></g:Button>
@@ -40,8 +40,8 @@
 								<g:Image resource="{logo}" width="125" height="37" />
 								<g:Image resource="{logo_name}" width="380" height="36" />
 							</div>
-							<div id="header02">
-								<g:Label ui:field="message"></g:Label>
+							<div id="header02">				
+								<g:Button text="收件箱" ui:field="btnEmail" ></g:Button><g:Button text="广播" ui:field="btnGb"></g:Button>
 							</div>
 						</td>
 					</tr>

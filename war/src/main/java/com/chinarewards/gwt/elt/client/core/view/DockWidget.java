@@ -36,7 +36,13 @@ public class DockWidget extends Composite implements DockDisplay {
 
 	@UiField
 	Label message;
-
+	
+	@UiField
+	Button btnEmail;
+	
+	@UiField
+	Button btnGb;
+	
 	// Set the format of datepicker.
 	DateTimeFormat dateFormat = DateTimeFormat
 			.getFormat(ViewConstants.date_format_chinese);
@@ -100,6 +106,23 @@ public class DockWidget extends Composite implements DockDisplay {
 		String time = dateFormat.format(new Date());
 		String msg = "欢迎你，" + userName + "！今天是:" + time;
 		message.setText(msg);
+	}
+
+	@Override
+	public HasClickHandlers getBtnEmail() {
+		return btnEmail;
+	}
+
+	@Override
+	public void setMenu(Panel panel) {
+		menu.clear();
+	
+		
+	}
+
+	@Override
+	public HasClickHandlers getBtnGb() {
+		return btnGb;
 	}
 
 }
