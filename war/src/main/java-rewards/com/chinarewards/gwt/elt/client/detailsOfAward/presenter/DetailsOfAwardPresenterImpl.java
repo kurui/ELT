@@ -4,13 +4,15 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.chooseStaff.presenter.ChooseStaffPanelPresenter;
 import com.chinarewards.gwt.elt.client.core.Platform;
-import com.chinarewards.gwt.elt.client.detailsOfAward.plugin.DetailsOfAwardConstants;
 import com.chinarewards.gwt.elt.client.detailsOfAward.request.DetailsOfAwardInitRequest;
 import com.chinarewards.gwt.elt.client.detailsOfAward.request.DetailsOfAwardInitResponse;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
+import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListConstants;
 import com.chinarewards.gwt.elt.model.ChoosePanel.InitChooseListParam;
 import com.chinarewards.gwt.elt.model.ChoosePanel.InitChoosePanelParam;
+import com.chinarewards.gwt.elt.model.rewards.RewardPageType;
+import com.chinarewards.gwt.elt.model.rewards.RewardsPageClient;
 import com.chinarewards.gwt.elt.util.DateTool;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -62,11 +64,14 @@ public class DetailsOfAwardPresenterImpl extends
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
 
+						RewardsPageClient rpc=new RewardsPageClient();
+						rpc.setTitleName("获奖详细");
+						rpc.setPageType(RewardPageType.DETAILSOFAWARDPAGE);
 						Platform.getInstance()
 								.getEditorRegistry()
-								.closeEditor(
-										DetailsOfAwardConstants.EDITOR_DETAILSOFAWARD_SEARCH,
-										instanceId);
+								.openEditor(
+										RewardsListConstants.EDITOR_REWARDSLIST_SEARCH,
+										"EDITOR_REWARDSLIST_"+RewardPageType.DETAILSOFAWARDPAGE,rpc);
 					}
 				}));
 	}
