@@ -47,8 +47,9 @@ public class StaffChooseAsyncDataProvider extends BaseDataProvider<StaffClient> 
 		criteria.setPagination(pagination);
 		criteria.setSorting(getSorting());
 		dispatch.execute(
-				new SearchStaffChooseRequest(criteria, sessionManager.getSession(),
-						filterByAcl), new AsyncCallback<SearchStaffChooseResponse>() {
+				new SearchStaffChooseRequest(criteria, sessionManager
+						.getSession(), filterByAcl),
+				new AsyncCallback<SearchStaffChooseResponse>() {
 
 					@Override
 					public void onFailure(Throwable e) {
