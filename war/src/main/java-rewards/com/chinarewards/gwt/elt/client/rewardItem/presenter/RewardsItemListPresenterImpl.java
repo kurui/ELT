@@ -234,7 +234,7 @@ public class RewardsItemListPresenterImpl extends
 				new GetValue<RewardsItemClient, String>() {
 					@Override
 					public String getValue(RewardsItemClient arg0) {
-						return "查看";
+						return "查看详细";
 					}
 				}, new FieldUpdater<RewardsItemClient, String>() {
 					@Override
@@ -254,7 +254,7 @@ public class RewardsItemListPresenterImpl extends
 					public String getValue(RewardsItemClient arg0) {
 						
 						if (arg0.isEnabled() == false)
-							return "激活";
+							return "应用";
 						else
 							return "已激活";
 					}
@@ -276,9 +276,9 @@ public class RewardsItemListPresenterImpl extends
 						else
 						{
 							Window.alert("失败，"+object.getName()+"已经处于激活状态");
-							if (Window.confirm("为了测试,重新激活,再运行一次batch?")) {
+/*							if (Window.confirm("为了测试,重新激活,再运行一次batch?")) {
 								activationRewardItem(object.getId());
-							}
+							}*/
 						}
 					}
 				});
