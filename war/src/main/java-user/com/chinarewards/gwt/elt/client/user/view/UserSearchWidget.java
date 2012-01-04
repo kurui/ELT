@@ -84,7 +84,9 @@ public class UserSearchWidget extends Composite implements UserSearchDisplay {
 
 	@UiField
 	Panel result;
-
+	@UiField
+	Button delete;
+	
 	// @UiField
 	// Button searchSubAccount;
 
@@ -334,6 +336,11 @@ public class UserSearchWidget extends Composite implements UserSearchDisplay {
 	@Override
 	public HasClickHandlers getUpdateHandlers() {
 		return Update;
+	}
+
+	@Override
+	public HasClickHandlers getDeleteHandlers() {
+		return delete;
 	}
 
 }

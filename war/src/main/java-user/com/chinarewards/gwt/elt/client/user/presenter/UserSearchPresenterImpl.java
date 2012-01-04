@@ -81,7 +81,7 @@ public class UserSearchPresenterImpl extends BasePresenter<UserSearchDisplay>
 					@Override
 					public void onClick(ClickEvent event) {
 						GWT.log("running click handlers. Active");
-						Window.alert("激活");
+						Window.alert("激活-还未实现");
 					}
 				}));
 		// LogOff btn
@@ -90,7 +90,20 @@ public class UserSearchPresenterImpl extends BasePresenter<UserSearchDisplay>
 					@Override
 					public void onClick(ClickEvent event) {
 						GWT.log("running click handlers. LogOff");
-						Window.alert("注销");
+						Window.alert("注销-还未实现");
+					}
+				}));
+		// LogOff btn
+		registerHandler(display.getDeleteHandlers().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						GWT.log("running click handlers. delete");
+						if(Window.confirm("确定离职?"))
+						{
+							deleteUser();
+						}
+
 					}
 				}));
 	}
@@ -113,5 +126,10 @@ public class UserSearchPresenterImpl extends BasePresenter<UserSearchDisplay>
 		UserSearchAsyncDataProvider listViewAdapter = new UserSearchAsyncDataProvider(
 				searchVo, errorHandler, sessionManager, dispatcher);
 		display.setListViewAdapter(listViewAdapter);
+	}
+	private void deleteUser()
+	{
+		Window.alert("还未实现");
+		//display.getSelectedUsers();
 	}
 }

@@ -40,6 +40,7 @@ public interface UserSearchPresenter extends
 		public HasClickHandlers getActiveHandlers();
 
 		public HasClickHandlers getLogOffHandlers();
+		public HasClickHandlers getDeleteHandlers();
 
 		public HasClickHandlers getResetPwdHandlers();
 
