@@ -36,7 +36,7 @@ public interface RewardItemLogic {
 	 * 
 	 * @param rewardItemId
 	 */
-	public void deleteRewardItem(String rewardItemId);
+	public String deleteRewardItem(SysUser caller,String rewardItemId);
 
 	/**
 	 * Fetch the entire information about the specified RewardItem. It contains

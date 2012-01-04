@@ -97,6 +97,7 @@ public class RewardsListPluginDescriptor implements PluginDescriptor {
 
 		});
 
+
 		ext.add(new Extension() {
 
 			@Override

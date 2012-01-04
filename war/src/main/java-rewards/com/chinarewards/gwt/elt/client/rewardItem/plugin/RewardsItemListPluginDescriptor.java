@@ -12,8 +12,10 @@ import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.Plugin;
 import com.chinarewards.gwt.elt.client.core.PluginDescriptor;
 import com.chinarewards.gwt.elt.client.core.ui.MenuItem;
+
 import com.chinarewards.gwt.elt.client.plugin.MenuConstants;
 import com.chinarewards.gwt.elt.client.plugin.PluginConstants;
+import com.chinarewards.gwt.elt.client.rewardItem.editor.RewardsItemEditorDescriptor;
 import com.chinarewards.gwt.elt.client.rewardItem.editor.RewardsItemListEditorDescriptor;
 import com.google.gwt.user.client.ui.Image;
 import com.google.inject.Inject;

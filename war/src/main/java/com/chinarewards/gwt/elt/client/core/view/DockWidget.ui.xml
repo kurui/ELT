@@ -30,7 +30,8 @@
 						<td height="88" align="top">
 							<div id="header">
 								<ul>
-									<li><g:Label ui:field="message"></g:Label>
+									<li>
+										<g:Label ui:field="message"></g:Label>
 									</li>
 									<li>
 										<g:Button ui:field="logBtn" styleName="log"></g:Button>
@@ -40,10 +41,13 @@
 								<g:Image resource="{logo}" width="125" height="37" />
 								<g:Image resource="{logo_name}" width="380" height="36" />
 							</div>
-							<div id="header02">				
-								<g:Button text="收件箱" ui:field="btnEmail" ></g:Button> <g:Button text="广播" ui:field="btnGb"></g:Button>
-								<g:Button text="奖项" ui:field="btnRewardItem"></g:Button> <g:Button text="员工数据" ui:field="btnStaff"></g:Button>
-								<g:Button text="应用奖项" ui:field="btnReward"></g:Button> <g:Button text="设置" ui:field="btnSetting"></g:Button>
+							<div id="header02">
+								<g:Button text="收件箱" ui:field="btnEmail"></g:Button>
+								<g:Button text="广播" ui:field="btnGb"></g:Button>
+								<g:Button text="奖项" ui:field="btnRewardItem"></g:Button>
+								<g:Button text="员工数据" ui:field="btnStaff"></g:Button>
+								<g:Button text="应用奖项" ui:field="btnReward"></g:Button>
+								<g:Button text="设置" ui:field="btnSetting"></g:Button>
 							</div>
 						</td>
 					</tr>
@@ -72,8 +76,12 @@
 								<table width="100%" border="0" cellspacing="0"
 									cellpadding="0">
 									<tr>
-										<td><g:Image resource="{title01}"></g:Image></td>
-										<td><g:InlineLabel text="操作导航" ui:field="menuTitle" /></td>
+										<td>
+											<g:Image resource="{title01}"></g:Image>
+										</td>
+										<td>
+											<g:InlineLabel text="操作导航" ui:field="menuTitle" />
+										</td>
 										<td id="title03"></td>
 									</tr>
 								</table>

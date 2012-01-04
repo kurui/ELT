@@ -265,6 +265,7 @@ public class RewardsItemCreatePresenterImpl extends
 						rewardsItem.setDefinition(display.getDefinition().getValue().trim());
 						rewardsItem.setStandard(display.getStandard().getValue().trim());
 						// 候选限额
+						if(display.getPeopleSizeLimit().getValue()!=null&& !display.getPeopleSizeLimit().getValue().equals(""))
 						rewardsItem.setSizeLimit(Integer.parseInt(display.getPeopleSizeLimit().getValue()));
 						
 						//定义设置奖项和入帐的部门，现为同一部门，从session中得到
@@ -280,8 +281,10 @@ public class RewardsItemCreatePresenterImpl extends
 						//是否是周期性选择
 						rewardsItem.setPeriodEnable(display.getEnableCbx().getValue());
 						//总积分
+						if(display.getTotalJF()!=null&&!display.getTotalJF().toString().equals(""))
 						rewardsItem.setTotalJF(Integer.parseInt(display.getTotalJF().toString()));
 						//每人积分
+						
 						rewardsItem.setRewardsFrom(Integer.parseInt(display.getRewardsFrom().toString()));
 						
 						// 周期性频率信息启用
@@ -291,10 +294,15 @@ public class RewardsItemCreatePresenterImpl extends
 							}else{
 								 rewardsItem.setTmdays(0);
 							}
+							if(display.getAutoCbx().getValue()==true){
+								rewardsItem.setNextPublishTime(display.getStartTime().getValue());
+							}else{
+								rewardsItem.setNextPublishTime(display.getNextPublishTime().getValue());
+							}
 							rewardsItem.setExpectAwardDate(display.getNextRewardsTime().getValue());
 							rewardsItem.setNextTime(display.getNextRewardsTime().getValue());//下次颁奖的时间
 							rewardsItem.setFrequency(display.getFrequencyObj());//周期频率设置
-							rewardsItem.setNextPublishTime(display.getNextPublishTime().getValue());
+							
 							rewardsItem	.setAuto(display.getAutoCbx().getValue());
 							rewardsItem.setRewardsUnit(display.getRewardsUnit());
 							rewardsItem.setHasSpecialCondition(display.getSpecialCbx().getValue());
@@ -347,9 +355,11 @@ public class RewardsItemCreatePresenterImpl extends
 					public void onSuccess(CreateRewardsItemResponse response) {
 						Window.alert("添加成功");
 						if(instanceId!=null||!instanceId.equals(""))
-						Platform.getInstance()
-								.getEditorRegistry()
-								.closeEditor(RewardsItemConstants.EDITOR_REWARDSITEM_ADD,instanceId);
+							Platform.getInstance()
+							.getEditorRegistry()
+							.openEditor(
+									RewardsItemConstants.EDITOR_REWARDSITEM_List,
+									"EDITOR_REWARDSITEM_List_DO_ID", instanceId);
 
 					}
 				});
@@ -371,7 +381,8 @@ public class RewardsItemCreatePresenterImpl extends
 						Window.alert("修改成功");
 						Platform.getInstance()
 						.getEditorRegistry()
-						.closeEditor(RewardsItemConstants.EDITOR_REWARDSITEM_ADD,instanceId);
+						.openEditor(RewardsItemConstants.EDITOR_REWARDSITEM_List,
+								"EDITOR_REWARDSITEM_List_DO_ID", instanceId);
 					}
 				});
 		}
@@ -499,20 +510,30 @@ public class RewardsItemCreatePresenterImpl extends
 						errorMsg.append("请选择奖项类型!<br>");
 						flag = false;
 					}
-		            
+				if (staffBlock.getDisplay().isSomeone().getValue() == true) {   //选择部分人员
+					
+					if (display.getPeopleSizeLimit().getValue() == null||"".equals(display.getPeopleSizeLimit().getValue().trim())) {
+						 errorMsg.append("请正确填写获奖名额(正整数)!<br>");
+						 flag = false;
+					  }
+					if (display.getPeopleSizeLimit().getValue() == null){	
+						int limitPeople = Integer.parseInt(display.getPeopleSizeLimit().getValue());
+						if (limitPeople == 0 || limitPeople < 0) {
+							errorMsg.append("请正确填写获奖名额(正整数)!<br>");
+							flag = false;
+						}
+					}
 					if (display.getTotalJF() == null|| display.getTotalJF().intValue() < 0) {
 						errorMsg.append("总积分额度出错，总积分要是整数!<br>");
 						flag = false;
 					}else	if (display.getRewardsFrom() == null|| display.getRewardsFrom().intValue() < 0) {
-							errorMsg.append("每人积分额度出错，积分要是整数!<br>");
+							errorMsg.append("每人得奖积分额度出错，积分要是整数!<br>");
 							flag = false;
-					} else	if (display.getTotalJF().intValue()/Integer.parseInt(display.getPeopleSizeLimit().getValue())!=display.getRewardsFrom().intValue() ) {
-						errorMsg.append("每人积分额度出错，总积分除以人数不等于每人得的积分数!<br>");
-						flag = false;
-					}
+					} 
+					
 					if (display.getRewardsFrom() != null) {
 						if (display.getRewardsFrom().intValue() == 0) {
-							errorMsg.append("个人得分不能为“0”!<br>");
+							errorMsg.append("每人得奖积分“0”!<br>");
 							flag = false;
 						}
 						if (display.getRewardsFrom().intValue() > display.getTotalJF().intValue()) {
@@ -520,39 +541,30 @@ public class RewardsItemCreatePresenterImpl extends
 							flag = false;
 						}
 					}
+				}else{//是全体人员要写上每人得分
 					
-					if (display.getStartTime().getValue() == null|| "".equals(display.getStartTime().getValue())) {
-						errorMsg.append("开始时间不能为空<br>");
+					if (display.getRewardsFrom() == null|| display.getRewardsFrom().intValue() < 0) {
+						errorMsg.append("每人得奖积分额度出错，积分要是整数!<br>");
 						flag = false;
 					}
-				try {
-
-					int limitPeople = Integer.parseInt(display.getPeopleSizeLimit()
-							.getValue());
-					if (display.getPeopleSizeLimit().getValue() != null) {
-						if (limitPeople == 0 || limitPeople < 0) {
-							errorMsg.append("请正确填写获奖名额(正整数)!<br>");
-							flag = false;
-						}
-					}
-				} catch (Exception e) {
-					errorMsg.append("请正确填写获奖名额!<br>");
+				}
+				if (display.getStartTime().getValue() == null|| "".equals(display.getStartTime().getValue())) {
+					errorMsg.append("开始时间不能为空<br>");
 					flag = false;
 				}
+				
 			
                    //周期性
-					if (display.getEnableCbx().getValue()) {
+					if (display.getEnableCbx().getValue()==true) {
 						
 						if (display.getNextRewardsTime().getValue() == null|| "".equals(display.getNextRewardsTime().getValue())) {
 							errorMsg.append("下次颁奖时间不能为空!<br>");
 							flag = false;
 						}else if(display.getStartTime().getValue().getTime()>display.getNextRewardsTime().getValue().getTime()){
 							errorMsg.append("开始时间要小于或等于下次颁奖时间<br>");
-						}
-						if (display.getTmday() != null&& display.getTmday().intValue() < 0) {
-							errorMsg.append(" 要提前的天数是整数!<br>");
 							flag = false;
-					     }
+						}
+						
 						// 生日奖校验
 						if (display.getSpecialCbx().getValue()
 								&& display.getBirthRadio().getValue()) {
@@ -598,7 +610,7 @@ public class RewardsItemCreatePresenterImpl extends
 							}
 						}
 					
-						if (!display.getAutoCbx().getValue()) {
+						if (!display.getAutoCbx().getValue()) {//不是自动奖
 							if (display.getNextPublishTime().getValue() == null) {
 								errorMsg.append("请填写下一次公布颁奖时间!<br>");
 								flag = false;
@@ -609,6 +621,11 @@ public class RewardsItemCreatePresenterImpl extends
 								errorMsg.append("下一次公布奖励时间必须在下一次颁奖时间之前!<br>");
 								flag = false;
 							}
+						}else{//是自动奖
+							if (display.getNominateIds().size()==0&&display.getTmday() != null&& display.getTmday().intValue() <= 0) {
+								errorMsg.append(" 要提前提名的天数大于0的整数!<br>");
+								flag = false;
+						     }
 						}
 					}else{//一次性
 						if (display.getExpectTime().getValue() == null|| "".equals(display.getExpectTime().getValue())) {
@@ -616,9 +633,10 @@ public class RewardsItemCreatePresenterImpl extends
 							flag = false;
 						}else if(display.getStartTime().getValue().getTime()>display.getExpectTime().getValue().getTime()){
 							errorMsg.append("开始时间要小于预计颁奖时间<br>");
+							flag = false;
 						}
-						if (display.getTmdays() != null&& display.getTmdays().intValue() < 0) {
-							errorMsg.append(" 要提前的天数是整数!<br>");
+						if (display.getTmdays() != null&& display.getTmdays().intValue() <= 0) {
+							errorMsg.append(" 要提前提名的天数大于0的整数!<br>");
 							flag = false;
 					     }
 					

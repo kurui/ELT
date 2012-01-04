@@ -18,13 +18,13 @@ public abstract class MenuConstants {
 	public static final int MENU_ORDER_REWARDS_ENTRY = order++;
 
 	// 奖励创建
-//	public static final int MENU_ORDER_REWARDS_CREATE = order++;
+	// public static final int MENU_ORDER_REWARDS_CREATE = order++;
 
 	// 奖励查询
 	public static final int MENU_ORDER_REWARDS_SEARCH = order++;
 
 	// 奖项创建
-//	public static final int MENU_ORDER_REWARDS_ITEM_CREATE = order++;
+	// public static final int MENU_ORDER_REWARDS_ITEM_CREATE = order++;
 
 	// 奖项查询
 	public static final int MENU_ORDER_REWARDS_ITEM_SEARCH = order++;
@@ -34,7 +34,7 @@ public abstract class MenuConstants {
 
 	// 员工信息维护
 	public static final int MENU_ORDER_STAFF_SEARCH = order++;
-	
+
 	// 员工等级
 	public static final int MENU_ORDER_STAFF_LEVEL = order++;
 
@@ -85,23 +85,22 @@ public abstract class MenuConstants {
 
 	// 企业内部信息发布
 	public static final int MENU_ORDER_CORPORATION_INNER_INFO_PUBLISH = order++;
-	//hr注册
+	// hr注册
 	public static final int MENU_ORDER_Hr_SEARCH = order++;
-	//新建奖项
+	// 新建奖项
 	public static final int MENU_ORDER_REWARDSITEM_ADD = order++;
-	//列表查询
+	// 列表查询
 	public static final int MENU_ORDER_REWARDSITEM_List = order++;
-	//奖项详细
+	// 奖项详细
 	public static final int MENU_ORDER_REWARDSITEM_VIEW = order++;
-	
-	
-	//应用奖项列表
-	public static final int MENU_ORDER_REWARDSLIST_SEARCH = order++;
-	//提名
+	// 提名
 	public static final int MENU_ORDER_MONINATE_SEARCH = order++;
-	//获奖
+
+	// 应用奖项列表
+	public static final int MENU_ORDER_REWARDSLIST_SEARCH = order++;
+	// 获奖
 	public static final int MENU_ORDER_AWARDREWARD_SEARCH = order++;
-	//获奖详细
+	// 获奖详细
 	public static final int MENU_ORDER_DETAILSOFAWARD_SEARCH = order++;
-	
+
 }

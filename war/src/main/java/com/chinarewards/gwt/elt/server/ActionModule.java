@@ -17,6 +17,7 @@ import com.chinarewards.gwt.elt.client.nominate.NominateAddRequest;
 import com.chinarewards.gwt.elt.client.nominate.NominateInitRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.ActivationRewardsItemRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.CreateRewardsItemRequest;
+import com.chinarewards.gwt.elt.client.rewardItem.request.DeleteRewardsItemRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.SearchOrganizationRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsItemByIdRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsItemRequest;
@@ -37,6 +38,7 @@ import com.chinarewards.gwt.elt.server.nominate.NominateActionHandler;
 import com.chinarewards.gwt.elt.server.nominate.NominateAddActionHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.ActivationRewardsItemHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.CreateRewardsItemHandler;
+import com.chinarewards.gwt.elt.server.rewardItem.DeleteRewardsItemHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.SearchOrganizationHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.SearchRewardsItemByIdHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.SearchRewardsItemHandler;
@@ -89,7 +91,8 @@ public class ActionModule extends ActionHandlerModule {
         bindHandler(SearchOrganizationRequest.class,SearchOrganizationHandler.class);
         //奖 项弹出选择员工
         bindHandler(SearchStaffRequest.class,SearchStaffHandler.class);
-
+      //删除奖项
+      	bindHandler(DeleteRewardsItemRequest.class, DeleteRewardsItemHandler.class);
 		
 		//奖励列表
 		bindHandler(SearchRewardsRequest.class, SearchRewardsHandler.class);

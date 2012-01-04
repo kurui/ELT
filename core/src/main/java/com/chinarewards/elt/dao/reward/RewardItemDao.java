@@ -66,9 +66,9 @@ public class RewardItemDao extends BaseDao<RewardItem> {
 		StringBuffer eql = new StringBuffer();
 		System.out.println("RewardItemSearchVo : " + criteria);
 		if (SEARCH.equals(type)) {
-			eql.append(" SELECT item FROM RewardItem item WHERE 1 = 1 ");
+			eql.append(" SELECT item FROM RewardItem item WHERE 1 = 1 and  deleted=false");
 		} else if (COUNT.equals(type)) {
-			eql.append(" SELECT COUNT(item) FROM RewardItem item WHERE 1 = 1 ");
+			eql.append(" SELECT COUNT(item) FROM RewardItem item WHERE 1 = 1 and  deleted=false");
 		}
 		if (!StringUtil.isEmptyString(criteria.getAccountDeptName())) {
 			eql.append(" AND item.accountDept IN (FROM Department dept WHERE UPPER(dept.name) LIKE :accountDeptName) ");
