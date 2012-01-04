@@ -19,12 +19,45 @@
 	<ui:image field="topbg" resource="topbg.jpg" repeatStyle="Horizontal"></ui:image>
 	<ui:image field="top02" resource="top02.jpg" repeatStyle="Horizontal"></ui:image>
 	<ui:image field="footer" resource="footer.jpg" repeatStyle="Horizontal"></ui:image>
-
+	<!-- new -->
+	<ui:image field="logo_new" resource="logo_new.png" ></ui:image>
+	<ui:image field="elt" resource="elt.png" ></ui:image>
+	<ui:image field="elt_repeat" resource="elt_repeat.png" repeatStyle="Horizontal"></ui:image>
 	<ui:style src="index.css"></ui:style>
+	<ui:style src="new2.css" field="new2"></ui:style>
 	<g:DockLayoutPanel ui:field="dock" unit='PX'>
-		<g:north size="88">
+		<g:north size="83">
 			<g:HTMLPanel>
-				<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <!--head [[-->
+  <div class="{new2.head}" id="head">
+    <div class="{new2.top-nav} {new2.clearfix}">
+      <ul>
+        <li class="{new2.on}"><a href="#">管理中心</a></li>
+        <li><a href="#">礼品兑换</a></li>
+        <li><a href="#">员工天地</a></li>
+      </ul>
+      <div class="{new2.green}">
+      欢迎您：<span>ELT</span><a href="#">安全退出</a><a href="#">加为收藏</a>
+      </div>
+    </div>
+    <g:Image resource="{logo_new}" width="255px" height="75px"/>
+    <div class="{new2.nav} {new2.clearfix}">
+      <ul>
+        <li><a href="#" class="{new2.menu}"><span>收件箱</span></a></li>
+        <li><a href="#" class="{new2.menu} {new2.menu-on}"><span>广 播</span></a></li>
+        <li><a href="#" class="{new2.menu}"><span>奖 项</span></a></li>
+        <li><a href="#" class="{new2.menu}"><span>兑 换</span></a></li>
+        <li><a href="#" class="{new2.menu}"><span>员工数据</span></a></li>
+        <li><a href="#" class="{new2.menu}"><span>预 算</span></a></li>
+        <li><a href="#" class="{new2.menu}"><span>设 置</span></a></li>
+        <li><a href="#" class="{new2.menu}"><span>报 表</span></a></li>
+        <li><a href="#" class="{new2.menu}"><span>颁 奖</span></a></li>
+      </ul>
+    </div>
+  </div>
+  <!--head ]]-->
+				
+				<table width="100%" border="0" cellpadding="0" cellspacing="0" style="display:none">
 					<!-- header -->
 					<tr>
 						<td height="88" align="top">
