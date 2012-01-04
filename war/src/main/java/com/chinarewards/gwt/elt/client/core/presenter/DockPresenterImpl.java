@@ -50,11 +50,32 @@ this.menuProcessor=menuProcessor;
 				display.setMenu(null);
 			}
 		}));
-		registerHandler(display.getBtnReward().addClickHandler(new ClickHandler() {
+		registerHandler(display.getBtnRewardItem().addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				display.setMenuTitle("奖项");
-				menuProcessor.initrender(display.getMenu(),"xx");	
+				menuProcessor.initrender(display.getMenu(),"RewardItem");	
+			}
+		}));
+		registerHandler(display.getBtnReward().addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				display.setMenuTitle("应用奖项");
+				menuProcessor.initrender(display.getMenu(),"Reward");	
+			}
+		}));
+		registerHandler(display.getBtnStaff().addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				display.setMenuTitle("员工数据");
+				menuProcessor.initrender(display.getMenu(),"Staff");	
+			}
+		}));
+		registerHandler(display.getBtnSetting().addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				display.setMenuTitle("设置");
+				menuProcessor.initrender(display.getMenu(),"Setting");	
 			}
 		}));
 		

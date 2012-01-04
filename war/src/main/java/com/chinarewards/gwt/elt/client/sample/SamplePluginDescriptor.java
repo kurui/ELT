@@ -66,7 +66,7 @@ public class SamplePluginDescriptor implements PluginDescriptor {
 					}
 
 					public String getTitle() {
-						return "企业注册";
+						return "公司资料";
 					}
 
 				};

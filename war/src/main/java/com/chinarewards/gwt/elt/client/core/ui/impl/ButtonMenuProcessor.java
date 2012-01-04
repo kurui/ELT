@@ -1,14 +1,20 @@
 package com.chinarewards.gwt.elt.client.core.ui.impl;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.chinarewards.gwt.elt.client.awardReward.plugin.AwardRewardConstants;
 import com.chinarewards.gwt.elt.client.core.ui.MenuItem;
 import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
 import com.chinarewards.gwt.elt.client.core.ui.event.MenuClickEvent;
+import com.chinarewards.gwt.elt.client.detailsOfAward.plugin.DetailsOfAwardConstants;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
+import com.chinarewards.gwt.elt.client.nominate.plugin.NominateConstants;
+import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemConstants;
+import com.chinarewards.gwt.elt.client.user.plugin.UserConstants;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
@@ -61,7 +67,7 @@ public class ButtonMenuProcessor implements MenuProcessor {
 			root.appendChild(new MenuNode(m));
 		}
 
-		ScrollPanel menuWrapper = new ScrollPanel(createButtonMenuWidget());
+		ScrollPanel menuWrapper = new ScrollPanel(createButtonMenuWidget(null));
 		container.add(menuWrapper);
 	}
 
@@ -71,15 +77,23 @@ public class ButtonMenuProcessor implements MenuProcessor {
 	 * @param parent
 	 * @param node
 	 */
-	private Widget createButtonMenuWidget() {
+	private Widget createButtonMenuWidget(String name) {
 
 		VerticalPanel grid = new VerticalPanel();
 		grid.setWidth("100%");
-//		int i = 0;
+		// int i = 0;
 		for (MenuNode node : root.getChildren()) {
 			Button button = new Button();
 			final MenuItem menuItem = node.getValue();
-			System.out.println(menuItem.getTitle());
+			if (name != null) {
+				List<String> items = getMenuItemName(name);
+				if (!items.contains(menuItem.getMenuId()))
+					continue;
+			}
+			else
+			{
+				break;
+			}
 			button.setText(menuItem.getTitle());
 			button.setStyleName("gwt-menu-Button");
 			button.addClickHandler(new ClickHandler() {
@@ -88,10 +102,27 @@ public class ButtonMenuProcessor implements MenuProcessor {
 				}
 			});
 			grid.add(button);
-	//		i++;
+			// i++;
 		}
 
 		return grid;
+	}
+
+	private List<String> getMenuItemName(String keyname) {
+		List<String> items = new ArrayList<String>();
+		if ("RewardItem".equals(keyname)) {
+			items.add(RewardsItemConstants.MENU_REWARDSITEM_ADD);
+			items.add(RewardsItemConstants.MENU_REWARDSITEM_List);
+		} else if ("Reward".equals(keyname)) {
+			items.add(NominateConstants.MENU_NOMINATE_SEARCH);
+			items.add(AwardRewardConstants.MENU_AWARDREWARD_SEARCH);
+			items.add(DetailsOfAwardConstants.MENU_DETAILSOFAWARD_SEARCH);
+		} else if ("Staff".equals(keyname)) {
+			items.add(UserConstants.MENU_USER_SEARCH);
+		} else if ("Setting".equals(keyname)) {
+			items.add("sample");
+		}
+		return items;
 	}
 
 	@Override
@@ -106,15 +137,15 @@ public class ButtonMenuProcessor implements MenuProcessor {
 		});
 
 		// pack into the MenuNode structure
-//		for (MenuItem m : items) {
-//			// append children recursively
-//			root.appendChild(new MenuNode(m));
-//		}
+		// for (MenuItem m : items) {
+		// // append children recursively
+		// root.appendChild(new MenuNode(m));
+		// }
 
-		ScrollPanel menuWrapper = new ScrollPanel(createButtonMenuWidget());
+		ScrollPanel menuWrapper = new ScrollPanel(createButtonMenuWidget(name));
 		container.clear();
 		container.add(menuWrapper);
-		
+
 	}
 
 }

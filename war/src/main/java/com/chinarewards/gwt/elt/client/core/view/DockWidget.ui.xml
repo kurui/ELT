@@ -42,7 +42,8 @@
 							</div>
 							<div id="header02">				
 								<g:Button text="收件箱" ui:field="btnEmail" ></g:Button> <g:Button text="广播" ui:field="btnGb"></g:Button>
-								<g:Button text="奖项" ui:field="btnReward"></g:Button>
+								<g:Button text="奖项" ui:field="btnRewardItem"></g:Button> <g:Button text="员工数据" ui:field="btnStaff"></g:Button>
+								<g:Button text="应用奖项" ui:field="btnReward"></g:Button> <g:Button text="设置" ui:field="btnSetting"></g:Button>
 							</div>
 						</td>
 					</tr>

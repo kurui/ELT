@@ -68,13 +68,13 @@ public class DetailsOfAwardPluginDescriptor implements PluginDescriptor {
 
 					@Override
 					public String getTitle() {
-						return "获奖详细";
+						return "已颁奖历史";
 					}
 
 					@Override
 					public void execute() {
 						RewardsPageClient rpc=new RewardsPageClient();
-						rpc.setTitleName("获奖详细");
+						rpc.setTitleName("已颁奖历史");
 						rpc.setPageType(RewardPageType.DETAILSOFAWARDPAGE);
 						Platform.getInstance()
 								.getEditorRegistry()

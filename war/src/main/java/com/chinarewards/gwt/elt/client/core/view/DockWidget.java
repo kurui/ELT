@@ -44,7 +44,13 @@ public class DockWidget extends Composite implements DockDisplay {
 	@UiField
 	Button btnGb;
 	@UiField
+	Button btnRewardItem;
+	@UiField
 	Button btnReward;
+	@UiField
+	Button btnStaff;
+	@UiField
+	Button btnSetting;
 	
 	@UiField
 	InlineLabel menuTitle;
@@ -138,6 +144,21 @@ public class DockWidget extends Composite implements DockDisplay {
 	@Override
 	public HasClickHandlers getBtnReward() {
 		return btnReward;
+	}
+
+	@Override
+	public HasClickHandlers getBtnRewardItem() {
+		return btnRewardItem;
+	}
+
+	@Override
+	public HasClickHandlers getBtnStaff() {
+		return btnStaff;
+	}
+
+	@Override
+	public HasClickHandlers getBtnSetting() {
+		return btnSetting;
 	}
 
 }
