@@ -34,7 +34,6 @@ import com.google.inject.persist.Transactional;
 public class RewardServiceImpl implements RewardService {
 	private final RewardLogic rewardLogic;
 	private final UserLogic userLogic;
-	private final JudgeLogic judgeLogic;
 	private final WinnerLogic winnerLogic;
 	private final StaffLogic staffLogic;
 
@@ -44,7 +43,6 @@ public class RewardServiceImpl implements RewardService {
 			StaffLogic staffLogic) {
 		this.rewardLogic = rewardLogic;
 		this.userLogic = userLogic;
-		this.judgeLogic = judgeLogic;
 		this.winnerLogic = winnerLogic;
 		this.staffLogic = staffLogic;
 
@@ -67,10 +65,9 @@ public class RewardServiceImpl implements RewardService {
 	@Override
 	public String awardReward(String nowUserId, String rewardId,
 			List<String> staffIds) {
-		SysUser caller=userLogic.findUserById(nowUserId);
+		SysUser caller = userLogic.findUserById(nowUserId);
 
 		String awardLogId = rewardLogic.awardReward(caller, rewardId, staffIds);
-
 
 		return awardLogId;
 	}
@@ -128,6 +125,11 @@ public class RewardServiceImpl implements RewardService {
 			}
 		}
 		return deleteStaffNames;
+	}
+
+	@Override
+	public String deleteReward(String rewardId,UserContext context) {
+		return rewardLogic.deleteReward(rewardId,context);
 	}
 
 }
