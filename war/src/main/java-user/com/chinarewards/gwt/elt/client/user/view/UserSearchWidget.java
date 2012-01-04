@@ -11,6 +11,7 @@ import java.util.Map.Entry;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.user.model.UserVo;
 import com.chinarewards.gwt.elt.client.user.presenter.UserSearchPresenter.UserSearchDisplay;
+import com.chinarewards.gwt.elt.client.widget.DefaultPager;
 import com.google.gwt.cell.client.CheckboxCell;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.core.client.GWT;
@@ -117,7 +118,7 @@ public class UserSearchWidget extends Composite implements UserSearchDisplay {
 		resultTable = new CellTable<UserVo>();
 		resultTable.setWidth(ViewConstants.page_width);
 		resultTable.setPageSize(ViewConstants.per_page_number);
-		pager = new SimplePager(TextLocation.CENTER);
+		pager = new DefaultPager(TextLocation.CENTER);
 		pager.setDisplay(resultTable);
 		MultiSelectionModel<UserVo> selectionModel = new MultiSelectionModel<UserVo>();
 		resultTable.setSelectionModel(selectionModel);
