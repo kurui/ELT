@@ -479,4 +479,15 @@ public class RewardLogicImpl implements RewardLogic {
 		return storeVo;
 	}
 
+	@Override
+	public String deleteReward(String rewardId,UserContext context) {
+		Reward rewardbo=rewardDao.findById(Reward.class, rewardId);
+		SysUser caller = sysUserDao.findById(SysUser.class, context.getUserId());
+		rewardbo.setDeleted(true);
+		rewardbo.setLastModifiedAt(DateUtil.getTime());
+		rewardbo.setLastModifiedBy(caller);
+		rewardDao.update(rewardbo);
+		return rewardbo.getId();
+	}
+
 }

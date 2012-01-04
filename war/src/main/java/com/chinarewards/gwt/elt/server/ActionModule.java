@@ -23,6 +23,7 @@ import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsItemByIdR
 import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsItemRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsItemViewRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.SearchStaffRequest;
+import com.chinarewards.gwt.elt.client.rewards.request.DeleteRewardsRequest;
 import com.chinarewards.gwt.elt.client.rewards.request.SearchRewardsRequest;
 import com.chinarewards.gwt.elt.client.staff.HrRegisterRequest;
 import com.chinarewards.gwt.elt.client.user.UserSearchRequest;
@@ -44,6 +45,7 @@ import com.chinarewards.gwt.elt.server.rewardItem.SearchRewardsItemByIdHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.SearchRewardsItemHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.SearchRewardsItemViewHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.SearchStaffHandler;
+import com.chinarewards.gwt.elt.server.rewards.DeleteRewardsHandler;
 import com.chinarewards.gwt.elt.server.rewards.SearchRewardsHandler;
 import com.chinarewards.gwt.elt.server.staff.HrRegisterActionHandler;
 import com.chinarewards.gwt.elt.server.user.UserSearchActionHandler;
@@ -111,5 +113,8 @@ public class ActionModule extends ActionHandlerModule {
 		
 		//登录验证token
 		bindHandler(TokenValidRequest.class, TokenValidActionHandler.class);
+		
+		//奖励删除
+		bindHandler(DeleteRewardsRequest.class, DeleteRewardsHandler.class);
 	}
 }

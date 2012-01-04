@@ -18,6 +18,8 @@ import com.chinarewards.gwt.elt.client.rewards.model.RewardsClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsCriteria;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsCriteria.RewardsStatus;
 import com.chinarewards.gwt.elt.client.rewards.presenter.RewardsListPresenter.RewardsListDisplay;
+import com.chinarewards.gwt.elt.client.rewards.request.DeleteRewardsRequest;
+import com.chinarewards.gwt.elt.client.rewards.request.DeleteRewardsResponse;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
 import com.chinarewards.gwt.elt.client.widget.DefaultPager;
@@ -34,6 +36,7 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.cellview.client.SimplePager.TextLocation;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
 public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
@@ -314,6 +317,41 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 					}
 				}, ref, "name");
 
+		cellTable.addColumn("删除", new HyperLinkCell(),
+				new GetValue<RewardsClient, String>() {
+					@Override
+					public String getValue(RewardsClient rewards) {
+						return "删除";
+					}
+				}, new FieldUpdater<RewardsClient, String>() {
+
+					@Override
+					public void update(int index, RewardsClient o, String value) {
+						if (Window.confirm("确定删除?")) {
+							delteReward(o.getId());
+						}
+					}
+
+				});
+	}
+
+	public void delteReward(String rewardsId) {
+
+		dispatch.execute(new DeleteRewardsRequest(rewardsId, sessionManager
+				.getSession().getToken()),
+				new AsyncCallback<DeleteRewardsResponse>() {
+
+					@Override
+					public void onFailure(Throwable t) {
+						Window.alert(t.getMessage());
+					}
+
+					@Override
+					public void onSuccess(DeleteRewardsResponse resp) {
+						Window.alert("删除成功");
+						doSearch();
+					}
+				});
 	}
 
 	@Override
