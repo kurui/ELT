@@ -15,7 +15,7 @@
 		<div class="{item.detail-content}">
 			<!-- 2基本设置 -->
 			<div class="{item.setDetail}">
-				<h3>奖项获奖详细
+				<h3><g:InlineLabel text="奖项获奖详细" ui:field="pageTitle" />
 				</h3>
 				<table width="100%" border="0" cellspacing="0" cellpadding="0"
 					class="{item.mmtable}">

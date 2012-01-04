@@ -8,6 +8,7 @@ import com.chinarewards.gwt.elt.client.detailsOfAward.request.DetailsOfAwardInit
 import com.chinarewards.gwt.elt.client.detailsOfAward.request.DetailsOfAwardInitResponse;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
+import com.chinarewards.gwt.elt.client.rewards.model.RewardsCriteria.RewardsStatus;
 import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListConstants;
 import com.chinarewards.gwt.elt.model.ChoosePanel.InitChooseListParam;
 import com.chinarewards.gwt.elt.model.ChoosePanel.InitChoosePanelParam;
@@ -26,7 +27,8 @@ public class DetailsOfAwardPresenterImpl extends
 
 	private final DispatchAsync dispatcher;
 	private String awardsId;
-	//private String instanceId;
+	private RewardsStatus rewardStatus;
+	// private String instanceId;
 
 	private final ChooseStaffPanelPresenter staffPanel;
 
@@ -42,17 +44,16 @@ public class DetailsOfAwardPresenterImpl extends
 	@Override
 	public void bind() {
 		init();
-		InitChoosePanelParam initChooseParam =new InitChoosePanelParam();
+		InitChoosePanelParam initChooseParam = new InitChoosePanelParam();
 		initChooseParam.setTopName("待提名人：");
 		initChooseParam.setChooseBtnName("查看");
 		initChooseParam.setIscleanStaffTextAreaPanel(true);
-		
-		
-		InitChooseListParam initChooseListParam=new InitChooseListParam();
+
+		InitChooseListParam initChooseListParam = new InitChooseListParam();
 		initChooseListParam.setCancelBtnText("关闭");
 		initChooseListParam.setHiddenChooseBtn(true);
 		initChooseListParam.setHiddenSpecialBoxPanel(true);
-		
+
 		initChooseParam.setInitChooseListParam(initChooseListParam);
 		staffPanel.initChoosePanel(initChooseParam);
 		staffPanel.setRewardId(awardsId);
@@ -64,14 +65,19 @@ public class DetailsOfAwardPresenterImpl extends
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
 
-						RewardsPageClient rpc=new RewardsPageClient();
-						rpc.setTitleName("获奖详细");
-						rpc.setPageType(RewardPageType.DETAILSOFAWARDPAGE);
+						RewardPageType pagetype;
+						if (rewardStatus == RewardsStatus.REWARDED)
+							pagetype = RewardPageType.DETAILSOFAWARDPAGE;
+						else
+							pagetype = RewardPageType.APPLYREWARDLIST;
+
+						RewardsPageClient rpc = new RewardsPageClient();
+						rpc.setPageType(pagetype);
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(
 										RewardsListConstants.EDITOR_REWARDSLIST_SEARCH,
-										"EDITOR_REWARDSLIST_"+RewardPageType.DETAILSOFAWARDPAGE,rpc);
+										"EDITOR_REWARDSLIST_" + pagetype, rpc);
 					}
 				}));
 	}
@@ -117,10 +123,15 @@ public class DetailsOfAwardPresenterImpl extends
 	}
 
 	@Override
-	public void initReward(String rewardId, String instanceId, int headcount) {
+	public void initReward(String rewardId, String instanceId, int headcount,
+			RewardsStatus status) {
 		// 加载数据
 		this.awardsId = rewardId;
-		//this.instanceId = instanceId;
+		this.rewardStatus = status;
+		if (status == RewardsStatus.NEW)
+			display.setPageTitle("待颁奖详细");
+		else if (status == RewardsStatus.PENDING_NOMINATE)
+			display.setPageTitle("提名详细");
 
 	}
 

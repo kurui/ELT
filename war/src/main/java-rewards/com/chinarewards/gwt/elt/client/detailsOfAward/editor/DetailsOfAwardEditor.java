@@ -45,7 +45,7 @@ public class DetailsOfAwardEditor extends AbstractEditor {
 
 	public void setModel(String instanceId, Object model) {
 		if (model instanceof RewardsClient) {
-			detailsOfAwardPresenter.initReward(((RewardsClient) model).getId(),instanceId,((RewardsClient) model).getHeadcountLimit());
+			detailsOfAwardPresenter.initReward(((RewardsClient) model).getId(),instanceId,((RewardsClient) model).getHeadcountLimit(),((RewardsClient) model).getStatus());
 		}
 		detailsOfAwardPresenter.bind();
 	}

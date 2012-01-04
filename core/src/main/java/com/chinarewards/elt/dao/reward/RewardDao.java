@@ -155,6 +155,11 @@ public class RewardDao extends BaseDao<Reward> {
 			}
 
 		}
+		else
+		{
+			hql.append(" AND rew.status != :status");
+			param.put("status", RewardStatus.REWARDED);
+		}
 		
 		if (!StringUtil.isEmptyString(criteria.getName())) {
 			hql.append(" AND ( Upper(rew.name) LIKE Upper(:key))");
