@@ -54,8 +54,8 @@ public class RewardsItemListPresenterImpl extends
 	final ErrorHandler errorHandler;
 	final SessionManager sessionManager;
 
-	DateTimeFormat dateFormat = DateTimeFormat
-			.getFormat(ViewConstants.date_format_all);
+	DateTimeFormat dateFormatAll = DateTimeFormat.getFormat(ViewConstants.date_format_all);
+	DateTimeFormat dateFormat = DateTimeFormat.getFormat(ViewConstants.date_format);
 
 	// 是否部门管理员
 	boolean isHr = false;
@@ -188,8 +188,8 @@ public class RewardsItemListPresenterImpl extends
 						return (object.isPeriodEnable()) ? "有" : "无";
 					}
 				});
-		// TODO add frequency
-		resultTable.addColumn("创建时间", new DateCell(dateFormat),
+		
+		resultTable.addColumn("创建时间", new DateCell(dateFormatAll),
 				new GetValue<RewardsItemClient, Date>() {
 					@Override
 					public Date getValue(RewardsItemClient object) {
@@ -197,8 +197,7 @@ public class RewardsItemListPresenterImpl extends
 					}
 				});
 
-		resultTable.addColumn("开始日期",
-				new DateCell(DateTimeFormat.getFormat("yyyy-MM-dd")),
+		resultTable.addColumn("开始日期",new DateCell(dateFormat),
 				new GetValue<RewardsItemClient, Date>() {
 					@Override
 					public Date getValue(RewardsItemClient rewards) {
