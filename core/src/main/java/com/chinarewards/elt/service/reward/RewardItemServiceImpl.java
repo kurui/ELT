@@ -70,8 +70,9 @@ public class RewardItemServiceImpl implements RewardItemService {
 	}
 
 	@Override
-	public void deleteRewardItem(String rewardItemId) {
-		// TODO Auto-generated method stub
+	public String deleteRewardItem(UserContext context,String rewardItemId) {
+		 SysUser caller = userLogic.findUserById(context.getUserId());
+		return rewardItemLogic.deleteRewardItem( caller,rewardItemId);
 
 	}
 

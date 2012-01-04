@@ -6,6 +6,7 @@ import java.util.List;
 import com.chinarewards.elt.domain.reward.base.RewardItem;
 import com.chinarewards.elt.domain.reward.frequency.WeekFrequencyDays;
 import com.chinarewards.elt.domain.reward.rule.DirectCandidateData;
+import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.reward.base.RewardItemParam;
 import com.chinarewards.elt.model.reward.search.RewardItemSearchVo;
@@ -35,7 +36,7 @@ public interface RewardItemService {
 	 * 
 	 * @param rewardItemId
 	 */
-	public void deleteRewardItem(String rewardItemId);
+	public String deleteRewardItem(UserContext context,String rewardItemId);
 
 	/**
 	 * Fetch the entire information about the specified RewardItem. It contains

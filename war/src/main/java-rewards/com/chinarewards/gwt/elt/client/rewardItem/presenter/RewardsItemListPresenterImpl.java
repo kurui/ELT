@@ -13,6 +13,8 @@ import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemConstants;
 import com.chinarewards.gwt.elt.client.rewardItem.request.ActivationRewardsItemRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.ActivationRewardsItemResponse;
+import com.chinarewards.gwt.elt.client.rewardItem.request.DeleteRewardsItemRequest;
+import com.chinarewards.gwt.elt.client.rewardItem.request.DeleteRewardsItemResponse;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemCriteria;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
@@ -103,8 +105,7 @@ public class RewardsItemListPresenterImpl extends
 		pager.setDisplay(resultTable);
 		resultTable.setWidth(ViewConstants.page_width);
 		resultTable.setPageSize(ViewConstants.per_page_number_in_dialog);
-		listViewAdapter = new RewardsItemListViewAdapter(dispatch,
-				errorHandler, sessionManager);
+		listViewAdapter = new RewardsItemListViewAdapter(dispatch,errorHandler, sessionManager);
 		listViewAdapter.addDataDisplay(resultTable);
 
 		display.getDataContainer().clear();
@@ -220,14 +221,17 @@ public class RewardsItemListPresenterImpl extends
 					}
 				}, new FieldUpdater<RewardsItemClient, String>() {
 					@Override
-					public void update(int index, RewardsItemClient object,
-							String value) {
+					public void update(int index, RewardsItemClient object,	String value) {
+						if (object.isEnabled() == true){
+							Window.alert(object.getName()+"奖项已激活，不能修改，如修改请取消运作");
+						}else{
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(
 										RewardsItemConstants.EDITOR_REWARDSITEM_ADD,
 										"EDITOR_REWARDS_ITEM_ADD"
 												+ object.getId(), object);
+					   }
 					}
 				});
 		resultTable.addColumn("查看", new HyperLinkCell(),
@@ -248,6 +252,24 @@ public class RewardsItemListPresenterImpl extends
 												+ object.getId(), object);
 					}
 				});
+		resultTable.addColumn("操作", new HyperLinkCell(),
+				new GetValue<RewardsItemClient, String>() {
+					@Override
+					public String getValue(RewardsItemClient arg0) {
+						return "删除";
+					}
+				}, new FieldUpdater<RewardsItemClient, String>() {
+					@Override
+					public void update(int index, RewardsItemClient object,	String value) {
+						if (object.isEnabled() == true){
+							Window.alert(object.getName()+"奖项已激活，不能删除");
+						}else{
+							if (Window.confirm("确定删除?"))
+							deleteRewardItem(object.getId());
+						}
+					}
+				});
+		
 		resultTable.addColumn("操作", new HyperLinkCell(),
 				new GetValue<RewardsItemClient, String>() {
 					@Override
@@ -298,6 +320,25 @@ public class RewardsItemListPresenterImpl extends
 					@Override
 					public void onSuccess(ActivationRewardsItemResponse resp) {
 						Window.alert(resp.getName() + "--------------已激活!");
+						doSearch();
+					}
+				});
+	}
+	
+	public void deleteRewardItem(String rewardsItemId){
+		 
+		dispatch.execute(new DeleteRewardsItemRequest(rewardsItemId,sessionManager.getSession().getToken()),
+				new AsyncCallback<DeleteRewardsItemResponse>() {
+
+					@Override
+					public void onFailure(Throwable t) {
+						Window.alert(t.getMessage());
+					}
+
+					@Override
+					public void onSuccess(DeleteRewardsItemResponse resp) {
+						Window.alert(resp.getName() + "已删除!");
+						doSearch();
 					}
 				});
 	}

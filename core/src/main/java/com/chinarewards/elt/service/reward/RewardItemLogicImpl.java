@@ -206,13 +206,16 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 	}
 
 	@Override
-	public void deleteRewardItem(String rewardItemId) {
+	public String deleteRewardItem(SysUser caller,String rewardItemId) {
 		logger.debug("Invoking method deleteRewardItem(), rewardItemId:{}",
 				rewardItemId);
-		RewardItem rewardItem = rewardItemDao.findById(RewardItem.class,
-				rewardItemId);
+		Date now = DateUtil.getTime();
+		RewardItem rewardItem = rewardItemDao.findById(RewardItem.class,rewardItemId);
+		rewardItem.setLastModifiedAt(now);
+		rewardItem.setLastModifiedBy(caller);
 		rewardItem.setDeleted(true);
 		rewardItemDao.update(rewardItem);
+		return rewardItem.getName();
 	}
 
 	/**
