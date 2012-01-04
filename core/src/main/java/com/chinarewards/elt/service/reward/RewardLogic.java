@@ -124,5 +124,11 @@ public interface RewardLogic {
 	public PageStore<RewardVo> fetchRewards(UserContext context,
 			RewardSearchVo criteria);
 	
-
+	/**
+	 * 删除奖励...非物理删除
+	 * 
+	 * @param rewardId
+	 * @return
+	 */
+	public String deleteReward(String rewardId,UserContext context);
 }

@@ -46,13 +46,15 @@ public interface RewardService {
 	 */
 	public NomineeLot nominateReward(SysUser caller, String rewardId,
 			List<String> staffIds) throws NominateRewardException;
-/**
- * 颁奖方法,返回颁奖记录ID
- * @param caller
- * @param rewardId
- * @param staffIds
- * @return
- */
+
+	/**
+	 * 颁奖方法,返回颁奖记录ID
+	 * 
+	 * @param caller
+	 * @param rewardId
+	 * @param staffIds
+	 * @return
+	 */
 	public String awardReward(String nowUserId, String rewardId,
 			List<String> staffIds);
 
@@ -87,26 +89,38 @@ public interface RewardService {
 	 * @return
 	 */
 	public RewardQueryVo fetchEntireRewardQueryVoById(String rewardId);
+
 	/**
 	 * 获取已颁奖的奖励信息..包括获奖人信息
+	 * 
 	 * @param rewardId
 	 * @return
 	 */
 	public RewardQueryVo fetchWinRewardQueryVoById(String rewardId);
-	
+
 	/**
 	 * 查询奖励列表
+	 * 
 	 * @param context
 	 * @param criteria
 	 * @return
 	 */
 	public PageStore<RewardVo> fetchRewards(UserContext context,
 			RewardSearchVo criteria);
-	
+
 	/**
 	 * 颁奖时...查询给定员工中有无离职人员
+	 * 
 	 * @param staffIds
 	 * @return staffList(String)
 	 */
 	public List<String> getIsDeleteStaff(List<String> staffIds);
+
+	/**
+	 * 删除奖励...非物理删除
+	 * 
+	 * @param rewardId
+	 * @return
+	 */
+	public String deleteReward(String rewardId,UserContext context);
 }

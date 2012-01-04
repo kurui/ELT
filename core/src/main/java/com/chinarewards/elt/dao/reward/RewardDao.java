@@ -178,6 +178,10 @@ public class RewardDao extends BaseDao<Reward> {
 		// 增加新的查询条件
 		addQueryCondition(hql, param, criteria);
 
+		//过滤已删除的数据
+		hql.append(" AND rew.deleted != :deleted");
+		param.put("deleted",true);
+		
 		if (SEARCH.equals(type)) {
 			if (null != criteria && null != criteria.getSortingDetail()) {
 				hql.append(" ORDER BY rew.");

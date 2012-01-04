@@ -48,6 +48,7 @@
 				 	<g:Button ui:field="Update" text="修改" styleName="button-search"/>
 				 	<g:Button ui:field="active" text="激活" styleName="button-act"/>
 					<g:Button ui:field="logOff" text="注销" styleName="button-log"/>
+					<g:Button ui:field="delete" text="离职" styleName="button-log"/>
 					<g:Button ui:field="resetPwd" text="密码重置" styleName="button-modp"/>
 					<!--<g:Button ui:field="searchSubAccount" text="查看子账号" styleName="button-modp" />
 				 -->
