@@ -96,20 +96,16 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 		RewardsCriteria criteria = new RewardsCriteria();
 		criteria.setName(display.getName().getValue());
 		criteria.setDefinition(display.getDefinition().getValue());
-		if(display.getNowJudge().getValue())
-		{
+		if (display.getNowJudge().getValue()) {
 			criteria.setJudgeUserId(sessionManager.getSession().getToken());
 		}
-		if(pageType==RewardPageType.NOMINATEPAGE)
-		{
+		if (pageType == RewardPageType.NOMINATEPAGE) {
 			criteria.setStatus(RewardsStatus.PENDING_NOMINATE);
 		}
-		if(pageType==RewardPageType.AWARDREWARDPAGE)
-		{
+		if (pageType == RewardPageType.AWARDREWARDPAGE) {
 			criteria.setStatus(RewardsStatus.NEW);
 		}
-		if(pageType==RewardPageType.DETAILSOFAWARDPAGE)
-		{
+		if (pageType == RewardPageType.DETAILSOFAWARDPAGE) {
 			criteria.setStatus(RewardsStatus.REWARDED);
 		}
 		listViewAdapter = new RewardsListViewAdapter(dispatch, criteria,
@@ -188,7 +184,6 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 					new GetValue<RewardsClient, String>() {
 						@Override
 						public String getValue(RewardsClient rewards) {
-							;
 							return "提名";
 						}
 					}, new FieldUpdater<RewardsClient, String>() {
@@ -196,65 +191,120 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 						@Override
 						public void update(int index, RewardsClient o,
 								String value) {
-								Platform.getInstance()
-										.getEditorRegistry()
-										.openEditor(
-												NominateConstants.EDITOR_NOMINATE_SEARCH,
-												NominateConstants.EDITOR_NOMINATE_SEARCH
-														+ o.getId(), o);
-						
+							Platform.getInstance()
+									.getEditorRegistry()
+									.openEditor(
+											NominateConstants.EDITOR_NOMINATE_SEARCH,
+											NominateConstants.EDITOR_NOMINATE_SEARCH
+													+ o.getId(), o);
 
 						}
 
 					});
 		}
 		if (pageType == RewardPageType.AWARDREWARDPAGE) {
-		cellTable.addColumn("操作", new HyperLinkCell(),
-				new GetValue<RewardsClient, String>() {
-					@Override
-					public String getValue(RewardsClient rewards) {
-						return "颁奖";
-					}
-				}, new FieldUpdater<RewardsClient, String>() {
+			cellTable.addColumn("操作", new HyperLinkCell(),
+					new GetValue<RewardsClient, String>() {
+						@Override
+						public String getValue(RewardsClient rewards) {
+							return "颁奖";
+						}
+					}, new FieldUpdater<RewardsClient, String>() {
 
-					@Override
-					public void update(int index, RewardsClient o, String value) {
-						if ("NEW".equals(o.getStatus().name()) || "PENDING_NOMINATE".equals(o.getStatus().name())) {
+						@Override
+						public void update(int index, RewardsClient o,
+								String value) {
+							if ("NEW".equals(o.getStatus().name())
+									|| "PENDING_NOMINATE".equals(o.getStatus()
+											.name())) {
+								Platform.getInstance()
+										.getEditorRegistry()
+										.openEditor(
+												AwardRewardConstants.EDITOR_AWARDREWARD_SEARCH,
+												AwardRewardConstants.EDITOR_AWARDREWARD_SEARCH
+														+ o.getId(), o);
+							} else {
+								Window.alert("已经颁奖");
+								return;
+							}
+						}
+
+					});
+		}
+		if (pageType == RewardPageType.DETAILSOFAWARDPAGE) {
+			cellTable.addColumn("操作", new HyperLinkCell(),
+					new GetValue<RewardsClient, String>() {
+						@Override
+						public String getValue(RewardsClient rewards) {
+							return "颁奖详细";
+						}
+					}, new FieldUpdater<RewardsClient, String>() {
+
+						@Override
+						public void update(int index, RewardsClient o,
+								String value) {
 							Platform.getInstance()
 									.getEditorRegistry()
 									.openEditor(
-											AwardRewardConstants.EDITOR_AWARDREWARD_SEARCH,
-											AwardRewardConstants.EDITOR_AWARDREWARD_SEARCH
+											DetailsOfAwardConstants.EDITOR_DETAILSOFAWARD_SEARCH,
+											DetailsOfAwardConstants.EDITOR_DETAILSOFAWARD_SEARCH
 													+ o.getId(), o);
-						}  else {
-							Window.alert("已经颁奖");
-							return;
+
 						}
-					}
 
-				});
+					});
 		}
-		if (pageType == RewardPageType.DETAILSOFAWARDPAGE) {
-		cellTable.addColumn("操作", new HyperLinkCell(),
-				new GetValue<RewardsClient, String>() {
-					@Override
-					public String getValue(RewardsClient rewards) {
-						return "颁奖详细";
-					}
-				}, new FieldUpdater<RewardsClient, String>() {
+		if (pageType == RewardPageType.APPLYREWARDLIST) {
+			cellTable.addColumn("操作", new HyperLinkCell(),
+					new GetValue<RewardsClient, String>() {
+						@Override
+						public String getValue(RewardsClient rewards) {
+							if (rewards.getStatus() == RewardsStatus.NEW)
+								return "颁奖";
+							else if (rewards.getStatus() == RewardsStatus.PENDING_NOMINATE)
+								return "提名";
+							else
+								return "";
+						}
+					}, new FieldUpdater<RewardsClient, String>() {
 
-					@Override
-					public void update(int index, RewardsClient o, String value) {
-						Platform.getInstance()
-								.getEditorRegistry()
-								.openEditor(
-										DetailsOfAwardConstants.EDITOR_DETAILSOFAWARD_SEARCH,
-										DetailsOfAwardConstants.EDITOR_DETAILSOFAWARD_SEARCH
-												+ o.getId(), o);
+						@Override
+						public void update(int index, RewardsClient o,
+								String value) {
+							String pageUrl = "";
+							if (o.getStatus() == RewardsStatus.NEW)
+								pageUrl = AwardRewardConstants.EDITOR_AWARDREWARD_SEARCH;
+							else if (o.getStatus() == RewardsStatus.PENDING_NOMINATE)
+								pageUrl = NominateConstants.EDITOR_NOMINATE_SEARCH;
 
-					}
+							Platform.getInstance()
+									.getEditorRegistry()
+									.openEditor(pageUrl, pageUrl + o.getId(), o);
 
-				});
+						}
+
+					});
+			cellTable.addColumn("查看", new HyperLinkCell(),
+					new GetValue<RewardsClient, String>() {
+						@Override
+						public String getValue(RewardsClient rewards) {
+							return "查看详细";
+						}
+					}, new FieldUpdater<RewardsClient, String>() {
+
+						@Override
+						public void update(int index, RewardsClient o,
+								String value) {
+							Platform.getInstance()
+									.getEditorRegistry()
+									.openEditor(
+											DetailsOfAwardConstants.EDITOR_DETAILSOFAWARD_SEARCH,
+											DetailsOfAwardConstants.EDITOR_DETAILSOFAWARD_SEARCH
+													+ o.getId(), o);
+
+						}
+
+					});
 		}
 		cellTable.addColumn("状态", new TextCell(),
 				new GetValue<RewardsClient, String>() {

@@ -15,6 +15,8 @@ import com.chinarewards.gwt.elt.client.core.ui.MenuItem;
 import com.chinarewards.gwt.elt.client.plugin.MenuConstants;
 import com.chinarewards.gwt.elt.client.plugin.PluginConstants;
 import com.chinarewards.gwt.elt.client.rewards.editor.RewardsListEditorDescriptor;
+import com.chinarewards.gwt.elt.model.rewards.RewardPageType;
+import com.chinarewards.gwt.elt.model.rewards.RewardsPageClient;
 import com.google.gwt.user.client.ui.Image;
 import com.google.inject.Inject;
 
@@ -70,11 +72,14 @@ public class RewardsListPluginDescriptor implements PluginDescriptor {
 
 					@Override
 					public void execute() {
+						RewardsPageClient rpc=new RewardsPageClient();
+						rpc.setTitleName("应用奖项列表");
+						rpc.setPageType(RewardPageType.APPLYREWARDLIST);
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(
 										RewardsListConstants.EDITOR_REWARDSLIST_SEARCH,
-										"EDITOR_REWARDSLIST_SEARCH_DO_ID", null);
+										"EDITOR_REWARDSLIST_SEARCH_DO_ID", rpc);
 					}
 
 					@Override

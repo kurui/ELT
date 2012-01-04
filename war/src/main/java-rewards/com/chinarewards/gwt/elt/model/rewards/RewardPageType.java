@@ -12,5 +12,9 @@ public enum RewardPageType {
 	/**
 	 * 颁奖详细
 	 */
-	DETAILSOFAWARDPAGE
+	DETAILSOFAWARDPAGE,
+	/**
+	 * 应用奖项列表
+	 */
+	APPLYREWARDLIST
 }

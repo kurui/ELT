@@ -26,7 +26,7 @@ public class DetailsOfAwardPresenterImpl extends
 
 	private final DispatchAsync dispatcher;
 	private String awardsId;
-	private String instanceId;
+	//private String instanceId;
 
 	private final ChooseStaffPanelPresenter staffPanel;
 
@@ -105,8 +105,8 @@ public class DetailsOfAwardPresenterImpl extends
 								.getCreatedAt()));
 						display.setAwarddate(DateTool.dateToString(response
 								.getExpectAwardDate()));
-						display.setNominateMessage("提名信息");// wating.........
-						display.setNominateStaff("当前用户");
+						display.setNominateMessage("领导提名");// wating.........
+						display.setNominateStaff(response.getJudgeList());
 						display.setExpectNominateDate(DateTool
 								.dateToString(response.getExpectNominateDate()));
 						display.setAwardName(response.getAwardingStaffName());
@@ -120,7 +120,7 @@ public class DetailsOfAwardPresenterImpl extends
 	public void initReward(String rewardId, String instanceId, int headcount) {
 		// 加载数据
 		this.awardsId = rewardId;
-		this.instanceId = instanceId;
+		//this.instanceId = instanceId;
 
 	}
 

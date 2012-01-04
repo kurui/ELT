@@ -42,7 +42,7 @@ public interface DetailsOfAwardPresenter extends
 
 		public void setExpectNominateDate(String expectNominateDate);
 
-		public void setNominateStaff(String nominateStaff);
+		public void setNominateStaff(List<JudgeParamVo> judge);
 
 		public void setAwardName(String awardName);
 

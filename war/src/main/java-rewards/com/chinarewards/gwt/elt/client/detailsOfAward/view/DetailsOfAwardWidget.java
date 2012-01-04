@@ -17,7 +17,8 @@ import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-public class DetailsOfAwardWidget extends Composite implements DetailsOfAwardDisplay {
+public class DetailsOfAwardWidget extends Composite implements
+		DetailsOfAwardDisplay {
 
 	@UiField
 	Button returnbutton;
@@ -52,19 +53,19 @@ public class DetailsOfAwardWidget extends Composite implements DetailsOfAwardDis
 	InlineLabel nominateStaff;
 	@UiField
 	InlineLabel awardAmt;
-	
+
 	@UiField
 	VerticalPanel winners;
 
 	// 选人模块
 	@UiField
 	Panel staffPanel;
-	
-	
+
 	private static HrRegisterWidgetUiBinder uiBinder = GWT
 			.create(HrRegisterWidgetUiBinder.class);
 
-	interface HrRegisterWidgetUiBinder extends UiBinder<Widget, DetailsOfAwardWidget> {
+	interface HrRegisterWidgetUiBinder extends
+			UiBinder<Widget, DetailsOfAwardWidget> {
 	}
 
 	public DetailsOfAwardWidget() {
@@ -111,28 +112,27 @@ public class DetailsOfAwardWidget extends Composite implements DetailsOfAwardDis
 		this.number.setText(number);
 
 	}
+
 	@Override
 	public void setAwardAmt(String awardAmt) {
 		this.awardAmt.setText(awardAmt);
 
 	}
+
 	@Override
 	public void setJudge(List<JudgeParamVo> judge) {
-		String judgeStr="";
+		String judgeStr = "";
 		for (int i = 0; i < judge.size(); i++) {
 			if ("NOMINATED".equals(judge.get(i).getJudgeStatus()))
 				judgeStr += judge.get(i).getName() + "(已完成提名),";
 			else
 				judgeStr += judge.get(i).getName() + ",";
-			
+
 		}
 		InlineLabel nominatelab = new InlineLabel(judgeStr);
 		this.judge.add(nominatelab);
-		
 
 	}
-
-
 
 	@Override
 	public void setAwardNature(String awardNature) {
@@ -159,18 +159,24 @@ public class DetailsOfAwardWidget extends Composite implements DetailsOfAwardDis
 	public void setAwardName(String awardName) {
 		this.awardName.setText(awardName);
 	}
+
 	@Override
 	public void setExpectNominateDate(String expectNominateDate) {
 		this.expectNominateDate.setText(expectNominateDate);
-		
+
 	}
 
 	@Override
-	public void setNominateStaff(String nominateStaff) {
-		this.nominateStaff.setText(nominateStaff);
+	public void setNominateStaff(List<JudgeParamVo> judge) {
+		String judgeStr = "";
+		for (int i = 0; i < judge.size(); i++) {
+			if ("NOMINATED".equals(judge.get(i).getJudgeStatus()))
+				judgeStr += judge.get(i).getName() + ";";
+		}
+		this.nominateStaff.setText(judgeStr);
+
 	}
 
-	
 	@Override
 	public void initStaffPanel(Widget w) {
 		staffPanel.add(w);
@@ -178,14 +184,14 @@ public class DetailsOfAwardWidget extends Composite implements DetailsOfAwardDis
 
 	@Override
 	public void setWinners(List<WinnerParamVo> winners) {
-		String winnersStr="";
+		String winnersStr = "";
 		for (int i = 0; i < winners.size(); i++) {
-			winnersStr+=winners.get(i).getName()+",";
-			
+			winnersStr += winners.get(i).getName() + ",";
+
 		}
 		InlineLabel winnerlab = new InlineLabel(winnersStr);
 		this.winners.add(winnerlab);
-		
+
 	}
 
 }
