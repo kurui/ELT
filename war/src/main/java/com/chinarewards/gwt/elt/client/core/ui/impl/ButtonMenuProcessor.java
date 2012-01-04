@@ -14,6 +14,7 @@ import com.chinarewards.gwt.elt.client.detailsOfAward.plugin.DetailsOfAwardConst
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.nominate.plugin.NominateConstants;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemConstants;
+import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListConstants;
 import com.chinarewards.gwt.elt.client.user.plugin.UserConstants;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -117,6 +118,7 @@ public class ButtonMenuProcessor implements MenuProcessor {
 			items.add(NominateConstants.MENU_NOMINATE_SEARCH);
 			items.add(AwardRewardConstants.MENU_AWARDREWARD_SEARCH);
 			items.add(DetailsOfAwardConstants.MENU_DETAILSOFAWARD_SEARCH);
+			items.add(RewardsListConstants.MENU_REWARDSLIST_SEARCH);
 		} else if ("Staff".equals(keyname)) {
 			items.add(UserConstants.MENU_USER_SEARCH);
 		} else if ("Setting".equals(keyname)) {

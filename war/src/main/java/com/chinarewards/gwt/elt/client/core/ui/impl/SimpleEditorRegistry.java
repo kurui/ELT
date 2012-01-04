@@ -64,6 +64,7 @@ public class SimpleEditorRegistry implements EditorRegistry, EditorCloseHandler 
 
 		}
 		// focus the tab
+		
 		platform.getSiteManager().focusEditor(e);
 	}
 

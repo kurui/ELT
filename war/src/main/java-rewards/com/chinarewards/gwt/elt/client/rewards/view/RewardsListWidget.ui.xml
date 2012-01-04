@@ -21,7 +21,7 @@
 					</td>
 					<td width="5%" align="left">
 						<g:CheckBox ui:field="nowJudge" />
-						当前用户需提名数据
+						当前用户数据
 					</td>
 <!-- 					<td width="21%" align="right">部门:
 				   </td>

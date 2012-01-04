@@ -93,10 +93,12 @@ public abstract class MenuConstants {
 	public static final int MENU_ORDER_REWARDSITEM_List = order++;
 	//奖项详细
 	public static final int MENU_ORDER_REWARDSITEM_VIEW = order++;
+	
+	
+	//应用奖项列表
+	public static final int MENU_ORDER_REWARDSLIST_SEARCH = order++;
 	//提名
 	public static final int MENU_ORDER_MONINATE_SEARCH = order++;
-	
-
 	//获奖
 	public static final int MENU_ORDER_AWARDREWARD_SEARCH = order++;
 	//获奖详细

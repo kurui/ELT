@@ -19,7 +19,6 @@ import com.chinarewards.gwt.elt.client.core.ui.event.EditorCloseHandler;
 import com.chinarewards.gwt.elt.client.core.ui.event.MenuClickEvent;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
-import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -34,7 +33,6 @@ import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
-import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
 public class SimpleSiteManager implements SiteManager, EditorCloseHandler,
@@ -177,7 +175,8 @@ public class SimpleSiteManager implements SiteManager, EditorCloseHandler,
 	public void focusEditor(Editor e) {
 	//	int idx = openedEditors.indexOf(e);
 		editor.clear();
-		editor.add(e.asWidget());
+		ScrollPanel sp = new ScrollPanel(e.asWidget());
+		editor.add(sp);
 		editor.forceLayout();
 	}
 
