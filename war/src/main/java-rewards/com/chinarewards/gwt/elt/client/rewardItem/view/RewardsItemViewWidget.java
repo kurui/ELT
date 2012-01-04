@@ -17,8 +17,10 @@ import com.chinarewards.gwt.elt.client.view.constant.CssStyleConstants;
 import com.chinarewards.gwt.elt.util.DateTool;
 import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasValue;
@@ -105,7 +107,13 @@ public class RewardsItemViewWidget extends Composite implements RewardsItemViewD
 	@UiField
 	Panel staffPanel;
 	
-	
+	@UiField
+	Button back;
+	@Override
+	public HasClickHandlers getBackClick() {
+		return back;
+	}
+
 	interface RewardsItemViewWidgetBinder extends
 			UiBinder<Widget, RewardsItemViewWidget> {
 
