@@ -68,13 +68,13 @@ public class NominatePluginDescriptor implements PluginDescriptor {
 
 					@Override
 					public String getTitle() {
-						return "提名列表";
+						return "待提名奖项";
 					}
 
 					@Override
 					public void execute() {
 						RewardsPageClient rpc=new RewardsPageClient();
-						rpc.setTitleName("提名列表");
+						rpc.setTitleName("待提名奖项");
 						rpc.setPageType(RewardPageType.NOMINATEPAGE);
 						Platform.getInstance()
 								.getEditorRegistry()
