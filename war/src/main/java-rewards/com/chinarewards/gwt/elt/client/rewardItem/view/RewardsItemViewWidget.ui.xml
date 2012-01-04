@@ -109,7 +109,10 @@
                      	
                       </tr>
                       </tbody>
-                       
+                        <tr>
+					  <td colspan="2"  align="center" >
+					     <g:Button ui:field="back" styleName="button-ok">返回 </g:Button></td>
+					  </tr>
                     </table>
                   </div>	
 				  

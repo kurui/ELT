@@ -354,7 +354,7 @@ public class RewardsItemCreatePresenterImpl extends
 					@Override
 					public void onSuccess(CreateRewardsItemResponse response) {
 						Window.alert("添加成功");
-						if(instanceId!=null||!instanceId.equals(""))
+					//	if(instanceId!=null||!instanceId.equals(""))
 							Platform.getInstance()
 							.getEditorRegistry()
 							.openEditor(
@@ -510,24 +510,13 @@ public class RewardsItemCreatePresenterImpl extends
 						errorMsg.append("请选择奖项类型!<br>");
 						flag = false;
 					}
-				if (staffBlock.getDisplay().isSomeone().getValue() == true) {   //选择部分人员
 					
-					if (display.getPeopleSizeLimit().getValue() == null||"".equals(display.getPeopleSizeLimit().getValue().trim())) {
-						 errorMsg.append("请正确填写获奖名额(正整数)!<br>");
-						 flag = false;
-					  }
-					if (display.getPeopleSizeLimit().getValue() == null){	
-						int limitPeople = Integer.parseInt(display.getPeopleSizeLimit().getValue());
-						if (limitPeople == 0 || limitPeople < 0) {
-							errorMsg.append("请正确填写获奖名额(正整数)!<br>");
-							flag = false;
-						}
-					}
-					if (display.getTotalJF() == null|| display.getTotalJF().intValue() < 0) {
-						errorMsg.append("总积分额度出错，总积分要是整数!<br>");
+						
+					if (display.getTotalJF() == null|| display.getTotalJF().intValue() <= 0) {
+						errorMsg.append("总积分额度出错，总积分要是正整数!<br>");
 						flag = false;
-					}else	if (display.getRewardsFrom() == null|| display.getRewardsFrom().intValue() < 0) {
-							errorMsg.append("每人得奖积分额度出错，积分要是整数!<br>");
+					}else	if (display.getRewardsFrom() == null|| display.getRewardsFrom().intValue() <= 0) {
+							errorMsg.append("每人得奖积分额度出错，积分要是正整数!<br>");
 							flag = false;
 					} 
 					
@@ -541,11 +530,20 @@ public class RewardsItemCreatePresenterImpl extends
 							flag = false;
 						}
 					}
-				}else{//是全体人员要写上每人得分
+
 					
-					if (display.getRewardsFrom() == null|| display.getRewardsFrom().intValue() < 0) {
-						errorMsg.append("每人得奖积分额度出错，积分要是整数!<br>");
-						flag = false;
+				if (staffBlock.getDisplay().isSomeone().getValue() == true) {   //选择部分人员
+					
+					if (display.getPeopleSizeLimit().getValue() == null||"".equals(display.getPeopleSizeLimit().getValue().trim())) {
+						 errorMsg.append("请正确填写获奖名额(正整数)!<br>");
+						 flag = false;
+					  }
+					if (display.getPeopleSizeLimit().getValue() != null&& !"".equals(display.getPeopleSizeLimit().getValue().trim())){	
+						int limitPeople = Integer.parseInt(display.getPeopleSizeLimit().getValue());
+						if (limitPeople == 0 || limitPeople < 0) {
+							errorMsg.append("请正确填写获奖名额(正整数)!<br>");
+							flag = false;
+						}
 					}
 				}
 				if (display.getStartTime().getValue() == null|| "".equals(display.getStartTime().getValue())) {
@@ -564,7 +562,10 @@ public class RewardsItemCreatePresenterImpl extends
 							errorMsg.append("开始时间要小于或等于下次颁奖时间<br>");
 							flag = false;
 						}
-						
+						if (display.getNominateIds().size()>0&& (display.getTmday()==null||display.getTmday().equals("")|| display.getTmday().intValue() <= 0)) {
+							errorMsg.append(" 要提前提名的天数是正整数!<br>");
+							flag = false;
+					     }
 						// 生日奖校验
 						if (display.getSpecialCbx().getValue()
 								&& display.getBirthRadio().getValue()) {
@@ -621,11 +622,6 @@ public class RewardsItemCreatePresenterImpl extends
 								errorMsg.append("下一次公布奖励时间必须在下一次颁奖时间之前!<br>");
 								flag = false;
 							}
-						}else{//是自动奖
-							if (display.getNominateIds().size()==0&&display.getTmday() != null&& display.getTmday().intValue() <= 0) {
-								errorMsg.append(" 要提前提名的天数大于0的整数!<br>");
-								flag = false;
-						     }
 						}
 					}else{//一次性
 						if (display.getExpectTime().getValue() == null|| "".equals(display.getExpectTime().getValue())) {
@@ -635,8 +631,9 @@ public class RewardsItemCreatePresenterImpl extends
 							errorMsg.append("开始时间要小于预计颁奖时间<br>");
 							flag = false;
 						}
-						if (display.getTmdays() != null&& display.getTmdays().intValue() <= 0) {
-							errorMsg.append(" 要提前提名的天数大于0的整数!<br>");
+						if (display.getNominateIds().size()>0&& (display.getTmdays()==null||display.getTmdays().equals("")|| display.getTmdays().intValue() <= 0))
+						{	
+							errorMsg.append(" 要提前提名的天数是正整数!<br>");
 							flag = false;
 					     }
 					
