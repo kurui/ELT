@@ -128,7 +128,7 @@ public class ChooseStaffListPresenterImpl extends
 		resultTable.setPageStart(0);
 		display.getResultPanel().clear();
 		display.getResultPanel().add(resultTable);
-		display.getResultPanel().add(simplePager);
+		display.getResultpage().add(simplePager);
 	}
 
 	private SingleSelectionModel<StaffClient> setSelectionModel(
