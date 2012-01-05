@@ -28,7 +28,7 @@ public interface RewardsItemListPresenter extends
 		
 		public HasValue<String> getSearchName();
 		
-		
+		public Panel getDataPager() ;
 		
 		public Panel getDepartmentPanel();
 		

@@ -6,9 +6,19 @@
 	<ui:image field="button_search" resource="button_search.jpg"></ui:image>
 	<ui:image field="button_add" resource="button_add.jpg"></ui:image>
 	<ui:style src="rewardsItemSearch.css" field="item"></ui:style>
-	<g:HTMLPanel>
+	<ui:style src="elt_min.css" field="newitem"></ui:style>
+	<g:HTMLPanel styleName="{newitem.frame-wrap}">
+	
+	 <div class="breadcrumb">   
+	    <div class="{newitem.breadcrumb-wrap}">
+	      <p class="{newitem.breadcrumb-left}"><a href="#">公司奖项库</a> > <span>奖项列表</span></p>
+	      <a href="#" class="{newitem.breadcrumb-right}">返回上一页</a>
+	    </div>
+    </div>
+    <span class="{newitem.cutline}"></span>
+  
 		<!-- 查询条件 -->
-		<div class="{item.fmtable}" >
+				<div class="{newitem.query-wrap}" >
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 			<tr>
 				<td width="20%" align="right">奖项名称:</td>
@@ -27,21 +37,31 @@
 				</td>
 				
 				<td width="14%">
-					<g:Button ui:field="search" styleName="button-search">搜索</g:Button>
+					<span class="{newitem.btn}"><g:Button ui:field="search" >搜索</g:Button></span>
 				</td>
 			</tr>
 			
 		</table>
 		</div>
-		<div class="{item.listtable}">
+		
+		  <p class="{newitem.send-news}"><span class="{newitem.btn}">
+		   <g:Button ui:field="addBtn" >新增奖项
+			</g:Button></span></p>
+		 <div class="{newitem.table}">
 			<g:FlowPanel ui:field="result"></g:FlowPanel>
-		</div>
-		<div id="post">
-				<g:Button ui:field="addBtn" styleName="button-add">新增
-						</g:Button>
+		 </div>
+		 <!--分页 [[-->
+		  <div class="{newitem.pager}">
+		    <div class="{newitem.pager-left}">
+		       <g:FlowPanel ui:field="pager"></g:FlowPanel>
+
+		    </div>
 		
-		</div>
-		
-		
+		    <div class="{newitem.pager-right}">
+		      
+		    </div>
+		  </div>
+		  <!--分页 ]]-->
+
 	</g:HTMLPanel>
 </ui:UiBinder>
