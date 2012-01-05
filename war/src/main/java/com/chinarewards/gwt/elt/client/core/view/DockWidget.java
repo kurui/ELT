@@ -15,6 +15,7 @@ import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
@@ -44,7 +45,7 @@ public class DockWidget extends Composite implements DockDisplay {
 	@UiField
 	Button btnGb;
 	@UiField
-	Button btnRewardItem;
+	Anchor btnRewardItem;
 	@UiField
 	Button btnReward;
 	@UiField

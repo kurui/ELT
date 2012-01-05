@@ -45,7 +45,7 @@
       <ul>
         <li><a href="#" class="{new2.menu}"><span>收件箱</span></a></li>
         <li><a href="#" class="{new2.menu} {new2.menu-on}"><span>广 播</span></a></li>
-        <li><a href="#" class="{new2.menu}"><span>奖 项</span></a></li>
+        <li><g:Anchor styleName="{new2.menu}" ui:field="btnRewardItem"> <span>奖 项</span></g:Anchor></li>
         <li><a href="#" class="{new2.menu}"><span>兑 换</span></a></li>
         <li><a href="#" class="{new2.menu}"><span>员工数据</span></a></li>
         <li><a href="#" class="{new2.menu}"><span>预 算</span></a></li>
@@ -77,7 +77,7 @@
 							<div id="header02">
 								<g:Button text="收件箱" ui:field="btnEmail"></g:Button>
 								<g:Button text="广播" ui:field="btnGb"></g:Button>
-								<g:Button text="奖项" ui:field="btnRewardItem"></g:Button>
+						
 								<g:Button text="员工数据" ui:field="btnStaff"></g:Button>
 								<g:Button text="应用奖项" ui:field="btnReward"></g:Button>
 								<g:Button text="设置" ui:field="btnSetting"></g:Button>
