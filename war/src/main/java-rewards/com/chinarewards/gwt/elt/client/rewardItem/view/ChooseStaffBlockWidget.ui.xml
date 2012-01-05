@@ -5,10 +5,12 @@
    	<ui:image resource="input_text.jpg" field="input_text" repeatStyle="Horizontal"></ui:image>
 	<ui:image resource="button_addpe.jpg" field="button_addpe"></ui:image>
 	<ui:style src="staffBlock.css" ></ui:style>
-	<g:HTMLPanel ui:field="select1">
+	<ui:style src="elt_min.css" field="newitem"></ui:style>
+	
+	<g:HTMLPanel ui:field="select1" styleName="{newitem.frame-wrap}">
 		
 	
-		<table border="0" cellspacing="0" cellpadding="0" class="{style.mmtable1}">
+		<table border="0" cellspacing="0" cellpadding="0" class="{newitem.form}">
             <tr>
             	<td valign="top" class="{style.title}" ><span>*</span> 候选人员：</td>
 		        <td class="{style.intext}">
@@ -19,13 +21,13 @@
             </tr>
             <tr>
             	<td colspan="3" id="noPaddingTd">
-            		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="{style.mmtable1}">
+            		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="{newitem.form}">
             			 <tr>
 				              <td valign="top" class="{style.title}" ><span>*</span> 快速选择：</td>
 				              <td class="{style.intext}" id="specialTextCss">
 				               		<g:HorizontalPanel ui:field="suggestBoxPanel"/>
 				              </td>
-				              <td><g:Button ui:field="chooseBtn" styleName="button-addpe">选择</g:Button></td>
+				              <td> <div style="width:100px"></div> <span class="{newitem.btn}"> <g:Button ui:field="chooseBtn" styleName="">选择</g:Button></span></td>
 				         </tr>
 				         <tr>
 				               <td valign="top" class="{style.title}">合格人选：</td>
@@ -36,21 +38,6 @@
             	</td>
             </tr>
         </table>
-        <!--  
-		<table cellspacing="0" border="0" width="100%">
-			<tr>
-				<td valign="top">合格人选：</td>
-				<td>
-					<g:RadioButton ui:field="everyoneRbtn" name="chooseRadio">全体员工
-					</g:RadioButton>
-					<g:RadioButton ui:field="someoneRbtn" name="chooseRadio">以下部门/员工
-					</g:RadioButton>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2"><g:FlowPanel ui:field="choosePanel" /></td>
-			</tr>
-		</table>
-		-->
+        
 	</g:HTMLPanel>
 </ui:UiBinder>
