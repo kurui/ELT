@@ -37,21 +37,22 @@
         <li><a href="#">员工天地</a></li>
       </ul>
       <div class="{new2.green}">
-      欢迎您：<span>ELT</span><a href="#">安全退出</a><a href="#">加为收藏</a>
+      <g:InlineLabel ui:field="message"></g:InlineLabel>   <g:Anchor ui:field="logBtn">安全退出</g:Anchor>   <a href="#">加为收藏</a>
       </div>
     </div>
     <g:Image resource="{logo_new}" width="255px" height="75px"/>
     <div class="{new2.nav} {new2.clearfix}">
       <ul>
-        <li><a href="#" class="{new2.menu}"><span>收件箱</span></a></li>
-        <li><a href="#" class="{new2.menu} {new2.menu-on}"><span>广 播</span></a></li>
-        <li><g:Anchor styleName="{new2.menu}" ui:field="btnRewardItem"> <span>奖 项</span></g:Anchor></li>
-        <li><a href="#" class="{new2.menu}"><span>兑 换</span></a></li>
-        <li><a href="#" class="{new2.menu}"><span>员工数据</span></a></li>
-        <li><a href="#" class="{new2.menu}"><span>预 算</span></a></li>
-        <li><a href="#" class="{new2.menu}"><span>设 置</span></a></li>
-        <li><a href="#" class="{new2.menu}"><span>报 表</span></a></li>
-        <li><a href="#" class="{new2.menu}"><span>颁 奖</span></a></li>
+        <li><g:Anchor styleName="{new2.menu}" ui:field="btnEmail"><span>收件箱</span></g:Anchor></li>
+        <li><g:Anchor styleName="{new2.menu}" ui:field="btnGb"><span>广 播</span></g:Anchor></li>
+        <li><g:Anchor styleName="{new2.menu} {new2.menu-on}" ui:field="btnRewardItem"> <span>奖 项</span></g:Anchor></li>
+        <li><g:Anchor styleName="{new2.menu}" ui:field="btnReward"> <span>应用奖项</span></g:Anchor></li>
+        <li><g:Anchor styleName="{new2.menu}" ><span>兑 换</span></g:Anchor></li>
+        <li><g:Anchor styleName="{new2.menu}" ui:field="btnStaff"><span>员工数据</span></g:Anchor></li>
+        <li><g:Anchor styleName="{new2.menu}" ><span>预 算</span></g:Anchor></li>
+        <li><g:Anchor styleName="{new2.menu}" ui:field="btnSetting"><span>设 置</span></g:Anchor></li>
+        <li><g:Anchor styleName="{new2.menu}" ><span>报 表</span></g:Anchor></li>
+        <li><g:Anchor styleName="{new2.menu}" ><span>颁 奖</span></g:Anchor></li>
       </ul>
     </div>
   </div>
@@ -64,10 +65,10 @@
 							<div id="header">
 								<ul>
 									<li>
-										<g:Label ui:field="message"></g:Label>
+										
 									</li>
 									<li>
-										<g:Button ui:field="logBtn" styleName="log"></g:Button>
+									
 									</li>
 								</ul>
 
@@ -75,12 +76,7 @@
 								<g:Image resource="{logo_name}" width="380" height="36" />
 							</div>
 							<div id="header02">
-								<g:Button text="收件箱" ui:field="btnEmail"></g:Button>
-								<g:Button text="广播" ui:field="btnGb"></g:Button>
-						
-								<g:Button text="员工数据" ui:field="btnStaff"></g:Button>
-								<g:Button text="应用奖项" ui:field="btnReward"></g:Button>
-								<g:Button text="设置" ui:field="btnSetting"></g:Button>
+
 							</div>
 						</td>
 					</tr>
