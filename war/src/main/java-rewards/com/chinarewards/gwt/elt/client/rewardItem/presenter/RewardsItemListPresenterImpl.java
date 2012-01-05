@@ -110,7 +110,7 @@ public class RewardsItemListPresenterImpl extends
 
 		display.getDataContainer().clear();
 		display.getDataContainer().add(resultTable);
-		display.getDataContainer().add(pager);
+		display.getDataPager().add(pager);
 	}
 
 	// init department name

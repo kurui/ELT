@@ -33,7 +33,8 @@ public class RewardsItemListWidget extends Composite implements
 
 	@UiField
 	Panel result;
-
+	@UiField
+	Panel pager;
 	@UiField
 	TextBox name;
 
@@ -77,6 +78,10 @@ public class RewardsItemListWidget extends Composite implements
 	@Override
 	public Panel getDataContainer() {
 		return result;
+	}
+	@Override
+	public Panel getDataPager() {
+		return pager;
 	}
 
 	@Override
