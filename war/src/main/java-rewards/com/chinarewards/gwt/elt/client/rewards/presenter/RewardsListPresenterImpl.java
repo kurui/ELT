@@ -92,7 +92,7 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 
 		display.getResultPanel().clear();
 		display.getResultPanel().add(cellTable);
-		display.getResultPanel().add(pager);
+		display.getResultpage().add(pager);
 	}
 
 	private void doSearch() {

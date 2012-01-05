@@ -18,6 +18,7 @@ public interface RewardsListPresenter extends Presenter<RewardsListPresenter.Rew
 		HasValue<String> getDefinition();
 		
 		Panel getResultPanel();
+		Panel getResultpage();
 		HasValue<Boolean> getNowJudge();
 
 	}
