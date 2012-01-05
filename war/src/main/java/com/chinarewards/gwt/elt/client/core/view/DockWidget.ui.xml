@@ -29,7 +29,7 @@
 		<g:north size="83">
 			<g:HTMLPanel>
   <!--head [[-->
-  <div class="{new2.head}" id="head">
+  <div class="{new2.index} {new2.head}" id="head">
     <div class="{new2.top-nav} {new2.clearfix}">
       <ul>
         <li class="{new2.on}"><a href="#">管理中心</a></li>
@@ -40,7 +40,7 @@
       <g:InlineLabel ui:field="message"></g:InlineLabel>   <g:Anchor ui:field="logBtn">安全退出</g:Anchor>   <a href="#">加为收藏</a>
       </div>
     </div>
-    <g:Image resource="{logo_new}" width="255px" height="75px"/>
+    <g:Image resource="{logo_new}" styleName="{new2.logo}" width="255px" height="75px"/>
     <div class="{new2.nav} {new2.clearfix}">
       <ul>
         <li><g:Anchor styleName="{new2.menu}" ui:field="btnEmail"><span>收件箱</span></g:Anchor></li>
