@@ -6,55 +6,36 @@
 	<ui:image field="button_search" resource="button_search.jpg"></ui:image>
 	<ui:image field="button_add" resource="button_add.jpg"></ui:image>
 	<ui:style src="rewardsSearch.css" field="rewards"></ui:style>
+	<ui:style src="new2.css" field="new2"></ui:style>
 	<g:HTMLPanel>
-	<div class="{rewards.frame-wrap}">
- <div >
-    <div class="{rewards.breadcrumb-wrap}">
-      <p class="{rewards.breadcrumb-left}"><a href="#">应用奖项</a>><span>奖励列表</span></p>
-      <a href="#" class="{rewards.breadcrumb-right} {rewards.back-btn)">返回上一页</a>
+	<div class="{new2.frame-wrap}">
+    <!--面包屑 [[-->
+  <div class="{new2.breadcrumb-wrap}">
+    <div class="{new2.breadcrumb-wrap}">
+      <p class="{new2.breadcrumb-left}"><a href="#" style="color:#565656;text-decoration:none;">应用奖项</a>-><span>应用奖项列表</span></p>
+      <a href="#" class="{new2.breadcrumb-right} {new2.back-btn}" style="color:#565656;text-decoration:none;">返回上一页</a>
     </div>
-    <span class="cutline"></span>
+    <span class="{new2.cutline}"></span>
   </div>
-				<!-- 查询条件 -->
-		<div class="{rewards.query-wrap}" >
-			<table width="100%" border="0" cellspacing="0" cellpadding="0">
-				<tr>
-					<td width="4%" align="left">奖励名称:</td>
-					<td width="3%">
-						<g:TextBox ui:field="rewardsName" />
-					</td>
-					<td width="2%" align="left">说明:</td>
-					<td width="3%">
-						<g:TextBox ui:field="definition" />
-					</td>
-					<td width="5%" align="left">
-						<g:CheckBox ui:field="nowJudge" />
-						当前用户数据
-					</td>
-<!-- 					<td width="21%" align="right">部门:
-				   </td>
-					<td width="3%" align="right">
-						<g:FlowPanel ui:field="departmentPanel" />
-					</td>
-					<td width="21%" align="left">
-						<g:CheckBox ui:field="chooseSubDepartment" />
-						包含子部门
-					</td>
-					<td width="21%">
-						状态:
-						<g:ListBox ui:field="state"></g:ListBox>
-					</td> -->
-					<td width="13%">
-					<span class="{rewards.btn}">	<g:Button ui:field="searchBtn" text="搜索" /></span>
-					</td>
-				</tr>
-			</table>
-		</div>
-		
+  <!--面包屑 ]]-->
+
+  <!--查询条件 [[-->
+  <div class="{new2.query-wrap}">
+    <div class="{new2.form}">
+      <label for="">奖励名称:</label> <g:TextBox ui:field="rewardsName" styleName="{new2.text}" />
+      <label for="">说明:</label> <g:TextBox ui:field="definition" styleName="{new2.text}" />
+       <g:CheckBox ui:field="nowJudge" /> <label for="">当前用户数据</label>
+      <span class="{new2.btn}"> <g:Button ui:field="searchBtn" text="搜索" /></span>
+    </div>
+  </div>
+  <!--查询条件 ]]-->
+  
+  
 
 		<div class="{rewards.listtable}">
 			<g:FlowPanel ui:field="resultPanel" />
 		</div>
+		
 		<div id="post">
 			
 		</div></div>
