@@ -7,8 +7,16 @@
 	<ui:image field="button_add" resource="button_add.jpg"></ui:image>
 	<ui:style src="rewardsSearch.css" field="rewards"></ui:style>
 	<g:HTMLPanel>
+	<div class="{rewards.frame-wrap}">
+ <div >
+    <div class="{rewards.breadcrumb-wrap}">
+      <p class="{rewards.breadcrumb-left}"><a href="#">应用奖项</a>><span>奖励列表</span></p>
+      <a href="#" class="{rewards.breadcrumb-right} {rewards.back-btn)">返回上一页</a>
+    </div>
+    <span class="cutline"></span>
+  </div>
 				<!-- 查询条件 -->
-		<div class="{rewards.fmtable}" >
+		<div class="{rewards.query-wrap}" >
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
 					<td width="4%" align="left">奖励名称:</td>
@@ -37,7 +45,7 @@
 						<g:ListBox ui:field="state"></g:ListBox>
 					</td> -->
 					<td width="13%">
-						<g:Button ui:field="searchBtn" text="搜索" styleName="button-search"/>
+					<span class="{rewards.btn}">	<g:Button ui:field="searchBtn" text="搜索" /></span>
 					</td>
 				</tr>
 			</table>
@@ -49,6 +57,6 @@
 		</div>
 		<div id="post">
 			
-		</div>
+		</div></div>
 	</g:HTMLPanel>
 </ui:UiBinder>
