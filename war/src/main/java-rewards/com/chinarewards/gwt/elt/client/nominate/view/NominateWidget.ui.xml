@@ -131,14 +131,7 @@
 			    </div>
 			  </div>
 			
-		<!-- 1内容 -->
-		<div class="{item.detail-content}"  style="display:none">
-			<!-- 2基本设置 -->
-			<div class="{item.setDetail}">
-
-				
-			</div>
-		</div>
+	
 </div>
 	</g:HTMLPanel>
 </ui:UiBinder> 

@@ -113,7 +113,7 @@ public class ChooseStaffPanelWidget extends Composite implements
 	@Override
 	public void cleanStaffTextAreaPanel() {
 		this.staffTextAreaPanel.clear();
-		this.staffTextAreaPanel.getElement().getParentElement().addClassName(CssStyleConstants.hidden);
+		this.staffTextAreaPanel.getElement().addClassName(CssStyleConstants.hidden);
 		
 	}
 
