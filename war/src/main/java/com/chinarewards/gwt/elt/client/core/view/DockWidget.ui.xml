@@ -57,30 +57,6 @@
     </div>
   </div>
   <!--head ]]-->
-				
-				<table width="100%" border="0" cellpadding="0" cellspacing="0" style="display:none">
-					<!-- header -->
-					<tr>
-						<td height="88" align="top">
-							<div id="header">
-								<ul>
-									<li>
-										
-									</li>
-									<li>
-									
-									</li>
-								</ul>
-
-								<g:Image resource="{logo}" width="125" height="37" />
-								<g:Image resource="{logo_name}" width="380" height="36" />
-							</div>
-							<div id="header02">
-
-							</div>
-						</td>
-					</tr>
-				</table>
 			</g:HTMLPanel>
 		</g:north>
 		<g:south size="27">

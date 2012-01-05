@@ -42,6 +42,7 @@ public interface ChooseStaffListPresenter extends
 		SpecialTextArea<StaffClient> getSpecialTextBox();
 
 		Panel getResultPanel();
+		Panel getResultpage();
 
 	//	String getDeptId();
 

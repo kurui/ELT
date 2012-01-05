@@ -64,14 +64,14 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .table caption{display:none;}
 .table table{width:100%;}
 .table table,.table td,.table th{border:1px solid #DDDDDD;text-align:center;}
-.table td,.table th{padding:10px 0;}
+.table td,.table th{padding:3px 0;}
 .table th{background-color:#CCCCCC;font-size:12px;font-weight:normal;color:#666666;}
 
 /*pager*/
 .pager:after{content:".";display:block;clear:both;height:0;visibility:hidden;}
 .pager{*zoom:1;margin-top:15px;color:#569B01;}
-.pager .pager-left{float:left;width:20%;color:green;}
-.pager .pager-right{float:right;width:25%;text-align:right;}
+.pager .pager-left{float:left;color:green;}
+.pager .pager-right{float:right;text-align:right;}
 .pager .pager-right a{border:1px solid #C7C7C7;padding:2px 8px;color:#569B01;display:inline-block;vertical-align:middle;}
 .pager .pager-right a:hover{text-decoration:none;background-color:#569B01;color:#FFFFFF;}
 .pager .pager-right .edge{background-color:#E8E8E8}

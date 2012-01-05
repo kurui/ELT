@@ -50,7 +50,7 @@
 			<!--分页 [[ -->
 			<div class="{new2.pager}">
 				<div class="{new2.pager-left}">
-					每页显示广播条数
+					每页显示条数
 					<select class="{new2.select}">
 						<option>10</option>
 					</select>
