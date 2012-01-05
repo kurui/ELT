@@ -64,8 +64,8 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .table caption{display:none;}
 .table table{width:100%;}
 .table table,.table td,.table th{border:1px solid #DDDDDD;text-align:center;}
-.table td,.table th{padding:10px 0;}
-.table th{background-color:#CCCCCC;font-size:12px;font-weight:normal;color:#666666;}
+.table td,.table th{padding:5px 0;}
+.table th{background-color:#CCCCCC;font-size:12px;font-weight:bolder;color:#666666;}}
 
 /*pager*/
 .pager:after{content:".";display:block;clear:both;height:0;visibility:hidden;}
