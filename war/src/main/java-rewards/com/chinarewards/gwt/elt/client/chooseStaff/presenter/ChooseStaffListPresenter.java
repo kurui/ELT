@@ -49,6 +49,8 @@ public interface ChooseStaffListPresenter extends
 		
 		void hiddenSpecialBoxPanel();
 		void hiddenChooseBtn();
+		void hiddenAddLabel();
+		
 		void setCancelBtnText(String text);
 		
 		

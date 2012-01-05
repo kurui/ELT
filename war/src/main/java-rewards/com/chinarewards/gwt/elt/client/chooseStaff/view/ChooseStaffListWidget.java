@@ -16,6 +16,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
@@ -48,7 +49,9 @@ public class ChooseStaffListWidget extends Composite implements
 	Panel resultpage;
 	@UiField
 	Panel specialBoxPanel;
-
+	@UiField
+	InlineLabel addLabel;
+	
 	SpecialTextArea<StaffClient> textBox;
 
 	// is inject
@@ -123,8 +126,7 @@ public class ChooseStaffListWidget extends Composite implements
 
 	@Override
 	public void hiddenSpecialBoxPanel() {
-		this.specialBoxPanel.getElement().getParentElement().getParentElement()
-				.addClassName(CssStyleConstants.hidden);
+		this.specialBoxPanel.getElement().addClassName(CssStyleConstants.hidden);
 
 	}
 
@@ -143,6 +145,12 @@ public class ChooseStaffListWidget extends Composite implements
 	@Override
 	public Panel getResultpage() {
 		return resultpage;
+	}
+
+	@Override
+	public void hiddenAddLabel() {
+		this.addLabel.getElement().addClassName(CssStyleConstants.hidden);
+		
 	}
 
 	// @Override

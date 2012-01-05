@@ -34,7 +34,7 @@
 
 			<g:FlowPanel ui:field="resultpage" />
 
-			<g:InlineLabel text="准备添加的员工：" styleName="{new2.label}" />
+			<g:InlineLabel  ui:field="addLabel" text="准备添加的员工：" styleName="{new2.label}" />
 			<g:FlowPanel ui:field="specialBoxPanel" />
 
 
