@@ -47,15 +47,15 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .table caption{display:none;}
 .table table{width:100%;}
 .table table,.table td,.table th{border:1px solid #DDDDDD;text-align:center;}
-.table td,.table th{padding:10px 0;}
+.table td,.table th{padding:5px 0;}
 .table th{background-color:#CCCCCC;font-size:12px;font-weight:normal;color:#666666;}
-.table td{background-color:#FFFFFF;}
+
 
 /*pager*/
 .pager:after{content:".";display:block;clear:both;height:0;visibility:hidden;}
 .pager{*zoom:1;margin-top:15px;color:#569B01;}
-.pager .pager-left{float:left;width:20%;}
-.pager .pager-right{float:right;width:79%;text-align:right;}
+.pager .pager-left{float:left;width:20%;color:#569B01;}
+.pager .pager-right{float:right;width:22%;text-align:right;}
 .pager .pager-right a{border:1px solid #C7C7C7;padding:2px 8px;color:#569B01;display:inline-block;vertical-align:middle;}
 .pager .pager-right a:hover{text-decoration:none;background-color:#569B01;color:#FFFFFF;}
 .pager .pager-right .edge{background-color:#E8E8E8}
@@ -91,7 +91,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .footer .copyright{padding:10px 0;width:400px;text-align:left;margin:0 auto;color:#9E9E9E;}
 .footer .copyright p{line-height:20px;}
 /*-------------------------------------iframe页面------------------------------------------------------*/
-.frame-wrap{background-color:#F4F4F4;}
+.frame-wrap{background-color:#F4F4F4;width:99%;margin-top:15px;}
 .frame-wrap .breadcrumb-wrap:after{content:".";display:block;clear:both;height:0;visibility:hidden;}
 .frame-wrap .breadcrumb-wrap{*zoom:1;}
 .frame-wrap .breadcrumb-left{float:left;width:50%;}
