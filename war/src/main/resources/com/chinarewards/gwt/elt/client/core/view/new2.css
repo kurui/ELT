@@ -13,7 +13,7 @@ button{cursor:pointer;}
 textarea{word-wrap:break-word;resize:none;}
 
 /*---------------------------------------全局模块----------------------------------------------*/
-.menu,.menu span,.menu-on,.menu-on span,.status-arrow,.list-top,.list-bottom,.btn,.btn button,.back-btn{background:url("../img/elt.png") no-repeat;}
+.menu,.menu span,.menu-on,.menu-on span,.status-arrow,.list-top,.list-bottom,.btn,.btn button,.back-btn{background:url("../elt/images/base/elt.png") no-repeat;}
 .sidebar .title,.cutline,.footer-line{background:url("../img/elt_repeat.png") repeat-x;}
 
 body{background-color:#fff;color:#333333;font:12px/1.5 Tahoma, Arial, simsun;min-width:960px;}
