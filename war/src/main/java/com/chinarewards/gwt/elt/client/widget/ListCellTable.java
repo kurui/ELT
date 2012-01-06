@@ -43,15 +43,15 @@ public class ListCellTable<T> extends CellTable<T> {
 		/**
 		 * The background used for header cells.
 		 */
-		//@Source("trbg.jpg")
-		//@ImageOptions(repeatStyle = RepeatStyle.Horizontal)
-		//ImageResource cellTableHeaderBackground();
+		@Source("trbg.jpg")
+		@ImageOptions(repeatStyle = RepeatStyle.Horizontal)
+		ImageResource cellTableHeaderBackground();
 
 		/**
 		 * The styles used in this widget.
 		 */
-		//@Source("listCellTable.css")
-		//Style cellTableStyle();
+//		@Source("listCellTable.css")
+//		Style cellTableStyle();
 	}
 
 	private static Resources getDefaultResources() {

@@ -17,6 +17,9 @@ public class RewardsListWidget extends Composite implements RewardsListDisplay {
 	@UiField
 	Panel resultPanel;
 	@UiField
+	Panel resultpage;
+	
+	@UiField
 	Button searchBtn;
 	
 	@UiField
@@ -57,6 +60,11 @@ public class RewardsListWidget extends Composite implements RewardsListDisplay {
 	@Override
 	public HasValue<String> getDefinition() {
 		return definition;
+	}
+
+	@Override
+	public Panel getResultpage() {
+		return resultpage;
 	}
 
 

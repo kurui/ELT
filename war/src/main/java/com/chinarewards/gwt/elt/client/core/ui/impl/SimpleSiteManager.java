@@ -220,6 +220,7 @@ public class SimpleSiteManager implements SiteManager, EditorCloseHandler,
 		dialogBox.setText(dialog.getTitle());
 		// FIXME yanxin 20111130 dialogBox.setDialog(dialog);
 		dialogBox.center();
+		dialogBox.setPopupPosition(Window.getClientWidth()/4, Window.getClientHeight()/4);
 		dialogBox.show();
 		// Set max height for scroll panel. Deduction 30 PX for dialog title.
 		// The window client should great than 30px, or it will not open dialog.

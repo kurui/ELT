@@ -15,12 +15,11 @@ import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.InlineLabel;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -33,24 +32,24 @@ public class DockWidget extends Composite implements DockDisplay {
 	FlowPanel menu;
 
 	@UiField
-	Button logBtn;
+	Anchor logBtn;
 
 	@UiField
-	Label message;
+	InlineLabel message;
 
 	@UiField
-	Button btnEmail;
+	Anchor btnEmail;
 
 	@UiField
-	Button btnGb;
+	Anchor btnGb;
 	@UiField
-	Button btnRewardItem;
+	Anchor btnRewardItem;
 	@UiField
-	Button btnReward;
+	Anchor btnReward;
 	@UiField
-	Button btnStaff;
+	Anchor btnStaff;
 	@UiField
-	Button btnSetting;
+	Anchor btnSetting;
 	
 	@UiField
 	InlineLabel menuTitle;

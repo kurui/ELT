@@ -29,7 +29,7 @@
 		<g:north size="83">
 			<g:HTMLPanel>
   <!--head [[-->
-  <div class="{new2.head}" id="head">
+  <div class="{new2.index} {new2.head}" id="head">
     <div class="{new2.top-nav} {new2.clearfix}">
       <ul>
         <li class="{new2.on}"><a href="#">管理中心</a></li>
@@ -37,71 +37,45 @@
         <li><a href="#">员工天地</a></li>
       </ul>
       <div class="{new2.green}">
-      欢迎您：<span>ELT</span><a href="#">安全退出</a><a href="#">加为收藏</a>
+      <g:InlineLabel ui:field="message"></g:InlineLabel>   <g:Anchor ui:field="logBtn">安全退出</g:Anchor>   <a href="#">加为收藏</a>
       </div>
     </div>
-    <g:Image resource="{logo_new}" width="255px" height="75px"/>
+    <g:Image resource="{logo_new}" styleName="{new2.logo}" width="255px" height="75px"/>
     <div class="{new2.nav} {new2.clearfix}">
       <ul>
-        <li><a href="#" class="{new2.menu}"><span>收件箱</span></a></li>
-        <li><a href="#" class="{new2.menu} {new2.menu-on}"><span>广 播</span></a></li>
-        <li><a href="#" class="{new2.menu}"><span>奖 项</span></a></li>
-        <li><a href="#" class="{new2.menu}"><span>兑 换</span></a></li>
-        <li><a href="#" class="{new2.menu}"><span>员工数据</span></a></li>
-        <li><a href="#" class="{new2.menu}"><span>预 算</span></a></li>
-        <li><a href="#" class="{new2.menu}"><span>设 置</span></a></li>
-        <li><a href="#" class="{new2.menu}"><span>报 表</span></a></li>
-        <li><a href="#" class="{new2.menu}"><span>颁 奖</span></a></li>
+        <li><g:Anchor styleName="{new2.menu}" ui:field="btnEmail"><span>收件箱</span></g:Anchor></li>
+        <li><g:Anchor styleName="{new2.menu}" ui:field="btnGb"><span>广 播</span></g:Anchor></li>
+        <li><g:Anchor styleName="{new2.menu} {new2.menu-on}" ui:field="btnRewardItem"> <span>奖 项</span></g:Anchor></li>
+        <li><g:Anchor styleName="{new2.menu}" ui:field="btnReward"> <span>应用奖项</span></g:Anchor></li>
+        <li><g:Anchor styleName="{new2.menu}" ><span>兑 换</span></g:Anchor></li>
+        <li><g:Anchor styleName="{new2.menu}" ui:field="btnStaff"><span>员工数据</span></g:Anchor></li>
+        <li><g:Anchor styleName="{new2.menu}" ><span>预 算</span></g:Anchor></li>
+        <li><g:Anchor styleName="{new2.menu}" ui:field="btnSetting"><span>设 置</span></g:Anchor></li>
+        <li><g:Anchor styleName="{new2.menu}" ><span>报 表</span></g:Anchor></li>
+        <li><g:Anchor styleName="{new2.menu}" ><span>颁 奖</span></g:Anchor></li>
       </ul>
     </div>
   </div>
   <!--head ]]-->
-				
-				<table width="100%" border="0" cellpadding="0" cellspacing="0" style="display:none">
-					<!-- header -->
-					<tr>
-						<td height="88" align="top">
-							<div id="header">
-								<ul>
-									<li>
-										<g:Label ui:field="message"></g:Label>
-									</li>
-									<li>
-										<g:Button ui:field="logBtn" styleName="log"></g:Button>
-									</li>
-								</ul>
-
-								<g:Image resource="{logo}" width="125" height="37" />
-								<g:Image resource="{logo_name}" width="380" height="36" />
-							</div>
-							<div id="header02">
-								<g:Button text="收件箱" ui:field="btnEmail"></g:Button>
-								<g:Button text="广播" ui:field="btnGb"></g:Button>
-								<g:Button text="奖项" ui:field="btnRewardItem"></g:Button>
-								<g:Button text="员工数据" ui:field="btnStaff"></g:Button>
-								<g:Button text="应用奖项" ui:field="btnReward"></g:Button>
-								<g:Button text="设置" ui:field="btnSetting"></g:Button>
-							</div>
-						</td>
-					</tr>
-				</table>
 			</g:HTMLPanel>
 		</g:north>
 		<g:south size="27">
 			<g:HTMLPanel>
-				<table width="100%" border="0" cellpadding="0" cellspacing="0">
-					<tr>
-						<td height="27">
-							<div id="footer">深圳积享通信息技术有限公司</div>
-						</td>
-					</tr>
-				</table>
+				  <div class="{new2.footer}" id="footer">
+				    <div class="{new2.footer-line}"></div>
+					    <div class="{new2.footer-wrap}">
+						      <div class="{new2.copyright}">
+						        <p>版权   所有深圳积享通信息技术有限公司  粤ICP备09007295</p>
+						        <p>电话：0755-82671268   传真：0755-86271610</p>
+						      </div>
+					    </div>
+				  </div>
 			</g:HTMLPanel>
 		</g:south>
 		<g:west size="259">
 			<g:HTMLPanel>
 				<table width="100%" height="100%" border="0" cellspacing="0"
-					cellpadding="0" id="container">
+					cellpadding="0" id="container" >
 					<tr>
 						<!-- menu -->
 						<td width="250" valign="top" height="100%">
@@ -132,6 +106,24 @@
 						</td>
 					</tr>
 				</table>
+				
+				  <div class="{new2.content} {new2.clearfix}" style="display:none">
+				    <div class="{new2.sidebar}">
+				      <div class="{new2.title}" id="title"></div>
+				      <div class="{new2.list-top}" id="list_top"></div>
+				      
+				      <ul class="{new2.list-content}" id="list_content">
+				        <li class="{new2.selected}"><a href="#">广播列表(<span>20</span>)</a></li>
+				        <li><a href="#">发送新广播</a></li>
+				        <li><a href="#">员工广播列表(<span>15</span>)</a></li>
+				      </ul>
+				      
+				      <div class="{new2.list-bottom}" id="list_bottom"></div>
+				    </div>
+				    <div class="{new2.frameContent}">
+				     
+				    </div>
+				  </div>
 			</g:HTMLPanel>
 		</g:west>
 

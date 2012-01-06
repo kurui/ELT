@@ -3,42 +3,55 @@
 	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:d='urn:import:com.google.gwt.user.datepicker.client'
 	xmlns:c="urn:import:com.google.gwt.user.cellview.client">
 	<ui:style src="myMain.css"></ui:style>
+	<ui:style src="new2.css" field="new2"></ui:style>
 	<g:HTMLPanel>
-		<div class="{style.center}" style="width:778px;">
-			<div class="{style.fmtable}">
-  				<table width="100%" border="0" cellspacing="0" cellpadding="0">
-					<tr>
-					<!--  	<td class="{style.title}">部门：</td>
-						<td>
-							<g:FlowPanel ui:field="deptPanel"/>
-						</td>-->
-						<td class="{style.title}">搜索条件(名称)：</td>
-						<td class="{style.intext2}">
-							<g:TextBox ui:field="name"></g:TextBox>
-						</td>
-						<td class="{style.caozuo}">
-							<g:Button ui:field="searchBtn" styleName="button-search">查询</g:Button>
-							<g:Button ui:field="resetBtn" styleName="button-search">重置</g:Button>
-						</td>
-					</tr>
-				</table>
+		<div class="{new2.frame-wrap}" style="width:600px;">
+			<!--查询条件 [[ -->
+			<div class="{new2.query-wrap}">
+				<div class="{new2.form}">
+					<label for="">搜索条件(名称)：</label>
+					<g:TextBox ui:field="name" styleName="{new2.text}" />
+
+
+					<span class="{new2.btn}">
+						<g:Button ui:field="searchBtn" text="查询" />
+					</span>
+					<span class="{new2.btn}">
+						<g:Button ui:field="resetBtn" text="重置" />
+					</span>
+				</div>
 			</div>
-			<div class="{style.listtable}">
-				<g:FlowPanel ui:field="result"></g:FlowPanel>
+			<!--查询条件 ]] -->
+
+
+			<span class="{new2.cutline}"></span>
+
+			<div class="{new2.table}">
+				<g:FlowPanel ui:field="result" />
 			</div>
-			<div class="{style.listtable}">
-				<table width="100%">
-					<tr>
-						<td>准备添加的员工：</td>
-						<td><g:FlowPanel ui:field="specialBoxPanel" /></td>
-					</tr>
-				</table>
+
+
+
+			<g:FlowPanel ui:field="resultpage" />
+
+			<g:InlineLabel  ui:field="addLabel" text="准备添加的员工：" styleName="{new2.label}" />
+			<g:FlowPanel ui:field="specialBoxPanel" />
+
+
+
+			<div class="{new2.query-wrap}">
+				<div class="{new2.form}">
+			
+
+					<span class="{new2.btn}">
+						<g:Button ui:field="chooseBtn" text="确定"></g:Button>
+					</span>
+					<span class="{new2.btn}">
+						<g:Button ui:field="cancelBtn" text="取消"></g:Button>
+					</span>
+				</div>
 			</div>
-			<div style="height:10px"></div>
-			<div id="post" >
-				<g:Button ui:field="chooseBtn" styleName="button-ok" text="确定"></g:Button>
-				<g:Button ui:field="cancelBtn" styleName="button-cancel" text="取消"></g:Button>
-			</div>
+
 		</div>
 	</g:HTMLPanel>
 </ui:UiBinder>

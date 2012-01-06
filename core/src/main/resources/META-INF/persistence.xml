@@ -50,7 +50,8 @@
 		<class>com.chinarewards.elt.tx.domain.Transaction</class>
 		<class>com.chinarewards.elt.tx.domain.TransactionDetail</class>
 		<class>com.chinarewards.elt.tx.domain.TxUnit</class>
-
+        <!-- gift -->
+        <class>com.chinarewards.elt.domain.gift.Gift</class>
 		<properties>
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver" />

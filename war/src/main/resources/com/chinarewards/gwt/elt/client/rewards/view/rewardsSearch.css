@@ -1,4 +1,7 @@
 @CHARSET "UTF-8";
+
+.menu,.menu span,.menu-on,.menu-on span,.status-arrow,.list-top,.list-bottom,.btn,.btn button,.back-btn{background:url("../images/elt.png") no-repeat;}
+.sidebar .title,.cutline,.footer-line{background:url(""../images/elt_repeat.png") repeat-x;}
 @external .button-search,.button-rewards;
 	
 @sprite .button-rewards{ padding-left:10px;gwt-image:"button_add"; border:1px solid #9eb5c2; background-color:#e4f6ff; font-size:12px; color:#123b5e; width:80px; height:22px; line-height:22px; cursor:pointer}
@@ -18,3 +21,21 @@
 #post button{ margin-left:15px;}
 
 div.center{ width:428px;border-bottom:none; padding:10px; background-color:#fff; color:#444; font-size:14px; line-height:18px;}
+
+/*button*/
+.btn{background-position:-194px -58px;padding-left:5px;display:inline-block;}
+.btnbutton{background-position:right -58px;border:none;overflow:visible;padding:0 10px 0 5px;display:inline-block;height:25px;line-height:25px;color:#FFFFFF;}
+.btn button{background-position:right -58px;border:none;overflow:visible;padding:0 10px 0 5px;display:inline-block;height:25px;line-height:25px;color:#FFFFFF;}
+.back-btn{background-position:0 -90px;display:block;width:69px;height:25px;line-height:25px;padding-left:25px;color:#666666;}
+.back-btn:hover{text-decoration:none;color:#666666;}
+
+
+/*-------------------------------------iframe页面------------------------------------------------------*/
+.frame-wrap{background-color:#F4F4F4;}
+.breadcrumb-wrap:after{content:".";display:block;clear:both;height:0;visibility:hidden;}
+.breadcrumb-wrap{*zoom:1;}
+.breadcrumb-left{float:left;width:50%;}
+.breadcrumb-right{float:right;width:70px;}
+.cutline{background-position:0 0;height:2px;display:block;margin:10px 0;}
+.query-wrap{background-color:#D8ECC1;border:1px solid #B8DA8E;padding:1px 15px;}
+.send-news{margin:10px 0;}

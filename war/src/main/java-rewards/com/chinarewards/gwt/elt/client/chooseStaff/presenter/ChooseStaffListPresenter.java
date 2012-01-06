@@ -42,12 +42,15 @@ public interface ChooseStaffListPresenter extends
 		SpecialTextArea<StaffClient> getSpecialTextBox();
 
 		Panel getResultPanel();
+		Panel getResultpage();
 
 	//	String getDeptId();
 
 		
 		void hiddenSpecialBoxPanel();
 		void hiddenChooseBtn();
+		void hiddenAddLabel();
+		
 		void setCancelBtnText(String text);
 		
 		

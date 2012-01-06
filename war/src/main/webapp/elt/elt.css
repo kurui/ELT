@@ -1285,8 +1285,8 @@ width:15px;
   border:none;
   border-top: 1px solid #9bb1be;
   font-size: 12px;
-  background-image: url(images/private/nav_sec.jpg);
-  background-color: #e4f6ff; 
+  background-image: url(images/private/nav_dau.jpg);
+  background-color:#EAEAEA;
   padding:0px 0 0 33px; 
   margin:0; 
   width: 100%; 
@@ -1296,7 +1296,7 @@ width:15px;
   overflow:hidden; 
   clear:both; 
   cursor:pointer;
-  color:#fff;
+  color:green;
   text-align:left;
 }
 

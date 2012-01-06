@@ -128,7 +128,7 @@ public class ChooseStaffListPresenterImpl extends
 		resultTable.setPageStart(0);
 		display.getResultPanel().clear();
 		display.getResultPanel().add(resultTable);
-		display.getResultPanel().add(simplePager);
+		display.getResultpage().add(simplePager);
 	}
 
 	private SingleSelectionModel<StaffClient> setSelectionModel(
@@ -247,11 +247,18 @@ public class ChooseStaffListPresenterImpl extends
 	@Override
 	public void initChooseList(InitChooseListParam initChooseListParam) {
 		if (initChooseListParam.isHiddenSpecialBoxPanel())
+		{
 			display.hiddenSpecialBoxPanel();
+			display.hiddenAddLabel();
+		}
 		if (initChooseListParam.isHiddenChooseBtn())
+		{
 			display.hiddenChooseBtn();
+		}
 		if (initChooseListParam.getCancelBtnText() != null)
+		{
 			display.setCancelBtnText(initChooseListParam.getCancelBtnText());
+		}
 	}
 
 }

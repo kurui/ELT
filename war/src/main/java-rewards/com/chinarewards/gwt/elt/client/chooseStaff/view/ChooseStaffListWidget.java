@@ -16,16 +16,18 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
-public class ChooseStaffListWidget extends Composite implements	ChooseStaffListDisplay {
+public class ChooseStaffListWidget extends Composite implements
+		ChooseStaffListDisplay {
 
-//	@UiField
-//	Panel deptPanel;
-//
+	// @UiField
+	// Panel deptPanel;
+	//
 	@UiField
 	TextBox name;
 
@@ -35,7 +37,6 @@ public class ChooseStaffListWidget extends Composite implements	ChooseStaffListD
 	@UiField
 	Button resetBtn;
 
-	
 	@UiField
 	Button chooseBtn;
 
@@ -44,14 +45,17 @@ public class ChooseStaffListWidget extends Composite implements	ChooseStaffListD
 
 	@UiField
 	Panel result;
-
+	@UiField
+	Panel resultpage;
 	@UiField
 	Panel specialBoxPanel;
-
+	@UiField
+	InlineLabel addLabel;
+	
 	SpecialTextArea<StaffClient> textBox;
 
 	// is inject
-	//final DepartmentComboTree deptCombo;
+	// final DepartmentComboTree deptCombo;
 
 	interface ChooseStaffListWidgetBinder extends
 			UiBinder<Widget, ChooseStaffListWidget> {
@@ -65,8 +69,9 @@ public class ChooseStaffListWidget extends Composite implements	ChooseStaffListD
 			ErrorHandler errorHandler, SessionManager sessionManager) {
 		initWidget(uiBinder.createAndBindUi(this));
 		initSpecialTextBox();
-	//	this.deptCombo = new DepartmentComboTree(dispatch, errorHandler,sessionManager);
-	//	deptPanel.add(deptCombo);
+		// this.deptCombo = new DepartmentComboTree(dispatch,
+		// errorHandler,sessionManager);
+		// deptPanel.add(deptCombo);
 	}
 
 	private void initSpecialTextBox() {
@@ -96,7 +101,7 @@ public class ChooseStaffListWidget extends Composite implements	ChooseStaffListD
 	@Override
 	public void reset() {
 		name.setValue("");
-		//deptCombo.setDefaultValue(null);
+		// deptCombo.setDefaultValue(null);
 	}
 
 	@Override
@@ -121,26 +126,37 @@ public class ChooseStaffListWidget extends Composite implements	ChooseStaffListD
 
 	@Override
 	public void hiddenSpecialBoxPanel() {
-		this.specialBoxPanel.getElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
-		
+		this.specialBoxPanel.getElement().addClassName(CssStyleConstants.hidden);
+
 	}
 
 	@Override
 	public void hiddenChooseBtn() {
 		this.chooseBtn.getElement().addClassName(CssStyleConstants.hidden);
-		
+
 	}
 
 	@Override
 	public void setCancelBtnText(String text) {
 		this.cancelBtn.setText(text);
+
+	}
+
+	@Override
+	public Panel getResultpage() {
+		return resultpage;
+	}
+
+	@Override
+	public void hiddenAddLabel() {
+		this.addLabel.getElement().addClassName(CssStyleConstants.hidden);
 		
 	}
 
-//	@Override
-//	public String getDeptId() {
-//		return null;//deptCombo.getSelectedItem() != null ? deptCombo
-//				//.getSelectedItem().getId() : null;
-//	}
+	// @Override
+	// public String getDeptId() {
+	// return null;//deptCombo.getSelectedItem() != null ? deptCombo
+	// //.getSelectedItem().getId() : null;
+	// }
 
 }
