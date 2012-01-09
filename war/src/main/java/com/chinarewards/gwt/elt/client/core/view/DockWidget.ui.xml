@@ -21,8 +21,7 @@
 	<ui:image field="footer" resource="footer.jpg" repeatStyle="Horizontal"></ui:image>
 	<!-- new -->
 	<ui:image field="logo_new" resource="logo_new.png" ></ui:image>
-	<ui:image field="elt" resource="elt.png" ></ui:image>
-	<ui:image field="elt_repeat" resource="elt_repeat.png" repeatStyle="Horizontal"></ui:image>
+
 	<ui:style src="index.css"></ui:style>
 	<ui:style src="new2.css" field="new2"></ui:style>
 	<g:DockLayoutPanel ui:field="dock" unit='PX'>
