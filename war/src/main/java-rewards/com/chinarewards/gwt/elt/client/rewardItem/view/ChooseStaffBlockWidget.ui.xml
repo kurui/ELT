@@ -7,10 +7,10 @@
 	<ui:style src="staffBlock.css" ></ui:style>
 	<ui:style src="elt_min.css" field="newitem"></ui:style>
 	
-	<g:HTMLPanel ui:field="select1" styleName="{newitem.frame-wrap}">
+	<g:HTMLPanel ui:field="select1" >
 		
 	
-		<table border="0" cellspacing="0" cellpadding="0" class="{newitem.form}">
+		<table border="0" cellspacing="0" cellpadding="0" width="100%">
             <tr>
             	<td valign="top" class="{style.title}" ><span>*</span> 候选人员：</td>
 		        <td class="{style.intext}">

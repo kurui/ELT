@@ -18,7 +18,7 @@
          </div>
 				<!-- 1内容 -->
                 <div class="{newitem.content-wrap}">    
-                     <table width="70%" border="0" cellspacing="0" cellpadding="0" class="{newitem.form}">
+                     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="{newitem.form}">
                       <tr class="{newitem.form-line}">
                         <td class="{newitem.label}"><span>*</span> 奖项名称：</td>
                         <td class="{newitem.element}" ><g:TextBox ui:field="rewardsName" styleName="{newitem.text}"/></td>
@@ -53,12 +53,12 @@
                       <tbody id="tm">
                       <tr class="{newitem.form-line}">
 		               <td valign="top" class="{newitem.label}"> 提名人：</td>
-		               <td class="{newitem.element}"><g:FlowPanel ui:field="staffAreaPanel" width="250" /></td>
-		               <td><span class="{newitem.btn}"><g:Button ui:field="chooseBtns" styleName="">选择</g:Button></span></td>
+		               <td class="{newitem.element}" ><g:FlowPanel ui:field="staffAreaPanel" width="250" /><span class="{newitem.btn}"><g:Button ui:field="chooseBtns" styleName="">选择</g:Button></span></td>
+		               <td></td>
 				       </tr>
 				       </tbody>
-                     <tr class="{newitem.form-line}">
-                        <td colspan="3" class="{newitem.element2}"><g:FlowPanel ui:field="staffPanel"/> </td>                     
+                     <tr >
+                        <td colspan="3" align="center"><g:FlowPanel ui:field="staffPanel"/> </td>                     
                       </tr>
                      
 					 <tr class="{newitem.form-line}">
