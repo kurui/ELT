@@ -92,6 +92,7 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 
 		display.getResultPanel().clear();
 		display.getResultPanel().add(cellTable);
+		display.getResultpage().clear();
 		display.getResultpage().add(pager);
 	}
 
