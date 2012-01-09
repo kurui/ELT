@@ -2,6 +2,8 @@ package com.chinarewards.gwt.elt.client.gift.presenter;
 
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
@@ -76,6 +78,10 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 	}
 
 	private void init() {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("xxx", "未上架");
+		map.put("yyy", "上架");
+		display.initGiftStatus(map);
 		buildTable();
 		doSearch();
 	}
@@ -98,20 +104,9 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 
 	private void doSearch() {
 		RewardsCriteria criteria = new RewardsCriteria();
-		criteria.setName(display.getName().getValue());
+
 		criteria.setDefinition(display.getDefinition().getValue());
-		if (display.getNowJudge().getValue()) {
-			criteria.setJudgeUserId(sessionManager.getSession().getToken());
-		}
-		if (pageType == RewardPageType.NOMINATEPAGE) {
-			criteria.setStatus(RewardsStatus.PENDING_NOMINATE);
-		}
-		if (pageType == RewardPageType.AWARDREWARDPAGE) {
-			criteria.setStatus(RewardsStatus.NEW);
-		}
-		if (pageType == RewardPageType.DETAILSOFAWARDPAGE) {
-			criteria.setStatus(RewardsStatus.REWARDED);
-		}
+
 		listViewAdapter = new RewardsListViewAdapter(dispatch, criteria,
 				errorHandler, sessionManager);
 		listViewAdapter.addDataDisplay(cellTable);
