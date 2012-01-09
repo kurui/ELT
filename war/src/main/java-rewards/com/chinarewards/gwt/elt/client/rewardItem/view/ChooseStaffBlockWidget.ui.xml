@@ -10,13 +10,13 @@
 	<g:HTMLPanel ui:field="select1" styleName="{newitem.frame-wrap}">
 		
 	  
-		<table border="0" cellspacing="0" cellpadding="0" width="100%" class="{newitem.form}">
+		<table border="0" cellspacing="0" cellpadding="0" width="100%" >
            
-            <tr class="{newitem.form-line}">
+            <tr >
             	<td colspan="3" >
             		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="{newitem.form}">
             			 <tr class="{newitem.form-line}">
-				              <td  class="{newitem.label}" ><span>*</span> 候选人员：</td>
+				              <td  class="{newitem.label}" ><span>*</span> 获奖对象：</td>
 				              <td class="{newitem.element}" >
 				               		<g:RadioButton ui:field="everyoneRbtn" name="chooseRadio">全体员工</g:RadioButton>
 						            <g:RadioButton ui:field="someoneRbtn" name="chooseRadio">以下部门/员工</g:RadioButton>
@@ -27,7 +27,7 @@
             		</table>
             	</td>
             </tr>
-            <tr class="{newitem.form-line}">
+            <tr >
             	<td colspan="3" >
             		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="{newitem.form}">
             			 <tr class="{newitem.form-line}">
@@ -40,7 +40,7 @@
 				         </tr>
 				         <tr class="{newitem.form-line}">
 				               <td  class="{newitem.label}">合格人选：</td>
-				               <td class="{newitem.element}" width="300px"><g:FlowPanel ui:field="staffTextAreaPanel"/> </td>
+				               <td class="{newitem.element}"><g:FlowPanel ui:field="staffTextAreaPanel" /> </td>
 				               
 				         </tr>
             		</table>
