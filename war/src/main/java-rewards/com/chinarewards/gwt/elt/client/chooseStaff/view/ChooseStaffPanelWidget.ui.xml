@@ -15,10 +15,12 @@
 					<g:InlineLabel text="合格人选：" ui:field="topName"
 						styleName="{new2.label}" />
 					<div class="{new2.element}">
-						<g:FlowPanel ui:field="staffTextAreaPanel" />
-						<span class="{new2.btn}">
+						<g:FlowPanel ui:field="staffTextAreaPanel" />	
+						<span class="{new2.nbsp}"></span>
+						<span class="{new2.btn}" >
 							<g:Button ui:field="chooseBtn" text="选择"></g:Button>
 						</span>
+						<div style="clear:both"></div>
 					</div>
 				</div>
 			</div>
