@@ -27,12 +27,17 @@
 			<!--查询条件 [[ -->
 			<div class="{new2.query-wrap}">
 				<div class="{new2.form}">
-					<label for="">奖励名称:</label>
+					<label for="">奖励名称:</label><span class="{new2.nbsp}"></span>
 					<g:TextBox ui:field="rewardsName" styleName="{new2.text}" />
+					<span class="{new2.nbspbig}"></span>
 					<label for="">说明:</label>
+					<span class="{new2.nbsp}"></span>
 					<g:TextBox ui:field="definition" styleName="{new2.text}" />
+					<span class="{new2.nbspbig}"></span>
 					<g:CheckBox ui:field="nowJudge" />
+					<span class="{new2.nbsp}"></span>
 					<label for="">当前用户数据</label>
+					<span class="{new2.nbspbig}"></span>
 					<span class="{new2.btn}">
 						<g:Button ui:field="searchBtn" text="搜索" />
 					</span>

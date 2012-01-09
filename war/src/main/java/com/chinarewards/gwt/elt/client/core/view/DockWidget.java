@@ -5,13 +5,9 @@ import java.util.Date;
 import com.chinarewards.gwt.elt.client.core.presenter.DockPresenter.DockDisplay;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.event.dom.client.MouseDownEvent;
-import com.google.gwt.event.dom.client.MouseDownHandler;
-import com.google.gwt.event.dom.client.MouseOutEvent;
-import com.google.gwt.event.dom.client.MouseOutHandler;
-import com.google.gwt.event.dom.client.MouseOverEvent;
-import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -50,7 +46,7 @@ public class DockWidget extends Composite implements DockDisplay {
 	Anchor btnStaff;
 	@UiField
 	Anchor btnSetting;
-	
+
 	@UiField
 	InlineLabel menuTitle;
 
@@ -80,26 +76,80 @@ public class DockWidget extends Composite implements DockDisplay {
 	}
 
 	private void init() {
-		logBtn.addMouseOverHandler(new MouseOverHandler() {
-			@Override
-			public void onMouseOver(MouseOverEvent event) {
-				logBtn.setStyleName("log-over");
-			}
-		});
-		logBtn.addMouseDownHandler(new MouseDownHandler() {
+
+		btnReward.addClickHandler(new ClickHandler() {
 
 			@Override
-			public void onMouseDown(MouseDownEvent event) {
-				logBtn.setStyleName("log-down");
+			public void onClick(ClickEvent event) {
+				btnReward.setStyleName("GDNKKEDNK GDNKKEDOK");
+				btnEmail.setStyleName("GDNKKEDNK");
+				btnGb.setStyleName("GDNKKEDNK");
+				btnRewardItem.setStyleName("GDNKKEDNK");
+				btnStaff.setStyleName("GDNKKEDNK");
+				btnSetting.setStyleName("GDNKKEDNK");
 			}
 		});
-		logBtn.addMouseOutHandler(new MouseOutHandler() {
+		btnEmail.addClickHandler(new ClickHandler() {
 
 			@Override
-			public void onMouseOut(MouseOutEvent event) {
-				logBtn.setStyleName("log");
+			public void onClick(ClickEvent event) {
+				btnReward.setStyleName("GDNKKEDNK");
+				btnEmail.setStyleName("GDNKKEDNK GDNKKEDOK");
+				btnGb.setStyleName("GDNKKEDNK");
+				btnRewardItem.setStyleName("GDNKKEDNK");
+				btnStaff.setStyleName("GDNKKEDNK");
+				btnSetting.setStyleName("GDNKKEDNK");
 			}
 		});
+		btnGb.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				btnReward.setStyleName("GDNKKEDNK");
+				btnEmail.setStyleName("GDNKKEDNK");
+				btnGb.setStyleName("GDNKKEDNK GDNKKEDOK");
+				btnRewardItem.setStyleName("GDNKKEDNK");
+				btnStaff.setStyleName("GDNKKEDNK");
+				btnSetting.setStyleName("GDNKKEDNK");
+			}
+		});
+		btnRewardItem.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				btnReward.setStyleName("GDNKKEDNK");
+				btnEmail.setStyleName("GDNKKEDNK");
+				btnGb.setStyleName("GDNKKEDNK");
+				btnRewardItem.setStyleName("GDNKKEDNK GDNKKEDOK");
+				btnStaff.setStyleName("GDNKKEDNK");
+				btnSetting.setStyleName("GDNKKEDNK");
+			}
+		});
+		btnStaff.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				btnReward.setStyleName("GDNKKEDNK");
+				btnEmail.setStyleName("GDNKKEDNK");
+				btnGb.setStyleName("GDNKKEDNK");
+				btnRewardItem.setStyleName("GDNKKEDNK");
+				btnStaff.setStyleName("GDNKKEDNK GDNKKEDOK");
+				btnSetting.setStyleName("GDNKKEDNK");
+			}
+		});
+		btnSetting.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				btnReward.setStyleName("GDNKKEDNK");
+				btnEmail.setStyleName("GDNKKEDNK");
+				btnGb.setStyleName("GDNKKEDNK");
+				btnRewardItem.setStyleName("GDNKKEDNK");
+				btnStaff.setStyleName("GDNKKEDNK");
+				btnSetting.setStyleName("GDNKKEDNK GDNKKEDOK");
+			}
+		});
+
 	}
 
 	@Override
