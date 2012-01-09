@@ -263,6 +263,82 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 			}
 
 		});
+		//只能输入数字
+		peopleSizeLimit.addValueChangeHandler(new ValueChangeHandler<String>() {
+			@Override
+			public void onValueChange(ValueChangeEvent<String> event) {
+				if (event.getValue() != null&& !event.getValue().equals("")) {
+					try 
+					{ 
+					    int   val=Integer.parseInt(event.getValue()); 
+					} 
+					catch(Exception   e) 
+					{ 
+						peopleSizeLimit.setValue("");
+					}
+				} 
+			}
+		});
+		totalJF.addValueChangeHandler(new ValueChangeHandler<String>() {
+			@Override
+			public void onValueChange(ValueChangeEvent<String> event) {
+				if (event.getValue() != null&& !event.getValue().equals("")) {
+					try 
+					{ 
+					    int   val=Integer.parseInt(event.getValue()); 
+					} 
+					catch(Exception   e) 
+					{ 
+						totalJF.setValue("");
+					}
+				} 
+			}
+		});
+		rewardsFrom.addValueChangeHandler(new ValueChangeHandler<String>() {
+			@Override
+			public void onValueChange(ValueChangeEvent<String> event) {
+				if (event.getValue() != null&& !event.getValue().equals("")) {
+					try 
+					{ 
+					    int   val=Integer.parseInt(event.getValue()); 
+					} 
+					catch(Exception   e) 
+					{ 
+						rewardsFrom.setValue("");
+					}
+				} 
+			}
+		});
+		tmdays.addValueChangeHandler(new ValueChangeHandler<String>() {
+			@Override
+			public void onValueChange(ValueChangeEvent<String> event) {
+				if (event.getValue() != null&& !event.getValue().equals("")) {
+					try 
+					{ 
+					    int   val=Integer.parseInt(event.getValue()); 
+					} 
+					catch(Exception   e) 
+					{ 
+						tmdays.setValue("");
+					}
+				} 
+			}
+		});
+		tmday.addValueChangeHandler(new ValueChangeHandler<String>() {
+			@Override
+			public void onValueChange(ValueChangeEvent<String> event) {
+				if (event.getValue() != null&& !event.getValue().equals("")) {
+					try 
+					{ 
+					    int   val=Integer.parseInt(event.getValue()); 
+					} 
+					catch(Exception   e) 
+					{ 
+						tmday.setValue("");
+					}
+				} 
+			}
+		});
 	}
 //	public native void show() /*-{
 //       $wnd.alert("dd");
