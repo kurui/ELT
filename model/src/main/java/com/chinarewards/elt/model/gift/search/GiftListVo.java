@@ -1,11 +1,21 @@
-package com.chinarewards.gwt.elt.client.gift.model;
+package com.chinarewards.elt.model.gift.search;
 
 import java.io.Serializable;
 import java.util.Date;
 
+import com.chinarewards.elt.model.common.PaginationDetail;
+import com.chinarewards.elt.model.common.SortingDetail;
 
-public class GiftVo implements Serializable {
+public class GiftListVo implements Serializable {
+	/**
+	 * The paging detail, contains the info it requires.
+	 */
+	private PaginationDetail paginationDetail;
 
+	/**
+	 * Sorting detail.
+	 */
+	private SortingDetail sortingDetail;
 	private String id;
     private String name;       //礼品名
     private String explains;   //说明
@@ -19,8 +29,11 @@ public class GiftVo implements Serializable {
     private boolean status;    //状态（上下架）
     private boolean deleted;   //删除状态
     private Date    indate ;      //有效截止期
-   
-	public GiftVo() {
+    private Date    recorddate;   //录入时间
+    private String  recorduser; //录入人
+    private Date    updatetime;  //修改时间
+	
+	public GiftListVo() {
 	}
 
 	public String getName() {
@@ -111,7 +124,30 @@ public class GiftVo implements Serializable {
 		this.indate = indate;
 	}
 
-	
+	public Date getRecorddate() {
+		return recorddate;
+	}
+
+	public void setRecorddate(Date recorddate) {
+		this.recorddate = recorddate;
+	}
+
+	public String getRecorduser() {
+		return recorduser;
+	}
+
+	public void setRecorduser(String recorduser) {
+		this.recorduser = recorduser;
+	}
+
+	public Date getUpdatetime() {
+		return updatetime;
+	}
+
+	public void setUpdatetime(Date updatetime) {
+		this.updatetime = updatetime;
+	}
+
 	
 	public String getId() {
 		return this.id;
@@ -129,6 +165,20 @@ public class GiftVo implements Serializable {
 		this.address = address;
 	}
 
-	
+	public PaginationDetail getPaginationDetail() {
+		return paginationDetail;
+	}
+
+	public void setPaginationDetail(PaginationDetail paginationDetail) {
+		this.paginationDetail = paginationDetail;
+	}
+
+	public SortingDetail getSortingDetail() {
+		return sortingDetail;
+	}
+
+	public void setSortingDetail(SortingDetail sortingDetail) {
+		this.sortingDetail = sortingDetail;
+	}
 
 }

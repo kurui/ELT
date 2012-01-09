@@ -1,25 +1,19 @@
 package com.chinarewards.elt.service.gift;
 
 import com.chinarewards.elt.domain.gift.Gift;
+import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.gift.search.GiftListVo;
 import com.chinarewards.elt.model.user.UserContext;
 
-/**
- * Service of corporation.
- * 
- * @author lw
- * @since 1.5
- */
-public interface GiftService {
-
+public interface GiftLogic {
 	/**
 	 * 保存
 	 * @param context
 	 * @param gift
 	 * @return
 	 */
-	public Gift save(UserContext context, Gift gift);
+	public Gift save(SysUser caller, Gift gift);
 
 	/**
 	 * 查找根据ID
@@ -39,7 +33,7 @@ public interface GiftService {
 	 * @param gift
 	 * @return
 	 */
-	public PageStore<GiftListVo> giftList(UserContext context,GiftListVo giftVo);
+	public PageStore<GiftListVo> giftList(SysUser caller,GiftListVo giftVo);
 
 	/**
 	 * 上下架
@@ -48,3 +42,5 @@ public interface GiftService {
 	 */
 	public String updateStatus(String id,boolean status);
 }
+
+
