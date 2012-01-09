@@ -55,6 +55,7 @@ public class ChooseStaffBlockPresenterImpl extends
 
 	private void initSuggestion() {
 		final TextBox suggestTextBox = new TextBox();
+		suggestTextBox.getElement().setAttribute("style", "float:left;");
 		SuggestOracle suggest = new OrganizationSuggestOracle(dispatcher,sessionManager);
 		final SuggestBox box = new SuggestBox(suggest, suggestTextBox);
 		box.addSelectionHandler(new SelectionHandler<SuggestOracle.Suggestion>() {
@@ -76,7 +77,9 @@ public class ChooseStaffBlockPresenterImpl extends
 		box.setFocus(true);
 		box.setStyleName("text");
 		display.getSuggestBoxPanel().add(box);
-		display.getSuggestBoxPanel().add(new Label("可输入员工/部门名称后按回车"));
+		Label label = new Label("可输入员工/部门名称后按回车");
+		label.getElement().setAttribute("style", "float:left;");
+		display.getSuggestBoxPanel().add(label);
 	}
 
 	public void bind() {

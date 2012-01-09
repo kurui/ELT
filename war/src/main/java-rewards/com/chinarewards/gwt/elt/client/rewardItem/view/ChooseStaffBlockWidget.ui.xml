@@ -7,37 +7,46 @@
 	<ui:style src="staffBlock.css" ></ui:style>
 	<ui:style src="elt_min.css" field="newitem"></ui:style>
 	
-	<g:HTMLPanel ui:field="select1" >
+	<g:HTMLPanel ui:field="select1" styleName="{newitem.frame-wrap}">
 		
-	
-		<table border="0" cellspacing="0" cellpadding="0" width="100%">
-            <tr>
-            	<td valign="top" class="{style.title}" ><span>*</span> 候选人员：</td>
-		        <td class="{style.intext}">
-			            <g:RadioButton ui:field="everyoneRbtn" name="chooseRadio">全体员工</g:RadioButton>
-						<g:RadioButton ui:field="someoneRbtn" name="chooseRadio">以下部门/员工</g:RadioButton>
-				</td>
-				<td><div style="width:100px"></div></td>		
-            </tr>
-            <tr>
-            	<td colspan="3" id="noPaddingTd">
+	   <div class="{newitem.content-wrap}">  
+		<table border="0" cellspacing="0" cellpadding="0" width="100%" class="{newitem.form}">
+           
+            <tr class="{newitem.form-line}">
+            	<td colspan="3" >
             		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="{newitem.form}">
-            			 <tr>
-				              <td valign="top" class="{style.title}" ><span>*</span> 快速选择：</td>
-				              <td class="{style.intext}" id="specialTextCss">
-				               		<g:HorizontalPanel ui:field="suggestBoxPanel"/>
+            			 <tr class="{newitem.form-line}">
+				              <td  class="{newitem.label}" ><span>*</span> 候选人员：</td>
+				              <td class="{newitem.element}" >
+				               		<g:RadioButton ui:field="everyoneRbtn" name="chooseRadio">全体员工</g:RadioButton>
+						<g:RadioButton ui:field="someoneRbtn" name="chooseRadio">以下部门/员工</g:RadioButton>
 				              </td>
-				              <td> <div style="width:100px"></div> <span class="{newitem.btn}"> <g:Button ui:field="chooseBtn" styleName="">选择</g:Button></span></td>
+				             
 				         </tr>
-				         <tr>
-				               <td valign="top" class="{style.title}">合格人选：</td>
-				               <td class="{style.intext}"><g:FlowPanel ui:field="staffTextAreaPanel"/> </td>
-				               <td></td>
+				         
+            		</table>
+            	</td>
+            </tr>
+            <tr class="{newitem.form-line}">
+            	<td colspan="3" >
+            		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="{newitem.form}">
+            			 <tr class="{newitem.form-line}">
+				              <td  class="{newitem.label}" ><span>*</span> 快速选择：</td>
+				              <td class="{newitem.element}" id="specialTextCss" width="300px" >
+				               		<g:HorizontalPanel ui:field="suggestBoxPanel" styleName="{newitem.element2}"/>
+				               		<span class="{newitem.btn}"> <g:Button ui:field="chooseBtn" styleName="">选择</g:Button></span>
+				              </td>
+				             
+				         </tr>
+				         <tr class="{newitem.form-line}">
+				               <td  class="{newitem.label}">合格人选：</td>
+				               <td class="{newitem.element}" width="300px"><g:FlowPanel ui:field="staffTextAreaPanel"/> </td>
+				               
 				         </tr>
             		</table>
             	</td>
             </tr>
         </table>
-        
+        </div>
 	</g:HTMLPanel>
 </ui:UiBinder>

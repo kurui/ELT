@@ -32,6 +32,7 @@ public abstract class SpecialTextArea<T> extends Composite {
 		panel.add(list);
 		panel.getElement().setAttribute("onclick",
 				"document.getElementById('suggestion_box').focus()");
+		panel.getElement().setAttribute("style", "float:left;");
 
 		final TextBox itemBox = new TextBox();
 		itemBox.getElement().setId("suggestion_box");
