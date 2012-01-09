@@ -27,17 +27,27 @@
 			<!--查询条件 [[ -->
 			<div class="{new2.query-wrap}">
 				<div class="{new2.form}">
-					<label for="">礼品状态:</label><span class="{new2.nbsp}"></span>
+					<label for="">礼品状态:</label>
+					<span class="{new2.nbsp}"></span>
 					<g:ListBox ui:field="status" />
 					<span class="{new2.nbspbig}"></span>
-			
+
 					<span class="{new2.nbsp}"></span>
 					<g:TextBox ui:field="keyName" styleName="{new2.text}" />
 					<span class="{new2.nbspbig}"></span>
-					<span class="{new2.nbsp}"></span>
 					<span class="{new2.nbspbig}"></span>
 					<span class="{new2.btn}">
 						<g:Button ui:field="searchBtn" text="搜索" />
+					</span>
+					<span class="{new2.nbspbig}"></span>
+					<span class="{new2.nbspbig}"></span>
+					<span class="{new2.nbspbig}"></span>
+					<span class="{new2.btn}">
+						<g:Button ui:field="addBtn" text="添加新礼品" />
+					</span>
+					<span class="{new2.nbsp}"></span>
+					<span class="{new2.btn}">
+						<g:Button ui:field="importingBtn" text="导入" />
 					</span>
 				</div>
 			</div>

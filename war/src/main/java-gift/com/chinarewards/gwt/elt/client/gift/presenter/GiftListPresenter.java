@@ -15,6 +15,8 @@ public interface GiftListPresenter extends Presenter<GiftListPresenter.GiftListD
 	public static interface GiftListDisplay extends Display {
 
 		public HasClickHandlers getSearchBtnClickHandlers();
+		public HasClickHandlers getAddBtnClickHandlers();
+		public HasClickHandlers getimportingBtnClickHandlers();
 
 		HasValue<String> getKeyName();
 		String getStatus();

@@ -25,6 +25,10 @@ public class GiftListWidget extends Composite implements GiftListDisplay {
 	
 	@UiField
 	Button searchBtn;
+	@UiField
+	Button addBtn;
+	@UiField
+	Button importingBtn;
 	
 	@UiField
 	TextBox keyName;
@@ -75,5 +79,15 @@ public class GiftListWidget extends Composite implements GiftListDisplay {
 			Entry<String, String> entry = it.next();
 			status.addItem(entry.getValue(), entry.getKey());
 		}
+	}
+
+	@Override
+	public HasClickHandlers getAddBtnClickHandlers() {
+		return addBtn;
+	}
+
+	@Override
+	public HasClickHandlers getimportingBtnClickHandlers() {
+		return importingBtn;
 	}
 }

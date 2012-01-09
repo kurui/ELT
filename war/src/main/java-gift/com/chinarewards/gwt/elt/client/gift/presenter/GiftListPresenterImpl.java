@@ -58,8 +58,19 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 		registerHandler(display.getSearchBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
-						// Window.alert(sessionManager.getSession().getLoginName());
 						init();
+					}
+				}));
+		registerHandler(display.getAddBtnClickHandlers().addClickHandler(
+				new ClickHandler() {
+					public void onClick(ClickEvent paramClickEvent) {
+						Window.alert("添加新礼品...实现ing~");
+					}
+				}));
+		registerHandler(display.getimportingBtnClickHandlers().addClickHandler(
+				new ClickHandler() {
+					public void onClick(ClickEvent paramClickEvent) {
+						Window.alert("导入礼品...待实现~");
 					}
 				}));
 	}
