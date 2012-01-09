@@ -50,18 +50,20 @@
 		 <div class="{newitem.table}">
 			<g:FlowPanel ui:field="result"></g:FlowPanel>
 		 </div>
-		 <!--分页 [[-->
-		  <div class="{newitem.pager}">
-		    <div class="{newitem.pager-left}">
-		       <g:FlowPanel ui:field="pager"></g:FlowPanel>
+		 <!--分页 [[ -->
+			<div class="{newitem.pager}">
+				<div class="{newitem.pager-left}">
+					每页显示条数
+					<select class="{newitem.select}">
+						<option>10</option>
+					</select>
+				</div>
 
-		    </div>
-		
-		    <div class="{newitem.pager-right}">
-		      
-		    </div>
-		  </div>
-		  <!--分页 ]]-->
+				<div class="{newitem.pager-right}">
+					<g:FlowPanel ui:field="pager" />
+				</div>
+			</div>
+			<!--分页 ]] -->
 
 	</g:HTMLPanel>
 </ui:UiBinder>

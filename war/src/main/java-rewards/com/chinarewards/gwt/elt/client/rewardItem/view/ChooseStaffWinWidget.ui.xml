@@ -17,15 +17,15 @@
 							<g:TextBox ui:field="name"></g:TextBox>
 						</td>
 						<td class="{style.caozuo}">
-							<g:Button ui:field="searchBtn" styleName="button-search">查询</g:Button>
-							<g:Button ui:field="resetBtn" styleName="button-reset">重置</g:Button>
+							<span class="{new2.btn}"><g:Button ui:field="searchBtn" >查询</g:Button></span>
+							<span class="{new2.btn}"><g:Button ui:field="resetBtn" >重置</g:Button></span>
 						</td>
 					</tr>
 				</div>
 			</div>
 			<span class="{new2.cutline}"></span>
 
-			<div class="{new2.table}">
+			<div >
 				<g:FlowPanel ui:field="result" />
 			</div>
 
