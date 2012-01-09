@@ -27,7 +27,7 @@ public class GiftListWidget extends Composite implements GiftListDisplay {
 	Button searchBtn;
 	
 	@UiField
-	TextBox definition;
+	TextBox keyName;
 	@UiField
 	ListBox status;
 	
@@ -53,8 +53,8 @@ public class GiftListWidget extends Composite implements GiftListDisplay {
 
 
 	@Override
-	public HasValue<String> getDefinition() {
-		return definition;
+	public HasValue<String> getKeyName() {
+		return keyName;
 	}
 
 	@Override

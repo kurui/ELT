@@ -32,7 +32,7 @@
 					<span class="{new2.nbspbig}"></span>
 			
 					<span class="{new2.nbsp}"></span>
-					<g:TextBox ui:field="definition" styleName="{new2.text}" />
+					<g:TextBox ui:field="keyName" styleName="{new2.text}" />
 					<span class="{new2.nbspbig}"></span>
 					<span class="{new2.nbsp}"></span>
 					<span class="{new2.nbspbig}"></span>
