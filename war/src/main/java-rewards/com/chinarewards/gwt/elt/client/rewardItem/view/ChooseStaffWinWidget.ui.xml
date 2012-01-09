@@ -45,6 +45,7 @@
 					<span class="{new2.btn}">
 						<g:Button ui:field="chooseBtn" text="确定"></g:Button>
 					</span>
+					
 					<span class="{new2.btn}">
 						<g:Button ui:field="cancelBtn" text="取消"></g:Button>
 					</span>

@@ -53,7 +53,7 @@
                       <tbody id="tm">
                       <tr class="{newitem.form-line}">
 		               <td valign="top" class="{newitem.label}"> 提名人：</td>
-		               <td class="{newitem.element}" ><g:FlowPanel ui:field="staffAreaPanel" width="250" /><span class="{newitem.btn}"><g:Button ui:field="chooseBtns" styleName="">选择</g:Button></span></td>
+		               <td class="{newitem.element}" ><g:FlowPanel ui:field="staffAreaPanel" width="250" /><span class="{newitem.nbsp}"></span><span class="{newitem.btn}"><g:Button ui:field="chooseBtns" styleName="">选择</g:Button></span></td>
 		               <td></td>
 				       </tr>
 				       </tbody>

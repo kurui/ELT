@@ -9,7 +9,7 @@
 	
 	<g:HTMLPanel ui:field="select1" styleName="{newitem.frame-wrap}">
 		
-	   <div class="{newitem.content-wrap}">  
+	  
 		<table border="0" cellspacing="0" cellpadding="0" width="100%" class="{newitem.form}">
            
             <tr class="{newitem.form-line}">
@@ -19,7 +19,7 @@
 				              <td  class="{newitem.label}" ><span>*</span> 候选人员：</td>
 				              <td class="{newitem.element}" >
 				               		<g:RadioButton ui:field="everyoneRbtn" name="chooseRadio">全体员工</g:RadioButton>
-						<g:RadioButton ui:field="someoneRbtn" name="chooseRadio">以下部门/员工</g:RadioButton>
+						            <g:RadioButton ui:field="someoneRbtn" name="chooseRadio">以下部门/员工</g:RadioButton>
 				              </td>
 				             
 				         </tr>
@@ -34,7 +34,7 @@
 				              <td  class="{newitem.label}" ><span>*</span> 快速选择：</td>
 				              <td class="{newitem.element}" id="specialTextCss" width="300px" >
 				               		<g:HorizontalPanel ui:field="suggestBoxPanel" styleName="{newitem.element2}"/>
-				               		<span class="{newitem.btn}"> <g:Button ui:field="chooseBtn" styleName="">选择</g:Button></span>
+				               		<span class="{newitem.nbsp}"></span><span class="{newitem.btn}"> <g:Button ui:field="chooseBtn" styleName="">选择</g:Button></span>
 				              </td>
 				             
 				         </tr>
@@ -47,6 +47,6 @@
             	</td>
             </tr>
         </table>
-        </div>
+       
 	</g:HTMLPanel>
 </ui:UiBinder>
