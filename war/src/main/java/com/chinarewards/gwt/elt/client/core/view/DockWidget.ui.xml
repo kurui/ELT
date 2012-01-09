@@ -46,7 +46,7 @@
         <li><g:Anchor styleName="{new2.menu}" ui:field="btnGb"><span>广 播</span></g:Anchor></li>
         <li><g:Anchor styleName="{new2.menu} {new2.menu-on}" ui:field="btnRewardItem"> <span>奖 项</span></g:Anchor></li>
         <li><g:Anchor styleName="{new2.menu}" ui:field="btnReward"> <span>应用奖项</span></g:Anchor></li>
-        <li><g:Anchor styleName="{new2.menu}" ><span>兑 换</span></g:Anchor></li>
+        <li><g:Anchor styleName="{new2.menu}" ui:field="btnGift"><span>兑换管理</span></g:Anchor></li>
         <li><g:Anchor styleName="{new2.menu}" ui:field="btnStaff"><span>员工数据</span></g:Anchor></li>
         <li><g:Anchor styleName="{new2.menu}" ><span>预 算</span></g:Anchor></li>
         <li><g:Anchor styleName="{new2.menu}" ui:field="btnSetting"><span>设 置</span></g:Anchor></li>

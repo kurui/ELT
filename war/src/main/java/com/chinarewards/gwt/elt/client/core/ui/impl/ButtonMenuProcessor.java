@@ -123,6 +123,9 @@ public class ButtonMenuProcessor implements MenuProcessor {
 			items.add(UserConstants.MENU_USER_SEARCH);
 		} else if ("Setting".equals(keyname)) {
 			items.add("sample");
+		}else if("Gift".equals(keyname))
+		{
+			//items.add("xxx");
 		}
 		return items;
 	}
