@@ -62,7 +62,7 @@
                       </tr>
                      
 					 <tr class="{newitem.form-line}">
-					  <td  class="{newitem.label}">奖项模式:</td>
+					  <td  class="{newitem.label}">奖项模式：</td>
 					  <td class="{newitem.element}">
 					     <g:RadioButton name="period" text="一次性" ui:field="onetimes" checked="true"/>
 					     <g:RadioButton name="period" ui:field="moretimes" text="周期性"/>

@@ -165,8 +165,8 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 	private void init() {
 		staffArea = new OrganizationSpecialTextArea();
 		staffAreaPanel.add(staffArea);//提名人面板
-		rewardsDefinition.setHeight("2.5em");
-		standard.setHeight("2.5em");
+		//rewardsDefinition.setHeight("2.5em");
+		//standard.setHeight("2.5em");
 		startTime.setFormat(new DateBox.DefaultFormat(dateFormat));
 		//	String siteId = DOM.getElementById("tr1").getNodeName();
 
