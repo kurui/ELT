@@ -24,6 +24,8 @@ import com.chinarewards.gwt.elt.client.widget.DefaultPager;
 import com.chinarewards.gwt.elt.client.widget.GetValue;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.widget.Sorting;
+import com.chinarewards.gwt.elt.client.win.Win;
+import com.chinarewards.gwt.elt.client.win.confirm.ConfirmHandler;
 import com.google.gwt.cell.client.DateCell;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
@@ -32,7 +34,6 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.cellview.client.SimplePager.TextLocation;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
@@ -53,7 +54,7 @@ public class RewardsItemListPresenterImpl extends
 	final DispatchAsync dispatch;
 	final ErrorHandler errorHandler;
 	final SessionManager sessionManager;
-
+	final Win win;
 	DateTimeFormat dateFormatAll = DateTimeFormat.getFormat(ViewConstants.date_format_all);
 	DateTimeFormat dateFormat = DateTimeFormat.getFormat(ViewConstants.date_format);
 
@@ -64,13 +65,14 @@ public class RewardsItemListPresenterImpl extends
 	@Inject
 	public RewardsItemListPresenterImpl(EventBus eventBus,
 			RewardsItemListDisplay display, DispatchAsync dispatch,
-			ErrorHandler errorHandler, SessionManager sessionManager
+			ErrorHandler errorHandler, SessionManager sessionManager,Win win
 
 	) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
+		this.win=win;
 
 	}
 
@@ -222,7 +224,7 @@ public class RewardsItemListPresenterImpl extends
 					@Override
 					public void update(int index, RewardsItemClient object,	String value) {
 						if (object.isEnabled() == true){
-							Window.alert(object.getName()+"奖项已激活，不能修改，如修改请取消运作");
+							win.alert(object.getName()+"奖项已激活，不能修改，如修改请取消运作");
 						}else{
 						Platform.getInstance()
 								.getEditorRegistry()
@@ -259,12 +261,19 @@ public class RewardsItemListPresenterImpl extends
 					}
 				}, new FieldUpdater<RewardsItemClient, String>() {
 					@Override
-					public void update(int index, RewardsItemClient object,	String value) {
+					public void update(int index, final RewardsItemClient object,	String value) {
 						if (object.isEnabled() == true){
-							Window.alert(object.getName()+"奖项已激活，不能删除");
+							win.alert(object.getName()+"奖项已激活，不能删除");
 						}else{
-							if (Window.confirm("确定删除?"))
-							deleteRewardItem(object.getId());
+
+							win.confirm("提示", "确定删除？",
+									new ConfirmHandler() {
+										@Override
+										public void confirm() {
+											deleteRewardItem(object.getId());
+										}
+									});
+						
 						}
 					}
 				});
@@ -281,22 +290,28 @@ public class RewardsItemListPresenterImpl extends
 					}
 				}, new FieldUpdater<RewardsItemClient, String>() {
 					@Override
-					public void update(int index, RewardsItemClient object,
+					public void update(int index, final RewardsItemClient object,
 							String value) {
 						if (object.isEnabled() == false) {
 							if(object.getStartTime()==null)
 							{
-								Window.alert("失败，"+object.getName()+"资料不完整，影响其正常运作，请完善后再应用");
+								win.alert("失败，"+object.getName()+"资料不完整，影响其正常运作，请完善后再应用");
 								return;
 							}
 							
-							if (Window.confirm("确定激活?")) {
-								activationRewardItem(object.getId());
-							}
+							win.confirm("提示", "确定激活？",
+									new ConfirmHandler() {
+										@Override
+										public void confirm() {
+											activationRewardItem(object.getId());
+										}
+									});
+								
+							
 						}
 						else
 						{
-							Window.alert("失败，"+object.getName()+"已经处于激活状态");
+							win.alert("失败，"+object.getName()+"已经处于激活状态");
 /*							if (Window.confirm("为了测试,重新激活,再运行一次batch?")) {
 								activationRewardItem(object.getId());
 							}*/
@@ -313,12 +328,12 @@ public class RewardsItemListPresenterImpl extends
 
 					@Override
 					public void onFailure(Throwable t) {
-						Window.alert(t.getMessage());
+						win.alert(t.getMessage());
 					}
 
 					@Override
 					public void onSuccess(ActivationRewardsItemResponse resp) {
-						Window.alert(resp.getName() + "--------------已激活!");
+						win.alert(resp.getName() + "--------------已激活!");
 						doSearch();
 					}
 				});
@@ -331,12 +346,12 @@ public class RewardsItemListPresenterImpl extends
 
 					@Override
 					public void onFailure(Throwable t) {
-						Window.alert(t.getMessage());
+						win.alert(t.getMessage());
 					}
 
 					@Override
 					public void onSuccess(DeleteRewardsItemResponse resp) {
-						Window.alert(resp.getName() + "已删除!");
+						win.alert(resp.getName() + "已删除!");
 						doSearch();
 					}
 				});

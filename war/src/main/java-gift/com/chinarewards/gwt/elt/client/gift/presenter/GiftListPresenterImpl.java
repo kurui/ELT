@@ -72,7 +72,7 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 		registerHandler(display.getimportingBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
-						Window.alert("导入礼品...待实现~");
+						win.alert("导入礼品...待实现~");
 					}
 				}));
 	}
