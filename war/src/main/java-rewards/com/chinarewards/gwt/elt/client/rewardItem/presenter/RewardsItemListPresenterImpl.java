@@ -54,19 +54,18 @@ public class RewardsItemListPresenterImpl extends
 	final DispatchAsync dispatch;
 	final ErrorHandler errorHandler;
 	final SessionManager sessionManager;
-	final Win win;
+    final Win win;
+	DateTimeFormat dateFormatAll = DateTimeFormat.getFormat(ViewConstants.date_format_all);
+	DateTimeFormat dateFormat = DateTimeFormat.getFormat(ViewConstants.date_format);
 
-	DateTimeFormat dateFormatAll = DateTimeFormat
-			.getFormat(ViewConstants.date_format_all);
-	DateTimeFormat dateFormat = DateTimeFormat
-			.getFormat(ViewConstants.date_format);
 
 	// 是否部门管理员
 	boolean isHr = false;
 	boolean isDepartmentManager = false;
 
 	@Inject
-	public RewardsItemListPresenterImpl(EventBus eventBus, Win win,
+
+	public RewardsItemListPresenterImpl(EventBus eventBus,Win win,
 			RewardsItemListDisplay display, DispatchAsync dispatch,
 			ErrorHandler errorHandler, SessionManager sessionManager) {
 		super(eventBus, display);
@@ -224,18 +223,17 @@ public class RewardsItemListPresenterImpl extends
 					}
 				}, new FieldUpdater<RewardsItemClient, String>() {
 					@Override
-					public void update(int index, RewardsItemClient object,
-							String value) {
-						if (object.isEnabled() == true) {
-							win.alert(object.getName() + "奖项已激活，不能修改，如修改请取消运作");
-						} else {
-							Platform.getInstance()
-									.getEditorRegistry()
-									.openEditor(
-											RewardsItemConstants.EDITOR_REWARDSITEM_ADD,
-											"EDITOR_REWARDS_ITEM_ADD"
-													+ object.getId(), object);
-						}
+					public void update(int index, RewardsItemClient object,	String value) {
+						if (object.isEnabled() == true){
+							win.alert(object.getName()+"奖项已激活，不能修改，如修改请取消运作");
+						}else{
+						Platform.getInstance()
+								.getEditorRegistry()
+								.openEditor(
+										RewardsItemConstants.EDITOR_REWARDSITEM_ADD,
+										"EDITOR_REWARDS_ITEM_ADD"
+												+ object.getId(), object);
+					   }
 					}
 				});
 		resultTable.addColumn("查看", new HyperLinkCell(),
@@ -264,39 +262,31 @@ public class RewardsItemListPresenterImpl extends
 					}
 				}, new FieldUpdater<RewardsItemClient, String>() {
 					@Override
-					public void update(int index,
-							final RewardsItemClient object, String value) {
-						if (object.isEnabled() == true) {
-							win.alert(object.getName() + "奖项已激活，不能删除");
-						} else {
-
+					public void update(int index, final RewardsItemClient object,	String value) {
+						if (object.isEnabled() == true){
+							win.alert(object.getName()+"奖项已激活，不能删除");
+						}else{
 							win.confirm("删除提示", "确定删除吗？", new ConfirmHandler() {
-
+								
 								@Override
 								public void confirm() {
-									dispatch.execute(
-											new DeleteRewardsItemRequest(object
-													.getId(), sessionManager
-													.getSession().getToken()),
+									dispatch.execute(new DeleteRewardsItemRequest(object.getId(),sessionManager.getSession().getToken()),
 											new AsyncCallback<DeleteRewardsItemResponse>() {
 
 												@Override
-												public void onFailure(
-														Throwable t) {
+												public void onFailure(Throwable t) {
 													win.alert(t.getMessage());
 												}
 
 												@Override
-												public void onSuccess(
-														DeleteRewardsItemResponse resp) {
-													win.alert(resp.getName()
-															+ "已删除!");
+												public void onSuccess(DeleteRewardsItemResponse resp) {
+													win.alert(resp.getName() + "已删除!");
 													doSearch();
 												}
 											});
 								}
 							});
-
+							
 						}
 					}
 				});
@@ -316,9 +306,10 @@ public class RewardsItemListPresenterImpl extends
 					public void update(int index,
 							final RewardsItemClient object, String value) {
 						if (object.isEnabled() == false) {
-							if (object.getStartTime() == null) {
-								win.alert("失败，" + object.getName()
-										+ "资料不完整，影响其正常运作，请完善后再应用");
+
+							if(object.getStartTime()==null)
+							{
+								win.alert("失败，"+object.getName()+"资料不完整，影响其正常运作，请完善后再应用");
 								return;
 							}
 
