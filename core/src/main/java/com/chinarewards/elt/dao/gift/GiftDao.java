@@ -42,32 +42,32 @@ public class GiftDao extends BaseDao<Gift> {
 		StringBuffer eql = new StringBuffer();
 
 		if (SEARCH.equals(type)) {
-			eql.append(" SELECT gift FROM Gift gift WHERE 1 = 1 and  deleted= :deleted");
+			eql.append(" SELECT g FROM Gift g WHERE 1 = 1 and  g.deleted= :deleted");
 			param.put("deleted", false);
 		} else if (COUNT.equals(type)) {
-			eql.append(" SELECT COUNT(gift) FROM Gift gift WHERE 1 = 1 and  deleted= :deleted");
+			eql.append(" SELECT COUNT(g) FROM Gift g WHERE 1 = 1 and  g.deleted= :deleted");
 			param.put("deleted", false);
 		}
 
 		if (!StringUtil.isEmptyString(criteria.getType())) {
-			eql.append(" AND UPPER(gift.type) LIKE :type ");
+			eql.append(" AND UPPER(g.type) LIKE :type ");
 			param.put("type", "%" + criteria.getType().trim().toUpperCase()
 					+ "%");
 		}
 
 		if (!StringUtil.isEmptyString(criteria.getName())) {
-			eql.append(" AND UPPER(gift.name) LIKE :name ");
+			eql.append(" AND UPPER(g.name) LIKE :name ");
 			param.put("name", "%" + criteria.getName().trim().toUpperCase()
 					+ "%");
 		}
 		if (!StringUtil.isEmptyString(criteria.getExplains())) {
-			eql.append(" AND UPPER(gift.explains) LIKE :explains ");
+			eql.append(" AND UPPER(g.explains) LIKE :explains ");
 			param.put("explains", "%"
 					+ criteria.getExplains().trim().toUpperCase() + "%");
 		}
 
 		if (criteria.getSortingDetail() != null) {
-			eql.append(" ORDER BY gift."
+			eql.append(" ORDER BY g."
 					+ criteria.getSortingDetail().getSort() + " "
 					+ criteria.getSortingDetail().getDirection());
 		}
