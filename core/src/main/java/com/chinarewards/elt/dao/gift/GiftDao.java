@@ -10,7 +10,6 @@ import javax.persistence.Query;
 
 import com.chinarewards.elt.common.BaseDao;
 import com.chinarewards.elt.domain.gift.Gift;
-import com.chinarewards.elt.model.common.PaginationDetail;
 import com.chinarewards.elt.model.gift.search.GiftListVo;
 import com.chinarewards.elt.util.StringUtil;
 
@@ -18,8 +17,6 @@ public class GiftDao extends BaseDao<Gift> {
 	@SuppressWarnings("unchecked")
 	public List<Gift> giftList(GiftListVo giftVo) {
 		List<Gift> result = new ArrayList<Gift>();
-		PaginationDetail pageDetail = giftVo.getPaginationDetail();
-		
 
 		Query query = getFetchGiftQuery(SEARCH, giftVo);
 
@@ -34,27 +31,28 @@ public class GiftDao extends BaseDao<Gift> {
 				giftVo.toString());
 		int count = 0;
 		Query query = getFetchGiftQuery(COUNT, giftVo);
-		count = Integer.parseInt(query.getSingleResult().toString());
-		logger.debug(" finshed by gift method, result count : {}",
-				count);
+		if (query.getSingleResult() != null)
+			count = Integer.parseInt(query.getSingleResult().toString());
+		logger.debug(" finshed by gift method, result count : {}", count);
 		return count;
 	}
 
-	private Query getFetchGiftQuery(String type,GiftListVo criteria) {
+	private Query getFetchGiftQuery(String type, GiftListVo criteria) {
 		Map<String, Object> param = new HashMap<String, Object>();
 		StringBuffer eql = new StringBuffer();
-		
+
 		if (SEARCH.equals(type)) {
-			eql.append(" SELECT gift FROM Gift gift WHERE 1 = 1 and  deleted=false");
+			eql.append(" SELECT gift FROM Gift gift WHERE 1 = 1 and  deleted= :deleted");
+			param.put("deleted", false);
 		} else if (COUNT.equals(type)) {
-			eql.append(" SELECT COUNT(gift) FROM Gift gift WHERE 1 = 1 and  deleted=false");
+			eql.append(" SELECT COUNT(gift) FROM Gift gift WHERE 1 = 1 and  deleted= :deleted");
+			param.put("deleted", false);
 		}
-		
-		
+
 		if (!StringUtil.isEmptyString(criteria.getType())) {
 			eql.append(" AND UPPER(gift.type) LIKE :type ");
-			param.put("type", "%"
-					+ criteria.getType().trim().toUpperCase() + "%");
+			param.put("type", "%" + criteria.getType().trim().toUpperCase()
+					+ "%");
 		}
 
 		if (!StringUtil.isEmptyString(criteria.getName())) {
@@ -67,9 +65,7 @@ public class GiftDao extends BaseDao<Gift> {
 			param.put("explains", "%"
 					+ criteria.getExplains().trim().toUpperCase() + "%");
 		}
-		
-	
-		
+
 		if (criteria.getSortingDetail() != null) {
 			eql.append(" ORDER BY gift."
 					+ criteria.getSortingDetail().getSort() + " "

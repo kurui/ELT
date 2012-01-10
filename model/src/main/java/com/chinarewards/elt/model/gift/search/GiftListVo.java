@@ -8,6 +8,11 @@ import com.chinarewards.elt.model.common.SortingDetail;
 
 public class GiftListVo implements Serializable {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * The paging detail, contains the info it requires.
 	 */
 	private PaginationDetail paginationDetail;
