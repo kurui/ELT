@@ -1,15 +1,18 @@
 package com.chinarewards.elt.domain.gift;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.model.gift.search.GiftStatus;
-import com.chinarewards.elt.model.reward.base.RewardStatus;
-
-import java.util.Date;
 
 /**
  * The persistent class for the gift database table.

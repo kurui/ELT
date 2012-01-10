@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.chinarewards.gwt.elt.model.gift;
+package com.chinarewards.gwt.elt.client.gift.model;
 
 import com.chinarewards.gwt.elt.model.PaginationDetailClient;
 import com.chinarewards.gwt.elt.model.SortingDetailClient;
@@ -12,6 +12,8 @@ import com.google.gwt.user.client.rpc.IsSerializable;
  * @since 2012年1月9日 18:48:04
  */
 public class GiftCriteria implements IsSerializable {
+	public GiftCriteria() {
+	}
 
 	public static enum GiftStatus {
 
@@ -20,7 +22,6 @@ public class GiftCriteria implements IsSerializable {
 
 		/* 下架 */
 		SHELF("下架");
-	
 
 		private final String displayName;
 
@@ -42,9 +43,6 @@ public class GiftCriteria implements IsSerializable {
 
 	private String name;
 
-
-
-
 	public GiftStatus getStatus() {
 		return status;
 	}
@@ -54,7 +52,6 @@ public class GiftCriteria implements IsSerializable {
 	}
 
 	private GiftStatus status;
-
 
 	public PaginationDetailClient getPagination() {
 		return pagination;
@@ -87,8 +84,6 @@ public class GiftCriteria implements IsSerializable {
 		this.id = id;
 	}
 
-	
-
 	/**
 	 * @return the name
 	 */
@@ -104,5 +99,4 @@ public class GiftCriteria implements IsSerializable {
 		this.name = name;
 	}
 
-	
 }

@@ -8,6 +8,8 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.dataprovider.GiftListViewAdapter;
+import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
+import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria;
 import com.chinarewards.gwt.elt.client.gift.presenter.GiftListPresenter.GiftListDisplay;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
@@ -19,8 +21,6 @@ import com.chinarewards.gwt.elt.client.widget.GetValue;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.widget.Sorting;
 import com.chinarewards.gwt.elt.client.win.Win;
-import com.chinarewards.gwt.elt.model.gift.GiftClient;
-import com.chinarewards.gwt.elt.model.gift.GiftCriteria;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -141,14 +141,14 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 					public String getValue(GiftClient rewards) {
 						return rewards.getSource() + "";
 					}
-				}, ref, "totalAmtLimit");
+				}, ref, "source");
 		cellTable.addColumn("库存", new TextCell(),
 				new GetValue<GiftClient, String>() {
 					@Override
 					public String getValue(GiftClient rewards) {
 						return rewards.getInventory();
 					}
-				}, ref, "definition");
+				}, ref, "inventory");
 
 		cellTable.addColumn("状态", new TextCell(),
 				new GetValue<GiftClient, String>() {
@@ -156,7 +156,7 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 					public String getValue(GiftClient rewards) {
 						return rewards.getStatus().getDisplayName();
 					}
-				}, ref, "name");
+				}, ref, "status");
 
 		cellTable.addColumn("操作", new HyperLinkCell(),
 				new GetValue<GiftClient, String>() {

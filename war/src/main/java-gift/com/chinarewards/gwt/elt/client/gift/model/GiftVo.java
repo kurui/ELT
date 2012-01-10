@@ -1,4 +1,4 @@
-package com.chinarewards.gwt.elt.model.gift;
+package com.chinarewards.gwt.elt.client.gift.model;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -8,6 +8,10 @@ import com.chinarewards.elt.model.gift.search.GiftStatus;
 
 public class GiftVo implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String id;
     private String name;       //礼品名
     private String explains;   //说明
