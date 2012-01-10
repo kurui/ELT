@@ -45,6 +45,8 @@ import com.chinarewards.gwt.elt.client.rewards.model.WeekFrequencyClient;
 import com.chinarewards.gwt.elt.client.rewards.model.YearFrequencyClient;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.view.constant.ViewConstants;
+import com.chinarewards.gwt.elt.client.win.Win;
+import com.chinarewards.gwt.elt.client.win.confirm.ConfirmHandler;
 import com.chinarewards.gwt.elt.util.DateTool;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -75,7 +77,7 @@ public class RewardsItemCreatePresenterImpl extends
 	private final DispatchAsync dispatcher;
 	private final ErrorHandler errorHandler;
 	private final Provider<FrequencySettingDialog> freProvider;
-	//private final Win win;
+	private final Win win;
 	private final SessionManager sessionManager;
 	private final RewardStartDateCalculator startDateCalculator;
 	private final CalculatorSelectFactory factory;
@@ -105,7 +107,7 @@ public class RewardsItemCreatePresenterImpl extends
 	public RewardsItemCreatePresenterImpl(EventBus eventBus,ChooseStaffBlockPresenter staffBlock,
 			RewardsItemDisplay display,DispatchAsync dispatcher,ErrorHandler errorHandler,Provider<FrequencySettingDialog> freProvider
 			,RewardStartDateCalculator startDateCalculator,CalculatorSelectFactory factory,SessionManager sessionManager
-			,Provider<ChooseStaffWinDialog> chooseStaffDialogProvider) {
+			,Provider<ChooseStaffWinDialog> chooseStaffDialogProvider,Win  win) {
 		super(eventBus, display);
 		this.dispatcher=dispatcher;
 		this.staffBlock = staffBlock;
@@ -115,6 +117,7 @@ public class RewardsItemCreatePresenterImpl extends
 		this.factory = factory;
 		this.sessionManager = sessionManager;
 		this.chooseStaffDialogProvider = chooseStaffDialogProvider;
+		this.win = win;
 	}
 
 	@Override
@@ -353,7 +356,7 @@ public class RewardsItemCreatePresenterImpl extends
 
 					@Override
 					public void onSuccess(CreateRewardsItemResponse response) {
-						Window.alert("添加成功");
+						win.alert("添加成功");
 					//	if(instanceId!=null||!instanceId.equals(""))
 							Platform.getInstance()
 							.getEditorRegistry()
@@ -364,28 +367,38 @@ public class RewardsItemCreatePresenterImpl extends
 					}
 				});
 	}
-	private void doEdit(RewardsItemClient rewardsItem) {
-		if (Window.confirm("确定修改?")) {
-		dispatcher.execute(new CreateRewardsItemRequest(rewardsItem,sessionManager.getSession()),
-				new AsyncCallback<CreateRewardsItemResponse>() {
-					@Override
-					public void onFailure(Throwable t) {
-						Window.alert("修改失败");
-						Platform.getInstance()
-						.getEditorRegistry()
-						.closeEditor(RewardsItemConstants.EDITOR_REWARDSITEM_ADD,instanceId);
-					}
+	private void doEdit(final RewardsItemClient rewardsItem) {
+		win.confirm("修改提示", "确定修改吗？", new ConfirmHandler() {
+			
+			@Override
+			public void confirm() {
+				dispatcher.execute(new CreateRewardsItemRequest(rewardsItem,sessionManager.getSession()),
+						new AsyncCallback<CreateRewardsItemResponse>() {
+							@Override
+							public void onFailure(Throwable t) {
+								win.alert("修改失败");
+								Platform.getInstance()
+								.getEditorRegistry()
+								.closeEditor(RewardsItemConstants.EDITOR_REWARDSITEM_ADD,instanceId);
+							}
 
-					@Override
-					public void onSuccess(CreateRewardsItemResponse arg0) {
-						Window.alert("修改成功");
-						Platform.getInstance()
-						.getEditorRegistry()
-						.openEditor(RewardsItemConstants.EDITOR_REWARDSITEM_List,
-								"EDITOR_REWARDSITEM_List_DO_ID", instanceId);
-					}
-				});
-		}
+							@Override
+							public void onSuccess(CreateRewardsItemResponse arg0) {
+								win.alert("修改成功");
+								Platform.getInstance()
+								.getEditorRegistry()
+								.openEditor(RewardsItemConstants.EDITOR_REWARDSITEM_List,
+										"EDITOR_REWARDSITEM_List_DO_ID", instanceId);
+							}
+						});
+				
+			}
+		});
+		
+		
+
+
+		
 	}
 	// setting a new frequency.
 		private void doSettingFrequency(FrequencyClient frequency) {
@@ -643,7 +656,7 @@ public class RewardsItemCreatePresenterImpl extends
 //						}
 					}
 					if (!flag) {
-				    	errorHandler.alert(errorMsg.toString());
+				    	win.alert(errorMsg.toString());
 					}
 					return flag;
 				}
