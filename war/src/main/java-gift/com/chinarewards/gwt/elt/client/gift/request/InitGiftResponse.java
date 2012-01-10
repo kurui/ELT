@@ -1,30 +1,42 @@
-package com.chinarewards.gwt.elt.client.gift.model;
-
-import java.io.Serializable;
+package com.chinarewards.gwt.elt.client.gift.request;
 
 import java.util.Date;
 
+import net.customware.gwt.dispatch.shared.Result;
 
-public class GiftVo implements Serializable {
+//import com.chinagifts.gwt.elt.model.nominate.CandidateParamVo;
+//import com.chinagifts.gwt.elt.model.nominate.JudgeParamVo;
+
+/**
+ * Models the response after user process request.
+ * 
+ * @author yanrui
+ */
+public class InitGiftResponse implements Result {
 
 	private String id;
-    private String name;       //礼品名
-    private String explains;   //说明
-    private String  type;      //礼品类型
-    private String source;     //来源
-    private String business;   //供应商
-    private String address;    //地址
-    private String tell;       //电话
-    private int    stock;         //库存
-    private String photo;      //图片
-    private boolean status;    //状态（上下架）
-    private boolean deleted;   //删除状态
-    private Date    indate ;      //有效截止期
-    private Date    recorddate;   //录入时间
-    private String  recorduser; //录入人
-    private Date    updatetime;  //修改时间
-	
-	public GiftVo() {
+	private String name; // 礼品名
+	private String explains; // 说明
+	private String type; // 礼品类型
+	private String source; // 来源
+	private String business; // 供应商
+	private String address; // 地址
+	private String tell; // 电话
+	private int stock; // 库存
+	private String photo; // 图片
+	private boolean status; // 状态（上下架）
+	private boolean deleted; // 删除状态
+	private Date indate; // 有效截止期
+	private Date recorddate; // 录入时间
+	private String recorduser; // 录入人
+	private Date updatetime; // 修改时间
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -65,6 +77,14 @@ public class GiftVo implements Serializable {
 
 	public void setBusiness(String business) {
 		this.business = business;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public String getTell() {
@@ -139,23 +159,8 @@ public class GiftVo implements Serializable {
 		this.updatetime = updatetime;
 	}
 
-	
-	public String getId() {
-		return this.id;
-	}
+	public InitGiftResponse() {
 
-	public void setId(String id) {
-		this.id = id;
 	}
-
-	public String getAddress() {
-		return this.address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	
 
 }

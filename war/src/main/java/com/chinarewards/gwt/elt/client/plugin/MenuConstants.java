@@ -103,5 +103,9 @@ public abstract class MenuConstants {
 	public static final int MENU_ORDER_DETAILSOFAWARD_SEARCH = order++;
 	// 礼品列表
 	public static final int MENU_ORDER_GIFTLIST_SEARCH = order++;
+	// 礼品新建
+	public static final int MENU_ORDER_GIFT_ADD = order++;
+	// 礼品编辑
+	public static final int MENU_ORDER_GIFT_EDIT = order++;
 
 }
