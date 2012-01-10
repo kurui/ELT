@@ -6,15 +6,16 @@ import java.util.List;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
-import com.chinarewards.gwt.elt.client.enterprise.model.EnterpriseVo;
-import com.chinarewards.gwt.elt.client.enterprise.EnterpriseRequest;
-import com.chinarewards.gwt.elt.client.enterprise.EnterpriseResponse;
 import com.chinarewards.gwt.elt.client.enterprise.EnterpriseInitRequest;
 import com.chinarewards.gwt.elt.client.enterprise.EnterpriseInitResponse;
+import com.chinarewards.gwt.elt.client.enterprise.EnterpriseRequest;
+import com.chinarewards.gwt.elt.client.enterprise.EnterpriseResponse;
+import com.chinarewards.gwt.elt.client.enterprise.model.EnterpriseVo;
 import com.chinarewards.gwt.elt.client.enterprise.presenter.EnterprisePresenter.EnterpriseDisplay;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.chinarewards.gwt.elt.client.win.Win;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
@@ -31,6 +32,7 @@ public class EnterprisePresenterImpl extends BasePresenter<EnterpriseDisplay> im
 
 	
 	final DispatchAsync dispatchAsync;
+	final Win  win;
 	private final SessionManager sessionManager;
 	List<HandlerRegistration> handlerRegistrations = new ArrayList<HandlerRegistration>();
 
@@ -38,10 +40,11 @@ public class EnterprisePresenterImpl extends BasePresenter<EnterpriseDisplay> im
 	
 	@Inject
 	public EnterprisePresenterImpl(final EventBus eventBus, EnterpriseDisplay display,
-			DispatchAsync dispatchAsync,SessionManager sessionManager) {
+			DispatchAsync dispatchAsync,SessionManager sessionManager,Win  win) {
 		super(eventBus, display);
 		this.dispatchAsync = dispatchAsync;
 		this.sessionManager = sessionManager;
+		this.win =win;
 	}
 
 	@Override
@@ -84,7 +87,7 @@ public class EnterprisePresenterImpl extends BasePresenter<EnterpriseDisplay> im
     public void sendService(EnterpriseVo enterprise) {
 
 		if (null == enterprise.getName() || enterprise.getName() .trim().equals("")) {
-			Window.alert("企业名称不能为空!");
+			win.alert("企业名称不能为空!");
 			return;
 		}
 		
@@ -92,11 +95,11 @@ public class EnterprisePresenterImpl extends BasePresenter<EnterpriseDisplay> im
 		dispatchAsync.execute(req, new AsyncCallback<EnterpriseResponse>() {
 					public void onFailure(Throwable caught) {
 						
-						Window.alert("创建失败");
+						win.alert("创建失败");
 					}
 					@Override
 					public void onSuccess(EnterpriseResponse arg0) {
-						Window.alert("创建成功");
+						win.alert("创建成功");
 						
 					}
 				});
