@@ -4,7 +4,7 @@ import com.chinarewards.elt.domain.gift.Gift;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.gift.search.GiftListVo;
-import com.chinarewards.elt.model.user.UserContext;
+import com.chinarewards.elt.model.gift.search.GiftStatus;
 
 public interface GiftLogic {
 	/**
@@ -40,7 +40,7 @@ public interface GiftLogic {
 	 * @param id
 	 * @return
 	 */
-	public String updateStatus(String id,boolean status);
+	public String updateStatus(String id,GiftStatus status);
 }
 
 

@@ -6,6 +6,8 @@ import javax.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.chinarewards.elt.domain.org.Corporation;
+import com.chinarewards.elt.model.gift.search.GiftStatus;
+import com.chinarewards.elt.model.reward.base.RewardStatus;
 
 import java.util.Date;
 
@@ -32,7 +34,9 @@ public class Gift implements Serializable {
     private String tell;       //电话
     private int    stock;         //库存
     private String photo;      //图片
-    private boolean status;    //状态（上下架）
+    @Enumerated(EnumType.STRING)
+	private GiftStatus status;//状态，上下架
+
     private boolean deleted;   //删除状态
     private Date    indate ;      //有效截止期
     private Date    recorddate;   //录入时间
@@ -104,11 +108,12 @@ public class Gift implements Serializable {
 		this.photo = photo;
 	}
 
-	public boolean isStatus() {
+	
+	public GiftStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(boolean status) {
+	public void setStatus(GiftStatus status) {
 		this.status = status;
 	}
 

@@ -4,6 +4,7 @@ import com.chinarewards.elt.domain.gift.Gift;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.gift.search.GiftListVo;
+import com.chinarewards.elt.model.gift.search.GiftStatus;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.gift.GiftLogic;
 import com.chinarewards.elt.service.gift.GiftService;
@@ -46,7 +47,7 @@ public class GiftServiceImpl implements GiftService {
 	}
 
 	@Override
-	public String updateStatus(String id,boolean status) {
+	public String updateStatus(String id,GiftStatus status) {
 		return giftLogic.updateStatus(id,status);
 	}
 

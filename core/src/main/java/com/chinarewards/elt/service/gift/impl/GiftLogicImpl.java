@@ -9,15 +9,10 @@ import org.slf4j.LoggerFactory;
 
 import com.chinarewards.elt.dao.gift.GiftDao;
 import com.chinarewards.elt.domain.gift.Gift;
-import com.chinarewards.elt.domain.reward.base.RewardItem;
-import com.chinarewards.elt.domain.reward.frequency.Frequency;
-import com.chinarewards.elt.domain.reward.person.Judge;
-import com.chinarewards.elt.domain.reward.rule.CandidateRule;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.gift.search.GiftListVo;
-import com.chinarewards.elt.model.reward.base.RequireAutoGenerate;
-import com.chinarewards.elt.model.reward.vo.RewardItemVo;
+import com.chinarewards.elt.model.gift.search.GiftStatus;
 import com.chinarewards.elt.service.gift.GiftLogic;
 import com.chinarewards.elt.util.DateUtil;
 import com.chinarewards.elt.util.StringUtil;
@@ -40,7 +35,7 @@ public class GiftLogicImpl implements GiftLogic{
 			gift.setDeleted(false);
 			gift.setRecorduser(caller.getUserName());
 			gift.setRecorddate(currTime);
-			gift.setStatus(false);
+			gift.setStatus(GiftStatus.SHELF);//新增的是下架的商品
 			giftDao.save(gift);
 		} else {
 			// Update
@@ -94,7 +89,7 @@ public class GiftLogicImpl implements GiftLogic{
 		giftVo.setName(gift.getName());
 		giftVo.setPhoto(gift.getPhoto());
 		giftVo.setSource(gift.getSource());
-		giftVo.setStatus(gift.isStatus());
+		giftVo.setStatus(gift.getStatus());
 		giftVo.setStock(gift.getStock());
 		giftVo.setTell(gift.getTell());
 		giftVo.setType(gift.getType());
@@ -104,7 +99,7 @@ public class GiftLogicImpl implements GiftLogic{
 		return giftVo;
 	}
 	@Override
-	public String updateStatus(String id,boolean status) {
+	public String updateStatus(String id,GiftStatus status) {
 		Gift gift = giftDao.findById(Gift.class, id);
 		gift.setStatus(status);
 		gift= giftDao.update(gift);

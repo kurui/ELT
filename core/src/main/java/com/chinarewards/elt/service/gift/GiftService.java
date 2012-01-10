@@ -3,6 +3,7 @@ package com.chinarewards.elt.service.gift;
 import com.chinarewards.elt.domain.gift.Gift;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.gift.search.GiftListVo;
+import com.chinarewards.elt.model.gift.search.GiftStatus;
 import com.chinarewards.elt.model.user.UserContext;
 
 /**
@@ -46,5 +47,5 @@ public interface GiftService {
 	 * @param id
 	 * @return
 	 */
-	public String updateStatus(String id,boolean status);
+	public String updateStatus(String id,GiftStatus status);
 }

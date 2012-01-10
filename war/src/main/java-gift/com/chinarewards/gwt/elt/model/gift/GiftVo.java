@@ -1,7 +1,9 @@
-package com.chinarewards.gwt.elt.client.gift.model;
+package com.chinarewards.gwt.elt.model.gift;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import com.chinarewards.elt.model.gift.search.GiftStatus;
 
 
 public class GiftVo implements Serializable {
@@ -16,7 +18,7 @@ public class GiftVo implements Serializable {
     private String tell;       //电话
     private int    stock;         //库存
     private String photo;      //图片
-    private boolean status;    //状态（上下架）
+    private GiftStatus status;    //状态（上下架）
     private boolean deleted;   //删除状态
     private Date    indate ;      //有效截止期
    
@@ -87,11 +89,13 @@ public class GiftVo implements Serializable {
 		this.photo = photo;
 	}
 
-	public boolean isStatus() {
+	
+
+	public GiftStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(boolean status) {
+	public void setStatus(GiftStatus status) {
 		this.status = status;
 	}
 
