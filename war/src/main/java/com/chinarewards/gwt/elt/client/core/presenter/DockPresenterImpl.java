@@ -78,6 +78,13 @@ this.menuProcessor=menuProcessor;
 				menuProcessor.initrender(display.getMenu(),"Setting");	
 			}
 		}));
+		registerHandler(display.getBtnGift().addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				display.setMenuTitle("兑换管理");
+				menuProcessor.initrender(display.getMenu(),"Gift");	
+			}
+		}));
 		
 	}
 

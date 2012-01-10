@@ -5,11 +5,13 @@ import com.chinarewards.gwt.elt.client.chooseStaff.module.ChooseStaffModule;
 import com.chinarewards.gwt.elt.client.core.presenter.DockModule;
 import com.chinarewards.gwt.elt.client.detailsOfAward.module.DetailsOfAwardModule;
 import com.chinarewards.gwt.elt.client.enterprise.presenter.EnterprisesModule;
+import com.chinarewards.gwt.elt.client.gift.module.GiftListModule;
 import com.chinarewards.gwt.elt.client.nominate.module.NominateModule;
 import com.chinarewards.gwt.elt.client.rewardItem.module.RewardsItemModule;
 import com.chinarewards.gwt.elt.client.rewards.module.RewardsListModule;
 import com.chinarewards.gwt.elt.client.staff.module.HrRegisterModule;
 import com.chinarewards.gwt.elt.client.user.module.UserModule;
+import com.chinarewards.gwt.elt.client.win.WinModule;
 import com.google.gwt.inject.client.AbstractGinModule;
 
 public class PresenterModule extends AbstractGinModule {
@@ -26,6 +28,8 @@ public class PresenterModule extends AbstractGinModule {
 		install(new ChooseStaffModule());
 		install(new AwardRewardModule());
 		install(new DetailsOfAwardModule());
+		install(new GiftListModule());
+		install(new WinModule());
 	}
 
 }
