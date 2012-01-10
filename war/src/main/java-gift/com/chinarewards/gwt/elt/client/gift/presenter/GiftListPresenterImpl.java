@@ -18,6 +18,7 @@ import com.chinarewards.gwt.elt.client.widget.DefaultPager;
 import com.chinarewards.gwt.elt.client.widget.GetValue;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.widget.Sorting;
+import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.model.gift.GiftClient;
 import com.chinarewards.gwt.elt.model.gift.GiftCriteria;
 import com.google.gwt.cell.client.FieldUpdater;
@@ -35,7 +36,7 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 	final DispatchAsync dispatch;
 	final ErrorHandler errorHandler;
 	final SessionManager sessionManager;
-
+	final Win win;
 
 	SimplePager pager;
 	ListCellTable<GiftClient> cellTable;
@@ -44,11 +45,12 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 	@Inject
 	public GiftListPresenterImpl(EventBus eventBus, DispatchAsync dispatch,
 			ErrorHandler errorHandler, SessionManager sessionManager,
-			GiftListDisplay display) {
+			GiftListDisplay display,Win win) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
+		this.win=win;
 
 	}
 
@@ -64,7 +66,7 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 		registerHandler(display.getAddBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
-						Window.alert("添加新礼品...实现ing~");
+						win.alert("添加新礼品...实现ing~");
 					}
 				}));
 		registerHandler(display.getimportingBtnClickHandlers().addClickHandler(
