@@ -1,6 +1,8 @@
 package com.chinarewards.gwt.elt.client.gift.presenter;
 
 
+import java.util.Map;
+
 import com.chinarewards.gwt.elt.client.mvp.Display;
 import com.chinarewards.gwt.elt.client.mvp.Presenter;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -13,12 +15,14 @@ public interface GiftListPresenter extends Presenter<GiftListPresenter.GiftListD
 	public static interface GiftListDisplay extends Display {
 
 		public HasClickHandlers getSearchBtnClickHandlers();
-		HasValue<String> getName();
-		HasValue<String> getDefinition();
-		
+		public HasClickHandlers getAddBtnClickHandlers();
+		public HasClickHandlers getimportingBtnClickHandlers();
+
+		HasValue<String> getKeyName();
+		String getStatus();
 		Panel getResultPanel();
 		Panel getResultpage();
-		HasValue<Boolean> getNowJudge();
+		public void initGiftStatus(Map<String, String> map);
 
 	}
 }

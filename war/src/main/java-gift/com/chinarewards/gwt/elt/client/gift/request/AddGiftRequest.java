@@ -5,9 +5,8 @@ package com.chinarewards.gwt.elt.client.gift.request;
 
 import java.util.List;
 
-import com.chinarewards.gwt.elt.client.gift.module.GiftClient;
+import com.chinarewards.gwt.elt.client.gift.model.GiftVo;
 import com.chinarewards.gwt.elt.client.gift.request.AddGiftResponse;
-import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemClient;
 import com.chinarewards.gwt.elt.client.support.UserSession;
 
 import net.customware.gwt.dispatch.shared.Action;
@@ -21,13 +20,13 @@ public class AddGiftRequest implements Action<AddGiftResponse> {
 
 	String giftId;
 	String nowUserId;
-	private GiftClient gift;
+	private GiftVo giftVo;
 	private UserSession userSession;
 
 	List<String> staffIds;
 
-	public AddGiftRequest(GiftClient gift, UserSession userSession) {
-		this.gift = gift;
+	public AddGiftRequest(GiftVo giftVo, UserSession userSession) {
+		this.giftVo = giftVo;
 		this.userSession = userSession;
 	}
 
@@ -51,22 +50,6 @@ public class AddGiftRequest implements Action<AddGiftResponse> {
 		this.giftId = giftId;
 	}
 
-	public GiftClient getGift() {
-		return gift;
-	}
-
-	public void setGift(GiftClient gift) {
-		this.gift = gift;
-	}
-
-	public UserSession getUserSession() {
-		return userSession;
-	}
-
-	public void setUserSession(UserSession userSession) {
-		this.userSession = userSession;
-	}
-
 	public String getNowUserId() {
 		return nowUserId;
 	}
@@ -75,12 +58,20 @@ public class AddGiftRequest implements Action<AddGiftResponse> {
 		this.nowUserId = nowUserId;
 	}
 
-	public String getRewardId() {
-		return giftId;
+	public GiftVo getGiftVo() {
+		return giftVo;
 	}
 
-	public void setRewardId(String giftId) {
-		this.giftId = giftId;
+	public void setGiftVo(GiftVo giftVo) {
+		this.giftVo = giftVo;
+	}
+
+	public UserSession getUserSession() {
+		return userSession;
+	}
+
+	public void setUserSession(UserSession userSession) {
+		this.userSession = userSession;
 	}
 
 	public List<String> getStaffIds() {

@@ -1,37 +1,39 @@
-package com.chinarewards.gwt.elt.client.gift.module;
+package com.chinarewards.elt.model.gift.search;
 
 import java.io.Serializable;
 import java.util.Date;
-public class GiftClient implements Serializable, Comparable<GiftClient> {
+
+import com.chinarewards.elt.model.common.PaginationDetail;
+import com.chinarewards.elt.model.common.SortingDetail;
+
+public class GiftListVo implements Serializable {
+	/**
+	 * The paging detail, contains the info it requires.
+	 */
+	private PaginationDetail paginationDetail;
 
 	/**
-	 * 
+	 * Sorting detail.
 	 */
-	private static final long serialVersionUID = 4934837755724342679L;
-
+	private SortingDetail sortingDetail;
 	private String id;
-	private String name; // 礼品名
-	private String explains; // 说明
-	private String type; // 礼品类型
-	private String source; // 来源
-	private String business; // 供应商
-	private String address; // 地址
-	private String tell; // 电话
-	private int stock; // 库存
-	private String photo; // 图片
-	private boolean status; // 状态（上下架）
-	private boolean deleted; // 删除状态
-	private Date indate; // 有效截止期
-	private Date recorddate; // 录入时间
-	private String recorduser; // 录入人
-	private Date updatetime; // 修改时间
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
+    private String name;       //礼品名
+    private String explains;   //说明
+    private String  type;      //礼品类型
+    private String source;     //来源
+    private String business;   //供应商
+    private String address;    //地址
+    private String tell;       //电话
+    private int    stock;         //库存
+    private String photo;      //图片
+    private GiftStatus status;    //状态（上下架）
+    private boolean deleted;   //删除状态
+    private Date    indate ;      //有效截止期
+    private Date    recorddate;   //录入时间
+    private String  recorduser; //录入人
+    private Date    updatetime;  //修改时间
+	
+	public GiftListVo() {
 	}
 
 	public String getName() {
@@ -74,14 +76,6 @@ public class GiftClient implements Serializable, Comparable<GiftClient> {
 		this.business = business;
 	}
 
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
 	public String getTell() {
 		return tell;
 	}
@@ -106,11 +100,13 @@ public class GiftClient implements Serializable, Comparable<GiftClient> {
 		this.photo = photo;
 	}
 
-	public boolean isStatus() {
+	
+
+	public GiftStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(boolean status) {
+	public void setStatus(GiftStatus status) {
 		this.status = status;
 	}
 
@@ -154,9 +150,37 @@ public class GiftClient implements Serializable, Comparable<GiftClient> {
 		this.updatetime = updatetime;
 	}
 
-	@Override
-	public int compareTo(GiftClient arg0) {
-		return 0;
+	
+	public String getId() {
+		return this.id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getAddress() {
+		return this.address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public PaginationDetail getPaginationDetail() {
+		return paginationDetail;
+	}
+
+	public void setPaginationDetail(PaginationDetail paginationDetail) {
+		this.paginationDetail = paginationDetail;
+	}
+
+	public SortingDetail getSortingDetail() {
+		return sortingDetail;
+	}
+
+	public void setSortingDetail(SortingDetail sortingDetail) {
+		this.sortingDetail = sortingDetail;
 	}
 
 }

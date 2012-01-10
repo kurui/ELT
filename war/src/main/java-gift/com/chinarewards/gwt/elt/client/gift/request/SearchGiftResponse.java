@@ -7,21 +7,21 @@ import java.util.List;
 
 import net.customware.gwt.dispatch.shared.Result;
 
-import com.chinarewards.gwt.elt.client.rewards.model.RewardsClient;
+import com.chinarewards.gwt.elt.model.gift.GiftClient;
 
 /**
- * @author Cream
- * @since 0.2.0 2010-12-27
+ * @author nicho
+ * @since 2012年1月9日 19:00:32
  */
 public class SearchGiftResponse implements Result {
 
-	private List<RewardsClient> result;
+	private List<GiftClient> result;
 	private int total;
 
 	/**
 	 * @return the result
 	 */
-	public List<RewardsClient> getResult() {
+	public List<GiftClient> getResult() {
 		return result;
 	}
 
@@ -29,7 +29,7 @@ public class SearchGiftResponse implements Result {
 	 * @param result
 	 *            the result to set
 	 */
-	public void setResult(List<RewardsClient> result) {
+	public void setResult(List<GiftClient> result) {
 		this.result = result;
 	}
 

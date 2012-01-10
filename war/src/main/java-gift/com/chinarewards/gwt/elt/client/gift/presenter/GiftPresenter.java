@@ -1,27 +1,47 @@
 package com.chinarewards.gwt.elt.client.gift.presenter;
 
+import java.util.Date;
 import com.chinarewards.gwt.elt.client.mvp.Display;
 import com.chinarewards.gwt.elt.client.mvp.Presenter;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
 import com.google.gwt.user.client.ui.HasValue;
-import com.google.gwt.user.client.ui.Panel;
 
 public interface GiftPresenter extends Presenter<GiftPresenter.GiftDisplay> {
 
 	public static interface GiftDisplay extends Display {
 
-		public HasClickHandlers getSearchBtnClickHandlers();
+		public HasValue<String> getName();
 
-		HasValue<String> getName();
+		public HasValue<String> getExplains();
 
-		HasValue<String> getDefinition();
+		public HasValue<String> getType();
 
-		Panel getResultPanel();
+		public HasValue<String> getSource();
 
-		Panel getResultpage();
+		public HasValue<String> getBusiness();
 
-		HasValue<Boolean> getNowJudge();
+		public HasValue<String> getAddress();
 
+		public HasValue<String> getTell();
+
+		public HasValue<Integer> getStock();
+
+		public HasValue<String> getPhone();
+
+		public HasValue<Boolean> getStatus();
+
+		public HasValue<Boolean> getDeleted();
+
+		public HasValueChangeHandlers<Date> getIndate();
+
+		public HasValueChangeHandlers<Date> getRecorddate();
+
+		public HasValue<String> getRecoduser();
+
+		public HasValueChangeHandlers<Date> getUpdatetime();
+
+		// -----------------------------------------
 		public HasClickHandlers getSaveClick();
 
 		public void clear();

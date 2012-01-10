@@ -3,7 +3,7 @@
  */
 package com.chinarewards.gwt.elt.client.gift.request;
 
-import com.chinarewards.gwt.elt.client.gift.module.GiftClient;
+import com.chinarewards.gwt.elt.client.gift.model.GiftVo;
 
 import net.customware.gwt.dispatch.shared.Result;
 
@@ -13,22 +13,22 @@ import net.customware.gwt.dispatch.shared.Result;
  */
 public class SearchGiftByIdResponse implements Result {
 
-	private GiftClient gift;
+	private GiftVo giftVo;
 
 	public SearchGiftByIdResponse() {
 
 	}
 
-	public SearchGiftByIdResponse(GiftClient gift) {
-		this.gift = gift;
+	public SearchGiftByIdResponse(GiftVo giftVo) {
+		this.giftVo = giftVo;
 	}
 
-	public GiftClient getGift() {
-		return gift;
+	public GiftVo getGift() {
+		return giftVo;
 	}
 
-	public void setGift(GiftClient gift) {
-		this.gift = gift;
+	public void setGift(GiftVo giftVo) {
+		this.giftVo = giftVo;
 	}
 
 }

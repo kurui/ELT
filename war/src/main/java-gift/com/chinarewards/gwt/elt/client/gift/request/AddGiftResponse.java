@@ -9,21 +9,22 @@ import net.customware.gwt.dispatch.shared.Result;
  */
 public class AddGiftResponse implements Result {
 
-	String nomineeLotId;
-
-	public String getNomineeLotId() {
-		return nomineeLotId;
-	}
-
-	public void setNomineeLotId(String nomineeLotId) {
-		this.nomineeLotId = nomineeLotId;
-	}
+	String giftLotId;
 
 	public AddGiftResponse() {
 
 	}
 
+	public AddGiftResponse(String id) {
 
+	}
 
+	public String getGiftLotId() {
+		return giftLotId;
+	}
+
+	public void setGiftLotId(String giftLotId) {
+		this.giftLotId = giftLotId;
+	}
 
 }

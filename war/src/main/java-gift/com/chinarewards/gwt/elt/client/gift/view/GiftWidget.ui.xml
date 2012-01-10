@@ -39,16 +39,14 @@
 				<tr class="{newitem.form-line}">
 					<td valign="top" class="{newitem.label}">礼品说明：</td>
 					<td class="{newitem.element}">
-						<g:TextArea ui:field="explains" visibleLines="3"
-							styleName="{newitem.textarea}" />
+						<g:TextBox ui:field="explains" styleName="{newitem.text}" />
 					</td>
 					<td></td>
 				</tr>
 				<tr class="{newitem.form-line}">
 					<td valign="top" class="{newitem.label}">礼品类型：</td>
 					<td class="{newitem.element}">
-						<g:TextArea ui:field="type" visibleLines="3"
-							styleName="{newitem.text}" />
+						<g:TextBox ui:field="type"  styleName="{newitem.text}" />
 					</td>
 					<td></td>
 				</tr>
@@ -76,7 +74,7 @@
 				<tr class="{newitem.form-line}">
 					<td valign="top" class="{newitem.label}">图片：</td>
 					<td class="{newitem.element}">
-						<d:DateBox ui:field="photo" styleName="{newitem.text}"></d:DateBox>
+						<g:TextBox ui:field="photo" styleName="{newitem.text}" />
 					</td>
 				</tr>
 				<tr class="{newitem.form-line}">
@@ -96,7 +94,7 @@
 						库存：
 					</td>
 					<td class="{newitem.element}">
-						<d:DateBox ui:field="stock" styleName="{newitem.text}" />
+						<g:TextBox ui:field="stock" styleName="{newitem.text}" />
 					</td>
 					<td></td>
 				</tr>

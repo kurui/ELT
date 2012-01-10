@@ -5,16 +5,16 @@ package com.chinarewards.gwt.elt.client.gift.request;
 
 import net.customware.gwt.dispatch.shared.Action;
 
-import com.chinarewards.gwt.elt.client.rewards.model.RewardsCriteria;
+import com.chinarewards.gwt.elt.model.gift.GiftCriteria;
 import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 
 /**
- * @author Cream
- * @since 0.2.0 2010-12-27
+ * @author nicho
+ * @since 2012年1月9日 19:00:40
  */
 public class SearchGiftRequest implements Action<SearchGiftResponse> {
 
-	private RewardsCriteria rewards;
+	private GiftCriteria gift;
 	private String corporationId;
 	private UserRoleVo[] userRoles;
 
@@ -22,8 +22,8 @@ public class SearchGiftRequest implements Action<SearchGiftResponse> {
 	public SearchGiftRequest() {
 	}
 
-	public SearchGiftRequest(RewardsCriteria criteria,String corporationId,UserRoleVo[] userRoles) {
-		this.rewards = criteria;
+	public SearchGiftRequest(GiftCriteria criteria,String corporationId,UserRoleVo[] userRoles) {
+		this.gift = criteria;
 		this.corporationId=corporationId;
 		this.userRoles=userRoles;
 	}
@@ -38,15 +38,15 @@ public class SearchGiftRequest implements Action<SearchGiftResponse> {
 
 	@Override
 	public String toString() {
-		return "SearchRewardsRequest [rewards=" + rewards + "]";
+		return "SearchGiftRequest [gift=" + gift + "]";
 	}
 
 	// ---- getter ----
 	/**
 	 * @return the rewards
 	 */
-	public RewardsCriteria getRewards() {
-		return rewards;
+	public GiftCriteria getGift() {
+		return gift;
 	}
 
 }

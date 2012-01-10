@@ -1,42 +1,33 @@
 package com.chinarewards.gwt.elt.client.gift.presenter;
 
 import java.util.Comparator;
-import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
-import com.chinarewards.gwt.elt.client.awardReward.plugin.AwardRewardConstants;
-import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
-import com.chinarewards.gwt.elt.client.dataprovider.RewardsListViewAdapter;
-import com.chinarewards.gwt.elt.client.detailsOfAward.plugin.DetailsOfAwardConstants;
+import com.chinarewards.gwt.elt.client.dataprovider.GiftListViewAdapter;
 import com.chinarewards.gwt.elt.client.gift.presenter.GiftListPresenter.GiftListDisplay;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
-import com.chinarewards.gwt.elt.client.nominate.plugin.NominateConstants;
-import com.chinarewards.gwt.elt.client.rewards.model.RewardsClient;
-import com.chinarewards.gwt.elt.client.rewards.model.RewardsCriteria;
-import com.chinarewards.gwt.elt.client.rewards.model.RewardsCriteria.RewardsStatus;
-import com.chinarewards.gwt.elt.client.rewards.request.DeleteRewardsRequest;
-import com.chinarewards.gwt.elt.client.rewards.request.DeleteRewardsResponse;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
 import com.chinarewards.gwt.elt.client.widget.DefaultPager;
 import com.chinarewards.gwt.elt.client.widget.GetValue;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.widget.Sorting;
-import com.chinarewards.gwt.elt.model.rewards.RewardPageType;
-import com.google.gwt.cell.client.DateCell;
+import com.chinarewards.gwt.elt.client.win.Win;
+import com.chinarewards.gwt.elt.model.gift.GiftClient;
+import com.chinarewards.gwt.elt.model.gift.GiftCriteria;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.cellview.client.SimplePager.TextLocation;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
 public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
@@ -45,21 +36,21 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 	final DispatchAsync dispatch;
 	final ErrorHandler errorHandler;
 	final SessionManager sessionManager;
-
-	RewardPageType pageType;
+	final Win win;
 
 	SimplePager pager;
-	ListCellTable<RewardsClient> cellTable;
-	RewardsListViewAdapter listViewAdapter;
+	ListCellTable<GiftClient> cellTable;
+	GiftListViewAdapter listViewAdapter;
 
 	@Inject
 	public GiftListPresenterImpl(EventBus eventBus, DispatchAsync dispatch,
 			ErrorHandler errorHandler, SessionManager sessionManager,
-			GiftListDisplay display) {
+			GiftListDisplay display,Win win) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
+		this.win=win;
 
 	}
 
@@ -69,20 +60,35 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 		registerHandler(display.getSearchBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
-						// Window.alert(sessionManager.getSession().getLoginName());
 						init();
+					}
+				}));
+		registerHandler(display.getAddBtnClickHandlers().addClickHandler(
+				new ClickHandler() {
+					public void onClick(ClickEvent paramClickEvent) {
+						win.alert("添加新礼品...实现ing~");
+					}
+				}));
+		registerHandler(display.getimportingBtnClickHandlers().addClickHandler(
+				new ClickHandler() {
+					public void onClick(ClickEvent paramClickEvent) {
+						Window.alert("导入礼品...待实现~");
 					}
 				}));
 	}
 
 	private void init() {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("xxx", "未上架");
+		map.put("yyy", "上架");
+		display.initGiftStatus(map);
 		buildTable();
 		doSearch();
 	}
 
 	private void buildTable() {
 		// create a CellTable
-		cellTable = new ListCellTable<RewardsClient>();
+		cellTable = new ListCellTable<GiftClient>();
 
 		initTableColumns();
 		pager = new DefaultPager(TextLocation.CENTER);
@@ -97,30 +103,19 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 	}
 
 	private void doSearch() {
-		RewardsCriteria criteria = new RewardsCriteria();
-		criteria.setName(display.getName().getValue());
-		criteria.setDefinition(display.getDefinition().getValue());
-		if (display.getNowJudge().getValue()) {
-			criteria.setJudgeUserId(sessionManager.getSession().getToken());
-		}
-		if (pageType == RewardPageType.NOMINATEPAGE) {
-			criteria.setStatus(RewardsStatus.PENDING_NOMINATE);
-		}
-		if (pageType == RewardPageType.AWARDREWARDPAGE) {
-			criteria.setStatus(RewardsStatus.NEW);
-		}
-		if (pageType == RewardPageType.DETAILSOFAWARDPAGE) {
-			criteria.setStatus(RewardsStatus.REWARDED);
-		}
-		listViewAdapter = new RewardsListViewAdapter(dispatch, criteria,
+		GiftCriteria criteria = new GiftCriteria();
+
+		criteria.setName(display.getKeyName().getValue());
+
+		listViewAdapter = new GiftListViewAdapter(dispatch, criteria,
 				errorHandler, sessionManager);
 		listViewAdapter.addDataDisplay(cellTable);
 	}
 
 	private void initTableColumns() {
-		Sorting<RewardsClient> ref = new Sorting<RewardsClient>() {
+		Sorting<GiftClient> ref = new Sorting<GiftClient>() {
 			@Override
-			public void sortingCurrentPage(Comparator<RewardsClient> comparator) {
+			public void sortingCurrentPage(Comparator<GiftClient> comparator) {
 				// listViewAdapter.sortCurrentPage(comparator);
 			}
 
@@ -130,204 +125,49 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 
 			}
 		};
-		// cellTable.addColumn("奖项编号", new TextCell(),
-		// new GetValue<RewardsClient, String>() {
-		// @Override
-		// public String getValue(RewardsClient rewards) {
-		// return "01";
-		// }
-		// }, ref, "id");
 
-		cellTable.addColumn("奖励名称", new TextCell(),
-				new GetValue<RewardsClient, String>() {
+
+		cellTable.addColumn("名称", new TextCell(),
+				new GetValue<GiftClient, String>() {
 					@Override
-					public String getValue(RewardsClient rewards) {
+					public String getValue(GiftClient rewards) {
 						return rewards.getName();
 					}
 				}, ref, "name");
 
-		cellTable.addColumn("奖项积分", new TextCell(),
-				new GetValue<RewardsClient, String>() {
+		cellTable.addColumn("来源", new TextCell(),
+				new GetValue<GiftClient, String>() {
 					@Override
-					public String getValue(RewardsClient rewards) {
-						return rewards.getTotalAmtLimit() + "";
+					public String getValue(GiftClient rewards) {
+						return rewards.getSource() + "";
 					}
 				}, ref, "totalAmtLimit");
-		cellTable.addColumn("说明", new TextCell(),
-				new GetValue<RewardsClient, String>() {
+		cellTable.addColumn("库存", new TextCell(),
+				new GetValue<GiftClient, String>() {
 					@Override
-					public String getValue(RewardsClient rewards) {
-						return rewards.getDefinition();
+					public String getValue(GiftClient rewards) {
+						return rewards.getInventory();
 					}
 				}, ref, "definition");
-		cellTable.addColumn("发起人", new TextCell(),
-				new GetValue<RewardsClient, String>() {
-					@Override
-					public String getValue(RewardsClient rewards) {
-						return rewards.getCreatedBy();
-					}
-				}, ref, "createdBy");
-		cellTable.addColumn("颁奖方式", new TextCell(),
-				new GetValue<RewardsClient, String>() {
-					@Override
-					public String getValue(RewardsClient rewards) {
-						return "领导提名";
-					}
-				}, ref, "name");
-		cellTable.addColumn("预计提名时间",
-				new DateCell(DateTimeFormat.getFormat("yyyy-MM-dd")),
-				new GetValue<RewardsClient, Date>() {
-					@Override
-					public Date getValue(RewardsClient rewards) {
-						return rewards.getExpectNominateDate();
-					}
-				}, ref, "expectNominateDate");
 
-		if (pageType == RewardPageType.NOMINATEPAGE) {
-			cellTable.addColumn("操作", new HyperLinkCell(),
-					new GetValue<RewardsClient, String>() {
-						@Override
-						public String getValue(RewardsClient rewards) {
-							return "提名";
-						}
-					}, new FieldUpdater<RewardsClient, String>() {
-
-						@Override
-						public void update(int index, RewardsClient o,
-								String value) {
-							Platform.getInstance()
-									.getEditorRegistry()
-									.openEditor(
-											NominateConstants.EDITOR_NOMINATE_SEARCH,
-											NominateConstants.EDITOR_NOMINATE_SEARCH
-													+ o.getId(), o);
-
-						}
-
-					});
-		}
-		if (pageType == RewardPageType.AWARDREWARDPAGE) {
-			cellTable.addColumn("操作", new HyperLinkCell(),
-					new GetValue<RewardsClient, String>() {
-						@Override
-						public String getValue(RewardsClient rewards) {
-							return "颁奖";
-						}
-					}, new FieldUpdater<RewardsClient, String>() {
-
-						@Override
-						public void update(int index, RewardsClient o,
-								String value) {
-							if ("NEW".equals(o.getStatus().name())
-									|| "PENDING_NOMINATE".equals(o.getStatus()
-											.name())) {
-								Platform.getInstance()
-										.getEditorRegistry()
-										.openEditor(
-												AwardRewardConstants.EDITOR_AWARDREWARD_SEARCH,
-												AwardRewardConstants.EDITOR_AWARDREWARD_SEARCH
-														+ o.getId(), o);
-							} else {
-								Window.alert("已经颁奖");
-								return;
-							}
-						}
-
-					});
-		}
-		if (pageType == RewardPageType.DETAILSOFAWARDPAGE) {
-			cellTable.addColumn("操作", new HyperLinkCell(),
-					new GetValue<RewardsClient, String>() {
-						@Override
-						public String getValue(RewardsClient rewards) {
-							return "颁奖详细";
-						}
-					}, new FieldUpdater<RewardsClient, String>() {
-
-						@Override
-						public void update(int index, RewardsClient o,
-								String value) {
-							Platform.getInstance()
-									.getEditorRegistry()
-									.openEditor(
-											DetailsOfAwardConstants.EDITOR_DETAILSOFAWARD_SEARCH,
-											DetailsOfAwardConstants.EDITOR_DETAILSOFAWARD_SEARCH
-													+ o.getId(), o);
-
-						}
-
-					});
-		}
-		if (pageType == RewardPageType.APPLYREWARDLIST) {
-			cellTable.addColumn("操作", new HyperLinkCell(),
-					new GetValue<RewardsClient, String>() {
-						@Override
-						public String getValue(RewardsClient rewards) {
-							if (rewards.getStatus() == RewardsStatus.NEW)
-								return "颁奖";
-							else if (rewards.getStatus() == RewardsStatus.PENDING_NOMINATE)
-								return "提名";
-							else
-								return "";
-						}
-					}, new FieldUpdater<RewardsClient, String>() {
-
-						@Override
-						public void update(int index, RewardsClient o,
-								String value) {
-							String pageUrl = "";
-							if (o.getStatus() == RewardsStatus.NEW)
-								pageUrl = AwardRewardConstants.EDITOR_AWARDREWARD_SEARCH;
-							else if (o.getStatus() == RewardsStatus.PENDING_NOMINATE)
-								pageUrl = NominateConstants.EDITOR_NOMINATE_SEARCH;
-
-							Platform.getInstance()
-									.getEditorRegistry()
-									.openEditor(pageUrl, pageUrl + o.getId(), o);
-
-						}
-
-					});
-			cellTable.addColumn("查看", new HyperLinkCell(),
-					new GetValue<RewardsClient, String>() {
-						@Override
-						public String getValue(RewardsClient rewards) {
-							return "查看详细";
-						}
-					}, new FieldUpdater<RewardsClient, String>() {
-
-						@Override
-						public void update(int index, RewardsClient o,
-								String value) {
-							Platform.getInstance()
-									.getEditorRegistry()
-									.openEditor(
-											DetailsOfAwardConstants.EDITOR_DETAILSOFAWARD_SEARCH,
-											DetailsOfAwardConstants.EDITOR_DETAILSOFAWARD_SEARCH
-													+ o.getId(), o);
-
-						}
-
-					});
-		}
 		cellTable.addColumn("状态", new TextCell(),
-				new GetValue<RewardsClient, String>() {
+				new GetValue<GiftClient, String>() {
 					@Override
-					public String getValue(RewardsClient rewards) {
+					public String getValue(GiftClient rewards) {
 						return rewards.getStatus().getDisplayName();
 					}
 				}, ref, "name");
 
-		cellTable.addColumn("删除", new HyperLinkCell(),
-				new GetValue<RewardsClient, String>() {
+		cellTable.addColumn("操作", new HyperLinkCell(),
+				new GetValue<GiftClient, String>() {
 					@Override
-					public String getValue(RewardsClient rewards) {
+					public String getValue(GiftClient rewards) {
 						return "删除";
 					}
-				}, new FieldUpdater<RewardsClient, String>() {
+				}, new FieldUpdater<GiftClient, String>() {
 
 					@Override
-					public void update(int index, RewardsClient o, String value) {
+					public void update(int index, GiftClient o, String value) {
 						if (Window.confirm("确定删除?")) {
 							delteReward(o.getId());
 						}
@@ -338,21 +178,21 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 
 	public void delteReward(String rewardsId) {
 
-		dispatch.execute(new DeleteRewardsRequest(rewardsId, sessionManager
-				.getSession().getToken()),
-				new AsyncCallback<DeleteRewardsResponse>() {
-
-					@Override
-					public void onFailure(Throwable t) {
-						Window.alert(t.getMessage());
-					}
-
-					@Override
-					public void onSuccess(DeleteRewardsResponse resp) {
-						Window.alert("删除成功");
-						doSearch();
-					}
-				});
+//		dispatch.execute(new DeleteGiftRequest(rewardsId, sessionManager
+//				.getSession().getToken()),
+//				new AsyncCallback<DeleteGiftResponse>() {
+//
+//					@Override
+//					public void onFailure(Throwable t) {
+//						Window.alert(t.getMessage());
+//					}
+//
+//					@Override
+//					public void onSuccess(DeleteGiftResponse resp) {
+//						Window.alert("删除成功");
+//						doSearch();
+//					}
+//				});
 	}
 
 

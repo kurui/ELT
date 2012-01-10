@@ -37,7 +37,6 @@ public class GiftPluginDescriptor implements PluginDescriptor {
 		 * 新建礼品
 		 */
 		ext.add(new Extension() {
-
 			@Override
 			public String getExtensionPointId() {
 				return PluginConstants.MENU;
@@ -46,7 +45,6 @@ public class GiftPluginDescriptor implements PluginDescriptor {
 			@Override
 			public Object getInstance() {
 				return new MenuItem() {
-
 					@Override
 					public int getOrder() {
 						return MenuConstants.MENU_ORDER_GIFT_ADD;

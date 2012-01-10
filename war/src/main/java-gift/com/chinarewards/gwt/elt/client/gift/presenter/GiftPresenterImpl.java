@@ -1,6 +1,6 @@
 package com.chinarewards.gwt.elt.client.gift.presenter;
 
-import java.util.Date;
+
 import net.customware.gwt.dispatch.client.DispatchAsync;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.frequency.CalculatorSelectFactory;
@@ -8,7 +8,7 @@ import com.chinarewards.gwt.elt.client.frequency.RewardStartDateCalculator;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
-import com.chinarewards.gwt.elt.client.gift.module.GiftClient;
+import com.chinarewards.gwt.elt.client.gift.model.GiftVo;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftConstants;
 import com.chinarewards.gwt.elt.client.gift.request.AddGiftRequest;
 import com.chinarewards.gwt.elt.client.gift.request.AddGiftResponse;
@@ -17,9 +17,6 @@ import com.chinarewards.gwt.elt.client.gift.request.SearchGiftByIdResponse;
 import com.chinarewards.gwt.elt.client.rewardItem.dialog.ChooseStaffWinDialog;
 import com.chinarewards.gwt.elt.client.rewardItem.dialog.FrequencySettingDialog;
 import com.chinarewards.gwt.elt.client.rewardItem.presenter.ChooseStaffBlockPresenter;
-import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient;
-import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient.EveryoneClient;
-import com.chinarewards.gwt.elt.client.rewards.model.RewardsBaseInfo;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -38,22 +35,11 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 	private boolean isEditPage = false;
 	private String giftId;
 
-	/**
-	 * 选择员工模块
-	 */
-	private final ChooseStaffBlockPresenter staffBlock;
 	private final DispatchAsync dispatcher;
 	private final ErrorHandler errorHandler;
-	private final Provider<FrequencySettingDialog> freProvider;
 	// private final Win win;
 	private final SessionManager sessionManager;
-	private final RewardStartDateCalculator startDateCalculator;
-	private final CalculatorSelectFactory factory;
-	GiftClient item;
-
-	// 用来判断修改前是否有平率
-	private boolean isFrequency = false;
-	private final Provider<ChooseStaffWinDialog> chooseStaffDialogProvider;
+	GiftVo item;
 
 	@Inject
 	public GiftPresenterImpl(EventBus eventBus,
@@ -65,25 +51,43 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 			Provider<ChooseStaffWinDialog> chooseStaffDialogProvider) {
 		super(eventBus, display);
 		this.dispatcher = dispatcher;
-		this.staffBlock = staffBlock;
 		this.errorHandler = errorHandler;
-		this.freProvider = freProvider;
-		this.startDateCalculator = startDateCalculator;
-		this.factory = factory;
 		this.sessionManager = sessionManager;
-		this.chooseStaffDialogProvider = chooseStaffDialogProvider;
 	}
 
 	@Override
 	public void bind() {
 		// 绑定事件
 		init();
-		// 候选人面板显示
-		staffBlock.bind();
-		// display.initStaffBlock(staffBlock.getDisplay().asWidget());
 	}
 
 	private void init() {
+		// 保存事件
+		registerHandler(display.getSaveClick().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent arg0) {
+						// validate first!
+						if (!validateSubmit()) {
+							return;
+						}
+
+						GiftVo gift = new GiftVo();
+
+						
+						// 基本信息
+						gift.setName(display.getName().getValue());
+
+						if (!isEditPage) {
+							gift.setId("");
+							doSave(gift);
+						} else {
+							gift.setId(giftId);
+							doEdit(gift);// 修改功能
+						}
+					}
+				}));
+
 		// 提名人按钮事件
 		// registerHandler(display.getChooseStaffBtnClick().addClickHandler(
 		// new ClickHandler() {
@@ -95,22 +99,7 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 		// final HandlerRegistration registration = eventBus
 		// .addHandler(ChooseStaffEvent.getType(),
 		// new ChooseStaffHandler() {
-		// @Override
-		// public void chosenStaff(
-		// List<StaffClient> list) {
-		// for (StaffClient r : list) {
-		//
-		// if (!display
-		// .getSpecialTextArea()
-		// .containsItem(r)) {
-		//
-		// display.getSpecialTextArea()
-		// .addItem(r);
-		// }
-		// }
-		// }
-		// });
-		//
+	
 		// Platform.getInstance().getSiteManager()
 		// .openDialog(dialog, new DialogCloseListener() {
 		// public void onClose(String dialogId,
@@ -120,50 +109,9 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 		// });
 		// }
 		// }));
-		// 保存事件
-		registerHandler(display.getSaveClick().addClickHandler(
-				new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent arg0) {
-						// validate first!
-						// if (!validateFirst()) {
-						// return;
-						// }
-
-						GiftClient gift = new GiftClient();
-						// 基本信息
-						gift.setName(display.getName().getValue().trim());
-						// gift.setType(new RewardsTypeClient(display
-						// .getRewardsType(), ""));//
-						// gift.setDefinition(display.getDefinition().getValue()
-						// .trim());
-						// gift.setStandard(display.getStandard().getValue()
-						// .trim());
-
-						if (!isEditPage) {
-							gift.setId("");
-							doSave(gift);
-						} else {
-							gift.setId(giftId);
-							doEdit(gift);// 修改功能
-						}
-					}
-				}));
 	}
 
-	public ParticipateInfoClient getNominateInfo() {
-		ParticipateInfoClient nominateInfo = null;
-		// List<OrganicationClient> orgs = new ArrayList<OrganicationClient>();
-		// if (display.getAutoCbx().getValue() == false) { // 自动奖时没有提名人ID
-		// for (String orgId : display.getNominateIds()) {
-		// orgs.add(new OrganicationClient(orgId, ""));
-		// }
-		// }
-		// nominateInfo = new SomeoneClient(orgs);
-		return nominateInfo;
-	}
-
-	private void doSave(GiftClient gift) {
+	private void doSave(GiftVo gift) {
 		dispatcher.execute(
 				new AddGiftRequest(gift, sessionManager.getSession()),
 				new AsyncCallback<AddGiftResponse>() {
@@ -187,7 +135,7 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 				});
 	}
 
-	private void doEdit(GiftClient gift) {
+	private void doEdit(GiftVo gift) {
 		if (Window.confirm("确定修改?")) {
 			dispatcher.execute(
 					new AddGiftRequest(gift, sessionManager.getSession()),
@@ -311,6 +259,20 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 	//
 	// }
 	// }
+
+	// 验证方法
+	private boolean validateSubmit() {
+		boolean flag = true;
+		StringBuilder errorMsg = new StringBuilder();
+//		if (display.getName().getValue() == null
+//				|| "".equals(display.getName().getValue().trim())) {
+//			errorMsg.append("请填写礼品名称!<br>");
+//
+//			flag = false;
+//		}
+		System.out.println("validateSubmit()======");
+		return flag;
+	}
 
 	// // 奖项验证方法
 	// private boolean validateFirst() {
@@ -496,12 +458,12 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 	// }
 
 	// @Override
-	// public void initInstanceId(String instanceId, GiftClient item) {
+	// public void initInstanceId(String instanceId, GiftVo item) {
 	// this.instanceId = instanceId;
 	// initDataToEditGift(item);
 	// }
 
-	private void initDataToEditGift(final GiftClient item) {
+	private void initDataToEditGift(final GiftVo item) {
 		String id = item.getId();
 
 		isEditPage = true;
@@ -519,7 +481,7 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 
 						@Override
 						public void onSuccess(SearchGiftByIdResponse response) {
-							GiftClient item = response.getGift();
+							GiftVo item = response.getGift();
 							clear();
 							// display.showGift(item);
 							//
@@ -553,13 +515,10 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 
 						}
 					});
-			}
+		}
 	}
 
 	private void clear() {
-		RewardsBaseInfo baseInfo = new RewardsBaseInfo();
-		baseInfo.setParticipateInfo(new EveryoneClient());
-		staffBlock.getDisplay().showParticipateInfo(baseInfo);
 		display.clear();
 	}
 
@@ -567,4 +526,6 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 		this.giftId = id;
 		isEditPage = true;
 	}
+	
+	
 }

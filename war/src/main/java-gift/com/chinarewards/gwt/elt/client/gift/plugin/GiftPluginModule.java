@@ -10,7 +10,7 @@ import com.google.inject.Singleton;
 
 /**
  * @author yanrui
- * @since 2011年12月9日 
+ * @since
  */
 public class GiftPluginModule extends AbstractGinModule {
 

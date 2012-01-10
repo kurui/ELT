@@ -1,12 +1,9 @@
 package com.chinarewards.elt.service.gift;
 
 import com.chinarewards.elt.domain.gift.Gift;
-import com.chinarewards.elt.domain.org.Corporation;
-import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
-import com.chinarewards.elt.model.org.CorporationVo;
-import com.chinarewards.elt.model.reward.search.RewardItemSearchVo;
-import com.chinarewards.elt.model.reward.vo.RewardItemVo;
+import com.chinarewards.elt.model.gift.search.GiftListVo;
+import com.chinarewards.elt.model.gift.search.GiftStatus;
 import com.chinarewards.elt.model.user.UserContext;
 
 /**
@@ -43,12 +40,12 @@ public interface GiftService {
 	 * @param gift
 	 * @return
 	 */
-	public PageStore<Gift> giftList(UserContext context,Gift gift);
+	public PageStore<GiftListVo> giftList(UserContext context,GiftListVo giftVo);
 
 	/**
 	 * 上下架
 	 * @param id
 	 * @return
 	 */
-	public String updateStatus(String id);
+	public String updateStatus(String id,GiftStatus status);
 }
