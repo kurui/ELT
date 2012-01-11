@@ -25,7 +25,7 @@ public interface GiftPresenter extends Presenter<GiftPresenter.GiftDisplay> {
 
 		public HasValue<String> getTell();
 
-		public HasValue<Integer> getStock();
+		public Integer getStock();
 
 		public HasValue<String> getPhone();
 

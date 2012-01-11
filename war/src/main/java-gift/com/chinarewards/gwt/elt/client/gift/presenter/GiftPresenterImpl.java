@@ -30,7 +30,7 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 	private final DispatchAsync dispatcher;
 	private final ErrorHandler errorHandler;
 	private final SessionManager sessionManager;
-	
+
 	private final Win win;
 
 	// GiftVo item;
@@ -38,12 +38,12 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 	@Inject
 	public GiftPresenterImpl(EventBus eventBus, GiftDisplay display,
 			DispatchAsync dispatcher, ErrorHandler errorHandler,
-			SessionManager sessionManager,Win win) {
+			SessionManager sessionManager, Win win) {
 		super(eventBus, display);
 		this.dispatcher = dispatcher;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
-		this.win=win;
+		this.win = win;
 	}
 
 	@Override
@@ -67,19 +67,19 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 						//
 						// // 基本信息
 						gift.setName(display.getName().getValue().trim());
-						gift.setExplains(display.getExplains().getValue().trim());
+						gift.setExplains(display.getExplains().getValue()
+								.trim());
 						gift.setType(display.getType().getValue().trim());
-//						gift.setSource(display.getSource().getValue().trim());
+						// gift.setSource(display.getSource().getValue().trim());
 						gift.setSource("合作商家");
-//						gift.setBusiness(display.getBusiness().getValue().trim());
+						// gift.setBusiness(display.getBusiness().getValue().trim());
 						gift.setAddress(display.getAddress().getValue().trim());
 						gift.setTell(display.getTell().getValue().trim());
-//						gift.setStock(display.getStock().getValue());
-//						gift.setPhoto(display.getPhone().getValue());
-//						gift.setGiftStatus();
-//						gift.setDeleted(false);
-//						gift.setIndate(display.getIndate());
-						
+						gift.setStock(display.getStock());
+						// gift.setPhoto(display.getPhone().getValue());
+						// gift.setGiftStatus();
+						// gift.setDeleted(false);
+						// gift.setIndate(display.getIndate());
 
 						if (!isEditPage) {
 							gift.setId(null);
@@ -91,7 +91,8 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 					}
 
 					private void doSave(GiftVo gift) {
-						dispatcher.execute(new AddGiftRequest(gift,sessionManager.getSession()),
+						dispatcher.execute(new AddGiftRequest(gift,
+								sessionManager.getSession()),
 								new AsyncCallback<AddGiftResponse>() {
 									@Override
 									public void onFailure(Throwable t) {
@@ -276,23 +277,23 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 			errorMsg.append("请填写礼品名称!<br>");
 			flag = false;
 		}
-		
-//		if (display.getStock()== null) {
-//			errorMsg.append("请填写礼品库存!<br>");
-//			flag = false;
-//		}
-		
-//		if (display.getName().getValue() == null
-//				|| "".equals(display.getName().getValue().trim())) {
-//			errorMsg.append("请填写礼品名称!<br>");
-//			flag = false;
-//		}
-		
+
+		// if (display.getStock()== null) {
+		// errorMsg.append("请填写礼品库存!<br>");
+		// flag = false;
+		// }
+
+		// if (display.getName().getValue() == null
+		// || "".equals(display.getName().getValue().trim())) {
+		// errorMsg.append("请填写礼品名称!<br>");
+		// flag = false;
+		// }
+
 		if (!flag) {
-	    	win.alert(errorMsg.toString());
+			win.alert(errorMsg.toString());
 		}
-		
-		System.out.println("validateSubmit()======"+flag);
+
+		System.out.println("validateSubmit()======" + flag);
 		return flag;
 	}
 	//

@@ -106,14 +106,12 @@ public class GiftWidget extends Composite implements GiftDisplay {
 
 	@Override
 	public HasValue<String> getType() {
-		// return null;
 		return type;
 	}
 
 	@Override
 	public HasValue<String> getSource() {
-		// return null;
-		// return source;
+//		 return source;
 		return null;
 	}
 
@@ -136,9 +134,18 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	}
 
 	@Override
-	public HasValue<Integer> getStock() {
-		return null;
-		// return stock;
+	public Integer getStock() {
+			if (stock.getText() == null
+					|| "".equals(stock.getText().trim())) {
+				return null;
+			} else {
+				try {
+					int d = Integer.parseInt(stock.getText().trim());
+					return d;
+				} catch (Exception e) {
+					return new Integer(-1);
+				}
+			}
 	}
 
 	@Override
