@@ -48,7 +48,10 @@ public class GiftDao extends BaseDao<Gift> {
 			eql.append(" SELECT COUNT(g) FROM Gift g WHERE 1 = 1 and  g.deleted= :deleted");
 			param.put("deleted", false);
 		}
-
+		if (criteria.getStatus()!=null) {
+			eql.append(" AND UPPER(g.status) = :status ");
+			param.put("status", criteria.getStatus());
+		}
 		if (!StringUtil.isEmptyString(criteria.getType())) {
 			eql.append(" AND UPPER(g.type) LIKE :type ");
 			param.put("type", "%" + criteria.getType().trim().toUpperCase()
