@@ -19,7 +19,7 @@ import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListConstants;
 import com.chinarewards.gwt.elt.client.user.plugin.UserConstants;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -81,11 +81,11 @@ public class ButtonMenuProcessor implements MenuProcessor {
 	 */
 	private Widget createButtonMenuWidget(String name) {
 
-		VerticalPanel grid = new VerticalPanel();
+		final VerticalPanel grid = new VerticalPanel();
 		grid.setWidth("100%");
 		// int i = 0;
 		for (MenuNode node : root.getChildren()) {
-			Button button = new Button();
+			final Anchor button = new Anchor();
 			final MenuItem menuItem = node.getValue();
 			if (name != null) {
 				List<String> items = getMenuItemName(name);
@@ -96,11 +96,25 @@ public class ButtonMenuProcessor implements MenuProcessor {
 			{
 				break;
 			}
+			
 			button.setText(menuItem.getTitle());
-			button.setStyleName("gwt-menu-Button");
+			button.setStyleName("menu-link");
+
 			button.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent paramClickEvent) {
+					button.setStyleName("menu-link menu-selected");
 					eventBus.fireEvent(new MenuClickEvent(menuItem));
+					
+					
+					for (int i = 0; i < grid.getWidgetCount(); i++) {
+						if(grid.getWidget(i) instanceof Anchor)
+						{
+							if(!button.getText().equals(((Anchor)grid.getWidget(i)).getText()))
+							{
+								grid.getWidget(i).setStyleName("menu-link");
+							}
+						}
+					}
 				}
 			});
 			grid.add(button);
