@@ -47,11 +47,11 @@ public class AddGiftHandler extends
 
 	@Override
 	public AddGiftResponse execute(AddGiftRequest action,
-			ExecutionContext context) throws DispatchException {
+			ExecutionContext context) throws DispatchException {		 
 		logger.debug("AddGiftResponse , gift:" + action.getGiftVo().toString());
 		logger.debug("AddGiftResponse ,rewardId=" + action.getGiftVo().getId());
-		GiftVo GiftVo = action.getGiftVo();
-		Gift param = assemblegift(GiftVo);
+		GiftVo giftVo = action.getGiftVo();
+		Gift gift = assemblegift(giftVo);
 
 		UserContext uc = new UserContext();
 		uc.setCorporationId(action.getUserSession().getCorporationId());
@@ -59,8 +59,10 @@ public class AddGiftHandler extends
 		uc.setUserId(action.getUserSession().getToken());
 		uc.setUserRoles(UserRoleTool.adaptToRole(action.getUserSession()
 				.getUserRoles()));
-		Gift AdddItem = giftService.save(uc, param);
-		return new AddGiftResponse(AdddItem.getId());
+		Gift AdddItem = giftService.save(uc, gift);
+		
+//		return new AddGiftResponse(AdddItem.getId());
+		return null;
 	}
 
 	// Convert from GiftVo to GeneratorGiftModel.

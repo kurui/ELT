@@ -68,13 +68,13 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 						// // 基本信息
 						gift.setName(display.getName().getValue().trim());
 						gift.setExplains(display.getExplains().getValue().trim());
-						gift.setType(display.getType().getValue().trim());
-						gift.setSource(display.getSource().getValue().trim());
-						gift.setBusiness(display.getBusiness().getValue().trim());
-						gift.setAddress(display.getAddress().getValue().trim());
-						gift.setTell(display.getTell().getValue().trim());
-						gift.setStock(display.getStock().getValue());
-						gift.setPhoto(display.getPhone().getValue());
+//						gift.setType(display.getType().getValue().trim());
+//						gift.setSource(display.getSource().getValue().trim());
+//						gift.setBusiness(display.getBusiness().getValue().trim());
+//						gift.setAddress(display.getAddress().getValue().trim());
+//						gift.setTell(display.getTell().getValue().trim());
+//						gift.setStock(display.getStock().getValue());
+//						gift.setPhoto(display.getPhone().getValue());
 //						gift.setGiftStatus();
 //						gift.setDeleted(false);
 //						gift.setIndate(display.getIndate());
@@ -101,7 +101,7 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 					}
 
 					private void doSave(GiftVo gift) {
-						dispatcher.execute(new AddGiftRequest(),
+						dispatcher.execute(new AddGiftRequest(gift,sessionManager.getSession()),
 								new AsyncCallback<AddGiftResponse>() {
 									@Override
 									public void onFailure(Throwable t) {
@@ -287,10 +287,10 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 			flag = false;
 		}
 		
-		if (display.getStock()== null) {
-			errorMsg.append("请填写礼品库存!<br>");
-			flag = false;
-		}
+//		if (display.getStock()== null) {
+//			errorMsg.append("请填写礼品库存!<br>");
+//			flag = false;
+//		}
 		
 //		if (display.getName().getValue() == null
 //				|| "".equals(display.getName().getValue().trim())) {
