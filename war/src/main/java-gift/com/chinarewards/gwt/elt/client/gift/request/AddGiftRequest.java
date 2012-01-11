@@ -6,7 +6,6 @@ package com.chinarewards.gwt.elt.client.gift.request;
 import java.util.List;
 
 import com.chinarewards.gwt.elt.client.gift.model.GiftVo;
-import com.chinarewards.gwt.elt.client.gift.request.AddGiftResponse;
 import com.chinarewards.gwt.elt.client.support.UserSession;
 
 import net.customware.gwt.dispatch.shared.Action;
@@ -20,15 +19,15 @@ public class AddGiftRequest implements Action<AddGiftResponse> {
 
 	String giftId;
 	String nowUserId;
-	private GiftVo giftVo;
-	private UserSession userSession;
+//	private GiftVo giftVo;
+//	private UserSession userSession;
 
 	List<String> staffIds;
 
-	public AddGiftRequest(GiftVo giftVo, UserSession userSession) {
-		this.giftVo = giftVo;
-		this.userSession = userSession;
-	}
+//	public AddGiftRequest(GiftVo giftVo,UserSession userSession) {
+//		this.giftVo = giftVo;
+//		this.userSession = userSession;
+//	}
 
 	/**
 	 * For serialization
@@ -36,11 +35,11 @@ public class AddGiftRequest implements Action<AddGiftResponse> {
 	public AddGiftRequest() {
 	}
 
-	public AddGiftRequest(List<String> staffIds, String giftId, String nowUserId) {
-		this.staffIds = staffIds;
-		this.nowUserId = nowUserId;
-		this.giftId = giftId;
-	}
+//	public AddGiftRequest(List<String> staffIds, String giftId, String nowUserId) {
+//		this.staffIds = staffIds;
+//		this.nowUserId = nowUserId;
+//		this.giftId = giftId;
+//	}
 
 	public String getGiftId() {
 		return giftId;
@@ -58,21 +57,21 @@ public class AddGiftRequest implements Action<AddGiftResponse> {
 		this.nowUserId = nowUserId;
 	}
 
-	public GiftVo getGiftVo() {
-		return giftVo;
-	}
+//	public GiftVo getGiftVo() {
+//		return giftVo;
+//	}
+//
+//	public void setGiftVo(GiftVo giftVo) {
+//		this.giftVo = giftVo;
+//	}
 
-	public void setGiftVo(GiftVo giftVo) {
-		this.giftVo = giftVo;
-	}
-
-	public UserSession getUserSession() {
-		return userSession;
-	}
-
-	public void setUserSession(UserSession userSession) {
-		this.userSession = userSession;
-	}
+//	public UserSession getUserSession() {
+//		return userSession;
+//	}
+//
+//	public void setUserSession(UserSession userSession) {
+//		this.userSession = userSession;
+//	}
 
 	public List<String> getStaffIds() {
 		return staffIds;

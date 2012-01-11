@@ -60,8 +60,8 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	@UiField
 	Button save;
 
-	FrequencyClient frequency;
-	String rewardsUnit;
+//	FrequencyClient frequency;
+//	String rewardsUnit;
 
 	DateTimeFormat dateFormat = DateTimeFormat
 			.getFormat(ViewConstants.date_format);

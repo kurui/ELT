@@ -13,5 +13,4 @@ public class GiftModule extends AbstractGinModule {
 		bind(GiftPresenter.class).to(GiftPresenterImpl.class);
 		bind(GiftDisplay.class).to(GiftWidget.class);
 	}
-
 }
