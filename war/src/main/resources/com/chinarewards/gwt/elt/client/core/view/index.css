@@ -61,4 +61,4 @@ div#fmdiv{ background-color:#FFF; border:1px solid #9bb1be; overflow-y:scroll}
 .fmtable select{ border:1px solid #b4c6d0; background:url(../images/input_bg.jpg) repeat-x; line-height:18px; height:22px; width:100px;}
 
 /*底部的样式*/
-@sprite #footer{ height:20px; padding:7px 0px 0px 15px; gwt-image:"footer"; color:#666666}
+@sprite #footer{ height:60px; padding:7px 0px 0px 10px; gwt-image:"footer"; color:#666666}
