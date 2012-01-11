@@ -1489,3 +1489,8 @@ li.token-input-input-token-facebook {
 .cr-loading {
 	background:url(images/ajax-loader.gif) no-repeat 50% 50%; color:#174a77; font-size:12px; position:relative; padding:0px 0px 0px 0px; line-height: 20px;text-align: center;
 }
+
+/*menu-link*/
+.menu-link{display:block;border-bottom:1px solid #EAEAEA;padding:8px 0 8px 35px;background-color:#CCCCCC;color:#333333;text-decoration:none;font-weight:normal;}
+.menu-link:hover{background-color:#ABAAAA;color:#333333;text-decoration:none;}
+.menu-selected{background-color:#75B528;color:#FFFFFF;}
