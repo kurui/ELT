@@ -48,6 +48,15 @@ public class RewardsItemCriteria implements Serializable {
 	private boolean subDepartmentChoose;
 
 	private Date startTime;
+	private Date createTime;
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
 
 	private Date endTime;
 	/**

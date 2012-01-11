@@ -66,9 +66,11 @@ public class RewardItemDao extends BaseDao<RewardItem> {
 		StringBuffer eql = new StringBuffer();
 		System.out.println("RewardItemSearchVo : " + criteria);
 		if (SEARCH.equals(type)) {
-			eql.append(" SELECT item FROM RewardItem item WHERE 1 = 1 and  deleted=false");
+			eql.append(" SELECT item FROM RewardItem item WHERE 1 = 1 and  deleted=:deleted");
+			param.put("deleted", false);
 		} else if (COUNT.equals(type)) {
-			eql.append(" SELECT COUNT(item) FROM RewardItem item WHERE 1 = 1 and  deleted=false");
+			eql.append(" SELECT COUNT(item) FROM RewardItem item WHERE 1 = 1 and  deleted=:deleted");
+			param.put("deleted", false);
 		}
 		if (!StringUtil.isEmptyString(criteria.getAccountDeptName())) {
 			eql.append(" AND item.accountDept IN (FROM Department dept WHERE UPPER(dept.name) LIKE :accountDeptName) ");
@@ -94,6 +96,11 @@ public class RewardItemDao extends BaseDao<RewardItem> {
 			eql.append(" AND UPPER(item.definition) LIKE :definition ");
 			param.put("definition", "%"
 					+ criteria.getDefinition().trim().toUpperCase() + "%");
+		}
+		// 根据创建时间来查询
+		if (null != criteria.getCreateTime() && !criteria.getCreateTime().equals("")) {
+			eql.append(" AND item.createdAt=:createTime");
+			param.put("createTime", criteria.getCreateTime());
 		}
 
 		if (!StringUtil.isEmptyString(criteria.getName())) {
