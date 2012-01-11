@@ -3,7 +3,9 @@ package com.chinarewards.gwt.elt.client.gift.model;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.chinarewards.elt.model.gift.search.GiftStatus;
+import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria.GiftStatus;
+
+
 
 
 public class GiftVo implements Serializable {
