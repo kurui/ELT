@@ -1,7 +1,6 @@
 package com.chinarewards.gwt.elt.client.gift.presenter;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
-
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.gift.model.GiftVo;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftConstants;
@@ -11,6 +10,7 @@ import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.chinarewards.gwt.elt.client.win.Win;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
@@ -30,17 +30,20 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 	private final DispatchAsync dispatcher;
 	private final ErrorHandler errorHandler;
 	private final SessionManager sessionManager;
+	
+	private final Win win;
 
 	// GiftVo item;
 
 	@Inject
 	public GiftPresenterImpl(EventBus eventBus, GiftDisplay display,
 			DispatchAsync dispatcher, ErrorHandler errorHandler,
-			SessionManager sessionManager) {
+			SessionManager sessionManager,Win win) {
 		super(eventBus, display);
 		this.dispatcher = dispatcher;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
+		this.win=win;
 	}
 
 	@Override
@@ -63,8 +66,31 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 						GiftVo gift = new GiftVo();
 						//
 						// // 基本信息
-						gift.setName(display.getName().getValue());
-
+						gift.setName(display.getName().getValue().trim());
+						gift.setExplains(display.getExplains().getValue().trim());
+						gift.setType(display.getType().getValue().trim());
+						gift.setSource(display.getSource().getValue().trim());
+						gift.setBusiness(display.getBusiness().getValue().trim());
+						gift.setAddress(display.getAddress().getValue().trim());
+						gift.setTell(display.getTell().getValue().trim());
+						gift.setStock(display.getStock().getValue());
+						gift.setPhoto(display.getPhone().getValue());
+//						gift.setGiftStatus();
+//						gift.setDeleted(false);
+//						gift.setIndate(display.getIndate());
+						
+//						 private String name;       //礼品名
+//						    private String explains;   //说明
+//						    private String  type;      //礼品类型
+//						    private String source;     //来源
+//						    private String business;   //供应商
+//						    private String address;    //地址
+//						    private String tell;       //电话
+//						    private int    stock;         //库存
+//						    private String photo;      //图片
+//						    private GiftStatus status;    //状态（上下架）
+//						    private boolean deleted;   //删除状态
+//						    private Date    indate ;      //有效截止期
 						if (!isEditPage) {
 							gift.setId("");
 							doSave(gift);
@@ -255,13 +281,28 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 	private boolean validateSubmit() {
 		boolean flag = true;
 		StringBuilder errorMsg = new StringBuilder();
-		// if (display.getName().getValue() == null
-		// || "".equals(display.getName().getValue().trim())) {
-		// errorMsg.append("请填写礼品名称!<br>");
-		//
-		// flag = false;
-		// }
-		System.out.println("validateSubmit()======");
+		if (display.getName().getValue() == null
+				|| "".equals(display.getName().getValue().trim())) {
+			errorMsg.append("请填写礼品名称!<br>");
+			flag = false;
+		}
+		
+		if (display.getStock()== null) {
+			errorMsg.append("请填写礼品库存!<br>");
+			flag = false;
+		}
+		
+//		if (display.getName().getValue() == null
+//				|| "".equals(display.getName().getValue().trim())) {
+//			errorMsg.append("请填写礼品名称!<br>");
+//			flag = false;
+//		}
+		
+		if (!flag) {
+	    	win.alert(errorMsg.toString());
+		}
+		
+		System.out.println("validateSubmit()======"+flag);
 		return flag;
 	}
 	//
