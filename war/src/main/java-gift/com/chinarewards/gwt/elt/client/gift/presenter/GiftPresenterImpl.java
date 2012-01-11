@@ -68,31 +68,21 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 						// // 基本信息
 						gift.setName(display.getName().getValue().trim());
 						gift.setExplains(display.getExplains().getValue().trim());
-//						gift.setType(display.getType().getValue().trim());
+						gift.setType(display.getType().getValue().trim());
 //						gift.setSource(display.getSource().getValue().trim());
+						gift.setSource("合作商家");
 //						gift.setBusiness(display.getBusiness().getValue().trim());
-//						gift.setAddress(display.getAddress().getValue().trim());
-//						gift.setTell(display.getTell().getValue().trim());
+						gift.setAddress(display.getAddress().getValue().trim());
+						gift.setTell(display.getTell().getValue().trim());
 //						gift.setStock(display.getStock().getValue());
 //						gift.setPhoto(display.getPhone().getValue());
 //						gift.setGiftStatus();
 //						gift.setDeleted(false);
 //						gift.setIndate(display.getIndate());
 						
-//						 private String name;       //礼品名
-//						    private String explains;   //说明
-//						    private String  type;      //礼品类型
-//						    private String source;     //来源
-//						    private String business;   //供应商
-//						    private String address;    //地址
-//						    private String tell;       //电话
-//						    private int    stock;         //库存
-//						    private String photo;      //图片
-//						    private GiftStatus status;    //状态（上下架）
-//						    private boolean deleted;   //删除状态
-//						    private Date    indate ;      //有效截止期
+
 						if (!isEditPage) {
-							gift.setId("");
+							gift.setId(null);
 							doSave(gift);
 						} else {
 							gift.setId(giftId);
