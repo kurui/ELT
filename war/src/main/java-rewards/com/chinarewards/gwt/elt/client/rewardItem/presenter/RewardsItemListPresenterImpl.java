@@ -13,8 +13,6 @@ import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemConstants;
 import com.chinarewards.gwt.elt.client.rewardItem.request.ActivationRewardsItemRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.ActivationRewardsItemResponse;
-import com.chinarewards.gwt.elt.client.rewardItem.request.CreateRewardsItemRequest;
-import com.chinarewards.gwt.elt.client.rewardItem.request.CreateRewardsItemResponse;
 import com.chinarewards.gwt.elt.client.rewardItem.request.DeleteRewardsItemRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.DeleteRewardsItemResponse;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemClient;
@@ -36,7 +34,6 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.cellview.client.SimplePager.TextLocation;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
@@ -61,16 +58,16 @@ public class RewardsItemListPresenterImpl extends
 	DateTimeFormat dateFormatAll = DateTimeFormat.getFormat(ViewConstants.date_format_all);
 	DateTimeFormat dateFormat = DateTimeFormat.getFormat(ViewConstants.date_format);
 
+
 	// 是否部门管理员
 	boolean isHr = false;
 	boolean isDepartmentManager = false;
 
 	@Inject
+
 	public RewardsItemListPresenterImpl(EventBus eventBus,Win win,
 			RewardsItemListDisplay display, DispatchAsync dispatch,
-			ErrorHandler errorHandler, SessionManager sessionManager
-
-	) {
+			ErrorHandler errorHandler, SessionManager sessionManager) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.errorHandler = errorHandler;
@@ -110,7 +107,8 @@ public class RewardsItemListPresenterImpl extends
 		pager.setDisplay(resultTable);
 		resultTable.setWidth(ViewConstants.page_width);
 		resultTable.setPageSize(ViewConstants.per_page_number_in_dialog);
-		listViewAdapter = new RewardsItemListViewAdapter(dispatch,errorHandler, sessionManager);
+		listViewAdapter = new RewardsItemListViewAdapter(dispatch,
+				errorHandler, sessionManager);
 		listViewAdapter.addDataDisplay(resultTable);
 
 		display.getDataContainer().clear();
@@ -193,7 +191,7 @@ public class RewardsItemListPresenterImpl extends
 						return (object.isPeriodEnable()) ? "有" : "无";
 					}
 				});
-		
+
 		resultTable.addColumn("创建时间", new DateCell(dateFormatAll),
 				new GetValue<RewardsItemClient, Date>() {
 					@Override
@@ -202,6 +200,7 @@ public class RewardsItemListPresenterImpl extends
 					}
 				});
 
+<<<<<<< HEAD
 //		resultTable.addColumn("开始日期",new DateCell(dateFormat),
 //				new GetValue<RewardsItemClient, Date>() {
 //					@Override
@@ -209,6 +208,15 @@ public class RewardsItemListPresenterImpl extends
 //						return rewards.getStartTime();
 //					}
 //				}, ref, "startTime");
+=======
+		resultTable.addColumn("开始日期", new DateCell(dateFormat),
+				new GetValue<RewardsItemClient, Date>() {
+					@Override
+					public Date getValue(RewardsItemClient rewards) {
+						return rewards.getStartTime();
+					}
+				}, ref, "startTime");
+>>>>>>> refs/remotes/origin/master
 
 		resultTable.addColumn("应用次数", new TextCell(),
 				new GetValue<RewardsItemClient, String>() {
@@ -234,7 +242,11 @@ public class RewardsItemListPresenterImpl extends
 										RewardsItemConstants.EDITOR_REWARDSITEM_ADD,
 										"EDITOR_REWARDS_ITEM_ADD"
 												+ object.getId(), object);
+<<<<<<< HEAD
 					   
+=======
+					   }
+>>>>>>> refs/remotes/origin/master
 					}
 				});
 		resultTable.addColumn("查看", new HyperLinkCell(),
@@ -291,12 +303,12 @@ public class RewardsItemListPresenterImpl extends
 						}
 					}
 				});
-		
+
 		resultTable.addColumn("操作", new HyperLinkCell(),
 				new GetValue<RewardsItemClient, String>() {
 					@Override
 					public String getValue(RewardsItemClient arg0) {
-						
+
 						if (arg0.isEnabled() == false)
 							return "应用";
 						else
@@ -304,25 +316,29 @@ public class RewardsItemListPresenterImpl extends
 					}
 				}, new FieldUpdater<RewardsItemClient, String>() {
 					@Override
-					public void update(int index, RewardsItemClient object,
-							String value) {
+					public void update(int index,
+							final RewardsItemClient object, String value) {
 						if (object.isEnabled() == false) {
+
 							if(object.getStartTime()==null)
 							{
 								win.alert("失败，"+object.getName()+"资料不完整，影响其正常运作，请完善后再应用");
 								return;
 							}
-							
-							if (Window.confirm("确定激活?")) {
-								activationRewardItem(object.getId());
-							}
-						}
-						else
-						{
-							win.alert("失败，"+object.getName()+"已经处于激活状态");
-/*							if (Window.confirm("为了测试,重新激活,再运行一次batch?")) {
-								activationRewardItem(object.getId());
-							}*/
+
+							win.confirm("提示", "确定激活？", new ConfirmHandler() {
+								@Override
+								public void confirm() {
+									activationRewardItem(object.getId());
+								}
+							});
+
+						} else {
+							win.alert("失败，" + object.getName() + "已经处于激活状态");
+							/*
+							 * if (Window.confirm("为了测试,重新激活,再运行一次batch?")) {
+							 * activationRewardItem(object.getId()); }
+							 */
 						}
 					}
 				});
@@ -331,7 +347,8 @@ public class RewardsItemListPresenterImpl extends
 
 	public void activationRewardItem(String rewardsItemId) {
 
-		dispatch.execute(new ActivationRewardsItemRequest(rewardsItemId,sessionManager.getSession().getToken()),
+		dispatch.execute(new ActivationRewardsItemRequest(rewardsItemId,
+				sessionManager.getSession().getToken()),
 				new AsyncCallback<ActivationRewardsItemResponse>() {
 
 					@Override
@@ -346,10 +363,11 @@ public class RewardsItemListPresenterImpl extends
 					}
 				});
 	}
-	
-	public void deleteRewardItem(String rewardsItemId){
-		 
-		dispatch.execute(new DeleteRewardsItemRequest(rewardsItemId,sessionManager.getSession().getToken()),
+
+	public void deleteRewardItem(String rewardsItemId) {
+
+		dispatch.execute(new DeleteRewardsItemRequest(rewardsItemId,
+				sessionManager.getSession().getToken()),
 				new AsyncCallback<DeleteRewardsItemResponse>() {
 
 					@Override

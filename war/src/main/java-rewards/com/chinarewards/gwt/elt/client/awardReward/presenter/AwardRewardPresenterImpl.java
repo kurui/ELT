@@ -18,13 +18,14 @@ import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient;
 import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient.SomeoneClient;
 import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.chinarewards.gwt.elt.client.win.Win;
+import com.chinarewards.gwt.elt.client.win.confirm.ConfirmHandler;
 import com.chinarewards.gwt.elt.model.ChoosePanel.InitChoosePanelParam;
 import com.chinarewards.gwt.elt.model.rewards.RewardPageType;
 import com.chinarewards.gwt.elt.model.rewards.RewardsPageClient;
 import com.chinarewards.gwt.elt.util.DateTool;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
@@ -34,26 +35,28 @@ public class AwardRewardPresenterImpl extends
 
 	private final DispatchAsync dispatcher;
 	private String awardsId;
-	private String instanceId;
+	// private String instanceId;
 	private int headcount;
 	private SessionManager sessionManager;
-
+	final Win win;
 	private final ChooseStaffPanelPresenter staffPanel;
 
 	@Inject
 	public AwardRewardPresenterImpl(EventBus eventBus,
 			AwardRewardDisplay display, DispatchAsync dispatcher,
-			ChooseStaffPanelPresenter staffPanel,SessionManager sessionManager) {
+			ChooseStaffPanelPresenter staffPanel,
+			SessionManager sessionManager, Win win) {
 		super(eventBus, display);
 		this.dispatcher = dispatcher;
 		this.staffPanel = staffPanel;
-		this.sessionManager=sessionManager;
+		this.sessionManager = sessionManager;
+		this.win = win;
 	}
 
 	@Override
 	public void bind() {
 		init();
-		InitChoosePanelParam initChooseParam =new InitChoosePanelParam();
+		InitChoosePanelParam initChooseParam = new InitChoosePanelParam();
 		initChooseParam.setTopName("获奖人：");
 		staffPanel.initChoosePanel(initChooseParam);
 		staffPanel.setRewardId(awardsId);
@@ -67,7 +70,7 @@ public class AwardRewardPresenterImpl extends
 
 						ParticipateInfoClient participate = staffPanel
 								.getparticipateInfo();
-						List<String> staffIds = new ArrayList<String>();
+						final List<String> staffIds = new ArrayList<String>();
 						String nominateName = "";
 						if (participate instanceof SomeoneClient) {
 							List<OrganicationClient> staffs = ((SomeoneClient) participate)
@@ -79,36 +82,30 @@ public class AwardRewardPresenterImpl extends
 						}
 
 						if (staffIds.size() <= 0) {
-							if (Window.confirm("没有选人，是否需要选人并颁奖？"))
-							{
-								return;
-							}
-							else
-							{
-								
-								RewardsPageClient rpc=new RewardsPageClient();
-								rpc.setTitleName("颁奖列表");
-								rpc.setPageType(RewardPageType.AWARDREWARDPAGE);
-								Platform.getInstance()
-										.getEditorRegistry()
-										.openEditor(
-												RewardsListConstants.EDITOR_REWARDSLIST_SEARCH,
-												"EDITOR_REWARDSLIST_"+RewardPageType.AWARDREWARDPAGE,rpc);
-								return;
-							}
-							
+							win.alert("没有选人，需要选人并颁奖~");
+							return;
+					
 						}
 						if (staffIds.size() > headcount) {
-							Window.alert("颁奖人数超过奖励名额，请重新选择!");
+							win.alert("颁奖人数超过奖励名额，请重新选择!");
 							return;
 						}
+						String winStr = "";
 						if (staffIds.size() < headcount) {
-							if (!Window.confirm("只选了"+staffIds.size()+"人，还可以选择"+(headcount-staffIds.size())+"个名额，继续颁奖还是返回选人?"))
-								return;
+							winStr = "<font color='red'>只选了" + staffIds.size()
+									+ "人，还可以选择" + (headcount - staffIds.size())
+									+ "个名额，继续颁奖还是返回选人?</font>";
 						}
-						if (Window.confirm("确定获奖人:" + nominateName + "?")) {
-							addAwardRewardData(staffIds, awardsId);
-						}
+						win.confirm("提示", "确定获奖人:" + nominateName + "?<br>"
+								+ winStr, new ConfirmHandler() {
+
+							@Override
+							public void confirm() {
+								addAwardRewardData(staffIds, awardsId);
+
+							}
+						});
+
 					}
 				}));
 	}
@@ -117,23 +114,26 @@ public class AwardRewardPresenterImpl extends
 	 * 颁奖数据添加
 	 */
 	private void addAwardRewardData(List<String> staffidList, String rewardId) {
-		dispatcher.execute(new AwardRewardAddRequest(staffidList, rewardId,sessionManager.getSession().getToken()),
+		dispatcher.execute(new AwardRewardAddRequest(staffidList, rewardId,
+				sessionManager.getSession().getToken()),
 				new AsyncCallback<AwardRewardAddResponse>() {
 					public void onFailure(Throwable t) {
-						Window.alert(t.getMessage());
+						win.alert(t.getMessage());
 					}
 
 					@Override
 					public void onSuccess(AwardRewardAddResponse response) {
-						Window.alert("颁奖成功!");
-						RewardsPageClient rpc=new RewardsPageClient();
+						win.alert("颁奖成功!");
+						RewardsPageClient rpc = new RewardsPageClient();
 						rpc.setTitleName("颁奖列表");
 						rpc.setPageType(RewardPageType.AWARDREWARDPAGE);
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(
 										RewardsListConstants.EDITOR_REWARDSLIST_SEARCH,
-										"EDITOR_REWARDSLIST_"+RewardPageType.AWARDREWARDPAGE,rpc);
+										"EDITOR_REWARDSLIST_"
+												+ RewardPageType.AWARDREWARDPAGE,
+										rpc);
 					}
 				});
 	}
@@ -147,7 +147,7 @@ public class AwardRewardPresenterImpl extends
 		dispatcher.execute(new AwardRewardInitRequest(awardsId),
 				new AsyncCallback<AwardRewardInitResponse>() {
 					public void onFailure(Throwable t) {
-						Window.alert(t.getMessage());
+						win.alert(t.getMessage());
 					}
 
 					@Override
@@ -167,8 +167,9 @@ public class AwardRewardPresenterImpl extends
 								.getCreatedAt()));
 						display.setAwarddate(DateTool.dateToString(response
 								.getExpectAwardDate()));
-						display.setNominateMessage("提名信息");// wating.........
-						display.setNominateStaff("当前用户");
+						display.setNominateMessage("领导提名");// wating.........
+						display.setNominateStaff(response
+								.getJudgeListToString());
 						display.setExpectNominateDate(DateTool
 								.dateToString(response.getExpectNominateDate()));
 						display.setAwardName(response.getAwardingStaffName());
@@ -181,7 +182,7 @@ public class AwardRewardPresenterImpl extends
 	public void initReward(String rewardId, String instanceId, int headcount) {
 		// 加载数据
 		this.awardsId = rewardId;
-		this.instanceId = instanceId;
+		// this.instanceId = instanceId;
 		this.headcount = headcount;
 	}
 

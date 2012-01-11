@@ -40,7 +40,7 @@ public interface GiftService {
 	 * @param gift
 	 * @return
 	 */
-	public PageStore<GiftListVo> giftList(UserContext context,GiftListVo giftVo);
+	public PageStore<GiftListVo> giftList(UserContext context,GiftListVo giftListVo);
 
 	/**
 	 * 上下架

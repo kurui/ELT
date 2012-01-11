@@ -7,7 +7,7 @@ import java.util.List;
 
 import net.customware.gwt.dispatch.shared.Result;
 
-import com.chinarewards.gwt.elt.model.gift.GiftClient;
+import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
 
 /**
  * @author nicho
@@ -17,6 +17,7 @@ public class SearchGiftResponse implements Result {
 
 	private List<GiftClient> result;
 	private int total;
+
 
 	/**
 	 * @return the result

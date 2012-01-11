@@ -18,13 +18,14 @@ import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient;
 import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient.SomeoneClient;
 import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.chinarewards.gwt.elt.client.win.Win;
+import com.chinarewards.gwt.elt.client.win.confirm.ConfirmHandler;
 import com.chinarewards.gwt.elt.model.ChoosePanel.InitChoosePanelParam;
 import com.chinarewards.gwt.elt.model.rewards.RewardPageType;
 import com.chinarewards.gwt.elt.model.rewards.RewardsPageClient;
 import com.chinarewards.gwt.elt.util.DateTool;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
@@ -34,20 +35,21 @@ public class NominatePresenterImpl extends
 
 	private final DispatchAsync dispatcher;
 	private String awardsId;
-//	private String instanceId;
+	// private String instanceId;
 	private int headcount;
 	final SessionManager sessionManager;
-
+	final Win win;
 	private final ChooseStaffPanelPresenter staffPanel;
 
 	@Inject
 	public NominatePresenterImpl(EventBus eventBus, NominateDisplay display,
 			DispatchAsync dispatcher, ChooseStaffPanelPresenter staffPanel,
-			SessionManager sessionManager) {
+			SessionManager sessionManager, Win win) {
 		super(eventBus, display);
 		this.dispatcher = dispatcher;
 		this.staffPanel = staffPanel;
 		this.sessionManager = sessionManager;
+		this.win = win;
 	}
 
 	@Override
@@ -67,7 +69,7 @@ public class NominatePresenterImpl extends
 
 						ParticipateInfoClient participate = staffPanel
 								.getparticipateInfo();
-						List<String> staffIds = new ArrayList<String>();
+						final List<String> staffIds = new ArrayList<String>();
 						String nominateName = "";
 						if (participate instanceof SomeoneClient) {
 							List<OrganicationClient> staffs = ((SomeoneClient) participate)
@@ -78,18 +80,26 @@ public class NominatePresenterImpl extends
 							}
 						}
 
+						final String nominateNameStr = nominateName;
+						String headcountStr = "";
 						if (staffIds.size() <= 0) {
-							Window.alert("请选择需要提名的人...");
+							win.alert("请选择需要提名的人...");
 							return;
 						}
 						if (staffIds.size() > headcount) {
-							if (!Window.confirm("超过名额，需要减少提名人数!.....允许超额提名?"))
-								return;
-						}
+							headcountStr = "<font color='red'>超过名额，需要减少提名人数!~~~~允许超额提名?</font>";
 
-						if (Window.confirm("确定提名:" + nominateName + "?")) {
-							addNominateData(staffIds, awardsId);
 						}
+						win.confirm("提示", "确定提名:" + nominateNameStr + "?<br>"
+								+ headcountStr, new ConfirmHandler() {
+
+							@Override
+							public void confirm() {
+								addNominateData(staffIds, awardsId);
+
+							}
+						});
+
 					}
 				}));
 	}
@@ -98,23 +108,26 @@ public class NominatePresenterImpl extends
 	 * 提名数据添加
 	 */
 	private void addNominateData(List<String> staffidList, String rewardId) {
-		dispatcher.execute(new NominateAddRequest(staffidList, rewardId,sessionManager.getSession().getToken()),
+		dispatcher.execute(new NominateAddRequest(staffidList, rewardId,
+				sessionManager.getSession().getToken()),
 				new AsyncCallback<NominateAddResponse>() {
 					public void onFailure(Throwable t) {
-						Window.alert(t.getMessage());
+						win.alert(t.getMessage());
 					}
 
 					@Override
 					public void onSuccess(NominateAddResponse response) {
-						Window.alert("提名成功!");
-						RewardsPageClient rpc=new RewardsPageClient();
+						win.alert("提名成功!");
+						RewardsPageClient rpc = new RewardsPageClient();
 						rpc.setTitleName("提名列表");
 						rpc.setPageType(RewardPageType.NOMINATEPAGE);
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(
 										RewardsListConstants.EDITOR_REWARDSLIST_SEARCH,
-										"EDITOR_REWARDSLIST_"+RewardPageType.NOMINATEPAGE,rpc);
+										"EDITOR_REWARDSLIST_"
+												+ RewardPageType.NOMINATEPAGE,
+										rpc);
 					}
 				});
 	}
@@ -128,7 +141,7 @@ public class NominatePresenterImpl extends
 		dispatcher.execute(new NominateInitRequest(awardsId),
 				new AsyncCallback<NominateInitResponse>() {
 					public void onFailure(Throwable t) {
-						Window.alert(t.getMessage());
+						win.alert(t.getMessage());
 					}
 
 					@Override
@@ -152,7 +165,8 @@ public class NominatePresenterImpl extends
 						display.setAwarddate(DateTool.dateToString(response
 								.getExpectAwardDate()));
 						display.setNominateMessage("提名信息");// wating.........
-						display.setNominateStaff(sessionManager.getSession().getLoginName());
+						display.setNominateStaff(sessionManager.getSession()
+								.getLoginName());
 						display.setExpectNominateDate(DateTool
 								.dateToString(response.getExpectNominateDate()));
 						display.setAwardName(response.getAwardingStaffName());
@@ -165,7 +179,7 @@ public class NominatePresenterImpl extends
 	public void initReward(String rewardId, String instanceId, int headcount) {
 		// 加载数据
 		this.awardsId = rewardId;
-		//this.instanceId = instanceId;
+		// this.instanceId = instanceId;
 		this.headcount = headcount;
 	}
 

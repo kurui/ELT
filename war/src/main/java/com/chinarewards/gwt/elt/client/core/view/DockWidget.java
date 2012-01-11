@@ -75,98 +75,100 @@ public class DockWidget extends Composite implements DockDisplay {
 	public HasClickHandlers getlogBtn() {
 		return logBtn;
 	}
-
+ String styleOn="";
+ String styleNo="";
 	private void init() {
-
+		  styleOn=btnRewardItem.getStyleName();
+		  styleNo=btnEmail.getStyleName();
 		btnReward.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				btnReward.setStyleName("GDNKKEDNK GDNKKEDOK");
-				btnEmail.setStyleName("GDNKKEDNK");
-				btnGb.setStyleName("GDNKKEDNK");
-				btnRewardItem.setStyleName("GDNKKEDNK");
-				btnStaff.setStyleName("GDNKKEDNK");
-				btnSetting.setStyleName("GDNKKEDNK");
-				btnGift.setStyleName("GDNKKEDNK");
+				btnReward.setStyleName(styleOn);
+				btnEmail.setStyleName(styleNo);
+				btnGb.setStyleName(styleNo);
+				btnRewardItem.setStyleName(styleNo);
+				btnStaff.setStyleName(styleNo);
+				btnSetting.setStyleName(styleNo);
+				btnGift.setStyleName(styleNo);
 			}
 		});
 		btnEmail.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				btnReward.setStyleName("GDNKKEDNK");
-				btnEmail.setStyleName("GDNKKEDNK GDNKKEDOK");
-				btnGb.setStyleName("GDNKKEDNK");
-				btnRewardItem.setStyleName("GDNKKEDNK");
-				btnStaff.setStyleName("GDNKKEDNK");
-				btnSetting.setStyleName("GDNKKEDNK");
-				btnGift.setStyleName("GDNKKEDNK");
+				btnReward.setStyleName(styleNo);
+				btnEmail.setStyleName(styleOn);
+				btnGb.setStyleName(styleNo);
+				btnRewardItem.setStyleName(styleNo);
+				btnStaff.setStyleName(styleNo);
+				btnSetting.setStyleName(styleNo);
+				btnGift.setStyleName(styleNo);
 			}
 		});
 		btnGb.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				btnReward.setStyleName("GDNKKEDNK");
-				btnEmail.setStyleName("GDNKKEDNK");
-				btnGb.setStyleName("GDNKKEDNK GDNKKEDOK");
-				btnRewardItem.setStyleName("GDNKKEDNK");
-				btnStaff.setStyleName("GDNKKEDNK");
-				btnSetting.setStyleName("GDNKKEDNK");
-				btnGift.setStyleName("GDNKKEDNK");
+				btnReward.setStyleName(styleNo);
+				btnEmail.setStyleName(styleNo);
+				btnGb.setStyleName(styleOn);
+				btnRewardItem.setStyleName(styleNo);
+				btnStaff.setStyleName(styleNo);
+				btnSetting.setStyleName(styleNo);
+				btnGift.setStyleName(styleNo);
 			}
 		});
 		btnRewardItem.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				btnReward.setStyleName("GDNKKEDNK");
-				btnEmail.setStyleName("GDNKKEDNK");
-				btnGb.setStyleName("GDNKKEDNK");
-				btnRewardItem.setStyleName("GDNKKEDNK GDNKKEDOK");
-				btnStaff.setStyleName("GDNKKEDNK");
-				btnSetting.setStyleName("GDNKKEDNK");
-				btnGift.setStyleName("GDNKKEDNK");
+				btnReward.setStyleName(styleNo);
+				btnEmail.setStyleName(styleNo);
+				btnGb.setStyleName(styleNo);
+				btnRewardItem.setStyleName(styleOn);
+				btnStaff.setStyleName(styleNo);
+				btnSetting.setStyleName(styleNo);
+				btnGift.setStyleName(styleNo);
 			}
 		});
 		btnStaff.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				btnReward.setStyleName("GDNKKEDNK");
-				btnEmail.setStyleName("GDNKKEDNK");
-				btnGb.setStyleName("GDNKKEDNK");
-				btnRewardItem.setStyleName("GDNKKEDNK");
-				btnStaff.setStyleName("GDNKKEDNK GDNKKEDOK");
-				btnSetting.setStyleName("GDNKKEDNK");
-				btnGift.setStyleName("GDNKKEDNK");
+				btnReward.setStyleName(styleNo);
+				btnEmail.setStyleName(styleNo);
+				btnGb.setStyleName(styleNo);
+				btnRewardItem.setStyleName(styleNo);
+				btnStaff.setStyleName(styleOn);
+				btnSetting.setStyleName(styleNo);
+				btnGift.setStyleName(styleNo);
 			}
 		});
 		btnSetting.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				btnReward.setStyleName("GDNKKEDNK");
-				btnEmail.setStyleName("GDNKKEDNK");
-				btnGb.setStyleName("GDNKKEDNK");
-				btnRewardItem.setStyleName("GDNKKEDNK");
-				btnStaff.setStyleName("GDNKKEDNK");
-				btnGift.setStyleName("GDNKKEDNK");
-				btnSetting.setStyleName("GDNKKEDNK GDNKKEDOK");
+				btnReward.setStyleName(styleNo);
+				btnEmail.setStyleName(styleNo);
+				btnGb.setStyleName(styleNo);
+				btnRewardItem.setStyleName(styleNo);
+				btnStaff.setStyleName(styleNo);
+				btnGift.setStyleName(styleNo);
+				btnSetting.setStyleName(styleOn);
 			}
 		});
 		btnGift.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				btnReward.setStyleName("GDNKKEDNK");
-				btnEmail.setStyleName("GDNKKEDNK");
-				btnGb.setStyleName("GDNKKEDNK");
-				btnRewardItem.setStyleName("GDNKKEDNK");
-				btnStaff.setStyleName("GDNKKEDNK");
-				btnSetting.setStyleName("GDNKKEDNK");
-				btnGift.setStyleName("GDNKKEDNK GDNKKEDOK");
+				btnReward.setStyleName(styleNo);
+				btnEmail.setStyleName(styleNo);
+				btnGb.setStyleName(styleNo);
+				btnRewardItem.setStyleName(styleNo);
+				btnStaff.setStyleName(styleNo);
+				btnSetting.setStyleName(styleNo);
+				btnGift.setStyleName(styleOn);
 			}
 		});
 	}

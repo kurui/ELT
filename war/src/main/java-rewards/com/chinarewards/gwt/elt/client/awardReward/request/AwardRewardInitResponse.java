@@ -279,6 +279,18 @@ public class AwardRewardInitResponse implements Result {
 	}
 
 
+	public String getJudgeListToString() {
+		String outStr="";
+		for(JudgeParamVo parm:judgeList)
+		{
+			if("NOMINATED".equals(parm.getJudgeStatus()))
+			{
+				outStr+=parm.getName()+";";
+			}
+			
+		}
+		return outStr.toString();
+	}
 
 
 }

@@ -1,25 +1,20 @@
 package com.chinarewards.gwt.elt.client.dataprovider;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
+import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria;
 import com.chinarewards.gwt.elt.client.gift.request.SearchGiftRequest;
 import com.chinarewards.gwt.elt.client.gift.request.SearchGiftResponse;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.model.PaginationDetailClient;
-import com.chinarewards.gwt.elt.model.gift.GiftClient;
-import com.chinarewards.gwt.elt.model.gift.GiftCriteria;
-import com.chinarewards.gwt.elt.model.gift.GiftCriteria.GiftStatus;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public class GiftListViewAdapter extends BaseDataProvider<GiftClient> {
 
 	final DispatchAsync dispatch;
-	GiftCriteria criteria;
+	final GiftCriteria criteria;
 	final ErrorHandler errorHandler;
 	final SessionManager sessionManager;
 
@@ -32,55 +27,44 @@ public class GiftListViewAdapter extends BaseDataProvider<GiftClient> {
 	}
 
 	public void fetchData(final int start, final int length) {
-		if (!GWT.isScript()) {
-			List<GiftClient> list = new ArrayList<GiftClient>();
-			for (int i = start; i < start + length; i++) {
-				GiftClient item = new GiftClient();
-				item.setId("id" + i);
-				item.setName("gift" + i);
-				item.setSource("来源"+i);
-			    item.setStatus(GiftStatus.SHELF);
-				list.add(item);
-			}
-
-			updateRowData(start, list);
-			updateRowCount(100, true);
-		} else {
-			PaginationDetailClient pagination = new PaginationDetailClient();
-			pagination.setStart(start);
-			pagination.setLimit(length);
-			getCriteria().setPagination(pagination);
-			if (getSorting() != null) {
-				getCriteria().setSorting(getSorting());
-			}
-			dispatch.execute(new SearchGiftRequest(getCriteria(),
-					sessionManager.getSession().getCorporationId(),
-					sessionManager.getSession().getUserRoles()),
-					new AsyncCallback<SearchGiftResponse>() {
-						@Override
-						public void onFailure(Throwable e) {
-							errorHandler.alert(e.getMessage());
-						}
-
-						@Override
-						public void onSuccess(SearchGiftResponse response) {
-							updateRowData(start, response.getResult());
-							updateRowCount(response.getTotal(), true);
-						}
-
-					});
+		// if (!GWT.isScript()) {
+		// List<GiftClient> list = new ArrayList<GiftClient>();
+		// for (int i = start; i < start + length; i++) {
+		// GiftClient item = new GiftClient();
+		// item.setId("id" + i);
+		// item.setName("gift" + i);
+		// item.setSource("来源"+i);
+		// item.setStatus(GiftStatus.SHELF);
+		// list.add(item);
+		// }
+		//
+		// updateRowData(start, list);
+		// updateRowCount(100, true);
+		// } else {
+		PaginationDetailClient pagination = new PaginationDetailClient();
+		pagination.setStart(start);
+		pagination.setLimit(length);
+		criteria.setPagination(pagination);
+		if (getSorting() != null) {
+			criteria.setSorting(getSorting());
 		}
-	}
+		dispatch.execute(new SearchGiftRequest(criteria, sessionManager
+				.getSession().getCorporationId(), sessionManager.getSession()
+				.getUserRoles(), sessionManager.getSession().getToken()),
+				new AsyncCallback<SearchGiftResponse>() {
+					@Override
+					public void onFailure(Throwable e) {
+						errorHandler.alert(e.getMessage());
+					}
 
-	public void setCriteria(GiftCriteria criteria) {
-		this.criteria = criteria;
-	}
+					@Override
+					public void onSuccess(SearchGiftResponse response) {
+						updateRowData(start, response.getResult());
+						updateRowCount(response.getTotal(), true);
+					}
 
-	private GiftCriteria getCriteria() {
-		if (criteria == null) {
-			criteria = new GiftCriteria();
-		}
-
-		return criteria;
+				});
 	}
+	// }
+
 }

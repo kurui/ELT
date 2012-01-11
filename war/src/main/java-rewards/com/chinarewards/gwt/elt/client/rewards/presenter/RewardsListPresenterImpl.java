@@ -22,10 +22,13 @@ import com.chinarewards.gwt.elt.client.rewards.request.DeleteRewardsRequest;
 import com.chinarewards.gwt.elt.client.rewards.request.DeleteRewardsResponse;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
-import com.chinarewards.gwt.elt.client.widget.DefaultPager;
+import com.chinarewards.gwt.elt.client.widget.EltNewPager;
+import com.chinarewards.gwt.elt.client.widget.EltNewPager.TextLocation;
 import com.chinarewards.gwt.elt.client.widget.GetValue;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.widget.Sorting;
+import com.chinarewards.gwt.elt.client.win.Win;
+import com.chinarewards.gwt.elt.client.win.confirm.ConfirmHandler;
 import com.chinarewards.gwt.elt.model.rewards.RewardPageType;
 import com.google.gwt.cell.client.DateCell;
 import com.google.gwt.cell.client.FieldUpdater;
@@ -33,9 +36,6 @@ import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
-import com.google.gwt.user.cellview.client.SimplePager;
-import com.google.gwt.user.cellview.client.SimplePager.TextLocation;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
@@ -45,21 +45,23 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 	final DispatchAsync dispatch;
 	final ErrorHandler errorHandler;
 	final SessionManager sessionManager;
+	final Win win;
 
 	RewardPageType pageType;
 
-	SimplePager pager;
+	EltNewPager pager;
 	ListCellTable<RewardsClient> cellTable;
 	RewardsListViewAdapter listViewAdapter;
 
 	@Inject
 	public RewardsListPresenterImpl(EventBus eventBus, DispatchAsync dispatch,
 			ErrorHandler errorHandler, SessionManager sessionManager,
-			RewardsListDisplay display) {
+			RewardsListDisplay display,Win win) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
+		this.win=win;
 
 	}
 
@@ -85,7 +87,7 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 		cellTable = new ListCellTable<RewardsClient>();
 
 		initTableColumns();
-		pager = new DefaultPager(TextLocation.CENTER);
+		pager = new EltNewPager(TextLocation.CENTER);
 		pager.setDisplay(cellTable);
 		cellTable.setWidth(ViewConstants.page_width);
 		cellTable.setPageSize(ViewConstants.per_page_number_in_dialog);
@@ -228,7 +230,7 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 												AwardRewardConstants.EDITOR_AWARDREWARD_SEARCH
 														+ o.getId(), o);
 							} else {
-								Window.alert("已经颁奖");
+								win.alert("已经颁奖");
 								return;
 							}
 						}
@@ -327,10 +329,15 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 				}, new FieldUpdater<RewardsClient, String>() {
 
 					@Override
-					public void update(int index, RewardsClient o, String value) {
-						if (Window.confirm("确定删除?")) {
-							delteReward(o.getId());
-						}
+					public void update(int index, final RewardsClient o, String value) {
+						win.confirm("提示", "确定删除?", new ConfirmHandler() {
+							
+							@Override
+							public void confirm() {
+								delteReward(o.getId());
+								
+							}
+						});
 					}
 
 				});
@@ -344,12 +351,12 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 
 					@Override
 					public void onFailure(Throwable t) {
-						Window.alert(t.getMessage());
+						win.alert(t.getMessage());
 					}
 
 					@Override
 					public void onSuccess(DeleteRewardsResponse resp) {
-						Window.alert("删除成功");
+						win.alert("删除成功");
 						doSearch();
 					}
 				});
