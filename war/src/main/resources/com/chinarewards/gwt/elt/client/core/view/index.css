@@ -29,7 +29,7 @@ div.title img{ margin-right:10px;}
 
 
 /*默认情况样式*/
-#menu{ width:238px; border:1px solid #9bb1be; border-top:none; background-color:#FFF; margin-left:10px;height: 100%;}
+#menu{ width:238px; border:1px solid #9bb1be; border-top:none; margin-left:10px;height: 100%;}
 #menu table{ padding:0; margin:0 ; list-style-type:none;}
 #menu table td{margin:0; width:205px; height:31px;  font-size:12px; font-weight:bold; font-family:Arial, Helvetica, sans-serif; overflow:hidden; clear:both; cursor:pointer}
 #menu table td.last{ border-bottom:1px solid #9bb1be;}
@@ -61,4 +61,4 @@ div#fmdiv{ background-color:#FFF; border:1px solid #9bb1be; overflow-y:scroll}
 .fmtable select{ border:1px solid #b4c6d0; background:url(../images/input_bg.jpg) repeat-x; line-height:18px; height:22px; width:100px;}
 
 /*底部的样式*/
-@sprite #footer{ height:20px; padding:7px 0px 0px 15px; gwt-image:"footer"; color:#666666}
+@sprite #footer{ height:60px; padding:7px 0px 0px 10px; gwt-image:"footer"; color:#666666}

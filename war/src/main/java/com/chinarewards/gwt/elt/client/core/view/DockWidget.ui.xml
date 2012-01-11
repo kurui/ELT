@@ -58,13 +58,13 @@
   <!--head ]]-->
 			</g:HTMLPanel>
 		</g:north>
-		<g:south size="27">
+		<g:south size="60">
 			<g:HTMLPanel>
 				  <div class="{new2.footer}" id="footer">
 				    <div class="{new2.footer-line}"></div>
 					    <div class="{new2.footer-wrap}">
 						      <div class="{new2.copyright}">
-						        <p>版权   所有深圳积享通信息技术有限公司  粤ICP备09007295</p>
+						        <p>版权所有 深圳积享通信息技术有限公司  粤ICP备09007295</p>
 						        <p>电话：0755-82671268   传真：0755-86271610</p>
 						      </div>
 					    </div>

@@ -10,6 +10,7 @@ import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.dataprovider.GiftListViewAdapter;
 import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
 import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria;
+import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria.GiftStatus;
 import com.chinarewards.gwt.elt.client.gift.presenter.GiftListPresenter.GiftListDisplay;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
@@ -21,6 +22,7 @@ import com.chinarewards.gwt.elt.client.widget.GetValue;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.widget.Sorting;
 import com.chinarewards.gwt.elt.client.win.Win;
+import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -45,12 +47,12 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 	@Inject
 	public GiftListPresenterImpl(EventBus eventBus, DispatchAsync dispatch,
 			ErrorHandler errorHandler, SessionManager sessionManager,
-			GiftListDisplay display,Win win) {
+			GiftListDisplay display, Win win) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
-		this.win=win;
+		this.win = win;
 
 	}
 
@@ -79,8 +81,8 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 
 	private void init() {
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("xxx", "未上架");
-		map.put("yyy", "上架");
+		map.put("SHELF", "未上架");
+		map.put("SHELVES", "上架");
 		display.initGiftStatus(map);
 		buildTable();
 		doSearch();
@@ -104,8 +106,10 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 
 	private void doSearch() {
 		GiftCriteria criteria = new GiftCriteria();
-
-		criteria.setName(display.getKeyName().getValue());
+		if (!StringUtil.isEmpty(display.getKeyName().getValue()))
+			criteria.setName(display.getKeyName().getValue());
+		if (!StringUtil.isEmpty(display.getStatus()))
+			criteria.setStatus(GiftStatus.valueOf(display.getStatus()));
 
 		listViewAdapter = new GiftListViewAdapter(dispatch, criteria,
 				errorHandler, sessionManager);
@@ -125,7 +129,6 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 
 			}
 		};
-
 
 		cellTable.addColumn("名称", new TextCell(),
 				new GetValue<GiftClient, String>() {
@@ -178,22 +181,21 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 
 	public void delteReward(String rewardsId) {
 
-//		dispatch.execute(new DeleteGiftRequest(rewardsId, sessionManager
-//				.getSession().getToken()),
-//				new AsyncCallback<DeleteGiftResponse>() {
-//
-//					@Override
-//					public void onFailure(Throwable t) {
-//						Window.alert(t.getMessage());
-//					}
-//
-//					@Override
-//					public void onSuccess(DeleteGiftResponse resp) {
-//						Window.alert("删除成功");
-//						doSearch();
-//					}
-//				});
+		// dispatch.execute(new DeleteGiftRequest(rewardsId, sessionManager
+		// .getSession().getToken()),
+		// new AsyncCallback<DeleteGiftResponse>() {
+		//
+		// @Override
+		// public void onFailure(Throwable t) {
+		// Window.alert(t.getMessage());
+		// }
+		//
+		// @Override
+		// public void onSuccess(DeleteGiftResponse resp) {
+		// Window.alert("删除成功");
+		// doSearch();
+		// }
+		// });
 	}
-
 
 }
