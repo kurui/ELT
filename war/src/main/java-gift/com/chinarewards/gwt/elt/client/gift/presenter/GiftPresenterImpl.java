@@ -59,7 +59,7 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 						if (!validateSubmit()) {
 							return;
 						}
-						
+
 						GiftVo gift = new GiftVo();
 						//
 						// // 基本信息
@@ -97,59 +97,61 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 									}
 								});
 					}
-	
-	
+
+					private void doEdit(GiftVo gift) {
+						if (Window.confirm("确定修改?")) {
+							dispatcher.execute(new AddGiftRequest(gift,
+									sessionManager.getSession()),
+									new AsyncCallback<AddGiftResponse>() {
+										@Override
+										public void onFailure(Throwable t) {
+											Window.alert("修改失败");
+											Platform.getInstance()
+													.getEditorRegistry()
+													.closeEditor(
+															GiftConstants.EDITOR_GIFT_ADD,
+															instanceId);
+										}
+
+										@Override
+										public void onSuccess(
+												AddGiftResponse arg0) {
+											Window.alert("修改成功");
+											Platform.getInstance()
+													.getEditorRegistry()
+													.openEditor(
+															GiftConstants.EDITOR_GIFTLIST_SEARCH,
+															"EDITOR_REWARDSITEM_List_DO_ID",
+															instanceId);
+										}
+									});
+						}
+					}
+
+					// 提名人按钮事件
+					// registerHandler(display.getChooseStaffBtnClick().addClickHandler(
+					// new ClickHandler() {
+					// @Override
+					// public void onClick(ClickEvent arg0) {
+					// final ChooseStaffWinDialog dialog =
+					// chooseStaffDialogProvider
+					// .get();
+					// dialog.setNominee(false, true, null);
+					// final HandlerRegistration registration = eventBus
+					// .addHandler(ChooseStaffEvent.getType(),
+					// new ChooseStaffHandler() {
+
+					// Platform.getInstance().getSiteManager()
+					// .openDialog(dialog, new DialogCloseListener() {
+					// public void onClose(String dialogId,
+					// String instanceId) {
+					// registration.removeHandler();
+					// }
+					// });
+					// }
+					// }));
+
 				}));
-
-		// 提名人按钮事件
-		// registerHandler(display.getChooseStaffBtnClick().addClickHandler(
-		// new ClickHandler() {
-		// @Override
-		// public void onClick(ClickEvent arg0) {
-		// final ChooseStaffWinDialog dialog = chooseStaffDialogProvider
-		// .get();
-		// dialog.setNominee(false, true, null);
-		// final HandlerRegistration registration = eventBus
-		// .addHandler(ChooseStaffEvent.getType(),
-		// new ChooseStaffHandler() {
-
-		// Platform.getInstance().getSiteManager()
-		// .openDialog(dialog, new DialogCloseListener() {
-		// public void onClose(String dialogId,
-		// String instanceId) {
-		// registration.removeHandler();
-		// }
-		// });
-		// }
-		// }));
-//	}
-
-//	private void doEdit(GiftVo gift) {
-//		if (Window.confirm("确定修改?")) {
-//			// dispatcher.execute(
-//			// new AddGiftRequest(gift, sessionManager.getSession()),
-//			// new AsyncCallback<AddGiftResponse>() {
-//			// @Override
-//			// public void onFailure(Throwable t) {
-//			// Window.alert("修改失败");
-//			// Platform.getInstance()
-//			// .getEditorRegistry()
-//			// .closeEditor(GiftConstants.EDITOR_GIFT_ADD,
-//			// instanceId);
-//			// }
-//			//
-//			// @Override
-//			// public void onSuccess(AddGiftResponse arg0) {
-//			// Window.alert("修改成功");
-//			// Platform.getInstance()
-//			// .getEditorRegistry()
-//			// .openEditor(
-//			// GiftConstants.EDITOR_GIFTLIST_SEARCH,
-//			// "EDITOR_REWARDSITEM_List_DO_ID",
-//			// instanceId);
-//			// }
-//			// });
-//		}
 	}
 
 	// // setting a new frequency.

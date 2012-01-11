@@ -19,15 +19,15 @@ public class AddGiftRequest implements Action<AddGiftResponse> {
 
 	String giftId;
 	String nowUserId;
-//	private GiftVo giftVo;
-//	private UserSession userSession;
+	private GiftVo giftVo;
+	private UserSession userSession;
 
 	List<String> staffIds;
 
-//	public AddGiftRequest(GiftVo giftVo,UserSession userSession) {
-//		this.giftVo = giftVo;
-//		this.userSession = userSession;
-//	}
+	public AddGiftRequest(GiftVo giftVo,UserSession userSession) {
+		this.giftVo = giftVo;
+		this.userSession = userSession;
+	}
 
 	/**
 	 * For serialization
