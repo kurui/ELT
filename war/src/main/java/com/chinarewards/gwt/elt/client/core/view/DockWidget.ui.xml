@@ -86,7 +86,7 @@
 											<g:Image resource="{title01}"></g:Image>
 										</td>  -->
 										<td>
-											<g:InlineLabel text="操作导航" ui:field="menuTitle" />
+											<g:InlineLabel text="奖项" ui:field="menuTitle" />
 										</td>
 										<!--<td id="title03"></td>  -->
 									</tr>

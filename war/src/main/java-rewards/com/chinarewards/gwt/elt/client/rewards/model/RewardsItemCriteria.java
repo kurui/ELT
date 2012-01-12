@@ -68,6 +68,7 @@ public class RewardsItemCriteria implements Serializable {
 		this.createTime = createTime;
 	}
 
+
 	private Date endTime;
 	/**
 	 * 根据类型Id查询

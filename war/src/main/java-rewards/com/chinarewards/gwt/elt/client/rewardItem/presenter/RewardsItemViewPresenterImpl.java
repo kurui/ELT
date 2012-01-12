@@ -15,7 +15,6 @@ import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemClient;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
@@ -26,8 +25,8 @@ public class RewardsItemViewPresenterImpl extends
 	
 	private final DispatchAsync dispatcher;
 	private final ErrorHandler errorHandler;
-	String rewardId ;
-	RewardsItemClient param = new RewardsItemClient();
+	
+	
 	@Inject
 	public RewardsItemViewPresenterImpl(EventBus eventBus,
 			RewardsItemViewDisplay display,DispatchAsync dispatcher,ErrorHandler errorHandler,SessionManager sessionManager	) {
@@ -42,7 +41,6 @@ public class RewardsItemViewPresenterImpl extends
 					new ClickHandler() {
 						@Override
 						public void onClick(ClickEvent arg0) {
-							
 							Platform.getInstance()
 							.getEditorRegistry()
 							.openEditor(RewardsItemConstants.EDITOR_REWARDSITEM_List,
@@ -51,33 +49,18 @@ public class RewardsItemViewPresenterImpl extends
 		               }
 	
 	    }));
-		 
-		 registerHandler(display.getUpdateClick().addClickHandler(
-					new ClickHandler() {
-						@Override
-						public void onClick(ClickEvent arg0) {
-							Platform.getInstance()
-							.getEditorRegistry()
-							.openEditor(
-									RewardsItemConstants.EDITOR_REWARDSITEM_ADD,
-									"EDITOR_REWARDS_ITEM_ADD"+ rewardId, param);
-		               }
-	
-	    }));
 	 }
-	   //查看时初始化数据
 		@Override
 		public void initInstanceId(String instanceId,RewardsItemClient item) {
 			this.instanceId = instanceId;
-			param = item;//把查看得到的VO保存下来给修改时做为参数用
 			initDataToEditRewardsItem( item);
 		}
 		
 		private void initDataToEditRewardsItem(final RewardsItemClient item) {
-			rewardId = item.getId();
+			String id = item.getId();
 						
 			{
-				dispatcher.execute(new SearchRewardsItemByIdRequest(rewardId),
+				dispatcher.execute(new SearchRewardsItemByIdRequest(id),
 				new AsyncCallback<SearchRewardsItemByIdResponse>() {
 					@Override
 					public void onFailure(Throwable arg0) {
