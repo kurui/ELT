@@ -5,6 +5,8 @@ import com.chinarewards.gwt.elt.client.mvp.Display;
 import com.chinarewards.gwt.elt.client.mvp.Presenter;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
+import com.google.gwt.user.client.ui.FileUpload;
+import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HasValue;
 
 public interface GiftPresenter extends Presenter<GiftPresenter.GiftDisplay> {
@@ -41,8 +43,11 @@ public interface GiftPresenter extends Presenter<GiftPresenter.GiftDisplay> {
 
 		public HasValueChangeHandlers<Date> getUpdatetime();
 
-		// -----------------------------------------
-//		public Has
+		// -----------------------------------------		
+		public FormPanel getPhotoForm();
+		public FileUpload getPhotoUpload();
+		
+		
 		public HasClickHandlers getSaveClick();
 
 		public void clear();

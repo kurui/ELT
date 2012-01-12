@@ -82,7 +82,7 @@
 				<tr>
 					<td valign="top" class="{newitem.label}"></td>
 					<td class="{newitem.element}">
-						<g:FormPanel ui:field="uploadFormPanel" encoding="multipart/form-data"
+						<g:FormPanel ui:field="photoForm" encoding="multipart/form-data"
 							method="post" action="fileupload">
 							<g:FileUpload ui:field="photoUpload"></g:FileUpload>
 						</g:FormPanel>

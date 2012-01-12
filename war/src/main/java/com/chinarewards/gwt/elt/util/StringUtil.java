@@ -60,7 +60,6 @@ public class StringUtil {
 	}
 
 	public static Integer valueOf(String str) {
-		System.out.println("=========GiftWidget getStock============");
 
 		if (str == null || "".equals(str.trim())) {
 			return null;

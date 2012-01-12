@@ -63,6 +63,8 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 						if (!validateSubmit()) {
 							return;
 						}
+						
+						display.getPhotoForm().submit();
 
 						GiftVo gift = new GiftVo();
 						//
@@ -148,36 +150,9 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 
 				}));
 
-		registerHandler(display.getSaveClick().addClickHandler(
-				new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent event) {
-						System.out.println("registerHandler=========");
-						// display.get uploadFormPanel.submit();
-					}
-				}));
-		// formPanel.addSubmitHandler(new SubmitHandler() {
-		// @Override
-		// public void onSubmit(SubmitEvent event) {
-		// if (fileUpload.getFilename().length() == 0) {
-		// // Window.alert("必须选择一个文件");
-		// event.cancel();
-		// } else if (!fileUpload.getFilename().endsWith(".jpg")
-		// && !fileUpload.getFilename().endsWith(".gif")) {
-		// System.err.println("error in format");
-		// event.cancel();
-		// }
-		// }
-		// });
-		//
-		// formPanel.addSubmitCompleteHandler(new SubmitCompleteHandler() {
-		// @Override
-		// public void onSubmitComplete(SubmitCompleteEvent event) {
-		// System.out.println(" ==== onSubmitComplete ====");
-		// System.out.println("dddd=" + event.getResults());
-		// }
-		// });
 	}
+
+
 
 	// 验证方法
 	private boolean validateSubmit() {
@@ -201,6 +176,15 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 		// errorMsg.append("请填写礼品名称!<br>");
 		// flag = false;
 		// }
+		
+		if (display.getPhotoUpload().getFilename().length() == 0) {
+			errorMsg.append("请选择图片文件!<br>");
+			flag = false;
+		} else if (!display.getPhotoUpload().getFilename().endsWith(".jpg")
+				&& !display.getPhotoUpload().getFilename().endsWith(".gif")) {
+			errorMsg.append("请确认图片格式,仅支持JPG和GIF!<br>");
+			flag = false;
+		}	
 
 		if (!flag) {
 			win.alert(errorMsg.toString());
@@ -209,260 +193,15 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 		System.out.println("validateSubmit()======" + flag);
 		return flag;
 	}
-	//
-	// // // 奖项验证方法
-	// // private boolean validateFirst() {
-	// // boolean flag = true;
-	// // StringBuilder errorMsg = new StringBuilder();
-	// // if (display.getRewardsName().getValue() == null
-	// // || "".equals(display.getRewardsName().getValue().trim())) {
-	// // errorMsg.append("请填写奖项名称!<br>");
-	// //
-	// // flag = false;
-	// // }
-	// //
-	// // // 员工选择
-	// // if (staffBlock.getDisplay().isSomeone().getValue() == true) {
-	// // if (staffBlock.getDisplay().getRealOrginzationIds() == null) {
-	// // errorMsg.append("请选择候奖员工!<br>");
-	// // flag = false;
-	// //
-	// // }
-	// // if (staffBlock.getDisplay().getRealOrginzationIds() != null
-	// // && staffBlock.getDisplay().getRealOrginzationIds().size() == 0) {
-	// // errorMsg.append("请选择候奖员工!<br>");
-	// // flag = false;
-	// //
-	// // }
-	// // }
-	// //
-	// // if (display.getRewardsType() == null
-	// // || "".equals(display.getRewardsType().trim())) {
-	// // errorMsg.append("请选择奖项类型!<br>");
-	// // flag = false;
-	// // }
-	// //
-	// // if (display.getTotalJF() == null
-	// // || display.getTotalJF().intValue() <= 0) {
-	// // errorMsg.append("总积分额度出错，总积分要是正整数!<br>");
-	// // flag = false;
-	// // } else if (display.getRewardsFrom() == null
-	// // || display.getRewardsFrom().intValue() <= 0) {
-	// // errorMsg.append("每人得奖积分额度出错，积分要是正整数!<br>");
-	// // flag = false;
-	// // }
-	// //
-	// // if (display.getRewardsFrom() != null) {
-	// // if (display.getRewardsFrom().intValue() == 0) {
-	// // errorMsg.append("每人得奖积分“0”!<br>");
-	// // flag = false;
-	// // }
-	// // if (display.getRewardsFrom().intValue() > display.getTotalJF()
-	// // .intValue()) {
-	// // errorMsg.append("总积分不能小于个人得分!<br>");
-	// // flag = false;
-	// // }
-	// // }
-	// //
-	// // if (staffBlock.getDisplay().isSomeone().getValue() == true) { //
-	// 选择部分人员
-	// //
-	// // if (display.getPeopleSizeLimit().getValue() == null
-	// // || "".equals(display.getPeopleSizeLimit().getValue().trim())) {
-	// // errorMsg.append("请正确填写获奖名额(正整数)!<br>");
-	// // flag = false;
-	// // }
-	// // if (display.getPeopleSizeLimit().getValue() != null
-	// // && !"".equals(display.getPeopleSizeLimit().getValue()
-	// // .trim())) {
-	// // int limitPeople = Integer.parseInt(display.getPeopleSizeLimit()
-	// // .getValue());
-	// // if (limitPeople == 0 || limitPeople < 0) {
-	// // errorMsg.append("请正确填写获奖名额(正整数)!<br>");
-	// // flag = false;
-	// // }
-	// // }
-	// // }
-	// // if (display.getStartTime().getValue() == null
-	// // || "".equals(display.getStartTime().getValue())) {
-	// // errorMsg.append("开始时间不能为空<br>");
-	// // flag = false;
-	// // }
-	// //
-	// // // 周期性
-	// // if (display.getEnableCbx().getValue() == true) {
-	// //
-	// // if (display.getNextRewardsTime().getValue() == null
-	// // || "".equals(display.getNextRewardsTime().getValue())) {
-	// // errorMsg.append("下次颁奖时间不能为空!<br>");
-	// // flag = false;
-	// // } else if (display.getStartTime().getValue().getTime() > display
-	// // .getNextRewardsTime().getValue().getTime()) {
-	// // errorMsg.append("开始时间要小于或等于下次颁奖时间<br>");
-	// // flag = false;
-	// // }
-	// // if (display.getNominateIds().size() > 0
-	// // && (display.getTmday() == null
-	// // || display.getTmday().equals("") || display
-	// // .getTmday().intValue() <= 0)) {
-	// // errorMsg.append(" 要提前提名的天数是正整数!<br>");
-	// // flag = false;
-	// // }
-	// // // 生日奖校验
-	// // if (display.getSpecialCbx().getValue()
-	// // && display.getBirthRadio().getValue()) {
-	// // if (display.getFrequencyObj() == null) {
-	// // errorMsg.append("请选择频率!<br>");
-	// // flag = false;
-	// // } else if (display.getFrequencyObj() instanceof WeekFrequencyClient) {
-	// // errorMsg.append("生日奖不能为按周的频率!<br>");
-	// // flag = false;
-	// // } else if (display.getFrequencyObj() instanceof YearFrequencyClient) {
-	// // errorMsg.append("生日奖不能为按年的频率!<br>");
-	// // flag = false;
-	// // } else if (display.getFrequencyObj() instanceof DayFrequencyClient
-	// // && display.getFrequencyObj().getInterval() > 200) {
-	// // errorMsg.append("生日奖按日的频率，最大只能设到每200日<br>");
-	// // flag = false;
-	// // } else if (display.getFrequencyObj() instanceof MonthFrequencyClient
-	// // && display.getFrequencyObj().getInterval() > 12) {
-	// // errorMsg.append("生日奖按月的频率，最大只能设到每12月<br>");
-	// // flag = false;
-	// // }
-	// // } else {
-	// // // 普通有频率奖校验
-	// // if (display.getFrequencyObj() == null) {
-	// // errorMsg.append("请选择频率!<br>");
-	// // flag = false;
-	// // } else if (display.getFrequencyObj() instanceof WeekFrequencyClient
-	// // && display.getFrequencyObj().getInterval() > 20) {
-	// // errorMsg.append("按周的频率，最大只能设到每20周!<br>");
-	// // flag = false;
-	// // } else if (display.getFrequencyObj() instanceof YearFrequencyClient
-	// // && display.getFrequencyObj().getInterval() > 5) {
-	// // errorMsg.append("按年的频率，最大只能设到每5年!<br>");
-	// // flag = false;
-	// // } else if (display.getFrequencyObj() instanceof DayFrequencyClient
-	// // && display.getFrequencyObj().getInterval() > 200) {
-	// // errorMsg.append("按日的频率，最大只能设到每200日<br>");
-	// // flag = false;
-	// // } else if (display.getFrequencyObj() instanceof MonthFrequencyClient
-	// // && display.getFrequencyObj().getInterval() > 36) {
-	// // errorMsg.append("按月的频率，最大只能设到每36月<br>");
-	// // flag = false;
-	// // }
-	// // }
-	// //
-	// // if (!display.getAutoCbx().getValue()) {// 不是自动奖
-	// // if (display.getNextPublishTime().getValue() == null) {
-	// // errorMsg.append("请填写下一次公布颁奖时间!<br>");
-	// // flag = false;
-	// // } else if (display.getNextPublishTime().getValue() != null
-	// // && display.getNextRewardsTime().getValue() != null
-	// // && display.getNextPublishTime().getValue()
-	// // .after(display.getNextRewardsTime().getValue())) {
-	// // errorMsg.append("下一次公布奖励时间必须在下一次颁奖时间之前!<br>");
-	// // flag = false;
-	// // }
-	// // }
-	// // } else {// 一次性
-	// // if (display.getExpectTime().getValue() == null
-	// // || "".equals(display.getExpectTime().getValue())) {
-	// // errorMsg.append("预计颁奖时间不能为空!<br>");
-	// // flag = false;
-	// // } else if (display.getStartTime().getValue().getTime() > display
-	// // .getExpectTime().getValue().getTime()) {
-	// // errorMsg.append("开始时间要小于预计颁奖时间<br>");
-	// // flag = false;
-	// // }
-	// // if (display.getNominateIds().size() > 0
-	// // && (display.getTmdays() == null
-	// // || display.getTmdays().equals("") || display
-	// // .getTmdays().intValue() <= 0)) {
-	// // errorMsg.append(" 要提前提名的天数是正整数!<br>");
-	// // flag = false;
-	// // }
-	// //
-	// // // if(display.getNominateIds().size()==0){
-	// // // errorMsg.append("请选择提名人!<br>");
-	// // // flag = false;
-	// // // }
-	// // }
-	// // if (!flag) {
-	// // errorHandler.alert(errorMsg.toString());
-	// // }
-	// // return flag;
-	// // }
-	//
-	// // @Override
-	// // public void initInstanceId(String instanceId, GiftVo item) {
-	// // this.instanceId = instanceId;
-	// // initDataToEditGift(item);
-	// // }
-	//
-	// private void initDataToEditGift(final GiftVo item) {
-	// String id = item.getId();
-	//
-	// isEditPage = true;
-	// {
-	// dispatcher.execute(new SearchGiftByIdRequest(id),
-	// new AsyncCallback<SearchGiftByIdResponse>() {
-	// @Override
-	// public void onFailure(Throwable arg0) {
-	// errorHandler.alert("查询奖项出错!");
-	// Platform.getInstance()
-	// .getEditorRegistry()
-	// .closeEditor(GiftConstants.EDITOR_GIFT_ADD,
-	// instanceId);
-	// }
-	//
-	// @Override
-	// public void onSuccess(SearchGiftByIdResponse response) {
-	// GiftVo item = response.getGift();
-	// clear();
-	// // display.showGift(item);
-	// //
-	// // // 初始前一次颁奖时间
-	// // rewardsDateCopuy = item.getLastRewardedDate();
-	// // // 初始结束时间副本
-	// // endDateCopy = item.getEndTime();
-	// // // 初始下次公布时间副本
-	// // nextPublishCopy = item.getNextPublishTime();
-	// // // 记录最初的开始时间
-	// // Date stD = item.getStartTime();
-	// // if (stD == null)
-	// // stD = new Date();
-	// // startDateCopy = stD;
-	// // // 记录第一次赋值的颁奖时间
-	// // nextRewardsDateCopy = item.getNextTime();
-	// // if (nextPublishCopy != null
-	// // && nextRewardsDateCopy != null) {
-	// // day = DateTool.getIntervalDays(nextPublishCopy,
-	// // nextRewardsDateCopy);
-	// // }
-	// // // 用了记录修改前是否有平率
-	// // if (item.getFrequency() != null) {
-	// // isFrequency = true;
-	// // }
-	// // // display.showHistoryBtn();
-	// // staffBlock.getDisplay().showParticipateInfo(
-	// // item.getBaseInfo());
-	// // setId(item.getId());
-	// // lastRewardsDate = item.getLastRewardedDate();
-	//
-	// }
-	// });
-	// }
-	// }
-	//
-	// private void clear() {
-	// display.clear();
-	// }
-	//
-	// public void setId(String id) {
-	// this.giftId = id;
-	// isEditPage = true;
-	// }
-	//
+
+
+	private void clear() {
+		display.clear();
+	}
+
+	public void setId(String id) {
+		this.giftId = id;
+		isEditPage = true;
+	}
 
 }
