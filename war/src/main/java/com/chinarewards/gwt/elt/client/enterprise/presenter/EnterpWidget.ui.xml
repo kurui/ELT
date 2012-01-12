@@ -77,7 +77,6 @@
 			<g:at left="204" top="10">
 				<g:Hidden name="Hidden name" width="20px" height="20px" ui:field="enterpriseId"/>
 			</g:at>
-			
 		</g:AbsolutePanel>
 	
 		

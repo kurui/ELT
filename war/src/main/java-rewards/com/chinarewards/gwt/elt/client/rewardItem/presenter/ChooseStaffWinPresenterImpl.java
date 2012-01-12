@@ -39,7 +39,6 @@ public class ChooseStaffWinPresenterImpl extends
 	final DispatchAsync dispatch;
 	final ErrorHandler errorHandler;
 	final SessionManager sessionManager;
-     
 	final SimplePager simplePager = new DefaultPager(TextLocation.CENTER);
 	ListCellTable<StaffClient> resultTable;
 	StaffAsyncDataProvider listViewAdapter;

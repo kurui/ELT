@@ -102,6 +102,7 @@ public class RewardItemSearchVo {
 	 */
 	private Date startTime;
 
+
 	private Date createTime;
 	
 	private Date createTimeEnd;
@@ -121,6 +122,7 @@ public class RewardItemSearchVo {
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
+
 	/**
 	 * Search the RewardItem by the specified department manage directly.
 	 * 

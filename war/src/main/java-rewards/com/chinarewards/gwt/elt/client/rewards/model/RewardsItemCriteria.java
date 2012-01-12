@@ -48,6 +48,7 @@ public class RewardsItemCriteria implements Serializable {
 	private boolean subDepartmentChoose;
 
 	private Date startTime;
+
 	private Date createTime;//查询时传的参数（创建时间起）
 	
 	public Date getCreateTimeEnd() {
@@ -67,6 +68,7 @@ public class RewardsItemCriteria implements Serializable {
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
+
 
 	private Date endTime;
 	/**
