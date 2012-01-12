@@ -39,7 +39,7 @@
 				<td width="10%" >
 				     <d:DateBox ui:field="createTime" styleName="{newitem.text}"/>
 				</td>
-				<td width="1%" align="left">-</td>
+				<td width="1%" align="left">—</td>
 				<td width="10%" align="right">
 				     <d:DateBox ui:field="createTimeEnd" styleName="{newitem.text}"/>
 				</td>
