@@ -184,7 +184,13 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 						return rewards.getExpectNominateDate();
 					}
 				}, ref, "expectNominateDate");
-
+		cellTable.addColumn("状态", new TextCell(),
+				new GetValue<RewardsClient, String>() {
+					@Override
+					public String getValue(RewardsClient rewards) {
+						return rewards.getStatus().getDisplayName();
+					}
+				}, ref, "name");
 		if (pageType == RewardPageType.NOMINATEPAGE) {
 			cellTable.addColumn("操作", new HyperLinkCell(),
 					new GetValue<RewardsClient, String>() {
@@ -312,13 +318,7 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 
 					});
 		}
-		cellTable.addColumn("状态", new TextCell(),
-				new GetValue<RewardsClient, String>() {
-					@Override
-					public String getValue(RewardsClient rewards) {
-						return rewards.getStatus().getDisplayName();
-					}
-				}, ref, "name");
+
 
 		cellTable.addColumn("删除", new HyperLinkCell(),
 				new GetValue<RewardsClient, String>() {
