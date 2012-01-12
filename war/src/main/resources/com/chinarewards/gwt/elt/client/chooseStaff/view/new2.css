@@ -69,10 +69,10 @@ a:hover{color:#010DFF;text-decoration:underline;}
 
 /*pager*/
 .pager:after{content:".";display:block;clear:both;height:0;visibility:hidden;}
-.pager{*zoom:1;margin-top:15px;color:#569B01;}
+.pager{margin-top:15px;color:#569B01;*zoom:1;}
 .pager .pager-left{float:left;color:green;}
 .pager .pager-right{float:right;text-align:right;}
-.pager .pager-right a{border:1px solid #C7C7C7;padding:2px 8px;color:#569B01;display:inline-block;vertical-align:middle;text-decoration:none;}
+.pager .pager-right a{border:1px solid #C7C7C7;padding:2px 8px;color:#569B01;display:inline-block;vertical-align:middle;text-decoration:none;margin-right:5px;}
 .pager .pager-right a:hover{text-decoration:none;background-color:#569B01;color:#FFFFFF;}
 .pager .pager-right .edge{background-color:#E8E8E8}
 
