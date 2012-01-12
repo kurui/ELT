@@ -15,6 +15,8 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteEvent;
+import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteHandler;
 import com.google.inject.Inject;
 import com.chinarewards.gwt.elt.util.StringUtil;
 
@@ -59,11 +61,10 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent arg0) {
-						// validate first!
 						if (!validateSubmit()) {
 							return;
 						}
-						
+
 						display.getPhotoForm().submit();
 
 						GiftVo gift = new GiftVo();
@@ -150,9 +151,21 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 
 				}));
 
+		// 文件上传后回调
+		display.getPhotoForm().addSubmitCompleteHandler(
+				new SubmitCompleteHandler() {
+					@Override
+					public void onSubmitComplete(SubmitCompleteEvent event) {
+						System.out.println(" ==photo form onSubmitComplete ==");
+						System.out.println("dddd=" + event.getResults());
+						
+					}
+					
+					
+					
+				});
+
 	}
-
-
 
 	// 验证方法
 	private boolean validateSubmit() {
@@ -176,7 +189,7 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 		// errorMsg.append("请填写礼品名称!<br>");
 		// flag = false;
 		// }
-		
+
 		if (display.getPhotoUpload().getFilename().length() == 0) {
 			errorMsg.append("请选择图片文件!<br>");
 			flag = false;
@@ -184,7 +197,7 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 				&& !display.getPhotoUpload().getFilename().endsWith(".gif")) {
 			errorMsg.append("请确认图片格式,仅支持JPG和GIF!<br>");
 			flag = false;
-		}	
+		}
 
 		if (!flag) {
 			win.alert(errorMsg.toString());
@@ -193,7 +206,6 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 		System.out.println("validateSubmit()======" + flag);
 		return flag;
 	}
-
 
 	private void clear() {
 		display.clear();

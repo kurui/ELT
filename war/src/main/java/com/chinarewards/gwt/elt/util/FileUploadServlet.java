@@ -38,21 +38,20 @@ public class FileUploadServlet extends HttpServlet {
 							+ " with file name " + item.getName()
 							+ " detected.=" + item.getFieldName());
 
-					// Process the input stream
 					BufferedInputStream inputStream = new BufferedInputStream(
 							stream);// 获得输入流
-					String imagePath = request.getRealPath("/") + "upload"
+					String imagePath = request.getRealPath("/upload")
 							+ File.separator;
+
 					System.out.println("imagePath:" + imagePath);
 					BufferedOutputStream outputStream = new BufferedOutputStream(
 							new FileOutputStream(new File(imagePath
 									+ item.getName())));// 获得文件输出流
 					Streams.copy(inputStream, outputStream, true); // 开始把文件写到你指定的上传文件夹
-
+				
 				}
 				stream.close();
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
