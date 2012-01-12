@@ -41,12 +41,13 @@ public class RewardsItemListWidget extends Composite implements
 	Panel pager;
 	@UiField
 	TextBox name;
-	@UiField
-	TextBox names;
+	
 	
 	@UiField
 	DateBox createTime;
-
+   
+	@UiField
+	DateBox createTimeEnd;
 	@UiField
 	Panel departmentName;
 
@@ -76,6 +77,7 @@ public class RewardsItemListWidget extends Composite implements
 		//this.DeptCombTree = new DepartmentComboTree(dispatch, errorHandler,	sessionManager);
 		initWidget(uiBinder.createAndBindUi(this));
 		createTime.setFormat(new DateBox.DefaultFormat(dateFormat));
+		createTimeEnd.setFormat(new DateBox.DefaultFormat(dateFormat));
 	}
 
 	@Override
@@ -121,6 +123,10 @@ public class RewardsItemListWidget extends Composite implements
 	@Override
 	public HasValue<Date> getCreateTime() {
 		return createTime;
+	}
+	@Override
+	public HasValue<Date> getCreateTimeEnd() {
+		return createTimeEnd;
 	}
 
 //	@Override

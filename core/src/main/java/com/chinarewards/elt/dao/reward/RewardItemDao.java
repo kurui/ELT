@@ -98,15 +98,15 @@ public class RewardItemDao extends BaseDao<RewardItem> {
 					+ criteria.getDefinition().trim().toUpperCase() + "%");
 		}
 		// 根据创建时间来查询
-		if (null != criteria.getCreateTime() && !criteria.getCreateTime().equals("")) {
-			eql.append(" AND item.createdAt=:createTime");
+		if (null != criteria.getCreateTime() && !criteria.getCreateTime().equals("")&&null != criteria.getCreateTimeEnd() && !criteria.getCreateTimeEnd().equals("")) {
+			eql.append(" and ( item.createdAt  between :createTime and :createdAtEnd)");
 			param.put("createTime", criteria.getCreateTime());
+			param.put("createdAtEnd", criteria.getCreateTimeEnd());
 		}
 
 		if (!StringUtil.isEmptyString(criteria.getName())) {
 			eql.append(" AND UPPER(item.name) LIKE :name ");
-			param.put("name", "%" + criteria.getName().trim().toUpperCase()
-					+ "%");
+			param.put("name", "%" + criteria.getName().trim().toUpperCase()	+ "%");
 		}
 		if (!StringUtil.isEmptyString(criteria.getStandard())) {
 			eql.append(" AND UPPER(item.standard) LIKE :standard ");
