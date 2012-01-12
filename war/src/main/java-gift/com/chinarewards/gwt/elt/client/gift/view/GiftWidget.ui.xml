@@ -47,7 +47,7 @@
 				<tr class="{newitem.form-line}">
 					<td valign="top" class="{newitem.label}">礼品类型：</td>
 					<td class="{newitem.element}">
-						<g:TextBox ui:field="type" styleName="{newitem.text}" />
+						<g:ListBox ui:field="type" styleName="{newitem.text}" />
 					</td>
 					<td></td>
 				</tr>
@@ -75,10 +75,10 @@
 				<tr class="{newitem.form-line}">
 					<td valign="top" class="{newitem.label}">礼品图片：</td>
 					<td>
-						<g:Image ui:field="giftImage"/>
-						<g:FileUpload />
-						<g:TextBox ui:field="photo" styleName="{newitem.text}" />
+						<g:Image ui:field="giftImage" />
 					</td>
+					<td id="nameFieldContainer"></td>
+					<td id="sendButtonContainer"></td>
 				</tr>
 				<tr class="{newitem.form-line}">
 					<td class="{newitem.label}">

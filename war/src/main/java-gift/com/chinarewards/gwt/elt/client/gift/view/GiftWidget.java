@@ -8,6 +8,8 @@ import com.chinarewards.gwt.elt.client.gift.presenter.GiftPresenter.GiftDisplay;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.view.constant.ViewConstants;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
 import com.google.gwt.i18n.client.DateTimeFormat;
@@ -15,10 +17,18 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.FileUpload;
+import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteEvent;
+import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteHandler;
+import com.google.gwt.user.client.ui.FormPanel.SubmitEvent;
+import com.google.gwt.user.client.ui.FormPanel.SubmitHandler;
 import com.google.inject.Inject;
 
 public class GiftWidget extends Composite implements GiftDisplay {
@@ -29,7 +39,7 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	@UiField
 	TextBox explains;
 	@UiField
-	TextBox type;
+	ListBox type;
 	// @UiField
 	// TextBox source;
 	@UiField
@@ -39,7 +49,7 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	@UiField
 	TextBox tell;
 	@UiField
-	TextBox stock;// int
+	TextBox stock;
 	// @UiField
 	// TextBox phone;
 	// @UiField
@@ -58,13 +68,13 @@ public class GiftWidget extends Composite implements GiftDisplay {
 
 	@UiField
 	Image giftImage;
-	
+
 	// 保存或修改
 	@UiField
 	Button save;
 
-//	FrequencyClient frequency;
-//	String rewardsUnit;
+	// FrequencyClient frequency;
+	// String rewardsUnit;
 
 	DateTimeFormat dateFormat = DateTimeFormat
 			.getFormat(ViewConstants.date_format);
@@ -81,6 +91,60 @@ public class GiftWidget extends Composite implements GiftDisplay {
 			SessionManager sessionManager) {
 		initWidget(uiBinder.createAndBindUi(this));
 
+		initAddWidget();
+
+	}
+
+	private void initAddWidget() {
+		type.addItem("实物", "1");
+		type.addItem("虚拟", "2");
+
+		initFileUpload();
+	}
+
+	private void initFileUpload() {
+		// 选择文件上传的浏览按钮
+		final FileUpload fileUpload = new FileUpload();
+		fileUpload.setName("uploadFormElement");
+		// 创建表单Panel，提交HTML表格，添加fileUpload
+		final FormPanel formPanel = new FormPanel();
+		formPanel.setEncoding(FormPanel.ENCODING_MULTIPART);
+		formPanel.setMethod(FormPanel.METHOD_POST);
+		formPanel.setAction(GWT.getModuleBaseURL() + "fileupload");
+		formPanel.setWidget(fileUpload);
+//		RootPanel.get("nameFieldContainer").add(formPanel);
+		// 文件上传按钮
+		final Button btnUpload = new Button("Upload");
+//		RootPanel.get("sendButtonContainer").add(btnUpload);
+		// 单击按钮提交servlet
+		btnUpload.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				formPanel.submit();
+			}
+		});
+		
+		formPanel.addSubmitHandler(new SubmitHandler() {
+			@Override
+			public void onSubmit(SubmitEvent event) {
+				if (fileUpload.getFilename().length() == 0) {
+					// Window.alert("必须选择一个文件");
+					event.cancel();
+				} else if (!fileUpload.getFilename().endsWith(".jpg")
+						&& !fileUpload.getFilename().endsWith(".gif")) {
+					System.err.println("error in format");
+					event.cancel();
+				}
+			}
+		});
+		
+		formPanel.addSubmitCompleteHandler(new SubmitCompleteHandler() {
+			@Override
+			public void onSubmitComplete(SubmitCompleteEvent event) {
+				System.out.println(" ==== onSubmitComplete ====");
+				System.out.println("dddd=" + event.getResults());
+			}
+		});
 	}
 
 	@Override
@@ -110,12 +174,13 @@ public class GiftWidget extends Composite implements GiftDisplay {
 
 	@Override
 	public HasValue<String> getType() {
-		return type;
+		// return type;
+		return null;
 	}
 
 	@Override
 	public HasValue<String> getSource() {
-//		 return source;
+		// return source;
 		return null;
 	}
 
@@ -139,17 +204,16 @@ public class GiftWidget extends Composite implements GiftDisplay {
 
 	@Override
 	public Integer getStock() {
-			if (stock.getText() == null
-					|| "".equals(stock.getText().trim())) {
-				return null;
-			} else {
-				try {
-					int d = Integer.parseInt(stock.getText().trim());
-					return d;
-				} catch (Exception e) {
-					return new Integer(-1);
-				}
+		if (stock.getText() == null || "".equals(stock.getText().trim())) {
+			return null;
+		} else {
+			try {
+				int d = Integer.parseInt(stock.getText().trim());
+				return d;
+			} catch (Exception e) {
+				return new Integer(-1);
 			}
+		}
 	}
 
 	@Override
