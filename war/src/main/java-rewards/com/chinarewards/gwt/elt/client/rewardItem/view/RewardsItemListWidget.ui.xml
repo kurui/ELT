@@ -73,7 +73,7 @@
 					</select>
 				</div>
 
-				<div class="{newitem.pager-right}">
+				<div id="rewardlist_page" class="{newitem.pager-right}">
 					<g:FlowPanel ui:field="pager" />
 				</div>
 			</div>
