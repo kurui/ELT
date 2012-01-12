@@ -401,6 +401,7 @@ public class EltNewPager extends AbstractPager {
 				}
 			});
 		}
+		
 		return "";
 		// return "当前第 " + currentPage + " 页,"+"共"+totalPage+"页,共"+dataSize+"条";
 	}
@@ -474,10 +475,10 @@ public class EltNewPager extends AbstractPager {
 	 *            true to disable, false to enable
 	 */
 	private void setNextPageButtonsDisabled(boolean disabled) {
-		// nextPage.setDisabled(disabled);
-		// if (lastPage != null) {
-		// lastPage.setDisabled(disabled);
-		// }
+		 nextPage.setEnabled(disabled);
+		 if (lastPage != null) {
+		 lastPage.setEnabled(disabled);
+		 }
 	}
 
 	/**
@@ -487,7 +488,7 @@ public class EltNewPager extends AbstractPager {
 	 *            true to disable, false to enable
 	 */
 	private void setPrevPageButtonsDisabled(boolean disabled) {
-		// firstPage.setDisabled(disabled);
-		// prevPage.setDisabled(disabled);
+		 firstPage.setEnabled(disabled);
+		 prevPage.setEnabled(disabled);
 	}
 }
