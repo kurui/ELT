@@ -23,72 +23,72 @@
                    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="{newitem.form}">
                       <tr class="{newitem.form-line}">
                         <td valign="top" class="{newitem.label}"> 奖项名称：</td>
-                        <td class="{newitem.element}" ><g:Label ui:field="rewardsName" /></td>
+                        <td class="{newitem.element}" ><g:Label ui:field="rewardsName" styleName="textmy"/></td>
                       	
                       </tr>
                       
                       <tr class="{newitem.form-line}">
                         <td valign="top" class="{newitem.label}"> 奖项说明：</td>
-                        <td class="{newitem.element}" ><g:Label ui:field="rewardsDefinition"   /></td>
+                        <td class="{newitem.element}" ><g:Label ui:field="rewardsDefinition"  styleName="textmy" /></td>
                     	
                       </tr>
                       <tr class="{newitem.form-line}">
                         <td valign="top" class="{newitem.label}"> 奖项条件：</td>
-                        <td class="{newitem.element}" ><g:Label ui:field="standard"   /></td>
+                        <td class="{newitem.element}" ><g:Label ui:field="standard"  styleName="textmy" /></td>
                      	
                       </tr>
 					  <tr class="{newitem.form-line}">
                         <td valign="top" class="{newitem.label}"> 获奖名额：</td>
-                        <td class="{newitem.element}" ><g:Label ui:field="peopleSizeLimit" /></td>
+                        <td class="{newitem.element}" ><g:Label ui:field="peopleSizeLimit" styleName="textmy"/></td>
                       </tr>
                       <tr class="{newitem.form-line}">
                         <td valign="top" class="{newitem.label}"> 总积分：</td>
-                        <td class="{newitem.element}" ><g:Label ui:field="totalJF" /></td>
+                        <td class="{newitem.element}" ><g:Label ui:field="totalJF" styleName="textmy"/></td>
                      	
                       </tr>
                       <tr class="{newitem.form-line}">
                         <td valign="top" class="{newitem.label}"> 每人得奖积分：</td>
-                        <td class="{newitem.element}" ><g:Label ui:field="rewardsFrom" /></td>
+                        <td class="{newitem.element}" ><g:Label ui:field="rewardsFrom" styleName="textmy"/></td>
                      	
                       </tr>
                        <tbody id="tm">
                        <tr class="{newitem.form-line}">
 				           <td valign="top" class="{newitem.label}"> 提名人：</td>
-				           <td class="{newitem.element}" ><g:FlowPanel ui:field="staffAreaPanel" /> </td>
+				           <td class="{newitem.element}" ><g:FlowPanel ui:field="staffAreaPanel" styleName="textmy"/> </td>
 				              
 				       </tr>
 				       </tbody>
                       <tr class="{newitem.form-line}">
 				            <td valign="top" class="{newitem.label}"> 候选人：</td>
-				            <td class="{newitem.element}" ><g:FlowPanel ui:field="staffPanel" /> </td>
+				            <td class="{newitem.element}" ><g:FlowPanel ui:field="staffPanel" styleName="textmy"/> </td>
 				               
 				       </tr>
                      
 					  <tr class="{newitem.form-line}">
 					  <td valign="top" class="{newitem.label}">奖项模式</td>
-					  <td  class="{newitem.element}"  ><g:Label ui:field="itemModel" /></td>
+					  <td  class="{newitem.element}"  ><g:Label ui:field="itemModel" styleName="textmy"/></td>
 					  </tr>
                        <tr class="{newitem.form-line}">
                         <td class="{newitem.label}"> 开始时间： </td>
-                        <td class="{newitem.element}" ><g:Label ui:field="startTime" /></td>
+                        <td class="{newitem.element}" ><g:Label ui:field="startTime" styleName="textmy"/></td>
                       	
                       </tr>
                      <tbody id="ones">
                       <tr class="{newitem.form-line}">
                         <td valign="top" class="{newitem.label}">预计颁奖时间：</td>
-                        <td class="{newitem.element}" ><g:InlineLabel ui:field="expectTime" />     提前<g:InlineLabel ui:field="tmdays" />天提名</td>
+                        <td class="{newitem.element}" ><g:InlineLabel ui:field="expectTime" styleName="textmy"/>     提前<g:InlineLabel ui:field="tmdays" />天提名</td>
 						
                       </tr>
                       </tbody>
                       <tbody id="period"> 
                        <tr class="{newitem.form-line}">
                         <td valign="top" class="{newitem.label}">下次颁奖时间：</td>
-                        <td class="{newitem.element}" ><g:InlineLabel ui:field="nextRewardsTime"  />   提前<g:InlineLabel ui:field="tmday" />天提名</td>
+                        <td class="{newitem.element}" ><g:InlineLabel ui:field="nextRewardsTime" styleName="textmy" />   提前<g:InlineLabel ui:field="tmday" />天提名</td>
 						
                       </tr>                     	
                       <tr class="{newitem.form-line}">
                         <td valign="top" class="{newitem.label}"> 颁奖周期： </td>
-                        <td class="{newitem.element}" ><g:Label ui:field="settingText" />
+                        <td class="{newitem.element}" ><g:Label ui:field="settingText" styleName="textmy"/>
                        	</td>
                        	
                       </tr>
@@ -101,7 +101,7 @@
                      
                       <tr class="{newitem.form-line}">
                         <td valign="top" class="{newitem.label}">下次公布时间：</td>
-                        <td class="{newitem.element}" ><g:Label ui:field="nextPublicTime" /></td>
+                        <td class="{newitem.element}" ><g:Label ui:field="nextPublicTime" styleName="textmy"/></td>
                         
                       </tr>
                       <tr class="{newitem.form-line}">
@@ -110,12 +110,9 @@
                      	
                       </tr>
                       </tbody>
-                        <tr height="30px"><td></td></tr>
-                       <tr class="{newitem.form-line}">
+                        <tr class="{newitem.form-line}">
 					  <td colspan="2"  align="center" >
-					   <span class="{newitem.btn}">  <g:Button ui:field="back" styleName="button-ok">返回 </g:Button></span>
-					   <span class="{newitem.btn}">  <g:Button ui:field="update" styleName="button-ok">修改 </g:Button></span>
-					   </td>
+					   <span class="{newitem.btn}">  <g:Button ui:field="back" styleName="button-ok">返回 </g:Button></span></td>
 					  </tr>
                     </table>
                   </div>	

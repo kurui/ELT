@@ -79,10 +79,6 @@ public class SearchRewardsItemHandler extends	BaseActionHandler<SearchRewardsIte
 		model.setId(criteria.getId());
 		model.setName(criteria.getName());
 		model.setDepartmentId(criteria.getDepartmentId());
-
-		model.setCreateTime(criteria.getCreateTime());
-		model.setCreateTimeEnd(criteria.getCreateTimeEnd());
-
 //		model.setSubDepartmentChoose(criteria.isSubDepartmentChoose());
 //		model.setRewardFrom(criteria.getRewardFrom());
 		model.setStandard(criteria.getStandard());

@@ -162,7 +162,7 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 	public RewardItem saveRewardItem(SysUser caller, RewardItemParam param) {
 		logger.debug("Invoking method saveRewardItem(), parameter:{}", param);
 		RewardItem itemObj = assembleRewardItemObject(caller, param);
-		
+		System.out.println("itemObj=" + itemObj.getFrequency());
 		if (StringUtil.isEmptyString(itemObj.getId())) {
 			// Create
 			rewardItemDao.save(itemObj);

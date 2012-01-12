@@ -40,10 +40,7 @@ public class ChooseStaffWinWidget extends Composite implements	ChooseStaffWinDis
 
 	@UiField
 	Panel result;
-    
-	@UiField
-	Panel resultpage;
-	
+
 	@UiField
 	Panel specialBoxPanel;
 
@@ -67,10 +64,7 @@ public class ChooseStaffWinWidget extends Composite implements	ChooseStaffWinDis
 	//	this.deptCombo = new DepartmentComboTree(dispatch, errorHandler,sessionManager);
 	//	deptPanel.add(deptCombo);
 	}
-	@Override
-	public Panel getResultpage() {
-		return resultpage;
-	}
+
 	private void initSpecialTextBox() {
 		textBox = new StaffSpecialTextArea();
 		specialBoxPanel.add(textBox);

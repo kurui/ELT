@@ -28,7 +28,7 @@
 			<div >
 				<g:FlowPanel ui:field="result" />
 			</div>
-            <g:FlowPanel ui:field="resultpage" />
+
 			<div class="{new2.table}">
 				<table width="100%">
 					<tr>
