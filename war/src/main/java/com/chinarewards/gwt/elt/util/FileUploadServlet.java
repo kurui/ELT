@@ -16,6 +16,9 @@ public class FileUploadServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		
+		System.out.println("=========fileupload servlet=============");
+		
 		// TODO Auto-generated method stub
 		response.setContentType("text/html;charset=utf-8");
 		// Create a new file upload handler

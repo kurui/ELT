@@ -72,7 +72,7 @@
 					</td>
 					<td></td>
 				</tr>
-				<tr class="{newitem.form-line}" >
+				<tr class="{newitem.form-line}">
 					<td valign="top" class="{newitem.label}">礼品图片：</td>
 					<td>
 						<g:Image ui:field="giftImage" />
@@ -83,7 +83,7 @@
 					<td valign="top" class="{newitem.label}"></td>
 					<td class="{newitem.element}">
 						<g:FormPanel ui:field="photoForm" encoding="multipart/form-data"
-							method="post" action="/elt/fileupload">
+							method="post" action="/fileupload">
 							<g:FileUpload ui:field="photoUpload"></g:FileUpload>
 						</g:FormPanel>
 					</td>
