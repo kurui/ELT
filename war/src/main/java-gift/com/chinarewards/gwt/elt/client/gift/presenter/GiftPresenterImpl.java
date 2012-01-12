@@ -16,6 +16,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
+import com.chinarewards.gwt.elt.util.StringUtil;
 
 public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 		implements GiftPresenter {
@@ -75,7 +76,8 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 						// gift.setBusiness(display.getBusiness().getValue().trim());
 						gift.setAddress(display.getAddress().getValue().trim());
 						gift.setTell(display.getTell().getValue().trim());
-//						gift.setStock(display.getStock());
+						gift.setStock(StringUtil.valueOf(display.getStock()
+								.getValue()));
 						// gift.setPhoto(display.getPhone().getValue());
 						// gift.setGiftStatus();
 						// gift.setDeleted(false);
@@ -144,128 +146,38 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 						}
 					}
 
-					// 提名人按钮事件
-					// registerHandler(display.getChooseStaffBtnClick().addClickHandler(
-					// new ClickHandler() {
-					// @Override
-					// public void onClick(ClickEvent arg0) {
-					// final ChooseStaffWinDialog dialog =
-					// chooseStaffDialogProvider
-					// .get();
-					// dialog.setNominee(false, true, null);
-					// final HandlerRegistration registration = eventBus
-					// .addHandler(ChooseStaffEvent.getType(),
-					// new ChooseStaffHandler() {
-
-					// Platform.getInstance().getSiteManager()
-					// .openDialog(dialog, new DialogCloseListener() {
-					// public void onClose(String dialogId,
-					// String instanceId) {
-					// registration.removeHandler();
-					// }
-					// });
-					// }
-					// }));
-
 				}));
+
+		registerHandler(display.getSaveClick().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						System.out.println("registerHandler=========");
+						// display.get uploadFormPanel.submit();
+					}
+				}));
+		// formPanel.addSubmitHandler(new SubmitHandler() {
+		// @Override
+		// public void onSubmit(SubmitEvent event) {
+		// if (fileUpload.getFilename().length() == 0) {
+		// // Window.alert("必须选择一个文件");
+		// event.cancel();
+		// } else if (!fileUpload.getFilename().endsWith(".jpg")
+		// && !fileUpload.getFilename().endsWith(".gif")) {
+		// System.err.println("error in format");
+		// event.cancel();
+		// }
+		// }
+		// });
+		//
+		// formPanel.addSubmitCompleteHandler(new SubmitCompleteHandler() {
+		// @Override
+		// public void onSubmitComplete(SubmitCompleteEvent event) {
+		// System.out.println(" ==== onSubmitComplete ====");
+		// System.out.println("dddd=" + event.getResults());
+		// }
+		// });
 	}
-
-	// // setting a new frequency.
-	// private void doSettingFrequency(FrequencyClient frequency) {
-	// display.showFrequencyInfo(frequency);
-	// Date startDate = display.getStartTime().getValue();
-	//
-	// Date currentDate = new Date();
-	// // 开始时间设为依据时间
-	// RewardDateInfo info = new SimpleRewardDateInfo(startDate, currentDate,
-	// lastRewardsDate);
-	// Date startTime = startDateCalculator.calculateStartDate(info);
-	// // 初始化时默认开始时间是当日时间
-	// if (startTime == null) {
-	// startTime = new Date();
-	// }
-	// NextRewardsDateCalculator cal = factory.getCalculator();
-	// Date nextRewardsDate = cal.calNextRewardsDate(startTime, frequency);
-	// startDate = startDate == null ? new Date() : startDate;
-	// if (!isEditPage || (startDate.getTime() > nextRewardsDate.getTime())) {
-	// // 开始时间和下次颁奖时间一样
-	// display.getStartTime().setValue(nextRewardsDate);
-	// } else if (!isEditPage
-	// || (nextRewardsDate.getTime() >= startDateCopy.getTime())) {
-	// if (isFrequency) {
-	// display.getStartTime().setValue(startDateCopy);
-	// } else {
-	// display.getStartTime().setValue(nextRewardsDate);
-	// }
-	// } else if (isEditPage
-	// && nextRewardsDate.getTime() <= startDateCopy.getTime()) {
-	// display.getStartTime().setValue(nextRewardsDate);
-	// }
-	//
-	// display.getNextRewardsTime().setValue(nextRewardsDate);
-	//
-	// }
-	//
-	// private void modifyNextRewardsSetDate(Date rewardsDate) {
-	// FrequencyClient frequency = display.getFrequencyObj();
-	// boolean toD = false;
-	// // 没设定频率的时候，终止！
-	// if (frequency == null) {
-	// return;
-	// }
-	//
-	// Date currentDate = new Date();
-	// RewardDateInfo info = new SimpleRewardDateInfo(rewardsDate,
-	// currentDate, lastRewardsDate);
-	// // The begin time which to cal
-	// // the next rewarded time.
-	// Date startTime = startDateCalculator.calculateStartDate(info);
-	// NextRewardsDateCalculator cal = factory.getCalculator();
-	// Date nextRewardsDate = cal.calNextRewardsDate(startTime, frequency);
-	// display.getNextRewardsTime().setValue(nextRewardsDate);
-	//
-	// rewardsDate = display.getNextRewardsTime().getValue();
-	// if (rewardsDate.getTime() < startDateCopy.getTime()) {
-	// display.getStartTime().setValue(rewardsDate);
-	// } else {
-	// display.getStartTime().setValue(startDateCopy);
-	// }
-	//
-	// if (toD) {
-	//
-	// endDateCopy = nextRewardsDate;
-	// }
-	//
-	// // 修改下次公布时间
-	// modifyNextPublishTime();
-	// }
-	//
-	// // 修改下次颁奖时间
-	// private void modifyNextPublishTime() {
-	// Date startDate = display.getNextRewardsTime().getValue();
-	// Date date = DateTool.addSomeDay(startDate, 0 - day);
-	// display.getNextPublishTime().setValue(date);
-	// nextPublishCopy = date;
-	//
-	// }
-
-	// private void modifyNextPublishTimeClew() {
-	// DateTimeFormat format = DateTimeFormat
-	// .getFormat(ViewConstants.date_format);
-	// Date NextRewardsTimeDate = display.getNextRewardsTime().getValue();
-	// if ((NextRewardsTimeDate.getTime() <= rewardsDateCopuy.getTime())
-	// && !okAndNo) {
-	// okAndNo = true;
-	// Window.confirm("建议下次颁奖时间应该在上次颁奖时间("
-	// + format.format(rewardsDateCopuy)
-	// + ")之后！<br/>按“确定”回复到以前的设置！<br/>按“取消”使用新的时间！");
-	//
-	// } else if (NextRewardsTimeDate.getTime() > rewardsDateCopuy.getTime()) {
-	// okAndNo = false;
-	// nextRewardsDateCopy = NextRewardsTimeDate;
-	//
-	// }
-	// }
 
 	// 验证方法
 	private boolean validateSubmit() {
@@ -277,10 +189,12 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 			flag = false;
 		}
 
-		// if (display.getStock()== null) {
-		// errorMsg.append("请填写礼品库存!<br>");
-		// flag = false;
-		// }
+		if (display.getStock() == null
+				|| StringUtil.valueOf(display.getStock().getValue()) == null
+				|| StringUtil.valueOf(display.getStock().getValue()) < 0) {
+			errorMsg.append("请正确填写礼品库存!<br>");
+			flag = false;
+		}
 
 		// if (display.getName().getValue() == null
 		// || "".equals(display.getName().getValue().trim())) {

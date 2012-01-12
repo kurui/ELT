@@ -25,7 +25,7 @@ public interface GiftPresenter extends Presenter<GiftPresenter.GiftDisplay> {
 
 		public HasValue<String> getTell();
 
-		public Integer getStock();
+		public HasValue<String> getStock();
 
 		public HasValue<String> getPhone();
 
@@ -42,6 +42,7 @@ public interface GiftPresenter extends Presenter<GiftPresenter.GiftDisplay> {
 		public HasValueChangeHandlers<Date> getUpdatetime();
 
 		// -----------------------------------------
+//		public Has
 		public HasClickHandlers getSaveClick();
 
 		public void clear();

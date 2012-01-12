@@ -72,12 +72,22 @@
 					</td>
 					<td></td>
 				</tr>
-				<tr class="{newitem.form-line}">
+				<tr class="{newitem.form-line}" >
 					<td valign="top" class="{newitem.label}">礼品图片：</td>
 					<td>
 						<g:Image ui:field="giftImage" />
 					</td>
-					<td><g:FlowPanel ui:field="uploadPanel"/> </td> 
+					<td></td>
+				</tr>
+				<tr>
+					<td valign="top" class="{newitem.label}"></td>
+					<td class="{newitem.element}">
+						<g:FormPanel ui:field="uploadFormPanel" encoding="multipart/form-data"
+							method="post" action="fileupload">
+							<g:FileUpload ui:field="photoUpload"></g:FileUpload>
+						</g:FormPanel>
+					</td>
+					<td></td>
 				</tr>
 				<tr class="{newitem.form-line}">
 					<td class="{newitem.label}">

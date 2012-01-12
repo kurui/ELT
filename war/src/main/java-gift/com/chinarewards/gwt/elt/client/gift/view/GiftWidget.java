@@ -78,9 +78,14 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	// FrequencyClient frequency;
 	// String rewardsUnit;
 
+//	@UiField
+//	FlowPanel uploadPanel;
 	@UiField
-	FlowPanel uploadPanel;
-
+	FormPanel uploadFormPanel;
+	@UiField
+	FileUpload photoUpload;
+	
+	
 	DateTimeFormat dateFormat = DateTimeFormat
 			.getFormat(ViewConstants.date_format);
 
@@ -109,55 +114,41 @@ public class GiftWidget extends Composite implements GiftDisplay {
 
 	private void initFileUpload() {
 		// 选择文件上传的浏览按钮
-		final FileUpload fileUpload = new FileUpload();
-		fileUpload.setName("uploadFormElement");
+//		final FileUpload fileUpload = new FileUpload();
+//		fileUpload.setName("uploadFormElement");
 		// 创建表单Panel，提交HTML表格，添加fileUpload
-		final FormPanel formPanel = new FormPanel();
-		formPanel.setEncoding(FormPanel.ENCODING_MULTIPART);
-		formPanel.setMethod(FormPanel.METHOD_POST);
-		formPanel.setAction(GWT.getModuleBaseURL() + "fileupload");
-		formPanel.setWidget(fileUpload);
-		formPanel.setVisible(true);
+//		final FormPanel formPanel = new FormPanel();
+//		formPanel.setEncoding(FormPanel.ENCODING_MULTIPART);
+//		formPanel.setMethod(FormPanel.METHOD_POST);
+//		formPanel.setAction(GWT.getModuleBaseURL() + "fileupload");
+//		formPanel.setWidget(fileUpload);
+//		formPanel.setVisible(true);
 
-		System.out.println(formPanel + "-----------2");
-		System.out
-				.println(RootPanel.get("nameFieldContainer") + "============");
+		// // RootPanel.get("nameFieldContainer").add(formPanel);
+//		uploadPanel.add(formPanel);
 
-		// RootPanel.get("nameFieldContainer").add(formPanel);
-		uploadPanel.add(formPanel);
 
-		// 文件上传按钮
-		final Button btnUpload = new Button("Upload");
-		// RootPanel.get("sendButtonContainer").add(btnUpload);
-		// 单击按钮提交servlet
-		btnUpload.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				formPanel.submit();
-			}
-		});
-
-		formPanel.addSubmitHandler(new SubmitHandler() {
-			@Override
-			public void onSubmit(SubmitEvent event) {
-				if (fileUpload.getFilename().length() == 0) {
-					// Window.alert("必须选择一个文件");
-					event.cancel();
-				} else if (!fileUpload.getFilename().endsWith(".jpg")
-						&& !fileUpload.getFilename().endsWith(".gif")) {
-					System.err.println("error in format");
-					event.cancel();
-				}
-			}
-		});
-
-		formPanel.addSubmitCompleteHandler(new SubmitCompleteHandler() {
-			@Override
-			public void onSubmitComplete(SubmitCompleteEvent event) {
-				System.out.println(" ==== onSubmitComplete ====");
-				System.out.println("dddd=" + event.getResults());
-			}
-		});
+//		formPanel.addSubmitHandler(new SubmitHandler() {
+//			@Override
+//			public void onSubmit(SubmitEvent event) {
+//				if (fileUpload.getFilename().length() == 0) {
+//					// Window.alert("必须选择一个文件");
+//					event.cancel();
+//				} else if (!fileUpload.getFilename().endsWith(".jpg")
+//						&& !fileUpload.getFilename().endsWith(".gif")) {
+//					System.err.println("error in format");
+//					event.cancel();
+//				}
+//			}
+//		});
+//
+//		formPanel.addSubmitCompleteHandler(new SubmitCompleteHandler() {
+//			@Override
+//			public void onSubmitComplete(SubmitCompleteEvent event) {
+//				System.out.println(" ==== onSubmitComplete ====");
+//				System.out.println("dddd=" + event.getResults());
+//			}
+//		});
 	}
 
 	@Override
@@ -221,17 +212,8 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	}
 
 	@Override
-	public Integer getStock() {
-		if (stock.getText() == null || "".equals(stock.getText().trim())) {
-			return null;
-		} else {
-			try {
-				int d = Integer.parseInt(stock.getText().trim());
-				return d;
-			} catch (Exception e) {
-				return new Integer(-1);
-			}
-		}
+	public HasValue<String> getStock() {
+		return stock;
 	}
 
 	@Override
