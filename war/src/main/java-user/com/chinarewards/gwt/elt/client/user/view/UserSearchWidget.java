@@ -11,7 +11,8 @@ import java.util.Map.Entry;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.user.model.UserVo;
 import com.chinarewards.gwt.elt.client.user.presenter.UserSearchPresenter.UserSearchDisplay;
-import com.chinarewards.gwt.elt.client.widget.DefaultPager;
+import com.chinarewards.gwt.elt.client.widget.EltNewPager;
+import com.chinarewards.gwt.elt.client.widget.EltNewPager.TextLocation;
 import com.google.gwt.cell.client.CheckboxCell;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.core.client.GWT;
@@ -21,8 +22,6 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
-import com.google.gwt.user.cellview.client.SimplePager;
-import com.google.gwt.user.cellview.client.SimplePager.TextLocation;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
@@ -86,12 +85,15 @@ public class UserSearchWidget extends Composite implements UserSearchDisplay {
 	Panel result;
 	@UiField
 	Button delete;
+
+	@UiField
+	Panel resultpage;
 	
 	// @UiField
 	// Button searchSubAccount;
 
 	CellTable<UserVo> resultTable;
-	SimplePager pager;
+	EltNewPager pager;
 	AsyncDataProvider<UserVo> listViewAdapter;
 
 	// Set the format of datepicker.
@@ -120,14 +122,18 @@ public class UserSearchWidget extends Composite implements UserSearchDisplay {
 		resultTable = new CellTable<UserVo>();
 		resultTable.setWidth(ViewConstants.page_width);
 		resultTable.setPageSize(ViewConstants.per_page_number);
-		pager = new DefaultPager(TextLocation.CENTER);
+		pager = new EltNewPager(TextLocation.CENTER);
 		pager.setDisplay(resultTable);
 		MultiSelectionModel<UserVo> selectionModel = new MultiSelectionModel<UserVo>();
 		resultTable.setSelectionModel(selectionModel);
 		initTableColumns(selectionModel);
 		resultTable.setRowCount(0);
 		result.clear();
+		resultpage.clear();
 		result.add(resultTable);
+		resultpage.add(pager);
+		
+		
 	}
 
 	private void initTableColumns(final SelectionModel<UserVo> selectionModel) {
@@ -285,7 +291,7 @@ public class UserSearchWidget extends Composite implements UserSearchDisplay {
 		this.listViewAdapter = listViewAdapter;
 		buildTable();
 		this.listViewAdapter.addDataDisplay(resultTable);
-		result.add(pager);
+
 	}
 
 	@Override

@@ -17,7 +17,8 @@ import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
-import com.chinarewards.gwt.elt.client.widget.DefaultPager;
+import com.chinarewards.gwt.elt.client.widget.EltNewPager;
+import com.chinarewards.gwt.elt.client.widget.EltNewPager.TextLocation;
 import com.chinarewards.gwt.elt.client.widget.GetValue;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.widget.Sorting;
@@ -27,8 +28,6 @@ import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.cellview.client.SimplePager;
-import com.google.gwt.user.cellview.client.SimplePager.TextLocation;
 import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
 
@@ -40,7 +39,7 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 	final SessionManager sessionManager;
 	final Win win;
 
-	SimplePager pager;
+	EltNewPager pager;
 	ListCellTable<GiftClient> cellTable;
 	GiftListViewAdapter listViewAdapter;
 
@@ -93,7 +92,7 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 		cellTable = new ListCellTable<GiftClient>();
 
 		initTableColumns();
-		pager = new DefaultPager(TextLocation.CENTER);
+		pager = new EltNewPager(TextLocation.CENTER);
 		pager.setDisplay(cellTable);
 		cellTable.setWidth(ViewConstants.page_width);
 		cellTable.setPageSize(ViewConstants.per_page_number_in_dialog);
