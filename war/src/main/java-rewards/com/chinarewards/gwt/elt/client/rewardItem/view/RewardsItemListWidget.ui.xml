@@ -21,27 +21,35 @@
 			<div class="{newitem.query-wrap}" >
 			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="{newitem.form}">
 			 <tr>
-				<td width="10%" align="right">奖项名称:</td>
-				<td width="15%">
+				<td width="7%" align="right">奖项名称:</td>
+				<td width="10%">
 					<g:TextBox ui:field="name" styleName="{newitem.text}"/>
 				</td>
 				
-				<td width="10%" align="right" style="display:">设立部门:</td>
-				<td width="15%">
+				<td width="7%" align="right" style="display:">部门:</td>
+				<td width="10%">
 					<g:FlowPanel ui:field="departmentName" />
-                    <g:TextBox ui:field="names" styleName="{newitem.text}"/> 
+                    <select class="select" width="200px">
+                    <option value="">技术部</option>
+                    <option value="">财务部</option>
+                    <option value="">人事部</option>
+                    </select>
 				</td>
-				<td width="10%" align="right" style="display:">创建时间:</td>
-				<td width="15%" >
+				<td width="7%" align="right" >创建时间:</td>
+				<td width="10%" >
 				     <d:DateBox ui:field="createTime" styleName="{newitem.text}"/>
 				</td>
-				<td width="20%" style="display:none">
+				<td width="1%" align="left">—</td>
+				<td width="10%" align="right">
+				     <d:DateBox ui:field="createTimeEnd" styleName="{newitem.text}"/>
+				</td>
+				<td width="10%" style="display:none">
 					<g:CheckBox ui:field="chooseSubDepartment" />
 					包含子部门
 				</td>
 				
-				<td width="14%">
-					<span class="{newitem.btn}"><g:Button ui:field="search" >搜索</g:Button></span>
+				<td align="left">
+					<span class="{newitem.nbsp}"></span><span class="{newitem.btn}"><g:Button ui:field="search" >搜索</g:Button></span>
 				</td>
 			</tr>
 			

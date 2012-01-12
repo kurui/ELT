@@ -38,6 +38,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RadioButton;
@@ -135,6 +136,9 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 	@UiField
 	Panel staffAreaPanel;
 	
+    // 标题
+	@UiField
+	InlineLabel title;
 	SpecialTextArea<OrganicationClient> staffArea;
 	// is inject
 //	final DepartmentComboTree buildDept;
@@ -171,6 +175,7 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 		nextRewardsTime.setFormat(new DateBox.DefaultFormat(dateFormat));
 		nextPublicTime.setFormat(new DateBox.DefaultFormat(dateFormat));
 		expectTime.setFormat(new DateBox.DefaultFormat(dateFormat));
+		title.setText("创建奖项");
 		// settingText.setText("每1天一次");
 		birthRadio.getElement().addClassName(CssStyleConstants.hidden);
 		//周期性选择
@@ -650,7 +655,7 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 			//startTime.setEnabled(false);
 			
 		} 
-       
+		title.setText("修改奖项");
 		rewardsName.setText(rewardsItem.getName());
 		rewardsDefinition.setText(rewardsItem.getDefinition());
 		standard.setText(rewardsItem.getStandard());

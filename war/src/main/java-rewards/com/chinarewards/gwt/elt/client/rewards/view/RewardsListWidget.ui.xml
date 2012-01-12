@@ -53,7 +53,7 @@
 
 
 			<!--分页 [[ -->
-			<div id="rewardlist_page" class="{new2.pager}">
+			<div class="{new2.pager}">
 				<div class="{new2.pager-left}">
 					每页显示条数
 					<select class="{new2.select}">

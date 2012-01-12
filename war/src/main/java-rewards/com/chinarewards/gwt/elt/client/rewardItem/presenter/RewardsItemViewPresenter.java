@@ -31,7 +31,7 @@ public interface RewardsItemViewPresenter extends Presenter<RewardsItemViewPrese
 		//显示候选人
 		public void showParticipateInfo(RewardsBaseInfo info) ;
 		
-		
+		public HasClickHandlers getUpdateClick() ;
 			
 		
 	}

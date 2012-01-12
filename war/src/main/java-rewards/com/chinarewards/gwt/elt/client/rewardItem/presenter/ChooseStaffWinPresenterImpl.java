@@ -39,8 +39,7 @@ public class ChooseStaffWinPresenterImpl extends
 	final DispatchAsync dispatch;
 	final ErrorHandler errorHandler;
 	final SessionManager sessionManager;
-
-	 final SimplePager simplePager = new DefaultPager(TextLocation.CENTER); 
+	final SimplePager simplePager = new DefaultPager(TextLocation.CENTER);
 	ListCellTable<StaffClient> resultTable;
 	StaffAsyncDataProvider listViewAdapter;
 	
@@ -128,7 +127,7 @@ public class ChooseStaffWinPresenterImpl extends
 		resultTable.setPageStart(0);
 		display.getResultPanel().clear();
 		display.getResultPanel().add(resultTable);
-		display.getResultPanel().add(simplePager);
+		display.getResultpage().add(simplePager);
 	}
 
 	private SingleSelectionModel<StaffClient> setSelectionModel(

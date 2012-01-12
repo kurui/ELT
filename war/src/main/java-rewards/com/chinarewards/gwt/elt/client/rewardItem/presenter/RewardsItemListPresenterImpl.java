@@ -20,7 +20,8 @@ import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemCriteria;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
 import com.chinarewards.gwt.elt.client.view.constant.ViewConstants;
-import com.chinarewards.gwt.elt.client.widget.DefaultPager;
+import com.chinarewards.gwt.elt.client.widget.EltNewPager;
+import com.chinarewards.gwt.elt.client.widget.EltNewPager.TextLocation;
 import com.chinarewards.gwt.elt.client.widget.GetValue;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.widget.Sorting;
@@ -32,8 +33,6 @@ import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
-import com.google.gwt.user.cellview.client.SimplePager;
-import com.google.gwt.user.cellview.client.SimplePager.TextLocation;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
@@ -47,7 +46,7 @@ public class RewardsItemListPresenterImpl extends
 		BasePresenter<RewardsItemListPresenter.RewardsItemListDisplay>
 		implements RewardsItemListPresenter {
 
-	SimplePager pager;
+	EltNewPager pager;
 	ListCellTable<RewardsItemClient> resultTable;
 	RewardsItemListViewAdapter listViewAdapter;
 
@@ -103,7 +102,7 @@ public class RewardsItemListPresenterImpl extends
 	private void buildTable() {
 		resultTable = new ListCellTable<RewardsItemClient>();
 		initTableColumns();
-		pager = new DefaultPager(TextLocation.CENTER);
+		pager = new EltNewPager(TextLocation.CENTER);
 		pager.setDisplay(resultTable);
 		resultTable.setWidth(ViewConstants.page_width);
 		resultTable.setPageSize(ViewConstants.per_page_number_in_dialog);
@@ -200,15 +199,9 @@ public class RewardsItemListPresenterImpl extends
 					}
 				});
 
-		resultTable.addColumn("开始日期", new DateCell(dateFormat),
-				new GetValue<RewardsItemClient, Date>() {
-					@Override
-					public Date getValue(RewardsItemClient rewards) {
-						return rewards.getStartTime();
-					}
-				}, ref, "startTime");
 
-		resultTable.addColumn("生成奖励次数", new TextCell(),
+
+		resultTable.addColumn("应用次数", new TextCell(),
 				new GetValue<RewardsItemClient, String>() {
 					@Override
 					public String getValue(RewardsItemClient rewards) {
@@ -224,16 +217,15 @@ public class RewardsItemListPresenterImpl extends
 				}, new FieldUpdater<RewardsItemClient, String>() {
 					@Override
 					public void update(int index, RewardsItemClient object,	String value) {
-						if (object.isEnabled() == true){
-							win.alert(object.getName()+"奖项已激活，不能修改，如修改请取消运作");
-						}else{
+						
+						win.alert(object.getName()+"奖项已激活，确定要修改？");
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(
 										RewardsItemConstants.EDITOR_REWARDSITEM_ADD,
 										"EDITOR_REWARDS_ITEM_ADD"
 												+ object.getId(), object);
-					   }
+
 					}
 				});
 		resultTable.addColumn("查看", new HyperLinkCell(),
@@ -345,7 +337,7 @@ public class RewardsItemListPresenterImpl extends
 
 					@Override
 					public void onSuccess(ActivationRewardsItemResponse resp) {
-						win.alert(resp.getName() + "--------------已激活!");
+						win.alert(resp.getName() + "--已激活!");
 						doSearch();
 					}
 				});
@@ -373,9 +365,11 @@ public class RewardsItemListPresenterImpl extends
 	public void doSearch() {
 		RewardsItemCriteria criteria = new RewardsItemCriteria();
 		// criteria.setDepartmentId(display.getBuildDept());
-		criteria.setSubDepartmentChoose(display.getChooseSubDepartment()
-				.getValue());
+		criteria.setSubDepartmentChoose(display.getChooseSubDepartment().getValue());
 		criteria.setName(display.getSearchName().getValue());
+		criteria.setCreateTime(display.getCreateTime().getValue());
+		criteria.setCreateTimeEnd(display.getCreateTimeEnd().getValue());
+
 		listViewAdapter.setCriteria(criteria);
 		listViewAdapter.reloadToFirstPage();
 	}
