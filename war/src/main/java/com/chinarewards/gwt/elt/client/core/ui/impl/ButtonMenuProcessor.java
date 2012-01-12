@@ -69,7 +69,7 @@ public class ButtonMenuProcessor implements MenuProcessor {
 			root.appendChild(new MenuNode(m));
 		}
 
-		ScrollPanel menuWrapper = new ScrollPanel(createButtonMenuWidget(null));
+		ScrollPanel menuWrapper = new ScrollPanel(createButtonMenuWidget("RewardItem"));
 		container.add(menuWrapper);
 	}
 
