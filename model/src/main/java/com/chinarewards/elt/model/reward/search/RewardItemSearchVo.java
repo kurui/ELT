@@ -103,6 +103,17 @@ public class RewardItemSearchVo {
 	private Date startTime;
 
 	private Date createTime;
+	
+	private Date createTimeEnd;
+	
+	public Date getCreateTimeEnd() {
+		return createTimeEnd;
+	}
+
+	public void setCreateTimeEnd(Date createTimeEnd) {
+		this.createTimeEnd = createTimeEnd;
+	}
+
 	public Date getCreateTime() {
 		return createTime;
 	}

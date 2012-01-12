@@ -23,72 +23,72 @@
                    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="{newitem.form}">
                       <tr class="{newitem.form-line}">
                         <td valign="top" class="{newitem.label}"> 奖项名称：</td>
-                        <td class="{newitem.element}" ><g:Label ui:field="rewardsName" styleName="{newitem.text}"/></td>
+                        <td class="{newitem.element}" ><g:Label ui:field="rewardsName" styleName=""/></td>
                       	
                       </tr>
                       
                       <tr class="{newitem.form-line}">
                         <td valign="top" class="{newitem.label}"> 奖项说明：</td>
-                        <td class="{newitem.element}" ><g:Label ui:field="rewardsDefinition"  styleName="{newitem.text}" /></td>
+                        <td class="{newitem.element}" ><g:Label ui:field="rewardsDefinition"  styleName="" /></td>
                     	
                       </tr>
                       <tr class="{newitem.form-line}">
                         <td valign="top" class="{newitem.label}"> 奖项条件：</td>
-                        <td class="{newitem.element}" ><g:Label ui:field="standard"  styleName="{newitem.text}" /></td>
+                        <td class="{newitem.element}" ><g:Label ui:field="standard"  styleName="" /></td>
                      	
                       </tr>
 					  <tr class="{newitem.form-line}">
                         <td valign="top" class="{newitem.label}"> 获奖名额：</td>
-                        <td class="{newitem.element}" ><g:Label ui:field="peopleSizeLimit" styleName="{newitem.text}"/></td>
+                        <td class="{newitem.element}" ><g:Label ui:field="peopleSizeLimit" styleName=""/></td>
                       </tr>
                       <tr class="{newitem.form-line}">
                         <td valign="top" class="{newitem.label}"> 总积分：</td>
-                        <td class="{newitem.element}" ><g:Label ui:field="totalJF" styleName="{newitem.text}"/></td>
+                        <td class="{newitem.element}" ><g:Label ui:field="totalJF" styleName=""/></td>
                      	
                       </tr>
                       <tr class="{newitem.form-line}">
                         <td valign="top" class="{newitem.label}"> 每人得奖积分：</td>
-                        <td class="{newitem.element}" ><g:Label ui:field="rewardsFrom" styleName="{newitem.text}"/></td>
+                        <td class="{newitem.element}" ><g:Label ui:field="rewardsFrom" styleName=""/></td>
                      	
                       </tr>
                        <tbody id="tm">
                        <tr class="{newitem.form-line}">
 				           <td valign="top" class="{newitem.label}"> 提名人：</td>
-				           <td class="{newitem.element}" ><g:FlowPanel ui:field="staffAreaPanel" styleName="{newitem.text}"/> </td>
+				           <td class="{newitem.element}" ><g:FlowPanel ui:field="staffAreaPanel" styleName=""/> </td>
 				              
 				       </tr>
 				       </tbody>
                       <tr class="{newitem.form-line}">
 				            <td valign="top" class="{newitem.label}"> 候选人：</td>
-				            <td class="{newitem.element}" ><g:FlowPanel ui:field="staffPanel" styleName="{newitem.text}"/> </td>
+				            <td class="{newitem.element}" ><g:FlowPanel ui:field="staffPanel" styleName=""/> </td>
 				               
 				       </tr>
                      
 					  <tr class="{newitem.form-line}">
-					  <td valign="top" class="{newitem.label}">奖项模式</td>
-					  <td  class="{newitem.element}"  ><g:Label ui:field="itemModel" styleName="{newitem.text}"/></td>
+					  <td valign="top" class="{newitem.label}">奖项模式：</td>
+					  <td  class="{newitem.element}"  ><g:Label ui:field="itemModel" styleName=""/></td>
 					  </tr>
                        <tr class="{newitem.form-line}">
                         <td class="{newitem.label}"> 开始时间： </td>
-                        <td class="{newitem.element}" ><g:Label ui:field="startTime" styleName="{newitem.text}"/></td>
+                        <td class="{newitem.element}" ><g:Label ui:field="startTime" styleName=""/></td>
                       	
                       </tr>
                      <tbody id="ones">
                       <tr class="{newitem.form-line}">
                         <td valign="top" class="{newitem.label}">预计颁奖时间：</td>
-                        <td class="{newitem.element}" ><g:InlineLabel ui:field="expectTime" styleName="{newitem.text}"/>     提前<g:InlineLabel ui:field="tmdays" />天提名</td>
+                        <td class="{newitem.element}" ><g:InlineLabel ui:field="expectTime" styleName=""/>     提前<g:InlineLabel ui:field="tmdays" />天提名</td>
 						
                       </tr>
                       </tbody>
                       <tbody id="period"> 
                        <tr class="{newitem.form-line}">
                         <td valign="top" class="{newitem.label}">下次颁奖时间：</td>
-                        <td class="{newitem.element}" ><g:InlineLabel ui:field="nextRewardsTime" styleName="{newitem.text}" />   提前<g:InlineLabel ui:field="tmday" />天提名</td>
+                        <td class="{newitem.element}" ><g:InlineLabel ui:field="nextRewardsTime" styleName="" />   提前<g:InlineLabel ui:field="tmday" />天提名</td>
 						
                       </tr>                     	
                       <tr class="{newitem.form-line}">
                         <td valign="top" class="{newitem.label}"> 颁奖周期： </td>
-                        <td class="{newitem.element}" ><g:Label ui:field="settingText" styleName="{newitem.text}"/>
+                        <td class="{newitem.element}" ><g:Label ui:field="settingText" styleName=""/>
                        	</td>
                        	
                       </tr>
@@ -101,7 +101,7 @@
                      
                       <tr class="{newitem.form-line}">
                         <td valign="top" class="{newitem.label}">下次公布时间：</td>
-                        <td class="{newitem.element}" ><g:Label ui:field="nextPublicTime" styleName="{newitem.text}"/></td>
+                        <td class="{newitem.element}" ><g:Label ui:field="nextPublicTime" styleName=""/></td>
                         
                       </tr>
                       <tr class="{newitem.form-line}">

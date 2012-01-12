@@ -40,6 +40,7 @@ public interface RewardsItemListPresenter extends
 		public HasClickHandlers getAddBut();
 		
 		public HasValue<Date> getCreateTime();
+		public HasValue<Date> getCreateTimeEnd();
 		
 		void initialize();
 		/**

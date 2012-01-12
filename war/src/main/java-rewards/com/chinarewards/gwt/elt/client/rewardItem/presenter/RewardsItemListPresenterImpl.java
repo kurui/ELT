@@ -368,6 +368,8 @@ public class RewardsItemListPresenterImpl extends
 		criteria.setSubDepartmentChoose(display.getChooseSubDepartment().getValue());
 		criteria.setName(display.getSearchName().getValue());
 		criteria.setCreateTime(display.getCreateTime().getValue());
+		criteria.setCreateTimeEnd(display.getCreateTimeEnd().getValue());
+
 		listViewAdapter.setCriteria(criteria);
 		listViewAdapter.reloadToFirstPage();
 	}
