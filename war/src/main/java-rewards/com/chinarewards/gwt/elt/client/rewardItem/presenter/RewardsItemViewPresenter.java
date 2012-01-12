@@ -20,6 +20,7 @@ public interface RewardsItemViewPresenter extends Presenter<RewardsItemViewPrese
 		public HasValue<Boolean> getSpecialCbx();
 		public HasValue<Boolean> getBirthRadio();
 		public HasClickHandlers getBackClick() ;	
+		public HasClickHandlers getUpdateClick() ;	
 		// 显示奖项详细内容
 		public void showRewardsItem(RewardsItemClient rewardsItem);
 	

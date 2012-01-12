@@ -109,9 +109,16 @@ public class RewardsItemViewWidget extends Composite implements RewardsItemViewD
 	
 	@UiField
 	Button back;
+	@UiField
+	Button update;
 	@Override
 	public HasClickHandlers getBackClick() {
 		return back;
+	}
+   
+	@Override
+	public HasClickHandlers getUpdateClick() {
+		return update;
 	}
 
 	interface RewardsItemViewWidgetBinder extends
