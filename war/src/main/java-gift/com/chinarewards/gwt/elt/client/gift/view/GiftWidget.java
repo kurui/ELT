@@ -16,6 +16,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
@@ -55,6 +56,9 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	// DateBox updatetime;
 	// ---end vo
 
+	@UiField
+	Image giftImage;
+	
 	// 保存或修改
 	@UiField
 	Button save;

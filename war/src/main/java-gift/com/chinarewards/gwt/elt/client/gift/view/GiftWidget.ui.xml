@@ -22,6 +22,7 @@
 			</div>
 			<span class="{newitem.cutline}"></span>
 		</div>
+
 		<!-- 1内容 -->
 		<div class="{newitem.content-wrap}">
 			<table width="100%" border="0" cellspacing="0" cellpadding="0"
@@ -46,7 +47,7 @@
 				<tr class="{newitem.form-line}">
 					<td valign="top" class="{newitem.label}">礼品类型：</td>
 					<td class="{newitem.element}">
-						<g:TextBox ui:field="type"  styleName="{newitem.text}" />
+						<g:TextBox ui:field="type" styleName="{newitem.text}" />
 					</td>
 					<td></td>
 				</tr>
@@ -72,8 +73,10 @@
 					<td></td>
 				</tr>
 				<tr class="{newitem.form-line}">
-					<td valign="top" class="{newitem.label}">图片：</td>
-					<td class="{newitem.element}">
+					<td valign="top" class="{newitem.label}">礼品图片：</td>
+					<td>
+						<g:Image ui:field="giftImage"/>
+						<g:FileUpload />
 						<g:TextBox ui:field="photo" styleName="{newitem.text}" />
 					</td>
 				</tr>
@@ -83,7 +86,6 @@
 						兑换积分：
 					</td>
 					<td class="{newitem.element}">
-
 					</td>
 					<td></td>
 				</tr>

@@ -110,7 +110,6 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 														GiftConstants.EDITOR_GIFTLIST_SEARCH,
 														"EDITOR_REWARDSITEM_List_DO_ID",
 														instanceId);
-
 									}
 								});
 					}
