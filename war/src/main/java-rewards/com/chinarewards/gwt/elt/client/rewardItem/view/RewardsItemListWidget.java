@@ -76,6 +76,7 @@ public class RewardsItemListWidget extends Composite implements
 		//this.DeptCombTree = new DepartmentComboTree(dispatch, errorHandler,	sessionManager);
 		initWidget(uiBinder.createAndBindUi(this));
 		createTime.setFormat(new DateBox.DefaultFormat(dateFormat));
+		createTimeEnd.setFormat(new DateBox.DefaultFormat(dateFormat));
 	}
 
 	@Override
