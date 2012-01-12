@@ -20,7 +20,8 @@ import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemCriteria;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
 import com.chinarewards.gwt.elt.client.view.constant.ViewConstants;
-import com.chinarewards.gwt.elt.client.widget.DefaultPager;
+import com.chinarewards.gwt.elt.client.widget.EltNewPager;
+import com.chinarewards.gwt.elt.client.widget.EltNewPager.TextLocation;
 import com.chinarewards.gwt.elt.client.widget.GetValue;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.widget.Sorting;
@@ -32,8 +33,6 @@ import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
-import com.google.gwt.user.cellview.client.SimplePager;
-import com.google.gwt.user.cellview.client.SimplePager.TextLocation;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
@@ -47,7 +46,7 @@ public class RewardsItemListPresenterImpl extends
 		BasePresenter<RewardsItemListPresenter.RewardsItemListDisplay>
 		implements RewardsItemListPresenter {
 
-	SimplePager pager;
+	EltNewPager pager;
 	ListCellTable<RewardsItemClient> resultTable;
 	RewardsItemListViewAdapter listViewAdapter;
 
@@ -103,7 +102,7 @@ public class RewardsItemListPresenterImpl extends
 	private void buildTable() {
 		resultTable = new ListCellTable<RewardsItemClient>();
 		initTableColumns();
-		pager = new DefaultPager(TextLocation.CENTER);
+		pager = new EltNewPager(TextLocation.CENTER);
 		pager.setDisplay(resultTable);
 		resultTable.setWidth(ViewConstants.page_width);
 		resultTable.setPageSize(ViewConstants.per_page_number_in_dialog);
@@ -200,23 +199,7 @@ public class RewardsItemListPresenterImpl extends
 					}
 				});
 
-<<<<<<< HEAD
-//		resultTable.addColumn("开始日期",new DateCell(dateFormat),
-//				new GetValue<RewardsItemClient, Date>() {
-//					@Override
-//					public Date getValue(RewardsItemClient rewards) {
-//						return rewards.getStartTime();
-//					}
-//				}, ref, "startTime");
-=======
-		resultTable.addColumn("开始日期", new DateCell(dateFormat),
-				new GetValue<RewardsItemClient, Date>() {
-					@Override
-					public Date getValue(RewardsItemClient rewards) {
-						return rewards.getStartTime();
-					}
-				}, ref, "startTime");
->>>>>>> refs/remotes/origin/master
+
 
 		resultTable.addColumn("应用次数", new TextCell(),
 				new GetValue<RewardsItemClient, String>() {
@@ -242,11 +225,7 @@ public class RewardsItemListPresenterImpl extends
 										RewardsItemConstants.EDITOR_REWARDSITEM_ADD,
 										"EDITOR_REWARDS_ITEM_ADD"
 												+ object.getId(), object);
-<<<<<<< HEAD
-					   
-=======
-					   }
->>>>>>> refs/remotes/origin/master
+
 					}
 				});
 		resultTable.addColumn("查看", new HyperLinkCell(),
