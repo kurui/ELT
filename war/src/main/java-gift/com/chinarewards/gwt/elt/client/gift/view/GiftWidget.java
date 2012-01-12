@@ -15,9 +15,11 @@ import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FileUpload;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Image;
@@ -76,6 +78,9 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	// FrequencyClient frequency;
 	// String rewardsUnit;
 
+	@UiField
+	FlowPanel uploadPanel;
+
 	DateTimeFormat dateFormat = DateTimeFormat
 			.getFormat(ViewConstants.date_format);
 
@@ -112,10 +117,18 @@ public class GiftWidget extends Composite implements GiftDisplay {
 		formPanel.setMethod(FormPanel.METHOD_POST);
 		formPanel.setAction(GWT.getModuleBaseURL() + "fileupload");
 		formPanel.setWidget(fileUpload);
-//		RootPanel.get("nameFieldContainer").add(formPanel);
+		formPanel.setVisible(true);
+
+		System.out.println(formPanel + "-----------2");
+		System.out
+				.println(RootPanel.get("nameFieldContainer") + "============");
+
+		// RootPanel.get("nameFieldContainer").add(formPanel);
+		uploadPanel.add(formPanel);
+
 		// 文件上传按钮
 		final Button btnUpload = new Button("Upload");
-//		RootPanel.get("sendButtonContainer").add(btnUpload);
+		// RootPanel.get("sendButtonContainer").add(btnUpload);
 		// 单击按钮提交servlet
 		btnUpload.addClickHandler(new ClickHandler() {
 			@Override
@@ -123,7 +136,7 @@ public class GiftWidget extends Composite implements GiftDisplay {
 				formPanel.submit();
 			}
 		});
-		
+
 		formPanel.addSubmitHandler(new SubmitHandler() {
 			@Override
 			public void onSubmit(SubmitEvent event) {
@@ -137,7 +150,7 @@ public class GiftWidget extends Composite implements GiftDisplay {
 				}
 			}
 		});
-		
+
 		formPanel.addSubmitCompleteHandler(new SubmitCompleteHandler() {
 			@Override
 			public void onSubmitComplete(SubmitCompleteEvent event) {
@@ -173,9 +186,14 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	}
 
 	@Override
-	public HasValue<String> getType() {
-		// return type;
-		return null;
+	public String getType() {
+		String typeValue = "";
+		if (type != null) {
+			if (type.getItemCount() > 0) {
+				typeValue = type.getValue(0);
+			}
+		}
+		return typeValue;
 	}
 
 	@Override

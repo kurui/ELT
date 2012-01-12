@@ -69,13 +69,13 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 						gift.setName(display.getName().getValue().trim());
 						gift.setExplains(display.getExplains().getValue()
 								.trim());
-						gift.setType(display.getType().getValue().trim());
+						gift.setType(display.getType());
 						// gift.setSource(display.getSource().getValue().trim());
 						gift.setSource("合作商家");
 						// gift.setBusiness(display.getBusiness().getValue().trim());
 						gift.setAddress(display.getAddress().getValue().trim());
 						gift.setTell(display.getTell().getValue().trim());
-						gift.setStock(display.getStock());
+//						gift.setStock(display.getStock());
 						// gift.setPhoto(display.getPhone().getValue());
 						// gift.setGiftStatus();
 						// gift.setDeleted(false);

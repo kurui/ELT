@@ -15,7 +15,7 @@ public interface GiftPresenter extends Presenter<GiftPresenter.GiftDisplay> {
 
 		public HasValue<String> getExplains();
 
-		public HasValue<String> getType();
+		public String getType();
 
 		public HasValue<String> getSource();
 
