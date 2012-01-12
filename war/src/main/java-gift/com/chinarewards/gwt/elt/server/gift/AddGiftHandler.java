@@ -67,8 +67,7 @@ public class AddGiftHandler extends
 	// Convert from GiftVo to GeneratorGiftModel.
 	private Gift assemblegift(GiftVo giftVo) {
 		Gift gift = new Gift();
-		System.out.println("assemblegift-=====giftVo.getId:"+giftVo.getId());
-		 gift.setId(giftVo.getId());
+		gift.setId(giftVo.getId());
 		gift.setName(giftVo.getName());
 
 		gift.setExplains(giftVo.getExplains().trim());

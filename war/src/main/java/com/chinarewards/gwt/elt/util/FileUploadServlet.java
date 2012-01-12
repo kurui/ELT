@@ -28,12 +28,19 @@ public class FileUploadServlet extends HttpServlet {
 				String name = item.getFieldName();
 				InputStream stream = item.openStream();
 				if (item.isFormField()) {
-					System.out.println("Form field " + name + " with value "
-							+ Streams.asString(stream) + " detected.");
+					System.out
+							.println("==================upload=================Form field "
+									+ name
+									+ " with value "
+									+ Streams.asString(stream) + " detected.");
 				} else {
-					System.out.println("File field " + name
-							+ " with file name " + item.getName()
-							+ " detected.=" + item.getFieldName());
+					System.out
+							.println("==================upload=================File field "
+									+ name
+									+ " with file name "
+									+ item.getName()
+									+ " detected.="
+									+ item.getFieldName());
 					// Process the input stream
 
 				}
