@@ -1494,3 +1494,6 @@ li.token-input-input-token-facebook {
 .menu-link{display:block;border-bottom:1px solid #EAEAEA;padding:8px 0 8px 35px;background-color:#CCCCCC;color:#333333;text-decoration:none;font-weight:normal;}
 .menu-link:hover{background-color:#ABAAAA;color:#333333;text-decoration:none;}
 .menu-selected{background-color:#75B528;color:#FFFFFF;}
+
+#rewardlist_page .pageon{text-decoration:none;background-color:#569B01;color:#FFFFFF;}
+#rewardlist_page .pagedisable,#rewardlist_page .pagedisable:hover{border:1px solid #C7C7C7;color:#999999;}

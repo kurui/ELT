@@ -99,7 +99,7 @@ public class ButtonMenuProcessor implements MenuProcessor {
 			
 			button.setText(menuItem.getTitle());
 			button.setStyleName("menu-link");
-
+			//判断第一个进入默认样式
 			button.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent paramClickEvent) {
 					button.setStyleName("menu-link menu-selected");

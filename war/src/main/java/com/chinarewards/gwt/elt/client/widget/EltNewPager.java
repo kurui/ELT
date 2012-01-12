@@ -173,35 +173,40 @@ public class EltNewPager extends AbstractPager {
 		threePage = new Anchor("3");
 		fourPage = new Anchor("4");
 		fivePage = new Anchor("5");
-
 		// 添加1-5翻页
+
 		onePage.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				setPage(0);
+				setButtonStyle(1, getPageCount());
 			}
 		});
 
 		twoPage.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				setPage(1);
+				setButtonStyle(2, getPageCount());
 			}
 		});
 
 		threePage.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				setPage(2);
+				setButtonStyle(3, getPageCount());
 			}
 		});
 
 		fourPage.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				setPage(3);
+				setButtonStyle(4, getPageCount());
 			}
 		});
 
 		fivePage.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				setPage(4);
+				setButtonStyle(5, getPageCount());
 			}
 		});
 
@@ -401,9 +406,50 @@ public class EltNewPager extends AbstractPager {
 				}
 			});
 		}
-		
+
+		setButtonStyle(currentPage, totalPage);
 		return "";
 		// return "当前第 " + currentPage + " 页,"+"共"+totalPage+"页,共"+dataSize+"条";
+	}
+
+	public void setButtonStyle(int currentPage, int totalPage) {
+		onePage.setStyleName("pagedisable");
+		twoPage.setStyleName("pagedisable");
+		threePage.setStyleName("pagedisable");
+		fourPage.setStyleName("pagedisable");
+		fivePage.setStyleName("pagedisable");
+		if (totalPage >= 1) {
+			onePage.setStyleName("");
+		}
+		if (totalPage >= 2) {
+			twoPage.setStyleName("");
+		}
+		if (totalPage >= 3) {
+			threePage.setStyleName("");
+		}
+		if (totalPage >= 4) {
+			fourPage.setStyleName("");
+		}
+		if (totalPage >= 5) {
+			fivePage.setStyleName("");
+		}
+
+		if (currentPage == 1 && totalPage>=1) {
+			onePage.setStyleName("pageon");
+		}
+		if (currentPage == 2 && totalPage>=2) {
+			twoPage.setStyleName("pageon");
+		}
+		if (currentPage == 3 && totalPage>=3) {
+			threePage.setStyleName("pageon");
+		}
+		if (currentPage == 4 && totalPage>=4) {
+			fourPage.setStyleName("pageon");
+		}
+		if (currentPage == 5 && totalPage>=5) {
+			fivePage.setStyleName("pageon");
+		}
+
 	}
 
 	@Override
@@ -475,10 +521,10 @@ public class EltNewPager extends AbstractPager {
 	 *            true to disable, false to enable
 	 */
 	private void setNextPageButtonsDisabled(boolean disabled) {
-		 nextPage.setEnabled(disabled);
-		 if (lastPage != null) {
-		 lastPage.setEnabled(disabled);
-		 }
+		nextPage.setEnabled(disabled);
+		if (lastPage != null) {
+			lastPage.setEnabled(disabled);
+		}
 	}
 
 	/**
@@ -488,7 +534,7 @@ public class EltNewPager extends AbstractPager {
 	 *            true to disable, false to enable
 	 */
 	private void setPrevPageButtonsDisabled(boolean disabled) {
-		 firstPage.setEnabled(disabled);
-		 prevPage.setEnabled(disabled);
+		firstPage.setEnabled(disabled);
+		prevPage.setEnabled(disabled);
 	}
 }
