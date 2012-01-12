@@ -40,7 +40,7 @@ public interface ChooseStaffWinPresenter extends
 		SpecialTextArea<StaffClient> getSpecialTextBox();
 
 		Panel getResultPanel();
-
+		Panel getResultpage();
 		String getDeptId();
 
 	}

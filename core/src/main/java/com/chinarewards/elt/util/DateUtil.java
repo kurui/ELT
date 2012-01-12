@@ -3,6 +3,7 @@
  */
 package com.chinarewards.elt.util;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -104,7 +105,20 @@ public class DateUtil {
 		SimpleDateFormat sdf = new SimpleDateFormat(partten);
 		return sdf.format(date);
 	}
-
+   public static Date formatData(String partten,String sdate){
+	   if (StringUtil.isEmptyString(partten)) {
+			partten = "yyyy-MM-dd HH:mm:ss";
+		}
+	   SimpleDateFormat sdf=new SimpleDateFormat(partten);
+	   Date ddate = null;
+	   try {
+		ddate=sdf.parse(sdate);
+	} catch (ParseException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+       return ddate;
+   }
 	public static int betweenDays(Date begin, Date end) {
 		Calendar beginDate = Calendar.getInstance();
 		beginDate.setTime(begin);
