@@ -9,6 +9,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -21,9 +22,9 @@ public class HrRegisterWidget extends Composite implements HrRegisterDisplay {
 	@UiField
 	TextBox username;
 	@UiField
-	TextBox password;
+	PasswordTextBox password;
 	@UiField
-	TextBox validatePassword;
+	PasswordTextBox validatePassword;
 	@UiField
 	TextBox name;
 	@UiField

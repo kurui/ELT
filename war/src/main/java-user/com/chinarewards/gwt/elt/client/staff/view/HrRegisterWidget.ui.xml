@@ -46,13 +46,13 @@
 				      			      <div class="{new2.form-line}">
 			        <label class="{new2.label}">密码：</label>
 			        <div class="{new2.element}">
-			           <g:TextBox ui:field="password" styleName="{new2.text}"/>
+			           <g:PasswordTextBox ui:field="password" styleName="{new2.text}"></g:PasswordTextBox>
 			        </div>
 			      </div>
 			      			      			      <div class="{new2.form-line}">
 			        <label class="{new2.label}">确认密码：</label>
 			        <div class="{new2.element}">
-			           <g:TextBox ui:field="validatePassword" styleName="{new2.text}"/>
+			             <g:PasswordTextBox ui:field="validatePassword" styleName="{new2.text}"></g:PasswordTextBox>
 			        </div>
 			      </div>
 			      			      			      <div class="{new2.form-line}">
