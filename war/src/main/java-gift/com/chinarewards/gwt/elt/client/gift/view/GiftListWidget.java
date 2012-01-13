@@ -12,6 +12,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TextBox;
@@ -34,6 +35,8 @@ public class GiftListWidget extends Composite implements GiftListDisplay {
 	TextBox keyName;
 	@UiField
 	ListBox status;
+	@UiField
+	InlineLabel dataCount;
 	
 	private static GiftWidgetUiBinder uiBinder = GWT
 			.create(GiftWidgetUiBinder.class);
@@ -89,5 +92,11 @@ public class GiftListWidget extends Composite implements GiftListDisplay {
 	@Override
 	public HasClickHandlers getimportingBtnClickHandlers() {
 		return importingBtn;
+	}
+
+	@Override
+	public void setDataCount(String text) {
+		dataCount.setText(text);
+		
 	}
 }

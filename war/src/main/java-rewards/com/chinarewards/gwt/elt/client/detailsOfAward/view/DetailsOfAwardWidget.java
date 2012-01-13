@@ -55,7 +55,8 @@ public class DetailsOfAwardWidget extends Composite implements
 	InlineLabel awardAmt;
 	@UiField
 	InlineLabel pageTitle;
-
+	@UiField
+	InlineLabel pageTitle2;
 	@UiField
 	VerticalPanel winners;
 
@@ -199,6 +200,7 @@ public class DetailsOfAwardWidget extends Composite implements
 	@Override
 	public void setPageTitle(String titleName) {
 		this.pageTitle.setText(titleName);
+		this.pageTitle2.setText(titleName);
 
 	}
 

@@ -216,15 +216,14 @@ public class RewardsItemListPresenterImpl extends
 					}
 				}, new FieldUpdater<RewardsItemClient, String>() {
 					@Override
-					public void update(int index, RewardsItemClient object,	String value) {
+					public void update(int index, final RewardsItemClient object,	String value) {
 						
-						win.alert(object.getName()+"奖项已激活，确定要修改？");
 						Platform.getInstance()
-								.getEditorRegistry()
-								.openEditor(
-										RewardsItemConstants.EDITOR_REWARDSITEM_ADD,
-										"EDITOR_REWARDS_ITEM_ADD"
-												+ object.getId(), object);
+						.getEditorRegistry()
+						.openEditor(
+								RewardsItemConstants.EDITOR_REWARDSITEM_ADD,
+								"EDITOR_REWARDS_ITEM_ADD"+ object.getId(), object);
+					
 
 					}
 				});

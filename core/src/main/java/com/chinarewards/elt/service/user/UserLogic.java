@@ -63,4 +63,10 @@ public interface UserLogic {
 	 */
 
 	public UserSearchResult searchHrAdminUserPaging(UserSearchCriteria criteria);
+	/**
+	 * 删除用户..离职
+	 * @param id
+	 * @return
+	 */
+	public String deleteUserById(String id);
 }

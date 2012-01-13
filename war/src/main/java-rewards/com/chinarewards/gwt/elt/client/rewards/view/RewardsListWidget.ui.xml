@@ -24,6 +24,7 @@
 			</div>
 			<!--面包屑 ]] -->
 
+
 			<!--查询条件 [[ -->
 			<div class="{new2.query-wrap}">
 				<div class="{new2.form}">
@@ -37,7 +38,7 @@
 					<g:CheckBox ui:field="nowJudge" />
 					<span class="{new2.nbsp}"></span>
 					<label for="">当前用户数据</label>
-					<span class="{new2.nbspbig}"></span>
+					<span class="{new2.nbspbig}" style="width:40px"></span>
 					<span class="{new2.btn}">
 						<g:Button ui:field="searchBtn" text="搜索" />
 					</span>
@@ -47,6 +48,8 @@
 
 
 			<span class="{new2.cutline}"></span>
+			
+			<div class="{new2.divtext}">一共有 <g:InlineLabel ui:field="dataCount" styleName="{new2.divfont}"></g:InlineLabel> 个在应用的奖项</div><div  class="{new2.divend}"></div>
 			<div class="{new2.table}">
 				<g:FlowPanel ui:field="resultPanel" />
 			</div>

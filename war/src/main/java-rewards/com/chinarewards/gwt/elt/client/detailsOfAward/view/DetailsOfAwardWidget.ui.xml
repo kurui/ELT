@@ -20,7 +20,7 @@
 						->
 						<span>应用奖项列表</span>
 						->
-						<span>颁奖</span>
+						<span><g:InlineLabel text="奖项获奖详细" ui:field="pageTitle2" /></span>
 					</p>
 					<a href="#" class="{new2.breadcrumb-right} {new2.back-btn}"
 						style="color:#565656;text-decoration:none;">返回上一页</a>
@@ -43,7 +43,7 @@
 						</div>
 					</div>
 					<div class="{new2.form-line}">
-						<label class="{new2.label}">奖项说明：</label>
+						<label class="{new2.label2}">奖项说明：</label>
 						<div class="{new2.element}">
 							<g:Label text="等待数据加载..." ui:field="explain" />
 						</div>

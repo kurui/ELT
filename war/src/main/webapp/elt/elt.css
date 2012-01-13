@@ -1327,11 +1327,11 @@ div{word-wrap: break-word; word-break:break-all;}
 /* Example tokeninput style #2: Facebook style */
 ul.token-input-list-facebook {
 	border:1px solid #ccc; 
-	width:450px; 
+	width:400px; 
 	color:#666;
     overflow: hidden;
     height: auto !important;
-    border: 1px solid #CCCCCC;
+   border: 1px solid #569A01;
     cursor: text;
     font-size: 12px;
     font-family: Verdana;

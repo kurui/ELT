@@ -9,6 +9,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
@@ -28,7 +29,8 @@ public class RewardsListWidget extends Composite implements RewardsListDisplay {
 	TextBox definition;
 	@UiField
 	CheckBox nowJudge;
-	
+	@UiField
+	InlineLabel dataCount;
 	private static HrRegisterWidgetUiBinder uiBinder = GWT
 			.create(HrRegisterWidgetUiBinder.class);
 
@@ -66,6 +68,14 @@ public class RewardsListWidget extends Composite implements RewardsListDisplay {
 	public Panel getResultpage() {
 		return resultpage;
 	}
+
+	@Override
+	public void setDataCount(String text) {
+		dataCount.setText(text);
+		
+	}
+
+
 
 
 }

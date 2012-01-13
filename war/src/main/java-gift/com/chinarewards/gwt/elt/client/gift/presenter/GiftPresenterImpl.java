@@ -1,11 +1,7 @@
 package com.chinarewards.gwt.elt.client.gift.presenter;
 
 import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.DocumentHelper;
-
 import net.customware.gwt.dispatch.client.DispatchAsync;
-
 import com.chinarewards.elt.util.XmlUtil_dom4j;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.gift.model.GiftVo;
@@ -187,14 +183,14 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 						win.alert(event.getResults());
 
 						try {
-							XmlUtil_dom4j xmlUtil = new XmlUtil_dom4j();
-							Document doc = xmlUtil
-									.readResult(new StringBuffer().append(event
-											.getResults()));
-							String result = xmlUtil.getTextByNode(doc,
-									"/result");
-							String info = xmlUtil.getTextByNode(doc, "/info");
-							win.alert(result + "<br>" + info);
+//							XmlUtil_dom4j xmlUtil = new XmlUtil_dom4j();
+//							Document doc = xmlUtil
+//									.readResult(new StringBuffer().append(event
+//											.getResults()));
+//							String result = xmlUtil.getTextByNode(doc,
+//									"/result");
+//							String info = xmlUtil.getTextByNode(doc, "/info");
+//							win.alert(result + "<br>" + info);
 						} catch (Exception e) {
 							e.printStackTrace();
 							win.alert("上传图片异常，请重试" + e.getMessage());

@@ -14,13 +14,18 @@ import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.staff.plugin.HrRegisterConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.chinarewards.gwt.elt.client.user.DeleteUserRequest;
+import com.chinarewards.gwt.elt.client.user.DeleteUserResponse;
 import com.chinarewards.gwt.elt.client.user.dp.UserSearchAsyncDataProvider;
 import com.chinarewards.gwt.elt.client.user.model.UserSearchVo;
+import com.chinarewards.gwt.elt.client.user.model.UserVo;
 import com.chinarewards.gwt.elt.client.user.presenter.UserSearchPresenter.UserSearchDisplay;
+import com.chinarewards.gwt.elt.client.win.Win;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
 /**
@@ -35,15 +40,17 @@ public class UserSearchPresenterImpl extends BasePresenter<UserSearchDisplay>
 	private final DispatchAsync dispatcher;
 	private final ErrorHandler errorHandler;
 	private final SessionManager sessionManager;
+	private final Win win;
 
 	@Inject
 	public UserSearchPresenterImpl(EventBus eventBus,
 			UserSearchDisplay display, DispatchAsync dispatchAsync,
-			ErrorHandler errorHandler, SessionManager sessionManager) {
+			ErrorHandler errorHandler, SessionManager sessionManager,Win win) {
 		super(eventBus, display);
 		this.dispatcher = dispatchAsync;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
+		this.win=win;
 	}
 
 	@Override
@@ -101,7 +108,12 @@ public class UserSearchPresenterImpl extends BasePresenter<UserSearchDisplay>
 						GWT.log("running click handlers. delete");
 						if(Window.confirm("确定离职?"))
 						{
-							deleteUser();
+							if(display.getSelectedUsers().size()<1)
+							{
+								win.alert("请选人,然后再点离职.");
+								return;
+							}
+							deleteUser(display.getSelectedUsers());
 						}
 
 					}
@@ -124,12 +136,24 @@ public class UserSearchPresenterImpl extends BasePresenter<UserSearchDisplay>
 		searchVo.setStatus(display.getStatus());
 		searchVo.setEnterpriseId(display.getEnterpriseId());
 		UserSearchAsyncDataProvider listViewAdapter = new UserSearchAsyncDataProvider(
-				searchVo, errorHandler, sessionManager, dispatcher);
+				searchVo, errorHandler, sessionManager, dispatcher,display);
 		display.setListViewAdapter(listViewAdapter);
 	}
-	private void deleteUser()
+	private void deleteUser(Map<String,UserVo> map)
 	{
-		Window.alert("还未实现");
-		//display.getSelectedUsers();
+		dispatcher.execute(new DeleteUserRequest(map),
+				new AsyncCallback<DeleteUserResponse>() {
+
+					@Override
+					public void onFailure(Throwable t) {
+						win.alert(t.getMessage());
+					}
+
+					@Override
+					public void onSuccess(DeleteUserResponse resp) {
+						win.alert("离职成功");
+						doSearch();
+					}
+				});
 	}
 }
