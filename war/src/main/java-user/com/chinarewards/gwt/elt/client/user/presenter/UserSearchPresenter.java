@@ -69,5 +69,6 @@ public interface UserSearchPresenter extends
 		//public void refresh();
 
 		public void initUserStatus(Map<String, String> map);
+		void setDataCount(String text);
 	}
 }

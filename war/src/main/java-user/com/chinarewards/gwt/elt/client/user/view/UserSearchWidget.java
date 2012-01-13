@@ -26,6 +26,7 @@ import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TextBox;
@@ -91,7 +92,9 @@ public class UserSearchWidget extends Composite implements UserSearchDisplay {
 	
 	// @UiField
 	// Button searchSubAccount;
-
+	@UiField
+	InlineLabel dataCount;
+	
 	CellTable<UserVo> resultTable;
 	EltNewPager pager;
 	AsyncDataProvider<UserVo> listViewAdapter;
@@ -132,7 +135,7 @@ public class UserSearchWidget extends Composite implements UserSearchDisplay {
 		resultpage.clear();
 		result.add(resultTable);
 		resultpage.add(pager);
-		
+		dataCount.setText("x");
 		
 	}
 
@@ -347,6 +350,12 @@ public class UserSearchWidget extends Composite implements UserSearchDisplay {
 	@Override
 	public HasClickHandlers getDeleteHandlers() {
 		return delete;
+	}
+
+	@Override
+	public void setDataCount(String text) {
+		dataCount.setText(text);
+		
 	}
 
 }
