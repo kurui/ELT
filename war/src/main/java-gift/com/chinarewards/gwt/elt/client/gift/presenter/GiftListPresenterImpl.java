@@ -14,6 +14,8 @@ import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria.GiftStatus;
 import com.chinarewards.gwt.elt.client.gift.presenter.GiftListPresenter.GiftListDisplay;
 import com.chinarewards.gwt.elt.client.gift.request.DeleteGiftRequest;
 import com.chinarewards.gwt.elt.client.gift.request.DeleteGiftResponse;
+import com.chinarewards.gwt.elt.client.gift.request.UpdateGiftStatusRequest;
+import com.chinarewards.gwt.elt.client.gift.request.UpdateGiftStatusResponse;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
@@ -25,6 +27,7 @@ import com.chinarewards.gwt.elt.client.widget.GetValue;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.widget.Sorting;
 import com.chinarewards.gwt.elt.client.win.Win;
+import com.chinarewards.gwt.elt.client.win.confirm.ConfirmHandler;
 import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
@@ -135,38 +138,76 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 		cellTable.addColumn("名称", new TextCell(),
 				new GetValue<GiftClient, String>() {
 					@Override
-					public String getValue(GiftClient rewards) {
-						return rewards.getName();
+					public String getValue(GiftClient gift) {
+						return gift.getName();
 					}
 				}, ref, "name");
 
 		cellTable.addColumn("来源", new TextCell(),
 				new GetValue<GiftClient, String>() {
 					@Override
-					public String getValue(GiftClient rewards) {
-						return rewards.getSource() + "";
+					public String getValue(GiftClient gift) {
+						return gift.getSource() + "";
 					}
 				}, ref, "source");
 		cellTable.addColumn("库存", new TextCell(),
 				new GetValue<GiftClient, String>() {
 					@Override
-					public String getValue(GiftClient rewards) {
-						return rewards.getInventory();
+					public String getValue(GiftClient gift) {
+						return gift.getInventory();
 					}
 				}, ref, "inventory");
 
 		cellTable.addColumn("状态", new TextCell(),
 				new GetValue<GiftClient, String>() {
 					@Override
-					public String getValue(GiftClient rewards) {
-						return rewards.getStatus().getDisplayName();
+					public String getValue(GiftClient gift) {
+						return gift.getStatus().getDisplayName();
 					}
 				}, ref, "status");
+		cellTable.addColumn("操作", new HyperLinkCell(),
+				new GetValue<GiftClient, String>() {
+					@Override
+					public String getValue(GiftClient gift) {
+						if (gift.getStatus() != null
+								&& gift.getStatus() == GiftStatus.SHELF)
+							return "上架";
+						else if (gift.getStatus() != null
+								&& gift.getStatus() == GiftStatus.SHELVES)
+							return "下架";
+						else
+							return "未知状态";
+					}
+				}, new FieldUpdater<GiftClient, String>() {
+
+					@Override
+					public void update(int index, final GiftClient o, String value) {
+						String msgStr="";
+						if (o.getStatus() != null
+								&& o.getStatus() == GiftStatus.SHELF)
+							msgStr="确定上架?";
+						else if (o.getStatus() != null
+								&& o.getStatus() == GiftStatus.SHELVES)
+							msgStr="确定下架?";
+						else
+							msgStr="未知状态";
+						win.confirm("提示",msgStr, new ConfirmHandler() {
+							
+							@Override
+							public void confirm() {
+								updateGiftStatus(o.getId(),o.getStatus());
+								
+							}
+						});
+					
+					}
+
+				});
 
 		cellTable.addColumn("操作", new HyperLinkCell(),
 				new GetValue<GiftClient, String>() {
 					@Override
-					public String getValue(GiftClient rewards) {
+					public String getValue(GiftClient gift) {
 						return "删除";
 					}
 				}, new FieldUpdater<GiftClient, String>() {
@@ -174,14 +215,14 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 					@Override
 					public void update(int index, GiftClient o, String value) {
 						if (Window.confirm("确定删除?")) {
-							delteReward(o.getId());
+							delteGift(o.getId());
 						}
 					}
 
 				});
 	}
 
-	public void delteReward(String gifId) {
+	public void delteGift(String gifId) {
 
 		dispatch.execute(new DeleteGiftRequest(gifId, sessionManager
 				.getSession().getToken()),
@@ -199,5 +240,26 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 					}
 				});
 	}
+	public void updateGiftStatus(String gifId,final GiftStatus status) {
 
+		dispatch.execute(new UpdateGiftStatusRequest(gifId, sessionManager
+				.getSession().getToken(),status),
+				new AsyncCallback<UpdateGiftStatusResponse>() {
+
+					@Override
+					public void onFailure(Throwable t) {
+						Window.alert(t.getMessage());
+					}
+
+					@Override
+					public void onSuccess(UpdateGiftStatusResponse resp) {
+						if(status==GiftStatus.SHELF)
+						win.alert("上架成功!");
+						else if(status==GiftStatus.SHELVES)
+						win.alert("下架成功!");
+						
+						doSearch();
+					}
+				});
+	}
 }
