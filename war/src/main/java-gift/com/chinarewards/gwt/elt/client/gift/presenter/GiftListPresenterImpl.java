@@ -6,11 +6,13 @@ import java.util.Map;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.dataprovider.GiftListViewAdapter;
 import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
 import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria;
 import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria.GiftStatus;
+import com.chinarewards.gwt.elt.client.gift.plugin.GiftConstants;
 import com.chinarewards.gwt.elt.client.gift.presenter.GiftListPresenter.GiftListDisplay;
 import com.chinarewards.gwt.elt.client.gift.request.DeleteGiftRequest;
 import com.chinarewards.gwt.elt.client.gift.request.DeleteGiftResponse;
@@ -73,7 +75,11 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 		registerHandler(display.getAddBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
-						win.alert("添加新礼品...实现ing~");
+						Platform.getInstance()
+						.getEditorRegistry()
+						.openEditor(
+								GiftConstants.EDITOR_GIFT_ADD,
+								GiftConstants.EDITOR_GIFT_ADD, null);
 					}
 				}));
 		registerHandler(display.getimportingBtnClickHandlers().addClickHandler(
