@@ -50,7 +50,10 @@
 					<g:CheckBox ui:field="chooseSubDepartment" />
 					包含子部门
 				</td>
-				
+				<td width="7%" align="right">应用状态:</td>
+				<td width="10%">
+					<g:ListBox ui:field="status" styleName="{newitem.select}" />
+				</td>
 				<td align="left">
 					<span class="{newitem.nbsp}"></span><span class="{newitem.btn}"><g:Button ui:field="search" >搜索</g:Button></span>
 				</td>
