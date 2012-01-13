@@ -12,6 +12,8 @@ import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
 import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria;
 import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria.GiftStatus;
 import com.chinarewards.gwt.elt.client.gift.presenter.GiftListPresenter.GiftListDisplay;
+import com.chinarewards.gwt.elt.client.gift.request.DeleteGiftRequest;
+import com.chinarewards.gwt.elt.client.gift.request.DeleteGiftResponse;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
@@ -29,6 +31,7 @@ import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
 public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
@@ -178,23 +181,23 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 				});
 	}
 
-	public void delteReward(String rewardsId) {
+	public void delteReward(String gifId) {
 
-		// dispatch.execute(new DeleteGiftRequest(rewardsId, sessionManager
-		// .getSession().getToken()),
-		// new AsyncCallback<DeleteGiftResponse>() {
-		//
-		// @Override
-		// public void onFailure(Throwable t) {
-		// Window.alert(t.getMessage());
-		// }
-		//
-		// @Override
-		// public void onSuccess(DeleteGiftResponse resp) {
-		// Window.alert("删除成功");
-		// doSearch();
-		// }
-		// });
+		dispatch.execute(new DeleteGiftRequest(gifId, sessionManager
+				.getSession().getToken()),
+				new AsyncCallback<DeleteGiftResponse>() {
+
+					@Override
+					public void onFailure(Throwable t) {
+						Window.alert(t.getMessage());
+					}
+
+					@Override
+					public void onSuccess(DeleteGiftResponse resp) {
+						win.alert("删除成功");
+						doSearch();
+					}
+				});
 	}
 
 }
