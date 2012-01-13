@@ -164,14 +164,10 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 				new SubmitCompleteHandler() {
 					@Override
 					public void onSubmitComplete(SubmitCompleteEvent event) {
-						System.out.println(" ==photo form onSubmitComplete ==");
 						System.out.println("submitComplete event.getResults:"
-								+ event.getResults());
-						win.alert("after photo submit:<br>"
 								+ event.getResults());
 						display.getPhoto().setValue(event.getResults());
 					}
-
 				});
 
 	}

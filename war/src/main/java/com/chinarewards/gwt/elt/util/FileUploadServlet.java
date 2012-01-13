@@ -10,6 +10,8 @@ import org.apache.commons.fileupload.FileItemStream;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.fileupload.util.Streams;
 
+import com.chinarewards.elt.util.DateUtil;
+
 public class FileUploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -44,7 +46,7 @@ public class FileUploadServlet extends HttpServlet {
 					String itemName = item.getName();
 					itemName = itemName.substring(itemName.indexOf("."),
 							itemName.length());
-					String fileName = DateTool.getDateString("yyyyMMddHHmmss")
+					String fileName = DateUtil.getDateString("yyyyMMddHHmmss")
 							+ itemName;
 
 					BufferedOutputStream outputStream = new BufferedOutputStream(

@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
 import com.google.gwt.i18n.client.DateTimeFormat;
 
 public abstract class DateTool {
@@ -218,15 +217,5 @@ public abstract class DateTool {
 			}
 		}
 		return max;
-	}
-	
-	/**
-	 * 当前日期字符串
-	 * */
-	public static String getDateString(String pattern) {
-//		Calendar calendar = Calendar.getInstance();
-//		SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
-//		return dateFormat.format(calendar.getTime());
-		return "111111225";
 	}
 }
