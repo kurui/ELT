@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.reward.base.RewardItem;
+import com.chinarewards.elt.domain.reward.base.RewardItemStore;
 import com.chinarewards.elt.domain.reward.frequency.WeekFrequencyDays;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
@@ -30,6 +31,17 @@ public interface RewardItemLogic {
 	 * @return
 	 */
 	public RewardItem saveRewardItem(SysUser caller, RewardItemParam param);
+	
+	/**
+	 * Add or update a record of RewardItem. See more detail at
+	 * {@link RewardItemParam}.
+	 * 奖项库
+	 * @param caller
+	 * @param param
+	 * @return
+	 */
+	public RewardItemStore saveRewardItemStore(SysUser caller, RewardItemParam param);
+
 
 	/**
 	 * Delete the specified RewardItem. Just delete in a logical way.

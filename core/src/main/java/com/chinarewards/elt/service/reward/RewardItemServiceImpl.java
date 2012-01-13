@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.chinarewards.elt.domain.reward.base.RewardItem;
+import com.chinarewards.elt.domain.reward.base.RewardItemStore;
 import com.chinarewards.elt.domain.reward.frequency.WeekFrequencyDays;
 import com.chinarewards.elt.domain.reward.rule.DirectCandidateData;
 import com.chinarewards.elt.domain.user.SysUser;
@@ -61,7 +62,13 @@ public class RewardItemServiceImpl implements RewardItemService {
 
 		return rewardItem;
 	}
-
+	@Override
+	public RewardItemStore saveRewardItemStore(UserContext context, RewardItemParam param){
+		SysUser caller = userLogic.findUserById(context.getUserId());
+		RewardItemStore rewardItemStore = rewardItemLogic.saveRewardItemStore(caller, param);
+		rewardItemLogic.saveOrgPolicy(rewardItemStore.getBuilderDept());
+       return rewardItemStore;
+	}
 	@Override
 	public List<StaffAndDeptmentAutoCompile> staffAndDeptmentAutoCompile(
 			String corporationId, String falg, int limit) {

@@ -11,11 +11,13 @@ import org.slf4j.LoggerFactory;
 
 import com.chinarewards.elt.dao.org.OrgPolicyDao;
 import com.chinarewards.elt.dao.reward.RewardItemDao;
+import com.chinarewards.elt.dao.reward.RewardItemStoreDao;
 import com.chinarewards.elt.dao.reward.RewardItemTypeDao;
 import com.chinarewards.elt.dao.reward.WeekFrequencyDaysDao;
 import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.org.OrgPolicy;
 import com.chinarewards.elt.domain.reward.base.RewardItem;
+import com.chinarewards.elt.domain.reward.base.RewardItemStore;
 import com.chinarewards.elt.domain.reward.base.RewardItemType;
 import com.chinarewards.elt.domain.reward.frequency.Frequency;
 import com.chinarewards.elt.domain.reward.frequency.WeekFrequencyDays;
@@ -61,14 +63,14 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 	private final RewardLogic rewardLogic;
 	private final UserLogic userLogic;
 	private final WeekFrequencyDaysDao weekFrequencyDaysDao;
-
+	private final RewardItemStoreDao rewardItemStoreDao;
 	private final OrgPolicyDao orgPolicyDao;
 
 	@Inject
 	protected RewardItemLogicImpl(RewardItemTypeDao rewardItemTypeDao,
 			RewardItemDao rewardItemDao, FrequencyLogic frequencyLogic,
 			CandidateRuleLogic candidateRuleLogic, JudgeLogic judgeLogic,
-			RewardAclProcessorFactory rewardAclProcessorFactory,
+			RewardAclProcessorFactory rewardAclProcessorFactory,RewardItemStoreDao rewardItemStoreDao,
 			DepartmentLogic deptLogic, RewardLogic rewardLogic, UserLogic userLogic,
 			WeekFrequencyDaysDao weekFrequencyDaysDao, OrgPolicyDao orgPolicyDao) {
 		this.rewardItemTypeDao = rewardItemTypeDao;
@@ -82,7 +84,7 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 		this.orgPolicyDao = orgPolicyDao;
 		this.userLogic = userLogic;
 		this.weekFrequencyDaysDao = weekFrequencyDaysDao;
-
+        this.rewardItemStoreDao = rewardItemStoreDao;
 	}
 
 	private RewardItem assembleRewardItemObject(SysUser caller,
@@ -204,7 +206,124 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 
 		return itemObj;
 	}
+   
+	@Override
+	public RewardItemStore saveRewardItemStore(SysUser caller, RewardItemParam param) {
+		logger.debug("Invoking method saveRewardItem(), parameter:{}", param);
+		RewardItemStore itemObj = assembleRewardItemStoreObject(caller, param);
+		System.out.println("itemObj=" + itemObj.getFrequency());
+		if (StringUtil.isEmptyString(itemObj.getId())) {
+			// Create
+			rewardItemStoreDao.save(itemObj);
+		} else {
+			// Update
 
+			// clear frequency
+			if (itemObj.getFrequency() != null)
+				frequencyLogic.removeFrequencyFromRewardItem(itemObj.getId());
+			// clear short-list rule
+			candidateRuleLogic.removeCandidateRuleFromRewardItem(itemObj
+					.getId());
+			// clear judge list
+			judgeLogic.removeJudgesFromRewardItem(itemObj.getId());
+			if (param.getFrequency() == null)
+				itemObj.setFrequency(null);
+			rewardItemStoreDao.update(itemObj);
+		}
+
+		// Add frequency
+		if (param.getFrequency() != null)
+			frequencyLogic.bindFrequencyToRewardItem(caller, itemObj.getId(),
+					param.getFrequency());
+		// Add short-list rule
+		if (param.getCandidateList() != null
+				&& !param.getCandidateList().isEmpty()) {
+			candidateRuleLogic.bindDirectCandidateRuleToRewardItem(caller,
+					itemObj.getId(), param.getCandidateList());
+		}
+		if (param.isDob()) {
+			candidateRuleLogic.bindDobRuleToRewardItem(caller, itemObj.getId());
+		}
+
+		// Add judge list
+		if (param.getJudgeIds() != null && !param.getJudgeIds().isEmpty()) {
+			judgeLogic.bindJudgesToRewardItem(caller, itemObj.getId(),
+					param.getJudgeIds());
+		}
+
+		return itemObj;
+	}
+	private RewardItemStore assembleRewardItemStoreObject(SysUser caller,	RewardItemParam param) {
+		logger.debug("Invoking method assembleRewardItemObject()");
+		Date currTime = DateUtil.getTime();
+		RewardItemStore item = null;
+		if (StringUtil.isEmptyString(param.getId())) {
+			// Create a new record
+			item = new RewardItemStore();
+			item.setEnabled(false);
+			item.setDeleted(false);
+			item.setCreatedBy(caller);
+			item.setCreatedAt(currTime);
+		} else {
+			// Update a existed record
+			item = rewardItemStoreDao.findById(RewardItemStore.class, param.getId());
+		}
+
+		// RewardItemType
+		if (!StringUtil.isEmptyString(param.getTypeId())) {
+			RewardItemType type = rewardItemTypeDao.findById(
+					RewardItemType.class, param.getTypeId());
+			item.setType(type);
+		}
+
+		// Found build department and account department
+		Department builderDept = deptLogic.findDepartmentById(param
+				.getBuilderDeptId());
+		Department accountDept = deptLogic.findDepartmentById(param
+				.getAccountDeptId());
+		item.setBuilderDept(builderDept);
+		item.setAccountDept(accountDept);
+		item.setCorporation(builderDept.getCorporation());
+		// item.setFrequency(param.getFrequency());
+		// Calculate publish date and ahead publish days
+		int publishAheadDays = DateUtil.betweenDays(param.getPublishDate(),
+				param.getExpectAwardDate());
+		item.setPublishDate(param.getPublishDate());
+		item.setPublishAheadDays(publishAheadDays);
+
+		// Save expect award date
+		item.setExpectAwardDate(param.getExpectAwardDate());
+
+		// Calculate nominate date
+		item.setNominateAheadDays(param.getNominateAheadDays());
+		Date nominateDate = DateUtil.getDateOfParameterOnDay(
+				param.getExpectAwardDate(), -param.getNominateAheadDays());
+		item.setNominateDate(nominateDate);
+
+		// calculate RunBatchTime
+		if (param.getAutoGenerate() == RequireAutoGenerate.requireCyclic
+				|| param.getAutoGenerate() == RequireAutoGenerate.requireOneOff) {
+			if (param.getAutoAward() == RequireAutoAward.requireAutoAward) {
+				item.setNexRunBatchTime(param.getExpectAwardDate());
+			} else {
+				item.setNexRunBatchTime(param.getPublishDate());
+			}
+		}
+		item.setStartTime(param.getStartTime());
+		item.setName(param.getName());
+		item.setStandard(param.getStandard());
+		item.setDefinition(param.getDefinition());
+		item.setAwardAmt(param.getAwardAmt());
+		item.setAwardUnit(param.getAwardUnit());
+		item.setHeadcountLimit(param.getHeadcountLimit());
+		item.setTotalAmtLimit(param.getTotalAmtLimit());
+		item.setAutoGenerate(param.getAutoGenerate());
+		item.setAutoAward(param.getAutoAward());
+		item.setLastModifiedAt(currTime);
+		item.setLastModifiedBy(caller);
+
+		return item;
+	}
 	@Override
 	public String deleteRewardItem(SysUser caller,String rewardItemId) {
 		logger.debug("Invoking method deleteRewardItem(), rewardItemId:{}",

@@ -4,9 +4,9 @@ import java.util.Date;
 import java.util.List;
 
 import com.chinarewards.elt.domain.reward.base.RewardItem;
+import com.chinarewards.elt.domain.reward.base.RewardItemStore;
 import com.chinarewards.elt.domain.reward.frequency.WeekFrequencyDays;
 import com.chinarewards.elt.domain.reward.rule.DirectCandidateData;
-import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.reward.base.RewardItemParam;
 import com.chinarewards.elt.model.reward.search.RewardItemSearchVo;
@@ -30,12 +30,21 @@ public interface RewardItemService {
 	 * @return
 	 */
 	public RewardItem saveRewardItem(UserContext context, RewardItemParam param);
-         
+     /**
+      * 存入奖项库 
+      * @param context
+      * @param param
+      * @return
+      */
+	
+	public RewardItemStore saveRewardItemStore(UserContext context, RewardItemParam param);
+	
 	/**
 	 * Delete the specified RewardItem. Just delete in a logical way.
 	 * 
 	 * @param rewardItemId
 	 */
+	
 	public String deleteRewardItem(UserContext context,String rewardItemId);
 
 	/**
