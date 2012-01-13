@@ -47,7 +47,7 @@
 			<g:InlineLabel text="准备添加的员工：" styleName="{new2.label}" />
 			<g:FlowPanel ui:field="specialBoxPanel" />
 
-			<div class="{new2.query-wrap}">
+			<div class="{new2.query-wrap2}">
 				<div class="{new2.form}">
 
 
