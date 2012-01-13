@@ -56,12 +56,12 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 	@Inject
 	public RewardsListPresenterImpl(EventBus eventBus, DispatchAsync dispatch,
 			ErrorHandler errorHandler, SessionManager sessionManager,
-			RewardsListDisplay display,Win win) {
+			RewardsListDisplay display, Win win) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
-		this.win=win;
+		this.win = win;
 
 	}
 
@@ -159,7 +159,12 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 				new GetValue<RewardsClient, String>() {
 					@Override
 					public String getValue(RewardsClient rewards) {
-						return rewards.getDefinition();
+						if (rewards.getDefinition().length() > 30) {
+							return rewards.getDefinition().substring(0, 30)
+									+ "...";
+						} else {
+							return rewards.getDefinition();
+						}
 					}
 				}, ref, "definition");
 		cellTable.addColumn("发起人", new TextCell(),
@@ -319,7 +324,6 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 					});
 		}
 
-
 		cellTable.addColumn("删除", new HyperLinkCell(),
 				new GetValue<RewardsClient, String>() {
 					@Override
@@ -329,13 +333,14 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 				}, new FieldUpdater<RewardsClient, String>() {
 
 					@Override
-					public void update(int index, final RewardsClient o, String value) {
+					public void update(int index, final RewardsClient o,
+							String value) {
 						win.confirm("提示", "确定删除?", new ConfirmHandler() {
-							
+
 							@Override
 							public void confirm() {
 								delteReward(o.getId());
-								
+
 							}
 						});
 					}
