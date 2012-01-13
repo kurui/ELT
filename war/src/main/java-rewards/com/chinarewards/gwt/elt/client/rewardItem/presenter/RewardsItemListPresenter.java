@@ -40,7 +40,10 @@ public interface RewardsItemListPresenter extends
 		
 		public HasValue<Date> getCreateTime();
 		public HasValue<Date> getCreateTimeEnd();
-
+          
+		public String getStatus();
+		
+		public void initStatus(Map<String, String> map) ;
 		
 		void initialize();
 		/**

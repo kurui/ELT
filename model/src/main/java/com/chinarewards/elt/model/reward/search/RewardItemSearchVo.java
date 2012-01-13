@@ -38,6 +38,17 @@ public class RewardItemSearchVo {
 	private int headcountLimit;//总人数
 	private Integer tmdays;//提前的天数
 	private int degree;// 生成奖励的次数
+	
+	private boolean enabled;
+	
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
 	public int getDegree() {
 		return degree;
 	}

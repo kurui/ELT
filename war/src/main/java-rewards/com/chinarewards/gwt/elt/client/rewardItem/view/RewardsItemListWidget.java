@@ -1,6 +1,9 @@
 package com.chinarewards.gwt.elt.client.rewardItem.view;
 
 import java.util.Date;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
@@ -17,6 +20,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
@@ -54,7 +58,13 @@ public class RewardsItemListWidget extends Composite implements
 	
 	@UiField
 	Button addBtn;
+	@UiField
+	ListBox status;
 	
+	@Override
+	public String getStatus() {
+		return status.getValue(status.getSelectedIndex());
+	}
 	// is inject
 	//final DepartmentComboTree DeptCombTree;
 	DateTimeFormat dateFormat = DateTimeFormat.getFormat(ViewConstants.date_format);
@@ -73,8 +83,16 @@ public class RewardsItemListWidget extends Composite implements
 		initWidget(uiBinder.createAndBindUi(this));
 		createTime.setFormat(new DateBox.DefaultFormat(dateFormat));
 		createTimeEnd.setFormat(new DateBox.DefaultFormat(dateFormat));
+		
 	}
-
+	public void initStatus(Map<String, String> map) {
+		status.addItem("未选择", "");
+		Iterator<Entry<String, String>> it = map.entrySet().iterator();
+		while (it.hasNext()) {
+			Entry<String, String> entry = it.next();
+			status.addItem(entry.getValue(), entry.getKey());
+		}
+	}
 	@Override
 	public Widget asWidget() {
 		return this;

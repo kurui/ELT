@@ -103,7 +103,11 @@ public class RewardItemDao extends BaseDao<RewardItem> {
 			param.put("createdAtEnd", criteria.getCreateTimeEnd());
 
 		}
-
+		// 根据激活状态来查询
+			eql.append(" and  item.enabled= :enabled ");
+			param.put("enabled", criteria.isEnabled());
+			
+		
 		if (!StringUtil.isEmptyString(criteria.getName())) {
 			eql.append(" AND UPPER(item.name) LIKE :name ");
 			param.put("name", "%" + criteria.getName().trim().toUpperCase()	+ "%");
