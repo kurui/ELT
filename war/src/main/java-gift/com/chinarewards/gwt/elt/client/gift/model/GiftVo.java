@@ -7,7 +7,6 @@ import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria.GiftStatus;
 
 
 
-
 public class GiftVo implements Serializable {
 
 	/**

@@ -10,7 +10,8 @@ import com.chinarewards.elt.service.gift.GiftLogic;
 import com.chinarewards.elt.service.gift.GiftService;
 import com.chinarewards.elt.service.user.UserLogic;
 import com.google.inject.Inject;
-
+import com.google.inject.persist.Transactional;
+@Transactional
 public class GiftServiceImpl implements GiftService {
 	private final GiftLogic giftLogic;
 	private final UserLogic userLogic;

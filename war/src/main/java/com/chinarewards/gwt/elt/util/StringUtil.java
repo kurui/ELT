@@ -3,7 +3,7 @@
  */
 package com.chinarewards.gwt.elt.util;
 
-/**
+/** 
  * @author Cream
  * @since 0.2.0 2011-01-07
  */
@@ -57,5 +57,20 @@ public class StringUtil {
 	 */
 	public static String valueOf(Object obj) {
 		return (obj == null) ? "" : obj.toString();
+	}
+
+	public static Integer valueOf(String str) {
+
+		if (str == null || "".equals(str.trim())) {
+			return null;
+		} else {
+			try {
+				int d = Integer.parseInt(str.trim());
+				return d;
+			} catch (Exception e) {
+				return new Integer(-1);
+			}
+		}
+
 	}
 }

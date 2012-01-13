@@ -11,6 +11,7 @@ import com.chinarewards.gwt.elt.client.core.ui.MenuItem;
 import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
 import com.chinarewards.gwt.elt.client.core.ui.event.MenuClickEvent;
 import com.chinarewards.gwt.elt.client.detailsOfAward.plugin.DetailsOfAwardConstants;
+import com.chinarewards.gwt.elt.client.gift.plugin.GiftConstants;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftListConstants;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.nominate.plugin.NominateConstants;
@@ -43,7 +44,6 @@ public class ButtonMenuProcessor implements MenuProcessor {
 
 	public MenuItem getMenuItem(String menuId) {
 		if (menuId != null) {
-			// XXX use smarter data structures
 			for (MenuItem i : items) {
 				if (menuId.endsWith(i.getMenuId())) {
 					return i;
@@ -54,8 +54,6 @@ public class ButtonMenuProcessor implements MenuProcessor {
 	}
 
 	public void render(Panel container) {
-		// organize tree
-		// sort according to menuID string length
 		Collections.sort(items, new Comparator<MenuItem>() {
 			public int compare(MenuItem paramT1, MenuItem paramT2) {
 				return paramT1.getMenuId().length()
@@ -63,9 +61,8 @@ public class ButtonMenuProcessor implements MenuProcessor {
 			}
 		});
 
-		// pack into the MenuNode structure
+
 		for (MenuItem m : items) {
-			// append children recursively
 			root.appendChild(new MenuNode(m));
 		}
 
@@ -147,6 +144,8 @@ public class ButtonMenuProcessor implements MenuProcessor {
 			items.add("sample");
 		} else if ("Gift".equals(keyname)) {
 			items.add(GiftListConstants.MENU_GIFTLIST_SEARCH);
+			items.add(GiftConstants.MENU_GIFT_ADD);
+//			items.add(GiftConstants.MENU_GIFT_EDIT);
 		}
 		return items;
 	}
