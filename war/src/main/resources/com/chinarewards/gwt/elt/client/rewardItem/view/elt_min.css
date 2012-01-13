@@ -54,7 +54,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .form .text{float:left;height:22px;width:200px;color:#999999;border:1px solid #569A01;}
 .form .long-text{width:371px;}
 .form .textarea{width:420px;height:50px;border:1px solid #569A01;}
-.form .form-line-btn{margin-top:30px;}
+.form .form-line-btn{margin-top:0px;}
 .form .eline{margin-bottom:10px;}
 .form .line-info{color:#999999;}
 .form .eline .line-info{padding-left:50px;display:block;}

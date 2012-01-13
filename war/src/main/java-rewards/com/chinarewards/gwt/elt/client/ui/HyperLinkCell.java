@@ -54,11 +54,11 @@ public class HyperLinkCell extends AbstractSafeHtmlCell<String> {
 
 	  @Override
 	  public void render(Context context, SafeHtml data, SafeHtmlBuilder sb) {
-		  sb.appendHtmlConstant("<a style=\"color:bule;text-decoration:none;\" href=\"javascript:void(0);\"><font color='blue'>");
+		  sb.appendHtmlConstant("<a style=\"color:bule;text-decoration:none;\" href=\"javascript:void(0);\">");
 			if (data != null) {
 				sb.append(data);
 			}
-			sb.appendHtmlConstant("</font></a>");
+			sb.appendHtmlConstant("</a>");
 	  }
 
 	  @Override

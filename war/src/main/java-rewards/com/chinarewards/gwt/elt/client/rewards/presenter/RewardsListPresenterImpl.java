@@ -96,6 +96,7 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 		display.getResultPanel().add(cellTable);
 		display.getResultpage().clear();
 		display.getResultpage().add(pager);
+		
 	}
 
 	private void doSearch() {
@@ -117,6 +118,7 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 		listViewAdapter = new RewardsListViewAdapter(dispatch, criteria,
 				errorHandler, sessionManager);
 		listViewAdapter.addDataDisplay(cellTable);
+		display.setDataCount(listViewAdapter.getRowCount()+"");
 	}
 
 	private void initTableColumns() {
@@ -140,14 +142,35 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 		// }
 		// }, ref, "id");
 
-		cellTable.addColumn("奖励名称", new TextCell(),
+//		cellTable.addColumn("", new TextCell(),
+//				new GetValue<RewardsClient, String>() {
+//					@Override
+//					public String getValue(RewardsClient rewards) {
+//						return rewards.getName();
+//					}
+//				}, ref, "name");
+		cellTable.addColumn("奖励名称", new HyperLinkCell(),
 				new GetValue<RewardsClient, String>() {
 					@Override
 					public String getValue(RewardsClient rewards) {
 						return rewards.getName();
 					}
-				}, ref, "name");
+				}, new FieldUpdater<RewardsClient, String>() {
 
+					@Override
+					public void update(int index, RewardsClient o,
+							String value) {
+						Platform.getInstance()
+								.getEditorRegistry()
+								.openEditor(
+										DetailsOfAwardConstants.EDITOR_DETAILSOFAWARD_SEARCH,
+										DetailsOfAwardConstants.EDITOR_DETAILSOFAWARD_SEARCH
+												+ o.getId(), o);
+
+					}
+
+				}, ref, "name");
+		
 		cellTable.addColumn("奖项积分", new TextCell(),
 				new GetValue<RewardsClient, String>() {
 					@Override

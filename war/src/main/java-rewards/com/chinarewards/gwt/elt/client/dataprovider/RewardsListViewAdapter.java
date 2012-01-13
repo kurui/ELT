@@ -17,7 +17,7 @@ public class RewardsListViewAdapter extends BaseDataProvider<RewardsClient> {
 	RewardsCriteria criteria;
 	final ErrorHandler errorHandler;
 	final SessionManager sessionManager;
-
+public int rowCount;
 	public RewardsListViewAdapter(DispatchAsync dispatch,
 			RewardsCriteria criteria, ErrorHandler errorHandler,
 			SessionManager sessionManager) {
@@ -60,10 +60,15 @@ public class RewardsListViewAdapter extends BaseDataProvider<RewardsClient> {
 			public void onSuccess(SearchRewardsResponse response) {
 				updateRowData(start, response.getResult());
 				updateRowCount(response.getTotal(), true);
+				rowCount=response.getTotal();
 			}
 
 		});
 		// }
+	}
+
+	public int getRowCount() {
+		return rowCount;
 	}
 
 	public void setCriteria(RewardsCriteria criteria) {
