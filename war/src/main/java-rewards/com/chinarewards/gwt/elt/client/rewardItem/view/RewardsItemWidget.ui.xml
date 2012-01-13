@@ -11,8 +11,11 @@
 	<g:HTMLPanel styleName="{newitem.frame-wrap}">
 	<div class="breadcrumb">   
 	    <div class="{newitem.breadcrumb-wrap}">
-	      <p class="{newitem.breadcrumb-left}"><a href="#">公司奖项</a> > <span><g:InlineLabel ui:field="title"/></span></p>
-	      <a href="#" class="{newitem.breadcrumb-right}">返回上一页</a>
+	      <p class="{newitem.breadcrumb-left}">
+	     <a href="#" style="color:#565656;text-decoration:none;">公司奖项</a>
+						-> <span><g:InlineLabel ui:field="title"/></span></p>
+	      <a href="#" class="{newitem.breadcrumb-right} {newitem.back-btn}"
+						style="color:#565656;text-decoration:none;">返回上一页</a>
 	      </div>
 	          <span class="{newitem.cutline}"></span>
          </div>
