@@ -233,4 +233,9 @@ public class GiftWidget extends Composite implements GiftDisplay {
 		return photo;
 	}
 
+	@Override
+	public Image getGiftImage() {
+		return giftImage;
+	}
+
 }

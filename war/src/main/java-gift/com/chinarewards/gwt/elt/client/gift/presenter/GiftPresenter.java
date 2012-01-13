@@ -8,6 +8,7 @@ import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
 import com.google.gwt.user.client.ui.FileUpload;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.Image;
 
 public interface GiftPresenter extends Presenter<GiftPresenter.GiftDisplay> {
 
@@ -26,8 +27,10 @@ public interface GiftPresenter extends Presenter<GiftPresenter.GiftDisplay> {
 		public HasValue<String> getAddress();
 
 		public HasValue<String> getTell();
-		
+
 		public HasValue<String> getPhoto();
+
+		public Image getGiftImage();
 
 		public HasValue<String> getStock();
 
@@ -45,12 +48,13 @@ public interface GiftPresenter extends Presenter<GiftPresenter.GiftDisplay> {
 
 		public HasValueChangeHandlers<Date> getUpdatetime();
 
-		// -----------------------------------------		
+		// -----------------------------------------
 		public FormPanel getPhotoForm();
+
 		public FileUpload getPhotoUpload();
-		
+
 		public HasClickHandlers getUploadClick();
-		
+
 		public HasClickHandlers getSaveClick();
 
 		public void clear();

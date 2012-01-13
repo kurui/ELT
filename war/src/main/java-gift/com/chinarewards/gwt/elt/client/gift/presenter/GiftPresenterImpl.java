@@ -167,6 +167,8 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 						System.out.println("submitComplete event.getResults:"
 								+ event.getResults());
 						display.getPhoto().setValue(event.getResults());
+						display.getGiftImage().setUrl(
+								"/imageshow?imageName=" + event.getResults());
 					}
 				});
 

@@ -74,20 +74,24 @@
 				</tr>
 				<tr class="{newitem.form-line}">
 					<td valign="top" class="{newitem.label}">礼品图片：</td>
-					<td>
-						<g:Image ui:field="giftImage" />
-					</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td valign="top" class="{newitem.label}"></td>
 					<td class="{newitem.element}">
-						<g:FormPanel ui:field="photoForm" encoding="multipart/form-data"
-							method="post" action="/fileupload">
-							<g:FileUpload ui:field="photoUpload" name="uploadFormElement"></g:FileUpload>							
-						</g:FormPanel>
-						<g:TextBox ui:field="photo"></g:TextBox>
-						<g:Button ui:field="photoUploadBtn">上传</g:Button>
+						<table>
+							<tr>
+								<td>
+									<g:Image ui:field="giftImage" width="80px" height="60px" />
+								</td>
+								<td>
+									<g:FormPanel ui:field="photoForm" encoding="multipart/form-data"
+										method="post" action="/fileupload">
+										<g:FileUpload ui:field="photoUpload" name="uploadFormElement"></g:FileUpload>
+									</g:FormPanel>
+								</td>
+								<td>
+									<g:TextBox ui:field="photo" visible="false"></g:TextBox>
+									<g:Button ui:field="photoUploadBtn">上传</g:Button>
+								</td>
+							</tr>
+						</table>
 					</td>
 					<td></td>
 				</tr>
@@ -116,6 +120,7 @@
 				</tr>
 				<tr class="{newitem.form-line}">
 					<td colspan="3" align="center">
+						<span class="{newitem.cutline}"></span>
 						<span class="{newitem.btn}">
 							<g:Button ui:field="save">保存</g:Button>
 						</span>
