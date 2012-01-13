@@ -13,8 +13,11 @@
 	<!-- add form tag, using to resolve radioButton groupname -->
 		<div class="breadcrumb">   
 			    <div class="{newitem.breadcrumb-wrap}">
-			      <p class="{newitem.breadcrumb-left}"><a href="#">公司奖项库</a> > <span>查看奖项</span></p>
-			      <a href="#" class="{newitem.breadcrumb-right}">返回上一页</a>
+			      <p class="{newitem.breadcrumb-left}">
+			     <a href="#" style="color:#565656;text-decoration:none;">公司奖项</a>
+						-><span>查看奖项</span></p>
+			      <a href="#" class="{newitem.breadcrumb-right} {newitem.back-btn}"
+						style="color:#565656;text-decoration:none;">返回上一页</a>
 			      </div>
 			       <span class="{newitem.cutline}"></span>
 		         </div>
@@ -128,7 +131,7 @@
 					  </div>
                     </div>
                   </div>	
-						
+				<span class="{newitem.cutline}"></span>		
 		</div>		
 	</g:HTMLPanel>
 </ui:UiBinder>

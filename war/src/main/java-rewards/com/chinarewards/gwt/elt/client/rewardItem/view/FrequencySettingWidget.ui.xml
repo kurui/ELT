@@ -5,10 +5,10 @@
 	<ui:style>
 		.interval { width: 50px; }
 	</ui:style>
-	
-	<g:HTMLPanel>
+	<ui:style src="elt_min.css" field="newitem"></ui:style>
+	<g:HTMLPanel ui:field="select1" styleName="{newitem.frame-wrap}">
 		<div style="width:400px;">
-			<table cellspadding="0" cellspacing="0" border="0">
+			<table cellspadding="0" cellspacing="0" border="0" class="{newitem.form}">
 				<tr>
 					<td>
 						<g:RadioButton ui:field="radioDay" name="frequency" />日
@@ -97,8 +97,8 @@
 			</table>
 		</div>
 		<div id="post">
-			<g:Button ui:field="ok" styleName="button-ok">确定</g:Button>
-			<g:Button ui:field="cancel" styleName="button-cancel">取消</g:Button>
+			<span class="{newitem.btn}"><g:Button ui:field="ok" >确定</g:Button></span>
+			<span class="{newitem.btn}"><g:Button ui:field="cancel" styleName="button-cancel">取消</g:Button></span>
 		</div>
 	</g:HTMLPanel>
 </ui:UiBinder>

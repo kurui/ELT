@@ -25,7 +25,10 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.SuggestOracle;
@@ -41,7 +44,7 @@ public class ChooseStaffBlockPresenterImpl extends
 	private final Provider<ChooseStaffWinDialog> chooseStaffDialogProvider;
 	private final SessionManager sessionManager;
 	private final DispatchAsync dispatcher;
-
+	final TextBox suggestTextBox = new TextBox();
 	@Inject
 	public ChooseStaffBlockPresenterImpl(EventBus eventBus,
 			ChooseStaffBlockDisplay display,
@@ -51,11 +54,16 @@ public class ChooseStaffBlockPresenterImpl extends
 		this.chooseStaffDialogProvider = chooseStaffDialogProvider;
 		this.dispatcher = dispatcher;
 		this.sessionManager = sessionManager;
+		
 	}
 
 	private void initSuggestion() {
-		final TextBox suggestTextBox = new TextBox();
-		suggestTextBox.getElement().setAttribute("style", "float:left;");
+		
+		if(display.isEveryone().getValue()){
+			suggestTextBox.setEnabled(false);
+		}else{
+			suggestTextBox.setEnabled(true);
+		}
 		SuggestOracle suggest = new OrganizationSuggestOracle(dispatcher,sessionManager);
 		final SuggestBox box = new SuggestBox(suggest, suggestTextBox);
 		box.addSelectionHandler(new SelectionHandler<SuggestOracle.Suggestion>() {
@@ -64,8 +72,7 @@ public class ChooseStaffBlockPresenterImpl extends
 				// restore data.
 				OrganizationSuggest suggest = (OrganizationSuggest) selectionEvent.getSelectedItem();
 				StaffOrDepartmentAC sd = suggest.getSd();
-				OrganicationClient org = new OrganicationClient(sd.getId(), sd
-						.getName());
+				OrganicationClient org = new OrganicationClient(sd.getId(), sd.getName());
 				if (!display.getSpecialTextArea().containsItem(org)) {
 					// display.getStaffMap().put(org.getId(), org);
 					display.getSpecialTextArea().addItem(org);
@@ -75,16 +82,35 @@ public class ChooseStaffBlockPresenterImpl extends
 			}
 		});
 		box.setFocus(true);
-		box.setStyleName("text");
+		box.setStyleName("searchStaff");
+		Label label1 = new Label("快速选择：");
+		display.getSuggestBoxPanel().add(label1);
 		display.getSuggestBoxPanel().add(box);
-		Label label = new Label("可输入员工/部门名称后按回车");
-		label.getElement().setAttribute("style", "float:left;");
+		Label label = new Label("输入员工/部门");
+		//label.getElement().setAttribute("style", "float:left;");
 		display.getSuggestBoxPanel().add(label);
 	}
 
 	public void bind() {
 		initSuggestion();
-		display.isEveryone().setValue(true, true);
+		//display.isEveryone().setValue(true, true);
+		display.isEveryone().addValueChangeHandler(new ValueChangeHandler<Boolean>() {
+				@Override
+				public void onValueChange(ValueChangeEvent<Boolean> event) {
+					if (event.getValue()) {
+						suggestTextBox.setEnabled(false);
+					} 
+				}
+			});
+		display.isSomeone().addValueChangeHandler(new ValueChangeHandler<Boolean>() {
+				@Override
+				public void onValueChange(ValueChangeEvent<Boolean> event) {
+					if (event.getValue()) {
+						suggestTextBox.setEnabled(true);
+					}
+				}
+
+			});
 		registerHandler(display.getChooseStaffBtnClick().addClickHandler(
 				new ClickHandler() {
 					@Override

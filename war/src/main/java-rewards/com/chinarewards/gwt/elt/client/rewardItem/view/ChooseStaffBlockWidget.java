@@ -18,16 +18,14 @@ import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RadioButton;
-import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.gwt.user.client.ui.HTMLPanel;
 
 /**
  * 选择员工或部门小模块-- auto-complete (候选人)
@@ -75,29 +73,34 @@ public class ChooseStaffBlockWidget extends Composite implements ChooseStaffBloc
 
 	void init() {
 		
-		staffTextArea = new OrganizationSpecialTextArea();
-		staffTextAreaPanel.add(staffTextArea);
+		 staffTextArea = new OrganizationSpecialTextArea();
+		
+		 staffTextAreaPanel.add(staffTextArea);
 		 everyoneRbtn.setValue(true);
 		 //隐藏多人选择
-		 chooseBtn.getElement().getParentElement().getParentElement().getParentElement()
-		   .getParentElement().getParentElement()
-			.addClassName(CssStyleConstants.hidden);
-		everyoneRbtn.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
+//		 chooseBtn.getElement().getParentElement().getParentElement().getParentElement()
+//		   .getParentElement().getParentElement()
+//			.addClassName(CssStyleConstants.hidden);
+		 chooseBtn.setEnabled(false);
+		 everyoneRbtn.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
 			@Override
 			public void onValueChange(ValueChangeEvent<Boolean> event) {
 				if (event.getValue()) {
+					chooseBtn.setEnabled(false);
 					
-					chooseBtn.getElement().getParentElement()
-							.getParentElement().getParentElement()
-							.getParentElement().getParentElement()
-							.addClassName(CssStyleConstants.hidden);
+//					chooseBtn.getElement().getParentElement()
+//							.getParentElement().getParentElement()
+//							.getParentElement().getParentElement()
+//							.addClassName(CssStyleConstants.hidden);
 				} else {
 					//RootPanel.get("noPaddingTd").setVisible(true);
-					chooseBtn.getElement().getParentElement()
-							.getParentElement().getParentElement()
-							.getParentElement().getParentElement()
-							.removeClassName(CssStyleConstants.hidden);
-					
+					//chooseBtn.setEnabled(true);
+				
+//					chooseBtn.getElement().getParentElement()
+//							.getParentElement().getParentElement()
+//							.getParentElement().getParentElement()
+//							.removeClassName(CssStyleConstants.hidden);
+//					
 					
 				}
 			}
@@ -106,17 +109,19 @@ public class ChooseStaffBlockWidget extends Composite implements ChooseStaffBloc
 			@Override
 			public void onValueChange(ValueChangeEvent<Boolean> event) {
 				if (event.getValue()) {
+					chooseBtn.setEnabled(true);
 					
-					chooseBtn.getElement().getParentElement()
-							.getParentElement().getParentElement()
-							.getParentElement().getParentElement()
-							.removeClassName(CssStyleConstants.hidden);
+//					chooseBtn.getElement().getParentElement()
+//							.getParentElement().getParentElement()
+//							.getParentElement().getParentElement()
+//							.removeClassName(CssStyleConstants.hidden);
 				} else {
+					//chooseBtn.setEnabled(false);
 					
-					chooseBtn.getElement().getParentElement()
-							.getParentElement().getParentElement()
-							.getParentElement().getParentElement()
-							.addClassName(CssStyleConstants.hidden);
+//					chooseBtn.getElement().getParentElement()
+//							.getParentElement().getParentElement()
+//							.getParentElement().getParentElement()
+//							.addClassName(CssStyleConstants.hidden);
 				}
 			}
 
@@ -181,6 +186,8 @@ public class ChooseStaffBlockWidget extends Composite implements ChooseStaffBloc
 		}
 	}
 
+	
+	
 	@Override
 	public HasClickHandlers getChooseStaffBtnClick() {
 		return chooseBtn;
