@@ -116,9 +116,9 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 			criteria.setStatus(RewardsStatus.REWARDED);
 		}
 		listViewAdapter = new RewardsListViewAdapter(dispatch, criteria,
-				errorHandler, sessionManager);
+				errorHandler, sessionManager,display);
 		listViewAdapter.addDataDisplay(cellTable);
-		display.setDataCount(listViewAdapter.getRowCount()+"");
+
 	}
 
 	private void initTableColumns() {

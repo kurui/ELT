@@ -5,6 +5,7 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsCriteria;
+import com.chinarewards.gwt.elt.client.rewards.presenter.RewardsListPresenter.RewardsListDisplay;
 import com.chinarewards.gwt.elt.client.rewards.request.SearchRewardsRequest;
 import com.chinarewards.gwt.elt.client.rewards.request.SearchRewardsResponse;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
@@ -14,17 +15,19 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 public class RewardsListViewAdapter extends BaseDataProvider<RewardsClient> {
 
 	final DispatchAsync dispatch;
+	final RewardsListDisplay display;
 	RewardsCriteria criteria;
 	final ErrorHandler errorHandler;
 	final SessionManager sessionManager;
-public int rowCount;
+
 	public RewardsListViewAdapter(DispatchAsync dispatch,
 			RewardsCriteria criteria, ErrorHandler errorHandler,
-			SessionManager sessionManager) {
+			SessionManager sessionManager, RewardsListDisplay display) {
 		this.dispatch = dispatch;
 		this.criteria = criteria;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
+		this.display=display;
 	}
 
 	public void fetchData(final int start, final int length) {
@@ -60,16 +63,13 @@ public int rowCount;
 			public void onSuccess(SearchRewardsResponse response) {
 				updateRowData(start, response.getResult());
 				updateRowCount(response.getTotal(), true);
-				rowCount=response.getTotal();
+				display.setDataCount(response.getTotal()+"");
 			}
 
 		});
 		// }
 	}
 
-	public int getRowCount() {
-		return rowCount;
-	}
 
 	public void setCriteria(RewardsCriteria criteria) {
 		this.criteria = criteria;
