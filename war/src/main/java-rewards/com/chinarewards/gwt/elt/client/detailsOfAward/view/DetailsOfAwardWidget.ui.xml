@@ -43,7 +43,7 @@
 						</div>
 					</div>
 					<div class="{new2.form-line}">
-						<label class="{new2.label}">奖项说明：</label>
+						<label class="{new2.label2}">奖项说明：</label>
 						<div class="{new2.element}">
 							<g:Label text="等待数据加载..." ui:field="explain" />
 						</div>
