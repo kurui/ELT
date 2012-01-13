@@ -20,7 +20,7 @@
 						->
 						<span>应用奖项列表</span>
 						->
-						<span>颁奖</span>
+						<span><g:InlineLabel text="奖项获奖详细" ui:field="pageTitle2" /></span>
 					</p>
 					<a href="#" class="{new2.breadcrumb-right} {new2.back-btn}"
 						style="color:#565656;text-decoration:none;">返回上一页</a>
