@@ -27,6 +27,7 @@ public class GiftVo implements Serializable {
     private boolean deleted;   //删除状态
     private Date    indate ;      //有效截止期
    
+    
 	public GiftVo() {
 	}
 

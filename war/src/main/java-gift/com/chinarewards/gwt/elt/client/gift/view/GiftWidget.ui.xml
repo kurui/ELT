@@ -86,6 +86,7 @@
 							method="post" action="/fileupload">
 							<g:FileUpload ui:field="photoUpload" name="uploadFormElement"></g:FileUpload>							
 						</g:FormPanel>
+						<g:TextBox ui:field="photo"></g:TextBox>
 						<g:Button ui:field="photoUploadBtn">上传</g:Button>
 					</td>
 					<td></td>

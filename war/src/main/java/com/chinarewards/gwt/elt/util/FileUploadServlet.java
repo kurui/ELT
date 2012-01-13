@@ -53,7 +53,7 @@ public class FileUploadServlet extends HttpServlet {
 					Streams.copy(inputStream, outputStream, true); // 开始把文件写到你指定的上传文件夹
 					stream.close();
 
-					responseMessage = "================print():" + fileName;
+					responseMessage = fileName;
 				}
 			}
 		} catch (Exception e) {

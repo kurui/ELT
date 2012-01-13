@@ -42,6 +42,8 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	@UiField
 	TextBox tell;
 	@UiField
+	TextBox photo;
+	@UiField
 	TextBox stock;
 	// @UiField
 	// TextBox phone;
@@ -224,6 +226,11 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	@Override
 	public HasClickHandlers getUploadClick() {
 		return photoUploadBtn;
+	}
+
+	@Override
+	public HasValue<String> getPhoto() {
+		return photo;
 	}
 
 }
