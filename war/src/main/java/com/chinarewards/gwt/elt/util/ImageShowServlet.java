@@ -9,8 +9,11 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.google.gwt.core.client.GWT;
 
+/**
+ * @author yanrui
+ * 
+ * */
 public class ImageShowServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -54,10 +57,9 @@ public class ImageShowServlet extends HttpServlet {
 						out.flush();
 						out.close();
 					}
-
 				}
 			} else {
-				System.out.println("fileName imgName 不能为空！！");
+				System.out.println("fileName imageName 不能为空！！");
 			}
 
 		} catch (Exception e) {

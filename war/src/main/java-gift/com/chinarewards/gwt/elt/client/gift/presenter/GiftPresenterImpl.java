@@ -1,6 +1,12 @@
 package com.chinarewards.gwt.elt.client.gift.presenter;
 
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.DocumentHelper;
+
 import net.customware.gwt.dispatch.client.DispatchAsync;
+
+import com.chinarewards.elt.util.XmlUtil_dom4j;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.gift.model.GiftVo;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftConstants;
@@ -11,6 +17,8 @@ import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.win.Win;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
@@ -150,6 +158,16 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 
 				}));
 
+		// 浏览即上传事件
+		registerHandler(display.getPhotoUpload().addChangeHandler(
+				new ChangeHandler() {
+					@Override
+					public void onChange(ChangeEvent arg0) {
+						display.getGiftImage().setVisible(true);
+						display.getPhotoForm().submit();
+					}
+				}));
+
 		// 上传图片事件
 		registerHandler(display.getUploadClick().addClickHandler(
 				new ClickHandler() {
@@ -166,9 +184,26 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 					public void onSubmitComplete(SubmitCompleteEvent event) {
 						System.out.println("submitComplete event.getResults:"
 								+ event.getResults());
-						display.getPhoto().setValue(event.getResults());
-						display.getGiftImage().setUrl(
-								"/imageshow?imageName=" + event.getResults());
+						win.alert(event.getResults());
+
+						try {
+							XmlUtil_dom4j xmlUtil = new XmlUtil_dom4j();
+							Document doc = xmlUtil
+									.readResult(new StringBuffer().append(event
+											.getResults()));
+							String result = xmlUtil.getTextByNode(doc,
+									"/result");
+							String info = xmlUtil.getTextByNode(doc, "/info");
+							win.alert(result + "<br>" + info);
+						} catch (Exception e) {
+							e.printStackTrace();
+							win.alert("上传图片异常，请重试" + e.getMessage());
+							return;
+						}
+
+						// display.getPhoto().setValue(event.getResults());
+						// display.getGiftImage().setUrl(
+						// "/imageshow?imageName=" + event.getResults());
 					}
 				});
 
