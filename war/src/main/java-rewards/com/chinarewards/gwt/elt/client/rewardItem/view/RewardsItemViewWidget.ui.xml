@@ -128,7 +128,7 @@
 					  </div>
                     </div>
                   </div>	
-						
+				<span class="{newitem.cutline}"></span>		
 		</div>		
 	</g:HTMLPanel>
 </ui:UiBinder>

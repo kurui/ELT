@@ -29,7 +29,7 @@
 				<td width="7%" align="right" style="display:">部门:</td>
 				<td width="10%">
 					<g:FlowPanel ui:field="departmentName" />
-                    <select class="select" width="200px">
+                    <select class="{newitem.select}" width="200px">
                     <option value="">技术部</option>
                     <option value="">财务部</option>
                     <option value="">人事部</option>
@@ -78,6 +78,6 @@
 				</div>
 			</div>
 			<!--分页 ]] -->
-
+    <span class="{newitem.cutline}"></span>
 	</g:HTMLPanel>
 </ui:UiBinder>

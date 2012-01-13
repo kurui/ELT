@@ -54,5 +54,7 @@ public interface ChooseStaffBlockPresenter extends	Presenter<ChooseStaffBlockPre
 		HasClickHandlers getChooseStaffBtnClick();
 
 		public Panel getSuggestBoxPanel();
+		
+		
 	}
 }

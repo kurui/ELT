@@ -171,7 +171,18 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 		staffAreaPanel.add(staffArea);//提名人面板
 		startTime.setFormat(new DateBox.DefaultFormat(dateFormat));
 	    //隐藏周期性
-		settingText.getElement().getParentElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
+		expectTime.setEnabled(true);
+		tmdays.setEnabled(true);
+		
+		nextRewardsTime.setEnabled(false);
+		tmday.setEnabled(false);
+		setting.setEnabled(false);
+		autoCbx.setEnabled(false);
+		nextPublicTime.setEnabled(false);
+		specialCbx.setEnabled(false);
+		birthRadio.setEnabled(false);
+
+	//	settingText.getElement().getParentElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
 		nextRewardsTime.setFormat(new DateBox.DefaultFormat(dateFormat));
 		nextPublicTime.setFormat(new DateBox.DefaultFormat(dateFormat));
 		expectTime.setFormat(new DateBox.DefaultFormat(dateFormat));
@@ -183,11 +194,31 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 			@Override
 			public void onValueChange(ValueChangeEvent<Boolean> event) {
 				if (event.getValue()) {
-					settingText.getElement().getParentElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
-					expectTime.getElement().getParentElement().getParentElement().getParentElement().removeClassName(CssStyleConstants.hidden);
+					//settingText.getElement().getParentElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
+					//expectTime.getElement().getParentElement().getParentElement().getParentElement().removeClassName(CssStyleConstants.hidden);
+					expectTime.setEnabled(true);
+					tmdays.setEnabled(true);
+					
+					nextRewardsTime.setEnabled(false);
+					tmday.setEnabled(false);
+					setting.setEnabled(false);
+					autoCbx.setEnabled(false);
+					nextPublicTime.setEnabled(false);
+					specialCbx.setEnabled(false);
+					birthRadio.setEnabled(false);
 				} else {
-					settingText.getElement().getParentElement().getParentElement().getParentElement().removeClassName(CssStyleConstants.hidden);
-					expectTime.getElement().getParentElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
+					//settingText.getElement().getParentElement().getParentElement().getParentElement().removeClassName(CssStyleConstants.hidden);
+					//expectTime.getElement().getParentElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
+					expectTime.setEnabled(false);
+					tmdays.setEnabled(false);
+					
+					nextRewardsTime.setEnabled(true);
+					tmday.setEnabled(true);
+					setting.setEnabled(true);
+					autoCbx.setEnabled(true);
+					nextPublicTime.setEnabled(true);
+					specialCbx.setEnabled(true);
+					birthRadio.setEnabled(true);
 				}
 			}
 		});
@@ -195,11 +226,31 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 			@Override
 			public void onValueChange(ValueChangeEvent<Boolean> event) {
 				if (event.getValue()) {
-					settingText.getElement().getParentElement().getParentElement().getParentElement().removeClassName(CssStyleConstants.hidden);
-					expectTime.getElement().getParentElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
+					expectTime.setEnabled(false);
+					tmdays.setEnabled(false);
+					
+					nextRewardsTime.setEnabled(true);
+					tmday.setEnabled(true);
+					setting.setEnabled(true);
+					autoCbx.setEnabled(true);
+					nextPublicTime.setEnabled(true);
+					specialCbx.setEnabled(true);
+					birthRadio.setEnabled(true);
+					//settingText.getElement().getParentElement().getParentElement().getParentElement().removeClassName(CssStyleConstants.hidden);
+					//expectTime.getElement().getParentElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
 				} else {
-					settingText.getElement().getParentElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
-					expectTime.getElement().getParentElement().getParentElement().getParentElement().removeClassName(CssStyleConstants.hidden);
+					expectTime.setEnabled(true);
+					tmdays.setEnabled(true);
+					
+					nextRewardsTime.setEnabled(false);
+					tmday.setEnabled(false);
+					setting.setEnabled(false);
+					autoCbx.setEnabled(false);
+					nextPublicTime.setEnabled(false);
+					specialCbx.setEnabled(false);
+					birthRadio.setEnabled(false);
+					//settingText.getElement().getParentElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
+					//expectTime.getElement().getParentElement().getParentElement().getParentElement().removeClassName(CssStyleConstants.hidden);
 				}
 			}
 		});
@@ -213,6 +264,7 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 					birthRadio.getElement().removeClassName(
 							CssStyleConstants.hidden);
 				} else {
+					birthRadio.setValue(false, true);
 					birthRadio.getElement().addClassName(
 							CssStyleConstants.hidden);
 				}
@@ -235,6 +287,8 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 						daily.setInterval(1);
 						showFrequencyInfo(daily);
 					}
+				}else{
+					showFrequencyInfo(null);
 				}
 			}
 		});
@@ -246,19 +300,23 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 			@Override
 			public void onValueChange(ValueChangeEvent<Boolean> event) {
 				if (event.getValue()) {
-					chooseBtns.getElement().getParentElement()//隐藏提名
-					.getParentElement()
-					.addClassName(CssStyleConstants.hidden);
-					nextPublicTime.getElement().getParentElement()
-							.getParentElement()
-							.addClassName(CssStyleConstants.hidden);
+					nextPublicTime.setEnabled(false);
+					chooseBtns.setEnabled(false);
+//					chooseBtns.getElement().getParentElement()//隐藏提名
+//					.getParentElement()
+//					.addClassName(CssStyleConstants.hidden);
+//					nextPublicTime.getElement().getParentElement()
+//							.getParentElement()
+//							.addClassName(CssStyleConstants.hidden);
 				} else {
-					chooseBtns.getElement().getParentElement()//隐藏提名
-					.getParentElement()
-					.removeClassName(CssStyleConstants.hidden);
-					nextPublicTime.getElement().getParentElement()
-							.getParentElement()
-							.removeClassName(CssStyleConstants.hidden);
+//					chooseBtns.getElement().getParentElement()//隐藏提名
+//					.getParentElement()
+//					.removeClassName(CssStyleConstants.hidden);
+//					nextPublicTime.getElement().getParentElement()
+//							.getParentElement()
+//							.removeClassName(CssStyleConstants.hidden);
+					nextPublicTime.setEnabled(true);
+					chooseBtns.setEnabled(true);
 				}
 
 			}
