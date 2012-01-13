@@ -173,4 +173,15 @@ public class UserLogicImpl implements UserLogic {
 		result.setTotal(userDao.countHrAdminUserByCriteria(criteria));
 		return result;
 	}
+
+	@Override
+	public String deleteUserById(String id) {
+		SysUser user=userDao.findById(SysUser.class, id);
+		user.setStatus(UserStatus.Inactive);
+		Staff staff=user.getStaff();
+		staff.setDeleted(1);
+		staffDao.update(staff);
+		userDao.update(user);
+		return "success";
+	}
 }

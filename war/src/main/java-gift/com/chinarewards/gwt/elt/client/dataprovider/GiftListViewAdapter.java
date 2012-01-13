@@ -4,6 +4,7 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
 import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria;
+import com.chinarewards.gwt.elt.client.gift.presenter.GiftListPresenter.GiftListDisplay;
 import com.chinarewards.gwt.elt.client.gift.request.SearchGiftRequest;
 import com.chinarewards.gwt.elt.client.gift.request.SearchGiftResponse;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
@@ -17,13 +18,15 @@ public class GiftListViewAdapter extends BaseDataProvider<GiftClient> {
 	final GiftCriteria criteria;
 	final ErrorHandler errorHandler;
 	final SessionManager sessionManager;
+	final GiftListDisplay display;
 
 	public GiftListViewAdapter(DispatchAsync dispatch, GiftCriteria criteria,
-			ErrorHandler errorHandler, SessionManager sessionManager) {
+			ErrorHandler errorHandler, SessionManager sessionManager, GiftListDisplay display) {
 		this.dispatch = dispatch;
 		this.criteria = criteria;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
+		this.display=display;
 	}
 
 	public void fetchData(final int start, final int length) {
@@ -61,6 +64,7 @@ public class GiftListViewAdapter extends BaseDataProvider<GiftClient> {
 					public void onSuccess(SearchGiftResponse response) {
 						updateRowData(start, response.getResult());
 						updateRowCount(response.getTotal(), true);
+						display.setDataCount(response.getTotal()+"");
 					}
 
 				});

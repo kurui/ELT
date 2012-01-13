@@ -56,12 +56,12 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 	@Inject
 	public RewardsListPresenterImpl(EventBus eventBus, DispatchAsync dispatch,
 			ErrorHandler errorHandler, SessionManager sessionManager,
-			RewardsListDisplay display,Win win) {
+			RewardsListDisplay display, Win win) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
-		this.win=win;
+		this.win = win;
 
 	}
 
@@ -96,6 +96,7 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 		display.getResultPanel().add(cellTable);
 		display.getResultpage().clear();
 		display.getResultpage().add(pager);
+		
 	}
 
 	private void doSearch() {
@@ -115,8 +116,9 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 			criteria.setStatus(RewardsStatus.REWARDED);
 		}
 		listViewAdapter = new RewardsListViewAdapter(dispatch, criteria,
-				errorHandler, sessionManager);
+				errorHandler, sessionManager,display);
 		listViewAdapter.addDataDisplay(cellTable);
+
 	}
 
 	private void initTableColumns() {
@@ -140,14 +142,35 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 		// }
 		// }, ref, "id");
 
-		cellTable.addColumn("奖励名称", new TextCell(),
+//		cellTable.addColumn("", new TextCell(),
+//				new GetValue<RewardsClient, String>() {
+//					@Override
+//					public String getValue(RewardsClient rewards) {
+//						return rewards.getName();
+//					}
+//				}, ref, "name");
+		cellTable.addColumn("奖励名称", new HyperLinkCell(),
 				new GetValue<RewardsClient, String>() {
 					@Override
 					public String getValue(RewardsClient rewards) {
 						return rewards.getName();
 					}
-				}, ref, "name");
+				}, new FieldUpdater<RewardsClient, String>() {
 
+					@Override
+					public void update(int index, RewardsClient o,
+							String value) {
+						Platform.getInstance()
+								.getEditorRegistry()
+								.openEditor(
+										DetailsOfAwardConstants.EDITOR_DETAILSOFAWARD_SEARCH,
+										DetailsOfAwardConstants.EDITOR_DETAILSOFAWARD_SEARCH
+												+ o.getId(), o);
+
+					}
+
+				}, ref, "name");
+		
 		cellTable.addColumn("奖项积分", new TextCell(),
 				new GetValue<RewardsClient, String>() {
 					@Override
@@ -159,7 +182,12 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 				new GetValue<RewardsClient, String>() {
 					@Override
 					public String getValue(RewardsClient rewards) {
-						return rewards.getDefinition();
+						if (rewards.getDefinition().length() > 30) {
+							return rewards.getDefinition().substring(0, 30)
+									+ "...";
+						} else {
+							return rewards.getDefinition();
+						}
 					}
 				}, ref, "definition");
 		cellTable.addColumn("发起人", new TextCell(),
@@ -319,7 +347,6 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 					});
 		}
 
-
 		cellTable.addColumn("删除", new HyperLinkCell(),
 				new GetValue<RewardsClient, String>() {
 					@Override
@@ -329,13 +356,14 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 				}, new FieldUpdater<RewardsClient, String>() {
 
 					@Override
-					public void update(int index, final RewardsClient o, String value) {
+					public void update(int index, final RewardsClient o,
+							String value) {
 						win.confirm("提示", "确定删除?", new ConfirmHandler() {
-							
+
 							@Override
 							public void confirm() {
 								delteReward(o.getId());
-								
+
 							}
 						});
 					}

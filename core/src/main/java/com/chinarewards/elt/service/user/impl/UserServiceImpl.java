@@ -36,4 +36,9 @@ public class UserServiceImpl implements UserService {
 	public SysUser findUserById(String id) {
 		return userLogic.findUserById(id);
 	}
+
+	@Override
+	public String deleteUserById(String id) {
+		return userLogic.deleteUserById(id);
+	}
 }

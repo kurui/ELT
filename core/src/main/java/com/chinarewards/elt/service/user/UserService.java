@@ -17,4 +17,5 @@ public interface UserService {
 	public UserSearchResult searchHrAdminUserPaging(UserSearchCriteria criteria);
 	
 	public SysUser findUserById(String id);
+	public String deleteUserById(String id);
 }
