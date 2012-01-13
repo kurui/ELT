@@ -123,7 +123,7 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 			criteria.setStatus(GiftStatus.valueOf(display.getStatus()));
 
 		listViewAdapter = new GiftListViewAdapter(dispatch, criteria,
-				errorHandler, sessionManager);
+				errorHandler, sessionManager,display);
 		listViewAdapter.addDataDisplay(cellTable);
 	}
 

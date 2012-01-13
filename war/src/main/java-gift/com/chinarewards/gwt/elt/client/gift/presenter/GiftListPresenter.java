@@ -17,7 +17,7 @@ public interface GiftListPresenter extends Presenter<GiftListPresenter.GiftListD
 		public HasClickHandlers getSearchBtnClickHandlers();
 		public HasClickHandlers getAddBtnClickHandlers();
 		public HasClickHandlers getimportingBtnClickHandlers();
-
+		void setDataCount(String text);
 		HasValue<String> getKeyName();
 		String getStatus();
 		Panel getResultPanel();
