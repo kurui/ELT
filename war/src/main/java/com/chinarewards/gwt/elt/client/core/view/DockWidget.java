@@ -49,6 +49,9 @@ public class DockWidget extends Composite implements DockDisplay {
 	@UiField
 	Anchor btnGift;
 	@UiField
+	Anchor collectionBtn;
+	
+	@UiField
 	InlineLabel menuTitle;
 	
 	// Set the format of datepicker.
@@ -234,6 +237,11 @@ public class DockWidget extends Composite implements DockDisplay {
 	@Override
 	public HasClickHandlers getBtnGift() {
 		return btnGift;
+	}
+
+	@Override
+	public HasClickHandlers getBtnCollection() {
+		return collectionBtn;
 	}
 
 }

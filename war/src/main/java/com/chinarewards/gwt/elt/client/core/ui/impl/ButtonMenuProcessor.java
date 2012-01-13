@@ -66,7 +66,8 @@ public class ButtonMenuProcessor implements MenuProcessor {
 			root.appendChild(new MenuNode(m));
 		}
 
-		ScrollPanel menuWrapper = new ScrollPanel(createButtonMenuWidget(null));
+		ScrollPanel menuWrapper = new ScrollPanel(
+				createButtonMenuWidget("RewardItem"));
 		container.add(menuWrapper);
 	}
 
@@ -88,26 +89,32 @@ public class ButtonMenuProcessor implements MenuProcessor {
 				List<String> items = getMenuItemName(name);
 				if (!items.contains(menuItem.getMenuId()))
 					continue;
-			}
-			else
-			{
+			} else {
 				break;
 			}
-			
+
 			button.setText(menuItem.getTitle());
 			button.setStyleName("menu-link");
+			// 判断第一个进入默认样式
+			String menuId = menuItem.getMenuId();
+			if (menuId.equals(RewardsItemConstants.MENU_REWARDSITEM_List)
+					|| menuId
+							.equals(RewardsListConstants.MENU_REWARDSLIST_SEARCH)
+					|| menuId.equals(UserConstants.MENU_USER_SEARCH)
+					|| menuId.equals(GiftListConstants.MENU_GIFTLIST_SEARCH)
+					|| menuId.equals("sample")) {
+				button.setStyleName("menu-link menu-selected");
+			}
 
 			button.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent paramClickEvent) {
 					button.setStyleName("menu-link menu-selected");
 					eventBus.fireEvent(new MenuClickEvent(menuItem));
-					
-					
+
 					for (int i = 0; i < grid.getWidgetCount(); i++) {
-						if(grid.getWidget(i) instanceof Anchor)
-						{
-							if(!button.getText().equals(((Anchor)grid.getWidget(i)).getText()))
-							{
+						if (grid.getWidget(i) instanceof Anchor) {
+							if (!button.getText().equals(
+									((Anchor) grid.getWidget(i)).getText())) {
 								grid.getWidget(i).setStyleName("menu-link");
 							}
 						}
@@ -135,8 +142,7 @@ public class ButtonMenuProcessor implements MenuProcessor {
 			items.add(UserConstants.MENU_USER_SEARCH);
 		} else if ("Setting".equals(keyname)) {
 			items.add("sample");
-		}else if("Gift".equals(keyname))
-		{
+		} else if ("Gift".equals(keyname)) {
 			items.add(GiftListConstants.MENU_GIFTLIST_SEARCH);
 			items.add(GiftConstants.MENU_GIFT_ADD);
 //			items.add(GiftConstants.MENU_GIFT_EDIT);

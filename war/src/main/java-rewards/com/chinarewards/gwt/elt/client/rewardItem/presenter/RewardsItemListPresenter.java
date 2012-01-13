@@ -1,6 +1,6 @@
 package com.chinarewards.gwt.elt.client.rewardItem.presenter;
 
-import java.util.List;
+import java.util.*;
 
 import com.chinarewards.gwt.elt.client.mvp.Display;
 import com.chinarewards.gwt.elt.client.mvp.Presenter;
@@ -37,6 +37,10 @@ public interface RewardsItemListPresenter extends
 		public HasClickHandlers getSearchClick();
 		
 		public HasClickHandlers getAddBut();
+		
+		public HasValue<Date> getCreateTime();
+		public HasValue<Date> getCreateTimeEnd();
+
 		
 		void initialize();
 		/**

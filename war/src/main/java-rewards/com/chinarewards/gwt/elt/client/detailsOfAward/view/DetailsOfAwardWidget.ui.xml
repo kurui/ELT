@@ -129,6 +129,8 @@
 							<g:Label text="等待数据加载..." ui:field="awardName" />
 						</div>
 					</div>
+					
+					<span class="{new2.cutline}"></span>
 
 
 					<div class="{new2.form-line} {new2.form-line-btn}">

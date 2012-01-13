@@ -36,7 +36,7 @@
         <li><a href="#">员工天地</a></li>
       </ul>
       <div class="{new2.green}">
-      <g:InlineLabel ui:field="message"></g:InlineLabel>   <g:Anchor ui:field="logBtn">安全退出</g:Anchor>   <a href="#">加为收藏</a>
+      <g:InlineLabel ui:field="message"></g:InlineLabel>   <g:Anchor ui:field="logBtn" styleName="{new2.newa}">安全退出</g:Anchor>    <g:Anchor  ui:field="collectionBtn" styleName="{new2.newa}">加为收藏</g:Anchor>
       </div>
     </div>
     <g:Image resource="{logo_new}" styleName="{new2.logo}" width="255px" height="75px"/>
@@ -86,7 +86,7 @@
 											<g:Image resource="{title01}"></g:Image>
 										</td>  -->
 										<td>
-											<g:InlineLabel text="操作导航" ui:field="menuTitle" />
+											<g:InlineLabel text="奖项" ui:field="menuTitle" />
 										</td>
 										<!--<td id="title03"></td>  -->
 									</tr>

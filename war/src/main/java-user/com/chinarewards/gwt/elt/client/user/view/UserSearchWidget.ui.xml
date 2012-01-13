@@ -11,47 +11,109 @@
 	<ui:image field="post_bg" resource="post_bg.jpg" repeatStyle="Horizontal"></ui:image>
 	<ui:style src="myMain.css"></ui:style>
 	<ui:style src="user.css" field="other"></ui:style>
+	<ui:style src="new2.css" field="new2"></ui:style>
 	<g:HTMLPanel>
-	
-	           	<div class="{style.fmtable}">
-                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                      <tr>
-                        <td width="12%" class="{style.title}">账号名称：</td>
-                        <td width="21%" class="{style.intext}"><g:TextBox ui:field="accountName" /></td>
-                        <td width="12%" class="{style.title}">手机号码：</td>
-                        <td width="16%" class="{style.intext}"><g:TextBox ui:field="mobile" /></td>
-                        <td width="10%" class="{style.title}">电子邮箱：</td>
+	<div class="{new2.frame-wrap}">
+			<!--面包屑 [[ -->
+			<div class="{new2.breadcrumb-wrap}">
+				<div class="{new2.breadcrumb-wrap}">
+					<p class="{new2.breadcrumb-left}">
+						<a href="#" style="color:#565656;text-decoration:none;">员工数据</a>
+						->
+						<span>帐号管理</span>
+					</p>
+					<a href="#" class="{new2.breadcrumb-right} {new2.back-btn}"
+						style="color:#565656;text-decoration:none;">返回上一页</a>
+				</div>
+				<span class="{new2.cutline}"></span>
+			</div>
+			<!--面包屑 ]] -->
 
-                        <td width="14%" class="{style.intext}"><g:TextBox ui:field="email" /></td>
-                        <td width="15%" class="{style.caozuo}"><g:Button ui:field="search" text="查询" styleName="button-search"/></td>
-                      </tr>
-                      <tr>
-                        <td width="12%" class="{style.title}">关联企业名称：</td>
-                        <td width="21%" class="{style.intext}">
-                        	<g:TextBox ui:field="enterpriseName" />
-							<g:Button ui:field="choose" styleName="button-chose">选择</g:Button>
-						</td>
-                        <td width="12%" class="{style.title}">状　　态：</td>
-                        <td width="16%" class="{style.intext}"><g:ListBox ui:field="status" /></td>
-                        <td width="10%" class="{style.title}"></td>
-                        <td width="14%" class="{style.intext}"></td>
-                        <td width="15%" class="{style.caozuo}"><g:Button ui:field="reset" text="重置" styleName="button-reset"/></td>
-                      </tr>
-                    </table> 
-                 </div>
-                 <div class="{style.listtable}">
-					<g:FlowPanel ui:field="result">
-					</g:FlowPanel>
-				 </div>   
-				 <div id="post">
-				 	<g:Button ui:field="add" text="新增" styleName="button-add"/>
-				 	<g:Button ui:field="Update" text="修改" styleName="button-search"/>
-				 	<g:Button ui:field="active" text="激活" styleName="button-act"/>
-					<g:Button ui:field="logOff" text="注销" styleName="button-log"/>
-					<g:Button ui:field="delete" text="离职" styleName="button-log"/>
-					<g:Button ui:field="resetPwd" text="密码重置" styleName="button-modp"/>
-					<!--<g:Button ui:field="searchSubAccount" text="查看子账号" styleName="button-modp" />
-				 -->
-				 </div>
+			<!--查询条件 [[ -->
+			<div class="{new2.query-wrap}">
+				<div class="{new2.form}">
+					<label for="">账号名称：</label><span class="{new2.nbsp}"></span>
+					<g:TextBox ui:field="accountName" styleName="{new2.text}" />
+					<span class="{new2.nbspbig}"></span>
+					
+										<label for="">手机号码：</label><span class="{new2.nbsp}"></span>
+					<g:TextBox ui:field="mobile" styleName="{new2.text}" />
+					<span class="{new2.nbspbig}"></span>
+					
+										<label for="">电子邮箱：</label><span class="{new2.nbsp}"></span>
+					<g:TextBox ui:field="email" styleName="{new2.text}" />
+					<span class="{new2.nbspbig}"></span>
+					<br></br><br></br>
+										<label for="">关联企业名称：</label><span class="{new2.nbsp}"></span>
+					<g:TextBox ui:field="enterpriseName" styleName="{new2.text}" />
+					<span class="{new2.btn}">
+						<g:Button ui:field="choose" text="选择" />
+					</span>
+					
+					<span class="{new2.nbspbig}"></span>
+	
+					<label for="">状　　态：</label>
+					<span class="{new2.nbsp}"></span>
+					<g:ListBox ui:field="status" styleName="{new2.select}" />
+					<span class="{new2.nbspbig}"></span>
+
+					<span class="{new2.nbspbig}"></span>
+					<span class="{new2.btn}">
+						<g:Button ui:field="search" text="查询" />
+					</span>
+										<span class="{new2.btn}">
+						<g:Button ui:field="reset" text="重置" />
+					</span>
+				</div>
+			</div>
+			<!--查询条件 ]] -->
+
+
+			<span class="{new2.cutline}"></span>
+			<div class="{new2.table}">
+				<g:FlowPanel ui:field="result" />
+			</div>
+
+
+			<!--分页 [[ -->
+			<div id="rewardlist_page" class="{new2.pager}">
+			<span class="{new2.btn}">
+						<g:Button ui:field="add" text="新增" />
+					</span>
+					<span class="{new2.btn}">
+						<g:Button ui:field="Update" text="修改" />
+					</span>
+					<span class="{new2.btn}">
+						<g:Button ui:field="active" text="激活" />
+					</span>
+					<span class="{new2.btn}">
+						<g:Button ui:field="logOff" text="注销" />
+					</span>
+					<span class="{new2.btn}">
+						<g:Button ui:field="delete" text="离职" />
+					</span>
+					<span class="{new2.btn}">
+						<g:Button ui:field="resetPwd" text="密码重置" />
+					</span>
+			</div>	
+					
+			
+			<div id="rewardlist_page" class="{new2.pager}">
+				<div class="{new2.pager-left}">
+					每页显示条数
+					<select class="{new2.select}">
+						<option>10</option>
+					</select>
+				</div>
+
+				<div class="{new2.pager-right}">
+					<g:FlowPanel ui:field="resultpage" />
+				</div>
+			</div>
+			<!--分页 ]] -->
+
+		</div>
+		
+
 	</g:HTMLPanel>
 </ui:UiBinder>

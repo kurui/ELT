@@ -10,6 +10,7 @@ import com.chinarewards.gwt.elt.client.core.PluginDescriptor;
 import com.chinarewards.gwt.elt.client.core.ui.EditorDescriptor;
 import com.chinarewards.gwt.elt.client.core.ui.MenuItem;
 import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
+import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.google.gwt.core.client.GWT;
 
@@ -66,7 +67,11 @@ public class CorePlugin extends AbstractPlugin {
 			platform.getEditorRegistry().registerEditor(item);
 		}
 		// open editor by default.
-
+		 Platform.getInstance()
+		 .getEditorRegistry()
+		 .openEditor(RewardsItemConstants.EDITOR_REWARDSITEM_List,
+		 "EDITOR_REWARDSITEM_List", null);
+		 
 		// List<UserRoleVo> roles = new ArrayList<UserRoleVo>();
 		// {
 		// if (!GWT.isScript()) {

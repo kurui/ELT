@@ -7,6 +7,7 @@ import com.chinarewards.gwt.elt.client.login.event.LoginHandler;
 import com.chinarewards.gwt.elt.client.login.presenter.LoginPresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.chinarewards.gwt.elt.client.win.Win;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
@@ -17,17 +18,16 @@ public class MainImpl implements Main, PlatformInitHandler, LoginHandler {
 	final EltGinjector injector;
 	final SessionManager sessionManager;
 	final EventBus eventBus;
-	// final Win win;
+    final Win win;
 	RootLayoutPanel rootLayoutPanel;
 	LoginPresenter login;
-
 	@Inject
 	public MainImpl(EltGinjector injector, SessionManager sessionManager,
-			EventBus eventBus) {
+			EventBus eventBus,Win win) {
 		this.injector = injector;
 		this.sessionManager = sessionManager;
 		this.eventBus = eventBus;
-		// this.win = win;
+	    this.win = win;
 		login = injector.getLoginPresenter();
 	}
 
@@ -58,8 +58,7 @@ public class MainImpl implements Main, PlatformInitHandler, LoginHandler {
 			rootLayoutPanel.add(login.getDisplay().asWidget());
 		} else {
 			login.unbind();
-			injector.getPlatform().initialize(injector.getPluginSet(),
-					rootLayoutPanel);
+			injector.getPlatform().initialize(injector.getPluginSet(),rootLayoutPanel);
 		}
 	}
 
@@ -68,11 +67,10 @@ public class MainImpl implements Main, PlatformInitHandler, LoginHandler {
 		case LOGIN_OK:
 			rootLayoutPanel.clear();
 			login.unbind();
-			injector.getPlatform().initialize(injector.getPluginSet(),
-					rootLayoutPanel);
+			injector.getPlatform().initialize(injector.getPluginSet(),rootLayoutPanel);
 			break;
 		case LOGIN_FAILED:
-			Window.alert("登录失败，请重试！");
+			win.alert("登录失败，请重试！");
 			break;
 		case LOGIN_EXPIRED:
 		case LOGOUT:

@@ -22,7 +22,8 @@ import com.chinarewards.gwt.elt.client.rewards.request.DeleteRewardsRequest;
 import com.chinarewards.gwt.elt.client.rewards.request.DeleteRewardsResponse;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
-import com.chinarewards.gwt.elt.client.widget.DefaultPager;
+import com.chinarewards.gwt.elt.client.widget.EltNewPager;
+import com.chinarewards.gwt.elt.client.widget.EltNewPager.TextLocation;
 import com.chinarewards.gwt.elt.client.widget.GetValue;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.widget.Sorting;
@@ -35,8 +36,6 @@ import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
-import com.google.gwt.user.cellview.client.SimplePager;
-import com.google.gwt.user.cellview.client.SimplePager.TextLocation;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
@@ -50,7 +49,7 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 
 	RewardPageType pageType;
 
-	SimplePager pager;
+	EltNewPager pager;
 	ListCellTable<RewardsClient> cellTable;
 	RewardsListViewAdapter listViewAdapter;
 
@@ -88,7 +87,7 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 		cellTable = new ListCellTable<RewardsClient>();
 
 		initTableColumns();
-		pager = new DefaultPager(TextLocation.CENTER);
+		pager = new EltNewPager(TextLocation.CENTER);
 		pager.setDisplay(cellTable);
 		cellTable.setWidth(ViewConstants.page_width);
 		cellTable.setPageSize(ViewConstants.per_page_number_in_dialog);
@@ -185,7 +184,13 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 						return rewards.getExpectNominateDate();
 					}
 				}, ref, "expectNominateDate");
-
+		cellTable.addColumn("状态", new TextCell(),
+				new GetValue<RewardsClient, String>() {
+					@Override
+					public String getValue(RewardsClient rewards) {
+						return rewards.getStatus().getDisplayName();
+					}
+				}, ref, "name");
 		if (pageType == RewardPageType.NOMINATEPAGE) {
 			cellTable.addColumn("操作", new HyperLinkCell(),
 					new GetValue<RewardsClient, String>() {
@@ -313,13 +318,7 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 
 					});
 		}
-		cellTable.addColumn("状态", new TextCell(),
-				new GetValue<RewardsClient, String>() {
-					@Override
-					public String getValue(RewardsClient rewards) {
-						return rewards.getStatus().getDisplayName();
-					}
-				}, ref, "name");
+
 
 		cellTable.addColumn("删除", new HyperLinkCell(),
 				new GetValue<RewardsClient, String>() {
