@@ -9,10 +9,13 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
+import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
 import com.chinarewards.gwt.elt.client.user.model.UserVo;
 import com.chinarewards.gwt.elt.client.user.presenter.UserSearchPresenter.UserSearchDisplay;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager.TextLocation;
+import com.chinarewards.gwt.elt.client.widget.GetValue;
+import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.google.gwt.cell.client.CheckboxCell;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.core.client.GWT;
@@ -20,7 +23,6 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.Button;
@@ -95,7 +97,7 @@ public class UserSearchWidget extends Composite implements UserSearchDisplay {
 	@UiField
 	InlineLabel dataCount;
 	
-	CellTable<UserVo> resultTable;
+	ListCellTable<UserVo> resultTable;
 	EltNewPager pager;
 	AsyncDataProvider<UserVo> listViewAdapter;
 
@@ -122,7 +124,7 @@ public class UserSearchWidget extends Composite implements UserSearchDisplay {
 
 	private void buildTable() {
 
-		resultTable = new CellTable<UserVo>();
+		resultTable = new ListCellTable<UserVo>();
 		resultTable.setWidth(ViewConstants.page_width);
 		resultTable.setPageSize(ViewConstants.per_page_number);
 		pager = new EltNewPager(TextLocation.CENTER);
@@ -135,7 +137,6 @@ public class UserSearchWidget extends Composite implements UserSearchDisplay {
 		resultpage.clear();
 		result.add(resultTable);
 		resultpage.add(pager);
-		dataCount.setText("x");
 		
 	}
 
@@ -209,7 +210,20 @@ public class UserSearchWidget extends Composite implements UserSearchDisplay {
 				return o.getStatus();
 			}
 		}, "状态");
+		resultTable.addColumn("操作", new HyperLinkCell(),
+				new GetValue<UserVo, String>() {
+					@Override
+					public String getValue(UserVo gift) {
+						return "删除";
+					}
+				}, new FieldUpdater<UserVo, String>() {
 
+					@Override
+					public void update(int index, UserVo o, String value) {
+						users.put(o.getId(), o);
+					}
+
+				});
 	}
 
 	@Override

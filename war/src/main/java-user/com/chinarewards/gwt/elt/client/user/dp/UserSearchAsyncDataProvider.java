@@ -8,6 +8,7 @@ import com.chinarewards.gwt.elt.client.user.UserSearchRequest;
 import com.chinarewards.gwt.elt.client.user.UserSearchResponse;
 import com.chinarewards.gwt.elt.client.user.model.UserSearchVo;
 import com.chinarewards.gwt.elt.client.user.model.UserVo;
+import com.chinarewards.gwt.elt.client.user.presenter.UserSearchPresenter.UserSearchDisplay;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.view.client.AsyncDataProvider;
@@ -18,14 +19,16 @@ public class UserSearchAsyncDataProvider extends AsyncDataProvider<UserVo> {
 	final ErrorHandler errorHandler;
 	final SessionManager sessionManager;
 	final DispatchAsync dispatcher;
+	final UserSearchDisplay display;
 
 	public UserSearchAsyncDataProvider(UserSearchVo criteria,
 			ErrorHandler errorHandler, SessionManager sessionManager,
-			DispatchAsync dispatcher) {
+			DispatchAsync dispatcher, UserSearchDisplay display) {
 		this.criteria = criteria;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
 		this.dispatcher = dispatcher;
+		this.display=display;
 	}
 
 	@Override
@@ -51,6 +54,7 @@ public class UserSearchAsyncDataProvider extends AsyncDataProvider<UserVo> {
 					public void onSuccess(UserSearchResponse response) {
 						updateRowCount(response.getResult().getTotal(), true);
 						updateRowData(start, response.getResult().getList());
+						display.setDataCount(response.getResult().getTotal()+"");
 					}
 				});
 	}
