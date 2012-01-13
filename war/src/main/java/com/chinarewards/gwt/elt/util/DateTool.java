@@ -224,8 +224,9 @@ public abstract class DateTool {
 	 * 当前日期字符串
 	 * */
 	public static String getDateString(String pattern) {
-		Calendar calendar = Calendar.getInstance();
-		SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
-		return dateFormat.format(calendar.getTime());
+//		Calendar calendar = Calendar.getInstance();
+//		SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
+//		return dateFormat.format(calendar.getTime());
+		return "111111225";
 	}
 }

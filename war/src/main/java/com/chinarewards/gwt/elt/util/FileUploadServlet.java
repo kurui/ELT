@@ -16,34 +16,31 @@ public class FileUploadServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("=========fileupload servlet=============");
-
 		response.setContentType("text/html;charset=utf-8");
+		String responseMessage = "";
+
 		ServletFileUpload upload = new ServletFileUpload();
 		try {
-			// Parse the request
 			FileItemIterator iter = upload.getItemIterator(request);
-
-			System.out.println("file item size:" + upload.getSizeMax());
 
 			while (iter.hasNext()) {
 				FileItemStream item = iter.next();
 				String name = item.getFieldName();
 				InputStream stream = item.openStream();
 				if (item.isFormField()) {
-					System.out.println("Form field " + name + " with value "
-							+ Streams.asString(stream) + " detected.");
+					responseMessage = "Form field " + name + " with value "
+							+ Streams.asString(stream) + " detected.";
 				} else {
-					System.out.println("File field " + name
-							+ " with file name " + item.getName()
-							+ " detected.=" + item.getFieldName());
+					responseMessage = "File field " + name + " with file name "
+							+ item.getName() + " detected.="
+							+ item.getFieldName();
 
 					BufferedInputStream inputStream = new BufferedInputStream(
 							stream);// 获得输入流
 					String uploadPath = request.getRealPath("/upload")
 							+ File.separator;
 
-//					System.out.println("uploadPath:" + uploadPath);
+					// System.out.println("uploadPath:" + uploadPath);
 					String itemName = item.getName();
 					itemName = itemName.substring(itemName.indexOf("."),
 							itemName.length());
@@ -54,20 +51,17 @@ public class FileUploadServlet extends HttpServlet {
 							new FileOutputStream(
 									new File(uploadPath + fileName)));// 获得文件输出流
 					Streams.copy(inputStream, outputStream, true); // 开始把文件写到你指定的上传文件夹
+					stream.close();
 
+					responseMessage = "================print():" + fileName;
 				}
-				stream.close();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			responseMessage = "上传文件异常:" + e.getMessage();
 		}
-	}
-
-	public static void main(String[] args) {
-		String itemName = "12343333.jpg";
-		itemName = itemName.substring(itemName.indexOf("."), itemName.length());
-		String fileName = DateTool.getDateString("yyyyMMddHHmmss") + itemName;
-		System.out.println(fileName);
+		System.out.println("responseMessage:" + responseMessage);
+		response.getWriter().print(responseMessage);
 	}
 
 }

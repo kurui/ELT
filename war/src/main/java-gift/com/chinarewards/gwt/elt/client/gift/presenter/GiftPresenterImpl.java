@@ -66,8 +66,6 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 							return;
 						}
 
-						display.getPhotoForm().submit();
-
 						GiftVo gift = new GiftVo();
 						//
 						// // 基本信息
@@ -152,18 +150,27 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 
 				}));
 
+		// 上传图片事件
+		registerHandler(display.getUploadClick().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent arg0) {
+						display.getPhotoForm().submit();
+					}
+				}));
+
 		// 文件上传后回调
 		display.getPhotoForm().addSubmitCompleteHandler(
 				new SubmitCompleteHandler() {
 					@Override
 					public void onSubmitComplete(SubmitCompleteEvent event) {
 						System.out.println(" ==photo form onSubmitComplete ==");
-						System.out.println("dddd=" + event.getResults());
-						
+						System.out.println("submitComplete event.getResults:"
+								+ event.getResults());
+						win.alert("after photo submit:<br>"
+								+ event.getResults());
 					}
-					
-					
-					
+
 				});
 
 	}

@@ -84,8 +84,9 @@
 					<td class="{newitem.element}">
 						<g:FormPanel ui:field="photoForm" encoding="multipart/form-data"
 							method="post" action="/fileupload">
-							<g:FileUpload ui:field="photoUpload" name="uploadFormElement"></g:FileUpload>
+							<g:FileUpload ui:field="photoUpload" name="uploadFormElement"></g:FileUpload>							
 						</g:FormPanel>
+						<g:Button ui:field="photoUploadBtn">上传</g:Button>
 					</td>
 					<td></td>
 				</tr>

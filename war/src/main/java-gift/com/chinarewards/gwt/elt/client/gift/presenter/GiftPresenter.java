@@ -47,6 +47,7 @@ public interface GiftPresenter extends Presenter<GiftPresenter.GiftDisplay> {
 		public FormPanel getPhotoForm();
 		public FileUpload getPhotoUpload();
 		
+		public HasClickHandlers getUploadClick();
 		
 		public HasClickHandlers getSaveClick();
 

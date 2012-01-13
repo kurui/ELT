@@ -75,6 +75,10 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	FormPanel photoForm;
 	@UiField
 	FileUpload photoUpload;
+	@UiField
+	Button photoUploadBtn;
+	
+//	<g:Button ui:field="photoUploadBtn"></g:Button>
 
 	DateTimeFormat dateFormat = DateTimeFormat
 			.getFormat(ViewConstants.date_format);
@@ -108,11 +112,6 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	@Override
 	public HasValue<String> getName() {
 		return name;
-	}
-
-	@Override
-	public HasClickHandlers getSaveClick() {
-		return save;
 	}
 
 	@Override
@@ -215,6 +214,16 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	@Override
 	public FormPanel getPhotoForm() {
 		return photoForm;
+	}
+
+	@Override
+	public HasClickHandlers getSaveClick() {
+		return save;
+	}
+
+	@Override
+	public HasClickHandlers getUploadClick() {
+		return photoUploadBtn;
 	}
 
 }
