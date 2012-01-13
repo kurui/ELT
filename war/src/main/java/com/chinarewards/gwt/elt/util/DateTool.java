@@ -1,5 +1,7 @@
 package com.chinarewards.gwt.elt.util;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -216,5 +218,14 @@ public abstract class DateTool {
 			}
 		}
 		return max;
+	}
+	
+	/**
+	 * 当前日期字符串
+	 * */
+	public static String getDateString(String pattern) {
+		Calendar calendar = Calendar.getInstance();
+		SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
+		return dateFormat.format(calendar.getTime());
 	}
 }

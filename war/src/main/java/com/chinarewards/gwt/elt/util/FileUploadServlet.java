@@ -40,15 +40,21 @@ public class FileUploadServlet extends HttpServlet {
 
 					BufferedInputStream inputStream = new BufferedInputStream(
 							stream);// 获得输入流
-					String imagePath = request.getRealPath("/upload")
+					String uploadPath = request.getRealPath("/upload")
 							+ File.separator;
 
-					System.out.println("imagePath:" + imagePath);
+//					System.out.println("uploadPath:" + uploadPath);
+					String itemName = item.getName();
+					itemName = itemName.substring(itemName.indexOf("."),
+							itemName.length());
+					String fileName = DateTool.getDateString("yyyyMMddHHmmss")
+							+ itemName;
+
 					BufferedOutputStream outputStream = new BufferedOutputStream(
-							new FileOutputStream(new File(imagePath
-									+ item.getName())));// 获得文件输出流
+							new FileOutputStream(
+									new File(uploadPath + fileName)));// 获得文件输出流
 					Streams.copy(inputStream, outputStream, true); // 开始把文件写到你指定的上传文件夹
-				
+
 				}
 				stream.close();
 			}
@@ -56,4 +62,12 @@ public class FileUploadServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
+
+	public static void main(String[] args) {
+		String itemName = "12343333.jpg";
+		itemName = itemName.substring(itemName.indexOf("."), itemName.length());
+		String fileName = DateTool.getDateString("yyyyMMddHHmmss") + itemName;
+		System.out.println(fileName);
+	}
+
 }
