@@ -7,9 +7,11 @@ import com.chinarewards.elt.dao.org.StaffDao;
 import com.chinarewards.elt.dao.reward.JudgeDao;
 import com.chinarewards.elt.dao.reward.RewardDao;
 import com.chinarewards.elt.dao.reward.RewardItemDao;
+import com.chinarewards.elt.dao.reward.RewardItemStoreDao;
 import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.domain.reward.base.Reward;
 import com.chinarewards.elt.domain.reward.base.RewardItem;
+import com.chinarewards.elt.domain.reward.base.RewardItemStore;
 import com.chinarewards.elt.domain.reward.person.Judge;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.reward.base.JudgeStatus;
@@ -28,14 +30,15 @@ public class JudgeLogicImpl implements JudgeLogic {
 	private final RewardItemDao rewardItemDao;
 	private final RewardDao rewardDao;
 	private final StaffDao staffDao;
-
+	private final RewardItemStoreDao rewardItemStoreDao;
 	@Inject
 	public JudgeLogicImpl(JudgeDao judgeDao, RewardItemDao rewardItemDao,
-			RewardDao rewardDao, StaffDao staffDao) {
+			RewardDao rewardDao, StaffDao staffDao,RewardItemStoreDao rewardItemStoreDao) {
 		this.judgeDao = judgeDao;
 		this.rewardItemDao = rewardItemDao;
 		this.rewardDao = rewardDao;
 		this.staffDao = staffDao;
+		this.rewardItemStoreDao = rewardItemStoreDao;
 	}
 
 	@Override
@@ -56,6 +59,24 @@ public class JudgeLogicImpl implements JudgeLogic {
 			judgeDao.save(judge);
 		}
 	}
+	
+	@Override
+	public void bindJudgesToRewardItemStore(SysUser caller, String rewardItemStoreId,
+			List<String> staffIds) {
+		RewardItemStore rewardItemStore = rewardItemStoreDao.findById(RewardItemStore.class,rewardItemStoreId);
+		Date now = DateUtil.getTime();
+		for (String id : staffIds) {
+			Judge judge = new Judge();
+			Staff staff = staffDao.findById(Staff.class, id);
+			judge.setStaff(staff);
+			judge.setRewardItemStore(rewardItemStore);
+			judge.setCreatedAt(now);
+			judge.setCreatedBy(caller);
+			judge.setLastModifiedAt(now);
+			judge.setLastModifiedBy(caller);
+			judgeDao.save(judge);
+		}
+	}
 
 	@Override
 	public void removeJudgesFromRewardItem(String rewardItemId) {
@@ -64,7 +85,14 @@ public class JudgeLogicImpl implements JudgeLogic {
 			judgeDao.delete(judge);
 		}
 	}
-
+   
+	@Override
+	public void removeJudgesFromRewardItemStore(String rewardItemIdStore) {
+		List<Judge> judgeList = judgeDao.findJudgesFromRewardItemStore(rewardItemIdStore);
+		for (Judge judge : judgeList) {
+			judgeDao.delete(judge);
+		}
+	}
 	@Override
 	public List<Judge> findJudgesFromRewardItem(String rewardItemId) {
 		return judgeDao.findJudgesFromRewardItem(rewardItemId);

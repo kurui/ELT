@@ -124,6 +124,10 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 	// 保存或修改
 	@UiField
 	Button save;
+	
+	// 保存奖项库
+	@UiField
+	Button saveStore;
 
 	/** 存储有用的信息 **/
 	FrequencyClient frequency;
@@ -433,7 +437,10 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 		return save;
 	}
 
-	
+	@Override
+	public HasClickHandlers getSaveStoreClick() {
+		return saveStore;
+	}
 	
 	
 	@Override

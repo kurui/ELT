@@ -22,6 +22,13 @@ public interface FrequencyLogic {
 	 * @param rewardItemId
 	 */
 	public void removeFrequencyFromRewardItem(String rewardItemId);
+	
+	/**
+	 * Remove frequency from a specified {@link RewardItemStore}.
+	 * 
+	 * @param rewardItemStoreId
+	 */
+	public void removeFrequencyFromRewardItemStore(String rewardItemStoreId);
 
 	/**
 	 * Bind a frequency to a specified {@link RewardItem}.
@@ -30,6 +37,15 @@ public interface FrequencyLogic {
 	 * @param frequency
 	 */
 	public void bindFrequencyToRewardItem(SysUser caller, String rewardItemId,
+			RewardsFrequency frequency);
+	
+	/**
+	 * Bind a frequency to a specified {@link RewardItem}.
+	 * 
+	 * @param rewardItemStoreId
+	 * @param frequency
+	 */
+	public void bindFrequencyToRewardItemStore(SysUser caller, String rewardItemStoreId,
 			RewardsFrequency frequency);
 
 	/**

@@ -25,6 +25,17 @@ public interface FrequencyProcessor {
 	 */
 	public Frequency bindFrequencyToRewardItem(SysUser caller,
 			String rewardItemId, RewardsFrequency frequency);
+	
+	/**
+	 * Bind the given frequency to the specified {@link RewardItemStore}.
+	 * 
+	 * @param rewardItemStoreId
+	 * @param frequency
+	 * @return
+	 */
+	public Frequency bindFrequencyToRewardItemStore(SysUser caller,
+			String rewardItemStoteId, RewardsFrequency frequency);
+
 
 	/**
 	 * Get a suitable name according to the frequency. e.g. Every month run a

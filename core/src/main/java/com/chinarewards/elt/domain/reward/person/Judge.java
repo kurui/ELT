@@ -15,6 +15,7 @@ import org.hibernate.annotations.GenericGenerator;
 import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.domain.reward.base.Reward;
 import com.chinarewards.elt.domain.reward.base.RewardItem;
+import com.chinarewards.elt.domain.reward.base.RewardItemStore;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.reward.base.JudgeStatus;
 
@@ -41,6 +42,17 @@ public class Judge implements Serializable {
 
 	@ManyToOne
 	private RewardItem rewardItem;
+	
+	@ManyToOne
+	private RewardItemStore rewardItemStore;
+
+	public RewardItemStore getRewardItemStore() {
+		return rewardItemStore;
+	}
+
+	public void setRewardItemStore(RewardItemStore rewardItemStore) {
+		this.rewardItemStore = rewardItemStore;
+	}
 
 	/**
 	 * The Reward would copy it from RewardItem. So Judge would associate to

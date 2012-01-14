@@ -8,7 +8,9 @@ import org.slf4j.LoggerFactory;
 
 import com.chinarewards.elt.dao.reward.MonthFrequencyDao;
 import com.chinarewards.elt.dao.reward.RewardItemDao;
+import com.chinarewards.elt.dao.reward.RewardItemStoreDao;
 import com.chinarewards.elt.domain.reward.base.RewardItem;
+import com.chinarewards.elt.domain.reward.base.RewardItemStore;
 import com.chinarewards.elt.domain.reward.frequency.Frequency;
 import com.chinarewards.elt.domain.reward.frequency.MonthFrequency;
 import com.chinarewards.elt.domain.user.SysUser;
@@ -27,16 +29,17 @@ import com.google.inject.Inject;
 public class FrequencyProcessorMonth implements FrequencyProcessor {
 
 	RewardItemDao rewardItemDao;
-
+	RewardItemStoreDao rewardItemStoreDao;
 	MonthFrequencyDao monthFrequencyDao;
 
 	Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Inject
-	public FrequencyProcessorMonth(RewardItemDao rewardItemDao,
+	public FrequencyProcessorMonth(RewardItemDao rewardItemDao,RewardItemStoreDao rewardItemStoreDao,
 			MonthFrequencyDao monthFrequencyDao) {
 		this.rewardItemDao = rewardItemDao;
 		this.monthFrequencyDao = monthFrequencyDao;
+        this.rewardItemStoreDao = rewardItemStoreDao;
 	}
 
 	private Monthly cast(RewardsFrequency frequency) {
@@ -61,6 +64,27 @@ public class FrequencyProcessorMonth implements FrequencyProcessor {
 				rewardItemId);
 
 		rewardItem.setFrequency(monthFrequency);
+
+		return monthFrequency;
+	}
+	@Override
+	public Frequency bindFrequencyToRewardItemStore(SysUser caller,
+			String rewardItemStoreId, RewardsFrequency frequency) {
+		MonthFrequency monthFrequency = new MonthFrequency();
+		Date now = DateUtil.getTime();
+		Monthly monthly = cast(frequency);
+		monthFrequency.setInterval(monthly.getInterval());
+		monthFrequency.setMonthDay(monthly.getDay());
+		monthFrequency.setCreatedAt(now);
+		monthFrequency.setLastModifiedAt(now);
+		monthFrequency.setCreatedBy(caller);
+		monthFrequency.setLastModifiedBy(caller);
+		monthFrequencyDao.save(monthFrequency);
+
+		RewardItemStore rewardItemStore = rewardItemStoreDao.findById(RewardItemStore.class,
+				rewardItemStoreId);
+
+		rewardItemStore.setFrequency(monthFrequency);
 
 		return monthFrequency;
 	}

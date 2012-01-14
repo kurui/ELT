@@ -29,6 +29,16 @@ public interface CandidateRuleLogic {
 	 */
 	public DirectCandidateRule bindDirectCandidateRuleToRewardItem(
 			SysUser caller, String rewardItemId, List<String> candidateList);
+	/**
+	 * Bind the given {@link DirectCandidateRule} with
+	 * {@link DirectCandidateData} to the specified RewardItem.
+	 * 
+	 * @param rewardItemId
+	 * @param candidateList
+	 * @return
+	 */
+	public DirectCandidateRule bindDirectCandidateRuleToRewardItemStore(
+			SysUser caller, String rewardItemStoreId, List<String> candidateList);
 
 	/**
 	 * Bind a DobRule to the specified RewardItem.
@@ -37,6 +47,14 @@ public interface CandidateRuleLogic {
 	 * @return
 	 */
 	public DobRule bindDobRuleToRewardItem(SysUser caller, String rewardItemId);
+	
+	/**
+	 * Bind a DobRule to the specified RewardItem.
+	 * 
+	 * @param rewardItemId
+	 * @return
+	 */
+	public DobRule bindDobRuleToRewardItemStore(SysUser caller, String rewardItemStoreId);
 
 	/**
 	 * Remove {@link CandidateRule} from the specified RewardItem.
@@ -44,7 +62,12 @@ public interface CandidateRuleLogic {
 	 * @param rewardItemId
 	 */
 	public void removeCandidateRuleFromRewardItem(String rewardItemId);
-
+	/**
+	 * Remove {@link CandidateRule} from the specified RewardStoreItem.
+	 * 
+	 * @param rewardItemStoreId
+	 */
+	public void removeCandidateRuleFromRewardItemStore(String rewardItemStoreId);
 	/**
 	 * Get {@link CandidateRule} list from the specified RewardItem.
 	 * 

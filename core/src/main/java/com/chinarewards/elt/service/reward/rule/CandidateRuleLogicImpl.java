@@ -12,12 +12,14 @@ import com.chinarewards.elt.dao.reward.DirectCandidateRuleDao;
 import com.chinarewards.elt.dao.reward.DobRuleDao;
 import com.chinarewards.elt.dao.reward.RewardDao;
 import com.chinarewards.elt.dao.reward.RewardItemDao;
+import com.chinarewards.elt.dao.reward.RewardItemStoreDao;
 import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.org.Organization;
 import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.domain.reward.base.Reward;
 import com.chinarewards.elt.domain.reward.base.RewardItem;
+import com.chinarewards.elt.domain.reward.base.RewardItemStore;
 import com.chinarewards.elt.domain.reward.frequency.Frequency;
 import com.chinarewards.elt.domain.reward.rule.CandidateRule;
 import com.chinarewards.elt.domain.reward.rule.DirectCandidateData;
@@ -47,12 +49,12 @@ public class CandidateRuleLogicImpl implements CandidateRuleLogic {
 	private final OrganizationDao organizationDao;
 	private final StaffLogic staffLogic;
 	private final FrequencyLogic frequencyLogic;
-
+    private final RewardItemStoreDao rewardItemStoreDao;
 	@Inject
 	public CandidateRuleLogicImpl(CandidateRuleDao candidateRuleDao,
 			DirectCandidateRuleDao directCandidateRuleDao,
 			DirectCandidateDataDao directCandidateDataDao,
-			DobRuleDao dobRuleDao, RewardDao rewardDao,
+			DobRuleDao dobRuleDao, RewardDao rewardDao,RewardItemStoreDao rewardItemStoreDao,
 			RewardItemDao rewardItemDao, OrganizationDao organizationDao,
 			StaffLogic staffLogic, FrequencyLogic frequencyLogic) {
 		this.candidateRuleDao = candidateRuleDao;
@@ -64,6 +66,7 @@ public class CandidateRuleLogicImpl implements CandidateRuleLogic {
 		this.organizationDao = organizationDao;
 		this.staffLogic = staffLogic;
 		this.frequencyLogic = frequencyLogic;
+		this.rewardItemStoreDao = rewardItemStoreDao;
 	}
 
 	@Override
@@ -97,6 +100,39 @@ public class CandidateRuleLogicImpl implements CandidateRuleLogic {
 
 		return directCandidateRule;
 	}
+	
+	@Override//奖项库
+	public DirectCandidateRule bindDirectCandidateRuleToRewardItemStore(
+			SysUser caller, String rewardItemStoreId, List<String> candidateList) {
+		DirectCandidateRule directCandidateRule = new DirectCandidateRule();
+		Date now = DateUtil.getTime();
+		directCandidateRule.setCreatedAt(now);
+		directCandidateRule.setLastModifiedAt(now);
+		directCandidateRule.setCreatedBy(caller);
+		directCandidateRule.setLastModifiedBy(caller);
+
+		directCandidateRuleDao.save(directCandidateRule);
+
+		// Add ShortList
+		for (String id : candidateList) {
+			DirectCandidateData dsl = new DirectCandidateData();
+			dsl.setDirectCandidateRule(directCandidateRule);
+			Organization org = organizationDao.findById(Organization.class, id);
+			dsl.setOrg(org);
+			dsl.setCreatedAt(now);
+			dsl.setCreatedBy(caller);
+			dsl.setLastModifiedAt(now);
+			dsl.setLastModifiedBy(caller);
+			directCandidateDataDao.save(dsl);
+		}
+
+		RewardItemStore rewardItemStore = rewardItemStoreDao.findById(RewardItemStore.class,
+				rewardItemStoreId);
+		rewardItemStore.setCandidateRule(directCandidateRule);
+
+		return directCandidateRule;
+	}
+
 
 	@Override
 	public DobRule bindDobRuleToRewardItem(SysUser caller, String rewardItemId) {
@@ -114,11 +150,41 @@ public class CandidateRuleLogicImpl implements CandidateRuleLogic {
 		rewardItem.setCandidateRule(dobRule);
 		return dobRule;
 	}
+   
+	@Override
+	public DobRule bindDobRuleToRewardItemStore(SysUser caller, String rewardItemStoreId) {
+		DobRule dobRule = new DobRule();
+		Date now = DateUtil.getTime();
+		dobRule.setCreatedAt(now);
+		dobRule.setLastModifiedAt(now);
+		dobRule.setCreatedBy(caller);
+		dobRule.setLastModifiedBy(caller);
+		dobRuleDao.save(dobRule);
+
+		RewardItemStore rewardItemStore = rewardItemStoreDao.findById(RewardItemStore.class,
+				rewardItemStoreId);
+
+		rewardItemStore.setCandidateRule(dobRule);
+		return dobRule;
+	}
 
 	@Override
 	public void removeCandidateRuleFromRewardItem(String rewardItemId) {
 		CandidateRule rule = candidateRuleDao
 				.findCandidateRuleByRIID(rewardItemId);
+		if (rule instanceof DirectCandidateRule) {
+			List<DirectCandidateData> shortLists = directCandidateDataDao
+					.findDirectCandidateDataListByDirectRuleId(rule.getId());
+			for (DirectCandidateData sl : shortLists) {
+				directCandidateDataDao.delete(sl);
+			}
+		}
+		candidateRuleDao.delete(rule);
+	}
+  
+	@Override
+	public void removeCandidateRuleFromRewardItemStore(String rewardItemStoreId) {
+		CandidateRule rule = candidateRuleDao.findCandidateRuleByRIStoreID(rewardItemStoreId);
 		if (rule instanceof DirectCandidateRule) {
 			List<DirectCandidateData> shortLists = directCandidateDataDao
 					.findDirectCandidateDataListByDirectRuleId(rule.getId());

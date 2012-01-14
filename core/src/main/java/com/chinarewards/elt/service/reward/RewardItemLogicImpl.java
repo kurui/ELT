@@ -220,12 +220,11 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 
 			// clear frequency
 			if (itemObj.getFrequency() != null)
-				frequencyLogic.removeFrequencyFromRewardItem(itemObj.getId());
+				frequencyLogic.removeFrequencyFromRewardItemStore(itemObj.getId());
 			// clear short-list rule
-			candidateRuleLogic.removeCandidateRuleFromRewardItem(itemObj
-					.getId());
+			  candidateRuleLogic.removeCandidateRuleFromRewardItemStore(itemObj.getId());
 			// clear judge list
-			judgeLogic.removeJudgesFromRewardItem(itemObj.getId());
+			  judgeLogic.removeJudgesFromRewardItemStore(itemObj.getId());
 			if (param.getFrequency() == null)
 				itemObj.setFrequency(null);
 			rewardItemStoreDao.update(itemObj);
@@ -233,21 +232,18 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 
 		// Add frequency
 		if (param.getFrequency() != null)
-			frequencyLogic.bindFrequencyToRewardItem(caller, itemObj.getId(),
-					param.getFrequency());
+			frequencyLogic.bindFrequencyToRewardItemStore(caller, itemObj.getId(),param.getFrequency());
 		// Add short-list rule
-		if (param.getCandidateList() != null
-				&& !param.getCandidateList().isEmpty()) {
-			candidateRuleLogic.bindDirectCandidateRuleToRewardItem(caller,
-					itemObj.getId(), param.getCandidateList());
+		if (param.getCandidateList() != null&& !param.getCandidateList().isEmpty()) {
+			candidateRuleLogic.bindDirectCandidateRuleToRewardItemStore(caller,itemObj.getId(), param.getCandidateList());
 		}
 		if (param.isDob()) {
-			candidateRuleLogic.bindDobRuleToRewardItem(caller, itemObj.getId());
+			candidateRuleLogic.bindDobRuleToRewardItemStore(caller, itemObj.getId());
 		}
 
 		// Add judge list
 		if (param.getJudgeIds() != null && !param.getJudgeIds().isEmpty()) {
-			judgeLogic.bindJudgesToRewardItem(caller, itemObj.getId(),
+			judgeLogic.bindJudgesToRewardItemStore(caller, itemObj.getId(),
 					param.getJudgeIds());
 		}
 
