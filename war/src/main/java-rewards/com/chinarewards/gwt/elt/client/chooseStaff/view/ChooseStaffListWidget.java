@@ -132,7 +132,7 @@ public class ChooseStaffListWidget extends Composite implements
 
 	@Override
 	public void hiddenChooseBtn() {
-		this.chooseBtn.getElement().addClassName(CssStyleConstants.hidden);
+		this.chooseBtn.setVisible(false);
 
 	}
 
