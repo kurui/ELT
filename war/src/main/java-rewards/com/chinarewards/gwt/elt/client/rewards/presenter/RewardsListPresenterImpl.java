@@ -175,7 +175,8 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 				new GetValue<RewardsClient, String>() {
 					@Override
 					public String getValue(RewardsClient rewards) {
-						return rewards.getTotalAmtLimit() + "";
+						int total = (int) (rewards.getTotalAmtLimit() / 10);
+						return  total+ "";
 					}
 				}, ref, "totalAmtLimit");
 		cellTable.addColumn("说明", new TextCell(),

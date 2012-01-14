@@ -156,7 +156,8 @@ public class AwardRewardPresenterImpl extends
 						display.setName(response.getRewardName());
 						display.setExplain(response.getDefinition());
 						display.setCondition(response.getStandard());
-						display.setIntegral(response.getTotalAmtLimit() + "");
+						int total = (int) (response.getTotalAmtLimit() / 10);
+						display.setIntegral(total + "");
 						display.setRecordName(response.getCreatedStaffName());
 						display.setNumber(response.getHeadcountLimit() + "");
 						display.setAwardAmt(response.getAwardAmt() + "");
