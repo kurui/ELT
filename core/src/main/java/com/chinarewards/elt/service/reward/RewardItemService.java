@@ -142,6 +142,13 @@ public interface RewardItemService {
 	
 	
 	public List<DirectCandidateData> findDirectCandidateDataListByDirectRuleId(String directRuleId);
+	/**
+	 * copy 奖项库--创建--奖项
+	 * @param context
+	 * @param rewardItemId
+	 * @return
+	 */
+	public String copyRewardItenStoreToRewardItem(UserContext context, String rewardItemStoreId);
 
 	
 

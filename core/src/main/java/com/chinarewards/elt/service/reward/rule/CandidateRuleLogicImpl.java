@@ -327,4 +327,57 @@ public class CandidateRuleLogicImpl implements CandidateRuleLogic {
 	public List<DirectCandidateData> findDirectCandidateDataListByDirectRuleId(	String directRuleId){
 		return directCandidateDataDao.findDirectCandidateDataListByDirectRuleId(directRuleId);
 	}
+
+	@Override
+	public CandidateRule copyCandidateRuleToRewardItem(SysUser caller,
+			String rewardItemStoreId, String rewardItemId) {
+		Date now = DateUtil.getTime();
+		CandidateRule rule = findCandidateRuleFromRewardItemStore(rewardItemStoreId);
+		RewardItem rewardItem = rewardItemDao.findById(RewardItem.class, rewardItemId);
+		if (rule instanceof DirectCandidateRule) {
+			DirectCandidateRule oldRule = (DirectCandidateRule) rule;
+			DirectCandidateRule newRule = new DirectCandidateRule();
+			newRule.setCreatedAt(now);
+			newRule.setCreatedBy(caller);
+			newRule.setLastModifiedAt(now);
+			newRule.setLastModifiedBy(caller);
+			directCandidateRuleDao.save(newRule);
+			List<DirectCandidateData> candidateList = oldRule
+					.getCandidateDataList();
+			for (DirectCandidateData dsl : candidateList) {
+				DirectCandidateData newShortList = new DirectCandidateData();
+				newShortList.setDirectCandidateRule(newRule);
+				newShortList.setOrg(dsl.getOrg());
+				newShortList.setCreatedAt(now);
+				newShortList.setLastModifiedAt(now);
+				newShortList.setCreatedBy(caller);
+				newShortList.setLastModifiedBy(caller);
+				directCandidateDataDao.save(newShortList);
+			}
+			rewardItem.setCandidateRule(newRule);
+			rewardItemDao.update(rewardItem);
+			return newRule;
+		} else if (rule instanceof DobRule) {
+			DobRule newRule = new DobRule();
+			newRule.setCreatedAt(now);
+			newRule.setCreatedBy(caller);
+			newRule.setLastModifiedAt(now);
+			newRule.setLastModifiedBy(caller);
+			// Add date range..
+			Frequency frequency = frequencyLogic
+					.getFrequencyOfRewardItemStore(rewardItemStoreId);
+			DateRangeModel range = frequencyLogic.calDateRangeFromFrequency(
+					frequency, new Date());
+			newRule.setRangeFrom(range.getFrom());
+			newRule.setRangeTo(range.getTo());
+
+			dobRuleDao.save(newRule);
+			rewardItem.setCandidateRule(newRule);
+			rewardItemDao.update(rewardItem);
+			return newRule;
+		} else {
+			throw new UnsupportedOperationException();
+		}
+		
+	}
 }

@@ -97,4 +97,6 @@ public interface FrequencyLogic {
 	 * @return
 	 */
 	public Date calNextAwardTime(Frequency frequency, Date lastRunTime);
+
+	public Frequency copyFrequencyToRewardItem(SysUser caller,String rewardItemStoreId, String rewardItemId);
 }

@@ -71,8 +71,9 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 	protected RewardItemLogicImpl(RewardItemTypeDao rewardItemTypeDao,
 			RewardItemDao rewardItemDao, FrequencyLogic frequencyLogic,
 			CandidateRuleLogic candidateRuleLogic, JudgeLogic judgeLogic,
-			RewardAclProcessorFactory rewardAclProcessorFactory,RewardItemStoreDao rewardItemStoreDao,
-			DepartmentLogic deptLogic, RewardLogic rewardLogic, UserLogic userLogic,
+			RewardAclProcessorFactory rewardAclProcessorFactory,
+			RewardItemStoreDao rewardItemStoreDao, DepartmentLogic deptLogic,
+			RewardLogic rewardLogic, UserLogic userLogic,
 			WeekFrequencyDaysDao weekFrequencyDaysDao, OrgPolicyDao orgPolicyDao) {
 		this.rewardItemTypeDao = rewardItemTypeDao;
 		this.rewardItemDao = rewardItemDao;
@@ -85,7 +86,7 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 		this.orgPolicyDao = orgPolicyDao;
 		this.userLogic = userLogic;
 		this.weekFrequencyDaysDao = weekFrequencyDaysDao;
-        this.rewardItemStoreDao = rewardItemStoreDao;
+		this.rewardItemStoreDao = rewardItemStoreDao;
 	}
 
 	private RewardItem assembleRewardItemObject(SysUser caller,
@@ -207,9 +208,10 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 
 		return itemObj;
 	}
-   
+
 	@Override
-	public RewardItemStore saveRewardItemStore(SysUser caller, RewardItemParam param) {
+	public RewardItemStore saveRewardItemStore(SysUser caller,
+			RewardItemParam param) {
 		logger.debug("Invoking method saveRewardItem(), parameter:{}", param);
 		RewardItemStore itemObj = assembleRewardItemStoreObject(caller, param);
 		System.out.println("itemObj=" + itemObj.getFrequency());
@@ -221,11 +223,13 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 
 			// clear frequency
 			if (itemObj.getFrequency() != null)
-				frequencyLogic.removeFrequencyFromRewardItemStore(itemObj.getId());
+				frequencyLogic.removeFrequencyFromRewardItemStore(itemObj
+						.getId());
 			// clear short-list rule
-			  candidateRuleLogic.removeCandidateRuleFromRewardItemStore(itemObj.getId());
+			candidateRuleLogic.removeCandidateRuleFromRewardItemStore(itemObj
+					.getId());
 			// clear judge list
-			  judgeLogic.removeJudgesFromRewardItemStore(itemObj.getId());
+			judgeLogic.removeJudgesFromRewardItemStore(itemObj.getId());
 			if (param.getFrequency() == null)
 				itemObj.setFrequency(null);
 			rewardItemStoreDao.update(itemObj);
@@ -233,13 +237,17 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 
 		// Add frequency
 		if (param.getFrequency() != null)
-			frequencyLogic.bindFrequencyToRewardItemStore(caller, itemObj.getId(),param.getFrequency());
+			frequencyLogic.bindFrequencyToRewardItemStore(caller,
+					itemObj.getId(), param.getFrequency());
 		// Add short-list rule
-		if (param.getCandidateList() != null&& !param.getCandidateList().isEmpty()) {
-			candidateRuleLogic.bindDirectCandidateRuleToRewardItemStore(caller,itemObj.getId(), param.getCandidateList());
+		if (param.getCandidateList() != null
+				&& !param.getCandidateList().isEmpty()) {
+			candidateRuleLogic.bindDirectCandidateRuleToRewardItemStore(caller,
+					itemObj.getId(), param.getCandidateList());
 		}
 		if (param.isDob()) {
-			candidateRuleLogic.bindDobRuleToRewardItemStore(caller, itemObj.getId());
+			candidateRuleLogic.bindDobRuleToRewardItemStore(caller,
+					itemObj.getId());
 		}
 
 		// Add judge list
@@ -250,7 +258,9 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 
 		return itemObj;
 	}
-	private RewardItemStore assembleRewardItemStoreObject(SysUser caller,	RewardItemParam param) {
+
+	private RewardItemStore assembleRewardItemStoreObject(SysUser caller,
+			RewardItemParam param) {
 		logger.debug("Invoking method assembleRewardItemObject()");
 		Date currTime = DateUtil.getTime();
 		RewardItemStore item = null;
@@ -263,7 +273,8 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 			item.setCreatedAt(currTime);
 		} else {
 			// Update a existed record
-			item = rewardItemStoreDao.findById(RewardItemStore.class, param.getId());
+			item = rewardItemStoreDao.findById(RewardItemStore.class,
+					param.getId());
 		}
 
 		// RewardItemType
@@ -321,12 +332,14 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 
 		return item;
 	}
+
 	@Override
-	public String deleteRewardItem(SysUser caller,String rewardItemId) {
+	public String deleteRewardItem(SysUser caller, String rewardItemId) {
 		logger.debug("Invoking method deleteRewardItem(), rewardItemId:{}",
 				rewardItemId);
 		Date now = DateUtil.getTime();
-		RewardItem rewardItem = rewardItemDao.findById(RewardItem.class,rewardItemId);
+		RewardItem rewardItem = rewardItemDao.findById(RewardItem.class,
+				rewardItemId);
 		rewardItem.setLastModifiedAt(now);
 		rewardItem.setLastModifiedBy(caller);
 		rewardItem.setDeleted(true);
@@ -429,10 +442,11 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 
 		return storeVo;
 	}
-	
-	@Override//奖项库的列表查询
-	public PageStore<RewardItemStoreVo> fetchRewardItemsStore(UserContext context,
-			RewardItemSearchVo criteria) {
+
+	@Override
+	// 奖项库的列表查询
+	public PageStore<RewardItemStoreVo> fetchRewardItemsStore(
+			UserContext context, RewardItemSearchVo criteria) {
 		logger.debug("Process in fetchRewardItemsStore method, parameter RewardItemSearchVo.toString:"
 				+ criteria);
 		PageStore<RewardItemStore> pageStore = rewardAclProcessorFactory
@@ -454,8 +468,9 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 
 		return storeVo;
 	}
-	private RewardItemStoreVo convertFromRewardItemStoreToVo(RewardItemStore item,
-			boolean isEntire) {
+
+	private RewardItemStoreVo convertFromRewardItemStoreToVo(
+			RewardItemStore item, boolean isEntire) {
 		RewardItemStoreVo itemVo = new RewardItemStoreVo();
 		if (isEntire) {
 			String rewardItemStoreId = item.getId();
@@ -749,5 +764,51 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 			policy.setOwner(dep);
 			orgPolicyDao.save(policy);
 		}
+	}
+
+	@Override
+	public RewardItemStore findRewardItemStore(String rewardItemStoreId) {
+		return rewardItemStoreDao.findById(RewardItemStore.class,
+				rewardItemStoreId);
+	}
+
+	@Override
+	public String copyRewardItenStoreToRewardItem(UserContext context,
+			String rewardItemStoreId) {
+		SysUser suser = userLogic.findUserById(context.getUserId());
+		RewardItemStore rewardItemStore = findRewardItemStore(rewardItemStoreId);
+		RewardItem rewardItem = new RewardItem();
+		rewardItem.setName(rewardItemStore.getName());
+		rewardItem.setType(rewardItemStore.getType());
+		rewardItem.setDefinition(rewardItemStore.getDefinition());
+		rewardItem.setStandard(rewardItemStore.getStandard());
+		rewardItem.setHeadcountLimit(rewardItemStore.getHeadcountLimit());// 人数
+		rewardItem.setTotalAmtLimit(rewardItemStore.getTotalAmtLimit());// 总积分
+		rewardItem.setAwardAmt(rewardItemStore.getAwardAmt());// 个人要得的积分
+		rewardItem.setBuilderDept(suser.getStaff().getDepartment());
+		rewardItem.setAccountDept(suser.getStaff().getDepartment());
+		rewardItem.setNominateAheadDays(rewardItemStore.getNominateAheadDays());// 提名提前的天数
+		rewardItem.setAutoGenerate(rewardItemStore.getAutoGenerate());
+		rewardItem.setAwardUnit(rewardItemStore.getAwardUnit());
+		rewardItem.setCorporation(suser.getCorporation());
+		rewardItem.setCreatedAt(DateUtil.getTime());
+		rewardItem.setCreatedBy(suser);
+		rewardItem.setAutoAward(rewardItemStore.getAutoAward());
+
+		rewardItemDao.save(rewardItem);
+		// 复制提名人
+		judgeLogic.copyJudgeToRewardItem(suser, rewardItemStore.getId(),
+				rewardItem.getId());
+		// 复制频率
+		if(rewardItem.getAutoGenerate()==RequireAutoGenerate.requireCyclic)
+			rewardItem.setFrequency(rewardItemStore.getFrequency());
+			//frequencyLogic.copyFrequencyToRewardItem(suser, rewardItemStore.getId(), rewardItem.getId());
+		// 复制被提名人
+		candidateRuleLogic.copyCandidateRuleToRewardItem(suser,
+				rewardItemStore.getId(), rewardItem.getId());
+
+		rewardItemStore.setDegree(rewardItemStore.getDegree()+1);
+		rewardItemStoreDao.update(rewardItemStore);
+		return rewardItem.getName();
 	}
 }
