@@ -79,4 +79,10 @@ public interface JudgeLogic {
 	 */
 	public void cloneJudgesFromRewardItemToReward(SysUser caller,
 			String fromRewardItemId, String toRewardId);
+/**
+ * 复制提名人
+ * @param id
+ * @param id2
+ */
+	public void copyJudgeToRewardItem(SysUser caller,String rewardItemStoreId, String rewardItemId);
 }

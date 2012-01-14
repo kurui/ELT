@@ -63,13 +63,17 @@ public class RewardItemServiceImpl implements RewardItemService {
 
 		return rewardItem;
 	}
+
 	@Override
-	public RewardItemStore saveRewardItemStore(UserContext context, RewardItemParam param){
+	public RewardItemStore saveRewardItemStore(UserContext context,
+			RewardItemParam param) {
 		SysUser caller = userLogic.findUserById(context.getUserId());
-		RewardItemStore rewardItemStore = rewardItemLogic.saveRewardItemStore(caller, param);
+		RewardItemStore rewardItemStore = rewardItemLogic.saveRewardItemStore(
+				caller, param);
 		rewardItemLogic.saveOrgPolicy(rewardItemStore.getBuilderDept());
-       return rewardItemStore;
+		return rewardItemStore;
 	}
+
 	@Override
 	public List<StaffAndDeptmentAutoCompile> staffAndDeptmentAutoCompile(
 			String corporationId, String falg, int limit) {
@@ -78,9 +82,9 @@ public class RewardItemServiceImpl implements RewardItemService {
 	}
 
 	@Override
-	public String deleteRewardItem(UserContext context,String rewardItemId) {
-		 SysUser caller = userLogic.findUserById(context.getUserId());
-		return rewardItemLogic.deleteRewardItem( caller,rewardItemId);
+	public String deleteRewardItem(UserContext context, String rewardItemId) {
+		SysUser caller = userLogic.findUserById(context.getUserId());
+		return rewardItemLogic.deleteRewardItem(caller, rewardItemId);
 
 	}
 
@@ -96,12 +100,14 @@ public class RewardItemServiceImpl implements RewardItemService {
 
 		return rewardItemLogic.fetchRewardItems(context, criteria);
 	}
+
 	@Override
-	public PageStore<RewardItemStoreVo> fetchRewardItemsStore(UserContext context,
-			RewardItemSearchVo criteria) {
+	public PageStore<RewardItemStoreVo> fetchRewardItemsStore(
+			UserContext context, RewardItemSearchVo criteria) {
 
 		return rewardItemLogic.fetchRewardItemsStore(context, criteria);
 	}
+
 	@Override
 	public PageStore<RewardItemVo> fetchRewardItemsNoAcl(
 			RewardItemSearchVo criteria) {
@@ -181,6 +187,14 @@ public class RewardItemServiceImpl implements RewardItemService {
 		return candidateRuleLogic
 				.findDirectCandidateDataListByDirectRuleId(directRuleId);
 		// findDirectCandidateDataListByDirectRuleId
+	}
+
+	@Override
+	public String copyRewardItenStoreToRewardItem(UserContext context,
+			String rewardItemStoreId) {
+		return rewardItemLogic.copyRewardItenStoreToRewardItem(context,
+				rewardItemStoreId);
+
 	}
 
 }

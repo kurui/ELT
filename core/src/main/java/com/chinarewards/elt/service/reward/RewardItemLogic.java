@@ -149,5 +149,14 @@ public interface RewardItemLogic {
 	public void updateRewardItemCount(String rewardItemId);
 	
 	public void saveOrgPolicy(Department dep);
+	public RewardItemStore findRewardItemStore(String rewardItemStoreId);
+	/**
+	 * copy 奖项库--创建--奖项
+	 * @param context
+	 * @param rewardItemId
+	 * @return
+	 */
+	public String copyRewardItenStoreToRewardItem(UserContext context, String rewardItemStoreId);
 
+	
 }

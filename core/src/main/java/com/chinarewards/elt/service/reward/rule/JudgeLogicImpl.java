@@ -127,4 +127,23 @@ public class JudgeLogicImpl implements JudgeLogic {
 			judgeDao.save(newJudge);
 		}
 	}
+
+	@Override
+	public void copyJudgeToRewardItem(SysUser caller,String rewardItemStoreId, String rewardItemId) {
+		Date now = DateUtil.getTime();
+		RewardItem rewardItem = rewardItemDao.findById(RewardItem.class, rewardItemId);
+		List<Judge> judges = judgeDao.findJudgesFromRewardItemStore(rewardItemStoreId);
+		for (Judge j : judges) {
+			Judge newJudge = new Judge();
+			newJudge.setRewardItem(rewardItem);
+			newJudge.setStaff(j.getStaff());
+			newJudge.setCreatedAt(now);
+			newJudge.setCreatedBy(caller);
+			newJudge.setLastModifiedAt(now);
+			newJudge.setLastModifiedBy(caller);
+			newJudge.setStatus(JudgeStatus.NONE);
+			judgeDao.save(newJudge);
+		}
+		
+	}
 }

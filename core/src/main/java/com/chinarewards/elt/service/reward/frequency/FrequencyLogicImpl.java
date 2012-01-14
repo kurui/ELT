@@ -4,7 +4,9 @@ import java.util.Date;
 import java.util.List;
 
 import com.chinarewards.elt.dao.reward.FrequencyDao;
+import com.chinarewards.elt.dao.reward.RewardItemDao;
 import com.chinarewards.elt.dao.reward.WeekFrequencyDaysDao;
+import com.chinarewards.elt.domain.reward.base.RewardItem;
 import com.chinarewards.elt.domain.reward.frequency.Frequency;
 import com.chinarewards.elt.domain.reward.frequency.WeekFrequency;
 import com.chinarewards.elt.domain.reward.frequency.WeekFrequencyDays;
@@ -24,13 +26,14 @@ public class FrequencyLogicImpl implements FrequencyLogic {
 	FrequencyFactory frequencyFactory;
 	FrequencyDao frequencyDao;
 	WeekFrequencyDaysDao weekFrequencyDaysDao;
-
+	private final RewardItemDao rewardItemDao;
 	@Inject
 	public FrequencyLogicImpl(FrequencyFactory frequencyFactory,
-			FrequencyDao frequencyDao, WeekFrequencyDaysDao weekFrequencyDaysDao) {
+			FrequencyDao frequencyDao, WeekFrequencyDaysDao weekFrequencyDaysDao,RewardItemDao rewardItemDao) {
 		this.frequencyFactory = frequencyFactory;
 		this.frequencyDao = frequencyDao;
 		this.weekFrequencyDaysDao = weekFrequencyDaysDao;
+		this.rewardItemDao=rewardItemDao;
 	}
 
 	@Override
@@ -115,5 +118,22 @@ public class FrequencyLogicImpl implements FrequencyLogic {
 	public Date calNextAwardTime(Frequency frequency, Date lastRunTime) {
 		return frequencyFactory.getProcessor(frequency).calNextRunTime(
 				frequency, lastRunTime);
+	}
+
+	@Override
+	public Frequency copyFrequencyToRewardItem(SysUser caller,
+			String rewardItemStoreId, String rewardItemId) {
+		Frequency f =getFrequencyOfRewardItemStore(rewardItemStoreId);
+		RewardItem rewardItem = rewardItemDao.findById(RewardItem.class, rewardItemId);
+		Frequency newf=new Frequency();
+		newf.setInterval(f.getInterval());
+		newf.setCreatedAt(new Date());
+		newf.setCreatedBy(caller);
+		newf.setLastModifiedAt(new Date());
+		newf.setLastModifiedBy(caller);
+		frequencyDao.save(newf);
+		rewardItem.setFrequency(newf);
+		rewardItemDao.update(rewardItem);
+		return newf;
 	}
 }

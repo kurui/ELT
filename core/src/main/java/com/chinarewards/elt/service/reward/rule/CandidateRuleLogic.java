@@ -29,6 +29,7 @@ public interface CandidateRuleLogic {
 	 */
 	public DirectCandidateRule bindDirectCandidateRuleToRewardItem(
 			SysUser caller, String rewardItemId, List<String> candidateList);
+
 	/**
 	 * Bind the given {@link DirectCandidateRule} with
 	 * {@link DirectCandidateData} to the specified RewardItem.
@@ -47,14 +48,15 @@ public interface CandidateRuleLogic {
 	 * @return
 	 */
 	public DobRule bindDobRuleToRewardItem(SysUser caller, String rewardItemId);
-	
+
 	/**
 	 * Bind a DobRule to the specified RewardItem.
 	 * 
 	 * @param rewardItemId
 	 * @return
 	 */
-	public DobRule bindDobRuleToRewardItemStore(SysUser caller, String rewardItemStoreId);
+	public DobRule bindDobRuleToRewardItemStore(SysUser caller,
+			String rewardItemStoreId);
 
 	/**
 	 * Remove {@link CandidateRule} from the specified RewardItem.
@@ -62,12 +64,14 @@ public interface CandidateRuleLogic {
 	 * @param rewardItemId
 	 */
 	public void removeCandidateRuleFromRewardItem(String rewardItemId);
+
 	/**
 	 * Remove {@link CandidateRule} from the specified RewardStoreItem.
 	 * 
 	 * @param rewardItemStoreId
 	 */
 	public void removeCandidateRuleFromRewardItemStore(String rewardItemStoreId);
+
 	/**
 	 * Get {@link CandidateRule} list from the specified RewardItem.
 	 * 
@@ -75,15 +79,15 @@ public interface CandidateRuleLogic {
 	 * @return
 	 */
 	public CandidateRule findCandidateRuleFromRewardItem(String rewardItemId);
-	
+
 	/**
 	 * Get {@link CandidateRule} list from the specified RewardItemStore.
 	 * 
 	 * @param rewardItemStoreId
 	 * @return
 	 */
-	public CandidateRule findCandidateRuleFromRewardItemStore(String rewardItemStoreId);
-
+	public CandidateRule findCandidateRuleFromRewardItemStore(
+			String rewardItemStoreId);
 
 	/**
 	 * Clone {@link CandidateRule} list from the specified RewardItem to Reward.
@@ -113,7 +117,10 @@ public interface CandidateRuleLogic {
 	 */
 	public Set<Staff> getQualifiedStaffsFromCandidateRuleId(
 			String candidateRuleId);
-	
-	//修改时得到候选人的列表
-	public List<DirectCandidateData> findDirectCandidateDataListByDirectRuleId(	String directRuleId);
+
+	// 修改时得到候选人的列表
+	public List<DirectCandidateData> findDirectCandidateDataListByDirectRuleId(
+			String directRuleId);
+
+	public CandidateRule copyCandidateRuleToRewardItem(SysUser caller,String rewardItemStoreId, String rewardItemId);
 }

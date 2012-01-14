@@ -2,8 +2,6 @@ package com.chinarewards.gwt.elt.client.rewardItem.presenter;
 
 import java.util.Comparator;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
@@ -13,8 +11,8 @@ import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemConstants;
-import com.chinarewards.gwt.elt.client.rewardItem.request.ActivationRewardsItemRequest;
-import com.chinarewards.gwt.elt.client.rewardItem.request.ActivationRewardsItemResponse;
+import com.chinarewards.gwt.elt.client.rewardItem.request.ActivationRewardsItemStoreRequest;
+import com.chinarewards.gwt.elt.client.rewardItem.request.ActivationRewardsItemStroeResponse;
 import com.chinarewards.gwt.elt.client.rewardItem.request.DeleteRewardsItemRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.DeleteRewardsItemResponse;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemClient;
@@ -110,7 +108,7 @@ public class RewardsItemStoreListPresenterImpl extends
 		resultTable.setPageSize(ViewConstants.per_page_number_in_dialog);
 		listViewAdapter = new RewardsItemStoreListViewAdapter(dispatch,errorHandler, sessionManager,display);
 		listViewAdapter.addDataDisplay(resultTable);
-
+		resultTable.getColumn(0).setCellStyleNames("divTextLeft");
 		display.getDataContainer().clear();
 		display.getDataContainer().add(resultTable);
 		display.getDataPager().add(pager);
@@ -291,48 +289,33 @@ public class RewardsItemStoreListPresenterImpl extends
 				new GetValue<RewardsItemClient, String>() {
 					@Override
 					public String getValue(RewardsItemClient arg0) {
-
-						if (arg0.isEnabled() == false)
-							return "应用";
-						else
-							return "已激活";
+							return "我要用这个";
+		
 					}
 				}, new FieldUpdater<RewardsItemClient, String>() {
 					@Override
 					public void update(int index,
 							final RewardsItemClient object, String value) {
-						if (object.isEnabled() == false) {
+		
 
-							if(object.getStartTime()==null)
-							{
-								win.alert("失败，"+object.getName()+"资料不完整，影响其正常运作，请完善后再应用");
-								return;
-							}
-
-							win.confirm("提示", "确定激活？", new ConfirmHandler() {
+							win.confirm("提示", "确定应用？", new ConfirmHandler() {
 								@Override
 								public void confirm() {
-									activationRewardItem(object.getId());
+									activationRewardItemStore(object.getId());
 								}
 							});
 
-						} else {
-							win.alert("失败，" + object.getName() + "已经处于激活状态");
-							/*
-							 * if (Window.confirm("为了测试,重新激活,再运行一次batch?")) {
-							 * activationRewardItem(object.getId()); }
-							 */
-						}
+					
 					}
 				});
 
 	}
 
-	public void activationRewardItem(String rewardsItemId) {
+	public void activationRewardItemStore(String rewardsItemStroeId) {
 
-		dispatch.execute(new ActivationRewardsItemRequest(rewardsItemId,
+		dispatch.execute(new ActivationRewardsItemStoreRequest(rewardsItemStroeId,
 				sessionManager.getSession().getToken()),
-				new AsyncCallback<ActivationRewardsItemResponse>() {
+				new AsyncCallback<ActivationRewardsItemStroeResponse>() {
 
 					@Override
 					public void onFailure(Throwable t) {
@@ -340,8 +323,8 @@ public class RewardsItemStoreListPresenterImpl extends
 					}
 
 					@Override
-					public void onSuccess(ActivationRewardsItemResponse resp) {
-						win.alert(resp.getName() + "--已激活!");
+					public void onSuccess(ActivationRewardsItemStroeResponse resp) {
+						win.alert(resp.getName() + "--应用成功!");
 						doSearch();
 					}
 				});
