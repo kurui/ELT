@@ -52,14 +52,14 @@
 					  <div class="{newitem.form-line}">
 				        <label class="{newitem.label}">  总积分：</label>
 				        <div class="{newitem.element}">
-				          <g:TextBox maxLength="10" ui:field="totalJF" styleName="{newitem.text}"/>
+				          <g:TextBox maxLength="9" ui:field="totalJF" styleName="{newitem.text}"/>
 
 				        </div>
 				      </div>
                       <div class="{newitem.form-line}">
 				        <label class="{newitem.label}"> 每人得奖积分：</label>
 				        <div class="{newitem.element}">
-				          <g:TextBox maxLength="10" ui:field="rewardsFrom" styleName="{newitem.text}"/>
+				          <g:TextBox maxLength="9" ui:field="rewardsFrom" styleName="{newitem.text}"/>
 				        </div>
 				      </div>
 				      
