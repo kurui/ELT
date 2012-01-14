@@ -122,16 +122,20 @@
                       </div>
                       
                       
-                   
+                      
+                   <span class="{newitem.cutline}"></span>
+                       
                       <div class="{newitem.form-line}">
-					  <div    align="center" >
-					   <span class="{newitem.btn}">  <g:Button ui:field="back" styleName="button-ok">返回 </g:Button></span>
-					   <span class="{newitem.btn}">  <g:Button ui:field="update" styleName="button-ok">修改 </g:Button></span>
-					  
-					  </div>
-                    </div>
+				        <div class="{newitem.element}">
+				       		<span class="{newitem.btn}">  <g:Button ui:field="back" styleName="button-ok">返回 </g:Button></span>
+					   		<span class="{newitem.btn}">  <g:Button ui:field="update" styleName="button-ok">修改 </g:Button></span>
+				        </div>
+				      </div>
+				      
+				      
+                 
                   </div>	
-				<span class="{newitem.cutline}"></span>		
+				
 		</div>		
 	</g:HTMLPanel>
 </ui:UiBinder>

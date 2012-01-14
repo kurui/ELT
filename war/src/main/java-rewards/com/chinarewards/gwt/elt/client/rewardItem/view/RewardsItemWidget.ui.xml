@@ -151,7 +151,7 @@
 				          <span class="{newitem.btn}"><g:Button ui:field="save" >保存</g:Button></span>   
 				        </div>
 				      </div>
-                        <span class="{newitem.cutline}"></span>
+                       
                      
                     </div>
                   </div>	
