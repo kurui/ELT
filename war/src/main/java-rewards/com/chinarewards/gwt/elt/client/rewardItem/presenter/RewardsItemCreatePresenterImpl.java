@@ -640,7 +640,7 @@ public class RewardsItemCreatePresenterImpl extends
 						if (display.getExpectTime().getValue() == null|| "".equals(display.getExpectTime().getValue())) {
 							errorMsg.append("预计颁奖时间不能为空!<br>");
 							flag = false;
-						}else if(display.getStartTime().getValue().getTime()>display.getExpectTime().getValue().getTime()){
+						}else if(display.getStartTime().getValue()!=null && display.getStartTime().getValue().getTime()>display.getExpectTime().getValue().getTime()){
 							errorMsg.append("开始时间要小于预计颁奖时间<br>");
 							flag = false;
 						}
