@@ -66,10 +66,13 @@ public class RewardItemDao extends BaseDao<RewardItem> {
 		StringBuffer eql = new StringBuffer();
 		System.out.println("RewardItemSearchVo : " + criteria);
 		if (SEARCH.equals(type)) {
-			eql.append(" SELECT item FROM RewardItem item WHERE 1 = 1 and  deleted=false");
+			eql.append(" SELECT item FROM RewardItem item WHERE 1 = 1 and  item.deleted= :deleted");
 		} else if (COUNT.equals(type)) {
-			eql.append(" SELECT COUNT(item) FROM RewardItem item WHERE 1 = 1 and  deleted=false");
+			eql.append(" SELECT COUNT(item) FROM RewardItem item WHERE 1 = 1 and  item.deleted= :deleted");
 		}
+
+		param.put("deleted", false);
+
 		if (!StringUtil.isEmptyString(criteria.getAccountDeptName())) {
 			eql.append(" AND item.accountDept IN (FROM Department dept WHERE UPPER(dept.name) LIKE :accountDeptName) ");
 			param.put("accountDeptName", "%"
@@ -97,20 +100,23 @@ public class RewardItemDao extends BaseDao<RewardItem> {
 
 		}
 		// 根据创建时间来查询
-		if (null != criteria.getCreateTime() && !criteria.getCreateTime().equals("")&&null != criteria.getCreateTimeEnd() && !criteria.getCreateTimeEnd().equals("")) {
+		if (null != criteria.getCreateTime()
+				&& !criteria.getCreateTime().equals("")
+				&& null != criteria.getCreateTimeEnd()
+				&& !criteria.getCreateTimeEnd().equals("")) {
 			eql.append(" and ( item.createdAt  between :createTime and :createdAtEnd)");
 			param.put("createTime", criteria.getCreateTime());
 			param.put("createdAtEnd", criteria.getCreateTimeEnd());
 
 		}
 		// 根据激活状态来查询
-			eql.append(" and  item.enabled= :enabled ");
-			param.put("enabled", criteria.isEnabled());
-			
-		
+		eql.append(" and  item.enabled= :enabled ");
+		param.put("enabled", criteria.isEnabled());
+
 		if (!StringUtil.isEmptyString(criteria.getName())) {
 			eql.append(" AND UPPER(item.name) LIKE :name ");
-			param.put("name", "%" + criteria.getName().trim().toUpperCase()	+ "%");
+			param.put("name", "%" + criteria.getName().trim().toUpperCase()
+					+ "%");
 		}
 		if (!StringUtil.isEmptyString(criteria.getStandard())) {
 			eql.append(" AND UPPER(item.standard) LIKE :standard ");
@@ -129,14 +135,14 @@ public class RewardItemDao extends BaseDao<RewardItem> {
 			eql.append(" AND item.id = :Id");
 			param.put("typeId", criteria.getId());
 		}
-		
-		if (criteria.getSortingDetail() != null) {
-			eql.append(" ORDER BY item."
-					+ criteria.getSortingDetail().getSort() + " "
-					+ criteria.getSortingDetail().getDirection());
+		if (SEARCH.equals(type)) {
+			if (null != criteria && null != criteria.getSortingDetail()) {
+				eql.append(" ORDER BY item."
+						+ criteria.getSortingDetail().getSort() + " "
+						+ criteria.getSortingDetail().getDirection());
+			}
 		}
-
-	//	System.out.println("EQL : " + eql);
+		// System.out.println("EQL : " + eql);
 		Query query = getEm().createQuery(eql.toString());
 		if (SEARCH.equals(type)) {
 			if (criteria.getPaginationDetail() != null) {
