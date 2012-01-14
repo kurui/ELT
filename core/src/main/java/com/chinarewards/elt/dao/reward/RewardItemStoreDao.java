@@ -30,7 +30,8 @@ import com.chinarewards.elt.util.StringUtil;
 public class RewardItemStoreDao extends BaseDao<RewardItemStore> {
 
 	@SuppressWarnings("unchecked")
-	public List<RewardItemStore> fetchRewardsItemsStore(RewardItemSearchVo criteria) {
+	public List<RewardItemStore> fetchRewardsItemsStore(
+			RewardItemSearchVo criteria) {
 
 		logger.debug("Process in fetchRewardsItems method, parameter : {}",
 				criteria.toString());
@@ -51,12 +52,14 @@ public class RewardItemStoreDao extends BaseDao<RewardItemStore> {
 	}
 
 	public int countRewardsItemsStore(RewardItemSearchVo criteria) {
-		logger.debug(" Process in countRewardsItemsStore method, parameter : {}",
+		logger.debug(
+				" Process in countRewardsItemsStore method, parameter : {}",
 				criteria.toString());
 		int count = 0;
 		Query query = getFetchRewardsItemsStoreQuery(COUNT, criteria);
 		count = Integer.parseInt(query.getSingleResult().toString());
-		logger.debug(" finshed by countRewardsItemsStore method, result count : {}",
+		logger.debug(
+				" finshed by countRewardsItemsStore method, result count : {}",
 				count);
 		return count;
 	}
@@ -67,12 +70,11 @@ public class RewardItemStoreDao extends BaseDao<RewardItemStore> {
 		StringBuffer eql = new StringBuffer();
 		System.out.println("RewardItemSearchVo : " + criteria);
 		if (SEARCH.equals(type)) {
-			eql.append(" SELECT item FROM RewardItemStore item WHERE 1 = 1 and  deleted=:deleted");
-			param.put("deleted", false);
+			eql.append(" SELECT item FROM RewardItemStore item WHERE 1 = 1 and  item.deleted=:deleted");
 		} else if (COUNT.equals(type)) {
-			eql.append(" SELECT COUNT(item) FROM RewardItemStore item WHERE 1 = 1 and  deleted=:deleted");
-			param.put("deleted", false);
+			eql.append(" SELECT COUNT(item) FROM RewardItemStore item WHERE 1 = 1 and  item.deleted=:deleted");
 		}
+		param.put("deleted", false);
 		if (!StringUtil.isEmptyString(criteria.getAccountDeptName())) {
 			eql.append(" AND item.accountDept IN (FROM Department dept WHERE UPPER(dept.name) LIKE :accountDeptName) ");
 			param.put("accountDeptName", "%"
@@ -100,17 +102,20 @@ public class RewardItemStoreDao extends BaseDao<RewardItemStore> {
 
 		}
 		// 根据创建时间来查询
-		if (null != criteria.getCreateTime() && !criteria.getCreateTime().equals("")&&null != criteria.getCreateTimeEnd() && !criteria.getCreateTimeEnd().equals("")) {
+		if (null != criteria.getCreateTime()
+				&& !criteria.getCreateTime().equals("")
+				&& null != criteria.getCreateTimeEnd()
+				&& !criteria.getCreateTimeEnd().equals("")) {
 			eql.append(" and ( item.createdAt  between :createTime and :createdAtEnd)");
 			param.put("createTime", criteria.getCreateTime());
 			param.put("createdAtEnd", criteria.getCreateTimeEnd());
 
 		}
-			
-		
+
 		if (!StringUtil.isEmptyString(criteria.getName())) {
 			eql.append(" AND UPPER(item.name) LIKE :name ");
-			param.put("name", "%" + criteria.getName().trim().toUpperCase()	+ "%");
+			param.put("name", "%" + criteria.getName().trim().toUpperCase()
+					+ "%");
 		}
 		if (!StringUtil.isEmptyString(criteria.getStandard())) {
 			eql.append(" AND UPPER(item.standard) LIKE :standard ");
@@ -122,12 +127,13 @@ public class RewardItemStoreDao extends BaseDao<RewardItemStore> {
 			param.put("typeName", "%"
 					+ criteria.getTypeName().trim().toUpperCase() + "%");
 		}
-		
-		
-		if (criteria.getSortingDetail() != null) {
-			eql.append(" ORDER BY item."
-					+ criteria.getSortingDetail().getSort() + " "
-					+ criteria.getSortingDetail().getDirection());
+
+		if (SEARCH.equals(type)) {
+			if (null != criteria && null != criteria.getSortingDetail()) {
+				eql.append(" ORDER BY item."
+						+ criteria.getSortingDetail().getSort() + " "
+						+ criteria.getSortingDetail().getDirection());
+			}
 		}
 
 		System.out.println("EQL : " + eql);

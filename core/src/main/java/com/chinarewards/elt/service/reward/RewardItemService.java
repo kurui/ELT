@@ -47,6 +47,10 @@ public interface RewardItemService {
 	 */
 	
 	public String deleteRewardItem(UserContext context,String rewardItemId);
+	
+	public String deleteRewardItemStore(UserContext context,String rewardItemStoreId);
+	
+	public RewardItemStoreVo fetchEntireRewardItemStoreById(String rewardItemStoreId);
 
 	/**
 	 * Fetch the entire information about the specified RewardItem. It contains
@@ -70,6 +74,8 @@ public interface RewardItemService {
 	 * @param criteria
 	 * @return
 	 */
+	
+	
 	public PageStore<RewardItemVo> fetchRewardItems(UserContext context,
 			RewardItemSearchVo criteria);
 	

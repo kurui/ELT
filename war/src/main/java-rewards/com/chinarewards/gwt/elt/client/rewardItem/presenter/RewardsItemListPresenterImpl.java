@@ -96,7 +96,7 @@ public class RewardsItemListPresenterImpl extends
 						.getEditorRegistry()
 						.openEditor(
 								RewardsItemConstants.EDITOR_REWARDSITEM_ADD,
-								"EDITOR_REWARDSITEM_ADD_DO_ID", null);
+								RewardsItemConstants.EDITOR_REWARDSITEM_ADD, RewardsItemConstants.EDITOR_REWARDSITEM_ADD);
 			}
 		}));
 	}
@@ -240,7 +240,7 @@ public class RewardsItemListPresenterImpl extends
 						.getEditorRegistry()
 						.openEditor(
 								RewardsItemConstants.EDITOR_REWARDSITEM_ADD,
-								"EDITOR_REWARDS_ITEM_ADD"+ object.getId(), object);
+								RewardsItemConstants.EDITOR_REWARDSITEM, object);
 					
 
 					}
@@ -279,7 +279,7 @@ public class RewardsItemListPresenterImpl extends
 								
 								@Override
 								public void confirm() {
-									dispatch.execute(new DeleteRewardsItemRequest(object.getId(),sessionManager.getSession().getToken()),
+									dispatch.execute(new DeleteRewardsItemRequest(object.getId(),sessionManager.getSession().getToken(),false),
 											new AsyncCallback<DeleteRewardsItemResponse>() {
 
 												@Override
@@ -363,7 +363,7 @@ public class RewardsItemListPresenterImpl extends
 	public void deleteRewardItem(String rewardsItemId) {
 
 		dispatch.execute(new DeleteRewardsItemRequest(rewardsItemId,
-				sessionManager.getSession().getToken()),
+				sessionManager.getSession().getToken(),false),
 				new AsyncCallback<DeleteRewardsItemResponse>() {
 
 					@Override

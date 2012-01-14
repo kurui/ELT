@@ -59,6 +59,22 @@ public interface RewardItemLogic {
 	 * @return
 	 */
 	public RewardItemVo fetchEntireRewardItemById(String rewardItemId);
+   
+	/**
+	 * Delete the specified RewardItemStore. Just delete in a logical way.
+	 * 
+	 * @param rewardItemStoreId
+	 */
+	public String deleteRewardItemStore(SysUser caller,String rewardItemStoreId);
+
+	/**
+	 * Fetch the entire information about the specified RewardItemStore. It contains
+	 * all the external informations.
+	 * 
+	 * @param rewardItemStoreId
+	 * @return
+	 */
+	public RewardItemStoreVo fetchEntireRewardItemStoreById(String rewardItemStoreId);
 
 	/**
 	 * 

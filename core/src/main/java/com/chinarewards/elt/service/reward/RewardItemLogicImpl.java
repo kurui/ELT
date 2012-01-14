@@ -333,6 +333,19 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 		rewardItemDao.update(rewardItem);
 		return rewardItem.getName();
 	}
+	
+	@Override
+	public String deleteRewardItemStore(SysUser caller,String rewardItemStoreId) {
+		logger.debug("Invoking method deleteRewardItem(), rewardItemId:{}",
+				rewardItemStoreId);
+		Date now = DateUtil.getTime();
+		RewardItemStore rewardItemStore = rewardItemStoreDao.findById(RewardItemStore.class,rewardItemStoreId);
+		rewardItemStore.setLastModifiedAt(now);
+		rewardItemStore.setLastModifiedBy(caller);
+		rewardItemStore.setDeleted(true);
+		rewardItemStoreDao.update(rewardItemStore);
+		return rewardItemStore.getName();
+	}
 
 	/**
 	 * Convert from {@link RewardItem} to {@link RewardItemVo}. Here have two
@@ -384,6 +397,13 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 		RewardItemVo itemVo = convertFromRewardItemToVo(rewardItem, true);
 		return itemVo;
 	}
+	@Override
+	public RewardItemStoreVo fetchEntireRewardItemStoreById(String rewardItemStoreId) {
+		RewardItemStore rewardItemStore = rewardItemStoreDao.findById(RewardItemStore.class,
+				rewardItemStoreId);
+		RewardItemStoreVo itemStoreVo = convertFromRewardItemStoreToVo(rewardItemStore, true);
+		return itemStoreVo;
+	}
 
 	@Override
 	public PageStore<RewardItemVo> fetchRewardItems(UserContext context,
@@ -423,7 +443,6 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 		// post-process and convert
 		List<RewardItemStoreVo> itemVoList = new ArrayList<RewardItemStoreVo>();
 		for (RewardItemStore item : itemList) {
-			System.out.println("============"+item.getName());
 			itemVoList.add(convertFromRewardItemStoreToVo(item, true));
 		}
 		logger.debug("The result size:{}, total:{}",

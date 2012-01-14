@@ -14,15 +14,17 @@ import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemClient;
 public class SearchRewardsItemByIdResponse implements Result {
 
 	private RewardsItemClient rewardsItem;
-
+   
 	public SearchRewardsItemByIdResponse() {
 
 	}
 	
 	public SearchRewardsItemByIdResponse(RewardsItemClient rewardsItem) {
 		this.rewardsItem = rewardsItem;
+		
 	}
 
+	
 	public RewardsItemClient getRewardsItem() {
 		return rewardsItem;
 	}

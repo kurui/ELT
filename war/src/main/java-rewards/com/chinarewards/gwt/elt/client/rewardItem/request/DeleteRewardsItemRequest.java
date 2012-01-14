@@ -14,7 +14,7 @@ public class DeleteRewardsItemRequest implements
 
 	private String rewardsItemId;
 	private String nowUserId;
-	
+	private boolean isItemStore ;
 
 	public String getNowUserId() {
 		return nowUserId;
@@ -32,11 +32,20 @@ public class DeleteRewardsItemRequest implements
 		this.rewardsItemId = rewardsItemId;
 	}
 
-	public DeleteRewardsItemRequest(String rewardsItemId,String nowUserId) {
+	public DeleteRewardsItemRequest(String rewardsItemId,String nowUserId,boolean isItemStore) {
 		this.rewardsItemId=rewardsItemId;
 		this.nowUserId=nowUserId;
+		this.isItemStore = isItemStore;
 
 	}
+	public boolean isItemStore() {
+		return isItemStore;
+	}
+
+	public void setItemStore(boolean isItemStore) {
+		this.isItemStore = isItemStore;
+	}
+
 	public DeleteRewardsItemRequest() {
 
 

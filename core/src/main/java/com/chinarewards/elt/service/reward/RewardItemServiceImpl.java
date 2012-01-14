@@ -89,6 +89,19 @@ public class RewardItemServiceImpl implements RewardItemService {
 		// TODO Auto-generated method stub
 		return rewardItemLogic.fetchEntireRewardItemById(rewardItemId);
 	}
+	
+	@Override
+	public String deleteRewardItemStore(UserContext context,String rewardItemStoreId) {
+		 SysUser caller = userLogic.findUserById(context.getUserId());
+		return rewardItemLogic.deleteRewardItemStore( caller,rewardItemStoreId);
+
+	}
+
+	@Override
+	public RewardItemStoreVo fetchEntireRewardItemStoreById(String rewardItemStoreId) {
+		// TODO Auto-generated method stub
+		return rewardItemLogic.fetchEntireRewardItemStoreById(rewardItemStoreId);
+	}
 
 	@Override
 	public PageStore<RewardItemVo> fetchRewardItems(UserContext context,

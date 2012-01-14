@@ -104,7 +104,7 @@ public interface RewardsItemCreatePresenter extends Presenter<RewardsItemCreateP
 		public HasValue<String> getPeopleSizeLimit();
 		
 		// 显示奖项
-		public void showRewardsItem(RewardsItemClient rewardsItem);
+		public void showRewardsItem(RewardsItemClient rewardsItem,boolean isItemStore);
 
 		// 显示模板
 	//	public void showRewardsTemplate(RewardsTemplateClient tmeplate,boolean initDo);
@@ -133,5 +133,7 @@ public interface RewardsItemCreatePresenter extends Presenter<RewardsItemCreateP
 		
 		// 得到提名人的id
 		List<String> getNominateIds();
+		void setTitle(String text);
+		void setRewardButtonDisplay();
 	}
 }

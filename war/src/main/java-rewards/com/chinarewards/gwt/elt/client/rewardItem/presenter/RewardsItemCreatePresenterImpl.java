@@ -63,6 +63,7 @@ public class RewardsItemCreatePresenterImpl extends
 		BasePresenter<RewardsItemCreatePresenter.RewardsItemDisplay> implements
 		RewardsItemCreatePresenter {
 	String instanceId;//修改时传过来的ID
+	boolean isItemStore = false;//是否是奖项库
 	/**
 	 * 是否为修改页，默认为false
 	 */
@@ -125,8 +126,16 @@ public class RewardsItemCreatePresenterImpl extends
 		//绑定事件
 		 init();
 		//候选人面板显示
+	//	 Window.alert(instanceId);
 		staffBlock.bind();
 		display.initStaffBlock(staffBlock.getDisplay().asWidget());
+		
+		if(instanceId.equals(RewardsItemConstants.EDITOR_REWARDSITEMSTORE))
+		{
+			display.setTitle("创建奖项库");
+			display.setRewardButtonDisplay();
+		}
+		
 	}
 	private void init(){
 		//频率设置
@@ -430,7 +439,7 @@ public class RewardsItemCreatePresenterImpl extends
 		nominateInfo = new SomeoneClient(orgs);
 		return nominateInfo;
 	 }
-	private void doSave(RewardsItemClient rewardsItem,boolean itemStore) {
+	private void doSave(RewardsItemClient rewardsItem,final boolean itemStore) {
 		dispatcher.execute(new CreateRewardsItemRequest(rewardsItem,sessionManager.getSession(),itemStore),
 				new AsyncCallback<CreateRewardsItemResponse>() {
 					@Override
@@ -442,11 +451,22 @@ public class RewardsItemCreatePresenterImpl extends
 					public void onSuccess(CreateRewardsItemResponse response) {
 						win.alert("添加成功");
 					//	if(instanceId!=null||!instanceId.equals(""))
+						if(itemStore==false)
+						{
 							Platform.getInstance()
 							.getEditorRegistry()
 							.openEditor(
 									RewardsItemConstants.EDITOR_REWARDSITEM_List,
 									"EDITOR_REWARDSITEM_List_DO_ID", instanceId);
+						}
+						else
+						{
+							Platform.getInstance()
+							.getEditorRegistry()
+							.openEditor(
+									RewardsItemConstants.EDITOR_REWARDSITEMSTORE_LIST,
+									RewardsItemConstants.EDITOR_REWARDSITEMSTORE, instanceId);
+						}
 
 					}
 				});
@@ -461,18 +481,28 @@ public class RewardsItemCreatePresenterImpl extends
 							@Override
 							public void onFailure(Throwable t) {
 								win.alert("修改失败");
-								Platform.getInstance()
-								.getEditorRegistry()
-								.closeEditor(RewardsItemConstants.EDITOR_REWARDSITEM_ADD,instanceId);
+		
 							}
-
+                           
 							@Override
 							public void onSuccess(CreateRewardsItemResponse arg0) {
 								win.alert("修改成功");
-								Platform.getInstance()
-								.getEditorRegistry()
-								.openEditor(RewardsItemConstants.EDITOR_REWARDSITEM_List,
-										"EDITOR_REWARDSITEM_List_DO_ID", instanceId);
+								if(itemStore==false)
+								{
+									Platform.getInstance()
+									.getEditorRegistry()
+									.openEditor(
+											RewardsItemConstants.EDITOR_REWARDSITEM_List,
+											"EDITOR_REWARDSITEM_List_DO_ID", instanceId);
+								}
+								else
+								{
+									Platform.getInstance()
+									.getEditorRegistry()
+									.openEditor(
+											RewardsItemConstants.EDITOR_REWARDSITEMSTORE_LIST,
+											RewardsItemConstants.EDITOR_REWARDSITEMSTORE, instanceId);
+								}
 							}
 						});
 				
@@ -745,22 +775,25 @@ public class RewardsItemCreatePresenterImpl extends
 					return flag;
 				}
         
-				@Override
+				@Override//修改时读取数据
 				public void initInstanceId(String instanceId,RewardsItemClient item) {
 					this.instanceId = instanceId;
-					initDataToEditRewardsItem( item);
+					if(item!=null)
+					initDataToEditRewardsItem( item,instanceId);
 				}
 				
-				private void initDataToEditRewardsItem(final RewardsItemClient item) {
+				private void initDataToEditRewardsItem(final RewardsItemClient item,final String instanceId) {
 					String id = item.getId();
-					  
 					isEditPage  = true;
+					if(instanceId.equals(RewardsItemConstants.EDITOR_REWARDSITEMSTORE))
+						isItemStore = true;
+					
 					{
-						dispatcher.execute(new SearchRewardsItemByIdRequest(id),
+						dispatcher.execute(new SearchRewardsItemByIdRequest(id,isItemStore),
 								new AsyncCallback<SearchRewardsItemByIdResponse>() {
 									@Override
 									public void onFailure(Throwable arg0) {
-										errorHandler.alert("查询奖项出错!");
+										errorHandler.alert("查询出错!");
 										Platform.getInstance()
 										.getEditorRegistry()
 										.closeEditor(RewardsItemConstants.EDITOR_REWARDSITEM_ADD,instanceId);
@@ -770,7 +803,7 @@ public class RewardsItemCreatePresenterImpl extends
 									public void onSuccess(SearchRewardsItemByIdResponse response) {
 										RewardsItemClient item = response.getRewardsItem();
 										clear();
-										display.showRewardsItem(item);
+										display.showRewardsItem(item,isItemStore);//显示奖项
 
 										// 初始前一次颁奖时间
 										rewardsDateCopuy = item.getLastRewardedDate();

@@ -2,8 +2,6 @@ package com.chinarewards.gwt.elt.client.rewardItem.presenter;
 
 import java.util.Comparator;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
@@ -96,7 +94,7 @@ public class RewardsItemStoreListPresenterImpl extends
 						.getEditorRegistry()
 						.openEditor(
 								RewardsItemConstants.EDITOR_REWARDSITEM_ADD,
-								"EDITOR_REWARDSITEM_ADD_DO_ID", null);
+								RewardsItemConstants.EDITOR_REWARDSITEMSTORE, RewardsItemConstants.EDITOR_REWARDSITEMSTORE);
 			}
 		}));
 	}
@@ -227,8 +225,9 @@ public class RewardsItemStoreListPresenterImpl extends
 						Platform.getInstance()
 						.getEditorRegistry()
 						.openEditor(
-								RewardsItemConstants.EDITOR_REWARDSITEM_ADD,
-								"EDITOR_REWARDS_ITEM_ADD"+ object.getId(), object);
+								RewardsItemConstants.EDITOR_REWARDSITEM_ADD
+								,RewardsItemConstants.EDITOR_REWARDSITEMSTORE
+								, object);
 					
 
 					}
@@ -247,8 +246,7 @@ public class RewardsItemStoreListPresenterImpl extends
 								.getEditorRegistry()
 								.openEditor(
 										RewardsItemConstants.EDITOR_REWARDSITEM_View,
-										"EDITOR_REWARDS_ITEM_VIEW"
-												+ object.getId(), object);
+										RewardsItemConstants.EDITOR_REWARDSITEMSTORE, object);
 					}
 				});
 		resultTable.addColumn("操作", new HyperLinkCell(),
@@ -266,7 +264,7 @@ public class RewardsItemStoreListPresenterImpl extends
 								
 								@Override
 								public void confirm() {
-									dispatch.execute(new DeleteRewardsItemRequest(object.getId(),sessionManager.getSession().getToken()),
+									dispatch.execute(new DeleteRewardsItemRequest(object.getId(),sessionManager.getSession().getToken(),true),
 											new AsyncCallback<DeleteRewardsItemResponse>() {
 
 												@Override
@@ -350,7 +348,7 @@ public class RewardsItemStoreListPresenterImpl extends
 	public void deleteRewardItem(String rewardsItemId) {
 
 		dispatch.execute(new DeleteRewardsItemRequest(rewardsItemId,
-				sessionManager.getSession().getToken()),
+				sessionManager.getSession().getToken(),true),
 				new AsyncCallback<DeleteRewardsItemResponse>() {
 
 					@Override

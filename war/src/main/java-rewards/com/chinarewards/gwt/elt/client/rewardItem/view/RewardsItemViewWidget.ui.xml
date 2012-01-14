@@ -15,7 +15,7 @@
 			    <div class="{newitem.breadcrumb-wrap}">
 			      <p class="{newitem.breadcrumb-left}">
 			     <a href="#" style="color:#565656;text-decoration:none;">公司奖项</a>
-						-><span>查看奖项</span></p>
+						-><span><g:InlineLabel ui:field="title"/></span></p>
 			      <a href="#" class="{newitem.breadcrumb-right} {newitem.back-btn}"
 						style="color:#565656;text-decoration:none;">返回上一页</a>
 			      </div>
@@ -129,6 +129,8 @@
 				        <div class="{newitem.element}">
 				       		<span class="{newitem.btn}">  <g:Button ui:field="back" styleName="button-ok">返回 </g:Button></span>
 					   		<span class="{newitem.btn}">  <g:Button ui:field="update" styleName="button-ok">修改 </g:Button></span>
+					   		<span class="{newitem.btn}">  <g:Button ui:field="backStore" styleName="button-ok">返回</g:Button></span>
+					   		<span class="{newitem.btn}">  <g:Button ui:field="updateStore" styleName="button-ok">修改 </g:Button></span>
 				        </div>
 				      </div>
 				      

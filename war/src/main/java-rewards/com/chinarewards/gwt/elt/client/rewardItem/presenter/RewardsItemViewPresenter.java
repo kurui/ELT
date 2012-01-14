@@ -22,7 +22,7 @@ public interface RewardsItemViewPresenter extends Presenter<RewardsItemViewPrese
 		public HasClickHandlers getBackClick() ;	
 		public HasClickHandlers getUpdateClick() ;	
 		// 显示奖项详细内容
-		public void showRewardsItem(RewardsItemClient rewardsItem);
+		public void showRewardsItem(RewardsItemClient rewardsItem,boolean isItemStore);
 	
 		// 显示频率
 		public void showFrequencyInfo(FrequencyClient frequency);
@@ -32,7 +32,8 @@ public interface RewardsItemViewPresenter extends Presenter<RewardsItemViewPrese
 		//显示候选人
 		public void showParticipateInfo(RewardsBaseInfo info) ;
 		
-		
+		public HasClickHandlers getBackStoreClick() ;	
+		public HasClickHandlers getUpdateStoreClick() ;	
 			
 		
 	}

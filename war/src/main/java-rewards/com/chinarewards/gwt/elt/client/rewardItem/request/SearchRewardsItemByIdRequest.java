@@ -13,12 +13,21 @@ public class SearchRewardsItemByIdRequest implements
 		Action<SearchRewardsItemByIdResponse> {
 
 	private String id;
-
+	private boolean isItemStore;//是奖项还是奖项库
 	public SearchRewardsItemByIdRequest() {
 	}
 
-	public SearchRewardsItemByIdRequest(String id) {
+	public SearchRewardsItemByIdRequest(String id,boolean isItemStore) {
 		this.id = id;
+		this.isItemStore = isItemStore;
+	}
+
+	public boolean isItemStore() {
+		return isItemStore;
+	}
+
+	public void setItemStore(boolean isItemStore) {
+		this.isItemStore = isItemStore;
 	}
 
 	public String getId() {
