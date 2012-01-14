@@ -7,7 +7,9 @@ import org.slf4j.LoggerFactory;
 
 import com.chinarewards.elt.dao.reward.DayFrequencyDao;
 import com.chinarewards.elt.dao.reward.RewardItemDao;
+import com.chinarewards.elt.dao.reward.RewardItemStoreDao;
 import com.chinarewards.elt.domain.reward.base.RewardItem;
+import com.chinarewards.elt.domain.reward.base.RewardItemStore;
 import com.chinarewards.elt.domain.reward.frequency.DayFrequency;
 import com.chinarewards.elt.domain.reward.frequency.Frequency;
 import com.chinarewards.elt.domain.user.SysUser;
@@ -27,13 +29,15 @@ public class FrequencyProcessorDay implements FrequencyProcessor {
 
 	private final DayFrequencyDao dayFrequencyDao;
 	private final RewardItemDao rewardItemDao;
+	private final RewardItemStoreDao rewardItemStoreDao;
 	Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Inject
 	public FrequencyProcessorDay(DayFrequencyDao dayFrequencyDao,
-			RewardItemDao rewardItemDao) {
+			RewardItemDao rewardItemDao,RewardItemStoreDao rewardItemStoreDao) {
 		this.dayFrequencyDao = dayFrequencyDao;
 		this.rewardItemDao = rewardItemDao;
+		this.rewardItemStoreDao = rewardItemStoreDao;
 	}
 
 	private Daily cast(RewardsFrequency frequency) {
@@ -55,6 +59,25 @@ public class FrequencyProcessorDay implements FrequencyProcessor {
 		RewardItem rewardItem = rewardItemDao.findById(RewardItem.class,
 				rewardItemId);
 		rewardItem.setFrequency(dayFrequency);
+
+		return dayFrequency;
+	}
+	
+	@Override
+	public Frequency bindFrequencyToRewardItemStore(SysUser caller,
+			String rewardItemStoreId, RewardsFrequency frequency) {
+		DayFrequency dayFrequency = new DayFrequency();
+		Date now = DateUtil.getTime();
+		dayFrequency.setInterval(cast(frequency).getInterval());
+		dayFrequency.setCreatedAt(now);
+		dayFrequency.setLastModifiedAt(now);
+		dayFrequency.setCreatedBy(caller);
+		dayFrequency.setLastModifiedBy(caller);
+		dayFrequencyDao.save(dayFrequency);
+
+		RewardItemStore rewardItemStore = rewardItemStoreDao.findById(RewardItemStore.class,
+				rewardItemStoreId);
+		rewardItemStore.setFrequency(dayFrequency);
 
 		return dayFrequency;
 	}

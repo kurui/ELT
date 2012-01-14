@@ -8,9 +8,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.chinarewards.elt.dao.reward.RewardItemDao;
+import com.chinarewards.elt.dao.reward.RewardItemStoreDao;
 import com.chinarewards.elt.dao.reward.WeekFrequencyDao;
 import com.chinarewards.elt.dao.reward.WeekFrequencyDaysDao;
 import com.chinarewards.elt.domain.reward.base.RewardItem;
+import com.chinarewards.elt.domain.reward.base.RewardItemStore;
 import com.chinarewards.elt.domain.reward.frequency.Frequency;
 import com.chinarewards.elt.domain.reward.frequency.WeekFrequency;
 import com.chinarewards.elt.domain.reward.frequency.WeekFrequencyDays;
@@ -34,16 +36,17 @@ public class FrequencyProcessorWeek implements FrequencyProcessor {
 	private final WeekFrequencyDao weekFrequencyDao;
 	private final WeekFrequencyDaysDao weekFrequencyDaysDao;
 	private final RewardItemDao rewardItemDao;
-
+	RewardItemStoreDao rewardItemStoreDao;
 	Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Inject
 	public FrequencyProcessorWeek(WeekFrequencyDao weekFrequencyDao,
-			WeekFrequencyDaysDao weekFrequencyDaysDao,
+			WeekFrequencyDaysDao weekFrequencyDaysDao,RewardItemStoreDao rewardItemStoreDao,
 			RewardItemDao rewardItemDao) {
 		this.weekFrequencyDao = weekFrequencyDao;
 		this.weekFrequencyDaysDao = weekFrequencyDaysDao;
 		this.rewardItemDao = rewardItemDao;
+		this.rewardItemStoreDao = rewardItemStoreDao;
 	}
 
 	private Weekly cast(RewardsFrequency frequency) {
@@ -79,6 +82,37 @@ public class FrequencyProcessorWeek implements FrequencyProcessor {
 
 		return weekFrequency;
 	}
+	
+	@Override
+	public Frequency bindFrequencyToRewardItemStore(SysUser caller,
+			String rewardItemStoreId, RewardsFrequency frequency) {
+		WeekFrequency weekFrequency = new WeekFrequency();
+		Date now = DateUtil.getTime();
+		Weekly weekly = cast(frequency);
+		weekFrequency.setInterval(weekly.getInterval());
+		weekFrequency.setCreatedAt(now);
+		weekFrequency.setLastModifiedAt(now);
+		weekFrequency.setCreatedBy(caller);
+		weekFrequency.setLastModifiedBy(caller);
+		weekFrequencyDao.save(weekFrequency);
+
+		// Add weekFrquencyDays
+		for (WeekDays days : weekly.getWeekdays()) {
+			WeekFrequencyDays weekDays = new WeekFrequencyDays();
+			weekDays.setFrequency(weekFrequency);
+			weekDays.setSort(days.getFlag());
+			weekDays.setWeekDays(days);
+
+			weekFrequencyDaysDao.save(weekDays);
+		}
+
+		RewardItemStore rewardItemStore = rewardItemStoreDao.findById(RewardItemStore.class,
+				rewardItemStoreId);
+		rewardItemStore.setFrequency(weekFrequency);
+
+		return weekFrequency;
+	}
+
 
 	@Override
 	public String generateRewardName(String name, Frequency frequency,

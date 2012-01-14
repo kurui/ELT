@@ -25,6 +25,7 @@
 		<!-- reward -->
 		<class>com.chinarewards.elt.domain.reward.base.Reward</class>
 		<class>com.chinarewards.elt.domain.reward.base.RewardItem</class>
+		<class>com.chinarewards.elt.domain.reward.base.RewardItemStore</class>
 		<class>com.chinarewards.elt.domain.reward.base.RewardItemType</class>
 		<class>com.chinarewards.elt.domain.reward.frequency.DayFrequency</class>
 		<class>com.chinarewards.elt.domain.reward.frequency.Frequency</class>

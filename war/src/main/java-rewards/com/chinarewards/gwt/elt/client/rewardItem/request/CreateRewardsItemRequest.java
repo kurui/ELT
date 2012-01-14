@@ -16,13 +16,23 @@ public class CreateRewardsItemRequest implements  Action<CreateRewardsItemRespon
 
 	private RewardsItemClient rewardsItem;
 	private UserSession userSession;
+	private boolean itemStore;
 	public CreateRewardsItemRequest() {
 
 	}
 
-	public CreateRewardsItemRequest(RewardsItemClient rewardsItem,UserSession userSession) {
+	public CreateRewardsItemRequest(RewardsItemClient rewardsItem,UserSession userSession,boolean itemStore) {
 		this.rewardsItem = rewardsItem;
 		this.userSession = userSession;
+		this.itemStore = itemStore;
+	}
+
+	public boolean isItemStore() {
+		return itemStore;
+	}
+
+	public void setItemStore(boolean itemStore) {
+		this.itemStore = itemStore;
 	}
 
 	public UserSession getUserSession() {

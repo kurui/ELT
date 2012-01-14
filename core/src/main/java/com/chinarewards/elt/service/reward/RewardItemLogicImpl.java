@@ -31,6 +31,7 @@ import com.chinarewards.elt.model.reward.base.RequireAutoAward;
 import com.chinarewards.elt.model.reward.base.RequireAutoGenerate;
 import com.chinarewards.elt.model.reward.base.RewardItemParam;
 import com.chinarewards.elt.model.reward.search.RewardItemSearchVo;
+import com.chinarewards.elt.model.reward.vo.RewardItemStoreVo;
 import com.chinarewards.elt.model.reward.vo.RewardItemVo;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.org.DepartmentLogic;
@@ -220,12 +221,11 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 
 			// clear frequency
 			if (itemObj.getFrequency() != null)
-				frequencyLogic.removeFrequencyFromRewardItem(itemObj.getId());
+				frequencyLogic.removeFrequencyFromRewardItemStore(itemObj.getId());
 			// clear short-list rule
-			candidateRuleLogic.removeCandidateRuleFromRewardItem(itemObj
-					.getId());
+			  candidateRuleLogic.removeCandidateRuleFromRewardItemStore(itemObj.getId());
 			// clear judge list
-			judgeLogic.removeJudgesFromRewardItem(itemObj.getId());
+			  judgeLogic.removeJudgesFromRewardItemStore(itemObj.getId());
 			if (param.getFrequency() == null)
 				itemObj.setFrequency(null);
 			rewardItemStoreDao.update(itemObj);
@@ -233,21 +233,18 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 
 		// Add frequency
 		if (param.getFrequency() != null)
-			frequencyLogic.bindFrequencyToRewardItem(caller, itemObj.getId(),
-					param.getFrequency());
+			frequencyLogic.bindFrequencyToRewardItemStore(caller, itemObj.getId(),param.getFrequency());
 		// Add short-list rule
-		if (param.getCandidateList() != null
-				&& !param.getCandidateList().isEmpty()) {
-			candidateRuleLogic.bindDirectCandidateRuleToRewardItem(caller,
-					itemObj.getId(), param.getCandidateList());
+		if (param.getCandidateList() != null&& !param.getCandidateList().isEmpty()) {
+			candidateRuleLogic.bindDirectCandidateRuleToRewardItemStore(caller,itemObj.getId(), param.getCandidateList());
 		}
 		if (param.isDob()) {
-			candidateRuleLogic.bindDobRuleToRewardItem(caller, itemObj.getId());
+			candidateRuleLogic.bindDobRuleToRewardItemStore(caller, itemObj.getId());
 		}
 
 		// Add judge list
 		if (param.getJudgeIds() != null && !param.getJudgeIds().isEmpty()) {
-			judgeLogic.bindJudgesToRewardItem(caller, itemObj.getId(),
+			judgeLogic.bindJudgesToRewardItemStore(caller, itemObj.getId(),
 					param.getJudgeIds());
 		}
 
@@ -411,6 +408,57 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 		storeVo.setResultList(itemVoList);
 
 		return storeVo;
+	}
+	
+	@Override//奖项库的列表查询
+	public PageStore<RewardItemStoreVo> fetchRewardItemsStore(UserContext context,
+			RewardItemSearchVo criteria) {
+		logger.debug("Process in fetchRewardItemsStore method, parameter RewardItemSearchVo.toString:"
+				+ criteria);
+		PageStore<RewardItemStore> pageStore = rewardAclProcessorFactory
+				.generateRewardAclProcessor(context.getUserRoles())
+				.fetchRewardItemsStore(context, criteria);
+
+		List<RewardItemStore> itemList = pageStore.getResultList();
+		// post-process and convert
+		List<RewardItemStoreVo> itemVoList = new ArrayList<RewardItemStoreVo>();
+		for (RewardItemStore item : itemList) {
+			System.out.println("============"+item.getName());
+			itemVoList.add(convertFromRewardItemStoreToVo(item, true));
+		}
+		logger.debug("The result size:{}, total:{}",
+				new Object[] { itemVoList.size(), pageStore.getResultCount() });
+
+		PageStore<RewardItemStoreVo> storeVo = new PageStore<RewardItemStoreVo>();
+		storeVo.setResultCount(pageStore.getResultCount());
+		storeVo.setResultList(itemVoList);
+
+		return storeVo;
+	}
+	private RewardItemStoreVo convertFromRewardItemStoreToVo(RewardItemStore item,
+			boolean isEntire) {
+		RewardItemStoreVo itemVo = new RewardItemStoreVo();
+		if (isEntire) {
+			String rewardItemStoreId = item.getId();
+			// Get frequency info,判断是否周期
+			if (item.getAutoGenerate() == RequireAutoGenerate.requireCyclic) {
+				Frequency frequencie = frequencyLogic
+						.getFrequencyOfRewardItemStore(rewardItemStoreId);
+				itemVo.setFrequency(frequencie);
+			}
+			// Get candidate list rule
+			CandidateRule candidateRule = candidateRuleLogic
+					.findCandidateRuleFromRewardItemStore(rewardItemStoreId);
+			// Get judge list
+			List<Judge> judges = judgeLogic
+					.findJudgesFromRewardItemStore(rewardItemStoreId);
+
+			itemVo.setCandidateRule(candidateRule);
+			itemVo.setJudgeList(judges);
+		}
+		itemVo.setItemStore(item);
+
+		return itemVo;
 	}
 
 	@Override

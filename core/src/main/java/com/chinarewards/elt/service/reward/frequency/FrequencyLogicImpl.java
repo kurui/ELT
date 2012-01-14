@@ -45,6 +45,19 @@ public class FrequencyLogicImpl implements FrequencyLogic {
 		}
 		frequencyDao.delete(f);
 	}
+	
+	@Override
+	public void removeFrequencyFromRewardItemStore(String rewardItemStoreId) {
+		Frequency f = frequencyDao.findFrequencyByRewardStoreItemId(rewardItemStoreId);
+		if (f instanceof WeekFrequency) {
+			List<WeekFrequencyDays> weekDays = weekFrequencyDaysDao
+					.findWeekFrequencyDaysByFrequencyId(f.getId());
+			for (WeekFrequencyDays days : weekDays) {
+				weekFrequencyDaysDao.delete(days);
+			}
+		}
+		frequencyDao.delete(f);
+	}
 
 	@Override
 	public void bindFrequencyToRewardItem(SysUser caller, String rewardItemId,
@@ -52,10 +65,28 @@ public class FrequencyLogicImpl implements FrequencyLogic {
 		frequencyFactory.getProcessor(frequency).bindFrequencyToRewardItem(
 				caller, rewardItemId, frequency);
 	}
-
+	@Override
+	public void bindFrequencyToRewardItemStore(SysUser caller, String rewardItemStoreId,
+			RewardsFrequency frequency) {
+		frequencyFactory.getProcessor(frequency).bindFrequencyToRewardItemStore(
+				caller, rewardItemStoreId, frequency);
+	}
 	@Override
 	public Frequency getFrequencyOfRewardItem(String rewardItemId) {
 		Frequency f = frequencyDao.findFrequencyByRewardItemId(rewardItemId);
+		if (f instanceof WeekFrequency) {
+			List<WeekFrequencyDays> weekDays = weekFrequencyDaysDao
+					.findWeekFrequencyDaysByFrequencyId(f.getId());
+			WeekFrequency weekFrequency = (WeekFrequency) f;
+			weekFrequency.setWeekFrequencyDays(weekDays);
+		}
+
+		return f;
+	}
+	
+	@Override
+	public Frequency getFrequencyOfRewardItemStore(String rewardItemStoreId) {
+		Frequency f = frequencyDao.findFrequencyByRewardStoreItemId(rewardItemStoreId);
 		if (f instanceof WeekFrequency) {
 			List<WeekFrequencyDays> weekDays = weekFrequencyDaysDao
 					.findWeekFrequencyDaysByFrequencyId(f.getId());

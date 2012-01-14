@@ -17,6 +17,7 @@ import com.chinarewards.gwt.elt.client.gift.plugin.GiftPluginDescriptor;
 import com.chinarewards.gwt.elt.client.nominate.plugin.NominatePluginDescriptor;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemPluginDescriptor;
+import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemStoreListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemViewPluginDescriptor;
 import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.sample.SamplePluginDescriptor;
@@ -62,6 +63,7 @@ public class PlatformModule extends AbstractGinModule {
 			HrRegisterPluginDescriptor hrregister,
 			NominatePluginDescriptor nominate,
 			RewardsItemPluginDescriptor rewardsItem,
+			RewardsItemStoreListPluginDescriptor rewardsItemStoreList,
 			RewardsItemListPluginDescriptor rewardsItemList,
 			RewardsItemViewPluginDescriptor rewardsItemView,
 			RewardsListPluginDescriptor rewardsList,
@@ -76,6 +78,7 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(user);
 			pluginSet.registerPlugin(hrregister);
             pluginSet.registerPlugin(rewardsItemList);
+            pluginSet.registerPlugin(rewardsItemStoreList);
 			pluginSet.registerPlugin(nominate);
 			pluginSet.registerPlugin(rewardsItem);
 			pluginSet.registerPlugin(rewardsList);

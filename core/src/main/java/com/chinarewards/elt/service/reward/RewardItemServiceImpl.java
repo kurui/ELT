@@ -12,6 +12,7 @@ import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.reward.base.RequireAutoGenerate;
 import com.chinarewards.elt.model.reward.base.RewardItemParam;
 import com.chinarewards.elt.model.reward.search.RewardItemSearchVo;
+import com.chinarewards.elt.model.reward.vo.RewardItemStoreVo;
 import com.chinarewards.elt.model.reward.vo.RewardItemVo;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.vo.StaffAndDeptmentAutoCompile;
@@ -95,7 +96,12 @@ public class RewardItemServiceImpl implements RewardItemService {
 
 		return rewardItemLogic.fetchRewardItems(context, criteria);
 	}
+	@Override
+	public PageStore<RewardItemStoreVo> fetchRewardItemsStore(UserContext context,
+			RewardItemSearchVo criteria) {
 
+		return rewardItemLogic.fetchRewardItemsStore(context, criteria);
+	}
 	@Override
 	public PageStore<RewardItemVo> fetchRewardItemsNoAcl(
 			RewardItemSearchVo criteria) {

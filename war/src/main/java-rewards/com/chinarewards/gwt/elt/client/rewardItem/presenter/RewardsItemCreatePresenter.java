@@ -66,6 +66,8 @@ public interface RewardsItemCreatePresenter extends Presenter<RewardsItemCreateP
 		public HasValue<Boolean> getAutoCbx();
 
 		public HasClickHandlers getSaveClick();
+		
+		public HasClickHandlers getSaveStoreClick();
 
 		public void clear();
        

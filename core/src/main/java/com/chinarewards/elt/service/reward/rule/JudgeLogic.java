@@ -22,6 +22,17 @@ public interface JudgeLogic {
 	 */
 	public void bindJudgesToRewardItem(SysUser caller, String rewardItemId,
 			List<String> staffIds);
+	
+	/**
+	 * Bind judges to the specified RewardItemStore.
+	 * 
+	 * @param caller
+	 * @param rewardItemId
+	 * @param staffIds
+	 */
+	public void bindJudgesToRewardItemStore(SysUser caller, String rewardItemStoreId,
+			List<String> staffIds);
+
 
 	/**
 	 * Remove judges from the specified RewardItem.
@@ -29,7 +40,12 @@ public interface JudgeLogic {
 	 * @param rewardItemId
 	 */
 	public void removeJudgesFromRewardItem(String rewardItemId);
-
+	/**
+	 * Remove judges from the specified RewardItemStore.
+	 * 
+	 * @param rewardItemId
+	 */
+	public void removeJudgesFromRewardItemStore(String rewardItemStoreId);
 	/**
 	 * Find list of Judge from the specified RewardItem.
 	 * 
@@ -37,6 +53,14 @@ public interface JudgeLogic {
 	 * @return
 	 */
 	public List<Judge> findJudgesFromRewardItem(String rewardItemId);
+	
+	/**
+	 * Find list of Judge from the specified RewardItemStore.
+	 * 
+	 * @param rewardItemStoreId
+	 * @return
+	 */
+	public List<Judge> findJudgesFromRewardItemStore(String rewardItemStoreId);
 
 	/**
 	 * Find list of Judge from the specified Reward.
