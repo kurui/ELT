@@ -82,6 +82,6 @@
 				</div>
 			</div>
 			<!--分页 ]] -->
-    <span class="{newitem.cutline}"></span>
+
 	</g:HTMLPanel>
 </ui:UiBinder>
