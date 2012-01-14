@@ -53,6 +53,14 @@ public interface JudgeLogic {
 	 * @return
 	 */
 	public List<Judge> findJudgesFromRewardItem(String rewardItemId);
+	
+	/**
+	 * Find list of Judge from the specified RewardItemStore.
+	 * 
+	 * @param rewardItemStoreId
+	 * @return
+	 */
+	public List<Judge> findJudgesFromRewardItemStore(String rewardItemStoreId);
 
 	/**
 	 * Find list of Judge from the specified Reward.

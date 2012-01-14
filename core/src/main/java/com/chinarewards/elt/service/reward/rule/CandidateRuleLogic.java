@@ -75,6 +75,15 @@ public interface CandidateRuleLogic {
 	 * @return
 	 */
 	public CandidateRule findCandidateRuleFromRewardItem(String rewardItemId);
+	
+	/**
+	 * Get {@link CandidateRule} list from the specified RewardItemStore.
+	 * 
+	 * @param rewardItemStoreId
+	 * @return
+	 */
+	public CandidateRule findCandidateRuleFromRewardItemStore(String rewardItemStoreId);
+
 
 	/**
 	 * Clone {@link CandidateRule} list from the specified RewardItem to Reward.

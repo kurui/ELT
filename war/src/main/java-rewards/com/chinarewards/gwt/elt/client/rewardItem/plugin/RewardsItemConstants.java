@@ -25,6 +25,6 @@ public abstract class RewardsItemConstants {
 	public static final String EDITOR_REWARDSITEM_View = "EDITOR_REWARDSITEM_View";
 	
 	// The menu and editor of finding user.
-	public static final String MENU_REWARDSITEMStore_List = "MENU_REWARDSITEMStore_List";
-	public static final String EDITOR_REWARDSITEMStore_List = "EDITOR_REWARDSITEMStore_List";
+	public static final String MENU_REWARDSITEMSTORE_LIST = "MENU_REWARDSITEMStore_List";
+	public static final String EDITOR_REWARDSITEMSTORE_LIST = "EDITOR_REWARDSITEMStore_List";
 }

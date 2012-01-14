@@ -97,6 +97,11 @@ public class JudgeLogicImpl implements JudgeLogic {
 	public List<Judge> findJudgesFromRewardItem(String rewardItemId) {
 		return judgeDao.findJudgesFromRewardItem(rewardItemId);
 	}
+	
+	@Override
+	public List<Judge> findJudgesFromRewardItemStore(String rewardItemStoreId) {
+		return judgeDao.findJudgesFromRewardItemStore(rewardItemStoreId);
+	}
 
 	@Override
 	public List<Judge> findJudgesFromReward(String rewardId) {

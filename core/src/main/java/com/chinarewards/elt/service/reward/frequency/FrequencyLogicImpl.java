@@ -83,6 +83,19 @@ public class FrequencyLogicImpl implements FrequencyLogic {
 
 		return f;
 	}
+	
+	@Override
+	public Frequency getFrequencyOfRewardItemStore(String rewardItemStoreId) {
+		Frequency f = frequencyDao.findFrequencyByRewardStoreItemId(rewardItemStoreId);
+		if (f instanceof WeekFrequency) {
+			List<WeekFrequencyDays> weekDays = weekFrequencyDaysDao
+					.findWeekFrequencyDaysByFrequencyId(f.getId());
+			WeekFrequency weekFrequency = (WeekFrequency) f;
+			weekFrequency.setWeekFrequencyDays(weekDays);
+		}
+
+		return f;
+	}
 
 	@Override
 	public DateRangeModel calDateRangeFromFrequency(Frequency frequency,

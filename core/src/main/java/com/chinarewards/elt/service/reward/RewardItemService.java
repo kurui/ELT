@@ -10,6 +10,7 @@ import com.chinarewards.elt.domain.reward.rule.DirectCandidateData;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.reward.base.RewardItemParam;
 import com.chinarewards.elt.model.reward.search.RewardItemSearchVo;
+import com.chinarewards.elt.model.reward.vo.RewardItemStoreVo;
 import com.chinarewards.elt.model.reward.vo.RewardItemVo;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.vo.StaffAndDeptmentAutoCompile;
@@ -70,6 +71,9 @@ public interface RewardItemService {
 	 * @return
 	 */
 	public PageStore<RewardItemVo> fetchRewardItems(UserContext context,
+			RewardItemSearchVo criteria);
+	
+	public PageStore<RewardItemStoreVo> fetchRewardItemsStore(UserContext context,
 			RewardItemSearchVo criteria);
 
 	/**

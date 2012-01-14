@@ -57,6 +57,16 @@ public interface FrequencyLogic {
 	 * @return
 	 */
 	public Frequency getFrequencyOfRewardItem(String rewardItemId);
+	
+	/**
+	 * Get list of frequency about the specified RewardItem. All the frequency
+	 * must be complete. e.g. WeekFrequency must contains all the
+	 * WeekFrequencyDay data.
+	 * 
+	 * @param rewardItemId
+	 * @return
+	 */
+	public Frequency getFrequencyOfRewardItemStore(String rewardItemStoreId);
 
 	/**
 	 * Calculate the date range from the specified frequency.

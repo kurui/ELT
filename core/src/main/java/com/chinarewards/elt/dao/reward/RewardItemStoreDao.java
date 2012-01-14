@@ -30,11 +30,11 @@ import com.chinarewards.elt.util.StringUtil;
 public class RewardItemStoreDao extends BaseDao<RewardItemStore> {
 
 	@SuppressWarnings("unchecked")
-	public List<RewardItem> fetchRewardsItems(RewardItemSearchVo criteria) {
+	public List<RewardItemStore> fetchRewardsItemsStore(RewardItemSearchVo criteria) {
 
 		logger.debug("Process in fetchRewardsItems method, parameter : {}",
 				criteria.toString());
-		List<RewardItem> result = new ArrayList<RewardItem>();
+		List<RewardItemStore> result = new ArrayList<RewardItemStore>();
 		PaginationDetail pageDetail = criteria.getPaginationDetail();
 		if (null != pageDetail) {
 			logger.debug(
@@ -42,7 +42,7 @@ public class RewardItemStoreDao extends BaseDao<RewardItemStore> {
 					new Object[] { pageDetail.getStart(), pageDetail.getLimit() });
 		}
 
-		Query query = getFetchRewardsItemsQuery(SEARCH, criteria);
+		Query query = getFetchRewardsItemsStoreQuery(SEARCH, criteria);
 
 		result = query.getResultList();
 		logger.debug("finished by fetchRewardsItems method. result.size:{}",
@@ -50,26 +50,28 @@ public class RewardItemStoreDao extends BaseDao<RewardItemStore> {
 		return result;
 	}
 
-	public int countRewardsItems(RewardItemSearchVo criteria) {
-		logger.debug(" Process in countRewardsItems method, parameter : {}",
+	public int countRewardsItemsStore(RewardItemSearchVo criteria) {
+		logger.debug(" Process in countRewardsItemsStore method, parameter : {}",
 				criteria.toString());
 		int count = 0;
-		Query query = getFetchRewardsItemsQuery(COUNT, criteria);
+		Query query = getFetchRewardsItemsStoreQuery(COUNT, criteria);
 		count = Integer.parseInt(query.getSingleResult().toString());
-		logger.debug(" finshed by countRewardsItems method, result count : {}",
+		logger.debug(" finshed by countRewardsItemsStore method, result count : {}",
 				count);
 		return count;
 	}
 
-	private Query getFetchRewardsItemsQuery(String type,
+	private Query getFetchRewardsItemsStoreQuery(String type,
 			RewardItemSearchVo criteria) {
 		Map<String, Object> param = new HashMap<String, Object>();
 		StringBuffer eql = new StringBuffer();
 		System.out.println("RewardItemSearchVo : " + criteria);
 		if (SEARCH.equals(type)) {
-			eql.append(" SELECT item FROM RewardItem item WHERE 1 = 1 and  deleted=false");
+			eql.append(" SELECT item FROM RewardItemStore item WHERE 1 = 1 and  deleted=:deleted");
+			param.put("deleted", false);
 		} else if (COUNT.equals(type)) {
-			eql.append(" SELECT COUNT(item) FROM RewardItem item WHERE 1 = 1 and  deleted=false");
+			eql.append(" SELECT COUNT(item) FROM RewardItemStore item WHERE 1 = 1 and  deleted=:deleted");
+			param.put("deleted", false);
 		}
 		if (!StringUtil.isEmptyString(criteria.getAccountDeptName())) {
 			eql.append(" AND item.accountDept IN (FROM Department dept WHERE UPPER(dept.name) LIKE :accountDeptName) ");
@@ -104,9 +106,6 @@ public class RewardItemStoreDao extends BaseDao<RewardItemStore> {
 			param.put("createdAtEnd", criteria.getCreateTimeEnd());
 
 		}
-		// 根据激活状态来查询
-			eql.append(" and  item.enabled= :enabled ");
-			param.put("enabled", criteria.isEnabled());
 			
 		
 		if (!StringUtil.isEmptyString(criteria.getName())) {
@@ -123,13 +122,7 @@ public class RewardItemStoreDao extends BaseDao<RewardItemStore> {
 			param.put("typeName", "%"
 					+ criteria.getTypeName().trim().toUpperCase() + "%");
 		}
-		/**
-		 * id来查询
-		 */
-		if (!StringUtil.isEmptyString(criteria.getId())) {
-			eql.append(" AND item.id = :Id");
-			param.put("typeId", criteria.getId());
-		}
+		
 		
 		if (criteria.getSortingDetail() != null) {
 			eql.append(" ORDER BY item."
@@ -137,7 +130,7 @@ public class RewardItemStoreDao extends BaseDao<RewardItemStore> {
 					+ criteria.getSortingDetail().getDirection());
 		}
 
-	//	System.out.println("EQL : " + eql);
+		System.out.println("EQL : " + eql);
 		Query query = getEm().createQuery(eql.toString());
 		if (SEARCH.equals(type)) {
 			if (criteria.getPaginationDetail() != null) {

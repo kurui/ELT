@@ -5,8 +5,10 @@ import java.util.List;
 
 import com.chinarewards.elt.dao.reward.RewardDao;
 import com.chinarewards.elt.dao.reward.RewardItemDao;
+import com.chinarewards.elt.dao.reward.RewardItemStoreDao;
 import com.chinarewards.elt.domain.reward.base.Reward;
 import com.chinarewards.elt.domain.reward.base.RewardItem;
+import com.chinarewards.elt.domain.reward.base.RewardItemStore;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.reward.search.RewardItemSearchVo;
 import com.chinarewards.elt.model.reward.search.RewardSearchVo;
@@ -20,13 +22,14 @@ public class RewardAclProcessorHr extends AbstractRewardAclProcessor {
 	private final RewardDao rewardsDao;
 	private final RewardItemDao rewardsItemDao;
 	private final DepartmentLogic departmentLogic;
-
+	private final RewardItemStoreDao rewardsItemStoreDao;
 	@Inject
-	public RewardAclProcessorHr(RewardDao rewardsDao,
+	public RewardAclProcessorHr(RewardDao rewardsDao,RewardItemStoreDao rewardsItemStoreDao,
 			RewardItemDao rewardsItemDao, DepartmentLogic departmentLogic) {
 		this.rewardsDao = rewardsDao;
 		this.rewardsItemDao = rewardsItemDao;
 		this.departmentLogic = departmentLogic;
+		this.rewardsItemStoreDao = rewardsItemStoreDao;
 	}
 
 	@Override
@@ -74,6 +77,41 @@ public class RewardAclProcessorHr extends AbstractRewardAclProcessor {
 		PageStore<Reward> res = new PageStore<Reward>();
 		res = rewardsDao.searchRewards_hrManager(corporationId, criteria);
 		return res;
+	}
+
+	@Override
+	public PageStore<RewardItemStore> fetchRewardItemsStore(
+			UserContext context, RewardItemSearchVo criteria) {
+		logger.debug(
+				" Process in fetchRewardsItems method, UserId:{}, criteria:{},departmentId:{},chooseSubDept:{}",
+				new Object[] { context.getUserId(), criteria,
+						criteria.getDepartmentId(),
+						criteria.isSubDepartmentChosen() });
+		criteria.setCorporationId(context.getCorporationId());
+
+		// Should not pollute the input object! Clone it!
+		if (null != criteria.getDeptIds() && !criteria.getDeptIds().isEmpty()) {
+			// The depIds have priority. If it exist, do not need to observe
+			// departmentId again.
+		} else if (!StringUtil.isEmptyString(criteria.getDepartmentId())) {
+			List<String> deptIds = null;
+			if (criteria.isSubDepartmentChosen()) {
+				deptIds = departmentLogic.getWholeChildrenIds(
+						criteria.getDepartmentId(), true);
+			} else {
+				deptIds = new ArrayList<String>();
+				deptIds.add(criteria.getDepartmentId());
+			}
+			criteria.setDeptIds(new ArrayList<String>(deptIds));
+			criteria.setSubDepartmentChosen(false); // since we have converted
+													// it.
+		}
+
+		PageStore<RewardItemStore> pageStore = new PageStore<RewardItemStore>();
+		pageStore.setResultCount(rewardsItemStoreDao.countRewardsItemsStore(criteria));
+		List<RewardItemStore> itemList = rewardsItemStoreDao.fetchRewardsItemsStore(criteria);
+		pageStore.setResultList(itemList);
+		return pageStore;
 	}
 
 }

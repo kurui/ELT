@@ -23,7 +23,7 @@ import com.chinarewards.elt.model.transaction.TransactionUnit;
  * @author yanxin
  * @since 0.2.0 2011-01-14
  */
-public class RewardItemVoStore {
+public class RewardItemStoreVo {
 
 	private RewardItemStore itemStore = new RewardItemStore();
 
