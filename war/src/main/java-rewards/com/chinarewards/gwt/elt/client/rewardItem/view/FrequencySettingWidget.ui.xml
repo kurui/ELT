@@ -18,7 +18,7 @@
 							<g:Grid>
 								<g:row>
 									<g:customCell><g:Label>每</g:Label></g:customCell>
-									<g:customCell><g:TextBox ui:field="dayInterval" styleName='{style.interval}'></g:TextBox></g:customCell>
+									<g:customCell><g:TextBox maxLength="1" ui:field="dayInterval" styleName='{style.interval}'></g:TextBox></g:customCell>
 									<g:customCell><g:Label>日</g:Label></g:customCell>
 								</g:row>
 							</g:Grid>
@@ -27,7 +27,7 @@
 							<g:Grid>
 								<g:row>
 									<g:customCell><g:Label>每</g:Label></g:customCell>
-									<g:customCell><g:TextBox ui:field="weekInterval" styleName='{style.interval}'></g:TextBox></g:customCell>
+									<g:customCell><g:TextBox maxLength="1" ui:field="weekInterval" styleName='{style.interval}'></g:TextBox></g:customCell>
 									<g:customCell><g:Label>个星期</g:Label></g:customCell>
 								</g:row>
 							</g:Grid>
@@ -56,9 +56,9 @@
 							<g:Grid>
 								<g:row>
 									<g:customCell><g:Label>每</g:Label></g:customCell>
-									<g:customCell><g:TextBox ui:field="monthInterval" styleName='{style.interval}'></g:TextBox></g:customCell>
+									<g:customCell><g:TextBox maxLength="1" ui:field="monthInterval" styleName='{style.interval}'></g:TextBox></g:customCell>
 									<g:customCell><g:Label>个月的第</g:Label></g:customCell>
-									<g:customCell><g:TextBox ui:field="monthFreqDayofMonth" styleName='{style.interval}'></g:TextBox></g:customCell>
+									<g:customCell><g:TextBox maxLength="2" ui:field="monthFreqDayofMonth" styleName='{style.interval}'></g:TextBox></g:customCell>
 									<g:customCell><g:Label>日</g:Label></g:customCell>
 								</g:row>
 							</g:Grid>
@@ -67,11 +67,11 @@
 							<g:Grid>
 								<g:row>
 									<g:customCell><g:Label>每</g:Label></g:customCell>
-									<g:customCell><g:TextBox ui:field="yearInterval" styleName='{style.interval}'></g:TextBox></g:customCell>
+									<g:customCell><g:TextBox maxLength="2" ui:field="yearInterval" styleName='{style.interval}'></g:TextBox></g:customCell>
 									<g:customCell><g:Label>年的</g:Label></g:customCell>
 									<g:customCell><g:ListBox ui:field="yearFreqMonth"></g:ListBox></g:customCell>
 									<g:customCell><g:Label>月的第</g:Label></g:customCell>
-									<g:customCell><g:TextBox ui:field="yearFreqDayOfMonth" styleName='{style.interval}'></g:TextBox></g:customCell>
+									<g:customCell><g:TextBox maxLength="2" ui:field="yearFreqDayOfMonth" styleName='{style.interval}'></g:TextBox></g:customCell>
 									<g:customCell><g:Label>日</g:Label></g:customCell>
 								</g:row>
 							</g:Grid>

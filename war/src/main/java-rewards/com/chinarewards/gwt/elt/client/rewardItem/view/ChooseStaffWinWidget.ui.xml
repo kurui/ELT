@@ -14,7 +14,7 @@
 
 						<td class="{style.title}">搜索条件(名称，手机，邮件)：</td>
 						<td class="{style.intext2}">
-							<g:TextBox ui:field="name"></g:TextBox>
+							<g:TextBox maxLength="10" ui:field="name"></g:TextBox>
 						</td>
 						<td class="{style.caozuo}">
 							<span class="{new2.btn}">

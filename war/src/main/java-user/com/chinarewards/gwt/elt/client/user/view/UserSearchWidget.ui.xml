@@ -33,19 +33,19 @@
 			<div class="{new2.query-wrap}">
 				<div class="{new2.form}">
 					<label for="">账号名称：</label><span class="{new2.nbsp}"></span>
-					<g:TextBox ui:field="accountName" styleName="{new2.text}" />
+					<g:TextBox maxLength="10" ui:field="accountName" styleName="{new2.text}" />
 					<span class="{new2.nbspbig}"></span>
 					
 										<label for="">手机号码：</label><span class="{new2.nbsp}"></span>
-					<g:TextBox ui:field="mobile" styleName="{new2.text}" />
+					<g:TextBox maxLength="11" ui:field="mobile" styleName="{new2.text}" />
 					<span class="{new2.nbspbig}"></span>
 					
 										<label for="">电子邮箱：</label><span class="{new2.nbsp}"></span>
-					<g:TextBox ui:field="email" styleName="{new2.text}" />
+					<g:TextBox maxLength="30" ui:field="email" styleName="{new2.text}" />
 					<span class="{new2.nbspbig}"></span>
 					<br></br><br></br>
 										<label for="">关联企业名称：</label><span class="{new2.nbsp}"></span>
-					<g:TextBox ui:field="enterpriseName" styleName="{new2.text}" />
+					<g:TextBox maxLength="30" ui:field="enterpriseName" styleName="{new2.text}" />
 					<span class="{new2.btn}">
 						<g:Button ui:field="choose" text="选择" />
 					</span>

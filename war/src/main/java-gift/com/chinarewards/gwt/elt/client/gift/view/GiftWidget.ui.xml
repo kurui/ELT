@@ -33,14 +33,14 @@
 						礼品名称：
 					</td>
 					<td class="{newitem.element}">
-						<g:TextBox ui:field="name" styleName="{newitem.text}" />
+						<g:TextBox maxLength="20" ui:field="name" styleName="{newitem.text}" />
 					</td>
 					<td></td>
 				</tr>
 				<tr class="{newitem.form-line}">
 					<td valign="top" class="{newitem.label}">礼品说明：</td>
 					<td class="{newitem.element}">
-						<g:TextBox ui:field="explains" styleName="{newitem.text}" />
+						<g:TextBox maxLength="50" ui:field="explains" styleName="{newitem.text}" />
 					</td>
 					<td></td>
 				</tr>
@@ -54,21 +54,21 @@
 				<tr class="{newitem.form-line}">
 					<td valign="top" class="{newitem.label}">供应商名称：</td>
 					<td class="{newitem.element}">
-						<g:TextBox ui:field="business" styleName="{newitem.text}" />
+						<g:TextBox maxLength="20" ui:field="business" styleName="{newitem.text}" />
 					</td>
 					<td></td>
 				</tr>
 				<tr class="{newitem.form-line}">
 					<td valign="top" class="{newitem.label}">供应商地址：</td>
 					<td class="{newitem.element}">
-						<g:TextBox ui:field="address" styleName="{newitem.text}" />
+						<g:TextBox maxLength="50" ui:field="address" styleName="{newitem.text}" />
 					</td>
 					<td></td>
 				</tr>
 				<tr class="{newitem.form-line}">
 					<td valign="top" class="{newitem.label}">供应商电话：</td>
 					<td class="{newitem.element}">
-						<g:TextBox ui:field="tell" styleName="{newitem.text}" />
+						<g:TextBox maxLength="11" ui:field="tell" styleName="{newitem.text}" />
 					</td>
 					<td></td>
 				</tr>
@@ -105,7 +105,7 @@
 						库存：
 					</td>
 					<td class="{newitem.element}">
-						<g:TextBox ui:field="stock" styleName="{newitem.text}" />
+						<g:TextBox maxLength="5" ui:field="stock" styleName="{newitem.text}" />
 					</td>
 					<td></td>
 				</tr>

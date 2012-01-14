@@ -10,7 +10,7 @@
 			<div class="{new2.query-wrap}">
 				<div class="{new2.form}">
 					<label for="">搜索条件(名称)：</label>
-					<g:TextBox ui:field="name" styleName="{new2.text}" />
+					<g:TextBox maxLength="10" ui:field="name" styleName="{new2.text}" />
 
 					<span class="{new2.nbspbig}"></span>
 					<span class="{new2.btn}">
