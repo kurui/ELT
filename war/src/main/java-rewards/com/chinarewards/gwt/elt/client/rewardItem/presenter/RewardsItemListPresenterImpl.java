@@ -111,7 +111,7 @@ public class RewardsItemListPresenterImpl extends
 		listViewAdapter = new RewardsItemListViewAdapter(dispatch,
 				errorHandler, sessionManager,display);
 		listViewAdapter.addDataDisplay(resultTable);
-
+		resultTable.getColumn(0).setCellStyleNames("divTextLeft");
 		display.getDataContainer().clear();
 		display.getDataContainer().add(resultTable);
 		display.getDataPager().add(pager);
@@ -175,14 +175,25 @@ public class RewardsItemListPresenterImpl extends
 				listViewAdapter.sortFromDateBase(sorting, direction);
 			}
 		};
-
-		resultTable.addColumn("奖项名称", new TextCell(),
+		resultTable.addColumn("奖项名称", new HyperLinkCell(),
 				new GetValue<RewardsItemClient, String>() {
 					@Override
 					public String getValue(RewardsItemClient object) {
 						return object.getName();
 					}
+				}, new FieldUpdater<RewardsItemClient, String>() {
+					@Override
+					public void update(int index, RewardsItemClient object,
+							String value) {
+						Platform.getInstance()
+								.getEditorRegistry()
+								.openEditor(
+										RewardsItemConstants.EDITOR_REWARDSITEM_View,
+										"EDITOR_REWARDS_ITEM_VIEW"
+												+ object.getId(), object);
+					}
 				}, ref, "name");
+
 		resultTable.addColumn("自动", new TextCell(),
 				new GetValue<RewardsItemClient, String>() {
 					@Override

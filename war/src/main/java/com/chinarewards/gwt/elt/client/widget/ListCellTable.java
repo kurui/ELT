@@ -23,7 +23,6 @@ public class ListCellTable<T> extends CellTable<T> {
 
 	public ListCellTable() {
 		super(DEFAULT_PAGESIZE, getDefaultResources());
-
 	}
 
 	public ListCellTable(int pageSize, Resources resources) {
@@ -50,8 +49,9 @@ public class ListCellTable<T> extends CellTable<T> {
 		/**
 		 * The styles used in this widget.
 		 */
-//		@Source("listCellTable.css")
-//		Style cellTableStyle();
+		// @Source("listCellTable.css")
+		// Style cellTableStyle();
+
 	}
 
 	private static Resources getDefaultResources() {
