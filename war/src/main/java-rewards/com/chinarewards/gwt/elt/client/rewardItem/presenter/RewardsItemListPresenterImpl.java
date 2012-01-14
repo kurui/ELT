@@ -215,7 +215,7 @@ public class RewardsItemListPresenterImpl extends
 					public Date getValue(RewardsItemClient object) {
 						return object.getCreateAt();
 					}
-				});
+				},ref,"createdAt");
 
 
 
