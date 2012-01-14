@@ -1,6 +1,7 @@
 package com.chinarewards.gwt.elt.client.gift.presenter;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
+
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.gift.model.GiftVo;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftConstants;
@@ -11,7 +12,7 @@ import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.win.Win;
-import com.google.gwt.dev.shell.remoteui.RemoteMessageProto.Message.Request;
+import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
@@ -19,7 +20,6 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteEvent;
 import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteHandler;
 import com.google.inject.Inject;
-import com.chinarewards.gwt.elt.util.StringUtil;
 
 public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 		implements GiftPresenter {
