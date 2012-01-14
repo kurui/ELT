@@ -88,7 +88,7 @@ public class RewardsItemListWidget extends Composite implements
 		
 	}
 	public void initStatus(Map<String, String> map) {
-		status.addItem("未选择", "");
+		//status.addItem("未选择", "");
 		Iterator<Entry<String, String>> it = map.entrySet().iterator();
 		while (it.hasNext()) {
 			Entry<String, String> entry = it.next();
