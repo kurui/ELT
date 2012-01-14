@@ -127,6 +127,9 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .frame-wrap .query-wrap{background-color:#D8ECC1;border:1px solid #B8DA8E;padding:10px 15px;}
 .frame-wrap .send-news{margin:10px 0;}
 .frame-wrap .content-wrap{padding-top:0px;}
-
+.frame-wrap .query-wrap2{background-color:#D8ECC1;border:1px solid #B8DA8E;padding:0px 15px;}
 .nbsp{padding-left:12px;}
 .nbspbig{padding-left:42px;}
+.divtext{float:left;color:#999999;padding-bottom:3px;}
+.divfont{color:red;}
+.divend{clear:both}

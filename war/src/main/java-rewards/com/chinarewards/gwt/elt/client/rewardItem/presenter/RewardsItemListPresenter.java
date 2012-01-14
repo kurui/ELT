@@ -1,10 +1,10 @@
 package com.chinarewards.gwt.elt.client.rewardItem.presenter;
 
-import java.util.*;
+import java.util.Date;
+import java.util.Map;
 
 import com.chinarewards.gwt.elt.client.mvp.Display;
 import com.chinarewards.gwt.elt.client.mvp.Presenter;
-import com.chinarewards.gwt.elt.client.rewards.model.RewardsTypeClient;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Panel;
@@ -46,6 +46,7 @@ public interface RewardsItemListPresenter extends
 		public void initStatus(Map<String, String> map) ;
 		
 		void initialize();
+		void setDataCount(String text);
 		/**
 		 * 选择部门
 		 * @param deptIds

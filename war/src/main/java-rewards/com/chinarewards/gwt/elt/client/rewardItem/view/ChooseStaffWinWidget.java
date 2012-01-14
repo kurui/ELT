@@ -40,10 +40,11 @@ public class ChooseStaffWinWidget extends Composite implements	ChooseStaffWinDis
 
 	@UiField
 	Panel result;
-
+	@UiField
+	Panel resultpage;
 	@UiField
 	Panel specialBoxPanel;
-
+	
 	SpecialTextArea<StaffClient> textBox;
 
 	// is inject
@@ -119,6 +120,11 @@ public class ChooseStaffWinWidget extends Composite implements	ChooseStaffWinDis
 	public String getDeptId() {
 		return null;//deptCombo.getSelectedItem() != null ? deptCombo
 				//.getSelectedItem().getId() : null;
+	}
+
+	@Override
+	public Panel getResultPage() {
+		return resultpage;
 	}
 
 }

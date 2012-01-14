@@ -109,7 +109,7 @@ public class RewardsItemListPresenterImpl extends
 		resultTable.setWidth(ViewConstants.page_width);
 		resultTable.setPageSize(ViewConstants.per_page_number_in_dialog);
 		listViewAdapter = new RewardsItemListViewAdapter(dispatch,
-				errorHandler, sessionManager);
+				errorHandler, sessionManager,display);
 		listViewAdapter.addDataDisplay(resultTable);
 
 		display.getDataContainer().clear();

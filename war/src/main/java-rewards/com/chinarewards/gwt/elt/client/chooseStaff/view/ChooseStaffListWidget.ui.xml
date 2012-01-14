@@ -32,17 +32,26 @@
 			</div>
 
 
+			<!--分页 [[ -->
+			<div id="rewardlist_page" class="{new2.pager}">
 
-			<g:FlowPanel ui:field="resultpage" />
 
-			<g:InlineLabel  ui:field="addLabel" text="准备添加的员工：" styleName="{new2.label}" />
+				<div class="{new2.pager-right}">
+					<g:FlowPanel ui:field="resultpage" />
+				</div>
+			</div>
+			<!--分页 ]] -->
+
+
+			<g:InlineLabel ui:field="addLabel" text="准备添加的员工："
+				styleName="{new2.label}" />
 			<g:FlowPanel ui:field="specialBoxPanel" />
 
 
 
-			<div class="{new2.query-wrap}">
+			<div class="{new2.query-wrap2}">
 				<div class="{new2.form}">
-			
+
 
 					<span class="{new2.btn}">
 						<g:Button ui:field="chooseBtn" text="确定"></g:Button>
