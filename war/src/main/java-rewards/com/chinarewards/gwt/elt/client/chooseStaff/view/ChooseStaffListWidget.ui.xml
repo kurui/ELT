@@ -43,14 +43,15 @@
 			<!--分页 ]] -->
 
 
+
+
+
+	<span class="{new2.cutline}"></span>
+			<div class="{new2.query-wrap2}">
 			<g:InlineLabel ui:field="addLabel" text="准备添加的员工："
 				styleName="{new2.label}" />
 			<g:FlowPanel ui:field="specialBoxPanel" />
-
-
-
-			<div class="{new2.query-wrap2}">
-				<div class="{new2.form}">
+				<div class="{new2.rigthbutton}">
 
 
 					<span class="{new2.btn}">
