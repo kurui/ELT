@@ -210,7 +210,7 @@ public class DialogBox extends DecoratedPopupPanel implements MouseListener {
 		/**
 		 * About the icon to close the window.
 		 */
-		cross = new Label("");
+		cross = new Label("X");
 		cross.setStyleName("close");
 		CrossHandler crossHandler = new CrossHandler();
 		cross.addClickHandler(crossHandler);
