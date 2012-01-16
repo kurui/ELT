@@ -76,6 +76,7 @@ public class GiftListWidget extends Composite implements GiftListDisplay {
 
 	@Override
 	public void initGiftStatus(Map<String, String> map) {
+
 		status.addItem("不限", "");
 		Iterator<Entry<String, String>> it = map.entrySet().iterator();
 		while (it.hasNext()) {

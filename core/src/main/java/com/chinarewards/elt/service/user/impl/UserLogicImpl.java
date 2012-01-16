@@ -19,6 +19,7 @@ import com.chinarewards.elt.model.user.UserSearchResult;
 import com.chinarewards.elt.model.user.UserSessionVo;
 import com.chinarewards.elt.model.user.UserStatus;
 import com.chinarewards.elt.model.user.UserVo;
+import com.chinarewards.elt.service.staff.StaffLogic;
 import com.chinarewards.elt.service.user.UserLogic;
 import com.chinarewards.elt.util.DateUtil;
 import com.google.inject.Inject;
@@ -40,14 +41,16 @@ public class UserLogicImpl implements UserLogic {
 	StaffDao staffDao;
 	CorporationDao corporationDao;
 	UserRoleDao userRoleDao;
+	StaffLogic staffLogic;
 
 	@Inject
 	public UserLogicImpl(UserDao userDao, CorporationDao corporationDao,
-			UserRoleDao userRoleDao, StaffDao staffDao) {
+			UserRoleDao userRoleDao, StaffDao staffDao,StaffLogic staffLogic) {
 		this.userDao = userDao;
 		this.corporationDao = corporationDao;
 		this.userRoleDao = userRoleDao;
 		this.staffDao = staffDao;
+		this.staffLogic=staffLogic;
 	}
 
 	@Override
@@ -163,9 +166,11 @@ public class UserLogicImpl implements UserLogic {
 		UserSearchResult result = new UserSearchResult();
 		List<SysUser> hrUsers = userDao.searchHrAdminUserByCriteria(criteria);
 		List<SearchUserInfo> userInfos = new ArrayList<SearchUserInfo>();
+		
 		for (SysUser user : hrUsers) {
 			SearchUserInfo info = new SearchUserInfo();
 			info.setUser(user);
+			info.setBalance(staffLogic.getBalance(user.getStaff().getId()));
 			info.setEnterpriseName(user.getCorporation().getName());
 			userInfos.add(info);
 		}

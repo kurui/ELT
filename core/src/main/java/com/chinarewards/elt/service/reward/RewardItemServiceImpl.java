@@ -157,8 +157,7 @@ public class RewardItemServiceImpl implements RewardItemService {
 
 			} else if (rewardItem.getAutoGenerate() == RequireAutoGenerate.requireCyclic) {
 				// 如果是周期性,单独运行这个奖项
-				rewardItemLogic.runAutoRewardGeneratorByRewardItem(
-						DateUtil.getTime(), rewardItemId);
+				rewardItemLogic.runAutoRewardGeneratorByRewardItem(DateUtil.getTime(), rewardItemId);
 				// 修改次数
 				rewardItemLogic.updateRewardItemCount(rewardItemId);
 			}

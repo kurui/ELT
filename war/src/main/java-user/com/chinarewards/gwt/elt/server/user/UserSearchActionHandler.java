@@ -66,6 +66,7 @@ public class UserSearchActionHandler extends
 			for (SearchUserInfo userInfo : hrUsers) {
 				UserVo vo = adapterUserVo(userInfo.getUser());
 				vo.setEnterpriseName(userInfo.getEnterpriseName());
+				vo.setBalance(userInfo.getBalance());
 				resultVo.getList().add(vo);
 			}
 		}

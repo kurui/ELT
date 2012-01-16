@@ -210,6 +210,14 @@ public class UserSearchWidget extends Composite implements UserSearchDisplay {
 				return o.getStatus();
 			}
 		}, "状态");
+		resultTable.addColumn(new TextColumn<UserVo>() {
+
+			@Override
+			public String getValue(UserVo o) {
+				return o.getBalance()+"";
+			}
+		}, "积分");
+		
 		resultTable.addColumn("操作", new HyperLinkCell(),
 				new GetValue<UserVo, String>() {
 					@Override
