@@ -67,7 +67,7 @@ public class RewardsItemListPluginDescriptor implements PluginDescriptor {
 
 					@Override
 					public String getTitle() {
-						return "公司奖项";
+						return "我的奖项";
 					}
 
 					@Override

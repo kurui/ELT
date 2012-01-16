@@ -155,10 +155,10 @@ public class RewardsItemListPresenterImpl extends
 		// display.getDepartmentPanel().add(comboTree);
 		// deptId = comboTree.getSelectedItem().getId();
 		// setRewardsTypeList();
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("true", "已激活");
-		map.put("false", "未激活");
-		display.initStatus(map);
+//		Map<String, String> map = new HashMap<String, String>();
+//		map.put("false", "未激活");
+//		map.put("true", "已激活");
+		display.initStatus();
 		
 	}
 	

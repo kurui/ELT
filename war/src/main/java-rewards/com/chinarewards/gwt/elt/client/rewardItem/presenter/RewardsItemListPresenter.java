@@ -43,7 +43,7 @@ public interface RewardsItemListPresenter extends
           
 		public String getStatus();
 		
-		public void initStatus(Map<String, String> map) ;
+		public void initStatus() ;
 		
 		void initialize();
 		void setDataCount(String text);

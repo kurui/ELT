@@ -61,7 +61,7 @@
 		</div>
 		 <span class="{newitem.cutline}"></span>
 		  <p class="{newitem.send-news}"><span class="{newitem.btn}">
-		   <g:Button ui:field="addBtn" >创建奖项库	</g:Button></span></p>
+		   <g:Button ui:field="addBtn" >创建奖项模板	</g:Button></span></p>
 			
 			<div class="{newitem.divtext}">一共有 <g:InlineLabel ui:field="dataCount" styleName="{newitem.divfont}"></g:InlineLabel> 个奖项</div><div  class="{newitem.divend}"></div>
 		 <div class="{newitem.table}">
