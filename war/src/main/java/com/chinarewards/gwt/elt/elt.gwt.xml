@@ -10,6 +10,7 @@
 	<source path="model" />
 	<source path="util" />
 	
+	
 	<!-- Specify the app entry point class. -->
 	<entry-point class="com.chinarewards.gwt.elt.client.Elt" />
 	<stylesheet src="elt.css"/>

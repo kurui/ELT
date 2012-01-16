@@ -33,6 +33,8 @@ public interface GiftPresenter extends Presenter<GiftPresenter.GiftDisplay> {
 		public Image getGiftImage();
 
 		public HasValue<String> getStock();
+		
+		public HasValue<String> getIntegral();	
 
 		public HasValue<String> getPhone();
 

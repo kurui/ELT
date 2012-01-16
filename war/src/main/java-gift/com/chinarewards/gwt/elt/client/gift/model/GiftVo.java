@@ -21,6 +21,7 @@ public class GiftVo implements Serializable {
     private String business;   //供应商
     private String address;    //地址
     private String tell;       //电话
+    private int    integral;    //积分
     private int    stock;         //库存
     private String photo;      //图片
     private GiftStatus status;    //状态（上下架）
@@ -137,6 +138,14 @@ public class GiftVo implements Serializable {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public int getIntegral() {
+		return integral;
+	}
+
+	public void setIntegral(int integral) {
+		this.integral = integral;
 	}
 
 	

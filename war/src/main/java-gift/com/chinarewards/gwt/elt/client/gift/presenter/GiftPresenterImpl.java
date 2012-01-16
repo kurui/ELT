@@ -1,7 +1,5 @@
 package com.chinarewards.gwt.elt.client.gift.presenter;
 
-import org.dom4j.Document;
-
 import net.customware.gwt.dispatch.client.DispatchAsync;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.gift.model.GiftVo;
@@ -83,6 +81,8 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 						gift.setTell(display.getTell().getValue().trim());
 						gift.setPhoto(display.getPhoto().getValue().trim());
 						gift.setStock(StringUtil.valueOf(display.getStock()
+								.getValue()));
+						gift.setIntegral(StringUtil.valueOf(display.getIntegral()
 								.getValue()));
 						// gift.setPhoto(display.getPhone().getValue());
 						// gift.setGiftStatus();

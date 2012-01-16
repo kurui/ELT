@@ -76,6 +76,7 @@ public class AddGiftHandler extends
 		// gift.setBusiness(giftVo.getBusiness().trim());
 		gift.setAddress(giftVo.getAddress().trim());
 		gift.setTell(giftVo.getTell().trim());
+		gift.setIntegral(giftVo.getIntegral());
 		gift.setStock(giftVo.getStock());
 		gift.setPhoto(giftVo.getPhoto());
 		// gift.setGiftStatus();

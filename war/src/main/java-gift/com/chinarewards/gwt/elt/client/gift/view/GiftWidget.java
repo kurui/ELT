@@ -44,6 +44,8 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	@UiField
 	TextBox photo;
 	@UiField
+	TextBox integral;
+	@UiField
 	TextBox stock;
 	// @UiField
 	// TextBox phone;
@@ -236,6 +238,11 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	@Override
 	public Image getGiftImage() {
 		return giftImage;
+	}
+
+	@Override
+	public HasValue<String> getIntegral() {
+		return integral;
 	}
 
 }
