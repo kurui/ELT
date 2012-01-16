@@ -174,5 +174,8 @@ public interface RewardItemLogic {
 	 */
 	public String copyRewardItenStoreToRewardItem(UserContext context, String rewardItemStoreId);
 
-	
+	/**
+	 * 奖项库应用后,奖项模板次数+1
+	 */
+	public void updateRewardItemStoreCount(String rewardItemStoreId);
 }

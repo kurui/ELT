@@ -210,4 +210,11 @@ public class RewardItemServiceImpl implements RewardItemService {
 
 	}
 
+	@Override
+	public void updateRewardItemStoreCount(UserContext context, String rewardItemStoreId) {
+		 rewardItemLogic.updateRewardItemStoreCount(rewardItemStoreId);
+		
+	}
+	
+
 }

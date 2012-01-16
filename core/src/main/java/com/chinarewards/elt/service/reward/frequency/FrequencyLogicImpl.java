@@ -1,5 +1,6 @@
 package com.chinarewards.elt.service.reward.frequency;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -7,12 +8,20 @@ import com.chinarewards.elt.dao.reward.FrequencyDao;
 import com.chinarewards.elt.dao.reward.RewardItemDao;
 import com.chinarewards.elt.dao.reward.WeekFrequencyDaysDao;
 import com.chinarewards.elt.domain.reward.base.RewardItem;
+import com.chinarewards.elt.domain.reward.frequency.DayFrequency;
 import com.chinarewards.elt.domain.reward.frequency.Frequency;
+import com.chinarewards.elt.domain.reward.frequency.MonthFrequency;
 import com.chinarewards.elt.domain.reward.frequency.WeekFrequency;
 import com.chinarewards.elt.domain.reward.frequency.WeekFrequencyDays;
+import com.chinarewards.elt.domain.reward.frequency.YearFrequency;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.DateRangeModel;
+import com.chinarewards.elt.model.reward.frequency.DailyVo;
+import com.chinarewards.elt.model.reward.frequency.MonthlyVo;
 import com.chinarewards.elt.model.reward.frequency.RewardsFrequency;
+import com.chinarewards.elt.model.reward.frequency.WeekDays;
+import com.chinarewards.elt.model.reward.frequency.WeeklyVo;
+import com.chinarewards.elt.model.reward.frequency.YearlyVo;
 import com.google.inject.Inject;
 
 /**
@@ -125,15 +134,17 @@ public class FrequencyLogicImpl implements FrequencyLogic {
 			String rewardItemStoreId, String rewardItemId) {
 		Frequency f =getFrequencyOfRewardItemStore(rewardItemStoreId);
 		RewardItem rewardItem = rewardItemDao.findById(RewardItem.class, rewardItemId);
-		Frequency newf=new Frequency();
-		newf.setInterval(f.getInterval());
-		newf.setCreatedAt(new Date());
-		newf.setCreatedBy(caller);
-		newf.setLastModifiedAt(new Date());
-		newf.setLastModifiedBy(caller);
-		frequencyDao.save(newf);
-		rewardItem.setFrequency(newf);
+//		Frequency newf=new Frequency();
+//		newf.setInterval(f.getInterval());
+//		newf.setCreatedAt(new Date());
+//		newf.setCreatedBy(caller);
+//		newf.setLastModifiedAt(new Date());
+//		newf.setLastModifiedBy(caller);
+		
+		frequencyDao.save(f);
+		rewardItem.setFrequency(f);
 		rewardItemDao.update(rewardItem);
-		return newf;
+		return f;
 	}
+	
 }
