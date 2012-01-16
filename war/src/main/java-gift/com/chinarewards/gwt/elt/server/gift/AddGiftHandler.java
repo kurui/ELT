@@ -27,7 +27,9 @@ import com.chinarewards.gwt.elt.server.BaseActionHandler;
 import com.chinarewards.gwt.elt.server.logger.InjectLogger;
 import com.chinarewards.gwt.elt.util.UserRoleTool;
 import com.google.inject.Inject;
-
+/**
+ * @author YanRui
+ * */
 public class AddGiftHandler extends
 		BaseActionHandler<AddGiftRequest, AddGiftResponse> {
 

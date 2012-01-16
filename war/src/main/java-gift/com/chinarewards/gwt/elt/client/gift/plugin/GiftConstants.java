@@ -18,5 +18,7 @@ public abstract class GiftConstants {
 	
 	public static final String EDITOR_GIFT_ADD = "EDITOR_GIFT_ADD";
 	public static final String EDITOR_GIFT_EDIT = "EDITOR_GIFT_EDIT";
+	public static final String EDITOR_GIFT_VIEW = "EDITOR_GIFT_VIEW";
+	
 	public static final String EDITOR_GIFTLIST_SEARCH = "EDITOR_GIFTLIST_SEARCH";
 }

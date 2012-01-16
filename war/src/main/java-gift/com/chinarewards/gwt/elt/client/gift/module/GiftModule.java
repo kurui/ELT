@@ -4,6 +4,8 @@ import com.chinarewards.gwt.elt.client.gift.presenter.GiftPresenter;
 import com.chinarewards.gwt.elt.client.gift.presenter.GiftPresenter.GiftDisplay;
 import com.chinarewards.gwt.elt.client.gift.presenter.GiftPresenterImpl;
 import com.chinarewards.gwt.elt.client.gift.view.GiftWidget;
+import com.chinarewards.gwt.elt.client.gift.presenter.GiftViewPresenter;
+import com.chinarewards.gwt.elt.client.gift.presenter.GiftViewPresenterImpl;
 import com.google.gwt.inject.client.AbstractGinModule;
 
 public class GiftModule extends AbstractGinModule {
@@ -12,5 +14,7 @@ public class GiftModule extends AbstractGinModule {
 	protected void configure() {
 		bind(GiftPresenter.class).to(GiftPresenterImpl.class);
 		bind(GiftDisplay.class).to(GiftWidget.class);
+
+		bind(GiftViewPresenter.class).to(GiftViewPresenterImpl.class);
 	}
 }
