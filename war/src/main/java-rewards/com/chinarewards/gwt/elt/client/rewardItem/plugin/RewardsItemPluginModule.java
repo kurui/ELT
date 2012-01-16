@@ -6,6 +6,12 @@ package com.chinarewards.gwt.elt.client.rewardItem.plugin;
 
 import com.chinarewards.gwt.elt.client.rewardItem.editor.RewardsItemEditor;
 import com.chinarewards.gwt.elt.client.rewardItem.editor.RewardsItemEditorDescriptor;
+import com.chinarewards.gwt.elt.client.rewardItem.editor.RewardsItemListEditor;
+import com.chinarewards.gwt.elt.client.rewardItem.editor.RewardsItemListEditorDescriptor;
+import com.chinarewards.gwt.elt.client.rewardItem.editor.RewardsItemStoreListEditor;
+import com.chinarewards.gwt.elt.client.rewardItem.editor.RewardsItemStoreListEditorDescriptor;
+import com.chinarewards.gwt.elt.client.rewardItem.editor.RewardsItemViewEditor;
+import com.chinarewards.gwt.elt.client.rewardItem.editor.RewardsItemViewEditorDescriptor;
 import com.google.gwt.inject.client.AbstractGinModule;
 import com.google.inject.Singleton;
 
@@ -20,6 +26,18 @@ public class RewardsItemPluginModule extends AbstractGinModule {
 		bind(RewardsItemPluginDescriptor.class).in(Singleton.class);
 		bind(RewardsItemEditorDescriptor.class).in(Singleton.class);
 		bind(RewardsItemEditor.class);
+		
+		bind(RewardsItemListPluginDescriptor.class).in(Singleton.class);
+		bind(RewardsItemListEditorDescriptor.class).in(Singleton.class);
+		bind(RewardsItemListEditor.class);
+		
+		bind(RewardsItemViewPluginDescriptor.class).in(Singleton.class);
+		bind(RewardsItemViewEditorDescriptor.class).in(Singleton.class);
+		bind(RewardsItemViewEditor.class);
+		
+		bind(RewardsItemStoreListPluginDescriptor.class).in(Singleton.class);
+		bind(RewardsItemStoreListEditorDescriptor.class).in(Singleton.class);
+		bind(RewardsItemStoreListEditor.class);
 	}
 
 }

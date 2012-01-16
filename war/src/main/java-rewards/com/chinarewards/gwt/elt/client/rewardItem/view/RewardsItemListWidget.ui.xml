@@ -26,7 +26,7 @@
 			 <tr>
 				<td width="7%" align="right">奖项名称:</td>
 				<td width="10%">
-					<g:TextBox ui:field="name" styleName="{newitem.text}"/>
+					<g:TextBox maxLength="20" ui:field="name" styleName="{newitem.text}"/>
 				</td>
 				
 				<td width="7%" align="right" style="display:">部门:</td>
@@ -50,7 +50,10 @@
 					<g:CheckBox ui:field="chooseSubDepartment" />
 					包含子部门
 				</td>
-				
+				<td width="7%" align="right">应用状态:</td>
+				<td width="10%">
+					<g:ListBox ui:field="status" styleName="{newitem.select}" />
+				</td>
 				<td align="left">
 					<span class="{newitem.nbsp}"></span><span class="{newitem.btn}"><g:Button ui:field="search" >搜索</g:Button></span>
 				</td>
@@ -59,10 +62,12 @@
 		</table>
 			
 		</div>
-		
+		 <span class="{newitem.cutline}"></span>
 		  <p class="{newitem.send-news}"><span class="{newitem.btn}">
 		   <g:Button ui:field="addBtn" >创建奖项
 			</g:Button></span></p>
+			
+			<div class="{newitem.divtext}">一共有 <g:InlineLabel ui:field="dataCount" styleName="{newitem.divfont}"></g:InlineLabel> 个奖项</div><div  class="{newitem.divend}"></div>
 		 <div class="{newitem.table}">
 			<g:FlowPanel ui:field="result"></g:FlowPanel>
 		 </div>
@@ -81,6 +86,6 @@
 				</div>
 			</div>
 			<!--分页 ]] -->
-    <span class="{newitem.cutline}"></span>
+
 	</g:HTMLPanel>
 </ui:UiBinder>

@@ -18,5 +18,10 @@ public class FrequencyDao extends BaseDao<Frequency> {
 				.setParameter("rewardItemId", rewardItemId).getSingleResult();
 	}
 	
-	
+	public Frequency findFrequencyByRewardStoreItemId(String rewardItemStoreId) {
+		return (Frequency) getEm()
+				.createQuery(
+						"SELECT ri.frequency FROM RewardItemStore ri WHERE ri.id=:rewardItemStoreId")
+				.setParameter("rewardItemStoreId", rewardItemStoreId).getSingleResult();
+	}
 }

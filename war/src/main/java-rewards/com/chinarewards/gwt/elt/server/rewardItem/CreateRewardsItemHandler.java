@@ -9,6 +9,7 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 import org.slf4j.Logger;
 
 import com.chinarewards.elt.domain.reward.base.RewardItem;
+import com.chinarewards.elt.domain.reward.base.RewardItemStore;
 import com.chinarewards.elt.domain.reward.rule.DobRule;
 import com.chinarewards.elt.model.reward.base.RequireAutoAward;
 import com.chinarewards.elt.model.reward.base.RequireAutoGenerate;
@@ -21,7 +22,6 @@ import com.chinarewards.elt.model.reward.frequency.WeeklyVo;
 import com.chinarewards.elt.model.reward.frequency.YearlyVo;
 import com.chinarewards.elt.model.transaction.TransactionUnit;
 import com.chinarewards.elt.model.user.UserContext;
-import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.service.reward.RewardItemService;
 import com.chinarewards.gwt.elt.client.rewardItem.request.CreateRewardsItemRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.CreateRewardsItemResponse;
@@ -40,7 +40,6 @@ import com.chinarewards.gwt.elt.server.BaseActionHandler;
 import com.chinarewards.gwt.elt.server.logger.InjectLogger;
 import com.chinarewards.gwt.elt.util.StringUtil;
 import com.chinarewards.gwt.elt.util.UserRoleTool;
-import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
 
 public class CreateRewardsItemHandler extends	BaseActionHandler<CreateRewardsItemRequest, CreateRewardsItemResponse> {
@@ -73,8 +72,13 @@ public class CreateRewardsItemHandler extends	BaseActionHandler<CreateRewardsIte
 		uc.setLoginName(action.getUserSession().getLoginName());
 		uc.setUserId(action.getUserSession().getToken());
 		uc.setUserRoles(UserRoleTool.adaptToRole(action.getUserSession().getUserRoles()));
-		RewardItem createdItem = rewardItemService.saveRewardItem(uc, param);
-		return new CreateRewardsItemResponse(createdItem.getId());
+		if(action.isItemStore()==false){//不是奖项库就保存到奖项表
+		  RewardItem createdItem = rewardItemService.saveRewardItem(uc, param);
+		  return new CreateRewardsItemResponse(createdItem.getId());
+		}else{ //是奖项库就保存到奖项库表
+		   RewardItemStore ItemStore = rewardItemService.saveRewardItemStore(uc, param);
+		   return new CreateRewardsItemResponse(ItemStore.getId());
+		}
 	}
 
 	// Convert from RewardsItemClient to GeneratorRewardsItemModel.
@@ -86,7 +90,6 @@ public class CreateRewardsItemHandler extends	BaseActionHandler<CreateRewardsIte
 		parameter.setTypeId(client.getType().getId());
 		parameter.setDefinition(client.getDefinition());
 		parameter.setStandard(client.getStandard());
-		
 		parameter.setHeadcountLimit(client.getSizeLimit());//人数
 		parameter.setTotalAmtLimit(client.getTotalJF());//总积分
 		parameter.setAwardAmt(client.getRewardsFrom());//个人要得的积分

@@ -8,71 +8,56 @@
 	<ui:image field="input_text2" resource="input_text2.jpg"></ui:image>
 	<ui:image field="login_sub" resource="login_sub.jpg"></ui:image>
 	<ui:style src="login.css"></ui:style>
+	<ui:style src="new2.css" field="new2"></ui:style>
 	<g:ScrollPanel>
-	<g:HTMLPanel>
-		<div id="login">
-			<table width="100%" height="183" border="0" cellpadding="0"
-				cellspacing="0">
-				<tr>
-					<td width="28%" height="41" class="{style.title}">账号：</td>
+		<g:HTMLPanel>
+			<div class="{new2.login}">
+				<div class="{new2.login-wrap}">
+					<div class="{new2.logo}"></div>
+					<span class="{new2.sep}"></span>
+					<div class="{new2.login-form}">
+						<div class="{new2.form}" >
+							<div class="{new2.form-line}">
+								<label class="{new2.label}">账号：</label>
+								<div class="{new2.element}">
+									<g:TextBox maxLength="30" ui:field="username" styleName="{new2.text}" />
+								</div>
+							</div>
 
-					<td width="42%" class="{style.intext}">
-						<div>
-							<g:TextBox ui:field="username" />
-						</div>
-					</td>
-					<td width="30%" class="{style.intext}">
-					</td>
-				</tr>
-				<tr>
-					<td height="42" class="{style.title}">密码：</td>
-					<td class="{style.intext}">
-						<div>
-							<g:PasswordTextBox ui:field="password" />
-						</div>
-					</td>
-					<td>
-						<g:Label ui:field="forgetPwd" text="忘记密码" styleName="ipointer"></g:Label>
-					</td>
-				</tr>
-			<tr>
-					<td height="42" class="{style.title}">验证码：</td>
-					<td colspan="2">
-						<table border="0" cellpadding="0"
-							cellspacing="0" id="tab">
-							<tr>
-								<td>
-									<div id="inputText2">
-										<g:TextBox ui:field="codeCheck"></g:TextBox>
-									</div>
-								</td>
-								<td>
+							<div class="{new2.form-line}">
+								<label class="{new2.label}">密码：</label>
+								<div class="{new2.element}">
+									<g:PasswordTextBox ui:field="password"
+										styleName="{new2.text}" />
+									<g:Anchor ui:field="forgetPwd" text="忘记密码?"></g:Anchor>
+								</div>
+							</div>
+
+							<div class="{new2.form-line}">
+								<label class="{new2.label}">验证码：</label>
+								<div class="{new2.element}">
+									<g:TextBox maxLength="30" ui:field="codeCheck" styleName="{new2.text} {new2.short-text}"></g:TextBox>
 									<g:Image ui:field="verifyImage" styleName="verifyImage"></g:Image>
-								</td>
-								<td>
-									<g:Label ui:field="prompt" text="看不清" styleName="ipointer"></g:Label>
-								</td>
-							</tr>
-						</table>
-					</td>
-				</tr>
-				
-				<tr>
-					<td height="28">
-					</td>
-					<td class="{style.intext}">
-						<g:Button ui:field="loginButton" styleName="submit">登录</g:Button>
-					</td>
-					<td class="{style.intext}">
-					</td>
-				</tr>
-			</table>
+									<g:Anchor ui:field="prompt" text="看不清"></g:Anchor>
 
-			<div class="{style.bottom}">
-				<span style="float:right">版权所有 深圳积享通信息技术有限公司</span>
-				客服热线：400-6688998
+								</div>
+							</div>
+
+							<div class="{new2.form-line} {new2.form-line-btn}">
+								<div class="{new2.element}">
+									<span class="{new2.login-btn}">
+										<g:Button ui:field="loginButton">登录</g:Button>
+									</span>
+									<input type="checkbox" checked="true" />
+									下次自动登录
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-		</div>
-	</g:HTMLPanel>
+
+
+		</g:HTMLPanel>
 	</g:ScrollPanel>
 </ui:UiBinder>

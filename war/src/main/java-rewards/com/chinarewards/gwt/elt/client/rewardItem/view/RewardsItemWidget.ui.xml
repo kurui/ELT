@@ -26,46 +26,46 @@
                        <div class="{newitem.form-line}">
 				        <label class="{newitem.label}"><span style="color:red">* </span>奖项名称：</label>
 				        <div class="{newitem.element}">
-				          <g:TextBox ui:field="rewardsName" styleName="{newitem.text}"/>
+				          <g:TextBox maxLength="30" ui:field="rewardsName" styleName="{newitem.text}"/>
 				        </div>
 				      </div>
 				      <div class="{newitem.form-line}">
 				        <label class="{newitem.label2}">奖项说明：</label>
 				        <div class="{newitem.element}">
-				          <g:TextArea ui:field="rewardsDefinition" visibleLines="3" styleName="{newitem.textarea}"/>
+				          <g:TextArea  ui:field="rewardsDefinition" visibleLines="3" styleName="{newitem.textarea}" />
 				        </div>
 				      </div>
 				      
                        <div class="{newitem.form-line}">
 				        <label class="{newitem.label2}"> 奖项条件：</label>
 				        <div class="{newitem.element}">
-				          <g:TextArea ui:field="standard" visibleLines="3" styleName="{newitem.textarea}"/>
+				          <g:TextArea  ui:field="standard" visibleLines="3" styleName="{newitem.textarea}" />
 				        </div>
 				      </div>
                       <div class="{newitem.form-line}">
 				        <label class="{newitem.label}"> 获奖名额：</label>
 				        <div class="{newitem.element}">
-				          <g:TextBox ui:field="peopleSizeLimit" styleName="{newitem.text}"/>
+				          <g:TextBox maxLength="5" ui:field="peopleSizeLimit" styleName="{newitem.text}"/>
 
 				        </div>
 				      </div>
 					  <div class="{newitem.form-line}">
 				        <label class="{newitem.label}">  总积分：</label>
 				        <div class="{newitem.element}">
-				          <g:TextBox ui:field="totalJF" styleName="{newitem.text}"/>
+				          <g:TextBox maxLength="9" ui:field="totalJF" styleName="{newitem.text}"/>
 
 				        </div>
 				      </div>
                       <div class="{newitem.form-line}">
 				        <label class="{newitem.label}"> 每人得奖积分：</label>
 				        <div class="{newitem.element}">
-				          <g:TextBox ui:field="rewardsFrom" styleName="{newitem.text}"/>
+				          <g:TextBox maxLength="9" ui:field="rewardsFrom" styleName="{newitem.text}"/>
 				        </div>
 				      </div>
 				      
                        <div id="tm">
                        	 <div class="{newitem.form-line}">
-				        <label class="{newitem.label}"> 提名人：</label>
+				        <label class="{newitem.labelnew1}"> 提名人：</label>
 				        <div class="{newitem.element}">
 				          <g:FlowPanel ui:field="staffAreaPanel" styleName="{newitem.element2}"/><span class="{newitem.nbsp}"></span><span class="{newitem.btn}">
 				          <g:Button ui:field="chooseBtns" >选择</g:Button></span>
@@ -85,7 +85,7 @@
 				        </div>
 				      </div>
                      <div class="{newitem.form-line}">
-				        <label class="{newitem.label}"><span>*</span> 开始时间：</label>
+				        <label class="{newitem.label}"><span style="color:red">* </span> 开始时间：</label>
 				        <div class="{newitem.element}">
 				          <d:DateBox ui:field="startTime" styleName="{newitem.text}"/>
 				         </div>
@@ -97,7 +97,7 @@
                       <div class="{newitem.form-line}">
 				        <label class="{newitem.label}">预计颁奖时间：</label>
 				        <div class="{newitem.element}">
-				          <d:DateBox ui:field="expectTime" styleName="{newitem.text}"/>提前<g:TextBox ui:field="tmdays" styleName="${newitem.short-text}" />天提名<g:Label ui:field="lastRewardsTime"/>
+				          <d:DateBox ui:field="expectTime" styleName="{newitem.text}"/>提前<g:TextBox maxLength="2" ui:field="tmdays" styleName="{newitem.short-text}" />天提名<g:Label ui:field="lastRewardsTime"/>
 				         </div>
 				      </div>
                      
@@ -106,19 +106,19 @@
                       <div class="{newitem.form-line}">
 				        <label class="{newitem.label}">下次颁奖时间：</label>
 				        <div class="{newitem.element}">
-				          <d:DateBox ui:field="nextRewardsTime" styleName="{newitem.text}"/>提前<g:TextBox ui:field="tmday" styleName="${newitem.short-text}"/>天提名
+				          <d:DateBox ui:field="nextRewardsTime" styleName="{newitem.text}"/>提前<g:TextBox maxLength="2" ui:field="tmday" styleName="{newitem.short-text}"/>天提名
 				         </div>
 				      </div>
                       
                       <div class="{newitem.form-line}">
-				        <label class="{newitem.label}"> <span>*</span>颁奖周期：</label>
+				        <label class="{newitem.label}"> <span style="color:red">* </span>颁奖周期：</label>
 				        <div class="{newitem.element}">
 				          <g:Label ui:field="settingText" styleName="{newitem.text}"/><span class="{newitem.nbsp}"></span> 
 				          <span class="{newitem.btn}"><g:Button ui:field="setting" >设置频率</g:Button></span>
 				         </div>
 				      </div>                  	
                        <div class="{newitem.form-line}">
-				        <label class="{newitem.label}"> <span>*</span>自动颁奖：</label>
+				        <label class="{newitem.label}"> <span style="color:red">* </span>自动颁奖：</label>
 				        <div class="{newitem.element}">
 				          <g:CheckBox ui:field="autoCbx"/>
 				         </div>
@@ -144,13 +144,15 @@
                     
                       </div>
                       
-                      <div></div>
+                       <span class="{newitem.cutline}"></span>
+                       
                       <div class="{newitem.form-line}">
 				        <div class="{newitem.element}">
-				          <span class="{newitem.btn}"><g:Button ui:field="save" >保存</g:Button></span>   
+				          <span class="{newitem.btn}"><g:Button ui:field="save" >保存奖项</g:Button></span> 
+				          <span class="{newitem.btn}"><g:Button ui:field="saveStore" >存入奖项库</g:Button></span>     
 				        </div>
 				      </div>
-                        <span class="{newitem.cutline}"></span>
+                       
                      
                     </div>
                   </div>	

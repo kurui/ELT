@@ -7,12 +7,12 @@
 	<ui:style src="staffBlock.css" ></ui:style>
 	<ui:style src="elt_min.css" field="newitem"></ui:style>
 	
-	<g:HTMLPanel ui:field="select1" styleName="{newitem.frame-wrap}">
+	<g:HTMLPanel ui:field="select1" styleName="{newitem.frame-wrap2}">
 			  
 		    		   <div class="{newitem.form}">
                       
                          <div class="{newitem.form-line}">	
-                             <label class="{newitem.label}"> 获奖对象：</label>
+                             <label class="{newitem.label}">获奖对象：</label>
 				               <div class="{newitem.element}">
 				               		<g:RadioButton ui:field="everyoneRbtn" name="chooseRadio">全体员工</g:RadioButton>
 				               		<span class="{newitem.nbsp}"></span>
@@ -23,7 +23,7 @@
 				         
             		
             			 <div class="{newitem.form-line}">	
-                             <label class="{newitem.label}">. </label>
+                             <label class="{newitem.labelnew2}"></label>
 				              <div class="{newitem.element}">
 				               		<g:HorizontalPanel ui:field="suggestBoxPanel" styleName="{newitem.element2}"/>
 				               		<span class="{newitem.nbsp}"></span><span class="{newitem.btn}"> <g:Button ui:field="chooseBtn" styleName="">选择</g:Button></span>
@@ -31,7 +31,7 @@
 				             
 				         </div>
 				         <div class="{newitem.form-line}">
-				               <label class="{newitem.label}">.</label>
+				               <label class="{newitem.labelnew3}"></label>
 				               <div class="{newitem.element}">
 				                 <g:FlowPanel ui:field="staffTextAreaPanel" /> 
 				               </div>

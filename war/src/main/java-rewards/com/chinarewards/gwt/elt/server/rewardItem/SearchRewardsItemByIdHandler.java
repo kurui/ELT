@@ -20,6 +20,7 @@ import com.chinarewards.elt.domain.reward.rule.DirectCandidateRule;
 import com.chinarewards.elt.domain.reward.rule.DobRule;
 import com.chinarewards.elt.model.reward.base.RequireAutoAward;
 import com.chinarewards.elt.model.reward.base.RequireAutoGenerate;
+import com.chinarewards.elt.model.reward.vo.RewardItemStoreVo;
 import com.chinarewards.elt.model.reward.vo.RewardItemVo;
 import com.chinarewards.elt.service.reward.RewardItemService;
 import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsItemByIdRequest;
@@ -58,14 +59,17 @@ public class SearchRewardsItemByIdHandler
 			SearchRewardsItemByIdRequest request, ExecutionContext context)
 			throws DispatchException {
 		logger.debug(" parameters:{}", request.getId());
-		
-		RewardItemVo rewardsItem = rewardItemService.fetchEntireRewardItemById(request.getId());
-		return new SearchRewardsItemByIdResponse(adapter(rewardItemService,
-				rewardsItem));
+		if(request.isItemStore()==false){//是查奖项
+		  RewardItemVo rewardsItem = rewardItemService.fetchEntireRewardItemById(request.getId());
+		  return new SearchRewardsItemByIdResponse(adapter(rewardItemService,	rewardsItem));
+		}else{//是查奖项库
+			RewardItemStoreVo rewardsStoreItem = rewardItemService.fetchEntireRewardItemStoreById(request.getId());
+			return new SearchRewardsItemByIdResponse(adapterItemStore(rewardItemService,	rewardsStoreItem));
+		}
 	}
 
 	
-
+	//把奖项的数据转化
 	private RewardsItemClient adapter(RewardItemService rewardsItemService,
 			RewardItemVo item) {
 		RewardsItemClient client = new RewardsItemClient();
@@ -109,6 +113,73 @@ public class SearchRewardsItemByIdHandler
 
 		
 
+		// 候选人员
+		CandidateRule itemRule = item.getCandidateRule();
+			if (itemRule instanceof DobRule) {
+				client.setHasSpecialCondition(true);
+				client.setCondition(SpecialCondition.birth);
+			} else if (itemRule instanceof DirectCandidateRule) {
+				List<DirectCandidateData> directRuleSelecteds = rewardsItemService.findDirectCandidateDataListByDirectRuleId(itemRule.getId());
+				logger.debug("itemRuleId:{},directRuleSelecteds size:{}",new Object[] { itemRule.getId(),directRuleSelecteds.size() });
+				ParticipateInfoClient participate = null;
+				if (isChooseAll(directRuleSelecteds)) {
+					participate = new EveryoneClient();
+				} else {
+					List<OrganicationClient> orgs = getOrgsFromParticipants(directRuleSelecteds);
+					participate = new SomeoneClient(orgs);
+				}
+				client.setParticipateInfo(participate);
+			}
+			
+			// 提名人员
+			List<Judge> judges = item.getJudgeList();
+			ParticipateInfoClient participate = null;
+			List<OrganicationClient> orgs = getOrgsFromJudges(judges);
+			participate = new SomeoneClient(orgs);
+			client.setTmInfo(participate);
+		
+		return client;
+	}
+	//把奖项库的数据转化
+	private RewardsItemClient adapterItemStore(RewardItemService rewardsItemService,
+			RewardItemStoreVo item) {
+		RewardsItemClient client = new RewardsItemClient();
+		client.setId(item.getId());
+		client.setName(item.getName());
+		client.setDefinition(item.getDefinition());
+		client.setStandard(item.getStandard());
+	//	client.setRewardsUnit(item.getRewardsUnit().toString());
+		client.setStartTime(item.getItemStore().getStartTime());
+		client.setTmdays(item.getItemStore().getNominateAheadDays());
+		//client.setHasSpecialCondition(item.getItem().g)
+		client.setNextPublishTime(item.getItemStore().getPublishDate());
+		
+		client.setTotalJF((int)item.getItemStore().getTotalAmtLimit());
+		client.setRewardsFrom((int)item.getItemStore().getAwardAmt());
+		client.setSizeLimit(item.getItemStore().getHeadcountLimit());
+		client.setExpectAwardDate(item.getItemStore().getExpectAwardDate());
+		client.setNextTime(item.getItemStore().getExpectAwardDate());
+		client.setNextPublishTime(item.getItemStore().getPublishDate());
+			
+		RequireAutoAward autoEnum = item.getAutoAward();
+		if (autoEnum == RequireAutoAward.requireAutoAward) {
+			client.setAuto(true);
+		} else if (autoEnum == RequireAutoAward.requireNominate) {
+			client.setAuto(false);
+		}
+		
+		RequireAutoGenerate period = item.getAutoGenerate();
+		if (period == RequireAutoGenerate.requireCyclic) {
+			client.setPeriodEnable(true);
+		} else if (period == RequireAutoGenerate.requireOneOff) {
+			client.setPeriodEnable(false);
+		}
+
+		FrequencyHelper helper = new FrequencyHelper();
+		
+		Frequency units = item.getFrequency();
+		FrequencyClient frequency = helper.getFrequencyFromUnitList(rewardsItemService, units);
+		client.setFrequency(frequency);
 		// 候选人员
 		CandidateRule itemRule = item.getCandidateRule();
 			if (itemRule instanceof DobRule) {

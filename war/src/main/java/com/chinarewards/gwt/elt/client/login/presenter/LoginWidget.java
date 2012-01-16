@@ -9,12 +9,12 @@ import com.google.gwt.event.dom.client.HasKeyUpHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Random;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
@@ -30,7 +30,7 @@ public class LoginWidget extends Composite implements LoginDisplay {
 	@UiField
 	Button loginButton;
 	@UiField
-	Label forgetPwd;
+	Anchor forgetPwd;
 
 	DialogBox panel;
 
@@ -41,7 +41,7 @@ public class LoginWidget extends Composite implements LoginDisplay {
 	Image verifyImage;
 
 	@UiField
-	Label prompt;
+	Anchor prompt;
 
 	interface LoginWidgetBinder extends UiBinder<Widget, LoginWidget> {
 	}

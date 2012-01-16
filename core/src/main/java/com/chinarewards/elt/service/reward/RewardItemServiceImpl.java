@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.chinarewards.elt.domain.reward.base.RewardItem;
+import com.chinarewards.elt.domain.reward.base.RewardItemStore;
 import com.chinarewards.elt.domain.reward.frequency.WeekFrequencyDays;
 import com.chinarewards.elt.domain.reward.rule.DirectCandidateData;
 import com.chinarewards.elt.domain.user.SysUser;
@@ -11,6 +12,7 @@ import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.reward.base.RequireAutoGenerate;
 import com.chinarewards.elt.model.reward.base.RewardItemParam;
 import com.chinarewards.elt.model.reward.search.RewardItemSearchVo;
+import com.chinarewards.elt.model.reward.vo.RewardItemStoreVo;
 import com.chinarewards.elt.model.reward.vo.RewardItemVo;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.vo.StaffAndDeptmentAutoCompile;
@@ -63,6 +65,16 @@ public class RewardItemServiceImpl implements RewardItemService {
 	}
 
 	@Override
+	public RewardItemStore saveRewardItemStore(UserContext context,
+			RewardItemParam param) {
+		SysUser caller = userLogic.findUserById(context.getUserId());
+		RewardItemStore rewardItemStore = rewardItemLogic.saveRewardItemStore(
+				caller, param);
+		rewardItemLogic.saveOrgPolicy(rewardItemStore.getBuilderDept());
+		return rewardItemStore;
+	}
+
+	@Override
 	public List<StaffAndDeptmentAutoCompile> staffAndDeptmentAutoCompile(
 			String corporationId, String falg, int limit) {
 		return organizationLogic.staffAndDeptmentAutoCompile(corporationId,
@@ -70,9 +82,9 @@ public class RewardItemServiceImpl implements RewardItemService {
 	}
 
 	@Override
-	public String deleteRewardItem(UserContext context,String rewardItemId) {
-		 SysUser caller = userLogic.findUserById(context.getUserId());
-		return rewardItemLogic.deleteRewardItem( caller,rewardItemId);
+	public String deleteRewardItem(UserContext context, String rewardItemId) {
+		SysUser caller = userLogic.findUserById(context.getUserId());
+		return rewardItemLogic.deleteRewardItem(caller, rewardItemId);
 
 	}
 
@@ -81,12 +93,32 @@ public class RewardItemServiceImpl implements RewardItemService {
 		// TODO Auto-generated method stub
 		return rewardItemLogic.fetchEntireRewardItemById(rewardItemId);
 	}
+	
+	@Override
+	public String deleteRewardItemStore(UserContext context,String rewardItemStoreId) {
+		 SysUser caller = userLogic.findUserById(context.getUserId());
+		return rewardItemLogic.deleteRewardItemStore( caller,rewardItemStoreId);
+
+	}
+
+	@Override
+	public RewardItemStoreVo fetchEntireRewardItemStoreById(String rewardItemStoreId) {
+		// TODO Auto-generated method stub
+		return rewardItemLogic.fetchEntireRewardItemStoreById(rewardItemStoreId);
+	}
 
 	@Override
 	public PageStore<RewardItemVo> fetchRewardItems(UserContext context,
 			RewardItemSearchVo criteria) {
 
 		return rewardItemLogic.fetchRewardItems(context, criteria);
+	}
+
+	@Override
+	public PageStore<RewardItemStoreVo> fetchRewardItemsStore(
+			UserContext context, RewardItemSearchVo criteria) {
+
+		return rewardItemLogic.fetchRewardItemsStore(context, criteria);
 	}
 
 	@Override
@@ -168,6 +200,14 @@ public class RewardItemServiceImpl implements RewardItemService {
 		return candidateRuleLogic
 				.findDirectCandidateDataListByDirectRuleId(directRuleId);
 		// findDirectCandidateDataListByDirectRuleId
+	}
+
+	@Override
+	public String copyRewardItenStoreToRewardItem(UserContext context,
+			String rewardItemStoreId) {
+		return rewardItemLogic.copyRewardItenStoreToRewardItem(context,
+				rewardItemStoreId);
+
 	}
 
 }

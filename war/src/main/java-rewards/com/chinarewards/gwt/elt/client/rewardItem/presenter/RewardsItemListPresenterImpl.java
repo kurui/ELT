@@ -2,6 +2,8 @@ package com.chinarewards.gwt.elt.client.rewardItem.presenter;
 
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
@@ -94,7 +96,7 @@ public class RewardsItemListPresenterImpl extends
 						.getEditorRegistry()
 						.openEditor(
 								RewardsItemConstants.EDITOR_REWARDSITEM_ADD,
-								"EDITOR_REWARDSITEM_ADD_DO_ID", null);
+								RewardsItemConstants.EDITOR_REWARDSITEM_ADD, RewardsItemConstants.EDITOR_REWARDSITEM_ADD);
 			}
 		}));
 	}
@@ -107,9 +109,9 @@ public class RewardsItemListPresenterImpl extends
 		resultTable.setWidth(ViewConstants.page_width);
 		resultTable.setPageSize(ViewConstants.per_page_number_in_dialog);
 		listViewAdapter = new RewardsItemListViewAdapter(dispatch,
-				errorHandler, sessionManager);
+				errorHandler, sessionManager,display);
 		listViewAdapter.addDataDisplay(resultTable);
-
+		resultTable.getColumn(0).setCellStyleNames("divTextLeft");
 		display.getDataContainer().clear();
 		display.getDataContainer().add(resultTable);
 		display.getDataPager().add(pager);
@@ -153,8 +155,13 @@ public class RewardsItemListPresenterImpl extends
 		// display.getDepartmentPanel().add(comboTree);
 		// deptId = comboTree.getSelectedItem().getId();
 		// setRewardsTypeList();
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("true", "已激活");
+		map.put("false", "未激活");
+		display.initStatus(map);
+		
 	}
-
+	
 	private void initTableColumns() {
 		Sorting<RewardsItemClient> ref = new Sorting<RewardsItemClient>() {
 			@Override
@@ -168,14 +175,25 @@ public class RewardsItemListPresenterImpl extends
 				listViewAdapter.sortFromDateBase(sorting, direction);
 			}
 		};
-
-		resultTable.addColumn("奖项名称", new TextCell(),
+		resultTable.addColumn("奖项名称", new HyperLinkCell(),
 				new GetValue<RewardsItemClient, String>() {
 					@Override
 					public String getValue(RewardsItemClient object) {
 						return object.getName();
 					}
+				}, new FieldUpdater<RewardsItemClient, String>() {
+					@Override
+					public void update(int index, RewardsItemClient object,
+							String value) {
+						Platform.getInstance()
+								.getEditorRegistry()
+								.openEditor(
+										RewardsItemConstants.EDITOR_REWARDSITEM_View,
+										"EDITOR_REWARDS_ITEM_VIEW"
+												+ object.getId(), object);
+					}
 				}, ref, "name");
+
 		resultTable.addColumn("自动", new TextCell(),
 				new GetValue<RewardsItemClient, String>() {
 					@Override
@@ -197,7 +215,7 @@ public class RewardsItemListPresenterImpl extends
 					public Date getValue(RewardsItemClient object) {
 						return object.getCreateAt();
 					}
-				});
+				},ref,"createdAt");
 
 
 
@@ -222,7 +240,7 @@ public class RewardsItemListPresenterImpl extends
 						.getEditorRegistry()
 						.openEditor(
 								RewardsItemConstants.EDITOR_REWARDSITEM_ADD,
-								"EDITOR_REWARDS_ITEM_ADD"+ object.getId(), object);
+								RewardsItemConstants.EDITOR_REWARDSITEM, object);
 					
 
 					}
@@ -261,7 +279,7 @@ public class RewardsItemListPresenterImpl extends
 								
 								@Override
 								public void confirm() {
-									dispatch.execute(new DeleteRewardsItemRequest(object.getId(),sessionManager.getSession().getToken()),
+									dispatch.execute(new DeleteRewardsItemRequest(object.getId(),sessionManager.getSession().getToken(),false),
 											new AsyncCallback<DeleteRewardsItemResponse>() {
 
 												@Override
@@ -345,7 +363,7 @@ public class RewardsItemListPresenterImpl extends
 	public void deleteRewardItem(String rewardsItemId) {
 
 		dispatch.execute(new DeleteRewardsItemRequest(rewardsItemId,
-				sessionManager.getSession().getToken()),
+				sessionManager.getSession().getToken(),false),
 				new AsyncCallback<DeleteRewardsItemResponse>() {
 
 					@Override
@@ -368,6 +386,10 @@ public class RewardsItemListPresenterImpl extends
 		criteria.setName(display.getSearchName().getValue());
 		criteria.setCreateTime(display.getCreateTime().getValue());
 		criteria.setCreateTimeEnd(display.getCreateTimeEnd().getValue());
+		if(display.getStatus().equals("true"))
+		   criteria.setEnabled(true);
+		else
+			criteria.setEnabled(false);
 		listViewAdapter.setCriteria(criteria);
 		listViewAdapter.reloadToFirstPage();
 	}

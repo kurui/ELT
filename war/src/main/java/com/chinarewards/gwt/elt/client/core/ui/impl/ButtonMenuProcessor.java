@@ -131,7 +131,7 @@ public class ButtonMenuProcessor implements MenuProcessor {
 	private List<String> getMenuItemName(String keyname) {
 		List<String> items = new ArrayList<String>();
 		if ("RewardItem".equals(keyname)) {
-			items.add(RewardsItemConstants.MENU_REWARDSITEM_ADD);
+			items.add(RewardsItemConstants.MENU_REWARDSITEMSTORE_LIST);
 			items.add(RewardsItemConstants.MENU_REWARDSITEM_List);
 		} else if ("Reward".equals(keyname)) {
 			items.add(NominateConstants.MENU_NOMINATE_SEARCH);

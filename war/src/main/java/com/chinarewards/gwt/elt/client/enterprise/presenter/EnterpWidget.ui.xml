@@ -15,7 +15,7 @@
 				<g:Label text="企业名称"/>
 			</g:at>
 			<g:at left="93" top="55">
-				<g:TextBox ui:field="enterpriseName"/>
+				<g:TextBox maxLength="30" ui:field="enterpriseName"/>
 			</g:at>
 			<g:at left="276" top="62">
 				<g:Label text="法人"/>
@@ -24,7 +24,7 @@
 				<g:Label text="企业地址"/>
 			</g:at>
 			<g:at left="347" top="55">
-				<g:TextBox ui:field="corporation"/>
+				<g:TextBox maxLength="30" ui:field="corporation"/>
 			</g:at>
 			<g:at left="93" top="101">
 				<g:TextBox width="400px" height="15px" ui:field="address"/>

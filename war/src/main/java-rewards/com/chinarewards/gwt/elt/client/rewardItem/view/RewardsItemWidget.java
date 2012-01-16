@@ -13,12 +13,11 @@ import com.chinarewards.gwt.elt.client.rewards.model.DayFrequencyClient;
 import com.chinarewards.gwt.elt.client.rewards.model.FrequencyClient;
 import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
 import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient;
+import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient.SomeoneClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemClient;
 import com.chinarewards.gwt.elt.client.rewards.model.SpecialCondition;
 import com.chinarewards.gwt.elt.client.rewards.model.WeekFrequencyClient;
 import com.chinarewards.gwt.elt.client.rewards.model.YearFrequencyClient;
-import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient.EveryoneClient;
-import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient.SomeoneClient;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.view.OrganizationSpecialTextArea;
 import com.chinarewards.gwt.elt.client.view.constant.CssStyleConstants;
@@ -124,6 +123,10 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 	// 保存或修改
 	@UiField
 	Button save;
+	
+	// 保存奖项库
+	@UiField
+	Button saveStore;
 
 	/** 存储有用的信息 **/
 	FrequencyClient frequency;
@@ -433,7 +436,10 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 		return save;
 	}
 
-	
+	@Override
+	public HasClickHandlers getSaveStoreClick() {
+		return saveStore;
+	}
 	
 	
 	@Override
@@ -704,7 +710,7 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 			}
 	}
 
-	public void showRewardsItem(RewardsItemClient rewardsItem) {
+	public void showRewardsItem(RewardsItemClient rewardsItem,boolean isItemStore) {
 		if (rewardsItem.getFrequency() != null) {
 			// 显示出下次颁奖时间
 			nextRewardsTime.getElement().getParentElement().getParentElement()
@@ -713,7 +719,15 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 			//startTime.setEnabled(false);
 			
 		} 
-		title.setText("修改奖项");
+        if(isItemStore==false){
+		     title.setText("修改奖项");
+		     saveStore.setVisible(false);
+		     save.setVisible(true);
+        }else{
+        	 title.setText("修改奖项库");
+        	 saveStore.setVisible(true);
+        	 save.setVisible(false);
+        } 	 
 		rewardsName.setText(rewardsItem.getName());
 		rewardsDefinition.setText(rewardsItem.getDefinition());
 		standard.setText(rewardsItem.getStandard());
@@ -753,6 +767,19 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
     	   onetimes.setValue(true,true);
        }
 		
+	}
+
+
+	@Override
+	public void setTitle(String text) {
+		this.title.setText(text);
+		
+	}
+
+
+	@Override
+	public void setRewardButtonDisplay() {
+		save.setVisible(false);		
 	}	
 	
 }

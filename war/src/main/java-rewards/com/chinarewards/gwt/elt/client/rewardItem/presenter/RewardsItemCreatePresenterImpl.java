@@ -63,6 +63,7 @@ public class RewardsItemCreatePresenterImpl extends
 		BasePresenter<RewardsItemCreatePresenter.RewardsItemDisplay> implements
 		RewardsItemCreatePresenter {
 	String instanceId;//修改时传过来的ID
+	boolean isItemStore = false;//是否是奖项库
 	/**
 	 * 是否为修改页，默认为false
 	 */
@@ -125,8 +126,16 @@ public class RewardsItemCreatePresenterImpl extends
 		//绑定事件
 		 init();
 		//候选人面板显示
+	//	 Window.alert(instanceId);
 		staffBlock.bind();
 		display.initStaffBlock(staffBlock.getDisplay().asWidget());
+		
+		if(instanceId.equals(RewardsItemConstants.EDITOR_REWARDSITEMSTORE))
+		{
+			display.setTitle("创建奖项库");
+			display.setRewardButtonDisplay();
+		}
+		
 	}
 	private void init(){
 		//频率设置
@@ -327,13 +336,97 @@ public class RewardsItemCreatePresenterImpl extends
 					
 						if (!isEditPage) {
 							rewardsItem.setId("");
-							doSave(rewardsItem);
+							doSave(rewardsItem,false);
 						} else {
 							rewardsItem.setId(rewardsItemId);
-							doEdit(rewardsItem);//修改功能
+							doEdit(rewardsItem,false);//修改功能
 						}
 					}
 				}));
+		
+		//保存奖项库事件
+				registerHandler(display.getSaveStoreClick().addClickHandler(
+						new ClickHandler() {
+							@Override
+							public void onClick(ClickEvent arg0) {
+								// validate first!
+								if (!validateFirst()) {
+									return;
+								}
+								
+								RewardsItemClient rewardsItemStore = new RewardsItemClient();
+								// 基本信息
+								rewardsItemStore.setName(display.getRewardsName().getValue().trim());
+								rewardsItemStore.setType(new RewardsTypeClient(display.getRewardsType(), ""));//
+								rewardsItemStore.setDefinition(display.getDefinition().getValue().trim());
+								rewardsItemStore.setStandard(display.getStandard().getValue().trim());
+								// 候选限额
+								if(display.getPeopleSizeLimit().getValue()!=null&& !display.getPeopleSizeLimit().getValue().equals(""))
+								rewardsItemStore.setSizeLimit(Integer.parseInt(display.getPeopleSizeLimit().getValue()));
+								
+								//定义设置奖项和入帐的部门，现为同一部门，从session中得到
+								rewardsItemStore.setBuilderDept(sessionManager.getSession().getDepartmentId());
+								rewardsItemStore.setAccountDept(sessionManager.getSession().getDepartmentId());
+
+								// 候选人信息
+								rewardsItemStore.setParticipateInfo(staffBlock.getparticipateInfo());
+								//开始时间
+								rewardsItemStore.setStartTime(display.getStartTime().getValue());
+								//提名人的信息,自动奖没有提名信息
+								 rewardsItemStore.setTmInfo(getNominateInfo());
+								//是否是周期性选择
+								rewardsItemStore.setPeriodEnable(display.getEnableCbx().getValue());
+								//总积分
+								if(display.getTotalJF()!=null&&!display.getTotalJF().toString().equals(""))
+								rewardsItemStore.setTotalJF(Integer.parseInt(display.getTotalJF().toString()));
+								//每人积分
+								
+								rewardsItemStore.setRewardsFrom(Integer.parseInt(display.getRewardsFrom().toString()));
+								
+								// 周期性频率信息启用
+								if (display.getEnableCbx().getValue() ) {
+									if(display.getTmday()!=null&&!display.getTmday().toString().equals("")){//把周期性的提名提前的天数放在一个rewardsItemStore
+									 rewardsItemStore.setTmdays(display.getTmday().intValue());
+									}else{
+										 rewardsItemStore.setTmdays(0);
+									}
+									if(display.getAutoCbx().getValue()==true){
+										rewardsItemStore.setNextPublishTime(display.getStartTime().getValue());
+									}else{
+										rewardsItemStore.setNextPublishTime(display.getNextPublishTime().getValue());
+									}
+									rewardsItemStore.setExpectAwardDate(display.getNextRewardsTime().getValue());
+									rewardsItemStore.setNextTime(display.getNextRewardsTime().getValue());//下次颁奖的时间
+									rewardsItemStore.setFrequency(display.getFrequencyObj());//周期频率设置
+									
+									rewardsItemStore	.setAuto(display.getAutoCbx().getValue());
+									rewardsItemStore.setRewardsUnit(display.getRewardsUnit());
+									rewardsItemStore.setHasSpecialCondition(display.getSpecialCbx().getValue());
+									
+									rewardsItemStore.setGeneratedRewards(false);
+									if (display.getSpecialCbx().getValue()&& display.getBirthRadio().getValue()) {
+										rewardsItemStore.setCondition(SpecialCondition.birth);
+									}
+								}else{// 一次性质
+									rewardsItemStore.setFrequency(null);//周期频率设置为null
+									rewardsItemStore.setNextPublishTime(display.getStartTime().getValue());
+									rewardsItemStore.setExpectAwardDate(display.getExpectTime().getValue());//期望的时间
+									if(display.getTmdays()!=null&&!display.getTmdays().toString().equals(""))//把一次性的提名提前的天数放在一个rewardsItemStore
+										 rewardsItemStore.setTmdays(display.getTmdays().intValue());
+									else
+										 rewardsItemStore.setTmdays(0);
+									}
+
+							
+								if (!isEditPage) {
+									rewardsItemStore.setId("");
+									doSave(rewardsItemStore,true);//true是保存到奖项库
+								} else {
+									rewardsItemStore.setId(rewardsItemId);
+									doEdit(rewardsItemStore,true);//修改功能
+								}
+							}
+						}));
 	}
 	public ParticipateInfoClient getNominateInfo(){
 		ParticipateInfoClient nominateInfo = null;
@@ -346,8 +439,8 @@ public class RewardsItemCreatePresenterImpl extends
 		nominateInfo = new SomeoneClient(orgs);
 		return nominateInfo;
 	 }
-	private void doSave(RewardsItemClient rewardsItem) {
-		dispatcher.execute(new CreateRewardsItemRequest(rewardsItem,sessionManager.getSession()),
+	private void doSave(RewardsItemClient rewardsItem,final boolean itemStore) {
+		dispatcher.execute(new CreateRewardsItemRequest(rewardsItem,sessionManager.getSession(),itemStore),
 				new AsyncCallback<CreateRewardsItemResponse>() {
 					@Override
 					public void onFailure(Throwable t) {
@@ -358,37 +451,58 @@ public class RewardsItemCreatePresenterImpl extends
 					public void onSuccess(CreateRewardsItemResponse response) {
 						win.alert("添加成功");
 					//	if(instanceId!=null||!instanceId.equals(""))
+						if(itemStore==false)
+						{
 							Platform.getInstance()
 							.getEditorRegistry()
 							.openEditor(
 									RewardsItemConstants.EDITOR_REWARDSITEM_List,
 									"EDITOR_REWARDSITEM_List_DO_ID", instanceId);
+						}
+						else
+						{
+							Platform.getInstance()
+							.getEditorRegistry()
+							.openEditor(
+									RewardsItemConstants.EDITOR_REWARDSITEMSTORE_LIST,
+									RewardsItemConstants.EDITOR_REWARDSITEMSTORE, instanceId);
+						}
 
 					}
 				});
 	}
-	private void doEdit(final RewardsItemClient rewardsItem) {
+	private void doEdit(final RewardsItemClient rewardsItem,final boolean itemStore) {
 		win.confirm("修改提示", "确定修改吗？", new ConfirmHandler() {
 			
 			@Override
 			public void confirm() {
-				dispatcher.execute(new CreateRewardsItemRequest(rewardsItem,sessionManager.getSession()),
+				dispatcher.execute(new CreateRewardsItemRequest(rewardsItem,sessionManager.getSession(),itemStore),
 						new AsyncCallback<CreateRewardsItemResponse>() {
 							@Override
 							public void onFailure(Throwable t) {
 								win.alert("修改失败");
-								Platform.getInstance()
-								.getEditorRegistry()
-								.closeEditor(RewardsItemConstants.EDITOR_REWARDSITEM_ADD,instanceId);
+		
 							}
-
+                           
 							@Override
 							public void onSuccess(CreateRewardsItemResponse arg0) {
 								win.alert("修改成功");
-								Platform.getInstance()
-								.getEditorRegistry()
-								.openEditor(RewardsItemConstants.EDITOR_REWARDSITEM_List,
-										"EDITOR_REWARDSITEM_List_DO_ID", instanceId);
+								if(itemStore==false)
+								{
+									Platform.getInstance()
+									.getEditorRegistry()
+									.openEditor(
+											RewardsItemConstants.EDITOR_REWARDSITEM_List,
+											"EDITOR_REWARDSITEM_List_DO_ID", instanceId);
+								}
+								else
+								{
+									Platform.getInstance()
+									.getEditorRegistry()
+									.openEditor(
+											RewardsItemConstants.EDITOR_REWARDSITEMSTORE_LIST,
+											RewardsItemConstants.EDITOR_REWARDSITEMSTORE, instanceId);
+								}
 							}
 						});
 				
@@ -640,7 +754,7 @@ public class RewardsItemCreatePresenterImpl extends
 						if (display.getExpectTime().getValue() == null|| "".equals(display.getExpectTime().getValue())) {
 							errorMsg.append("预计颁奖时间不能为空!<br>");
 							flag = false;
-						}else if(display.getStartTime().getValue().getTime()>display.getExpectTime().getValue().getTime()){
+						}else if(display.getStartTime().getValue()!=null && display.getStartTime().getValue().getTime()>display.getExpectTime().getValue().getTime()){
 							errorMsg.append("开始时间要小于预计颁奖时间<br>");
 							flag = false;
 						}
@@ -661,22 +775,25 @@ public class RewardsItemCreatePresenterImpl extends
 					return flag;
 				}
         
-				@Override
+				@Override//修改时读取数据
 				public void initInstanceId(String instanceId,RewardsItemClient item) {
 					this.instanceId = instanceId;
-					initDataToEditRewardsItem( item);
+					if(item!=null)
+					initDataToEditRewardsItem( item,instanceId);
 				}
 				
-				private void initDataToEditRewardsItem(final RewardsItemClient item) {
+				private void initDataToEditRewardsItem(final RewardsItemClient item,final String instanceId) {
 					String id = item.getId();
-					  
 					isEditPage  = true;
+					if(instanceId.equals(RewardsItemConstants.EDITOR_REWARDSITEMSTORE))
+						isItemStore = true;
+					
 					{
-						dispatcher.execute(new SearchRewardsItemByIdRequest(id),
+						dispatcher.execute(new SearchRewardsItemByIdRequest(id,isItemStore),
 								new AsyncCallback<SearchRewardsItemByIdResponse>() {
 									@Override
 									public void onFailure(Throwable arg0) {
-										errorHandler.alert("查询奖项出错!");
+										errorHandler.alert("查询出错!");
 										Platform.getInstance()
 										.getEditorRegistry()
 										.closeEditor(RewardsItemConstants.EDITOR_REWARDSITEM_ADD,instanceId);
@@ -686,7 +803,7 @@ public class RewardsItemCreatePresenterImpl extends
 									public void onSuccess(SearchRewardsItemByIdResponse response) {
 										RewardsItemClient item = response.getRewardsItem();
 										clear();
-										display.showRewardsItem(item);
+										display.showRewardsItem(item,isItemStore);//显示奖项
 
 										// 初始前一次颁奖时间
 										rewardsDateCopuy = item.getLastRewardedDate();

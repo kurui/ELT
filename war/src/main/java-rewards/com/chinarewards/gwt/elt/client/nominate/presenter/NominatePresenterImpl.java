@@ -153,10 +153,12 @@ public class NominatePresenterImpl extends
 						display.setName(response.getRewardName());
 						display.setExplain(response.getDefinition());
 						display.setCondition(response.getStandard());
-						display.setIntegral(response.getTotalAmtLimit() + "");
+						int total = (int) (response.getTotalAmtLimit() / 10);
+						display.setIntegral(total + "");
 						display.setRecordName(response.getCreatedStaffName());
 						display.setNumber(response.getHeadcountLimit() + "");
-						display.setAwardAmt(response.getAwardAmt() + "");
+						int amt = (int) (response.getAwardAmt() / 10);
+						display.setAwardAmt(amt + "");
 						display.setJudge(response.getJudgeList());
 						// display.setCandidate(response.getCandidateList());
 						display.setAwardNature(response.getAwardMode());

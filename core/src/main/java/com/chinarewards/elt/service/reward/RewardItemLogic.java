@@ -5,11 +5,13 @@ import java.util.List;
 
 import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.reward.base.RewardItem;
+import com.chinarewards.elt.domain.reward.base.RewardItemStore;
 import com.chinarewards.elt.domain.reward.frequency.WeekFrequencyDays;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.reward.base.RewardItemParam;
 import com.chinarewards.elt.model.reward.search.RewardItemSearchVo;
+import com.chinarewards.elt.model.reward.vo.RewardItemStoreVo;
 import com.chinarewards.elt.model.reward.vo.RewardItemVo;
 import com.chinarewards.elt.model.user.UserContext;
 
@@ -30,6 +32,17 @@ public interface RewardItemLogic {
 	 * @return
 	 */
 	public RewardItem saveRewardItem(SysUser caller, RewardItemParam param);
+	
+	/**
+	 * Add or update a record of RewardItem. See more detail at
+	 * {@link RewardItemParam}.
+	 * 奖项库
+	 * @param caller
+	 * @param param
+	 * @return
+	 */
+	public RewardItemStore saveRewardItemStore(SysUser caller, RewardItemParam param);
+
 
 	/**
 	 * Delete the specified RewardItem. Just delete in a logical way.
@@ -46,6 +59,22 @@ public interface RewardItemLogic {
 	 * @return
 	 */
 	public RewardItemVo fetchEntireRewardItemById(String rewardItemId);
+   
+	/**
+	 * Delete the specified RewardItemStore. Just delete in a logical way.
+	 * 
+	 * @param rewardItemStoreId
+	 */
+	public String deleteRewardItemStore(SysUser caller,String rewardItemStoreId);
+
+	/**
+	 * Fetch the entire information about the specified RewardItemStore. It contains
+	 * all the external informations.
+	 * 
+	 * @param rewardItemStoreId
+	 * @return
+	 */
+	public RewardItemStoreVo fetchEntireRewardItemStoreById(String rewardItemStoreId);
 
 	/**
 	 * 
@@ -61,6 +90,9 @@ public interface RewardItemLogic {
 	 * @return
 	 */
 	public PageStore<RewardItemVo> fetchRewardItems(UserContext context,
+			RewardItemSearchVo criteria);
+	
+	public PageStore<RewardItemStoreVo> fetchRewardItemsStore(UserContext context,
 			RewardItemSearchVo criteria);
 
 	/**
@@ -133,5 +165,14 @@ public interface RewardItemLogic {
 	public void updateRewardItemCount(String rewardItemId);
 	
 	public void saveOrgPolicy(Department dep);
+	public RewardItemStore findRewardItemStore(String rewardItemStoreId);
+	/**
+	 * copy 奖项库--创建--奖项
+	 * @param context
+	 * @param rewardItemId
+	 * @return
+	 */
+	public String copyRewardItenStoreToRewardItem(UserContext context, String rewardItemStoreId);
 
+	
 }

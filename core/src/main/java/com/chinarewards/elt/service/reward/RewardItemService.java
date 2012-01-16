@@ -4,12 +4,13 @@ import java.util.Date;
 import java.util.List;
 
 import com.chinarewards.elt.domain.reward.base.RewardItem;
+import com.chinarewards.elt.domain.reward.base.RewardItemStore;
 import com.chinarewards.elt.domain.reward.frequency.WeekFrequencyDays;
 import com.chinarewards.elt.domain.reward.rule.DirectCandidateData;
-import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.reward.base.RewardItemParam;
 import com.chinarewards.elt.model.reward.search.RewardItemSearchVo;
+import com.chinarewards.elt.model.reward.vo.RewardItemStoreVo;
 import com.chinarewards.elt.model.reward.vo.RewardItemVo;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.vo.StaffAndDeptmentAutoCompile;
@@ -30,13 +31,26 @@ public interface RewardItemService {
 	 * @return
 	 */
 	public RewardItem saveRewardItem(UserContext context, RewardItemParam param);
-         
+     /**
+      * 存入奖项库 
+      * @param context
+      * @param param
+      * @return
+      */
+	
+	public RewardItemStore saveRewardItemStore(UserContext context, RewardItemParam param);
+	
 	/**
 	 * Delete the specified RewardItem. Just delete in a logical way.
 	 * 
 	 * @param rewardItemId
 	 */
+	
 	public String deleteRewardItem(UserContext context,String rewardItemId);
+	
+	public String deleteRewardItemStore(UserContext context,String rewardItemStoreId);
+	
+	public RewardItemStoreVo fetchEntireRewardItemStoreById(String rewardItemStoreId);
 
 	/**
 	 * Fetch the entire information about the specified RewardItem. It contains
@@ -60,7 +74,12 @@ public interface RewardItemService {
 	 * @param criteria
 	 * @return
 	 */
+	
+	
 	public PageStore<RewardItemVo> fetchRewardItems(UserContext context,
+			RewardItemSearchVo criteria);
+	
+	public PageStore<RewardItemStoreVo> fetchRewardItemsStore(UserContext context,
 			RewardItemSearchVo criteria);
 
 	/**
@@ -123,6 +142,13 @@ public interface RewardItemService {
 	
 	
 	public List<DirectCandidateData> findDirectCandidateDataListByDirectRuleId(String directRuleId);
+	/**
+	 * copy 奖项库--创建--奖项
+	 * @param context
+	 * @param rewardItemId
+	 * @return
+	 */
+	public String copyRewardItenStoreToRewardItem(UserContext context, String rewardItemStoreId);
 
 	
 

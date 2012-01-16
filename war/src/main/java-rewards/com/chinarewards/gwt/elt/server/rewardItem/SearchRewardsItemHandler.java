@@ -19,7 +19,6 @@ import com.chinarewards.elt.model.reward.base.RequireAutoGenerate;
 import com.chinarewards.elt.model.reward.search.RewardItemSearchVo;
 import com.chinarewards.elt.model.reward.vo.RewardItemVo;
 import com.chinarewards.elt.model.user.UserContext;
-import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.service.reward.RewardItemService;
 import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsItemRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsItemResponse;
@@ -79,10 +78,10 @@ public class SearchRewardsItemHandler extends	BaseActionHandler<SearchRewardsIte
 		model.setId(criteria.getId());
 		model.setName(criteria.getName());
 		model.setDepartmentId(criteria.getDepartmentId());
-
+        model.setEnabled(criteria.isEnabled());
 		model.setCreateTime(criteria.getCreateTime());
 		model.setCreateTimeEnd(criteria.getCreateTimeEnd());
-
+     //   model.setEnabled(criteria.isEnabled());
 //		model.setSubDepartmentChoose(criteria.isSubDepartmentChoose());
 //		model.setRewardFrom(criteria.getRewardFrom());
 		model.setStandard(criteria.getStandard());

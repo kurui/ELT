@@ -87,9 +87,11 @@ public abstract class MenuConstants {
 	public static final int MENU_ORDER_CORPORATION_INNER_INFO_PUBLISH = order++;
 	// hr注册
 	public static final int MENU_ORDER_Hr_SEARCH = order++;
-	
-	// 列表查询
+
+	// 奖项列表查询
 	public static final int MENU_ORDER_REWARDSITEM_List = order++;
+	// 奖项库列表查询
+	public static final int MENU_ORDER_REWARDSITEMStore_List = order++;
 	// 新建奖项
 	public static final int MENU_ORDER_REWARDSITEM_ADD = order++;
 	// 奖项详细

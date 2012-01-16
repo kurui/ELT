@@ -90,8 +90,11 @@ public class RewardsItemViewWidget extends Composite implements RewardsItemViewD
 	// 生日奖
 	@UiField
 	RadioButton birthRadio;
+    
+ // 标题
+	@UiField
+	InlineLabel title;
 
-	
 	
 	
 	/** 存储有用的信息 **/
@@ -111,6 +114,11 @@ public class RewardsItemViewWidget extends Composite implements RewardsItemViewD
 	Button back;
 	@UiField
 	Button update;
+	
+	@UiField
+	Button backStore;
+	@UiField
+	Button updateStore;
 	@Override
 	public HasClickHandlers getBackClick() {
 		return back;
@@ -119,6 +127,15 @@ public class RewardsItemViewWidget extends Composite implements RewardsItemViewD
 	@Override
 	public HasClickHandlers getUpdateClick() {
 		return update;
+	}
+	
+	public HasClickHandlers getBackStoreClick() {
+		return backStore;
+	}
+   
+	@Override
+	public HasClickHandlers getUpdateStoreClick() {
+		return updateStore;
 	}
 
 	interface RewardsItemViewWidgetBinder extends
@@ -202,13 +219,23 @@ public class RewardsItemViewWidget extends Composite implements RewardsItemViewD
 		 staffPanel.add(candidatelab);
 	}
 
-	public void showRewardsItem(RewardsItemClient rewardsItem) {
+	public void showRewardsItem(RewardsItemClient rewardsItem,boolean isItemStore) {
 		if (rewardsItem.getFrequency() != null) {
 			// 显示出下次颁奖时间
 			nextRewardsTime.getElement().getParentElement().getParentElement()
 					.removeClassName(CssStyleConstants.hidden);
 				
 		} 
+		if(isItemStore==true){//是奖项库的修改按钮不可用
+			update.setVisible(false);
+			back.setVisible(false);
+			title.setText("查看奖项库");
+		}else{
+			updateStore.setVisible(false);
+			backStore.setVisible(false);
+			title.setText("查看奖项");
+		}
+			
 		 showJudgeInfo(rewardsItem);//显示的提名人
 		 showParticipateInfo(rewardsItem.getBaseInfo());//显示的候选人
 	

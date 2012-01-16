@@ -1,20 +1,15 @@
 package com.chinarewards.gwt.elt.client.dataprovider;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
+import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemListPresenter.RewardsItemListDisplay;
 import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsItemRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsItemResponse;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemCriteria;
-import com.chinarewards.gwt.elt.client.rewards.model.RewardsTypeClient;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.model.PaginationDetailClient;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 /**
@@ -28,12 +23,14 @@ public class RewardsItemListViewAdapter extends	BaseDataProvider<RewardsItemClie
 	RewardsItemCriteria criteria;
 	final ErrorHandler errorHandler;
 	final SessionManager sessionManager;
+	final RewardsItemListDisplay display;
 
 	public RewardsItemListViewAdapter(DispatchAsync dispatch,
-			ErrorHandler errorHandler, SessionManager sessionManager) {
+			ErrorHandler errorHandler, SessionManager sessionManager, RewardsItemListDisplay display) {
 		this.dispatch = dispatch;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
+		this.display=display;
 	}
 
 	@Override
@@ -76,6 +73,7 @@ public class RewardsItemListViewAdapter extends	BaseDataProvider<RewardsItemClie
 						public void onSuccess(SearchRewardsItemResponse response) {
 							updateRowData(start, response.getResult());
 							updateRowCount(response.getTotal(), true);
+							display.setDataCount(response.getTotal()+"");
 						}
 
 					});

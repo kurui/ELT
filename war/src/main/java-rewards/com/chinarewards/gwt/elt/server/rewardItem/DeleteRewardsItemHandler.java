@@ -33,9 +33,13 @@ public class DeleteRewardsItemHandler extends	BaseActionHandler<DeleteRewardsIte
 			ExecutionContext context) throws DispatchException {
 		UserContext uc=new UserContext();
 		uc.setUserId(action.getNowUserId());
-		String name=rewardItemService.deleteRewardItem(uc, action.getRewardsItemId().toString());
-
-		return new DeleteRewardsItemResponse(name);
+		if(action.isItemStore()==false){//是删除奖项
+ 	       String name=rewardItemService.deleteRewardItem(uc, action.getRewardsItemId().toString());
+	       return new DeleteRewardsItemResponse(name);
+		}else{
+		  String name=rewardItemService.deleteRewardItemStore(uc, action.getRewardsItemId().toString());
+		  return new DeleteRewardsItemResponse(name);
+		}
 	}
 
 
