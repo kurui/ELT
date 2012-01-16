@@ -86,7 +86,7 @@ public class ChooseStaffBlockPresenterImpl extends
 		Label label1 = new Label("快速选择：");
 		display.getSuggestBoxPanel().add(label1);
 		display.getSuggestBoxPanel().add(box);
-		Label label = new Label("输入员工/部门");
+		Label label = new Label("输入（员工，部门，小组）名称");
 		//label.getElement().setAttribute("style", "float:left;");
 		display.getSuggestBoxPanel().add(label);
 	}

@@ -88,7 +88,7 @@ public class RewardsItemCreatePresenterImpl extends
 		// 保存下次公布时间副本
 		private Date nextPublishCopy;
 		// 保存下次公布时间和下次颁奖相隔多少天,默认间隔一天
-		private int day = 1;
+		private int day = 0;
 		// 保存最初的开始时间
 		private Date startDateCopy;
 
@@ -132,7 +132,7 @@ public class RewardsItemCreatePresenterImpl extends
 		
 		if(instanceId.equals(RewardsItemConstants.EDITOR_REWARDSITEMSTORE))
 		{
-			display.setTitle("创建奖项库");
+			display.setTitle("创建奖项模板");
 			display.setRewardButtonDisplay();
 		}
 		
@@ -207,14 +207,11 @@ public class RewardsItemCreatePresenterImpl extends
 									Date nextPublishDate = e.getValue();
 									Date nextRewardsDate = display.getNextRewardsTime()
 											.getValue();
-									if (nextRewardsDate.getTime() < nextPublishDate
-											.getTime()) {
-										display.getNextPublishTime().setValue(
-												nextPublishCopy);
+									if (nextRewardsDate.getTime() < nextPublishDate.getTime()) {
+										display.getNextPublishTime().setValue(nextPublishCopy);
 									} else {
 										nextPublishCopy = nextPublishDate;
-										day = DateTool.getIntervalDays(nextPublishDate,
-												nextRewardsDate);
+										day = DateTool.getIntervalDays(nextPublishDate,	nextRewardsDate);
 									}
 								}
 							}));
@@ -744,9 +741,8 @@ public class RewardsItemCreatePresenterImpl extends
 								flag = false;
 							} else if (display.getNextPublishTime().getValue() != null
 									&& display.getNextRewardsTime().getValue() != null
-									&& display.getNextPublishTime().getValue()
-											.after(display.getNextRewardsTime().getValue())) {
-								errorMsg.append("下一次公布奖励时间必须在下一次颁奖时间之前!<br>");
+									&& display.getNextPublishTime().getValue().getTime()>display.getNextRewardsTime().getValue().getTime()) {
+								errorMsg.append("下一次公布奖励时间必小于或等于下一次颁奖时间!<br>");
 								flag = false;
 							}
 						}

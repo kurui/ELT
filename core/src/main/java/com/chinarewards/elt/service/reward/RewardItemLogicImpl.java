@@ -797,8 +797,8 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 
 		rewardItemDao.save(rewardItem);
 		// 复制提名人
-		judgeLogic.copyJudgeToRewardItem(suser, rewardItemStore.getId(),
-				rewardItem.getId());
+		judgeLogic.copyJudgeToRewardItem(suser, rewardItemStore.getId(),rewardItem.getId());
+		
 		// 复制频率
 		if(rewardItem.getAutoGenerate()==RequireAutoGenerate.requireCyclic)
 			frequencyLogic.copyFrequencyToRewardItem(suser, rewardItemStore.getId(), rewardItem.getId());
@@ -809,5 +809,12 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 		rewardItemStore.setDegree(rewardItemStore.getDegree()+1);
 		rewardItemStoreDao.update(rewardItemStore);
 		return rewardItem.getName();
+	}
+	
+	@Override
+	public void updateRewardItemStoreCount(String rewardItemStoreId) {
+		RewardItemStore rewardItemStore = rewardItemStoreDao.findById(RewardItemStore.class,	rewardItemStoreId);
+		rewardItemStore.setDegree(rewardItemStore.getDegree() + 1);
+		rewardItemStoreDao.update(rewardItemStore);
 	}
 }

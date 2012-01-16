@@ -173,11 +173,22 @@ public class RewardsItemStoreListPresenterImpl extends
 			}
 		};
 
-		resultTable.addColumn("奖项名称", new TextCell(),
+		resultTable.addColumn("奖项名称", new HyperLinkCell(),
 				new GetValue<RewardsItemClient, String>() {
 					@Override
 					public String getValue(RewardsItemClient object) {
 						return object.getName();
+					}
+				}, new FieldUpdater<RewardsItemClient, String>() {
+					@Override
+					public void update(int index, RewardsItemClient object,
+							String value) {
+						Platform.getInstance()
+						.getEditorRegistry()
+						.openEditor(
+								RewardsItemConstants.EDITOR_REWARDSITEM_View,
+								RewardsItemConstants.EDITOR_REWARDSITEMSTORE, object);
+					
 					}
 				}, ref, "name");
 		resultTable.addColumn("自动", new TextCell(),

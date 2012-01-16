@@ -135,6 +135,7 @@ public class FrequencyLogicImpl implements FrequencyLogic {
 	@Override
 	public Frequency copyFrequencyToRewardItem(SysUser caller,
 			String rewardItemStoreId, String rewardItemId) {
+
 		Frequency f = getFrequencyOfRewardItemStore(rewardItemStoreId);
 		RewardItem rewardItem = rewardItemDao.findById(RewardItem.class,
 				rewardItemId);
@@ -197,9 +198,10 @@ public class FrequencyLogicImpl implements FrequencyLogic {
 			rewardItem.setFrequency(yearFrequency);
 		}
 
-		
-	
 		rewardItemDao.update(rewardItem);
+
 		return null;
+
 	}
+	
 }

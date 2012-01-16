@@ -95,7 +95,9 @@ public class RewardsItemViewWidget extends Composite implements RewardsItemViewD
 	@UiField
 	InlineLabel title;
 
-	
+	// 标题
+	@UiField
+	InlineLabel sub;	
 	
 	/** 存储有用的信息 **/
 	FrequencyClient frequency;
@@ -229,10 +231,12 @@ public class RewardsItemViewWidget extends Composite implements RewardsItemViewD
 		if(isItemStore==true){//是奖项库的修改按钮不可用
 			update.setVisible(false);
 			back.setVisible(false);
-			title.setText("查看奖项库");
+			sub.setText("公司奖项库");
+			title.setText("查看奖项模板");
 		}else{
 			updateStore.setVisible(false);
 			backStore.setVisible(false);
+			sub.setText("我的奖项");
 			title.setText("查看奖项");
 		}
 			
