@@ -24,6 +24,7 @@
 		<log4j.version>1.2.14</log4j.version>
 		<source.version>1.6</source.version>
 		<encoding>UTF-8</encoding>
+
 	</properties>
 
 	<dependencyManagement>
@@ -153,6 +154,12 @@
 				<artifactId>mockito-all</artifactId>
 				<version>1.8.1</version>
 				<scope>test</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>dom4j</groupId>
+				<artifactId>dom4j</artifactId>
+				<version>1.6.1</version>
 			</dependency>
 
 			<!-- jexcelapi start which provides api to export excel -->
