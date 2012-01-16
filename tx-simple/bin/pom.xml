@@ -92,11 +92,7 @@
 			<scope>test</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>dom4j</groupId>
-			<artifactId>dom4j</artifactId>
-			<scope>test</scope>
-		</dependency>
+
 		<!-- Test Scope ENDS -->
 		<dependency>
 			<groupId>concurrent</groupId>

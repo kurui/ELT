@@ -14,12 +14,14 @@ import com.chinarewards.gwt.elt.client.win.Win;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.chinarewards.gwt.elt.util.StringUtil;
+import com.chinarewards.gwt.elt.util.XmlUtil_GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteEvent;
 import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteHandler;
+import com.google.gwt.xml.client.Document;
 import com.google.inject.Inject;
 
 public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
@@ -82,8 +84,8 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 						gift.setPhoto(display.getPhoto().getValue().trim());
 						gift.setStock(StringUtil.valueOf(display.getStock()
 								.getValue()));
-						gift.setIntegral(StringUtil.valueOf(display.getIntegral()
-								.getValue()));
+						gift.setIntegral(StringUtil.valueOf(display
+								.getIntegral().getValue()));
 						// gift.setPhoto(display.getPhone().getValue());
 						// gift.setGiftStatus();
 						// gift.setDeleted(false);
@@ -183,18 +185,14 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 						win.alert(event.getResults());
 
 						try {
-//							Document doc = com.chinarewards.elt.util.XmlUtil_dom4j
-//									.readResult(new StringBuffer().append(event
-//											.getResults()));
-//							com.chinarewards.elt.util.XmlUtil_dom4j.test();
-//							com.chinarewards.gwt.elt.util.XmlUtil_dom4j.test();
-							com.chinarewards.gwt.elt.client.util.XmlUtil_dom4j.test();
-							
-							// String result = XmlUtil_dom4j.getTextByNode(doc,
-							// "/result");
-							// String info = XmlUtil_dom4j.getTextByNode(doc,
-							// "/info");
-							// win.alert(result + "<br>" + info);
+
+							Document doc = XmlUtil_GWT.parseXml(event
+									.getResults());
+							String result = XmlUtil_GWT.getSingleNodeText(doc,
+									"result");
+							String info = XmlUtil_GWT.getSingleNodeText(doc,
+									"/info");
+							win.alert(result + "<br>" + info);
 						} catch (Exception e) {
 							e.printStackTrace();
 							win.alert("上传图片异常，请重试" + e.getMessage());

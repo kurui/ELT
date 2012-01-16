@@ -25,6 +25,7 @@ public class FileUploadServlet extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 		StringBuffer responseMessage = new StringBuffer(
 				"<?xml version=\"1.0\" encoding=\"GB2312\"?>");
+		responseMessage.append("<root>");
 		String info = "";
 		ServletFileUpload upload = new ServletFileUpload();
 		try {
@@ -74,6 +75,8 @@ public class FileUploadServlet extends HttpServlet {
 			responseMessage.append("上传文件异常:" + e.getMessage());
 			responseMessage.append(info).append("</info>");
 		}
+		
+		responseMessage.append("</root>");
 		
 		System.out.println(responseMessage);
 		response.getWriter().println(responseMessage);
