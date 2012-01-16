@@ -180,10 +180,9 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 				new SubmitCompleteHandler() {
 					@Override
 					public void onSubmitComplete(SubmitCompleteEvent event) {
-						System.out.println("submitComplete event.getResults:"
-								+ event.getResults());
-						win.alert(event.getResults());
-
+//						System.out.println("submitComplete event.getResults:"
+//								+ event.getResults());
+//						win.alert(event.getResults());
 						try {
 
 							Document doc = XmlUtil_GWT.parseXml(event
@@ -191,17 +190,20 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 							String result = XmlUtil_GWT.getSingleNodeText(doc,
 									"result");
 							String info = XmlUtil_GWT.getSingleNodeText(doc,
-									"/info");
-							win.alert(result + "<br>" + info);
+									"info");
+							if ("SUCCESS".equals(result)) {
+								display.getPhoto().setValue(event.getResults());
+								display.getGiftImage().setUrl(
+										"/imageshow?imageName=" + info);
+							} else {
+								win.alert("上传图片异常<br>" + info);
+							}
 						} catch (Exception e) {
 							e.printStackTrace();
 							win.alert("上传图片异常，请重试" + e.getMessage());
 							return;
 						}
 
-						// display.getPhoto().setValue(event.getResults());
-						// display.getGiftImage().setUrl(
-						// "/imageshow?imageName=" + event.getResults());
 					}
 				});
 

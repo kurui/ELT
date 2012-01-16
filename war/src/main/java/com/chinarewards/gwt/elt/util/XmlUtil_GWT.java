@@ -12,19 +12,24 @@ public class XmlUtil_GWT {
 	}
 
 	public static String getSingleNodeText(Document doc, String tagName) {
-		String nodeText = "";
+		String itemValue = "";
 		if (doc != null) {
+
 			NodeList nodeList = doc.getElementsByTagName(tagName);
 
 			for (int i = 0; i < nodeList.getLength(); i++) {
-				nodeText = nodeList.item(i).getNodeValue();
-				System.out.println(nodeText);
+				// System.out.println("node item:" + nodeList.item(i));
+				// System.out.println(nodeList.item(i).getFirstChild()
+				// .getNodeValue());
+				// System.out.println(nodeList.item(i).toString());
+				itemValue = nodeList.item(i).getFirstChild().getNodeValue();
+				return itemValue;
 			}
 		} else {
 			System.out.println("document is null...");
 		}
 
-		return nodeText;
+		return itemValue;
 	}
 
 	public static Document parseXml(String contents) {
