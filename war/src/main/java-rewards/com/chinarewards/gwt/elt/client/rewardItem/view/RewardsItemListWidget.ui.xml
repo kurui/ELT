@@ -39,19 +39,20 @@
 						<option value="">财务部</option>
 						<option value="">人事部</option>
 					</select>
+					
 					<span class="{newitem.nbsp}"></span>
+					<g:CheckBox ui:field="chooseSubDepartment" />
+					<span class="{newitem.nbsp}"></span>
+					<label for="">包含子部门</label>
 
+					<span class="{newitem.nbsp}"></span>
 					<label for="">创建时间:</label>
 					<span class="{newitem.nbsp}"></span>
 					<d:DateBox ui:field="createTime" styleName="{newitem.text}" /> -->
 					<d:DateBox ui:field="createTimeEnd" styleName="{newitem.text}" />
 					<span class="{newitem.nbsp}"></span>
 
-					<g:CheckBox ui:field="chooseSubDepartment" />
-					<span class="{newitem.nbsp}"></span>
-					<label for="">包含子部门</label>
 
-					<span class="{newitem.nbsp}"></span>
 
 					<label for="">应用状态:</label>
 					<span class="{newitem.nbsp}"></span>
