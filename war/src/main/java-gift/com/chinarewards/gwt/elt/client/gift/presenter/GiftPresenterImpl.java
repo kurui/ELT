@@ -1,5 +1,7 @@
 package com.chinarewards.gwt.elt.client.gift.presenter;
 
+import org.dom4j.Document;
+
 import net.customware.gwt.dispatch.client.DispatchAsync;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.gift.model.GiftVo;
@@ -181,10 +183,13 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 						win.alert(event.getResults());
 
 						try {
-//							Document doc = com.chinarewards.gwt.elt.server.gift.XmlUtil_dom4j
+//							Document doc = com.chinarewards.elt.util.XmlUtil_dom4j
 //									.readResult(new StringBuffer().append(event
 //											.getResults()));
-//							XmlUtil_dom4j.test();
+//							com.chinarewards.elt.util.XmlUtil_dom4j.test();
+//							com.chinarewards.gwt.elt.util.XmlUtil_dom4j.test();
+							com.chinarewards.gwt.elt.client.util.XmlUtil_dom4j.test();
+							
 							// String result = XmlUtil_dom4j.getTextByNode(doc,
 							// "/result");
 							// String info = XmlUtil_dom4j.getTextByNode(doc,
