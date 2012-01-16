@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:p1="urn:import:com.google.gwt.user.cellview.client"
+	xmlns:d='urn:import:com.google.gwt.user.datepicker.client'>
+
+	<ui:image resource="input_text.jpg" field="input_text"
+		repeatStyle="Horizontal"></ui:image>
+	<ui:image resource="preview_bg.jpg" field="preview_bg"
+		repeatStyle="Horizontal"></ui:image>
+	<ui:image field="post_bg" resource="post_bg.jpg" repeatStyle="Horizontal"></ui:image>
+	<ui:style src="new2.css" field="newitem"></ui:style>
+
+	<g:HTMLPanel styleName="{newitem.frame-wrap}">
+		<div class="breadcrumb">
+			<div class="{newitem.breadcrumb-wrap}">
+				<p class="{newitem.breadcrumb-left}">
+					<a href="#">兑换管理</a>
+					>
+					<span>新建礼品</span>
+				</p>
+				<a href="#" class="{newitem.breadcrumb-right}">返回上一页</a>
+			</div>
+			<span class="{newitem.cutline}"></span>
+		</div>
+
+		<!-- 1内容 -->
+		<div class="{newitem.content-wrap}">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0"
+				class="{newitem.form}">
+				<tr class="{newitem.form-line}">
+					<td class="{newitem.label}">
+						<span>*</span>
+						礼品名称：
+					</td>
+					<td class="{newitem.element}">
+						<g:TextBox maxLength="20" ui:field="name" styleName="{newitem.text}" />
+					</td>
+					<td></td>
+				</tr>
+				<tr class="{newitem.form-line}">
+					<td valign="top" class="{newitem.label}">礼品说明：</td>
+					<td class="{newitem.element}">
+						<g:TextBox maxLength="50" ui:field="explains" styleName="{newitem.text}" />
+					</td>
+					<td></td>
+				</tr>
+				<tr class="{newitem.form-line}">
+					<td valign="top" class="{newitem.label}">礼品类型：</td>
+					<td class="{newitem.element}">
+						<g:ListBox ui:field="type" styleName="{newitem.text}" />
+					</td>
+					<td></td>
+				</tr>
+				<tr class="{newitem.form-line}">
+					<td valign="top" class="{newitem.label}">供应商名称：</td>
+					<td class="{newitem.element}">
+						<g:TextBox maxLength="20" ui:field="business" styleName="{newitem.text}" />
+					</td>
+					<td></td>
+				</tr>
+				<tr class="{newitem.form-line}">
+					<td valign="top" class="{newitem.label}">供应商地址：</td>
+					<td class="{newitem.element}">
+						<g:TextBox maxLength="50" ui:field="address" styleName="{newitem.text}" />
+					</td>
+					<td></td>
+				</tr>
+				<tr class="{newitem.form-line}">
+					<td valign="top" class="{newitem.label}">供应商电话：</td>
+					<td class="{newitem.element}">
+						<g:TextBox maxLength="11" ui:field="tell" styleName="{newitem.text}" />
+					</td>
+					<td></td>
+				</tr>
+				<tr class="{newitem.form-line}">
+					<td valign="top" class="{newitem.label}">礼品图片：</td>
+					<td class="{newitem.element}"> 
+						<table>
+							<tr>
+								<td> 
+									<g:Image ui:field="giftImage" width="80px" height="60px" visible="false"/>
+								</td>
+								<td> 
+									<g:FormPanel ui:field="photoForm" encoding="multipart/form-data"
+										method="post" action="/fileupload">
+										<g:FileUpload ui:field="photoUpload" name="uploadFormElement"></g:FileUpload>
+									</g:FormPanel>
+								</td>
+								<td> 
+									<g:TextBox ui:field="photo" visible="false"></g:TextBox>
+									<g:Button ui:field="photoUploadBtn" visible="false">上传</g:Button>
+								</td>
+							</tr>
+						</table> 
+					</td>
+					<td></td>
+				</tr>
+				<tr class="{newitem.form-line}">
+					<td class="{newitem.label}">
+						<span>*</span>
+						兑换积分：
+					</td>
+					<td class="{newitem.element}">
+					</td>
+					<td></td>
+				</tr>
+
+				<tr class="{newitem.form-line}">
+					<td class="{newitem.label}">
+						<span>*</span>
+						库存：
+					</td>
+					<td class="{newitem.element}">
+						<g:TextBox maxLength="5" ui:field="stock" styleName="{newitem.text}" />
+					</td>
+					<td></td>
+				</tr>
+				<tr height="30px">
+					<td></td>
+				</tr>
+				<tr class="{newitem.form-line}">
+					<td colspan="3" align="center">
+						<span class="{newitem.cutline}"></span>
+						<span class="{newitem.btn}">
+							<g:Button ui:field="save">保存</g:Button>
+						</span>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</g:HTMLPanel>
+</ui:UiBinder>
