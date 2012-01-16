@@ -132,7 +132,7 @@ public class RewardsItemCreatePresenterImpl extends
 		
 		if(instanceId.equals(RewardsItemConstants.EDITOR_REWARDSITEMSTORE))
 		{
-			display.setTitle("创建奖项库");
+			display.setTitle("创建奖项模板");
 			display.setRewardButtonDisplay();
 		}
 		
@@ -205,16 +205,12 @@ public class RewardsItemCreatePresenterImpl extends
 								@Override
 								public void onValueChange(ValueChangeEvent<Date> e) {
 									Date nextPublishDate = e.getValue();
-									Date nextRewardsDate = display.getNextRewardsTime()
-											.getValue();
-									if (nextRewardsDate.getTime() < nextPublishDate
-											.getTime()) {
-										display.getNextPublishTime().setValue(
-												nextPublishCopy);
+									Date nextRewardsDate = display.getNextRewardsTime().getValue();
+									if (nextRewardsDate.getTime() < nextPublishDate.getTime()) {
+										display.getNextPublishTime().setValue(nextPublishCopy);
 									} else {
 										nextPublishCopy = nextPublishDate;
-										day = DateTool.getIntervalDays(nextPublishDate,
-												nextRewardsDate);
+										day = DateTool.getIntervalDays(nextPublishDate,	nextRewardsDate);
 									}
 								}
 							}));
@@ -533,7 +529,8 @@ public class RewardsItemCreatePresenterImpl extends
 			if (!isEditPage || (startDate.getTime() > nextRewardsDate.getTime())) {
 				// 开始时间和下次颁奖时间一样
 				display.getStartTime().setValue(nextRewardsDate);
-			} else if (!isEditPage|| (nextRewardsDate.getTime() >= startDateCopy.getTime())) {
+			} else if (!isEditPage
+					|| (nextRewardsDate.getTime() >= startDateCopy.getTime())) {
 				if (isFrequency) {
 					display.getStartTime().setValue(startDateCopy);
 				} else {
@@ -545,9 +542,10 @@ public class RewardsItemCreatePresenterImpl extends
 
 			display.getNextRewardsTime().setValue(nextRewardsDate);
 			
-			
+			modifyNextPublishTime();
 
 		}
+
 		private void modifyNextRewardsSetDate(Date rewardsDate) {
 			FrequencyClient frequency = display.getFrequencyObj();
 			boolean toD = false;
@@ -584,9 +582,10 @@ public class RewardsItemCreatePresenterImpl extends
 		// 修改下次颁奖时间
 		private void modifyNextPublishTime() {
 			Date startDate = display.getNextRewardsTime().getValue();
-			Date date = DateTool.addSomeDay(startDate, 0 - day);
-			display.getNextPublishTime().setValue(date);
-			nextPublishCopy = date;
+			//Date date = DateTool.addSomeDay(startDate, 0 - day);
+			display.getNextPublishTime().setValue(startDate);
+			nextPublishCopy = startDate;
+			startDateCopy = startDate;
 		
 		}
 		
@@ -744,9 +743,8 @@ public class RewardsItemCreatePresenterImpl extends
 								flag = false;
 							} else if (display.getNextPublishTime().getValue() != null
 									&& display.getNextRewardsTime().getValue() != null
-									&& display.getNextPublishTime().getValue()
-											.after(display.getNextRewardsTime().getValue())) {
-								errorMsg.append("下一次公布奖励时间必须在下一次颁奖时间之前!<br>");
+									&& display.getNextPublishTime().getValue().getTime()>display.getNextRewardsTime().getValue().getTime()) {
+								errorMsg.append("下一次公布奖励时间必小于或等于下一次颁奖时间!<br>");
 								flag = false;
 							}
 						}

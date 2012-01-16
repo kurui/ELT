@@ -30,4 +30,5 @@ public abstract class RewardsItemConstants {
 	public static final String MENU_REWARDSITEMSTORE_LIST = "MENU_REWARDSITEMStore_List";
 	public static final String EDITOR_REWARDSITEMSTORE_LIST = "EDITOR_REWARDSITEMStore_List";
 	public static final String EDITOR_REWARDSITEMSTORE = "EDITOR_REWARDSITEMSTORE";
+	public static final String EDITOR_REWARDSITEMSTOREUSE = "EDITOR_REWARDSITEMSTOREUSE";
 }

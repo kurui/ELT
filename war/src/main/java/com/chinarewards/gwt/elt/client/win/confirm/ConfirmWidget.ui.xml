@@ -5,13 +5,18 @@
 	<ui:image field="button_back" resource="button_back.jpg"></ui:image>
 	<ui:image field="post_bg" resource="post_bg.jpg" repeatStyle="Horizontal"></ui:image>
 	<ui:style src="confirm.css"></ui:style>
+	<ui:style src="new2.css" field="new2"></ui:style>
 	<g:HTMLPanel>
-		<div class="{style.center}">
-			<g:ScrollPanel ui:field="msg"></g:ScrollPanel>
-		</div>
-		<div class="{style.post}">
-			<g:Button ui:field="ok" text="确定" styleName="button-ok" />
-			<g:Button ui:field="cancel" text="取消" styleName="button-back" />
+		<div class="{new2.box}">
+			<div class="{new2.box-context}">
+				<div class="{new2.box-info}">
+					<g:ScrollPanel ui:field="msg"></g:ScrollPanel>
+				</div>
+				<div class="{new2.box-tools}">
+					<g:Button ui:field="ok" text="确定" styleName="{new2.box-btn-ok}" />
+					<g:Button ui:field="cancel" text="取消" styleName="{new2.box-btn-cannel}" />
+				</div>
+			</div>
 		</div>
 	</g:HTMLPanel>
 </ui:UiBinder>

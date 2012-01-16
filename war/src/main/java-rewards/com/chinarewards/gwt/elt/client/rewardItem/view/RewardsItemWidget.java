@@ -138,7 +138,9 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 	//显示提名人的面板
 	@UiField
 	Panel staffAreaPanel;
-	
+	 // 主标题
+		@UiField
+	InlineLabel sub;
     // 标题
 	@UiField
 	InlineLabel title;
@@ -189,6 +191,7 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 		nextRewardsTime.setFormat(new DateBox.DefaultFormat(dateFormat));
 		nextPublicTime.setFormat(new DateBox.DefaultFormat(dateFormat));
 		expectTime.setFormat(new DateBox.DefaultFormat(dateFormat));
+		sub.setText("我的奖项");
 		title.setText("创建奖项");
 		// settingText.setText("每1天一次");
 		birthRadio.getElement().addClassName(CssStyleConstants.hidden);
@@ -720,11 +723,13 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 			
 		} 
         if(isItemStore==false){
+        	 sub.setText("我的奖项");
 		     title.setText("修改奖项");
 		     saveStore.setVisible(false);
 		     save.setVisible(true);
         }else{
-        	 title.setText("修改奖项库");
+        	 sub.setText("公司奖项库");
+        	 title.setText("修改奖项模板");
         	 saveStore.setVisible(true);
         	 save.setVisible(false);
         } 	 
@@ -773,6 +778,7 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 	@Override
 	public void setTitle(String text) {
 		this.title.setText(text);
+		this.sub.setText("公司奖项库");
 		
 	}
 

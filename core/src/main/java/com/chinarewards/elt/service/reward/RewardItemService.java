@@ -31,6 +31,7 @@ public interface RewardItemService {
 	 * @return
 	 */
 	public RewardItem saveRewardItem(UserContext context, RewardItemParam param);
+	
      /**
       * 存入奖项库 
       * @param context
@@ -151,6 +152,6 @@ public interface RewardItemService {
 	public String copyRewardItenStoreToRewardItem(UserContext context, String rewardItemStoreId);
 
 	
-
+    public void updateRewardItemStoreCount(UserContext context, String rewardItemStoreId);
 
 }

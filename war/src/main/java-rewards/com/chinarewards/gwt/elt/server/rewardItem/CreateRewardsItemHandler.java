@@ -160,7 +160,7 @@ public class CreateRewardsItemHandler extends	BaseActionHandler<CreateRewardsIte
 		// 自动奖项
 		if (client.isAuto()) {
 			parameter.setAutoAward(RequireAutoAward.requireAutoAward);
-		}else if(orgIds.size()>0)
+		}else if(orgId.size()>0)
 		{
 			parameter.setAutoAward(RequireAutoAward.requireNominate);//要求提名
 		}else {

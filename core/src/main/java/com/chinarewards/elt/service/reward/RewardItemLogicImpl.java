@@ -578,7 +578,7 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 		List<RewardItem> autoItems = fetchAutoGenerateRewardItem(flagTime);
 		logger.debug("This time will run {} rewardItems total automatic!",
 				autoItems.size());
-		SysUser caller = userLogic.getDefaultUser();
+	//	SysUser caller = userLogic.getDefaultUser();
 		for (RewardItem item : autoItems) {
 			// this time to run
 			Date thisRunTime = item.getNexRunBatchTime();
@@ -587,8 +587,8 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 			boolean isRunnable = true;
 			while (flagTime.after(thisRunTime) && errorTimes < 3 && isRunnable) {
 				try {
-					Date nextRunTime = calNextRunBatchTime(item.getId());
-					rewardLogic.awardFromRewardItem(caller, item.getId(),
+					Date nextRunTime = calNextRunBatchTime(item.getId());		
+					rewardLogic.awardFromRewardItem(item.getCreatedBy(), item.getId(),
 							flagTime);
 					// update next run batch date
 					item.setNexRunBatchTime(nextRunTime);
@@ -678,18 +678,18 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 	public void runAutoRewardGeneratorByRewardItem(Date flagTime,
 			String RewardItemid) {
 
-		SysUser caller = userLogic.getDefaultUser();
+	//	SysUser caller = userLogic.getDefaultUser();
 		RewardItem item = rewardItemDao
 				.findById(RewardItem.class, RewardItemid);
 		// this time to run
 		Date thisRunTime = item.getNexRunBatchTime();
 		// failure times
 		int errorTimes = 0;
-		boolean isRunnable = true;
-		while (flagTime.after(thisRunTime) && errorTimes < 3 && isRunnable) {
+	//	boolean isRunnable = true;
+
 			try {
 				Date nextRunTime = calNextRunBatchTime(item.getId());
-				rewardLogic.awardFromRewardItem(caller, item.getId(), flagTime);
+				rewardLogic.awardFromRewardItem(item.getCreatedBy(), item.getId(), flagTime);
 				// update next run batch date
 				item.setNexRunBatchTime(nextRunTime);
 				// update publish date and expect award date
@@ -727,7 +727,7 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 				// Set it to false which means it can not work again.
 				if (RequireAutoGenerate.requireOneOff == item.getAutoGenerate()) {
 					item.setEnabled(false);
-					isRunnable = false;
+		//			isRunnable = false;
 				}
 
 				rewardItemDao.update(item);
@@ -742,7 +742,7 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 						"Rewarditem id:{}, name:{}, generate a reward failure {} Times",
 						new Object[] { item.getId(), item.getName(), errorTimes });
 			}
-		}
+		
 
 	}
 
@@ -797,12 +797,11 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 
 		rewardItemDao.save(rewardItem);
 		// 复制提名人
-		judgeLogic.copyJudgeToRewardItem(suser, rewardItemStore.getId(),
-				rewardItem.getId());
+		judgeLogic.copyJudgeToRewardItem(suser, rewardItemStore.getId(),rewardItem.getId());
+		
 		// 复制频率
 		if(rewardItem.getAutoGenerate()==RequireAutoGenerate.requireCyclic)
-			rewardItem.setFrequency(rewardItemStore.getFrequency());
-			//frequencyLogic.copyFrequencyToRewardItem(suser, rewardItemStore.getId(), rewardItem.getId());
+			frequencyLogic.copyFrequencyToRewardItem(suser, rewardItemStore.getId(), rewardItem.getId());
 		// 复制被提名人
 		candidateRuleLogic.copyCandidateRuleToRewardItem(suser,
 				rewardItemStore.getId(), rewardItem.getId());
@@ -810,5 +809,12 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 		rewardItemStore.setDegree(rewardItemStore.getDegree()+1);
 		rewardItemStoreDao.update(rewardItemStore);
 		return rewardItem.getName();
+	}
+	
+	@Override
+	public void updateRewardItemStoreCount(String rewardItemStoreId) {
+		RewardItemStore rewardItemStore = rewardItemStoreDao.findById(RewardItemStore.class,	rewardItemStoreId);
+		rewardItemStore.setDegree(rewardItemStore.getDegree() + 1);
+		rewardItemStoreDao.update(rewardItemStore);
 	}
 }

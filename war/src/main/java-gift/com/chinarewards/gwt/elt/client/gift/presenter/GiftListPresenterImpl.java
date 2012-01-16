@@ -69,7 +69,7 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 		registerHandler(display.getSearchBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
-						init();
+						doSearch();
 					}
 				}));
 		registerHandler(display.getAddBtnClickHandlers().addClickHandler(

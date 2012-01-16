@@ -87,13 +87,10 @@ public class RewardsItemListWidget extends Composite implements
 		createTimeEnd.setFormat(new DateBox.DefaultFormat(dateFormat));
 		
 	}
-	public void initStatus(Map<String, String> map) {
-		//status.addItem("未选择", "");
-		Iterator<Entry<String, String>> it = map.entrySet().iterator();
-		while (it.hasNext()) {
-			Entry<String, String> entry = it.next();
-			status.addItem(entry.getValue(), entry.getKey());
-		}
+	public void initStatus() {
+		status.addItem("未激活", "fasle");
+		status.addItem("已激活", "true");
+			
 	}
 	@Override
 	public Widget asWidget() {

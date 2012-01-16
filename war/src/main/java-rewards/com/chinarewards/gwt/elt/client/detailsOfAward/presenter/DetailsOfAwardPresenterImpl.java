@@ -100,11 +100,11 @@ public class DetailsOfAwardPresenterImpl extends
 						display.setName(response.getRewardName());
 						display.setExplain(response.getDefinition());
 						display.setCondition(response.getStandard());
-						int total = (int) (response.getTotalAmtLimit() / 10);
+						int total = (int) (response.getTotalAmtLimit() );
 						display.setIntegral(total + "");
 						display.setRecordName(response.getCreatedStaffName());
 						display.setNumber(response.getHeadcountLimit() + "");
-						int amt = (int) (response.getAwardAmt() / 10);
+						int amt = (int) (response.getAwardAmt() );
 						display.setAwardAmt(amt + "");
 						display.setJudge(response.getJudgeList());
 
