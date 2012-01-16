@@ -47,9 +47,29 @@
 			<param-value>com.google.code.kaptcha.impl.NoNoise</param-value>
 		</init-param>
 	</servlet>
+	
+		<servlet>
+		<servlet-name>fileupload</servlet-name>
+		<servlet-class>com.chinarewards.gwt.elt.util.FileUploadServlet</servlet-class>
+	</servlet>
+		<servlet>
+		<servlet-name>imageshow</servlet-name>
+		<servlet-class>com.chinarewards.gwt.elt.util.ImageShowServlet</servlet-class>
+	</servlet>
+	
 	<servlet-mapping>
 		<servlet-name>Kaptcha</servlet-name>
 		<url-pattern>/kaptcha.jpg</url-pattern>
 	</servlet-mapping>
-	<!-- google image end -->
+	<!-- google image end    -->
+	
+	<servlet-mapping>
+		<servlet-name>fileupload</servlet-name>
+		<url-pattern>/fileupload</url-pattern>
+	</servlet-mapping>
+	
+		<servlet-mapping>
+		<servlet-name>imageshow</servlet-name>
+		<url-pattern>/imageshow</url-pattern>
+	</servlet-mapping>
 </web-app>
