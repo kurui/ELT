@@ -685,8 +685,8 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 		Date thisRunTime = item.getNexRunBatchTime();
 		// failure times
 		int errorTimes = 0;
-		boolean isRunnable = true;
-		while (flagTime.after(thisRunTime) && errorTimes < 3 && isRunnable) {
+	//	boolean isRunnable = true;
+
 			try {
 				Date nextRunTime = calNextRunBatchTime(item.getId());
 				rewardLogic.awardFromRewardItem(item.getCreatedBy(), item.getId(), flagTime);
@@ -727,7 +727,7 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 				// Set it to false which means it can not work again.
 				if (RequireAutoGenerate.requireOneOff == item.getAutoGenerate()) {
 					item.setEnabled(false);
-					isRunnable = false;
+		//			isRunnable = false;
 				}
 
 				rewardItemDao.update(item);
@@ -742,7 +742,7 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 						"Rewarditem id:{}, name:{}, generate a reward failure {} Times",
 						new Object[] { item.getId(), item.getName(), errorTimes });
 			}
-		}
+		
 
 	}
 
