@@ -801,8 +801,7 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 				rewardItem.getId());
 		// 复制频率
 		if(rewardItem.getAutoGenerate()==RequireAutoGenerate.requireCyclic)
-			rewardItem.setFrequency(rewardItemStore.getFrequency());
-			//frequencyLogic.copyFrequencyToRewardItem(suser, rewardItemStore.getId(), rewardItem.getId());
+			frequencyLogic.copyFrequencyToRewardItem(suser, rewardItemStore.getId(), rewardItem.getId());
 		// 复制被提名人
 		candidateRuleLogic.copyCandidateRuleToRewardItem(suser,
 				rewardItemStore.getId(), rewardItem.getId());
