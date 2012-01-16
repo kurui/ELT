@@ -54,11 +54,11 @@ public class NomineeLogicImpl implements NomineeLogic {
 		Judge judge = judgeDao.findJudgeByStaffIdAndRewardId(caller.getStaff().getId(), rewardId);
 		if (judge == null) {
 			throw new JudgeException(
-					"Can not found correct judge by login user.");
+					"当前用户不是提名人!");
 		}
 
 		if (JudgeStatus.NONE != judge.getStatus()) {
-			throw new JudgeException("Should not judge duplicate.");
+			throw new JudgeException("当前用户已经提名,不允许重复提名!");
 		}
 
 		// update judge status to Nominated
