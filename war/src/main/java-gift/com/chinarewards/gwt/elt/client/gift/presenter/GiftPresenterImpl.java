@@ -1,18 +1,24 @@
 package com.chinarewards.gwt.elt.client.gift.presenter;
 
+import java.util.Date;
+
 import net.customware.gwt.dispatch.client.DispatchAsync;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.gift.model.GiftVo;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftConstants;
 import com.chinarewards.gwt.elt.client.gift.request.AddGiftRequest;
 import com.chinarewards.gwt.elt.client.gift.request.AddGiftResponse;
+import com.chinarewards.gwt.elt.client.gift.request.SearchGiftByIdRequest;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
+import com.chinarewards.gwt.elt.client.gift.request.SearchGiftByIdResponse;
+import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
+import com.chinarewards.gwt.elt.util.DateTool;
 import com.chinarewards.gwt.elt.util.StringUtil;
 import com.chinarewards.gwt.elt.util.XmlUtil_GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -57,6 +63,14 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 	public void bind() {
 		// 绑定事件
 		init();
+
+		System.out.println("-------!isEditPage:"+!isEditPage);
+		
+		if (!isEditPage) {
+			// initSave();
+		} else {
+			initEdit();
+		}
 	}
 
 	private void init() {
@@ -180,9 +194,9 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 				new SubmitCompleteHandler() {
 					@Override
 					public void onSubmitComplete(SubmitCompleteEvent event) {
-//						System.out.println("submitComplete event.getResults:"
-//								+ event.getResults());
-//						win.alert(event.getResults());
+						// System.out.println("submitComplete event.getResults:"
+						// + event.getResults());
+						// win.alert(event.getResults());
 						try {
 
 							Document doc = XmlUtil_GWT.parseXml(event
@@ -247,6 +261,28 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 
 		System.out.println("validateSubmit()======" + flag);
 		return flag;
+	}
+
+	private void initEdit() {
+		dispatcher.execute(new SearchGiftByIdRequest(giftId),
+				new AsyncCallback<SearchGiftByIdResponse>() {
+					@Override
+					public void onFailure(Throwable arg0) {
+						errorHandler.alert("查询出错!");
+						Platform.getInstance()
+								.getEditorRegistry()
+								.closeEditor(GiftConstants.EDITOR_GIFT_EDIT,
+										instanceId);
+					}
+
+					@Override
+					public void onSuccess(SearchGiftByIdResponse response) {
+						GiftVo giftVo = response.getGift();
+//						clear();
+						display.initEditGift(giftVo);
+
+					}
+				});
 	}
 
 	private void clear() {

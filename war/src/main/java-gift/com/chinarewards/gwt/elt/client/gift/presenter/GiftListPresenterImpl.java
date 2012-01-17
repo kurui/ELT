@@ -237,9 +237,10 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 							String value) {
 						Platform.getInstance()
 								.getEditorRegistry()
-								.openEditor(GiftConstants.EDITOR_GIFT_VIEW,
-										"EDITOR_GIFT_VIEW" + object.getId(),
-										object);
+								.openEditor(
+										GiftConstants.EDITOR_GIFT_VIEW,
+										GiftConstants.EDITOR_GIFT_VIEW
+												+ object.getId(), object);
 					}
 				});
 

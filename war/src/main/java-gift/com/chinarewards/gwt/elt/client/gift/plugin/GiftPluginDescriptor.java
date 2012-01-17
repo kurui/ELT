@@ -71,7 +71,7 @@ public class GiftPluginDescriptor implements PluginDescriptor {
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(GiftConstants.EDITOR_GIFT_EDIT,
-										"EDITOR_GIFT_EDIT_ID", null);
+										"EDITOR_GIFT_ADD_ID", null);
 					}
 
 					@Override
@@ -127,7 +127,7 @@ public class GiftPluginDescriptor implements PluginDescriptor {
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(GiftConstants.EDITOR_GIFT_EDIT,
-										"EDITOR_GIFTEDIT_SEARCH_DO_ID", null);
+										"EDITOR_GIFT_EDIT_ID", null);
 					}
 
 					@Override

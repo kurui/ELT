@@ -4,6 +4,7 @@ import java.util.Date;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
+import com.chinarewards.gwt.elt.client.gift.model.GiftVo;
 import com.chinarewards.gwt.elt.client.gift.presenter.GiftPresenter.GiftDisplay;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.view.constant.ViewConstants;
@@ -235,6 +236,37 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	@Override
 	public HasValue<String> getIntegral() {
 		return integral;
+	}
+	
+	@Override
+	public void initEditGift(GiftVo giftVo) {
+		System.out.println("initEditGift ----------" + giftVo.getName());
+		name.setText(giftVo.getName());
+		explains.setText(giftVo.getExplains());
+		type.setItemText(0, giftVo.getType());
+		// type.setText();
+		business.setText(giftVo.getBusiness());
+		address.setText(giftVo.getAddress());
+		tell.setText(giftVo.getTell());
+		// photo.setText(giftVo.getPhoto());
+		giftImage.setUrl("/imageshow?imageName=" + giftVo.getPhoto());
+		integral.setText(giftVo.getIntegral() + "");
+		stock.setText(giftVo.getStock() + "");
+		// @UiField
+		// Label phone;
+		// @UiField
+		// Label status;// boolean
+		// @UiField
+		// Label deleted;// boolean
+		// @UiField
+		// DateBox indate;
+		// @UiField
+		// DateBox recorddate;
+		// @UiField
+		// Label recorduser;
+		// @UiField
+		// DateBox updatetime;
+		// ---end vo
 	}
 
 }

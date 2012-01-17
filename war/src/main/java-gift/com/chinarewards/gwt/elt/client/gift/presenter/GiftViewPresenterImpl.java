@@ -71,35 +71,34 @@ public class GiftViewPresenterImpl extends
 	@Override
 	public void initInstanceId(String instanceId, GiftClient item) {
 		this.instanceId = instanceId;
-		param = item;// 把查看得到的VO保存下来给修改时做为参数用
-		initDataToEditGift(item, instanceId);
+		param = item;
+		initDataToViewGift(item, instanceId);
 	}
 
-	private void initDataToEditGift(final GiftClient item,
+	private void initDataToViewGift(final GiftClient item,
 			final String instanceId) {
 		giftId = item.getId();
+		dispatcher.execute(new SearchGiftByIdRequest(giftId),
+				new AsyncCallback<SearchGiftByIdResponse>() {
+					@Override
+					public void onFailure(Throwable arg0) {
+						errorHandler.alert("查询礼品出错!");
+						Platform.getInstance()
+								.getEditorRegistry()
+								.closeEditor(GiftConstants.EDITOR_GIFT_VIEW,
+										instanceId);
+					}
 
-		if (instanceId.equals(GiftConstants.EDITOR_GIFT_VIEW)) {
-			dispatcher.execute(new SearchGiftByIdRequest(giftId),
-					new AsyncCallback<SearchGiftByIdResponse>() {
-						@Override
-						public void onFailure(Throwable arg0) {
-							errorHandler.alert("查询礼品出错!");
-							Platform.getInstance()
-									.getEditorRegistry()
-									.closeEditor(
-											GiftConstants.EDITOR_GIFT_VIEW,
-											instanceId);
-						}
+					@Override
+					public void onSuccess(SearchGiftByIdResponse response) {
+						GiftVo item = response.getGift();
+						System.out
+								.println("==========initDataToViewGift================= presenterImp");
+						display.showGift(item);
+					}
 
-						@Override
-						public void onSuccess(SearchGiftByIdResponse response) {
-							GiftVo item = response.getGift();
-							display.showGift(item);
-						}
+				});
 
-					});
-		}
 	}
 
 }
