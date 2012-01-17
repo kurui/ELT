@@ -63,7 +63,7 @@ public class EditGiftHandler extends
 		gift.setExplains(giftVo.getExplains().trim());
 		gift.setType(giftVo.getType().trim());
 		gift.setSource(giftVo.getSource().trim());
-		// gift.setBusiness(giftVo.getBusiness().trim());
+		gift.setBusiness(giftVo.getBusiness().trim());
 		gift.setAddress(giftVo.getAddress().trim());
 		gift.setTell(giftVo.getTell().trim());
 		gift.setIntegral(giftVo.getIntegral());
@@ -71,16 +71,6 @@ public class EditGiftHandler extends
 		gift.setPhoto(giftVo.getPhoto());
 		// gift.setGiftStatus();
 		// gift.setIndate(getIndate());
-
-		// private String name; //礼品名
-		// private String explains; //说明
-		// private String type; //礼品类型
-		// private String source; //来源
-		// private String business; //供应商
-		// private String address; //地址
-		// private String tell; //电话
-		// private int stock; //库存
-		// private String photo; //图片
 		// private GiftStatus status; //状态（上下架）
 		// private boolean deleted; //删除状态
 		// private Date indate ; //有效截止期

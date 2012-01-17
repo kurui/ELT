@@ -81,10 +81,10 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 						}
 
 						GiftVo giftVo = adapter();
-						if ("addGift".equals(thisAction)) {
+						if (GiftConstants.ACTION_GIFT_ADD.equals(thisAction)) {
 							giftVo.setId(null);
 							doSave(giftVo);
-						} else if ("editGift".equals(thisAction)) {
+						} else if (GiftConstants.ACTION_GIFT_EDIT.equals(thisAction)) {
 							giftVo.setId(giftId);
 							doEdit(giftVo);
 						} else {
@@ -231,20 +231,18 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 			flag = false;
 		}
 
-		// if (display.getName().getValue() == null
-		// || "".equals(display.getName().getValue().trim())) {
-		// errorMsg.append("请填写礼品名称!<br>");
-		// flag = false;
-		// }
-
-		// if (display.getPhotoUpload().getFilename().length() == 0) {
-		if (display.getPhoto().getValue().length() == 0) {
-			errorMsg.append("请选择图片文件!<br>");
-			flag = false;
-		} else if (!display.getPhotoUpload().getFilename().endsWith(".jpg")
-				&& !display.getPhotoUpload().getFilename().endsWith(".gif")) {
-			errorMsg.append("请确认图片格式,仅支持JPG和GIF!<br>");
-			flag = false;
+		if (display.getPhoto().getValue().length() == 0) {//数据实体
+			 if (display.getPhotoUpload().getFilename().length() == 0) {
+					errorMsg.append("请选择图片文件!<br>");
+					flag = false;
+				} else if (!display.getPhotoUpload().getFilename().endsWith(".jpg")
+						&& !display.getPhotoUpload().getFilename().endsWith(".gif")) {
+					errorMsg.append("请确认图片格式,仅支持JPG和GIF!<br>");
+					flag = false;
+				}			
+		}else{//浏览
+//			errorMsg.append("请选择图片文件!<br>");
+//			flag = false;
 		}
 
 		if (!flag) {
@@ -295,7 +293,7 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 		giftVo.setPhoto(display.getPhoto().getValue().trim());
 		giftVo.setStock(StringUtil.valueOf(display.getStock().getValue()));
 		giftVo.setIntegral(StringUtil.valueOf(display.getIntegral().getValue()));
-		giftVo.setPhoto(display.getPhone().getValue());
+		giftVo.setPhoto(display.getPhoto().getValue());
 		// giftVo.setGiftStatus();
 		// giftVo.setDeleted(false);
 		// giftVo.setIndate(display.getIndate());
