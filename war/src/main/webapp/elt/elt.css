@@ -234,6 +234,7 @@ a:active {
 
 .gwt-DialogBox .dialogMiddleCenter {
 	background: white;
+	padding:0px;
 }
 
 .gwt-DialogBox .dialogBottomCenter {
@@ -1599,7 +1600,7 @@ div {
 /* Example tokeninput style #2: Facebook style */
 ul.token-input-list-facebook {
 	border: 1px solid #ccc;
-	width: 400px;
+	width: 518px;
 	color: #666;
 	overflow: hidden;
 	height: auto !important;

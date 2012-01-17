@@ -45,6 +45,7 @@ public class CookieSessionManager implements SessionManager {
 		this.eventBus = eventBus;
 		this.dispatchAsync = dispatchAsync;
 
+
 	}
 
 	public void authenticate(String username, String password, String verifyCode) {
@@ -63,7 +64,7 @@ public class CookieSessionManager implements SessionManager {
 			@Override
 			public void onFailure(Throwable e) {
 				tokenObtained(null);
-				// Window.alert("Failed");
+				Window.alert("用户名或密码错误!");
 				eventBus.fireEvent(new LoginEvent(
 						LoginEvent.LoginStatus.LOGIN_FAILED, e));
 			}
