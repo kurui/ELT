@@ -43,14 +43,17 @@ public class CandidateLogicImpl implements CandidateLogic {
 		Set<Staff> staffs = candidateRuleLogic
 				.getQualifiedStaffsFromCandidateRuleId(candidateRule.getId());
 		for (Staff staff : staffs) {
-			Candidate candidate = new Candidate();
-			candidate.setReward(reward);
-			candidate.setStaff(staff);
-			candidate.setCreatedAt(now);
-			candidate.setCreatedBy(caller);
-			candidate.setLastModifiedAt(now);
-			candidate.setLastModifiedBy(caller);
-			candidateDao.save(candidate);
+			if(staff.isDeleted()!=1)
+			{
+				Candidate candidate = new Candidate();
+				candidate.setReward(reward);
+				candidate.setStaff(staff);
+				candidate.setCreatedAt(now);
+				candidate.setCreatedBy(caller);
+				candidate.setLastModifiedAt(now);
+				candidate.setLastModifiedBy(caller);
+				candidateDao.save(candidate);
+			}
 		}
 	}
 
