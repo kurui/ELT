@@ -24,7 +24,7 @@ public class GiftViewPresenterImpl extends
 
 	private final DispatchAsync dispatcher;
 	private final ErrorHandler errorHandler;
-	String rewardId;
+	String giftId;
 	GiftClient param = new GiftClient();
 
 	@Inject
@@ -61,8 +61,8 @@ public class GiftViewPresenterImpl extends
 
 						Platform.getInstance()
 								.getEditorRegistry()
-								.openEditor(GiftConstants.EDITOR_GIFT_ADD,
-										"EDITOR_GIFT_ADD" + rewardId, param);
+								.openEditor(GiftConstants.EDITOR_GIFT_EDIT,
+										"EDITOR_GIFT_EDIT" + giftId, param);
 					}
 				}));
 	}
@@ -77,17 +77,18 @@ public class GiftViewPresenterImpl extends
 
 	private void initDataToEditGift(final GiftClient item,
 			final String instanceId) {
-		rewardId = item.getId();
+		giftId = item.getId();
 
-		if (instanceId.equals(GiftConstants.EDITOR_GIFT_EDIT)) {
-			dispatcher.execute(new SearchGiftByIdRequest(rewardId),
+		if (instanceId.equals(GiftConstants.EDITOR_GIFT_VIEW)) {
+			dispatcher.execute(new SearchGiftByIdRequest(giftId),
 					new AsyncCallback<SearchGiftByIdResponse>() {
 						@Override
 						public void onFailure(Throwable arg0) {
 							errorHandler.alert("查询礼品出错!");
 							Platform.getInstance()
 									.getEditorRegistry()
-									.closeEditor(GiftConstants.EDITOR_GIFT_ADD,
+									.closeEditor(
+											GiftConstants.EDITOR_GIFT_VIEW,
 											instanceId);
 						}
 
