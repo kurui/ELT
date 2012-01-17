@@ -27,35 +27,28 @@
 			<div class="{newitem.query-wrap}" >
 				<div class="{newitem.formx}">
 					<label for="">奖项名称:</label>
-					<span class="{newitem.nbsp}"></span>
-					<g:TextBox maxLength="20" ui:field="name" styleName="{newitem.text}" />
+					<g:TextBox maxLength="20" ui:field="name" styleName="{newitem.middle-text}" />
 
 					<span class="{newitem.nbsp}"></span>
 					<label for="">部门:</label>
-					<span class="{newitem.nbsp}"></span>
 					<g:FlowPanel ui:field="departmentName" styleName="{newitem.divtext}"/>
 					<select class="{newitem.select}" >
 						<option value="">技术部</option>
 						<option value="">财务部</option>
 						<option value="">人事部</option>
 					</select>
-					
-					<span class="{newitem.nbsp}"></span>
 					<g:CheckBox ui:field="chooseSubDepartment" />
-					<span class="{newitem.nbsp}"></span>
 					<label for="">包含子部门</label>
 
 					<span class="{newitem.nbsp}"></span>
 					<label for="">创建时间:</label>
-					<span class="{newitem.nbsp}"></span>
-					<d:DateBox ui:field="createTime" styleName="{newitem.text}" /> -->
-					<d:DateBox ui:field="createTimeEnd" styleName="{newitem.text}" />
+					<d:DateBox ui:field="createTime" styleName="{newitem.middle-text}" />->
+					<d:DateBox ui:field="createTimeEnd" styleName="{newitem.middle-text}" />
 					<span class="{newitem.nbsp}"></span>
 
 
 
 					<label for="">应用状态:</label>
-					<span class="{newitem.nbsp}"></span>
 					<g:ListBox ui:field="status" styleName="{newitem.select}" />
 					<span class="{newitem.nbsp}"></span>
 

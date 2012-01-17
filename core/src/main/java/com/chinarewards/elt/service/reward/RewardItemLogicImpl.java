@@ -808,6 +808,7 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 
 		rewardItemStore.setDegree(rewardItemStore.getDegree()+1);
 		rewardItemStoreDao.update(rewardItemStore);
+		this.saveOrgPolicy(rewardItem.getBuilderDept());
 		return rewardItem.getName();
 	}
 	
