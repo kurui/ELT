@@ -6,7 +6,7 @@
 		.interval { width: 50px; }
 	</ui:style>
 	<ui:style src="elt_min.css" field="newitem"></ui:style>
-	<g:HTMLPanel ui:field="select1" styleName="{newitem.frame-wrap}">
+	<g:HTMLPanel ui:field="select1" styleName="{newitem.frame-wrapdialog2}">
 		<div style="width:300px;padding-left:20px">
 			<table cellspadding="0" cellspacing="0" border="0" class="{newitem.form}">
 				<tr>
@@ -95,9 +95,11 @@
 			</table>
 		</div>
 		<span class="{newitem.cutline}"></span>
-		<div class="{newitem.frame-wrap3}">
-			<span class="{newitem.btn}"><g:Button ui:field="ok" >确定</g:Button></span>
-			<span class="{newitem.btn}"><g:Button ui:field="cancel" >取消</g:Button></span>
-		</div>
+
+					<div class="{newitem.box-tools}">
+						<g:Button ui:field="ok" text="确定" styleName="{newitem.box-btn-ok}" />
+						<g:Button ui:field="cancel" text="取消"
+							styleName="{newitem.box-btn-cannel}" />
+					</div>
 	</g:HTMLPanel>
 </ui:UiBinder>
