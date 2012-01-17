@@ -24,7 +24,7 @@
 
 	<ui:style src="index.css"></ui:style>
 	<ui:style src="new2.css" field="new2"></ui:style>
-	<g:DockLayoutPanel ui:field="dock" unit='PX'>
+	<g:DockLayoutPanel ui:field="dock" unit='PX' styleName="{new2.dockbody}">
 		<g:north size="83">
 			<g:HTMLPanel>
   <!--head [[-->
