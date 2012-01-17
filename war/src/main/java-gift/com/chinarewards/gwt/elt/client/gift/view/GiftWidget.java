@@ -8,6 +8,7 @@ import com.chinarewards.gwt.elt.client.gift.model.GiftVo;
 import com.chinarewards.gwt.elt.client.gift.presenter.GiftPresenter.GiftDisplay;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.view.constant.ViewConstants;
+import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
@@ -78,7 +79,6 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	FileUpload photoUpload;
 	@UiField
 	Button photoUploadBtn;
-	
 
 	DateTimeFormat dateFormat = DateTimeFormat
 			.getFormat(ViewConstants.date_format);
@@ -94,17 +94,6 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	public GiftWidget(DispatchAsync dispatch, ErrorHandler errorHandler,
 			SessionManager sessionManager) {
 		initWidget(uiBinder.createAndBindUi(this));
-
-//		if(){
-//			
-//		}
-		initEditWidget();
-
-	}
-
-	private void initEditWidget() {
-		type.addItem("实物", "1");
-		type.addItem("虚拟", "2");
 	}
 
 	@Override
@@ -243,23 +232,21 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	public HasValue<String> getIntegral() {
 		return integral;
 	}
-	
+
 	@Override
 	public void initEditGift(GiftVo giftVo) {
-		System.out.println("initEditGift -------GiftWidget---" + giftVo.getName());
 		name.setText(giftVo.getName());
 		explains.setText(giftVo.getExplains());
-		type.setItemText(0, giftVo.getType());
-		// type.setText();
+		initTypeSelect(giftVo.getType());
 		business.setText(giftVo.getBusiness());
 		address.setText(giftVo.getAddress());
 		tell.setText(giftVo.getTell());
-		// photo.setText(giftVo.getPhoto());
-		if(giftVo.getPhoto().indexOf(".")>0){
+		photo.setText(giftVo.getPhoto());
+		if (giftVo.getPhoto().indexOf(".") > 0) {
 			giftImage.setUrl("/imageshow?imageName=" + giftVo.getPhoto());
-			giftImage.setVisible(true);			
-		}		
-		
+			giftImage.setVisible(true);
+		}
+
 		integral.setText(giftVo.getIntegral() + "");
 		stock.setText(giftVo.getStock() + "");
 		// @UiField
@@ -277,6 +264,25 @@ public class GiftWidget extends Composite implements GiftDisplay {
 		// @UiField
 		// DateBox updatetime;
 		// ---end vo
+	}
+
+	@Override
+	public HasClickHandlers getBackClick() {
+		return back;
+	}
+
+	@Override
+	public void initAddGift(GiftVo giftVo) {
+		initTypeSelect("");
+	}
+
+	private void initTypeSelect(String selectedValue) {
+		type.addItem("实物", "1");
+		type.addItem("虚拟", "2");
+
+		if (StringUtil.trim(selectedValue) != "") {
+			type.setValue(0, selectedValue);
+		}
 	}
 
 }

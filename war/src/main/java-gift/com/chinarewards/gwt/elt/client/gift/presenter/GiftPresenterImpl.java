@@ -199,6 +199,19 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 					}
 				});
 
+		registerHandler(display.getBackClick().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent arg0) {
+						Platform.getInstance()
+								.getEditorRegistry()
+								.openEditor(
+										GiftConstants.EDITOR_GIFTLIST_SEARCH,
+										GiftConstants.ACTION_GIFT_LIST,
+										instanceId);
+					}
+				}));
+
 	}
 
 	// 验证方法
@@ -224,7 +237,8 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 		// flag = false;
 		// }
 
-		if (display.getPhotoUpload().getFilename().length() == 0) {
+		// if (display.getPhotoUpload().getFilename().length() == 0) {
+		if (display.getPhoto().getValue().length() == 0) {
 			errorMsg.append("请选择图片文件!<br>");
 			flag = false;
 		} else if (!display.getPhotoUpload().getFilename().endsWith(".jpg")
@@ -281,7 +295,7 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 		giftVo.setPhoto(display.getPhoto().getValue().trim());
 		giftVo.setStock(StringUtil.valueOf(display.getStock().getValue()));
 		giftVo.setIntegral(StringUtil.valueOf(display.getIntegral().getValue()));
-		// giftVo.setPhoto(display.getPhone().getValue());
+		giftVo.setPhoto(display.getPhone().getValue());
 		// giftVo.setGiftStatus();
 		// giftVo.setDeleted(false);
 		// giftVo.setIndate(display.getIndate());

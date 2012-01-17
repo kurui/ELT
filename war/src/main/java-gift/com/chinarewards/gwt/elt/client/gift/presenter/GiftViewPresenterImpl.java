@@ -34,7 +34,6 @@ public class GiftViewPresenterImpl extends
 		super(eventBus, display);
 		this.dispatcher = dispatcher;
 		this.errorHandler = errorHandler;
-
 	}
 
 	@Override
@@ -43,15 +42,13 @@ public class GiftViewPresenterImpl extends
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent arg0) {
-
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(
 										GiftConstants.EDITOR_GIFTLIST_SEARCH,
-										"EDITOR_GIFT_List_DO_ID", instanceId);
-
+										GiftConstants.ACTION_GIFT_LIST,
+										instanceId);
 					}
-
 				}));
 
 		registerHandler(display.getUpdateClick().addClickHandler(

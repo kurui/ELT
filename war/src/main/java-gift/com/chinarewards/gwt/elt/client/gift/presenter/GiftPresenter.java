@@ -64,7 +64,11 @@ public interface GiftPresenter extends Presenter<GiftPresenter.GiftDisplay> {
 		public void clear();
 		
 		
-		void initEditGift(GiftVo giftVo);
+		public void initAddGift(GiftVo giftVo);
+		public void initEditGift(GiftVo giftVo);
+
+		
+		public HasClickHandlers getBackClick();
 
 	}
 	
