@@ -16,8 +16,8 @@ import com.chinarewards.elt.model.reward.frequency.YearlyVo;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.gift.GiftService;
 import com.chinarewards.gwt.elt.client.gift.model.GiftVo;
-import com.chinarewards.gwt.elt.client.gift.request.AddGiftRequest;
-import com.chinarewards.gwt.elt.client.gift.request.AddGiftResponse;
+import com.chinarewards.gwt.elt.client.gift.request.EditGiftRequest;
+import com.chinarewards.gwt.elt.client.gift.request.EditGiftResponse;
 import com.chinarewards.gwt.elt.client.rewards.model.DayFrequencyClient;
 import com.chinarewards.gwt.elt.client.rewards.model.FrequencyClient;
 import com.chinarewards.gwt.elt.client.rewards.model.MonthFrequencyClient;
@@ -30,25 +30,25 @@ import com.google.inject.Inject;
 /**
  * @author YanRui
  * */
-public class AddGiftHandler extends
-		BaseActionHandler<AddGiftRequest, AddGiftResponse> {
+public class EditGiftHandler extends
+		BaseActionHandler<EditGiftRequest, EditGiftResponse> {
 
 	@InjectLogger
 	Logger logger;
 	GiftService giftService;
 
 	@Inject
-	public AddGiftHandler(GiftService giftService) {
+	public EditGiftHandler(GiftService giftService) {
 		this.giftService = giftService;
 	}
 
 	@Override
-	public Class<AddGiftRequest> getActionType() {
-		return AddGiftRequest.class;
+	public Class<EditGiftRequest> getActionType() {
+		return EditGiftRequest.class;
 	}
 
 	@Override
-	public AddGiftResponse execute(AddGiftRequest action,
+	public EditGiftResponse execute(EditGiftRequest action,
 			ExecutionContext context) throws DispatchException {
 		logger.debug("AddGiftResponse , gift:" + action.getGiftVo().toString());
 		logger.debug("AddGiftResponse ,rewardId=" + action.getGiftVo().getId());
@@ -63,7 +63,7 @@ public class AddGiftHandler extends
 				.getUserRoles()));
 		Gift AdddItem = giftService.save(uc, gift);
 
-		return new AddGiftResponse(AdddItem.getId());
+		return new EditGiftResponse(AdddItem.getId());
 	}
 
 	// Convert from GiftVo to GeneratorGiftModel.
@@ -168,7 +168,7 @@ public class AddGiftHandler extends
 	}
 
 	@Override
-	public void rollback(AddGiftRequest action, AddGiftResponse result,
+	public void rollback(EditGiftRequest action, EditGiftResponse result,
 			ExecutionContext context) throws DispatchException {
 
 	}

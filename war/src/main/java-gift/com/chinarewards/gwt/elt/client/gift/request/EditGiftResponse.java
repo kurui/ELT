@@ -7,15 +7,15 @@ import net.customware.gwt.dispatch.shared.Result;
  * 
  * @author yanrui
  */
-public class AddGiftResponse implements Result {
+public class EditGiftResponse implements Result {
 
 	String giftLotId;
 
-	public AddGiftResponse() {
+	public EditGiftResponse() {
 
 	}
 
-	public AddGiftResponse(String id) {
+	public EditGiftResponse(String id) {
 
 	}
 

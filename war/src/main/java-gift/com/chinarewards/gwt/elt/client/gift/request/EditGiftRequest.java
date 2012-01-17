@@ -15,7 +15,7 @@ import net.customware.gwt.dispatch.shared.Action;
  * 
  * @author yanrui
  */
-public class AddGiftRequest implements Action<AddGiftResponse> {
+public class EditGiftRequest implements Action<EditGiftResponse> {
 
 	String giftId;
 	String nowUserId;
@@ -24,7 +24,7 @@ public class AddGiftRequest implements Action<AddGiftResponse> {
 
 	List<String> staffIds;
 
-	public AddGiftRequest(GiftVo giftVo, UserSession userSession) {
+	public EditGiftRequest(GiftVo giftVo, UserSession userSession) {
 		this.giftVo = giftVo;
 		this.userSession = userSession;
 	}
@@ -32,7 +32,7 @@ public class AddGiftRequest implements Action<AddGiftResponse> {
 	/**
 	 * For serialization
 	 */
-	public AddGiftRequest() {
+	public EditGiftRequest() {
 	}
 
 	// public AddGiftRequest(List<String> staffIds, String giftId, String

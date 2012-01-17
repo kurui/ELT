@@ -1,24 +1,20 @@
 package com.chinarewards.gwt.elt.client.gift.presenter;
 
-import java.util.Date;
-
 import net.customware.gwt.dispatch.client.DispatchAsync;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.gift.model.GiftVo;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftConstants;
-import com.chinarewards.gwt.elt.client.gift.request.AddGiftRequest;
-import com.chinarewards.gwt.elt.client.gift.request.AddGiftResponse;
+import com.chinarewards.gwt.elt.client.gift.request.EditGiftRequest;
+import com.chinarewards.gwt.elt.client.gift.request.EditGiftResponse;
 import com.chinarewards.gwt.elt.client.gift.request.SearchGiftByIdRequest;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.gift.request.SearchGiftByIdResponse;
-import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
-import com.chinarewards.gwt.elt.util.DateTool;
 import com.chinarewards.gwt.elt.util.StringUtil;
 import com.chinarewards.gwt.elt.util.XmlUtil_GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -64,13 +60,13 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 		// 绑定事件
 		init();
 
-		System.out.println("-------!isEditPage:"+!isEditPage);
-		
-		if (!isEditPage) {
-			// initSave();
-		} else {
-			initEdit();
-		}
+		System.out.println("-------!isEditPage:" + !isEditPage);
+
+		// if (!isEditPage) {
+		// initSave();
+		// } else {
+		initEdit();
+		// }
 	}
 
 	private void init() {
@@ -115,9 +111,9 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 					}
 
 					private void doSave(GiftVo gift) {
-						dispatcher.execute(new AddGiftRequest(gift,
+						dispatcher.execute(new EditGiftRequest(gift,
 								sessionManager.getSession()),
-								new AsyncCallback<AddGiftResponse>() {
+								new AsyncCallback<EditGiftResponse>() {
 									@Override
 									public void onFailure(Throwable t) {
 										errorHandler.alert(t.toString());
@@ -125,7 +121,7 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 
 									@Override
 									public void onSuccess(
-											AddGiftResponse response) {
+											EditGiftResponse response) {
 										Window.alert("添加成功");
 										// if(instanceId!=null||!instanceId.equals(""))
 										Platform.getInstance()
@@ -140,9 +136,9 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 
 					private void doEdit(GiftVo gift) {
 						if (Window.confirm("确定修改?")) {
-							dispatcher.execute(new AddGiftRequest(gift,
+							dispatcher.execute(new EditGiftRequest(gift,
 									sessionManager.getSession()),
-									new AsyncCallback<AddGiftResponse>() {
+									new AsyncCallback<EditGiftResponse>() {
 										@Override
 										public void onFailure(Throwable t) {
 											Window.alert("修改失败");
@@ -155,7 +151,7 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 
 										@Override
 										public void onSuccess(
-												AddGiftResponse arg0) {
+												EditGiftResponse arg0) {
 											Window.alert("修改成功");
 											Platform.getInstance()
 													.getEditorRegistry()
@@ -278,7 +274,7 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 					@Override
 					public void onSuccess(SearchGiftByIdResponse response) {
 						GiftVo giftVo = response.getGift();
-//						clear();
+						clear();
 						display.initEditGift(giftVo);
 
 					}
