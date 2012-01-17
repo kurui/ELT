@@ -30,10 +30,7 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 		implements GiftPresenter {
 	String instanceId;// 修改时传过来的ID
 
-	/**
-	 * 是否为修改页，默认为false
-	 */
-	private boolean isEditPage = false;
+	private String thisAction;
 	private String giftId;
 	//
 	private final DispatchAsync dispatcher;
@@ -60,12 +57,14 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 		// 绑定事件
 		init();
 
-		System.out.println("-------!isEditPage:" + !isEditPage);
+		System.out.println("-------thisAction:" + thisAction);
 
-		if (!isEditPage) {
+		if (GiftConstants.ACTION_GIFT_ADD.equals(thisAction)) {
 			// initSave();
-		} else {
+		} else if (GiftConstants.ACTION_GIFT_EDIT.equals(thisAction)) {
 			initEdit();
+		} else {
+			win.alert("未定义的方法");
 		}
 	}
 
@@ -79,34 +78,15 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 							return;
 						}
 
-						GiftVo gift = new GiftVo();
-						//
-						// // 基本信息
-						gift.setName(display.getName().getValue().trim());
-						gift.setExplains(display.getExplains().getValue()
-								.trim());
-						gift.setType(display.getType());
-						// gift.setSource(display.getSource().getValue().trim());
-						gift.setSource("合作商家");
-						// gift.setBusiness(display.getBusiness().getValue().trim());
-						gift.setAddress(display.getAddress().getValue().trim());
-						gift.setTell(display.getTell().getValue().trim());
-						gift.setPhoto(display.getPhoto().getValue().trim());
-						gift.setStock(StringUtil.valueOf(display.getStock()
-								.getValue()));
-						gift.setIntegral(StringUtil.valueOf(display
-								.getIntegral().getValue()));
-						// gift.setPhoto(display.getPhone().getValue());
-						// gift.setGiftStatus();
-						// gift.setDeleted(false);
-						// gift.setIndate(display.getIndate());
-
-						if (!isEditPage) {
-							gift.setId(null);
-							doSave(gift);
+						GiftVo giftVo = adapter();
+						if ("addGift".equals(thisAction)) {
+							giftVo.setId(null);
+							doSave(giftVo);
+						} else if ("editGift".equals(thisAction)) {
+							giftVo.setId(giftId);
+							doEdit(giftVo);
 						} else {
-							gift.setId(giftId);
-							doEdit(gift);
+							win.alert("未定义的方法");
 						}
 					}
 
@@ -128,7 +108,7 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 												.getEditorRegistry()
 												.openEditor(
 														GiftConstants.EDITOR_GIFTLIST_SEARCH,
-														"EDITOR_REWARDSITEM_List_DO_ID",
+														GiftConstants.ACTION_GIFT_LIST,
 														instanceId);
 									}
 								});
@@ -157,7 +137,7 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 													.getEditorRegistry()
 													.openEditor(
 															GiftConstants.EDITOR_GIFTLIST_SEARCH,
-															"EDITOR_GIFT_List_DO_ID",
+															GiftConstants.ACTION_GIFT_LIST,
 															instanceId);
 										}
 									});
@@ -202,7 +182,7 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 							String info = XmlUtil_GWT.getSingleNodeText(doc,
 									"info");
 							if ("SUCCESS".equals(result)) {
-								display.getPhoto().setValue(event.getResults());
+								display.getPhoto().setValue(info);
 								display.getGiftImage().setUrl(
 										"/imageshow?imageName=" + info);
 							} else {
@@ -255,7 +235,6 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 			win.alert(errorMsg.toString());
 		}
 
-		System.out.println("validateSubmit()======" + flag);
 		return flag;
 	}
 
@@ -281,13 +260,45 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 				});
 	}
 
+	/**
+	 * 封装表单属性
+	 * */
+	private GiftVo adapter() {
+		GiftVo giftVo = new GiftVo();
+		//
+
+		// // 基本信息
+		giftVo.setName(display.getName().getValue().trim());
+		giftVo.setExplains(display.getExplains().getValue().trim());
+		giftVo.setType(display.getType());
+		// giftVo.setSource(display.getSource().getValue().trim());
+		giftVo.setSource("合作商家");
+		// giftVo.setBusiness(display.getBusiness().getValue().trim());
+		giftVo.setAddress(display.getAddress().getValue().trim());
+		giftVo.setTell(display.getTell().getValue().trim());
+		giftVo.setPhoto(display.getPhoto().getValue().trim());
+		giftVo.setStock(StringUtil.valueOf(display.getStock().getValue()));
+		giftVo.setIntegral(StringUtil.valueOf(display.getIntegral().getValue()));
+		// giftVo.setPhoto(display.getPhone().getValue());
+		// giftVo.setGiftStatus();
+		// giftVo.setDeleted(false);
+		// giftVo.setIndate(display.getIndate());
+
+		return giftVo;
+	}
+
 	private void clear() {
 		display.clear();
 	}
 
 	public void setId(String id) {
 		this.giftId = id;
-		isEditPage = true;
+	}
+
+	@Override
+	public void initEditor(String giftId, String thisAction) {
+		this.giftId = giftId;
+		this.thisAction = thisAction;
 	}
 
 }

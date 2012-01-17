@@ -26,6 +26,8 @@ public class GiftClient implements Serializable, Comparable<GiftClient> {
 	 * 库存
 	 */
 	private String inventory;
+	
+	protected String thisAction;
 
 	public GiftStatus getStatus() {
 		return status;
@@ -72,4 +74,13 @@ public class GiftClient implements Serializable, Comparable<GiftClient> {
 		return o == null ? -1 : o.getId().compareTo(id);
 	}
 
+	public String getThisAction() {
+		return thisAction;
+	}
+
+	public void setThisAction(String thisAction) {
+		this.thisAction = thisAction;
+	}
+
+	
 }

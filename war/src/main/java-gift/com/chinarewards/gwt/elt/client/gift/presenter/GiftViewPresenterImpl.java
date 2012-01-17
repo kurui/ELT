@@ -92,8 +92,6 @@ public class GiftViewPresenterImpl extends
 					@Override
 					public void onSuccess(SearchGiftByIdResponse response) {
 						GiftVo item = response.getGift();
-						System.out
-								.println("==========initDataToViewGift================= presenterImp");
 						display.showGift(item);
 					}
 

@@ -63,7 +63,11 @@ public interface GiftPresenter extends Presenter<GiftPresenter.GiftDisplay> {
 
 		public void clear();
 
+		
+		
 		void initEditGift(GiftVo giftVo);
 
 	}
+	
+	public void initEditor(String giftId,String thisAction);
 }

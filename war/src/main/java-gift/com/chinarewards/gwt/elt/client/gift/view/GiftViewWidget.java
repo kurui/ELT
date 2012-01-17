@@ -41,7 +41,7 @@ public class GiftViewWidget extends Composite implements GiftViewDisplay {
 	@UiField
 	Label stock;
 	// @UiField
-	// Label phone;
+	Label phone;
 	// @UiField
 	// Label status;// boolean
 	// @UiField
@@ -106,20 +106,22 @@ public class GiftViewWidget extends Composite implements GiftViewDisplay {
 
 	@Override
 	public void showGift(GiftVo giftVo) {
-		System.out.println("showGift ----------" + giftVo.getName());
+		System.out.println("showGift ----------" + giftVo.getName()+"--"+giftVo.getPhoto());
 		name.setText(giftVo.getName());
 		explains.setText(giftVo.getExplains());
-		type.setItemText(0, giftVo.getType());
+//		type.setItemText(0, giftVo.getType());
 		// type.setText();
 		business.setText(giftVo.getBusiness());
 		address.setText(giftVo.getAddress());
 		tell.setText(giftVo.getTell());
 		// photo.setText(giftVo.getPhoto());
 		giftImage.setUrl("/imageshow?imageName=" + giftVo.getPhoto());
+		giftImage.setVisible(true);
+		
 		integral.setText(giftVo.getIntegral() + "");
 		stock.setText(giftVo.getStock() + "");
-		// @UiField
-		// Label phone;
+//		phone.setText(giftVo.getPhone());
+		
 		// @UiField
 		// Label status;// boolean
 		// @UiField

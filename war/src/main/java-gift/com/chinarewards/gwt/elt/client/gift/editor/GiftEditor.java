@@ -1,6 +1,7 @@
 package com.chinarewards.gwt.elt.client.gift.editor;
 
 import com.chinarewards.gwt.elt.client.core.ui.impl.AbstractEditor;
+import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
 import com.chinarewards.gwt.elt.client.gift.presenter.GiftPresenter;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
@@ -15,7 +16,7 @@ public class GiftEditor extends AbstractEditor {
 	Object model;
 
 	@Inject
-	protected GiftEditor(GiftListEditorDescriptor editorDescriptor,
+	protected GiftEditor(GiftEditorDescriptor editorDescriptor,
 			GiftPresenter giftPresenter) {
 		super(editorDescriptor);
 		this.giftPresenter = giftPresenter;
@@ -44,6 +45,9 @@ public class GiftEditor extends AbstractEditor {
 
 	public void setModel(Object model) {
 		this.model = model;
+		GiftClient giftClient = (GiftClient) model;
+		giftPresenter
+				.initEditor(giftClient.getId(), giftClient.getThisAction());
 		giftPresenter.bind();
 	}
 }

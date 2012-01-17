@@ -92,11 +92,14 @@ public class GiftWidget extends Composite implements GiftDisplay {
 			SessionManager sessionManager) {
 		initWidget(uiBinder.createAndBindUi(this));
 
-		initAddWidget();
+//		if(){
+//			
+//		}
+		initEditWidget();
 
 	}
 
-	private void initAddWidget() {
+	private void initEditWidget() {
 		type.addItem("实物", "1");
 		type.addItem("虚拟", "2");
 	}
@@ -240,7 +243,7 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	
 	@Override
 	public void initEditGift(GiftVo giftVo) {
-		System.out.println("initEditGift ----------" + giftVo.getName());
+		System.out.println("initEditGift -------GiftWidget---" + giftVo.getName());
 		name.setText(giftVo.getName());
 		explains.setText(giftVo.getExplains());
 		type.setItemText(0, giftVo.getType());

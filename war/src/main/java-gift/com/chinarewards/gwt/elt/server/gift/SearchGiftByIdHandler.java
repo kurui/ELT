@@ -2,6 +2,7 @@
  * 
  */
 package com.chinarewards.gwt.elt.server.gift;
+
 import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.DispatchException;
 import org.slf4j.Logger;
@@ -41,6 +42,19 @@ public class SearchGiftByIdHandler extends
 		GiftVo giftVo = new GiftVo();
 		giftVo.setId(gift.getId());
 		giftVo.setName(gift.getName());
+		giftVo.setExplains(gift.getExplains());
+		giftVo.setType(gift.getType());
+		giftVo.setSource(gift.getSource());
+		giftVo.setBusiness(gift.getBusiness());
+		giftVo.setAddress(gift.getAddress());
+		giftVo.setTell(gift.getTell());
+		giftVo.setPhoto(gift.getPhoto());
+		giftVo.setStock(gift.getStock());
+		giftVo.setIntegral(gift.getIntegral());
+		giftVo.setPhoto(gift.getPhoto());
+		// giftVo.setGiftStatus();
+		// giftVo.setDeleted(gift.get);
+		giftVo.setIndate(gift.getIndate());
 
 		return giftVo;
 	}

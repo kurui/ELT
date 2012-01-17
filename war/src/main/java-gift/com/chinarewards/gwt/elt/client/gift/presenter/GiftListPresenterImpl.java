@@ -214,14 +214,15 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 					}
 				}, new FieldUpdater<GiftClient, String>() {
 					@Override
-					public void update(int index, final GiftClient object,
+					public void update(int index, final GiftClient giftClient,
 							String value) {
+						giftClient.setThisAction(GiftConstants.ACTION_GIFT_EDIT);
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(
 										GiftConstants.EDITOR_GIFT_EDIT,
 										GiftConstants.EDITOR_GIFT_EDIT
-												+ object.getId(), object);
+												+ giftClient.getId(), giftClient);
 					}
 				});
 
@@ -233,14 +234,15 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 					}
 				}, new FieldUpdater<GiftClient, String>() {
 					@Override
-					public void update(int index, GiftClient object,
+					public void update(int index, GiftClient giftClient,
 							String value) {
+						giftClient.setThisAction(GiftConstants.ACTION_GIFT_VIEW);
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(
 										GiftConstants.EDITOR_GIFT_VIEW,
 										GiftConstants.EDITOR_GIFT_VIEW
-												+ object.getId(), object);
+												+ giftClient.getId(), giftClient);
 					}
 				});
 

@@ -14,6 +14,7 @@ public class GiftPlugin extends AbstractPlugin {
 	public GiftPlugin(GiftPluginDescriptor GiftPluginDescriptor) {
 		super(GiftPluginDescriptor);
 	}
+	
 
 	@Override
 	protected void onActivate() {
