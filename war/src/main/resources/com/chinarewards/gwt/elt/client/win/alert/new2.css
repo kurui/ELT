@@ -138,7 +138,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .box .box-bl,.box .box-br{height:6px;font-size:0%;width:6px;margin-top:-6px;}
 .box .box-bl{float:left;background-position:0 -123px;}
 .box .box-br{float:right;background-position:-7px -123px;}
-.box .box-context .box-title{padding:4px 0 10px 10px;color:#000000;font-size:14px;background-color:#C9D2C6;font-weight:bold;_zoom:1;}
+.box .box-context .box-title{padding:4px 0 10px 10px;color:#000000;font-size:14px;background-color:#EEEEEE;font-weight:bold;_zoom:1;}
 .box .box-context .box-info{background-color:#FFFFFF;padding:25px;}
 .box .box-context .box-tools{text-align:center;padding:10px 0 5px;background-color:#C9D2C6;_zoom:1;}
 .box .box-context .box-tools span{display:inline-block;}
