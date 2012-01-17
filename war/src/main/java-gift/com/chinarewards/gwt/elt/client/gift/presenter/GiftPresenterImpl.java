@@ -62,11 +62,11 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 
 		System.out.println("-------!isEditPage:" + !isEditPage);
 
-		// if (!isEditPage) {
-		// initSave();
-		// } else {
-		initEdit();
-		// }
+		if (!isEditPage) {
+			// initSave();
+		} else {
+			initEdit();
+		}
 	}
 
 	private void init() {
