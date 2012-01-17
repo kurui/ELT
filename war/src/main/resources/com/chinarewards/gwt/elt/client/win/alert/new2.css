@@ -109,7 +109,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .footer .copyright{padding:10px 0;width:400px;text-align:left;margin:0 auto;color:#9E9E9E;}
 .footer .copyright p{line-height:20px;}
 /*-------------------------------------iframe页面------------------------------------------------------*/
-.frame-wrap{background-color:#F4F4F4;width:99%;padding-top:15px; min-width: 950px;}
+.frame-wrap{background-color:#F4F4F4;width:99%;padding-top:15px; min-width: 1010px;}
 .frame-wrap .breadcrumb-wrap:after{content:".";display:block;clear:both;height:0;visibility:hidden;}
 .frame-wrap .breadcrumb-wrap{*zoom:1;}
 .frame-wrap .breadcrumb-left{float:left;width:50%;}

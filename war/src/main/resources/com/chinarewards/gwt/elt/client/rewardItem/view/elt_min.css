@@ -120,7 +120,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 /*-------------------------------------iframe页面------------------------------------------------------*/
 .frame-wrap3{background-color:#F4F4F4;width:100%;padding:4px 0 4px;border:1px solid #B8DA8E;text-align: center;}
 .frame-wrap2{background-color:#F4F4F4;width:100%;padding-top:0px;}
-.frame-wrap{background-color:#F4F4F4;width:99%;padding-top:15px; min-width: 950px;}
+.frame-wrap{background-color:#F4F4F4;width:99%;padding-top:15px; min-width: 1010px;}
 .frame-wrap .breadcrumb-wrap:after{content:".";display:block;clear:both;height:0;visibility:hidden;}
 .frame-wrap .breadcrumb-wrap{*zoom:1;}
 .frame-wrap .breadcrumb-left{float:left;width:50%;}
