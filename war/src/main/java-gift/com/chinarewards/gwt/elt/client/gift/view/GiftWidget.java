@@ -65,6 +65,9 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	// ---end vo
 
 	@UiField
+	Button back;
+
+	@UiField
 	Button save;
 
 	@UiField
@@ -252,7 +255,11 @@ public class GiftWidget extends Composite implements GiftDisplay {
 		address.setText(giftVo.getAddress());
 		tell.setText(giftVo.getTell());
 		// photo.setText(giftVo.getPhoto());
-		giftImage.setUrl("/imageshow?imageName=" + giftVo.getPhoto());
+		if(giftVo.getPhoto().indexOf(".")>0){
+			giftImage.setUrl("/imageshow?imageName=" + giftVo.getPhoto());
+			giftImage.setVisible(true);			
+		}		
+		
 		integral.setText(giftVo.getIntegral() + "");
 		stock.setText(giftVo.getStock() + "");
 		// @UiField

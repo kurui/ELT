@@ -25,7 +25,7 @@ public class GiftViewPresenterImpl extends
 	private final DispatchAsync dispatcher;
 	private final ErrorHandler errorHandler;
 	String giftId;
-	GiftClient param = new GiftClient();
+	GiftClient giftClient = new GiftClient();
 
 	@Inject
 	public GiftViewPresenterImpl(EventBus eventBus, GiftViewDisplay display,
@@ -58,26 +58,29 @@ public class GiftViewPresenterImpl extends
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent arg0) {
-
+						giftClient.setId(giftId);
+						giftClient
+								.setThisAction(GiftConstants.ACTION_GIFT_EDIT);
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(GiftConstants.EDITOR_GIFT_EDIT,
-										"EDITOR_GIFT_EDIT" + giftId, param);
+										GiftConstants.ACTION_GIFT_EDIT,
+										giftClient);
 					}
 				}));
 	}
 
 	// 查看时初始化数据
 	@Override
-	public void initInstanceId(String instanceId, GiftClient item) {
+	public void initInstanceId(String instanceId, GiftClient giftClient) {
 		this.instanceId = instanceId;
-		param = item;
-		initDataToViewGift(item, instanceId);
+		this.giftClient = giftClient;
+		initDataToViewGift(giftClient, instanceId);
 	}
 
-	private void initDataToViewGift(final GiftClient item,
+	private void initDataToViewGift(final GiftClient giftClient,
 			final String instanceId) {
-		giftId = item.getId();
+		giftId = giftClient.getId();
 		dispatcher.execute(new SearchGiftByIdRequest(giftId),
 				new AsyncCallback<SearchGiftByIdResponse>() {
 					@Override

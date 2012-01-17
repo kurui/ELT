@@ -58,6 +58,8 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 		init();
 
 		System.out.println("-------thisAction:" + thisAction);
+		System.out.println(GiftConstants.ACTION_GIFT_EDIT + "---" + thisAction);
+		System.out.println(GiftConstants.ACTION_GIFT_EDIT.equals(thisAction));
 
 		if (GiftConstants.ACTION_GIFT_ADD.equals(thisAction)) {
 			// initSave();

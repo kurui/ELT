@@ -123,7 +123,9 @@
 				</tr>
 				<tr class="{newitem.form-line}">
 					<td colspan="3" align="center">
-						<span class="{newitem.cutline}"></span>
+						<span class="{newitem.btn}">
+							<g:Button ui:field="back" styleName="button-ok">返回 </g:Button>
+						</span>
 						<span class="{newitem.btn}">
 							<g:Button ui:field="save">保存</g:Button>
 						</span>

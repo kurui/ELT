@@ -62,7 +62,6 @@ public interface GiftPresenter extends Presenter<GiftPresenter.GiftDisplay> {
 		public HasClickHandlers getSaveClick();
 
 		public void clear();
-
 		
 		
 		void initEditGift(GiftVo giftVo);

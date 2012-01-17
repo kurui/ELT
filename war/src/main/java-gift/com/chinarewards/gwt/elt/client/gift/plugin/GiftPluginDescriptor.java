@@ -91,63 +91,7 @@ public class GiftPluginDescriptor implements PluginDescriptor {
 			}
 		});
 
-		// /**
-		// * 编辑礼品
-		// */
-		// ext.add(new Extension() {
-		//
-		// @Override
-		// public String getExtensionPointId() {
-		// return PluginConstants.MENU;
-		// }
-		//
-		// @Override
-		// public Object getInstance() {
-		// return new MenuItem() {
-		//
-		// @Override
-		// public int getOrder() {
-		// return MenuConstants.MENU_ORDER_GIFT_EDIT;
-		// }
-		//
-		// @Override
-		// public String getMenuId() {
-		// return GiftConstants.MENU_GIFT_EDIT;
-		// }
-		//
-		// @Override
-		// public String getParentMenuId() {
-		// return null;
-		// }
-		//
-		// @Override
-		// public String getTitle() {
-		// return "编辑礼品";
-		// }
-		//
-		// @Override
-		// public void execute() {
-		// Platform.getInstance()
-		// .getEditorRegistry()
-		// .openEditor(GiftConstants.EDITOR_GIFT_EDIT,
-		// "EDITOR_GIFT_EDIT_ID", null);
-		// }
-		//
-		// @Override
-		// public Image getIcon() {
-		// return null;
-		// }
-		//
-		// };
-		// }
-		//
-		// @Override
-		// public PluginDescriptor getPluginDescriptor() {
-		// return GiftPluginDescriptor.this;
-		// }
-		//
-		// });
-
+		
 		ext.add(new Extension() {
 
 			@Override
