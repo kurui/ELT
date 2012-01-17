@@ -64,17 +64,10 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	// ---end vo
 
 	@UiField
-	Image giftImage;
-
-	// 保存或修改
-	@UiField
 	Button save;
 
-	// FrequencyClient frequency;
-	// String rewardsUnit;
-
-	// @UiField
-	// FlowPanel uploadPanel;
+	@UiField
+	Image giftImage;
 	@UiField
 	FormPanel photoForm;
 	@UiField
@@ -82,7 +75,6 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	@UiField
 	Button photoUploadBtn;
 	
-//	<g:Button ui:field="photoUploadBtn"></g:Button>
 
 	DateTimeFormat dateFormat = DateTimeFormat
 			.getFormat(ViewConstants.date_format);

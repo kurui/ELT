@@ -10,13 +10,12 @@ package com.chinarewards.gwt.elt.client.gift.plugin;
 public abstract class GiftConstants {
 
 	// Plugin name
-	public static final String PLUGIN_GIFTEDIT = "PLUGIN_GIFT";
+	public static final String PLUGIN_GIFT = "PLUGIN_GIFT";
 
 	// The menu and editor of finding user.
 	public static final String MENU_GIFT_ADD = "MENU_GIFT_ADD";
 	public static final String MENU_GIFT_EDIT = "MENU_GIFT_EDIT";
 	
-	public static final String EDITOR_GIFT_ADD = "EDITOR_GIFT_ADD";
 	public static final String EDITOR_GIFT_EDIT = "EDITOR_GIFT_EDIT";
 	public static final String EDITOR_GIFT_VIEW = "EDITOR_GIFT_VIEW";
 	

@@ -65,7 +65,6 @@ public class GiftViewWidget extends Composite implements GiftViewDisplay {
 	@UiField
 	Button update;
 
-
 	DateTimeFormat dateFormat = DateTimeFormat
 			.getFormat(ViewConstants.date_format);
 
@@ -107,17 +106,18 @@ public class GiftViewWidget extends Composite implements GiftViewDisplay {
 
 	@Override
 	public void showGift(GiftVo giftVo) {
+		System.out.println("showGift ----------" + giftVo.getName());
 		name.setText(giftVo.getName());
 		explains.setText(giftVo.getExplains());
 		type.setItemText(0, giftVo.getType());
-//		type.setText();
+		// type.setText();
 		business.setText(giftVo.getBusiness());
 		address.setText(giftVo.getAddress());
 		tell.setText(giftVo.getTell());
-//		photo.setText(giftVo.getPhoto());
-		giftImage.setUrl("/imageshow?imageName="+giftVo.getPhoto());
-		integral.setText(giftVo.getIntegral()+"");
-		stock.setText(giftVo.getStock()+"");
+		// photo.setText(giftVo.getPhoto());
+		giftImage.setUrl("/imageshow?imageName=" + giftVo.getPhoto());
+		integral.setText(giftVo.getIntegral() + "");
+		stock.setText(giftVo.getStock() + "");
 		// @UiField
 		// Label phone;
 		// @UiField
@@ -132,6 +132,6 @@ public class GiftViewWidget extends Composite implements GiftViewDisplay {
 		// Label recorduser;
 		// @UiField
 		// DateBox updatetime;
-		// ---end vo	
+		// ---end vo
 	}
 }

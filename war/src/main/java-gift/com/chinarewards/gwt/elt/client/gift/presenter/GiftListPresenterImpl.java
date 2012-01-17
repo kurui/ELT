@@ -77,8 +77,8 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 					public void onClick(ClickEvent paramClickEvent) {
 						Platform.getInstance()
 								.getEditorRegistry()
-								.openEditor(GiftConstants.EDITOR_GIFT_ADD,
-										GiftConstants.EDITOR_GIFT_ADD, null);
+								.openEditor(GiftConstants.EDITOR_GIFT_EDIT,
+										GiftConstants.EDITOR_GIFT_EDIT, null);
 					}
 				}));
 		registerHandler(display.getimportingBtnClickHandlers().addClickHandler(
@@ -218,8 +218,10 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 							String value) {
 						Platform.getInstance()
 								.getEditorRegistry()
-								.openEditor(GiftConstants.EDITOR_GIFT_EDIT,
-										GiftConstants.EDITOR_GIFT_EDIT, object);
+								.openEditor(
+										GiftConstants.EDITOR_GIFT_EDIT,
+										GiftConstants.EDITOR_GIFT_EDIT
+												+ object.getId(), object);
 					}
 				});
 

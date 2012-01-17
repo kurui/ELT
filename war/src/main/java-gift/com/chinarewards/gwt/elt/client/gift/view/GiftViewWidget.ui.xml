@@ -33,14 +33,14 @@
 						礼品名称：
 					</td>
 					<td class="{newitem.element}">
-						<g:Label maxLength="20" ui:field="name" />
+						<g:Label ui:field="name" />
 					</td>
 					<td></td>
 				</tr>
 				<tr class="{newitem.form-line}">
 					<td valign="top" class="{newitem.label}">礼品说明：</td>
 					<td class="{newitem.element}">
-						<g:Label maxLength="50" ui:field="explains" />
+						<g:Label ui:field="explains" />
 					</td>
 					<td></td>
 				</tr>
@@ -61,14 +61,14 @@
 				<tr class="{newitem.form-line}">
 					<td valign="top" class="{newitem.label}">供应商地址：</td>
 					<td class="{newitem.element}">
-						<g:Label maxLength="50" ui:field="address" />
+						<g:Label ui:field="address" />
 					</td>
 					<td></td>
 				</tr>
 				<tr class="{newitem.form-line}">
 					<td valign="top" class="{newitem.label}">供应商电话：</td>
 					<td class="{newitem.element}">
-						<g:Label maxLength="11" ui:field="tell" />
+						<g:Label ui:field="tell" />
 					</td>
 					<td></td>
 				</tr>
@@ -82,10 +82,10 @@
 										visible="false" />
 								</td>
 								<td>
-									
+
 								</td>
 								<td>
-									
+
 								</td>
 							</tr>
 						</table>
@@ -98,7 +98,7 @@
 						兑换积分：
 					</td>
 					<td class="{newitem.element}">
-						<g:Label maxLength="5" ui:field="integral" />
+						<g:Label ui:field="integral" />
 					</td>
 					<td></td>
 				</tr>
@@ -109,7 +109,7 @@
 						库存：
 					</td>
 					<td class="{newitem.element}">
-						<g:Label maxLength="5" ui:field="stock" />
+						<g:Label ui:field="stock" />
 					</td>
 					<td></td>
 				</tr>

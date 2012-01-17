@@ -96,7 +96,7 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 							doSave(gift);
 						} else {
 							gift.setId(giftId);
-							// doEdit(gift);// 修改功能
+							doEdit(gift);
 						}
 					}
 
@@ -135,7 +135,7 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 											Platform.getInstance()
 													.getEditorRegistry()
 													.closeEditor(
-															GiftConstants.EDITOR_GIFT_ADD,
+															GiftConstants.EDITOR_GIFT_EDIT,
 															instanceId);
 										}
 
@@ -147,7 +147,7 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 													.getEditorRegistry()
 													.openEditor(
 															GiftConstants.EDITOR_GIFTLIST_SEARCH,
-															"EDITOR_REWARDSITEM_List_DO_ID",
+															"EDITOR_GIFT_List_DO_ID",
 															instanceId);
 										}
 									});
