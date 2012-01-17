@@ -22,6 +22,8 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .clearfix:after{content:".";display:block;clear:both;height:0;visibility:hidden;}
 .clearfix{*zoom:1;}
 
+.anchor{color:#565656;text-decoration:none;}
+.anchor:hover{color:#010DFF;text-decoration:underline;cursor:pointer;}
 /*menu*/
 .menu{background-position:-194px -29px;padding-left:5px;display:inline-block;}
 .menu:hover{text-decoration:none;}
@@ -141,3 +143,29 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .login-wrap .login-content .form a{color:#668127;}
 .login-wrap .login-content .form .short-text{width:150px;}
 .login-wrap .login-content .form .login-btn button{background-position:0 -103px;width:80px;height:34px;border:none;color:#041B00;font-size:14px;}
+
+/*box*/
+.box{overflow:hidden;width:100%;margin:5px auto 0;position:relative;}
+.box .box-top{border-top:0px solid #333333;height:4px;margin:0 6px;background-color:#C9D2C6;overflow:hidden;}
+.box .box-context{border-left:0px solid #333333;border-right:0px solid #333333;}
+.box .box-bottom{border-bottom:0px solid #333333;height:4px;overflow:hidden;margin:0 6px;background-color:#C9D2C6;}
+.box span{display:block;}
+.box .box-tl,.box .box-tr{width:6px;height:6px;font-size:0%;margin-top:-6px;}
+.box .box-tl{float:left;background-position:0 -116px;}
+.box .box-tr{float:right;background-position:-7px -116px;}
+.box .box-bl,.box .box-br{height:6px;font-size:0%;width:6px;margin-top:-6px;}
+.box .box-bl{float:left;background-position:0 -123px;}
+.box .box-br{float:right;background-position:-7px -123px;}
+.box .box-context .box-title{padding:4px 0 10px 10px;color:#000000;font-size:14px;background-color:#EEEEEE;font-weight:bold;_zoom:1;}
+.box .box-context .box-info{background-color:#FFFFFF;padding:25px;}
+.box .box-context .box-tools{text-align:center;padding:10px 0 5px;background-color:#EEEEEE;_zoom:1;}
+.box .box-context .box-tools span{display:inline-block;}
+.box .box-btn-ok{background-position:-32px -116px;width:63px;height:30px;line-height:30px;border:none;overflow:visible;}
+.box .box-btn-cannel{background-position:-96px -116px;width:63px;height:30px;line-height:30px;border:none;overflow:visible;}
+.box .close-wrap{position:absolute;height:50px;right:0;top:1px;*top:2px;height:40px;line-height:40px;overflow:hidden;}
+.box .box-close{background-position:-14px -116px;width:18px;height:18px;display:inline-block;cursor:pointer;vertical-align:middle;margin-right:15px;}
+.box .box-title-sep{width:1px;height:40px;display:inline-block;background-color:#fff;vertical-align:middle;margin-right:15px;}
+
+
+
+

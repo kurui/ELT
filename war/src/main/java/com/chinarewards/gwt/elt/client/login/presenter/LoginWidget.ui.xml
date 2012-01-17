@@ -32,7 +32,7 @@
 									<div class="{new2.element}">
 										<g:PasswordTextBox ui:field="password"
 											styleName="{new2.text}" />
-										<g:Anchor ui:field="forgetPwd" text="忘记密码？"></g:Anchor>
+										<g:Anchor ui:field="forgetPwd" text="忘记密码？" styleName="{new2.anchor}"></g:Anchor>
 									</div>
 								</div>
 
@@ -42,7 +42,7 @@
 										<g:TextBox maxLength="30" ui:field="codeCheck"
 											styleName="{new2.text} {new2.short-text}"></g:TextBox>
 										<g:Image ui:field="verifyImage" styleName="verifyImage"></g:Image>
-										<g:Anchor ui:field="prompt" text="看不清？"></g:Anchor>
+										<g:Anchor ui:field="prompt" text="看不清？" styleName="{new2.anchor}"></g:Anchor>
 
 									</div>
 								</div>
