@@ -9,55 +9,62 @@
 	<ui:image field="login_sub" resource="login_sub.jpg"></ui:image>
 	<ui:style src="login.css"></ui:style>
 	<ui:style src="new2.css" field="new2"></ui:style>
-	<g:ScrollPanel>
-		<g:HTMLPanel>
+	<g:ScrollPanel styleName="{new2.login}">
+		<g:HTMLPanel styleName="{new2.login}">
 			<div class="{new2.login}">
 				<div class="{new2.login-wrap}">
-					<div class="{new2.logo}"></div>
-					<span class="{new2.sep}"></span>
-					<div class="{new2.login-form}">
-						<div class="{new2.form}" >
-							<div class="{new2.form-line}">
-								<label class="{new2.label}">账号：</label>
-								<div class="{new2.element}">
-									<g:TextBox maxLength="30" ui:field="username" styleName="{new2.text}" />
+					<div class="{new2.login-top}"></div>
+					<div class="{new2.login-content}">
+						<div class="{new2.logo}"></div>
+						<span class="{new2.sep}"></span>
+						<div class="{new2.login-form}">
+							<div class="{new2.form}">
+								<div class="{new2.form-line}">
+									<label class="{new2.label}">账号：</label>
+									<div class="{new2.element}">
+										<g:TextBox maxLength="30" ui:field="username"
+											styleName="{new2.text}" />
+									</div>
 								</div>
-							</div>
 
-							<div class="{new2.form-line}">
-								<label class="{new2.label}">密码：</label>
-								<div class="{new2.element}">
-									<g:PasswordTextBox ui:field="password"
-										styleName="{new2.text}" />
-									<g:Anchor ui:field="forgetPwd" text="忘记密码?"></g:Anchor>
+								<div class="{new2.form-line}">
+									<label class="{new2.label}">密码：</label>
+									<div class="{new2.element}">
+										<g:PasswordTextBox ui:field="password"
+											styleName="{new2.text}" />
+										<g:Anchor ui:field="forgetPwd" text="忘记密码？"></g:Anchor>
+									</div>
 								</div>
-							</div>
 
-							<div class="{new2.form-line}">
-								<label class="{new2.label}">验证码：</label>
-								<div class="{new2.element}">
-									<g:TextBox maxLength="30" ui:field="codeCheck" styleName="{new2.text} {new2.short-text}"></g:TextBox>
-									<g:Image ui:field="verifyImage" styleName="verifyImage"></g:Image>
-									<g:Anchor ui:field="prompt" text="看不清"></g:Anchor>
+								<div class="{new2.form-line}">
+									<label class="{new2.label}">验证码：</label>
+									<div class="{new2.element}">
+										<g:TextBox maxLength="30" ui:field="codeCheck"
+											styleName="{new2.text} {new2.short-text}"></g:TextBox>
+										<g:Image ui:field="verifyImage" styleName="verifyImage"></g:Image>
+										<g:Anchor ui:field="prompt" text="看不清？"></g:Anchor>
 
+									</div>
 								</div>
-							</div>
 
-							<div class="{new2.form-line} {new2.form-line-btn}">
-								<div class="{new2.element}">
-									<span class="{new2.login-btn}">
-										<g:Button ui:field="loginButton">登录</g:Button>
-									</span>
-									<input type="checkbox" checked="true" />
-									下次自动登录
+
+
+								<div class="{new2.form-line} {new2.form-line-btn}">
+									<div class="{new2.element}">
+										<span class="{new2.login-btn}">
+											<g:Button ui:field="loginButton">登 录</g:Button>
+										</span> 
+										 
+										<input type="checkbox" checked="true" />
+										 下次自动登录
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+					<div class="{new2.login-bottom}"></div>
 				</div>
 			</div>
-
-
 		</g:HTMLPanel>
 	</g:ScrollPanel>
 </ui:UiBinder>

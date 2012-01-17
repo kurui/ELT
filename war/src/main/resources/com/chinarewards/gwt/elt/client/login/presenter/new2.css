@@ -122,19 +122,22 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .frame-wrap .query-wrap{background-color:#D8ECC1;border:1px solid #B8DA8E;padding:10px 15px;}
 .frame-wrap .send-news{margin:10px 0;}
 .frame-wrap .content-wrap{padding-top:0px;}
-
 /*-------------------------------------登录页面------------------------------------------------------*/
-body.login{background:url(../elt/images/elt_login_bg.png) repeat-x;}
-.login-wrap .logo,.login-wrap .sep,.login-wrap .form .login-btn button{background:url(../elt/images/elt_login.png) no-repeat;}
-.login-wrap:after{content:".";display:block;clear:both;height:0;visibility:hidden;}
-.login-wrap{width:750px;height:336px;overflow:hidden;margin:0 auto;margin-top:152px;*zoom:1;}
-.login-wrap .logo{background-position: 0 0;width:270px;height:102px;float:left;margin:75px 40px 0 0;}
-.login-wrap .sep{background-position:-479px 0;width:1px;height:336px;display:block;float:left;}
-.login-wrap .login-form{float:left;width:400px;margin-top:73px;}
-.login-wrap .login-form .code{vertical-align:middle;}
-.login-wrap .form .text{border:1px solid #999999;color:#333;}
-.login-wrap .form .label{width:100px;font-size:14px;}
-.login-wrap .form .element{width:297px;}
-.login-wrap .form a{color:#668127;}
-.login-wrap .form .short-text{width:150px;}
-.login-wrap .form .login-btn button{background-position:0 -103px;width:80px;height:34px;border:none;color:#041B00;font-size:14px;}
+.login{background:url(../elt/images/elt_login_repeatbg.png) repeat;}
+.login-wrap .logo,.login-wrap .sep,.login-wrap .form .login-btn button,.login-wrap .login-top,.login-wrap .login-bottom{background:url(../elt/images/elt_login.png) no-repeat;}
+
+.login-wrap{width:802px;margin:0 auto;margin-top:152px;background-color:#F3F3F3;}
+.login-wrap .login-top{background-position:0 -136px;width:802px;height:11px;}
+.login-wrap .login-bottom{background-position:0 -149px;width:802px;height:15px;}
+.login-wrap .login-content:after{content:".";display:block;clear:both;height:0;visibility:hidden;}
+.login-wrap .login-content{border-left:1px solid #7C9F50;border-right:1px solid #7C9F50;background-color:#F3F3F3;padding-left:45px;width:754px;overflow:hidden;*zoom:1;}
+.login-wrap .login-content .logo{background-position: 0 0;width:270px;height:102px;float:left;margin:75px 40px 0 0;}
+.login-wrap .login-content .sep{background-position:-803px 0;width:1px;height:336px;display:block;float:left;}
+.login-wrap .login-content .login-form{float:left;width:400px;margin-top:73px;}
+.login-wrap .login-content .login-form .code{vertical-align:middle;}
+.login-wrap .login-content .form .text{border:1px solid #999999;color:#333;}
+.login-wrap .login-content .form .label{width:100px;font-size:14px;}
+.login-wrap .login-content .form .element{width:297px;}
+.login-wrap .login-content .form a{color:#668127;}
+.login-wrap .login-content .form .short-text{width:150px;}
+.login-wrap .login-content .form .login-btn button{background-position:0 -103px;width:80px;height:34px;border:none;color:#041B00;font-size:14px;}
