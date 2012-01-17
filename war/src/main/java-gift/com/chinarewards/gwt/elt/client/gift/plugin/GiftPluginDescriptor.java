@@ -13,6 +13,7 @@ import com.chinarewards.gwt.elt.client.core.Plugin;
 import com.chinarewards.gwt.elt.client.core.PluginDescriptor;
 import com.chinarewards.gwt.elt.client.core.ui.MenuItem;
 import com.chinarewards.gwt.elt.client.gift.editor.GiftEditorDescriptor;
+import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
 import com.chinarewards.gwt.elt.client.plugin.MenuConstants;
 import com.chinarewards.gwt.elt.client.plugin.PluginConstants;
 import com.google.gwt.user.client.ui.Image;
@@ -67,67 +68,13 @@ public class GiftPluginDescriptor implements PluginDescriptor {
 
 					@Override
 					public void execute() {
-
-						Platform.getInstance()
-								.getEditorRegistry()
-								.openEditor(GiftConstants.EDITOR_GIFT_ADD,
-										"EDITOR_GIFT_ADD_ID", null);
-					}
-
-					@Override
-					public Image getIcon() {
-						return null;
-					}
-
-				};
-			}
-
-			@Override
-			public PluginDescriptor getPluginDescriptor() {
-				return GiftPluginDescriptor.this;
-			}
-		});
-
-		/**
-		 * 编辑礼品
-		 */
-		ext.add(new Extension() {
-
-			@Override
-			public String getExtensionPointId() {
-				return PluginConstants.MENU;
-			}
-
-			@Override
-			public Object getInstance() {
-				return new MenuItem() {
-
-					@Override
-					public int getOrder() {
-						return MenuConstants.MENU_ORDER_GIFT_EDIT;
-					}
-
-					@Override
-					public String getMenuId() {
-						return GiftConstants.MENU_GIFT_EDIT;
-					}
-
-					@Override
-					public String getParentMenuId() {
-						return null;
-					}
-
-					@Override
-					public String getTitle() {
-						return "编辑礼品";
-					}
-
-					@Override
-					public void execute() {
+						GiftClient giftClient = new GiftClient();
+						giftClient.setThisAction(GiftConstants.ACTION_GIFT_ADD);
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(GiftConstants.EDITOR_GIFT_EDIT,
-										"EDITOR_GIFTEDIT_SEARCH_DO_ID", null);
+										GiftConstants.ACTION_GIFT_ADD,
+										giftClient);
 					}
 
 					@Override
@@ -142,9 +89,9 @@ public class GiftPluginDescriptor implements PluginDescriptor {
 			public PluginDescriptor getPluginDescriptor() {
 				return GiftPluginDescriptor.this;
 			}
-
 		});
 
+		
 		ext.add(new Extension() {
 
 			@Override
@@ -167,7 +114,7 @@ public class GiftPluginDescriptor implements PluginDescriptor {
 
 	@Override
 	public String getPluginId() {
-		return GiftConstants.PLUGIN_GIFTEDIT;
+		return GiftConstants.PLUGIN_GIFT;
 	}
 
 	@Override

@@ -76,10 +76,9 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
 						Platform.getInstance()
-						.getEditorRegistry()
-						.openEditor(
-								GiftConstants.EDITOR_GIFT_ADD,
-								GiftConstants.EDITOR_GIFT_ADD, null);
+								.getEditorRegistry()
+								.openEditor(GiftConstants.EDITOR_GIFT_EDIT,
+										GiftConstants.EDITOR_GIFT_EDIT, null);
 					}
 				}));
 		registerHandler(display.getimportingBtnClickHandlers().addClickHandler(
@@ -123,7 +122,7 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 			criteria.setStatus(GiftStatus.valueOf(display.getStatus()));
 
 		listViewAdapter = new GiftListViewAdapter(dispatch, criteria,
-				errorHandler, sessionManager,display);
+				errorHandler, sessionManager, display);
 		listViewAdapter.addDataDisplay(cellTable);
 	}
 
@@ -171,6 +170,7 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 						return gift.getStatus().getDisplayName();
 					}
 				}, ref, "status");
+
 		cellTable.addColumn("操作", new HyperLinkCell(),
 				new GetValue<GiftClient, String>() {
 					@Override
@@ -185,29 +185,65 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 							return "未知状态";
 					}
 				}, new FieldUpdater<GiftClient, String>() {
-
 					@Override
-					public void update(int index, final GiftClient o, String value) {
-						String msgStr="";
+					public void update(int index, final GiftClient o,
+							String value) {
+						String msgStr = "";
 						if (o.getStatus() != null
 								&& o.getStatus() == GiftStatus.SHELF)
-							msgStr="确定上架?";
+							msgStr = "确定上架?";
 						else if (o.getStatus() != null
 								&& o.getStatus() == GiftStatus.SHELVES)
-							msgStr="确定下架?";
+							msgStr = "确定下架?";
 						else
-							msgStr="未知状态";
-						win.confirm("提示",msgStr, new ConfirmHandler() {
-							
+							msgStr = "未知状态";
+						win.confirm("提示", msgStr, new ConfirmHandler() {
 							@Override
 							public void confirm() {
-								updateGiftStatus(o.getId(),o.getStatus());
-								
+								updateGiftStatus(o.getId(), o.getStatus());
 							}
 						});
-					
 					}
+				});
 
+		cellTable.addColumn("修改", new HyperLinkCell(),
+				new GetValue<GiftClient, String>() {
+					@Override
+					public String getValue(GiftClient arg0) {
+						return "修改";
+					}
+				}, new FieldUpdater<GiftClient, String>() {
+					@Override
+					public void update(int index, final GiftClient giftClient,
+							String value) {
+						giftClient.setThisAction(GiftConstants.ACTION_GIFT_EDIT);
+						Platform.getInstance()
+								.getEditorRegistry()
+								.openEditor(
+										GiftConstants.EDITOR_GIFT_EDIT,
+										GiftConstants.EDITOR_GIFT_EDIT
+												+ giftClient.getId(), giftClient);
+					}
+				});
+
+		cellTable.addColumn("查看", new HyperLinkCell(),
+				new GetValue<GiftClient, String>() {
+					@Override
+					public String getValue(GiftClient arg0) {
+						return "查看详细";
+					}
+				}, new FieldUpdater<GiftClient, String>() {
+					@Override
+					public void update(int index, GiftClient giftClient,
+							String value) {
+						giftClient.setThisAction(GiftConstants.ACTION_GIFT_VIEW);
+						Platform.getInstance()
+								.getEditorRegistry()
+								.openEditor(
+										GiftConstants.EDITOR_GIFT_VIEW,
+										GiftConstants.EDITOR_GIFT_VIEW
+												+ giftClient.getId(), giftClient);
+					}
 				});
 
 		cellTable.addColumn("操作", new HyperLinkCell(),
@@ -246,10 +282,11 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 					}
 				});
 	}
-	public void updateGiftStatus(String gifId,final GiftStatus status) {
+
+	public void updateGiftStatus(String gifId, final GiftStatus status) {
 
 		dispatch.execute(new UpdateGiftStatusRequest(gifId, sessionManager
-				.getSession().getToken(),status),
+				.getSession().getToken(), status),
 				new AsyncCallback<UpdateGiftStatusResponse>() {
 
 					@Override
@@ -259,11 +296,11 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 
 					@Override
 					public void onSuccess(UpdateGiftStatusResponse resp) {
-						if(status==GiftStatus.SHELF)
-						win.alert("上架成功!");
-						else if(status==GiftStatus.SHELVES)
-						win.alert("下架成功!");
-						
+						if (status == GiftStatus.SHELF)
+							win.alert("上架成功!");
+						else if (status == GiftStatus.SHELVES)
+							win.alert("下架成功!");
+
 						doSearch();
 					}
 				});

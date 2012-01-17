@@ -1,0 +1,6 @@
+/.settings
+/target
+/war
+.classpath
+.project
+/pom.xml

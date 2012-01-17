@@ -127,8 +127,9 @@
 			<artifactId>log4j</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		<!-- Logging ENDS -->
 		
+		<!-- Logging ENDS -->
+				
 		<!-- gchart start -->
 		<dependency>	
 			<groupId>com.googlecode.gchart</groupId>

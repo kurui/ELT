@@ -25,7 +25,7 @@ public class GiftEditorDescriptor implements EditorDescriptor {
 
 	@Override
 	public String getEditorId() {
-		return GiftConstants.EDITOR_GIFT_ADD;
+		return GiftConstants.EDITOR_GIFT_EDIT;
 	}
 
 	@Override

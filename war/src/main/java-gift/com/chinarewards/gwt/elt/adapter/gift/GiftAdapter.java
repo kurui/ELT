@@ -3,9 +3,13 @@ package com.chinarewards.gwt.elt.adapter.gift;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.chinarewards.elt.domain.gift.Gift;
 import com.chinarewards.elt.model.gift.search.GiftListVo;
 import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
+import com.chinarewards.gwt.elt.client.gift.model.GiftVo;
 import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria.GiftStatus;
+import com.chinarewards.gwt.elt.client.gift.presenter.GiftPresenter.GiftDisplay;
+import com.chinarewards.gwt.elt.util.StringUtil;
 
 /**
  * This utility class use to adapter EJB entity to WAR domain.
@@ -44,7 +48,5 @@ public class GiftAdapter {
 		}
 		return resultList;
 	}
-
 	
-
 }

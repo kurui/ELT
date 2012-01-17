@@ -24,6 +24,7 @@
 		<log4j.version>1.2.14</log4j.version>
 		<source.version>1.6</source.version>
 		<encoding>UTF-8</encoding>
+
 	</properties>
 
 	<dependencyManagement>

@@ -4,9 +4,11 @@ import java.util.Date;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
+import com.chinarewards.gwt.elt.client.gift.model.GiftVo;
 import com.chinarewards.gwt.elt.client.gift.presenter.GiftPresenter.GiftDisplay;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.view.constant.ViewConstants;
+import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
@@ -42,6 +44,10 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	@UiField
 	TextBox tell;
 	@UiField
+	TextBox photo;
+	@UiField
+	TextBox integral;
+	@UiField
 	TextBox stock;
 	// @UiField
 	// TextBox phone;
@@ -60,21 +66,19 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	// ---end vo
 
 	@UiField
-	Image giftImage;
+	Button back;
 
-	// 保存或修改
 	@UiField
 	Button save;
 
-	// FrequencyClient frequency;
-	// String rewardsUnit;
-
-	// @UiField
-	// FlowPanel uploadPanel;
+	@UiField
+	Image giftImage;
 	@UiField
 	FormPanel photoForm;
 	@UiField
 	FileUpload photoUpload;
+	@UiField
+	Button photoUploadBtn;
 
 	DateTimeFormat dateFormat = DateTimeFormat
 			.getFormat(ViewConstants.date_format);
@@ -90,14 +94,6 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	public GiftWidget(DispatchAsync dispatch, ErrorHandler errorHandler,
 			SessionManager sessionManager) {
 		initWidget(uiBinder.createAndBindUi(this));
-
-		initAddWidget();
-
-	}
-
-	private void initAddWidget() {
-		type.addItem("实物", "1");
-		type.addItem("虚拟", "2");
 	}
 
 	@Override
@@ -108,11 +104,6 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	@Override
 	public HasValue<String> getName() {
 		return name;
-	}
-
-	@Override
-	public HasClickHandlers getSaveClick() {
-		return save;
 	}
 
 	@Override
@@ -215,6 +206,83 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	@Override
 	public FormPanel getPhotoForm() {
 		return photoForm;
+	}
+
+	@Override
+	public HasClickHandlers getSaveClick() {
+		return save;
+	}
+
+	@Override
+	public HasClickHandlers getUploadClick() {
+		return photoUploadBtn;
+	}
+
+	@Override
+	public HasValue<String> getPhoto() {
+		return photo;
+	}
+
+	@Override
+	public Image getGiftImage() {
+		return giftImage;
+	}
+
+	@Override
+	public HasValue<String> getIntegral() {
+		return integral;
+	}
+
+	@Override
+	public void initEditGift(GiftVo giftVo) {
+		name.setText(giftVo.getName());
+		explains.setText(giftVo.getExplains());
+		initTypeSelect(giftVo.getType());
+		business.setText(giftVo.getBusiness());
+		address.setText(giftVo.getAddress());
+		tell.setText(giftVo.getTell());
+		photo.setText(giftVo.getPhoto());
+		if (giftVo.getPhoto().indexOf(".") > 0) {
+			giftImage.setUrl("/imageshow?imageName=" + giftVo.getPhoto());
+			giftImage.setVisible(true);
+		}
+
+		integral.setText(giftVo.getIntegral() + "");
+		stock.setText(giftVo.getStock() + "");
+		// @UiField
+		// Label phone;
+		// @UiField
+		// Label status;// boolean
+		// @UiField
+		// Label deleted;// boolean
+		// @UiField
+		// DateBox indate;
+		// @UiField
+		// DateBox recorddate;
+		// @UiField
+		// Label recorduser;
+		// @UiField
+		// DateBox updatetime;
+		// ---end vo
+	}
+
+	@Override
+	public HasClickHandlers getBackClick() {
+		return back;
+	}
+
+	@Override
+	public void initAddGift(GiftVo giftVo) {
+		initTypeSelect("");
+	}
+
+	private void initTypeSelect(String selectedValue) {
+		type.addItem("实物", "1");
+		type.addItem("虚拟", "2");
+
+		if (StringUtil.trim(selectedValue) != "") {
+			type.setValue(0, selectedValue);
+		}
 	}
 
 }
