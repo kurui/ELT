@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import com.chinarewards.elt.domain.gift.Gift;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.gift.GiftService;
+import com.chinarewards.gwt.elt.adapter.gift.GiftAdapter;
 import com.chinarewards.gwt.elt.client.gift.model.GiftVo;
 import com.chinarewards.gwt.elt.client.gift.request.EditGiftRequest;
 import com.chinarewards.gwt.elt.client.gift.request.EditGiftResponse;
@@ -41,7 +42,8 @@ public class EditGiftHandler extends
 		logger.debug("AddGiftResponse ,rewardId=" + action.getGiftVo().getId());
 
 		GiftVo giftVo = action.getGiftVo();
-		Gift gift = assemblegift(giftVo);
+		
+		Gift gift = assembleGift(giftVo);
 
 		UserContext uc = new UserContext();
 		uc.setCorporationId(action.getUserSession().getCorporationId());
@@ -53,9 +55,11 @@ public class EditGiftHandler extends
 
 		return new EditGiftResponse(AdddItem.getId());
 	}
-
-	// Convert from GiftVo to GeneratorGiftModel.
-	private Gift assemblegift(GiftVo giftVo) {
+	
+	/**
+	 * Convert from GiftVo to GeneratorGiftModel.
+	 */
+	public static Gift assembleGift(GiftVo giftVo) {
 		Gift gift = new Gift();
 		gift.setId(giftVo.getId());
 		gift.setName(giftVo.getName());
@@ -77,6 +81,7 @@ public class EditGiftHandler extends
 
 		return gift;
 	}
+
 
 	@Override
 	public void rollback(EditGiftRequest action, EditGiftResponse result,

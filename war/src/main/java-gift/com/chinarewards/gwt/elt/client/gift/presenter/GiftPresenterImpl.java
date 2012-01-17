@@ -2,6 +2,7 @@ package com.chinarewards.gwt.elt.client.gift.presenter;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 import com.chinarewards.gwt.elt.client.core.Platform;
+import com.chinarewards.gwt.elt.client.gift.model.GiftAdapterClient;
 import com.chinarewards.gwt.elt.client.gift.model.GiftVo;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftConstants;
 import com.chinarewards.gwt.elt.client.gift.request.EditGiftRequest;
@@ -57,12 +58,8 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 		// 绑定事件
 		init();
 
-		System.out.println("-------thisAction:" + thisAction);
-		System.out.println(GiftConstants.ACTION_GIFT_EDIT + "---" + thisAction);
-		System.out.println(GiftConstants.ACTION_GIFT_EDIT.equals(thisAction));
-
 		if (GiftConstants.ACTION_GIFT_ADD.equals(thisAction)) {
-			// initSave();
+			initSave();
 		} else if (GiftConstants.ACTION_GIFT_EDIT.equals(thisAction)) {
 			initEdit();
 		} else {
@@ -80,11 +77,13 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 							return;
 						}
 
-						GiftVo giftVo = adapter();
+						GiftVo giftVo = GiftAdapterClient.adapterDisplay(display);
+						
 						if (GiftConstants.ACTION_GIFT_ADD.equals(thisAction)) {
 							giftVo.setId(null);
 							doSave(giftVo);
-						} else if (GiftConstants.ACTION_GIFT_EDIT.equals(thisAction)) {
+						} else if (GiftConstants.ACTION_GIFT_EDIT
+								.equals(thisAction)) {
 							giftVo.setId(giftId);
 							doEdit(giftVo);
 						} else {
@@ -231,18 +230,18 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 			flag = false;
 		}
 
-		if (display.getPhoto().getValue().length() == 0) {//数据实体
-			 if (display.getPhotoUpload().getFilename().length() == 0) {
-					errorMsg.append("请选择图片文件!<br>");
-					flag = false;
-				} else if (!display.getPhotoUpload().getFilename().endsWith(".jpg")
-						&& !display.getPhotoUpload().getFilename().endsWith(".gif")) {
-					errorMsg.append("请确认图片格式,仅支持JPG和GIF!<br>");
-					flag = false;
-				}			
-		}else{//浏览
-//			errorMsg.append("请选择图片文件!<br>");
-//			flag = false;
+		if (display.getPhoto().getValue().length() == 0) {// 数据实体
+			if (display.getPhotoUpload().getFilename().length() == 0) {
+				errorMsg.append("请选择图片文件!<br>");
+				flag = false;
+			} else if (!display.getPhotoUpload().getFilename().endsWith(".jpg")
+					&& !display.getPhotoUpload().getFilename().endsWith(".gif")) {
+				errorMsg.append("请确认图片格式,仅支持JPG和GIF!<br>");
+				flag = false;
+			}
+		} else {// 浏览
+		// errorMsg.append("请选择图片文件!<br>");
+		// flag = false;
 		}
 
 		if (!flag) {
@@ -269,37 +268,14 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 						GiftVo giftVo = response.getGift();
 						clear();
 						display.initEditGift(giftVo);
-
 					}
 				});
 	}
 
-	/**
-	 * 封装表单属性
-	 * */
-	private GiftVo adapter() {
-		GiftVo giftVo = new GiftVo();
-		//
-
-		// // 基本信息
-		giftVo.setName(display.getName().getValue().trim());
-		giftVo.setExplains(display.getExplains().getValue().trim());
-		giftVo.setType(display.getType());
-		// giftVo.setSource(display.getSource().getValue().trim());
-		giftVo.setSource("合作商家");
-		// giftVo.setBusiness(display.getBusiness().getValue().trim());
-		giftVo.setAddress(display.getAddress().getValue().trim());
-		giftVo.setTell(display.getTell().getValue().trim());
-		giftVo.setPhoto(display.getPhoto().getValue().trim());
-		giftVo.setStock(StringUtil.valueOf(display.getStock().getValue()));
-		giftVo.setIntegral(StringUtil.valueOf(display.getIntegral().getValue()));
-		giftVo.setPhoto(display.getPhoto().getValue());
-		// giftVo.setGiftStatus();
-		// giftVo.setDeleted(false);
-		// giftVo.setIndate(display.getIndate());
-
-		return giftVo;
+	private void initSave(){
+		display.initAddGift(new GiftVo());
 	}
+
 
 	private void clear() {
 		display.clear();
