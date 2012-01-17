@@ -206,11 +206,11 @@ public class RewardsItemCreatePresenterImpl extends
 								public void onValueChange(ValueChangeEvent<Date> e) {
 									Date nextPublishDate = e.getValue();
 									Date nextRewardsDate = display.getNextRewardsTime().getValue();
-									if (nextRewardsDate.getTime() < nextPublishDate.getTime()) {
+									if (nextRewardsDate.getTime() <= nextPublishDate.getTime()) {
 										display.getNextPublishTime().setValue(nextPublishCopy);
 									} else {
-										nextPublishCopy = nextPublishDate;
-										day = DateTool.getIntervalDays(nextPublishDate,	nextRewardsDate);
+										nextPublishCopy = nextRewardsDate;
+										//day = DateTool.getIntervalDays(nextPublishDate,	nextRewardsDate);
 									}
 								}
 							}));
