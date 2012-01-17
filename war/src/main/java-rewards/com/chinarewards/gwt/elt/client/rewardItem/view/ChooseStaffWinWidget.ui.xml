@@ -6,7 +6,7 @@
 	<ui:style src="elt_min.css" field="new2"></ui:style>
 	<g:HTMLPanel>
 
-		<div class="{new2.frame-wrap}" style="width:600px;">
+		<div class="{new2.frame-wrapdialog}" style="width:600px;">
 			<!--查询条件 [[ -->
 			<div class="{new2.query-wrap}">
 				<div class="{new2.form}">
@@ -44,23 +44,23 @@
 				</div>
 			</div>
 			<!--分页 ]] -->
-				<span class="{new2.cutline}"></span>
-				
+			<span class="{new2.cutline}"></span>
+
 
 			<div class="{new2.query-wrap2}">
-			<g:InlineLabel text="准备添加的员工：" styleName="{new2.label}" />
-			<g:FlowPanel ui:field="specialBoxPanel" />
-			
+				<g:InlineLabel text="准备添加的员工：" styleName="{new2.label}" />
+				<g:FlowPanel ui:field="specialBoxPanel" />
+
 				<div class="{new2.rigthbutton}">
 
 
-					<span class="{new2.btn}">
-						<g:Button ui:field="chooseBtn" text="确定"></g:Button>
-					</span>
 
-					<span class="{new2.btn}">
-						<g:Button ui:field="cancelBtn" text="取消"></g:Button>
-					</span>
+					<div class="{new2.box-tools}">
+						<g:Button ui:field="chooseBtn" text="确定" styleName="{new2.box-btn-ok}" />
+						<g:Button ui:field="cancelBtn" text="取消"
+							styleName="{new2.box-btn-cannel}" />
+					</div>
+
 				</div>
 			</div>
 		</div>
