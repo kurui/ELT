@@ -126,7 +126,7 @@ public class ChooseStaffListWidget extends Composite implements
 
 	@Override
 	public void hiddenSpecialBoxPanel() {
-		this.specialBoxPanel.getElement().addClassName(CssStyleConstants.hidden);
+		this.specialBoxPanel.getElement().getParentElement().addClassName(CssStyleConstants.hidden);
 
 	}
 
