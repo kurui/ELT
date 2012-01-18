@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import com.chinarewards.elt.domain.gift.Gift;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.gift.GiftService;
-import com.chinarewards.gwt.elt.adapter.gift.GiftAdapter;
 import com.chinarewards.gwt.elt.client.gift.model.GiftVo;
 import com.chinarewards.gwt.elt.client.gift.request.EditGiftRequest;
 import com.chinarewards.gwt.elt.client.gift.request.EditGiftResponse;

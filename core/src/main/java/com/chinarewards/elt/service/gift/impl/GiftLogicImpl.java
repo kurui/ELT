@@ -29,19 +29,33 @@ public class GiftLogicImpl implements GiftLogic{
 	@Override
 	public Gift save(SysUser caller, Gift gift) {
 		Date currTime = DateUtil.getTime();
+		
+		System.out.println("GiftLogicImpl ====="+StringUtil.isEmptyString(gift.getId()));
+		
 		if (StringUtil.isEmptyString(gift.getId())) {
-			// Create
-			
+			// Create			
 			gift.setDeleted(false);
 			gift.setRecorduser(caller.getUserName());
 			gift.setRecorddate(currTime);
 			gift.setStatus(GiftStatus.SHELF);//新增的是下架的商品
 			giftDao.save(gift);
 		} else {
+			System.out.println("GiftLogicImpl =====update data===");
 			// Update
-			gift = giftDao.findById(Gift.class, gift.getId());
-			gift.setUpdatetime(currTime);
-			giftDao.update(gift);
+			Gift tempGift = giftDao.findById(Gift.class, gift.getId());
+			tempGift.setName(gift.getName());
+			tempGift.setExplains(gift.getExplains());
+			tempGift.setType(gift.getType());
+			tempGift.setSource(gift.getSource());
+			tempGift.setBusiness(gift.getBusiness());
+			tempGift.setAddress(gift.getAddress());
+			tempGift.setTell(gift.getTell());
+			tempGift.setIntegral(gift.getIntegral());
+			tempGift.setStock(gift.getStock());
+			tempGift.setPhoto(gift.getPhoto());
+			
+		    tempGift.setUpdatetime(currTime);
+			giftDao.update(tempGift);
 		}
 
 		return gift;

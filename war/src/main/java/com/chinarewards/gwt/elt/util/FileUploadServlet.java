@@ -1,6 +1,7 @@
 package com.chinarewards.gwt.elt.util;
 
 import java.io.*;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -47,6 +48,15 @@ public class FileUploadServlet extends HttpServlet {
 							stream);// 获得输入流
 					String uploadPath = request.getRealPath("/upload")
 							+ File.separator;
+									
+					try {
+						File myFilePath = new File(uploadPath);
+						if (!myFilePath.exists())
+							myFilePath.mkdir();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					
 
 					String itemName = item.getName();
 					itemName = itemName.substring(itemName.indexOf("."),
