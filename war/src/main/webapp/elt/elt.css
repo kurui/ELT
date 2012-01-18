@@ -142,7 +142,7 @@ a:active {
 }
 
 .gwt-Button[disabled]:hover {
-	border: 1px outset #ccc;
+	border: 0px outset #ccc;
 }
 
 .gwt-CheckBox {
