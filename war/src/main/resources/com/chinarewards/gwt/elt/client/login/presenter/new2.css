@@ -13,8 +13,8 @@ button{cursor:pointer;}
 textarea{word-wrap:break-word;resize:none;}
 
 /*---------------------------------------全局模块----------------------------------------------*/
-.menu,.menu span,.menu-on,.menu-on span,.status-arrow,.list-top,.list-bottom,.btn,.btn button,.back-btn,.box .box-tl,.box .box-tr,.box .box-bl,.box .box-br,.box-btn-ok,.box-btn-cannel,.box-close{background:url(../elt/images/elt.png) no-repeat;}
-.sidebar .title,.cutline,.footer-line{background:url(../elt/images/elt_repeat.png) repeat-x;}
+.menu,.menu span,.menu-on,.menu-on span,.status-arrow,.list-top,.list-bottom,.btn,.btn button,.back-btn,.box .box-tl,.box .box-tr,.box .box-bl,.box .box-br,.box-btn-ok,.box-btn-cannel,.box-close{background:url(elt/images/elt.png) no-repeat;}
+.sidebar .title,.cutline,.footer-line{background:url(elt/images/elt_repeat.png) repeat-x;}
 
 body{background-color:#fff;color:#333333;font:12px/1.5 Tahoma, Arial, simsun;min-width:960px;}
 a{color:#565656;text-decoration:none;}
@@ -125,8 +125,8 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .frame-wrap .send-news{margin:10px 0;}
 .frame-wrap .content-wrap{padding-top:0px;}
 /*-------------------------------------登录页面------------------------------------------------------*/
-.login{background:url(../elt/images/elt_login_repeatbg.png) repeat;}
-.login-wrap .logo,.login-wrap .sep,.login-wrap .form .login-btn button,.login-wrap .login-top,.login-wrap .login-bottom{background:url(../elt/images/elt_login.png) no-repeat;}
+.login{background:url(elt/images/elt_login_repeatbg.png) repeat;}
+.login-wrap .logo,.login-wrap .sep,.login-wrap .form .login-btn button,.login-wrap .login-top,.login-wrap .login-bottom{background:url(elt/images/elt_login.png) no-repeat;}
 
 .login-wrap{width:802px;margin:0 auto;margin-top:152px;background-color:#F3F3F3;}
 .login-wrap .login-top{background-position:0 -136px;width:802px;height:11px;}
