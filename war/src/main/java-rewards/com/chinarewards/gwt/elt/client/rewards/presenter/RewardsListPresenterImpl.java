@@ -6,6 +6,7 @@ import java.util.Date;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.awardReward.plugin.AwardRewardConstants;
+import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.dataprovider.RewardsListViewAdapter;
@@ -54,15 +55,17 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 	ListCellTable<RewardsClient> cellTable;
 	RewardsListViewAdapter listViewAdapter;
 
+	private final BreadCrumbsPresenter breadCrumbs;
 	@Inject
 	public RewardsListPresenterImpl(EventBus eventBus, DispatchAsync dispatch,
 			ErrorHandler errorHandler, SessionManager sessionManager,
-			RewardsListDisplay display, Win win) {
+			RewardsListDisplay display, Win win,BreadCrumbsPresenter breadCrumbs) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
 		this.win = win;
+		this.breadCrumbs=breadCrumbs;
 
 	}
 
@@ -79,6 +82,7 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 	}
 
 	private void init() {
+		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
 		buildTable();
 		doSearch();
 	}

@@ -19,6 +19,8 @@ public class RewardsListWidget extends Composite implements RewardsListDisplay {
 	Panel resultPanel;
 	@UiField
 	Panel resultpage;
+	@UiField
+	Panel breadCrumbs;
 	
 	@UiField
 	Button searchBtn;
@@ -72,6 +74,13 @@ public class RewardsListWidget extends Composite implements RewardsListDisplay {
 	@Override
 	public void setDataCount(String text) {
 		dataCount.setText(text);
+		
+	}
+
+	@Override
+	public void setBreadCrumbs(Widget breadCrumbs) {
+		this.breadCrumbs.clear();
+		this.breadCrumbs.add(breadCrumbs);
 		
 	}
 
