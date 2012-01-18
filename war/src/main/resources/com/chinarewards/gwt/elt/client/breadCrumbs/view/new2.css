@@ -40,8 +40,8 @@ a:hover{color:#010DFF;text-decoration:underline;}
 /*button*/
 .btn{background-position:-194px -58px;padding-left:5px;display:inline-block;}
 .btn button{background-position:right -58px;border:none;overflow:visible;padding:0 10px 0 5px;display:inline-block;height:25px;line-height:25px;color:#FFFFFF;}
-.back-btn{background-position:0 -90px;display:block;width:69px;height:25px;line-height:25px;padding-left:25px;color:#666666;}
-.back-btn:hover{text-decoration:none;color:#666666;}
+.back-btn{background-position:0 -90px;display:block;width:69px;height:25px;line-height:25px;padding-left:25px;color:#666666;text-decoration:none;}
+.back-btn:hover{text-decoration:none;color:#666666;cursor: pointer;}
 
 /*form*/
 .form .form-line:after{content:".";display:block;clear:both;height:0;visibility:hidden;}

@@ -6,6 +6,7 @@ import com.chinarewards.gwt.elt.client.breadCrumbs.model.MenuBreadVo;
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter.BreadCrumbsDisplay;
 import com.chinarewards.gwt.elt.client.widget.Span;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Anchor;
@@ -19,6 +20,8 @@ public class BreadCrumbsWidget extends Composite implements BreadCrumbsDisplay {
 	@UiField
 	Panel titleText;
 	
+	@UiField
+	Anchor goHistory;
 	public BreadCrumbsWidget() {
 		initWidget(uiBinder.createAndBindUi(this));
 
@@ -58,6 +61,11 @@ public class BreadCrumbsWidget extends Composite implements BreadCrumbsDisplay {
 			
 		}
 		
+	}
+
+	@Override
+	public HasClickHandlers getGoHistory() {
+		return goHistory;
 	}
 
 }

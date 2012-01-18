@@ -6,6 +6,9 @@ import java.util.List;
 import com.chinarewards.gwt.elt.client.breadCrumbs.model.MenuBreadVo;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
 
 public class BreadCrumbsPresenterImpl extends
@@ -22,6 +25,14 @@ public class BreadCrumbsPresenterImpl extends
 	}
 
 	public void bind() {
+		registerHandler(display.getGoHistory().addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				Window.alert("返回上一页");
+			}
+		}));
+		
+		
 		List<MenuBreadVo> list=new ArrayList<MenuBreadVo>();
 		MenuBreadVo menuBreadVo1=new MenuBreadVo();
 		menuBreadVo1.setMenuName("应用奖项");
@@ -32,6 +43,7 @@ public class BreadCrumbsPresenterImpl extends
 		list.add(menuBreadVo2);
 		
 		display.setTitleText(list);
+		
 	}
 
 	
