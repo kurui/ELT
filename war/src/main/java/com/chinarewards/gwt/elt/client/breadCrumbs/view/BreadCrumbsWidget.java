@@ -41,7 +41,9 @@ public class BreadCrumbsWidget extends Composite implements BreadCrumbsDisplay {
 
 	@Override
 	public void setTitleText(List<MenuBreadVo> menuBreadVo) {
-		for (MenuBreadVo menu:menuBreadVo) {
+		titleText.clear();
+		for (int i = 0; i < menuBreadVo.size(); i++) {
+			MenuBreadVo menu=menuBreadVo.get(i);
 			if(menu.getMenuUrl()!=null)
 			{
 				Anchor a=new Anchor();
@@ -56,11 +58,15 @@ public class BreadCrumbsWidget extends Composite implements BreadCrumbsDisplay {
 			{
 				Span s=new Span();
 				s.setText(menu.getMenuName());
+				s.setStyleName("breadcrumbsSpan");
 				titleText.add(s);
+				HTML h=new HTML("-->");
+				h.setStyleName("breadcrumbsdiv");
+				titleText.add(h);
 			}
 			
 		}
-		
+
 	}
 
 	@Override

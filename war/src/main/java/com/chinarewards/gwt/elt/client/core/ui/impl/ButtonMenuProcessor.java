@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.chinarewards.gwt.elt.client.awardReward.plugin.AwardRewardConstants;
+import com.chinarewards.gwt.elt.client.breadCrumbs.ui.BreadCrumbsMenu;
 import com.chinarewards.gwt.elt.client.core.ui.MenuItem;
 import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
 import com.chinarewards.gwt.elt.client.core.ui.event.MenuClickEvent;
@@ -30,12 +31,16 @@ import com.google.inject.Inject;
 public class ButtonMenuProcessor implements MenuProcessor {
 
 	final EventBus eventBus;
+	final BreadCrumbsMenu breadCrumbsMenu;
 	List<MenuItem> items = new LinkedList<MenuItem>();
 	MenuNode root = new MenuNode(null);
 
 	@Inject
-	public ButtonMenuProcessor(EventBus eventBus) {
+	public ButtonMenuProcessor(EventBus eventBus,
+			BreadCrumbsMenu breadCrumbsMenu) {
 		this.eventBus = eventBus;
+		this.breadCrumbsMenu = breadCrumbsMenu;
+
 	}
 
 	public void add(MenuItem item) {
@@ -61,7 +66,6 @@ public class ButtonMenuProcessor implements MenuProcessor {
 			}
 		});
 
-
 		for (MenuItem m : items) {
 			root.appendChild(new MenuNode(m));
 		}
@@ -78,7 +82,7 @@ public class ButtonMenuProcessor implements MenuProcessor {
 	 * @param node
 	 */
 	private Widget createButtonMenuWidget(String name) {
-
+		breadCrumbsMenu.cleanBreadCrumbsItemAll();
 		final VerticalPanel grid = new VerticalPanel();
 		grid.setWidth("100%");
 		// int i = 0;
@@ -95,6 +99,7 @@ public class ButtonMenuProcessor implements MenuProcessor {
 
 			button.setText(menuItem.getTitle());
 			button.setStyleName("menu-link");
+
 			// 判断第一个进入默认样式
 			String menuId = menuItem.getMenuId();
 			if (menuId.equals(RewardsItemConstants.MENU_REWARDSITEM_List)
@@ -104,13 +109,27 @@ public class ButtonMenuProcessor implements MenuProcessor {
 					|| menuId.equals(GiftListConstants.MENU_GIFTLIST_SEARCH)
 					|| menuId.equals("sample")) {
 				button.setStyleName("menu-link menu-selected");
+
+				if (menuId.equals(RewardsItemConstants.MENU_REWARDSITEM_List))
+					breadCrumbsMenu.addBreadCrumbsItemTop("奖项",null);
+				else if (menuId.equals(RewardsListConstants.MENU_REWARDSLIST_SEARCH))
+					breadCrumbsMenu.addBreadCrumbsItemTop("奖项应用",null);
+				else if (menuId.equals(UserConstants.MENU_USER_SEARCH))
+					breadCrumbsMenu.addBreadCrumbsItemTop("员工数据",null);
+				else if (menuId.equals(GiftListConstants.MENU_GIFTLIST_SEARCH))
+					breadCrumbsMenu.addBreadCrumbsItemTop("兑换管理",null);
+				else if (menuId.equals("sample"))
+					breadCrumbsMenu.addBreadCrumbsItemTop("设置",null);
+				
+				breadCrumbsMenu.addBreadCrumbsItem(menuItem.getTitle(),	menuItem.getMenuId());
 			}
 
 			button.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent paramClickEvent) {
 					button.setStyleName("menu-link menu-selected");
 					eventBus.fireEvent(new MenuClickEvent(menuItem));
-
+					breadCrumbsMenu.cleanBreadCrumbsItem();
+					breadCrumbsMenu.addBreadCrumbsItem(menuItem.getTitle(),menuItem.getMenuId());
 					for (int i = 0; i < grid.getWidgetCount(); i++) {
 						if (grid.getWidget(i) instanceof Anchor) {
 							if (!button.getText().equals(
@@ -145,7 +164,7 @@ public class ButtonMenuProcessor implements MenuProcessor {
 		} else if ("Gift".equals(keyname)) {
 			items.add(GiftListConstants.MENU_GIFTLIST_SEARCH);
 			items.add(GiftConstants.MENU_GIFT_ADD);
-//			items.add(GiftConstants.MENU_GIFT_EDIT);
+			// items.add(GiftConstants.MENU_GIFT_EDIT);
 		}
 		return items;
 	}

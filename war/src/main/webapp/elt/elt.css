@@ -1844,5 +1844,6 @@ li.token-input-input-token-facebook {
 .box-title-sep{width:1px;height:40px;display:inline-block;background-color:#fff;vertical-align:middle;margin-right:15px;}
 
 .breadcrumbsdiv{float:left;  padding-left: 3px;padding-right: 3px;}
+.breadcrumbsSpan{float:left;	font-size: 12px;}
 .breadcrumbsAnchor{float:left;	font-size: 12px;text-decoration: none;}
 .breadcrumbsAnchor:hover {font-size: 12px;color:blue;text-decoration: none;cursor: pointer;}
