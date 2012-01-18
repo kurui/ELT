@@ -58,10 +58,10 @@ public class NominateWidget extends Composite implements NominateDisplay {
 	@UiField
 	Panel staffPanel;
 
-	private static HrRegisterWidgetUiBinder uiBinder = GWT
-			.create(HrRegisterWidgetUiBinder.class);
+	private static NominateWidgetUiBinder uiBinder = GWT
+			.create(NominateWidgetUiBinder.class);
 
-	interface HrRegisterWidgetUiBinder extends UiBinder<Widget, NominateWidget> {
+	interface NominateWidgetUiBinder extends UiBinder<Widget, NominateWidget> {
 	}
 
 	public NominateWidget() {

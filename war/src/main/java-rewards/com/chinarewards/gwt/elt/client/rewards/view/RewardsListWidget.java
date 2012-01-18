@@ -31,10 +31,10 @@ public class RewardsListWidget extends Composite implements RewardsListDisplay {
 	CheckBox nowJudge;
 	@UiField
 	InlineLabel dataCount;
-	private static HrRegisterWidgetUiBinder uiBinder = GWT
-			.create(HrRegisterWidgetUiBinder.class);
+	private static RewardsListWidgetUiBinder uiBinder = GWT
+			.create(RewardsListWidgetUiBinder.class);
 
-	interface HrRegisterWidgetUiBinder extends UiBinder<Widget, RewardsListWidget> {
+	interface RewardsListWidgetUiBinder extends UiBinder<Widget, RewardsListWidget> {
 	}
 
 	public RewardsListWidget() {

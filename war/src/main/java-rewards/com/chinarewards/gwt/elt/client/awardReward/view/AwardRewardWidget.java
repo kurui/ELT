@@ -58,10 +58,10 @@ public class AwardRewardWidget extends Composite implements AwardRewardDisplay {
 	Panel staffPanel;
 	
 	
-	private static HrRegisterWidgetUiBinder uiBinder = GWT
-			.create(HrRegisterWidgetUiBinder.class);
+	private static AwardRewardWidgetUiBinder uiBinder = GWT
+			.create(AwardRewardWidgetUiBinder.class);
 
-	interface HrRegisterWidgetUiBinder extends UiBinder<Widget, AwardRewardWidget> {
+	interface AwardRewardWidgetUiBinder extends UiBinder<Widget, AwardRewardWidget> {
 	}
 
 	public AwardRewardWidget() {

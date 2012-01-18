@@ -64,10 +64,10 @@ public class DetailsOfAwardWidget extends Composite implements
 	@UiField
 	Panel staffPanel;
 
-	private static HrRegisterWidgetUiBinder uiBinder = GWT
-			.create(HrRegisterWidgetUiBinder.class);
+	private static DetailsOfAwardWidgetUiBinder uiBinder = GWT
+			.create(DetailsOfAwardWidgetUiBinder.class);
 
-	interface HrRegisterWidgetUiBinder extends
+	interface DetailsOfAwardWidgetUiBinder extends
 			UiBinder<Widget, DetailsOfAwardWidget> {
 	}
 
