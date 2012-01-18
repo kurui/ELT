@@ -1,6 +1,7 @@
 package com.chinarewards.gwt.elt.util;
 
 import java.io.*;
+import java.util.Random;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +20,7 @@ import com.chinarewards.elt.util.DateUtil;
  * */
 public class FileUploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
 	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -57,12 +58,12 @@ public class FileUploadServlet extends HttpServlet {
 						e.printStackTrace();
 					}
 					
-
 					String itemName = item.getName();
 					itemName = itemName.substring(itemName.indexOf("."),
 							itemName.length());
-					String fileName = DateUtil.getDateString("yyyyMMddHHmmss")
-							+ itemName;
+					String fileName = DateUtil.getDateString("yyyyMMddHHmmss");
+					fileName+=new Random().nextInt(10000);
+					fileName+= itemName;
 
 					BufferedOutputStream outputStream = new BufferedOutputStream(
 							new FileOutputStream(
