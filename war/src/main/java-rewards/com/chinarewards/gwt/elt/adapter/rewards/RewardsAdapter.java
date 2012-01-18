@@ -1,15 +1,17 @@
 package com.chinarewards.gwt.elt.adapter.rewards;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.chinarewards.elt.domain.org.Department;
-import com.chinarewards.elt.domain.reward.person.Candidate;
 import com.chinarewards.elt.domain.reward.person.Judge;
+import com.chinarewards.elt.domain.reward.person.Nominee;
+import com.chinarewards.elt.domain.reward.person.NomineeLot;
 import com.chinarewards.elt.model.reward.vo.RewardVo;
 import com.chinarewards.gwt.elt.client.rewards.model.DepartmentClient;
 import com.chinarewards.gwt.elt.client.rewards.model.JudgeModelClient;
-import com.chinarewards.gwt.elt.client.rewards.model.NomineeModelClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsCriteria.RewardsStatus;
 
@@ -59,16 +61,20 @@ public class RewardsAdapter {
 			}
 			result.setJudgeList(judgeList);
 		}
-		if (rewards.getCandidates().size() > 0) {
-			List<NomineeModelClient> candidatesList = new ArrayList<NomineeModelClient>();
-			for (Candidate candidate : rewards.getCandidates()) {
+		if (rewards.getNomineeLots().size() > 0) {
+			Map<String,String> map=new HashMap<String, String>();
+			for (NomineeLot lot : rewards.getNomineeLots()) {
+				String nameStr="";
+				for (Nominee nominee : lot.getNominees()) {
+					nameStr+=nominee.getStaff().getName()+";";
+				}
+				map.put(lot.getJudge().getStaff().getId(), nameStr);
 
-				candidatesList.add(new NomineeModelClient(candidate.getStaff()
-						.getId(), candidate.getStaff().getName(), candidate
-						.getStaff().getDepartment().getName()));
 			}
-			result.setRewardList(candidatesList);
+			result.setNomineeLot(map);
 		}
+		
+
 		return result;
 	}
 

@@ -255,7 +255,7 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 									fal=true;
 									if("NOMINATED".equals(judge.getStatus()))
 									{
-										win.alert("您已经提名过了!");
+										win.alert("您已经提名过了!"+"<br><br>您提名了:"+o.getNomineeLot().get(judge.getStaffId()));
 									}
 									else
 									{
@@ -379,7 +379,7 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 										fal=true;
 										if("NOMINATED".equals(judge.getStatus()))
 										{
-											win.alert("您已经提名过了!");
+											win.alert("您已经提名过了!"+"<br><br>您提名了:"+o.getNomineeLot().get(judge.getStaffId()));
 										}
 										else
 										{

@@ -3,6 +3,7 @@ package com.chinarewards.gwt.elt.client.rewards.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsCriteria.RewardsStatus;
 
@@ -44,8 +45,9 @@ public class RewardsClient implements Serializable, Comparable<RewardsClient> {
 		this.headcountLimit = headcountLimit;
 	}
 
-	/** 已经被提名的人信息 **/
+	/** 已经被提名的人信息(当前用户) **/
 	private List<NomineeModelClient> rewardList;
+	private Map<String,String> nomineeLot;
 	
 	/** 提名人信息 **/
 	private List<JudgeModelClient> judgeList;
@@ -56,6 +58,14 @@ public class RewardsClient implements Serializable, Comparable<RewardsClient> {
 
 	public void setJudgeList(List<JudgeModelClient> judgeList) {
 		this.judgeList = judgeList;
+	}
+
+	public Map<String, String> getNomineeLot() {
+		return nomineeLot;
+	}
+
+	public void setNomineeLot(Map<String, String> nomineeLot) {
+		this.nomineeLot = nomineeLot;
 	}
 
 	/**
