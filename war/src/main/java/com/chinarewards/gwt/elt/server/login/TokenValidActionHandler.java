@@ -36,6 +36,7 @@ public class TokenValidActionHandler extends
 		tokenRep.setToken(userSessionVo.getId());
 		tokenRep.setUserRoles(UserRoleTool.adaptToRoleVo(userSessionVo.getUserRoles()));
 		tokenRep.setDepartmentId(userSessionVo.getDepartmentId());
+		tokenRep.setStaffId(userSessionVo.getStaffId());
 		return tokenRep;
 	}
 

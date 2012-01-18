@@ -44,8 +44,19 @@ public class RewardsClient implements Serializable, Comparable<RewardsClient> {
 		this.headcountLimit = headcountLimit;
 	}
 
-	/** 获奖人信息 **/
+	/** 已经被提名的人信息 **/
 	private List<NomineeModelClient> rewardList;
+	
+	/** 提名人信息 **/
+	private List<JudgeModelClient> judgeList;
+
+	public List<JudgeModelClient> getJudgeList() {
+		return judgeList;
+	}
+
+	public void setJudgeList(List<JudgeModelClient> judgeList) {
+		this.judgeList = judgeList;
+	}
 
 	/**
 	 * Corporation.id

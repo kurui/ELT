@@ -441,7 +441,7 @@ public class RewardLogicImpl implements RewardLogic {
 					.getPreWinnerLotsFromReward(rewardId);
 			// winner
 			List<Winner> winners = winnerLogic.getWinnersOfReward(rewardId);
-			;
+			
 
 			rewardVo.setReward(reward);
 			rewardVo.setCandidateRule(candidateRule);
