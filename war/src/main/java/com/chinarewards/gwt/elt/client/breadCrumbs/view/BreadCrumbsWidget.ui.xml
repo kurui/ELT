@@ -10,9 +10,7 @@
 			<div class="{new2.breadcrumb-wrap}">
 				<div class="{new2.breadcrumb-wrap}">
 					<p class="{new2.breadcrumb-left}">
-						<a href="#" style="color:#565656;text-decoration:none;">应用奖项</a>
-						->
-						<span>应用奖项列表</span>
+						<g:FlowPanel ui:field="titleText" />
 					</p>
 					<a href="#" class="{new2.breadcrumb-right} {new2.back-btn}"
 						style="color:#565656;text-decoration:none;">返回上一页</a>

@@ -82,6 +82,7 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 	}
 
 	private void init() {
+		breadCrumbs.bind();
 		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
 		buildTable();
 		doSearch();
