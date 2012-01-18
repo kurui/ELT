@@ -3,6 +3,7 @@ package com.chinarewards.gwt.elt.client.ui;
 
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.ui.Dialog;
+import com.chinarewards.gwt.elt.client.widget.Span;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.EventTarget;
 import com.google.gwt.dom.client.NativeEvent;
@@ -31,7 +32,6 @@ import com.google.gwt.user.client.ui.DecoratedPopupPanel;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.MouseListener;
 import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
@@ -155,7 +155,7 @@ public class DialogBox extends DecoratedPopupPanel implements MouseListener {
 
 	private CaptionImpl caption = new CaptionImpl();
 	private HTML captionHtml = new HTML(); // The caption aka title
-	private Label cross;
+	private Span cross;
 
 	private boolean dragging;
 	private int dragStartX, dragStartY;
@@ -210,29 +210,32 @@ public class DialogBox extends DecoratedPopupPanel implements MouseListener {
 		/**
 		 * About the icon to close the window.
 		 */
-		cross = new Label("X");
-		cross.setStyleName("close");
+
+	 //   <div class="close-wrap"><span class="box-title-sep"></span><span class="box-close" onclick="this.parentNode.parentNode.parentNode.style.display='none'"></span></div>
+
+		cross = new Span();
+		cross.setStyleName("box-close");
 		CrossHandler crossHandler = new CrossHandler();
 		cross.addClickHandler(crossHandler);
 		cross.addMouseDownHandler(crossHandler);
 		cross.addMouseOverHandler(crossHandler);
 		cross.addMouseOutHandler(crossHandler);
 
-		Label left = new Label("");
-		left.setStyleName("left");
-		Label right = new Label("");
-		right.setStyleName("right");
+//		Label left = new Label("");
+//		left.setStyleName("left");
+//		Label right = new Label("");
+//		right.setStyleName("right");
 
-		panel.add(left);
+//		panel.add(left);
 		panel.add(captionHtml);
 		panel.add(cross);
-		panel.add(right);
-		panel.setCellWidth(left, "10px");
-		panel.setCellHorizontalAlignment(left, HorizontalPanel.ALIGN_LEFT);
+//		panel.add(right);
+//		panel.setCellWidth(left, "10px");
+//		panel.setCellHorizontalAlignment(left, HorizontalPanel.ALIGN_LEFT);
 		panel.setCellHorizontalAlignment(captionHtml,
 				HorizontalPanel.ALIGN_LEFT);
 		panel.setCellHorizontalAlignment(cross, HorizontalPanel.ALIGN_RIGHT);
-		panel.setCellHorizontalAlignment(right, HorizontalPanel.ALIGN_RIGHT);
+//		panel.setCellHorizontalAlignment(right, HorizontalPanel.ALIGN_RIGHT);
 		panel.setWidth("100%");
 
 		caption.add(panel);
@@ -524,19 +527,19 @@ public class DialogBox extends DecoratedPopupPanel implements MouseListener {
 
 		@Override
 		public void onMouseOver(MouseOverEvent event) {
-			cross.setStyleName("closeover");
+		//	cross.setStyleName("closeover");
 
 		}
 
 		@Override
 		public void onMouseOut(MouseOutEvent event) {
-			cross.setStyleName("close");
+		//	cross.setStyleName("close");
 
 		}
 
 		@Override
 		public void onMouseDown(MouseDownEvent event) {
-			cross.setStyleName("closedown");
+		//	cross.setStyleName("closedown");
 		}
 	}
 }

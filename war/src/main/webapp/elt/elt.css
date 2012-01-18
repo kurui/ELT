@@ -219,6 +219,8 @@ a:active {
 	background: url() no-repeat;
 	border-bottom: 0px solid #BBBBBB;
 	border-top: 2px solid #333333;
+	border-left: 2px solid #333333;
+	border-right: 2px solid #333333;
 	padding-left: 10px;
 	font-weight: bold;
 	background-color: #C9D2C6;
@@ -1836,4 +1838,9 @@ li.token-input-input-token-facebook {
 #rewardlist_page .pagedisable,#rewardlist_page .pagedisable:hover{border:1px solid #C7C7C7;color:#999999;}
 .searchStaff{float:left;height:22px;width:150px;color:#999999;border:1px solid #569A01;}
 .divTextLeft{text-align: left;}
+
+.close-wrap{position:absolute;height:50px;right:0;top:1px;*top:2px;height:40px;line-height:40px;overflow:hidden;}
+.box-close{background:url(images/elt.png) no-repeat;background-position:-14px -116px;width:18px;height:18px;display:inline-block;cursor:pointer;vertical-align:middle;margin-right:15px;}
+.box-title-sep{width:1px;height:40px;display:inline-block;background-color:#fff;vertical-align:middle;margin-right:15px;}
+
 
