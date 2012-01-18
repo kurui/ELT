@@ -212,11 +212,23 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 					nextPublicTime.setEnabled(false);
 					specialCbx.setEnabled(false);
 					birthRadio.setEnabled(false);
+					
+					nextRewardsTime.setValue(null);
+					tmday.setValue(null);
+					autoCbx.setValue(null);
+					nextPublicTime.setValue(null);
+					specialCbx.setValue(null);
+					birthRadio.setValue(null);
+					settingText.setText("");
+					
 				} else {
 					//settingText.getElement().getParentElement().getParentElement().getParentElement().removeClassName(CssStyleConstants.hidden);
 					//expectTime.getElement().getParentElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
 					expectTime.setEnabled(false);
 					tmdays.setEnabled(false);
+					expectTime.setValue(null);
+					tmdays.setValue(null);
+	
 					
 					nextRewardsTime.setEnabled(true);
 					tmday.setEnabled(true);
@@ -234,6 +246,8 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 				if (event.getValue()) {
 					expectTime.setEnabled(false);
 					tmdays.setEnabled(false);
+					expectTime.setValue(null);
+					tmdays.setValue(null);
 					
 					nextRewardsTime.setEnabled(true);
 					tmday.setEnabled(true);
@@ -255,6 +269,13 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 					nextPublicTime.setEnabled(false);
 					specialCbx.setEnabled(false);
 					birthRadio.setEnabled(false);
+					nextRewardsTime.setValue(null);
+					tmday.setValue(null);
+					autoCbx.setValue(null);
+					nextPublicTime.setValue(null);
+					specialCbx.setValue(null);
+					birthRadio.setValue(null);
+					settingText.setText("");
 					//settingText.getElement().getParentElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
 					//expectTime.getElement().getParentElement().getParentElement().getParentElement().removeClassName(CssStyleConstants.hidden);
 				}
