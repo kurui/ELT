@@ -43,6 +43,10 @@ public enum UserRoleVo {
 	DEPT_MGR,
 
 	/**
+	 * 礼品管理员.
+	 */
+	GIFT,
+	/**
 	 * Ordinary staff.
 	 */
 	STAFF
