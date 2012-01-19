@@ -24,7 +24,7 @@ public class EltModule extends AbstractModule {
 		install(new OrgModule());
 		install(new StaffModule());
 		install(new GiftModule());
-//		install(new OrderModule());
+		install(new OrderModule());
 	}
 
 }
