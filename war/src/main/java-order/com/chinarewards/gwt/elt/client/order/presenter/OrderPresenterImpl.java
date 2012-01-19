@@ -59,9 +59,9 @@ public class OrderPresenterImpl extends BasePresenter<OrderPresenter.OrderDispla
 		// 绑定事件
 		init();
 
-		if (OrderConstants.ACTION_GIFT_ADD.equals(thisAction)) {
+		if (OrderConstants.ACTION_ORDER_ADD.equals(thisAction)) {
 			initSave();
-		} else if (OrderConstants.ACTION_GIFT_EDIT.equals(thisAction)) {
+		} else if (OrderConstants.ACTION_ORDER_EDIT.equals(thisAction)) {
 			initEdit();
 		} else {
 			win.alert("未定义的方法");
@@ -81,10 +81,10 @@ public class OrderPresenterImpl extends BasePresenter<OrderPresenter.OrderDispla
 					
 						OrderVo orderVo = OrderAdapterClient.adapterDisplay(display);
 						
-						if (OrderConstants.ACTION_GIFT_ADD.equals(thisAction)) {
+						if (OrderConstants.ACTION_ORDER_ADD.equals(thisAction)) {
 							orderVo.setId(null);
 							doSave(orderVo);
-						} else if (OrderConstants.ACTION_GIFT_EDIT
+						} else if (OrderConstants.ACTION_ORDER_EDIT
 								.equals(thisAction)) {
 							orderVo.setId(orderId);
 							doEdit(orderVo);
@@ -110,8 +110,8 @@ public class OrderPresenterImpl extends BasePresenter<OrderPresenter.OrderDispla
 										Platform.getInstance()
 												.getEditorRegistry()
 												.openEditor(
-														OrderConstants.EDITOR_GIFTLIST_SEARCH,
-														OrderConstants.ACTION_GIFT_LIST,
+														OrderConstants.EDITOR_ORDERLIST_SEARCH,
+														OrderConstants.ACTION_ORDER_LIST,
 														instanceId);
 									}
 								});
@@ -128,7 +128,7 @@ public class OrderPresenterImpl extends BasePresenter<OrderPresenter.OrderDispla
 											Platform.getInstance()
 													.getEditorRegistry()
 													.closeEditor(
-															OrderConstants.EDITOR_GIFT_EDIT,
+															OrderConstants.EDITOR_ORDER_EDIT,
 															instanceId);
 										}
 
@@ -139,8 +139,8 @@ public class OrderPresenterImpl extends BasePresenter<OrderPresenter.OrderDispla
 											Platform.getInstance()
 													.getEditorRegistry()
 													.openEditor(
-															OrderConstants.EDITOR_GIFTLIST_SEARCH,
-															OrderConstants.ACTION_GIFT_LIST,
+															OrderConstants.EDITOR_ORDERLIST_SEARCH,
+															OrderConstants.ACTION_ORDER_LIST,
 															instanceId);
 										}
 									});
@@ -207,8 +207,8 @@ public class OrderPresenterImpl extends BasePresenter<OrderPresenter.OrderDispla
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(
-										OrderConstants.EDITOR_GIFTLIST_SEARCH,
-										OrderConstants.ACTION_GIFT_LIST,
+										OrderConstants.EDITOR_ORDERLIST_SEARCH,
+										OrderConstants.ACTION_ORDER_LIST,
 										instanceId);
 					}
 				}));
@@ -261,7 +261,7 @@ public class OrderPresenterImpl extends BasePresenter<OrderPresenter.OrderDispla
 						errorHandler.alert("查询出错!");
 						Platform.getInstance()
 								.getEditorRegistry()
-								.closeEditor(OrderConstants.EDITOR_GIFT_EDIT,
+								.closeEditor(OrderConstants.EDITOR_ORDER_EDIT,
 										instanceId);
 					}
 

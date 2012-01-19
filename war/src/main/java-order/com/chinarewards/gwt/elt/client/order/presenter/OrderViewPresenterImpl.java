@@ -45,8 +45,8 @@ public class OrderViewPresenterImpl extends
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(
-										OrderConstants.EDITOR_GIFTLIST_SEARCH,
-										OrderConstants.ACTION_GIFT_LIST,
+										OrderConstants.EDITOR_ORDERLIST_SEARCH,
+										OrderConstants.ACTION_ORDER_LIST,
 										instanceId);
 					}
 				}));
@@ -57,11 +57,11 @@ public class OrderViewPresenterImpl extends
 					public void onClick(ClickEvent arg0) {
 						orderVo.setId(orderId);
 						orderVo
-								.setThisAction(OrderConstants.ACTION_GIFT_EDIT);
+								.setThisAction(OrderConstants.ACTION_ORDER_EDIT);
 						Platform.getInstance()
 								.getEditorRegistry()
-								.openEditor(OrderConstants.EDITOR_GIFT_EDIT,
-										OrderConstants.ACTION_GIFT_EDIT,
+								.openEditor(OrderConstants.EDITOR_ORDER_EDIT,
+										OrderConstants.ACTION_ORDER_EDIT,
 										orderVo);
 					}
 				}));
@@ -85,7 +85,7 @@ public class OrderViewPresenterImpl extends
 						errorHandler.alert("查询礼品出错!");
 						Platform.getInstance()
 								.getEditorRegistry()
-								.closeEditor(OrderConstants.EDITOR_GIFT_VIEW,
+								.closeEditor(OrderConstants.EDITOR_ORDER_VIEW,
 										instanceId);
 					}
 

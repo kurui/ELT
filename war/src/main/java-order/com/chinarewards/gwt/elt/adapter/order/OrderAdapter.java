@@ -27,11 +27,11 @@ public class OrderAdapter {
 
 		result.setId(order.getId());
 		result.setName(order.getName());
-		result.setSource(order.getSource());
-		result.setInventory(order.getStock() + "");
+//		result.setSource(order.getSource());
+//		result.setInventory(order.getStock() + "");
 
 		if (order.getStatus() != null) {
-			result.setStatus(OrderStatus.valueOf(order.getStatus().toString()));
+//			result.setStatus(OrderStatus.valueOf(order.getStatus().toString()));
 		}
 		return result;
 	}

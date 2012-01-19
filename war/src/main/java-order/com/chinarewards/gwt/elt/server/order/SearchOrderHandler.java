@@ -6,8 +6,6 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 import org.slf4j.Logger;
 
 import com.chinarewards.elt.model.common.PageStore;
-import com.chinarewards.elt.model.common.PaginationDetail;
-import com.chinarewards.elt.model.common.SortingDetail;
 import com.chinarewards.elt.model.order.search.OrderListVo;
 import com.chinarewards.elt.model.order.search.OrderStatus;
 import com.chinarewards.elt.model.user.UserContext;
@@ -22,22 +20,21 @@ import com.chinarewards.gwt.elt.util.UserRoleTool;
 import com.google.inject.Inject;
 
 /**
- * @author nicho
- * @since 2012年1月10日 16:09:07
+ * @author yanrui
  */
 public class SearchOrderHandler extends
 		BaseActionHandler<SearchOrderRequest, SearchOrderResponse> {
 
 	@InjectLogger
 	Logger logger;
-
-	OrderService orderService;
-
-	@Inject
-	public SearchOrderHandler(OrderService orderService) {
-		this.orderService = orderService;
-
-	}
+//
+//	OrderService orderService;
+//
+//	@Inject
+//	public SearchOrderHandler(OrderService orderService) {
+//		this.orderService = orderService;
+//
+//	}
 
 	@Override
 	public SearchOrderResponse execute(SearchOrderRequest request,
@@ -54,7 +51,7 @@ public class SearchOrderHandler extends
 		uc.setUserRoles(UserRoleTool.adaptToRole(request.getUserRoles()));
 		uc.setUserId(request.getUserId());
 
-		orderPage = orderService.OrderList(uc, criteria);
+//		orderPage = orderService.OrderList(uc, criteria);
 		resp.setTotal(orderPage.getResultCount());
 		resp.setResult(OrderAdapter.adapter(orderPage.getResultList()));
 

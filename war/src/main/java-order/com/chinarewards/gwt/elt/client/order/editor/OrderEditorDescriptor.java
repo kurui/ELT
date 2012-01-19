@@ -25,14 +25,14 @@ public class OrderEditorDescriptor implements EditorDescriptor {
 
 	@Override
 	public String getEditorId() {
-		return OrderConstants.EDITOR_GIFT_EDIT;
+		return OrderConstants.EDITOR_ORDER_EDIT;
 	}
 
 	@Override
 	public Editor createEditor(String instanceId, Object model) {
 		OrderEditor e = editProvider.get();
 		e.setInstanceId(instanceId);
-		e.setTitle("新建礼品");
+		e.setTitle("新建订单");
 		if (model instanceof RewardsPageClient) {
 			if (model != null)
 				e.setTitle(((RewardsPageClient) model).getTitleName());

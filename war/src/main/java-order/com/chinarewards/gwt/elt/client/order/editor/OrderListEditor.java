@@ -11,24 +11,24 @@ import com.google.inject.Inject;
  */
 public class OrderListEditor extends AbstractEditor {
 
-	final OrderListPresenter giftListPresenter;
+	final OrderListPresenter orderListPresenter;
 	Object model;
 
 	@Inject
 	protected OrderListEditor(OrderListEditorDescriptor editorDescriptor,
-			OrderListPresenter giftListPresenter) {
+			OrderListPresenter orderListPresenter) {
 		super(editorDescriptor);
-		this.giftListPresenter = giftListPresenter;
+		this.orderListPresenter = orderListPresenter;
 	}
 
 	@Override
 	public Widget asWidget() {
-		return giftListPresenter.getDisplay().asWidget();
+		return orderListPresenter.getDisplay().asWidget();
 	}
 
 	@Override
 	public boolean beforeClose() {
-		giftListPresenter.unbind();
+		orderListPresenter.unbind();
 		return true;
 	}
 	
@@ -44,6 +44,6 @@ public class OrderListEditor extends AbstractEditor {
 
 	public void setModel(Object model) {
 		this.model = model;
-		giftListPresenter.bind();
+		orderListPresenter.bind();
 	}
 }

@@ -38,7 +38,7 @@ public class OrderPluginDescriptor implements PluginDescriptor {
 		OrderPlugin = new OrderPlugin(this);
 
 		/**
-		 * 新建礼品
+		 * 新建订单
 		 */
 		ext.add(new Extension() {
 			@Override
@@ -51,12 +51,13 @@ public class OrderPluginDescriptor implements PluginDescriptor {
 				return new MenuItem() {
 					@Override
 					public int getOrder() {
-						return MenuConstants.MENU_ORDER_GIFT_ADD;
+//						return MenuConstants.MENU_ORDER_ORDER_ADD;
+						return 1;
 					}
 
 					@Override
 					public String getMenuId() {
-						return OrderConstants.MENU_GIFT_ADD;
+						return OrderConstants.MENU_ORDER_ADD;
 					}
 
 					@Override
@@ -66,17 +67,17 @@ public class OrderPluginDescriptor implements PluginDescriptor {
 
 					@Override
 					public String getTitle() {
-						return "新建礼品";
+						return "新建订单";
 					}
 
 					@Override
 					public void execute() {
 						OrderVo orderClient = new OrderVo();
-						orderClient.setThisAction(OrderConstants.ACTION_GIFT_ADD);
+						orderClient.setThisAction(OrderConstants.ACTION_ORDER_ADD);
 						Platform.getInstance()
 								.getEditorRegistry()
-								.openEditor(OrderConstants.EDITOR_GIFT_EDIT,
-										OrderConstants.ACTION_GIFT_ADD,
+								.openEditor(OrderConstants.EDITOR_ORDER_EDIT,
+										OrderConstants.ACTION_ORDER_ADD,
 										orderClient);
 					}
 
@@ -117,7 +118,7 @@ public class OrderPluginDescriptor implements PluginDescriptor {
 
 	@Override
 	public String getPluginId() {
-		return OrderConstants.PLUGIN_GIFT;
+		return OrderConstants.PLUGIN_ORDER;
 	}
 
 	@Override

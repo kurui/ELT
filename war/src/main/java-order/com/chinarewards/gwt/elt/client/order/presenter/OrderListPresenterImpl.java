@@ -78,8 +78,8 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 					public void onClick(ClickEvent paramClickEvent) {
 						Platform.getInstance()
 								.getEditorRegistry()
-								.openEditor(OrderConstants.EDITOR_GIFT_EDIT,
-										OrderConstants.EDITOR_GIFT_EDIT, null);
+								.openEditor(OrderConstants.EDITOR_ORDER_EDIT,
+										OrderConstants.EDITOR_ORDER_EDIT, null);
 					}
 				}));
 		registerHandler(display.getimportingBtnClickHandlers().addClickHandler(
@@ -205,12 +205,12 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 					@Override
 					public void update(int index, OrderVo orderClient,
 							String value) {
-						orderClient.setThisAction(OrderConstants.ACTION_GIFT_VIEW);
+						orderClient.setThisAction(OrderConstants.ACTION_ORDER_VIEW);
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(
-										OrderConstants.EDITOR_GIFT_VIEW,
-										OrderConstants.EDITOR_GIFT_VIEW
+										OrderConstants.EDITOR_ORDER_VIEW,
+										OrderConstants.EDITOR_ORDER_VIEW
 												+ orderClient.getId(), orderClient);
 					}
 				});
@@ -225,12 +225,12 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 					@Override
 					public void update(int index, final OrderVo orderClient,
 							String value) {
-						orderClient.setThisAction(OrderConstants.ACTION_GIFT_EDIT);
+						orderClient.setThisAction(OrderConstants.ACTION_ORDER_EDIT);
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(
-										OrderConstants.EDITOR_GIFT_EDIT,
-										OrderConstants.EDITOR_GIFT_EDIT
+										OrderConstants.EDITOR_ORDER_EDIT,
+										OrderConstants.EDITOR_ORDER_EDIT
 												+ orderClient.getId(), orderClient);
 					}
 				});
@@ -264,12 +264,12 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 					@Override
 					public void update(int index, OrderVo orderClient,
 							String value) {
-						orderClient.setThisAction(OrderConstants.ACTION_GIFT_VIEW);
+						orderClient.setThisAction(OrderConstants.ACTION_ORDER_VIEW);
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(
-										OrderConstants.EDITOR_GIFT_VIEW,
-										OrderConstants.EDITOR_GIFT_VIEW
+										OrderConstants.EDITOR_ORDER_VIEW,
+										OrderConstants.EDITOR_ORDER_VIEW
 												+ orderClient.getId(), orderClient);
 					}
 				});

@@ -13,7 +13,7 @@ button{cursor:pointer;}
 textarea{word-wrap:break-word;resize:none;}
 
 /*---------------------------------------全局模块----------------------------------------------*/
-.menu,.menu span,.menu-on,.menu-on span,.status-arrow,.list-top,.list-bottom,.btn,.btn button,.back-btn{background:url(../elt/images/elt.png) no-repeat;}
+.menu,.menu span,.menu-on,.menu-on span,.status-arrow,.list-top,.list-bottom,.btn,.btn button,.back-btn,.box .box-tl,.box .box-tr,.box .box-bl,.box .box-br,.box-btn-ok,.box-btn-cannel,.box-close{background:url(../elt/images/elt.png) no-repeat;}
 .sidebar .title,.cutline,.footer-line{background:url(../elt/images/elt_repeat.png) repeat-x;}
 
 body{background-color:#fff;color:#333333;font:12px/1.5 Tahoma, Arial, simsun;min-width:960px;}
@@ -22,6 +22,8 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .clearfix:after{content:".";display:block;clear:both;height:0;visibility:hidden;}
 .clearfix{*zoom:1;}
 
+.anchor{color:#565656;text-decoration:none;}
+.anchor:hover{color:#010DFF;text-decoration:underline;cursor:pointer;}
 /*menu*/
 .menu{background-position:-194px -29px;padding-left:5px;display:inline-block;}
 .menu:hover{text-decoration:none;}
@@ -122,19 +124,48 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .frame-wrap .query-wrap{background-color:#D8ECC1;border:1px solid #B8DA8E;padding:10px 15px;}
 .frame-wrap .send-news{margin:10px 0;}
 .frame-wrap .content-wrap{padding-top:0px;}
-
 /*-------------------------------------登录页面------------------------------------------------------*/
-body.login{background:url(../elt/images/elt_login_bg.png) repeat-x;}
-.login-wrap .logo,.login-wrap .sep,.login-wrap .form .login-btn button{background:url(../elt/images/elt_login.png) no-repeat;}
-.login-wrap:after{content:".";display:block;clear:both;height:0;visibility:hidden;}
-.login-wrap{width:750px;height:336px;overflow:hidden;margin:0 auto;margin-top:152px;*zoom:1;}
-.login-wrap .logo{background-position: 0 0;width:270px;height:102px;float:left;margin:75px 40px 0 0;}
-.login-wrap .sep{background-position:-479px 0;width:1px;height:336px;display:block;float:left;}
-.login-wrap .login-form{float:left;width:400px;margin-top:73px;}
-.login-wrap .login-form .code{vertical-align:middle;}
-.login-wrap .form .text{border:1px solid #999999;color:#333;}
-.login-wrap .form .label{width:100px;font-size:14px;}
-.login-wrap .form .element{width:297px;}
-.login-wrap .form a{color:#668127;}
-.login-wrap .form .short-text{width:150px;}
-.login-wrap .form .login-btn button{background-position:0 -103px;width:80px;height:34px;border:none;color:#041B00;font-size:14px;}
+.login{background:url(../elt/images/elt_login_repeatbg.png) repeat;}
+.login-wrap .logo,.login-wrap .sep,.login-wrap .form .login-btn button,.login-wrap .login-top,.login-wrap .login-bottom{background:url(../elt/images/elt_login.png) no-repeat;}
+
+.login-wrap{width:802px;margin:0 auto;margin-top:152px;background-color:#F3F3F3;}
+.login-wrap .login-top{background-position:0 -136px;width:802px;height:11px;}
+.login-wrap .login-bottom{background-position:0 -149px;width:802px;height:15px;}
+.login-wrap .login-content:after{content:".";display:block;clear:both;height:0;visibility:hidden;}
+.login-wrap .login-content{border-left:1px solid #7C9F50;border-right:1px solid #7C9F50;background-color:#F3F3F3;padding-left:45px;width:754px;overflow:hidden;*zoom:1;}
+.login-wrap .login-content .logo{background-position: 0 0;width:270px;height:102px;float:left;margin:75px 40px 0 0;}
+.login-wrap .login-content .sep{background-position:-803px 0;width:1px;height:336px;display:block;float:left;}
+.login-wrap .login-content .login-form{float:left;width:400px;margin-top:73px;}
+.login-wrap .login-content .login-form .code{vertical-align:middle;}
+.login-wrap .login-content .form .text{border:1px solid #999999;color:#333;}
+.login-wrap .login-content .form .label{width:100px;font-size:14px;}
+.login-wrap .login-content .form .element{width:297px;}
+.login-wrap .login-content .form a{color:#668127;}
+.login-wrap .login-content .form .short-text{width:150px;}
+.login-wrap .login-content .form .login-btn button{background-position:0 -103px;width:80px;height:34px;border:none;color:#041B00;font-size:14px;}
+
+/*box*/
+.box{overflow:hidden;width:100%;margin:5px auto 0;position:relative;}
+.box .box-top{border-top:2px solid #333333;height:4px;margin:0 6px;background-color:#C9D2C6;overflow:hidden;}
+.box .box-context{border-bottom:2px solid #333333;}
+.box .box-bottom{border-bottom:2px solid #333333;height:4px;overflow:hidden;margin:0 6px;background-color:#C9D2C6;}
+.box span{display:block;}
+.box .box-tl,.box .box-tr{width:6px;height:6px;font-size:0%;margin-top:-6px;}
+.box .box-tl{float:left;background-position:0 -116px;}
+.box .box-tr{float:right;background-position:-7px -116px;}
+.box .box-bl,.box .box-br{height:6px;font-size:0%;width:6px;margin-top:-6px;}
+.box .box-bl{float:left;background-position:0 -123px;}
+.box .box-br{float:right;background-position:-7px -123px;}
+.box .box-context .box-title{padding:4px 0 10px 10px;color:#000000;font-size:14px;background-color:#EEEEEE;font-weight:bold;_zoom:1;}
+.box .box-context .box-info{background-color:#FFFFFF;padding:25px;}
+.box .box-context .box-tools{text-align:center;padding:10px 0 5px;background-color:#EEEEEE;_zoom:1;}
+.box .box-context .box-tools span{display:inline-block;}
+.box .box-btn-ok{background-position:-32px -116px;width:63px;height:30px;line-height:30px;border:none;overflow:visible;}
+.box .box-btn-cannel{background-position:-96px -116px;width:63px;height:30px;line-height:30px;border:none;overflow:visible;}
+.box .close-wrap{position:absolute;height:50px;right:0;top:1px;*top:2px;height:40px;line-height:40px;overflow:hidden;}
+.box .box-close{background-position:-14px -116px;width:18px;height:18px;display:inline-block;cursor:pointer;vertical-align:middle;margin-right:15px;}
+.box .box-title-sep{width:1px;height:40px;display:inline-block;background-color:#fff;vertical-align:middle;margin-right:15px;}
+
+
+
+

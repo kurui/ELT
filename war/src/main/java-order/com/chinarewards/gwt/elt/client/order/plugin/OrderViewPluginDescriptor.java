@@ -55,7 +55,7 @@ public class OrderViewPluginDescriptor implements PluginDescriptor {
 
 	@Override
 	public String getPluginId() {
-		return OrderConstants.PLUGIN_GIFT;
+		return OrderConstants.PLUGIN_ORDER;
 	}
 
 	@Override

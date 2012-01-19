@@ -25,7 +25,7 @@ public class OrderViewEditorDescriptor implements EditorDescriptor {
 
 	@Override
 	public String getEditorId() {
-		return OrderConstants.EDITOR_GIFT_VIEW;
+		return OrderConstants.EDITOR_ORDER_VIEW;
 	}
 
 	@Override

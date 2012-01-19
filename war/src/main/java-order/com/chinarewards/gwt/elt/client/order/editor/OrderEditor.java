@@ -8,28 +8,27 @@ import com.google.inject.Inject;
 
 /**
  * @author yanrui
- * @since 2012年1月9日 17:25:16
  */
 public class OrderEditor extends AbstractEditor {
 
-	final OrderPresenter giftPresenter;
+	final OrderPresenter orderPresenter;
 	Object model;
 
 	@Inject
 	protected OrderEditor(OrderEditorDescriptor editorDescriptor,
-			OrderPresenter giftPresenter) {
+			OrderPresenter orderPresenter) {
 		super(editorDescriptor);
-		this.giftPresenter = giftPresenter;
+		this.orderPresenter = orderPresenter;
 	}
 
 	@Override
 	public Widget asWidget() {
-		return giftPresenter.getDisplay().asWidget();
+		return orderPresenter.getDisplay().asWidget();
 	}
 
 	@Override
 	public boolean beforeClose() {
-		giftPresenter.unbind();
+		orderPresenter.unbind();
 		return true;
 	}
 
@@ -45,9 +44,9 @@ public class OrderEditor extends AbstractEditor {
 
 	public void setModel(Object model) {
 		this.model = model;
-		OrderVo giftClient = (OrderVo) model;
-		giftPresenter
-				.initEditor(giftClient.getId(), giftClient.getThisAction());
-		giftPresenter.bind();
+		OrderVo orderClient = (OrderVo) model;
+		orderPresenter
+				.initEditor(orderClient.getId(), orderClient.getThisAction());
+		orderPresenter.bind();
 	}
 }

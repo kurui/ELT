@@ -129,7 +129,7 @@
 		</dependency>
 		
 		<!-- Logging ENDS -->
-		
+				
 		<!-- gchart start -->
 		<dependency>	
 			<groupId>com.googlecode.gchart</groupId>
@@ -207,6 +207,7 @@
 								<source>src/main/java-user</source>
 								<source>src/main/java-rewards</source>
 								<source>src/main/java-gift</source>
+								<source>src/main/java-order</source>
 							</sources>
 						</configuration>
 					</execution>
