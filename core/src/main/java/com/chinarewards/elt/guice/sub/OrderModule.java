@@ -12,7 +12,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 
 /**
- * gift module.
+ * order module.
  * 
  * @author nicho
  * @since 2012年1月10日 16:00:44
@@ -27,7 +27,7 @@ public class OrderModule extends AbstractModule {
 	@Override
 	protected void configure() {
 
-		// gift bind
+		// order bind
 		bind(OrderDao.class).in(Singleton.class);
 
 		bind(OrderLogic.class).to(OrderLogicImpl.class).in(Singleton.class);

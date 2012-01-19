@@ -35,7 +35,6 @@ public class OrderListViewAdapter extends BaseDataProvider<OrderVo> {
 		// for (int i = start; i < start + length; i++) {
 		// OrderClient item = new OrderClient();
 		// item.setId("id" + i);
-		// item.setName("gift" + i);
 		// item.setSource("来源"+i);
 		// item.setStatus(OrderStatus.SHELF);
 		// list.add(item);

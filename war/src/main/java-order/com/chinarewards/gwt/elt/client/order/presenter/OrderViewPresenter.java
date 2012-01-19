@@ -16,7 +16,7 @@ public interface OrderViewPresenter extends
 
 		public HasClickHandlers getUpdateClick();
 
-		public void showOrder(OrderVo giftVo);
+		public void showOrder(OrderVo orderVo);
 
 	}
 }

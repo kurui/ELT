@@ -58,10 +58,10 @@ public class OrderDao extends BaseDao<Order> {
 			eql.append(" AND UPPER(o.orderCode) =:orderCode ");
 			param.put("orderCode", vo.getOrderCode());
 		}
-		if (!StringUtil.isEmptyString(vo.getGiftvo().getSource())) {
-			eql.append(" AND UPPER(g.source) =:source ");
-			param.put("source", vo.getGiftvo().getSource());
-		}
+//		if (!StringUtil.isEmptyString(vo.getGiftvo().getSource())) {
+//			eql.append(" AND UPPER(g.source) =:source ");
+//			param.put("source", vo.getGiftvo().getSource());
+//		}
 		if (!StringUtil.isEmptyString(vo.getName())) {
 			eql.append(" AND UPPER(o.name) LIKE :name ");
 			param.put("name", "%" + vo.getName().trim().toUpperCase()

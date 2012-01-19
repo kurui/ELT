@@ -15,8 +15,6 @@ import com.chinarewards.gwt.elt.client.gift.plugin.GiftConstants;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftListConstants;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.nominate.plugin.NominateConstants;
-import com.chinarewards.gwt.elt.client.order.plugin.OrderConstants;
-import com.chinarewards.gwt.elt.client.order.plugin.OrderListConstants;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemConstants;
 import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListConstants;
 import com.chinarewards.gwt.elt.client.user.plugin.UserConstants;
@@ -103,7 +101,7 @@ public class ButtonMenuProcessor implements MenuProcessor {
 					|| menuId
 							.equals(RewardsListConstants.MENU_REWARDSLIST_SEARCH)
 					|| menuId.equals(UserConstants.MENU_USER_SEARCH)
-					|| menuId.equals(OrderListConstants.MENU_GIFTLIST_SEARCH)
+					|| menuId.equals(GiftListConstants.MENU_GIFTLIST_SEARCH)
 					|| menuId.equals("sample")) {
 				button.setStyleName("menu-link menu-selected");
 			}

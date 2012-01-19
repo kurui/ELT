@@ -4,7 +4,7 @@ import java.util.Date;
 
 import com.chinarewards.elt.model.common.PaginationDetail;
 import com.chinarewards.elt.model.common.SortingDetail;
-import com.chinarewards.elt.model.gift.search.GiftListVo;
+import com.chinarewards.elt.model.order.search.OrderListVo;
 
 public class OrderListVo {
 	
@@ -24,17 +24,12 @@ public class OrderListVo {
 	/**
 	 * Sorting detail.
 	 */
-	private GiftListVo giftvo;//订单的VO
-	public GiftListVo getGiftvo() {
-		return giftvo;
-	}
-	public void setGiftvo(GiftListVo giftvo) {
-		this.giftvo = giftvo;
-	}
+//	private GiftVo giftVo;	
+	
 	private SortingDetail sortingDetail;
 	private String  id;
 	private String  orderCode;       //订单编号
-    private String    giftId;   //礼品ID
+    private String    orderId;   //礼品ID
     private String  userId;      //订单用户
     private int     amount;     //数量
     private double integral;   //积分
@@ -44,6 +39,7 @@ public class OrderListVo {
 	private Date    exchangeDate;////交易时间
 	private Date    recorddate;   //最后更新记录时间
 	private String    recorduser;   //最后更新记录的人
+	
 	public Date getExchangeDate() {
 		return exchangeDate;
 	}
@@ -68,8 +64,8 @@ public class OrderListVo {
 	public void setOrderCode(String orderCode) {
 		this.orderCode = orderCode;
 	}
-	public String getGiftId() {
-		return giftId;
+	public String getOrderId() {
+		return orderId;
 	}
 	public String getName() {
 		return name;
@@ -77,8 +73,8 @@ public class OrderListVo {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public void setGiftId(String giftId) {
-		this.giftId = giftId;
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
 	}
 	public String getUserId() {
 		return userId;
@@ -116,4 +112,6 @@ public class OrderListVo {
 	public void setRecorddate(Date recorddate) {
 		this.recorddate = recorddate;
 	}
+	
+	
 }

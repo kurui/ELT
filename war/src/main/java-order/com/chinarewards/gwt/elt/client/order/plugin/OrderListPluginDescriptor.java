@@ -53,12 +53,12 @@ public class OrderListPluginDescriptor implements PluginDescriptor {
 
 					@Override
 					public int getOrder() {
-						return MenuConstants.MENU_ORDER_GIFTLIST_SEARCH;
+						return MenuConstants.MENU_ORDER_ORDERLIST_SEARCH;
 					}
 
 					@Override
 					public String getMenuId() {
-						return OrderListConstants.MENU_GIFTLIST_SEARCH;
+						return OrderListConstants.MENU_ORDERLIST_SEARCH;
 					}
 
 					@Override
@@ -77,7 +77,7 @@ public class OrderListPluginDescriptor implements PluginDescriptor {
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(
-										OrderListConstants.EDITOR_GIFTLIST_SEARCH,
+										OrderListConstants.EDITOR_ORDERLIST_SEARCH,
 										"EDITOR_REWARDSLIST_SEARCH_DO_ID", null);
 					}
 
@@ -119,7 +119,7 @@ public class OrderListPluginDescriptor implements PluginDescriptor {
 
 	@Override
 	public String getPluginId() {
-		return OrderListConstants.PLUGIN_GIFTLIST;
+		return OrderListConstants.PLUGIN_ORDERLIST;
 	}
 
 	@Override

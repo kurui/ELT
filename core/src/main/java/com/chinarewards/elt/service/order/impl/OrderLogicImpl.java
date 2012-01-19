@@ -96,7 +96,7 @@ public class OrderLogicImpl implements OrderLogic{
 		OrderListVo orderVo = new OrderListVo();
 		GiftListVo giftVo = new GiftListVo();
 		orderVo.setAmount(order.getAmount());
-		orderVo.setGiftId(order.getGiftId());
+//		orderVo.setGiftId(order.getGiftId());
 		orderVo.setId(order.getId());
 		orderVo.setIntegral(order.getIntegral());
 		orderVo.setName(order.getName());
@@ -122,7 +122,7 @@ public class OrderLogicImpl implements OrderLogic{
         giftVo.setRecorddate(gift.getRecorddate());
         giftVo.setRecorduser(gift.getRecorduser());
         giftVo.setUpdatetime(gift.getUpdatetime());
-      	orderVo.setGiftvo(giftVo);
+//      	orderVo.setGiftVo(giftVo);
 		return orderVo;
 	}
 	@Override

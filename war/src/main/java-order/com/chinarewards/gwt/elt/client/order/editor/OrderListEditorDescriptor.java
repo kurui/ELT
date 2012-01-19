@@ -24,7 +24,7 @@ public class OrderListEditorDescriptor implements EditorDescriptor {
 
 	@Override
 	public String getEditorId() {
-		return OrderListConstants.EDITOR_GIFTLIST_SEARCH;
+		return OrderListConstants.EDITOR_ORDERLIST_SEARCH;
 	}
 
 	@Override

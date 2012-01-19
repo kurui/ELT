@@ -5,10 +5,11 @@ import com.chinarewards.gwt.elt.client.core.PluginManager;
 import com.chinarewards.gwt.elt.client.core.presenter.DockPresenter.DockDisplay;
 import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
 import com.chinarewards.gwt.elt.client.core.ui.event.MenuClickEvent;
+import com.chinarewards.gwt.elt.client.gift.plugin.GiftListConstants;
 import com.chinarewards.gwt.elt.client.login.event.LoginEvent;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
-import com.chinarewards.gwt.elt.client.order.plugin.OrderListConstants;
+//import com.chinarewards.gwt.elt.client.order.plugin.OrderListConstants;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemConstants;
 import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
@@ -115,7 +116,7 @@ public class DockPresenterImpl extends BasePresenter<DockDisplay> implements
 						menuProcessor.initrender(display.getMenu(), "Gift");
 						eventBus.fireEvent(new MenuClickEvent(
 								menuProcessor
-										.getMenuItem(OrderListConstants.MENU_GIFTLIST_SEARCH)));
+										.getMenuItem(GiftListConstants.MENU_GIFTLIST_SEARCH)));
 					}
 				}));
 
