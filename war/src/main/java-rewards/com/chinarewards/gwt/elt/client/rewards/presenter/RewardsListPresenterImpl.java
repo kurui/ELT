@@ -72,6 +72,7 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 	@Override
 	public void bind() {
 		breadCrumbs.unbind();
+		breadCrumbs.cleanChildName();
 		breadCrumbs.bind();
 		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
 		init();

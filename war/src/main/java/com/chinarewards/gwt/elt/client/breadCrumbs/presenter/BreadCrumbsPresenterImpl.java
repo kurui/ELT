@@ -58,4 +58,16 @@ public class BreadCrumbsPresenterImpl extends
 
 	}
 
+	@Override
+	public void setChildName(String name) {
+		breadCrumbsMenu.setChildName(name);
+		
+	}
+
+	@Override
+	public void cleanChildName() {
+		breadCrumbsMenu.cleanChildName();
+		
+	}
+
 }

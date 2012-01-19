@@ -9,7 +9,8 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 
 public interface BreadCrumbsPresenter extends	Presenter<BreadCrumbsPresenter.BreadCrumbsDisplay> {
 
-//	void addBreadCrumbsItem(String name,String url);
+	void setChildName(String name);
+	void cleanChildName();
 	public static interface BreadCrumbsDisplay extends Display {
 
 		void setTitleText(List<MenuBreadVo> menuBreadVo);

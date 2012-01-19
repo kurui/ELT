@@ -12,7 +12,9 @@ public interface BreadCrumbsMenu {
 	void cleanBreadCrumbsItem();
 	void cleanBreadCrumbsItemTop();
 	void cleanBreadCrumbsItemAll();
+	void cleanChildName();
 	List<MenuBreadVo> getBreadCrumbsItem();
 	List<MenuBreadVo> getHistoryBreadCrumbsItem();
+	void setChildName(String name);
 
 }
