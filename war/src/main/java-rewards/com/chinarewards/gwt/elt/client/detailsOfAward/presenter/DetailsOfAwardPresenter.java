@@ -54,5 +54,6 @@ public interface DetailsOfAwardPresenter extends
 		public void setWinners(List<WinnerParamVo> winners);
 		
 		public void setPageTitle(String titleName);
+		void setBreadCrumbs(Widget breadCrumbs);
 	}
 }
