@@ -71,9 +71,7 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 
 	@Override
 	public void bind() {
-		breadCrumbs.unbind();
-		breadCrumbs.cleanChildName();
-		breadCrumbs.bind();
+		breadCrumbs.loadListPage();
 		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
 		init();
 		registerHandler(display.getSearchBtnClickHandlers().addClickHandler(

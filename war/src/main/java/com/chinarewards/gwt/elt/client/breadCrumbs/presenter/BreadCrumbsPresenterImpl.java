@@ -70,4 +70,20 @@ public class BreadCrumbsPresenterImpl extends
 		
 	}
 
+	@Override
+	public void loadListPage() {
+		this.unbind();
+		this.cleanChildName();
+		this.bind();
+		
+	}
+
+	@Override
+	public void loadChildPage(String menuName) {
+		this.unbind();
+		this.setChildName(menuName);
+		this.bind();
+		
+	}
+
 }

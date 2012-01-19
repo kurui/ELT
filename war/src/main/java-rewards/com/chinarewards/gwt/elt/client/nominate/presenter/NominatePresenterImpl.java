@@ -56,9 +56,7 @@ public class NominatePresenterImpl extends
 
 	@Override
 	public void bind() {
-		breadCrumbs.unbind();
-		breadCrumbs.setChildName("提名");
-		breadCrumbs.bind();
+		breadCrumbs.loadChildPage("提名");
 
 		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
 		init();

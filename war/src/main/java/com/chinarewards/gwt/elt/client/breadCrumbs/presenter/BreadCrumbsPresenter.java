@@ -11,6 +11,14 @@ public interface BreadCrumbsPresenter extends	Presenter<BreadCrumbsPresenter.Bre
 
 	void setChildName(String name);
 	void cleanChildName();
+	/**
+	 * 加载List页面,调用
+	 */
+	void loadListPage();
+	/**
+	 * 加载其他子页面,调用,传入子菜单的名称
+	 */
+	void loadChildPage(String menuName);
 	public static interface BreadCrumbsDisplay extends Display {
 
 		void setTitleText(List<MenuBreadVo> menuBreadVo);
