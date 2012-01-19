@@ -10,6 +10,7 @@ public interface BreadCrumbsMenu {
 	void addBreadCrumbsItem(String name,String url);
 	void addBreadCrumbsItemTop(String name,String url);
 	void cleanBreadCrumbsItem();
+	void cleanBreadCrumbsItemTop();
 	void cleanBreadCrumbsItemAll();
 	List<MenuBreadVo> getBreadCrumbsItem();
 

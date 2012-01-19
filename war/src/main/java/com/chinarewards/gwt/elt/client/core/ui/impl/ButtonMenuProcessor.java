@@ -109,7 +109,7 @@ public class ButtonMenuProcessor implements MenuProcessor {
 					|| menuId.equals(GiftListConstants.MENU_GIFTLIST_SEARCH)
 					|| menuId.equals("sample")) {
 				button.setStyleName("menu-link menu-selected");
-
+				breadCrumbsMenu.cleanBreadCrumbsItemTop();
 				if (menuId.equals(RewardsItemConstants.MENU_REWARDSITEM_List))
 					breadCrumbsMenu.addBreadCrumbsItemTop("奖项",null);
 				else if (menuId.equals(RewardsListConstants.MENU_REWARDSLIST_SEARCH))
@@ -127,9 +127,9 @@ public class ButtonMenuProcessor implements MenuProcessor {
 			button.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent paramClickEvent) {
 					button.setStyleName("menu-link menu-selected");
-					eventBus.fireEvent(new MenuClickEvent(menuItem));
 					breadCrumbsMenu.cleanBreadCrumbsItem();
 					breadCrumbsMenu.addBreadCrumbsItem(menuItem.getTitle(),menuItem.getMenuId());
+					eventBus.fireEvent(new MenuClickEvent(menuItem));
 					for (int i = 0; i < grid.getWidgetCount(); i++) {
 						if (grid.getWidget(i) instanceof Anchor) {
 							if (!button.getText().equals(

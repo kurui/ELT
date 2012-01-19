@@ -39,6 +39,11 @@ public class BreadCrumbsMenuImpl implements BreadCrumbsMenu {
 		
 	}
 	@Override
+	public void cleanBreadCrumbsItemTop() {
+		toplist.clear();
+		
+	}
+	@Override
 	public void cleanBreadCrumbsItemAll() {
 		toplist.clear();
 		list.clear();

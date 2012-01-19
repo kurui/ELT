@@ -50,9 +50,6 @@ public class BreadCrumbsWidget extends Composite implements BreadCrumbsDisplay {
 				a.setText(menu.getMenuName());
 				a.setStyleName("breadcrumbsAnchor");
 				titleText.add(a);
-				HTML h=new HTML("-->");
-				h.setStyleName("breadcrumbsdiv");
-				titleText.add(h);
 			}
 			else
 			{
@@ -60,6 +57,9 @@ public class BreadCrumbsWidget extends Composite implements BreadCrumbsDisplay {
 				s.setText(menu.getMenuName());
 				s.setStyleName("breadcrumbsSpan");
 				titleText.add(s);
+			}
+			if(i!=menuBreadVo.size()-1)
+			{
 				HTML h=new HTML("-->");
 				h.setStyleName("breadcrumbsdiv");
 				titleText.add(h);
