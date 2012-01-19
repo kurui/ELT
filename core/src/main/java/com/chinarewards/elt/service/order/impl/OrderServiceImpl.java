@@ -48,9 +48,9 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public String deleteOrder(String id) {
-		
-		return OrderLogic.deleteOrder(id);
+	public String deleteOrder(UserContext context,String id) {
+		SysUser caller = userLogic.findUserById(context.getUserId());
+		return OrderLogic.deleteOrder(caller,id);
 	}
 
 	@Override
@@ -67,8 +67,8 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public String updateStatus(UserContext context,String id,OrderStatus status) {
-		
-		String orderId = OrderLogic.updateStatus(id,status);//更新状态
+		SysUser caller = userLogic.findUserById(context.getUserId());
+		String orderId = OrderLogic.updateStatus(caller,id,status);//更新状态
 		String returnValue="ok";
 		if(orderId!=null&&orderId.equals(id)){//如果更新执行状态成功并是当前的订单ID
 		  if(status.equals(OrderStatus.NUSHIPMENTS)){//没付积分改为没发货状态，扣积分和减少库存量

@@ -40,13 +40,17 @@ public class OrderLogicImpl implements OrderLogic{
 			order.setDeleted(0);//正常状态，没有删除为0
 			order.setUserId(caller.getId());
 			order.setName(caller.getStaff().getName());
+			order.setExchangeDate(currTime);
 			order.setRecorddate(currTime);
+			order.setRecorduser(caller.getUserName());
 			order.setStatus(OrderStatus.INITIAL);//初始时为没有付积分
 			order.setOrderCode(orderCode);//用当前时间作为订单编号
 			orderDao.save(order);
 		} else {
 			// Update
 			order = orderDao.findById(Order.class, order.getId());
+			order.setRecorddate(currTime);
+			order.setRecorduser(caller.getUserName());
 			orderDao.update(order);
 		}
 
@@ -61,9 +65,12 @@ public class OrderLogicImpl implements OrderLogic{
 	}
 
 	@Override
-	public String deleteOrder(String id) {
+	public String deleteOrder(SysUser caller,String id) {
+		Date currTime = DateUtil.getTime();
 		Order order = orderDao.findById(Order.class, id);
 		order.setDeleted(1);
+		order.setRecorddate(currTime);
+		order.setRecorduser(caller.getUserName());
 		order= orderDao.update(order);
 		return order.getId();
 	}
@@ -119,9 +126,12 @@ public class OrderLogicImpl implements OrderLogic{
 		return orderVo;
 	}
 	@Override
-	public String updateStatus(String id,OrderStatus status) {
+	public String updateStatus(SysUser caller,String id,OrderStatus status) {
+		Date currTime = DateUtil.getTime();
 		Order order = orderDao.findById(Order.class, id);
 		order.setStatus(status);
+		order.setRecorddate(currTime);
+		order.setRecorduser(caller.getUserName());
 		order= orderDao.update(order);
 		return order.getId();
 	}

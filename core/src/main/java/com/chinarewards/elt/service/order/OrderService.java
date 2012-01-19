@@ -35,7 +35,7 @@ public interface OrderService {
 	 * @param id
 	 * @return
 	 */
-	public String deleteOrder(String id);
+	public String deleteOrder(UserContext context,String id);
 	/**
 	 * 订单列表
 	 * @param context

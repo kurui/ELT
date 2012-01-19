@@ -28,7 +28,7 @@ public interface OrderLogic {
 	 * @param id
 	 * @return
 	 */
-	public String deleteOrder(String id);
+	public String deleteOrder(SysUser caller,String id);
 	/**
 	 * 订单列表
 	 * @param context
@@ -42,7 +42,7 @@ public interface OrderLogic {
 	 * @param id
 	 * @return
 	 */
-	public String updateStatus(String id,OrderStatus status);
+	public String updateStatus(SysUser caller,String id,OrderStatus status);
 }
 
 
