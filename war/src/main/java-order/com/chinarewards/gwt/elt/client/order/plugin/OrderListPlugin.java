@@ -11,8 +11,8 @@ import com.chinarewards.gwt.elt.client.order.plugin.OrderListPluginDescriptor;
  */
 public class OrderListPlugin extends AbstractPlugin {
 
-	public OrderListPlugin(OrderListPluginDescriptor OrderListPluginDescriptor) {
-		super(OrderListPluginDescriptor);
+	public OrderListPlugin(OrderListPluginDescriptor orderListPluginDescriptor) {
+		super(orderListPluginDescriptor);
 	}
 
 	@Override

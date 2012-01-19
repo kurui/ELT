@@ -30,7 +30,7 @@ public class OrderListPluginDescriptor implements PluginDescriptor {
 	public OrderListPluginDescriptor(
 			final OrderListEditorDescriptor orderListEditorDescriptor) {
 		this.orderListEditorDescriptor = orderListEditorDescriptor;
-		this.orderListPlugin = new OrderListPlugin(this);
+		orderListPlugin = new OrderListPlugin(this);
 
 		/**
 		 * Search user menu
