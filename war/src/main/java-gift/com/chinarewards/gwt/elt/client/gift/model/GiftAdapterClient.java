@@ -12,12 +12,12 @@ public class GiftAdapterClient {
 	 * */
 	public static GiftVo adapterDisplay(GiftDisplay display) {
 		GiftVo giftVo = new GiftVo();
-		//
 
 		// // 基本信息
 		giftVo.setName(display.getName().getValue().trim());
 		giftVo.setExplains(display.getExplains().getValue().trim());
-		giftVo.setType(display.getType());
+		int selectedIndex=display.getType().getSelectedIndex();
+		giftVo.setType(display.getType().getValue(selectedIndex));
 		// giftVo.setSource(display.getSource().getValue().trim());
 		giftVo.setSource("合作商家");
 		giftVo.setBusiness(display.getBusiness().getValue().trim());

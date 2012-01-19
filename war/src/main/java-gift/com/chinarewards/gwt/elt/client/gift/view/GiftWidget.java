@@ -117,14 +117,8 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	}
 
 	@Override
-	public String getType() {
-		String typeValue = "";
-		if (type != null) {
-			if (type.getItemCount() > 0) {
-				typeValue = type.getValue(0);
-			}
-		}
-		return typeValue;
+	public ListBox getType() {
+		return type;
 	}
 
 	@Override
@@ -284,5 +278,7 @@ public class GiftWidget extends Composite implements GiftDisplay {
 			type.setValue(0, selectedValue);
 		}
 	}
+
+
 
 }

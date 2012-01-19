@@ -11,6 +11,7 @@ import com.google.gwt.user.client.ui.FileUpload;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.ListBox;
 
 public interface GiftPresenter extends Presenter<GiftPresenter.GiftDisplay> {
 
@@ -20,7 +21,7 @@ public interface GiftPresenter extends Presenter<GiftPresenter.GiftDisplay> {
 
 		public HasValue<String> getExplains();
 
-		public String getType();
+		public ListBox getType();
 
 		public HasValue<String> getSource();
 

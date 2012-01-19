@@ -16,7 +16,7 @@
 				<p class="{newitem.breadcrumb-left}">
 					<a href="#">兑换管理</a>
 					>
-					<span>新建礼品</span>
+					<span>编辑礼品</span>
 				</p>
 				<a href="#" class="{newitem.breadcrumb-right}">返回上一页</a>
 			</div>

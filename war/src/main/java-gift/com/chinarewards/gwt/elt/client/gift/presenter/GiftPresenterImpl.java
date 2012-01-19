@@ -77,6 +77,7 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 							return;
 						}
 
+					
 						GiftVo giftVo = GiftAdapterClient.adapterDisplay(display);
 						
 						if (GiftConstants.ACTION_GIFT_ADD.equals(thisAction)) {
