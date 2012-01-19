@@ -56,7 +56,8 @@ public class AwardRewardWidget extends Composite implements AwardRewardDisplay {
 	// 选人模块
 	@UiField
 	Panel staffPanel;
-	
+	@UiField
+	Panel breadCrumbs;
 	
 	private static AwardRewardWidgetUiBinder uiBinder = GWT
 			.create(AwardRewardWidgetUiBinder.class);
@@ -172,5 +173,10 @@ public class AwardRewardWidget extends Composite implements AwardRewardDisplay {
 	public void initStaffPanel(Widget w) {
 		staffPanel.add(w);
 	}
-
+	@Override
+	public void setBreadCrumbs(Widget breadCrumbs) {
+		this.breadCrumbs.clear();
+		this.breadCrumbs.add(breadCrumbs);
+		
+	}
 }
