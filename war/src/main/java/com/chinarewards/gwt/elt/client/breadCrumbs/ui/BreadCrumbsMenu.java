@@ -13,5 +13,6 @@ public interface BreadCrumbsMenu {
 	void cleanBreadCrumbsItemTop();
 	void cleanBreadCrumbsItemAll();
 	List<MenuBreadVo> getBreadCrumbsItem();
+	List<MenuBreadVo> getHistoryBreadCrumbsItem();
 
 }
