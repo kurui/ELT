@@ -71,6 +71,9 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 
 	@Override
 	public void bind() {
+		breadCrumbs.unbind();
+		breadCrumbs.bind();
+		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
 		init();
 		registerHandler(display.getSearchBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
@@ -81,9 +84,7 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 				}));
 	}
 
-	private void init() {
-		breadCrumbs.bind();
-		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
+	private void init() {	
 		buildTable();
 		doSearch();
 	}

@@ -14,7 +14,7 @@ public class BreadCrumbsModule extends AbstractGinModule {
 
 	@Override
 	protected void configure() {
-		bind(BreadCrumbsPresenter.class).to(BreadCrumbsPresenterImpl.class);
+		bind(BreadCrumbsPresenter.class).to(BreadCrumbsPresenterImpl.class).in(Singleton.class);
 		bind(BreadCrumbsDisplay.class).to(BreadCrumbsWidget.class);
 		
 		

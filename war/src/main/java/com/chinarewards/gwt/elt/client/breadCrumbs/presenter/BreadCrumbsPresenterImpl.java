@@ -5,6 +5,7 @@ import java.util.List;
 import com.chinarewards.gwt.elt.client.breadCrumbs.model.MenuBreadVo;
 import com.chinarewards.gwt.elt.client.breadCrumbs.ui.BreadCrumbsMenu;
 import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
+import com.chinarewards.gwt.elt.client.core.ui.event.MenuClickEvent;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.win.Win;
@@ -18,6 +19,7 @@ public class BreadCrumbsPresenterImpl extends
 	final MenuProcessor menuProcessor;
 	final BreadCrumbsMenu breadCrumbsMenu;
 	final Win win;
+	boolean isHistory=false;
 
 	@Inject
 	public BreadCrumbsPresenterImpl(EventBus eventBus,
@@ -37,19 +39,21 @@ public class BreadCrumbsPresenterImpl extends
 						List<MenuBreadVo> listvo=breadCrumbsMenu.getHistoryBreadCrumbsItem();
 						if(listvo!=null)
 						{
+							isHistory=true;
 							display.setTitleText(listvo);
+							eventBus.fireEvent(new MenuClickEvent(menuProcessor.getMenuItem(listvo.get(listvo.size()-1).getMenuUrl())));
 						}
 						else
 						{
 							win.alert("无上一页");
 						}
-//						eventBus.fireEvent(new MenuClickEvent(
-//								menuProcessor
-//										.getMenuItem(RewardsListConstants.MENU_REWARDSLIST_SEARCH)));
+					
 					}
 				}));
-
+		if(isHistory==false)
 		 display.setTitleText(breadCrumbsMenu.getBreadCrumbsItem());
+		else
+		isHistory=false;
 
 	}
 

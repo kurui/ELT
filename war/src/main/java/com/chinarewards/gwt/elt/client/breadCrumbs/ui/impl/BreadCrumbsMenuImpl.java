@@ -30,7 +30,10 @@ public class BreadCrumbsMenuImpl implements BreadCrumbsMenu {
 	}
 	@Override
 	public List<MenuBreadVo> getBreadCrumbsItem() {
-		list.addAll(0, toplist);
+		if(list.size()<=1)
+		{
+			list.addAll(0, toplist);
+		}
 		List<MenuBreadVo> newList=new ArrayList<MenuBreadVo>();
 		for (MenuBreadVo vo:list) {
 			newList.add(vo);
@@ -54,6 +57,7 @@ public class BreadCrumbsMenuImpl implements BreadCrumbsMenu {
 	public void cleanBreadCrumbsItemAll() {
 		toplist.clear();
 		list.clear();
+		allList.clear();
 		
 	}
 	@Override
