@@ -13,7 +13,6 @@ import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
 import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria;
 import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria.GiftStatus;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftConstants;
-import com.chinarewards.gwt.elt.client.gift.presenter.GiftListPresenter.GiftListDisplay;
 import com.chinarewards.gwt.elt.client.gift.request.DeleteGiftRequest;
 import com.chinarewards.gwt.elt.client.gift.request.DeleteGiftResponse;
 import com.chinarewards.gwt.elt.client.gift.request.UpdateGiftStatusRequest;
@@ -21,6 +20,8 @@ import com.chinarewards.gwt.elt.client.gift.request.UpdateGiftStatusResponse;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
+import com.chinarewards.gwt.elt.client.gift.presenter.GiftListPresenter;
+import com.chinarewards.gwt.elt.client.gift.presenter.GiftListPresenter.GiftListDisplay;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager;
@@ -205,7 +206,27 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 						});
 					}
 				});
-
+		
+		cellTable.addColumn("查看", new HyperLinkCell(),
+				new GetValue<GiftClient, String>() {
+					@Override
+					public String getValue(GiftClient arg0) {
+						return "查看详细";
+					}
+				}, new FieldUpdater<GiftClient, String>() {
+					@Override
+					public void update(int index, GiftClient giftClient,
+							String value) {
+						giftClient.setThisAction(GiftConstants.ACTION_GIFT_VIEW);
+						Platform.getInstance()
+								.getEditorRegistry()
+								.openEditor(
+										GiftConstants.EDITOR_GIFT_VIEW,
+										GiftConstants.EDITOR_GIFT_VIEW
+												+ giftClient.getId(), giftClient);
+					}
+				});
+		
 		cellTable.addColumn("修改", new HyperLinkCell(),
 				new GetValue<GiftClient, String>() {
 					@Override
@@ -226,25 +247,7 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 					}
 				});
 
-		cellTable.addColumn("查看", new HyperLinkCell(),
-				new GetValue<GiftClient, String>() {
-					@Override
-					public String getValue(GiftClient arg0) {
-						return "查看详细";
-					}
-				}, new FieldUpdater<GiftClient, String>() {
-					@Override
-					public void update(int index, GiftClient giftClient,
-							String value) {
-						giftClient.setThisAction(GiftConstants.ACTION_GIFT_VIEW);
-						Platform.getInstance()
-								.getEditorRegistry()
-								.openEditor(
-										GiftConstants.EDITOR_GIFT_VIEW,
-										GiftConstants.EDITOR_GIFT_VIEW
-												+ giftClient.getId(), giftClient);
-					}
-				});
+		
 
 		cellTable.addColumn("操作", new HyperLinkCell(),
 				new GetValue<GiftClient, String>() {
@@ -261,6 +264,26 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 						}
 					}
 
+				});
+		
+		cellTable.addColumn("购买", new HyperLinkCell(),
+				new GetValue<GiftClient, String>() {
+					@Override
+					public String getValue(GiftClient arg0) {
+						return "购买";
+					}
+				}, new FieldUpdater<GiftClient, String>() {
+					@Override
+					public void update(int index, GiftClient giftClient,
+							String value) {
+						giftClient.setThisAction(GiftConstants.ACTION_GIFT_VIEW);
+						Platform.getInstance()
+								.getEditorRegistry()
+								.openEditor(
+										GiftConstants.EDITOR_GIFT_VIEW,
+										GiftConstants.EDITOR_GIFT_VIEW
+												+ giftClient.getId(), giftClient);
+					}
 				});
 	}
 

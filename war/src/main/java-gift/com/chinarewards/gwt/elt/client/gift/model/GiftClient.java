@@ -2,6 +2,7 @@ package com.chinarewards.gwt.elt.client.gift.model;
 
 import java.io.Serializable;
 
+import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
 import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria.GiftStatus;
 
 public class GiftClient implements Serializable, Comparable<GiftClient> {

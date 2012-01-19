@@ -4,6 +4,7 @@ import java.util.Date;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
+import com.chinarewards.gwt.elt.client.gift.view.GiftWidget;
 import com.chinarewards.gwt.elt.client.gift.model.GiftVo;
 import com.chinarewards.gwt.elt.client.gift.presenter.GiftPresenter.GiftDisplay;
 import com.chinarewards.gwt.elt.client.support.SessionManager;

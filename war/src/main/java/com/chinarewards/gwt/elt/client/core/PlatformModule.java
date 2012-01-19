@@ -12,10 +12,10 @@ import com.chinarewards.gwt.elt.client.core.ui.impl.ButtonMenuProcessor;
 import com.chinarewards.gwt.elt.client.core.ui.impl.SimpleEditorRegistry;
 import com.chinarewards.gwt.elt.client.core.ui.impl.SimpleSiteManager;
 import com.chinarewards.gwt.elt.client.detailsOfAward.plugin.DetailsOfAwardPluginDescriptor;
-import com.chinarewards.gwt.elt.client.gift.plugin.GiftListPluginDescriptor;
-import com.chinarewards.gwt.elt.client.gift.plugin.GiftPluginDescriptor;
-import com.chinarewards.gwt.elt.client.gift.plugin.GiftViewPluginDescriptor;
 import com.chinarewards.gwt.elt.client.nominate.plugin.NominatePluginDescriptor;
+import com.chinarewards.gwt.elt.client.order.plugin.OrderListPluginDescriptor;
+import com.chinarewards.gwt.elt.client.order.plugin.OrderPluginDescriptor;
+import com.chinarewards.gwt.elt.client.order.plugin.OrderViewPluginDescriptor;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemPluginDescriptor;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemStoreListPluginDescriptor;
@@ -70,8 +70,8 @@ public class PlatformModule extends AbstractGinModule {
 			RewardsListPluginDescriptor rewardsList,
 			AwardRewardPluginDescriptor awardreward,
 			DetailsOfAwardPluginDescriptor detailsAward,
-			GiftListPluginDescriptor giftList, GiftPluginDescriptor gift,
-			GiftViewPluginDescriptor giftView) {
+			OrderListPluginDescriptor giftList, OrderPluginDescriptor gift,
+			OrderViewPluginDescriptor giftView) {
 
 		if (pluginSet == null) {
 			pluginSet = new InMemoryPluginSet();

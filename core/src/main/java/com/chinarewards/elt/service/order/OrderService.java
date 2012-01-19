@@ -3,7 +3,7 @@ package com.chinarewards.elt.service.order;
 import com.chinarewards.elt.domain.order.Order;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.order.search.OrderStatus;
-import com.chinarewards.elt.model.order.search.OrderVo;
+import com.chinarewards.elt.model.order.search.OrderListVo;
 import com.chinarewards.elt.model.user.UserContext;
 
 /**
@@ -35,14 +35,14 @@ public interface OrderService {
 	 * @param id
 	 * @return
 	 */
-	public String deleteOrder(String id);
+	public String deleteOrder(UserContext context,String id);
 	/**
 	 * 订单列表
 	 * @param context
 	 * @param Order
 	 * @return
 	 */
-	public PageStore<OrderVo> OrderList(UserContext context,OrderVo OrderVo);
+	public PageStore<OrderListVo> OrderList(UserContext context,OrderListVo OrderVo);
 
 	/**
 	 * 执行状态改变

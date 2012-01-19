@@ -8,7 +8,7 @@ import com.chinarewards.elt.domain.order.Order;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.order.search.OrderStatus;
-import com.chinarewards.elt.model.order.search.OrderVo;
+import com.chinarewards.elt.model.order.search.OrderListVo;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.service.gift.GiftLogic;
@@ -48,13 +48,13 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public String deleteOrder(String id) {
-		
-		return OrderLogic.deleteOrder(id);
+	public String deleteOrder(UserContext context,String id) {
+		SysUser caller = userLogic.findUserById(context.getUserId());
+		return OrderLogic.deleteOrder(caller,id);
 	}
 
 	@Override
-	public PageStore<OrderVo> OrderList(UserContext context, OrderVo OrderVo) {
+	public PageStore<OrderListVo> OrderList(UserContext context, OrderListVo OrderVo) {
 		SysUser caller = userLogic.findUserById(context.getUserId());
 		List<UserRole> roles =Arrays.asList(context.getUserRoles());
 		//如果是HR或礼品管理员，可以查看所有订单，
@@ -67,8 +67,8 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public String updateStatus(UserContext context,String id,OrderStatus status) {
-		
-		String orderId = OrderLogic.updateStatus(id,status);//更新状态
+		SysUser caller = userLogic.findUserById(context.getUserId());
+		String orderId = OrderLogic.updateStatus(caller,id,status);//更新状态
 		String returnValue="ok";
 		if(orderId!=null&&orderId.equals(id)){//如果更新执行状态成功并是当前的订单ID
 		  if(status.equals(OrderStatus.NUSHIPMENTS)){//没付积分改为没发货状态，扣积分和减少库存量

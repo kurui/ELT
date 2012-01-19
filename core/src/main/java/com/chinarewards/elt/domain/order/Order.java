@@ -39,9 +39,27 @@ public class Order implements Serializable {
      @Enumerated(EnumType.STRING)
 	private OrderStatus status;//订单执行状态
     private int deleted;   //删除状态(0 存在,1已删删除)
-    private Date    recorddate;   //交易时间
+    private Date    exchangeDate;////交易时间
+    private Date    recorddate;   //最后更新记录时间
+    private String    recorduser;   //最后更新记录的人
    
-    public String getId() {
+    public Date getExchangeDate() {
+		return exchangeDate;
+	}
+
+	public void setExchangeDate(Date exchangeDate) {
+		this.exchangeDate = exchangeDate;
+	}
+
+	public String getRecorduser() {
+		return recorduser;
+	}
+
+	public void setRecorduser(String recorduser) {
+		this.recorduser = recorduser;
+	}
+
+	public String getId() {
 		return id;
 	}
 

@@ -6,6 +6,7 @@ package com.chinarewards.gwt.elt.client.gift.request;
 import net.customware.gwt.dispatch.shared.Action;
 
 import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria.GiftStatus;
+import com.chinarewards.gwt.elt.client.gift.request.UpdateGiftStatusResponse;
 
 /**
  * @author nicho

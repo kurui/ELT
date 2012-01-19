@@ -2,6 +2,7 @@ package com.chinarewards.gwt.elt.client.gift.view;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
+import com.chinarewards.gwt.elt.client.gift.view.GiftViewWidget;
 import com.chinarewards.gwt.elt.client.gift.model.GiftVo;
 import com.chinarewards.gwt.elt.client.gift.presenter.GiftViewPresenter.GiftViewDisplay;
 import com.chinarewards.gwt.elt.client.support.SessionManager;

@@ -4,7 +4,7 @@ import com.chinarewards.elt.domain.order.Order;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.order.search.OrderStatus;
-import com.chinarewards.elt.model.order.search.OrderVo;
+import com.chinarewards.elt.model.order.search.OrderListVo;
 
 public interface OrderLogic {
 	/**
@@ -28,21 +28,21 @@ public interface OrderLogic {
 	 * @param id
 	 * @return
 	 */
-	public String deleteOrder(String id);
+	public String deleteOrder(SysUser caller,String id);
 	/**
 	 * 订单列表
 	 * @param context
 	 * @param Order
 	 * @return
 	 */
-	public PageStore<OrderVo> OrderList(SysUser caller,OrderVo OrderVo);
+	public PageStore<OrderListVo> OrderList(SysUser caller,OrderListVo OrderVo);
 
 	/**
 	 * 执行状态
 	 * @param id
 	 * @return
 	 */
-	public String updateStatus(String id,OrderStatus status);
+	public String updateStatus(SysUser caller,String id,OrderStatus status);
 }
 
 

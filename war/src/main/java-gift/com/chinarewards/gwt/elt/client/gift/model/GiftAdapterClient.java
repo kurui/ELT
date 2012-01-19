@@ -1,6 +1,7 @@
 package com.chinarewards.gwt.elt.client.gift.model;
 
 import com.chinarewards.gwt.elt.client.gift.presenter.GiftPresenter.GiftDisplay;
+import com.chinarewards.gwt.elt.client.gift.model.GiftVo;
 import com.chinarewards.gwt.elt.util.StringUtil;
 /**
  * client convert util
