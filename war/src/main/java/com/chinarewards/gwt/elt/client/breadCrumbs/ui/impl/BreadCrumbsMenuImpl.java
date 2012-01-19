@@ -70,7 +70,7 @@ public class BreadCrumbsMenuImpl implements BreadCrumbsMenu {
 		}
 		if(allList.size()>1)
 		{
-			allList.remove(allList.size()-2);
+			allList.remove(allList.size()-1);
 		}
 		return volist;
 	}

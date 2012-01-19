@@ -34,7 +34,7 @@ public class ButtonMenuProcessor implements MenuProcessor {
 	final BreadCrumbsMenu breadCrumbsMenu;
 	List<MenuItem> items = new LinkedList<MenuItem>();
 	MenuNode root = new MenuNode(null);
-
+	VerticalPanel grid;
 	@Inject
 	public ButtonMenuProcessor(EventBus eventBus,
 			BreadCrumbsMenu breadCrumbsMenu) {
@@ -83,7 +83,7 @@ public class ButtonMenuProcessor implements MenuProcessor {
 	 */
 	private Widget createButtonMenuWidget(String name) {
 		breadCrumbsMenu.cleanBreadCrumbsItemAll();
-		final VerticalPanel grid = new VerticalPanel();
+		grid = new VerticalPanel();
 		grid.setWidth("100%");
 		// int i = 0;
 		for (MenuNode node : root.getChildren()) {
@@ -190,6 +190,22 @@ public class ButtonMenuProcessor implements MenuProcessor {
 		container.clear();
 		container.add(menuWrapper);
 
+	}
+
+	@Override
+	public void changItemColor(String menuName) {
+		for (int i = 0; i < grid.getWidgetCount(); i++) {
+			if (grid.getWidget(i) instanceof Anchor) {
+				if (!menuName.equals(((Anchor) grid.getWidget(i)).getText())) {
+					grid.getWidget(i).setStyleName("menu-link");
+				}
+				else
+				{
+					grid.getWidget(i).setStyleName("menu-link menu-selected");
+				}
+			}
+		}
+		
 	}
 
 }
