@@ -104,4 +104,9 @@ public class OrderServiceImpl implements OrderService {
 		}
     	return returnValue;
     }
+	@Override
+	public String updateStatus(String orderId, OrderStatus updateStatus) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

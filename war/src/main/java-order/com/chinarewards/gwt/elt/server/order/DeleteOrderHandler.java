@@ -5,6 +5,7 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 
 import org.slf4j.Logger;
 
+import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.order.OrderService;
 import com.chinarewards.gwt.elt.client.order.request.DeleteOrderRequest;
 import com.chinarewards.gwt.elt.client.order.request.DeleteOrderResponse;
@@ -13,8 +14,7 @@ import com.chinarewards.gwt.elt.server.logger.InjectLogger;
 import com.google.inject.Inject;
 
 /**
- * @author nicho
- * @since 2012年1月13日 10:02:37
+ * @author yanrui
  */
 public class DeleteOrderHandler extends
 		BaseActionHandler<DeleteOrderRequest, DeleteOrderResponse> {
@@ -33,14 +33,12 @@ public class DeleteOrderHandler extends
 	@Override
 	public DeleteOrderResponse execute(DeleteOrderRequest request,
 			ExecutionContext context) throws DispatchException {
+		UserContext uc = new UserContext();
+		uc.setUserId(request.getUserId());
 
-//wating.....最后修改人,最后修改时间
-//		String totle = orderService.deleteOrder(request.getOrderId());
+		String totle = orderService.deleteOrder(uc,request.getOrderId());		
 		
-		
-//		return new DeleteOrderResponse(totle);
-		
-		return null;
+		return new DeleteOrderResponse(totle);
 	}
 
 	

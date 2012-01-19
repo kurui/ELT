@@ -50,4 +50,6 @@ public interface OrderService {
 	 * @return  如果返回值为ok是成功，如果是fail是失败
 	 */
 	public String updateStatus(UserContext context,String orderId,OrderStatus status);
+
+	public String updateStatus(String orderId,OrderStatus updateStatus);
 }

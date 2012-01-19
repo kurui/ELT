@@ -6,6 +6,8 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 import org.slf4j.Logger;
 
 import com.chinarewards.elt.model.common.PageStore;
+import com.chinarewards.elt.model.common.PaginationDetail;
+import com.chinarewards.elt.model.common.SortingDetail;
 import com.chinarewards.elt.model.order.search.OrderListVo;
 import com.chinarewards.elt.model.order.search.OrderStatus;
 import com.chinarewards.elt.model.user.UserContext;
@@ -27,14 +29,14 @@ public class SearchOrderHandler extends
 
 	@InjectLogger
 	Logger logger;
-//
-//	OrderService orderService;
-//
-//	@Inject
-//	public SearchOrderHandler(OrderService orderService) {
-//		this.orderService = orderService;
-//
-//	}
+
+	OrderService orderService;
+
+	@Inject
+	public SearchOrderHandler(OrderService orderService) {
+		this.orderService = orderService;
+
+	}
 
 	@Override
 	public SearchOrderResponse execute(SearchOrderRequest request,
@@ -51,7 +53,7 @@ public class SearchOrderHandler extends
 		uc.setUserRoles(UserRoleTool.adaptToRole(request.getUserRoles()));
 		uc.setUserId(request.getUserId());
 
-//		orderPage = orderService.OrderList(uc, criteria);
+		orderPage = orderService.OrderList(uc, criteria);
 		resp.setTotal(orderPage.getResultCount());
 		resp.setResult(OrderAdapter.adapter(orderPage.getResultList()));
 
@@ -66,20 +68,20 @@ public class SearchOrderHandler extends
 		if (criteria.getStatus() != null) {
 			vo.setStatus(OrderStatus.valueOf(criteria.getStatus().toString()));
 		}
-//		if (criteria.getPagination() != null) {
-//			PaginationDetail detail = new PaginationDetail();
-//			detail.setLimit(criteria.getPagination().getLimit());
-//			detail.setStart(criteria.getPagination().getStart());
-//
-//			vo.setPaginationDetail(detail);
-//		}
-//
-//		if (criteria.getSorting() != null) {
-//			SortingDetail sortingDetail = new SortingDetail();
-//			sortingDetail.setSort(criteria.getSorting().getSort());
-//			sortingDetail.setDirection(criteria.getSorting().getDirection());
-//			vo.setSortingDetail(sortingDetail);
-//		}
+		if (criteria.getPaginationDetail() != null) {
+			PaginationDetail detail = new PaginationDetail();
+			detail.setLimit(criteria.getPaginationDetail().getLimit());
+			detail.setStart(criteria.getPaginationDetail().getStart());
+
+			vo.setPaginationDetail(detail);
+		}
+
+		if (criteria.getSortingDetail() != null) {
+			SortingDetail sortingDetail = new SortingDetail();
+			sortingDetail.setSort(criteria.getSortingDetail().getSort());
+			sortingDetail.setDirection(criteria.getSortingDetail().getDirection());
+			vo.setSortingDetail(sortingDetail);
+		}
 		return vo;
 	}
 

@@ -100,7 +100,6 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 	}
 
 	private void buildTable() {
-		// create a CellTable
 		cellTable = new ListCellTable<OrderVo>();
 
 		initTableColumns();

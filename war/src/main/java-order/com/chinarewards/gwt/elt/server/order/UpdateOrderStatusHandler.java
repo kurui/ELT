@@ -2,8 +2,9 @@ package com.chinarewards.gwt.elt.server.order;
 
 import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.DispatchException;
-
 import org.slf4j.Logger;
+
+import com.chinarewards.elt.model.order.search.OrderStatus;
 import com.chinarewards.elt.service.order.OrderService;
 import com.chinarewards.gwt.elt.client.order.request.UpdateOrderStatusRequest;
 import com.chinarewards.gwt.elt.client.order.request.UpdateOrderStatusResponse;
@@ -32,16 +33,15 @@ public class UpdateOrderStatusHandler extends
 	public UpdateOrderStatusResponse execute(UpdateOrderStatusRequest request,
 			ExecutionContext context) throws DispatchException {
 
-		// wating.....最后修改人,最后修改时间
-		// OrderStatus updateStatus=null;
-		// if(OrderStatus.valueOf(request.getStatus().toString())==OrderStatus.SHELF)
-		// updateStatus=OrderStatus.SHELVES;
-		// else
-		// if(OrderStatus.valueOf(request.getStatus().toString())==OrderStatus.SHELVES)
-		// updateStatus=OrderStatus.SHELF;
-		// String totle =
-		// orderService.updateStatus(request.getOrderId(),updateStatus);
-		String totle = "";
+
+		 OrderStatus updateStatus=null;
+		 if(OrderStatus.valueOf(request.getStatus().toString())==OrderStatus.INITIAL)
+		 updateStatus=OrderStatus.NUSHIPMENTS;
+		 else
+		 if(OrderStatus.valueOf(request.getStatus().toString())==OrderStatus.NUSHIPMENTS)
+		 updateStatus=OrderStatus.SHIPMENTS;
+		 String totle = orderService.updateStatus(request.getOrderId(),updateStatus);
+
 		return new UpdateOrderStatusResponse(totle);
 	}
 
