@@ -2,7 +2,6 @@ package com.chinarewards.gwt.elt.client.order.presenter;
 
 import java.util.Date;
 
-import com.chinarewards.gwt.elt.client.order.presenter.OrderPresenter;
 import com.chinarewards.gwt.elt.client.mvp.Display;
 import com.chinarewards.gwt.elt.client.mvp.Presenter;
 import com.chinarewards.gwt.elt.client.order.model.OrderVo;
@@ -11,7 +10,6 @@ import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
 import com.google.gwt.user.client.ui.FileUpload;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HasValue;
-import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.ListBox;
 
 public interface OrderPresenter extends Presenter<OrderPresenter.OrderDisplay> {

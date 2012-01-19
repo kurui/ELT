@@ -8,13 +8,9 @@ import java.util.Set;
 
 import com.chinarewards.gwt.elt.client.core.Extension;
 import com.chinarewards.gwt.elt.client.core.ExtensionPoint;
-import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.Plugin;
 import com.chinarewards.gwt.elt.client.core.PluginDescriptor;
 import com.chinarewards.gwt.elt.client.core.ui.MenuItem;
-import com.chinarewards.gwt.elt.client.order.plugin.OrderListConstants;
-import com.chinarewards.gwt.elt.client.order.plugin.OrderListPlugin;
-import com.chinarewards.gwt.elt.client.order.plugin.OrderListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.order.editor.OrderListEditorDescriptor;
 import com.chinarewards.gwt.elt.client.plugin.MenuConstants;
 import com.chinarewards.gwt.elt.client.plugin.PluginConstants;
@@ -22,20 +18,19 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.inject.Inject;
 
 /**
- * @author nicho
- * @since
+ * @author yanrui
  */
 public class OrderListPluginDescriptor implements PluginDescriptor {
 
 	final static Set<Extension> ext = new HashSet<Extension>();
-	final OrderListPlugin OrderListPlugin;
+	final OrderListPlugin orderListPlugin;
 	final OrderListEditorDescriptor orderListEditorDescriptor;
 
 	@Inject
 	public OrderListPluginDescriptor(
 			final OrderListEditorDescriptor orderListEditorDescriptor) {
 		this.orderListEditorDescriptor = orderListEditorDescriptor;
-		OrderListPlugin = new OrderListPlugin(this);
+		this.orderListPlugin = new OrderListPlugin(this);
 
 		/**
 		 * Search user menu
@@ -68,17 +63,17 @@ public class OrderListPluginDescriptor implements PluginDescriptor {
 
 					@Override
 					public String getTitle() {
-						return "礼品列表";
+						return "订单列表";
 					}
 
 					@Override
 					public void execute() {
 
-						Platform.getInstance()
-								.getEditorRegistry()
-								.openEditor(
-										OrderListConstants.EDITOR_ORDERLIST_SEARCH,
-										"EDITOR_REWARDSLIST_SEARCH_DO_ID", null);
+//						Platform.getInstance()
+//								.getEditorRegistry()
+//								.openEditor(
+//										OrderListConstants.EDITOR_ORDERLIST_SEARCH,
+//										"EDITOR_ORDERLIST_SEARCH_DO_ID", null);
 					}
 
 					@Override
@@ -124,7 +119,7 @@ public class OrderListPluginDescriptor implements PluginDescriptor {
 
 	@Override
 	public Plugin getInstance() {
-		return OrderListPlugin;
+		return orderListPlugin;
 	}
 
 	@Override

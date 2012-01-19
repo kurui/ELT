@@ -10,8 +10,7 @@ import com.google.gwt.inject.client.AbstractGinModule;
 import com.google.inject.Singleton;
 
 /**
- * @author NIcho
- * @since 2011年12月9日 
+ * @author yanrui
  */
 public class OrderListPluginModule extends AbstractGinModule {
 

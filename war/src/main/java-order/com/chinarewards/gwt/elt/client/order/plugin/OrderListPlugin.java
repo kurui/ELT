@@ -7,8 +7,7 @@ import com.chinarewards.gwt.elt.client.core.AbstractPlugin;
 import com.chinarewards.gwt.elt.client.order.plugin.OrderListPluginDescriptor;
 
 /**
- * @author nicho
- * @since 2012年1月9日 17:21:35
+ * @author yanrui
  */
 public class OrderListPlugin extends AbstractPlugin {
 

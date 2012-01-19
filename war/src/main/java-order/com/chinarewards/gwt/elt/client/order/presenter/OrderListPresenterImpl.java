@@ -9,13 +9,12 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.dataprovider.OrderListViewAdapter;
-import com.chinarewards.gwt.elt.client.order.presenter.OrderListPresenter;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
-import com.chinarewards.gwt.elt.client.order.model.OrderVo;
 import com.chinarewards.gwt.elt.client.order.model.OrderSeacherVo;
 import com.chinarewards.gwt.elt.client.order.model.OrderSeacherVo.OrderStatus;
+import com.chinarewards.gwt.elt.client.order.model.OrderVo;
 import com.chinarewards.gwt.elt.client.order.plugin.OrderConstants;
 import com.chinarewards.gwt.elt.client.order.presenter.OrderListPresenter.OrderListDisplay;
 import com.chinarewards.gwt.elt.client.order.request.DeleteOrderRequest;
@@ -30,12 +29,9 @@ import com.chinarewards.gwt.elt.client.widget.GetValue;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.widget.Sorting;
 import com.chinarewards.gwt.elt.client.win.Win;
-import com.chinarewards.gwt.elt.client.win.confirm.ConfirmHandler;
 import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
@@ -66,28 +62,28 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 
 	@Override
 	public void bind() {
-		init();
-		registerHandler(display.getSearchBtnClickHandlers().addClickHandler(
-				new ClickHandler() {
-					public void onClick(ClickEvent paramClickEvent) {
-						doSearch();
-					}
-				}));
-		registerHandler(display.getAddBtnClickHandlers().addClickHandler(
-				new ClickHandler() {
-					public void onClick(ClickEvent paramClickEvent) {
-						Platform.getInstance()
-								.getEditorRegistry()
-								.openEditor(OrderConstants.EDITOR_ORDER_EDIT,
-										OrderConstants.EDITOR_ORDER_EDIT, null);
-					}
-				}));
-		registerHandler(display.getimportingBtnClickHandlers().addClickHandler(
-				new ClickHandler() {
-					public void onClick(ClickEvent paramClickEvent) {
-						win.alert("导入礼品...待实现~");
-					}
-				}));
+//		init();
+//		registerHandler(display.getSearchBtnClickHandlers().addClickHandler(
+//				new ClickHandler() {
+//					public void onClick(ClickEvent paramClickEvent) {
+//						doSearch();
+//					}
+//				}));
+//		registerHandler(display.getAddBtnClickHandlers().addClickHandler(
+//				new ClickHandler() {
+//					public void onClick(ClickEvent paramClickEvent) {
+//						Platform.getInstance()
+//								.getEditorRegistry()
+//								.openEditor(OrderConstants.EDITOR_ORDER_EDIT,
+//										OrderConstants.EDITOR_ORDER_EDIT, null);
+//					}
+//				}));
+//		registerHandler(display.getimportingBtnClickHandlers().addClickHandler(
+//				new ClickHandler() {
+//					public void onClick(ClickEvent paramClickEvent) {
+//						win.alert("导入礼品...待实现~");
+//					}
+//				}));
 	}
 
 	private void init() {
@@ -176,7 +172,7 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 					@Override
 					public void update(int index, final OrderVo o,
 							String value) {
-						String msgStr = "";
+//						String msgStr = "";
 //						if (o.getStatus() != null
 //								&& o.getStatus() == OrderStatus.SHELF)
 //							msgStr = "确定上架?";

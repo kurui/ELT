@@ -6,8 +6,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
 /**
- * @author nicho
- * @since 2012年1月9日 17:25:16
+ * @author yanrui
  */
 public class OrderListEditor extends AbstractEditor {
 
