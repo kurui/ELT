@@ -68,37 +68,45 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public String updateStatus(UserContext context,String id,OrderStatus status) {
 		SysUser caller = userLogic.findUserById(context.getUserId());
-		String orderId = OrderLogic.updateStatus(caller,id,status);//更新状态
+	    Order order = OrderLogic.findOrderById(id);//得到订单信息
+    	String orderId = OrderLogic.updateStatus(caller,id,status);//更新状态
 		String returnValue="ok";
 		if(orderId!=null&&orderId.equals(id)){//如果更新执行状态成功并是当前的订单ID
-		  if(status.equals(OrderStatus.NUSHIPMENTS)){//没付积分改为没发货状态，扣积分和减少库存量
-			  returnValue=  updateStock( context, id);
-			 
+		  if(status.equals(OrderStatus.NUSHIPMENTS)){//没付积分改为待发货状态，扣积分和减少库存量
+			  returnValue=  updateStock( context,id,order,true);
+		  }
+		  if(status.equals(OrderStatus.ERRORORDER)&& !order.getStatus().equals(OrderStatus.INITIAL)){//设为问题并且以前的状态不是没付积分要退还积分，给员工加积分和增加库存量
+			  returnValue=  updateStock( context,id,order,false);
 		  }
 		}	
 		return returnValue;
 	}
 	
-    public String updateStock(UserContext context,String id){
+    public String updateStock(UserContext context,String id,Order order,boolean forward){
     	 
     	 SysUser caller = userLogic.findUserById(context.getUserId());
-		 Order order = OrderLogic.findOrderById(id);//得到订单信息
 		 String giftId = order.getGiftId();          //得到礼品的ID
 		 Gift gift = giftLogic.findGiftById(giftId);//查找礼品的信息
-		 gift.setStock(gift.getStock()-order.getAmount());
-		 giftLogic.save(caller, gift);//减少库存量
-		 String returnValue = transaction( context,order.getIntegral(),order.getId());//交易积分
+		  if(forward==true)
+		     gift.setStock(gift.getStock()-order.getAmount());//减少库存量
+		 else
+			 gift.setStock(gift.getStock()+order.getAmount());//增加库存量	 
+		 giftLogic.save(caller, gift);
+		 String returnValue = transaction( context,order.getIntegral(),order.getId(),forward);//交易积分
 		 return returnValue;
     }
     
-    public String transaction(UserContext context,double amount,String orderId){
+    public String transaction(UserContext context,double amount,String orderId,boolean forward){
     	SysUser caller = userLogic.findUserById(context.getUserId());
-    	String  toAccountId =caller.getCorporation().getTxAccountId();
+    	String  corpAccountId =caller.getCorporation().getTxAccountId();
     	String  unitCode = caller.getCorporation().getDefaultUnitCode();
-    	String  fromAccountId = caller.getStaff().getTxAccountId();
+    	String  staffAccountId = caller.getStaff().getTxAccountId();
     	String returnValue= "ok";
     	try {
-			tx.transaction(fromAccountId, toAccountId, unitCode, amount);
+    		 if(forward==true)
+			     tx.transaction(staffAccountId, corpAccountId, unitCode, amount);//扣员工积分增加企业积分
+    		 else
+    			 tx.transaction(corpAccountId, staffAccountId, unitCode, amount);//增加员工积分扣企业积分 
 		} catch (BalanceLackException e) {
 			returnValue= "fail";
 		}

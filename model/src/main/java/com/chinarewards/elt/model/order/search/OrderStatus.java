@@ -6,7 +6,7 @@ public  enum OrderStatus {
 	/* 初始时，为没付积分 */
 	 INITIAL,
 	  
-	/* 没发货 */	
+	/* 待发货 */	
 	NUSHIPMENTS,
 	
 	/* 已发货 */	
