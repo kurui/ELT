@@ -277,8 +277,8 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	}
 
 	private void initTypeSelect(String selectedValue) {
-		type.addItem("实物", "1");
-		type.addItem("虚拟", "2");
+		type.addItem("实物", GiftVo.TYPE_1);
+		type.addItem("虚拟", GiftVo.TYPE_2);
 
 		if (StringUtil.trim(selectedValue) != "") {
 			type.setValue(0, selectedValue);

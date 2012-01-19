@@ -47,7 +47,7 @@
 				<tr class="{newitem.form-line}">
 					<td valign="top" class="{newitem.label}">礼品类型：</td>
 					<td class="{newitem.element}">
-						<g:ListBox ui:field="type" />
+						<g:Label ui:field="typeText" />
 					</td>
 					<td></td>
 				</tr>
