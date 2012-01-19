@@ -10,8 +10,6 @@ import com.chinarewards.gwt.elt.client.gift.module.GiftModule;
 import com.chinarewards.gwt.elt.client.nominate.module.NominateModule;
 import com.chinarewards.gwt.elt.client.order.module.OrderListModule;
 import com.chinarewards.gwt.elt.client.order.module.OrderModule;
-//import com.chinarewards.gwt.elt.client.order.module.OrderListModule;
-//import com.chinarewards.gwt.elt.client.order.module.OrderModule;
 import com.chinarewards.gwt.elt.client.rewardItem.module.RewardsItemModule;
 import com.chinarewards.gwt.elt.client.rewards.module.RewardsListModule;
 import com.chinarewards.gwt.elt.client.staff.module.HrRegisterModule;
@@ -35,8 +33,8 @@ public class PresenterModule extends AbstractGinModule {
 		install(new DetailsOfAwardModule());
 		install(new GiftListModule());
 		install(new GiftModule());
-		install(new OrderListModule());
-		install(new OrderModule());
+//		install(new OrderListModule());
+//		install(new OrderModule());
 		install(new WinModule());
 
 	}

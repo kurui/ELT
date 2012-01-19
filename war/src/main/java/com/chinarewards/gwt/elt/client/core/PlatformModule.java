@@ -72,10 +72,11 @@ public class PlatformModule extends AbstractGinModule {
 			RewardsItemViewPluginDescriptor rewardsItemView,
 			RewardsListPluginDescriptor rewardsList,
 			AwardRewardPluginDescriptor awardreward,
-			DetailsOfAwardPluginDescriptor detailsAward,GiftListPluginDescriptor giftList, GiftPluginDescriptor gift,
-			GiftViewPluginDescriptor giftView,
+			DetailsOfAwardPluginDescriptor detailsAward,
+			GiftListPluginDescriptor giftList, GiftPluginDescriptor gift,
+			GiftViewPluginDescriptor giftView/*,
 			OrderListPluginDescriptor orderList, OrderPluginDescriptor order,
-			OrderViewPluginDescriptor orderView) {
+			OrderViewPluginDescriptor orderView*/) {
 
 		if (pluginSet == null) {
 			pluginSet = new InMemoryPluginSet();
@@ -94,9 +95,9 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(giftList);
 			pluginSet.registerPlugin(gift);
 			pluginSet.registerPlugin(giftView);
-			pluginSet.registerPlugin(orderList);
-			pluginSet.registerPlugin(order);
-			pluginSet.registerPlugin(orderView);
+//			pluginSet.registerPlugin(orderList);
+//			pluginSet.registerPlugin(order);
+//			pluginSet.registerPlugin(orderView);
 		}
 
 		return pluginSet;
