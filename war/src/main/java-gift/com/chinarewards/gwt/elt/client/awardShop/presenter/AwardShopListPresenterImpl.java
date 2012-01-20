@@ -17,7 +17,7 @@ import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager.TextLocation;
 import com.chinarewards.gwt.elt.client.widget.GetValue;
-import com.chinarewards.gwt.elt.client.widget.ListCellTable;
+import com.chinarewards.gwt.elt.client.widget.ListImageTable;
 import com.chinarewards.gwt.elt.client.widget.Sorting;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.util.StringUtil;
@@ -35,7 +35,7 @@ public class AwardShopListPresenterImpl extends BasePresenter<AwardShopListDispl
 	final Win win;
 
 	EltNewPager pager;
-	ListCellTable<GiftClient> cellTable;
+	ListImageTable<GiftClient> cellTable;
 	AwardShopListViewAdapter listViewAdapter;
 	private final BreadCrumbsPresenter breadCrumbs;
 	@Inject
@@ -72,7 +72,7 @@ public class AwardShopListPresenterImpl extends BasePresenter<AwardShopListDispl
 
 	private void buildTable() {
 		// create a CellTable
-		cellTable = new ListCellTable<GiftClient>();
+		cellTable = new ListImageTable<GiftClient>();
 
 		initTableColumns();
 		pager = new EltNewPager(TextLocation.CENTER);

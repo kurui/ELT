@@ -6,6 +6,7 @@ import java.util.Map;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.dataprovider.GiftListViewAdapter;
@@ -51,21 +52,24 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 	EltNewPager pager;
 	ListCellTable<GiftClient> cellTable;
 	GiftListViewAdapter listViewAdapter;
-
+	private final BreadCrumbsPresenter breadCrumbs;
 	@Inject
 	public GiftListPresenterImpl(EventBus eventBus, DispatchAsync dispatch,
 			ErrorHandler errorHandler, SessionManager sessionManager,
-			GiftListDisplay display, Win win) {
+			GiftListDisplay display, Win win,BreadCrumbsPresenter breadCrumbs) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
 		this.win = win;
+		this.breadCrumbs=breadCrumbs;
 
 	}
 
 	@Override
 	public void bind() {
+		breadCrumbs.loadListPage();
+		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
 		init();
 		registerHandler(display.getSearchBtnClickHandlers().addClickHandler(
 				new ClickHandler() {

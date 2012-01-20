@@ -68,13 +68,13 @@ public class GiftDao extends BaseDao<Gift> {
 			param.put("explains", "%"
 					+ criteria.getExplains().trim().toUpperCase() + "%");
 		}
-
+		if (SEARCH.equals(type)) {
 		if (criteria.getSortingDetail() != null) {
 			eql.append(" ORDER BY g."
 					+ criteria.getSortingDetail().getSort() + " "
 					+ criteria.getSortingDetail().getDirection());
 		}
-
+		}
 		System.out.println("EQL : " + eql);
 		Query query = getEm().createQuery(eql.toString());
 		if (SEARCH.equals(type)) {
