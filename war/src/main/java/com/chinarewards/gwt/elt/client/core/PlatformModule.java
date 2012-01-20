@@ -1,6 +1,7 @@
 package com.chinarewards.gwt.elt.client.core;
 
 import com.chinarewards.gwt.elt.client.awardReward.plugin.AwardRewardPluginDescriptor;
+import com.chinarewards.gwt.elt.client.awardShop.plugin.AwardShopListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.core.impl.CorePluginDescriptor;
 import com.chinarewards.gwt.elt.client.core.impl.GinPluginManager;
 import com.chinarewards.gwt.elt.client.core.impl.InMemoryMenuRoleStore;
@@ -16,7 +17,6 @@ import com.chinarewards.gwt.elt.client.gift.plugin.GiftListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftPluginDescriptor;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftViewPluginDescriptor;
 import com.chinarewards.gwt.elt.client.nominate.plugin.NominatePluginDescriptor;
-import com.chinarewards.gwt.elt.client.order.plugin.OrderListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.order.plugin.OrderPluginDescriptor;
 import com.chinarewards.gwt.elt.client.order.plugin.OrderViewPluginDescriptor;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemListPluginDescriptor;
@@ -76,7 +76,7 @@ public class PlatformModule extends AbstractGinModule {
 			GiftListPluginDescriptor giftList, GiftPluginDescriptor gift,
 			GiftViewPluginDescriptor giftView/*,
 			OrderListPluginDescriptor orderList*/, OrderPluginDescriptor order,
-			OrderViewPluginDescriptor orderView) {
+			OrderViewPluginDescriptor orderView,AwardShopListPluginDescriptor awardShop) {
 
 		if (pluginSet == null) {
 			pluginSet = new InMemoryPluginSet();
@@ -98,6 +98,7 @@ public class PlatformModule extends AbstractGinModule {
 //			pluginSet.registerPlugin(orderList);//此处有问题,mvn install 无法编译 待查
 			pluginSet.registerPlugin(order);
 			pluginSet.registerPlugin(orderView);
+			pluginSet.registerPlugin(awardShop);
 		}
 
 		return pluginSet;
