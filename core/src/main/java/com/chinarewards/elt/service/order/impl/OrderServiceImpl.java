@@ -8,7 +8,7 @@ import com.chinarewards.elt.domain.order.Order;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.order.search.OrderStatus;
-import com.chinarewards.elt.model.order.search.OrderVo;
+import com.chinarewards.elt.model.order.search.OrderListVo;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.service.gift.GiftLogic;
@@ -21,15 +21,15 @@ import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
 @Transactional
 public class OrderServiceImpl implements OrderService {
-	private final OrderLogic OrderLogic;
+	private final OrderLogic orderLogic;
 	private final GiftLogic giftLogic;
 	private final UserLogic userLogic;
     private final TransactionService tx;
 	@Inject
-	public OrderServiceImpl(OrderLogic OrderLogic,UserLogic userLogic
+	public OrderServiceImpl(OrderLogic orderLogic,UserLogic userLogic
 			,GiftLogic giftLogic,TransactionService tx) {
 		this.userLogic = userLogic;
-		this.OrderLogic = OrderLogic;
+		this.orderLogic = orderLogic;
 		this.giftLogic = giftLogic;
 		this.tx = tx;
 		
@@ -37,24 +37,24 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public Order save(UserContext context, Order Order) {
 		SysUser caller = userLogic.findUserById(context.getUserId());
-		Order Orders = OrderLogic.save(caller, Order);
+		Order Orders = orderLogic.save(caller, Order);
 		return Orders;
 	}
 
 	@Override
 	public Order findOrderById(String id) {
 		
-		return OrderLogic.findOrderById(id);
+		return orderLogic.findOrderById(id);
 	}
 
 	@Override
 	public String deleteOrder(UserContext context,String id) {
 		SysUser caller = userLogic.findUserById(context.getUserId());
-		return OrderLogic.deleteOrder(caller,id);
+		return orderLogic.deleteOrder(caller,id);
 	}
 
 	@Override
-	public PageStore<OrderVo> OrderList(UserContext context, OrderVo OrderVo) {
+	public PageStore<OrderListVo> OrderList(UserContext context, OrderListVo OrderVo) {
 		SysUser caller = userLogic.findUserById(context.getUserId());
 		List<UserRole> roles =Arrays.asList(context.getUserRoles());
 		//如果是HR或礼品管理员，可以查看所有订单，
@@ -62,14 +62,14 @@ public class OrderServiceImpl implements OrderService {
 			OrderVo.setUserId("");//不传订单用户的参数
 		else
 			OrderVo.setUserId(caller.getId());//把登录人的用户ID传过去做为条件
-		return OrderLogic.OrderList(caller, OrderVo);
+		return orderLogic.OrderList(caller, OrderVo);
 	}
 
 	@Override
 	public String updateStatus(UserContext context,String id,OrderStatus status) {
 		SysUser caller = userLogic.findUserById(context.getUserId());
-	    Order order = OrderLogic.findOrderById(id);//得到订单信息
-    	String orderId = OrderLogic.updateStatus(caller,id,status);//更新状态
+	    Order order = orderLogic.findOrderById(id);//得到订单信息
+    	String orderId = orderLogic.updateStatus(caller,id,status);//更新状态
 		String returnValue="ok";
 		if(orderId!=null&&orderId.equals(id)){//如果更新执行状态成功并是当前的订单ID
 		  if(status.equals(OrderStatus.NUSHIPMENTS)){//没付积分改为待发货状态，扣积分和减少库存量
@@ -85,6 +85,7 @@ public class OrderServiceImpl implements OrderService {
     public String updateStock(UserContext context,String id,Order order,boolean forward){
     	 
     	 SysUser caller = userLogic.findUserById(context.getUserId());
+	
 		 String giftId = order.getGiftId();          //得到礼品的ID
 		 Gift gift = giftLogic.findGiftById(giftId);//查找礼品的信息
 		  if(forward==true)
@@ -112,4 +113,9 @@ public class OrderServiceImpl implements OrderService {
 		}
     	return returnValue;
     }
+	@Override
+	public String updateStatus(String orderId, OrderStatus updateStatus) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

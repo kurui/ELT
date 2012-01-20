@@ -15,12 +15,17 @@ import com.chinarewards.gwt.elt.client.gift.request.DeleteGiftRequest;
 import com.chinarewards.gwt.elt.client.gift.request.EditGiftRequest;
 import com.chinarewards.gwt.elt.client.gift.request.SearchGiftByIdRequest;
 import com.chinarewards.gwt.elt.client.gift.request.SearchGiftRequest;
-import com.chinarewards.gwt.elt.client.gift.request.SearchOrderRequest;
 import com.chinarewards.gwt.elt.client.gift.request.UpdateGiftStatusRequest;
 import com.chinarewards.gwt.elt.client.login.LoginRequest;
 import com.chinarewards.gwt.elt.client.login.TokenValidRequest;
 import com.chinarewards.gwt.elt.client.nominate.NominateAddRequest;
 import com.chinarewards.gwt.elt.client.nominate.NominateInitRequest;
+import com.chinarewards.gwt.elt.client.order.request.SearchOrderRequest;
+//import com.chinarewards.gwt.elt.client.order.request.DeleteOrderRequest;
+//import com.chinarewards.gwt.elt.client.order.request.EditOrderRequest;
+//import com.chinarewards.gwt.elt.client.order.request.SearchOrderByIdRequest;
+//import com.chinarewards.gwt.elt.client.order.request.SearchOrderRequest;
+//import com.chinarewards.gwt.elt.client.order.request.UpdateOrderStatusRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.ActivationRewardsItemRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.ActivationRewardsItemStoreRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.CreateRewardsItemRequest;
@@ -46,12 +51,17 @@ import com.chinarewards.gwt.elt.server.gift.DeleteGiftHandler;
 import com.chinarewards.gwt.elt.server.gift.EditGiftHandler;
 import com.chinarewards.gwt.elt.server.gift.SearchGiftByIdHandler;
 import com.chinarewards.gwt.elt.server.gift.SearchGiftHandler;
-import com.chinarewards.gwt.elt.server.gift.SearchOrderHandler;
 import com.chinarewards.gwt.elt.server.gift.UpdateGiftStatusHandler;
 import com.chinarewards.gwt.elt.server.login.LoginActionHandler;
 import com.chinarewards.gwt.elt.server.login.TokenValidActionHandler;
 import com.chinarewards.gwt.elt.server.nominate.NominateActionHandler;
 import com.chinarewards.gwt.elt.server.nominate.NominateAddActionHandler;
+import com.chinarewards.gwt.elt.server.order.SearchOrderHandler;
+//import com.chinarewards.gwt.elt.server.order.DeleteOrderHandler;
+//import com.chinarewards.gwt.elt.server.order.EditOrderHandler;
+//import com.chinarewards.gwt.elt.server.order.SearchOrderByIdHandler;
+//import com.chinarewards.gwt.elt.server.order.SearchOrderHandler;
+//import com.chinarewards.gwt.elt.server.order.UpdateOrderStatusHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.ActivationRewardsItemHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.ActivationRewardsItemStroeHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.CreateRewardsItemHandler;
@@ -136,19 +146,17 @@ public class ActionModule extends ActionHandlerModule {
 		
 		//奖励删除
 		bindHandler(DeleteRewardsRequest.class, DeleteRewardsHandler.class);
+		
 		//礼品列表
-		bindHandler(SearchGiftRequest.class, SearchGiftHandler.class);
-	   
-		bindHandler(SearchGiftByIdRequest.class,SearchGiftByIdHandler.class);
-		
+		bindHandler(SearchGiftRequest.class, SearchGiftHandler.class);	   
+		bindHandler(SearchGiftByIdRequest.class,SearchGiftByIdHandler.class);		
 		//礼品编辑
-		bindHandler(EditGiftRequest.class, EditGiftHandler.class); 
-		
-		
+		bindHandler(EditGiftRequest.class, EditGiftHandler.class); 		
 		//礼品删除
 		bindHandler(DeleteGiftRequest.class, DeleteGiftHandler.class); 
 		//礼品修改状态
 		bindHandler(UpdateGiftStatusRequest.class, UpdateGiftStatusHandler.class); 
+		
 		//用户删除(离职)
 		bindHandler(DeleteUserRequest.class, DeleteUserActionHandler.class); 
 		//奖项库.应用到奖项

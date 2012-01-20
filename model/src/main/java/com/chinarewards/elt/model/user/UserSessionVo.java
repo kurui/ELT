@@ -7,6 +7,15 @@ public class UserSessionVo {
 	private String username;
 	private String corporationId;
 	private String departmentId;
+	private String staffId;
+
+	public String getStaffId() {
+		return staffId;
+	}
+
+	public void setStaffId(String staffId) {
+		this.staffId = staffId;
+	}
 
 	private List<UserRole> userRoles;
 

@@ -6,6 +6,7 @@ package com.chinarewards.gwt.elt.client.gift.request;
 import java.util.List;
 
 import com.chinarewards.gwt.elt.client.gift.model.GiftVo;
+import com.chinarewards.gwt.elt.client.gift.request.EditGiftResponse;
 import com.chinarewards.gwt.elt.client.support.UserSession;
 
 import net.customware.gwt.dispatch.shared.Action;

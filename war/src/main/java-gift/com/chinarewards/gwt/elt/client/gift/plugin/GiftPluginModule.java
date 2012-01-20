@@ -7,6 +7,7 @@ import com.chinarewards.gwt.elt.client.gift.editor.GiftEditor;
 import com.chinarewards.gwt.elt.client.gift.editor.GiftEditorDescriptor;
 import com.chinarewards.gwt.elt.client.gift.editor.GiftViewEditor;
 import com.chinarewards.gwt.elt.client.gift.editor.GiftViewEditorDescriptor;
+import com.chinarewards.gwt.elt.client.gift.plugin.GiftPluginDescriptor;
 import com.google.gwt.inject.client.AbstractGinModule;
 import com.google.inject.Singleton;
 

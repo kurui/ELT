@@ -10,6 +10,7 @@ public interface MenuProcessor {
 
 	void render(Panel container);
 	void initrender(Panel container,String name);
+	void changItemColor(String menuName);
 	
 
 }

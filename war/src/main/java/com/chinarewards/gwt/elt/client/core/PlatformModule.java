@@ -15,8 +15,10 @@ import com.chinarewards.gwt.elt.client.detailsOfAward.plugin.DetailsOfAwardPlugi
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftPluginDescriptor;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftViewPluginDescriptor;
-import com.chinarewards.gwt.elt.client.gift.plugin.OrderListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.nominate.plugin.NominatePluginDescriptor;
+import com.chinarewards.gwt.elt.client.order.plugin.OrderListPluginDescriptor;
+import com.chinarewards.gwt.elt.client.order.plugin.OrderPluginDescriptor;
+import com.chinarewards.gwt.elt.client.order.plugin.OrderViewPluginDescriptor;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemPluginDescriptor;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemStoreListPluginDescriptor;
@@ -71,14 +73,16 @@ public class PlatformModule extends AbstractGinModule {
 			RewardsListPluginDescriptor rewardsList,
 			AwardRewardPluginDescriptor awardreward,
 			DetailsOfAwardPluginDescriptor detailsAward,
-			GiftListPluginDescriptor giftList,
-			GiftPluginDescriptor gift,
-			OrderListPluginDescriptor orderList,
-			GiftViewPluginDescriptor giftView) {
+
+			GiftListPluginDescriptor giftList, GiftPluginDescriptor gift,
+			GiftViewPluginDescriptor giftView,
+			OrderListPluginDescriptor orderList, OrderPluginDescriptor order,
+			OrderViewPluginDescriptor orderView) {
+
 
 		if (pluginSet == null) {
 			pluginSet = new InMemoryPluginSet();
-			pluginSet.registerPlugin(core);
+			pluginSet.registerPlugin(core); 
 			pluginSet.registerPlugin(sample);
 			pluginSet.registerPlugin(user);
 			pluginSet.registerPlugin(hrregister);
@@ -94,6 +98,9 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(gift);
 			pluginSet.registerPlugin(orderList);
 			pluginSet.registerPlugin(giftView);
+			pluginSet.registerPlugin(orderList);//此处有问题,mvn install 无法编译 待查
+			pluginSet.registerPlugin(order);
+			pluginSet.registerPlugin(orderView);
 		}
 
 		return pluginSet;

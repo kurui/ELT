@@ -51,5 +51,6 @@ public interface NominatePresenter extends
 		// public void setCandidate(List<CandidateParamVo> candidate);
 
 		public void initStaffPanel(Widget w);
+		void setBreadCrumbs(Widget breadCrumbs);
 	}
 }

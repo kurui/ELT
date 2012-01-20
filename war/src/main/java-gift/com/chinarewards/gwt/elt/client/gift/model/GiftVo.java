@@ -5,8 +5,6 @@ import java.util.Date;
 
 import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria.GiftStatus;
 
-
-
 public class GiftVo implements Serializable {
 
 	/**
@@ -14,22 +12,37 @@ public class GiftVo implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private String id;
-    private String name;       //礼品名
-    private String explains;   //说明
-    private String  type;      //礼品类型
-    private String source;     //来源
-    private String business;   //供应商
-    private String address;    //地址
-    private String tell;       //电话
-    private int    integral;    //积分
-    private int    stock;         //库存
-    private String photo;      //图片
-    private GiftStatus status;    //状态（上下架）
-    private boolean deleted;   //删除状态
-    private Date    indate ;      //有效截止期
-   
-    
+	private String name; // 礼品名
+	private String explains; // 说明
+	private String type; // 礼品类型
+	private String source; // 来源
+	private String business; // 供应商
+	private String address; // 地址
+	private String tell; // 电话
+	private int integral; // 积分
+	private int stock; // 库存
+	private String photo; // 图片
+	private GiftStatus status; // 状态（上下架）
+	private boolean deleted; // 删除状态
+	private Date indate; // 有效截止期
+
+	public static String TYPE_1 = "1";// 实物
+	public static String TYPE_2 = "2";// 虚拟
+
 	public GiftVo() {
+	}
+
+	public String getTypeText() {
+		if (type != null) {
+			if (type.equals(TYPE_1)) {
+				return "实物";
+			} else if (type.equals(TYPE_2)) {
+				return "虚拟";
+			} else {
+				return "未定义";
+			}
+		}
+		return "";
 	}
 
 	public String getName() {
@@ -96,8 +109,6 @@ public class GiftVo implements Serializable {
 		this.photo = photo;
 	}
 
-	
-
 	public GiftStatus getStatus() {
 		return status;
 	}
@@ -122,8 +133,6 @@ public class GiftVo implements Serializable {
 		this.indate = indate;
 	}
 
-	
-	
 	public String getId() {
 		return this.id;
 	}
@@ -147,7 +156,5 @@ public class GiftVo implements Serializable {
 	public void setIntegral(int integral) {
 		this.integral = integral;
 	}
-
-	
 
 }

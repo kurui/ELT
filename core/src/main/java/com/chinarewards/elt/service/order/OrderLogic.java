@@ -4,7 +4,7 @@ import com.chinarewards.elt.domain.order.Order;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.order.search.OrderStatus;
-import com.chinarewards.elt.model.order.search.OrderVo;
+import com.chinarewards.elt.model.order.search.OrderListVo;
 
 public interface OrderLogic {
 	/**
@@ -35,7 +35,7 @@ public interface OrderLogic {
 	 * @param Order
 	 * @return
 	 */
-	public PageStore<OrderVo> OrderList(SysUser caller,OrderVo OrderVo);
+	public PageStore<OrderListVo> OrderList(SysUser caller,OrderListVo OrderVo);
 
 	/**
 	 * 执行状态

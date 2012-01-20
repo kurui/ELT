@@ -4,11 +4,11 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.elt.model.common.PaginationDetail;
 import com.chinarewards.elt.model.common.SortingDetail;
-import com.chinarewards.gwt.elt.client.gift.model.OrderSearchVo;
-import com.chinarewards.gwt.elt.client.gift.presenter.OrderListPresenter.OrderListDisplay;
-import com.chinarewards.gwt.elt.client.gift.request.SearchOrderRequest;
-import com.chinarewards.gwt.elt.client.gift.request.SearchOrderResponse;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
+import com.chinarewards.gwt.elt.client.order.model.OrderSearchVo;
+import com.chinarewards.gwt.elt.client.order.presenter.OrderListPresenter.OrderListDisplay;
+import com.chinarewards.gwt.elt.client.order.request.SearchOrderRequest;
+import com.chinarewards.gwt.elt.client.order.request.SearchOrderResponse;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.model.SortingDetailClient;
 import com.google.gwt.user.client.rpc.AsyncCallback;

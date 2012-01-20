@@ -30,8 +30,6 @@ public class GiftLogicImpl implements GiftLogic{
 	public Gift save(SysUser caller, Gift gift) {
 		Date currTime = DateUtil.getTime();
 		
-		System.out.println("GiftLogicImpl ====="+StringUtil.isEmptyString(gift.getId()));
-		
 		if (StringUtil.isEmptyString(gift.getId())) {
 			// Create			
 			gift.setDeleted(false);
@@ -40,7 +38,6 @@ public class GiftLogicImpl implements GiftLogic{
 			gift.setStatus(GiftStatus.SHELF);//新增的是下架的商品
 			giftDao.save(gift);
 		} else {
-			System.out.println("GiftLogicImpl =====update data===");
 			// Update
 			Gift tempGift = giftDao.findById(Gift.class, gift.getId());
 			tempGift.setName(gift.getName());

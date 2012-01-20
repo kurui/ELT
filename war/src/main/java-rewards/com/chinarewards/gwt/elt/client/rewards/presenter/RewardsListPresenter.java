@@ -7,6 +7,7 @@ import com.chinarewards.gwt.elt.model.rewards.RewardPageType;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.Widget;
 
 public interface RewardsListPresenter extends Presenter<RewardsListPresenter.RewardsListDisplay> {
 
@@ -21,6 +22,8 @@ public interface RewardsListPresenter extends Presenter<RewardsListPresenter.Rew
 		Panel getResultPanel();
 		Panel getResultpage();
 		HasValue<Boolean> getNowJudge();
+		
+		void setBreadCrumbs(Widget breadCrumbs);
 
 	}
 }

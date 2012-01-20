@@ -3,7 +3,7 @@ package com.chinarewards.elt.service.order;
 import com.chinarewards.elt.domain.order.Order;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.order.search.OrderStatus;
-import com.chinarewards.elt.model.order.search.OrderVo;
+import com.chinarewards.elt.model.order.search.OrderListVo;
 import com.chinarewards.elt.model.user.UserContext;
 
 /**
@@ -42,7 +42,7 @@ public interface OrderService {
 	 * @param Order
 	 * @return
 	 */
-	public PageStore<OrderVo> OrderList(UserContext context,OrderVo OrderVo);
+	public PageStore<OrderListVo> OrderList(UserContext context,OrderListVo OrderVo);
 
 	/**
 	 * 执行状态改变
@@ -50,4 +50,6 @@ public interface OrderService {
 	 * @return  如果返回值为ok是成功，如果是fail是失败
 	 */
 	public String updateStatus(UserContext context,String orderId,OrderStatus status);
+
+	public String updateStatus(String orderId,OrderStatus updateStatus);
 }

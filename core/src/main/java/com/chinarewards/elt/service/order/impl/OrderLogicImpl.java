@@ -15,7 +15,7 @@ import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.gift.search.GiftListVo;
 import com.chinarewards.elt.model.order.search.OrderStatus;
-import com.chinarewards.elt.model.order.search.OrderVo;
+import com.chinarewards.elt.model.order.search.OrderListVo;
 import com.chinarewards.elt.service.order.OrderLogic;
 import com.chinarewards.elt.util.DateUtil;
 import com.chinarewards.elt.util.StringUtil;
@@ -76,27 +76,27 @@ public class OrderLogicImpl implements OrderLogic{
 	}
 
 	@Override
-	public PageStore<OrderVo> OrderList(SysUser caller, OrderVo orderVo) {
+	public PageStore<OrderListVo> OrderList(SysUser caller, OrderListVo orderVo) {
 		
 		PageStore<Order> pageStore = new PageStore<Order>();
 		
 		pageStore.setResultCount(orderDao.countOrder(orderVo));
 		List<Order> OrderList = orderDao.OrderList(orderVo);
-		List<OrderVo> OrderVoList = new ArrayList<OrderVo>();
+		List<OrderListVo> OrderVoList = new ArrayList<OrderListVo>();
 		for (Order order : OrderList) {
 			OrderVoList.add(convertFromOrderToVo(order));
 		}
-		PageStore<OrderVo> storeVo = new PageStore<OrderVo>();
+		PageStore<OrderListVo> storeVo = new PageStore<OrderListVo>();
 		storeVo.setResultCount(pageStore.getResultCount());
 		storeVo.setResultList(OrderVoList);
 
 		return storeVo;
 	}
-	private OrderVo convertFromOrderToVo(Order order) {
-		OrderVo orderVo = new OrderVo();
+	private OrderListVo convertFromOrderToVo(Order order) {
+		OrderListVo orderVo = new OrderListVo();
 		GiftListVo giftVo = new GiftListVo();
 		orderVo.setAmount(order.getAmount());
-		orderVo.setGiftId(order.getGiftId());
+//		orderVo.setGiftId(order.getGiftId());
 		orderVo.setId(order.getId());
 		orderVo.setIntegral(order.getIntegral());
 		orderVo.setName(order.getName());
@@ -122,7 +122,7 @@ public class OrderLogicImpl implements OrderLogic{
         giftVo.setRecorddate(gift.getRecorddate());
         giftVo.setRecorduser(gift.getRecorduser());
         giftVo.setUpdatetime(gift.getUpdatetime());
-      	orderVo.setGiftvo(giftVo);
+//      	orderVo.setGiftVo(giftVo);
 		return orderVo;
 	}
 	@Override

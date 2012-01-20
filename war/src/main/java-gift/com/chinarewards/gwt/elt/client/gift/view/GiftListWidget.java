@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.chinarewards.gwt.elt.client.gift.presenter.GiftListPresenter.GiftListDisplay;
+import com.chinarewards.gwt.elt.client.gift.view.GiftListWidget;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -37,6 +38,9 @@ public class GiftListWidget extends Composite implements GiftListDisplay {
 	ListBox status;
 	@UiField
 	InlineLabel dataCount;
+	
+	@UiField
+	Panel breadCrumbs;
 	
 	private static GiftWidgetUiBinder uiBinder = GWT
 			.create(GiftWidgetUiBinder.class);
@@ -99,5 +103,11 @@ public class GiftListWidget extends Composite implements GiftListDisplay {
 	public void setDataCount(String text) {
 		dataCount.setText(text);
 		
+	}
+
+	@Override
+	public void setBreadCrumbs(Widget breadCrumbs) {
+		this.breadCrumbs.clear();
+		this.breadCrumbs.add(breadCrumbs);		
 	}
 }

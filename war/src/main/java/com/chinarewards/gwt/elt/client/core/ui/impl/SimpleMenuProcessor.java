@@ -171,4 +171,10 @@ public class SimpleMenuProcessor implements MenuProcessor {
 		container.add(menuWrapper);
 		
 	}
+
+	@Override
+	public void changItemColor(String menuName) {
+		// TODO Auto-generated method stub
+		
+	}
 }

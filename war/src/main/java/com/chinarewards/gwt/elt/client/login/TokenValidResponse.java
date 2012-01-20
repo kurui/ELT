@@ -10,7 +10,14 @@ public class TokenValidResponse implements Result {
 	String corporationId;
 	String departmentId;
 	UserRoleVo[] userRoles;
+	String staffId;
+	public String getStaffId() {
+		return staffId;
+	}
 
+	public void setStaffId(String staffId) {
+		this.staffId = staffId;
+	}
 	public String getDepartmentId() {
 		return departmentId;
 	}

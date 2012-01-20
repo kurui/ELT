@@ -1,6 +1,7 @@
 package com.chinarewards.gwt.elt.client.gift.editor;
 
 import com.chinarewards.gwt.elt.client.core.ui.impl.AbstractEditor;
+import com.chinarewards.gwt.elt.client.gift.editor.GiftEditorDescriptor;
 import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
 import com.chinarewards.gwt.elt.client.gift.presenter.GiftPresenter;
 import com.google.gwt.user.client.ui.Widget;

@@ -3,6 +3,8 @@
  */
 package com.chinarewards.gwt.elt.client.gift.request;
 
+import com.chinarewards.gwt.elt.client.gift.request.DeleteGiftResponse;
+
 import net.customware.gwt.dispatch.shared.Action;
 
 /**

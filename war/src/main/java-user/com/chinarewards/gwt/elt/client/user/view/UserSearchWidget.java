@@ -221,7 +221,7 @@ public class UserSearchWidget extends Composite implements UserSearchDisplay {
 		resultTable.addColumn("操作", new HyperLinkCell(),
 				new GetValue<UserVo, String>() {
 					@Override
-					public String getValue(UserVo gift) {
+					public String getValue(UserVo userVo) {
 						return "删除";
 					}
 				}, new FieldUpdater<UserVo, String>() {

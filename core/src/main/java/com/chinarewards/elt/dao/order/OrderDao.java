@@ -10,12 +10,12 @@ import javax.persistence.Query;
 
 import com.chinarewards.elt.common.BaseDao;
 import com.chinarewards.elt.domain.order.Order;
-import com.chinarewards.elt.model.order.search.OrderVo;
+import com.chinarewards.elt.model.order.search.OrderListVo;
 import com.chinarewards.elt.util.StringUtil;
 
 public class OrderDao extends BaseDao<Order> {
 	@SuppressWarnings("unchecked")
-	public List<Order> OrderList(OrderVo OrderVo) {
+	public List<Order> OrderList(OrderListVo OrderVo) {
 		List<Order> result = new ArrayList<Order>();
 
 		Query query = getFetchOrderQuery(SEARCH, OrderVo);
@@ -25,7 +25,7 @@ public class OrderDao extends BaseDao<Order> {
 		return result;
 	}
 
-	public int countOrder(OrderVo OrderVo) {
+	public int countOrder(OrderListVo OrderVo) {
 		
 		int count = 0;
 		Query query = getFetchOrderQuery(COUNT, OrderVo);
@@ -35,7 +35,7 @@ public class OrderDao extends BaseDao<Order> {
 		return count;
 	}
 
-	private Query getFetchOrderQuery(String type, OrderVo vo) {
+	private Query getFetchOrderQuery(String type, OrderListVo vo) {
 		Map<String, Object> param = new HashMap<String, Object>();
 		StringBuffer eql = new StringBuffer();
 
@@ -58,10 +58,10 @@ public class OrderDao extends BaseDao<Order> {
 			eql.append(" AND UPPER(o.orderCode) =:orderCode ");
 			param.put("orderCode", vo.getOrderCode());
 		}
-		if (!StringUtil.isEmptyString(vo.getGiftvo().getSource())) {
-			eql.append(" AND UPPER(g.source) =:source ");
-			param.put("source", vo.getGiftvo().getSource());
-		}
+//		if (!StringUtil.isEmptyString(vo.getGiftvo().getSource())) {
+//			eql.append(" AND UPPER(g.source) =:source ");
+//			param.put("source", vo.getGiftvo().getSource());
+//		}
 		if (!StringUtil.isEmptyString(vo.getName())) {
 			eql.append(" AND UPPER(o.name) LIKE :name ");
 			param.put("name", "%" + vo.getName().trim().toUpperCase()

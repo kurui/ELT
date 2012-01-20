@@ -13,20 +13,8 @@
 	<g:HTMLPanel>
 		<div class="{new2.frame-wrap}">
 			<!--面包屑 [[ -->
-			<div class="{new2.breadcrumb-wrap}">
-				<div class="{new2.breadcrumb-wrap}">
-					<p class="{new2.breadcrumb-left}">
-						<a href="#" style="color:#565656;text-decoration:none;">应用奖项</a>
-						->
-						<span>应用奖项列表</span>
-						->
-						<span><g:InlineLabel text="奖项获奖详细" ui:field="pageTitle2" /></span>
-					</p>
-					<a href="#" class="{new2.breadcrumb-right} {new2.back-btn}"
-						style="color:#565656;text-decoration:none;">返回上一页</a>
-				</div>
-				<span class="{new2.cutline}"></span>
-			</div>
+			<g:FlowPanel ui:field="breadCrumbs" />
+			<!--面包屑 ]] -->
 
 
 			<h3>

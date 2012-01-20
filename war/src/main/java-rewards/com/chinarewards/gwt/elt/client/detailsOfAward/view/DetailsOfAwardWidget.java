@@ -55,19 +55,19 @@ public class DetailsOfAwardWidget extends Composite implements
 	InlineLabel awardAmt;
 	@UiField
 	InlineLabel pageTitle;
-	@UiField
-	InlineLabel pageTitle2;
+
 	@UiField
 	VerticalPanel winners;
 
 	// 选人模块
 	@UiField
 	Panel staffPanel;
+	@UiField
+	Panel breadCrumbs;
+	private static DetailsOfAwardWidgetUiBinder uiBinder = GWT
+			.create(DetailsOfAwardWidgetUiBinder.class);
 
-	private static HrRegisterWidgetUiBinder uiBinder = GWT
-			.create(HrRegisterWidgetUiBinder.class);
-
-	interface HrRegisterWidgetUiBinder extends
+	interface DetailsOfAwardWidgetUiBinder extends
 			UiBinder<Widget, DetailsOfAwardWidget> {
 	}
 
@@ -200,8 +200,11 @@ public class DetailsOfAwardWidget extends Composite implements
 	@Override
 	public void setPageTitle(String titleName) {
 		this.pageTitle.setText(titleName);
-		this.pageTitle2.setText(titleName);
-
 	}
-
+	@Override
+	public void setBreadCrumbs(Widget breadCrumbs) {
+		this.breadCrumbs.clear();
+		this.breadCrumbs.add(breadCrumbs);
+		
+	}
 }

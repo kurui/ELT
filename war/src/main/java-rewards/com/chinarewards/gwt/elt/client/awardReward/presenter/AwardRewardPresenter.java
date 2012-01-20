@@ -48,7 +48,7 @@ public interface AwardRewardPresenter extends
 		public void setAwardAmt(String awardAmt);
 
 
-
+		void setBreadCrumbs(Widget breadCrumbs);
 		public void initStaffPanel(Widget w);
 	}
 }
