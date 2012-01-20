@@ -7,6 +7,7 @@ import java.util.Map;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.dataprovider.RewardsItemListViewAdapter;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
@@ -58,7 +59,7 @@ public class RewardsItemListPresenterImpl extends
     final Win win;
 	DateTimeFormat dateFormatAll = DateTimeFormat.getFormat(ViewConstants.date_format_all);
 	DateTimeFormat dateFormat = DateTimeFormat.getFormat(ViewConstants.date_format);
-
+	private final BreadCrumbsPresenter breadCrumbs;
 
 	// 是否部门管理员
 	boolean isHr = false;
@@ -67,21 +68,23 @@ public class RewardsItemListPresenterImpl extends
 	@Inject
 
 	public RewardsItemListPresenterImpl(EventBus eventBus,Win win,
-			RewardsItemListDisplay display, DispatchAsync dispatch,
+			RewardsItemListDisplay display, DispatchAsync dispatch,BreadCrumbsPresenter breadCrumbs,
 			ErrorHandler errorHandler, SessionManager sessionManager) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
 		this.win = win;
-
+        this.breadCrumbs = breadCrumbs; 
 	}
 
 	@Override
 	public void bind() {
+		breadCrumbs.loadListPage();
+		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
 		init();
 		buildTable();
-
+        
 		registerHandler(display.getSearchClick().addClickHandler(
 				new ClickHandler() {
 					@Override

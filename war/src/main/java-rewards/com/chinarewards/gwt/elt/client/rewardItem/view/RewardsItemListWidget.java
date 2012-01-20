@@ -30,7 +30,7 @@ import com.google.inject.Inject;
 
 /**
  * 
- * @author yanxin
+ * @author lw
  * @since 0.2.0 2010-01-03
  */
 public class RewardsItemListWidget extends Composite implements
@@ -63,6 +63,8 @@ public class RewardsItemListWidget extends Composite implements
 	ListBox status;
 	@UiField
 	InlineLabel dataCount;
+	@UiField
+	Panel breadCrumbs;
 	@Override
 	public String getStatus() {
 		return status.getValue(status.getSelectedIndex());
@@ -91,6 +93,12 @@ public class RewardsItemListWidget extends Composite implements
 		status.addItem("未激活", "fasle");
 		status.addItem("已激活", "true");
 			
+	}
+	@Override
+	public void setBreadCrumbs(Widget breadCrumbs) {
+		this.breadCrumbs.clear();
+		this.breadCrumbs.add(breadCrumbs);
+		
 	}
 	@Override
 	public Widget asWidget() {
