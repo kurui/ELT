@@ -20,6 +20,7 @@ import com.chinarewards.gwt.elt.client.gift.request.UpdateGiftStatusResponse;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
+import com.chinarewards.gwt.elt.client.order.plugin.OrderConstants;
 import com.chinarewards.gwt.elt.client.gift.presenter.GiftListPresenter;
 import com.chinarewards.gwt.elt.client.gift.presenter.GiftListPresenter.GiftListDisplay;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
@@ -282,8 +283,8 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(
-										GiftConstants.EDITOR_GIFT_VIEW,
-										GiftConstants.EDITOR_GIFT_VIEW
+										OrderConstants.EDITOR_ORDER_VIEW,
+										OrderConstants.EDITOR_ORDER_VIEW
 												+ giftClient.getId(), giftClient);
 					}
 				});
