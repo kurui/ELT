@@ -84,18 +84,13 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
 
-//						GiftClient client=new GiftClient();
-//						client.setThisAction(GiftConstants.ACTION_GIFT_ADD);
-//
-//						Platform.getInstance()
-//								.getEditorRegistry()
-//								.openEditor(GiftConstants.EDITOR_GIFT_EDIT,
-//<<<<<<< HEAD
-//										GiftConstants.ACTION_GIFT_ADD,client);
-//=======
-//										GiftConstants.ACTION_GIFT_ADD,
-//										giftClient);
+						GiftClient client=new GiftClient();
+						client.setThisAction(GiftConstants.ACTION_GIFT_ADD);
 
+						Platform.getInstance()
+								.getEditorRegistry()
+								.openEditor(GiftConstants.EDITOR_GIFT_EDIT,
+										GiftConstants.ACTION_GIFT_ADD,client);
 					}
 				}));
 		registerHandler(display.getimportingBtnClickHandlers().addClickHandler(
