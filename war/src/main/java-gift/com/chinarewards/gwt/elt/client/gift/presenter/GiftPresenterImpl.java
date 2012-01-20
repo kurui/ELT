@@ -1,6 +1,8 @@
 package com.chinarewards.gwt.elt.client.gift.presenter;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
+
+import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.gift.model.GiftAdapterClient;
 import com.chinarewards.gwt.elt.client.gift.model.GiftVo;
@@ -41,17 +43,18 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 
 	private final Win win;
 
-	// GiftVo item;
+	private final BreadCrumbsPresenter breadCrumbs;
 
 	@Inject
 	public GiftPresenterImpl(EventBus eventBus, GiftDisplay display,
 			DispatchAsync dispatcher, ErrorHandler errorHandler,
-			SessionManager sessionManager, Win win) {
+			SessionManager sessionManager, Win win,BreadCrumbsPresenter breadCrumbs) {
 		super(eventBus, display);
 		this.dispatcher = dispatcher;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
 		this.win = win;
+		this.breadCrumbs=breadCrumbs;
 	}
 
 	@Override
@@ -60,12 +63,16 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 		init();
 
 		if (GiftConstants.ACTION_GIFT_ADD.equals(thisAction)) {
+			breadCrumbs.loadChildPage("新建礼品");
 			initSave();
 		} else if (GiftConstants.ACTION_GIFT_EDIT.equals(thisAction)) {
 			initEdit();
+			breadCrumbs.loadChildPage("编辑礼品");
 		} else {
 			win.alert("未定义的方法");
-		}
+		}		
+	
+		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
 	}
 
 	private void init() {

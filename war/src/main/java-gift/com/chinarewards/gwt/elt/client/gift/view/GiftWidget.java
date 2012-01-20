@@ -23,6 +23,7 @@ import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
@@ -80,6 +81,9 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	FileUpload photoUpload;
 	@UiField
 	Button photoUploadBtn;
+	
+	@UiField
+	Panel breadCrumbs;
 
 	DateTimeFormat dateFormat = DateTimeFormat
 			.getFormat(ViewConstants.date_format);
@@ -280,6 +284,10 @@ public class GiftWidget extends Composite implements GiftDisplay {
 		}
 	}
 
-
+	@Override
+	public void setBreadCrumbs(Widget breadCrumbs) {
+		this.breadCrumbs.clear();
+		this.breadCrumbs.add(breadCrumbs);		
+	}
 
 }

@@ -2,6 +2,7 @@ package com.chinarewards.gwt.elt.client.gift.presenter;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
@@ -27,18 +28,25 @@ public class GiftViewPresenterImpl extends
 	private final ErrorHandler errorHandler;
 	String giftId;
 	GiftClient giftClient = new GiftClient();
+	
+
+	private final BreadCrumbsPresenter breadCrumbs;
 
 	@Inject
 	public GiftViewPresenterImpl(EventBus eventBus, GiftViewDisplay display,
 			DispatchAsync dispatcher, ErrorHandler errorHandler,
-			SessionManager sessionManager) {
+			SessionManager sessionManager,BreadCrumbsPresenter breadCrumbs) {
 		super(eventBus, display);
 		this.dispatcher = dispatcher;
 		this.errorHandler = errorHandler;
+		this.breadCrumbs=breadCrumbs;
 	}
 
 	@Override
 	public void bind() {
+		breadCrumbs.loadChildPage("查看礼品");
+		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
+		
 		registerHandler(display.getBackClick().addClickHandler(
 				new ClickHandler() {
 					@Override

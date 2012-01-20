@@ -39,6 +39,9 @@ public class GiftListWidget extends Composite implements GiftListDisplay {
 	@UiField
 	InlineLabel dataCount;
 	
+	@UiField
+	Panel breadCrumbs;
+	
 	private static GiftWidgetUiBinder uiBinder = GWT
 			.create(GiftWidgetUiBinder.class);
 
@@ -100,5 +103,11 @@ public class GiftListWidget extends Composite implements GiftListDisplay {
 	public void setDataCount(String text) {
 		dataCount.setText(text);
 		
+	}
+
+	@Override
+	public void setBreadCrumbs(Widget breadCrumbs) {
+		this.breadCrumbs.clear();
+		this.breadCrumbs.add(breadCrumbs);		
 	}
 }
