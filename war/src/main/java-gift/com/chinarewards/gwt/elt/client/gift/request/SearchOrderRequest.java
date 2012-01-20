@@ -5,7 +5,7 @@ package com.chinarewards.gwt.elt.client.gift.request;
 
 import net.customware.gwt.dispatch.shared.Action;
 
-import com.chinarewards.gwt.elt.client.gift.model.OrderSeacherVo;
+import com.chinarewards.gwt.elt.client.gift.model.OrderSearchVo;
 import com.chinarewards.gwt.elt.client.support.UserSession;
 
 /**
@@ -14,24 +14,24 @@ import com.chinarewards.gwt.elt.client.support.UserSession;
  */
 public class SearchOrderRequest implements Action<SearchOrderResponse> {
 
-	private OrderSeacherVo orderVo;
+	private OrderSearchVo orderSearchVo;
 	private UserSession userSession;
 	
 
 	public SearchOrderRequest() {
 	}
 
-	public SearchOrderRequest(OrderSeacherVo orderVo,UserSession userSession) {
-		this.orderVo = orderVo;
+	public SearchOrderRequest(OrderSearchVo orderSearchVo,UserSession userSession) {
+		this.orderSearchVo = orderSearchVo;
 		this.userSession = userSession;
 	}
 
-	public OrderSeacherVo getOrderVo() {
-		return orderVo;
+	public OrderSearchVo getOrderSearchVo() {
+		return orderSearchVo;
 	}
 
-	public void setOrderVo(OrderSeacherVo orderVo) {
-		this.orderVo = orderVo;
+	public void setOrderSearchVo(OrderSearchVo orderSearchVo) {
+		this.orderSearchVo = orderSearchVo;
 	}
 
 	public UserSession getUserSession() {

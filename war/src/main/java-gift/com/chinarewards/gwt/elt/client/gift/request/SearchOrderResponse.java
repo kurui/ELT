@@ -7,7 +7,8 @@ import java.util.List;
 
 import net.customware.gwt.dispatch.shared.Result;
 
-import com.chinarewards.gwt.elt.client.gift.model.OrderSeacherVo;
+import com.chinarewards.elt.model.order.search.OrderVo;
+import com.chinarewards.gwt.elt.client.gift.model.OrderSearchVo;
 
 /**
  * @author lw
@@ -15,14 +16,14 @@ import com.chinarewards.gwt.elt.client.gift.model.OrderSeacherVo;
  */
 public class SearchOrderResponse implements Result {
 
-	private List<OrderSeacherVo> result;
+	private List<OrderSearchVo> result;
 	private int total;
 
 
 	/**
 	 * @return the result
 	 */
-	public List<OrderSeacherVo> getResult() {
+	public List<OrderSearchVo> getResult() {
 		return result;
 	}
 
@@ -30,7 +31,7 @@ public class SearchOrderResponse implements Result {
 	 * @param result
 	 *            the result to set
 	 */
-	public void setResult(List<OrderSeacherVo> result) {
+	public void setResult(List<OrderSearchVo> result) {
 		this.result = result;
 	}
 

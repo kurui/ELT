@@ -279,7 +279,7 @@ public class RewardsItemListPresenterImpl extends
 								
 								@Override
 								public void confirm() {
-									dispatch.execute(new DeleteRewardsItemRequest(object.getId(),sessionManager.getSession().getToken(),false),
+									dispatch.execute(new DeleteRewardsItemRequest(object.getId(),false,sessionManager.getSession()),
 											new AsyncCallback<DeleteRewardsItemResponse>() {
 
 												@Override
@@ -363,7 +363,7 @@ public class RewardsItemListPresenterImpl extends
 	public void deleteRewardItem(String rewardsItemId) {
 
 		dispatch.execute(new DeleteRewardsItemRequest(rewardsItemId,
-				sessionManager.getSession().getToken(),false),
+			       false,sessionManager.getSession()),
 				new AsyncCallback<DeleteRewardsItemResponse>() {
 
 					@Override

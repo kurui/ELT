@@ -275,7 +275,7 @@ public class RewardsItemStoreListPresenterImpl extends
 								
 								@Override
 								public void confirm() {
-									dispatch.execute(new DeleteRewardsItemRequest(object.getId(),sessionManager.getSession().getToken(),true),
+									dispatch.execute(new DeleteRewardsItemRequest(object.getId(),true,sessionManager.getSession()),
 											new AsyncCallback<DeleteRewardsItemResponse>() {
 
 												@Override
@@ -344,7 +344,7 @@ public class RewardsItemStoreListPresenterImpl extends
 	public void deleteRewardItem(String rewardsItemId) {
 
 		dispatch.execute(new DeleteRewardsItemRequest(rewardsItemId,
-				sessionManager.getSession().getToken(),true),
+				true,sessionManager.getSession()),
 				new AsyncCallback<DeleteRewardsItemResponse>() {
 
 					@Override

@@ -4,7 +4,7 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.elt.model.common.PaginationDetail;
 import com.chinarewards.elt.model.common.SortingDetail;
-import com.chinarewards.gwt.elt.client.gift.model.OrderSeacherVo;
+import com.chinarewards.gwt.elt.client.gift.model.OrderSearchVo;
 import com.chinarewards.gwt.elt.client.gift.presenter.OrderListPresenter.OrderListDisplay;
 import com.chinarewards.gwt.elt.client.gift.request.SearchOrderRequest;
 import com.chinarewards.gwt.elt.client.gift.request.SearchOrderResponse;
@@ -13,15 +13,15 @@ import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.model.SortingDetailClient;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-public class OrderListViewAdapter extends BaseDataProvider<OrderSeacherVo> {
+public class OrderListViewAdapter extends BaseDataProvider<OrderSearchVo> {
 
 	final DispatchAsync dispatch;
-	final OrderSeacherVo criteria;
+	final OrderSearchVo criteria;
 	final ErrorHandler errorHandler;
 	final SessionManager sessionManager;
 	final OrderListDisplay display;
 
-	public OrderListViewAdapter(DispatchAsync dispatch, OrderSeacherVo criteria,
+	public OrderListViewAdapter(DispatchAsync dispatch, OrderSearchVo criteria,
 			ErrorHandler errorHandler, SessionManager sessionManager, OrderListDisplay display) {
 		this.dispatch = dispatch;
 		this.criteria = criteria;

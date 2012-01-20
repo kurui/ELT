@@ -44,6 +44,7 @@ public class OrderVo {
 	private Date    exchangeDate;////交易时间
 	private Date    recorddate;   //最后更新记录时间
 	private String    recorduser;   //最后更新记录的人
+	 
 	public Date getExchangeDate() {
 		return exchangeDate;
 	}

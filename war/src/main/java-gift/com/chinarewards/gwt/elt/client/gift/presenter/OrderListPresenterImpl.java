@@ -6,11 +6,11 @@ import java.util.Map;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import com.chinarewards.elt.model.order.search.OrderStatus;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.dataprovider.OrderListViewAdapter;
-import com.chinarewards.gwt.elt.client.gift.model.OrderSeacherVo;
-import com.chinarewards.gwt.elt.client.gift.model.OrderSeacherVo.OrderStatus;
+import com.chinarewards.gwt.elt.client.gift.model.OrderSearchVo;
 import com.chinarewards.gwt.elt.client.gift.plugin.OrderListConstants;
 import com.chinarewards.gwt.elt.client.gift.presenter.OrderListPresenter.OrderListDisplay;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
@@ -30,8 +30,6 @@ import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
 public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
@@ -43,7 +41,7 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 	final Win win;
 
 	EltNewPager pager;
-	ListCellTable<OrderSeacherVo> cellTable;
+	ListCellTable<OrderSearchVo> cellTable;
 	OrderListViewAdapter listViewAdapter;
 
 	@Inject
@@ -92,7 +90,7 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 
 	private void buildTable() {
 		// create a CellTable
-		cellTable = new ListCellTable<OrderSeacherVo>();
+		cellTable = new ListCellTable<OrderSearchVo>();
 
 		initTableColumns();
 		pager = new EltNewPager(TextLocation.CENTER);
@@ -107,7 +105,7 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 	}
 
 	private void doSearch() {
-		OrderSeacherVo criteria = new OrderSeacherVo();
+		OrderSearchVo criteria = new OrderSearchVo();
 		if (!StringUtil.isEmpty(display.getKeyName().getValue()))
 			criteria.setName(display.getKeyName().getValue());
 		if (!StringUtil.isEmpty(display.getStatus()))
@@ -119,9 +117,9 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 	}
 
 	private void initTableColumns() {
-		Sorting<OrderSeacherVo> ref = new Sorting<OrderSeacherVo>() {
+		Sorting<OrderSearchVo> ref = new Sorting<OrderSearchVo>() {
 			@Override
-			public void sortingCurrentPage(Comparator<OrderSeacherVo> comparator) {
+			public void sortingCurrentPage(Comparator<OrderSearchVo> comparator) {
 				// listViewAdapter.sortCurrentPage(comparator);
 			}
 
@@ -132,62 +130,62 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 			}
 		};
 		cellTable.addColumn("订单编号", new TextCell(),
-				new GetValue<OrderSeacherVo, String>() {
+				new GetValue<OrderSearchVo, String>() {
 					@Override
-					public String getValue(OrderSeacherVo order) {
+					public String getValue(OrderSearchVo order) {
 						return order.getOrderCode();
 					}
 				}, ref, "orderCode");
 
 		cellTable.addColumn("名称", new TextCell(),
-				new GetValue<OrderSeacherVo, String>() {
+				new GetValue<OrderSearchVo, String>() {
 					@Override
-					public String getValue(OrderSeacherVo order) {
+					public String getValue(OrderSearchVo order) {
 						return order.getName();
 					}
 				}, ref, "name");
 
 		
 		cellTable.addColumn("数量", new TextCell(),
-				new GetValue<OrderSeacherVo, String>() {
+				new GetValue<OrderSearchVo, String>() {
 					@Override
-					public String getValue(OrderSeacherVo order) {
+					public String getValue(OrderSearchVo order) {
 						return order.getAmount()+"";
 					}
 				}, ref, "amonut");
 		cellTable.addColumn("兑换积分", new TextCell(),
-				new GetValue<OrderSeacherVo, String>() {
+				new GetValue<OrderSearchVo, String>() {
 					@Override
-					public String getValue(OrderSeacherVo order) {
+					public String getValue(OrderSearchVo order) {
 						return order.getIntegral()+"";
 					}
 				}, ref, "integral");
 		cellTable.addColumn("兑换员工", new TextCell(),
-				new GetValue<OrderSeacherVo, String>() {
+				new GetValue<OrderSearchVo, String>() {
 					@Override
-					public String getValue(OrderSeacherVo order) {
+					public String getValue(OrderSearchVo order) {
 						return order.getGiftvo().getName() + "";
 					}
 				}, ref, "name");   
 		cellTable.addColumn("来源", new TextCell(),
-				new GetValue<OrderSeacherVo, String>() {
+				new GetValue<OrderSearchVo, String>() {
 					@Override
-					public String getValue(OrderSeacherVo order) {
+					public String getValue(OrderSearchVo order) {
 						return order.getGiftvo().getSource() + "";
 					}
 				}, ref, "source");   
 		cellTable.addColumn("状态", new TextCell(),
-				new GetValue<OrderSeacherVo, String>() {
+				new GetValue<OrderSearchVo, String>() {
 					@Override
-					public String getValue(OrderSeacherVo order) {
+					public String getValue(OrderSearchVo order) {
 						return order.getStatus().getDisplayName();
 					}
 				}, ref, "status");
 
 		cellTable.addColumn("操作", new HyperLinkCell(),
-				new GetValue<OrderSeacherVo, String>() {
+				new GetValue<OrderSearchVo, String>() {
 					@Override
-					public String getValue(OrderSeacherVo gift) {
+					public String getValue(OrderSearchVo gift) {
 						if (gift.getStatus() != null
 								&& gift.getStatus() == OrderStatus.INITIAL)
 							return "未付积分";
@@ -203,9 +201,9 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 						else
 							return "问题订单";
 					}
-				}, new FieldUpdater<OrderSeacherVo, String>() {
+				}, new FieldUpdater<OrderSearchVo, String>() {
 					@Override
-					public void update(int index, final OrderSeacherVo o,
+					public void update(int index, final OrderSearchVo o,
 							String value) {
 						String msgStr = "";
 						if (o.getStatus() != null
