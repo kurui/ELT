@@ -9,6 +9,14 @@ import com.chinarewards.elt.model.order.search.OrderListVo;
 
 public class OrderListVo {
 	
+	private GiftListVo giftvo;//订单的VO
+	public GiftListVo getGiftvo() {
+		return giftvo;
+	}
+	public void setGiftvo(GiftListVo giftvo) {
+		this.giftvo = giftvo;
+	}
+	
 	private PaginationDetail paginationDetail;
 	public PaginationDetail getPaginationDetail() {
 		return paginationDetail;
@@ -22,16 +30,7 @@ public class OrderListVo {
 	public void setSortingDetail(SortingDetail sortingDetail) {
 		this.sortingDetail = sortingDetail;
 	}
-	/**
-	 * Sorting detail.
-	 */
-	private GiftListVo giftvo;//订单的VO
-	public GiftListVo getGiftvo() {
-		return giftvo;
-	}
-	public void setGiftvo(GiftListVo giftvo) {
-		this.giftvo = giftvo;
-	}
+
 	
 	private SortingDetail sortingDetail;
 	private String  id;

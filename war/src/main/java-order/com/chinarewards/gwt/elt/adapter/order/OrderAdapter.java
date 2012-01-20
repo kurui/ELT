@@ -6,6 +6,7 @@ import java.util.List;
 import com.chinarewards.elt.model.order.search.OrderListVo;
 import com.chinarewards.gwt.elt.client.order.model.OrderVo;
 
+
 /**
  * This utility class use to adapter EJB entity to WAR domain.
  * 

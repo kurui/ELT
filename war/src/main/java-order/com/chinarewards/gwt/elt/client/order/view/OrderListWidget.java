@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.chinarewards.gwt.elt.client.order.view.OrderListWidget;
 import com.chinarewards.gwt.elt.client.order.presenter.OrderListPresenter.OrderListDisplay;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -38,10 +39,10 @@ public class OrderListWidget extends Composite implements OrderListDisplay {
 	@UiField
 	InlineLabel dataCount;
 	
-	private static GiftWidgetUiBinder uiBinder = GWT
-			.create(GiftWidgetUiBinder.class);
+	private static OrderWidgetUiBinder uiBinder = GWT
+			.create(OrderWidgetUiBinder.class);
 
-	interface GiftWidgetUiBinder extends UiBinder<Widget, OrderListWidget> {
+	interface OrderWidgetUiBinder extends UiBinder<Widget, OrderListWidget> {
 	}
 
 	public OrderListWidget() {

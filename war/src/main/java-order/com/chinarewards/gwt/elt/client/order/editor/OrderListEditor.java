@@ -6,8 +6,12 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
 /**
+<<<<<<< HEAD
  * @author lw
  * @since 2012年1月19日 17:25:16
+=======
+ * @author yanrui
+>>>>>>> refs/remotes/origin/master
  */
 public class OrderListEditor extends AbstractEditor {
 

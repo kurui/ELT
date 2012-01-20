@@ -43,6 +43,5 @@ public class SearchOrderRequest implements Action<SearchOrderResponse> {
 	}
 
 	
-	
 
 }

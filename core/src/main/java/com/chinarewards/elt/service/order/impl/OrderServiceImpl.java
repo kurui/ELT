@@ -68,6 +68,7 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public String updateStatus(UserContext context,String id,OrderStatus status) {
 		SysUser caller = userLogic.findUserById(context.getUserId());
+
 	    Order order = orderLogic.findOrderById(id);//得到订单信息
     	String orderId = orderLogic.updateStatus(caller,id,status);//更新状态
 		String returnValue="ok";
@@ -85,7 +86,6 @@ public class OrderServiceImpl implements OrderService {
     public String updateStock(UserContext context,String id,Order order,boolean forward){
     	 
     	 SysUser caller = userLogic.findUserById(context.getUserId());
-	
 		 String giftId = order.getGiftId();          //得到礼品的ID
 		 Gift gift = giftLogic.findGiftById(giftId);//查找礼品的信息
 		  if(forward==true)

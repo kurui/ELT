@@ -1,11 +1,8 @@
 package com.chinarewards.gwt.elt.client.order.presenter;
-
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
-
 import net.customware.gwt.dispatch.client.DispatchAsync;
-
 import com.chinarewards.elt.model.order.search.OrderStatus;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
@@ -270,4 +267,5 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 //					}
 //				});
 	}
+
 }

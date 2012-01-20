@@ -73,10 +73,11 @@ public class PlatformModule extends AbstractGinModule {
 			RewardsListPluginDescriptor rewardsList,
 			AwardRewardPluginDescriptor awardreward,
 			DetailsOfAwardPluginDescriptor detailsAward,
-
-			GiftListPluginDescriptor giftList, GiftPluginDescriptor gift,
+			GiftPluginDescriptor gift,
+			GiftListPluginDescriptor giftList,
 			GiftViewPluginDescriptor giftView,
-			OrderListPluginDescriptor orderList, OrderPluginDescriptor order,
+			OrderListPluginDescriptor orderList,
+			OrderPluginDescriptor order,
 			OrderViewPluginDescriptor orderView) {
 
 
@@ -99,6 +100,7 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(orderList);
 			pluginSet.registerPlugin(giftView);
 			pluginSet.registerPlugin(orderList);//此处有问题,mvn install 无法编译 待查
+
 			pluginSet.registerPlugin(order);
 			pluginSet.registerPlugin(orderView);
 		}

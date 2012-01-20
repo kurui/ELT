@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package com.chinarewards.gwt.elt.client.order.plugin;
 
 import com.chinarewards.gwt.elt.client.order.editor.OrderListEditor;
@@ -9,7 +7,7 @@ import com.google.gwt.inject.client.AbstractGinModule;
 import com.google.inject.Singleton;
 
 /**
- * @author NIcho
+ * @author lw
  * @since 2011年12月9日 
  */
 public class OrderListPluginModule extends AbstractGinModule {

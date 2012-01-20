@@ -31,6 +31,7 @@ public class SearchOrderResponse implements Result {
 	 *            the result to set
 	 */
 	public void setResult(List<OrderSearchVo> result) {
+
 		this.result = result;
 	}
 
