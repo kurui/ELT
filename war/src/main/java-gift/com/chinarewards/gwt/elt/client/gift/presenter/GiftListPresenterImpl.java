@@ -21,6 +21,7 @@ import com.chinarewards.gwt.elt.client.gift.request.UpdateGiftStatusResponse;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
+import com.chinarewards.gwt.elt.client.order.plugin.OrderConstants;
 import com.chinarewards.gwt.elt.client.gift.presenter.GiftListPresenter;
 import com.chinarewards.gwt.elt.client.gift.presenter.GiftListPresenter.GiftListDisplay;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
@@ -52,7 +53,11 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 	EltNewPager pager;
 	ListCellTable<GiftClient> cellTable;
 	GiftListViewAdapter listViewAdapter;
+
+	
+
 	private final BreadCrumbsPresenter breadCrumbs;
+
 	@Inject
 	public GiftListPresenterImpl(EventBus eventBus, DispatchAsync dispatch,
 			ErrorHandler errorHandler, SessionManager sessionManager,
@@ -80,13 +85,14 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 		registerHandler(display.getAddBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
-						GiftClient giftClient = new GiftClient();
-						giftClient.setThisAction(GiftConstants.ACTION_GIFT_ADD);
+
+						GiftClient client=new GiftClient();
+						client.setThisAction(GiftConstants.ACTION_GIFT_ADD);
+
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(GiftConstants.EDITOR_GIFT_EDIT,
-										GiftConstants.ACTION_GIFT_ADD,
-										giftClient);
+										GiftConstants.ACTION_GIFT_ADD,client);
 					}
 				}));
 		registerHandler(display.getimportingBtnClickHandlers().addClickHandler(
@@ -287,8 +293,8 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(
-										GiftConstants.EDITOR_GIFT_VIEW,
-										GiftConstants.EDITOR_GIFT_VIEW
+										OrderConstants.EDITOR_ORDER_VIEW,
+										OrderConstants.EDITOR_ORDER_VIEW
 												+ giftClient.getId(), giftClient);
 					}
 				});

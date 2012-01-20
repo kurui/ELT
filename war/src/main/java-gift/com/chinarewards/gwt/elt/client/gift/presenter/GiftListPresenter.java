@@ -25,6 +25,8 @@ public interface GiftListPresenter extends Presenter<GiftListPresenter.GiftListD
 		Panel getResultPanel();
 		Panel getResultpage();
 		public void initGiftStatus(Map<String, String> map);
+		
 		void setBreadCrumbs(Widget breadCrumbs);
+
 	}
 }

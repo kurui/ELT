@@ -8,6 +8,7 @@ import com.chinarewards.gwt.elt.client.mvp.Presenter;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * 奖项库搜索维护页面
@@ -40,7 +41,7 @@ public interface RewardsItemStoreListPresenter extends	Presenter<RewardsItemStor
 		public HasValue<Date> getCreateTime();
 		public HasValue<Date> getCreateTimeEnd();
           
-				
+		void setBreadCrumbs(Widget breadCrumbs);		
 		
 		void initialize();
 		void setDataCount(String text);

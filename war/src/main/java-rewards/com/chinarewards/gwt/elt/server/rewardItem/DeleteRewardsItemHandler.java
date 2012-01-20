@@ -11,6 +11,7 @@ import com.chinarewards.gwt.elt.client.rewardItem.request.DeleteRewardsItemReque
 import com.chinarewards.gwt.elt.client.rewardItem.request.DeleteRewardsItemResponse;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
 import com.chinarewards.gwt.elt.server.logger.InjectLogger;
+import com.chinarewards.gwt.elt.util.UserRoleTool;
 import com.google.inject.Inject;
 
 public class DeleteRewardsItemHandler extends	BaseActionHandler<DeleteRewardsItemRequest, DeleteRewardsItemResponse> {
@@ -18,7 +19,7 @@ public class DeleteRewardsItemHandler extends	BaseActionHandler<DeleteRewardsIte
 	@InjectLogger
 	Logger logger;
 	RewardItemService rewardItemService;
-
+ 
 	@Inject
 	public DeleteRewardsItemHandler(RewardItemService rewardItemService) {
 		this.rewardItemService = rewardItemService;
@@ -32,7 +33,10 @@ public class DeleteRewardsItemHandler extends	BaseActionHandler<DeleteRewardsIte
 	public DeleteRewardsItemResponse execute(DeleteRewardsItemRequest action,
 			ExecutionContext context) throws DispatchException {
 		UserContext uc=new UserContext();
-		uc.setUserId(action.getNowUserId());
+		uc.setUserId(action.getUserSession().getToken());
+		uc.setCorporationId(action.getUserSession().getCorporationId());
+		uc.setLoginName(action.getUserSession().getLoginName());
+		uc.setUserRoles(UserRoleTool.adaptToRole(action.getUserSession().getUserRoles()));
 		if(action.isItemStore()==false){//是删除奖项
  	       String name=rewardItemService.deleteRewardItem(uc, action.getRewardsItemId().toString());
 	       return new DeleteRewardsItemResponse(name);

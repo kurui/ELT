@@ -11,18 +11,10 @@
 	<ui:style src="new2.css" field="newitem"></ui:style>
 
 	<g:HTMLPanel styleName="{newitem.frame-wrap}">
-		<div class="breadcrumb">
-			<div class="{newitem.breadcrumb-wrap}">
-				<p class="{newitem.breadcrumb-left}">
-					<a href="#">兑换管理</a>
-					>
-					<span>查看礼品</span>
-				</p>
-				<a href="#" class="{newitem.breadcrumb-right}">返回上一页</a>
-			</div>
-			<span class="{newitem.cutline}"></span>
-		</div>
-
+		<!--面包屑 [[ -->
+		<g:FlowPanel ui:field="breadCrumbs" />
+		<!--面包屑 ]] -->
+			
 		<!-- 1内容 -->
 		<div class="{newitem.content-wrap}">
 			<table width="100%" border="0" cellspacing="0" cellpadding="0"

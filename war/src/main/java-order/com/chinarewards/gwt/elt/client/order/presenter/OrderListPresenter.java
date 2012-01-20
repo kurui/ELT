@@ -2,7 +2,6 @@ package com.chinarewards.gwt.elt.client.order.presenter;
 
 
 import java.util.Map;
-
 import com.chinarewards.gwt.elt.client.order.presenter.OrderListPresenter;
 import com.chinarewards.gwt.elt.client.mvp.Display;
 import com.chinarewards.gwt.elt.client.mvp.Presenter;

@@ -21,6 +21,7 @@ import com.chinarewards.gwt.elt.client.login.LoginRequest;
 import com.chinarewards.gwt.elt.client.login.TokenValidRequest;
 import com.chinarewards.gwt.elt.client.nominate.NominateAddRequest;
 import com.chinarewards.gwt.elt.client.nominate.NominateInitRequest;
+import com.chinarewards.gwt.elt.client.order.request.SearchOrderRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.ActivationRewardsItemRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.ActivationRewardsItemStoreRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.CreateRewardsItemRequest;
@@ -52,6 +53,7 @@ import com.chinarewards.gwt.elt.server.login.LoginActionHandler;
 import com.chinarewards.gwt.elt.server.login.TokenValidActionHandler;
 import com.chinarewards.gwt.elt.server.nominate.NominateActionHandler;
 import com.chinarewards.gwt.elt.server.nominate.NominateAddActionHandler;
+import com.chinarewards.gwt.elt.server.order.SearchOrderHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.ActivationRewardsItemHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.ActivationRewardsItemStroeHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.CreateRewardsItemHandler;
@@ -151,8 +153,14 @@ public class ActionModule extends ActionHandlerModule {
 		bindHandler(DeleteUserRequest.class, DeleteUserActionHandler.class); 
 		//奖项库.应用到奖项
 		bindHandler(ActivationRewardsItemStoreRequest.class, ActivationRewardsItemStroeHandler.class); 
+
 		//奖品商城查询
 		bindHandler(SearchAwardShopRequest.class, SearchAwardShopHandler.class); 
+
+		
+		//定单列表
+		bindHandler(SearchOrderRequest.class, SearchOrderHandler.class);
+
 		
 	}
 }

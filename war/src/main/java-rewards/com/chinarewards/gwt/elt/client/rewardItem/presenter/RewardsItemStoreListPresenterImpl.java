@@ -5,6 +5,7 @@ import java.util.Date;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.dataprovider.RewardsItemStoreListViewAdapter;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
@@ -56,7 +57,7 @@ public class RewardsItemStoreListPresenterImpl extends
     final Win win;
 	DateTimeFormat dateFormatAll = DateTimeFormat.getFormat(ViewConstants.date_format_all);
 	DateTimeFormat dateFormat = DateTimeFormat.getFormat(ViewConstants.date_format);
-
+	private final BreadCrumbsPresenter breadCrumbs;
 
 	// 是否部门管理员
 	boolean isHr = false;
@@ -66,20 +67,22 @@ public class RewardsItemStoreListPresenterImpl extends
 
 	public RewardsItemStoreListPresenterImpl(EventBus eventBus,Win win,
 			RewardsItemStoreListDisplay display, DispatchAsync dispatch,
-			ErrorHandler errorHandler, SessionManager sessionManager) {
+			ErrorHandler errorHandler, SessionManager sessionManager,
+			BreadCrumbsPresenter breadCrumbs) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
 		this.win = win;
-
+        this.breadCrumbs = breadCrumbs;
 	}
 
 	@Override
 	public void bind() {
 		init();
 		buildTable();
-
+		breadCrumbs.loadListPage();
+		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
 		registerHandler(display.getSearchClick().addClickHandler(
 				new ClickHandler() {
 					@Override
@@ -275,7 +278,7 @@ public class RewardsItemStoreListPresenterImpl extends
 								
 								@Override
 								public void confirm() {
-									dispatch.execute(new DeleteRewardsItemRequest(object.getId(),sessionManager.getSession().getToken(),true),
+									dispatch.execute(new DeleteRewardsItemRequest(object.getId(),true,sessionManager.getSession()),
 											new AsyncCallback<DeleteRewardsItemResponse>() {
 
 												@Override
@@ -344,7 +347,7 @@ public class RewardsItemStoreListPresenterImpl extends
 	public void deleteRewardItem(String rewardsItemId) {
 
 		dispatch.execute(new DeleteRewardsItemRequest(rewardsItemId,
-				sessionManager.getSession().getToken(),true),
+				true,sessionManager.getSession()),
 				new AsyncCallback<DeleteRewardsItemResponse>() {
 
 					@Override

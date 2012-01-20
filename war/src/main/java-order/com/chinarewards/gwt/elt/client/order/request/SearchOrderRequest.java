@@ -5,61 +5,43 @@ package com.chinarewards.gwt.elt.client.order.request;
 
 import net.customware.gwt.dispatch.shared.Action;
 
-import com.chinarewards.gwt.elt.client.order.request.SearchOrderResponse;
-import com.chinarewards.gwt.elt.client.order.model.OrderSeacherVo;
-import com.chinarewards.gwt.elt.model.user.UserRoleVo;
+import com.chinarewards.gwt.elt.client.order.model.OrderSearchVo;
+import com.chinarewards.gwt.elt.client.support.UserSession;
 
 /**
- * @author yanrui
+ * @author lw
+ * @since 2012年1月20日 19:00:40
  */
 public class SearchOrderRequest implements Action<SearchOrderResponse> {
 
-	private OrderSeacherVo order;
-	private String corporationId;
-	private UserRoleVo[] userRoles;
-	private String userId;
+	private OrderSearchVo orderSearchVo;
+	private UserSession userSession;
+	
 
 	public SearchOrderRequest() {
 	}
 
-	public SearchOrderRequest(OrderSeacherVo order, String corporationId,
-			UserRoleVo[] userRoles, String userId) {
-		this.order = order;
-		this.corporationId = corporationId;
-		this.userRoles = userRoles;
-		this.userId = userId;
+	public SearchOrderRequest(OrderSearchVo orderSearchVo,UserSession userSession) {
+		this.orderSearchVo = orderSearchVo;
+		this.userSession = userSession;
 	}
 
-	public String getCorporationId() {
-		return corporationId;
+	public OrderSearchVo getOrderSearchVo() {
+		return orderSearchVo;
 	}
 
-	public void setCorporationId(String corporationId) {
-		this.corporationId = corporationId;
+	public void setOrderSearchVo(OrderSearchVo orderSearchVo) {
+		this.orderSearchVo = orderSearchVo;
 	}
 
-	public UserRoleVo[] getUserRoles() {
-		return userRoles;
+	public UserSession getUserSession() {
+		return userSession;
 	}
 
-	public void setUserRoles(UserRoleVo[] userRoles) {
-		this.userRoles = userRoles;
+	public void setUserSession(UserSession userSession) {
+		this.userSession = userSession;
 	}
 
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-
-	public OrderSeacherVo getOrder() {
-		return order;
-	}
-
-	public void setOrder(OrderSeacherVo order) {
-		this.order = order;
-	}
+	
 
 }

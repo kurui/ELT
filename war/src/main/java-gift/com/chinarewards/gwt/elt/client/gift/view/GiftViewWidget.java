@@ -16,6 +16,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
@@ -64,6 +65,9 @@ public class GiftViewWidget extends Composite implements GiftViewDisplay {
 
 	@UiField
 	Button update;
+	
+	@UiField
+	Panel breadCrumbs;
 
 	DateTimeFormat dateFormat = DateTimeFormat
 			.getFormat(ViewConstants.date_format);
@@ -128,5 +132,11 @@ public class GiftViewWidget extends Composite implements GiftViewDisplay {
 		// @UiField
 		// DateBox updatetime;
 		// ---end vo
+	}
+	
+	@Override
+	public void setBreadCrumbs(Widget breadCrumbs) {
+		this.breadCrumbs.clear();
+		this.breadCrumbs.add(breadCrumbs);		
 	}
 }

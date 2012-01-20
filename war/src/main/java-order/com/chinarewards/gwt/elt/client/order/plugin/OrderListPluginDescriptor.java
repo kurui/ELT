@@ -8,6 +8,7 @@ import java.util.Set;
 
 import com.chinarewards.gwt.elt.client.core.Extension;
 import com.chinarewards.gwt.elt.client.core.ExtensionPoint;
+import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.Plugin;
 import com.chinarewards.gwt.elt.client.core.PluginDescriptor;
 import com.chinarewards.gwt.elt.client.core.ui.MenuItem;
@@ -18,7 +19,8 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.inject.Inject;
 
 /**
- * @author yanrui
+ * @author nicho
+ * @since
  */
 public class OrderListPluginDescriptor implements PluginDescriptor {
 
@@ -27,8 +29,7 @@ public class OrderListPluginDescriptor implements PluginDescriptor {
 	final OrderListEditorDescriptor orderListEditorDescriptor;
 
 	@Inject
-	public OrderListPluginDescriptor(
-			final OrderListEditorDescriptor orderListEditorDescriptor) {
+	public OrderListPluginDescriptor(final OrderListEditorDescriptor orderListEditorDescriptor) {
 		this.orderListEditorDescriptor = orderListEditorDescriptor;
 		orderListPlugin = new OrderListPlugin(this);
 
@@ -69,11 +70,11 @@ public class OrderListPluginDescriptor implements PluginDescriptor {
 					@Override
 					public void execute() {
 
-//						Platform.getInstance()
-//								.getEditorRegistry()
-//								.openEditor(
-//										OrderListConstants.EDITOR_ORDERLIST_SEARCH,
-//										"EDITOR_ORDERLIST_SEARCH_DO_ID", null);
+						Platform.getInstance()
+								.getEditorRegistry()
+								.openEditor(
+										OrderListConstants.EDITOR_ORDERLIST_SEARCH,
+										"EDITOR_REWARDSLIST_SEARCH_DO_ID", null);
 					}
 
 					@Override

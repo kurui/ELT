@@ -4,9 +4,18 @@ import java.util.Date;
 
 import com.chinarewards.elt.model.common.PaginationDetail;
 import com.chinarewards.elt.model.common.SortingDetail;
+import com.chinarewards.elt.model.gift.search.GiftListVo;
 import com.chinarewards.elt.model.order.search.OrderListVo;
 
 public class OrderListVo {
+	
+	private GiftListVo giftvo;//订单的VO
+	public GiftListVo getGiftvo() {
+		return giftvo;
+	}
+	public void setGiftvo(GiftListVo giftvo) {
+		this.giftvo = giftvo;
+	}
 	
 	private PaginationDetail paginationDetail;
 	public PaginationDetail getPaginationDetail() {
@@ -21,10 +30,7 @@ public class OrderListVo {
 	public void setSortingDetail(SortingDetail sortingDetail) {
 		this.sortingDetail = sortingDetail;
 	}
-	/**
-	 * Sorting detail.
-	 */
-//	private GiftVo giftVo;	
+
 	
 	private SortingDetail sortingDetail;
 	private String  id;

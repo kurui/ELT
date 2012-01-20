@@ -15,7 +15,7 @@
 					<p class="{new2.breadcrumb-left}">
 						<a href="#" style="color:#565656;text-decoration:none;">兑换管理</a>
 						->
-						<span>礼品列表</span>
+						<span>订单列表</span>
 					</p>
 					<a href="#" class="{new2.breadcrumb-right} {new2.back-btn}"
 						style="color:#565656;text-decoration:none;">返回上一页</a>
@@ -27,7 +27,7 @@
 			<!--查询条件 [[ -->
 			<div class="{new2.query-wrap}">
 				<div class="{new2.form}">
-					<label for="">礼品状态:</label>
+					<label for="">订单状态:</label>
 					<span class="{new2.nbsp}"></span>
 					<g:ListBox ui:field="status"  styleName="{new2.select}"/>
 					<span class="{new2.nbspbig}"></span>
