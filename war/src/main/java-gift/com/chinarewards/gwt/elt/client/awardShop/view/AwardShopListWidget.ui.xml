@@ -9,7 +9,7 @@
 			<!--面包屑 [[ -->
 			<g:FlowPanel ui:field="breadCrumbs" />
 			<!--面包屑 ]] -->
-				<span class="{new2.cutline}"></span>
+
 
 
 			<!--查询条件 [[ -->
