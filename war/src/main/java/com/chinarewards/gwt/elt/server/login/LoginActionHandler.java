@@ -39,6 +39,7 @@ public class LoginActionHandler extends
 			resp.setToken(u.getId());
 			resp.setDepartmentId(u.getDepartmentId());
 			resp.setUserRoles(UserRoleTool.adaptToRoleVo(u.getUserRoles()));
+			resp.setStaffId(u.getStaffId());
 
 		} else {
 			throw new ClientException("login failure!");

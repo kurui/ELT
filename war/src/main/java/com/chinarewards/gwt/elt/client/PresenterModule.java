@@ -1,6 +1,7 @@
 package com.chinarewards.gwt.elt.client;
 
 import com.chinarewards.gwt.elt.client.awardReward.module.AwardRewardModule;
+import com.chinarewards.gwt.elt.client.breadCrumbs.module.BreadCrumbsModule;
 import com.chinarewards.gwt.elt.client.chooseStaff.module.ChooseStaffModule;
 import com.chinarewards.gwt.elt.client.core.presenter.DockModule;
 import com.chinarewards.gwt.elt.client.detailsOfAward.module.DetailsOfAwardModule;
@@ -36,6 +37,7 @@ public class PresenterModule extends AbstractGinModule {
 		install(new OrderListModule());
 		install(new OrderModule());
 		install(new WinModule());
+		install(new BreadCrumbsModule());
 
 	}
 

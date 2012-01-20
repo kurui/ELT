@@ -130,13 +130,13 @@
 				         </div>
 				      </div> 
                        <div class="{newitem.form-line}">
-				        <label class="{newitem.label}">下次公布时间 </label>
+				        <label class="{newitem.label}">下次公布时间：</label>
 				        <div class="{newitem.element}">
 				          	<d:DateBox ui:field="nextPublicTime" styleName="{newitem.text}"/>
 				         </div>
 				      </div> 
                        <div class="{newitem.form-line}">
-				        <label class="{newitem.label}">特殊条件 </label>
+				        <label class="{newitem.label}">特殊条件：</label>
 				        <div class="{newitem.element}">
 				          	<g:CheckBox ui:field="specialCbx"></g:CheckBox><g:RadioButton ui:field="birthRadio" name="condition"> 员工生日</g:RadioButton>
 				         </div>

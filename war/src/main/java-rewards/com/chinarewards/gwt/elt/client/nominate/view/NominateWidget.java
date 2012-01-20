@@ -57,11 +57,12 @@ public class NominateWidget extends Composite implements NominateDisplay {
 	// 选人模块
 	@UiField
 	Panel staffPanel;
+	@UiField
+	Panel breadCrumbs;
+	private static NominateWidgetUiBinder uiBinder = GWT
+			.create(NominateWidgetUiBinder.class);
 
-	private static HrRegisterWidgetUiBinder uiBinder = GWT
-			.create(HrRegisterWidgetUiBinder.class);
-
-	interface HrRegisterWidgetUiBinder extends UiBinder<Widget, NominateWidget> {
+	interface NominateWidgetUiBinder extends UiBinder<Widget, NominateWidget> {
 	}
 
 	public NominateWidget() {
@@ -232,6 +233,13 @@ public class NominateWidget extends Composite implements NominateDisplay {
 	@Override
 	public void initStaffPanel(Widget w) {
 		staffPanel.add(w);
+	}
+
+	@Override
+	public void setBreadCrumbs(Widget breadCrumbs) {
+		this.breadCrumbs.clear();
+		this.breadCrumbs.add(breadCrumbs);
+		
 	}
 
 }

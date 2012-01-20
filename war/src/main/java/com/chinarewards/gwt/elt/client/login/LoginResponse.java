@@ -9,6 +9,15 @@ public class LoginResponse implements Result {
 	String loginName;
 	String corporationId;
 	String departmentId;
+	String staffId;
+	public String getStaffId() {
+		return staffId;
+	}
+
+	public void setStaffId(String staffId) {
+		this.staffId = staffId;
+	}
+
 	UserRoleVo[] userRoles;
 
 	public String getDepartmentId() {

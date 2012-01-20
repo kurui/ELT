@@ -70,13 +70,13 @@
 				       </div>
                      
 					  <div class="{newitem.form-line}">
-					  <label class="{newitem.label}">奖项模式</label>
+					  <label class="{newitem.label}">奖项模式：</label>
 					   <div   class="{newitem.element}"  ><g:Label ui:field="itemModel" />
 					   </div>
 					  </div>
 					  
 					  <div class="{newitem.form-line}">
-					  <label class="{newitem.label}">开始时间</label>
+					  <label class="{newitem.label}">开始时间：</label>
 					   <div   class="{newitem.element}"  ><g:Label ui:field="startTime" />
 					   </div>
 					  </div>

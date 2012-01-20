@@ -6,6 +6,7 @@ import java.util.Date;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.awardReward.plugin.AwardRewardConstants;
+import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.dataprovider.RewardsListViewAdapter;
@@ -14,6 +15,7 @@ import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.nominate.plugin.NominateConstants;
+import com.chinarewards.gwt.elt.client.rewards.model.JudgeModelClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsCriteria;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsCriteria.RewardsStatus;
@@ -53,20 +55,24 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 	ListCellTable<RewardsClient> cellTable;
 	RewardsListViewAdapter listViewAdapter;
 
+	private final BreadCrumbsPresenter breadCrumbs;
 	@Inject
 	public RewardsListPresenterImpl(EventBus eventBus, DispatchAsync dispatch,
 			ErrorHandler errorHandler, SessionManager sessionManager,
-			RewardsListDisplay display, Win win) {
+			RewardsListDisplay display, Win win,BreadCrumbsPresenter breadCrumbs) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
 		this.win = win;
+		this.breadCrumbs=breadCrumbs;
 
 	}
 
 	@Override
 	public void bind() {
+		breadCrumbs.loadListPage();
+		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
 		init();
 		registerHandler(display.getSearchBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
@@ -77,7 +83,7 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 				}));
 	}
 
-	private void init() {
+	private void init() {	
 		buildTable();
 		doSearch();
 	}
@@ -225,19 +231,59 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 					new GetValue<RewardsClient, String>() {
 						@Override
 						public String getValue(RewardsClient rewards) {
+//							for (JudgeModelClient judge:rewards.getJudgeList()) {
+//								if(judge.getStaffId().equals(sessionManager.getSession().getStaffId()))
+//								{
+//									if("NOMINATED".equals(judge.getStatus()))
+//									{
+//										return "已提名";
+//									}
+//									else
+//									{
+//										return "提名";
+//									}
+//								}
+//							}
+//							return "不是提名人";
 							return "提名";
+												
 						}
 					}, new FieldUpdater<RewardsClient, String>() {
 
 						@Override
 						public void update(int index, RewardsClient o,
 								String value) {
-							Platform.getInstance()
-									.getEditorRegistry()
-									.openEditor(
-											NominateConstants.EDITOR_NOMINATE_SEARCH,
-											NominateConstants.EDITOR_NOMINATE_SEARCH
-													+ o.getId(), o);
+							boolean fal=false;
+							if(o.getJudgeList()!=null)
+							{
+								for (JudgeModelClient judge:o.getJudgeList()) {
+									if(judge.getStaffId().equals(sessionManager.getSession().getStaffId()))
+									{
+										fal=true;
+										if("NOMINATED".equals(judge.getStatus()))
+										{
+											win.alert("您已经提名过了!"+"<br><br>您提名了:"+o.getNomineeLot().get(judge.getStaffId()));
+										}
+										else
+										{
+											Platform.getInstance()
+											.getEditorRegistry()
+											.openEditor(
+													NominateConstants.EDITOR_NOMINATE_SEARCH,
+													NominateConstants.EDITOR_NOMINATE_SEARCH
+															+ o.getId(), o);
+										}
+										break;
+									}
+								}
+								if(fal==false)
+									win.alert("您不是提名人!");
+							}
+							else
+							{
+								win.alert("该奖项无提名人!");
+							}
+							
 
 						}
 
@@ -303,7 +349,23 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 							if (rewards.getStatus() == RewardsStatus.NEW)
 								return "颁奖";
 							else if (rewards.getStatus() == RewardsStatus.PENDING_NOMINATE)
+								{
+//								for (JudgeModelClient judge:rewards.getJudgeList()) {
+//									if(judge.getStaffId().equals(sessionManager.getSession().getStaffId()))
+//									{
+//										if("NOMINATED".equals(judge.getStatus()))
+//										{
+//											return "已提名";
+//										}
+//										else
+//										{
+//											return "提名";
+//										}
+//									}
+//								}
+//								return "不是提名人";
 								return "提名";
+								}
 							else
 								return "";
 						}
@@ -314,13 +376,37 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 								String value) {
 							String pageUrl = "";
 							if (o.getStatus() == RewardsStatus.NEW)
+							{
 								pageUrl = AwardRewardConstants.EDITOR_AWARDREWARD_SEARCH;
+								Platform.getInstance()
+								.getEditorRegistry()
+								.openEditor(pageUrl, pageUrl + o.getId(), o);
+							}
 							else if (o.getStatus() == RewardsStatus.PENDING_NOMINATE)
+							{
 								pageUrl = NominateConstants.EDITOR_NOMINATE_SEARCH;
+								boolean fal=false;
+								for (JudgeModelClient judge:o.getJudgeList()) {
+									if(judge.getStaffId().equals(sessionManager.getSession().getStaffId()))
+									{
+										fal=true;
+										if("NOMINATED".equals(judge.getStatus()))
+										{
+											win.alert("您已经提名过了!"+"<br><br>您提名了:"+o.getNomineeLot().get(judge.getStaffId()));
+										}
+										else
+										{
+											Platform.getInstance()
+											.getEditorRegistry()
+											.openEditor(pageUrl, pageUrl + o.getId(), o);
 
-							Platform.getInstance()
-									.getEditorRegistry()
-									.openEditor(pageUrl, pageUrl + o.getId(), o);
+										}
+										break;
+									}
+								}
+								if(fal==false)
+									win.alert("您不是提名人!");
+							}
 
 						}
 

@@ -5,6 +5,7 @@ import java.util.List;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.chooseStaff.presenter.ChooseStaffPanelPresenter;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
@@ -40,20 +41,24 @@ public class NominatePresenterImpl extends
 	final SessionManager sessionManager;
 	final Win win;
 	private final ChooseStaffPanelPresenter staffPanel;
-
+	private final BreadCrumbsPresenter breadCrumbs;
 	@Inject
 	public NominatePresenterImpl(EventBus eventBus, NominateDisplay display,
 			DispatchAsync dispatcher, ChooseStaffPanelPresenter staffPanel,
-			SessionManager sessionManager, Win win) {
+			SessionManager sessionManager, Win win,BreadCrumbsPresenter breadCrumbs) {
 		super(eventBus, display);
 		this.dispatcher = dispatcher;
 		this.staffPanel = staffPanel;
 		this.sessionManager = sessionManager;
 		this.win = win;
+		this.breadCrumbs=breadCrumbs;
 	}
 
 	@Override
 	public void bind() {
+		breadCrumbs.loadChildPage("提名");
+
+		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
 		init();
 		InitChoosePanelParam initChooseParam = new InitChoosePanelParam();
 		initChooseParam.setTopName("待提名人：");

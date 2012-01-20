@@ -2,26 +2,12 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:d='urn:import:com.google.gwt.user.datepicker.client'
 	xmlns:c="urn:import:com.google.gwt.user.cellview.client">
-	<ui:image field="post_bg" resource="post_bg.jpg" repeatStyle="Horizontal"></ui:image>
-	<ui:image field="button_search" resource="button_search.jpg"></ui:image>
-	<ui:image field="button_add" resource="button_add.jpg"></ui:image>
-	<ui:style src="rewardsSearch.css" field="rewards"></ui:style>
+
 	<ui:style src="new2.css" field="new2"></ui:style>
 	<g:HTMLPanel>
 		<div class="{new2.frame-wrap}">
 			<!--面包屑 [[ -->
-			<div class="{new2.breadcrumb-wrap}">
-				<div class="{new2.breadcrumb-wrap}">
-					<p class="{new2.breadcrumb-left}">
-						<a href="#" style="color:#565656;text-decoration:none;">应用奖项</a>
-						->
-						<span>应用奖项列表</span>
-					</p>
-					<a href="#" class="{new2.breadcrumb-right} {new2.back-btn}"
-						style="color:#565656;text-decoration:none;">返回上一页</a>
-				</div>
-				<span class="{new2.cutline}"></span>
-			</div>
+			<g:FlowPanel ui:field="breadCrumbs" />
 			<!--面包屑 ]] -->
 
 

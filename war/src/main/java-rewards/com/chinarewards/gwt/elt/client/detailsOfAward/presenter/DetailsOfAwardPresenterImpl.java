@@ -2,6 +2,7 @@ package com.chinarewards.gwt.elt.client.detailsOfAward.presenter;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.chooseStaff.presenter.ChooseStaffPanelPresenter;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.detailsOfAward.request.DetailsOfAwardInitRequest;
@@ -27,22 +28,27 @@ public class DetailsOfAwardPresenterImpl extends
 
 	private final DispatchAsync dispatcher;
 	private String awardsId;
+	private String pageMenuName;
 	private RewardsStatus rewardStatus;
 	// private String instanceId;
-
+	private final BreadCrumbsPresenter breadCrumbs;
 	private final ChooseStaffPanelPresenter staffPanel;
 
 	@Inject
 	public DetailsOfAwardPresenterImpl(EventBus eventBus,
 			DetailsOfAwardDisplay display, DispatchAsync dispatcher,
-			ChooseStaffPanelPresenter staffPanel) {
+			ChooseStaffPanelPresenter staffPanel,BreadCrumbsPresenter breadCrumbs) {
 		super(eventBus, display);
 		this.dispatcher = dispatcher;
 		this.staffPanel = staffPanel;
+		this.breadCrumbs=breadCrumbs;
 	}
 
 	@Override
 	public void bind() {
+		breadCrumbs.loadChildPage(pageMenuName);
+		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
+		
 		init();
 		InitChoosePanelParam initChooseParam = new InitChoosePanelParam();
 		initChooseParam.setTopName("待提名人：");
@@ -131,10 +137,18 @@ public class DetailsOfAwardPresenterImpl extends
 		this.awardsId = rewardId;
 		this.rewardStatus = status;
 		if (status == RewardsStatus.NEW)
-			display.setPageTitle("待颁奖详细");
+		{
+			this.pageMenuName="待颁奖详细";
+		}
 		else if (status == RewardsStatus.PENDING_NOMINATE)
-			display.setPageTitle("提名详细");
-
+		{
+			this.pageMenuName="提名详细";
+		}
+		else
+		{
+			this.pageMenuName="已颁奖详细";
+		}
+		display.setPageTitle(pageMenuName);
 	}
 
 }
