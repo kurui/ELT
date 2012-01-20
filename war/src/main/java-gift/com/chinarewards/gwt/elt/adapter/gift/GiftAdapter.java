@@ -2,7 +2,6 @@ package com.chinarewards.gwt.elt.adapter.gift;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.chinarewards.elt.model.gift.search.GiftListVo;
 import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
 import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria.GiftStatus;
