@@ -254,28 +254,36 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 						public void update(int index, RewardsClient o,
 								String value) {
 							boolean fal=false;
-							for (JudgeModelClient judge:o.getJudgeList()) {
-								if(judge.getStaffId().equals(sessionManager.getSession().getStaffId()))
-								{
-									fal=true;
-									if("NOMINATED".equals(judge.getStatus()))
+							if(o.getJudgeList()!=null)
+							{
+								for (JudgeModelClient judge:o.getJudgeList()) {
+									if(judge.getStaffId().equals(sessionManager.getSession().getStaffId()))
 									{
-										win.alert("您已经提名过了!"+"<br><br>您提名了:"+o.getNomineeLot().get(judge.getStaffId()));
+										fal=true;
+										if("NOMINATED".equals(judge.getStatus()))
+										{
+											win.alert("您已经提名过了!"+"<br><br>您提名了:"+o.getNomineeLot().get(judge.getStaffId()));
+										}
+										else
+										{
+											Platform.getInstance()
+											.getEditorRegistry()
+											.openEditor(
+													NominateConstants.EDITOR_NOMINATE_SEARCH,
+													NominateConstants.EDITOR_NOMINATE_SEARCH
+															+ o.getId(), o);
+										}
+										break;
 									}
-									else
-									{
-										Platform.getInstance()
-										.getEditorRegistry()
-										.openEditor(
-												NominateConstants.EDITOR_NOMINATE_SEARCH,
-												NominateConstants.EDITOR_NOMINATE_SEARCH
-														+ o.getId(), o);
-									}
-									break;
 								}
+								if(fal==false)
+									win.alert("您不是提名人!");
 							}
-							if(fal==false)
-								win.alert("您不是提名人!");
+							else
+							{
+								win.alert("该奖项无提名人!");
+							}
+							
 
 						}
 
