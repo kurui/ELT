@@ -44,6 +44,11 @@ public enum UserRole {
 	/**
 	 * Ordinary staff.
 	 */
-	STAFF
+	STAFF,
+	
+	/**
+	 * Ordinary gift.
+	 */
+	GIFT
 
 }

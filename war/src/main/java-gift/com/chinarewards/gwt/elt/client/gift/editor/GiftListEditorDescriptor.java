@@ -5,6 +5,7 @@ package com.chinarewards.gwt.elt.client.gift.editor;
 
 import com.chinarewards.gwt.elt.client.core.ui.Editor;
 import com.chinarewards.gwt.elt.client.core.ui.EditorDescriptor;
+import com.chinarewards.gwt.elt.client.gift.editor.GiftListEditor;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftListConstants;
 import com.chinarewards.gwt.elt.model.rewards.RewardsPageClient;
 import com.google.inject.Inject;

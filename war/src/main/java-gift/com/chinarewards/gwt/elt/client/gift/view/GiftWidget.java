@@ -4,6 +4,7 @@ import java.util.Date;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
+import com.chinarewards.gwt.elt.client.gift.view.GiftWidget;
 import com.chinarewards.gwt.elt.client.gift.model.GiftVo;
 import com.chinarewards.gwt.elt.client.gift.presenter.GiftPresenter.GiftDisplay;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
@@ -117,14 +118,8 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	}
 
 	@Override
-	public String getType() {
-		String typeValue = "";
-		if (type != null) {
-			if (type.getItemCount() > 0) {
-				typeValue = type.getValue(0);
-			}
-		}
-		return typeValue;
+	public ListBox getType() {
+		return type;
 	}
 
 	@Override
@@ -277,12 +272,14 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	}
 
 	private void initTypeSelect(String selectedValue) {
-		type.addItem("实物", "1");
-		type.addItem("虚拟", "2");
+		type.addItem("实物", GiftVo.TYPE_1);
+		type.addItem("虚拟", GiftVo.TYPE_2);
 
 		if (StringUtil.trim(selectedValue) != "") {
 			type.setValue(0, selectedValue);
 		}
 	}
+
+
 
 }

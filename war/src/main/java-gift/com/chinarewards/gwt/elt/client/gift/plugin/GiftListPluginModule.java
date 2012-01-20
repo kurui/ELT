@@ -5,6 +5,7 @@ package com.chinarewards.gwt.elt.client.gift.plugin;
 
 import com.chinarewards.gwt.elt.client.gift.editor.GiftListEditor;
 import com.chinarewards.gwt.elt.client.gift.editor.GiftListEditorDescriptor;
+import com.chinarewards.gwt.elt.client.gift.plugin.GiftListPluginDescriptor;
 import com.google.gwt.inject.client.AbstractGinModule;
 import com.google.inject.Singleton;
 

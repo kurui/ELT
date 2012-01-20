@@ -11,6 +11,7 @@ import com.chinarewards.gwt.elt.client.gift.request.SearchGiftByIdRequest;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
+import com.chinarewards.gwt.elt.client.gift.presenter.GiftPresenter;
 import com.chinarewards.gwt.elt.client.gift.request.SearchGiftByIdResponse;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.win.Win;
@@ -77,6 +78,7 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 							return;
 						}
 
+					
 						GiftVo giftVo = GiftAdapterClient.adapterDisplay(display);
 						
 						if (GiftConstants.ACTION_GIFT_ADD.equals(thisAction)) {

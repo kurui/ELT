@@ -164,7 +164,6 @@ public class ButtonMenuProcessor implements MenuProcessor {
 		} else if ("Gift".equals(keyname)) {
 			items.add(GiftListConstants.MENU_GIFTLIST_SEARCH);
 			items.add(GiftConstants.MENU_GIFT_ADD);
-			// items.add(GiftConstants.MENU_GIFT_EDIT);
 		}
 		return items;
 	}
