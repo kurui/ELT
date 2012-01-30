@@ -107,6 +107,7 @@ public class GiftLogicImpl implements GiftLogic{
         giftVo.setRecorddate(gift.getRecorddate());
         giftVo.setRecorduser(gift.getRecorduser());
         giftVo.setUpdatetime(gift.getUpdatetime());
+        giftVo.setIntegral(gift.getIntegral());
 		return giftVo;
 	}
 	@Override

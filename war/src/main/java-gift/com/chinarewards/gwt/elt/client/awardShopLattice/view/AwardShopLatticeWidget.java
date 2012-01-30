@@ -5,6 +5,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -12,6 +13,12 @@ public class AwardShopLatticeWidget extends Composite implements
 		AwardShopLatticeDisplay {
 	@UiField
 	InlineLabel awardName;
+	@UiField
+	InlineLabel integral;
+	@UiField
+	InlineLabel indate;
+	@UiField
+	Image photo;
 	
 	private static AwardShopLatticeWidgetUiBinder uiBinder = GWT
 			.create(AwardShopLatticeWidgetUiBinder.class);
@@ -23,9 +30,12 @@ public class AwardShopLatticeWidget extends Composite implements
 	public AwardShopLatticeWidget() {
 		initWidget(uiBinder.createAndBindUi(this));
 	}
-	public AwardShopLatticeWidget(String name) {
+	public AwardShopLatticeWidget(String awardName,String integral,String indate,String photo) {
 		initWidget(uiBinder.createAndBindUi(this));
-		awardName.setText(name);
+		this.awardName.setText(awardName);
+		this.integral.setText(integral);
+		this.indate.setText(indate);
+		this.photo.setUrl("/imageshow?imageName="+photo);
 	}
 
 }

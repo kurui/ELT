@@ -80,12 +80,13 @@ public class AwardShopListViewAdapter extends BaseDataProvider<GiftClient> {
 						      for (int col = 0; col < numColumns; col++) {
 						    	  if(index<giftList.size())	
 						    	  {
-						    		  grid.setWidget(row, col,new AwardShopLatticeWidget(giftList.get(index).getName()).asWidget());
+						    		  GiftClient clint=giftList.get(index);
+						    		  grid.setWidget(row, col,new AwardShopLatticeWidget(clint.getName(),clint.getIntegral()+"",clint.getIndate()+"",clint.getPhoto()).asWidget());
 						    	  	  index++;
 						    	  }
 						    	  else
 						    	  {
-						    		  grid.setWidget(row, col,new AwardShopLatticeWidget("无数据").asWidget());
+						    		  grid.setWidget(row, col,new AwardShopLatticeWidget("无数据","无数据","无数据","无数据").asWidget());
 						    	  }
 						      }
 						    }
