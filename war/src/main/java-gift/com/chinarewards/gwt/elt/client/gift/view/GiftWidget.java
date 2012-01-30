@@ -24,6 +24,7 @@ import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
@@ -34,7 +35,7 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	@UiField
 	TextBox name;
 	@UiField
-	TextBox explains;
+	TextArea explains;
 	@UiField
 	ListBox type;
 	// @UiField

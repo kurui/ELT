@@ -14,112 +14,101 @@
 		<!--面包屑 [[ -->
 		<g:FlowPanel ui:field="breadCrumbs" />
 		<!--面包屑 ]] -->
-			
+		<h3>查看礼品
+		</h3>
+		<span class="{newitem.cutline}"></span>
 		<!-- 1内容 -->
 		<div class="{newitem.content-wrap}">
-			<table width="100%" border="0" cellspacing="0" cellpadding="0"
-				class="{newitem.form}">
-				<tr class="{newitem.form-line}">
-					<td class="{newitem.label}">
-						<span>*</span>
-						礼品名称：
-					</td>
-					<td class="{newitem.element}">
-						<g:Label ui:field="name" />
-					</td>
-					<td></td>
-				</tr>
-				<tr class="{newitem.form-line}">
-					<td valign="top" class="{newitem.label}">礼品说明：</td>
-					<td class="{newitem.element}">
-						<g:Label ui:field="explains" />
-					</td>
-					<td></td>
-				</tr>
-				<tr class="{newitem.form-line}">
-					<td valign="top" class="{newitem.label}">礼品类型：</td>
-					<td class="{newitem.element}">
-						<g:Label ui:field="typeText" />
-					</td>
-					<td></td>
-				</tr>
-				<tr class="{newitem.form-line}">
-					<td valign="top" class="{newitem.label}">供应商名称：</td>
-					<td class="{newitem.element}">
-						<g:Label ui:field="business" />
-					</td>
-					<td></td>
-				</tr>
-				<tr class="{newitem.form-line}">
-					<td valign="top" class="{newitem.label}">供应商地址：</td>
-					<td class="{newitem.element}">
-						<g:Label ui:field="address" />
-					</td>
-					<td></td>
-				</tr>
-				<tr class="{newitem.form-line}">
-					<td valign="top" class="{newitem.label}">供应商电话：</td>
-					<td class="{newitem.element}">
-						<g:Label ui:field="tell" />
-					</td>
-					<td></td>
-				</tr>
-				<tr class="{newitem.form-line}">
-					<td valign="top" class="{newitem.label}">礼品图片：</td>
-					<td class="{newitem.element}">
-						<table>
-							<tr>
-								<td>
-									<g:Image ui:field="giftImage" width="80px" height="60px"
-										visible="false" />
-								</td>
-								<td>
+			<div class="{newitem.form}">
 
-								</td>
-								<td>
+				<div class="{newitem.form-line}">
+					<label class="{newitem.label}">礼品名称：</label>
+					<div class="{newitem.element}">
+						<g:Label text="等待数据加载..." ui:field="name" />
+					</div>
+				</div>
 
-								</td>
-							</tr>
-						</table>
-					</td>
-					<td></td>
-				</tr>
-				<tr class="{newitem.form-line}">
-					<td class="{newitem.label}">
+				<div class="{newitem.form-line}">
+					<label class="{newitem.label}">
+						礼品说明：
+					</label>
+					<div class="{newitem.element}">
+						<g:Label text="等待数据加载..." ui:field="explains" />
+					</div>
+				</div>
+				<div class="{newitem.form-line}">
+					<label class="{newitem.label}">
+						礼品类型：
+					</label>
+					<div class="{newitem.element}">
+						<g:Label text="等待数据加载..." ui:field="typeText" />
+					</div>
+				</div>
+				<div class="{newitem.form-line}">
+					<label class="{newitem.label}">
+						供应商名称：
+					</label>
+					<div class="{newitem.element}">
+						<g:Label text="等待数据加载..." ui:field="business" />
+					</div>
+				</div>
+				<div class="{newitem.form-line}">
+					<label class="{newitem.label}">
+						供应商地址：
+					</label>
+					<div class="{newitem.element}">
+						<g:Label text="等待数据加载..." ui:field="address" />
+					</div>
+				</div>
+				<div class="{newitem.form-line}">
+					<label class="{newitem.label}">
+						供应商电话：
+					</label>
+					<div class="{newitem.element}">
+						<g:Label text="等待数据加载..." ui:field="tell" />
+					</div>
+				</div>
+				<div class="{newitem.form-line}">
+					<label class="{newitem.label}">
+						礼品图片：
+					</label>
+					<div class="{newitem.element}">
+						<g:Image ui:field="giftImage" width="80px" height="60px"
+							visible="false" />
+					</div>
+				</div>
+
+				<div class="{newitem.form-line}">
+					<label class="{newitem.label}">
 						<span>*</span>
 						兑换积分：
-					</td>
-					<td class="{newitem.element}">
-						<g:Label ui:field="integral" />
-					</td>
-					<td></td>
-				</tr>
+					</label>
+					<div class="{newitem.element}">
+						<g:Label text="等待数据加载..." ui:field="integral" />
+					</div>
+				</div>
 
-				<tr class="{newitem.form-line}">
-					<td class="{newitem.label}">
+				<div class="{newitem.form-line}">
+					<label class="{newitem.label}">
 						<span>*</span>
 						库存：
-					</td>
-					<td class="{newitem.element}">
-						<g:Label ui:field="stock" />
-					</td>
-					<td></td>
-				</tr>
-				<tr height="30px">
-					<td></td>
-				</tr>
-				<tr class="{newitem.form-line}">
-					<td colspan="3" align="center">
+					</label>
+					<div class="{newitem.element}">
+						<g:Label text="等待数据加载..." ui:field="stock" />
+					</div>
+				</div>
+				<span class="{newitem.cutline}"></span>
+				<div class="{newitem.form-line} {newitem.form-line-btn}">
+					<div class="{newitem.element}">
 						<span class="{newitem.btn}">
 							<g:Button ui:field="back" styleName="button-ok">返回 </g:Button>
 						</span>
 						<span class="{newitem.btn}">
 							<g:Button ui:field="update" styleName="button-ok">修改 </g:Button>
 						</span>
-
-					</td>
-				</tr>
-			</table>
+					</div>
+				</div>
+			</div>
 		</div>
 	</g:HTMLPanel>
 </ui:UiBinder>

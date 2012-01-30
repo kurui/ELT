@@ -21,6 +21,7 @@ import com.chinarewards.gwt.elt.client.gift.request.UpdateGiftStatusResponse;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
+import com.chinarewards.gwt.elt.client.order.model.OrderVo;
 import com.chinarewards.gwt.elt.client.order.plugin.OrderConstants;
 import com.chinarewards.gwt.elt.client.gift.presenter.GiftListPresenter;
 import com.chinarewards.gwt.elt.client.gift.presenter.GiftListPresenter.GiftListDisplay;
@@ -288,12 +289,13 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 					public void update(int index, GiftClient giftClient,
 							String value) {
 						giftClient.setThisAction(GiftConstants.ACTION_GIFT_VIEW);
+						OrderVo orderVo=new OrderVo();
+						orderVo.setThisAction(OrderConstants.ACTION_ORDER_ADD);
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(
-										OrderConstants.EDITOR_ORDER_VIEW,
-										OrderConstants.EDITOR_ORDER_VIEW
-												+ giftClient.getId(), giftClient);
+										OrderConstants.ACTION_ORDER_ADD,
+										OrderConstants.ACTION_ORDER_ADD, orderVo);
 					}
 				});
 	}

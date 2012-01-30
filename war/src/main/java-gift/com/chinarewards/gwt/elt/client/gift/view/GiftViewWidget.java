@@ -103,8 +103,8 @@ public class GiftViewWidget extends Composite implements GiftViewDisplay {
 
 	@Override
 	public void showGift(GiftVo giftVo) {
-		System.out.println("showGift ----------" + giftVo.getName() + "--"
-				+ giftVo.getPhoto());
+//		System.out.println("showGift ----------" + giftVo.getName() + "--"
+//				+ giftVo.getPhoto());
 		name.setText(giftVo.getName());
 		explains.setText(giftVo.getExplains());
 		typeText.setText(giftVo.getTypeText());

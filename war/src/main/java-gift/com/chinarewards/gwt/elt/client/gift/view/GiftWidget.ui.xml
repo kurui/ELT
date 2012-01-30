@@ -11,119 +11,97 @@
 	<ui:style src="new2.css" field="newitem"></ui:style>
 
 	<g:HTMLPanel styleName="{newitem.frame-wrap}">
-			<!--面包屑 [[ -->
-			<g:FlowPanel ui:field="breadCrumbs" />
-			<!--面包屑 ]] -->
+		<!--面包屑 [[ -->
+		<g:FlowPanel ui:field="breadCrumbs" />
+		<!--面包屑 ]] -->
 
 		<!-- 1内容 -->
 		<div class="{newitem.content-wrap}">
-			<table width="100%" border="0" cellspacing="0" cellpadding="0"
-				class="{newitem.form}">
-				<tr class="{newitem.form-line}">
-					<td class="{newitem.label}">
+			<div class="{newitem.form}">
+				<div class="{newitem.form-line}">
+					<label class="{newitem.label}">
 						<span>*</span>
 						礼品名称：
-					</td>
-					<td class="{newitem.element}">
+					</label>
+					<div class="{newitem.element}">
 						<g:TextBox maxLength="20" ui:field="name" styleName="{newitem.text}" />
-					</td>
-					<td></td>
-				</tr>
-				<tr class="{newitem.form-line}">
-					<td valign="top" class="{newitem.label}">礼品说明：</td>
-					<td class="{newitem.element}">
-						<g:TextBox maxLength="50" ui:field="explains" styleName="{newitem.text}" />
-					</td>
-					<td></td>
-				</tr>
-				<tr class="{newitem.form-line}">
-					<td valign="top" class="{newitem.label}">礼品类型：</td>
-					<td class="{newitem.element}">
+					</div>
+				</div>
+				<div class="{newitem.form-line}">
+					<label class="{newitem.label}">礼品说明：</label>
+					<div class="{newitem.element}">
+						<g:TextArea maxLength="50" ui:field="explains" styleName="{newitem.text}" />
+					</div>
+				</div>
+				<div class="{newitem.form-line}">
+					<label class="{newitem.label}">礼品类型：</label>
+					<div class="{newitem.element}">
 						<g:ListBox ui:field="type" styleName="{newitem.text}" />
-					</td>
-					<td></td>
-				</tr>
-				<tr class="{newitem.form-line}">
-					<td valign="top" class="{newitem.label}">供应商名称：</td>
-					<td class="{newitem.element}">
+					</div>
+				</div>
+				<div class="{newitem.form-line}">
+					<label class="{newitem.label}">供应商名称：</label>
+					<div class="{newitem.element}">
 						<g:TextBox maxLength="20" ui:field="business" styleName="{newitem.text}" />
-					</td>
-					<td></td>
-				</tr>
-				<tr class="{newitem.form-line}">
-					<td valign="top" class="{newitem.label}">供应商地址：</td>
-					<td class="{newitem.element}">
+					</div>
+				</div>
+				<div class="{newitem.form-line}">
+					<label class="{newitem.label}">供应商地址：</label>
+					<div class="{newitem.element}">
 						<g:TextBox maxLength="50" ui:field="address" styleName="{newitem.text}" />
-					</td>
-					<td></td>
-				</tr>
-				<tr class="{newitem.form-line}">
-					<td valign="top" class="{newitem.label}">供应商电话：</td>
-					<td class="{newitem.element}">
+					</div>
+				</div>
+				<div class="{newitem.form-line}">
+					<label class="{newitem.label}">供应商电话：</label>
+					<div class="{newitem.element}">
 						<g:TextBox maxLength="11" ui:field="tell" styleName="{newitem.text}" />
-					</td>
-					<td></td>
-				</tr>
-				<tr class="{newitem.form-line}">
-					<td valign="top" class="{newitem.label}">礼品图片：</td>
-					<td class="{newitem.element}">
-						<table>
-							<tr>
-								<td>
-									<g:Image ui:field="giftImage" width="80px" height="60px"
-										visible="false" />
-								</td>
-								<td>
-									<g:FormPanel ui:field="photoForm" encoding="multipart/form-data"
-										method="post" action="/fileupload">
-										<g:FileUpload ui:field="photoUpload" name="uploadFormElement"></g:FileUpload>
-									</g:FormPanel>
-								</td>
-								<td>
-									<g:TextBox ui:field="photo" visible="false"></g:TextBox>
-									<g:Button ui:field="photoUploadBtn" visible="false">上传
-									</g:Button>
-								</td>
-							</tr>
-						</table>
-					</td>
-					<td></td>
-				</tr>
-				<tr class="{newitem.form-line}">
-					<td class="{newitem.label}">
+					</div>
+				</div>
+				<div class="{newitem.form-line}">
+					<label class="{newitem.label}">礼品图片：</label>
+					<div class="{newitem.element}">
+						<g:Image ui:field="giftImage" width="80px" height="60px"
+							visible="false" />
+					</div>
+					<div class="{newitem.element}">
+						<g:FormPanel ui:field="photoForm" encoding="multipart/form-data"
+							method="post" action="/fileupload">
+							<g:FileUpload ui:field="photoUpload" name="uploadFormElement"></g:FileUpload>
+						</g:FormPanel>
+						<g:TextBox ui:field="photo" visible="false"></g:TextBox>
+						<g:Button ui:field="photoUploadBtn" visible="false">上传
+						</g:Button>
+					</div>
+				</div>
+				<div class="{newitem.form-line}">
+					<label class="{newitem.label}">
 						<span>*</span>
 						兑换积分：
-					</td>
-					<td class="{newitem.element}">
+					</label>
+					<div class="{newitem.element}">
 						<g:TextBox maxLength="5" ui:field="integral" styleName="{newitem.text}" />
-					</td>
-					<td></td>
-				</tr>
+					</div>
+				</div>
 
-				<tr class="{newitem.form-line}">
-					<td class="{newitem.label}">
+				<div class="{newitem.form-line}">
+					<label class="{newitem.label}">
 						<span>*</span>
 						库存：
-					</td>
-					<td class="{newitem.element}">
+					</label>
+					<div class="{newitem.element}">
 						<g:TextBox maxLength="5" ui:field="stock" styleName="{newitem.text}" />
-					</td>
-					<td></td>
-				</tr>
-				<tr height="30px">
-					<td></td>
-				</tr>
-				<tr class="{newitem.form-line}">
-					<td colspan="3" align="center">
-						<span class="{newitem.btn}">
-							<g:Button ui:field="back" styleName="button-ok">返回 </g:Button>
-						</span>
-						<span class="{newitem.btn}">
-							<g:Button ui:field="save">保存</g:Button>
-						</span>
-					</td>
-				</tr>
-			</table>
+					</div>
+				</div>
+			</div>
+			<span class="{newitem.cutline}"></span>
+			<div class="{newitem.form-line} {newitem.form-line-btn}">
+				<div class="{newitem.element}">
+					<span class="{newitem.btn}">
+						<g:Button ui:field="back" styleName="button-ok">返回 </g:Button>
+						<g:Button ui:field="save">保存</g:Button>
+					</span>
+				</div>
+			</div>
 		</div>
 	</g:HTMLPanel>
 </ui:UiBinder>
