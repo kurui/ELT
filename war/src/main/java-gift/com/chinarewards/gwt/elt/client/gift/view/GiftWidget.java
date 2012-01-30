@@ -56,7 +56,9 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	@UiField
 	TextBox stock;
 	@UiField
-	CheckBox supply;
+	CheckBox supplyinner;
+	@UiField
+	CheckBox supplyoutter;	
 	@UiField
 	TextBox business;
 	@UiField
@@ -136,7 +138,18 @@ public class GiftWidget extends Composite implements GiftDisplay {
 		integral.setText(giftVo.getIntegral() + "");
 		stock.setText(giftVo.getStock() + "");
 
-		supply.setText(giftVo.getSupply());
+//		System.out.println("-----------initEditGift supply:"+giftVo.getSupply());
+//		System.out.println("-----------initEditGift supply:"+giftVo.getSupplyinner());
+//		System.out.println("-----------initEditGift supply:"+giftVo.getSupply());
+		if(giftVo.getSupply()!=null){
+			
+		}else{
+			supplyinner.setValue(false);
+			supplyoutter.setValue(false);
+		}
+		
+		
+		
 		business.setText(giftVo.getBusiness());
 		address.setText(giftVo.getAddress());
 		tell.setText(giftVo.getTell());
@@ -160,6 +173,8 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	@Override
 	public void initAddGift(GiftVo giftVo) {
 		initTypeSelect("");
+		supplyinner.setValue(false);
+		supplyoutter.setValue(true);		
 	}
 
 	private void initTypeSelect(String selectedValue) {
@@ -328,13 +343,22 @@ public class GiftWidget extends Composite implements GiftDisplay {
 		return brand;
 	}
 
-	@Override
-	public CheckBox getSupply() {
-		return supply;
-	}
+
 
 	@Override
 	public HasValue<String> getServicetell() {
 		return servicetell;
+	}
+
+	@Override
+	public CheckBox getSupplyinner() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CheckBox getSupplyoutter() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

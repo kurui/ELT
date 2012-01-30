@@ -63,15 +63,26 @@ public class EditGiftHandler extends
 		gift.setId(giftVo.getId());
 		gift.setName(giftVo.getName());
 
+		gift.setSummary(giftVo.getSummary().trim());
+		gift.setDispatchcycle(giftVo.getDispatchcycle().trim());
+		gift.setNotes(giftVo.getNotes().trim());
+		
 		gift.setExplains(giftVo.getExplains().trim());
 		gift.setType(giftVo.getType().trim());
+		gift.setBrand(giftVo.getBrand().trim());
 		gift.setSource(giftVo.getSource().trim());
+		
+		gift.setPhoto(giftVo.getPhoto());
+		gift.setIntegral(giftVo.getIntegral());
+		gift.setStock(giftVo.getStock());
+		gift.setSupply(giftVo.getSupply());
+		
 		gift.setBusiness(giftVo.getBusiness().trim());
 		gift.setAddress(giftVo.getAddress().trim());
 		gift.setTell(giftVo.getTell().trim());
-		gift.setIntegral(giftVo.getIntegral());
-		gift.setStock(giftVo.getStock());
-		gift.setPhoto(giftVo.getPhoto());
+		gift.setServicetell(giftVo.getServicetell().trim());
+		
+		
 		// gift.setGiftStatus();
 		// gift.setIndate(getIndate());
 		// private GiftStatus status; //状态（上下架）

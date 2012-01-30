@@ -5,10 +5,8 @@ import java.util.Date;
 import com.chinarewards.gwt.elt.client.gift.model.GiftVo;
 import com.chinarewards.gwt.elt.client.mvp.Display;
 import com.chinarewards.gwt.elt.client.mvp.Presenter;
-import com.chinarewards.gwt.elt.client.gift.presenter.GiftPresenter;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
-import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.FileUpload;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HasValue;
@@ -36,7 +34,8 @@ public interface GiftPresenter extends Presenter<GiftPresenter.GiftDisplay> {
 
 		public HasValue<String> getSource();
 
-		public CheckBox getSupply();
+		public HasValue<Boolean> getSupplyinner();
+		public HasValue<Boolean> getSupplyoutter();		
 
 		public HasValue<String> getBusiness();
 
