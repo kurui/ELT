@@ -175,7 +175,7 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 					public String getValue(GiftClient gift) {
 						return gift.getInventory();
 					}
-				}, ref, "inventory");
+				}, ref, "stock");
 
 		cellTable.addColumn("状态", new TextCell(),
 				new GetValue<GiftClient, String>() {
