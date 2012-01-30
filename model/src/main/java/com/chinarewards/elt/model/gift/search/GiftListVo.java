@@ -37,7 +37,16 @@ public class GiftListVo implements Serializable {
     private Date    recorddate;   //录入时间
     private String  recorduser; //录入人
     private Date    updatetime;  //修改时间
+    private int    integral;  //积分
 	
+	public int getIntegral() {
+		return integral;
+	}
+
+	public void setIntegral(int integral) {
+		this.integral = integral;
+	}
+
 	public GiftListVo() {
 	}
 
