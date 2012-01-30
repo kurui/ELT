@@ -3895,6 +3895,7 @@ Found 2259 cached units.  Used 2259 / 2259 units from cache.
 Removing invalidated units
 Finding entry point classes
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 Module location: jar:file:/C:/Users/Administrator/.m2/repository/com/google/gwt/gwt-user/2.4.0/gwt-user-2.4.0.jar!/com/google/gwt/user/User.gwt.xml
@@ -19088,3 +19089,5 @@ Translatable source found in...
 Found 2259 cached units.  Used 2259 / 2259 units from cache.
 Removing invalidated units
 Finding entry point classes
+=======
+>>>>>>> refs/remotes/origin/master
