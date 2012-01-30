@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:d='urn:import:com.google.gwt.user.datepicker.client'
+	xmlns:c="urn:import:com.google.gwt.user.cellview.client">
+
+
+	<g:HTMLPanel>
+		<table width="200" height="263" border="1">
+		  <tr>
+		    <td colspan="2"><img src="" width="200" height="140" /></td>
+		  </tr>
+		  <tr>
+		    <td colspan="2"><p>SK-II活肤多元修护精华霜15g(小样)</p></td>
+		  </tr>
+		  <tr>
+		    <td><p>1000积分</p></td>
+		    <td><g:Button text="兑换"></g:Button> </td>
+		  </tr>
+		  <tr>
+		    <td colspan="2"><p>有效期限:     2011-12-1~12-31</p></td>
+		  </tr>
+		</table>
+	</g:HTMLPanel>
+</ui:UiBinder>

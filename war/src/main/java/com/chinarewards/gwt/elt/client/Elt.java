@@ -14,7 +14,7 @@ public class Elt implements EntryPoint {
 
 		injector.getMain().init(RootLayoutPanel.get());
 		
-//		RootLayoutPanel.get().add(injector.getLoginPresenter().getDisplay().asWidget());
+//		RootLayoutPanel.get().add(injector.getAwardShopLatticePresenter().getDisplay().asWidget());
 		
 		// EventBus bus = injector.getEventBus();
 		// final LoginPresenter p = injector.getLoginPresenter();
