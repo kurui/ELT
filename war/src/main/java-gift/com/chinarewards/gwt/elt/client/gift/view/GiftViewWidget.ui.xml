@@ -8,102 +8,103 @@
 	<ui:image resource="preview_bg.jpg" field="preview_bg"
 		repeatStyle="Horizontal"></ui:image>
 	<ui:image field="post_bg" resource="post_bg.jpg" repeatStyle="Horizontal"></ui:image>
-	<ui:style src="new2.css" field="newitem"></ui:style>
+	<ui:style src="new2.css" field="new2"></ui:style>
 
-	<g:HTMLPanel styleName="{newitem.frame-wrap}">
+	<g:HTMLPanel styleName="{new2.frame-wrap}">
 		<!--面包屑 [[ -->
 		<g:FlowPanel ui:field="breadCrumbs" />
 		<!--面包屑 ]] -->
 		<h3>查看礼品
 		</h3>
-		<span class="{newitem.cutline}"></span>
+		<span class="{new2.cutline}"></span>
 		<!-- 1内容 -->
-		<div class="{newitem.content-wrap}">
-			<div class="{newitem.form}">
+		<div class="{new2.content-wrap}">
+			<div class="{new2.form}">
 
-				<div class="{newitem.form-line}">
-					<label class="{newitem.label}">礼品名称：</label>
-					<div class="{newitem.element}">
+				<div class="{new2.form-line}">
+					<label class="{new2.label}">礼品名称：</label>
+					<div class="{new2.element}">
 						<g:Label text="等待数据加载..." ui:field="name" />
 					</div>
 				</div>
 
-				<div class="{newitem.form-line}">
-					<label class="{newitem.label}">
+				<div class="{new2.form-line}">
+					<label class="{new2.label}">
 						礼品说明：
 					</label>
-					<div class="{newitem.element}">
+					<div class="{new2.element}">
 						<g:Label text="等待数据加载..." ui:field="explains" />
 					</div>
 				</div>
-				<div class="{newitem.form-line}">
-					<label class="{newitem.label}">
+				<div class="{new2.form-line}">
+					<label class="{new2.label}">
 						礼品类型：
 					</label>
-					<div class="{newitem.element}">
+					<div class="{new2.element}">
 						<g:Label text="等待数据加载..." ui:field="typeText" />
 					</div>
 				</div>
-				<div class="{newitem.form-line}">
-					<label class="{newitem.label}">
+				<div class="{new2.form-line}">
+					<label class="{new2.label}">
 						供应商名称：
 					</label>
-					<div class="{newitem.element}">
+					<div class="{new2.element}">
 						<g:Label text="等待数据加载..." ui:field="business" />
 					</div>
 				</div>
-				<div class="{newitem.form-line}">
-					<label class="{newitem.label}">
+				<div class="{new2.form-line}">
+					<label class="{new2.label}">
 						供应商地址：
 					</label>
-					<div class="{newitem.element}">
+					<div class="{new2.element}">
 						<g:Label text="等待数据加载..." ui:field="address" />
 					</div>
 				</div>
-				<div class="{newitem.form-line}">
-					<label class="{newitem.label}">
+				<div class="{new2.form-line}">
+					<label class="{new2.label}">
 						供应商电话：
 					</label>
-					<div class="{newitem.element}">
+					<div class="{new2.element}">
 						<g:Label text="等待数据加载..." ui:field="tell" />
 					</div>
 				</div>
-				<div class="{newitem.form-line}">
-					<label class="{newitem.label}">
+				<div class="{new2.form-line}">
+					<label class="{new2.label6}">
 						礼品图片：
 					</label>
-					<div class="{newitem.element}">
+					<div class="{new2.element}">
 						<g:Image ui:field="giftImage" width="80px" height="60px"
 							visible="false" />
 					</div>
 				</div>
 
-				<div class="{newitem.form-line}">
-					<label class="{newitem.label}">
+				<div class="{new2.form-line}">
+					<label class="{new2.label}">
 						<span>*</span>
 						兑换积分：
 					</label>
-					<div class="{newitem.element}">
+					<div class="{new2.element}">
 						<g:Label text="等待数据加载..." ui:field="integral" />
 					</div>
 				</div>
 
-				<div class="{newitem.form-line}">
-					<label class="{newitem.label}">
+				<div class="{new2.form-line}">
+					<label class="{new2.label}">
 						<span>*</span>
 						库存：
 					</label>
-					<div class="{newitem.element}">
+					<div class="{new2.element}">
 						<g:Label text="等待数据加载..." ui:field="stock" />
 					</div>
 				</div>
-				<span class="{newitem.cutline}"></span>
-				<div class="{newitem.form-line} {newitem.form-line-btn}">
-					<div class="{newitem.element}">
-						<span class="{newitem.btn}">
+				<span class="{new2.cutline}"></span>
+				<div class="{new2.form-line} {new2.form-line-btn}">
+					<div class="{new2.element}">
+						<span class="{new2.btn}">
 							<g:Button ui:field="back" styleName="button-ok">返回 </g:Button>
 						</span>
-						<span class="{newitem.btn}">
+						<span class="{new2.nbsp}"></span>
+						<span class="{new2.btn}">
 							<g:Button ui:field="update" styleName="button-ok">修改 </g:Button>
 						</span>
 					</div>
