@@ -8,6 +8,7 @@ import com.chinarewards.gwt.elt.client.mvp.Presenter;
 import com.chinarewards.gwt.elt.client.gift.presenter.GiftPresenter;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
+import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.FileUpload;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HasValue;
@@ -21,11 +22,21 @@ public interface GiftPresenter extends Presenter<GiftPresenter.GiftDisplay> {
 
 		public HasValue<String> getName();
 
+		public HasValue<String> getSummary();
+
+		public HasValue<String> getDispatchcycle();
+
 		public HasValue<String> getExplains();
+
+		public HasValue<String> getNotes();
 
 		public ListBox getType();
 
+		public HasValue<String> getBrand();
+
 		public HasValue<String> getSource();
+
+		public CheckBox getSupply();
 
 		public HasValue<String> getBusiness();
 
@@ -33,13 +44,15 @@ public interface GiftPresenter extends Presenter<GiftPresenter.GiftDisplay> {
 
 		public HasValue<String> getTell();
 
+		public HasValue<String> getServiceTell();
+
 		public HasValue<String> getPhoto();
 
 		public Image getGiftImage();
 
 		public HasValue<String> getStock();
-		
-		public HasValue<String> getIntegral();	
+
+		public HasValue<String> getIntegral();
 
 		public HasValue<String> getPhone();
 
@@ -65,17 +78,16 @@ public interface GiftPresenter extends Presenter<GiftPresenter.GiftDisplay> {
 		public HasClickHandlers getSaveClick();
 
 		public void clear();
-		
-		
+
 		public void initAddGift(GiftVo giftVo);
+
 		public void initEditGift(GiftVo giftVo);
 
-		
 		public HasClickHandlers getBackClick();
 
 		void setBreadCrumbs(Widget breadCrumbs);
 
 	}
-	
-	public void initEditor(String giftId,String thisAction);
+
+	public void initEditor(String giftId, String thisAction);
 }

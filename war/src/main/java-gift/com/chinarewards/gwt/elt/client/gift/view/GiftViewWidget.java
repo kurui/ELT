@@ -26,11 +26,26 @@ public class GiftViewWidget extends Composite implements GiftViewDisplay {
 	@UiField
 	Label name;
 	@UiField
+	Label summary;
+	@UiField
+	Label dispatchcycle;
+	@UiField
 	Label explains;
+	@UiField
+	Label notes;
 	@UiField
 	Label typeText;
 	// @UiField
 	// Label source;
+	@UiField
+	Label brand;
+	@UiField
+	Label integral;
+	@UiField
+	Label stock;
+
+	@UiField
+	Label supply;
 	@UiField
 	Label business;
 	@UiField
@@ -38,11 +53,8 @@ public class GiftViewWidget extends Composite implements GiftViewDisplay {
 	@UiField
 	Label tell;
 	@UiField
-	Label integral;
-	@UiField
-	Label stock;
-	// @UiField
-	Label phone;
+	Label servicetell;
+
 	// @UiField
 	// Label status;// boolean
 	// @UiField
@@ -65,7 +77,7 @@ public class GiftViewWidget extends Composite implements GiftViewDisplay {
 
 	@UiField
 	Button update;
-	
+
 	@UiField
 	Panel breadCrumbs;
 
@@ -103,8 +115,8 @@ public class GiftViewWidget extends Composite implements GiftViewDisplay {
 
 	@Override
 	public void showGift(GiftVo giftVo) {
-//		System.out.println("showGift ----------" + giftVo.getName() + "--"
-//				+ giftVo.getPhoto());
+		// System.out.println("showGift ----------" + giftVo.getName() + "--"
+		// + giftVo.getPhoto());
 		name.setText(giftVo.getName());
 		explains.setText(giftVo.getExplains());
 		typeText.setText(giftVo.getTypeText());
@@ -133,10 +145,10 @@ public class GiftViewWidget extends Composite implements GiftViewDisplay {
 		// DateBox updatetime;
 		// ---end vo
 	}
-	
+
 	@Override
 	public void setBreadCrumbs(Widget breadCrumbs) {
 		this.breadCrumbs.clear();
-		this.breadCrumbs.add(breadCrumbs);		
+		this.breadCrumbs.add(breadCrumbs);
 	}
 }

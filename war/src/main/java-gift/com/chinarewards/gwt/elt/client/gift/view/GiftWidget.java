@@ -17,6 +17,7 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FileUpload;
 import com.google.gwt.user.client.ui.FormPanel;
@@ -35,11 +36,27 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	@UiField
 	TextBox name;
 	@UiField
+	TextArea summary;
+	@UiField
+	TextArea dispatchcycle;
+	@UiField
 	TextArea explains;
 	@UiField
+	TextArea notes;
+	@UiField
 	ListBox type;
+	@UiField
+	TextBox brand;
 	// @UiField
 	// TextBox source;
+	@UiField
+	TextBox photo;
+	@UiField
+	TextBox integral;
+	@UiField
+	TextBox stock;
+	@UiField
+	CheckBox supply;
 	@UiField
 	TextBox business;
 	@UiField
@@ -47,13 +64,8 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	@UiField
 	TextBox tell;
 	@UiField
-	TextBox photo;
-	@UiField
-	TextBox integral;
-	@UiField
-	TextBox stock;
-	// @UiField
-	// TextBox phone;
+	TextBox servicetell;
+
 	// @UiField
 	// TextBox status;// boolean
 	// @UiField
@@ -82,7 +94,7 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	FileUpload photoUpload;
 	@UiField
 	Button photoUploadBtn;
-	
+
 	@UiField
 	Panel breadCrumbs;
 
@@ -105,6 +117,58 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	@Override
 	public Widget asWidget() {
 		return this;
+	}
+
+	@Override
+	public void initEditGift(GiftVo giftVo) {
+		name.setText(giftVo.getName());
+		explains.setText(giftVo.getExplains());
+		initTypeSelect(giftVo.getType());
+		business.setText(giftVo.getBusiness());
+		address.setText(giftVo.getAddress());
+		tell.setText(giftVo.getTell());
+		photo.setText(giftVo.getPhoto());
+		if (giftVo.getPhoto().indexOf(".") > 0) {
+			giftImage.setUrl("/imageshow?imageName=" + giftVo.getPhoto());
+			giftImage.setVisible(true);
+		}
+
+		integral.setText(giftVo.getIntegral() + "");
+		stock.setText(giftVo.getStock() + "");
+
+		// @UiField
+		// Label status;// boolean
+		// @UiField
+		// Label deleted;// boolean
+		// @UiField
+		// DateBox indate;
+		// @UiField
+		// DateBox recorddate;
+		// @UiField
+		// Label recorduser;
+		// @UiField
+		// DateBox updatetime;
+		// ---end vo
+	}
+
+	@Override
+	public void initAddGift(GiftVo giftVo) {
+		initTypeSelect("");
+	}
+
+	private void initTypeSelect(String selectedValue) {
+		type.addItem("实物", GiftVo.TYPE_1);
+		type.addItem("虚拟", GiftVo.TYPE_2);
+
+		if (StringUtil.trim(selectedValue) != "") {
+			type.setValue(0, selectedValue);
+		}
+	}
+
+	@Override
+	public void setBreadCrumbs(Widget breadCrumbs) {
+		this.breadCrumbs.clear();
+		this.breadCrumbs.add(breadCrumbs);
 	}
 
 	@Override
@@ -234,61 +298,37 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	}
 
 	@Override
-	public void initEditGift(GiftVo giftVo) {
-		name.setText(giftVo.getName());
-		explains.setText(giftVo.getExplains());
-		initTypeSelect(giftVo.getType());
-		business.setText(giftVo.getBusiness());
-		address.setText(giftVo.getAddress());
-		tell.setText(giftVo.getTell());
-		photo.setText(giftVo.getPhoto());
-		if (giftVo.getPhoto().indexOf(".") > 0) {
-			giftImage.setUrl("/imageshow?imageName=" + giftVo.getPhoto());
-			giftImage.setVisible(true);
-		}
-
-		integral.setText(giftVo.getIntegral() + "");
-		stock.setText(giftVo.getStock() + "");
-		// @UiField
-		// Label phone;
-		// @UiField
-		// Label status;// boolean
-		// @UiField
-		// Label deleted;// boolean
-		// @UiField
-		// DateBox indate;
-		// @UiField
-		// DateBox recorddate;
-		// @UiField
-		// Label recorduser;
-		// @UiField
-		// DateBox updatetime;
-		// ---end vo
-	}
-
-	@Override
 	public HasClickHandlers getBackClick() {
 		return back;
 	}
 
 	@Override
-	public void initAddGift(GiftVo giftVo) {
-		initTypeSelect("");
-	}
-
-	private void initTypeSelect(String selectedValue) {
-		type.addItem("实物", GiftVo.TYPE_1);
-		type.addItem("虚拟", GiftVo.TYPE_2);
-
-		if (StringUtil.trim(selectedValue) != "") {
-			type.setValue(0, selectedValue);
-		}
+	public HasValue<String> getSummary() {
+		return summary;
 	}
 
 	@Override
-	public void setBreadCrumbs(Widget breadCrumbs) {
-		this.breadCrumbs.clear();
-		this.breadCrumbs.add(breadCrumbs);		
+	public HasValue<String> getDispatchcycle() {
+		return dispatchcycle;
 	}
 
+	@Override
+	public HasValue<String> getNotes() {
+		return notes;
+	}
+
+	@Override
+	public HasValue<String> getBrand() {
+		return brand;
+	}
+
+	@Override
+	public CheckBox getSupply() {
+		return supply;
+	}
+
+	@Override
+	public HasValue<String> getServiceTell() {
+		return servicetell;
+	}
 }

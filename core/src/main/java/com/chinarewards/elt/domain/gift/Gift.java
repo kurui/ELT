@@ -28,26 +28,32 @@ public class Gift implements Serializable {
 	@GenericGenerator(name = "system-uuid", strategy = "uuid")
 	@Column(name = "id", nullable = false, updatable = false, length = 50)
 	private String id;
-    private String name;       //礼品名
-    private String explains;   //说明
-    private String  type;      //礼品类型
-    private String source;     //来源
-    private String business;   //供应商
-    private String address;    //地址
-    private String tell;       //电话
-    private int    integral;    //积分
-    private int    stock;         //库存
-    private String photo;      //图片
-    @Enumerated(EnumType.STRING)
-	private GiftStatus status;//状态，上下架
+	private String name; // 礼品名
+	private String summary; // 礼品概述
+	private String dispatchcycle;// 发货周期
+	private String explains; // 兑换说明
+	private String notes; // 注意事项
+	private String type; // 礼品类型
+	private String brand;// 品牌
+	private String photo; // 图片
+	private String source; // 来源
+	private int integral; // 积分
+	private int stock; // 库存
+	private String supply; // 供货方式
+	private String business; // 供应商名称
+	private String address; // 供应商地址
+	private String tell; // 供应商电话
+	private String servicetell;// 服务电话
 
-    private boolean deleted;   //删除状态
-    private Date    indate ;      //有效截止期
-    private Date    recorddate;   //录入时间
-    private String  recorduser; //录入人
-    private Date    updatetime;  //修改时间
-	
-	
+	@Enumerated(EnumType.STRING)
+	private GiftStatus status;// 状态，上下架
+
+	private boolean deleted; // 删除状态
+	private Date indate; // 有效截止期
+	private Date recorddate; // 录入时间
+	private String recorduser; // 录入人
+	private Date updatetime; // 修改时间
+
 	public String getName() {
 		return name;
 	}
@@ -112,7 +118,6 @@ public class Gift implements Serializable {
 		this.photo = photo;
 	}
 
-	
 	public GiftStatus getStatus() {
 		return status;
 	}
@@ -161,7 +166,6 @@ public class Gift implements Serializable {
 		this.updatetime = updatetime;
 	}
 
-	
 	public String getId() {
 		return this.id;
 	}
@@ -186,6 +190,52 @@ public class Gift implements Serializable {
 		this.integral = integral;
 	}
 
-	
+	public String getSummary() {
+		return summary;
+	}
+
+	public void setSummary(String summary) {
+		this.summary = summary;
+	}
+
+	public String getDispatchcycle() {
+		return dispatchcycle;
+	}
+
+	public void setDispatchcycle(String dispatchcycle) {
+		this.dispatchcycle = dispatchcycle;
+	}
+
+	public String getNotes() {
+		return notes;
+	}
+
+	public void setNotes(String notes) {
+		this.notes = notes;
+	}
+
+	public String getBrand() {
+		return brand;
+	}
+
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
+
+	public String getSupply() {
+		return supply;
+	}
+
+	public void setSupply(String supply) {
+		this.supply = supply;
+	}
+
+	public String getServicetell() {
+		return servicetell;
+	}
+
+	public void setServicetell(String servicetell) {
+		this.servicetell = servicetell;
+	}
 
 }

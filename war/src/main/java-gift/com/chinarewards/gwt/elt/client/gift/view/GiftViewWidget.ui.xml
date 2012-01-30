@@ -27,13 +27,36 @@
 						<g:Label text="等待数据加载..." ui:field="name" />
 					</div>
 				</div>
-
 				<div class="{new2.form-line}">
 					<label class="{new2.label}">
-						礼品说明：
+						礼品概述：
+					</label>
+					<div class="{new2.element}">
+						<g:Label text="等待数据加载..." ui:field="summary" />
+					</div>
+				</div>
+				<div class="{new2.form-line}">
+					<label class="{new2.label}">
+						发货周期：
+					</label>
+					<div class="{new2.element}">
+						<g:Label text="等待数据加载..." ui:field="dispatchcycle" />
+					</div>
+				</div>
+				<div class="{new2.form-line}">
+					<label class="{new2.label}">
+						兑换说明：
 					</label>
 					<div class="{new2.element}">
 						<g:Label text="等待数据加载..." ui:field="explains" />
+					</div>
+				</div>
+				<div class="{new2.form-line}">
+					<label class="{new2.label}">
+						注意事项：
+					</label>
+					<div class="{new2.element}">
+						<g:Label text="等待数据加载..." ui:field="notes" />
 					</div>
 				</div>
 				<div class="{new2.form-line}">
@@ -42,6 +65,52 @@
 					</label>
 					<div class="{new2.element}">
 						<g:Label text="等待数据加载..." ui:field="typeText" />
+					</div>
+				</div>
+				<div class="{new2.form-line}">
+					<label class="{new2.label}">
+						品牌：
+					</label>
+					<div class="{new2.element}">
+						<g:Label text="等待数据加载..." ui:field="brand" />
+					</div>
+				</div>
+
+				<div class="{new2.form-line}">
+					<label class="{new2.label60}">
+						礼品图片：
+					</label>
+					<div class="{new2.element}">
+						<g:Image ui:field="giftImage" width="80px" height="60px"
+							visible="false" />
+					</div>
+				</div>
+
+				<div class="{new2.form-line}">
+					<label class="{new2.label}">
+						<span>*</span>
+						兑换积分：
+					</label>
+					<div class="{new2.element}">
+						<g:Label text="等待数据加载..." ui:field="integral" />
+					</div>
+				</div>
+
+				<div class="{new2.form-line}">
+					<label class="{new2.label}">
+						<span>*</span>
+						库存：
+					</label>
+					<div class="{new2.element}">
+						<g:Label text="等待数据加载..." ui:field="stock" />
+					</div>
+				</div>
+				<div class="{new2.form-line}">
+					<label class="{new2.label}">
+						供货方式：
+					</label>
+					<div class="{new2.element}">
+						<g:Label text="等待数据加载..." ui:field="supply" />
 					</div>
 				</div>
 				<div class="{new2.form-line}">
@@ -69,32 +138,11 @@
 					</div>
 				</div>
 				<div class="{new2.form-line}">
-					<label class="{new2.label6}">
-						礼品图片：
-					</label>
-					<div class="{new2.element}">
-						<g:Image ui:field="giftImage" width="80px" height="60px"
-							visible="false" />
-					</div>
-				</div>
-
-				<div class="{new2.form-line}">
 					<label class="{new2.label}">
-						<span>*</span>
-						兑换积分：
+						服务电话：
 					</label>
 					<div class="{new2.element}">
-						<g:Label text="等待数据加载..." ui:field="integral" />
-					</div>
-				</div>
-
-				<div class="{new2.form-line}">
-					<label class="{new2.label}">
-						<span>*</span>
-						库存：
-					</label>
-					<div class="{new2.element}">
-						<g:Label text="等待数据加载..." ui:field="stock" />
+						<g:Label text="等待数据加载..." ui:field="servicetell" />
 					</div>
 				</div>
 				<span class="{new2.cutline}"></span>

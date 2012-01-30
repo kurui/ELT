@@ -28,10 +28,31 @@
 					</div>
 				</div>
 				<div class="{new2.form-line}">
-					<label class="{new2.label6}">礼品说明：</label>
+					<label class="{new2.label6}">礼品概述：</label>
 					<div class="{new2.element}">
-						<g:TextArea  ui:field="explains"
-						visibleLines="3" styleName="{new2.textarea}" />
+						<g:TextArea ui:field="summary" visibleLines="3"
+							styleName="{new2.textarea}" />
+					</div>
+				</div>
+				<div class="{new2.form-line}">
+					<label class="{new2.label6}">发货周期：</label>
+					<div class="{new2.element}">
+						<g:TextArea ui:field="dispatchcycle" visibleLines="3"
+							styleName="{new2.textarea}" />
+					</div>
+				</div>
+				<div class="{new2.form-line}">
+					<label class="{new2.label6}">兑换说明：</label>
+					<div class="{new2.element}">
+						<g:TextArea ui:field="explains" visibleLines="3"
+							styleName="{new2.textarea}" />
+					</div>
+				</div>
+				<div class="{new2.form-line}">
+					<label class="{new2.label6}">注意事项：</label>
+					<div class="{new2.element}">
+						<g:TextArea ui:field="notes" visibleLines="3"
+							styleName="{new2.textarea}" />
 					</div>
 				</div>
 				<div class="{new2.form-line}">
@@ -41,21 +62,11 @@
 					</div>
 				</div>
 				<div class="{new2.form-line}">
-					<label class="{new2.label}">供应商名称：</label>
+					<label class="{new2.label}">
+						品牌：
+					</label>
 					<div class="{new2.element}">
-						<g:TextBox maxLength="20" ui:field="business" styleName="{new2.text}" />
-					</div>
-				</div>
-				<div class="{new2.form-line}">
-					<label class="{new2.label}">供应商地址：</label>
-					<div class="{new2.element}">
-						<g:TextBox maxLength="50" ui:field="address" styleName="{new2.text}" />
-					</div>
-				</div>
-				<div class="{new2.form-line}">
-					<label class="{new2.label}">供应商电话：</label>
-					<div class="{new2.element}">
-						<g:TextBox maxLength="11" ui:field="tell" styleName="{new2.text}" />
+						<g:TextBox maxLength="20" ui:field="brand" styleName="{new2.text}" />
 					</div>
 				</div>
 				<div class="{new2.form-line}">
@@ -68,16 +79,16 @@
 						<g:TextBox ui:field="photo" visible="false"></g:TextBox>
 						<g:Button ui:field="photoUploadBtn" visible="false">上传
 						</g:Button>
-					</div>				
+					</div>
 				</div>
 				<div class="{new2.form-line}">
 					<label class="{new2.label60}"></label>
 					<div class="{new2.element}">
 						<g:Image ui:field="giftImage" width="80px" height="60px"
 							visible="false" />
-					</div>					
+					</div>
 				</div>
-				
+
 				<div class="{new2.form-line}">
 					<label class="{new2.label}">
 						<span>*</span>
@@ -97,17 +108,55 @@
 						<g:TextBox maxLength="5" ui:field="stock" styleName="{new2.text}" />
 					</div>
 				</div>
-			</div>
-			<span class="{new2.cutline}"></span>
-			<div class="{new2.form-line} {new2.form-line-btn}">
-				<div class="{new2.element}">
-					<span class="{new2.btn}">
-						<g:Button ui:field="back" styleName="button-ok">返回 </g:Button>
-					</span>
-					<span class="{new2.nbsp}"></span>
-					<span class="{new2.btn}">
-						<g:Button ui:field="save">保存</g:Button>
-					</span>
+
+				<div class="{new2.form-line}">
+					<label class="{new2.label}">
+						<span>*</span>
+						供货方式：
+					</label>
+					<div class="{new2.element}">
+						<g:CheckBox ui:field="supply">内部直接提供</g:CheckBox>
+						<g:CheckBox>外部货品公司提供</g:CheckBox>
+					</div>
+				</div>
+
+				<div class="{new2.form-line}">
+					<label class="{new2.label}">供应商名称：</label>
+					<div class="{new2.element}">
+						<g:TextBox maxLength="20" ui:field="business" styleName="{new2.text}" />
+					</div>
+				</div>
+				<div class="{new2.form-line}">
+					<label class="{new2.label}">供应商地址：</label>
+					<div class="{new2.element}">
+						<g:TextBox maxLength="200" ui:field="address" styleName="{new2.text}" />
+					</div>
+				</div>
+				<div class="{new2.form-line}">
+					<label class="{new2.label}">供应商电话：</label>
+					<div class="{new2.element}">
+						<g:TextBox maxLength="11" ui:field="tell" styleName="{new2.text}" />
+					</div>
+				</div>
+				<div class="{new2.form-line}">
+					<label class="{new2.label}">服务电话：</label>
+					<div class="{new2.element}">
+						<g:TextBox maxLength="11" ui:field="servicetell"
+							styleName="{new2.text}" />
+					</div>
+				</div>
+
+				<span class="{new2.cutline}"></span>
+				<div class="{new2.form-line} {new2.form-line-btn}">
+					<div class="{new2.element}">
+						<span class="{new2.btn}">
+							<g:Button ui:field="back" styleName="button-ok">返回 </g:Button>
+						</span>
+						<span class="{new2.nbsp}"></span>
+						<span class="{new2.btn}">
+							<g:Button ui:field="save">保存</g:Button>
+						</span>
+					</div>
 				</div>
 			</div>
 		</div>
