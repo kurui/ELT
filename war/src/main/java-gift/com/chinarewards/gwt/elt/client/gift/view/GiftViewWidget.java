@@ -115,21 +115,25 @@ public class GiftViewWidget extends Composite implements GiftViewDisplay {
 
 	@Override
 	public void showGift(GiftVo giftVo) {
-		// System.out.println("showGift ----------" + giftVo.getName() + "--"
-		// + giftVo.getPhoto());
 		name.setText(giftVo.getName());
+		summary.setText(giftVo.getSummary());
+		dispatchcycle.setText(giftVo.getDispatchcycle());
 		explains.setText(giftVo.getExplains());
+		notes.setText(giftVo.getNotes());
 		typeText.setText(giftVo.getTypeText());
-		business.setText(giftVo.getBusiness());
-		address.setText(giftVo.getAddress());
-		tell.setText(giftVo.getTell());
-		// photo.setText(giftVo.getPhoto());
+		brand.setText(giftVo.getBrand());
+
 		giftImage.setUrl("/imageshow?imageName=" + giftVo.getPhoto());
 		giftImage.setVisible(true);
 
 		integral.setText(giftVo.getIntegral() + "");
 		stock.setText(giftVo.getStock() + "");
-		// phone.setText(giftVo.getPhone());
+
+		supply.setText(giftVo.getSupply());
+		business.setText(giftVo.getBusiness());
+		address.setText(giftVo.getAddress());
+		tell.setText(giftVo.getTell());
+		servicetell.setText(giftVo.getServicetell());
 
 		// @UiField
 		// Label status;// boolean

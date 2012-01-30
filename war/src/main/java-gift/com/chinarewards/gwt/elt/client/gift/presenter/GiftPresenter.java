@@ -44,7 +44,7 @@ public interface GiftPresenter extends Presenter<GiftPresenter.GiftDisplay> {
 
 		public HasValue<String> getTell();
 
-		public HasValue<String> getServiceTell();
+		public HasValue<String> getServicetell();
 
 		public HasValue<String> getPhoto();
 

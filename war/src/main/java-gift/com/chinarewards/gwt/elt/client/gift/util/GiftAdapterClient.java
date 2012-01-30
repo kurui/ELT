@@ -1,4 +1,4 @@
-package com.chinarewards.gwt.elt.client.gift.model;
+package com.chinarewards.gwt.elt.client.gift.util;
 
 import com.chinarewards.gwt.elt.client.gift.presenter.GiftPresenter.GiftDisplay;
 import com.chinarewards.gwt.elt.client.gift.model.GiftVo;
@@ -16,18 +16,27 @@ public class GiftAdapterClient {
 
 		// // 基本信息
 		giftVo.setName(display.getName().getValue().trim());
+		giftVo.setSummary(display.getSummary().getValue().trim());
+		giftVo.setDispatchcycle(display.getDispatchcycle().getValue().trim());
 		giftVo.setExplains(display.getExplains().getValue().trim());
+		giftVo.setNotes(display.getNotes().getValue().trim());
+		
 		int selectedIndex=display.getType().getSelectedIndex();
 		giftVo.setType(display.getType().getValue(selectedIndex));
 		// giftVo.setSource(display.getSource().getValue().trim());
+		 giftVo.setBrand(display.getBrand().getValue().trim());
+		
 		giftVo.setSource("合作商家");
+	
+		giftVo.setPhoto(display.getPhoto().getValue());
+		giftVo.setStock(StringUtil.valueOf(display.getStock().getValue()));
+		giftVo.setIntegral(StringUtil.valueOf(display.getIntegral().getValue()));
+		
 		giftVo.setBusiness(display.getBusiness().getValue().trim());
 		giftVo.setAddress(display.getAddress().getValue().trim());
 		giftVo.setTell(display.getTell().getValue().trim());
-		giftVo.setPhoto(display.getPhoto().getValue().trim());
-		giftVo.setStock(StringUtil.valueOf(display.getStock().getValue()));
-		giftVo.setIntegral(StringUtil.valueOf(display.getIntegral().getValue()));
-		giftVo.setPhoto(display.getPhoto().getValue());
+		giftVo.setServicetell(display.getServicetell().getValue().trim());
+		
 		// giftVo.setGiftStatus();
 		// giftVo.setDeleted(false);
 		// giftVo.setIndate(display.getIndate());

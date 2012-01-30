@@ -122,19 +122,25 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	@Override
 	public void initEditGift(GiftVo giftVo) {
 		name.setText(giftVo.getName());
+		summary.setText(giftVo.getSummary());
+		dispatchcycle.setText(giftVo.getDispatchcycle());
 		explains.setText(giftVo.getExplains());
+		notes.setText(giftVo.getNotes());
 		initTypeSelect(giftVo.getType());
-		business.setText(giftVo.getBusiness());
-		address.setText(giftVo.getAddress());
-		tell.setText(giftVo.getTell());
+		brand.setText(giftVo.getBrand());
 		photo.setText(giftVo.getPhoto());
 		if (giftVo.getPhoto().indexOf(".") > 0) {
 			giftImage.setUrl("/imageshow?imageName=" + giftVo.getPhoto());
 			giftImage.setVisible(true);
 		}
-
 		integral.setText(giftVo.getIntegral() + "");
 		stock.setText(giftVo.getStock() + "");
+
+		supply.setText(giftVo.getSupply());
+		business.setText(giftVo.getBusiness());
+		address.setText(giftVo.getAddress());
+		tell.setText(giftVo.getTell());
+		servicetell.setText(giftVo.getServicetell());
 
 		// @UiField
 		// Label status;// boolean
@@ -328,7 +334,7 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	}
 
 	@Override
-	public HasValue<String> getServiceTell() {
+	public HasValue<String> getServicetell() {
 		return servicetell;
 	}
 }
