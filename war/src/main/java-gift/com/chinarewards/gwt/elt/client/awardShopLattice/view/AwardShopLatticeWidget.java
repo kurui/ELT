@@ -36,7 +36,7 @@ public class AwardShopLatticeWidget extends Composite implements
 	public AwardShopLatticeWidget() {
 		initWidget(uiBinder.createAndBindUi(this));
 	}
-	public AwardShopLatticeWidget(final String awardName,final String integral,String indate,String photo) {
+	public AwardShopLatticeWidget(final String awardName,final String integral,String indate,String photo,final String id) {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.awardName.setText(awardName);
 		this.integral.setText(integral);
@@ -46,7 +46,7 @@ public class AwardShopLatticeWidget extends Composite implements
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				Window.alert("礼品名称:"+awardName+"-----积分:"+integral);
+				Window.alert("礼品名称:"+awardName+"-----积分:"+integral+"ID:"+id);
 				
 			}
 		});
