@@ -9,6 +9,7 @@
 	<ui:style src="new2.css" field="new2"></ui:style>
 	<g:HTMLPanel>
 		<div class="{new2.frame-wrap}">
+
 				<!--面包屑 [[ -->
 			<g:FlowPanel ui:field="breadCrumbs" />
 			<!--面包屑 ]] -->
@@ -26,18 +27,17 @@
 					<span class="{new2.nbspbig}"></span>
 					<span class="{new2.nbspbig}"></span>
 					<span class="{new2.btn}">
-						<g:Button ui:field="searchBtn" text="搜索" />
+						<g:Button ui:field="searchBtn" text="查找"  />
 					</span>
-					<span class="{new2.nbspbig}"></span>
-					<span class="{new2.nbspbig}"></span>
-					<span class="{new2.nbspbig}"></span>
-					<span class="{new2.btn}">
-						<g:Button ui:field="addBtn" text="添加新礼品" />
-					</span>
-					<span class="{new2.nbsp}"></span>
-					<span class="{new2.btn}">
-						<g:Button ui:field="importingBtn" text="导入" />
-					</span>
+					<div style="float:right;text-align:right;">
+						<span class="{new2.btn}">
+							<g:Button ui:field="addBtn" text="增加新礼品" />
+						</span>
+						<span class="{new2.nbsp}"></span>
+						<span class="{new2.btn}">
+							<g:Button ui:field="importingBtn" text="导入" />
+						</span>
+					</div>
 				</div>
 			</div>
 			<!--查询条件 ]] -->

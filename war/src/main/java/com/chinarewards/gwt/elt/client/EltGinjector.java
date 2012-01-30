@@ -1,5 +1,6 @@
 package com.chinarewards.gwt.elt.client;
 
+import com.chinarewards.gwt.elt.client.awardShopLattice.presenter.AwardShopLatticePresenter;
 import com.chinarewards.gwt.elt.client.core.PlatformGinjector;
 import com.chinarewards.gwt.elt.client.dispatch.EltStandardDispatchModule;
 import com.chinarewards.gwt.elt.client.login.presenter.LoginModule;
@@ -15,6 +16,7 @@ public interface EltGinjector extends PlatformGinjector {
 	// MainPresenter getMainPresenter();
 
 	LoginPresenter getLoginPresenter();
+	AwardShopLatticePresenter getAwardShopLatticePresenter();
 
 	EventBus getEventBus();
 

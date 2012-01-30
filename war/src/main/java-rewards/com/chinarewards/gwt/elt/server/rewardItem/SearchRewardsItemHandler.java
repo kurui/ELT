@@ -58,6 +58,7 @@ public class SearchRewardsItemHandler extends	BaseActionHandler<SearchRewardsIte
 		uc.setCorporationId(request.getUserSession().getCorporationId());
 		uc.setLoginName(request.getUserSession().getLoginName());
 		uc.setUserRoles(UserRoleTool.adaptToRole(request.getUserSession().getUserRoles()));
+		uc.setUserId(request.getUserSession().getToken());
 		PageStore<RewardItemVo> items = rewardItemService.fetchRewardItems(uc,model);
 
 		resp.setTotal(items.getResultCount());

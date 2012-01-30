@@ -62,7 +62,8 @@ public class RewardsItemStoreListWidget extends Composite implements
 	
 	@UiField
 	InlineLabel dataCount;
-
+	@UiField
+	Panel breadCrumbs;
 	
 	// is inject
 	//final DepartmentComboTree DeptCombTree;
@@ -89,7 +90,12 @@ public class RewardsItemStoreListWidget extends Composite implements
 	public Widget asWidget() {
 		return this;
 	}
-
+	@Override
+	public void setBreadCrumbs(Widget breadCrumbs) {
+		this.breadCrumbs.clear();
+		this.breadCrumbs.add(breadCrumbs);
+		
+	}
 	@Override
 	public Panel getDataContainer() {
 		return result;

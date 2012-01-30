@@ -9,15 +9,9 @@
 	<ui:style src="elt_min.css" field="newitem"></ui:style>
 	<g:HTMLPanel styleName="{newitem.frame-wrap}">
 	
-	 <div class="breadcrumb">   
-	    <div class="{newitem.breadcrumb-wrap}">
-	      <p class="{newitem.breadcrumb-left}">
-	      <a href="#" style="color:#565656;text-decoration:none;">公司奖项库</a>
-						-> <span>奖项库列表</span></p>
-	      <a href="#" class="{newitem.breadcrumb-right} {newitem.back-btn}"
-						style="color:#565656;text-decoration:none;">返回上一页</a>
-	    </div>
-    </div>
+	 <!--面包屑 [[ -->
+			<g:FlowPanel ui:field="breadCrumbs" />
+			<!--面包屑 ]] -->
     <span class="{newitem.cutline}"></span>
  
 	<!--查询条件 [[ -->

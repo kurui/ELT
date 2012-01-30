@@ -3,6 +3,8 @@
  */
 package com.chinarewards.gwt.elt.client.rewardItem.request;
 
+import com.chinarewards.gwt.elt.client.support.UserSession;
+
 import net.customware.gwt.dispatch.shared.Action;
 
 /**
@@ -12,17 +14,19 @@ import net.customware.gwt.dispatch.shared.Action;
 public class DeleteRewardsItemRequest implements
 		Action<DeleteRewardsItemResponse> {
 
+	public UserSession getUserSession() {
+		return userSession;
+	}
+
+	public void setUserSession(UserSession userSession) {
+		this.userSession = userSession;
+	}
+
 	private String rewardsItemId;
-	private String nowUserId;
+	
 	private boolean isItemStore ;
-
-	public String getNowUserId() {
-		return nowUserId;
-	}
-
-	public void setNowUserId(String nowUserId) {
-		this.nowUserId = nowUserId;
-	}
+	private UserSession userSession;
+	
 
 	public String getRewardsItemId() {
 		return rewardsItemId;
@@ -32,11 +36,10 @@ public class DeleteRewardsItemRequest implements
 		this.rewardsItemId = rewardsItemId;
 	}
 
-	public DeleteRewardsItemRequest(String rewardsItemId,String nowUserId,boolean isItemStore) {
+	public DeleteRewardsItemRequest(String rewardsItemId,boolean isItemStore,UserSession userSession) {
 		this.rewardsItemId=rewardsItemId;
-		this.nowUserId=nowUserId;
 		this.isItemStore = isItemStore;
-
+        this.userSession= userSession;
 	}
 	public boolean isItemStore() {
 		return isItemStore;

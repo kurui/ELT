@@ -1,8 +1,8 @@
 package com.chinarewards.gwt.elt.client.gift.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
-import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
 import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria.GiftStatus;
 
 public class GiftClient implements Serializable, Comparable<GiftClient> {
@@ -27,8 +27,46 @@ public class GiftClient implements Serializable, Comparable<GiftClient> {
 	 * 库存
 	 */
 	private String inventory;
-	
+
 	protected String thisAction;
+
+	/**
+	 * 积分
+	 */
+	private int integral;
+
+	/**
+	 * 有效期
+	 */
+	private Date indate;
+	/**
+	 * 图片
+	 */
+	private String photo;
+
+	public int getIntegral() {
+		return integral;
+	}
+
+	public void setIntegral(int integral) {
+		this.integral = integral;
+	}
+
+	public Date getIndate() {
+		return indate;
+	}
+
+	public void setIndate(Date indate) {
+		this.indate = indate;
+	}
+
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
 
 	public GiftStatus getStatus() {
 		return status;
@@ -83,5 +121,4 @@ public class GiftClient implements Serializable, Comparable<GiftClient> {
 		this.thisAction = thisAction;
 	}
 
-	
 }

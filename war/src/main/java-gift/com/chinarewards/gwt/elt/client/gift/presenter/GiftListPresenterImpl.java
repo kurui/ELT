@@ -54,6 +54,7 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 	EltNewPager pager;
 	ListCellTable<GiftClient> cellTable;
 	GiftListViewAdapter listViewAdapter;
+
 	
 
 	private final BreadCrumbsPresenter breadCrumbs;
@@ -68,6 +69,7 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 		this.sessionManager = sessionManager;
 		this.win = win;
 		this.breadCrumbs=breadCrumbs;
+
 	}
 
 	@Override
@@ -174,7 +176,7 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 					public String getValue(GiftClient gift) {
 						return gift.getInventory();
 					}
-				}, ref, "inventory");
+				}, ref, "stock");
 
 		cellTable.addColumn("状态", new TextCell(),
 				new GetValue<GiftClient, String>() {

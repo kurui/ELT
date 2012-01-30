@@ -38,10 +38,12 @@ public class GiftListWidget extends Composite implements GiftListDisplay {
 	ListBox status;
 	@UiField
 	InlineLabel dataCount;
+
 	
 	@UiField
 	Panel breadCrumbs;
 	
+
 	private static GiftWidgetUiBinder uiBinder = GWT
 			.create(GiftWidgetUiBinder.class);
 
@@ -54,6 +56,7 @@ public class GiftListWidget extends Composite implements GiftListDisplay {
 
 	@Override
 	public HasClickHandlers getSearchBtnClickHandlers() {
+		searchBtn.setWidth("99px");
 		return searchBtn;
 	}
 
@@ -91,11 +94,13 @@ public class GiftListWidget extends Composite implements GiftListDisplay {
 
 	@Override
 	public HasClickHandlers getAddBtnClickHandlers() {
+		addBtn.setWidth("88px");
 		return addBtn;
 	}
 
 	@Override
 	public HasClickHandlers getimportingBtnClickHandlers() {
+		importingBtn.setWidth("88px");
 		return importingBtn;
 	}
 
@@ -105,9 +110,11 @@ public class GiftListWidget extends Composite implements GiftListDisplay {
 		
 	}
 
+
 	@Override
 	public void setBreadCrumbs(Widget breadCrumbs) {
 		this.breadCrumbs.clear();
 		this.breadCrumbs.add(breadCrumbs);		
+
 	}
 }

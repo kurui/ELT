@@ -3,13 +3,9 @@ package com.chinarewards.gwt.elt.adapter.order;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.chinarewards.elt.domain.order.Order;
 import com.chinarewards.elt.model.order.search.OrderListVo;
 import com.chinarewards.gwt.elt.client.order.model.OrderVo;
-import com.chinarewards.gwt.elt.client.order.model.OrderVo;
-import com.chinarewards.gwt.elt.client.order.model.OrderSeacherVo.OrderStatus;
-import com.chinarewards.gwt.elt.client.order.presenter.OrderPresenter.OrderDisplay;
-import com.chinarewards.gwt.elt.util.StringUtil;
+
 
 /**
  * This utility class use to adapter EJB entity to WAR domain.
