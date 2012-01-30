@@ -33,7 +33,6 @@ public class AwardShopListPresenterImpl extends BasePresenter<AwardShopListDispl
 	final ErrorHandler errorHandler;
 	final SessionManager sessionManager;
 	final Win win;
-
 	EltNewPager pager;
 	ListImageTable<GiftClient> cellTable;
 	AwardShopListViewAdapter listViewAdapter;
@@ -48,6 +47,7 @@ public class AwardShopListPresenterImpl extends BasePresenter<AwardShopListDispl
 		this.sessionManager = sessionManager;
 		this.win = win;
 		this.breadCrumbs=breadCrumbs;
+
 
 	}
 
@@ -74,14 +74,14 @@ public class AwardShopListPresenterImpl extends BasePresenter<AwardShopListDispl
 		// create a CellTable
 		cellTable = new ListImageTable<GiftClient>();
 
+		    
 		initTableColumns();
 		pager = new EltNewPager(TextLocation.CENTER);
 		pager.setDisplay(cellTable);
 		cellTable.setWidth(ViewConstants.page_width);
 		cellTable.setPageSize(ViewConstants.per_page_number_in_dialog);
 
-		display.getResultPanel().clear();
-		display.getResultPanel().add(cellTable);
+
 		display.getResultpage().clear();
 		display.getResultpage().add(pager);
 	}

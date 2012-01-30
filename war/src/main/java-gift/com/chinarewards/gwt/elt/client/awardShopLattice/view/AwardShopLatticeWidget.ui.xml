@@ -10,7 +10,7 @@
 		    <td colspan="2"><img src="" width="200" height="140" /></td>
 		  </tr>
 		  <tr>
-		    <td colspan="2"><p>SK-II活肤多元修护精华霜15g(小样)</p></td>
+		    <td colspan="2"><p><g:InlineLabel ui:field="awardName"  /> </p></td>
 		  </tr>
 		  <tr>
 		    <td><p>1000积分</p></td>
