@@ -14,7 +14,7 @@
 		  </tr>
 		  <tr>
 		    <td><p><g:InlineLabel ui:field="integral"  />积分</p></td>
-		    <td><g:Button text="兑换" ui:field="exchangeBtn"></g:Button> </td>
+		    <td><g:Button text="直接兑换" ui:field="exchangeBtn"></g:Button> </td>
 		  </tr>
 		  <tr>
 		    <td colspan="2"><p>有效期限:<g:InlineLabel ui:field="indate"  /></p></td>
