@@ -5,20 +5,19 @@
 
 
 	<g:HTMLPanel>
+
 		<table width="200" height="263" border="1">
 		  <tr>
 		    <td colspan="2"><g:Image width="200" height="140" pixelSize="200,140" ui:field="photo" /> </td>
 		  </tr>
 		  <tr>
-		    <td colspan="2"><p><g:InlineLabel ui:field="awardName"  /> </p></td>
+		    <td colspan="2"></td>
 		  </tr>
 		  <tr>
-		    <td><p><g:InlineLabel ui:field="integral"  />积分</p></td>
-		    <td><g:Button text="兑换" ui:field="exchangeBtn"></g:Button> </td>
+		    <td><p><g:InlineLabel ui:field="awardName"  /> </p></td>
+		    <td><p>积分:<g:InlineLabel ui:field="integral"  /></p> </td>
 		  </tr>
-		  <tr>
-		    <td colspan="2"><p>有效期限:<g:InlineLabel ui:field="indate"  /></p></td>
-		  </tr>
+
 		</table>
 	</g:HTMLPanel>
 </ui:UiBinder>
