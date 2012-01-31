@@ -3,49 +3,26 @@
  */
 package com.chinarewards.gwt.elt.client.orderConfirmation.request;
 
-import java.util.List;
-
 import net.customware.gwt.dispatch.shared.Result;
 
 import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
 
 /**
  * @author nicho
- * @since 2012年1月9日 19:00:32
+ * @since 2012年1月31日 18:56:03
  */
 public class OrderConfirmationResponse implements Result {
 
-	private List<GiftClient> result;
-	private int total;
+	private GiftClient result;
 
-
-	/**
-	 * @return the result
-	 */
-	public List<GiftClient> getResult() {
+	public GiftClient getResult() {
 		return result;
 	}
 
-	/**
-	 * @param result
-	 *            the result to set
-	 */
-	public void setResult(List<GiftClient> result) {
+	public void setResult(GiftClient result) {
 		this.result = result;
 	}
 
-	/**
-	 * @return the total
-	 */
-	public int getTotal() {
-		return total;
-	}
 
-	/**
-	 * @param total
-	 *            the total to set
-	 */
-	public void setTotal(int total) {
-		this.total = total;
-	}
+
 }

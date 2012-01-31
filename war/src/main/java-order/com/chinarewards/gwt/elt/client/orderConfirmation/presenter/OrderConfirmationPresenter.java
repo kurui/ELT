@@ -13,8 +13,11 @@ public interface OrderConfirmationPresenter extends Presenter<OrderConfirmationP
 	public void initOrderConfirmation(String orderId);
 	public static interface OrderConfirmationDisplay extends Display {
 
-		void setOrderId(String orderId);
+
 		void setTotal(String total);
+		void setUnitprice(String unitprice);
+		void setSource(String source);
+		void setNumber(String number);
 
 		HasValue<String> getName();
 		HasValue<String> getPhone();

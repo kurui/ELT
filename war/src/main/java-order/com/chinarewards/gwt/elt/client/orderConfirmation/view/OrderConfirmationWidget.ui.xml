@@ -14,7 +14,7 @@
 
 			<h3>
 				订单确认
-				(ID=<g:InlineLabel ui:field="orderId"></g:InlineLabel>)
+				
 			</h3>
 			<span class="{new2.cutline}"></span>
 			订单收货人信息
@@ -61,9 +61,9 @@
 		      <tr>
 		        <td class="col1"><g:Image pixelSize="180,100" ui:field="shopImage"></g:Image> </td>
 		        <td class="col2"><g:Anchor ui:field="shopText" text="120cm 泰迪熊 公仔"/> </td>
-		        <td class="col3"><g:InlineLabel ui:field="unitprice" text="100"></g:InlineLabel></td>
-		        <td class="col4"> <g:TextBox maxLength="4" ui:field="number" styleName="{new2.short-text}"/></td>
-		        <td class="col5">缤纷联盟</td>
+		        <td class="col3"><g:InlineLabel ui:field="unitprice" text="100" /></td>
+		        <td class="col4"><g:TextBox maxLength="4" ui:field="number" styleName="{new2.short-text}"/></td>
+		        <td class="col5"><g:InlineLabel ui:field="source" text="100" /></td>
 		      </tr>
 		
 		    </table>

@@ -5,64 +5,34 @@ package com.chinarewards.gwt.elt.client.orderConfirmation.request;
 
 import net.customware.gwt.dispatch.shared.Action;
 
-import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria;
-import com.chinarewards.gwt.elt.model.user.UserRoleVo;
-
 /**
  * @author nicho
- * @since 2012年1月9日 19:00:40
+ * @since 2012年1月31日 18:52:22
  */
 public class OrderConfirmationRequest implements Action<OrderConfirmationResponse> {
 
-	private GiftCriteria gift;
-	private String corporationId;
-	private UserRoleVo[] userRoles;
-	private String userId;
+
+	private String giftId;
 
 
 
 	public OrderConfirmationRequest() {
 	}
 
-	public OrderConfirmationRequest(GiftCriteria gift,String corporationId,UserRoleVo[] userRoles,String userId) {
-		this.gift = gift;
-		this.corporationId=corporationId;
-		this.userRoles=userRoles;
-		this.userId=userId;
+	public OrderConfirmationRequest(String giftId) {
+		this.giftId = giftId;
+
 	}
 
-	public String getCorporationId() {
-		return corporationId;
+	public String getGiftId() {
+		return giftId;
 	}
 
-	public void setCorporationId(String corporationId) {
-		this.corporationId = corporationId;
+	public void setGiftId(String giftId) {
+		this.giftId = giftId;
 	}
 
-	public GiftCriteria getGift() {
-		return gift;
-	}
-
-	public void setGift(GiftCriteria gift) {
-		this.gift = gift;
-	}
-
-	public UserRoleVo[] getUserRoles() {
-		return userRoles;
-	}
-
-	public void setUserRoles(UserRoleVo[] userRoles) {
-		this.userRoles = userRoles;
-	}
-
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-
+	
 
 
 

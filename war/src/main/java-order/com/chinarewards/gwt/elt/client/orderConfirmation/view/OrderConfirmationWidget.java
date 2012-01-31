@@ -16,9 +16,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class OrderConfirmationWidget extends Composite implements
 		OrderConfirmationDisplay {
-	@UiField
-	InlineLabel orderId;
-	
+
 	@UiField
 	Button confirmbutton;
 	@UiField
@@ -42,6 +40,8 @@ public class OrderConfirmationWidget extends Composite implements
 	Image shopImage;
 	@UiField
 	InlineLabel total;
+	@UiField
+	InlineLabel source;
 	
 	private static OrderConfirmationWidgetUiBinder uiBinder = GWT
 			.create(OrderConfirmationWidgetUiBinder.class);
@@ -54,11 +54,6 @@ public class OrderConfirmationWidget extends Composite implements
 		initWidget(uiBinder.createAndBindUi(this));
 	}
 
-	@Override
-	public void setOrderId(String orderId) {
-		this.orderId.setText(orderId);
-		
-	}
 
 	@Override
 	public HasValue<String> getName() {
@@ -119,6 +114,24 @@ public class OrderConfirmationWidget extends Composite implements
 	@Override
 	public void setTotal(String total) {
 		this.total.setText(total);		
+	}
+
+	@Override
+	public void setUnitprice(String unitprice) {
+		this.unitprice.setText(unitprice);
+		
+	}
+
+	@Override
+	public void setSource(String source) {
+		this.source.setText(source);
+		
+	}
+
+	@Override
+	public void setNumber(String number) {
+		this.number.setText(number);
+		
 	}
 
 
