@@ -19,6 +19,7 @@ import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.nominate.plugin.NominateConstants;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemConstants;
 import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListConstants;
+import com.chinarewards.gwt.elt.client.shopWindow.plugin.ShopWindowConstants;
 import com.chinarewards.gwt.elt.client.user.plugin.UserConstants;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -166,6 +167,7 @@ public class ButtonMenuProcessor implements MenuProcessor {
 			items.add(GiftListConstants.MENU_GIFTLIST_SEARCH);
 			items.add(GiftConstants.MENU_GIFT_ADD);
 			items.add(AwardShopListConstants.MENU_AWARDSHOPLIST_SEARCH);
+			items.add(ShopWindowConstants.MENU_SHOPWINDOW_SEARCH);
 		}
 		return items;
 	}
