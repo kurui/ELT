@@ -27,10 +27,6 @@ public class OrderListWidget extends Composite implements OrderListDisplay {
 	
 	@UiField
 	Button searchBtn;
-	@UiField
-	Button addBtn;
-	@UiField
-	Button importingBtn;
 	
 	@UiField
 	TextBox keyName;
@@ -38,6 +34,8 @@ public class OrderListWidget extends Composite implements OrderListDisplay {
 	ListBox status;
 	@UiField
 	InlineLabel dataCount;
+	@UiField
+	Panel breadCrumbs;
 	
 	private static OrderWidgetUiBinder uiBinder = GWT
 			.create(OrderWidgetUiBinder.class);
@@ -86,19 +84,18 @@ public class OrderListWidget extends Composite implements OrderListDisplay {
 		}
 	}
 
-	@Override
-	public HasClickHandlers getAddBtnClickHandlers() {
-		return addBtn;
-	}
-
-	@Override
-	public HasClickHandlers getimportingBtnClickHandlers() {
-		return importingBtn;
-	}
+	
 
 	@Override
 	public void setDataCount(String text) {
 		dataCount.setText(text);
 		
+	}
+	
+	@Override
+	public void setBreadCrumbs(Widget breadCrumbs) {
+		this.breadCrumbs.clear();
+		this.breadCrumbs.add(breadCrumbs);		
+
 	}
 }

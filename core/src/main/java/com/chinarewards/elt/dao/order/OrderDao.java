@@ -9,14 +9,14 @@ import java.util.Set;
 import javax.persistence.Query;
 
 import com.chinarewards.elt.common.BaseDao;
-import com.chinarewards.elt.domain.order.Order;
+import com.chinarewards.elt.domain.order.Orders;
 import com.chinarewards.elt.model.order.search.OrderListVo;
 import com.chinarewards.elt.util.StringUtil;
 
-public class OrderDao extends BaseDao<Order> {
+public class OrderDao extends BaseDao<Orders> {
 	@SuppressWarnings("unchecked")
-	public List<Order> OrderList(OrderListVo OrderVo) {
-		List<Order> result = new ArrayList<Order>();
+	public List<Orders> OrderList(OrderListVo OrderVo) {
+		List<Orders> result = new ArrayList<Orders>();
 
 		Query query = getFetchOrderQuery(SEARCH, OrderVo);
 
@@ -40,10 +40,10 @@ public class OrderDao extends BaseDao<Order> {
 		StringBuffer eql = new StringBuffer();
 
 		if (SEARCH.equals(type)) {
-			eql.append(" SELECT o FROM Order o ,Gift g where o.giftid=g.id and  o.deleted= :deleted");
+			eql.append(" SELECT o FROM Orders o ,Gift g where o.giftId=g.id and  o.deleted= :deleted");
 			param.put("deleted", vo.getDeleted());
 		} else if (COUNT.equals(type)) {
-			eql.append(" SELECT COUNT(o) FROM Order o where o.giftid=g.id  and  o.deleted= :deleted");
+			eql.append(" SELECT COUNT(o) FROM Orders o,Gift g where o.giftId=g.id  and  o.deleted= :deleted");
 			param.put("deleted", vo.getDeleted());
 		}
 		if (vo.getStatus()!=null) {

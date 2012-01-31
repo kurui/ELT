@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import com.chinarewards.elt.dao.gift.GiftDao;
 import com.chinarewards.elt.dao.order.OrderDao;
 import com.chinarewards.elt.domain.gift.Gift;
-import com.chinarewards.elt.domain.order.Order;
+import com.chinarewards.elt.domain.order.Orders;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.gift.search.GiftListVo;
@@ -32,7 +32,7 @@ public class OrderLogicImpl implements OrderLogic{
 	}
 	
 	@Override
-	public Order save(SysUser caller, Order order) {
+	public Orders save(SysUser caller, Orders order) {
 		Date currTime = DateUtil.getTime();
 		String orderCode = DateUtil.formatData("yyyyMMddhhmmss", currTime);
 		if (StringUtil.isEmptyString(order.getId())) {
@@ -48,7 +48,7 @@ public class OrderLogicImpl implements OrderLogic{
 			orderDao.save(order);
 		} else {
 			// Update
-			order = orderDao.findById(Order.class, order.getId());
+			order = orderDao.findById(Orders.class, order.getId());
 			order.setRecorddate(currTime);
 			order.setRecorduser(caller.getUserName());
 			orderDao.update(order);
@@ -59,15 +59,15 @@ public class OrderLogicImpl implements OrderLogic{
 	
 
 	@Override
-	public Order findOrderById(String id) {
+	public Orders findOrderById(String id) {
 		
-		return  orderDao.findById(Order.class, id);
+		return  orderDao.findById(Orders.class, id);
 	}
 
 	@Override
 	public String deleteOrder(SysUser caller,String id) {
 		Date currTime = DateUtil.getTime();
-		Order order = orderDao.findById(Order.class, id);
+		Orders order = orderDao.findById(Orders.class, id);
 		order.setDeleted(1);
 		order.setRecorddate(currTime);
 		order.setRecorduser(caller.getUserName());
@@ -78,12 +78,12 @@ public class OrderLogicImpl implements OrderLogic{
 	@Override
 	public PageStore<OrderListVo> OrderList(SysUser caller, OrderListVo orderVo) {
 		
-		PageStore<Order> pageStore = new PageStore<Order>();
+		PageStore<Orders> pageStore = new PageStore<Orders>();
 		
 		pageStore.setResultCount(orderDao.countOrder(orderVo));
-		List<Order> OrderList = orderDao.OrderList(orderVo);
+		List<Orders> OrderList = orderDao.OrderList(orderVo);
 		List<OrderListVo> OrderVoList = new ArrayList<OrderListVo>();
-		for (Order order : OrderList) {
+		for (Orders order : OrderList) {
 			OrderVoList.add(convertFromOrderToVo(order));
 		}
 		PageStore<OrderListVo> storeVo = new PageStore<OrderListVo>();
@@ -92,7 +92,7 @@ public class OrderLogicImpl implements OrderLogic{
 
 		return storeVo;
 	}
-	private OrderListVo convertFromOrderToVo(Order order) {
+	private OrderListVo convertFromOrderToVo(Orders order) {
 		OrderListVo orderVo = new OrderListVo();
 		GiftListVo giftVo = new GiftListVo();
 		orderVo.setAmount(order.getAmount());
@@ -128,7 +128,7 @@ public class OrderLogicImpl implements OrderLogic{
 	@Override
 	public String updateStatus(SysUser caller,String id,OrderStatus status) {
 		Date currTime = DateUtil.getTime();
-		Order order = orderDao.findById(Order.class, id);
+		Orders order = orderDao.findById(Orders.class, id);
 		order.setStatus(status);
 		order.setRecorddate(currTime);
 		order.setRecorduser(caller.getUserName());

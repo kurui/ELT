@@ -2,8 +2,10 @@ package com.chinarewards.gwt.elt.client.order.presenter;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
+
 import net.customware.gwt.dispatch.client.DispatchAsync;
-import com.chinarewards.elt.model.order.search.OrderStatus;
+
+import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.dataprovider.OrderListViewAdapter;
@@ -11,6 +13,7 @@ import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.order.model.OrderSearchVo;
+import com.chinarewards.gwt.elt.client.order.model.OrderStatus;
 import com.chinarewards.gwt.elt.client.order.plugin.OrderListConstants;
 import com.chinarewards.gwt.elt.client.order.presenter.OrderListPresenter.OrderListDisplay;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
@@ -40,37 +43,31 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 	EltNewPager pager;
 	ListCellTable<OrderSearchVo> cellTable;
 	OrderListViewAdapter listViewAdapter;
-
+	private final BreadCrumbsPresenter breadCrumbs;
 	@Inject
 	public OrderListPresenterImpl(EventBus eventBus, DispatchAsync dispatch,
-			ErrorHandler errorHandler, SessionManager sessionManager,
+			ErrorHandler errorHandler, SessionManager sessionManager,BreadCrumbsPresenter breadCrumbs,
 			OrderListDisplay display, Win win) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
 		this.win = win;
-
+        this.breadCrumbs = breadCrumbs;
 	}
 
 	@Override
 	public void bind() {
 		init();
+		breadCrumbs.loadListPage();
+		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
 		registerHandler(display.getSearchBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
 						doSearch();
 					}
 				}));
-		registerHandler(display.getAddBtnClickHandlers().addClickHandler(
-				new ClickHandler() {
-					public void onClick(ClickEvent paramClickEvent) {
-						Platform.getInstance()
-								.getEditorRegistry()
-								.openEditor(OrderListConstants.EDITOR_ORDERLIST_SEARCH,
-										OrderListConstants.EDITOR_ORDERLIST_SEARCH, null);
-					}
-				}));
+		
 			}
 
 	private void init() {

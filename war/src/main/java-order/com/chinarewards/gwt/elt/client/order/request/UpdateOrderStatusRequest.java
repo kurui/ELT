@@ -5,8 +5,7 @@ package com.chinarewards.gwt.elt.client.order.request;
 
 import net.customware.gwt.dispatch.shared.Action;
 
-import com.chinarewards.gwt.elt.client.order.request.UpdateOrderStatusResponse;
-import com.chinarewards.gwt.elt.client.order.model.OrderSeacherVo.OrderStatus;
+import com.chinarewards.gwt.elt.client.order.model.OrderStatus;
 
 /**
  * @author yanrui

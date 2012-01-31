@@ -21,7 +21,7 @@ import com.chinarewards.elt.model.order.search.OrderStatus;
  * 
  */
 @Entity
-public class Order implements Serializable {
+public class Orders implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
