@@ -46,15 +46,15 @@ a:hover{color:#010DFF;text-decoration:underline;}
 /*form*/
 .form .form-line:after{content:".";display:block;clear:both;height:0;visibility:hidden;}
 .form .form-line{margin-bottom:0px;\*zoom:1;}
-.form .form-line .label{float:left;width:15%;text-align:right;vertical-align:middle;padding:6px 0;background-color:#e5e5e5;}
+.form .form-line .label{float:left;width:15%;text-align:right;vertical-align:middle;padding:8px 0;background-color:#e5e5e5;}
 .form .form-line .element{float:right;width:84%;text-align:left;padding:5px 0;}
 .form .select{border:1px solid #569A01;width:120px;height:22px;}
-.form .short-text{height:18px;width:30px;border:1px solid #569A01;}
+.form .short-text{height:18px;width:30px;border:1px solid #569A01;text-align:center;}
 .form .text{height:22px;width:200px;border:1px solid #569A01;}
 .form .text2{height:22px;width:150px;border:1px solid #569A01;}
 .form .long-text{width:371px;}
 .form .textarea{width:420px;height:50px;border:1px solid #569A01;}
-.form .form-line-btn{margin-top:0px;}
+.form .form-line-btn{margin-top:0px;text-align:center;}
 .form .eline{margin-bottom:10px;}
 .form .line-info{color:#999999;}
 .form .eline .line-info{padding-left:50px;display:block;}
@@ -129,3 +129,8 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .shopdiv{text-align:right;padding-right:27px;}
 .shopa{color:#565656;text-decoration:none;}
 .shopa:hover{color:#010DFF;text-decoration:underline;cursor: pointer;}
+
+.message{color:red;}
+.messageMoney{font-size:18px;font-weight:bolder;text-align:right;padding-right:35px;}
+.orderDiv{padding-top: 3px;padding-bottom: 3px}
+.otherDiv{padding-top: 3px;padding-bottom: 3px;color: orange;}
