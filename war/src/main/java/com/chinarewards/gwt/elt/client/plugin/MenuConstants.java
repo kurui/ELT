@@ -121,6 +121,8 @@ public abstract class MenuConstants {
 	public static final int MENU_ORDER_AWARDSHOPLIST_SEARCH =  order++;
 	//橱窗展示
 	public static final int MENU_ORDER_SHOPWINDOW_SEARCH =  order++;
+	//订单确认
+	public static final int MENU_ORDER_ORDERCONFIRMATION_SEARCH =  order++;
 
 	
 }

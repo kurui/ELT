@@ -1,12 +1,14 @@
 package com.chinarewards.gwt.elt.client.awardShopLattice.view;
 
 import com.chinarewards.gwt.elt.client.awardShopLattice.presenter.AwardShopLatticePresenter.AwardShopLatticeDisplay;
+import com.chinarewards.gwt.elt.client.core.Platform;
+import com.chinarewards.gwt.elt.client.orderConfirmation.model.OrderConfirmationClient;
+import com.chinarewards.gwt.elt.client.orderConfirmation.plugin.OrderConfirmationConstants;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Image;
@@ -46,8 +48,12 @@ public class AwardShopLatticeWidget extends Composite implements
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				Window.alert("礼品名称:"+awardName+"-----积分:"+integral+"ID:"+id);
-				
+			//	Window.alert("礼品名称:"+awardName+"-----积分:"+integral+"ID:"+id);
+				Platform.getInstance()
+				.getEditorRegistry()
+				.openEditor(
+						OrderConfirmationConstants.EDITOR_ORDERCONFIRMATION_SEARCH,
+						"EDITOR_ORDERCONFIRMATION_SEARCH_DO_ID", new OrderConfirmationClient(id));
 			}
 		});
 	}
