@@ -41,6 +41,8 @@ public interface GiftLogic {
 	 * @return
 	 */
 	public String updateStatus(String id,GiftStatus status);
+	
+	
 }
 
 

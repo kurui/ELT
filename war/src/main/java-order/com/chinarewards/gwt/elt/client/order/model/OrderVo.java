@@ -16,7 +16,52 @@ public class OrderVo {
     private Date    exchangeDate;////交易时间
     private Date    recorddate;   //最后更新记录时间
     private String    recorduser;   //最后更新记录的人
-    
+    //收货人信息
+    private String receiver;
+    private String  tel;
+    private String address;
+    private String postcode;
+    private String remarks;
+	public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+
+	public String getReceiver() {
+		return receiver;
+	}
+
+	public void setReceiver(String receiver) {
+		this.receiver = receiver;
+	}
+
+	public String getTel() {
+		return tel;
+	}
+
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getPostcode() {
+		return postcode;
+	}
+
+	public void setPostcode(String postcode) {
+		this.postcode = postcode;
+	}
+
 	protected String thisAction;
 
 	public String getId() {

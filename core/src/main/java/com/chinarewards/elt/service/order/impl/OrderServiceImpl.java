@@ -9,6 +9,7 @@ import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.order.search.OrderStatus;
 import com.chinarewards.elt.model.order.search.OrderListVo;
+import com.chinarewards.elt.model.transaction.TransactionUnit;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.service.gift.GiftLogic;
@@ -114,8 +115,14 @@ public class OrderServiceImpl implements OrderService {
     	return returnValue;
     }
 	@Override
-	public String updateStatus(String orderId, OrderStatus updateStatus) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean getIntegral(UserContext context,double totalPrice) {
+		boolean back=false;
+   	    SysUser caller = userLogic.findUserById(context.getUserId());
+   	    String  staffAccountId = caller.getStaff().getTxAccountId();   //得到员工的账户  
+   	    String unitCode = TransactionUnit.BEANPOINTS.toString();
+   	    double balance = tx.getBalance(staffAccountId, unitCode);//得到余额
+   	     if(balance>=totalPrice)
+   	    	back=true;
+		return back;
 	}
 }
