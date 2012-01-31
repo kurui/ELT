@@ -2,11 +2,11 @@ package com.chinarewards.gwt.elt.client.shopWindow.presenter;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
-import com.chinarewards.gwt.elt.client.awardShopLattice.view.AwardShopLatticeWidget;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.shopWindow.presenter.ShopWindowPresenter.ShopWindowDisplay;
+import com.chinarewards.gwt.elt.client.shopWindow.view.ShopWindowLatticeWidget;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.google.gwt.user.client.ui.Grid;
@@ -49,7 +49,7 @@ public class ShopWindowPresenterImpl extends BasePresenter<ShopWindowDisplay>
 			for (int col = 0; col < numColumns; col++) {
 				// grid.setWidget(row, col,new
 				// AwardShopLatticeWidget(clint.getName(),clint.getIntegral()+"",clint.getIndate()+"",clint.getPhoto(),clint.getId()).asWidget());
-				grid.setWidget(row, col, new AwardShopLatticeWidget("无数据",
+				grid.setWidget(row, col, new ShopWindowLatticeWidget("无数据",
 						"无数据", "无数据", "无数据", "无数据").asWidget());
 
 			}
