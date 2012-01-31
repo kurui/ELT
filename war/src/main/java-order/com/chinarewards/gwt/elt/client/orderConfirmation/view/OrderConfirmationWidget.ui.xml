@@ -47,7 +47,7 @@
 				        </div>
 				    </div>
 				    
-	<div class="{new2.orderDiv}">订单包含礼品</div> 
+			<div class="{new2.orderDiv}">订单包含礼品</div> 
 			<div class="{new2.table}">
 
 		    <table>
@@ -59,8 +59,8 @@
 		        <th class="col5">礼品来源</th>
 		      </tr>
 		      <tr>
-		        <td class="col1"><g:Image pixelSize="180,100"></g:Image> </td>
-		        <td class="col2"><a href="#">120cm 泰迪熊 公仔</a></td>
+		        <td class="col1"><g:Image pixelSize="180,100" ui:field="shopImage"></g:Image> </td>
+		        <td class="col2"><g:Anchor ui:field="shopText" text="120cm 泰迪熊 公仔"/> </td>
 		        <td class="col3"><g:InlineLabel ui:field="unitprice" text="100"></g:InlineLabel></td>
 		        <td class="col4"> <g:TextBox maxLength="4" ui:field="number" styleName="{new2.short-text}"/></td>
 		        <td class="col5">缤纷联盟</td>
@@ -71,7 +71,7 @@
 			</div>
 			<div class="{new2.message}">您的积分不足！</div>
 			
-			<div class="{new2.messageMoney}">订单共需要积分：2400 积分</div>
+			<div class="{new2.messageMoney}">订单共需要积分：<g:InlineLabel ui:field="total"  /> 积分</div>
 			
 			<div class="{new2.otherDiv}">附加信息:</div> 
 			

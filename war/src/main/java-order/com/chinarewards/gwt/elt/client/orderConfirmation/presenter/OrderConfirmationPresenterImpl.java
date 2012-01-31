@@ -8,6 +8,8 @@ import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.orderConfirmation.presenter.OrderConfirmationPresenter.OrderConfirmationDisplay;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.win.Win;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.inject.Inject;
 
 public class OrderConfirmationPresenterImpl extends BasePresenter<OrderConfirmationDisplay>
@@ -39,7 +41,21 @@ public class OrderConfirmationPresenterImpl extends BasePresenter<OrderConfirmat
 
 	private void init() {
 
-	
+	display.getNumberChange().addChangeHandler(new ChangeHandler() {
+		
+		@Override
+		public void onChange(ChangeEvent event) {
+			try {
+				int price=Integer.parseInt(display.getUnitprice());
+				int num=Integer.parseInt(display.getNumber().getValue());
+				display.setTotal((price*num)+"");
+			} catch (Exception e) {
+				display.setTotal("0");
+			}
+
+			
+		}
+	});
 	}
 
 	@Override
