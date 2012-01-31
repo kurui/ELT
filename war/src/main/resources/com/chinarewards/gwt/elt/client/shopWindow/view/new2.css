@@ -126,3 +126,6 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .divtext{float:left;color:#999999;padding-bottom:3px;}
 .divfont{color:red;}
 .divend{clear:both}
+.shopdiv{text-align:right;padding-right:27px;}
+.shopa{color:#565656;text-decoration:none;}
+.shopa:hover{color:#010DFF;text-decoration:underline;cursor: pointer;}

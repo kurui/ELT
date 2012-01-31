@@ -12,5 +12,9 @@
 			<div class="{new2.table}">
 				<g:FlowPanel ui:field="resultPanel" />
 			</div>
+			<span class="{new2.cutline}"></span>
+			<div class="{new2.shopdiv}">
+				<g:Anchor text="更多" styleName="{new2.shopa}"></g:Anchor>
+			</div>
 	</g:HTMLPanel>
 </ui:UiBinder>
