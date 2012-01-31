@@ -11,6 +11,7 @@ public interface ShopWindowPresenter extends Presenter<ShopWindowPresenter.ShopW
 	public static interface ShopWindowDisplay extends Display {
 
 		Panel getResultPanel();
+		void setPageTitle(String text);
 
 	}
 }

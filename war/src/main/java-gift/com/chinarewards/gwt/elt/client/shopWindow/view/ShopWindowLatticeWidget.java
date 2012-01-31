@@ -16,6 +16,7 @@ public class ShopWindowLatticeWidget extends Composite implements
 	@UiField
 	InlineLabel integral;
 
+	
 	@UiField
 	Image photo;
 

@@ -5,6 +5,7 @@
 
 
 	<g:HTMLPanel>
+
 		<table width="200" height="263" border="1">
 		  <tr>
 		    <td colspan="2"><g:Image width="200" height="140" pixelSize="200,140" ui:field="photo" /> </td>

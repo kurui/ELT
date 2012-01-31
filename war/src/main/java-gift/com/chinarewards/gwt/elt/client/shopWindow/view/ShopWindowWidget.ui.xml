@@ -5,6 +5,10 @@
 
 	<ui:style src="new2.css" field="new2"></ui:style>
 	<g:HTMLPanel>
+			<h3>
+				<g:InlineLabel text="您还可以换什么呢？" ui:field="pageTitle" />
+			</h3>
+			<span class="{new2.cutline}"></span>
 			<div class="{new2.table}">
 				<g:FlowPanel ui:field="resultPanel" />
 			</div>

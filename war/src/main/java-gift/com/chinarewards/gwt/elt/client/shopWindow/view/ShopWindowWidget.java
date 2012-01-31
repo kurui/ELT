@@ -5,6 +5,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -12,7 +13,8 @@ public class ShopWindowWidget extends Composite implements
 		ShopWindowDisplay {
 	@UiField
 	Panel resultPanel;
-
+	@UiField
+	InlineLabel pageTitle;
 	private static AwardShopWidgetUiBinder uiBinder = GWT
 			.create(AwardShopWidgetUiBinder.class);
 
@@ -28,7 +30,11 @@ public class ShopWindowWidget extends Composite implements
 	public Panel getResultPanel() {
 		return resultPanel;
 	}
-
+	@Override
+	public void setPageTitle(String text) {
+		pageTitle.setText(text);
+	}
+	
 
 
 
