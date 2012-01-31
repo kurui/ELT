@@ -3,7 +3,7 @@ package com.chinarewards.gwt.elt.server.order;
 import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.DispatchException;
 import org.slf4j.Logger;
-import com.chinarewards.elt.domain.order.Order;
+import com.chinarewards.elt.domain.order.Orders;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.order.OrderService;
 import com.chinarewards.gwt.elt.client.order.model.OrderVo;
@@ -42,7 +42,7 @@ public class EditOrderHandler extends
 
 		OrderVo orderVo = action.getOrderVo();
 		
-		Order order = assembleOrder(orderVo);
+		Orders order = assembleOrder(orderVo);
 
 		UserContext uc = new UserContext();
 		uc.setCorporationId(action.getUserSession().getCorporationId());
@@ -50,7 +50,7 @@ public class EditOrderHandler extends
 		uc.setUserId(action.getUserSession().getToken());
 		uc.setUserRoles(UserRoleTool.adaptToRole(action.getUserSession()
 				.getUserRoles()));
-		Order AdddItem = orderService.save(uc, order);
+		Orders AdddItem = orderService.save(uc, order);
 
 		return new EditOrderResponse(AdddItem.getId());
 	}
@@ -58,8 +58,8 @@ public class EditOrderHandler extends
 	/**
 	 * Convert from OrderVo to GeneratorOrderModel.
 	 */
-	public static Order assembleOrder(OrderVo orderVo) {
-		Order order = new Order();
+	public static Orders assembleOrder(OrderVo orderVo) {
+		Orders order = new Orders();
 		order.setId(orderVo.getId());
 		order.setName(orderVo.getName());
 

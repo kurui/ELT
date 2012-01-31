@@ -1,6 +1,6 @@
 package com.chinarewards.elt.service.order;
 
-import com.chinarewards.elt.domain.order.Order;
+import com.chinarewards.elt.domain.order.Orders;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.order.search.OrderStatus;
 import com.chinarewards.elt.model.order.search.OrderListVo;
@@ -20,14 +20,14 @@ public interface OrderService {
 	 * @param order
 	 * @return
 	 */
-	public Order save(UserContext context, Order order);
+	public Orders save(UserContext context, Orders order);
 
 	/**
 	 * 查找根据ID
 	 * @param id
 	 * @return
 	 */
-	public Order findOrderById(String id);
+	public Orders findOrderById(String id);
 	
 	
 	/**
@@ -39,7 +39,7 @@ public interface OrderService {
 	/**
 	 * 订单列表
 	 * @param context
-	 * @param Order
+	 * @param Orders
 	 * @return
 	 */
 	public PageStore<OrderListVo> OrderList(UserContext context,OrderListVo OrderVo);

@@ -6,7 +6,7 @@ package com.chinarewards.gwt.elt.server.order;
 import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.DispatchException;
 import org.slf4j.Logger;
-import com.chinarewards.elt.domain.order.Order;
+import com.chinarewards.elt.domain.order.Orders;
 import com.chinarewards.elt.service.order.OrderService;
 import com.chinarewards.gwt.elt.client.order.model.OrderVo;
 import com.chinarewards.gwt.elt.client.order.request.SearchOrderByIdRequest;
@@ -33,12 +33,12 @@ public class SearchOrderByIdHandler extends
 	public SearchOrderByIdResponse execute(SearchOrderByIdRequest request,
 			ExecutionContext context) throws DispatchException {
 		logger.debug(" parameters:{}", request.getId());
-		Order order = orderService.findOrderById(request.getId());
+		Orders order = orderService.findOrderById(request.getId());
 		return new SearchOrderByIdResponse(adapter(orderService, order));
 
 	}
 
-	private OrderVo adapter(OrderService orderService, Order order) {
+	private OrderVo adapter(OrderService orderService, Orders order) {
 		OrderVo orderVo = new OrderVo();
 		orderVo.setId(order.getId());
 		orderVo.setName(order.getName());
