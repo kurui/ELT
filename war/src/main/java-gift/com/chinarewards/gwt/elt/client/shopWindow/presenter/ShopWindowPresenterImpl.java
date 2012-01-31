@@ -6,13 +6,13 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.awardShop.request.SearchAwardShopRequest;
 import com.chinarewards.gwt.elt.client.awardShop.request.SearchAwardShopResponse;
-import com.chinarewards.gwt.elt.client.awardShopLattice.view.AwardShopLatticeWidget;
 import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
 import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.shopWindow.presenter.ShopWindowPresenter.ShopWindowDisplay;
+import com.chinarewards.gwt.elt.client.shopWindow.view.ShopWindowLatticeWidget;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -26,6 +26,8 @@ public class ShopWindowPresenterImpl extends BasePresenter<ShopWindowDisplay>
 	final ErrorHandler errorHandler;
 	final SessionManager sessionManager;
 	final Win win;
+	int row;
+	int col;
 
 	@Inject
 	public ShopWindowPresenterImpl(EventBus eventBus, DispatchAsync dispatch,
@@ -63,7 +65,7 @@ public class ShopWindowPresenterImpl extends BasePresenter<ShopWindowDisplay>
 
 						List<GiftClient> giftList = response.getResult();
 						int index = 0;
-						Grid grid = new Grid(2, 5);
+						Grid grid = new Grid(row, col);
 
 						// Add images to the grid
 						int numRows = grid.getRowCount();
@@ -75,7 +77,7 @@ public class ShopWindowPresenterImpl extends BasePresenter<ShopWindowDisplay>
 									grid.setWidget(
 											row,
 											col,
-											new AwardShopLatticeWidget(clint
+											new ShopWindowLatticeWidget(clint
 													.getName(), clint
 													.getIntegral() + "", clint
 													.getIndate() + "", clint
@@ -84,7 +86,7 @@ public class ShopWindowPresenterImpl extends BasePresenter<ShopWindowDisplay>
 									index++;
 								} else {
 									grid.setWidget(row, col,
-											new AwardShopLatticeWidget("无数据",
+											new ShopWindowLatticeWidget("无数据",
 													"无数据", "无数据", "无数据", "无数据")
 													.asWidget());
 								}
@@ -100,6 +102,12 @@ public class ShopWindowPresenterImpl extends BasePresenter<ShopWindowDisplay>
 					}
 
 				});
+	}
+
+	@Override
+	public void initShopWindow(int row, int col) {
+		this.row=row;
+		this.col=col;
 	}
 
 }

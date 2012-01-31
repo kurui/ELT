@@ -32,7 +32,7 @@ public class ShopWindowEditorDescriptor implements EditorDescriptor {
 	public Editor createEditor(String instanceId, Object model) {
 		ShopWindowEditor e = editProvider.get();
 		e.setInstanceId(instanceId);
-		e.setTitle("奖品商城");
+		e.setTitle("橱窗功能");
 		if (model instanceof RewardsPageClient) {
 			if (model != null)
 				e.setTitle(((RewardsPageClient) model).getTitleName());

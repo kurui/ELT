@@ -44,6 +44,7 @@ public class ShopWindowEditor extends AbstractEditor {
 
 	public void setModel(Object model) {
 		this.model = model;
+		shopWindowPresenter.initShopWindow(3, 5);
 		shopWindowPresenter.bind();
 	}
 }

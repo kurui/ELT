@@ -7,7 +7,7 @@ import com.google.gwt.user.client.ui.Panel;
 
 public interface ShopWindowPresenter extends Presenter<ShopWindowPresenter.ShopWindowDisplay> {
 
-
+	public void initShopWindow(int row,int col);
 	public static interface ShopWindowDisplay extends Display {
 
 		Panel getResultPanel();
