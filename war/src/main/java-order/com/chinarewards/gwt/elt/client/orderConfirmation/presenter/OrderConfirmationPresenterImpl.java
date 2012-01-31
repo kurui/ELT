@@ -50,6 +50,7 @@ public class OrderConfirmationPresenterImpl extends BasePresenter<OrderConfirmat
 				int num=Integer.parseInt(display.getNumber().getValue());
 				display.setTotal((price*num)+"");
 			} catch (Exception e) {
+				display.getNumberChange().setText("0");
 				display.setTotal("0");
 			}
 
