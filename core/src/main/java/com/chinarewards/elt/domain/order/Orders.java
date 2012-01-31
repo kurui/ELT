@@ -43,11 +43,20 @@ public class Orders implements Serializable {
     private Date    recorddate;   //最后更新记录时间
     private String    recorduser;   //最后更新记录的人
     //收货人信息
-    private String  tel;
-    private String address;
-    private String postcode;
-    private String receiver;
-    public String getReceiver() {
+    private String  tel;//电话
+    private String address;//地址
+    private String postcode;//邮编
+    private String receiver;//收件人
+    private String remarks;//备注
+    public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+
+	public String getReceiver() {
 		return receiver;
 	}
 

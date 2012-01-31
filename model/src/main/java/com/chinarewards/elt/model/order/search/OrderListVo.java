@@ -50,6 +50,13 @@ public class OrderListVo {
     private String address;
     private String postcode;
     private String receiver;
+    private String remarks;
+	public String getRemarks() {
+		return remarks;
+	}
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
 	public String getReceiver() {
 		return receiver;
 	}

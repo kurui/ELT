@@ -21,6 +21,15 @@ public class OrderVo {
     private String  tel;
     private String address;
     private String postcode;
+    private String remarks;
+	public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+
 	public String getReceiver() {
 		return receiver;
 	}
