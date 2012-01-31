@@ -53,9 +53,8 @@ public interface OrderService {
    /**
     * 根据礼品的积分来查找个人积分够不够
     * @param context
-    * @param giftId
-    * @param amount  同一礼品的数量
+    * @param totalPrice  同一礼品的总积分
     * @return fasle 积分不够，true可以兑换
     */
-	public boolean getIntegral(UserContext context,String giftId,int amount);
+	public boolean getIntegral(UserContext context,double totalPrice);
 }

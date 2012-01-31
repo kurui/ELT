@@ -115,16 +115,13 @@ public class OrderServiceImpl implements OrderService {
     	return returnValue;
     }
 	@Override
-	public boolean getIntegral(UserContext context,String giftId,int amount) {
+	public boolean getIntegral(UserContext context,double totalPrice) {
 		boolean back=false;
    	    SysUser caller = userLogic.findUserById(context.getUserId());
-   	    Gift gift = giftLogic.findGiftById(giftId);//查找礼品的信息
    	    String  staffAccountId = caller.getStaff().getTxAccountId();   //得到员工的账户  
    	    String unitCode = TransactionUnit.BEANPOINTS.toString();
    	    double balance = tx.getBalance(staffAccountId, unitCode);//得到余额
-   	    int price =gift.getIntegral();
-   	    double integeral= price * amount;//得到总价格
-   	    if(balance>=integeral)
+   	     if(balance>=totalPrice)
    	    	back=true;
 		return back;
 	}
