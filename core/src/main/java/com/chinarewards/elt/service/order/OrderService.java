@@ -50,6 +50,12 @@ public interface OrderService {
 	 * @return  如果返回值为ok是成功，如果是fail是失败
 	 */
 	public String updateStatus(UserContext context,String orderId,OrderStatus status);
-
-	public String updateStatus(String orderId,OrderStatus updateStatus);
+   /**
+    * 根据礼品的积分来查找个人积分够不够
+    * @param context
+    * @param giftId
+    * @param amount  同一礼品的数量
+    * @return fasle 积分不够，true可以兑换
+    */
+	public boolean getIntegral(UserContext context,String giftId,int amount);
 }
