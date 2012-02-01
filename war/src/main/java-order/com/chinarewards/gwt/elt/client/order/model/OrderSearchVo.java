@@ -43,7 +43,7 @@ public class OrderSearchVo implements Serializable, Comparable<OrderSearchVo> {
 	private OrderStatus status;//订单执行状态
 	private int deleted;   //删除状态(0 存在,1已删删除)
     private Date    recorddate;   //交易时间
-    
+    private GiftClient giftvo;//订单的VO
    
 	public String getId() {
 		return id;
@@ -105,7 +105,7 @@ public class OrderSearchVo implements Serializable, Comparable<OrderSearchVo> {
 	public void setRecorddate(Date recorddate) {
 		this.recorddate = recorddate;
 	}
-	private GiftClient giftvo;//订单的VO
+	
 	public GiftClient getGiftvo() {
 		return giftvo;
 	}

@@ -20,9 +20,13 @@
 					<span class="{new2.nbsp}"></span>
 					<g:ListBox ui:field="status"  styleName="{new2.select}"/>
 					<span class="{new2.nbspbig}"></span>
-
+                    <label for="">礼品来源:</label>
 					<span class="{new2.nbsp}"></span>
-					<g:TextBox maxLength="20" ui:field="keyName" styleName="{new2.text}" />
+					<g:ListBox ui:field="source"  styleName="{new2.select}"/>
+					<span class="{new2.nbspbig}"></span>
+					<span class="{new2.nbsp}"></span>
+					 <label for="">订单编号或员工姓名:</label>
+					<g:TextBox maxLength="20" ui:field="keyName"  styleName="{new2.text}" />
 					<span class="{new2.nbspbig}"></span>
 					<span class="{new2.nbspbig}"></span>
 					<span class="{new2.btn}">
@@ -38,7 +42,7 @@
 
 
 			<span class="{new2.cutline}"></span>
-			<div class="{new2.divtext}">一共有 <g:InlineLabel ui:field="dataCount" styleName="{new2.divfont}"></g:InlineLabel> 件礼品</div><div  class="{new2.divend}"></div>
+			<div class="{new2.divtext}">一共有 <g:InlineLabel ui:field="dataCount" styleName="{new2.divfont}"></g:InlineLabel> 条订单</div><div  class="{new2.divend}"></div>
 			<div class="{new2.table}">
 				<g:FlowPanel ui:field="resultPanel" />
 			</div>
