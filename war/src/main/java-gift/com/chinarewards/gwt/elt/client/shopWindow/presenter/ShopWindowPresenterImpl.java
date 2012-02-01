@@ -6,13 +6,13 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.awardShop.request.SearchAwardShopRequest;
 import com.chinarewards.gwt.elt.client.awardShop.request.SearchAwardShopResponse;
+import com.chinarewards.gwt.elt.client.awardShopLattice.view.AwardShopLatticeWidget;
 import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
 import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.shopWindow.presenter.ShopWindowPresenter.ShopWindowDisplay;
-import com.chinarewards.gwt.elt.client.shopWindow.view.ShopWindowLatticeWidget;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -77,7 +77,7 @@ public class ShopWindowPresenterImpl extends BasePresenter<ShopWindowDisplay>
 									grid.setWidget(
 											row,
 											col,
-											new ShopWindowLatticeWidget(clint
+											new AwardShopLatticeWidget(clint
 													.getName(), clint
 													.getIntegral() + "", clint
 													.getIndate() + "", clint
@@ -86,7 +86,7 @@ public class ShopWindowPresenterImpl extends BasePresenter<ShopWindowDisplay>
 									index++;
 								} else {
 									grid.setWidget(row, col,
-											new ShopWindowLatticeWidget("无数据",
+											new AwardShopLatticeWidget("无数据",
 													"无数据", "无数据", "无数据", "无数据")
 													.asWidget());
 								}
