@@ -1,4 +1,4 @@
-package com.chinarewards.gwt.elt.client.gift.module;
+package com.chinarewards.gwt.elt.client.orderConfirmation.module;
 
 
 import com.chinarewards.gwt.elt.client.order.presenter.OrderListPresenter;

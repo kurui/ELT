@@ -10,6 +10,7 @@ import com.chinarewards.gwt.elt.client.order.presenter.OrderListPresenter.OrderL
 import com.chinarewards.gwt.elt.client.order.request.SearchOrderRequest;
 import com.chinarewards.gwt.elt.client.order.request.SearchOrderResponse;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.chinarewards.gwt.elt.model.PaginationDetailClient;
 import com.chinarewards.gwt.elt.model.SortingDetailClient;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
@@ -45,16 +46,12 @@ public class OrderListViewAdapter extends BaseDataProvider<OrderSearchVo> {
 		// updateRowData(start, list);
 		// updateRowCount(100, true);
 		// } else {
-		PaginationDetail pagination = new PaginationDetail();
+		PaginationDetailClient pagination = new PaginationDetailClient();
 		pagination.setStart(start);
 		pagination.setLimit(length);
-		criteria.setPaginationDetail(pagination);
+		criteria.setPagination(pagination);
 		if (getSorting() != null) {
-			SortingDetail sortingDetail = new SortingDetail();
-			SortingDetailClient sortingDetailClient=getSorting();
-			sortingDetail.setSort(sortingDetailClient.getSort());//把客户端的转成model的排序
-			sortingDetail.setDirection(sortingDetailClient.getDirection());
-			criteria.setSortingDetail(sortingDetail);
+			criteria.setSorting(getSorting());
 		}
 		dispatch.execute(new SearchOrderRequest(criteria, sessionManager.getSession()),
 				new AsyncCallback<SearchOrderResponse>() {

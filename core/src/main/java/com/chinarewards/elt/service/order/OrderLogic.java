@@ -1,6 +1,6 @@
 package com.chinarewards.elt.service.order;
 
-import com.chinarewards.elt.domain.order.Order;
+import com.chinarewards.elt.domain.order.Orders;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.order.search.OrderStatus;
@@ -13,14 +13,14 @@ public interface OrderLogic {
 	 * @param Order
 	 * @return
 	 */
-	public Order save(SysUser caller, Order Order);
+	public Orders save(SysUser caller, Orders Order);
 
 	/**
 	 * 查找根据ID
 	 * @param id
 	 * @return
 	 */
-	public Order findOrderById(String id);
+	public Orders findOrderById(String id);
 	
 	
 	/**
@@ -32,7 +32,7 @@ public interface OrderLogic {
 	/**
 	 * 订单列表
 	 * @param context
-	 * @param Order
+	 * @param Orders
 	 * @return
 	 */
 	public PageStore<OrderListVo> OrderList(SysUser caller,OrderListVo OrderVo);

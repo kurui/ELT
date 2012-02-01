@@ -13,12 +13,17 @@ import com.chinarewards.gwt.elt.client.core.ui.impl.ButtonMenuProcessor;
 import com.chinarewards.gwt.elt.client.core.ui.impl.SimpleEditorRegistry;
 import com.chinarewards.gwt.elt.client.core.ui.impl.SimpleSiteManager;
 import com.chinarewards.gwt.elt.client.detailsOfAward.plugin.DetailsOfAwardPluginDescriptor;
+import com.chinarewards.gwt.elt.client.detailsOfGift.plugin.DetailsOfGiftPluginDescriptor;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftPluginDescriptor;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftViewPluginDescriptor;
 import com.chinarewards.gwt.elt.client.nominate.plugin.NominatePluginDescriptor;
+import com.chinarewards.gwt.elt.client.order.plugin.OrderListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.order.plugin.OrderPluginDescriptor;
 import com.chinarewards.gwt.elt.client.order.plugin.OrderViewPluginDescriptor;
+import com.chinarewards.gwt.elt.client.orderConfirmation.plugin.OrderConfirmationPluginDescriptor;
+import com.chinarewards.gwt.elt.client.orderHistory.plugin.OrderHistoryPluginDescriptor;
+import com.chinarewards.gwt.elt.client.orderSubmit.plugin.OrderSubmitPluginDescriptor;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemPluginDescriptor;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemStoreListPluginDescriptor;
@@ -26,6 +31,7 @@ import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemViewPluginDe
 import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.sample.SamplePluginDescriptor;
 import com.chinarewards.gwt.elt.client.sample.SamplePluginModule;
+import com.chinarewards.gwt.elt.client.shopWindow.plugin.ShopWindowPluginDescriptor;
 import com.chinarewards.gwt.elt.client.staff.plugin.HrRegisterPluginDescriptor;
 import com.chinarewards.gwt.elt.client.user.plugin.UserPluginDescriptor;
 import com.google.gwt.inject.client.AbstractGinModule;
@@ -75,9 +81,14 @@ public class PlatformModule extends AbstractGinModule {
 			DetailsOfAwardPluginDescriptor detailsAward,
 			GiftPluginDescriptor gift, GiftListPluginDescriptor giftList,
 			GiftViewPluginDescriptor giftView,
-			// OrderListPluginDescriptor orderList,
-			OrderPluginDescriptor order, OrderViewPluginDescriptor orderView,
-			AwardShopListPluginDescriptor awardShop) {
+			OrderListPluginDescriptor orderList, OrderPluginDescriptor order,
+			OrderViewPluginDescriptor orderView,
+			AwardShopListPluginDescriptor awardShop,
+			ShopWindowPluginDescriptor shopWindow,
+			OrderHistoryPluginDescriptor orderHistory,
+			OrderSubmitPluginDescriptor orderSubmit,
+			OrderConfirmationPluginDescriptor orderConfirmation,
+			DetailsOfGiftPluginDescriptor detailsOfGift) {
 
 		if (pluginSet == null) {
 			pluginSet = new InMemoryPluginSet();
@@ -96,11 +107,14 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(giftList);
 			pluginSet.registerPlugin(gift);
 			pluginSet.registerPlugin(giftView);
-			// pluginSet.registerPlugin(orderList);//此处有问题,mvn install 无法编译 待查
-
-			pluginSet.registerPlugin(order);
+			pluginSet.registerPlugin(orderList);
+			pluginSet.registerPlugin(orderHistory);
 			pluginSet.registerPlugin(orderView);
 			pluginSet.registerPlugin(awardShop);
+			pluginSet.registerPlugin(shopWindow);
+			pluginSet.registerPlugin(orderConfirmation);
+			pluginSet.registerPlugin(orderSubmit);
+			pluginSet.registerPlugin(detailsOfGift);
 		}
 
 		return pluginSet;

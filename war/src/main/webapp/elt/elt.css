@@ -124,7 +124,7 @@ a:active {
 	color: #174b73;
 	padding-top: 3px;
 	cursor: pointer;
-	background-image: url(images/button_bg.jpg);
+	
 	background-color: #e4f6ff;
 }
 
@@ -142,7 +142,7 @@ a:active {
 }
 
 .gwt-Button[disabled]:hover {
-	border: 0px outset #ccc;
+		border: 1px solid #9eb5c2;
 }
 
 .gwt-CheckBox {
@@ -1836,7 +1836,7 @@ li.token-input-input-token-facebook {
 
 #rewardlist_page .pageon{text-decoration:none;background-color:#569B01;color:#FFFFFF;}
 #rewardlist_page .pagedisable,#rewardlist_page .pagedisable:hover{border:1px solid #C7C7C7;color:#999999;}
-.searchStaff{float:left;height:22px;width:150px;color:#999999;border:1px solid #569A01;}
+.searchStaff{float:left;height:22px;width:150px;border:1px solid #569A01;}
 .divTextLeft{text-align: left;}
 
 .close-wrap{position:absolute;height:50px;right:0;top:1px;*top:2px;height:40px;line-height:40px;overflow:hidden;}

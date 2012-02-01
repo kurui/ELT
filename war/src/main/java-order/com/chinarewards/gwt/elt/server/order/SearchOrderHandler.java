@@ -2,21 +2,29 @@ package com.chinarewards.gwt.elt.server.order;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.DispatchException;
+
 import org.slf4j.Logger;
+
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.common.PaginationDetail;
 import com.chinarewards.elt.model.common.SortingDetail;
+import com.chinarewards.elt.model.gift.search.GiftListVo;
 import com.chinarewards.elt.model.order.search.OrderListVo;
 import com.chinarewards.elt.model.order.search.OrderStatus;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.order.OrderService;
+import com.chinarewards.gwt.elt.adapter.order.OrderAdapter;
+import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
+import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria.GiftStatus;
 import com.chinarewards.gwt.elt.client.order.model.OrderSearchVo;
 import com.chinarewards.gwt.elt.client.order.request.SearchOrderRequest;
 import com.chinarewards.gwt.elt.client.order.request.SearchOrderResponse;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
 import com.chinarewards.gwt.elt.server.logger.InjectLogger;
+import com.chinarewards.gwt.elt.util.StringUtil;
 import com.chinarewards.gwt.elt.util.UserRoleTool;
 import com.google.inject.Inject;
 
@@ -45,7 +53,7 @@ public class SearchOrderHandler extends
 		SearchOrderResponse resp = new SearchOrderResponse();
 
 		OrderSearchVo orderSeacherVo = request.getOrderSearchVo();
-		OrderListVo orderListVo = adapter(orderSeacherVo);
+		OrderListVo orderListVo = adapter(orderSeacherVo);//从客户端转到model
 		PageStore<OrderListVo> orderPage = null;
 
 		UserContext uc = new UserContext();
@@ -55,55 +63,47 @@ public class SearchOrderHandler extends
 		uc.setUserId(request.getUserSession().getToken());
 		orderPage = orderService.OrderList(uc, orderListVo);
 		resp.setTotal(orderPage.getResultCount());
-		resp.setResult(adapterToClient(orderPage.getResultList()));
+		resp.setResult(OrderAdapter.adapterToClient(orderPage.getResultList()));//从服务端转为客户端
 
 		return resp;
 	}
 
 	private OrderListVo adapter(OrderSearchVo criteria) {
 		OrderListVo vo = new OrderListVo();
+		GiftListVo giftvo = new GiftListVo();
 		if (criteria.getName() != null) {
 			vo.setName(criteria.getName());
+		}
+		if (criteria.getExchangeDate() != null&&criteria.getExchangeDateEnd() != null) {
+			vo.setExchangeDate(criteria.getExchangeDate());
+			vo.setExchangeDateEnd(criteria.getExchangeDateEnd());
 		}
 		if (criteria.getStatus() != null) {
 			vo.setStatus(OrderStatus.valueOf(criteria.getStatus().toString()));
 		}
-		if (criteria.getPaginationDetail() != null) {
+		if(!StringUtil.isEmpty(criteria.getGiftvo().getSource())){
+			giftvo.setSource(criteria.getGiftvo().getSource());
+			
+		}
+		vo.setGiftvo(giftvo);
+		
+		if (criteria.getPagination() != null) {
 			PaginationDetail detail = new PaginationDetail();
-			detail.setLimit(criteria.getPaginationDetail().getLimit());
-			detail.setStart(criteria.getPaginationDetail().getStart());
+			detail.setLimit(criteria.getPagination().getLimit());
+			detail.setStart(criteria.getPagination().getStart());
 
 			vo.setPaginationDetail(detail);
 		}
 
-		if (criteria.getSortingDetail() != null) {
+		if (criteria.getSorting() != null) {
 			SortingDetail sortingDetail = new SortingDetail();
-			sortingDetail.setSort(criteria.getSortingDetail().getSort());
-			sortingDetail.setDirection(criteria.getSortingDetail().getDirection());
+			sortingDetail.setSort(criteria.getSorting().getSort());
+			sortingDetail.setDirection(criteria.getSorting().getDirection());
 			vo.setSortingDetail(sortingDetail);
 		}
 		return vo;
 	}
-	 //从服务端得到的数据到客户端在列表显示的数据
-		private List<OrderSearchVo> adapterToClient(List<OrderListVo> service) {
-			List<OrderSearchVo> resultList = new ArrayList<OrderSearchVo>();
-
-			for (OrderListVo item : service) {
-				OrderSearchVo client = new OrderSearchVo();
-				client.setId(item.getId());
-				client.setName(item.getName());
-				client.setAmount(item.getAmount());
-				client.setStatus(item.getStatus());
-				client.setIntegral(item.getIntegral());
-				client.setOrderCode(item.getOrderCode());
-				client.setRecorddate(item.getRecorddate());
-				client.setGiftvo(item.getGiftvo());
-				resultList.add(client);
-			}
-
-			return resultList;
-		}
-
+	 
 	@Override
 	public Class<SearchOrderRequest> getActionType() {
 		return SearchOrderRequest.class;

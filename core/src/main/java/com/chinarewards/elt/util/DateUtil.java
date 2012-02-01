@@ -6,6 +6,7 @@ package com.chinarewards.elt.util;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 
 /**
  * Abstraction of DateTimeProvider. User need to implement the
@@ -15,7 +16,7 @@ import java.util.Date;
  * @since 0.2.0
  */
 public class DateUtil {
-
+	private static Random random = new Random(); 
 	public static Date getTime() {
 		return new Date();
 	}
@@ -159,5 +160,15 @@ public class DateUtil {
 		SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
 		return dateFormat.format(calendar.getTime());
 //		return "111111225";
+	}
+	
+	/**
+	 * 得到随机�?
+	 * @param max  �?大随机数
+	 * @return
+	 */
+	
+	public static int rand(int max){
+		return random.nextInt(max+1);
 	}
 }

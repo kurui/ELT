@@ -9,14 +9,14 @@ import java.util.Set;
 import javax.persistence.Query;
 
 import com.chinarewards.elt.common.BaseDao;
-import com.chinarewards.elt.domain.order.Order;
+import com.chinarewards.elt.domain.order.Orders;
 import com.chinarewards.elt.model.order.search.OrderListVo;
 import com.chinarewards.elt.util.StringUtil;
 
-public class OrderDao extends BaseDao<Order> {
+public class OrderDao extends BaseDao<Orders> {
 	@SuppressWarnings("unchecked")
-	public List<Order> OrderList(OrderListVo OrderVo) {
-		List<Order> result = new ArrayList<Order>();
+	public List<Orders> OrderList(OrderListVo OrderVo) {
+		List<Orders> result = new ArrayList<Orders>();
 
 		Query query = getFetchOrderQuery(SEARCH, OrderVo);
 
@@ -40,10 +40,10 @@ public class OrderDao extends BaseDao<Order> {
 		StringBuffer eql = new StringBuffer();
 
 		if (SEARCH.equals(type)) {
-			eql.append(" SELECT o FROM Order o ,Gift g where o.giftid=g.id and  o.deleted= :deleted");
+			eql.append(" SELECT o FROM Orders o ,Gift g where o.giftId=g.id and  o.deleted= :deleted");
 			param.put("deleted", vo.getDeleted());
 		} else if (COUNT.equals(type)) {
-			eql.append(" SELECT COUNT(o) FROM Order o where o.giftid=g.id  and  o.deleted= :deleted");
+			eql.append(" SELECT COUNT(o) FROM Orders o,Gift g where o.giftId=g.id  and  o.deleted= :deleted");
 			param.put("deleted", vo.getDeleted());
 		}
 		if (vo.getStatus()!=null) {
@@ -54,26 +54,32 @@ public class OrderDao extends BaseDao<Order> {
 			eql.append(" AND UPPER(o.userId) =:userId ");
 			param.put("userId", vo.getUserId());
 		}
-		if (!StringUtil.isEmptyString(vo.getOrderCode())) {
-			eql.append(" AND UPPER(o.orderCode) =:orderCode ");
-			param.put("orderCode", vo.getOrderCode());
+		
+		if (!StringUtil.isEmptyString(vo.getGiftvo().getSource())) {
+			eql.append(" AND UPPER(g.source) =:source ");
+			param.put("source", vo.getGiftvo().getSource());
 		}
-//		if (!StringUtil.isEmptyString(vo.getGiftvo().getSource())) {
-//			eql.append(" AND UPPER(g.source) =:source ");
-//			param.put("source", vo.getGiftvo().getSource());
-//		}
-		if (!StringUtil.isEmptyString(vo.getName())) {
+		if (!StringUtil.isEmptyString(vo.getName())) {//查询姓名或编码时
 			eql.append(" AND UPPER(o.name) LIKE :name ");
-			param.put("name", "%" + vo.getName().trim().toUpperCase()
-					+ "%");
+			param.put("name", "%" + vo.getName().trim().toUpperCase()+ "%");
+			eql.append(" or UPPER(o.orderCode) like:orderCode ");
+			param.put("orderCode","%" +  vo.getName().trim().toUpperCase()+ "%");
 		}
+		// 根据创建时间来查询
+			if (null != vo.getExchangeDate()&& !vo.getExchangeDate().equals("")
+					&& null != vo.getExchangeDateEnd()&& !vo.getExchangeDateEnd().equals("")) {
+				eql.append(" and ( o.exchangeDate  between :createTime and :createdAtEnd)");
+				param.put("createTime", vo.getExchangeDate());
+				param.put("createdAtEnd", vo.getExchangeDateEnd());
 
-		if (vo.getSortingDetail() != null) {
-			eql.append(" ORDER BY o."
-					+ vo.getSortingDetail().getSort() + " "
-					+ vo.getSortingDetail().getDirection());
+			}
+		if (SEARCH.equals(type)) {
+			if (vo.getSortingDetail() != null) {
+				eql.append(" ORDER BY o."
+						+ vo.getSortingDetail().getSort() + " "
+						+ vo.getSortingDetail().getDirection());
+			}
 		}
-
 		System.out.println("EQL : " + eql);
 		Query query = getEm().createQuery(eql.toString());
 		if (SEARCH.equals(type)) {

@@ -7,10 +7,7 @@ package com.chinarewards.gwt.elt.client.order.plugin;
 <<<<<<< HEAD
  * @author LW
  * @since 2012年1月19日 17:21:11
-=======
- * @author YANRUI
->>>>>>> refs/remotes/origin/master
- */
+**/
 public abstract class OrderListConstants {
 
 	// Plugin name

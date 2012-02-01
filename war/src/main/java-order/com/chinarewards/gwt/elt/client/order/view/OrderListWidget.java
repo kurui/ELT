@@ -27,17 +27,17 @@ public class OrderListWidget extends Composite implements OrderListDisplay {
 	
 	@UiField
 	Button searchBtn;
-	@UiField
-	Button addBtn;
-	@UiField
-	Button importingBtn;
 	
 	@UiField
 	TextBox keyName;
 	@UiField
 	ListBox status;
 	@UiField
+	ListBox source;
+	@UiField
 	InlineLabel dataCount;
+	@UiField
+	Panel breadCrumbs;
 	
 	private static OrderWidgetUiBinder uiBinder = GWT
 			.create(OrderWidgetUiBinder.class);
@@ -74,6 +74,10 @@ public class OrderListWidget extends Composite implements OrderListDisplay {
 	public String getStatus() {
 		return status.getValue(status.getSelectedIndex());
 	}
+	@Override
+	public String getSource() {
+		return source.getValue(source.getSelectedIndex());
+	}
 
 	@Override
 	public void initOrderStatus(Map<String, String> map) {
@@ -85,20 +89,31 @@ public class OrderListWidget extends Composite implements OrderListDisplay {
 			status.addItem(entry.getValue(), entry.getKey());
 		}
 	}
-
+	
 	@Override
-	public HasClickHandlers getAddBtnClickHandlers() {
-		return addBtn;
+	public void initOrderSource(Map<String, String> map) {
+
+		source.addItem("不限", "");
+		Iterator<Entry<String, String>> it = map.entrySet().iterator();
+		while (it.hasNext()) {
+			Entry<String, String> entry = it.next();
+			source.addItem(entry.getValue(), entry.getKey());
+		}
 	}
 
-	@Override
-	public HasClickHandlers getimportingBtnClickHandlers() {
-		return importingBtn;
-	}
+
+	
 
 	@Override
 	public void setDataCount(String text) {
 		dataCount.setText(text);
 		
+	}
+	
+	@Override
+	public void setBreadCrumbs(Widget breadCrumbs) {
+		this.breadCrumbs.clear();
+		this.breadCrumbs.add(breadCrumbs);		
+
 	}
 }

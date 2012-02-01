@@ -10,6 +10,7 @@ import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardInitReques
 import com.chinarewards.gwt.elt.client.awardShop.request.SearchAwardShopRequest;
 import com.chinarewards.gwt.elt.client.chooseStaff.request.SearchStaffChooseRequest;
 import com.chinarewards.gwt.elt.client.detailsOfAward.request.DetailsOfAwardInitRequest;
+import com.chinarewards.gwt.elt.client.detailsOfGift.request.DetailsOfGiftRequest;
 import com.chinarewards.gwt.elt.client.enterprise.EnterpriseInitRequest;
 import com.chinarewards.gwt.elt.client.enterprise.EnterpriseRequest;
 import com.chinarewards.gwt.elt.client.gift.request.DeleteGiftRequest;
@@ -21,7 +22,11 @@ import com.chinarewards.gwt.elt.client.login.LoginRequest;
 import com.chinarewards.gwt.elt.client.login.TokenValidRequest;
 import com.chinarewards.gwt.elt.client.nominate.NominateAddRequest;
 import com.chinarewards.gwt.elt.client.nominate.NominateInitRequest;
+import com.chinarewards.gwt.elt.client.order.request.DeleteOrderRequest;
 import com.chinarewards.gwt.elt.client.order.request.SearchOrderRequest;
+import com.chinarewards.gwt.elt.client.orderConfirmation.request.OrderConfirmationAddRequest;
+import com.chinarewards.gwt.elt.client.orderConfirmation.request.OrderConfirmationRequest;
+import com.chinarewards.gwt.elt.client.orderSubmit.request.OrderSubmitRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.ActivationRewardsItemRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.ActivationRewardsItemStoreRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.CreateRewardsItemRequest;
@@ -34,6 +39,7 @@ import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsItemViewR
 import com.chinarewards.gwt.elt.client.rewardItem.request.SearchStaffRequest;
 import com.chinarewards.gwt.elt.client.rewards.request.DeleteRewardsRequest;
 import com.chinarewards.gwt.elt.client.rewards.request.SearchRewardsRequest;
+import com.chinarewards.gwt.elt.client.shopWindow.request.ShopWindowRequest;
 import com.chinarewards.gwt.elt.client.staff.HrRegisterRequest;
 import com.chinarewards.gwt.elt.client.user.DeleteUserRequest;
 import com.chinarewards.gwt.elt.client.user.UserSearchRequest;
@@ -42,6 +48,7 @@ import com.chinarewards.gwt.elt.server.awardReward.AwardRewardAddActionHandler;
 import com.chinarewards.gwt.elt.server.awardShop.SearchAwardShopHandler;
 import com.chinarewards.gwt.elt.server.chooseStaff.SearchStaffActionHandler;
 import com.chinarewards.gwt.elt.server.detailsOfAward.DetailsOfAwardActionHandler;
+import com.chinarewards.gwt.elt.server.detailsOfGift.DetailsOfGiftHandler;
 import com.chinarewards.gwt.elt.server.enterprise.EnterpriseActionHandler;
 import com.chinarewards.gwt.elt.server.enterprise.EnterpriseInitActionHandler;
 import com.chinarewards.gwt.elt.server.gift.DeleteGiftHandler;
@@ -53,7 +60,11 @@ import com.chinarewards.gwt.elt.server.login.LoginActionHandler;
 import com.chinarewards.gwt.elt.server.login.TokenValidActionHandler;
 import com.chinarewards.gwt.elt.server.nominate.NominateActionHandler;
 import com.chinarewards.gwt.elt.server.nominate.NominateAddActionHandler;
+import com.chinarewards.gwt.elt.server.order.DeleteOrderHandler;
 import com.chinarewards.gwt.elt.server.order.SearchOrderHandler;
+import com.chinarewards.gwt.elt.server.orderConfirmation.AddOrderConfirmationHandler;
+import com.chinarewards.gwt.elt.server.orderConfirmation.SearchOrderConfirmationHandler;
+import com.chinarewards.gwt.elt.server.orderSubmit.AddOrderSubmitHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.ActivationRewardsItemHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.ActivationRewardsItemStroeHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.CreateRewardsItemHandler;
@@ -66,6 +77,7 @@ import com.chinarewards.gwt.elt.server.rewardItem.SearchRewardsItemViewHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.SearchStaffHandler;
 import com.chinarewards.gwt.elt.server.rewards.DeleteRewardsHandler;
 import com.chinarewards.gwt.elt.server.rewards.SearchRewardsHandler;
+import com.chinarewards.gwt.elt.server.shopWindow.SearchShopWindowHandler;
 import com.chinarewards.gwt.elt.server.staff.HrRegisterActionHandler;
 import com.chinarewards.gwt.elt.server.user.DeleteUserActionHandler;
 import com.chinarewards.gwt.elt.server.user.UserSearchActionHandler;
@@ -160,7 +172,19 @@ public class ActionModule extends ActionHandlerModule {
 		
 		//定单列表
 		bindHandler(SearchOrderRequest.class, SearchOrderHandler.class);
-
 		
+		//橱窗功能
+		bindHandler(ShopWindowRequest.class, SearchShopWindowHandler.class);
+		//订单提交-查询礼品
+		bindHandler(OrderConfirmationRequest.class, SearchOrderConfirmationHandler.class);
+		//订单提交-添加订单
+		bindHandler(OrderConfirmationAddRequest.class, AddOrderConfirmationHandler.class);
+		//订单确定-修改状态
+		bindHandler(OrderSubmitRequest.class, AddOrderSubmitHandler.class);
+		//礼品详细
+		bindHandler(DetailsOfGiftRequest.class, DetailsOfGiftHandler.class);
+		
+		//取消订单
+		bindHandler(DeleteOrderRequest.class, DeleteOrderHandler.class);
 	}
 }

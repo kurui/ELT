@@ -8,13 +8,19 @@ import com.chinarewards.gwt.elt.client.breadCrumbs.module.BreadCrumbsModule;
 import com.chinarewards.gwt.elt.client.chooseStaff.module.ChooseStaffModule;
 import com.chinarewards.gwt.elt.client.core.presenter.DockModule;
 import com.chinarewards.gwt.elt.client.detailsOfAward.module.DetailsOfAwardModule;
+import com.chinarewards.gwt.elt.client.detailsOfGift.module.DetailsOfGiftModule;
 import com.chinarewards.gwt.elt.client.enterprise.presenter.EnterprisesModule;
 import com.chinarewards.gwt.elt.client.gift.module.GiftListModule;
 import com.chinarewards.gwt.elt.client.gift.module.GiftModule;
 import com.chinarewards.gwt.elt.client.nominate.module.NominateModule;
+import com.chinarewards.gwt.elt.client.order.module.OrderListModule;
 import com.chinarewards.gwt.elt.client.order.module.OrderModule;
+import com.chinarewards.gwt.elt.client.orderConfirmation.module.OrderConfirmationModule;
+import com.chinarewards.gwt.elt.client.orderHistory.module.OrderHistoryModule;
+import com.chinarewards.gwt.elt.client.orderSubmit.module.OrderSubmitModule;
 import com.chinarewards.gwt.elt.client.rewardItem.module.RewardsItemModule;
 import com.chinarewards.gwt.elt.client.rewards.module.RewardsListModule;
+import com.chinarewards.gwt.elt.client.shopWindow.module.ShopWindowModule;
 import com.chinarewards.gwt.elt.client.staff.module.HrRegisterModule;
 import com.chinarewards.gwt.elt.client.user.module.UserModule;
 import com.chinarewards.gwt.elt.client.win.WinModule;
@@ -36,12 +42,17 @@ public class PresenterModule extends AbstractGinModule {
 		install(new DetailsOfAwardModule());
 		install(new GiftListModule());
 		install(new GiftModule());
-	//	install(new OrderListModule());
+		install(new OrderListModule());
+		install(new OrderHistoryModule());
 		install(new OrderModule());
 		install(new WinModule());
 		install(new BreadCrumbsModule());
 		install(new AwardShopListModule());
 		install(new AwardShopLatticeModule());
+		install(new ShopWindowModule());
+		install(new OrderConfirmationModule());
+		install(new OrderSubmitModule());
+		install(new DetailsOfGiftModule());
 
 	}
 

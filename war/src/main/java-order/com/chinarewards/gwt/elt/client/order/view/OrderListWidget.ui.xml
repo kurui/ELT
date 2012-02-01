@@ -9,19 +9,8 @@
 	<ui:style src="new2.css" field="new2"></ui:style>
 	<g:HTMLPanel>
 		<div class="{new2.frame-wrap}">
-			<!--面包屑 [[ -->
-			<div class="{new2.breadcrumb-wrap}">
-				<div class="{new2.breadcrumb-wrap}">
-					<p class="{new2.breadcrumb-left}">
-						<a href="#" style="color:#565656;text-decoration:none;">兑换管理</a>
-						->
-						<span>订单列表</span>
-					</p>
-					<a href="#" class="{new2.breadcrumb-right} {new2.back-btn}"
-						style="color:#565656;text-decoration:none;">返回上一页</a>
-				</div>
-				<span class="{new2.cutline}"></span>
-			</div>
+			 <!--面包屑 [[ -->
+			<g:FlowPanel ui:field="breadCrumbs" />
 			<!--面包屑 ]] -->
 
 			<!--查询条件 [[ -->
@@ -31,10 +20,14 @@
 					<span class="{new2.nbsp}"></span>
 					<g:ListBox ui:field="status"  styleName="{new2.select}"/>
 					<span class="{new2.nbspbig}"></span>
-
+                    <label for="">礼品来源:</label>
 					<span class="{new2.nbsp}"></span>
-					<g:TextBox maxLength="20" ui:field="keyName" styleName="{new2.text}" />
+					<g:ListBox ui:field="source"  styleName="{new2.select}"/>
 					<span class="{new2.nbspbig}"></span>
+					<span class="{new2.nbsp}"></span>
+					 <label for="">订单编号或员工姓名:</label>
+					<g:TextBox maxLength="20" ui:field="keyName"  styleName="{new2.text}" />
+					
 					<span class="{new2.nbspbig}"></span>
 					<span class="{new2.btn}">
 						<g:Button ui:field="searchBtn" text="搜索" />
@@ -42,20 +35,14 @@
 					<span class="{new2.nbspbig}"></span>
 					<span class="{new2.nbspbig}"></span>
 					<span class="{new2.nbspbig}"></span>
-					<span class="{new2.btn}">
-						<g:Button ui:field="addBtn" text="添加新礼品" />
-					</span>
-					<span class="{new2.nbsp}"></span>
-					<span class="{new2.btn}">
-						<g:Button ui:field="importingBtn" text="导入" />
-					</span>
+					
 				</div>
 			</div>
 			<!--查询条件 ]] -->
 
 
 			<span class="{new2.cutline}"></span>
-			<div class="{new2.divtext}">一共有 <g:InlineLabel ui:field="dataCount" styleName="{new2.divfont}"></g:InlineLabel> 件礼品</div><div  class="{new2.divend}"></div>
+			<div class="{new2.divtext}">一共有 <g:InlineLabel ui:field="dataCount" styleName="{new2.divfont}"></g:InlineLabel> 条订单</div><div  class="{new2.divend}"></div>
 			<div class="{new2.table}">
 				<g:FlowPanel ui:field="resultPanel" />
 			</div>

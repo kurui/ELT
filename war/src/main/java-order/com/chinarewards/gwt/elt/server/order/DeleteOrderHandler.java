@@ -11,6 +11,7 @@ import com.chinarewards.gwt.elt.client.order.request.DeleteOrderRequest;
 import com.chinarewards.gwt.elt.client.order.request.DeleteOrderResponse;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
 import com.chinarewards.gwt.elt.server.logger.InjectLogger;
+import com.chinarewards.gwt.elt.util.UserRoleTool;
 import com.google.inject.Inject;
 
 /**
@@ -33,8 +34,12 @@ public class DeleteOrderHandler extends
 	@Override
 	public DeleteOrderResponse execute(DeleteOrderRequest request,
 			ExecutionContext context) throws DispatchException {
+		
 		UserContext uc = new UserContext();
-		uc.setUserId(request.getUserId());
+		uc.setCorporationId(request.getUserSession().getCorporationId());
+		uc.setLoginName(request.getUserSession().getLoginName());
+		uc.setUserRoles(UserRoleTool.adaptToRole(request.getUserSession().getUserRoles()));
+		uc.setUserId(request.getUserSession().getToken());
 
 		String totle = orderService.deleteOrder(uc,request.getOrderId());		
 		

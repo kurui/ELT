@@ -64,7 +64,7 @@ public class OrderListPluginDescriptor implements PluginDescriptor {
 
 					@Override
 					public String getTitle() {
-						return "订单列表";
+						return "兑换订单";
 					}
 
 					@Override

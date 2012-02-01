@@ -3,10 +3,11 @@ package com.chinarewards.gwt.elt.client.order.model;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.chinarewards.elt.model.common.PaginationDetail;
-import com.chinarewards.elt.model.common.SortingDetail;
-import com.chinarewards.elt.model.gift.search.GiftListVo;
-import com.chinarewards.elt.model.order.search.OrderStatus;
+import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
+import com.chinarewards.gwt.elt.client.gift.model.GiftVo;
+import com.chinarewards.gwt.elt.model.PaginationDetailClient;
+import com.chinarewards.gwt.elt.model.SortingDetailClient;
+
 
 public class OrderSearchVo implements Serializable, Comparable<OrderSearchVo> {
 
@@ -17,26 +18,22 @@ public class OrderSearchVo implements Serializable, Comparable<OrderSearchVo> {
 
 	public OrderSearchVo() {
 	}
-	
-	private PaginationDetail paginationDetail;
-	public PaginationDetail getPaginationDetail() {
-		return paginationDetail;
-	}
-	public void setPaginationDetail(PaginationDetail paginationDetail) {
-		this.paginationDetail = paginationDetail;
-	}
-	public SortingDetail getSortingDetail() {
-		return sortingDetail;
-	}
-	public void setSortingDetail(SortingDetail sortingDetail) {
-		this.sortingDetail = sortingDetail;
-	}
-	/**
-	 * Sorting detail.
-	 */
-	
-	private SortingDetail sortingDetail;
+	private PaginationDetailClient pagination;
+
+	private SortingDetailClient sorting;
 	private String  id;
+	public PaginationDetailClient getPagination() {
+		return pagination;
+	}
+	public void setPagination(PaginationDetailClient pagination) {
+		this.pagination = pagination;
+	}
+	public SortingDetailClient getSorting() {
+		return sorting;
+	}
+	public void setSorting(SortingDetailClient sorting) {
+		this.sorting = sorting;
+	}
 	private String  orderCode;       //订单编号
     private String    giftId;   //礼品ID
     private String  userId;      //订单用户
@@ -45,8 +42,23 @@ public class OrderSearchVo implements Serializable, Comparable<OrderSearchVo> {
     private String  name;      //订单用户姓名
 	private OrderStatus status;//订单执行状态
 	private int deleted;   //删除状态(0 存在,1已删删除)
-    private Date    recorddate;   //交易时间
-    
+	private Date    exchangeDate;////交易时间
+    private Date    recorddate;   //记录时间
+    private Date    exchangeDateEnd;   //交易时间止
+  
+	public Date getExchangeDate() {
+		return exchangeDate;
+	}
+	public void setExchangeDate(Date exchangeDate) {
+		this.exchangeDate = exchangeDate;
+	}
+	public Date getExchangeDateEnd() {
+		return exchangeDateEnd;
+	}
+	public void setExchangeDateEnd(Date exchangeDateEnd) {
+		this.exchangeDateEnd = exchangeDateEnd;
+	}
+	private GiftClient giftvo;//订单的VO
    
 	public String getId() {
 		return id;
@@ -108,11 +120,11 @@ public class OrderSearchVo implements Serializable, Comparable<OrderSearchVo> {
 	public void setRecorddate(Date recorddate) {
 		this.recorddate = recorddate;
 	}
-	private GiftListVo giftvo;//订单的VO
-	public GiftListVo getGiftvo() {
+	
+	public GiftClient getGiftvo() {
 		return giftvo;
 	}
-	public void setGiftvo(GiftListVo giftvo) {
+	public void setGiftvo(GiftClient giftvo) {
 		this.giftvo = giftvo;
 	}
 	@Override

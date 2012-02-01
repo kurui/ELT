@@ -4,11 +4,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.chinarewards.elt.domain.gift.Gift;
-import com.chinarewards.elt.domain.order.Order;
+import com.chinarewards.elt.domain.order.Orders;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.order.search.OrderStatus;
 import com.chinarewards.elt.model.order.search.OrderListVo;
+import com.chinarewards.elt.model.transaction.TransactionUnit;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.service.gift.GiftLogic;
@@ -35,14 +36,14 @@ public class OrderServiceImpl implements OrderService {
 		
 	}
 	@Override
-	public Order save(UserContext context, Order Order) {
+	public Orders save(UserContext context, Orders Order) {
 		SysUser caller = userLogic.findUserById(context.getUserId());
-		Order Orders = orderLogic.save(caller, Order);
+		Orders Orders = orderLogic.save(caller, Order);
 		return Orders;
 	}
 
 	@Override
-	public Order findOrderById(String id) {
+	public Orders findOrderById(String id) {
 		
 		return orderLogic.findOrderById(id);
 	}
@@ -69,7 +70,7 @@ public class OrderServiceImpl implements OrderService {
 	public String updateStatus(UserContext context,String id,OrderStatus status) {
 		SysUser caller = userLogic.findUserById(context.getUserId());
 
-	    Order order = orderLogic.findOrderById(id);//得到订单信息
+	    Orders order = orderLogic.findOrderById(id);//得到订单信息
     	String orderId = orderLogic.updateStatus(caller,id,status);//更新状态
 		String returnValue="ok";
 		if(orderId!=null&&orderId.equals(id)){//如果更新执行状态成功并是当前的订单ID
@@ -83,7 +84,7 @@ public class OrderServiceImpl implements OrderService {
 		return returnValue;
 	}
 	
-    public String updateStock(UserContext context,String id,Order order,boolean forward){
+    public String updateStock(UserContext context,String id,Orders order,boolean forward){
     	 
     	 SysUser caller = userLogic.findUserById(context.getUserId());
 		 String giftId = order.getGiftId();          //得到礼品的ID
@@ -114,8 +115,14 @@ public class OrderServiceImpl implements OrderService {
     	return returnValue;
     }
 	@Override
-	public String updateStatus(String orderId, OrderStatus updateStatus) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean getIntegral(UserContext context,double totalPrice) {
+		boolean back=false;
+   	    SysUser caller = userLogic.findUserById(context.getUserId());
+   	    String  staffAccountId = caller.getStaff().getTxAccountId();   //得到员工的账户  
+   	    String unitCode = TransactionUnit.BEANPOINTS.toString();
+   	    double balance = tx.getBalance(staffAccountId, unitCode);//得到余额
+   	     if(balance>=totalPrice)
+   	    	back=true;
+		return back;
 	}
 }

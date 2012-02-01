@@ -4,6 +4,7 @@
 package com.chinarewards.gwt.elt.client.order.request;
 
 import com.chinarewards.gwt.elt.client.order.request.DeleteOrderResponse;
+import com.chinarewards.gwt.elt.client.support.UserSession;
 
 import net.customware.gwt.dispatch.shared.Action;
 
@@ -13,15 +14,15 @@ import net.customware.gwt.dispatch.shared.Action;
 public class DeleteOrderRequest implements Action<DeleteOrderResponse> {
 
 	private String orderId;
-	private String userId;
+	private UserSession userSession;
 
 	public DeleteOrderRequest() {
 	}
 
-	public DeleteOrderRequest(String orderId, String userId) {
+	public DeleteOrderRequest(String orderId, UserSession userSession) {
 		this.orderId = orderId;
 
-		this.userId = userId;
+		this.userSession = userSession;
 
 	}
 
@@ -33,12 +34,14 @@ public class DeleteOrderRequest implements Action<DeleteOrderResponse> {
 		this.orderId = orderId;
 	}
 
-	public String getUserId() {
-		return userId;
+	public UserSession getUserSession() {
+		return userSession;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setUserSession(UserSession userSession) {
+		this.userSession = userSession;
 	}
+
+	
 
 }
