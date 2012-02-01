@@ -74,6 +74,10 @@ public class SearchOrderHandler extends
 		if (criteria.getName() != null) {
 			vo.setName(criteria.getName());
 		}
+		if (criteria.getExchangeDate() != null&&criteria.getExchangeDateEnd() != null) {
+			vo.setExchangeDate(criteria.getExchangeDate());
+			vo.setExchangeDateEnd(criteria.getExchangeDateEnd());
+		}
 		if (criteria.getStatus() != null) {
 			vo.setStatus(OrderStatus.valueOf(criteria.getStatus().toString()));
 		}

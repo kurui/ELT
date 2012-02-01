@@ -34,7 +34,7 @@ public class OrderLogicImpl implements OrderLogic{
 	@Override
 	public Orders save(SysUser caller, Orders order) {
 		Date currTime = DateUtil.getTime();
-		String orderCode = DateUtil.formatData("yyyyMMddhhmmss", currTime);
+		String orderCode = DateUtil.formatData("yyyyMMddhhmmss", currTime)+DateUtil.rand(20);
 		if (StringUtil.isEmptyString(order.getId())) {
 			// Create
 			order.setDeleted(0);//正常状态，没有删除为0
@@ -96,12 +96,12 @@ public class OrderLogicImpl implements OrderLogic{
 		OrderListVo orderVo = new OrderListVo();
 		GiftListVo giftVo = new GiftListVo();
 		orderVo.setAmount(order.getAmount());
-//		orderVo.setGiftId(order.getGiftId());
 		orderVo.setId(order.getId());
 		orderVo.setIntegral(order.getIntegral());
 		orderVo.setName(order.getName());
 		orderVo.setOrderCode(order.getOrderCode());
 		orderVo.setRecorddate(order.getRecorddate());
+		orderVo.setExchangeDate(order.getExchangeDate());
 		orderVo.setStatus(order.getStatus());
 		orderVo.setUserId(order.getUserId());
 		//================下面为礼品的信息
