@@ -36,7 +36,7 @@ public class ShopWindowLatticeWidget extends Composite implements
 		this.awardName.setText(awardName);
 		this.integral.setText(integral);
 
-		this.photo.setUrl("/imageshow?imageName="+photo);
+		this.photo.setUrl("imageshow?imageName="+photo);
 //		photo.addClickHandler(new ClickHandler() {
 //			
 //			@Override
