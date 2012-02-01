@@ -141,7 +141,7 @@ double balance;
 								OrderSubmitClient orderClient=new OrderSubmitClient();
 								orderClient.setOrderId(response.getOrderId());
 								orderClient.setGiftImage(response.getGiftImage());
-								orderClient.setGiftName(response.getName());
+								orderClient.setGiftName(response.getGiftName());
 								orderClient.setTotal(response.getTotal());
 								orderClient.setIntegral(response.getIntegral());
 								orderClient.setSource(response.getSource());
