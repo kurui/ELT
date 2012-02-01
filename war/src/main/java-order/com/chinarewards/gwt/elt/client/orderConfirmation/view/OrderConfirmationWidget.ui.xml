@@ -69,7 +69,7 @@
 		    </table>
 
 			</div>
-			<div class="{new2.message}">您的积分不足！</div>
+			<div class="{new2.message}"><g:InlineLabel ui:field="message" text="您的积分不足！" /></div>
 			
 			<div class="{new2.messageMoney}">订单共需要积分：<g:InlineLabel ui:field="total"  /> 积分</div>
 			

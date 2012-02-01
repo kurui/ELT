@@ -42,6 +42,8 @@ public class OrderConfirmationWidget extends Composite implements
 	InlineLabel total;
 	@UiField
 	InlineLabel source;
+	@UiField
+	InlineLabel message;
 	
 	private static OrderConfirmationWidgetUiBinder uiBinder = GWT
 			.create(OrderConfirmationWidgetUiBinder.class);
@@ -133,6 +135,20 @@ public class OrderConfirmationWidget extends Composite implements
 		this.number.setText(number);
 		
 	}
+
+
+	@Override
+	public InlineLabel getMessage() {
+		return message;
+	}
+
+
+	@Override
+	public Button getConfirmbuttonObj() {
+		return confirmbutton;
+	}
+
+
 
 
 	

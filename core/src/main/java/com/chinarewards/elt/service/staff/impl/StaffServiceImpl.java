@@ -88,4 +88,9 @@ public class StaffServiceImpl implements IStaffService {
 				filterByAcl);
 	}
 
+	@Override
+	public double getBalance(String staffId) {
+		return staffLogic.getBalance(staffId);
+	}
+
 }

@@ -14,6 +14,15 @@ import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
 public class OrderConfirmationResponse implements Result {
 
 	private GiftClient result;
+	private double staffBalance;
+
+	public double getStaffBalance() {
+		return staffBalance;
+	}
+
+	public void setStaffBalance(double staffBalance) {
+		this.staffBalance = staffBalance;
+	}
 
 	public GiftClient getResult() {
 		return result;

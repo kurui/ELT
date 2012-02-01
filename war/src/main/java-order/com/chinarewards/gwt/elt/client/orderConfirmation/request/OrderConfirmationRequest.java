@@ -13,14 +13,24 @@ public class OrderConfirmationRequest implements Action<OrderConfirmationRespons
 
 
 	private String giftId;
+	private String staffId;
 
 
+
+	public String getStaffId() {
+		return staffId;
+	}
+
+	public void setStaffId(String staffId) {
+		this.staffId = staffId;
+	}
 
 	public OrderConfirmationRequest() {
 	}
 
-	public OrderConfirmationRequest(String giftId) {
+	public OrderConfirmationRequest(String giftId,String staffId) {
 		this.giftId = giftId;
+		this.staffId=staffId;
 
 	}
 

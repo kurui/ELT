@@ -4,8 +4,10 @@ package com.chinarewards.gwt.elt.client.orderConfirmation.presenter;
 import com.chinarewards.gwt.elt.client.mvp.Display;
 import com.chinarewards.gwt.elt.client.mvp.Presenter;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.TextBox;
 
 public interface OrderConfirmationPresenter extends Presenter<OrderConfirmationPresenter.OrderConfirmationDisplay> {
@@ -33,5 +35,9 @@ public interface OrderConfirmationPresenter extends Presenter<OrderConfirmationP
 		HasClickHandlers getConfirmbutton();
 		HasClickHandlers getReturnbutton();
 		TextBox getNumberChange();
+		InlineLabel getMessage();
+		
+		Button getConfirmbuttonObj();
+	
 	}
 }

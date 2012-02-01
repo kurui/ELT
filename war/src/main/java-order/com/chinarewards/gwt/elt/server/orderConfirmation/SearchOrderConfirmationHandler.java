@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 
 import com.chinarewards.elt.domain.gift.Gift;
 import com.chinarewards.elt.service.gift.GiftService;
+import com.chinarewards.elt.service.staff.IStaffService;
 import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
 import com.chinarewards.gwt.elt.client.orderConfirmation.request.OrderConfirmationRequest;
 import com.chinarewards.gwt.elt.client.orderConfirmation.request.OrderConfirmationResponse;
@@ -25,10 +26,12 @@ public class SearchOrderConfirmationHandler extends
 	Logger logger;
 
 	GiftService giftService;
+	IStaffService staffService;
 
 	@Inject
-	public SearchOrderConfirmationHandler(GiftService giftService) {
+	public SearchOrderConfirmationHandler(GiftService giftService,IStaffService staffService) {
 		this.giftService = giftService;
+		this.staffService=staffService;
 
 	}
 
@@ -37,13 +40,15 @@ public class SearchOrderConfirmationHandler extends
 			ExecutionContext context) throws DispatchException {
 
 		OrderConfirmationResponse resp = new OrderConfirmationResponse();
-		Gift gift=giftService.findGiftById(request.getGiftId());
+		Gift gift=giftService.findGiftById(request.getGiftId());		
 		GiftClient client=new GiftClient();
 		client.setName(gift.getName());
 		client.setPhoto(gift.getPhoto());
 		client.setIntegral(gift.getIntegral());
 		client.setSource(gift.getSource());
 		resp.setResult(client);
+		//查询员工积分
+		resp.setStaffBalance(staffService.getBalance(request.getStaffId()));
 		return resp;
 	}
 

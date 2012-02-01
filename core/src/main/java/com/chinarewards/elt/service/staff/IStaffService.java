@@ -22,4 +22,11 @@ public interface IStaffService {
 	 * @since 2010-12-27
 	 */
 	public PageStore<WinnersRecordQueryResult> queryWinnerRecords(WinnersRecordQueryVo queryVo,String corporationId, boolean filterByAcl);
+	
+	/**
+	 * 获取员工账户积分数值
+	 * @param staffId
+	 * @return
+	 */
+	public double getBalance(String staffId);
 }

@@ -24,7 +24,7 @@ public class OrderConfirmationPresenterImpl extends BasePresenter<OrderConfirmat
 	final SessionManager sessionManager;
 	final Win win;
 	String orderId;
-
+double balance;
 	@Inject
 	public OrderConfirmationPresenterImpl(EventBus eventBus, DispatchAsync dispatch,
 			ErrorHandler errorHandler, SessionManager sessionManager,
@@ -44,8 +44,8 @@ public class OrderConfirmationPresenterImpl extends BasePresenter<OrderConfirmat
 	}
 
 	private void init() {
-		
-		dispatch.execute(new OrderConfirmationRequest(orderId),
+		display.getMessage().setVisible(false);
+		dispatch.execute(new OrderConfirmationRequest(orderId,sessionManager.getSession().getStaffId()),
 				new AsyncCallback<OrderConfirmationResponse>() {
 					@Override
 					public void onFailure(Throwable e) {
@@ -61,6 +61,7 @@ public class OrderConfirmationPresenterImpl extends BasePresenter<OrderConfirmat
 						display.setUnitprice(client.getIntegral()+"");
 						display.setSource(client.getSource()+"");
 						display.setNumber("1");
+						balance=response.getStaffBalance();
 						
 					}
 
@@ -74,6 +75,16 @@ public class OrderConfirmationPresenterImpl extends BasePresenter<OrderConfirmat
 				int price=Integer.parseInt(display.getUnitprice());
 				int num=Integer.parseInt(display.getNumber().getValue());
 				display.setTotal((price*num)+"");
+				if(balance<price*num)
+				{
+					display.getMessage().setVisible(true);
+					display.getConfirmbuttonObj().setEnabled(false);
+				}
+				else
+				{
+					display.getMessage().setVisible(false);
+					display.getConfirmbuttonObj().setEnabled(true);
+				}
 			} catch (Exception e) {
 				display.getNumberChange().setText("0");
 				display.setTotal("0");
@@ -82,6 +93,7 @@ public class OrderConfirmationPresenterImpl extends BasePresenter<OrderConfirmat
 			
 		}
 	});
+	
 	}
 
 	@Override
