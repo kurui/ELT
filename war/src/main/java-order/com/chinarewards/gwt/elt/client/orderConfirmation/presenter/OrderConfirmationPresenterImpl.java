@@ -16,6 +16,7 @@ import com.chinarewards.gwt.elt.client.orderConfirmation.request.OrderConfirmati
 import com.chinarewards.gwt.elt.client.orderSubmit.model.OrderSubmitClient;
 import com.chinarewards.gwt.elt.client.orderSubmit.plugin.OrderSubmitConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.chinarewards.gwt.elt.client.util.StringUtil;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -106,6 +107,27 @@ double balance;
 		
 		@Override
 		public void onClick(ClickEvent event) {
+			if(StringUtil.isEmpty(display.getName().getValue()))
+			{
+				win.alert("请填写收货人!");
+				return;
+			}
+			if(StringUtil.isEmpty(display.getPhone().getValue()))
+			{
+				win.alert("请填写电话!");
+				return;
+			}
+			if(StringUtil.isEmpty(display.getAddress().getValue()))
+			{
+				win.alert("请填写收货地址!");
+				return;
+			}
+			if(StringUtil.isEmpty(display.getZipCode().getValue()))
+			{
+				win.alert("请填写邮编!");
+				return;
+			}
+			
 			try {
 				int price=Integer.parseInt(display.getUnitprice());
 				int num=Integer.parseInt(display.getNumber().getValue());
