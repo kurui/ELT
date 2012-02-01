@@ -87,7 +87,7 @@ public class ShopWindowPresenterImpl extends BasePresenter<ShopWindowDisplay>
 								} else {
 									grid.setWidget(row, col,
 											new AwardShopLatticeWidget("无数据",
-													"无数据", "无数据", "无数据", "无数据")
+													"无数据", "无数据", "无数据", null)
 													.asWidget());
 								}
 							}
