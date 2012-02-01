@@ -9,10 +9,13 @@ import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.orderSubmit.model.OrderSubmitClient;
 import com.chinarewards.gwt.elt.client.orderSubmit.presenter.OrderSubmitPresenter.OrderSubmitDisplay;
+import com.chinarewards.gwt.elt.client.orderSubmit.request.OrderSubmitRequest;
+import com.chinarewards.gwt.elt.client.orderSubmit.request.OrderSubmitResponse;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
 public class OrderSubmitPresenterImpl extends BasePresenter<OrderSubmitDisplay>
@@ -66,21 +69,33 @@ public class OrderSubmitPresenterImpl extends BasePresenter<OrderSubmitDisplay>
 		
 		@Override
 		public void onClick(ClickEvent event) {
-			win.alert("!!!!!!!!!!!");
-//				dispatch.execute(addrequest,
-//						new AsyncCallback<OrderSubmitAddResponse>() {
-//							@Override
-//							public void onFailure(Throwable e) {
-//								errorHandler.alert(e.getMessage());
-//							}
-//
-//							@Override
-//							public void onSuccess(OrderSubmitAddResponse response) {
-//					
-//								win.alert("添加成功==ID:"+response.getOrderId());
-//							}
-//
-//						});
+	
+				dispatch.execute(new OrderSubmitRequest(orderVo.getOrderId(),sessionManager.getSession().getToken()),
+						new AsyncCallback<OrderSubmitResponse>() {
+							@Override
+							public void onFailure(Throwable e) {
+								errorHandler.alert(e.getMessage());
+							}
+
+							@Override
+							public void onSuccess(OrderSubmitResponse response) {
+								display.getConfirmbuttonObj().setEnabled(false);
+								String rs=response.getResult();
+								if("ok".equals(rs))
+								{
+									win.alert("支付成功!完成后..跳出订单列表,待实现");
+									
+									//完成后..跳出订单列表
+								}
+								else
+								{
+									win.alert("支付失败!");
+								}
+								
+				
+							}
+
+						});
 
 
 			

@@ -5,32 +5,34 @@ package com.chinarewards.gwt.elt.client.orderSubmit.request;
 
 import net.customware.gwt.dispatch.shared.Result;
 
-import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
-
 /**
  * @author nicho
- * @since 2012年1月31日 18:56:03
+ * @since 2012年2月1日 15:07:52
  */
 public class OrderSubmitResponse implements Result {
 
-	private GiftClient result;
-	private double staffBalance;
+	private String result;
 
-	public double getStaffBalance() {
-		return staffBalance;
-	}
 
-	public void setStaffBalance(double staffBalance) {
-		this.staffBalance = staffBalance;
-	}
 
-	public GiftClient getResult() {
+	  public String getResult() {
 		return result;
 	}
 
-	public void setResult(GiftClient result) {
+
+
+	public void setResult(String result) {
 		this.result = result;
 	}
+
+	public OrderSubmitResponse(){
+		
+	}
+
+	public OrderSubmitResponse(String result) {
+		this.result = result;
+	}
+
 
 
 

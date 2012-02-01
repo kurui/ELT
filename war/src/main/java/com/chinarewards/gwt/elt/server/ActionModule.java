@@ -24,6 +24,7 @@ import com.chinarewards.gwt.elt.client.nominate.NominateInitRequest;
 import com.chinarewards.gwt.elt.client.order.request.SearchOrderRequest;
 import com.chinarewards.gwt.elt.client.orderConfirmation.request.OrderConfirmationAddRequest;
 import com.chinarewards.gwt.elt.client.orderConfirmation.request.OrderConfirmationRequest;
+import com.chinarewards.gwt.elt.client.orderSubmit.request.OrderSubmitRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.ActivationRewardsItemRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.ActivationRewardsItemStoreRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.CreateRewardsItemRequest;
@@ -59,6 +60,7 @@ import com.chinarewards.gwt.elt.server.nominate.NominateAddActionHandler;
 import com.chinarewards.gwt.elt.server.order.SearchOrderHandler;
 import com.chinarewards.gwt.elt.server.orderConfirmation.AddOrderConfirmationHandler;
 import com.chinarewards.gwt.elt.server.orderConfirmation.SearchOrderConfirmationHandler;
+import com.chinarewards.gwt.elt.server.orderSubmit.AddOrderSubmitHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.ActivationRewardsItemHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.ActivationRewardsItemStroeHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.CreateRewardsItemHandler;
@@ -173,6 +175,8 @@ public class ActionModule extends ActionHandlerModule {
 		bindHandler(OrderConfirmationRequest.class, SearchOrderConfirmationHandler.class);
 		//订单提交-添加订单
 		bindHandler(OrderConfirmationAddRequest.class, AddOrderConfirmationHandler.class);
+		//订单确定-修改状态
+		bindHandler(OrderSubmitRequest.class, AddOrderSubmitHandler.class);
 		
 		
 	}

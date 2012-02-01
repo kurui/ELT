@@ -137,7 +137,7 @@ double balance;
 							@Override
 							public void onSuccess(OrderConfirmationAddResponse response) {
 					
-								win.alert("添加成功!");
+							//	win.alert("添加成功!");
 								OrderSubmitClient orderClient=new OrderSubmitClient();
 								orderClient.setOrderId(response.getOrderId());
 								orderClient.setGiftImage(response.getGiftImage());

@@ -12,34 +12,35 @@ import net.customware.gwt.dispatch.shared.Action;
 public class OrderSubmitRequest implements Action<OrderSubmitResponse> {
 
 
-	private String giftId;
-	private String staffId;
+	private String orderId;
+	private String userId;
 
 
 
-	public String getStaffId() {
-		return staffId;
-	}
-
-	public void setStaffId(String staffId) {
-		this.staffId = staffId;
-	}
 
 	public OrderSubmitRequest() {
 	}
 
-	public OrderSubmitRequest(String giftId,String staffId) {
-		this.giftId = giftId;
-		this.staffId=staffId;
+	public OrderSubmitRequest(String orderId,String userId) {
+		this.orderId = orderId;
+		this.userId=userId;
 
 	}
 
-	public String getGiftId() {
-		return giftId;
+	public String getOrderId() {
+		return orderId;
 	}
 
-	public void setGiftId(String giftId) {
-		this.giftId = giftId;
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	
