@@ -12,8 +12,7 @@ import net.customware.gwt.dispatch.shared.Action;
 public class DetailsOfGiftRequest implements Action<DetailsOfGiftResponse> {
 
 
-	private String orderId;
-	private String userId;
+	private String giftId;
 
 
 
@@ -21,28 +20,21 @@ public class DetailsOfGiftRequest implements Action<DetailsOfGiftResponse> {
 	public DetailsOfGiftRequest() {
 	}
 
-	public DetailsOfGiftRequest(String orderId,String userId) {
-		this.orderId = orderId;
-		this.userId=userId;
+	public DetailsOfGiftRequest(String giftId) {
+
+		this.giftId=giftId;
 
 	}
 
-	public String getOrderId() {
-		return orderId;
+	public String getGiftId() {
+		return giftId;
 	}
 
-	public void setOrderId(String orderId) {
-		this.orderId = orderId;
+	public void setGiftId(String giftId) {
+		this.giftId = giftId;
 	}
 
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-
+	
 	
 
 

@@ -10,6 +10,19 @@ public interface DetailsOfGiftPresenter extends Presenter<DetailsOfGiftPresenter
 	public void initDetailsOfGift(DetailsOfGiftClient orderVo);
 	public static interface DetailsOfGiftDisplay extends Display {
 
+		void setGiftName(String text);
+		void setGiftNo(String text);
+		void setBrand(String text);
+		void setType(String text);
+		void setStock(String text);
+		void setIntegral(String text);
+		void setSummary(String text);
+		void setExplains(String text);
+		void setNotes(String text);
+		void setDispatchcycle(String text);
+		void setBusiness(String text);
+		void setServicetell(String text);
+		void setGiftPhoto(String url);
 
 	
 	

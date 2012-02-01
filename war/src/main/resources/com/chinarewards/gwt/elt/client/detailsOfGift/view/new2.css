@@ -110,7 +110,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .footer .copyright{padding:10px 0;width:400px;text-align:left;margin:0 auto;color:#9E9E9E;}
 .footer .copyright p{line-height:20px;}
 /*-------------------------------------iframe页面------------------------------------------------------*/
-.frame-wrap{background-color:#F4F4F4;width:99%;padding-top:15px; min-width: 1010px;}
+.frame-wrap{background-color:#F4F4F4;width:55%;padding-top:15px;}
 .frame-wrap .breadcrumb-wrap:after{content:".";display:block;clear:both;height:0;visibility:hidden;}
 .frame-wrap .breadcrumb-wrap{\*zoom:1;}
 .frame-wrap .breadcrumb-left{float:left;width:50%;}
@@ -132,5 +132,6 @@ a:hover{color:#010DFF;text-decoration:underline;}
 
 .message{color:red;}
 .messageMoney{font-size:18px;font-weight:bolder;text-align:right;padding-right:35px;}
-.orderDiv{padding-top: 3px;padding-bottom: 3px}
+.orderDiv{padding-top: 10px;padding-bottom: 3px}
 .otherDiv{padding-top: 3px;padding-bottom: 3px;color: orange;}
+.dhbtn{font-size: 19px;}

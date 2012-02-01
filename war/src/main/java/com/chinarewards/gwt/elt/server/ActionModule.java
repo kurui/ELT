@@ -10,6 +10,7 @@ import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardInitReques
 import com.chinarewards.gwt.elt.client.awardShop.request.SearchAwardShopRequest;
 import com.chinarewards.gwt.elt.client.chooseStaff.request.SearchStaffChooseRequest;
 import com.chinarewards.gwt.elt.client.detailsOfAward.request.DetailsOfAwardInitRequest;
+import com.chinarewards.gwt.elt.client.detailsOfGift.request.DetailsOfGiftRequest;
 import com.chinarewards.gwt.elt.client.enterprise.EnterpriseInitRequest;
 import com.chinarewards.gwt.elt.client.enterprise.EnterpriseRequest;
 import com.chinarewards.gwt.elt.client.gift.request.DeleteGiftRequest;
@@ -46,6 +47,7 @@ import com.chinarewards.gwt.elt.server.awardReward.AwardRewardAddActionHandler;
 import com.chinarewards.gwt.elt.server.awardShop.SearchAwardShopHandler;
 import com.chinarewards.gwt.elt.server.chooseStaff.SearchStaffActionHandler;
 import com.chinarewards.gwt.elt.server.detailsOfAward.DetailsOfAwardActionHandler;
+import com.chinarewards.gwt.elt.server.detailsOfGift.DetailsOfGiftHandler;
 import com.chinarewards.gwt.elt.server.enterprise.EnterpriseActionHandler;
 import com.chinarewards.gwt.elt.server.enterprise.EnterpriseInitActionHandler;
 import com.chinarewards.gwt.elt.server.gift.DeleteGiftHandler;
@@ -177,6 +179,8 @@ public class ActionModule extends ActionHandlerModule {
 		bindHandler(OrderConfirmationAddRequest.class, AddOrderConfirmationHandler.class);
 		//订单确定-修改状态
 		bindHandler(OrderSubmitRequest.class, AddOrderSubmitHandler.class);
+		//礼品详细
+		bindHandler(DetailsOfGiftRequest.class, DetailsOfGiftHandler.class);
 		
 		
 	}
