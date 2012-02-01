@@ -130,6 +130,7 @@ public class GiftViewWidget extends Composite implements GiftViewDisplay {
 		stock.setText(giftVo.getStock() + "");
 
 		supply.setText(giftVo.getSupply());
+		
 		business.setText(giftVo.getBusiness());
 		address.setText(giftVo.getAddress());
 		tell.setText(giftVo.getTell());

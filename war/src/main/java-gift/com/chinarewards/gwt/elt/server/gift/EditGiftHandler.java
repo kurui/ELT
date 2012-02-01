@@ -41,7 +41,7 @@ public class EditGiftHandler extends
 		logger.debug("AddGiftResponse ,rewardId=" + action.getGiftVo().getId());
 
 		GiftVo giftVo = action.getGiftVo();
-		
+
 		Gift gift = assembleGift(giftVo);
 
 		UserContext uc = new UserContext();
@@ -54,7 +54,7 @@ public class EditGiftHandler extends
 
 		return new EditGiftResponse(AdddItem.getId());
 	}
-	
+
 	/**
 	 * Convert from GiftVo to GeneratorGiftModel.
 	 */
@@ -66,23 +66,23 @@ public class EditGiftHandler extends
 		gift.setSummary(giftVo.getSummary().trim());
 		gift.setDispatchcycle(giftVo.getDispatchcycle().trim());
 		gift.setNotes(giftVo.getNotes().trim());
-		
+
 		gift.setExplains(giftVo.getExplains().trim());
 		gift.setType(giftVo.getType().trim());
 		gift.setBrand(giftVo.getBrand().trim());
 		gift.setSource(giftVo.getSource().trim());
-		
+
 		gift.setPhoto(giftVo.getPhoto());
 		gift.setIntegral(giftVo.getIntegral());
 		gift.setStock(giftVo.getStock());
 		gift.setSupply(giftVo.getSupply());
-		
+		System.out.println("assembleGift(giftVo):" + giftVo.getSupply());
+
 		gift.setBusiness(giftVo.getBusiness().trim());
 		gift.setAddress(giftVo.getAddress().trim());
 		gift.setTell(giftVo.getTell().trim());
 		gift.setServicetell(giftVo.getServicetell().trim());
-		
-		
+
 		// gift.setGiftStatus();
 		// gift.setIndate(getIndate());
 		// private GiftStatus status; //状态（上下架）
@@ -91,7 +91,6 @@ public class EditGiftHandler extends
 
 		return gift;
 	}
-
 
 	@Override
 	public void rollback(EditGiftRequest action, EditGiftResponse result,
