@@ -24,6 +24,7 @@ import com.chinarewards.gwt.elt.client.order.request.SearchOrderRequest;
 import com.chinarewards.gwt.elt.client.order.request.SearchOrderResponse;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
 import com.chinarewards.gwt.elt.server.logger.InjectLogger;
+import com.chinarewards.gwt.elt.util.StringUtil;
 import com.chinarewards.gwt.elt.util.UserRoleTool;
 import com.google.inject.Inject;
 
@@ -69,12 +70,19 @@ public class SearchOrderHandler extends
 
 	private OrderListVo adapter(OrderSearchVo criteria) {
 		OrderListVo vo = new OrderListVo();
+		GiftListVo giftvo = new GiftListVo();
 		if (criteria.getName() != null) {
 			vo.setName(criteria.getName());
 		}
 		if (criteria.getStatus() != null) {
 			vo.setStatus(OrderStatus.valueOf(criteria.getStatus().toString()));
 		}
+		if(!StringUtil.isEmpty(criteria.getGiftvo().getSource())){
+			giftvo.setSource(criteria.getGiftvo().getSource());
+			
+		}
+		vo.setGiftvo(giftvo);
+		
 		if (criteria.getPagination() != null) {
 			PaginationDetail detail = new PaginationDetail();
 			detail.setLimit(criteria.getPagination().getLimit());

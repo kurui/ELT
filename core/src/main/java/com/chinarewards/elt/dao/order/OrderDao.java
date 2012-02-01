@@ -54,26 +54,24 @@ public class OrderDao extends BaseDao<Orders> {
 			eql.append(" AND UPPER(o.userId) =:userId ");
 			param.put("userId", vo.getUserId());
 		}
-		if (!StringUtil.isEmptyString(vo.getOrderCode())) {
-			eql.append(" AND UPPER(o.orderCode) =:orderCode ");
-			param.put("orderCode", vo.getOrderCode());
+		
+		if (!StringUtil.isEmptyString(vo.getGiftvo().getSource())) {
+			eql.append(" AND UPPER(g.source) =:source ");
+			param.put("source", vo.getGiftvo().getSource());
 		}
-//		if (!StringUtil.isEmptyString(vo.getGiftvo().getSource())) {
-//			eql.append(" AND UPPER(g.source) =:source ");
-//			param.put("source", vo.getGiftvo().getSource());
-//		}
-		if (!StringUtil.isEmptyString(vo.getName())) {
+		if (!StringUtil.isEmptyString(vo.getName())) {//查询姓名或编码时
 			eql.append(" AND UPPER(o.name) LIKE :name ");
-			param.put("name", "%" + vo.getName().trim().toUpperCase()
-					+ "%");
+			param.put("name", "%" + vo.getName().trim().toUpperCase()+ "%");
+			eql.append(" or UPPER(o.orderCode) like:orderCode ");
+			param.put("orderCode","%" +  vo.getName().trim().toUpperCase()+ "%");
 		}
-
-		if (vo.getSortingDetail() != null) {
-			eql.append(" ORDER BY o."
-					+ vo.getSortingDetail().getSort() + " "
-					+ vo.getSortingDetail().getDirection());
+		if (SEARCH.equals(type)) {
+			if (vo.getSortingDetail() != null) {
+				eql.append(" ORDER BY o."
+						+ vo.getSortingDetail().getSort() + " "
+						+ vo.getSortingDetail().getDirection());
+			}
 		}
-
 		System.out.println("EQL : " + eql);
 		Query query = getEm().createQuery(eql.toString());
 		if (SEARCH.equals(type)) {

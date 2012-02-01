@@ -33,6 +33,8 @@ public class OrderListWidget extends Composite implements OrderListDisplay {
 	@UiField
 	ListBox status;
 	@UiField
+	ListBox source;
+	@UiField
 	InlineLabel dataCount;
 	@UiField
 	Panel breadCrumbs;
@@ -72,6 +74,10 @@ public class OrderListWidget extends Composite implements OrderListDisplay {
 	public String getStatus() {
 		return status.getValue(status.getSelectedIndex());
 	}
+	@Override
+	public String getSource() {
+		return source.getValue(source.getSelectedIndex());
+	}
 
 	@Override
 	public void initOrderStatus(Map<String, String> map) {
@@ -83,6 +89,18 @@ public class OrderListWidget extends Composite implements OrderListDisplay {
 			status.addItem(entry.getValue(), entry.getKey());
 		}
 	}
+	
+	@Override
+	public void initOrderSource(Map<String, String> map) {
+
+		source.addItem("不限", "");
+		Iterator<Entry<String, String>> it = map.entrySet().iterator();
+		while (it.hasNext()) {
+			Entry<String, String> entry = it.next();
+			source.addItem(entry.getValue(), entry.getKey());
+		}
+	}
+
 
 	
 

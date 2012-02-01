@@ -22,6 +22,8 @@ public interface OrderListPresenter extends Presenter<OrderListPresenter.OrderLi
 		Panel getResultPanel();
 		Panel getResultpage();
 		public void initOrderStatus(Map<String, String> map);
+		public void initOrderSource(Map<String, String> map);
+		String getSource();
 		void setBreadCrumbs(Widget breadCrumbs);
 	}
 }

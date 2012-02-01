@@ -9,12 +9,13 @@ import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresente
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.dataprovider.OrderListViewAdapter;
+import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.order.model.OrderSearchVo;
 import com.chinarewards.gwt.elt.client.order.model.OrderStatus;
-import com.chinarewards.gwt.elt.client.order.plugin.OrderListConstants;
+import com.chinarewards.gwt.elt.client.order.plugin.OrderConstants;
 import com.chinarewards.gwt.elt.client.order.presenter.OrderListPresenter.OrderListDisplay;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
@@ -24,7 +25,6 @@ import com.chinarewards.gwt.elt.client.widget.GetValue;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.widget.Sorting;
 import com.chinarewards.gwt.elt.client.win.Win;
-import com.chinarewards.gwt.elt.client.win.confirm.ConfirmHandler;
 import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
@@ -71,17 +71,27 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 			}
 
 	private void init() {
-		Map<String, String> map = new HashMap<String, String>();
+		initStatus();
+		initSource();
+		buildTable();
+		doSearch();
+	}
+   private void initStatus(){
+	   Map<String, String> map = new HashMap<String, String>();
 		map.put("INITIAL", "未付积分");
 		map.put("NUSHIPMENTS", " 待发货");
 		map.put("SHIPMENTS", "已发货");
 		map.put("AFFIRM", "确认发货");
 		map.put("ERRORORDER", "问题定单");
 		display.initOrderStatus(map);
-		buildTable();
-		doSearch();
-	}
-
+   }
+   private void initSource(){
+	   Map<String, String> map = new HashMap<String, String>();
+		map.put("内部直接提供", "内部直接提供");
+		map.put("外部货品公司提供", "外部货品公司提供");
+		
+		display.initOrderSource(map);
+   }
 	private void buildTable() {
 		// create a CellTable
 		cellTable = new ListCellTable<OrderSearchVo>();
@@ -100,11 +110,16 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 
 	private void doSearch() {
 		OrderSearchVo criteria = new OrderSearchVo();
+		GiftClient giftVo = new GiftClient();
 		if (!StringUtil.isEmpty(display.getKeyName().getValue()))
 			criteria.setName(display.getKeyName().getValue());
 		if (!StringUtil.isEmpty(display.getStatus()))
 			criteria.setStatus(OrderStatus.valueOf(display.getStatus()));
-
+		
+		if (!StringUtil.isEmpty(display.getSource()))
+			giftVo.setSource(display.getSource());
+			criteria.setGiftvo(giftVo);
+       
 		listViewAdapter = new OrderListViewAdapter(dispatch, criteria,
 				errorHandler, sessionManager, display);
 		listViewAdapter.addDataDisplay(cellTable);
@@ -131,11 +146,11 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 					}
 				}, ref, "orderCode");
 
-		cellTable.addColumn("名称", new TextCell(),
+		cellTable.addColumn("礼品名称", new TextCell(),
 				new GetValue<OrderSearchVo, String>() {
 					@Override
 					public String getValue(OrderSearchVo order) {
-						return order.getName();
+						return order.getGiftvo().getName();
 					}
 				}, ref, "name");
 
@@ -146,7 +161,7 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 					public String getValue(OrderSearchVo order) {
 						return order.getAmount()+"";
 					}
-				}, ref, "amonut");
+				}, ref, "amount");
 		cellTable.addColumn("兑换积分", new TextCell(),
 				new GetValue<OrderSearchVo, String>() {
 					@Override
@@ -158,60 +173,39 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 				new GetValue<OrderSearchVo, String>() {
 					@Override
 					public String getValue(OrderSearchVo order) {
-						return order.getGiftvo().getName() + "";
+						return order.getName() + "";
 					}
-				}, ref, "name");   
-		cellTable.addColumn("来源", new TextCell(),
-				new GetValue<OrderSearchVo, String>() {
-					@Override
-					public String getValue(OrderSearchVo order) {
-						return order.getGiftvo().getSource() + "";
-					}
-				}, ref, "source");   
-		cellTable.addColumn("状态", new TextCell(),
+				}, ref, "name");
+		cellTable.addColumn("处理状态", new TextCell(),
 				new GetValue<OrderSearchVo, String>() {
 					@Override
 					public String getValue(OrderSearchVo order) {
 						return order.getStatus().getDisplayName();
 					}
 				}, ref, "status");
+		cellTable.addColumn("礼品来源", new TextCell(),
+				new GetValue<OrderSearchVo, String>() {
+					@Override
+					public String getValue(OrderSearchVo order) {
+						return order.getGiftvo().getSource() + "";
+					}
+				});   
+		
 
 		cellTable.addColumn("操作", new HyperLinkCell(),
 				new GetValue<OrderSearchVo, String>() {
 					@Override
 					public String getValue(OrderSearchVo gift) {
-						if (gift.getStatus() != null
-								&& gift.getStatus() == OrderStatus.INITIAL)
-							return "未付积分";
-						else if (gift.getStatus() != null
-								&& gift.getStatus() == OrderStatus.NUSHIPMENTS)
-							return "待发货";
-						else if (gift.getStatus() != null
-								&& gift.getStatus() == OrderStatus.SHIPMENTS)
-							return "已发货";
-						else if (gift.getStatus() != null
-								&& gift.getStatus() == OrderStatus.AFFIRM)
-							return "已收到货";
-						else
-							return "问题订单";
+						return "查看详细";
 					}
 				}, new FieldUpdater<OrderSearchVo, String>() {
 					@Override
-					public void update(int index, final OrderSearchVo o,
-							String value) {
-						String msgStr = "";
-						if (o.getStatus() != null
-								&& o.getStatus() == OrderStatus.NUSHIPMENTS)
-							msgStr = "确定已发货?";
-						if (o.getStatus() != null)
-							msgStr = "确定退回?";
-						
-						win.confirm("提示", msgStr, new ConfirmHandler() {
-							@Override
-							public void confirm() {
-								updateOrderStatus(o.getId(), o.getStatus());
-							}
-						});
+					public void update(int index, final OrderSearchVo order,String value) {
+						Platform.getInstance()
+						.getEditorRegistry()
+						.openEditor(
+								OrderConstants.EDITOR_ORDER_VIEW,
+								OrderConstants.EDITOR_ORDER_VIEW+ order.getId(), order);
 					}
 				});
 
