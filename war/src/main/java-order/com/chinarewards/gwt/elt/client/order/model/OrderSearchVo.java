@@ -42,8 +42,23 @@ public class OrderSearchVo implements Serializable, Comparable<OrderSearchVo> {
     private String  name;      //订单用户姓名
 	private OrderStatus status;//订单执行状态
 	private int deleted;   //删除状态(0 存在,1已删删除)
-    private Date    recorddate;   //交易时间
-    private GiftClient giftvo;//订单的VO
+	private Date    exchangeDate;////交易时间
+    private Date    recorddate;   //记录时间
+    private Date    exchangeDateEnd;   //交易时间止
+  
+	public Date getExchangeDate() {
+		return exchangeDate;
+	}
+	public void setExchangeDate(Date exchangeDate) {
+		this.exchangeDate = exchangeDate;
+	}
+	public Date getExchangeDateEnd() {
+		return exchangeDateEnd;
+	}
+	public void setExchangeDateEnd(Date exchangeDateEnd) {
+		this.exchangeDateEnd = exchangeDateEnd;
+	}
+	private GiftClient giftvo;//订单的VO
    
 	public String getId() {
 		return id;

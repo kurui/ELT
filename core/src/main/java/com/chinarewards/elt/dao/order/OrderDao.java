@@ -65,6 +65,14 @@ public class OrderDao extends BaseDao<Orders> {
 			eql.append(" or UPPER(o.orderCode) like:orderCode ");
 			param.put("orderCode","%" +  vo.getName().trim().toUpperCase()+ "%");
 		}
+		// 根据创建时间来查询
+			if (null != vo.getExchangeDate()&& !vo.getExchangeDate().equals("")
+					&& null != vo.getExchangeDateEnd()&& !vo.getExchangeDateEnd().equals("")) {
+				eql.append(" and ( o.exchangeDate  between :createTime and :createdAtEnd)");
+				param.put("createTime", vo.getExchangeDate());
+				param.put("createdAtEnd", vo.getExchangeDateEnd());
+
+			}
 		if (SEARCH.equals(type)) {
 			if (vo.getSortingDetail() != null) {
 				eql.append(" ORDER BY o."

@@ -123,6 +123,9 @@ public abstract class MenuConstants {
 	public static final int MENU_ORDER_SHOPWINDOW_SEARCH =  order++;
 	//订单确认
 	public static final int MENU_ORDER_ORDERCONFIRMATION_SEARCH =  order++;
+	
+	// 订单历史
+	public static final int MENU_ORDER_ORDERHISTORY_SEARCH = order++;
 
 	
 }

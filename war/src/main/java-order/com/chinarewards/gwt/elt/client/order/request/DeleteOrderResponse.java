@@ -6,7 +6,7 @@ package com.chinarewards.gwt.elt.client.order.request;
 import net.customware.gwt.dispatch.shared.Result;
 
 /**
- * @author nicho
+ * @author lw
  * @since 2012年1月13日 09:52:24
  */
 public class DeleteOrderResponse implements Result {

@@ -21,6 +21,7 @@ import com.chinarewards.gwt.elt.client.login.LoginRequest;
 import com.chinarewards.gwt.elt.client.login.TokenValidRequest;
 import com.chinarewards.gwt.elt.client.nominate.NominateAddRequest;
 import com.chinarewards.gwt.elt.client.nominate.NominateInitRequest;
+import com.chinarewards.gwt.elt.client.order.request.DeleteOrderRequest;
 import com.chinarewards.gwt.elt.client.order.request.SearchOrderRequest;
 import com.chinarewards.gwt.elt.client.orderConfirmation.request.OrderConfirmationAddRequest;
 import com.chinarewards.gwt.elt.client.orderConfirmation.request.OrderConfirmationRequest;
@@ -56,6 +57,7 @@ import com.chinarewards.gwt.elt.server.login.LoginActionHandler;
 import com.chinarewards.gwt.elt.server.login.TokenValidActionHandler;
 import com.chinarewards.gwt.elt.server.nominate.NominateActionHandler;
 import com.chinarewards.gwt.elt.server.nominate.NominateAddActionHandler;
+import com.chinarewards.gwt.elt.server.order.DeleteOrderHandler;
 import com.chinarewards.gwt.elt.server.order.SearchOrderHandler;
 import com.chinarewards.gwt.elt.server.orderConfirmation.AddOrderConfirmationHandler;
 import com.chinarewards.gwt.elt.server.orderConfirmation.SearchOrderConfirmationHandler;
@@ -174,6 +176,7 @@ public class ActionModule extends ActionHandlerModule {
 		//订单提交-添加订单
 		bindHandler(OrderConfirmationAddRequest.class, AddOrderConfirmationHandler.class);
 		
-		
+		//取消订单
+		bindHandler(DeleteOrderRequest.class, DeleteOrderHandler.class);
 	}
 }
