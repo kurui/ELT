@@ -2,6 +2,7 @@ package com.chinarewards.gwt.elt.client.detailsOfGift.presenter;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.detailsOfGift.model.DetailsOfGiftClient;
 import com.chinarewards.gwt.elt.client.detailsOfGift.presenter.DetailsOfGiftPresenter.DetailsOfGiftDisplay;
 import com.chinarewards.gwt.elt.client.detailsOfGift.request.DetailsOfGiftRequest;
@@ -9,8 +10,12 @@ import com.chinarewards.gwt.elt.client.detailsOfGift.request.DetailsOfGiftRespon
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
+import com.chinarewards.gwt.elt.client.orderConfirmation.model.OrderConfirmationClient;
+import com.chinarewards.gwt.elt.client.orderConfirmation.plugin.OrderConfirmationConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.win.Win;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
@@ -68,6 +73,18 @@ public class DetailsOfGiftPresenterImpl extends
 					}
 
 				});
+		display.getExchangeBtn().addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				Platform.getInstance()
+				.getEditorRegistry()
+				.openEditor(
+						OrderConfirmationConstants.EDITOR_ORDERCONFIRMATION_SEARCH,
+						"EDITOR_ORDERCONFIRMATION_SEARCH_DO_ID", new OrderConfirmationClient(orderVo.getGiftId()));
+				
+			}
+		});
 	}
 
 	@Override

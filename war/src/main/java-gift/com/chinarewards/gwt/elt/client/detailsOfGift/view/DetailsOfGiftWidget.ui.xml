@@ -32,7 +32,7 @@
 					</tr>
 					<tr>
 						<td>
-							<g:Button text="兑换" width="175px" height="40px" styleName="{new2.dhbtn}"/>
+							<g:Button text="兑换" width="175px" height="40px" styleName="{new2.dhbtn}" ui:field="exchangeBtn" />
 						</td>
 					</tr>
 					<tr>

@@ -2,8 +2,10 @@ package com.chinarewards.gwt.elt.client.detailsOfGift.view;
 
 import com.chinarewards.gwt.elt.client.detailsOfGift.presenter.DetailsOfGiftPresenter.DetailsOfGiftDisplay;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.InlineLabel;
@@ -38,6 +40,8 @@ public class DetailsOfGiftWidget extends Composite implements
 	InlineLabel servicetell;
 	@UiField
 	Image giftPhoto;
+	@UiField
+	Button exchangeBtn;
 	
 	
 	private static DetailsOfGiftWidgetUiBinder uiBinder = GWT
@@ -120,6 +124,11 @@ public class DetailsOfGiftWidget extends Composite implements
 	public void setGiftPhoto(String url) {
 		giftPhoto.setUrl("/imageshow?imageName="+url);
 		
+	}
+
+	@Override
+	public HasClickHandlers getExchangeBtn() {
+		return exchangeBtn;
 	}
 
 

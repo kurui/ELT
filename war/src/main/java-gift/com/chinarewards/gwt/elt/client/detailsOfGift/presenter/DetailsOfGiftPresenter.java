@@ -4,6 +4,7 @@ package com.chinarewards.gwt.elt.client.detailsOfGift.presenter;
 import com.chinarewards.gwt.elt.client.detailsOfGift.model.DetailsOfGiftClient;
 import com.chinarewards.gwt.elt.client.mvp.Display;
 import com.chinarewards.gwt.elt.client.mvp.Presenter;
+import com.google.gwt.event.dom.client.HasClickHandlers;
 
 public interface DetailsOfGiftPresenter extends Presenter<DetailsOfGiftPresenter.DetailsOfGiftDisplay> {
 
@@ -23,7 +24,7 @@ public interface DetailsOfGiftPresenter extends Presenter<DetailsOfGiftPresenter
 		void setBusiness(String text);
 		void setServicetell(String text);
 		void setGiftPhoto(String url);
-
+		HasClickHandlers getExchangeBtn();
 	
 	
 	}
