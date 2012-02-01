@@ -20,6 +20,7 @@ public interface OrderConfirmationPresenter extends Presenter<OrderConfirmationP
 		void setUnitprice(String unitprice);
 		void setSource(String source);
 		void setNumber(String number);
+		void setMybalance(String mybalance);
 
 		HasValue<String> getName();
 		HasValue<String> getPhone();

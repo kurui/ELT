@@ -2,6 +2,8 @@ package com.chinarewards.gwt.elt.client.orderConfirmation.presenter;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import com.chinarewards.gwt.elt.client.awardShop.plugin.AwardShopListConstants;
+import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
@@ -13,6 +15,8 @@ import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
@@ -62,6 +66,7 @@ double balance;
 						display.setSource(client.getSource()+"");
 						display.setNumber("1");
 						balance=response.getStaffBalance();
+						display.setMybalance(balance+"");
 						
 					}
 
@@ -93,7 +98,40 @@ double balance;
 			
 		}
 	});
-	
+	display.getConfirmbutton().addClickHandler(new ClickHandler() {
+		
+		@Override
+		public void onClick(ClickEvent event) {
+			try {
+				int price=Integer.parseInt(display.getUnitprice());
+				int num=Integer.parseInt(display.getNumber().getValue());
+				if(balance<price*num)
+				{
+					display.getMessage().setVisible(true);
+					display.getConfirmbuttonObj().setEnabled(false);
+					return;
+				}
+			} catch (Exception e) {
+				display.getNumberChange().setText("0");
+				display.setTotal("0");
+			}
+			
+			win.alert("提交");
+			
+		}
+	});
+	display.getReturnbutton().addClickHandler(new ClickHandler() {
+		
+		@Override
+		public void onClick(ClickEvent event) {
+			Platform.getInstance()
+			.getEditorRegistry()
+			.openEditor(
+					AwardShopListConstants.EDITOR_AWARDSHOPLIST_SEARCH,
+					"EDITOR_AWARDSHOPLIST_SEARCH_DO_ID", null);
+			
+		}
+	});
 	}
 
 	@Override

@@ -44,6 +44,8 @@ public class OrderConfirmationWidget extends Composite implements
 	InlineLabel source;
 	@UiField
 	InlineLabel message;
+	@UiField
+	InlineLabel mybalance;
 	
 	private static OrderConfirmationWidgetUiBinder uiBinder = GWT
 			.create(OrderConfirmationWidgetUiBinder.class);
@@ -146,6 +148,12 @@ public class OrderConfirmationWidget extends Composite implements
 	@Override
 	public Button getConfirmbuttonObj() {
 		return confirmbutton;
+	}
+
+
+	@Override
+	public void setMybalance(String mybalance) {
+		this.mybalance.setText(mybalance);		
 	}
 
 
