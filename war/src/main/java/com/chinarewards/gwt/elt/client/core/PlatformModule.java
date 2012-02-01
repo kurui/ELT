@@ -21,6 +21,7 @@ import com.chinarewards.gwt.elt.client.order.plugin.OrderListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.order.plugin.OrderPluginDescriptor;
 import com.chinarewards.gwt.elt.client.order.plugin.OrderViewPluginDescriptor;
 import com.chinarewards.gwt.elt.client.orderConfirmation.plugin.OrderConfirmationPluginDescriptor;
+import com.chinarewards.gwt.elt.client.orderSubmit.plugin.OrderSubmitPluginDescriptor;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemPluginDescriptor;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemStoreListPluginDescriptor;
@@ -80,7 +81,7 @@ public class PlatformModule extends AbstractGinModule {
 			GiftViewPluginDescriptor giftView,
 			 OrderListPluginDescriptor orderList,
 			OrderPluginDescriptor order, OrderViewPluginDescriptor orderView,
-			AwardShopListPluginDescriptor awardShop,ShopWindowPluginDescriptor shopWindow,OrderConfirmationPluginDescriptor orderConfirmation) {
+			AwardShopListPluginDescriptor awardShop,ShopWindowPluginDescriptor shopWindow,OrderConfirmationPluginDescriptor orderConfirmation,OrderSubmitPluginDescriptor orderSubmit) {
 
 		if (pluginSet == null) {
 			pluginSet = new InMemoryPluginSet();
@@ -105,6 +106,7 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(awardShop);
 			pluginSet.registerPlugin(shopWindow);
 			pluginSet.registerPlugin(orderConfirmation);
+			pluginSet.registerPlugin(orderSubmit);
 		}
 
 		return pluginSet;

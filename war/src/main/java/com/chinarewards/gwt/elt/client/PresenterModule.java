@@ -15,6 +15,7 @@ import com.chinarewards.gwt.elt.client.nominate.module.NominateModule;
 import com.chinarewards.gwt.elt.client.order.module.OrderListModule;
 import com.chinarewards.gwt.elt.client.order.module.OrderModule;
 import com.chinarewards.gwt.elt.client.orderConfirmation.module.OrderConfirmationModule;
+import com.chinarewards.gwt.elt.client.orderSubmit.module.OrderSubmitModule;
 import com.chinarewards.gwt.elt.client.rewardItem.module.RewardsItemModule;
 import com.chinarewards.gwt.elt.client.rewards.module.RewardsListModule;
 import com.chinarewards.gwt.elt.client.shopWindow.module.ShopWindowModule;
@@ -47,6 +48,7 @@ public class PresenterModule extends AbstractGinModule {
 		install(new AwardShopLatticeModule());
 		install(new ShopWindowModule());
 		install(new OrderConfirmationModule());
+		install(new OrderSubmitModule());
 
 	}
 
