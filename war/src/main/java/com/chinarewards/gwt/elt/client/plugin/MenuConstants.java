@@ -125,6 +125,8 @@ public abstract class MenuConstants {
 	public static final int MENU_ORDER_ORDERCONFIRMATION_SEARCH =  order++;
 	//订单提交
 	public static final int MENU_ORDER_ORDERSUBMIT_SEARCH =  order++;
+	//礼品详细
+	public static final int MENU_ORDER_DETAILSOFGIFT_SEARCH =  order++;
 
 	
 }

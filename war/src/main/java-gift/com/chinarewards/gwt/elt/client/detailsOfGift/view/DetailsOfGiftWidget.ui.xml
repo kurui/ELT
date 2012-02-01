@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:d='urn:import:com.google.gwt.user.datepicker.client'
+	xmlns:c="urn:import:com.google.gwt.user.cellview.client" xmlns:z="urn:import:com.sun.org.apache.xpath.internal.operations">
+
+	<ui:style src="new2.css" field="new2"></ui:style>
+	<g:HTMLPanel>
+		<table width="660" height="289" border="1">
+			<tr>
+				<td colspan="2"> 120CM 泰迪熊 公仔 </td>
+			</tr>
+			<tr>
+				<td rowspan="6"><g:Image pixelSize="350,100" /> </td>
+				<td> 礼品号：100242 </td>
+			</tr>
+			<tr>
+				<td> 品牌: Kapo </td>
+			</tr>
+			<tr>
+				<td> 类型： 实物 </td>
+			</tr>
+			<tr>
+				<td> 存货： 50 </td>
+			</tr>
+			<tr>
+				<td>兑换积分： 2400 </td>
+			</tr>
+			<tr>
+				<td><g:Button text="兑换" width="175px" height="40px" /> </td>
+			</tr>
+			<tr>
+				<td colspan="2"> 图片仅供参考，实际兑换礼品，请以实物或您获取的服务为准。 </td>
+			</tr>
+		</table>
+	</g:HTMLPanel>
+</ui:UiBinder>
