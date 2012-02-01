@@ -16,8 +16,8 @@ import com.chinarewards.gwt.elt.server.logger.InjectLogger;
 import com.google.inject.Inject;
 
 /**
- * @author lw
- * @since 2012年1月10日 16:09:07
+ * @author nicho
+ * @since 2012年2月1日 10:51:20
  */
 public class SearchOrderConfirmationHandler extends
 		BaseActionHandler<OrderConfirmationRequest, OrderConfirmationResponse> {

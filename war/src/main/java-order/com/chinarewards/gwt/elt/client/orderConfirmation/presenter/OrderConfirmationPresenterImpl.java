@@ -9,6 +9,8 @@ import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.orderConfirmation.presenter.OrderConfirmationPresenter.OrderConfirmationDisplay;
+import com.chinarewards.gwt.elt.client.orderConfirmation.request.OrderConfirmationAddRequest;
+import com.chinarewards.gwt.elt.client.orderConfirmation.request.OrderConfirmationAddResponse;
 import com.chinarewards.gwt.elt.client.orderConfirmation.request.OrderConfirmationRequest;
 import com.chinarewards.gwt.elt.client.orderConfirmation.request.OrderConfirmationResponse;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
@@ -27,7 +29,7 @@ public class OrderConfirmationPresenterImpl extends BasePresenter<OrderConfirmat
 	final ErrorHandler errorHandler;
 	final SessionManager sessionManager;
 	final Win win;
-	String orderId;
+	String giftId;
 double balance;
 	@Inject
 	public OrderConfirmationPresenterImpl(EventBus eventBus, DispatchAsync dispatch,
@@ -49,7 +51,7 @@ double balance;
 
 	private void init() {
 		display.getMessage().setVisible(false);
-		dispatch.execute(new OrderConfirmationRequest(orderId,sessionManager.getSession().getStaffId()),
+		dispatch.execute(new OrderConfirmationRequest(giftId,sessionManager.getSession().getStaffId()),
 				new AsyncCallback<OrderConfirmationResponse>() {
 					@Override
 					public void onFailure(Throwable e) {
@@ -111,12 +113,36 @@ double balance;
 					display.getConfirmbuttonObj().setEnabled(false);
 					return;
 				}
+				OrderConfirmationAddRequest addrequest=new OrderConfirmationAddRequest();
+				addrequest.setAddress(display.getAddress().getValue());
+				addrequest.setGiftId(giftId);
+				addrequest.setName(display.getName().getValue());
+				addrequest.setNumber(num);
+				addrequest.setOrderDefinition(display.getOrderDefinition().getValue());
+				addrequest.setPhone(display.getPhone().getValue());
+				addrequest.setStaffId(sessionManager.getSession().getStaffId());
+				addrequest.setTotal(price*num);
+				addrequest.setUserId(sessionManager.getSession().getToken());
+				addrequest.setZipCode(display.getZipCode().getValue());
+				dispatch.execute(addrequest,
+						new AsyncCallback<OrderConfirmationAddResponse>() {
+							@Override
+							public void onFailure(Throwable e) {
+								errorHandler.alert(e.getMessage());
+							}
+
+							@Override
+							public void onSuccess(OrderConfirmationAddResponse response) {
+					
+								win.alert("添加成功==ID:"+response.getOrderId());
+							}
+
+						});
 			} catch (Exception e) {
 				display.getNumberChange().setText("0");
 				display.setTotal("0");
 			}
-			
-			win.alert("提交");
+
 			
 		}
 	});
@@ -135,8 +161,8 @@ double balance;
 	}
 
 	@Override
-	public void initOrderConfirmation(String orderId) {
-		this.orderId=orderId;
+	public void initOrderConfirmation(String giftId) {
+		this.giftId=giftId;
 		
 	}
 

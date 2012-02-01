@@ -11,6 +11,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.InlineLabel;
+import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -46,6 +47,8 @@ public class OrderConfirmationWidget extends Composite implements
 	InlineLabel message;
 	@UiField
 	InlineLabel mybalance;
+	@UiField
+	TextArea orderDefinition;
 	
 	private static OrderConfirmationWidgetUiBinder uiBinder = GWT
 			.create(OrderConfirmationWidgetUiBinder.class);
@@ -154,6 +157,12 @@ public class OrderConfirmationWidget extends Composite implements
 	@Override
 	public void setMybalance(String mybalance) {
 		this.mybalance.setText(mybalance);		
+	}
+
+
+	@Override
+	public HasValue<String> getOrderDefinition() {
+		return orderDefinition;
 	}
 
 

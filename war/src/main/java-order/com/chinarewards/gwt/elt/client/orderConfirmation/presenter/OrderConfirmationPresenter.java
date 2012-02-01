@@ -12,7 +12,7 @@ import com.google.gwt.user.client.ui.TextBox;
 
 public interface OrderConfirmationPresenter extends Presenter<OrderConfirmationPresenter.OrderConfirmationDisplay> {
 
-	public void initOrderConfirmation(String orderId);
+	public void initOrderConfirmation(String giftId);
 	public static interface OrderConfirmationDisplay extends Display {
 
 
@@ -27,6 +27,7 @@ public interface OrderConfirmationPresenter extends Presenter<OrderConfirmationP
 		HasValue<String> getAddress();
 		HasValue<String> getZipCode();
 		HasValue<String> getNumber();
+		HasValue<String> getOrderDefinition();
 		Image getShopImage();
 		
 		
