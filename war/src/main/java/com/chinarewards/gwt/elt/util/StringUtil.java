@@ -3,7 +3,8 @@
  */
 package com.chinarewards.gwt.elt.util;
 
-/** 
+
+/**
  * @author Cream
  * @since 0.2.0 2011-01-07
  */
@@ -73,4 +74,16 @@ public class StringUtil {
 		}
 
 	}
+
+	public static void printToTxt(String file, String content) {
+		//以下将导致mvn install 失败
+//		try {
+//			PrintWriter logWriter = new PrintWriter(new BufferedWriter(
+//					new FileWriter(file, true)), true);
+//			logWriter.println(content);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+	}
+
 }

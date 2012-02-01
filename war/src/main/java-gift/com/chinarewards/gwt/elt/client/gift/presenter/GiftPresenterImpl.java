@@ -47,13 +47,14 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 	@Inject
 	public GiftPresenterImpl(EventBus eventBus, GiftDisplay display,
 			DispatchAsync dispatcher, ErrorHandler errorHandler,
-			SessionManager sessionManager, Win win,BreadCrumbsPresenter breadCrumbs) {
+			SessionManager sessionManager, Win win,
+			BreadCrumbsPresenter breadCrumbs) {
 		super(eventBus, display);
 		this.dispatcher = dispatcher;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
 		this.win = win;
-		this.breadCrumbs=breadCrumbs;
+		this.breadCrumbs = breadCrumbs;
 	}
 
 	@Override
@@ -69,8 +70,8 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 			breadCrumbs.loadChildPage("编辑礼品");
 		} else {
 			win.alert("未定义的方法");
-		}		
-	
+		}
+
 		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
 	}
 
@@ -84,9 +85,9 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 							return;
 						}
 
-					
-						GiftVo giftVo = GiftAdapterClient.adapterDisplay(display);
-						
+						GiftVo giftVo = GiftAdapterClient
+								.adapterDisplay(display);
+
 						if (GiftConstants.ACTION_GIFT_ADD.equals(thisAction)) {
 							giftVo.setId(null);
 							doSave(giftVo);
@@ -161,15 +162,17 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 					@Override
 					public void onChange(ChangeEvent arg0) {
 						display.getGiftImage().setVisible(true);
+						display.getPhotoForm().setAction("fileupload");
 						display.getPhotoForm().submit();
 					}
 				}));
 
-		// 上传图片事件
+		// 上传图片按钮事件
 		registerHandler(display.getUploadClick().addClickHandler(
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent arg0) {
+						display.getPhotoForm().setAction("fileupload");
 						display.getPhotoForm().submit();
 					}
 				}));
@@ -182,8 +185,8 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 						// System.out.println("submitComplete event.getResults:"
 						// + event.getResults());
 						// win.alert(event.getResults());
-						try {
 
+						try {
 							Document doc = XmlUtil_GWT.parseXml(event
 									.getResults());
 							String result = XmlUtil_GWT.getSingleNodeText(doc,
@@ -192,8 +195,9 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 									"info");
 							if ("SUCCESS".equals(result)) {
 								display.getPhoto().setValue(info);
-								display.getGiftImage().setUrl(
-										"/imageshow?imageName=" + info);
+								String giftImageUrl = "imageshow?imageName="
+										+ info;
+								display.getGiftImage().setUrl(giftImageUrl);
 							} else {
 								win.alert("上传图片异常<br>" + info);
 							}
@@ -248,8 +252,8 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 				flag = false;
 			}
 		} else {// 浏览
-		// errorMsg.append("请选择图片文件!<br>");
-		// flag = false;
+			// errorMsg.append("请选择图片文件!<br>");
+			// flag = false;
 		}
 
 		if (!flag) {
@@ -280,10 +284,9 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 				});
 	}
 
-	private void initSave(){
+	private void initSave() {
 		display.initAddGift(new GiftVo());
 	}
-
 
 	private void clear() {
 		display.clear();

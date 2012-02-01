@@ -6,16 +6,17 @@
 	<inherits name="com.google.gwt.inject.Inject" />
 	<inherits name="com.google.gwt.xml.XML" />
 	
-	<inherits name="net.customware.gwt.dispatch.Dispatch" />
+	<inherits name="net.customware.gwt.dispatch.Dispatch" />	
 
 	<source path="client" />
 	<source path="model" />
 	<source path="util" />
 
-
+	<!-- 
+	<servlet class="com.chinarewards.gwt.elt.util.FileUploadServlet" path="/fileupload" />
+	  -->
 	<!-- Specify the app entry point class. -->
 	<entry-point class="com.chinarewards.gwt.elt.client.Elt" />
 
-	<stylesheet src="elt.css"/>	
-
+	<stylesheet src="elt.css"/>
 </module>

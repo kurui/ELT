@@ -73,7 +73,7 @@
 					<label class="{new2.label}">礼品图片：</label>
 					<div class="{new2.element}">
 						<g:FormPanel ui:field="photoForm" encoding="multipart/form-data"
-							method="post" action="/fileupload">
+							method="post">
 							<g:FileUpload ui:field="photoUpload" name="uploadFormElement"></g:FileUpload>
 						</g:FormPanel>
 						<g:TextBox ui:field="photo" visible="false"></g:TextBox>
@@ -115,10 +115,10 @@
 						供货方式：
 					</label>
 					<div class="{new2.element}">
-						<g:CheckBox ui:field="supplyinner" 
-							name="supplyCheckBox">内部直接提供</g:CheckBox>
-						<g:CheckBox ui:field="supplyoutter" 
-							name="supplyCheckBox">外部货品公司提供</g:CheckBox>
+						<g:CheckBox ui:field="supplyinner" name="supplyCheckBox">内部直接提供
+						</g:CheckBox>
+						<g:CheckBox ui:field="supplyoutter" name="supplyCheckBox">外部货品公司提供
+						</g:CheckBox>
 					</div>
 				</div>
 

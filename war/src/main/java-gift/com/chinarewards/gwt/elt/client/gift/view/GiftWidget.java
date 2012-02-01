@@ -142,7 +142,7 @@ public class GiftWidget extends Composite implements GiftDisplay {
 //		System.out.println("-----------initEditGift supply:"+giftVo.getSupplyinner());
 //		System.out.println("-----------initEditGift supply:"+giftVo.getSupply());
 		if(giftVo.getSupply()!=null){
-			
+			System.out.println("giftVo.getSupply============"+giftVo.getSupply());
 		}else{
 			supplyinner.setValue(false);
 			supplyoutter.setValue(false);

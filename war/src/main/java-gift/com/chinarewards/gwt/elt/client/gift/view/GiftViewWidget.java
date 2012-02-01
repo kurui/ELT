@@ -123,7 +123,7 @@ public class GiftViewWidget extends Composite implements GiftViewDisplay {
 		typeText.setText(giftVo.getTypeText());
 		brand.setText(giftVo.getBrand());
 
-		giftImage.setUrl("/imageshow?imageName=" + giftVo.getPhoto());
+		giftImage.setUrl("imageshow?imageName=" + giftVo.getPhoto());
 		giftImage.setVisible(true);
 
 		integral.setText(giftVo.getIntegral() + "");
