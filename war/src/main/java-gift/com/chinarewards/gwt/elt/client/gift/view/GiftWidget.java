@@ -3,10 +3,10 @@ package com.chinarewards.gwt.elt.client.gift.view;
 import java.util.Date;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
-import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
-import com.chinarewards.gwt.elt.client.gift.view.GiftWidget;
+
 import com.chinarewards.gwt.elt.client.gift.model.GiftVo;
 import com.chinarewards.gwt.elt.client.gift.presenter.GiftPresenter.GiftDisplay;
+import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.util.StringUtil;
@@ -17,7 +17,6 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FileUpload;
 import com.google.gwt.user.client.ui.FormPanel;
@@ -25,6 +24,7 @@ import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
@@ -56,9 +56,9 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	@UiField
 	TextBox stock;
 	@UiField
-	CheckBox supplyinner;
+	RadioButton supplyinner;
 	@UiField
-	CheckBox supplyoutter;	
+	RadioButton supplyoutter;
 	@UiField
 	TextBox business;
 	@UiField
@@ -132,24 +132,24 @@ public class GiftWidget extends Composite implements GiftDisplay {
 		brand.setText(giftVo.getBrand());
 		photo.setText(giftVo.getPhoto());
 		if (giftVo.getPhoto().indexOf(".") > 0) {
-			giftImage.setUrl("/imageshow?imageName=" + giftVo.getPhoto());
+			giftImage.setUrl("imageshow?imageName=" + giftVo.getPhoto());
 			giftImage.setVisible(true);
 		}
 		integral.setText(giftVo.getIntegral() + "");
 		stock.setText(giftVo.getStock() + "");
 
-//		System.out.println("-----------initEditGift supply:"+giftVo.getSupply());
-//		System.out.println("-----------initEditGift supply:"+giftVo.getSupplyinner());
-//		System.out.println("-----------initEditGift supply:"+giftVo.getSupply());
-		if(giftVo.getSupply()!=null){
-			System.out.println("giftVo.getSupply============"+giftVo.getSupply());
-		}else{
-			supplyinner.setValue(false);
-			supplyoutter.setValue(false);
+		System.out.println("-----------initEditGift supply:"
+				+ giftVo.getSupply());
+
+		if (giftVo.getSupply() != null) {
+			if (StringUtil.trim(giftVo.getSupply()).equals("inner")) {
+				supplyinner.setValue(false);
+			}
+			if (StringUtil.trim(giftVo.getSupply()).equals("outter")) {
+				supplyoutter.setValue(false);
+			}
 		}
-		
-		
-		
+
 		business.setText(giftVo.getBusiness());
 		address.setText(giftVo.getAddress());
 		tell.setText(giftVo.getTell());
@@ -174,7 +174,7 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	public void initAddGift(GiftVo giftVo) {
 		initTypeSelect("");
 		supplyinner.setValue(false);
-		supplyoutter.setValue(true);		
+		supplyoutter.setValue(true);
 	}
 
 	private void initTypeSelect(String selectedValue) {
@@ -343,22 +343,18 @@ public class GiftWidget extends Composite implements GiftDisplay {
 		return brand;
 	}
 
-
-
 	@Override
 	public HasValue<String> getServicetell() {
 		return servicetell;
 	}
 
 	@Override
-	public CheckBox getSupplyinner() {
-		// TODO Auto-generated method stub
-		return null;
+	public RadioButton getSupplyinner() {
+		return supplyinner;
 	}
 
 	@Override
-	public CheckBox getSupplyoutter() {
-		// TODO Auto-generated method stub
-		return null;
+	public RadioButton getSupplyoutter() {
+		return supplyoutter;
 	}
 }

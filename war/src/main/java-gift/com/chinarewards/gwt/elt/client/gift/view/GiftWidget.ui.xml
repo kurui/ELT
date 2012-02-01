@@ -115,10 +115,10 @@
 						供货方式：
 					</label>
 					<div class="{new2.element}">
-						<g:CheckBox ui:field="supplyinner" name="supplyCheckBox">内部直接提供
-						</g:CheckBox>
-						<g:CheckBox ui:field="supplyoutter" name="supplyCheckBox">外部货品公司提供
-						</g:CheckBox>
+						<g:RadioButton ui:field="supplyinner" name="supplyCheckBox">内部直接提供
+						</g:RadioButton>
+						<g:RadioButton ui:field="supplyoutter" name="supplyCheckBox">外部货品公司提供
+						</g:RadioButton>
 					</div>
 				</div>
 

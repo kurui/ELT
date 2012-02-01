@@ -34,10 +34,15 @@ public class GiftAdapterClient {
 		giftVo.setStock(StringUtil.valueOf(display.getStock().getValue()));
 		giftVo.setIntegral(StringUtil.valueOf(display.getIntegral().getValue()));
 
-		System.out.println("-------adapter----display supply:"+display.getSupplyinner());
-		System.out.println("-----------display supply:"+display.getSupplyoutter());
+		System.out.println("display.getSupplyinner().getValue():"+display.getSupplyinner().getValue());
 		
-		
+		if (display.getSupplyinner().getValue()) {
+			giftVo.setSupply("inner");
+		}
+		if (display.getSupplyoutter().getValue()) {
+			giftVo.setSupply("outter");
+		}
+
 		giftVo.setBusiness(display.getBusiness().getValue().trim());
 		giftVo.setAddress(display.getAddress().getValue().trim());
 		giftVo.setTell(display.getTell().getValue().trim());
