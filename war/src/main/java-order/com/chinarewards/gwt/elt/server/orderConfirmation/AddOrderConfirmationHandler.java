@@ -67,6 +67,7 @@ public class AddOrderConfirmationHandler extends
 		resp.setNumber(addorder.getAmount());
 		resp.setSource(gift.getSource());
 		resp.setOrderId(addorder.getId());
+		resp.setUserBalance(request.getUserBalance());
 		return resp;
 	}
 

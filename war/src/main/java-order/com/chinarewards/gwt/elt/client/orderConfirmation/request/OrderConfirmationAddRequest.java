@@ -22,9 +22,18 @@ public class OrderConfirmationAddRequest implements Action<OrderConfirmationAddR
 	private String zipCode;
 	private String orderDefinition;
 	private double total;
+	private double userBalance;
 
 
 
+
+	public double getUserBalance() {
+		return userBalance;
+	}
+
+	public void setUserBalance(double userBalance) {
+		this.userBalance = userBalance;
+	}
 
 	public String getUserId() {
 		return userId;

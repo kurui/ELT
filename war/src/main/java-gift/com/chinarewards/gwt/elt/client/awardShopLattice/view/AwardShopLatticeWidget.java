@@ -44,6 +44,8 @@ public class AwardShopLatticeWidget extends Composite implements
 		this.integral.setText(integral);
 		this.indate.setText(indate);
 		this.photo.setUrl("/imageshow?imageName="+photo);
+		if(id!=null)
+		{
 		exchangeBtn.addClickHandler(new ClickHandler() {
 			
 			@Override
@@ -56,6 +58,13 @@ public class AwardShopLatticeWidget extends Composite implements
 						"EDITOR_ORDERCONFIRMATION_SEARCH_DO_ID", new OrderConfirmationClient(id));
 			}
 		});
+		}
+		else
+		{
+			exchangeBtn.setEnabled(false);
+		}
+		
+		
 	}
 
 }

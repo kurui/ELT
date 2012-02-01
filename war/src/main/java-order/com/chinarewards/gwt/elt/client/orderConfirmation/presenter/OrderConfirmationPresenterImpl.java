@@ -13,6 +13,8 @@ import com.chinarewards.gwt.elt.client.orderConfirmation.request.OrderConfirmati
 import com.chinarewards.gwt.elt.client.orderConfirmation.request.OrderConfirmationAddResponse;
 import com.chinarewards.gwt.elt.client.orderConfirmation.request.OrderConfirmationRequest;
 import com.chinarewards.gwt.elt.client.orderConfirmation.request.OrderConfirmationResponse;
+import com.chinarewards.gwt.elt.client.orderSubmit.model.OrderSubmitClient;
+import com.chinarewards.gwt.elt.client.orderSubmit.plugin.OrderSubmitConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.google.gwt.event.dom.client.ChangeEvent;
@@ -124,6 +126,7 @@ double balance;
 				addrequest.setTotal(price*num);
 				addrequest.setUserId(sessionManager.getSession().getToken());
 				addrequest.setZipCode(display.getZipCode().getValue());
+				addrequest.setUserBalance(balance);
 				dispatch.execute(addrequest,
 						new AsyncCallback<OrderConfirmationAddResponse>() {
 							@Override
@@ -134,7 +137,26 @@ double balance;
 							@Override
 							public void onSuccess(OrderConfirmationAddResponse response) {
 					
-								win.alert("添加成功==ID:"+response.getOrderId());
+							//	win.alert("添加成功!");
+								OrderSubmitClient orderClient=new OrderSubmitClient();
+								orderClient.setOrderId(response.getOrderId());
+								orderClient.setGiftImage(response.getGiftImage());
+								orderClient.setGiftName(response.getGiftName());
+								orderClient.setTotal(response.getTotal());
+								orderClient.setIntegral(response.getIntegral());
+								orderClient.setSource(response.getSource());
+								orderClient.setNumber(response.getNumber());
+								orderClient.setUserBalance(response.getUserBalance());
+								orderClient.setName(response.getName());
+								orderClient.setPhone(response.getPhone());
+								orderClient.setZipCode(response.getZipCode());
+								orderClient.setOrderDefinition(response.getOrderDefinition());
+								orderClient.setAddress(response.getAddress());
+								Platform.getInstance()
+								.getEditorRegistry()
+								.openEditor(
+										OrderSubmitConstants.EDITOR_ORDERSUBMIT_SEARCH,
+										"EDITOR_ORDERSUBMIT_SEARCH_DO_ID", orderClient);
 							}
 
 						});
