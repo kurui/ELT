@@ -182,13 +182,16 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 				new SubmitCompleteHandler() {
 					@Override
 					public void onSubmitComplete(SubmitCompleteEvent event) {
-						// System.out.println("submitComplete event.getResults:"
-						// + event.getResults());
-						// win.alert(event.getResults());
+						String eventResults = event.getResults();
+						eventResults = eventResults.replace("//^\\s*/", ""); // 去除前置空格
+						eventResults = eventResults.replace("//\\s*$/", ""); // 去除后置空格
+
+						System.out.println("submitComplete event.getResults:"
+								+ eventResults);
+						win.alert(eventResults);
 
 						try {
-							Document doc = XmlUtil_GWT.parseXml(event
-									.getResults());
+							Document doc = XmlUtil_GWT.parseXml(eventResults);
 							String result = XmlUtil_GWT.getSingleNodeText(doc,
 									"result");
 							String info = XmlUtil_GWT.getSingleNodeText(doc,
