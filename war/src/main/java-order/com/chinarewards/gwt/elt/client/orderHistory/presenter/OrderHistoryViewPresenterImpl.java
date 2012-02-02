@@ -2,6 +2,7 @@ package com.chinarewards.gwt.elt.client.orderHistory.presenter;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 import com.chinarewards.gwt.elt.client.awardShop.plugin.AwardShopListConstants;
+import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
@@ -28,44 +29,33 @@ public class OrderHistoryViewPresenterImpl extends
 	final Win win;
 	OrderHistoryViewClient orderVo;
 
+	private final BreadCrumbsPresenter breadCrumbs;
+	
 	@Inject
 	public OrderHistoryViewPresenterImpl(EventBus eventBus,
 			DispatchAsync dispatch, ErrorHandler errorHandler,
 			SessionManager sessionManager, OrderHistoryViewDisplay display,
-			Win win) {
+			Win win,BreadCrumbsPresenter breadCrumbs) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
 		this.win = win;
-
+		this.breadCrumbs=breadCrumbs;
 	}
 
 	@Override
 	public void bind() {
+		breadCrumbs.loadChildPage("查看兑换详细");
+		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
+		
 		init();
 
 	}
 
-	private void init() {
-		display.getMessage().setVisible(false);
-
-		display.getShopImage().setUrl(
-				"imageshow?imageName=" + orderVo.getGiftImage());
-		display.setShopText(orderVo.getGiftName());
-		display.setTotal(orderVo.getIntegral() + "");
-		display.setUnitprice(orderVo.getIntegral() + "");
-		display.setSource(orderVo.getSource() + "");
-		display.setNumber(orderVo.getNumber() + "");
-		display.setMybalance(orderVo.getUserBalance() + "");
-		display.setName(orderVo.getName());
-		display.setPhone(orderVo.getPhone());
-		display.setZipCode(orderVo.getZipCode());
-		display.setOrderDefinition(orderVo.getOrderDefinition());
-		display.setAddress(orderVo.getAddress());
+	private void init() {		
 
 		display.getConfirmbutton().addClickHandler(new ClickHandler() {
-
 			@Override
 			public void onClick(ClickEvent event) {
 				dispatch.execute(
@@ -80,7 +70,7 @@ public class OrderHistoryViewPresenterImpl extends
 							@Override
 							public void onSuccess(
 									OrderHistoryViewResponse response) {
-								display.getConfirmbuttonObj().setEnabled(false);
+//								display.getConfirmbuttonObj().setEnabled(false);
 								String rs = response.getResult();
 								if ("ok".equals(rs)) {
 									Platform.getInstance()
@@ -96,13 +86,12 @@ public class OrderHistoryViewPresenterImpl extends
 								}
 
 							}
-
-						});
+				});
 
 			}
 		});
+		
 		display.getReturnbutton().addClickHandler(new ClickHandler() {
-
 			@Override
 			public void onClick(ClickEvent event) {
 				Platform.getInstance()
@@ -113,6 +102,7 @@ public class OrderHistoryViewPresenterImpl extends
 
 			}
 		});
+	
 	}
 
 	@Override

@@ -13,23 +13,23 @@ import com.google.inject.Provider;
 
 public class OrderHistoryViewEditorDescriptor implements EditorDescriptor {
 
-	final Provider<OrderHistoryEditor> editProvider;
+	final Provider<OrderHistoryViewEditor> editProvider;
 
 	@Inject
-	OrderHistoryViewEditorDescriptor(Provider<OrderHistoryEditor> editProvider) {
+	OrderHistoryViewEditorDescriptor(Provider<OrderHistoryViewEditor> editProvider) {
 		this.editProvider = editProvider;
 	}
 
 	@Override
 	public String getEditorId() {
-		return OrderHistoryConstants.EDITOR_ORDERHISTORY_SEARCH;
+		return OrderHistoryConstants.EDITOR_ORDERHISTORY_VIEW;
 	}
 
 	@Override
 	public Editor createEditor(String instanceId, Object model) {
-		OrderHistoryEditor e = editProvider.get();
+		OrderHistoryViewEditor e = editProvider.get();
 		e.setInstanceId(instanceId);
-		e.setTitle("订单列表");
+		e.setTitle("查看兑换详细");
 		if (model instanceof RewardsPageClient) {
 			if (model != null)
 				e.setTitle(((RewardsPageClient) model).getTitleName());

@@ -6,100 +6,155 @@
 	<ui:style src="new2.css" field="new2"></ui:style>
 	<g:HTMLPanel>
 		<div class="{new2.frame-wrap}">
-
-			<!--面包屑 [[ -->
-			<g:Image pixelSize="1200,30"></g:Image>
+			 <!--面包屑 [[ -->
+			<g:FlowPanel ui:field="breadCrumbs" />
 			<!--面包屑 ]] -->
-
-
 			<h3>
-				订单提交
-				
+				订单详细
 			</h3>
 			<span class="{new2.cutline}"></span>
-			订单收货人信息
+
 			<div class="{new2.content-wrap}">
 				<div class="{new2.form}">
-				
-				
- 					<div class="{new2.form-line}">
-				        <label class="{new2.label}"><span style="color:red">* </span>收货人：</label>
-				        <div class="{new2.element}">
-				          <g:TextBox maxLength="9" ui:field="name" styleName="{new2.text}" enabled="false"/>
-				        </div>
-				    </div>
- 					<div class="{new2.form-line}">
-				        <label class="{new2.label}"><span style="color:red">* </span>电话：</label>
-				        <div class="{new2.element}">
-				          <g:TextBox maxLength="12" ui:field="phone" styleName="{new2.text}" enabled="false"/>
-				        </div>
-				    </div>
-				   <div class="{new2.form-line}">
-				       <label class="{new2.label}"><span style="color:red">* </span>收货地址：</label>
-				        <div class="{new2.element}">
-				          <g:TextBox maxLength="100" ui:field="address" styleName="{new2.text} {new2.long-text}" enabled="false"/>
-				        </div>
-				    </div>
-				    <div class="{new2.form-line}">
-				        <label class="{new2.label}"><span style="color:red">* </span>邮编：</label>
-				        <div class="{new2.element}">
-				          <g:TextBox maxLength="9" ui:field="zipCode" styleName="{new2.text}" enabled="false"/>
-				        </div>
-				    </div>
-				    
-			<div class="{new2.orderDiv}">订单包含礼品</div> 
-			<div class="{new2.table}">
-
-		    <table>
-		      <tr>
-		        <th class="col1">图片</th>
-		        <th class="col2">礼品名称</th>
-		        <th class="col3">单价(积分)</th>
-		        <th class="col4">数量</th>
-		        <th class="col5">礼品来源</th>
-		      </tr>
-		      <tr>
-		        <td class="col1"><g:Image pixelSize="180,100" ui:field="shopImage"></g:Image> </td>
-		        <td class="col2"><g:Anchor ui:field="shopText" text="120cm 泰迪熊 公仔"/> </td>
-		        <td class="col3"><g:InlineLabel ui:field="unitprice" text="100" /></td>
-		        <td class="col4"><g:TextBox maxLength="4" ui:field="number" styleName="{new2.short-text}" enabled="false"/></td>
-		        <td class="col5"><g:InlineLabel ui:field="source" text="100" /></td>
-		      </tr>
-		
-		    </table>
-
-			</div>
-			<div class="{new2.message}"><g:InlineLabel  text="您的积分:" /><g:InlineLabel ui:field="mybalance" text="0"  />  <g:InlineLabel ui:field="message" text="您的积分不足！" /></div>
-			
-			<div class="{new2.messageMoney}">订单共需要积分：<g:InlineLabel ui:field="total"  /> 积分</div>
-			
-			<div class="{new2.otherDiv}">附加信息:</div> 
-			
-			  <g:TextArea width="100%"  ui:field="orderDefinition" visibleLines="6" styleName="{new2.textarea}" enabled="false"/>
-			  
-			  
-			  <div class="{new2.orderDiv}">特别提示:</div> 
-			  <div class="{new2.query-wrap}">
-				<div class="{new2.form}">
-				该礼品由以下公司提供,如有问题,请致电咨询:<br/>
-				供应商:缤纷联盟<br/>
-				服务电话:4006688998			
-				</div>
-			  </div>
-			  
-			  收到礼品后如确认无误，请及时改变订单状态，如无处理，订单状态将在45天后自动改为“确认收货”状态。
-			  
-					<span class="{new2.cutline}"></span>
-
-					<div class="{new2.form-line} {new2.form-line-btn}">
+					<div class="{new2.form-line}">
+						<label class="{new2.label}">
+							<span style="color:red">* </span>
+							订单编号：
+						</label>
 						<div class="{new2.element}">
+							<g:Label ui:field="orderCode" />
+						</div>
+					</div>
+					<div class="{new2.form-line}">
+						<label class="{new2.label}">
+							<span style="color:red">* </span>
+							下单时间：
+						</label>
+						<div class="{new2.element}">
+							<g:Label ui:field="exchangeDate" />
+						</div>
+					</div>
+					<div class="{new2.form-line}">
+						<label class="{new2.label}">
+							<span style="color:red">* </span>
+							订单状态：
+						</label>
+						<div class="{new2.element}">
+							<g:Label ui:field="statusText" />
+
 							<span class="{new2.btn}">
 								<g:Button ui:field="confirmbutton" text="确认" width="100px" />
 							</span>
-							<span class="{new2.btn}">
-								<g:Button ui:field="returnbutton" text="返回" width="100px" />
-							</span>
+						</div>
+					</div>
+				</div>
 
+				<span class="{new2.cutline}"></span>
+				订单收货人信息
+				<div class="{new2.content-wrap}">
+					<div class="{new2.form}">
+						<div class="{new2.form-line}">
+							<label class="{new2.label}">
+								<span style="color:red">* </span>
+								收货人：
+							</label>
+							<div class="{new2.element}">
+								<g:Label ui:field="name" />
+							</div>
+						</div>
+						<div class="{new2.form-line}">
+							<label class="{new2.label}">
+								<span style="color:red">* </span>
+								电话：
+							</label>
+							<div class="{new2.element}">
+								<g:Label ui:field="phone" />
+							</div>
+						</div>
+						<div class="{new2.form-line}">
+							<label class="{new2.label}">
+								<span style="color:red">* </span>
+								收货地址：
+							</label>
+							<div class="{new2.element}">
+								<g:Label ui:field="address" />
+							</div>
+						</div>
+						<div class="{new2.form-line}">
+							<label class="{new2.label}">
+								<span style="color:red">* </span>
+								邮编：
+							</label>
+							<div class="{new2.element}">
+								<g:Label ui:field="zipCode" />
+							</div>
+						</div>
+
+						<div class="{new2.orderDiv}">订单包含礼品</div>
+						<div class="{new2.table}">
+							<table>
+								<tr>
+									<th class="col1">图片</th>
+									<th class="col2">礼品名称</th>
+									<th class="col3">单价(积分)</th>
+									<th class="col4">数量</th>
+									<th class="col5">礼品来源</th>
+								</tr>
+								<tr>
+									<td class="col1">
+										<g:Image pixelSize="180,100" ui:field="shopImage"></g:Image>
+									</td>
+									<td class="col2">
+										<g:Anchor ui:field="shopText" text="120cm 泰迪熊 公仔" />
+									</td>
+									<td class="col3">
+										<g:InlineLabel ui:field="unitprice" text="100" />
+									</td>
+									<td class="col4">
+										<g:TextBox maxLength="4" ui:field="number"
+											styleName="{new2.short-text}" />
+									</td>
+									<td class="col5">
+										<g:InlineLabel ui:field="source" text="100" />
+									</td>
+								</tr>
+							</table>
+						</div>
+						<div class="{new2.message}">
+							<g:InlineLabel text="您的积分:" />
+							<g:InlineLabel ui:field="mybalance" text="0" />
+							<g:InlineLabel ui:field="message" text="您的积分不足！" />
+						</div>
+
+						<div class="{new2.messageMoney}">
+							订单共需要积分：
+							<g:InlineLabel ui:field="total" />
+							积分
+						</div>
+
+						<div class="{new2.otherDiv}">附加信息:</div>
+
+						<g:TextArea width="100%" ui:field="orderDefinition"
+							visibleLines="6" styleName="{new2.textarea}" />
+
+						<div class="{new2.orderDiv}">特别提示:</div>
+						<div class="{new2.query-wrap}">
+							<div class="{new2.form}">
+								该礼品由以下公司提供,如有问题,请致电咨询:
+								<br />
+								供应商:缤纷联盟
+								<br />
+								服务电话:4006688998
+							</div>
+						</div>
+						收到礼品后如确认无误，请及时改变订单状态，如无处理，订单状态将在45天后自动改为“确认收货”状态。
+						<span class="{new2.cutline}"></span>
+						<div class="{new2.form-line} {new2.form-line-btn}">
+							<div class="{new2.element}">
+								<span class="{new2.btn}">
+									<g:Button ui:field="returnbutton" text="返回" width="100px" />
+								</span>
+							</div>
 						</div>
 					</div>
 				</div>

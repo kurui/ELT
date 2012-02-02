@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.chinarewards.gwt.elt.client.order.editor;
 
 import com.chinarewards.gwt.elt.client.core.ui.Editor;
@@ -12,7 +9,6 @@ import com.google.inject.Provider;
 
 /**
  * @author yanrui
- * @since 2012年1月16日 
  */
 public class OrderViewEditorDescriptor implements EditorDescriptor {
 

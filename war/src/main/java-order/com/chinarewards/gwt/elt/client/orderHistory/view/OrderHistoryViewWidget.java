@@ -1,5 +1,6 @@
 package com.chinarewards.gwt.elt.client.orderHistory.view;
 
+import com.chinarewards.gwt.elt.client.order.model.OrderVo;
 import com.chinarewards.gwt.elt.client.orderHistory.presenter.OrderHistoryViewPresenter.OrderHistoryViewDisplay;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -8,9 +9,10 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.InlineLabel;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
@@ -24,13 +26,13 @@ public class OrderHistoryViewWidget extends Composite implements
 	Button returnbutton;
 
 	@UiField
-	TextBox name;
+	Label name;
 	@UiField
-	TextBox phone;
+	Label phone;
 	@UiField
-	TextBox address;
+	Label address;
 	@UiField
-	TextBox zipCode;
+	Label zipCode;
 	@UiField
 	Anchor shopText;
 	@UiField
@@ -50,6 +52,9 @@ public class OrderHistoryViewWidget extends Composite implements
 	@UiField
 	TextArea orderDefinition;
 
+	@UiField
+	Panel breadCrumbs;
+
 	private static OrderHistoryViewWidgetUiBinder uiBinder = GWT
 			.create(OrderHistoryViewWidgetUiBinder.class);
 
@@ -62,44 +67,9 @@ public class OrderHistoryViewWidget extends Composite implements
 	}
 
 	@Override
-	public HasValue<String> getName() {
-		return name;
-	}
+	public void showOrderHistory(OrderVo orderVo) {
+		// TODO Auto-generated method stub
 
-	@Override
-	public HasValue<String> getPhone() {
-		return phone;
-	}
-
-	@Override
-	public HasValue<String> getAddress() {
-		return address;
-	}
-
-	@Override
-	public HasValue<String> getZipCode() {
-		return zipCode;
-	}
-
-	@Override
-	public HasValue<String> getNumber() {
-		return number;
-	}
-
-	@Override
-	public Image getShopImage() {
-		return shopImage;
-	}
-
-	@Override
-	public void setShopText(String text) {
-		shopText.setText(text);
-
-	}
-
-	@Override
-	public String getUnitprice() {
-		return unitprice.getText();
 	}
 
 	@Override
@@ -112,82 +82,11 @@ public class OrderHistoryViewWidget extends Composite implements
 		return returnbutton;
 	}
 
-	@Override
-	public TextBox getNumberChange() {
-		return number;
-	}
 
 	@Override
-	public void setTotal(String total) {
-		this.total.setText(total);
-	}
-
-	@Override
-	public void setUnitprice(String unitprice) {
-		this.unitprice.setText(unitprice);
-
-	}
-
-	@Override
-	public void setSource(String source) {
-		this.source.setText(source);
-
-	}
-
-	@Override
-	public void setNumber(String number) {
-		this.number.setText(number);
-
-	}
-
-	@Override
-	public InlineLabel getMessage() {
-		return message;
-	}
-
-	@Override
-	public Button getConfirmbuttonObj() {
-		return confirmbutton;
-	}
-
-	@Override
-	public void setMybalance(String mybalance) {
-		this.mybalance.setText(mybalance);
-	}
-
-	@Override
-	public HasValue<String> getOrderDefinition() {
-		return orderDefinition;
-	}
-
-	@Override
-	public void setName(String text) {
-		name.setText(text);
-
-	}
-
-	@Override
-	public void setPhone(String text) {
-		phone.setText(text);
-
-	}
-
-	@Override
-	public void setAddress(String text) {
-		address.setText(text);
-
-	}
-
-	@Override
-	public void setZipCode(String text) {
-		zipCode.setText(text);
-
-	}
-
-	@Override
-	public void setOrderDefinition(String text) {
-		orderDefinition.setText(text);
-
+	public void setBreadCrumbs(Widget breadCrumbs) {
+		this.breadCrumbs.clear();
+		this.breadCrumbs.add(breadCrumbs);
 	}
 
 }
