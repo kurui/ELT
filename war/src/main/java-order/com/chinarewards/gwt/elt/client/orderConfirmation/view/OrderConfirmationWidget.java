@@ -131,7 +131,15 @@ public class OrderConfirmationWidget extends Composite implements
 
 	@Override
 	public void setSource(String source) {
-		this.source.setText(source);
+		if("inner".equals(source))
+		{
+			this.source.setText("内部直接提供");
+		}
+		else if("outter".equals(source))
+		{
+			this.source.setText("外部货品公司提供");
+		}
+
 		
 	}
 
