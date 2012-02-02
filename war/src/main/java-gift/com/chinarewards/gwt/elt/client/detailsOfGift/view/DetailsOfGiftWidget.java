@@ -75,7 +75,15 @@ public class DetailsOfGiftWidget extends Composite implements
 
 	@Override
 	public void setType(String text) {
-		type.setText(text);
+		if("1".equals(text))
+		{
+			type.setText("实物");
+		}
+		else if("2".equals(text))
+		{
+			type.setText("虚拟");
+		}
+		
 		
 	}
 
@@ -129,6 +137,11 @@ public class DetailsOfGiftWidget extends Composite implements
 	@Override
 	public HasClickHandlers getExchangeBtn() {
 		return exchangeBtn;
+	}
+
+	@Override
+	public HasClickHandlers getPhotoImage() {
+		return giftPhoto;
 	}
 
 

@@ -55,10 +55,10 @@ public class DetailsOfGiftPresenterImpl extends
 					}
 
 					@Override
-					public void onSuccess(DetailsOfGiftResponse response) {
+					public void onSuccess(final DetailsOfGiftResponse response) {
 						
 						display.setGiftName(response.getGiftName());
-						display.setGiftNo(response.getGiftNo());
+						display.setGiftNo(response.getGiftNo().substring(response.getGiftNo().length()-5));
 						display.setBrand(response.getBrand());
 						display.setType(response.getType());
 						display.setStock(response.getStock());
@@ -70,6 +70,15 @@ public class DetailsOfGiftPresenterImpl extends
 						display.setBusiness(response.getBusiness());
 						display.setServicetell(response.getServicetell());
 						display.setGiftPhoto(response.getGiftPhoto());
+						
+						display.getPhotoImage().addClickHandler(new ClickHandler() {
+							
+							@Override
+							public void onClick(ClickEvent event) {
+								win.alertImage(response.getGiftPhoto());
+								
+							}
+						});
 					}
 
 				});
@@ -85,6 +94,7 @@ public class DetailsOfGiftPresenterImpl extends
 				
 			}
 		});
+
 	}
 
 	@Override

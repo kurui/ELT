@@ -31,7 +31,7 @@ public class ImageShowServlet extends HttpServlet {
 				if (uploadPath != null) {
 					String imagePath = uploadPath + File.separator + imgName;
 
-					System.out.println("---imageShow:" + imagePath);
+					// System.out.println("---imageShow:" + imagePath);
 
 					// 获取图片文件内容并输出
 					File file = new File(imagePath);
@@ -58,7 +58,7 @@ public class ImageShowServlet extends HttpServlet {
 							out.close();
 						}
 					} else {
-						System.out.println(file.getPath() + "文件找不到,无法输出显示");
+						// System.out.println(file.getPath() + "文件找不到,无法输出显示");
 					}
 				}
 			} else {
@@ -74,7 +74,7 @@ public class ImageShowServlet extends HttpServlet {
 		String realPath = request.getSession().getServletContext()
 				.getRealPath("/");
 		String uploadPath = null;
-		System.out.println("============realPath:" + realPath);
+		// System.out.println("============realPath:" + realPath);
 		int rootIndex = realPath.indexOf("jboss-5.1.0.GA");
 		if (rootIndex < 0) {
 			rootIndex = realPath.indexOf("war");
@@ -84,15 +84,10 @@ public class ImageShowServlet extends HttpServlet {
 			return null;
 		} else {
 			realPath = realPath.substring(0, rootIndex);
-
-			uploadPath = realPath + "upload";
-			System.out.println("============uploadPath:" + uploadPath);
-			File myFilePath = new File(uploadPath);
-			if (!myFilePath.exists()) {
-				myFilePath.mkdir();
-				System.out.println("创建图片上传文件夹：" + myFilePath);
-			}
 		}
+		
+		uploadPath = realPath + "upload";
+
 		return uploadPath;
 	}
 

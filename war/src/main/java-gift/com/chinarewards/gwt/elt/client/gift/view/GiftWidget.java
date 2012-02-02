@@ -138,15 +138,15 @@ public class GiftWidget extends Composite implements GiftDisplay {
 		integral.setText(giftVo.getIntegral() + "");
 		stock.setText(giftVo.getStock() + "");
 
-		System.out.println("-----------initEditGift supply:"
-				+ giftVo.getSupply());
+		System.out.println("-----------initEditGift getSource:"
+				+ giftVo.getSource());
 
-		if (giftVo.getSupply() != null) {
-			if (StringUtil.trim(giftVo.getSupply()).equals("inner")) {
-				supplyinner.setValue(false);
+		if (giftVo.getSource() != null) {
+			if (StringUtil.trim(giftVo.getSource()).equals("inner")) {
+				supplyinner.setValue(true);
 			}
-			if (StringUtil.trim(giftVo.getSupply()).equals("outter")) {
-				supplyoutter.setValue(false);
+			if (StringUtil.trim(giftVo.getSource()).equals("outter")) {
+				supplyoutter.setValue(true);
 			}
 		}
 

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria.GiftStatus;
+import com.chinarewards.gwt.elt.util.StringUtil;
 
 public class GiftClient implements Serializable, Comparable<GiftClient> {
 
@@ -96,6 +97,17 @@ public class GiftClient implements Serializable, Comparable<GiftClient> {
 		return source;
 	}
 
+	public String getSourceText() {
+		if (source != null) {
+			if (StringUtil.trim(source).equals("inner")) {
+				return "内部直接提供";
+			}
+			if (StringUtil.trim(source).equals("outter")) {
+				return "外部货品公司提供";
+			}
+		}
+		return "";
+	}
 	public void setSource(String source) {
 		this.source = source;
 	}

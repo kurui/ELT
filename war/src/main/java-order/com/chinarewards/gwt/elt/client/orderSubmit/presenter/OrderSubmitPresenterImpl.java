@@ -4,6 +4,9 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.awardShop.plugin.AwardShopListConstants;
 import com.chinarewards.gwt.elt.client.core.Platform;
+import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
+import com.chinarewards.gwt.elt.client.detailsOfGift.model.DetailsOfGiftClient;
+import com.chinarewards.gwt.elt.client.detailsOfGift.plugin.DetailsOfGiftConstants;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
@@ -12,7 +15,6 @@ import com.chinarewards.gwt.elt.client.orderSubmit.model.OrderSubmitClient;
 import com.chinarewards.gwt.elt.client.orderSubmit.presenter.OrderSubmitPresenter.OrderSubmitDisplay;
 import com.chinarewards.gwt.elt.client.orderSubmit.request.OrderSubmitRequest;
 import com.chinarewards.gwt.elt.client.orderSubmit.request.OrderSubmitResponse;
-import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -28,17 +30,17 @@ public class OrderSubmitPresenterImpl extends BasePresenter<OrderSubmitDisplay>
 	final SessionManager sessionManager;
 	final Win win;
 	OrderSubmitClient orderVo;
-
+	final MenuProcessor menuProcessor;
 	@Inject
 	public OrderSubmitPresenterImpl(EventBus eventBus, DispatchAsync dispatch,
 			ErrorHandler errorHandler, SessionManager sessionManager,
-			OrderSubmitDisplay display, Win win) {
+			OrderSubmitDisplay display, Win win,MenuProcessor menuProcessor) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
 		this.win = win;
-
+		this.menuProcessor=menuProcessor;
 	}
 
 	@Override
@@ -64,7 +66,15 @@ public class OrderSubmitPresenterImpl extends BasePresenter<OrderSubmitDisplay>
 		display.setOrderDefinition(orderVo.getOrderDefinition());
 		display.setAddress(orderVo.getAddress());
 		
-			
+			if("inner".equals(orderVo.getSource()))
+			{
+				display.disableSpecialNote();
+			}
+			else
+			{
+				display.setBusiness(orderVo.getBusiness());
+				display.setServicetell(orderVo.getServicetell());				
+			}
 		
 
 	display.getConfirmbutton().addClickHandler(new ClickHandler() {
@@ -90,7 +100,7 @@ public class OrderSubmitPresenterImpl extends BasePresenter<OrderSubmitDisplay>
 									.openEditor(
 											OrderHistoryConstants.EDITOR_ORDERHISTORY_SEARCH,
 											OrderHistoryConstants.EDITOR_ORDERHISTORY_SEARCH, orderVo);
-
+									menuProcessor.changItemColor(menuProcessor.getMenuItem(OrderHistoryConstants.MENU_ORDERHISTORY_SEARCH).getTitle());
 									
 									//完成后..跳出订单列表
 								}
@@ -117,6 +127,18 @@ public class OrderSubmitPresenterImpl extends BasePresenter<OrderSubmitDisplay>
 			.openEditor(
 					AwardShopListConstants.EDITOR_AWARDSHOPLIST_SEARCH,
 					"EDITOR_AWARDSHOPLIST_SEARCH_DO_ID", null);
+			
+		}
+	});
+	display.getShopText().addClickHandler(new ClickHandler() {
+		
+		@Override
+		public void onClick(ClickEvent event) {
+			Platform.getInstance()
+			.getEditorRegistry()
+			.openEditor(
+					DetailsOfGiftConstants.EDITOR_DETAILSOFGIFT_SEARCH,
+					"EDITOR_DETAILSOFGIFT_SEARCH_DO_ID", new DetailsOfGiftClient(orderVo.getGiftId()));
 			
 		}
 	});

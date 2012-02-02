@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria.GiftStatus;
+import com.chinarewards.gwt.elt.util.StringUtil;
 
 public class GiftVo implements Serializable {
 
@@ -20,10 +21,9 @@ public class GiftVo implements Serializable {
 	private String type; // 礼品类型
 	private String brand;// 品牌
 	private String photo; // 图片
-	private String source; // 来源
+	private String source; //  供货方式
 	private int integral; // 积分
 	private int stock; // 库存
-	private String supply; // 供货方式
 	private String business; // 供应商名称
 	private String address; // 供应商地址
 	private String tell; // 供应商电话
@@ -46,6 +46,18 @@ public class GiftVo implements Serializable {
 				return "虚拟";
 			} else {
 				return "未定义";
+			}
+		}
+		return "";
+	}
+	
+	public String getSourceText() {
+		if (source != null) {
+			if (StringUtil.trim(source).equals("inner")) {
+				return "内部直接提供";
+			}
+			if (StringUtil.trim(source).equals("outter")) {
+				return "外部货品公司提供";
 			}
 		}
 		return "";
@@ -193,14 +205,6 @@ public class GiftVo implements Serializable {
 
 	public void setBrand(String brand) {
 		this.brand = brand;
-	}
-
-	public String getSupply() {
-		return supply;
-	}
-
-	public void setSupply(String supply) {
-		this.supply = supply;
 	}
 
 	public String getServicetell() {

@@ -28,8 +28,6 @@ public class GiftAdapterClient {
 		// giftVo.setSource(display.getSource().getValue().trim());
 		giftVo.setBrand(display.getBrand().getValue().trim());
 
-		giftVo.setSource("合作商家");
-
 		giftVo.setPhoto(display.getPhoto().getValue());
 		giftVo.setStock(StringUtil.valueOf(display.getStock().getValue()));
 		giftVo.setIntegral(StringUtil.valueOf(display.getIntegral().getValue()));
@@ -37,13 +35,13 @@ public class GiftAdapterClient {
 		System.out.println("display.getSupplyinner().getValue():"+display.getSupplyinner().getValue());
 		
 		if (display.getSupplyinner().getValue()) {
-			giftVo.setSupply("inner");
+			giftVo.setSource("inner");
 		}
 		if (display.getSupplyoutter().getValue()) {
-			giftVo.setSupply("outter");
+			giftVo.setSource("outter");
 		}
 
-		System.out.println("=======adapterDisplay:"+giftVo.getSupply());
+		System.out.println("=======adapterDisplay:"+giftVo.getSource());
 		
 		giftVo.setBusiness(display.getBusiness().getValue().trim());
 		giftVo.setAddress(display.getAddress().getValue().trim());

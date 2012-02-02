@@ -8,6 +8,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -45,5 +46,12 @@ public class AlertWidget extends Composite implements
 	public void setMsg(String message) {
 		msg.clear();
 		msg.add(new HTML(message));
+	}
+
+	@Override
+	public void setImage(String url) {
+		msg.clear();
+		msg.add(new Image("imageshow?imageName="+url));
+		
 	}
 }

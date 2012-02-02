@@ -41,12 +41,17 @@ public class GiftLogicImpl implements GiftLogic{
 			// Update
 			Gift tempGift = giftDao.findById(Gift.class, gift.getId());
 			tempGift.setName(gift.getName());
+			tempGift.setSummary(gift.getSummary());
+			tempGift.setDispatchcycle(gift.getDispatchcycle());
 			tempGift.setExplains(gift.getExplains());
+			tempGift.setNotes(gift.getNotes());
 			tempGift.setType(gift.getType());
+			tempGift.setBrand(gift.getBrand());
 			tempGift.setSource(gift.getSource());
 			tempGift.setBusiness(gift.getBusiness());
 			tempGift.setAddress(gift.getAddress());
 			tempGift.setTell(gift.getTell());
+			tempGift.setServicetell(gift.getServicetell());
 			tempGift.setIntegral(gift.getIntegral());
 			tempGift.setStock(gift.getStock());
 			tempGift.setPhoto(gift.getPhoto());
