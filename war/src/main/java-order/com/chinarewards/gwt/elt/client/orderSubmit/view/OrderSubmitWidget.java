@@ -201,6 +201,12 @@ public class OrderSubmitWidget extends Composite implements
 	}
 
 
+	@Override
+	public HasClickHandlers getShopText() {
+		return shopText;
+	}
+
+
 
 
 	

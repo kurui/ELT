@@ -4,6 +4,8 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.awardShop.plugin.AwardShopListConstants;
 import com.chinarewards.gwt.elt.client.core.Platform;
+import com.chinarewards.gwt.elt.client.detailsOfGift.model.DetailsOfGiftClient;
+import com.chinarewards.gwt.elt.client.detailsOfGift.plugin.DetailsOfGiftConstants;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
@@ -12,7 +14,6 @@ import com.chinarewards.gwt.elt.client.orderSubmit.model.OrderSubmitClient;
 import com.chinarewards.gwt.elt.client.orderSubmit.presenter.OrderSubmitPresenter.OrderSubmitDisplay;
 import com.chinarewards.gwt.elt.client.orderSubmit.request.OrderSubmitRequest;
 import com.chinarewards.gwt.elt.client.orderSubmit.request.OrderSubmitResponse;
-import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -117,6 +118,18 @@ public class OrderSubmitPresenterImpl extends BasePresenter<OrderSubmitDisplay>
 			.openEditor(
 					AwardShopListConstants.EDITOR_AWARDSHOPLIST_SEARCH,
 					"EDITOR_AWARDSHOPLIST_SEARCH_DO_ID", null);
+			
+		}
+	});
+	display.getShopText().addClickHandler(new ClickHandler() {
+		
+		@Override
+		public void onClick(ClickEvent event) {
+			Platform.getInstance()
+			.getEditorRegistry()
+			.openEditor(
+					DetailsOfGiftConstants.EDITOR_DETAILSOFGIFT_SEARCH,
+					"EDITOR_DETAILSOFGIFT_SEARCH_DO_ID", new DetailsOfGiftClient(orderVo.getGiftId()));
 			
 		}
 	});

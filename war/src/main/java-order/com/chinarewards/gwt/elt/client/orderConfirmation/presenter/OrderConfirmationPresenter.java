@@ -36,6 +36,7 @@ public interface OrderConfirmationPresenter extends Presenter<OrderConfirmationP
 
 		HasClickHandlers getConfirmbutton();
 		HasClickHandlers getReturnbutton();
+		HasClickHandlers getShopText();
 		TextBox getNumberChange();
 		InlineLabel getMessage();
 		

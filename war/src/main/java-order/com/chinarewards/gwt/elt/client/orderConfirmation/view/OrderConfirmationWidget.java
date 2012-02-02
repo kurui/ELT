@@ -166,6 +166,12 @@ public class OrderConfirmationWidget extends Composite implements
 	}
 
 
+	@Override
+	public HasClickHandlers getShopText() {
+		return shopText;
+	}
+
+
 
 
 	

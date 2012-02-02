@@ -48,6 +48,6 @@ public interface OrderSubmitPresenter extends Presenter<OrderSubmitPresenter.Ord
 		InlineLabel getMessage();
 		
 		Button getConfirmbuttonObj();
-	
+		HasClickHandlers getShopText();
 	}
 }
