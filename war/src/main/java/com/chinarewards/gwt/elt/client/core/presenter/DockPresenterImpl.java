@@ -9,7 +9,6 @@ import com.chinarewards.gwt.elt.client.gift.plugin.GiftListConstants;
 import com.chinarewards.gwt.elt.client.login.event.LoginEvent;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
-//import com.chinarewards.gwt.elt.client.order.plugin.OrderListConstants;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemConstants;
 import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
@@ -119,6 +118,28 @@ public class DockPresenterImpl extends BasePresenter<DockDisplay> implements
 										.getMenuItem(GiftListConstants.MENU_GIFTLIST_SEARCH)));
 					}
 				}));
+		registerHandler(display.getManagementCenter().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						Window.alert("管理中心");
+					}
+				}));
+		registerHandler(display.getGiftExchange().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						Window.alert("礼品兑换");
+					}
+				}));
+		registerHandler(display.getStaffCorner().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						Window.alert("员工天地");
+					}
+				}));
+
 
 	}
 

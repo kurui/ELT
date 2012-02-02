@@ -54,6 +54,14 @@ public class DockWidget extends Composite implements DockDisplay {
 	@UiField
 	InlineLabel menuTitle;
 	
+	@UiField
+	Anchor managementCenter;
+	@UiField
+	Anchor giftExchange;
+	@UiField
+	Anchor staffCorner;
+	
+	
 	// Set the format of datepicker.
 	DateTimeFormat dateFormat = DateTimeFormat
 			.getFormat(ViewConstants.date_format_chinese);
@@ -242,6 +250,22 @@ public class DockWidget extends Composite implements DockDisplay {
 	@Override
 	public HasClickHandlers getBtnCollection() {
 		return collectionBtn;
+	}
+
+	@Override
+	public HasClickHandlers getManagementCenter() {
+
+		return managementCenter;
+	}
+
+	@Override
+	public HasClickHandlers getGiftExchange() {
+		return giftExchange;
+	}
+
+	@Override
+	public HasClickHandlers getStaffCorner() {
+		return staffCorner;
 	}
 
 }
