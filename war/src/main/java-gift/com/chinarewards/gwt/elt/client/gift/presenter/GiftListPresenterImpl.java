@@ -167,7 +167,7 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 				new GetValue<GiftClient, String>() {
 					@Override
 					public String getValue(GiftClient gift) {
-						return gift.getSource() + "";
+						return gift.getSourceText() + "";
 					}
 				}, ref, "source");
 		cellTable.addColumn("库存", new TextCell(),

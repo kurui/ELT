@@ -1,10 +1,10 @@
 package com.chinarewards.gwt.elt.client.gift.view;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
-import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
-import com.chinarewards.gwt.elt.client.gift.view.GiftViewWidget;
+
 import com.chinarewards.gwt.elt.client.gift.model.GiftVo;
 import com.chinarewards.gwt.elt.client.gift.presenter.GiftViewPresenter.GiftViewDisplay;
+import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.view.constant.ViewConstants;
 import com.google.gwt.core.client.GWT;
@@ -35,8 +35,8 @@ public class GiftViewWidget extends Composite implements GiftViewDisplay {
 	Label notes;
 	@UiField
 	Label typeText;
-	// @UiField
-	// Label source;
+	@UiField
+	Label source;
 	@UiField
 	Label brand;
 	@UiField
@@ -44,8 +44,6 @@ public class GiftViewWidget extends Composite implements GiftViewDisplay {
 	@UiField
 	Label stock;
 
-	@UiField
-	Label supply;
 	@UiField
 	Label business;
 	@UiField
@@ -128,9 +126,9 @@ public class GiftViewWidget extends Composite implements GiftViewDisplay {
 
 		integral.setText(giftVo.getIntegral() + "");
 		stock.setText(giftVo.getStock() + "");
-
-		supply.setText(giftVo.getSupply());
 		
+		source.setText(giftVo.getSourceText());
+
 		business.setText(giftVo.getBusiness());
 		address.setText(giftVo.getAddress());
 		tell.setText(giftVo.getTell());

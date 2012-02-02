@@ -70,13 +70,12 @@ public class EditGiftHandler extends
 		gift.setExplains(giftVo.getExplains().trim());
 		gift.setType(giftVo.getType().trim());
 		gift.setBrand(giftVo.getBrand().trim());
-		gift.setSource(giftVo.getSource().trim());
+		gift.setSource(giftVo.getSource());
+		System.out.println("assembleGift(giftVo):" + giftVo.getSource());
 
 		gift.setPhoto(giftVo.getPhoto());
 		gift.setIntegral(giftVo.getIntegral());
 		gift.setStock(giftVo.getStock());
-		gift.setSupply(giftVo.getSupply());
-		System.out.println("assembleGift(giftVo):" + giftVo.getSupply());
 
 		gift.setBusiness(giftVo.getBusiness().trim());
 		gift.setAddress(giftVo.getAddress().trim());
