@@ -4,9 +4,11 @@ import java.util.List;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import com.chinarewards.gwt.elt.client.awardShop.plugin.AwardShopListConstants;
 import com.chinarewards.gwt.elt.client.awardShop.request.SearchAwardShopRequest;
 import com.chinarewards.gwt.elt.client.awardShop.request.SearchAwardShopResponse;
 import com.chinarewards.gwt.elt.client.awardShopLattice.view.AwardShopLatticeWidget;
+import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
 import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
@@ -15,6 +17,8 @@ import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.shopWindow.presenter.ShopWindowPresenter.ShopWindowDisplay;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.win.Win;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.inject.Inject;
@@ -102,6 +106,18 @@ public class ShopWindowPresenterImpl extends BasePresenter<ShopWindowDisplay>
 					}
 
 				});
+		display.getMore().addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				Platform.getInstance()
+				.getEditorRegistry()
+				.openEditor(
+						AwardShopListConstants.EDITOR_AWARDSHOPLIST_SEARCH,
+						"EDITOR_AWARDSHOPLIST_SEARCH_DO_ID", null);
+				
+			}
+		});
 	}
 
 	@Override
