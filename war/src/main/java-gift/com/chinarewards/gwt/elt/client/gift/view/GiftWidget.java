@@ -159,6 +159,7 @@ public class GiftWidget extends Composite implements GiftDisplay {
 		servicetell.setText(giftVo.getServicetell());
 		
 		indate.setFormat(new DateBox.DefaultFormat(dateFormat));
+		indate.setValue(giftVo.getIndate());
 
 		// @UiField
 		// Label status;// boolean
