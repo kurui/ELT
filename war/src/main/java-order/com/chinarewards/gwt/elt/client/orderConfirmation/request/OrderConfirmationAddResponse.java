@@ -17,7 +17,21 @@ public class OrderConfirmationAddResponse implements Result {
 	private double integral;
 	private String source;
 	private String orderId;
+	private String business;
+	private String servicetell;
 
+	public String getBusiness() {
+		return business;
+	}
+	public void setBusiness(String business) {
+		this.business = business;
+	}
+	public String getServicetell() {
+		return servicetell;
+	}
+	public void setServicetell(String servicetell) {
+		this.servicetell = servicetell;
+	}
 	private int number;
 	private String name;
 	private String phone;

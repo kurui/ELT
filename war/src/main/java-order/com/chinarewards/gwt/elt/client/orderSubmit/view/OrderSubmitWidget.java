@@ -11,6 +11,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.InlineLabel;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
@@ -49,6 +50,12 @@ public class OrderSubmitWidget extends Composite implements
 	InlineLabel mybalance;
 	@UiField
 	TextArea orderDefinition;
+	@UiField
+	Panel specialNote;
+	@UiField
+	InlineLabel business;
+	@UiField
+	InlineLabel servicetell;
 	
 	private static OrderSubmitWidgetUiBinder uiBinder = GWT
 			.create(OrderSubmitWidgetUiBinder.class);
@@ -131,7 +138,14 @@ public class OrderSubmitWidget extends Composite implements
 
 	@Override
 	public void setSource(String source) {
-		this.source.setText(source);
+		if("inner".equals(source))
+		{
+			this.source.setText("内部直接提供");
+		}
+		else if("outter".equals(source))
+		{
+			this.source.setText("外部货品公司提供");
+		}
 		
 	}
 
@@ -204,6 +218,24 @@ public class OrderSubmitWidget extends Composite implements
 	@Override
 	public HasClickHandlers getShopText() {
 		return shopText;
+	}
+
+
+	@Override
+	public Panel getSpecialNote() {
+		return specialNote;
+	}
+
+
+	@Override
+	public void setBusiness(String text) {
+		business.setText(text);
+	}
+
+
+	@Override
+	public void setServicetell(String text) {
+		servicetell.setText(text);
 	}
 
 

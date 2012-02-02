@@ -76,17 +76,17 @@
 			<div class="{new2.otherDiv}">附加信息:</div> 
 			
 			  <g:TextArea width="100%"  ui:field="orderDefinition" visibleLines="6" styleName="{new2.textarea}" enabled="false"/>
-			  
-			  
-			  <div class="{new2.orderDiv}">特别提示:</div> 
-			  <div class="{new2.query-wrap}">
-				<div class="{new2.form}">
-				该礼品由以下公司提供,如有问题,请致电咨询:<br/>
-				供应商:缤纷联盟<br/>
-				服务电话:4006688998			
-				</div>
-			  </div>
-			  
+		
+			 <g:AbsolutePanel ui:field="specialNote"  /> 
+				  <div class="{new2.orderDiv}">特别提示:</div> 
+				  <div class="{new2.query-wrap}">
+					<div class="{new2.form}">
+					该礼品由以下公司提供,如有问题,请致电咨询:<br/>
+					供应商:<g:InlineLabel ui:field="business" /> <br/>
+					服务电话:<g:InlineLabel ui:field="servicetell" />			
+					</div>
+				  </div>
+			
 			  收到礼品后如确认无误，请及时改变订单状态，如无处理，订单状态将在45天后自动改为“确认收货”状态。
 			  
 					<span class="{new2.cutline}"></span>

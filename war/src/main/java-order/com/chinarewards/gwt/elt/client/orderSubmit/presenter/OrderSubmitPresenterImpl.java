@@ -66,7 +66,16 @@ public class OrderSubmitPresenterImpl extends BasePresenter<OrderSubmitDisplay>
 		display.setOrderDefinition(orderVo.getOrderDefinition());
 		display.setAddress(orderVo.getAddress());
 		
-			
+			if("inner".equals(orderVo.getSource()))
+			{
+				display.getSpecialNote().setVisible(false);
+			}
+			else
+			{
+				display.getSpecialNote().setVisible(true);
+				display.setBusiness(orderVo.getBusiness());
+				display.setServicetell(orderVo.getServicetell());				
+			}
 		
 
 	display.getConfirmbutton().addClickHandler(new ClickHandler() {

@@ -177,6 +177,8 @@ double balance;
 								orderClient.setOrderDefinition(response.getOrderDefinition());
 								orderClient.setAddress(response.getAddress());
 								orderClient.setGiftId(response.getGiftId());
+								orderClient.setBusiness(response.getBusiness());
+								orderClient.setServicetell(response.getServicetell());
 								Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(

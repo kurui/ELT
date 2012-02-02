@@ -9,6 +9,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.InlineLabel;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TextBox;
 
 public interface OrderSubmitPresenter extends Presenter<OrderSubmitPresenter.OrderSubmitDisplay> {
@@ -27,6 +28,8 @@ public interface OrderSubmitPresenter extends Presenter<OrderSubmitPresenter.Ord
 		void setZipCode(String text);
 		void setOrderDefinition(String text);
 		void setMybalance(String text);
+		void setBusiness(String text);
+		void setServicetell(String text);
 		
 		
 
@@ -49,5 +52,6 @@ public interface OrderSubmitPresenter extends Presenter<OrderSubmitPresenter.Ord
 		
 		Button getConfirmbuttonObj();
 		HasClickHandlers getShopText();
+		Panel getSpecialNote();
 	}
 }
