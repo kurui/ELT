@@ -58,6 +58,17 @@ public class MainImpl implements Main, PlatformInitHandler, LoginHandler {
 			rootLayoutPanel.add(login.getDisplay().asWidget());
 		} else {
 			login.unbind();
+			String xx=sessionManager.getSession().getToken();
+			System.out.println(xx);
+			System.out.println(xx);
+			System.out.println(xx);
+			System.out.println(xx);
+			System.out.println(xx);
+			System.out.println(xx);
+			System.out.println(xx);
+			System.out.println(xx);
+			System.out.println(xx);
+			System.out.println(xx);
 			injector.getPlatform().initialize(injector.getPluginSet(),rootLayoutPanel);
 		}
 	}
@@ -68,6 +79,11 @@ public class MainImpl implements Main, PlatformInitHandler, LoginHandler {
 			rootLayoutPanel.clear();
 			login.unbind();
 			injector.getPlatform().initialize(injector.getPluginSet(),rootLayoutPanel);
+			break;
+		case LOGIN_OK_STAFF:
+			rootLayoutPanel.clear();
+			login.unbind();
+			injector.getPlatform().initializeStaff(injector.getPluginSet(),rootLayoutPanel);
 			break;
 		case LOGIN_FAILED:
 			win.alert("登录失败，请重试！");

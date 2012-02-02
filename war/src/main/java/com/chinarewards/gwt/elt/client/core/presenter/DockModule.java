@@ -1,7 +1,9 @@
 package com.chinarewards.gwt.elt.client.core.presenter;
 
 import com.chinarewards.gwt.elt.client.core.presenter.DockPresenter.DockDisplay;
+import com.chinarewards.gwt.elt.client.core.presenter.StaffPresenter.StaffDisplay;
 import com.chinarewards.gwt.elt.client.core.view.DockWidget;
+import com.chinarewards.gwt.elt.client.core.view.StaffWidget;
 import com.google.gwt.inject.client.AbstractGinModule;
 
 public class DockModule extends AbstractGinModule {
@@ -10,6 +12,9 @@ public class DockModule extends AbstractGinModule {
 	protected void configure() {
 		bind(DockPresenter.class).to(DockPresenterImpl.class);
 		bind(DockDisplay.class).to(DockWidget.class);
+		
+		bind(StaffPresenter.class).to(StaffPresenterImpl.class);
+		bind(StaffDisplay.class).to(StaffWidget.class);
 	}
 
 }

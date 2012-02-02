@@ -2,7 +2,7 @@ package com.chinarewards.gwt.elt.client.core.presenter;
 
 import com.chinarewards.gwt.elt.client.EltGinjector;
 import com.chinarewards.gwt.elt.client.core.PluginManager;
-import com.chinarewards.gwt.elt.client.core.presenter.DockPresenter.DockDisplay;
+import com.chinarewards.gwt.elt.client.core.presenter.StaffPresenter.StaffDisplay;
 import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
 import com.chinarewards.gwt.elt.client.core.ui.event.MenuClickEvent;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftListConstants;
@@ -18,15 +18,15 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
 
-public class DockPresenterImpl extends BasePresenter<DockDisplay> implements
-		DockPresenter {
+public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
+		StaffPresenter {
 	final PluginManager pluginManager;
 	final SessionManager sessionManager;
 	final EltGinjector injector;
 	final MenuProcessor menuProcessor;
 
 	@Inject
-	public DockPresenterImpl(EventBus eventBus, DockDisplay display,
+	public StaffPresenterImpl(EventBus eventBus, StaffDisplay display,
 			SessionManager sessionManager, PluginManager pluginManager,
 			EltGinjector injector, MenuProcessor menuProcessor) {
 		super(eventBus, display);
@@ -118,7 +118,13 @@ public class DockPresenterImpl extends BasePresenter<DockDisplay> implements
 										.getMenuItem(GiftListConstants.MENU_GIFTLIST_SEARCH)));
 					}
 				}));
-
+		registerHandler(display.getManagementCenter().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						Window.alert("管理中心");
+					}
+				}));
 		registerHandler(display.getGiftExchange().addClickHandler(
 				new ClickHandler() {
 					@Override
@@ -137,7 +143,7 @@ public class DockPresenterImpl extends BasePresenter<DockDisplay> implements
 
 	}
 
-	public DockDisplay getDisplay() {
+	public StaffDisplay getDisplay() {
 		return display;
 	}
 

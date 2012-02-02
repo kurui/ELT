@@ -16,6 +16,7 @@ import com.chinarewards.gwt.elt.client.login.event.LoginHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.support.UserSession;
+import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Cookies;
@@ -72,9 +73,15 @@ public class CookieSessionManager implements SessionManager {
 			@Override
 			public void onSuccess(LoginResponse resp) {
 				tokenObtained(resp);
+				UserRoleVo [] roles=resp.getUserRoles();
+				if(roles.length>0)
+				{
+					//Window.alert(roles[0]+"");
+				}
+				
 				// Window.alert(resp.getToken());
-				eventBus.fireEvent(new LoginEvent(
-						LoginEvent.LoginStatus.LOGIN_OK));
+				eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK));
+			//	eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_STAFF));
 			}
 		});
 	}

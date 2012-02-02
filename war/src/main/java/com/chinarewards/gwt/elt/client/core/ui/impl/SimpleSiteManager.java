@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.presenter.DockPresenter;
+import com.chinarewards.gwt.elt.client.core.presenter.StaffPresenter;
 import com.chinarewards.gwt.elt.client.core.ui.Dialog;
 import com.chinarewards.gwt.elt.client.core.ui.DialogCloseListener;
 import com.chinarewards.gwt.elt.client.core.ui.Editor;
@@ -43,6 +44,7 @@ public class SimpleSiteManager implements SiteManager, EditorCloseHandler,
 	final SessionManager sessionManager;
 
 	final DockPresenter dockPresenter;
+	final StaffPresenter staffPresenter;
 
 	MenuProcessor menuProcessor;
 
@@ -62,10 +64,11 @@ public class SimpleSiteManager implements SiteManager, EditorCloseHandler,
 
 	@Inject
 	public SimpleSiteManager(EventBus eventBus, SessionManager sessionManager,
-			DockPresenter dockPresenter) {
+			DockPresenter dockPresenter,StaffPresenter staffPresenter) {
 		this.eventBus = eventBus;
 		this.sessionManager = sessionManager;
 		this.dockPresenter = dockPresenter;
+		this.staffPresenter=staffPresenter;
 	}
 
 	public void openEditor(final Editor e) {
@@ -134,7 +137,33 @@ public class SimpleSiteManager implements SiteManager, EditorCloseHandler,
 		hookHistoryEvent();
 		hookMenuClickEvent();
 	}
+	public void initializeStaff(RootLayoutPanel rootPanel) {
+		// XXX allocate different areas in root panel
+		root = rootPanel;
+		// dock = new DockLayoutPanel(Unit.PX);
+		dock = staffPresenter.getDisplay().getDock();
+		// dock = dock.addNorth(new HTML("<h1>(Header) 欢迎你："
+		// + sessionManager.getSession().getLoginName() + "</h1>"), 100);
+		// dock.addSouth(new HTML("<em>Footer</em>"), 50);
+		// FIXME 20111130
+		staffPresenter.getDisplay().setMessage(
+				sessionManager.getSession().getLoginName());
+		// menu = new LayoutPanel();
+		menu = staffPresenter.getDisplay().getMenu();
+		// dock.addWest(menu, 200);
 
+		// initialize editors area.
+		editor = new LayoutPanel();
+		editor.setVisible(false);
+		dock.add(editor);
+
+		staffPresenter.bind();
+		rootPanel.add(staffPresenter.getDisplay().asWidget());
+
+		hookEditorCloseEvent();
+		hookHistoryEvent();
+		hookMenuClickEvent();
+	}
 	public Panel getMenuArea() {
 		return menu;
 	}
