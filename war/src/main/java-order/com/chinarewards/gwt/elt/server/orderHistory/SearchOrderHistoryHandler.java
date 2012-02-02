@@ -30,8 +30,9 @@ public class SearchOrderHistoryHandler extends
 	IStaffService staffService;
 
 	@Inject
-	public SearchOrderHistoryHandler(GiftService giftService,
-			IStaffService staffService) {
+	public SearchOrderHistoryHandler(OrderService orderService,
+			GiftService giftService, IStaffService staffService) {
+		this.orderService = orderService;
 		this.giftService = giftService;
 		this.staffService = staffService;
 	}
@@ -39,23 +40,22 @@ public class SearchOrderHistoryHandler extends
 	@Override
 	public OrderHistoryViewResponse execute(OrderHistoryViewRequest request,
 			ExecutionContext context) throws DispatchException {
-		
+
 		System.out.println("SearchOrderHistoryHandler-----execute()----");
 
-			
 		OrderHistoryViewResponse response = new OrderHistoryViewResponse();
-		
-		Orders orders=orderService.findOrderById(request.getOrderId());
-		OrderVo orderVo=new OrderVo();
+
+		Orders orders = orderService.findOrderById(request.getOrderId());
+		OrderVo orderVo = new OrderVo();
 		orderVo.setId(orders.getId());
 		orderVo.setOrderCode(orders.getOrderCode());
 		orderVo.setExchangeDate(orders.getExchangeDate());
-//		orderVo.setStatus(orders.getStatus());
+		// orderVo.setStatus(orders.getStatus());
 		orderVo.setReceiver(orders.getReceiver());
 		orderVo.setTel(orders.getTel());
 		orderVo.setAddress(orders.getAddress());
-		orderVo.setPostcode(orders.getPostcode());		
-		
+		orderVo.setPostcode(orders.getPostcode());
+
 		response.setOrderVo(orderVo);
 
 		// Gift gift = giftService.findGiftById(request.getGiftId());
@@ -67,7 +67,7 @@ public class SearchOrderHistoryHandler extends
 		// response.setResult(client);
 
 		// 查询员工积分
-//		response.setStaffBalance(staffService.getBalance(request.getStaffId()));
+		// response.setStaffBalance(staffService.getBalance(request.getStaffId()));
 
 		return response;
 	}

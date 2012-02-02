@@ -117,15 +117,15 @@ public class OrderHistoryViewPresenterImpl extends
 	@Override
 	public void initInstanceId(String instanceId, OrderSearchVo orderSearchVo) {
 		// this.instanceId = instanceId;
-//		this.orderHistoryViewClient = orderHistoryViewClient;
+		// this.orderHistoryViewClient = orderHistoryViewClient;
 		initDataToViewOrderHistory(orderSearchVo, instanceId);
 	}
 
-	private void initDataToViewOrderHistory(
-			final OrderSearchVo orderSearchVo,
+	private void initDataToViewOrderHistory(final OrderSearchVo orderSearchVo,
 			final String instanceId) {
 		orderId = orderSearchVo.getId();
-
+		System.out.println("initDataToViewOrderHistory===" + orderId);
+		
 		dispatcher.execute(new OrderHistoryViewRequest(orderId),
 				new AsyncCallback<OrderHistoryViewResponse>() {
 					@Override
@@ -144,7 +144,7 @@ public class OrderHistoryViewPresenterImpl extends
 						display.showOrderHistory(orderVo);
 					}
 				});
-
 	}
+	
 
 }
