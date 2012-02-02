@@ -122,7 +122,7 @@ public class DetailsOfGiftWidget extends Composite implements
 
 	@Override
 	public void setGiftPhoto(String url) {
-		giftPhoto.setUrl("/imageshow?imageName="+url);
+		giftPhoto.setUrl("imageshow?imageName="+url);
 		
 	}
 

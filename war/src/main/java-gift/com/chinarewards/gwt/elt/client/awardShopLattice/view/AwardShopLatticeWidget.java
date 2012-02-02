@@ -46,7 +46,7 @@ public class AwardShopLatticeWidget extends Composite implements
 		this.awardName.setText(awardName);
 		this.integral.setText(integral);
 		this.indate.setText(indate);
-		this.photo.setUrl("/imageshow?imageName="+photo);
+		this.photo.setUrl("imageshow?imageName="+photo);
 		if(id!=null)
 		{
 		exchangeBtn.addClickHandler(new ClickHandler() {

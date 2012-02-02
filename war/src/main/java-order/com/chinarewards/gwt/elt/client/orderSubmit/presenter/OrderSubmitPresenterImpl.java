@@ -7,10 +7,12 @@ import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
+import com.chinarewards.gwt.elt.client.orderHistory.plugin.OrderHistoryConstants;
 import com.chinarewards.gwt.elt.client.orderSubmit.model.OrderSubmitClient;
 import com.chinarewards.gwt.elt.client.orderSubmit.presenter.OrderSubmitPresenter.OrderSubmitDisplay;
 import com.chinarewards.gwt.elt.client.orderSubmit.request.OrderSubmitRequest;
 import com.chinarewards.gwt.elt.client.orderSubmit.request.OrderSubmitResponse;
+import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -49,7 +51,7 @@ public class OrderSubmitPresenterImpl extends BasePresenter<OrderSubmitDisplay>
 		display.getMessage().setVisible(false);
 		
 
-		display.getShopImage().setUrl("/imageshow?imageName="+orderVo.getGiftImage());
+		display.getShopImage().setUrl("imageshow?imageName="+orderVo.getGiftImage());
 		display.setShopText(orderVo.getGiftName());
 		display.setTotal(orderVo.getIntegral()+"");
 		display.setUnitprice(orderVo.getIntegral()+"");
@@ -83,7 +85,12 @@ public class OrderSubmitPresenterImpl extends BasePresenter<OrderSubmitDisplay>
 								String rs=response.getResult();
 								if("ok".equals(rs))
 								{
-									win.alert("支付成功!完成后..跳出订单列表,待实现");
+									Platform.getInstance()
+									.getEditorRegistry()
+									.openEditor(
+											OrderHistoryConstants.EDITOR_ORDERHISTORY_SEARCH,
+											OrderHistoryConstants.EDITOR_ORDERHISTORY_SEARCH, orderVo);
+
 									
 									//完成后..跳出订单列表
 								}

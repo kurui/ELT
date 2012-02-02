@@ -64,7 +64,7 @@ double balance;
 					@Override
 					public void onSuccess(OrderConfirmationResponse response) {
 						GiftClient client=response.getResult();
-						display.getShopImage().setUrl("/imageshow?imageName="+client.getPhoto());
+						display.getShopImage().setUrl("imageshow?imageName="+client.getPhoto());
 						display.setShopText(client.getName());
 						display.setTotal(client.getIntegral()+"");
 						display.setUnitprice(client.getIntegral()+"");
