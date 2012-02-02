@@ -30,7 +30,7 @@ public class FileUploadServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/plain;charset=utf-8");
+		response.setContentType("text/html;charset=utf-8");
 
 		StringBuffer responseMessage = new StringBuffer(
 				"<?xml version=\"1.0\" encoding=\"GB2312\"?>");
