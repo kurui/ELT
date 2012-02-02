@@ -3,32 +3,32 @@
  */
 package com.chinarewards.gwt.elt.client.order.request;
 
-import com.chinarewards.gwt.elt.client.order.model.OrderVo;
-
 import net.customware.gwt.dispatch.shared.Result;
 
+import com.chinarewards.gwt.elt.client.order.model.OrderViewClient;
+
 /**
- * @author yanrui
+ * @author lw
  * @since
  */
 public class SearchOrderByIdResponse implements Result {
 
-	private OrderVo orderVo;
+	private OrderViewClient orderViewClient;
 
 	public SearchOrderByIdResponse() {
 
 	}
 
-	public SearchOrderByIdResponse(OrderVo orderVo) {
-		this.orderVo = orderVo;
+	public SearchOrderByIdResponse(OrderViewClient orderViewClient) {
+		this.orderViewClient = orderViewClient;
 	}
 
-	public OrderVo getOrder() {
-		return orderVo;
+	public OrderViewClient getOrderViewClient() {
+		return orderViewClient;
 	}
 
-	public void setOrder(OrderVo orderVo) {
-		this.orderVo = orderVo;
+	public void setOrderViewClient(OrderViewClient orderViewClient) {
+		this.orderViewClient = orderViewClient;
 	}
 
 }

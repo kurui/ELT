@@ -23,6 +23,8 @@ import com.chinarewards.gwt.elt.client.login.TokenValidRequest;
 import com.chinarewards.gwt.elt.client.nominate.NominateAddRequest;
 import com.chinarewards.gwt.elt.client.nominate.NominateInitRequest;
 import com.chinarewards.gwt.elt.client.order.request.DeleteOrderRequest;
+import com.chinarewards.gwt.elt.client.order.request.OrderViewRequest;
+import com.chinarewards.gwt.elt.client.order.request.SearchOrderByIdRequest;
 import com.chinarewards.gwt.elt.client.order.request.SearchOrderRequest;
 import com.chinarewards.gwt.elt.client.orderConfirmation.request.OrderConfirmationAddRequest;
 import com.chinarewards.gwt.elt.client.orderConfirmation.request.OrderConfirmationRequest;
@@ -62,6 +64,8 @@ import com.chinarewards.gwt.elt.server.login.TokenValidActionHandler;
 import com.chinarewards.gwt.elt.server.nominate.NominateActionHandler;
 import com.chinarewards.gwt.elt.server.nominate.NominateAddActionHandler;
 import com.chinarewards.gwt.elt.server.order.DeleteOrderHandler;
+import com.chinarewards.gwt.elt.server.order.OrderViewSubmitHandler;
+import com.chinarewards.gwt.elt.server.order.SearchOrderByIdHandler;
 import com.chinarewards.gwt.elt.server.order.SearchOrderHandler;
 import com.chinarewards.gwt.elt.server.orderConfirmation.AddOrderConfirmationHandler;
 import com.chinarewards.gwt.elt.server.orderConfirmation.SearchOrderConfirmationHandler;
@@ -174,6 +178,10 @@ public class ActionModule extends ActionHandlerModule {
 		
 		//定单列表
 		bindHandler(SearchOrderRequest.class, SearchOrderHandler.class);
+		//定单读一条数据
+		bindHandler(SearchOrderByIdRequest.class, SearchOrderByIdHandler.class);
+		//管理员定单详细操作
+		bindHandler(OrderViewRequest.class, OrderViewSubmitHandler.class);
 		
 		//橱窗功能
 		bindHandler(ShopWindowRequest.class, SearchShopWindowHandler.class);

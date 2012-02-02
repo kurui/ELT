@@ -1,133 +1,110 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
-	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:p1="urn:import:com.google.gwt.user.cellview.client"
-	xmlns:d='urn:import:com.google.gwt.user.datepicker.client'>
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:d='urn:import:com.google.gwt.user.datepicker.client'
+	xmlns:c="urn:import:com.google.gwt.user.cellview.client" xmlns:z="urn:import:com.sun.org.apache.xpath.internal.operations">
 
-	<ui:image resource="input_text.jpg" field="input_text"
-		repeatStyle="Horizontal"></ui:image>
-	<ui:image resource="preview_bg.jpg" field="preview_bg"
-		repeatStyle="Horizontal"></ui:image>
-	<ui:image field="post_bg" resource="post_bg.jpg" repeatStyle="Horizontal"></ui:image>
-	<ui:style src="new2.css" field="newitem"></ui:style>
+	<ui:style src="new2.css" field="new2"></ui:style>
+	<g:HTMLPanel>
+		<div class="{new2.frame-wrap}">
 
-	<g:HTMLPanel styleName="{newitem.frame-wrap}">
-		<div class="breadcrumb">
-			<div class="{newitem.breadcrumb-wrap}">
-				<p class="{newitem.breadcrumb-left}">
-					<a href="#">兑换管理</a>
-					>
-					<span>查看礼品</span>
-				</p>
-				<a href="#" class="{newitem.breadcrumb-right}">返回上一页</a>
+			<!--面包屑 [[ -->
+			<g:FlowPanel ui:field="breadCrumbs" />
+			<!--面包屑 ]] -->
+
+			<h3>订单详细信息	</h3>
+			<span class="{new2.cutline}"></span>
+			<div class="{new2.content-wrap}">
+			   <div class="{new2.form}">
+					<div class="{new2.form-line}">
+				        <label class="{new2.label}">订单编号：</label>
+				        <div class="{new2.element}">
+				          <g:InlineLabel  ui:field="orderCode" />
+				        </div>
+				    </div>
+ 					<div class="{new2.form-line}">
+				        <label class="{new2.label}">下单时间：</label>
+				        <div class="{new2.element}">
+				          <g:InlineLabel  ui:field="exchangeDate" />
+				        </div>
+				    </div>
+				   <div class="{new2.form-line}">
+				       <label class="{new2.label}">订单状态：</label>
+				        <div class="{new2.element}">
+				          <g:InlineLabel  ui:field="orderStatus" />
+				          <span class="{new2.nbsp}"></span>
+				          <span class="{new2.btn}">
+								<g:Button ui:field="confirmbutton" text="确认发货" />
+							</span>
+							<span class="{new2.nbsp}"></span>
+							<span class="{new2.btn}">
+								<g:Button ui:field="returnbutton" text="取消"  />
+							</span>
+				        </div>
+				    </div>
 			</div>
-			<span class="{newitem.cutline}"></span>
-		</div>
+			
+			订单收货人信息
+			<div class="{new2.form}">
+				<div class="{new2.form-line}">
+				        <label class="{new2.label}">收货人：</label>
+				        <div class="{new2.element}">
+				          <g:InlineLabel  ui:field="name"  />
+				        </div>
+				    </div>
+ 					<div class="{new2.form-line}">
+				        <label class="{new2.label}">电话：</label>
+				        <div class="{new2.element}">
+				          <g:InlineLabel  ui:field="phone"  />
+				        </div>
+				    </div>
+				   <div class="{new2.form-line}">
+				       <label class="{new2.label}">收货地址：</label>
+				        <div class="{new2.element}">
+				          <g:InlineLabel ui:field="address" />
+				        </div>
+				    </div>
+				    <div class="{new2.form-line}">
+				        <label class="{new2.label}">邮编：</label>
+				        <div class="{new2.element}">
+				          <g:InlineLabel  ui:field="zipCode"  />
+				        </div>
+				    </div>
+				    
+			<div class="{new2.orderDiv}">订单包含礼品</div> 
+			<div class="{new2.table}">
 
-		<!-- 1内容 -->
-		<div class="{newitem.content-wrap}">
-			<table width="100%" border="0" cellspacing="0" cellpadding="0"
-				class="{newitem.form}">
-				<tr class="{newitem.form-line}">
-					<td class="{newitem.label}">
-						<span>*</span>
-						礼品名称：
-					</td>
-					<td class="{newitem.element}">
-						<g:Label ui:field="name" />
-					</td>
-					<td></td>
-				</tr>
-				<tr class="{newitem.form-line}">
-					<td valign="top" class="{newitem.label}">礼品说明：</td>
-					<td class="{newitem.element}">
-						<g:Label ui:field="explains" />
-					</td>
-					<td></td>
-				</tr>
-				<tr class="{newitem.form-line}">
-					<td valign="top" class="{newitem.label}">礼品类型：</td>
-					<td class="{newitem.element}">
-						<g:Label ui:field="typeText" />
-					</td>
-					<td></td>
-				</tr>
-				<tr class="{newitem.form-line}">
-					<td valign="top" class="{newitem.label}">供应商名称：</td>
-					<td class="{newitem.element}">
-						<g:Label ui:field="business" />
-					</td>
-					<td></td>
-				</tr>
-				<tr class="{newitem.form-line}">
-					<td valign="top" class="{newitem.label}">供应商地址：</td>
-					<td class="{newitem.element}">
-						<g:Label ui:field="address" />
-					</td>
-					<td></td>
-				</tr>
-				<tr class="{newitem.form-line}">
-					<td valign="top" class="{newitem.label}">供应商电话：</td>
-					<td class="{newitem.element}">
-						<g:Label ui:field="tell" />
-					</td>
-					<td></td>
-				</tr>
-				<tr class="{newitem.form-line}">
-					<td valign="top" class="{newitem.label}">礼品图片：</td>
-					<td class="{newitem.element}">
-						<table>
-							<tr>
-								<td>
-									<g:Image ui:field="giftImage" width="80px" height="60px"
-										visible="false" />
-								</td>
-								<td>
+		    <table>
+		      <tr>
+		        <th class="col1">图片</th>
+		        <th class="col2">礼品名称</th>
+		        <th class="col3">单价(积分)</th>
+		        <th class="col4">数量</th>
+		        <th class="col5">礼品来源</th>
+		      </tr>
+		      <tr>
+		        <td class="col1"><g:Image pixelSize="180,100" ui:field="shopImage"></g:Image> </td>
+		        <td class="col2"><g:Anchor ui:field="shopText" text="120cm 泰迪熊 公仔"/> </td>
+		        <td class="col3"><g:InlineLabel ui:field="unitprice" text="100" /></td>
+		        <td class="col4"><g:InlineLabel  ui:field="number"  /></td>
+		        <td class="col5"><g:InlineLabel ui:field="source" text="100" /></td>
+		      </tr>
+		
+		    </table>
 
-								</td>
-								<td>
+			</div>
+			<div class="{new2.messageMoney}">订单共消费积分：<g:InlineLabel ui:field="total"  /> 积分</div>
+			
+			     
+					<span class="{new2.cutline}"></span>
 
-								</td>
-							</tr>
-						</table>
-					</td>
-					<td></td>
-				</tr>
-				<tr class="{newitem.form-line}">
-					<td class="{newitem.label}">
-						<span>*</span>
-						兑换积分：
-					</td>
-					<td class="{newitem.element}">
-						<g:Label ui:field="integral" />
-					</td>
-					<td></td>
-				</tr>
+					<div class="{new2.form-line} {new2.form-line-btn}">
+						<div class="{new2.element}">
+							
 
-				<tr class="{newitem.form-line}">
-					<td class="{newitem.label}">
-						<span>*</span>
-						库存：
-					</td>
-					<td class="{newitem.element}">
-						<g:Label ui:field="stock" />
-					</td>
-					<td></td>
-				</tr>
-				<tr height="30px">
-					<td></td>
-				</tr>
-				<tr class="{newitem.form-line}">
-					<td colspan="3" align="center">
-						<span class="{newitem.btn}">
-							<g:Button ui:field="back" styleName="button-ok">返回 </g:Button>
-						</span>
-						<span class="{newitem.btn}">
-							<g:Button ui:field="update" styleName="button-ok">修改 </g:Button>
-						</span>
-
-					</td>
-				</tr>
-			</table>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</g:HTMLPanel>
 </ui:UiBinder>

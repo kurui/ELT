@@ -4,6 +4,8 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.awardShop.plugin.AwardShopListConstants;
 import com.chinarewards.gwt.elt.client.core.Platform;
+import com.chinarewards.gwt.elt.client.detailsOfGift.model.DetailsOfGiftClient;
+import com.chinarewards.gwt.elt.client.detailsOfGift.plugin.DetailsOfGiftConstants;
 import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
@@ -174,6 +176,9 @@ double balance;
 								orderClient.setZipCode(response.getZipCode());
 								orderClient.setOrderDefinition(response.getOrderDefinition());
 								orderClient.setAddress(response.getAddress());
+								orderClient.setGiftId(response.getGiftId());
+								orderClient.setBusiness(response.getBusiness());
+								orderClient.setServicetell(response.getServicetell());
 								Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(
@@ -199,6 +204,18 @@ double balance;
 			.openEditor(
 					AwardShopListConstants.EDITOR_AWARDSHOPLIST_SEARCH,
 					"EDITOR_AWARDSHOPLIST_SEARCH_DO_ID", null);
+			
+		}
+	});
+	display.getShopText().addClickHandler(new ClickHandler() {
+		
+		@Override
+		public void onClick(ClickEvent event) {
+			Platform.getInstance()
+			.getEditorRegistry()
+			.openEditor(
+					DetailsOfGiftConstants.EDITOR_DETAILSOFGIFT_SEARCH,
+					"EDITOR_DETAILSOFGIFT_SEARCH_DO_ID", new DetailsOfGiftClient(giftId));
 			
 		}
 	});

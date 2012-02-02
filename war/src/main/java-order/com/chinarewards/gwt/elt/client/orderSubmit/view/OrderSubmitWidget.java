@@ -1,6 +1,7 @@
 package com.chinarewards.gwt.elt.client.orderSubmit.view;
 
 import com.chinarewards.gwt.elt.client.orderSubmit.presenter.OrderSubmitPresenter.OrderSubmitDisplay;
+import com.chinarewards.gwt.elt.client.view.constant.CssStyleConstants;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -49,6 +50,13 @@ public class OrderSubmitWidget extends Composite implements
 	InlineLabel mybalance;
 	@UiField
 	TextArea orderDefinition;
+
+	@UiField
+	InlineLabel business;
+	@UiField
+	InlineLabel servicetell;
+	@UiField
+	InlineLabel specialNote;
 	
 	private static OrderSubmitWidgetUiBinder uiBinder = GWT
 			.create(OrderSubmitWidgetUiBinder.class);
@@ -131,7 +139,14 @@ public class OrderSubmitWidget extends Composite implements
 
 	@Override
 	public void setSource(String source) {
-		this.source.setText(source);
+		if("inner".equals(source))
+		{
+			this.source.setText("内部直接提供");
+		}
+		else if("outter".equals(source))
+		{
+			this.source.setText("外部货品公司提供");
+		}
 		
 	}
 
@@ -198,6 +213,32 @@ public class OrderSubmitWidget extends Composite implements
 	public void setOrderDefinition(String text) {
 		orderDefinition.setText(text);
 		
+	}
+
+
+	@Override
+	public HasClickHandlers getShopText() {
+		return shopText;
+	}
+
+
+
+	@Override
+	public void setBusiness(String text) {
+		business.setText(text);
+	}
+
+
+	@Override
+	public void setServicetell(String text) {
+		servicetell.setText(text);
+	}
+
+
+	@Override
+	public void disableSpecialNote() {
+		business.getElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
+		specialNote.setVisible(false);
 	}
 
 

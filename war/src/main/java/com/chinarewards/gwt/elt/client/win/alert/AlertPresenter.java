@@ -12,6 +12,7 @@ public interface AlertPresenter extends
 		HasClickHandlers getOkBtn();
 
 		void setMsg(String msg);
+		void setImage(String url);
 	}
 
 }

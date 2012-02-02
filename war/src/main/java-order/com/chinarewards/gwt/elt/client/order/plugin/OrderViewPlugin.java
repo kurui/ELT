@@ -4,15 +4,15 @@
 package com.chinarewards.gwt.elt.client.order.plugin;
 
 import com.chinarewards.gwt.elt.client.core.AbstractPlugin;
-import com.chinarewards.gwt.elt.client.order.plugin.OrderViewPluginDescriptor;
+
 /**
- * @author yanrui
- * @since
- * */
+ * @author lw
+ * @since 2012年2月1日 13:37:16
+ */
 public class OrderViewPlugin extends AbstractPlugin {
 
-	public OrderViewPlugin(OrderViewPluginDescriptor itemViewPluginDescriptor) {
-		super(itemViewPluginDescriptor);
+	public OrderViewPlugin(OrderViewPluginDescriptor OrderViewPluginDescriptor) {
+		super(OrderViewPluginDescriptor);
 	}
 
 	@Override

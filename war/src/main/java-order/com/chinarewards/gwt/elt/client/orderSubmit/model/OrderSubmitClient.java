@@ -28,7 +28,24 @@ public class OrderSubmitClient implements Serializable, Comparable<OrderSubmitCl
 	private String orderDefinition;
 	private double total;
 	private double userBalance;
-	
+	private String business;
+	private String servicetell;
+
+	public String getBusiness() {
+		return business;
+	}
+
+	public void setBusiness(String business) {
+		this.business = business;
+	}
+
+	public String getServicetell() {
+		return servicetell;
+	}
+
+	public void setServicetell(String servicetell) {
+		this.servicetell = servicetell;
+	}
 
 	public double getUserBalance() {
 		return userBalance;

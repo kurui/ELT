@@ -19,7 +19,6 @@ import com.chinarewards.gwt.elt.client.gift.plugin.GiftPluginDescriptor;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftViewPluginDescriptor;
 import com.chinarewards.gwt.elt.client.nominate.plugin.NominatePluginDescriptor;
 import com.chinarewards.gwt.elt.client.order.plugin.OrderListPluginDescriptor;
-import com.chinarewards.gwt.elt.client.order.plugin.OrderPluginDescriptor;
 import com.chinarewards.gwt.elt.client.order.plugin.OrderViewPluginDescriptor;
 import com.chinarewards.gwt.elt.client.orderConfirmation.plugin.OrderConfirmationPluginDescriptor;
 import com.chinarewards.gwt.elt.client.orderHistory.plugin.OrderHistoryPluginDescriptor;
@@ -82,7 +81,7 @@ public class PlatformModule extends AbstractGinModule {
 			DetailsOfAwardPluginDescriptor detailsAward,
 			GiftPluginDescriptor gift, GiftListPluginDescriptor giftList,
 			GiftViewPluginDescriptor giftView,
-			OrderListPluginDescriptor orderList, OrderPluginDescriptor order,
+			OrderListPluginDescriptor orderList,
 			OrderViewPluginDescriptor orderView,
 			AwardShopListPluginDescriptor awardShop,
 			ShopWindowPluginDescriptor shopWindow,

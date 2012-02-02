@@ -25,6 +25,7 @@ public interface DetailsOfGiftPresenter extends Presenter<DetailsOfGiftPresenter
 		void setServicetell(String text);
 		void setGiftPhoto(String url);
 		HasClickHandlers getExchangeBtn();
+		HasClickHandlers getPhotoImage();
 	
 	
 	}

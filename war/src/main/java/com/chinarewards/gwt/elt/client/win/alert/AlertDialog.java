@@ -34,4 +34,7 @@ public class AlertDialog extends AbstractDialog {
 	public void setMsg(String msg) {
 		presenter.getDisplay().setMsg(msg);
 	}
+	public void setImage(String url) {
+		presenter.getDisplay().setImage(url);
+	}
 }

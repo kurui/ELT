@@ -115,6 +115,8 @@ public abstract class MenuConstants {
 
 	// 订单列表
 	public static final int MENU_ORDER_ORDERLIST_SEARCH = order++;
+	// 管理员的订单详细
+	public static final int MENU_ORDER_ORDERVIEW_SEARCH = order++;
 	// 订单新建
 	public static final int MENU_ORDER_ORDER_ADD = order++;
 	//奖品商城
