@@ -77,8 +77,8 @@
 			
 			  <g:TextArea width="100%"  ui:field="orderDefinition" visibleLines="6" styleName="{new2.textarea}" enabled="false"/>
 		
-			 <g:AbsolutePanel ui:field="specialNote"  /> 
-				  <div class="{new2.orderDiv}">特别提示:</div> 
+		
+				  <div class="{new2.orderDiv}"><g:InlineLabel ui:field="specialNote" text="特别提示:"/> </div> 
 				  <div class="{new2.query-wrap}">
 					<div class="{new2.form}">
 					该礼品由以下公司提供,如有问题,请致电咨询:<br/>

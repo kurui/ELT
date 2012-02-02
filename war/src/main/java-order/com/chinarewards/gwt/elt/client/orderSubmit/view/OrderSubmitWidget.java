@@ -1,6 +1,7 @@
 package com.chinarewards.gwt.elt.client.orderSubmit.view;
 
 import com.chinarewards.gwt.elt.client.orderSubmit.presenter.OrderSubmitPresenter.OrderSubmitDisplay;
+import com.chinarewards.gwt.elt.client.view.constant.CssStyleConstants;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -11,7 +12,6 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.InlineLabel;
-import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
@@ -50,12 +50,13 @@ public class OrderSubmitWidget extends Composite implements
 	InlineLabel mybalance;
 	@UiField
 	TextArea orderDefinition;
-	@UiField
-	Panel specialNote;
+
 	@UiField
 	InlineLabel business;
 	@UiField
 	InlineLabel servicetell;
+	@UiField
+	InlineLabel specialNote;
 	
 	private static OrderSubmitWidgetUiBinder uiBinder = GWT
 			.create(OrderSubmitWidgetUiBinder.class);
@@ -221,11 +222,6 @@ public class OrderSubmitWidget extends Composite implements
 	}
 
 
-	@Override
-	public Panel getSpecialNote() {
-		return specialNote;
-	}
-
 
 	@Override
 	public void setBusiness(String text) {
@@ -236,6 +232,13 @@ public class OrderSubmitWidget extends Composite implements
 	@Override
 	public void setServicetell(String text) {
 		servicetell.setText(text);
+	}
+
+
+	@Override
+	public void disableSpecialNote() {
+		business.getElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
+		specialNote.setVisible(false);
 	}
 
 

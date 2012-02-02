@@ -52,6 +52,6 @@ public interface OrderSubmitPresenter extends Presenter<OrderSubmitPresenter.Ord
 		
 		Button getConfirmbuttonObj();
 		HasClickHandlers getShopText();
-		Panel getSpecialNote();
+		void disableSpecialNote();
 	}
 }

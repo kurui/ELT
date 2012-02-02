@@ -68,11 +68,10 @@ public class OrderSubmitPresenterImpl extends BasePresenter<OrderSubmitDisplay>
 		
 			if("inner".equals(orderVo.getSource()))
 			{
-				display.getSpecialNote().setVisible(false);
+				display.disableSpecialNote();
 			}
 			else
 			{
-				display.getSpecialNote().setVisible(true);
 				display.setBusiness(orderVo.getBusiness());
 				display.setServicetell(orderVo.getServicetell());				
 			}
