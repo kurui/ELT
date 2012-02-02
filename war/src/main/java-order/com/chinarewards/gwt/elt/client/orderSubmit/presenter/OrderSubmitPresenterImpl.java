@@ -4,6 +4,7 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.awardShop.plugin.AwardShopListConstants;
 import com.chinarewards.gwt.elt.client.core.Platform;
+import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
 import com.chinarewards.gwt.elt.client.detailsOfGift.model.DetailsOfGiftClient;
 import com.chinarewards.gwt.elt.client.detailsOfGift.plugin.DetailsOfGiftConstants;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
@@ -29,17 +30,17 @@ public class OrderSubmitPresenterImpl extends BasePresenter<OrderSubmitDisplay>
 	final SessionManager sessionManager;
 	final Win win;
 	OrderSubmitClient orderVo;
-
+	final MenuProcessor menuProcessor;
 	@Inject
 	public OrderSubmitPresenterImpl(EventBus eventBus, DispatchAsync dispatch,
 			ErrorHandler errorHandler, SessionManager sessionManager,
-			OrderSubmitDisplay display, Win win) {
+			OrderSubmitDisplay display, Win win,MenuProcessor menuProcessor) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
 		this.win = win;
-
+		this.menuProcessor=menuProcessor;
 	}
 
 	@Override
@@ -91,7 +92,7 @@ public class OrderSubmitPresenterImpl extends BasePresenter<OrderSubmitDisplay>
 									.openEditor(
 											OrderHistoryConstants.EDITOR_ORDERHISTORY_SEARCH,
 											OrderHistoryConstants.EDITOR_ORDERHISTORY_SEARCH, orderVo);
-
+									menuProcessor.changItemColor(menuProcessor.getMenuItem(OrderHistoryConstants.MENU_ORDERHISTORY_SEARCH).getTitle());
 									
 									//完成后..跳出订单列表
 								}
