@@ -2,27 +2,40 @@ package com.chinarewards.gwt.elt.client.orderHistory.request;
 
 import net.customware.gwt.dispatch.shared.Result;
 
+import com.chinarewards.gwt.elt.client.gift.model.GiftVo;
+import com.chinarewards.gwt.elt.client.order.model.OrderVo;
+
 /**
  * @author yanrui
  */
 public class OrderHistoryViewResponse implements Result {
 
-	private String result;
+	private OrderVo orderVo;
+	private GiftVo giftVo;
+	private double staffBalance;
 
-	public String getResult() {
-		return result;
+	public OrderVo getOrderVo() {
+		return orderVo;
 	}
 
-	public void setResult(String result) {
-		this.result = result;
+	public void setOrderVo(OrderVo orderVo) {
+		this.orderVo = orderVo;
 	}
 
-	public OrderHistoryViewResponse() {
-
+	public GiftVo getGiftVo() {
+		return giftVo;
 	}
 
-	public OrderHistoryViewResponse(String result) {
-		this.result = result;
+	public void setGiftVo(GiftVo giftVo) {
+		this.giftVo = giftVo;
+	}
+
+	public double getStaffBalance() {
+		return staffBalance;
+	}
+
+	public void setStaffBalance(double staffBalance) {
+		this.staffBalance = staffBalance;
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.chinarewards.gwt.elt.client.orderHistory.editor;
 
 import com.chinarewards.gwt.elt.client.core.ui.impl.AbstractEditor;
+import com.chinarewards.gwt.elt.client.order.model.OrderSearchVo;
 import com.chinarewards.gwt.elt.client.orderHistory.presenter.OrderHistoryViewPresenter;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
@@ -42,8 +43,10 @@ public class OrderHistoryViewEditor extends AbstractEditor {
 
 	}
 
-	public void setModel(Object model) {
-		this.model = model;
+	public void setModel(String instanceId,Object model) {
 		orderHistoryViewPresenter.bind();
+		if (model != null) {
+			orderHistoryViewPresenter.initInstanceId(instanceId, (OrderSearchVo) model);
+		}
 	}
 }

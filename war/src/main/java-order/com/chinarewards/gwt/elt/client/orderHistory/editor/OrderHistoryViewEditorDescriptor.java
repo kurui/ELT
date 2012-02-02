@@ -16,7 +16,8 @@ public class OrderHistoryViewEditorDescriptor implements EditorDescriptor {
 	final Provider<OrderHistoryViewEditor> editProvider;
 
 	@Inject
-	OrderHistoryViewEditorDescriptor(Provider<OrderHistoryViewEditor> editProvider) {
+	OrderHistoryViewEditorDescriptor(
+			Provider<OrderHistoryViewEditor> editProvider) {
 		this.editProvider = editProvider;
 	}
 
@@ -34,7 +35,7 @@ public class OrderHistoryViewEditorDescriptor implements EditorDescriptor {
 			if (model != null)
 				e.setTitle(((RewardsPageClient) model).getTitleName());
 		}
-		e.setModel(model);
+		e.setModel(instanceId, model);
 		return e;
 	}
 

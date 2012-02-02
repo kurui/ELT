@@ -14,7 +14,6 @@ import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TextArea;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
 public class OrderHistoryViewWidget extends Composite implements
@@ -26,6 +25,13 @@ public class OrderHistoryViewWidget extends Composite implements
 	Button returnbutton;
 
 	@UiField
+	Label orderCode;
+	@UiField
+	Label exchangeDate;
+	@UiField
+	Label statusText;
+
+	@UiField
 	Label name;
 	@UiField
 	Label phone;
@@ -33,12 +39,13 @@ public class OrderHistoryViewWidget extends Composite implements
 	Label address;
 	@UiField
 	Label zipCode;
+
 	@UiField
 	Anchor shopText;
 	@UiField
 	InlineLabel unitprice;
 	@UiField
-	TextBox number;
+	Label number;
 	@UiField
 	Image shopImage;
 	@UiField
@@ -68,8 +75,17 @@ public class OrderHistoryViewWidget extends Composite implements
 
 	@Override
 	public void showOrderHistory(OrderVo orderVo) {
-		// TODO Auto-generated method stub
+		orderCode.setText(orderVo.getOrderCode());
+		exchangeDate.setText(orderVo.getExchangeDate().toString());
+		statusText.setText(orderVo.getStatus().getDisplayName());
 
+		name.setText(orderVo.getName());
+		// phone.setText(orderVo.getPhone());
+
+		address.setText(orderVo.getAddress());
+		// zipCode.setText(orderVo.getZipCode());
+		
+		System.out.println("==============showOrderHistory()==========");
 	}
 
 	@Override
@@ -81,7 +97,6 @@ public class OrderHistoryViewWidget extends Composite implements
 	public HasClickHandlers getReturnbutton() {
 		return returnbutton;
 	}
-
 
 	@Override
 	public void setBreadCrumbs(Widget breadCrumbs) {
