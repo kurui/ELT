@@ -126,7 +126,7 @@ public class FileUploadServlet extends HttpServlet {
 		try {
 			responseMessage.append("</root>");
 			System.out.println(responseMessage);
-			response.getWriter().println(responseMessage);
+			response.getWriter().print(responseMessage);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -5,14 +5,14 @@ package com.chinarewards.gwt.elt.client.order.editor;
 
 import com.chinarewards.gwt.elt.client.core.ui.Editor;
 import com.chinarewards.gwt.elt.client.core.ui.EditorDescriptor;
-import com.chinarewards.gwt.elt.client.order.model.OrderVo;
-import com.chinarewards.gwt.elt.client.order.plugin.OrderConstants;
+import com.chinarewards.gwt.elt.client.order.plugin.OrderViewConstants;
+import com.chinarewards.gwt.elt.model.rewards.RewardsPageClient;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 /**
- * @author yanrui
- * @since 2012年1月16日 
+ * @author lw
+ * @since 2012年2月1日 13:36:10
  */
 public class OrderViewEditorDescriptor implements EditorDescriptor {
 
@@ -25,20 +25,19 @@ public class OrderViewEditorDescriptor implements EditorDescriptor {
 
 	@Override
 	public String getEditorId() {
-		return OrderConstants.EDITOR_ORDER_VIEW;
+		return OrderViewConstants.EDITOR_ORDERVIEW_SEARCH;
 	}
 
 	@Override
 	public Editor createEditor(String instanceId, Object model) {
 		OrderViewEditor e = editProvider.get();
 		e.setInstanceId(instanceId);
-		
-		String name = ((OrderVo) model).getName();
-		String subName = name.length() > 6 ? name.substring(0, 6) : name;
-		String title =subName+ "-详细" ;
-		e.setTitle(title);
-	
-		e.setModel(instanceId,model);
+		e.setTitle("订单详细");
+		if (model instanceof RewardsPageClient) {
+			if (model != null)
+				e.setTitle(((RewardsPageClient) model).getTitleName());
+		}
+		e.setModel(model);
 		return e;
 	}
 
