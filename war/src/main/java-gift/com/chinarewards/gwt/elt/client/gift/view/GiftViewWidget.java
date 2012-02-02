@@ -7,6 +7,7 @@ import com.chinarewards.gwt.elt.client.gift.presenter.GiftViewPresenter.GiftView
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.view.constant.ViewConstants;
+import com.chinarewards.gwt.elt.util.DateTool;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.i18n.client.DateTimeFormat;
@@ -57,8 +58,8 @@ public class GiftViewWidget extends Composite implements GiftViewDisplay {
 	// Label status;// boolean
 	// @UiField
 	// Label deleted;// boolean
-	// @UiField
-	// DateBox indate;
+	@UiField
+	Label indate;
 	// @UiField
 	// DateBox recorddate;
 	// @UiField
@@ -133,13 +134,13 @@ public class GiftViewWidget extends Composite implements GiftViewDisplay {
 		address.setText(giftVo.getAddress());
 		tell.setText(giftVo.getTell());
 		servicetell.setText(giftVo.getServicetell());
+		
+		indate.setText(DateTool.dateToString(giftVo.getIndate()));
 
 		// @UiField
 		// Label status;// boolean
 		// @UiField
 		// Label deleted;// boolean
-		// @UiField
-		// DateBox indate;
 		// @UiField
 		// DateBox recorddate;
 		// @UiField
