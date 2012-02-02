@@ -131,6 +131,11 @@ public class DetailsOfGiftWidget extends Composite implements
 		return exchangeBtn;
 	}
 
+	@Override
+	public HasClickHandlers getPhotoImage() {
+		return giftPhoto;
+	}
+
 
 
 

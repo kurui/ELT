@@ -4,6 +4,7 @@ package com.chinarewards.gwt.elt.client.win;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.ui.DialogCloseListener;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
+import com.chinarewards.gwt.elt.client.ui.DialogBox;
 import com.chinarewards.gwt.elt.client.ui.MyDialogBox;
 import com.chinarewards.gwt.elt.client.win.alert.AlertDialog;
 import com.chinarewards.gwt.elt.client.win.alert.AlertWidget;
@@ -14,8 +15,8 @@ import com.chinarewards.gwt.elt.client.win.confirm.WinHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.ScrollPanel;
+import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
@@ -72,6 +73,12 @@ public class Win {
 		final AlertDialog dialog = alertDialogProvider.get();
 		dialog.setMsg(msg);
 		Platform.getInstance().getSiteManager().openDialog(dialog, null);
+	}
+	public void alertImage(String url) {
+		final AlertDialog dialog = alertDialogProvider.get();
+		dialog.setImage(url);
+		Platform.getInstance().getSiteManager().openDialog(dialog, null);
+		
 	}
 
 	public void beginWait(String msg) {
