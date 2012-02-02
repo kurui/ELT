@@ -99,7 +99,7 @@ public class FileUploadServlet extends HttpServlet {
 		String realPath = request.getSession().getServletContext()
 				.getRealPath("/");
 		String uploadPath = null;
-		System.out.println("============realPath:" + realPath);
+//		System.out.println("============realPath:" + realPath);
 		int rootIndex = realPath.indexOf("jboss-5.1.0.GA");
 		if (rootIndex < 0) {
 			rootIndex = realPath.indexOf("war");
@@ -111,7 +111,7 @@ public class FileUploadServlet extends HttpServlet {
 			realPath = realPath.substring(0, rootIndex);
 
 			uploadPath = realPath + "upload";
-			System.out.println("============uploadPath:" + uploadPath);
+//			System.out.println("============uploadPath:" + uploadPath);
 			File myFilePath = new File(uploadPath);
 			if (!myFilePath.exists()) {
 				myFilePath.mkdir();
@@ -125,8 +125,9 @@ public class FileUploadServlet extends HttpServlet {
 			StringBuffer responseMessage) {
 		try {
 			responseMessage.append("</root>");
-			System.out.println(responseMessage);
-			response.getWriter().println(responseMessage);
+//			System.out.println(responseMessage);			
+			response.getWriter().print(responseMessage);
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

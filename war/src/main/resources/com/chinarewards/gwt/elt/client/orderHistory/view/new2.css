@@ -123,3 +123,8 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .divtext{float:left;color:#999999;padding-bottom:3px;}
 .divfont{color:red;}
 .divend{clear:both}
+
+.message{color:red;}
+.messageMoney{font-size:18px;font-weight:bolder;text-align:right;padding-right:35px;}
+.orderDiv{padding-top: 3px;padding-bottom: 3px}
+.otherDiv{padding-top: 3px;padding-bottom: 3px;color: orange;}
