@@ -58,7 +58,7 @@ public class DetailsOfGiftPresenterImpl extends
 					public void onSuccess(final DetailsOfGiftResponse response) {
 						
 						display.setGiftName(response.getGiftName());
-						display.setGiftNo(response.getGiftNo());
+						display.setGiftNo(response.getGiftNo().substring(response.getGiftNo().length()-5));
 						display.setBrand(response.getBrand());
 						display.setType(response.getType());
 						display.setStock(response.getStock());
