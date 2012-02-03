@@ -5,8 +5,6 @@ import com.chinarewards.gwt.elt.client.gift.model.GiftVo;
 import com.chinarewards.gwt.elt.util.StringUtil;
 
 /**
- * client convert util
- * 
  * @author yanrui
  * */
 public class GiftAdapterClient {

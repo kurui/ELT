@@ -124,7 +124,7 @@ public class OrderHistoryViewPresenterImpl extends
 	private void initDataToViewOrderHistory(final OrderSearchVo orderSearchVo,
 			final String instanceId) {
 		orderId = orderSearchVo.getId();
-		System.out.println("initDataToViewOrderHistory===" + orderId);
+		System.out.println("initDataToViewOrderHistory===orderId:" + orderId);
 		
 		dispatcher.execute(new OrderHistoryViewRequest(orderId),
 				new AsyncCallback<OrderHistoryViewResponse>() {

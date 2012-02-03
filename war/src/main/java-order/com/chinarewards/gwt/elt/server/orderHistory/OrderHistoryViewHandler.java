@@ -19,7 +19,7 @@ import com.google.inject.Inject;
 /**
  * @author yanrui
  */
-public class SearchOrderHistoryHandler extends
+public class OrderHistoryViewHandler extends
 		BaseActionHandler<OrderHistoryViewRequest, OrderHistoryViewResponse> {
 
 	@InjectLogger
@@ -30,7 +30,7 @@ public class SearchOrderHistoryHandler extends
 	IStaffService staffService;
 
 	@Inject
-	public SearchOrderHistoryHandler(OrderService orderService,
+	public OrderHistoryViewHandler(OrderService orderService,
 			GiftService giftService, IStaffService staffService) {
 		this.orderService = orderService;
 		this.giftService = giftService;
@@ -41,7 +41,7 @@ public class SearchOrderHistoryHandler extends
 	public OrderHistoryViewResponse execute(OrderHistoryViewRequest request,
 			ExecutionContext context) throws DispatchException {
 
-		System.out.println("SearchOrderHistoryHandler-----execute()----");
+		System.out.println("OrderHistoryViewHandler-----execute()----");
 
 		OrderHistoryViewResponse response = new OrderHistoryViewResponse();
 
@@ -72,30 +72,15 @@ public class SearchOrderHistoryHandler extends
 		return response;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see net.customware.gwt.dispatch.server.ActionHandler#getActionType()
-	 */
 	@Override
 	public Class<OrderHistoryViewRequest> getActionType() {
 		return OrderHistoryViewRequest.class;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * net.customware.gwt.dispatch.server.ActionHandler#rollback(net.customware
-	 * .gwt.dispatch.shared.Action, net.customware.gwt.dispatch.shared.Result,
-	 * net.customware.gwt.dispatch.server.ExecutionContext)
-	 */
 	@Override
 	public void rollback(OrderHistoryViewRequest arg0,
 			OrderHistoryViewResponse arg1, ExecutionContext arg2)
 			throws DispatchException {
-		// TODO Auto-generated method stub
-
 	}
 
 }
