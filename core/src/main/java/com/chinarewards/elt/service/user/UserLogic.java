@@ -2,6 +2,7 @@ package com.chinarewards.elt.service.user;
 
 import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.domain.user.SysUser;
+import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.model.user.UserSearchCriteria;
 import com.chinarewards.elt.model.user.UserSearchResult;
 import com.chinarewards.elt.model.user.UserSessionVo;
@@ -69,4 +70,11 @@ public interface UserLogic {
 	 * @return
 	 */
 	public String deleteUserById(String id);
+/**
+ * 修改最后一次登录角色
+ * @param userId
+ * @param role
+ * @return
+ */
+	public String updateLastLoginRole(String userId, UserRole role);
 }

@@ -158,6 +158,8 @@ public class UserLogicImpl implements UserLogic {
 		vo.setUserRoles(userRoles);
 		vo.setDepartmentId(user.getStaff().getDepartment().getId());
 		vo.setStaffId(user.getStaff().getId());
+		vo.setLastLoginRole(user.getLastLoginRole());
+		
 		return vo;
 	}
 
@@ -187,6 +189,14 @@ public class UserLogicImpl implements UserLogic {
 		Staff staff=user.getStaff();
 		staff.setDeleted(1);
 		staffDao.update(staff);
+		userDao.update(user);
+		return "success";
+	}
+
+	@Override
+	public String updateLastLoginRole(String userId, UserRole role) {
+		SysUser user=userDao.findById(SysUser.class, userId);
+		user.setLastLoginRole(role);
 		userDao.update(user);
 		return "success";
 	}

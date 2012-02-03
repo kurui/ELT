@@ -7,6 +7,7 @@ import com.chinarewards.elt.model.user.UserSessionVo;
 import com.chinarewards.elt.service.user.UserService;
 import com.chinarewards.gwt.elt.client.login.TokenValidRequest;
 import com.chinarewards.gwt.elt.client.login.TokenValidResponse;
+import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
 import com.chinarewards.gwt.elt.util.UserRoleTool;
 import com.google.inject.Inject;
@@ -37,6 +38,8 @@ public class TokenValidActionHandler extends
 		tokenRep.setUserRoles(UserRoleTool.adaptToRoleVo(userSessionVo.getUserRoles()));
 		tokenRep.setDepartmentId(userSessionVo.getDepartmentId());
 		tokenRep.setStaffId(userSessionVo.getStaffId());
+		if(userSessionVo.getLastLoginRole()!=null)
+		tokenRep.setLastLoginRole(UserRoleVo.valueOf(userSessionVo.getLastLoginRole().toString()));
 		return tokenRep;
 	}
 

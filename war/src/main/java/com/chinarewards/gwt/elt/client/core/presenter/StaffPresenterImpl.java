@@ -1,21 +1,23 @@
 package com.chinarewards.gwt.elt.client.core.presenter;
 
+import net.customware.gwt.dispatch.client.DispatchAsync;
+
 import com.chinarewards.gwt.elt.client.EltGinjector;
 import com.chinarewards.gwt.elt.client.core.PluginManager;
 import com.chinarewards.gwt.elt.client.core.presenter.StaffPresenter.StaffDisplay;
 import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
-import com.chinarewards.gwt.elt.client.core.ui.event.MenuClickEvent;
-import com.chinarewards.gwt.elt.client.gift.plugin.GiftListConstants;
+import com.chinarewards.gwt.elt.client.login.LastLoginRoleRequest;
+import com.chinarewards.gwt.elt.client.login.LastLoginRoleResponse;
 import com.chinarewards.gwt.elt.client.login.event.LoginEvent;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
-import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemConstants;
-import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
-import com.chinarewards.gwt.elt.client.user.plugin.UserConstants;
+import com.chinarewards.gwt.elt.model.user.UserRoleVo;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
 public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
@@ -24,16 +26,17 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 	final SessionManager sessionManager;
 	final EltGinjector injector;
 	final MenuProcessor menuProcessor;
-
+	final DispatchAsync dispatchAsync;
 	@Inject
 	public StaffPresenterImpl(EventBus eventBus, StaffDisplay display,
 			SessionManager sessionManager, PluginManager pluginManager,
-			EltGinjector injector, MenuProcessor menuProcessor) {
+			EltGinjector injector, MenuProcessor menuProcessor,DispatchAsync dispatchAsync) {
 		super(eventBus, display);
 		this.sessionManager = sessionManager;
 		this.pluginManager = pluginManager;
 		this.injector = injector;
 		this.menuProcessor = menuProcessor;
+		this.dispatchAsync=dispatchAsync;
 	}
 
 	public void bind() {
@@ -49,96 +52,54 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 				Window.alert("收藏");
 			}
 		}));
-		registerHandler(display.getBtnEmail().addClickHandler(
-				new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent event) {
-						display.setMenuTitle("收件箱");
-						display.setMenu(null);
-					}
-				}));
-		registerHandler(display.getBtnGb().addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				display.setMenuTitle("广播");
-				display.setMenu(null);
-			}
-		}));
-		registerHandler(display.getBtnRewardItem().addClickHandler(
-				new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent event) {
-						display.setMenuTitle("奖项");
-						menuProcessor.initrender(display.getMenu(),
-								"RewardItem");
-						eventBus.fireEvent(new MenuClickEvent(
-								menuProcessor
-										.getMenuItem(RewardsItemConstants.MENU_REWARDSITEM_List)));
-					}
-				}));
-		registerHandler(display.getBtnReward().addClickHandler(
-				new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent event) {
-						display.setMenuTitle("应用奖项");
-						menuProcessor.initrender(display.getMenu(), "Reward");
-						eventBus.fireEvent(new MenuClickEvent(
-								menuProcessor
-										.getMenuItem(RewardsListConstants.MENU_REWARDSLIST_SEARCH)));
-					}
-				}));
-		registerHandler(display.getBtnStaff().addClickHandler(
-				new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent event) {
-						display.setMenuTitle("员工数据");
-						menuProcessor.initrender(display.getMenu(), "Staff");
-						eventBus.fireEvent(new MenuClickEvent(menuProcessor
-								.getMenuItem(UserConstants.MENU_USER_SEARCH)));
-					}
-				}));
-		registerHandler(display.getBtnSetting().addClickHandler(
-				new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent event) {
-						display.setMenuTitle("设置");
-						menuProcessor.initrender(display.getMenu(), "Setting");
-						eventBus.fireEvent(new MenuClickEvent(menuProcessor
-								.getMenuItem("sample")));
-					}
-				}));
-		registerHandler(display.getBtnGift().addClickHandler(
-				new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent event) {
-						display.setMenuTitle("兑换管理");
-						menuProcessor.initrender(display.getMenu(), "Gift");
-						eventBus.fireEvent(new MenuClickEvent(
-								menuProcessor
-										.getMenuItem(GiftListConstants.MENU_GIFTLIST_SEARCH)));
-					}
-				}));
+
 		registerHandler(display.getManagementCenter().addClickHandler(
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						Window.alert("管理中心");
+						dispatchAsync.execute(new LastLoginRoleRequest(sessionManager.getSession().getToken(),UserRoleVo.CORP_ADMIN),
+								new AsyncCallback<LastLoginRoleResponse>() {
+	
+									@Override
+									public void onFailure(Throwable e) {
+									//	Window.alert("系统切换出错");
+									}
+	
+									@Override
+									public void onSuccess(LastLoginRoleResponse resp) {
+										//成功
+										if("success".equals(resp.getFal()))
+											GWT.log("success update last login role ");
+										
+									}
+								});
+						Window.Location.reload();
 					}
 				}));
 		registerHandler(display.getGiftExchange().addClickHandler(
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						Window.alert("礼品兑换");
+						dispatchAsync.execute(new LastLoginRoleRequest(sessionManager.getSession().getToken(),UserRoleVo.GIFT),
+								new AsyncCallback<LastLoginRoleResponse>() {
+	
+									@Override
+									public void onFailure(Throwable e) {
+									//	Window.alert("系统切换出错");
+									}
+	
+									@Override
+									public void onSuccess(LastLoginRoleResponse resp) {
+										//成功
+										if("success".equals(resp.getFal()))
+											GWT.log("success update last login role ");
+										
+									}
+								});
+						Window.Location.reload();
 					}
 				}));
-		registerHandler(display.getStaffCorner().addClickHandler(
-				new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent event) {
-						Window.alert("员工天地");
-					}
-				}));
+
 
 
 	}

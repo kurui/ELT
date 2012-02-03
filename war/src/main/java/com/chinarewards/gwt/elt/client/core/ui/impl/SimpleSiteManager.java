@@ -149,7 +149,7 @@ public class SimpleSiteManager implements SiteManager, EditorCloseHandler,
 		staffPresenter.getDisplay().setMessage(
 				sessionManager.getSession().getLoginName());
 		// menu = new LayoutPanel();
-		menu = staffPresenter.getDisplay().getMenu();
+		//menu = staffPresenter.getDisplay().getMenu();
 		// dock.addWest(menu, 200);
 
 		// initialize editors area.
