@@ -59,12 +59,12 @@ public class GiftDao extends BaseDao<Gift> {
 		}
 
 		if (!StringUtil.isEmptyString(criteria.getName())) {
-			eql.append(" AND UPPER(g.name) LIKE :name ");
+			eql.append(" AND g.name LIKE :name ");
 			param.put("name", "%" + criteria.getName().trim().toUpperCase()
 					+ "%");
 		}
 		if (!StringUtil.isEmptyString(criteria.getExplains())) {
-			eql.append(" AND UPPER(g.explains) LIKE :explains ");
+			eql.append(" AND g.explains LIKE :explains ");
 			param.put("explains", "%"
 					+ criteria.getExplains().trim().toUpperCase() + "%");
 		}
