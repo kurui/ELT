@@ -765,7 +765,7 @@ public class RewardsItemCreatePresenterImpl extends
 							errorMsg.append("开始时间要小于预计颁奖时间<br>");
 							flag = false;
 						}
-						if (display.getNominateIds().size()>0&& (display.getTmdays()==null||display.getTmdays().equals("")|| display.getTmdays().intValue() <= 0))
+						if (display.getNominateIds().size()>0&& (display.getTmdays()==null||display.getTmdays().equals("")|| display.getTmdays().intValue() < 0))
 						{	
 							errorMsg.append(" 要提前提名的天数是正整数!<br>");
 							flag = false;
