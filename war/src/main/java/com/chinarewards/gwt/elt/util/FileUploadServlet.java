@@ -30,7 +30,8 @@ public class FileUploadServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/html;charset=utf-8");
+		//text/html IE浏览器下无法解析
+		response.setContentType("text/plain;charset=utf-8");	
 
 		StringBuffer responseMessage = new StringBuffer(
 				"<?xml version=\"1.0\" encoding=\"GB2312\"?>");
@@ -147,4 +148,8 @@ public class FileUploadServlet extends HttpServlet {
 		realPath = realPath.substring(0, realPath.indexOf("jboss-5.1.0.GA"));
 		System.out.println(realPath);
 	}
+	
+	
+	
+
 }

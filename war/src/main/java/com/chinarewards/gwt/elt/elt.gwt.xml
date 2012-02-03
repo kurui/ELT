@@ -12,8 +12,8 @@
 	<source path="model" />
 	<source path="util" />
 
-	<!-- <servlet class="com.chinarewards.gwt.elt.util.FileUploadServlet" path="/fileupload" 
-		/> -->
+	<servlet class="com.chinarewards.gwt.elt.util.FileUploadServlet" path="/fileupload" />
+	  
 	<!-- Specify the app entry point class. -->
 	<entry-point class="com.chinarewards.gwt.elt.client.Elt" />
 

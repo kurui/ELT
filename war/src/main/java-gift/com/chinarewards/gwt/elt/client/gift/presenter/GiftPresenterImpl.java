@@ -183,34 +183,38 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 					@Override
 					public void onSubmitComplete(SubmitCompleteEvent event) {
 						String eventResults = event.getResults();
-						
-//						eventResults = eventResults.replace("//^\\s*/", ""); // 去除前置空格
-//						eventResults = eventResults.replace("//\\s*$/", ""); // 去除后置空格
 
-						System.out.println("submitComplete event.getResults:"
-								+ eventResults);
-//						win.alert(eventResults);
+						if(eventResults!=null){
+							//以text/plain格式返回需要
+							eventResults=eventResults.replace("<pre>","");
+							eventResults=eventResults.replace("</pre>","");							
+							eventResults=eventResults.replace("&lt;","<");
+							eventResults=eventResults.replace("&gt;",">");
+							
+//							System.out.println("submitComplete event.getResults:"
+//									+ eventResults);
+//							win.alert(eventResults);
 
-						try {
-							Document doc = XmlUtil_GWT.parseXml(eventResults);
-							String result = XmlUtil_GWT.getSingleNodeText(doc,
-									"result");
-							String info = XmlUtil_GWT.getSingleNodeText(doc,
-									"info");
-							if ("SUCCESS".equals(result)) {
-								display.getPhoto().setValue(info);
-								String giftImageUrl = "imageshow?imageName="
-										+ info;
-								display.getGiftImage().setUrl(giftImageUrl);
-							} else {
-								win.alert("上传图片异常<br>" + info);
+							try {
+								Document doc = XmlUtil_GWT.parseXml(eventResults);
+								String result = XmlUtil_GWT.getSingleNodeText(doc,
+										"result");
+								String info = XmlUtil_GWT.getSingleNodeText(doc,
+										"info");
+								if ("SUCCESS".equals(result)) {
+									display.getPhoto().setValue(info);
+									String giftImageUrl = "imageshow?imageName="
+											+ info;
+									display.getGiftImage().setUrl(giftImageUrl);
+								} else {
+									win.alert("上传图片异常<br>" + info);
+								}
+							} catch (Exception e) {
+								e.printStackTrace();
+								win.alert("上传图片异常，请重试" + e.getMessage());
+								return;
 							}
-						} catch (Exception e) {
-							e.printStackTrace();
-							win.alert("上传图片异常，请重试" + e.getMessage());
-							return;
-						}
-
+						}						
 					}
 				});
 
@@ -227,6 +231,17 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 					}
 				}));
 
+	}
+	
+	public static void main(String[] args) {
+		//		submitComplete event.getResults:<pre>&lt;?xml version="1.0" encoding="GB2312"?&gt;&lt;root&gt;&lt;result&gt;SUCCESS&lt;/result&gt;&lt;info&gt;201202031540504827.jpg&lt;/info&gt;&lt;/root&gt;</pre>
+
+		String str="<pre>&lt;2255552&gt;</pre>";
+		System.out.println(str);
+		str=str.replace("&lt;","<");
+		str=str.replace("&gt;",">");
+//		str=str.replace("22", "88");
+		System.out.println(str);
 	}
 
 	// 验证方法
