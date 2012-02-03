@@ -244,7 +244,10 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 			errorMsg.append("请正确填写礼品库存!<br>");
 			flag = false;
 		}
-
+		if (display.getIndate().getValue() == null|| "".equals(display.getIndate().getValue())) {
+			errorMsg.append("有效期不能为空<br>");
+			flag = false;
+		}
 		if (display.getPhoto().getValue().length() == 0) {// 数据实体
 			if (display.getPhotoUpload().getFilename().length() == 0) {
 				errorMsg.append("请选择图片文件!<br>");
