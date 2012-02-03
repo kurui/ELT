@@ -53,6 +53,20 @@ public class XmlUtil_GWT {
 			// chrome
 			String chromeStr = "<pre style=\"word-wrap: break-word; white-space: pre-wrap;\">";
 			content = content.replace(chromeStr, "");
+			
+			//text/plain IE8
+			content = content.replace("<DIV class=e>", "");
+			content = content.replace("<SPAN class=b>", "");
+			content = content.replace("<SPAN class=m>", "");
+			content = content.replace("<SPAN class=t>", "");
+			content = content.replace("<SPAN class=tx>", "");
+			content = content.replace("<SPAN class=pi>", "");
+			content = content.replace("</SPAN>", "");
+			content = content.replace("</DIV>", "");
+			content = content.replace("&nbsp;", "");
+			content = content.replace("<DIV style=\"TEXT-INDENT: -2em; MARGIN-LEFT: 1em\">", "");
+			content = content.replace("<DIV style=\"TEXT-INDENT: -2em; MARGIN-LEFT: 1em\" class=c>", "");
+			content = content.replace("	<A class=b onfocus=h() onclick=\"return false\" href=\"#\">-</A>", "");				
 		}
 
 		return content;
