@@ -1,8 +1,9 @@
 package com.chinarewards.gwt.elt.client.login;
 
-import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 
 import net.customware.gwt.dispatch.shared.Result;
+
+import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 
 public class TokenValidResponse implements Result {
 	private String token;
@@ -11,6 +12,16 @@ public class TokenValidResponse implements Result {
 	String departmentId;
 	UserRoleVo[] userRoles;
 	String staffId;
+    UserRoleVo lastLoginRole;
+    
+	public UserRoleVo getLastLoginRole() {
+		return lastLoginRole;
+	}
+
+	public void setLastLoginRole(UserRoleVo lastLoginRole) {
+		this.lastLoginRole = lastLoginRole;
+	}
+
 	public String getStaffId() {
 		return staffId;
 	}

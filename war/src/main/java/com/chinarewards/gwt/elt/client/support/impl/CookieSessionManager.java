@@ -7,6 +7,8 @@ import java.util.List;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.core.ui.event.PlatformInitEvent;
+import com.chinarewards.gwt.elt.client.login.LastLoginRoleRequest;
+import com.chinarewards.gwt.elt.client.login.LastLoginRoleResponse;
 import com.chinarewards.gwt.elt.client.login.LoginRequest;
 import com.chinarewards.gwt.elt.client.login.LoginResponse;
 import com.chinarewards.gwt.elt.client.login.TokenValidRequest;
@@ -16,6 +18,7 @@ import com.chinarewards.gwt.elt.client.login.event.LoginHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.support.UserSession;
+import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Cookies;
@@ -72,9 +75,49 @@ public class CookieSessionManager implements SessionManager {
 			@Override
 			public void onSuccess(LoginResponse resp) {
 				tokenObtained(resp);
-				// Window.alert(resp.getToken());
-				eventBus.fireEvent(new LoginEvent(
-						LoginEvent.LoginStatus.LOGIN_OK));
+				UserRoleVo role = null;
+				UserRoleVo [] roles=resp.getUserRoles();
+				if(roles.length>0)
+				{
+					for (UserRoleVo r:roles) {
+						if(r==UserRoleVo.CORP_ADMIN)
+							role=UserRoleVo.CORP_ADMIN;
+						else if(r==UserRoleVo.STAFF)
+							role=UserRoleVo.STAFF;
+						else if(r==UserRoleVo.GIFT)
+							role=UserRoleVo.GIFT;
+					}
+					if(role==UserRoleVo.CORP_ADMIN)
+						eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK));
+					else if(role==UserRoleVo.STAFF)
+						eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_STAFF));
+					else if(role==UserRoleVo.GIFT)
+						eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_GIFT));
+					else
+						Window.alert("没有角色");
+					
+					if(role!=null)
+					{
+						dispatchAsync.execute(new LastLoginRoleRequest(resp.getToken(),role),
+								new AsyncCallback<LastLoginRoleResponse>() {
+	
+									@Override
+									public void onFailure(Throwable e) {
+										tokenObtained(null);
+										eventBus.fireEvent(new PlatformInitEvent(false));
+									}
+	
+									@Override
+									public void onSuccess(LastLoginRoleResponse resp) {
+										//成功
+										if("success".equals(resp.getFal()))
+											GWT.log("success update last login role ");
+										
+									}
+								});
+					}
+				}
+
 			}
 		});
 	}
@@ -129,6 +172,7 @@ public class CookieSessionManager implements SessionManager {
 			session.setUserRoles(rep.getUserRoles());
 			session.setDepartmentId(rep.getDepartmentId());
 			session.setStaffId(rep.getStaffId());
+			session.setLastLoginRole(rep.getLastLoginRole());
 			Date expires = new Date((new Date()).getTime() + COOKIE_TIMEOUT);
 			Cookies.setCookie("token", rep.getToken(), expires);
 
@@ -146,6 +190,7 @@ public class CookieSessionManager implements SessionManager {
 			session.setUserRoles(rep.getUserRoles());
 			session.setDepartmentId(rep.getDepartmentId());
 			session.setStaffId(rep.getStaffId());
+			session.setLastLoginRole(rep.getLastLoginRole());
 			Date expires = new Date((new Date()).getTime() + COOKIE_TIMEOUT);
 			Cookies.setCookie("token", rep.getToken(), expires);
 

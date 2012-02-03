@@ -10,6 +10,16 @@ public class LoginResponse implements Result {
 	String corporationId;
 	String departmentId;
 	String staffId;
+    UserRoleVo lastLoginRole;
+    
+	public UserRoleVo getLastLoginRole() {
+		return lastLoginRole;
+	}
+
+	public void setLastLoginRole(UserRoleVo lastLoginRole) {
+		this.lastLoginRole = lastLoginRole;
+	}
+
 	public String getStaffId() {
 		return staffId;
 	}

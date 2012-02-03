@@ -16,6 +16,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.org.Staff;
+import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.model.user.UserStatus;
 
 @Entity
@@ -53,6 +54,16 @@ public class SysUser implements Serializable {
 
 	@ManyToOne
 	private SysUser lastModifiedBy;
+	
+	@Enumerated(EnumType.STRING)
+	private UserRole lastLoginRole;
+	public UserRole getLastLoginRole() {
+		return lastLoginRole;
+	}
+
+	public void setLastLoginRole(UserRole lastLoginRole) {
+		this.lastLoginRole = lastLoginRole;
+	}
 
 	public String getId() {
 		return id;

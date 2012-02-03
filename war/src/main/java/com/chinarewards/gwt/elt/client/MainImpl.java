@@ -8,6 +8,7 @@ import com.chinarewards.gwt.elt.client.login.presenter.LoginPresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.win.Win;
+import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
@@ -58,7 +59,14 @@ public class MainImpl implements Main, PlatformInitHandler, LoginHandler {
 			rootLayoutPanel.add(login.getDisplay().asWidget());
 		} else {
 			login.unbind();
-			injector.getPlatform().initialize(injector.getPluginSet(),rootLayoutPanel);
+			UserRoleVo role=sessionManager.getSession().getLastLoginRole();
+			if(role==UserRoleVo.CORP_ADMIN)
+				injector.getPlatform().initialize(injector.getPluginSet(),rootLayoutPanel);
+			else if(role==UserRoleVo.STAFF)
+				injector.getPlatform().initializeStaff(injector.getPluginSet(),rootLayoutPanel);
+			else if(role==UserRoleVo.GIFT)
+				injector.getPlatform().initializeGift(injector.getPluginSet(),rootLayoutPanel);
+			
 		}
 	}
 
@@ -68,6 +76,11 @@ public class MainImpl implements Main, PlatformInitHandler, LoginHandler {
 			rootLayoutPanel.clear();
 			login.unbind();
 			injector.getPlatform().initialize(injector.getPluginSet(),rootLayoutPanel);
+			break;
+		case LOGIN_OK_STAFF:
+			rootLayoutPanel.clear();
+			login.unbind();
+			injector.getPlatform().initializeStaff(injector.getPluginSet(),rootLayoutPanel);
 			break;
 		case LOGIN_FAILED:
 			win.alert("登录失败，请重试！");

@@ -8,6 +8,15 @@ public class UserSessionVo {
 	private String corporationId;
 	private String departmentId;
 	private String staffId;
+	private UserRole lastLoginRole;
+
+	public UserRole getLastLoginRole() {
+		return lastLoginRole;
+	}
+
+	public void setLastLoginRole(UserRole lastLoginRole) {
+		this.lastLoginRole = lastLoginRole;
+	}
 
 	public String getStaffId() {
 		return staffId;

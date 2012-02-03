@@ -1,22 +1,28 @@
 package com.chinarewards.gwt.elt.client.core.presenter;
 
+import net.customware.gwt.dispatch.client.DispatchAsync;
+
 import com.chinarewards.gwt.elt.client.EltGinjector;
 import com.chinarewards.gwt.elt.client.core.PluginManager;
 import com.chinarewards.gwt.elt.client.core.presenter.DockPresenter.DockDisplay;
 import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
 import com.chinarewards.gwt.elt.client.core.ui.event.MenuClickEvent;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftListConstants;
+import com.chinarewards.gwt.elt.client.login.LastLoginRoleRequest;
+import com.chinarewards.gwt.elt.client.login.LastLoginRoleResponse;
 import com.chinarewards.gwt.elt.client.login.event.LoginEvent;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
-//import com.chinarewards.gwt.elt.client.order.plugin.OrderListConstants;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemConstants;
 import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.user.plugin.UserConstants;
+import com.chinarewards.gwt.elt.model.user.UserRoleVo;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
 public class DockPresenterImpl extends BasePresenter<DockDisplay> implements
@@ -25,16 +31,17 @@ public class DockPresenterImpl extends BasePresenter<DockDisplay> implements
 	final SessionManager sessionManager;
 	final EltGinjector injector;
 	final MenuProcessor menuProcessor;
-
+	final DispatchAsync dispatchAsync;
 	@Inject
 	public DockPresenterImpl(EventBus eventBus, DockDisplay display,
 			SessionManager sessionManager, PluginManager pluginManager,
-			EltGinjector injector, MenuProcessor menuProcessor) {
+			EltGinjector injector, MenuProcessor menuProcessor,DispatchAsync dispatchAsync) {
 		super(eventBus, display);
 		this.sessionManager = sessionManager;
 		this.pluginManager = pluginManager;
 		this.injector = injector;
 		this.menuProcessor = menuProcessor;
+		this.dispatchAsync=dispatchAsync;
 	}
 
 	public void bind() {
@@ -119,6 +126,54 @@ public class DockPresenterImpl extends BasePresenter<DockDisplay> implements
 										.getMenuItem(GiftListConstants.MENU_GIFTLIST_SEARCH)));
 					}
 				}));
+
+		registerHandler(display.getGiftExchange().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						dispatchAsync.execute(new LastLoginRoleRequest(sessionManager.getSession().getToken(),UserRoleVo.GIFT),
+								new AsyncCallback<LastLoginRoleResponse>() {
+	
+									@Override
+									public void onFailure(Throwable e) {
+									//	Window.alert("系统切换出错");
+									}
+	
+									@Override
+									public void onSuccess(LastLoginRoleResponse resp) {
+										//成功
+										if("success".equals(resp.getFal()))
+											GWT.log("success update last login role ");
+										
+									}
+								});
+						Window.Location.reload();
+					}
+				}));
+		registerHandler(display.getStaffCorner().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						dispatchAsync.execute(new LastLoginRoleRequest(sessionManager.getSession().getToken(),UserRoleVo.STAFF),
+								new AsyncCallback<LastLoginRoleResponse>() {
+	
+									@Override
+									public void onFailure(Throwable e) {
+										//Window.alert("系统切换出错");
+									}
+	
+									@Override
+									public void onSuccess(LastLoginRoleResponse resp) {
+										//成功
+										if("success".equals(resp.getFal()))
+											GWT.log("success update last login role ");
+										
+									}
+								});
+						Window.Location.reload();
+					}
+				}));
+
 
 	}
 
