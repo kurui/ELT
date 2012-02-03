@@ -68,7 +68,7 @@ public class CookieSessionManager implements SessionManager {
 			@Override
 			public void onFailure(Throwable e) {
 				tokenObtained(null);
-				Window.alert("用户名或密码错误!");
+				Window.alert(e.getMessage());
 				eventBus.fireEvent(new LoginEvent(
 						LoginEvent.LoginStatus.LOGIN_FAILED, e));
 			}
