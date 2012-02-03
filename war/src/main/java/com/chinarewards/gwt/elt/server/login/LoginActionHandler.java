@@ -34,7 +34,7 @@ public class LoginActionHandler extends
 		LoginResponse resp = new LoginResponse();
 		UserSessionVo u = userService.authenticate(action.getUserName(),
 				action.getPwd());
-		if (u != null) {
+		if (u != null && u.getUserRoles().size()>0) {
 			resp.setCorporationId(u.getCorporationId());
 			resp.setLoginName(u.getUsername());
 			resp.setToken(u.getId());
@@ -44,7 +44,7 @@ public class LoginActionHandler extends
 			if(u.getLastLoginRole()!=null)
 			resp.setLastLoginRole(UserRoleVo.valueOf(u.getLastLoginRole().toString()));
 		} else {
-			throw new ClientException("login failure!");
+			throw new ClientException("login failure!,or not role!");
 		}
 
 		return resp;
