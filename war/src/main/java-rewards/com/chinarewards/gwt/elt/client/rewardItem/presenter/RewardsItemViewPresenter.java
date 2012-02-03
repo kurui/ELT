@@ -8,13 +8,14 @@ import com.chinarewards.gwt.elt.client.rewards.model.RewardsBaseInfo;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemClient;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.Widget;
 
 public interface RewardsItemViewPresenter extends Presenter<RewardsItemViewPresenter.RewardsItemViewDisplay> {
 	  void initInstanceId(String instanceId,RewardsItemClient item);
 	
 	public static interface RewardsItemViewDisplay extends Display {
 
-				
+		void setBreadCrumbs(Widget breadCrumbs) ;		
 		public HasValue<Boolean> getAutoCbx();
 		public FrequencyClient getFrequencyObj();
 		public HasValue<Boolean> getSpecialCbx();

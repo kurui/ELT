@@ -4,6 +4,7 @@ package com.chinarewards.gwt.elt.client.rewardItem.presenter;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
@@ -22,18 +23,20 @@ public class RewardsItemViewPresenterImpl extends
 		BasePresenter<RewardsItemViewPresenter.RewardsItemViewDisplay> implements		RewardsItemViewPresenter {
 	   String instanceId;//修改时传过来的ID
 	
-	   boolean isItemStore = false;//是奖项的查找还是奖项库的
+	boolean isItemStore = false;//是奖项的查找还是奖项库的
 	private final DispatchAsync dispatcher;
 	private final ErrorHandler errorHandler;
+	private final BreadCrumbsPresenter breadCrumbs;
 	String rewardId ;
 	RewardsItemClient param = new RewardsItemClient();
 	@Inject
 	public RewardsItemViewPresenterImpl(EventBus eventBus,
-			RewardsItemViewDisplay display,DispatchAsync dispatcher,ErrorHandler errorHandler,SessionManager sessionManager	) {
+			RewardsItemViewDisplay display,DispatchAsync dispatcher,BreadCrumbsPresenter breadCrumbs
+			,ErrorHandler errorHandler,SessionManager sessionManager	) {
 		super(eventBus, display);
 		this.dispatcher=dispatcher;
 		this.errorHandler = errorHandler;
-		
+		this.breadCrumbs = breadCrumbs;
 	}
 	 @Override
 	 public void bind() {
@@ -120,6 +123,14 @@ public class RewardsItemViewPresenterImpl extends
 					@Override
 					public void onSuccess(SearchRewardsItemByIdResponse response) {
 						RewardsItemClient item = response.getRewardsItem();
+						if(isItemStore==false){
+							breadCrumbs.loadChildPage("奖项详细");
+						    										    
+				        }else{
+				        	breadCrumbs.loadChildPage("奖项模板详细");
+				       				        	
+				        } 
+						display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
 						display.showRewardsItem(item,isItemStore);//显示奖项还是奖项库
 					}
 
