@@ -797,8 +797,8 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 	
 
 	@Override
-	public void setRewardButtonDisplay() {
-		save.setVisible(false);		
+	public void setRewardButtonDisplay(boolean status) {
+		save.setVisible(status);		
 	}	
 	
 }

@@ -81,6 +81,8 @@ public class EditGiftHandler extends
 		gift.setAddress(giftVo.getAddress().trim());
 		gift.setTell(giftVo.getTell().trim());
 		gift.setServicetell(giftVo.getServicetell().trim());
+		
+		gift.setIndate(giftVo.getIndate());
 
 		// gift.setGiftStatus();
 		// gift.setIndate(getIndate());

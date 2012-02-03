@@ -20,7 +20,7 @@
 			<div class="{new2.form}">
 				<div class="{new2.form-line}">
 					<label class="{new2.label}">
-						<span>*</span>
+						<span style="color:red">*</span>
 						礼品名称：
 					</label>
 					<div class="{new2.element}">
@@ -70,7 +70,7 @@
 					</div>
 				</div>
 				<div class="{new2.form-line}">
-					<label class="{new2.label}">礼品图片：</label>
+					<label class="{new2.label}"><span style="color:red">*</span>礼品图片：</label>
 					<div class="{new2.element}">
 						<g:FormPanel ui:field="photoForm" encoding="multipart/form-data"
 							method="post">
@@ -91,7 +91,7 @@
 
 				<div class="{new2.form-line}">
 					<label class="{new2.label}">
-						<span>*</span>
+						<span style="color:red">*</span>
 						兑换积分：
 					</label>
 					<div class="{new2.element}">
@@ -101,7 +101,7 @@
 
 				<div class="{new2.form-line}">
 					<label class="{new2.label}">
-						<span>*</span>
+						<span style="color:red">*</span>
 						库存：
 					</label>
 					<div class="{new2.element}">
@@ -147,16 +147,24 @@
 							styleName="{new2.text}" />
 					</div>
 				</div>
+				<div class="{new2.form-line}">
+					<label class="{new2.label}">有效期：</label>
+					<div class="{new2.element}">
+						<d:DateBox ui:field="indate" styleName="{new2.text}"/>
+					</div>
+				</div>
+			
 
 				<span class="{new2.cutline}"></span>
 				<div class="{new2.form-line} {new2.form-line-btn}">
 					<div class="{new2.element}">
+									
 						<span class="{new2.btn}">
-							<g:Button ui:field="back" styleName="button-ok">返回 </g:Button>
+							<g:Button ui:field="save">保存</g:Button>
 						</span>
 						<span class="{new2.nbsp}"></span>
 						<span class="{new2.btn}">
-							<g:Button ui:field="save">保存</g:Button>
+							<g:Button ui:field="back" styleName="button-ok">返回 </g:Button>
 						</span>
 					</div>
 				</div>

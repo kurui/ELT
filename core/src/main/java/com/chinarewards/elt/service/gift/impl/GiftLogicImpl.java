@@ -55,7 +55,7 @@ public class GiftLogicImpl implements GiftLogic{
 			tempGift.setIntegral(gift.getIntegral());
 			tempGift.setStock(gift.getStock());
 			tempGift.setPhoto(gift.getPhoto());
-			
+			tempGift.setIndate(gift.getIndate());
 		    tempGift.setUpdatetime(currTime);
 			giftDao.update(tempGift);
 		}

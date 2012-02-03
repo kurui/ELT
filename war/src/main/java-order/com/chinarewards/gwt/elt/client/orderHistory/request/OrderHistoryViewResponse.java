@@ -14,6 +14,9 @@ public class OrderHistoryViewResponse implements Result {
 	private GiftVo giftVo;
 	private double staffBalance;
 
+	public OrderHistoryViewResponse() {
+	}
+
 	public OrderVo getOrderVo() {
 		return orderVo;
 	}

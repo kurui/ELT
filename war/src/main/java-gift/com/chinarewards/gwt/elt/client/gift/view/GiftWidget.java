@@ -28,6 +28,7 @@ import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.datepicker.client.DateBox;
 import com.google.inject.Inject;
 
 public class GiftWidget extends Composite implements GiftDisplay {
@@ -67,6 +68,8 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	TextBox tell;
 	@UiField
 	TextBox servicetell;
+	@UiField
+	DateBox indate;
 
 	// @UiField
 	// TextBox status;// boolean
@@ -154,6 +157,9 @@ public class GiftWidget extends Composite implements GiftDisplay {
 		address.setText(giftVo.getAddress());
 		tell.setText(giftVo.getTell());
 		servicetell.setText(giftVo.getServicetell());
+		
+		indate.setFormat(new DateBox.DefaultFormat(dateFormat));
+		indate.setValue(giftVo.getIndate());
 
 		// @UiField
 		// Label status;// boolean
@@ -260,9 +266,8 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	}
 
 	@Override
-	public HasValueChangeHandlers<Date> getIndate() {
-		return null;
-		// return indate;
+	public DateBox getIndate() {
+		return indate;
 	}
 
 	@Override

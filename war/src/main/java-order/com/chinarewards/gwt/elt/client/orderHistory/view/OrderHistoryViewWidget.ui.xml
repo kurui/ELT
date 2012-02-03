@@ -59,7 +59,7 @@
 								收货人：
 							</label>
 							<div class="{new2.element}">
-								<g:Label ui:field="name" />
+								<g:Label ui:field="receiver" />
 							</div>
 						</div>
 						<div class="{new2.form-line}">
@@ -68,7 +68,7 @@
 								电话：
 							</label>
 							<div class="{new2.element}">
-								<g:Label ui:field="phone" />
+								<g:Label ui:field="tel" />
 							</div>
 						</div>
 						<div class="{new2.form-line}">
@@ -86,7 +86,7 @@
 								邮编：
 							</label>
 							<div class="{new2.element}">
-								<g:Label ui:field="zipCode" />
+								<g:Label ui:field="postcode" />
 							</div>
 						</div>
 

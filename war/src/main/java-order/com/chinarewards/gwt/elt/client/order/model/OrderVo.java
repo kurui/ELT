@@ -1,9 +1,14 @@
 package com.chinarewards.gwt.elt.client.order.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class OrderVo {
+public class OrderVo implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String  id;
 	private String  orderCode;  //订单编号
     private String    giftId;   //礼品ID

@@ -71,7 +71,7 @@ import com.chinarewards.gwt.elt.server.order.SearchOrderByIdHandler;
 import com.chinarewards.gwt.elt.server.order.SearchOrderHandler;
 import com.chinarewards.gwt.elt.server.orderConfirmation.AddOrderConfirmationHandler;
 import com.chinarewards.gwt.elt.server.orderConfirmation.SearchOrderConfirmationHandler;
-import com.chinarewards.gwt.elt.server.orderHistory.SearchOrderHistoryHandler;
+import com.chinarewards.gwt.elt.server.orderHistory.OrderHistoryViewHandler;
 import com.chinarewards.gwt.elt.server.orderSubmit.AddOrderSubmitHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.ActivationRewardsItemHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.ActivationRewardsItemStroeHandler;
@@ -202,7 +202,7 @@ public class ActionModule extends ActionHandlerModule {
 		bindHandler(LastLoginRoleRequest.class, UpdatelastLoginRoleActionHandler.class);
 	
 		//兑换历史
-		bindHandler(OrderHistoryViewRequest.class, SearchOrderHistoryHandler.class);
+		bindHandler(OrderHistoryViewRequest.class, OrderHistoryViewHandler.class);
 
 	}
 }

@@ -5,8 +5,6 @@ import com.chinarewards.gwt.elt.client.gift.model.GiftVo;
 import com.chinarewards.gwt.elt.util.StringUtil;
 
 /**
- * client convert util
- * 
  * @author yanrui
  * */
 public class GiftAdapterClient {
@@ -32,8 +30,9 @@ public class GiftAdapterClient {
 		giftVo.setStock(StringUtil.valueOf(display.getStock().getValue()));
 		giftVo.setIntegral(StringUtil.valueOf(display.getIntegral().getValue()));
 
-		System.out.println("display.getSupplyinner().getValue():"+display.getSupplyinner().getValue());
-		
+		System.out.println("display.getSupplyinner().getValue():"
+				+ display.getSupplyinner().getValue());
+
 		if (display.getSupplyinner().getValue()) {
 			giftVo.setSource("inner");
 		}
@@ -41,8 +40,8 @@ public class GiftAdapterClient {
 			giftVo.setSource("outter");
 		}
 
-		System.out.println("=======adapterDisplay:"+giftVo.getSource());
-		
+		System.out.println("=======adapterDisplay:" + giftVo.getSource());
+
 		giftVo.setBusiness(display.getBusiness().getValue().trim());
 		giftVo.setAddress(display.getAddress().getValue().trim());
 		giftVo.setTell(display.getTell().getValue().trim());
@@ -50,7 +49,7 @@ public class GiftAdapterClient {
 
 		// giftVo.setGiftStatus();
 		// giftVo.setDeleted(false);
-		// giftVo.setIndate(display.getIndate());
+		giftVo.setIndate(display.getIndate().getValue());
 
 		return giftVo;
 	}
