@@ -108,7 +108,12 @@
 						<g:TextBox maxLength="5" ui:field="stock" styleName="{new2.text}" />
 					</div>
 				</div>
-
+               <div class="{new2.form-line}">
+					<label class="{new2.label}"><span style="color:red">*</span>有效期：</label>
+					<div class="{new2.element}">
+						<d:DateBox ui:field="indate" styleName="{new2.text}"/>
+					</div>
+				</div>
 				<div class="{new2.form-line}">
 					<label class="{new2.label}">
 						<span>*</span>
@@ -147,12 +152,7 @@
 							styleName="{new2.text}" />
 					</div>
 				</div>
-				<div class="{new2.form-line}">
-					<label class="{new2.label}">有效期：</label>
-					<div class="{new2.element}">
-						<d:DateBox ui:field="indate" styleName="{new2.text}"/>
-					</div>
-				</div>
+				
 			
 
 				<span class="{new2.cutline}"></span>
