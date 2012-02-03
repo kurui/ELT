@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.presenter.DockPresenter;
+import com.chinarewards.gwt.elt.client.core.presenter.GiftPresenter;
 import com.chinarewards.gwt.elt.client.core.presenter.StaffPresenter;
 import com.chinarewards.gwt.elt.client.core.ui.Dialog;
 import com.chinarewards.gwt.elt.client.core.ui.DialogCloseListener;
@@ -45,6 +46,7 @@ public class SimpleSiteManager implements SiteManager, EditorCloseHandler,
 
 	final DockPresenter dockPresenter;
 	final StaffPresenter staffPresenter;
+	final GiftPresenter  giftPresenter;
 
 	MenuProcessor menuProcessor;
 
@@ -64,11 +66,12 @@ public class SimpleSiteManager implements SiteManager, EditorCloseHandler,
 
 	@Inject
 	public SimpleSiteManager(EventBus eventBus, SessionManager sessionManager,
-			DockPresenter dockPresenter,StaffPresenter staffPresenter) {
+			DockPresenter dockPresenter,StaffPresenter staffPresenter,GiftPresenter  giftPresenter) {
 		this.eventBus = eventBus;
 		this.sessionManager = sessionManager;
 		this.dockPresenter = dockPresenter;
 		this.staffPresenter=staffPresenter;
+		this.giftPresenter=giftPresenter;
 	}
 
 	public void openEditor(final Editor e) {
@@ -111,6 +114,8 @@ public class SimpleSiteManager implements SiteManager, EditorCloseHandler,
 	}
 
 	public void initialize(RootLayoutPanel rootPanel) {
+		staffPresenter.unbind();
+		giftPresenter.unbind();
 		// XXX allocate different areas in root panel
 		root = rootPanel;
 		// dock = new DockLayoutPanel(Unit.PX);
@@ -138,6 +143,8 @@ public class SimpleSiteManager implements SiteManager, EditorCloseHandler,
 		hookMenuClickEvent();
 	}
 	public void initializeStaff(RootLayoutPanel rootPanel) {
+		dockPresenter.unbind();
+		giftPresenter.unbind();
 		// XXX allocate different areas in root panel
 		root = rootPanel;
 		// dock = new DockLayoutPanel(Unit.PX);
@@ -159,6 +166,35 @@ public class SimpleSiteManager implements SiteManager, EditorCloseHandler,
 
 		staffPresenter.bind();
 		rootPanel.add(staffPresenter.getDisplay().asWidget());
+
+		hookEditorCloseEvent();
+		hookHistoryEvent();
+		hookMenuClickEvent();
+	}
+	public void initializeGift(RootLayoutPanel rootPanel) {
+		dockPresenter.unbind();
+		staffPresenter.unbind();
+		// XXX allocate different areas in root panel
+		root = rootPanel;
+		// dock = new DockLayoutPanel(Unit.PX);
+		dock = giftPresenter.getDisplay().getDock();
+		// dock = dock.addNorth(new HTML("<h1>(Header) 欢迎你："
+		// + sessionManager.getSession().getLoginName() + "</h1>"), 100);
+		// dock.addSouth(new HTML("<em>Footer</em>"), 50);
+		// FIXME 20111130
+		giftPresenter.getDisplay().setMessage(
+				sessionManager.getSession().getLoginName());
+		// menu = new LayoutPanel();
+		//menu = staffPresenter.getDisplay().getMenu();
+		// dock.addWest(menu, 200);
+
+		// initialize editors area.
+		editor = new LayoutPanel();
+		editor.setVisible(false);
+		dock.add(editor);
+
+		giftPresenter.bind();
+		rootPanel.add(giftPresenter.getDisplay().asWidget());
 
 		hookEditorCloseEvent();
 		hookHistoryEvent();

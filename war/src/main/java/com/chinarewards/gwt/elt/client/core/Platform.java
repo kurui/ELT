@@ -86,7 +86,7 @@ public class Platform {
 		GWT.log("Initializing Platform");
 		pluginManager.initialize(pluginSet);
 		rootLayoutPanel = rootPanel;
-		siteManager.initialize(rootPanel);
+		siteManager.initializeGift(rootPanel);
 		editorRegistry.initialize(this);
 		pluginManager.activatePlugin(STARTUP_PLUGIN_ID);
 		initialized = true;
