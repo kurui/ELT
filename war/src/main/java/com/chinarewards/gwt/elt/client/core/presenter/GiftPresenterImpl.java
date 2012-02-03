@@ -1,5 +1,8 @@
 package com.chinarewards.gwt.elt.client.core.presenter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.EltGinjector;
@@ -40,6 +43,27 @@ public class GiftPresenterImpl extends BasePresenter<GiftDisplay> implements
 	}
 
 	public void bind() {
+		List <UserRoleVo> roleslt = new ArrayList<UserRoleVo>();
+		UserRoleVo [] roles=sessionManager.getSession().getUserRoles();
+
+		if(roles.length>0)
+		{
+			for (UserRoleVo r:roles) {
+				roleslt.add(r);
+			}
+			if(!roleslt.contains(UserRoleVo.CORP_ADMIN))
+			{
+				display.disableManagementCenter();
+			}
+			if(!roleslt.contains(UserRoleVo.GIFT))
+			{
+				display.disableGiftExchange();
+			}
+			if(!roleslt.contains(UserRoleVo.STAFF))
+			{
+				display.disableStaffCorner();
+			}
+		}
 		registerHandler(display.getlogBtn().addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
