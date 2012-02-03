@@ -7,13 +7,15 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class AlertErrorWidget extends Composite {
 
 	@UiField
 	Button ok;
-
+	@UiField
+	InlineLabel message;
 	interface ForgetPwdWidgetUiBinder extends UiBinder<Widget, AlertErrorWidget> {
 
 	}
