@@ -134,6 +134,6 @@ public interface RewardsItemCreatePresenter extends Presenter<RewardsItemCreateP
 		// 得到提名人的id
 		List<String> getNominateIds();
 	//	void setTitle(String text);
-		void setRewardButtonDisplay();
+		void setRewardButtonDisplay(boolean status);
 	}
 }

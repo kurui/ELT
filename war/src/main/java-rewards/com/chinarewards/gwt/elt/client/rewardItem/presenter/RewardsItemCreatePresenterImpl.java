@@ -135,14 +135,15 @@ public class RewardsItemCreatePresenterImpl extends
 		
 		if(instanceId.equals(RewardsItemConstants.EDITOR_REWARDSITEMSTORE))
 		{
-			//display.setTitle("创建奖项模板");
 			breadCrumbs.loadChildPage("创建奖项模板");
+			display.setRewardButtonDisplay(false);
 			
 		}else{
 			breadCrumbs.loadChildPage("创建奖项");
+			display.setRewardButtonDisplay(true);
 		}
 		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
-		display.setRewardButtonDisplay();
+		
 		
 	}
 	private void init(){
