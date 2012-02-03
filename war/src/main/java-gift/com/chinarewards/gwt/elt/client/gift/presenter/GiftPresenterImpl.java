@@ -185,7 +185,7 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 						String eventResults = event.getResults();
 						System.out.println("submitComplete event.getResults:"
 								+ eventResults);
-						win.alert(eventResults);
+//						win.alert(eventResults);
 
 						if (eventResults != null) {
 							eventResults=XmlUtil_GWT.replaceSpecialStr(eventResults);
