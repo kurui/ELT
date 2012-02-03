@@ -19,6 +19,7 @@ import com.chinarewards.gwt.elt.client.orderHistory.plugin.OrderHistoryConstants
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.model.ChoosePanel.InitChoosePanelParam;
+import com.chinarewards.gwt.elt.util.SimpleDateTimeProvider;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -93,6 +94,48 @@ public class OrderViewPresenterImpl extends BasePresenter<OrderViewDisplay>
 			
 		}
 	});
+		display.getBackbutton().addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {//问题定单
+				  String status ="ERRORORDER";
+					dispatch.execute(new OrderViewRequest(orderId,sessionManager.getSession().getToken(),status),
+							new AsyncCallback<OrderViewResponse>() {
+								@Override
+								public void onFailure(Throwable e) {
+									errorHandler.alert("操作失败");
+									Platform.getInstance()
+									.getEditorRegistry()
+									.openEditor(OrderListConstants.EDITOR_ORDERLIST_SEARCH,	"EDITOR_ORDERLIST_SEARCH", null);
+		
+								}
+
+								@Override
+								public void onSuccess(OrderViewResponse response) {
+									display.getConfirmbuttonObj().setEnabled(false);
+									String rs=response.getResult();
+									if("ok".equals(rs))
+									{
+										win.alert("操作成功!");
+										Platform.getInstance()
+										.getEditorRegistry()
+										.openEditor(OrderListConstants.EDITOR_ORDERLIST_SEARCH,	"EDITOR_ORDERLIST_SEARCH", null);
+			
+										
+									}
+									else
+									{
+										win.alert("操作失败!");
+									}
+									
+					
+								}
+
+							});
+
+
+				
+			}
+		});	
 	display.getReturnbutton().addClickHandler(new ClickHandler() {
 		
 		@Override
@@ -137,7 +180,7 @@ public class OrderViewPresenterImpl extends BasePresenter<OrderViewDisplay>
 							display.setAddress(orderVo.getAddress());
 							display.setOrderCode(orderVo.getOrdercode());
 							display.setOrderStatus(orderVo.getOrderStatus().toString());
-							display.setExchangeDate(orderVo.getExchangeDate()+"");
+							display.setExchangeDate(SimpleDateTimeProvider.formatData("", orderVo.getExchangeDate()));
 							
 						}
 

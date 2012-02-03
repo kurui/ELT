@@ -8,6 +8,7 @@ import java.util.List;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.ui.DialogCloseListener;
 import com.chinarewards.gwt.elt.client.frequency.CalculatorSelectFactory;
@@ -82,6 +83,7 @@ public class RewardsItemCreatePresenterImpl extends
 	private final SessionManager sessionManager;
 	private final RewardStartDateCalculator startDateCalculator;
 	private final CalculatorSelectFactory factory;
+	private final BreadCrumbsPresenter breadCrumbs;
 	RewardsItemClient item;
 	// 保存上一次修改正确的结束时间
 		private Date endDateCopy;
@@ -107,7 +109,7 @@ public class RewardsItemCreatePresenterImpl extends
 	@Inject
 	public RewardsItemCreatePresenterImpl(EventBus eventBus,ChooseStaffBlockPresenter staffBlock,
 			RewardsItemDisplay display,DispatchAsync dispatcher,ErrorHandler errorHandler,Provider<FrequencySettingDialog> freProvider
-			,RewardStartDateCalculator startDateCalculator,CalculatorSelectFactory factory,SessionManager sessionManager
+			,RewardStartDateCalculator startDateCalculator,CalculatorSelectFactory factory,SessionManager sessionManager,BreadCrumbsPresenter breadCrumbs
 			,Provider<ChooseStaffWinDialog> chooseStaffDialogProvider,Win  win) {
 		super(eventBus, display);
 		this.dispatcher=dispatcher;
@@ -119,6 +121,7 @@ public class RewardsItemCreatePresenterImpl extends
 		this.sessionManager = sessionManager;
 		this.chooseStaffDialogProvider = chooseStaffDialogProvider;
 		this.win = win;
+		this .breadCrumbs = breadCrumbs;
 	}
 
 	@Override
@@ -132,9 +135,15 @@ public class RewardsItemCreatePresenterImpl extends
 		
 		if(instanceId.equals(RewardsItemConstants.EDITOR_REWARDSITEMSTORE))
 		{
-			display.setTitle("创建奖项模板");
-			display.setRewardButtonDisplay();
+			breadCrumbs.loadChildPage("创建奖项模板");
+			display.setRewardButtonDisplay(false);
+			
+		}else{
+			breadCrumbs.loadChildPage("创建奖项");
+			display.setRewardButtonDisplay(true);
 		}
+		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
+		
 		
 	}
 	private void init(){
@@ -801,6 +810,14 @@ public class RewardsItemCreatePresenterImpl extends
 									public void onSuccess(SearchRewardsItemByIdResponse response) {
 										RewardsItemClient item = response.getRewardsItem();
 										clear();
+										if(isItemStore==false){
+											breadCrumbs.loadChildPage("修改奖项");
+										    										    
+								        }else{
+								        	breadCrumbs.loadChildPage("修改奖项模板");
+								      
+								        } 
+										display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
 										display.showRewardsItem(item,isItemStore);//显示奖项
 
 										// 初始前一次颁奖时间

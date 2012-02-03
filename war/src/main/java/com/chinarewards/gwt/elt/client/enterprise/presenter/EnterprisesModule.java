@@ -2,8 +2,8 @@ package com.chinarewards.gwt.elt.client.enterprise.presenter;
 
 import com.chinarewards.gwt.elt.client.enterprise.presenter.EnterprisePresenter;
 import com.chinarewards.gwt.elt.client.enterprise.presenter.EnterprisePresenterImpl;
-import com.chinarewards.gwt.elt.client.enterprise.presenter.EnterpWidget;
 import com.chinarewards.gwt.elt.client.enterprise.presenter.EnterprisePresenter.EnterpriseDisplay;
+import com.chinarewards.gwt.elt.client.enterprise.view.EnterpWidget;
 
 import com.google.gwt.inject.client.AbstractGinModule;
 

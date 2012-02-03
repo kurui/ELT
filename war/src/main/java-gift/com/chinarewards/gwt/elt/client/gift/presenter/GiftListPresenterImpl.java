@@ -280,26 +280,7 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 
 				});
 		
-		cellTable.addColumn("购买", new HyperLinkCell(),
-				new GetValue<GiftClient, String>() {
-					@Override
-					public String getValue(GiftClient arg0) {
-						return "购买";
-					}
-				}, new FieldUpdater<GiftClient, String>() {
-					@Override
-					public void update(int index, GiftClient giftClient,
-							String value) {
-						giftClient.setThisAction(GiftConstants.ACTION_GIFT_VIEW);
-						OrderVo orderVo=new OrderVo();
-						orderVo.setThisAction(OrderConstants.ACTION_ORDER_ADD);
-						Platform.getInstance()
-								.getEditorRegistry()
-								.openEditor(
-										OrderConstants.ACTION_ORDER_ADD,
-										OrderConstants.ACTION_ORDER_ADD, orderVo);
-					}
-				});
+		
 	}
 
 	public void delteGift(String gifId) {

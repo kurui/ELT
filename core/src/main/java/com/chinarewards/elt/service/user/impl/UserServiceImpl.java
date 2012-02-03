@@ -1,6 +1,7 @@
 package com.chinarewards.elt.service.user.impl;
 
 import com.chinarewards.elt.domain.user.SysUser;
+import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.model.user.UserSearchCriteria;
 import com.chinarewards.elt.model.user.UserSearchResult;
 import com.chinarewards.elt.model.user.UserSessionVo;
@@ -40,5 +41,10 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public String deleteUserById(String id) {
 		return userLogic.deleteUserById(id);
+	}
+
+	@Override
+	public String updateLastLoginRole(String userId, UserRole role) {
+		return userLogic.updateLastLoginRole(userId, role);
 	}
 }

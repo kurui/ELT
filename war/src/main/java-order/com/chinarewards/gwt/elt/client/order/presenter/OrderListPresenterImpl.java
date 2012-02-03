@@ -30,6 +30,7 @@ import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
 
 public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
@@ -87,8 +88,8 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
    }
    private void initSource(){
 	   Map<String, String> map = new HashMap<String, String>();
-		map.put("内部直接提供", "内部直接提供");
-		map.put("外部货品公司提供", "外部货品公司提供");
+		map.put("inner", "内部直接提供");
+		map.put("outter", "外部货品公司提供");
 		
 		display.initOrderSource(map);
    }
@@ -118,7 +119,7 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 		
 		if (!StringUtil.isEmpty(display.getSource()))
 			giftVo.setSource(display.getSource());
-			criteria.setGiftvo(giftVo);
+		criteria.setGiftvo(giftVo);
        
 		listViewAdapter = new OrderListViewAdapter(dispatch, criteria,
 				errorHandler, sessionManager, display);
@@ -187,7 +188,15 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 				new GetValue<OrderSearchVo, String>() {
 					@Override
 					public String getValue(OrderSearchVo order) {
-						return order.getGiftvo().getSource() + "";
+						if (order.getGiftvo().getSource() != null) {
+							if (StringUtil.trim(order.getGiftvo().getSource()).equals("inner")) {
+								return "内部直接提供";
+							}
+							if (StringUtil.trim(order.getGiftvo().getSource()).equals("outter")) {
+								return "外部货品公司提供";
+							}
+						}
+						return "";
 					}
 				});   
 		

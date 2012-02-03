@@ -1,12 +1,16 @@
 package com.chinarewards.gwt.elt.server.login;
 
+import java.util.List;
+
 import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.DispatchException;
 
+import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.model.user.UserSessionVo;
 import com.chinarewards.elt.service.user.UserService;
 import com.chinarewards.gwt.elt.client.login.TokenValidRequest;
 import com.chinarewards.gwt.elt.client.login.TokenValidResponse;
+import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
 import com.chinarewards.gwt.elt.util.UserRoleTool;
 import com.google.inject.Inject;
@@ -37,6 +41,28 @@ public class TokenValidActionHandler extends
 		tokenRep.setUserRoles(UserRoleTool.adaptToRoleVo(userSessionVo.getUserRoles()));
 		tokenRep.setDepartmentId(userSessionVo.getDepartmentId());
 		tokenRep.setStaffId(userSessionVo.getStaffId());
+		if(userSessionVo.getLastLoginRole()!=null)
+		{
+			tokenRep.setLastLoginRole(UserRoleVo.valueOf(userSessionVo.getLastLoginRole().toString()));
+		}
+		else
+		{
+			UserRole role=null;
+			List<UserRole> roles=userSessionVo.getUserRoles();
+			if(roles.size()>0)
+			{
+				for (UserRole r:roles) {
+					if(r==UserRole.CORP_ADMIN)
+						role=UserRole.CORP_ADMIN;
+					else if(r==UserRole.STAFF)
+						role=UserRole.STAFF;
+					else if(r==UserRole.GIFT)
+						role=UserRole.GIFT;
+				tokenRep.setLastLoginRole(UserRoleVo.valueOf(role.toString()));
+				}
+			}
+		}
+			
 		return tokenRep;
 	}
 

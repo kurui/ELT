@@ -91,14 +91,8 @@ public class RewardsItemViewWidget extends Composite implements RewardsItemViewD
 	@UiField
 	RadioButton birthRadio;
     
- // 标题
 	@UiField
-	InlineLabel title;
-
-	// 标题
-	@UiField
-	InlineLabel sub;	
-	
+	Panel breadCrumbs;	
 	/** 存储有用的信息 **/
 	FrequencyClient frequency;
 	String rewardsUnit;
@@ -134,7 +128,11 @@ public class RewardsItemViewWidget extends Composite implements RewardsItemViewD
 	public HasClickHandlers getBackStoreClick() {
 		return backStore;
 	}
-   
+	@Override
+	public void setBreadCrumbs(Widget breadCrumbs) {
+		this.breadCrumbs.clear();
+		this.breadCrumbs.add(breadCrumbs);
+	}
 	@Override
 	public HasClickHandlers getUpdateStoreClick() {
 		return updateStore;
@@ -231,13 +229,11 @@ public class RewardsItemViewWidget extends Composite implements RewardsItemViewD
 		if(isItemStore==true){//是奖项库的修改按钮不可用
 			update.setVisible(false);
 			back.setVisible(false);
-			sub.setText("公司奖项库");
-			title.setText("查看奖项模板");
+			
 		}else{
 			updateStore.setVisible(false);
 			backStore.setVisible(false);
-			sub.setText("我的奖项");
-			title.setText("查看奖项");
+			
 		}
 			
 		 showJudgeInfo(rewardsItem);//显示的提名人

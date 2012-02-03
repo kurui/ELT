@@ -8,6 +8,7 @@ import com.chinarewards.elt.service.user.UserService;
 import com.chinarewards.gwt.elt.client.login.LoginRequest;
 import com.chinarewards.gwt.elt.client.login.LoginResponse;
 import com.chinarewards.gwt.elt.model.ClientException;
+import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
 import com.chinarewards.gwt.elt.util.UserRoleTool;
 import com.google.inject.Inject;
@@ -40,7 +41,8 @@ public class LoginActionHandler extends
 			resp.setDepartmentId(u.getDepartmentId());
 			resp.setUserRoles(UserRoleTool.adaptToRoleVo(u.getUserRoles()));
 			resp.setStaffId(u.getStaffId());
-
+			if(u.getLastLoginRole()!=null)
+			resp.setLastLoginRole(UserRoleVo.valueOf(u.getLastLoginRole().toString()));
 		} else {
 			throw new ClientException("login failure!");
 		}

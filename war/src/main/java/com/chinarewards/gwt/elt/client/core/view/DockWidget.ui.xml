@@ -31,9 +31,9 @@
   <div class="{new2.index} {new2.head}" id="head">
     <div class="{new2.top-nav} {new2.clearfix}">
       <ul>
-        <li class="{new2.on}"><a href="#">管理中心</a></li>
-        <li><a href="#">礼品兑换</a></li>
-        <li><a href="#">员工天地</a></li>
+        <li class="{new2.on}"><g:Anchor text="管理中心" styleName="{new2.newa}" ui:field="managementCenter" /> </li>
+        <li><g:Anchor text="礼品兑换" styleName="{new2.newa}"  ui:field="giftExchange" /> </li>
+        <li><g:Anchor text="员工天地" styleName="{new2.newa}"  ui:field="staffCorner" /> </li>
       </ul>
       <div class="{new2.green}">
       <g:InlineLabel ui:field="message"></g:InlineLabel>   <g:Anchor ui:field="logBtn" styleName="{new2.newa}">安全退出</g:Anchor>    <g:Anchor  ui:field="collectionBtn" styleName="{new2.newa}">加为收藏</g:Anchor>

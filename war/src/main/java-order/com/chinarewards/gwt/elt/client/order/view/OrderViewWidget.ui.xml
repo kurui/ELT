@@ -31,13 +31,17 @@
 				       <label class="{new2.label}">订单状态：</label>
 				        <div class="{new2.element}">
 				          <g:InlineLabel  ui:field="orderStatus" />
-				          <span class="{new2.nbsp}"></span>
-				          <span class="{new2.btn}">
-								<g:Button ui:field="confirmbutton" text="确认发货" />
+				            <span class="{new2.nbsp}"></span>
+				            <span class="{new2.btn}">
+								<g:Button ui:field="confirmbutton" text="发货" />
 							</span>
 							<span class="{new2.nbsp}"></span>
 							<span class="{new2.btn}">
-								<g:Button ui:field="returnbutton" text="取消"  />
+								<g:Button ui:field="backbutton" text="退回" />
+							</span>
+							<span class="{new2.nbsp}"></span>
+							<span class="{new2.btn}">
+								<g:Button ui:field="returnbutton" text="取消 "  />
 							</span>
 				        </div>
 				    </div>

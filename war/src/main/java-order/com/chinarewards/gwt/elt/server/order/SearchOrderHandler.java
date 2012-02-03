@@ -76,12 +76,13 @@ public class SearchOrderHandler extends
 		if (criteria.getStatus() != null) {
 			vo.setStatus(OrderStatus.valueOf(criteria.getStatus().toString()));
 		}
+		
 		if(!StringUtil.isEmpty(criteria.getGiftvo().getSource())){
 			giftvo.setSource(criteria.getGiftvo().getSource());
 			
 		}
 		vo.setGiftvo(giftvo);
-		
+		System.out.println("dddd="+vo.getGiftvo().getSource());
 		if (criteria.getPagination() != null) {
 			PaginationDetail detail = new PaginationDetail();
 			detail.setLimit(criteria.getPagination().getLimit());

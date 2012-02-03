@@ -18,6 +18,7 @@ import com.chinarewards.gwt.elt.client.gift.request.EditGiftRequest;
 import com.chinarewards.gwt.elt.client.gift.request.SearchGiftByIdRequest;
 import com.chinarewards.gwt.elt.client.gift.request.SearchGiftRequest;
 import com.chinarewards.gwt.elt.client.gift.request.UpdateGiftStatusRequest;
+import com.chinarewards.gwt.elt.client.login.LastLoginRoleRequest;
 import com.chinarewards.gwt.elt.client.login.LoginRequest;
 import com.chinarewards.gwt.elt.client.login.TokenValidRequest;
 import com.chinarewards.gwt.elt.client.nominate.NominateAddRequest;
@@ -61,6 +62,7 @@ import com.chinarewards.gwt.elt.server.gift.SearchGiftHandler;
 import com.chinarewards.gwt.elt.server.gift.UpdateGiftStatusHandler;
 import com.chinarewards.gwt.elt.server.login.LoginActionHandler;
 import com.chinarewards.gwt.elt.server.login.TokenValidActionHandler;
+import com.chinarewards.gwt.elt.server.login.UpdatelastLoginRoleActionHandler;
 import com.chinarewards.gwt.elt.server.nominate.NominateActionHandler;
 import com.chinarewards.gwt.elt.server.nominate.NominateAddActionHandler;
 import com.chinarewards.gwt.elt.server.order.DeleteOrderHandler;
@@ -196,8 +198,11 @@ public class ActionModule extends ActionHandlerModule {
 		
 		//取消订单
 		bindHandler(DeleteOrderRequest.class, DeleteOrderHandler.class);
+		//记录最后一次登录role
+		bindHandler(LastLoginRoleRequest.class, UpdatelastLoginRoleActionHandler.class);
 	
 		//兑换历史
 		bindHandler(OrderHistoryViewRequest.class, OrderHistoryViewHandler.class);
+
 	}
 }

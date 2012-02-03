@@ -43,6 +43,8 @@ public class OrderViewSubmitHandler extends
 		String rs = "fail";
 		if(request.getStauts().equals("SHIPMENTS"))
 		 rs = orderService.updateStatus(uc, request.getOrderId(),	OrderStatus.SHIPMENTS);
+		if(request.getStauts().equals("ERRORORDER"))
+			 rs = orderService.updateStatus(uc, request.getOrderId(),	OrderStatus.ERRORORDER);
 		return new OrderViewResponse(rs);
 	}
 

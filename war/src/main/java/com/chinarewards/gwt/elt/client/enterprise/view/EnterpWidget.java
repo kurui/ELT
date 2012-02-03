@@ -1,5 +1,6 @@
-package com.chinarewards.gwt.elt.client.enterprise.presenter;
+package com.chinarewards.gwt.elt.client.enterprise.view;
 
+import com.chinarewards.gwt.elt.client.enterprise.presenter.EnterprisePresenter;
 import com.chinarewards.gwt.elt.client.enterprise.presenter.EnterprisePresenter.EnterpriseDisplay;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -12,6 +13,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.TextArea;
@@ -34,7 +36,8 @@ public class EnterpWidget extends Composite  implements EnterpriseDisplay {
 	@UiField TextArea remark;
 	@UiField Button saveButton;
 	@UiField Hidden enterpriseId;
-			
+	@UiField
+	Panel breadCrumbs;	
 	interface EnterpWidgetUiBinder extends UiBinder<Widget, EnterpWidget> {
 	}
 	public EnterpWidget() {
@@ -44,7 +47,11 @@ public class EnterpWidget extends Composite  implements EnterpriseDisplay {
 	public Widget asWidget() {
 		return this;
 	}
-
+	@Override
+	public void setBreadCrumbs(Widget breadCrumbs) {
+		this.breadCrumbs.clear();
+		this.breadCrumbs.add(breadCrumbs);
+	}
 	public HasClickHandlers getSaveClickHandlers() {
 		return saveButton;
 	}
