@@ -47,19 +47,15 @@ public class TokenValidActionHandler extends
 		}
 		else
 		{
-			UserRole role=null;
 			List<UserRole> roles=userSessionVo.getUserRoles();
 			if(roles.size()>0)
 			{
-				for (UserRole r:roles) {
-					if(r==UserRole.CORP_ADMIN)
-						role=UserRole.CORP_ADMIN;
-					else if(r==UserRole.STAFF)
-						role=UserRole.STAFF;
-					else if(r==UserRole.GIFT)
-						role=UserRole.GIFT;
-				tokenRep.setLastLoginRole(UserRoleVo.valueOf(role.toString()));
-				}
+				if(roles.contains(UserRole.CORP_ADMIN))
+					tokenRep.setLastLoginRole(UserRoleVo.valueOf(UserRole.CORP_ADMIN.toString()));
+				else if(roles.contains(UserRole.GIFT))
+					tokenRep.setLastLoginRole(UserRoleVo.valueOf(UserRole.GIFT.toString()));
+				else if(roles.contains(UserRole.STAFF))
+					tokenRep.setLastLoginRole(UserRoleVo.valueOf(UserRole.STAFF.toString()));
 			}
 		}
 			

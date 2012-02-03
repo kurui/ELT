@@ -21,7 +21,9 @@ public interface GiftPresenter extends Presenter<GiftPresenter.GiftDisplay> {
 
 		
 		void setMessage(String userName);
-
+		void disableManagementCenter();
+		void disableGiftExchange();
+		void disableStaffCorner();
 	}
 	
 	

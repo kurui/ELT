@@ -1,10 +1,14 @@
 package com.chinarewards.gwt.elt.server.staff;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.DispatchException;
 
 import org.slf4j.Logger;
 
+import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.service.staff.IStaffService;
 import com.chinarewards.gwt.elt.client.staff.HrRegisterRequest;
 import com.chinarewards.gwt.elt.client.staff.HrRegisterResponse;
@@ -46,6 +50,12 @@ public class HrRegisterActionHandler extends
 		process.setTell(request.getStaffvo().getTell());
 		process.setCreateUserId(request.getStaffvo().getCreateUserId());
 		process.setDeptId(request.getStaffvo().getDeptId());
+
+		List<UserRole> roles=new ArrayList<UserRole>();
+		for (int i = 0; i < request.getStaffvo().getUserRoleVos().size(); i++) {
+			roles.add(UserRole.valueOf(request.getStaffvo().getUserRoleVos().get(i).toString()));
+		}
+		process.setRoles(roles);
 		String userId=staffService.createStaff(process);
 		hrResponse.setUserId(userId);
 		return hrResponse;

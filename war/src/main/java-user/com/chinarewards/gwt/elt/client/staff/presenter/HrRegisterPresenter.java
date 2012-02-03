@@ -18,6 +18,10 @@ public interface HrRegisterPresenter extends Presenter<HrRegisterPresenter.HrReg
 		public HasValue<String> getEmail();
 		public HasValue<String> getPassword();
 		public HasValue<String> getValidatePassword();
+		public boolean isCheckAdmin();
+		public boolean isCheckStaff();
+		public boolean isCheckGift();
+
 
 	}
 }

@@ -77,6 +77,11 @@ public class MainImpl implements Main, PlatformInitHandler, LoginHandler {
 			login.unbind();
 			injector.getPlatform().initialize(injector.getPluginSet(),rootLayoutPanel);
 			break;
+		case LOGIN_OK_GIFT:
+			rootLayoutPanel.clear();
+			login.unbind();
+			injector.getPlatform().initializeGift(injector.getPluginSet(),rootLayoutPanel);
+			break;
 		case LOGIN_OK_STAFF:
 			rootLayoutPanel.clear();
 			login.unbind();

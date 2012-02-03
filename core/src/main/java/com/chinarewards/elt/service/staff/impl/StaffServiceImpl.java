@@ -8,7 +8,6 @@ import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.domain.user.SysUserRole;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.org.StaffVo;
-import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.model.user.UserVo;
 import com.chinarewards.elt.model.vo.WinnersRecordQueryResult;
 import com.chinarewards.elt.model.vo.WinnersRecordQueryVo;
@@ -67,16 +66,19 @@ public class StaffServiceImpl implements IStaffService {
 		userVo.setStaffId(staff.getId());
 		SysUser user = userLogic.createUser(caller, userVo);
 
-		// 添加角色...先默认全部HR
-
+		// 添加角色...2012年2月3日 15:54:59..更新.加入角色权限---by nicho
+	for (int i = 0; i < staffProcess.getRoles().size(); i++) {
 		SysUserRole userRole = new SysUserRole();
-		userRole.setRole(roleDao.findRoleByRoleName(UserRole.CORP_ADMIN));
+		userRole.setRole(roleDao.findRoleByRoleName(staffProcess.getRoles().get(i)));
 		userRole.setCreatedBy(user);
 		userRole.setCreatedAt(DateUtil.getTime());
 		userRole.setLastModifiedAt(DateUtil.getTime());
 		userRole.setLastModifiedBy(user);
 		userRole.setUser(user);
 		userRoleDao.createUserRole(userRole);
+	}
+		
+
 		// em.getTransaction().commit();
 		return user.getId();
 	}

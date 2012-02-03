@@ -1,6 +1,9 @@
 package com.chinarewards.gwt.elt.client.staff.model;
 
 import java.io.Serializable;
+import java.util.List;
+
+import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 
 public class StaffVo implements Serializable, Comparable<StaffVo> {
 	private static final long serialVersionUID = 1L;
@@ -13,6 +16,14 @@ public class StaffVo implements Serializable, Comparable<StaffVo> {
 	private String email;
 	private String createUserId;
 	private String deptId;
+	private List<UserRoleVo> UserRoleVos;
+	
+	public List<UserRoleVo> getUserRoleVos() {
+		return UserRoleVos;
+	}
+	public void setUserRoleVos(List<UserRoleVo> userRoleVos) {
+		UserRoleVos = userRoleVos;
+	}
 	public String getDeptId() {
 		return deptId;
 	}

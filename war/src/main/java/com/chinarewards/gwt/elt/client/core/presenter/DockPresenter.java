@@ -29,6 +29,10 @@ public interface DockPresenter extends Presenter<DockPresenter.DockDisplay> {
 		void setMessage(String userName);
 		void setMenu(Panel panel);
 		void setMenuTitle(String title);
+		
+		void disableManagementCenter();
+		void disableGiftExchange();
+		void disableStaffCorner();
 	}
 	
 	

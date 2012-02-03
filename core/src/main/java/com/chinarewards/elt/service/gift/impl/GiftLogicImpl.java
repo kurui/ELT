@@ -35,7 +35,7 @@ public class GiftLogicImpl implements GiftLogic{
 			gift.setDeleted(false);
 			gift.setRecorduser(caller.getUserName());
 			gift.setRecorddate(currTime);
-			gift.setStatus(GiftStatus.SHELF);//新增的是下架的商品
+			gift.setStatus(GiftStatus.SHELVES);//新增的是上架的商品
 			giftDao.save(gift);
 		} else {
 			// Update

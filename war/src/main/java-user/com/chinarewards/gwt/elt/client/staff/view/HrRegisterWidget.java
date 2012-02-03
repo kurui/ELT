@@ -7,6 +7,7 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.PasswordTextBox;
@@ -29,6 +30,12 @@ public class HrRegisterWidget extends Composite implements HrRegisterDisplay {
 	TextBox name;
 	@UiField
 	TextBox tell;
+	@UiField
+	CheckBox admin;
+	@UiField
+	CheckBox gift;
+	@UiField
+	CheckBox staff;
 	
 	
 	private static HrRegisterWidgetUiBinder uiBinder = GWT
@@ -82,6 +89,25 @@ public class HrRegisterWidget extends Composite implements HrRegisterDisplay {
 	public HasValue<String> getValidatePassword() {
 		// TODO Auto-generated method stub
 		return validatePassword;
+	}
+
+
+	@SuppressWarnings("deprecation")
+	@Override
+	public boolean isCheckAdmin() {
+		return admin.isChecked();
+	}
+
+	@SuppressWarnings("deprecation")
+	@Override
+	public boolean isCheckStaff() {
+		return staff.isChecked();
+	}
+
+	@SuppressWarnings("deprecation")
+	@Override
+	public boolean isCheckGift() {
+		return gift.isChecked();
 	}
 
 }
