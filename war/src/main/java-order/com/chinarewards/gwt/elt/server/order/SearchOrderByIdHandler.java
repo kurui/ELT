@@ -5,10 +5,16 @@ package com.chinarewards.gwt.elt.server.order;
 
 import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.DispatchException;
+
 import org.slf4j.Logger;
+
+import com.chinarewards.elt.domain.gift.Gift;
 import com.chinarewards.elt.domain.order.Orders;
+import com.chinarewards.elt.service.gift.GiftService;
 import com.chinarewards.elt.service.order.OrderService;
-import com.chinarewards.gwt.elt.client.order.model.OrderVo;
+import com.chinarewards.elt.service.staff.IStaffService;
+import com.chinarewards.gwt.elt.client.order.model.OrderStatus;
+import com.chinarewards.gwt.elt.client.order.model.OrderViewClient;
 import com.chinarewards.gwt.elt.client.order.request.SearchOrderByIdRequest;
 import com.chinarewards.gwt.elt.client.order.request.SearchOrderByIdResponse;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
@@ -16,17 +22,20 @@ import com.chinarewards.gwt.elt.server.logger.InjectLogger;
 import com.google.inject.Inject;
 
 /**
- * @author yanrui
+ * @author lw
  */
 public class SearchOrderByIdHandler extends
 		BaseActionHandler<SearchOrderByIdRequest, SearchOrderByIdResponse> {
 	@InjectLogger
 	Logger logger;
 	OrderService orderService;
-
+	GiftService giftService;
+    IStaffService staffSerivce;
 	@Inject
-	public SearchOrderByIdHandler(OrderService orderService) {
+	public SearchOrderByIdHandler(OrderService orderService,GiftService giftService,IStaffService staffSerivce) {
 		this.orderService = orderService;
+		this.giftService = giftService;
+		this.staffSerivce = staffSerivce;
 	}
 
 	@Override
@@ -34,28 +43,31 @@ public class SearchOrderByIdHandler extends
 			ExecutionContext context) throws DispatchException {
 		logger.debug(" parameters:{}", request.getId());
 		Orders order = orderService.findOrderById(request.getId());
-		return new SearchOrderByIdResponse(adapter(orderService, order));
+		Gift gift=giftService.findGiftById(order.getGiftId());
+		//double userBalance = staffSerivce.getBalance(request.getStaffId());
+		return new SearchOrderByIdResponse(adapter(orderService, order,gift));
 
 	}
 
-	private OrderVo adapter(OrderService orderService, Orders order) {
-		OrderVo orderVo = new OrderVo();
-		orderVo.setId(order.getId());
+	private OrderViewClient adapter(OrderService orderService, Orders order,Gift gift) {
+		OrderViewClient orderVo = new OrderViewClient();
+		orderVo.setOrderId(order.getId());
 		orderVo.setName(order.getName());
-//		orderVo.setExplains(order.getExplains());
-//		orderVo.setType(order.getType());
-//		orderVo.setSource(order.getSource());
-//		orderVo.setBusiness(order.getBusiness());
-//		orderVo.setAddress(order.getAddress());
-//		orderVo.setTell(order.getTell());
-//		orderVo.setPhoto(order.getPhoto());
-//		orderVo.setStock(order.getStock());
-//		orderVo.setIntegral(order.getIntegral());
-//		orderVo.setPhoto(order.getPhoto());
-//		// orderVo.setOrderStatus();
-//		// orderVo.setDeleted(order.get);
-//		orderVo.setIndate(order.getIndate());
-
+		orderVo.setAddress(order.getAddress());
+		orderVo.setGiftId(order.getGiftId());
+		orderVo.setPhone(order.getTel());
+		orderVo.setAddress(order.getAddress());
+		orderVo.setZipCode(order.getPostcode());
+		orderVo.setOrderDefinition(order.getRemarks());
+		orderVo.setNumber(order.getAmount());
+		//orderVo.setUserBalance(userBalance);
+		orderVo.setGiftImage(gift.getPhoto());
+		orderVo.setGiftName(gift.getName());
+		orderVo.setIntegral(gift.getIntegral());
+		orderVo.setSource(gift.getSource());
+		orderVo.setOrdercode(order.getOrderCode());
+		orderVo.setOrderStatus(order.getStatus().toString());
+		orderVo.setExchangeDate(order.getExchangeDate());
 		return orderVo;
 	}
 

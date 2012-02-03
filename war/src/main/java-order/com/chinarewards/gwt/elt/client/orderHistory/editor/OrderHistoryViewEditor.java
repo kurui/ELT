@@ -1,7 +1,8 @@
 package com.chinarewards.gwt.elt.client.orderHistory.editor;
 
 import com.chinarewards.gwt.elt.client.core.ui.impl.AbstractEditor;
-import com.chinarewards.gwt.elt.client.orderHistory.presenter.OrderHistoryPresenter;
+import com.chinarewards.gwt.elt.client.order.model.OrderSearchVo;
+import com.chinarewards.gwt.elt.client.orderHistory.presenter.OrderHistoryViewPresenter;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
@@ -10,25 +11,25 @@ import com.google.inject.Inject;
  */
 public class OrderHistoryViewEditor extends AbstractEditor {
 
-	final OrderHistoryPresenter orderHistoryPresenter;
+	final OrderHistoryViewPresenter orderHistoryViewPresenter;
 	Object model;
 
 	@Inject
 	protected OrderHistoryViewEditor(
-			OrderHistoryEditorDescriptor editorDescriptor,
-			OrderHistoryPresenter orderHistoryPresenter) {
-		super(editorDescriptor);
-		this.orderHistoryPresenter = orderHistoryPresenter;
+			OrderHistoryViewEditorDescriptor orderHistoryVieweditorDescriptor,
+			OrderHistoryViewPresenter orderHistoryViewPresenter) {
+		super(orderHistoryVieweditorDescriptor);
+		this.orderHistoryViewPresenter = orderHistoryViewPresenter;
 	}
 
 	@Override
 	public Widget asWidget() {
-		return orderHistoryPresenter.getDisplay().asWidget();
+		return orderHistoryViewPresenter.getDisplay().asWidget();
 	}
 
 	@Override
 	public boolean beforeClose() {
-		orderHistoryPresenter.unbind();
+		orderHistoryViewPresenter.unbind();
 		return true;
 	}
 
@@ -42,8 +43,10 @@ public class OrderHistoryViewEditor extends AbstractEditor {
 
 	}
 
-	public void setModel(Object model) {
-		this.model = model;
-		orderHistoryPresenter.bind();
+	public void setModel(String instanceId,Object model) {
+		orderHistoryViewPresenter.bind();
+		if (model != null) {
+			orderHistoryViewPresenter.initInstanceId(instanceId, (OrderSearchVo) model);
+		}
 	}
 }

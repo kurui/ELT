@@ -1,4 +1,5 @@
 package com.chinarewards.gwt.elt.client.orderHistory.presenter;
+
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
@@ -15,10 +16,10 @@ import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.order.model.OrderSearchVo;
 import com.chinarewards.gwt.elt.client.order.model.OrderStatus;
-import com.chinarewards.gwt.elt.client.order.plugin.OrderConstants;
 import com.chinarewards.gwt.elt.client.order.request.DeleteOrderRequest;
 import com.chinarewards.gwt.elt.client.order.request.DeleteOrderResponse;
 import com.chinarewards.gwt.elt.client.orderHistory.dataprovider.OrderHistoryDataAdapter;
+import com.chinarewards.gwt.elt.client.orderHistory.plugin.OrderHistoryConstants;
 import com.chinarewards.gwt.elt.client.orderHistory.presenter.OrderHistoryPresenter.OrderHistoryDisplay;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
@@ -39,8 +40,8 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
-public class OrderHistoryPresenterImpl extends BasePresenter<OrderHistoryDisplay>
-		implements OrderHistoryPresenter {
+public class OrderHistoryPresenterImpl extends
+		BasePresenter<OrderHistoryDisplay> implements OrderHistoryPresenter {
 
 	final DispatchAsync dispatch;
 	final ErrorHandler errorHandler;
@@ -51,17 +52,20 @@ public class OrderHistoryPresenterImpl extends BasePresenter<OrderHistoryDisplay
 	ListCellTable<OrderSearchVo> cellTable;
 	OrderHistoryDataAdapter listViewAdapter;
 	private final BreadCrumbsPresenter breadCrumbs;
-	DateTimeFormat dateFormatAll = DateTimeFormat.getFormat(ViewConstants.date_format_all);
+	DateTimeFormat dateFormatAll = DateTimeFormat
+			.getFormat(ViewConstants.date_format_all);
+
 	@Inject
 	public OrderHistoryPresenterImpl(EventBus eventBus, DispatchAsync dispatch,
-			ErrorHandler errorHandler, SessionManager sessionManager,BreadCrumbsPresenter breadCrumbs,
-			OrderHistoryDisplay display, Win win) {
+			ErrorHandler errorHandler, SessionManager sessionManager,
+			BreadCrumbsPresenter breadCrumbs, OrderHistoryDisplay display,
+			Win win) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
 		this.win = win;
-        this.breadCrumbs = breadCrumbs;
+		this.breadCrumbs = breadCrumbs;
 	}
 
 	@Override
@@ -75,25 +79,26 @@ public class OrderHistoryPresenterImpl extends BasePresenter<OrderHistoryDisplay
 						doSearch();
 					}
 				}));
-		
-			}
+
+	}
 
 	private void init() {
 		initStatus();
-		
+
 		buildTable();
 		doSearch();
 	}
-   private void initStatus(){
-	   Map<String, String> map = new HashMap<String, String>();
+
+	private void initStatus() {
+		Map<String, String> map = new HashMap<String, String>();
 		map.put("INITIAL", "未付积分");
 		map.put("NUSHIPMENTS", " 待发货");
 		map.put("SHIPMENTS", "已发货");
 		map.put("AFFIRM", "确认发货");
 		map.put("ERRORORDER", "问题定单");
 		display.initOrderStatus(map);
-   }
-  
+	}
+
 	private void buildTable() {
 		// create a CellTable
 		cellTable = new ListCellTable<OrderSearchVo>();
@@ -115,11 +120,12 @@ public class OrderHistoryPresenterImpl extends BasePresenter<OrderHistoryDisplay
 		GiftClient giftVo = new GiftClient();
 		if (!StringUtil.isEmpty(display.getStatus()))
 			criteria.setStatus(OrderStatus.valueOf(display.getStatus()));
-		
+
 		criteria.setGiftvo(giftVo);
 		criteria.setExchangeDate(display.getCreateTime().getValue());
 		criteria.setExchangeDateEnd(display.getCreateTimeEnd().getValue());
-		listViewAdapter = new OrderHistoryDataAdapter(dispatch, criteria,errorHandler, sessionManager, display);
+		listViewAdapter = new OrderHistoryDataAdapter(dispatch, criteria,
+				errorHandler, sessionManager, display);
 		listViewAdapter.addDataDisplay(cellTable);
 	}
 
@@ -136,13 +142,13 @@ public class OrderHistoryPresenterImpl extends BasePresenter<OrderHistoryDisplay
 
 			}
 		};
-//		cellTable.addColumn("订单编号", new TextCell(),
-//				new GetValue<OrderSearchVo, String>() {
-//					@Override
-//					public String getValue(OrderSearchVo order) {
-//						return order.getOrderCode();
-//					}
-//				}, ref, "orderCode");
+		// cellTable.addColumn("订单编号", new TextCell(),
+		// new GetValue<OrderSearchVo, String>() {
+		// @Override
+		// public String getValue(OrderSearchVo order) {
+		// return order.getOrderCode();
+		// }
+		// }, ref, "orderCode");
 
 		cellTable.addColumn("礼品名称", new TextCell(),
 				new GetValue<OrderSearchVo, String>() {
@@ -152,20 +158,19 @@ public class OrderHistoryPresenterImpl extends BasePresenter<OrderHistoryDisplay
 					}
 				}, ref, "name");
 
-		
 		cellTable.addColumn("下单时间", new DateCell(dateFormatAll),
 				new GetValue<OrderSearchVo, Date>() {
 					@Override
 					public Date getValue(OrderSearchVo object) {
 						return object.getExchangeDate();
 					}
-				},ref,"exchangeDate");
+				}, ref, "exchangeDate");
 
 		cellTable.addColumn("消费积分", new TextCell(),
 				new GetValue<OrderSearchVo, String>() {
 					@Override
 					public String getValue(OrderSearchVo order) {
-						return order.getIntegral()+"";
+						return order.getIntegral() + "";
 					}
 				}, ref, "integral");
 		cellTable.addColumn("处理状态", new TextCell(),
@@ -175,7 +180,6 @@ public class OrderHistoryPresenterImpl extends BasePresenter<OrderHistoryDisplay
 						return order.getStatus().getDisplayName();
 					}
 				}, ref, "status");
-		
 
 		cellTable.addColumn("操作", new HyperLinkCell(),
 				new GetValue<OrderSearchVo, String>() {
@@ -185,31 +189,36 @@ public class OrderHistoryPresenterImpl extends BasePresenter<OrderHistoryDisplay
 					}
 				}, new FieldUpdater<OrderSearchVo, String>() {
 					@Override
-					public void update(int index, final OrderSearchVo order,String value) {
+					public void update(int index, final OrderSearchVo order,
+							String value) {
 						Platform.getInstance()
-						.getEditorRegistry()
-						.openEditor(
-								OrderConstants.EDITOR_ORDER_VIEW,
-								OrderConstants.EDITOR_ORDER_VIEW+ order.getId(), order);
+								.getEditorRegistry()
+								.openEditor(
+										OrderHistoryConstants.EDITOR_ORDERHISTORY_VIEW,
+										OrderHistoryConstants.EDITOR_ORDERHISTORY_VIEW
+												+ order.getId(), order);
 					}
 				});
 		cellTable.addColumn("操作", new HyperLinkCell(),
 				new GetValue<OrderSearchVo, String>() {
 					@Override
 					public String getValue(OrderSearchVo gift) {
-						if (gift.getStatus() != null&& gift.getStatus() == OrderStatus.INITIAL)
+						if (gift.getStatus() != null
+								&& gift.getStatus() == OrderStatus.INITIAL)
 							return "取消定单";
-						
+
 						else
 							return "";
 					}
 				}, new FieldUpdater<OrderSearchVo, String>() {
 					@Override
-					public void update(int index, final OrderSearchVo o,String value) {
+					public void update(int index, final OrderSearchVo o,
+							String value) {
 						String msgStr = "";
-						if (o.getStatus() != null&& o.getStatus() == OrderStatus.INITIAL)
+						if (o.getStatus() != null
+								&& o.getStatus() == OrderStatus.INITIAL)
 							msgStr = "确定取消定单?";
-						   win.confirm("提示", msgStr, new ConfirmHandler() {
+						win.confirm("提示", msgStr, new ConfirmHandler() {
 							@Override
 							public void confirm() {
 								deleteOrder(o.getId());
@@ -217,14 +226,13 @@ public class OrderHistoryPresenterImpl extends BasePresenter<OrderHistoryDisplay
 						});
 					}
 				});
-		
-	  }
 
-	
+	}
 
 	public void deleteOrder(String orderId) {
 
-		dispatch.execute(new DeleteOrderRequest(orderId, sessionManager.getSession()),
+		dispatch.execute(
+				new DeleteOrderRequest(orderId, sessionManager.getSession()),
 				new AsyncCallback<DeleteOrderResponse>() {
 
 					@Override
@@ -234,9 +242,10 @@ public class OrderHistoryPresenterImpl extends BasePresenter<OrderHistoryDisplay
 
 					@Override
 					public void onSuccess(DeleteOrderResponse resp) {
-						if (resp.getTotal()!=null&& !resp.getTotal().equals(""))
+						if (resp.getTotal() != null
+								&& !resp.getTotal().equals(""))
 							win.alert("订单取消成功!");
-						else 
+						else
 							win.alert("订单取消失败!");
 
 						doSearch();

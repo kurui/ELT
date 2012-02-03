@@ -6,6 +6,7 @@ import java.util.List;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.enterprise.EnterpriseInitRequest;
 import com.chinarewards.gwt.elt.client.enterprise.EnterpriseInitResponse;
 import com.chinarewards.gwt.elt.client.enterprise.EnterpriseRequest;
@@ -35,20 +36,23 @@ public class EnterprisePresenterImpl extends BasePresenter<EnterpriseDisplay> im
 	final Win  win;
 	private final SessionManager sessionManager;
 	List<HandlerRegistration> handlerRegistrations = new ArrayList<HandlerRegistration>();
-
+	private final BreadCrumbsPresenter breadCrumbs;
 	EnterpriseVo enterpriseVo = new EnterpriseVo();
 	
 	@Inject
-	public EnterprisePresenterImpl(final EventBus eventBus, EnterpriseDisplay display,
+	public EnterprisePresenterImpl(final EventBus eventBus, EnterpriseDisplay display,BreadCrumbsPresenter breadCrumbs,
 			DispatchAsync dispatchAsync,SessionManager sessionManager,Win  win) {
 		super(eventBus, display);
 		this.dispatchAsync = dispatchAsync;
 		this.sessionManager = sessionManager;
 		this.win =win;
+		this.breadCrumbs = breadCrumbs;
 	}
 
 	@Override
 	public void bind() {
+		breadCrumbs.loadChildPage("企业信息注册");
+		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
 		initialization();
 		registerHandler(display.getSaveClickHandlers().addClickHandler(
 				new ClickHandler() {
@@ -95,11 +99,11 @@ public class EnterprisePresenterImpl extends BasePresenter<EnterpriseDisplay> im
 		dispatchAsync.execute(req, new AsyncCallback<EnterpriseResponse>() {
 					public void onFailure(Throwable caught) {
 						
-						win.alert("创建失败");
+						win.alert("操作失败");
 					}
 					@Override
 					public void onSuccess(EnterpriseResponse arg0) {
-						win.alert("创建成功");
+						win.alert("操作成功");
 						
 					}
 				});

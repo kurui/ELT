@@ -15,7 +15,7 @@ import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.order.model.OrderSearchVo;
 import com.chinarewards.gwt.elt.client.order.model.OrderStatus;
-import com.chinarewards.gwt.elt.client.order.plugin.OrderConstants;
+import com.chinarewards.gwt.elt.client.order.plugin.OrderViewConstants;
 import com.chinarewards.gwt.elt.client.order.presenter.OrderListPresenter.OrderListDisplay;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
@@ -30,6 +30,7 @@ import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
 
 public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
@@ -87,8 +88,8 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
    }
    private void initSource(){
 	   Map<String, String> map = new HashMap<String, String>();
-		map.put("内部直接提供", "内部直接提供");
-		map.put("外部货品公司提供", "外部货品公司提供");
+		map.put("inner", "内部直接提供");
+		map.put("outter", "外部货品公司提供");
 		
 		display.initOrderSource(map);
    }
@@ -118,7 +119,7 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 		
 		if (!StringUtil.isEmpty(display.getSource()))
 			giftVo.setSource(display.getSource());
-			criteria.setGiftvo(giftVo);
+		criteria.setGiftvo(giftVo);
        
 		listViewAdapter = new OrderListViewAdapter(dispatch, criteria,
 				errorHandler, sessionManager, display);
@@ -187,7 +188,15 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 				new GetValue<OrderSearchVo, String>() {
 					@Override
 					public String getValue(OrderSearchVo order) {
-						return order.getGiftvo().getSource() + "";
+						if (order.getGiftvo().getSource() != null) {
+							if (StringUtil.trim(order.getGiftvo().getSource()).equals("inner")) {
+								return "内部直接提供";
+							}
+							if (StringUtil.trim(order.getGiftvo().getSource()).equals("outter")) {
+								return "外部货品公司提供";
+							}
+						}
+						return "";
 					}
 				});   
 		
@@ -204,59 +213,12 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 						Platform.getInstance()
 						.getEditorRegistry()
 						.openEditor(
-								OrderConstants.EDITOR_ORDER_VIEW,
-								OrderConstants.EDITOR_ORDER_VIEW+ order.getId(), order);
+								OrderViewConstants.EDITOR_ORDERVIEW_SEARCH,
+								OrderViewConstants.EDITOR_ORDERVIEW_SEARCH+ order.getId(), order);
 					}
 				});
+			
+	      }
 
-		
 
-//		cellTable.addColumn("查看", new HyperLinkCell(),
-//				new GetValue<OrderSeacherVo, String>() {
-//					@Override
-//					public String getValue(OrderSeacherVo arg0) {
-//						return "查看详细";
-//					}
-//				}, new FieldUpdater<OrderSeacherVo, String>() {
-//					@Override
-//					public void update(int index, OrderSeacherVo giftClient,
-//							String value) {
-//						giftClient.setThisAction(OrderListConstants.ACTION_GIFT_VIEW);
-//						Platform.getInstance()
-//								.getEditorRegistry()
-//								.openEditor(
-//										OrderListConstants.EDITOR_GIFT_VIEW,
-//										OrderListConstants.EDITOR_GIFT_VIEW
-//												+ giftClient.getId(), giftClient);
-//					}
-//				});
-
-		
-	}
-
-	
-
-	public void updateOrderStatus(String gifId, final OrderStatus status) {
-
-//		dispatch.execute(new UpdateOrderStatusRequest(gifId, sessionManager
-//				.getSession().getToken(), status),
-//				new AsyncCallback<UpdateOrderStatusResponse>() {
-//
-//					@Override
-//					public void onFailure(Throwable t) {
-//						Window.alert(t.getMessage());
-//					}
-//
-//					@Override
-//					public void onSuccess(UpdateOrderStatusResponse resp) {
-//						if (status == OrderStatus.SHELF)
-//							win.alert("上架成功!");
-//						else if (status == OrderStatus.SHELVES)
-//							win.alert("下架成功!");
-//
-//						doSearch();
-//					}
-//				});
-	}
-
-}
+    }

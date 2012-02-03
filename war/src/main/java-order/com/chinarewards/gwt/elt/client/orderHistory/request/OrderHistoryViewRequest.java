@@ -11,16 +11,16 @@ public class OrderHistoryViewRequest implements Action<OrderHistoryViewResponse>
 	private String orderId;
 	private String userId;
 
-
-
-
 	public OrderHistoryViewRequest() {
 	}
-
+	
 	public OrderHistoryViewRequest(String orderId,String userId) {
 		this.orderId = orderId;
 		this.userId=userId;
+	}
 
+	public OrderHistoryViewRequest(String orderId) {
+		this.orderId = orderId;
 	}
 
 	public String getOrderId() {

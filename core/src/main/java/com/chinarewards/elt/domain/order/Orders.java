@@ -12,7 +12,6 @@ import javax.persistence.Id;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.chinarewards.elt.domain.gift.Gift;
 import com.chinarewards.elt.model.order.search.OrderStatus;
 
 /**

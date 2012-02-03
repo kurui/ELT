@@ -3,27 +3,21 @@
  */
 package com.chinarewards.gwt.elt.client.order.plugin;
 
-import com.chinarewards.gwt.elt.client.order.plugin.OrderPluginDescriptor;
-import com.chinarewards.gwt.elt.client.order.editor.OrderEditor;
-import com.chinarewards.gwt.elt.client.order.editor.OrderEditorDescriptor;
 import com.chinarewards.gwt.elt.client.order.editor.OrderViewEditor;
 import com.chinarewards.gwt.elt.client.order.editor.OrderViewEditorDescriptor;
 import com.google.gwt.inject.client.AbstractGinModule;
 import com.google.inject.Singleton;
 
 /**
- * @author yanrui
- * @since
+ * @author lw
+ * @since 2012年2月1日 13:38:07
  */
-public class OrderPluginModule extends AbstractGinModule {
+public class OrderViewPluginModule extends AbstractGinModule {
 
 	@Override
 	protected void configure() {
-		bind(OrderPluginDescriptor.class).in(Singleton.class);
+		bind(OrderViewPluginDescriptor.class).in(Singleton.class);
 
-		bind(OrderEditorDescriptor.class).in(Singleton.class);		
-		bind(OrderEditor.class);
-		
 		bind(OrderViewEditorDescriptor.class).in(Singleton.class);
 		bind(OrderViewEditor.class);
 	}
