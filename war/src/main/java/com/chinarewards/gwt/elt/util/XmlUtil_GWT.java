@@ -42,4 +42,19 @@ public class XmlUtil_GWT {
 
 		return doc;
 	}
+
+	public static String replaceSpecialStr(String content) {
+		if (content != null) {
+			// 以text/plain格式返回需要
+			content = content.replace("<pre>", "");
+			content = content.replace("</pre>", "");
+			content = content.replace("&lt;", "<");
+			content = content.replace("&gt;", ">");
+			// chrome
+			String chromeStr = "<pre style=\"word-wrap: break-word; white-space: pre-wrap;\">";
+			content = content.replace(chromeStr, "");
+		}
+
+		return content;
+	}
 }

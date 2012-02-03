@@ -17,33 +17,32 @@
 			<div class="{new2.content-wrap}">
 				<div class="{new2.form}">
 					<div class="{new2.form-line}">
-						<label class="{new2.label}">
-							<span style="color:red">* </span>
-							订单编号：
-						</label>
+						<label class="{new2.label}">订单编号：</label>
 						<div class="{new2.element}">
-							<g:Label ui:field="orderCode" />
+							<g:InlineLabel ui:field="orderCode" />
 						</div>
 					</div>
 					<div class="{new2.form-line}">
 						<label class="{new2.label}">
-							<span style="color:red">* </span>
-							下单时间：
-						</label>
+							下单时间：</label>
 						<div class="{new2.element}">
-							<g:Label ui:field="exchangeDate" />
+							<g:InlineLabel ui:field="exchangeDate" />
 						</div>
 					</div>
+
 					<div class="{new2.form-line}">
 						<label class="{new2.label}">
-							<span style="color:red">* </span>
 							订单状态：
 						</label>
 						<div class="{new2.element}">
-							<g:Label ui:field="statusText" />
+							<g:InlineLabel ui:field="statusText" />
 
 							<span class="{new2.btn}">
 								<g:Button ui:field="confirmbutton" text="确认" width="100px" />
+							</span>
+							<span class="{new2.nbsp}"></span>
+							<span class="{new2.btn}">
+								<g:Button ui:field="backbutton" text="退回" />
 							</span>
 						</div>
 					</div>
@@ -55,7 +54,6 @@
 					<div class="{new2.form}">
 						<div class="{new2.form-line}">
 							<label class="{new2.label}">
-								<span style="color:red">* </span>
 								收货人：
 							</label>
 							<div class="{new2.element}">
@@ -73,7 +71,6 @@
 						</div>
 						<div class="{new2.form-line}">
 							<label class="{new2.label}">
-								<span style="color:red">* </span>
 								收货地址：
 							</label>
 							<div class="{new2.element}">
@@ -146,6 +143,7 @@
 								服务电话:4006688998
 							</div>
 						</div>
+
 						收到礼品后如确认无误，请及时改变订单状态，如无处理，订单状态将在45天后自动改为“确认收货”状态。
 						<span class="{new2.cutline}"></span>
 						<div class="{new2.form-line} {new2.form-line-btn}">
