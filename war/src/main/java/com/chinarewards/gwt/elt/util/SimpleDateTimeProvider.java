@@ -2,8 +2,7 @@
  * 
  */
 package com.chinarewards.gwt.elt.util;
-
-import java.text.SimpleDateFormat;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import java.util.Date;
 
 
@@ -23,7 +22,7 @@ public class SimpleDateTimeProvider implements DateTimeProvider {
 		if (StringUtil.isEmpty(partten)) {
 			partten = "yyyy-MM-dd HH:mm:ss";
 		}
-		SimpleDateFormat sdf = new SimpleDateFormat(partten);
-		return sdf.format(date);
+		DateTimeFormat formatYMD = DateTimeFormat.getFormat(partten);
+		return formatYMD.format(date);
 	}
 }

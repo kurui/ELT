@@ -11,7 +11,7 @@
 	<ui:style src="new2.css" field="new2"></ui:style>
 
 	<g:HTMLPanel styleName="{new2.frame-wrap}">
-	<!--面包屑 [[ -->
+	  <!--面包屑 [[ -->
 		<g:FlowPanel ui:field="breadCrumbs" />
 		<!--面包屑 ]] -->
 	
