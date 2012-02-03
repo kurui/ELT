@@ -268,4 +268,22 @@ public class DockWidget extends Composite implements DockDisplay {
 		return staffCorner;
 	}
 
+	@Override
+	public void disableManagementCenter() {
+		managementCenter.setVisible(false);
+		
+	}
+
+	@Override
+	public void disableGiftExchange() {
+		giftExchange.setVisible(false);
+		
+	}
+
+	@Override
+	public void disableStaffCorner() {
+		staffCorner.setVisible(false);
+		
+	}
+
 }

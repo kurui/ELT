@@ -13,27 +13,20 @@ public class OrderSubmitResponse implements Result {
 
 	private String result;
 
-
-
-	  public String getResult() {
+	public String getResult() {
 		return result;
 	}
-
-
 
 	public void setResult(String result) {
 		this.result = result;
 	}
 
-	public OrderSubmitResponse(){
-		
+	public OrderSubmitResponse() {
+
 	}
 
 	public OrderSubmitResponse(String result) {
 		this.result = result;
 	}
-
-
-
 
 }

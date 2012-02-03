@@ -21,7 +21,9 @@ public interface StaffPresenter extends Presenter<StaffPresenter.StaffDisplay> {
 
 		
 		void setMessage(String userName);
-
+		void disableManagementCenter();
+		void disableGiftExchange();
+		void disableStaffCorner();
 	}
 	
 	

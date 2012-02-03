@@ -67,7 +67,14 @@
 			           <g:TextBox maxLength="11" ui:field="tell" styleName="{new2.text}"/>
 			        </div>
 			      </div>
-			      
+			      <div class="{new2.form-line}">
+			        <label class="{new2.label}">角色：</label>
+			        <div class="{new2.element}">
+			           <g:CheckBox ui:field="admin" text="管理员" />
+			           <g:CheckBox ui:field="gift" text="礼品管理员" />
+			           <g:CheckBox ui:field="staff" text="员工" />
+			        </div>
+			      </div>
 			     <span class="{new2.cutline}"></span>
 			      <div class="{new2.form-line} {new2.form-line-btn}">
 			        <div class="{new2.element}">

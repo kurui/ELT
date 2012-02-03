@@ -9,6 +9,7 @@ import com.chinarewards.elt.domain.order.Orders;
 import com.chinarewards.elt.service.gift.GiftService;
 import com.chinarewards.elt.service.order.OrderService;
 import com.chinarewards.elt.service.staff.IStaffService;
+import com.chinarewards.gwt.elt.client.order.model.OrderStatus;
 import com.chinarewards.gwt.elt.client.order.model.OrderVo;
 import com.chinarewards.gwt.elt.client.orderHistory.request.OrderHistoryViewRequest;
 import com.chinarewards.gwt.elt.client.orderHistory.request.OrderHistoryViewResponse;
@@ -19,7 +20,7 @@ import com.google.inject.Inject;
 /**
  * @author yanrui
  */
-public class SearchOrderHistoryHandler extends
+public class OrderHistoryViewHandler extends
 		BaseActionHandler<OrderHistoryViewRequest, OrderHistoryViewResponse> {
 
 	@InjectLogger
@@ -30,7 +31,7 @@ public class SearchOrderHistoryHandler extends
 	IStaffService staffService;
 
 	@Inject
-	public SearchOrderHistoryHandler(OrderService orderService,
+	public OrderHistoryViewHandler(OrderService orderService,
 			GiftService giftService, IStaffService staffService) {
 		this.orderService = orderService;
 		this.giftService = giftService;
@@ -41,7 +42,7 @@ public class SearchOrderHistoryHandler extends
 	public OrderHistoryViewResponse execute(OrderHistoryViewRequest request,
 			ExecutionContext context) throws DispatchException {
 
-		System.out.println("SearchOrderHistoryHandler-----execute()----");
+		System.out.println("OrderHistoryViewHandler-----execute()----");
 
 		OrderHistoryViewResponse response = new OrderHistoryViewResponse();
 
@@ -50,11 +51,17 @@ public class SearchOrderHistoryHandler extends
 		orderVo.setId(orders.getId());
 		orderVo.setOrderCode(orders.getOrderCode());
 		orderVo.setExchangeDate(orders.getExchangeDate());
-		// orderVo.setStatus(orders.getStatus());
+
+		if (orders.getStatus() != null) {
+			orderVo.setStatus(OrderStatus
+					.valueOf(orders.getStatus().toString()));
+		}
+		
 		orderVo.setReceiver(orders.getReceiver());
 		orderVo.setTel(orders.getTel());
 		orderVo.setAddress(orders.getAddress());
 		orderVo.setPostcode(orders.getPostcode());
+	
 
 		response.setOrderVo(orderVo);
 
@@ -72,30 +79,15 @@ public class SearchOrderHistoryHandler extends
 		return response;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see net.customware.gwt.dispatch.server.ActionHandler#getActionType()
-	 */
 	@Override
 	public Class<OrderHistoryViewRequest> getActionType() {
 		return OrderHistoryViewRequest.class;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * net.customware.gwt.dispatch.server.ActionHandler#rollback(net.customware
-	 * .gwt.dispatch.shared.Action, net.customware.gwt.dispatch.shared.Result,
-	 * net.customware.gwt.dispatch.server.ExecutionContext)
-	 */
 	@Override
 	public void rollback(OrderHistoryViewRequest arg0,
 			OrderHistoryViewResponse arg1, ExecutionContext arg2)
 			throws DispatchException {
-		// TODO Auto-generated method stub
-
 	}
 
 }

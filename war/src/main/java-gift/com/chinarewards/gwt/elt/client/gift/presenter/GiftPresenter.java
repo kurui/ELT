@@ -14,6 +14,7 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.datepicker.client.DateBox;
 
 public interface GiftPresenter extends Presenter<GiftPresenter.GiftDisplay> {
 
@@ -60,7 +61,7 @@ public interface GiftPresenter extends Presenter<GiftPresenter.GiftDisplay> {
 
 		public HasValue<Boolean> getDeleted();
 
-		public HasValueChangeHandlers<Date> getIndate();
+		public DateBox getIndate();
 
 		public HasValueChangeHandlers<Date> getRecorddate();
 

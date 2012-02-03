@@ -147,6 +147,13 @@
 							styleName="{new2.text}" />
 					</div>
 				</div>
+				<div class="{new2.form-line}">
+					<label class="{new2.label}">有效期：</label>
+					<div class="{new2.element}">
+						<d:DateBox ui:field="indate" styleName="{new2.text}"/>
+					</div>
+				</div>
+			
 
 				<span class="{new2.cutline}"></span>
 				<div class="{new2.form-line} {new2.form-line-btn}">

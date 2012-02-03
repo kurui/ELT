@@ -103,5 +103,21 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	public HasClickHandlers getStaffCorner() {
 		return staffCorner;
 	}
+	@Override
+	public void disableManagementCenter() {
+		managementCenter.setVisible(false);
+		
+	}
 
+	@Override
+	public void disableGiftExchange() {
+		giftExchange.setVisible(false);
+		
+	}
+
+	@Override
+	public void disableStaffCorner() {
+		staffCorner.setVisible(false);
+		
+	}
 }

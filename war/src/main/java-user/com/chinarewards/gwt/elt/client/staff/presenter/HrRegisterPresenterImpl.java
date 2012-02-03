@@ -1,5 +1,8 @@
 package com.chinarewards.gwt.elt.client.staff.presenter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.core.Platform;
@@ -12,6 +15,7 @@ import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.user.plugin.UserConstants;
 import com.chinarewards.gwt.elt.client.util.StringUtil;
 import com.chinarewards.gwt.elt.client.win.Win;
+import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -61,6 +65,11 @@ public class HrRegisterPresenterImpl extends
 							win.alert("密码和确认密码不一致!<br>");
 							return;
 						}
+						if(display.isCheckAdmin()==false && display.isCheckGift()==false && display.isCheckStaff()==false)
+						{
+							win.alert("请选择角色");
+							return;
+						}
 						doHrRegister();
 					}
 				}));
@@ -76,7 +85,20 @@ public class HrRegisterPresenterImpl extends
 		vo.setUsername(display.getUsername().getValue());
 		vo.setCreateUserId(sessionManager.getSession().getToken());
 		vo.setDeptId(sessionManager.getSession().getDepartmentId());
-
+		List<UserRoleVo> userRoleVos=new ArrayList<UserRoleVo>();
+		if(display.isCheckAdmin()==true)
+		{
+			userRoleVos.add(UserRoleVo.CORP_ADMIN);
+		}
+		if(display.isCheckGift()==true)
+		{
+			userRoleVos.add(UserRoleVo.GIFT);
+		}
+		if(display.isCheckStaff()==true)
+		{
+			userRoleVos.add(UserRoleVo.STAFF);
+		}
+		vo.setUserRoleVos(userRoleVos);
 		dispatcher.execute(new HrRegisterRequest(vo),
 				new AsyncCallback<HrRegisterResponse>() {
 					public void onFailure(Throwable t) {
