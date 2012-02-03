@@ -16,11 +16,15 @@ import com.chinarewards.gwt.elt.client.login.TokenValidRequest;
 import com.chinarewards.gwt.elt.client.login.TokenValidResponse;
 import com.chinarewards.gwt.elt.client.login.event.LoginEvent;
 import com.chinarewards.gwt.elt.client.login.event.LoginHandler;
+import com.chinarewards.gwt.elt.client.login.presenter.AlertErrorWidget;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.support.UserSession;
+import com.chinarewards.gwt.elt.client.ui.DialogBox;
 import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.Window;
@@ -54,11 +58,43 @@ public class CookieSessionManager implements SessionManager {
 
 	public void authenticate(String username, String password, String verifyCode) {
 		if (null == username || username.trim().equals("")) {
-			Window.alert("账号不能为空!");
+			//Window.alert("账号不能为空!");
+			final AlertErrorWidget ae = new AlertErrorWidget();
+			final DialogBox dialogBoxae = new DialogBox();
+			ae.getOkBtn().addClickHandler(new ClickHandler() {
+				@Override
+				public void onClick(ClickEvent arg0) {
+					dialogBoxae.hide();
+				}
+			});
+			ae.setMessage("账号不能为空!");
+			dialogBoxae.setWidget(ae);
+			dialogBoxae.setGlassEnabled(true);
+			dialogBoxae.setAnimationEnabled(true);
+			dialogBoxae.setWidth("350px");
+			dialogBoxae.setText("提示");
+			dialogBoxae.center();
+			dialogBoxae.show();
 			return;
 		}
 		if (null == password || password.trim().equals("")) {
-			Window.alert("密码不能为空!");
+			//Window.alert("密码不能为空!");
+			final AlertErrorWidget ae = new AlertErrorWidget();
+			final DialogBox dialogBoxae = new DialogBox();
+			ae.getOkBtn().addClickHandler(new ClickHandler() {
+				@Override
+				public void onClick(ClickEvent arg0) {
+					dialogBoxae.hide();
+				}
+			});
+			ae.setMessage("密码不能为空!");
+			dialogBoxae.setWidget(ae);
+			dialogBoxae.setGlassEnabled(true);
+			dialogBoxae.setAnimationEnabled(true);
+			dialogBoxae.setWidth("350px");
+			dialogBoxae.setText("提示");
+			dialogBoxae.center();
+			dialogBoxae.show();
 			return;
 		}
 
@@ -68,7 +104,23 @@ public class CookieSessionManager implements SessionManager {
 			@Override
 			public void onFailure(Throwable e) {
 				tokenObtained(null);
-				Window.alert(e.getMessage());
+			
+				final AlertErrorWidget ae = new AlertErrorWidget();
+				final DialogBox dialogBoxae = new DialogBox();
+				ae.getOkBtn().addClickHandler(new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent arg0) {
+						dialogBoxae.hide();
+					}
+				});
+				ae.setMessage(e.getMessage());
+				dialogBoxae.setWidget(ae);
+				dialogBoxae.setGlassEnabled(true);
+				dialogBoxae.setAnimationEnabled(true);
+				dialogBoxae.setWidth("350px");
+				dialogBoxae.setText("提示");
+				dialogBoxae.center();
+				dialogBoxae.show();
 				eventBus.fireEvent(new LoginEvent(
 						LoginEvent.LoginStatus.LOGIN_FAILED, e));
 			}

@@ -30,6 +30,10 @@ public class AlertErrorWidget extends Composite {
 	public Widget asWidget() {
 		return this;
 	}
+	public void setMessage(String text)
+	{
+		message.setText(text);
+	}
 
 	public HasClickHandlers getOkBtn() {
 		return ok;
