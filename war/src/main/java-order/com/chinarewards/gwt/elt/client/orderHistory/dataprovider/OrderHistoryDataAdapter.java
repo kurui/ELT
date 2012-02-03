@@ -5,7 +5,6 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 import com.chinarewards.gwt.elt.client.dataprovider.BaseDataProvider;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.order.model.OrderSearchVo;
-import com.chinarewards.gwt.elt.client.order.presenter.OrderListPresenter.OrderListDisplay;
 import com.chinarewards.gwt.elt.client.order.request.SearchOrderRequest;
 import com.chinarewards.gwt.elt.client.order.request.SearchOrderResponse;
 import com.chinarewards.gwt.elt.client.orderHistory.presenter.OrderHistoryPresenter.OrderHistoryDisplay;

@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
-import com.chinarewards.gwt.elt.client.gift.model.GiftVo;
 import com.chinarewards.gwt.elt.model.PaginationDetailClient;
 import com.chinarewards.gwt.elt.model.SortingDetailClient;
 
