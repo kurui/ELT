@@ -2,6 +2,7 @@ package com.chinarewards.gwt.elt.client.orderHistory.view;
 
 import com.chinarewards.gwt.elt.client.order.model.OrderVo;
 import com.chinarewards.gwt.elt.client.orderHistory.presenter.OrderHistoryViewPresenter.OrderHistoryViewDisplay;
+import com.chinarewards.gwt.elt.util.DateTool;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -61,7 +62,7 @@ public class OrderHistoryViewWidget extends Composite implements
 
 	@UiField
 	Panel breadCrumbs;
-
+	
 	private static OrderHistoryViewWidgetUiBinder uiBinder = GWT
 			.create(OrderHistoryViewWidgetUiBinder.class);
 
@@ -76,8 +77,9 @@ public class OrderHistoryViewWidget extends Composite implements
 	@Override
 	public void showOrderHistory(OrderVo orderVo) {
 		orderCode.setText(orderVo.getOrderCode());
-		exchangeDate.setText(orderVo.getExchangeDate().toString());
-//		statusText.setText(orderVo.getStatus().getDisplayName());//nullpointer
+		exchangeDate.setText(DateTool.dateToString(orderVo.getExchangeDate()));
+		
+		statusText.setText(orderVo.getStatus().getDisplayName());
 
 		receiver.setText(orderVo.getReceiver());
 		tel.setText(orderVo.getTel());

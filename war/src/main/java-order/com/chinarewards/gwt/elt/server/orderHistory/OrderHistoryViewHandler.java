@@ -9,6 +9,7 @@ import com.chinarewards.elt.domain.order.Orders;
 import com.chinarewards.elt.service.gift.GiftService;
 import com.chinarewards.elt.service.order.OrderService;
 import com.chinarewards.elt.service.staff.IStaffService;
+import com.chinarewards.gwt.elt.client.order.model.OrderStatus;
 import com.chinarewards.gwt.elt.client.order.model.OrderVo;
 import com.chinarewards.gwt.elt.client.orderHistory.request.OrderHistoryViewRequest;
 import com.chinarewards.gwt.elt.client.orderHistory.request.OrderHistoryViewResponse;
@@ -50,11 +51,17 @@ public class OrderHistoryViewHandler extends
 		orderVo.setId(orders.getId());
 		orderVo.setOrderCode(orders.getOrderCode());
 		orderVo.setExchangeDate(orders.getExchangeDate());
-		// orderVo.setStatus(orders.getStatus());
+
+		if (orders.getStatus() != null) {
+			orderVo.setStatus(OrderStatus
+					.valueOf(orders.getStatus().toString()));
+		}
+		
 		orderVo.setReceiver(orders.getReceiver());
 		orderVo.setTel(orders.getTel());
 		orderVo.setAddress(orders.getAddress());
 		orderVo.setPostcode(orders.getPostcode());
+	
 
 		response.setOrderVo(orderVo);
 

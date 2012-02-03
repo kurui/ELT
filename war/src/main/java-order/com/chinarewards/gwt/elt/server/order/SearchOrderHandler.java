@@ -1,8 +1,5 @@
 package com.chinarewards.gwt.elt.server.order;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.DispatchException;
 
@@ -17,8 +14,6 @@ import com.chinarewards.elt.model.order.search.OrderStatus;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.order.OrderService;
 import com.chinarewards.gwt.elt.adapter.order.OrderAdapter;
-import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
-import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria.GiftStatus;
 import com.chinarewards.gwt.elt.client.order.model.OrderSearchVo;
 import com.chinarewards.gwt.elt.client.order.request.SearchOrderRequest;
 import com.chinarewards.gwt.elt.client.order.request.SearchOrderResponse;
