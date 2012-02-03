@@ -1,5 +1,9 @@
 package com.chinarewards.gwt.elt.model.staff;
 
+import java.util.List;
+
+import com.chinarewards.elt.model.user.UserRole;
+
 public class StaffUserProcess {
 
 	private String name;
@@ -9,6 +13,13 @@ public class StaffUserProcess {
 	private String email;
 	private String deptId;
 	private String corpId;
+	private List<UserRole> roles;
+	public List<UserRole> getRoles() {
+		return roles;
+	}
+	public void setRoles(List<UserRole> roles) {
+		this.roles = roles;
+	}
 	public String getDeptId() {
 		return deptId;
 	}
