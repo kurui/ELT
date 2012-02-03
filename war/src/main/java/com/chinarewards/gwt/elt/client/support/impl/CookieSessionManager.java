@@ -6,7 +6,7 @@ import java.util.List;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
-import com.chinarewards.elt.model.user.UserRole;
+
 import com.chinarewards.gwt.elt.client.core.ui.event.PlatformInitEvent;
 import com.chinarewards.gwt.elt.client.login.LastLoginRoleRequest;
 import com.chinarewards.gwt.elt.client.login.LastLoginRoleResponse;
@@ -87,17 +87,17 @@ public class CookieSessionManager implements SessionManager {
 					
 					if(roleslt.size()>0)
 					{
-						if(roleslt.contains(UserRole.CORP_ADMIN))
+						if(roleslt.contains(UserRoleVo.CORP_ADMIN))
 						{
 							 role=UserRoleVo.CORP_ADMIN;
 							 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK));
 						}
-						else if(roleslt.contains(UserRole.GIFT))
+						else if(roleslt.contains(UserRoleVo.GIFT))
 						{
 							 role=UserRoleVo.GIFT;
 							 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_GIFT));							 
 						}
-						else if(roleslt.contains(UserRole.STAFF))
+						else if(roleslt.contains(UserRoleVo.STAFF))
 						{
 							 role=UserRoleVo.STAFF;
 							 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_STAFF));
