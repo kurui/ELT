@@ -111,7 +111,7 @@
 
 				<div class="{new2.form-line}">
 					<label class="{new2.label}">
-						<span>*</span>
+						<span style="color:red">*</span>
 						供货方式：
 					</label>
 					<div class="{new2.element}">

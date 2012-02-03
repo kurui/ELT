@@ -19,7 +19,6 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class OrderHistoryViewWidget extends Composite implements
 		OrderHistoryViewDisplay {
-
 	@UiField
 	Button confirmbutton;
 	@UiField
@@ -40,7 +39,7 @@ public class OrderHistoryViewWidget extends Composite implements
 	Label address;
 	@UiField
 	Label postcode;
-
+	
 	@UiField
 	Anchor shopText;
 	@UiField
@@ -87,7 +86,12 @@ public class OrderHistoryViewWidget extends Composite implements
 		address.setText(orderVo.getAddress());
 		postcode.setText(orderVo.getPostcode());
 		
-		System.out.println("==============showOrderHistory()==========");
+//		shopImage.setUrl("imageshow?imageName="+orderVo.get);
+//		shopText.setText(orderVo.getGiftName());
+		total.setText(orderVo.getIntegral()+"");
+		unitprice.setText(orderVo.getIntegral()+"");
+//		source.setText(orderVo.getSource());
+//		number.setText(orderVo.getNumber()+"");
 	}
 
 	@Override
