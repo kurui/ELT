@@ -1,6 +1,5 @@
 package com.chinarewards.gwt.elt.client.order.view;
 
-import com.chinarewards.gwt.elt.client.order.model.OrderStatus;
 import com.chinarewards.gwt.elt.client.order.presenter.OrderViewPresenter.OrderViewDisplay;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -20,7 +19,8 @@ public class OrderViewWidget extends Composite implements	OrderViewDisplay {
 	Button confirmbutton;
 	@UiField
 	Button returnbutton;
-	
+	@UiField
+	Button backbutton;
 	@UiField
 	InlineLabel name;
 	@UiField
@@ -60,6 +60,7 @@ public class OrderViewWidget extends Composite implements	OrderViewDisplay {
 	public OrderViewWidget() {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.confirmbutton.setVisible(false);
+		this.backbutton.setVisible(false);
 	}
 
 	@Override
@@ -94,7 +95,10 @@ public class OrderViewWidget extends Composite implements	OrderViewDisplay {
 	public HasClickHandlers getReturnbutton() {
 		return returnbutton;
 	}
-
+	@Override
+	public HasClickHandlers getBackbutton() {
+		return backbutton;
+	}
 	@Override
 	public void setNumberChange(String text) {
 		 number.setText(text);
@@ -195,6 +199,7 @@ public class OrderViewWidget extends Composite implements	OrderViewDisplay {
 		   return "未付积分";
 	   if(text.equals("NUSHIPMENTS")){
 		   this.confirmbutton.setVisible(true);
+		   this.backbutton.setVisible(true);
 		   return "待发货";
 		   
 	   }
