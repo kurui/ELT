@@ -191,12 +191,12 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 							eventResults=XmlUtil_GWT.replaceSpecialStr(eventResults);
 							
 							try {
-								Document doc = XmlUtil_GWT
-										.parseXml(eventResults);
-								String result = XmlUtil_GWT.getSingleNodeText(
-										doc, "result");
-								String info = XmlUtil_GWT.getSingleNodeText(
-										doc, "info");
+//								Document doc = XmlUtil_GWT.parseXml(eventResults);
+//								String result = XmlUtil_GWT.getSingleNodeText(doc, "result");
+//								String info = XmlUtil_GWT.getSingleNodeText(doc, "info");
+								String result=XmlUtil_GWT.getNormalNodeText(eventResults, "<result>","</result>");
+								String info=XmlUtil_GWT.getNormalNodeText(eventResults, "<info>", "</info>");
+										
 								if ("SUCCESS".equals(result)) {
 									display.getPhoto().setValue(info);
 									String giftImageUrl = "imageshow?imageName="

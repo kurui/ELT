@@ -7,8 +7,20 @@ import com.google.gwt.xml.client.XMLParser;
 public class XmlUtil_GWT {
 
 	public static void main(String[] args) {
-		Document doc = parseXml("<root><node>333</node></root>");
-		System.out.println(getSingleNodeText(doc, "node"));
+//		Document doc = parseXml("<root><node>333</node></root>");
+//		Document doc = parseXml("<?xml version=\"1.0\" encoding=\"GB2312\" ?><root><result>SUCCESS</result><info>201202031828463440.jpg</info></root>");
+//		
+//		System.out.println(getSingleNodeText(doc, "result"));
+		String str="<root><result>SUCCESS</result><info>201202031828463440.jpg</info>";
+//		System.out.println(str.substring(str.indexOf("<result>"), str.indexOf("</result>")));
+		System.out.println(getNormalNodeText(str, "<result>","</result>"));
+		System.out.println(getNormalNodeText(str, "<info>","</info>"));
+		
+	}
+	
+	public static String getNormalNodeText(String str,String beginStr,String endStr){
+		str=str.substring(str.indexOf(beginStr)+beginStr.length(), str.indexOf(endStr));
+		return str;
 	}
 
 	public static String getSingleNodeText(Document doc, String tagName) {
@@ -67,7 +79,13 @@ public class XmlUtil_GWT {
 			content = content.replace("&nbsp;", "");
 			content = content.replace("<DIV style=\"TEXT-INDENT: -2em; MARGIN-LEFT: 1em\">", "");
 			content = content.replace("<DIV style=\"TEXT-INDENT: -2em; MARGIN-LEFT: 1em\" class=c>", "");
-			content = content.replace("<A class=b onfocus=h() onclick=\"return false\" href=\"#\">-</A>", "");		
+			content = content.replace("<A class=b onfocus=h() onclick=\"return false\" href=\"#\">-</A>", "");	
+			content=content.replace("\n", "");
+			content=content.replace("\r", "");
+			content=content.replace("\r\n", "");
+			content=content.replace("\n\r", "");			
+			content=content.replace("\t", "");
+			content=content.replace("GB2312\" ?", "GB2312\"?");
 		}
 
 		return content;
