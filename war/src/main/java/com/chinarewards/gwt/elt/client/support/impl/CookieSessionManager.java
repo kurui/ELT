@@ -6,6 +6,7 @@ import java.util.List;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.gwt.elt.client.core.ui.event.PlatformInitEvent;
 import com.chinarewards.gwt.elt.client.login.LastLoginRoleRequest;
 import com.chinarewards.gwt.elt.client.login.LastLoginRoleResponse;
@@ -75,26 +76,35 @@ public class CookieSessionManager implements SessionManager {
 			@Override
 			public void onSuccess(LoginResponse resp) {
 				tokenObtained(resp);
-				UserRoleVo role = null;
+				List <UserRoleVo> roleslt = new ArrayList<UserRoleVo>();
 				UserRoleVo [] roles=resp.getUserRoles();
+				UserRoleVo role=null;
 				if(roles.length>0)
 				{
 					for (UserRoleVo r:roles) {
-						if(r==UserRoleVo.CORP_ADMIN)
-							role=UserRoleVo.CORP_ADMIN;
-						else if(r==UserRoleVo.STAFF)
-							role=UserRoleVo.STAFF;
-						else if(r==UserRoleVo.GIFT)
-							role=UserRoleVo.GIFT;
+						roleslt.add(r);
 					}
-					if(role==UserRoleVo.CORP_ADMIN)
-						eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK));
-					else if(role==UserRoleVo.STAFF)
-						eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_STAFF));
-					else if(role==UserRoleVo.GIFT)
-						eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_GIFT));
-					else
-						Window.alert("没有角色");
+					
+					if(roleslt.size()>0)
+					{
+						if(roleslt.contains(UserRole.CORP_ADMIN))
+						{
+							 role=UserRoleVo.CORP_ADMIN;
+							 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK));
+						}
+						else if(roleslt.contains(UserRole.GIFT))
+						{
+							 role=UserRoleVo.GIFT;
+							 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_GIFT));							 
+						}
+						else if(roleslt.contains(UserRole.STAFF))
+						{
+							 role=UserRoleVo.STAFF;
+							 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_STAFF));
+						}
+						else 
+							Window.alert("没有角色");
+					}
 					
 					if(role!=null)
 					{
