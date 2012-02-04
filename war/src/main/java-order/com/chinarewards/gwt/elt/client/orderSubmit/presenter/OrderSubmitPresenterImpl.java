@@ -55,7 +55,7 @@ public class OrderSubmitPresenterImpl extends BasePresenter<OrderSubmitDisplay>
 
 		display.getShopImage().setUrl("imageshow?imageName="+orderVo.getGiftImage());
 		display.setShopText(orderVo.getGiftName());
-		display.setTotal(orderVo.getIntegral()+"");
+		display.setTotal(orderVo.getTotal()+"");
 		display.setUnitprice(orderVo.getIntegral()+"");
 		display.setSource(orderVo.getSource()+"");
 		display.setNumber(orderVo.getNumber()+"");
