@@ -11,8 +11,8 @@ public  enum OrderStatus {
    	/* 已发货 */	
    	SHIPMENTS("已发货"),
    	
-   	/* 确认发货 */	
-   	AFFIRM("确认发货"),
+   	/* 确认收货 */	
+   	AFFIRM("确认收货"),
    	
    	/* 问题订单 */
    	ERRORORDER("问题定单");

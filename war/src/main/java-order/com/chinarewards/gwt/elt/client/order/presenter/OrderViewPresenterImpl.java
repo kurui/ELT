@@ -8,6 +8,7 @@ import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.order.model.OrderSearchVo;
+import com.chinarewards.gwt.elt.client.order.model.OrderStatus;
 import com.chinarewards.gwt.elt.client.order.model.OrderViewClient;
 import com.chinarewards.gwt.elt.client.order.plugin.OrderListConstants;
 import com.chinarewards.gwt.elt.client.order.presenter.OrderViewPresenter.OrderViewDisplay;
@@ -60,7 +61,7 @@ public class OrderViewPresenterImpl extends BasePresenter<OrderViewDisplay>
 		display.getConfirmbutton().addClickHandler(new ClickHandler() {
 		@Override
 		public void onClick(ClickEvent event) {//确定发货
-			  String status ="SHIPMENTS";
+			  String status =OrderStatus.SHIPMENTS+"";
 				dispatch.execute(new OrderViewRequest(orderId,sessionManager.getSession().getToken(),status),
 						new AsyncCallback<OrderViewResponse>() {
 							@Override
@@ -74,6 +75,7 @@ public class OrderViewPresenterImpl extends BasePresenter<OrderViewDisplay>
 								String rs=response.getResult();
 								if("ok".equals(rs))
 								{
+									win.alert("操作成功!");
 									Platform.getInstance()
 									.getEditorRegistry()
 									.openEditor(OrderListConstants.EDITOR_ORDERLIST_SEARCH,	"EDITOR_ORDERLIST_SEARCH", null);
@@ -97,7 +99,7 @@ public class OrderViewPresenterImpl extends BasePresenter<OrderViewDisplay>
 		display.getBackbutton().addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {//问题定单
-				  String status ="ERRORORDER";
+				  String status =OrderStatus.ERRORORDER+"";
 					dispatch.execute(new OrderViewRequest(orderId,sessionManager.getSession().getToken(),status),
 							new AsyncCallback<OrderViewResponse>() {
 								@Override
@@ -169,7 +171,7 @@ public class OrderViewPresenterImpl extends BasePresenter<OrderViewDisplay>
 							this.orderVo = response.getOrderViewClient();
 							display.getShopImage().setUrl("imageshow?imageName="+orderVo.getGiftImage());
 							display.setShopText(orderVo.getGiftName());
-							display.setTotal(orderVo.getIntegral()+"");
+							display.setTotal(orderVo.getTotal()+"");
 							display.setUnitprice(orderVo.getIntegral()+"");
 							display.setSource(orderVo.getSource()+"");
 							display.setNumber(orderVo.getNumber()+"");
@@ -181,6 +183,7 @@ public class OrderViewPresenterImpl extends BasePresenter<OrderViewDisplay>
 							display.setOrderCode(orderVo.getOrdercode());
 							display.setOrderStatus(orderVo.getOrderStatus().toString());
 							display.setExchangeDate(SimpleDateTimeProvider.formatData("", orderVo.getExchangeDate()));
+							display.setOrderDefinition(orderVo.getOrderDefinition());
 							
 						}
 

@@ -1,6 +1,6 @@
 package com.chinarewards.gwt.elt.client.orderHistory.view;
 
-import com.chinarewards.gwt.elt.client.order.model.OrderVo;
+import com.chinarewards.gwt.elt.client.order.model.OrderViewClient;
 import com.chinarewards.gwt.elt.client.orderHistory.presenter.OrderHistoryViewPresenter.OrderHistoryViewDisplay;
 import com.chinarewards.gwt.elt.util.DateTool;
 import com.google.gwt.core.client.GWT;
@@ -23,7 +23,8 @@ public class OrderHistoryViewWidget extends Composite implements
 	Button confirmbutton;
 	@UiField
 	Button returnbutton;
-
+	@UiField
+	Button receivebutton;
 	@UiField
 	Label orderCode;
 	@UiField
@@ -71,29 +72,58 @@ public class OrderHistoryViewWidget extends Composite implements
 
 	public OrderHistoryViewWidget() {
 		initWidget(uiBinder.createAndBindUi(this));
+		this.confirmbutton.setVisible(false);
+		this.receivebutton.setVisible(false);
 	}
 
 	@Override
-	public void showOrderHistory(OrderVo orderVo) {
-		orderCode.setText(orderVo.getOrderCode());
+	public void showOrderHistory(OrderViewClient orderVo) {
+		orderCode.setText(orderVo.getOrdercode());
 		exchangeDate.setText(DateTool.dateToString(orderVo.getExchangeDate()));
 		
-		statusText.setText(orderVo.getStatus().getDisplayName());
-
-		receiver.setText(orderVo.getReceiver());
-		tel.setText(orderVo.getTel());
+		statusText.setText(toChineseStatus(orderVo.getOrderStatus()));
+		orderDefinition.setText(orderVo.getOrderDefinition());
+		receiver.setText(orderVo.getName());
+		tel.setText(orderVo.getPhone());
 
 		address.setText(orderVo.getAddress());
-		postcode.setText(orderVo.getPostcode());
+		postcode.setText(orderVo.getZipCode());
 		
-//		shopImage.setUrl("imageshow?imageName="+orderVo.get);
-//		shopText.setText(orderVo.getGiftName());
-		total.setText(orderVo.getIntegral()+"");
+		shopImage.setUrl("imageshow?imageName="+orderVo.getGiftImage());
+		shopText.setText(orderVo.getGiftName());
+		total.setText(orderVo.getTotal()+"");
 		unitprice.setText(orderVo.getIntegral()+"");
-//		source.setText(orderVo.getSource());
-//		number.setText(orderVo.getNumber()+"");
+		source.setText(orderVo.getSource());
+		number.setText(orderVo.getNumber()+"");
+		mybalance.setText(orderVo.getUserBalance()+"");
+		if(orderVo.getUserBalance()<orderVo.getIntegral())
+		{
+			this.message.setVisible(true);
+			this.confirmbutton.setEnabled(false);
+		}
+		else
+		{
+			this.message.setVisible(false);
+			this.confirmbutton.setEnabled(true);
+		}
 	}
-
+	 public String toChineseStatus(String text){
+		  
+		   if(text.equals("INITIAL")){
+			   this.confirmbutton.setVisible(true);
+			   return "未付积分";
+		   }
+		   if(text.equals("NUSHIPMENTS"))
+			   return "待发货";
+		   if(text.equals("SHIPMENTS")){
+			   this.receivebutton.setVisible(true);
+			   return "已发货";
+		   }
+		   if(text.equals("AFFIRM"))
+			   return "确认收货";
+		   else
+			   return "问题定单";
+	   }
 	@Override
 	public HasClickHandlers getConfirmbutton() {
 		return confirmbutton;
@@ -102,6 +132,11 @@ public class OrderHistoryViewWidget extends Composite implements
 	@Override
 	public HasClickHandlers getReturnbutton() {
 		return returnbutton;
+	}
+	
+	@Override
+	public HasClickHandlers getReceivebutton() {
+		return receivebutton;
 	}
 
 	@Override

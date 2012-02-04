@@ -6,7 +6,7 @@ package com.chinarewards.gwt.elt.client.order.request;
 import net.customware.gwt.dispatch.shared.Action;
 
 /**
- * @author nicho
+ * @author lw
  * @since 2012年1月31日 18:52:22
  */
 public class OrderViewRequest implements Action<OrderViewResponse> {
