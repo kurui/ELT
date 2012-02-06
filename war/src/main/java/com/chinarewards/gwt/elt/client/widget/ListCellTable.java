@@ -66,7 +66,13 @@ public class ListCellTable<T> extends CellTable<T> {
 	 * @since 0.2.0 2011-01-15
 	 */
 	private final List<SortableHeader> allHeaders = new ArrayList<SortableHeader>();
-
+	/**
+	 * @author nicho
+	 * @since 2012年2月6日 15:55:51
+	 */
+	private final List<TextHeader> allTextHeaders = new ArrayList<TextHeader>();
+	
+	
 	/**
 	 * Just show text , no need sorting.
 	 * 
@@ -186,7 +192,16 @@ public class ListCellTable<T> extends CellTable<T> {
 			});
 			this.addColumn(column, header);
 		} else {
-			final TextHeader header = new TextHeader(text);
+			TextHeader header = new TextHeader(text);
+			int fal=0;
+			for (TextHeader otherHeader : allTextHeaders) {
+				if (otherHeader.getValue() == header.getValue()) {
+					header=otherHeader;
+					fal=1;
+				}
+			}
+			if(fal!=1)
+			  allTextHeaders.add(header);
 			this.addColumn(column, header);
 		}
 		if (fieldUpdater != null) {
