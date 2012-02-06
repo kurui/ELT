@@ -411,7 +411,7 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 						}
 
 					});
-			cellTable.addColumn("查看", new HyperLinkCell(),
+			cellTable.addColumn("操作", new HyperLinkCell(),
 					new GetValue<RewardsClient, String>() {
 						@Override
 						public String getValue(RewardsClient rewards) {
@@ -434,7 +434,7 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 					});
 		}
 
-		cellTable.addColumn("删除", new HyperLinkCell(),
+		cellTable.addColumn("操作", new HyperLinkCell(),
 				new GetValue<RewardsClient, String>() {
 					@Override
 					public String getValue(RewardsClient rewards) {

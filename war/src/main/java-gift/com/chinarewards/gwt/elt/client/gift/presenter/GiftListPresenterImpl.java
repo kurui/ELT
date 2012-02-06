@@ -14,6 +14,7 @@ import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
 import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria;
 import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria.GiftStatus;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftConstants;
+import com.chinarewards.gwt.elt.client.gift.presenter.GiftListPresenter.GiftListDisplay;
 import com.chinarewards.gwt.elt.client.gift.request.DeleteGiftRequest;
 import com.chinarewards.gwt.elt.client.gift.request.DeleteGiftResponse;
 import com.chinarewards.gwt.elt.client.gift.request.UpdateGiftStatusRequest;
@@ -21,10 +22,6 @@ import com.chinarewards.gwt.elt.client.gift.request.UpdateGiftStatusResponse;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
-import com.chinarewards.gwt.elt.client.order.model.OrderVo;
-import com.chinarewards.gwt.elt.client.order.plugin.OrderConstants;
-import com.chinarewards.gwt.elt.client.gift.presenter.GiftListPresenter;
-import com.chinarewards.gwt.elt.client.gift.presenter.GiftListPresenter.GiftListDisplay;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager;
@@ -221,7 +218,7 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 					}
 				});
 		
-		cellTable.addColumn("查看", new HyperLinkCell(),
+		cellTable.addColumn("操作", new HyperLinkCell(),
 				new GetValue<GiftClient, String>() {
 					@Override
 					public String getValue(GiftClient arg0) {
@@ -241,7 +238,7 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 					}
 				});
 		
-		cellTable.addColumn("修改", new HyperLinkCell(),
+		cellTable.addColumn("操作", new HyperLinkCell(),
 				new GetValue<GiftClient, String>() {
 					@Override
 					public String getValue(GiftClient arg0) {
