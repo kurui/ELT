@@ -138,5 +138,8 @@ public class OrderLogicImpl implements OrderLogic{
 		return order.getId();
 	}
 
-	
+	@Override
+	public int getOrderByStatus(String userId,String status){
+		return orderDao.getOrderByStatus( userId, status);
+	}
 }

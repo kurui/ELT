@@ -183,7 +183,7 @@ public class OrderHistoryPresenterImpl extends
 					}
 				}, ref, "status");
 
-		cellTable.addColumn("查看操作", new HyperLinkCell(),
+		cellTable.addColumn("操作", new HyperLinkCell(),
 				new GetValue<OrderSearchVo, String>() {
 					@Override
 					public String getValue(OrderSearchVo order) {
@@ -201,7 +201,7 @@ public class OrderHistoryPresenterImpl extends
 												+ order.getId(), order);
 					}
 				});
-		cellTable.addColumn("收货操作", new HyperLinkCell(),
+		cellTable.addColumn("操作", new HyperLinkCell(),
 				new GetValue<OrderSearchVo, String>() {
 					@Override
 					public String getValue(OrderSearchVo order) {
@@ -237,7 +237,7 @@ public class OrderHistoryPresenterImpl extends
 											
 					}
 				});
-		cellTable.addColumn("确认操作", new HyperLinkCell(),
+		cellTable.addColumn("操作", new HyperLinkCell(),
 				new GetValue<OrderSearchVo, String>() {
 					@Override
 					public String getValue(OrderSearchVo order) {
@@ -273,7 +273,7 @@ public class OrderHistoryPresenterImpl extends
 											
 					}
 				});
-		cellTable.addColumn("取消操作", new HyperLinkCell(),
+		cellTable.addColumn("操作", new HyperLinkCell(),
 				new GetValue<OrderSearchVo, String>() {
 					@Override
 					public String getValue(OrderSearchVo gift) {
