@@ -55,6 +55,10 @@ public class XmlUtil_GWT {
 		return doc;
 	}
 
+	/**
+	 * response.setContentType("text/plain");
+	 * 
+	 * */
 	public static String replaceSpecialStr(String content) {
 		if (content != null) {
 			// 以text/plain格式返回需要
