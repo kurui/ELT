@@ -125,4 +125,16 @@ public class OrderServiceImpl implements OrderService {
    	    	back=true;
 		return back;
 	}
+	
+	public int  getOrderByStatus(UserContext context,String status){
+		SysUser caller = userLogic.findUserById(context.getUserId());
+		List<UserRole> roles =Arrays.asList(context.getUserRoles());
+		String userId = "";
+		//如果是HR或礼品管理员，可以查看所有订单，
+		if (roles.contains(UserRole.CORP_ADMIN)||roles.contains(UserRole.GIFT))
+			userId = "";//不传订单用户的参数
+		else
+			userId = caller.getId();//把登录人的用户ID传过去做为条件
+		return orderLogic.getOrderByStatus(userId, status);
+	}
 }

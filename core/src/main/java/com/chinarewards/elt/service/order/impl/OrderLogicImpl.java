@@ -34,7 +34,8 @@ public class OrderLogicImpl implements OrderLogic{
 	@Override
 	public Orders save(SysUser caller, Orders order) {
 		Date currTime = DateUtil.getTime();
-		String orderCode = DateUtil.formatData("yyyyMMddhhmmss", currTime)+DateUtil.rand(20);
+		String millsTime=currTime.getTime()+"";
+		String orderCode = DateUtil.formatData("yyyyMMddhhmmss", currTime)+millsTime.substring(millsTime.length()-3);
 		if (StringUtil.isEmptyString(order.getId())) {
 			// Create
 			order.setDeleted(0);//正常状态，没有删除为0
@@ -137,5 +138,8 @@ public class OrderLogicImpl implements OrderLogic{
 		return order.getId();
 	}
 
-	
+	@Override
+	public int getOrderByStatus(String userId,String status){
+		return orderDao.getOrderByStatus( userId, status);
+	}
 }

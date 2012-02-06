@@ -15,7 +15,7 @@ public class CorporationServiceImpl implements CorporationService {
 
 	private final CorporationLogic corporationLogic;
 	private final TransactionService transactionService;
-
+	private static double initBalance = 100000000;
 	@Inject
 	public CorporationServiceImpl(CorporationLogic corporationLogic,
 			TransactionService transactionService) {
@@ -25,9 +25,7 @@ public class CorporationServiceImpl implements CorporationService {
 
 	public Corporation saveCorporation(SysUser caller,
 			CorporationVo corporationVo) {
-		// if (em.getTransaction().isActive() != true) {
-		// em.getTransaction().begin();
-		// }
+		
 		String accountId = transactionService.createNewAccount();
 		String unitCode = TransactionUnit.BEANPOINTS.toString();
 		corporationVo.setTxAccountId(accountId);
@@ -39,12 +37,12 @@ public class CorporationServiceImpl implements CorporationService {
 		// } catch (DuplicateUnitCodeException e) {
 		// // should not be here
 		// }
-		// 存入的企业积分暂时不用-李伟
-		// transactionService.deposit(accountId, UnitCode, 100000);
+		// 初始化企业积分给1亿-李伟
+		if(corporationVo.getId()==null||corporationVo.getId().equals(""))
+		   transactionService.deposit(accountId, unitCode, initBalance);
 		// =======================================================================
-		Corporation corporation = corporationLogic.saveCorporation(caller,
-				corporationVo);
-		// em.getTransaction().commit();
+		Corporation corporation = corporationLogic.saveCorporation(caller,corporationVo);
+		
 		return corporation;
 	}
 

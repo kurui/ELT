@@ -229,7 +229,7 @@ public class RewardsItemListPresenterImpl extends
 						return rewards.getDegree() + "";
 					}
 				}, ref, "nexRunBatchTime");
-		resultTable.addColumn("修改", new HyperLinkCell(),
+		resultTable.addColumn("操作", new HyperLinkCell(),
 				new GetValue<RewardsItemClient, String>() {
 					@Override
 					public String getValue(RewardsItemClient arg0) {
@@ -248,7 +248,7 @@ public class RewardsItemListPresenterImpl extends
 
 					}
 				});
-		resultTable.addColumn("查看", new HyperLinkCell(),
+		resultTable.addColumn("操作", new HyperLinkCell(),
 				new GetValue<RewardsItemClient, String>() {
 					@Override
 					public String getValue(RewardsItemClient arg0) {
