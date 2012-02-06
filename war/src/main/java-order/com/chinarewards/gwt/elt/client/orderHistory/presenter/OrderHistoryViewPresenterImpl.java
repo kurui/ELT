@@ -9,7 +9,12 @@ import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.order.model.OrderSearchVo;
+import com.chinarewards.gwt.elt.client.order.model.OrderStatus;
+import com.chinarewards.gwt.elt.client.order.model.OrderViewClient;
 import com.chinarewards.gwt.elt.client.order.model.OrderVo;
+import com.chinarewards.gwt.elt.client.order.plugin.OrderListConstants;
+import com.chinarewards.gwt.elt.client.order.request.SearchOrderByIdRequest;
+import com.chinarewards.gwt.elt.client.order.request.SearchOrderByIdResponse;
 import com.chinarewards.gwt.elt.client.orderHistory.module.OrderHistoryViewClient;
 import com.chinarewards.gwt.elt.client.orderHistory.plugin.OrderHistoryConstants;
 import com.chinarewards.gwt.elt.client.orderHistory.presenter.OrderHistoryViewPresenter.OrderHistoryViewDisplay;
@@ -17,6 +22,7 @@ import com.chinarewards.gwt.elt.client.orderHistory.request.OrderHistoryViewRequ
 import com.chinarewards.gwt.elt.client.orderHistory.request.OrderHistoryViewResponse;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.win.Win;
+import com.chinarewards.gwt.elt.util.SimpleDateTimeProvider;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -32,8 +38,8 @@ public class OrderHistoryViewPresenterImpl extends
 	final ErrorHandler errorHandler;
 	final SessionManager sessionManager;
 	final Win win;
-	OrderHistoryViewClient orderHistoryViewClient = new OrderHistoryViewClient();
-
+	//OrderHistoryViewClient orderHistoryViewClient = new OrderHistoryViewClient();
+  
 	private final BreadCrumbsPresenter breadCrumbs;
 
 	@Inject
@@ -66,9 +72,8 @@ public class OrderHistoryViewPresenterImpl extends
 		display.getConfirmbutton().addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				dispatcher.execute(new OrderHistoryViewRequest(
-						orderHistoryViewClient.getOrderId(), sessionManager
-								.getSession().getToken()),
+				 String status =OrderStatus.NUSHIPMENTS+"";
+				dispatcher.execute(new OrderHistoryViewRequest(	orderId, sessionManager.getSession().getToken(),status),
 						new AsyncCallback<OrderHistoryViewResponse>() {
 							@Override
 							public void onFailure(Throwable e) {
@@ -76,37 +81,71 @@ public class OrderHistoryViewPresenterImpl extends
 							}
 
 							@Override
-							public void onSuccess(
-									OrderHistoryViewResponse response) {
-								// display.getConfirmbuttonObj().setEnabled(false);
-								// String rs = response.getResult();
-								// if ("ok".equals(rs)) {
-								// Platform.getInstance()
-								// .getEditorRegistry()
-								// .openEditor(
-								// OrderHistoryConstants.EDITOR_ORDERHISTORY_SEARCH,
-								// OrderHistoryConstants.EDITOR_ORDERHISTORY_SEARCH,
-								// orderHistoryViewClient);
-								//
-								// // 完成后..跳出订单列表
-								// } else {
-								// win.alert("支付失败!");
-								// }
+							public void onSuccess(OrderHistoryViewResponse response) {
+								String rs=response.getResult();
+								if("ok".equals(rs))
+								{
+									Platform.getInstance()
+									.getEditorRegistry()
+									.openEditor(OrderHistoryConstants.EDITOR_ORDERHISTORY_SEARCH,
+											"EDITOR_ORDERHISTORY_SEARCH", null);
+		
+									
+								}
+								else
+								{
+									win.alert("操作失败!");
+								}
 
 							}
 						});
 
 			}
 		});
+		
+		display.getReceivebutton().addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {//确认收货
+				 String status =OrderStatus.AFFIRM+"";
+				dispatcher.execute(new OrderHistoryViewRequest(	orderId, sessionManager.getSession().getToken(),status),
+						new AsyncCallback<OrderHistoryViewResponse>() {
+							@Override
+							public void onFailure(Throwable e) {
+								errorHandler.alert(e.getMessage());
+							}
 
+							@Override
+							public void onSuccess(OrderHistoryViewResponse response) {
+								String rs=response.getResult();
+								if("ok".equals(rs))
+								{
+									win.alert("操作成功!");
+									Platform.getInstance()
+									.getEditorRegistry()
+									.openEditor(OrderHistoryConstants.EDITOR_ORDERHISTORY_SEARCH,
+											"EDITOR_ORDERHISTORY_SEARCH", null);
+		
+									
+								}
+								else
+								{
+									win.alert("操作失败!");
+								}
+
+							}
+						});
+
+			}
+		});
+       
 		display.getReturnbutton().addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				Platform.getInstance()
 						.getEditorRegistry()
 						.openEditor(
-								AwardShopListConstants.EDITOR_AWARDSHOPLIST_SEARCH,
-								"EDITOR_AWARDSHOPLIST_SEARCH_DO_ID", null);
+								OrderHistoryConstants.EDITOR_ORDERHISTORY_SEARCH,
+								"EDITOR_ORDERHISTORY_SEARCH", null);
 
 			}
 		});
@@ -116,34 +155,27 @@ public class OrderHistoryViewPresenterImpl extends
 	// 查看时初始化数据
 	@Override
 	public void initInstanceId(String instanceId, OrderSearchVo orderSearchVo) {
-		// this.instanceId = instanceId;
-		// this.orderHistoryViewClient = orderHistoryViewClient;
-		initDataToViewOrderHistory(orderSearchVo, instanceId);
-	}
-
-	private void initDataToViewOrderHistory(final OrderSearchVo orderSearchVo,
-			final String instanceId) {
 		orderId = orderSearchVo.getId();
-		System.out.println("initDataToViewOrderHistory===orderId:" + orderId);
-		
-		dispatcher.execute(new OrderHistoryViewRequest(orderId),
-				new AsyncCallback<OrderHistoryViewResponse>() {
-					@Override
-					public void onFailure(Throwable arg0) {
-						errorHandler.alert("查询兑换历史出错!");
-						Platform.getInstance()
-								.getEditorRegistry()
-								.closeEditor(
-										OrderHistoryConstants.EDITOR_ORDERHISTORY_VIEW,
-										instanceId);
-					}
+		{
+			dispatcher.execute(new SearchOrderByIdRequest(orderId,sessionManager.getSession().getStaffId()),
+					new AsyncCallback<SearchOrderByIdResponse>() {
+						private OrderViewClient orderVo;
 
-					@Override
-					public void onSuccess(OrderHistoryViewResponse response) {
-						OrderVo orderVo = response.getOrderVo();
-						display.showOrderHistory(orderVo);
-					}
-				});
+						@Override
+						public void onFailure(Throwable arg0) {
+							errorHandler.alert("查询出错!");
+							
+						}
+
+						@Override
+						public void onSuccess(SearchOrderByIdResponse response) {
+							this.orderVo = response.getOrderViewClient();
+							display.showOrderHistory(orderVo);
+							orderId = orderVo.getOrderId();
+						}
+
+					});
+		}
 	}
 	
 

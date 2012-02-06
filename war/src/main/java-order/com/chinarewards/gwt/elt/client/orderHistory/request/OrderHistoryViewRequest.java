@@ -10,13 +10,23 @@ public class OrderHistoryViewRequest implements Action<OrderHistoryViewResponse>
 
 	private String orderId;
 	private String userId;
+    private String stauts;
 
 	public OrderHistoryViewRequest() {
 	}
 	
-	public OrderHistoryViewRequest(String orderId,String userId) {
+	public OrderHistoryViewRequest(String orderId,String userId,String stauts) {
 		this.orderId = orderId;
 		this.userId=userId;
+		this. stauts = stauts;
+	}
+
+	public String getStauts() {
+		return stauts;
+	}
+
+	public void setStauts(String stauts) {
+		this.stauts = stauts;
 	}
 
 	public OrderHistoryViewRequest(String orderId) {

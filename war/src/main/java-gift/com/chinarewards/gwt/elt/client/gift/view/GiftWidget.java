@@ -117,6 +117,7 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	public GiftWidget(DispatchAsync dispatch, ErrorHandler errorHandler,
 			SessionManager sessionManager) {
 		initWidget(uiBinder.createAndBindUi(this));
+		indate.setFormat(new DateBox.DefaultFormat(dateFormat));
 	}
 
 	@Override
@@ -158,7 +159,7 @@ public class GiftWidget extends Composite implements GiftDisplay {
 		tell.setText(giftVo.getTell());
 		servicetell.setText(giftVo.getServicetell());
 		
-		indate.setFormat(new DateBox.DefaultFormat(dateFormat));
+		
 		indate.setValue(giftVo.getIndate());
 
 		// @UiField

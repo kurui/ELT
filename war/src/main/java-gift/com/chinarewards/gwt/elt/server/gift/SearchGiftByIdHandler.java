@@ -42,12 +42,17 @@ public class SearchGiftByIdHandler extends
 		GiftVo giftVo = new GiftVo();
 		giftVo.setId(gift.getId());
 		giftVo.setName(gift.getName());
+		giftVo.setSummary(gift.getSummary());
+		giftVo.setDispatchcycle(gift.getDispatchcycle());
 		giftVo.setExplains(gift.getExplains());
+		giftVo.setNotes(gift.getNotes());
 		giftVo.setType(gift.getType());
+		giftVo.setBrand(gift.getBrand());
 		giftVo.setSource(gift.getSource());
 		giftVo.setBusiness(gift.getBusiness());
 		giftVo.setAddress(gift.getAddress());
 		giftVo.setTell(gift.getTell());
+		giftVo.setServicetell(gift.getServicetell());
 		giftVo.setPhoto(gift.getPhoto());
 		giftVo.setStock(gift.getStock());
 		giftVo.setIntegral(gift.getIntegral());

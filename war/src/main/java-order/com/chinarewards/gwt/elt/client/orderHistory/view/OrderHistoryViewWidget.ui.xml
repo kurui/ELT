@@ -36,14 +36,16 @@
 						</label>
 						<div class="{new2.element}">
 							<g:InlineLabel ui:field="statusText" />
-
+                            <span class="{new2.nbsp}"></span>   
 							<span class="{new2.btn}">
-								<g:Button ui:field="confirmbutton" text="确认" width="100px" />
+								<g:Button ui:field="confirmbutton" text="确认定单"  />
 							</span>
 							<span class="{new2.nbsp}"></span>
 							<span class="{new2.btn}">
-								<g:Button ui:field="backbutton" text="退回" />
+								<g:Button ui:field="receivebutton" text="确认收货"  />
 							</span>
+							
+							
 						</div>
 					</div>
 				</div>
@@ -131,7 +133,7 @@
 						<div class="{new2.otherDiv}">附加信息:</div>
 
 						<g:TextArea width="100%" ui:field="orderDefinition"
-							visibleLines="6" styleName="{new2.textarea}" />
+							visibleLines="6" styleName="{new2.textarea}" enabled="false"/>
 
 						<div class="{new2.orderDiv}">特别提示:</div>
 						<div class="{new2.query-wrap}">
@@ -149,7 +151,7 @@
 						<div class="{new2.form-line} {new2.form-line-btn}">
 							<div class="{new2.element}">
 								<span class="{new2.btn}">
-									<g:Button ui:field="returnbutton" text="返回" width="100px" />
+									<g:Button ui:field="returnbutton" text="返回"  />
 								</span>
 							</div>
 						</div>

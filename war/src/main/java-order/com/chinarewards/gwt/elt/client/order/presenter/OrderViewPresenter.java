@@ -33,7 +33,7 @@ public interface OrderViewPresenter extends Presenter<OrderViewPresenter.OrderVi
 		void setOrderStatus(String text);
 		Image getShopImage();
 		
-		
+		void setOrderDefinition(String text) ;
 		void setShopText(String text);
 		String getUnitprice();
 

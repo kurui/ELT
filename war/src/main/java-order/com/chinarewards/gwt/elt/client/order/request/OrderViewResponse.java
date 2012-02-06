@@ -6,7 +6,7 @@ package com.chinarewards.gwt.elt.client.order.request;
 import net.customware.gwt.dispatch.shared.Result;
 
 /**
- * @author nicho
+ * @author lw
  * @since 2012年2月1日 15:07:52
  */
 public class OrderViewResponse implements Result {

@@ -17,21 +17,18 @@ public class GiftAdapterClient {
 		// // 基本信息
 		giftVo.setName(display.getName().getValue().trim());
 		giftVo.setSummary(display.getSummary().getValue().trim());
+		
 		giftVo.setDispatchcycle(display.getDispatchcycle().getValue().trim());
 		giftVo.setExplains(display.getExplains().getValue().trim());
 		giftVo.setNotes(display.getNotes().getValue().trim());
 
 		int selectedIndex = display.getType().getSelectedIndex();
 		giftVo.setType(display.getType().getValue(selectedIndex));
-		// giftVo.setSource(display.getSource().getValue().trim());
 		giftVo.setBrand(display.getBrand().getValue().trim());
 
 		giftVo.setPhoto(display.getPhoto().getValue());
 		giftVo.setStock(StringUtil.valueOf(display.getStock().getValue()));
 		giftVo.setIntegral(StringUtil.valueOf(display.getIntegral().getValue()));
-
-		System.out.println("display.getSupplyinner().getValue():"
-				+ display.getSupplyinner().getValue());
 
 		if (display.getSupplyinner().getValue()) {
 			giftVo.setSource("inner");
