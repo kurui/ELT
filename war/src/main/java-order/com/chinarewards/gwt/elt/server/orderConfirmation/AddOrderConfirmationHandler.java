@@ -70,6 +70,7 @@ public class AddOrderConfirmationHandler extends
 		resp.setUserBalance(request.getUserBalance());
 		resp.setBusiness(gift.getBusiness());
 		resp.setServicetell(gift.getServicetell());
+		resp.setTotal(request.getTotal());
 		return resp;
 	}
 
