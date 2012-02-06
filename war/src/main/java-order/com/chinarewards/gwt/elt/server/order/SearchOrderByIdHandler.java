@@ -19,6 +19,7 @@ import com.chinarewards.gwt.elt.client.order.request.SearchOrderByIdRequest;
 import com.chinarewards.gwt.elt.client.order.request.SearchOrderByIdResponse;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
 import com.chinarewards.gwt.elt.server.logger.InjectLogger;
+import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.inject.Inject;
 
 /**
@@ -44,33 +45,44 @@ public class SearchOrderByIdHandler extends
 		logger.debug(" parameters:{}", request.getId());
 		Orders order = orderService.findOrderById(request.getId());
 		Gift gift=giftService.findGiftById(order.getGiftId());
-		//double userBalance = staffSerivce.getBalance(request.getStaffId());
-		return new SearchOrderByIdResponse(adapter(orderService, order,gift));
+		double userBalance = staffSerivce.getBalance(request.getStaffId());
+		return new SearchOrderByIdResponse(adapter(orderService, order,gift, userBalance));
 
 	}
 
-	private OrderViewClient adapter(OrderService orderService, Orders order,Gift gift) {
+	private OrderViewClient adapter(OrderService orderService, Orders order,Gift gift,double userBalance) {
 		OrderViewClient orderVo = new OrderViewClient();
 		orderVo.setOrderId(order.getId());
-		orderVo.setName(order.getName());
+		orderVo.setName(order.getReceiver());
 		orderVo.setAddress(order.getAddress());
 		orderVo.setGiftId(order.getGiftId());
 		orderVo.setPhone(order.getTel());
 		orderVo.setAddress(order.getAddress());
 		orderVo.setZipCode(order.getPostcode());
+		orderVo.setTotal(order.getIntegral());//定单的积分
 		orderVo.setOrderDefinition(order.getRemarks());
 		orderVo.setNumber(order.getAmount());
-		//orderVo.setUserBalance(userBalance);
+		orderVo.setUserBalance(userBalance);
 		orderVo.setGiftImage(gift.getPhoto());
 		orderVo.setGiftName(gift.getName());
-		orderVo.setIntegral(gift.getIntegral());
-		orderVo.setSource(gift.getSource());
+		orderVo.setIntegral(gift.getIntegral());//礼品的积分
+		
+		orderVo.setSource(toSource(gift.getSource()));
 		orderVo.setOrdercode(order.getOrderCode());
 		orderVo.setOrderStatus(order.getStatus().toString());
 		orderVo.setExchangeDate(order.getExchangeDate());
+		
 		return orderVo;
 	}
-
+    public String toSource(String source){
+    	if (StringUtil.trim(source).equals("inner")) {
+			return "内部直接提供";
+		}
+		if (StringUtil.trim(source).equals("outter")) {
+			return "外部货品公司提供";
+		}
+		return "";
+    }
 	@Override
 	public Class<SearchOrderByIdRequest> getActionType() {
 		return SearchOrderByIdRequest.class;

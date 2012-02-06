@@ -28,8 +28,7 @@ public class OrderViewSubmitHandler extends
 	OrderService orderService;
 
 	@Inject
-	public OrderViewSubmitHandler(OrderService orderService,
-			GiftService giftService) {
+	public OrderViewSubmitHandler(OrderService orderService) {
 		this.orderService = orderService;
 
 	}
@@ -41,9 +40,9 @@ public class OrderViewSubmitHandler extends
 		UserContext uc = new UserContext();
 		uc.setUserId(request.getUserId());
 		String rs = "fail";
-		if(request.getStauts().equals("SHIPMENTS"))
+		if(request.getStauts().trim().equals("SHIPMENTS"))
 		 rs = orderService.updateStatus(uc, request.getOrderId(),	OrderStatus.SHIPMENTS);
-		if(request.getStauts().equals("ERRORORDER"))
+		if(request.getStauts().trim().equals("ERRORORDER"))
 			 rs = orderService.updateStatus(uc, request.getOrderId(),	OrderStatus.ERRORORDER);
 		return new OrderViewResponse(rs);
 	}

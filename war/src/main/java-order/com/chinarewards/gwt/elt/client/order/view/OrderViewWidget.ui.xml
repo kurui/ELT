@@ -41,7 +41,7 @@
 							</span>
 							<span class="{new2.nbsp}"></span>
 							<span class="{new2.btn}">
-								<g:Button ui:field="returnbutton" text="取消 "  />
+								<g:Button ui:field="returnbutton" text="返回 "  />
 							</span>
 				        </div>
 				    </div>
@@ -97,7 +97,10 @@
 
 			</div>
 			<div class="{new2.messageMoney}">订单共消费积分：<g:InlineLabel ui:field="total"  /> 积分</div>
-			
+			<div class="{new2.otherDiv}">附加信息:</div>
+
+						<g:TextArea width="100%" ui:field="orderDefinition"
+							visibleLines="6" styleName="{new2.textarea}" enabled="false"/>
 			     
 					<span class="{new2.cutline}"></span>
 

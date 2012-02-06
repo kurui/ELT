@@ -8,9 +8,11 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.Widget;
 
 public class OrderViewWidget extends Composite implements	OrderViewDisplay {
@@ -50,6 +52,8 @@ public class OrderViewWidget extends Composite implements	OrderViewDisplay {
 	InlineLabel orderStatus;
 	@UiField
 	Panel breadCrumbs;
+	@UiField
+	TextArea orderDefinition;
 	private static OrderViewWidgetUiBinder uiBinder = GWT
 			.create(OrderViewWidgetUiBinder.class);
 
@@ -61,6 +65,10 @@ public class OrderViewWidget extends Composite implements	OrderViewDisplay {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.confirmbutton.setVisible(false);
 		this.backbutton.setVisible(false);
+	}
+	@Override
+	public void setOrderDefinition(String text) {
+		this. orderDefinition.setText(text);
 	}
 
 	@Override
@@ -127,19 +135,10 @@ public class OrderViewWidget extends Composite implements	OrderViewDisplay {
 		
 	}
 
-
-	
-
-
 	@Override
 	public Button getConfirmbuttonObj() {
 		return confirmbutton;
 	}
-
-
-	
-
-
 
 	@Override
 	public void setName(String text) {
@@ -206,7 +205,7 @@ public class OrderViewWidget extends Composite implements	OrderViewDisplay {
 	   if(text.equals("SHIPMENTS"))
 		   return "已发货";
 	   if(text.equals("AFFIRM"))
-		   return "确认发货";
+		   return "确认收货";
 	   else
 		   return "问题定单";
    }

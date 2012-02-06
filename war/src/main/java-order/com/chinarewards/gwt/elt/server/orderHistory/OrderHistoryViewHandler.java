@@ -5,12 +5,10 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 
 import org.slf4j.Logger;
 
-import com.chinarewards.elt.domain.order.Orders;
-import com.chinarewards.elt.service.gift.GiftService;
+import com.chinarewards.elt.model.order.search.OrderStatus;
+import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.order.OrderService;
-import com.chinarewards.elt.service.staff.IStaffService;
-import com.chinarewards.gwt.elt.client.order.model.OrderStatus;
-import com.chinarewards.gwt.elt.client.order.model.OrderVo;
+import com.chinarewards.gwt.elt.client.order.request.OrderViewResponse;
 import com.chinarewards.gwt.elt.client.orderHistory.request.OrderHistoryViewRequest;
 import com.chinarewards.gwt.elt.client.orderHistory.request.OrderHistoryViewResponse;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
@@ -27,56 +25,25 @@ public class OrderHistoryViewHandler extends
 	Logger logger;
 
 	OrderService orderService;
-	GiftService giftService;
-	IStaffService staffService;
+	
 
 	@Inject
-	public OrderHistoryViewHandler(OrderService orderService,
-			GiftService giftService, IStaffService staffService) {
+	public OrderHistoryViewHandler(OrderService orderService) {
 		this.orderService = orderService;
-		this.giftService = giftService;
-		this.staffService = staffService;
+		
 	}
 
 	@Override
-	public OrderHistoryViewResponse execute(OrderHistoryViewRequest request,
-			ExecutionContext context) throws DispatchException {
+	public OrderHistoryViewResponse execute(OrderHistoryViewRequest request,ExecutionContext context) throws DispatchException {
 
-		System.out.println("OrderHistoryViewHandler-----execute()----");
-
-		OrderHistoryViewResponse response = new OrderHistoryViewResponse();
-
-		Orders orders = orderService.findOrderById(request.getOrderId());
-		OrderVo orderVo = new OrderVo();
-		orderVo.setId(orders.getId());
-		orderVo.setOrderCode(orders.getOrderCode());
-		orderVo.setExchangeDate(orders.getExchangeDate());
-
-		if (orders.getStatus() != null) {
-			orderVo.setStatus(OrderStatus
-					.valueOf(orders.getStatus().toString()));
-		}
-		
-		orderVo.setReceiver(orders.getReceiver());
-		orderVo.setTel(orders.getTel());
-		orderVo.setAddress(orders.getAddress());
-		orderVo.setPostcode(orders.getPostcode());
-	
-
-		response.setOrderVo(orderVo);
-
-		// Gift gift = giftService.findGiftById(request.getGiftId());
-		// GiftClient client = new GiftClient();
-		// client.setName(gift.getName());
-		// client.setPhoto(gift.getPhoto());
-		// client.setIntegral(gift.getIntegral());
-		// client.setSource(gift.getSource());
-		// response.setResult(client);
-
-		// 查询员工积分
-		// response.setStaffBalance(staffService.getBalance(request.getStaffId()));
-
-		return response;
+		UserContext uc = new UserContext();
+		uc.setUserId(request.getUserId());
+		String rs = "fail";
+		if(request.getStauts().trim().equals("NUSHIPMENTS"))//付积分待发货
+		     rs = orderService.updateStatus(uc, request.getOrderId(),	OrderStatus.NUSHIPMENTS);
+		if(request.getStauts().trim().equals("AFFIRM"))//确认收货
+			 rs = orderService.updateStatus(uc, request.getOrderId(),	OrderStatus.AFFIRM);
+		return new OrderHistoryViewResponse(rs);
 	}
 
 	@Override
