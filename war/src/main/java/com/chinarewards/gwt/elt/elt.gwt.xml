@@ -11,17 +11,9 @@
 	<source path="client" />
 	<source path="model" />
 	<source path="util" />
-
-	<servlet class="com.chinarewards.gwt.elt.util.FileUploadServlet" path="/fileupload" />
 	  
 	<!-- Specify the app entry point class. -->
 	<entry-point class="com.chinarewards.gwt.elt.client.Elt" />
 
-	<stylesheet src="elt.css" />
-
-
-	<!-- 指定编译输出 geck01_8:firefox -->
-	<!-- <set-property name="user.agent" value="ie9" /> -->
-	<!-- 
-	<set-property name="user.agent" value="gecko1_8" />-->
+	<stylesheet src="elt.css" />                                           
 </module>
