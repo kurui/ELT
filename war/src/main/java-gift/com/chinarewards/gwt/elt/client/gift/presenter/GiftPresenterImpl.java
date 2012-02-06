@@ -26,7 +26,6 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteEvent;
 import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteHandler;
-import com.google.gwt.xml.client.Document;
 import com.google.inject.Inject;
 
 public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
