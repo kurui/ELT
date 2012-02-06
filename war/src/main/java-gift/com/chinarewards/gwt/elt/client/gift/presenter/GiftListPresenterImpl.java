@@ -218,7 +218,7 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 					}
 				});
 		
-		cellTable.addColumn("查看", new HyperLinkCell(),
+		cellTable.addColumn("操作", new HyperLinkCell(),
 				new GetValue<GiftClient, String>() {
 					@Override
 					public String getValue(GiftClient arg0) {
@@ -238,7 +238,7 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 					}
 				});
 		
-		cellTable.addColumn("修改", new HyperLinkCell(),
+		cellTable.addColumn("操作", new HyperLinkCell(),
 				new GetValue<GiftClient, String>() {
 					@Override
 					public String getValue(GiftClient arg0) {

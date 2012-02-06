@@ -17,6 +17,8 @@ import com.chinarewards.gwt.elt.client.order.model.OrderSearchVo;
 import com.chinarewards.gwt.elt.client.order.model.OrderStatus;
 import com.chinarewards.gwt.elt.client.order.plugin.OrderViewConstants;
 import com.chinarewards.gwt.elt.client.order.presenter.OrderListPresenter.OrderListDisplay;
+import com.chinarewards.gwt.elt.client.order.request.OrderViewRequest;
+import com.chinarewards.gwt.elt.client.order.request.OrderViewResponse;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager;
@@ -25,12 +27,13 @@ import com.chinarewards.gwt.elt.client.widget.GetValue;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.widget.Sorting;
 import com.chinarewards.gwt.elt.client.win.Win;
+import com.chinarewards.gwt.elt.client.win.confirm.ConfirmHandler;
 import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
 public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
@@ -204,7 +207,7 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 		cellTable.addColumn("操作", new HyperLinkCell(),
 				new GetValue<OrderSearchVo, String>() {
 					@Override
-					public String getValue(OrderSearchVo gift) {
+					public String getValue(OrderSearchVo order) {
 						return "查看详细";
 					}
 				}, new FieldUpdater<OrderSearchVo, String>() {
@@ -217,8 +220,82 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 								OrderViewConstants.EDITOR_ORDERVIEW_SEARCH+ order.getId(), order);
 					}
 				});
+		
+		cellTable.addColumn("操作", new HyperLinkCell(),
+				new GetValue<OrderSearchVo, String>() {
+					@Override
+					public String getValue(OrderSearchVo order) {
+						if(order.getStatus()==OrderStatus.NUSHIPMENTS)
+						    return "发货";
+						else
+							return "";
+					}
+				}, new FieldUpdater<OrderSearchVo, String>() {
+					@Override
+					public void update(int index, final OrderSearchVo object,	String value) {
+						
+							win.confirm("操作提示", "确认发货吗？", new ConfirmHandler() {
+								
+								@Override
+								public void confirm() {
+									 String status =OrderStatus.SHIPMENTS+"";
+										dispatch.execute(new OrderViewRequest(object.getId(),sessionManager.getSession().getToken(),status),
+											new AsyncCallback<OrderViewResponse>() {
+
+												@Override
+												public void onFailure(Throwable t) {
+													errorHandler.alert("操作失败");												}
+
+												@Override
+												public void onSuccess(OrderViewResponse resp) {
+													win.alert("操作成功!");
+													doSearch();
+												}
+											});
+								}
+							});
+											
+					}
+				});
+		cellTable.addColumn("操作", new HyperLinkCell(),
+				new GetValue<OrderSearchVo, String>() {
+					@Override
+					public String getValue(OrderSearchVo order) {
+						if(order.getStatus()==OrderStatus.NUSHIPMENTS)
+						    return "退回";
+						else
+							return "";
+					}
+				}, new FieldUpdater<OrderSearchVo, String>() {
+					@Override
+					public void update(int index, final OrderSearchVo object,	String value) {
+						
+							win.confirm("操作提示", "确认退回吗？", new ConfirmHandler() {
+								
+								@Override
+								public void confirm() {
+									 String status =OrderStatus.ERRORORDER+"";
+										dispatch.execute(new OrderViewRequest(object.getId(),sessionManager.getSession().getToken(),status),
+											new AsyncCallback<OrderViewResponse>() {
+
+												@Override
+												public void onFailure(Throwable t) {
+													errorHandler.alert("操作失败");												}
+
+												@Override
+												public void onSuccess(OrderViewResponse resp) {
+													win.alert("操作成功!");
+													doSearch();
+												}
+											});
+								}
+							});
+											
+					}
+				});
 			
 	      }
+	
 
 
     }

@@ -43,6 +43,9 @@ public interface OrderLogic {
 	 * @return
 	 */
 	public String updateStatus(SysUser caller,String id,OrderStatus status);
+	
+	
+	public int getOrderByStatus(String userId,String status);
 }
 
 

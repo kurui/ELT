@@ -57,4 +57,8 @@ public interface OrderService {
     * @return fasle 积分不够，true可以兑换
     */
 	public boolean getIntegral(UserContext context,double totalPrice);
+	/*
+	 * 查找定单根据状态
+	 */
+	public int  getOrderByStatus(UserContext context,String status);
 }
