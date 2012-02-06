@@ -13,6 +13,7 @@ import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.model.PaginationDetailClient;
+import com.chinarewards.gwt.elt.util.DateTool;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Grid;
 
@@ -81,7 +82,7 @@ public class AwardShopListViewAdapter extends BaseDataProvider<GiftClient> {
 						    	  if(index<giftList.size())	
 						    	  {
 						    		  GiftClient clint=giftList.get(index);
-						    		  grid.setWidget(row, col,new AwardShopLatticeWidget(clint.getName(),clint.getIntegral()+"",clint.getIndate()+"",clint.getPhoto(),clint.getId()).asWidget());
+						    		  grid.setWidget(row, col,new AwardShopLatticeWidget(clint.getName(),clint.getIntegral()+"",DateTool.dateToString(clint.getIndate())+"",clint.getPhoto(),clint.getId()).asWidget());
 						    	  	  index++;
 						    	  }
 						    	  else
