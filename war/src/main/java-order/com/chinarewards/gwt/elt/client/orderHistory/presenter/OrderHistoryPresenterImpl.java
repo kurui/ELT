@@ -21,6 +21,8 @@ import com.chinarewards.gwt.elt.client.order.request.DeleteOrderResponse;
 import com.chinarewards.gwt.elt.client.orderHistory.dataprovider.OrderHistoryDataAdapter;
 import com.chinarewards.gwt.elt.client.orderHistory.plugin.OrderHistoryConstants;
 import com.chinarewards.gwt.elt.client.orderHistory.presenter.OrderHistoryPresenter.OrderHistoryDisplay;
+import com.chinarewards.gwt.elt.client.orderHistory.request.OrderHistoryViewRequest;
+import com.chinarewards.gwt.elt.client.orderHistory.request.OrderHistoryViewResponse;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager;
@@ -181,7 +183,7 @@ public class OrderHistoryPresenterImpl extends
 					}
 				}, ref, "status");
 
-		cellTable.addColumn("操作", new HyperLinkCell(),
+		cellTable.addColumn("查看操作", new HyperLinkCell(),
 				new GetValue<OrderSearchVo, String>() {
 					@Override
 					public String getValue(OrderSearchVo order) {
@@ -199,7 +201,79 @@ public class OrderHistoryPresenterImpl extends
 												+ order.getId(), order);
 					}
 				});
-		cellTable.addColumn("操作", new HyperLinkCell(),
+		cellTable.addColumn("收货操作", new HyperLinkCell(),
+				new GetValue<OrderSearchVo, String>() {
+					@Override
+					public String getValue(OrderSearchVo order) {
+						if(order.getStatus()==OrderStatus.SHIPMENTS)
+						    return "确认收货";
+						else
+							return "";
+					}
+				}, new FieldUpdater<OrderSearchVo, String>() {
+					@Override
+					public void update(int index, final OrderSearchVo object,	String value) {
+						
+							win.confirm("操作提示", "确认收货吗？", new ConfirmHandler() {
+								
+								@Override
+								public void confirm() {
+									 String status =OrderStatus.AFFIRM+"";
+									 dispatch.execute(new OrderHistoryViewRequest(object.getId(),sessionManager.getSession().getToken(),status),
+												new AsyncCallback<OrderHistoryViewResponse>() {
+
+													@Override
+													public void onFailure(Throwable t) {
+														errorHandler.alert("操作失败");												}
+
+													@Override
+													public void onSuccess(OrderHistoryViewResponse resp) {
+														win.alert("操作成功!");
+														doSearch();
+													}
+												});
+								}
+							});
+											
+					}
+				});
+		cellTable.addColumn("确认操作", new HyperLinkCell(),
+				new GetValue<OrderSearchVo, String>() {
+					@Override
+					public String getValue(OrderSearchVo order) {
+						if(order.getStatus()==OrderStatus.INITIAL)
+						    return "付积分";
+						else
+							return "";
+					}
+				}, new FieldUpdater<OrderSearchVo, String>() {
+					@Override
+					public void update(int index, final OrderSearchVo object,	String value) {
+						
+							win.confirm("操作提示", "确认付积分吗？", new ConfirmHandler() {
+								
+								@Override
+								public void confirm() {
+									 String status =OrderStatus.NUSHIPMENTS+"";
+										dispatch.execute(new OrderHistoryViewRequest(object.getId(),sessionManager.getSession().getToken(),status),
+											new AsyncCallback<OrderHistoryViewResponse>() {
+
+												@Override
+												public void onFailure(Throwable t) {
+													errorHandler.alert("操作失败");												}
+
+												@Override
+												public void onSuccess(OrderHistoryViewResponse resp) {
+													win.alert("操作成功!");
+													doSearch();
+												}
+											});
+								}
+							});
+											
+					}
+				});
+		cellTable.addColumn("取消操作", new HyperLinkCell(),
 				new GetValue<OrderSearchVo, String>() {
 					@Override
 					public String getValue(OrderSearchVo gift) {

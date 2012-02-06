@@ -34,7 +34,7 @@ public class OrderLogicImpl implements OrderLogic{
 	@Override
 	public Orders save(SysUser caller, Orders order) {
 		Date currTime = DateUtil.getTime();
-		String orderCode = DateUtil.formatData("yyyyMMddhhmmss", currTime)+DateUtil.rand(20);
+		String orderCode = DateUtil.formatData("yyyyMMddhhmmssssssss", currTime);
 		if (StringUtil.isEmptyString(order.getId())) {
 			// Create
 			order.setDeleted(0);//正常状态，没有删除为0
