@@ -142,9 +142,6 @@ public class GiftWidget extends Composite implements GiftDisplay {
 		integral.setText(giftVo.getIntegral() + "");
 		stock.setText(giftVo.getStock() + "");
 
-		System.out.println("-----------initEditGift getSource:"
-				+ giftVo.getSource());
-
 		if (giftVo.getSource() != null) {
 			if (StringUtil.trim(giftVo.getSource()).equals("inner")) {
 				supplyinner.setValue(true);
@@ -162,19 +159,6 @@ public class GiftWidget extends Composite implements GiftDisplay {
 		
 		indate.setValue(giftVo.getIndate());
 
-		// @UiField
-		// Label status;// boolean
-		// @UiField
-		// Label deleted;// boolean
-		// @UiField
-		// DateBox indate;
-		// @UiField
-		// DateBox recorddate;
-		// @UiField
-		// Label recorduser;
-		// @UiField
-		// DateBox updatetime;
-		// ---end vo
 	}
 
 	@Override

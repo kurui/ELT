@@ -36,12 +36,6 @@ public class EditGiftRequest implements Action<EditGiftResponse> {
 	public EditGiftRequest() {
 	}
 
-	// public AddGiftRequest(List<String> staffIds, String giftId, String
-	// nowUserId) {
-	// this.staffIds = staffIds;
-	// this.nowUserId = nowUserId;
-	// this.giftId = giftId;
-	// }
 
 	public String getGiftId() {
 		return giftId;

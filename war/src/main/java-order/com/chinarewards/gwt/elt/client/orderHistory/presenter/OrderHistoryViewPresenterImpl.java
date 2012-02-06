@@ -2,7 +2,6 @@ package com.chinarewards.gwt.elt.client.orderHistory.presenter;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
-import com.chinarewards.gwt.elt.client.awardShop.plugin.AwardShopListConstants;
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
@@ -11,18 +10,14 @@ import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.order.model.OrderSearchVo;
 import com.chinarewards.gwt.elt.client.order.model.OrderStatus;
 import com.chinarewards.gwt.elt.client.order.model.OrderViewClient;
-import com.chinarewards.gwt.elt.client.order.model.OrderVo;
-import com.chinarewards.gwt.elt.client.order.plugin.OrderListConstants;
 import com.chinarewards.gwt.elt.client.order.request.SearchOrderByIdRequest;
 import com.chinarewards.gwt.elt.client.order.request.SearchOrderByIdResponse;
-import com.chinarewards.gwt.elt.client.orderHistory.module.OrderHistoryViewClient;
 import com.chinarewards.gwt.elt.client.orderHistory.plugin.OrderHistoryConstants;
 import com.chinarewards.gwt.elt.client.orderHistory.presenter.OrderHistoryViewPresenter.OrderHistoryViewDisplay;
 import com.chinarewards.gwt.elt.client.orderHistory.request.OrderHistoryViewRequest;
 import com.chinarewards.gwt.elt.client.orderHistory.request.OrderHistoryViewResponse;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.win.Win;
-import com.chinarewards.gwt.elt.util.SimpleDateTimeProvider;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -38,8 +33,7 @@ public class OrderHistoryViewPresenterImpl extends
 	final ErrorHandler errorHandler;
 	final SessionManager sessionManager;
 	final Win win;
-	//OrderHistoryViewClient orderHistoryViewClient = new OrderHistoryViewClient();
-  
+
 	private final BreadCrumbsPresenter breadCrumbs;
 
 	@Inject
@@ -72,8 +66,9 @@ public class OrderHistoryViewPresenterImpl extends
 		display.getConfirmbutton().addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				 String status =OrderStatus.NUSHIPMENTS+"";
-				dispatcher.execute(new OrderHistoryViewRequest(	orderId, sessionManager.getSession().getToken(),status),
+				String status = OrderStatus.NUSHIPMENTS + "";
+				dispatcher.execute(new OrderHistoryViewRequest(orderId,
+						sessionManager.getSession().getToken(), status),
 						new AsyncCallback<OrderHistoryViewResponse>() {
 							@Override
 							public void onFailure(Throwable e) {
@@ -81,19 +76,18 @@ public class OrderHistoryViewPresenterImpl extends
 							}
 
 							@Override
-							public void onSuccess(OrderHistoryViewResponse response) {
-								String rs=response.getResult();
-								if("ok".equals(rs))
-								{
+							public void onSuccess(
+									OrderHistoryViewResponse response) {
+								String rs = response.getResult();
+								if ("ok".equals(rs)) {
 									Platform.getInstance()
-									.getEditorRegistry()
-									.openEditor(OrderHistoryConstants.EDITOR_ORDERHISTORY_SEARCH,
-											"EDITOR_ORDERHISTORY_SEARCH", null);
-		
-									
-								}
-								else
-								{
+											.getEditorRegistry()
+											.openEditor(
+													OrderHistoryConstants.EDITOR_ORDERHISTORY_SEARCH,
+													"EDITOR_ORDERHISTORY_SEARCH",
+													null);
+
+								} else {
 									win.alert("操作失败!");
 								}
 
@@ -102,12 +96,13 @@ public class OrderHistoryViewPresenterImpl extends
 
 			}
 		});
-		
+
 		display.getReceivebutton().addClickHandler(new ClickHandler() {
 			@Override
-			public void onClick(ClickEvent event) {//确认收货
-				 String status =OrderStatus.AFFIRM+"";
-				dispatcher.execute(new OrderHistoryViewRequest(	orderId, sessionManager.getSession().getToken(),status),
+			public void onClick(ClickEvent event) {// 确认收货
+				String status = OrderStatus.AFFIRM + "";
+				dispatcher.execute(new OrderHistoryViewRequest(orderId,
+						sessionManager.getSession().getToken(), status),
 						new AsyncCallback<OrderHistoryViewResponse>() {
 							@Override
 							public void onFailure(Throwable e) {
@@ -115,20 +110,19 @@ public class OrderHistoryViewPresenterImpl extends
 							}
 
 							@Override
-							public void onSuccess(OrderHistoryViewResponse response) {
-								String rs=response.getResult();
-								if("ok".equals(rs))
-								{
+							public void onSuccess(
+									OrderHistoryViewResponse response) {
+								String rs = response.getResult();
+								if ("ok".equals(rs)) {
 									win.alert("操作成功!");
 									Platform.getInstance()
-									.getEditorRegistry()
-									.openEditor(OrderHistoryConstants.EDITOR_ORDERHISTORY_SEARCH,
-											"EDITOR_ORDERHISTORY_SEARCH", null);
-		
-									
-								}
-								else
-								{
+											.getEditorRegistry()
+											.openEditor(
+													OrderHistoryConstants.EDITOR_ORDERHISTORY_SEARCH,
+													"EDITOR_ORDERHISTORY_SEARCH",
+													null);
+
+								} else {
 									win.alert("操作失败!");
 								}
 
@@ -137,7 +131,7 @@ public class OrderHistoryViewPresenterImpl extends
 
 			}
 		});
-       
+
 		display.getReturnbutton().addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -157,14 +151,15 @@ public class OrderHistoryViewPresenterImpl extends
 	public void initInstanceId(String instanceId, OrderSearchVo orderSearchVo) {
 		orderId = orderSearchVo.getId();
 		{
-			dispatcher.execute(new SearchOrderByIdRequest(orderId,sessionManager.getSession().getStaffId()),
+			dispatcher.execute(new SearchOrderByIdRequest(orderId,
+					sessionManager.getSession().getStaffId()),
 					new AsyncCallback<SearchOrderByIdResponse>() {
 						private OrderViewClient orderVo;
 
 						@Override
 						public void onFailure(Throwable arg0) {
 							errorHandler.alert("查询出错!");
-							
+
 						}
 
 						@Override
@@ -177,6 +172,5 @@ public class OrderHistoryViewPresenterImpl extends
 					});
 		}
 	}
-	
 
 }

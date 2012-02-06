@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.chinarewards.gwt.elt.server.gift;
 
 import net.customware.gwt.dispatch.server.ExecutionContext;
@@ -34,11 +31,11 @@ public class SearchGiftByIdHandler extends
 			ExecutionContext context) throws DispatchException {
 		logger.debug(" parameters:{}", request.getId());
 		Gift gift = giftService.findGiftById(request.getId());
-		return new SearchGiftByIdResponse(adapter(giftService, gift));
+		return new SearchGiftByIdResponse(adapter(gift));
 
 	}
 
-	private GiftVo adapter(GiftService giftService, Gift gift) {
+	private GiftVo adapter(Gift gift) {
 		GiftVo giftVo = new GiftVo();
 		giftVo.setId(gift.getId());
 		giftVo.setName(gift.getName());
@@ -57,8 +54,6 @@ public class SearchGiftByIdHandler extends
 		giftVo.setStock(gift.getStock());
 		giftVo.setIntegral(gift.getIntegral());
 		giftVo.setPhoto(gift.getPhoto());
-		// giftVo.setGiftStatus();
-		// giftVo.setDeleted(gift.get);
 		giftVo.setIndate(gift.getIndate());
 
 		return giftVo;
