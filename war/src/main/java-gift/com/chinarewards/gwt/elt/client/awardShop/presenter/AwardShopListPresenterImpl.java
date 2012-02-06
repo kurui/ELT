@@ -10,6 +10,7 @@ import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.dataprovider.AwardShopListViewAdapter;
 import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
 import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria;
+import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria.GiftStatus;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
@@ -88,6 +89,7 @@ public class AwardShopListPresenterImpl extends BasePresenter<AwardShopListDispl
 
 	private void doSearch() {
 		GiftCriteria criteria = new GiftCriteria();
+		criteria.setStatus(GiftStatus.SHELVES);
 		if (!StringUtil.isEmpty(display.getKeyName().getValue()))
 			criteria.setName(display.getKeyName().getValue());
 

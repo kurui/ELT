@@ -11,6 +11,7 @@ import com.chinarewards.gwt.elt.client.awardShopLattice.view.AwardShopLatticeWid
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
 import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria;
+import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria.GiftStatus;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
@@ -55,6 +56,7 @@ public class ShopWindowPresenterImpl extends BasePresenter<ShopWindowDisplay>
 	private void init() {
 
 		GiftCriteria criteria = new GiftCriteria();
+		criteria.setStatus(GiftStatus.SHELVES);
 		// 查询参数....待添加
 		dispatch.execute(new SearchAwardShopRequest(criteria, sessionManager
 				.getSession().getCorporationId(), sessionManager.getSession()
