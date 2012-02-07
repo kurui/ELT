@@ -134,6 +134,9 @@ public class OrderLogicImpl implements OrderLogic{
 		order.setStatus(status);
 		order.setRecorddate(currTime);
 		order.setRecorduser(caller.getUserName());
+		if(status.equals(OrderStatus.ERRORORDER))
+			order.setRemarks(order.getRemarks()+"（退回备注：被"+caller.getUserName()+"在"+DateUtil.formatData("", currTime)+"退回）");
+		
 		order= orderDao.update(order);
 		return order.getId();
 	}
