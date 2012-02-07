@@ -1,0 +1,23 @@
+package com.chinarewards.gwt.elt.client.enterprise.presenter;
+
+import com.chinarewards.gwt.elt.client.mvp.Display;
+import com.chinarewards.gwt.elt.client.mvp.Presenter;
+import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.Widget;
+
+public interface IntegralPricePresenter extends
+		Presenter<IntegralPricePresenter.IntegralPriceDisplay> {
+
+	public static interface IntegralPriceDisplay extends Display {
+
+		public HasClickHandlers getSaveClickHandlers();
+
+		public HasValue<String> getIntegralPrice();
+
+		public String getEnterpriseId();
+
+		void setBreadCrumbs(Widget breadCrumbs);
+	}
+
+}
