@@ -199,8 +199,8 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .employee .reward-section .imglink p a{padding-left:0;font-size:12px;}
 .employee .reward-section .reward-pslist li{margin-top:3px;}
 
-.employee .content-wrap{background:url(elt/images/employee_repeaty.png) repeat-y right top;margin-left:277px;}
-.employee .content-wrap .content-info{margin-right:218px;position:relative;}
+.employee .content-wrap{background:url(elt/images/employee_repeaty.png) repeat-y right top;}
+.employee .content-wrap .content-info{position:relative;}
 
 /*----------------------------------------- 员工主页面 -------------------------------------------------------*/
 .employee .content-info .note{background-color:#FEFFF4;border:1px solid #D8D9D8;padding:6px 8px;color:#F03E59;position:relative;margin-bottom:10px;}
