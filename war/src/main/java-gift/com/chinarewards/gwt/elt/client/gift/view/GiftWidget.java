@@ -24,6 +24,7 @@ import com.google.gwt.user.client.ui.FileUpload;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RadioButton;
@@ -37,7 +38,7 @@ public class GiftWidget extends Composite implements GiftDisplay {
 
 	// --------vo
 	@UiField
-	TextBox name;
+	TextBox name;		
 	@UiField
 	TextArea summary;
 	@UiField
@@ -50,8 +51,6 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	ListBox type;
 	@UiField
 	TextBox brand;
-	// @UiField
-	// TextBox source;
 	@UiField
 	TextBox photo;
 	@UiField
@@ -86,6 +85,16 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	// @UiField
 	// DateBox updatetime;
 	// ---end vo
+	
+//	@UiField
+//	Label nameError;
+	@UiField
+	Label integralError;
+	@UiField
+	Label stockError;
+	@UiField
+	Label indateError;
+	
 
 	@UiField
 	Button back;
@@ -211,6 +220,18 @@ public class GiftWidget extends Composite implements GiftDisplay {
 				}							
 			}
 		});
+		
+//		name.addValueChangeHandler(new ValueChangeHandler<String>() {			
+//			@Override
+//			public void onValueChange(ValueChangeEvent<String> arg0) {
+//				if (name.getValue() == null
+//						|| "".equals(name.getValue().trim())) {
+//					nameError.setText("请填写礼品名称!<br>");
+////					win.alert("222");
+//				}
+//				
+//			}
+//		});
 	}
 
 	@Override
@@ -383,4 +404,9 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	public RadioButton getSupplyoutter() {
 		return supplyoutter;
 	}
+
+//	@Override
+//	public Label getNameError() {
+//		return nameError;
+//	}
 }

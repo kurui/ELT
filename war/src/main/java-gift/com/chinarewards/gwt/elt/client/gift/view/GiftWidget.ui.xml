@@ -24,14 +24,15 @@
 						礼品名称：
 					</label>
 					<div class="{new2.element}">
-						<g:TextBox maxLength="20" ui:field="name" styleName="{new2.text}" />
+						<g:TextBox maxLength="20" ui:field="name" styleName="{new2.text}" />		
+						
 					</div>
 				</div>
 				<div class="{new2.form-line}">
 					<label class="{new2.label6}">礼品概述：</label>
 					<div class="{new2.element}">
 						<g:TextArea ui:field="summary" visibleLines="3"
-							styleName="{new2.textarea}" />
+							styleName="{new2.textarea}" />						
 					</div>
 				</div>
 				<div class="{new2.form-line}">
@@ -96,6 +97,7 @@
 					</label>
 					<div class="{new2.element}">
 						<g:TextBox maxLength="5" ui:field="integral" styleName="{new2.text}" />
+						<g:Label ui:field="integralError"></g:Label>
 					</div>
 				</div>
 
@@ -106,12 +108,14 @@
 					</label>
 					<div class="{new2.element}">
 						<g:TextBox maxLength="5" ui:field="stock" styleName="{new2.text}" />
+						<g:Label ui:field="stockError"></g:Label>
 					</div>
 				</div>
                <div class="{new2.form-line}">
 					<label class="{new2.label}"><span style="color:red">*</span>有效期：</label>
 					<div class="{new2.element}">
 						<d:DateBox ui:field="indate" styleName="{new2.text}"/>
+						<g:Label ui:field="indateError"></g:Label>
 					</div>
 				</div>
 				<div class="{new2.form-line}">
