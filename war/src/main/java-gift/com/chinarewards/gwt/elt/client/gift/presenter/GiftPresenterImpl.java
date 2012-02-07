@@ -226,8 +226,7 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 										GiftConstants.ACTION_GIFT_LIST,
 										instanceId);
 					}
-				}));
-		
+				}));		
 	
 	}
 

@@ -1,11 +1,14 @@
 package com.chinarewards.gwt.elt.client.enterprise.model;
 
 import java.io.Serializable;
-
 import java.util.Date;
 
 public class EnterpriseVo implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String id;
 	private String name;
 	private String description;//备注说明

@@ -1,11 +1,7 @@
-/**
- * 
- */
 package com.chinarewards.gwt.elt.client.gift.plugin;
 
 /**
  * @author yanrui
- * @since 2012年1月9日 17:21:11
  */
 public abstract class GiftConstants {
 
@@ -29,4 +25,5 @@ public abstract class GiftConstants {
 	/** 礼品列表 */
 	public static final String ACTION_GIFT_LIST = "ACTION_GIFT_LIST";
 	public static final String ACTION_GIFT_VIEW = "ACTION_GIFT_VIEW";
+
 }

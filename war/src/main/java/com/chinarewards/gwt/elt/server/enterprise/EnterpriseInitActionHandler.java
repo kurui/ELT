@@ -5,9 +5,9 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 
 import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.service.org.CorporationService;
-import com.chinarewards.gwt.elt.client.enterprise.EnterpriseInitRequest;
-import com.chinarewards.gwt.elt.client.enterprise.EnterpriseInitResponse;
 import com.chinarewards.gwt.elt.client.enterprise.model.EnterpriseVo;
+import com.chinarewards.gwt.elt.client.enterprise.request.EnterpriseInitRequest;
+import com.chinarewards.gwt.elt.client.enterprise.request.EnterpriseInitResponse;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
 import com.google.inject.Inject;
 

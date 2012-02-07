@@ -7,12 +7,12 @@ import java.util.List;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
-import com.chinarewards.gwt.elt.client.enterprise.EnterpriseInitRequest;
-import com.chinarewards.gwt.elt.client.enterprise.EnterpriseInitResponse;
-import com.chinarewards.gwt.elt.client.enterprise.EnterpriseRequest;
-import com.chinarewards.gwt.elt.client.enterprise.EnterpriseResponse;
 import com.chinarewards.gwt.elt.client.enterprise.model.EnterpriseVo;
 import com.chinarewards.gwt.elt.client.enterprise.presenter.EnterprisePresenter.EnterpriseDisplay;
+import com.chinarewards.gwt.elt.client.enterprise.request.EnterpriseInitRequest;
+import com.chinarewards.gwt.elt.client.enterprise.request.EnterpriseInitResponse;
+import com.chinarewards.gwt.elt.client.enterprise.request.EnterpriseRequest;
+import com.chinarewards.gwt.elt.client.enterprise.request.EnterpriseResponse;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
