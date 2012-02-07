@@ -53,9 +53,9 @@ public class Corporation extends Organization {
 
 	private String web;//企业网站
 	
-	private double integralPrice;//积分价值 
+	private Double integralPrice;//积分价值 
 	
-	private double period;//财年周期
+	private Double period;//财年周期
 	
 	private Date   firstTime;//首个财年开始日期
 	
