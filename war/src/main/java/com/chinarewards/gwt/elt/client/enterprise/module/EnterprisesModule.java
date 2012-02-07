@@ -1,4 +1,4 @@
-package com.chinarewards.gwt.elt.client.enterprise.presenter;
+package com.chinarewards.gwt.elt.client.enterprise.module;
 
 import com.chinarewards.gwt.elt.client.enterprise.presenter.EnterprisePresenter;
 import com.chinarewards.gwt.elt.client.enterprise.presenter.EnterprisePresenterImpl;

@@ -1,17 +1,17 @@
-package com.chinarewards.gwt.elt.client.sample;
+package com.chinarewards.gwt.elt.client.enterprise.editor;
 
 import com.chinarewards.gwt.elt.client.core.ui.impl.AbstractEditor;
 import com.chinarewards.gwt.elt.client.enterprise.presenter.EnterprisePresenter;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
-public class SampleEditor extends AbstractEditor {
+public class EnterpriseEditor extends AbstractEditor {
 
 	Object model;
 	EnterprisePresenter enterprisePresenter;
 	
 	@Inject
-	protected SampleEditor(SampleEditorDescriptor editorDescriptor,EnterprisePresenter enterprisePresenter) {
+	protected EnterpriseEditor(EnterpriseEditorDescriptor editorDescriptor,EnterprisePresenter enterprisePresenter) {
 		super(editorDescriptor);
 		this.enterprisePresenter = enterprisePresenter;
 	}
@@ -34,7 +34,6 @@ public class SampleEditor extends AbstractEditor {
 
 	@Override
 	public boolean beforeClose() {
-	//	Window.alert("Closing Sample Editor");
 		return true;
 	}
 

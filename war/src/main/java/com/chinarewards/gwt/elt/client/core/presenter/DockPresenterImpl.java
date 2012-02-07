@@ -10,6 +10,7 @@ import com.chinarewards.gwt.elt.client.core.PluginManager;
 import com.chinarewards.gwt.elt.client.core.presenter.DockPresenter.DockDisplay;
 import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
 import com.chinarewards.gwt.elt.client.core.ui.event.MenuClickEvent;
+import com.chinarewards.gwt.elt.client.enterprise.plugin.EnterpriseConstants;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftListConstants;
 import com.chinarewards.gwt.elt.client.login.LastLoginRoleRequest;
 import com.chinarewards.gwt.elt.client.login.LastLoginRoleResponse;
@@ -139,7 +140,7 @@ public class DockPresenterImpl extends BasePresenter<DockDisplay> implements
 						display.setMenuTitle("设置");
 						menuProcessor.initrender(display.getMenu(), "Setting");
 						eventBus.fireEvent(new MenuClickEvent(menuProcessor
-								.getMenuItem("sample")));
+								.getMenuItem(EnterpriseConstants.MENU_ENTERPRISE_EDIT)));
 					}
 				}));
 		registerHandler(display.getBtnGift().addClickHandler(
