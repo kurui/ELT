@@ -1,7 +1,7 @@
 package com.chinarewards.elt.guice;
 
+import com.chinarewards.elt.guice.sub.BudgetModule;
 import com.chinarewards.elt.guice.sub.GiftModule;
-import com.chinarewards.elt.guice.sub.OrderModule;
 import com.chinarewards.elt.guice.sub.OrgModule;
 import com.chinarewards.elt.guice.sub.RewardModule;
 import com.chinarewards.elt.guice.sub.StaffModule;
@@ -24,7 +24,7 @@ public class EltModule extends AbstractModule {
 		install(new OrgModule());
 		install(new StaffModule());
 		install(new GiftModule());
-		install(new OrderModule());
+		install(new BudgetModule());
 	}
 
 }

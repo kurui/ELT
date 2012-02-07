@@ -34,6 +34,27 @@ public class CorpBudget implements Serializable {
 	private double budgetAmount ; //预算金额
 	private double budgetIntegral;//预算积分
     private double useIntegeral;  //已用积分
+    private String recorduser;   //操作人
+    private Date   recorddate;   //操作时间
+    private int    deleted   ;     //是否删除 
+	public String getRecorduser() {
+		return recorduser;
+	}
+	public void setRecorduser(String recorduser) {
+		this.recorduser = recorduser;
+	}
+	public Date getRecorddate() {
+		return recorddate;
+	}
+	public void setRecorddate(Date recorddate) {
+		this.recorddate = recorddate;
+	}
+	public int getDeleted() {
+		return deleted;
+	}
+	public void setDeleted(int deleted) {
+		this.deleted = deleted;
+	}
 	public String getId() {
 		return id;
 	}
