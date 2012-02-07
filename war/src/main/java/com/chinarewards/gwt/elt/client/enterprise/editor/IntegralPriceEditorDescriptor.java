@@ -26,7 +26,7 @@ public class IntegralPriceEditorDescriptor implements EditorDescriptor {
 	}
 
 	public String getEditorId() {
-		return EnterpriseConstants.EDITOR_INTEGRAL_PRICE_EDIT;
+		return EnterpriseConstants.MENU_INTEGRAL_PRICE_EDIT;
 	}
 
 }

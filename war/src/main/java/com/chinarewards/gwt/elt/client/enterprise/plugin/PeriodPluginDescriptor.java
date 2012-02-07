@@ -10,6 +10,7 @@ import com.chinarewards.gwt.elt.client.core.Plugin;
 import com.chinarewards.gwt.elt.client.core.PluginDescriptor;
 import com.chinarewards.gwt.elt.client.core.ui.MenuItem;
 import com.chinarewards.gwt.elt.client.enterprise.editor.PeriodEditorDescriptor;
+import com.chinarewards.gwt.elt.client.plugin.MenuConstants;
 import com.google.gwt.user.client.ui.Image;
 import com.google.inject.Inject;
 
@@ -56,7 +57,7 @@ public class PeriodPluginDescriptor implements PluginDescriptor {
 					}
 
 					public int getOrder() {
-						return 0;
+						return MenuConstants.MENU_ORDER_PERIOD_EDIT;
 					}
 
 					public String getParentMenuId() {

@@ -87,7 +87,12 @@ public abstract class MenuConstants {
 	public static final int MENU_ORDER_CORPORATION_INNER_INFO_PUBLISH = order++;
 	// hr注册
 	public static final int MENU_ORDER_Hr_SEARCH = order++;
-
+	
+	//积分价值设置
+	public static final int MENU_ORDER_INTEGRAL_PRICE_EDIT=order++;
+	//财年周期设置
+	public static final int MENU_ORDER_PERIOD_EDIT=order++;
+	
 	// 奖项列表查询
 	public static final int MENU_ORDER_REWARDSITEM_List = order++;
 	// 奖项库列表查询
