@@ -1,8 +1,11 @@
 package com.chinarewards.gwt.elt.server.login;
 
+import java.util.List;
+
 import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.DispatchException;
 
+import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.model.user.UserSessionVo;
 import com.chinarewards.elt.service.user.UserService;
 import com.chinarewards.gwt.elt.client.login.LoginRequest;
@@ -47,7 +50,22 @@ public class LoginActionHandler extends
 			resp.setUserRoles(UserRoleTool.adaptToRoleVo(u.getUserRoles()));
 			resp.setStaffId(u.getStaffId());
 			if(u.getLastLoginRole()!=null)
-			resp.setLastLoginRole(UserRoleVo.valueOf(u.getLastLoginRole().toString()));
+			{
+				resp.setLastLoginRole(UserRoleVo.valueOf(u.getLastLoginRole().toString()));
+			}
+			else
+			{
+				List<UserRole> roles=u.getUserRoles();
+				if(roles.size()>0)
+				{
+					if(roles.contains(UserRole.CORP_ADMIN))
+						resp.setLastLoginRole(UserRoleVo.valueOf(UserRole.CORP_ADMIN.toString()));
+					else if(roles.contains(UserRole.GIFT))
+						resp.setLastLoginRole(UserRoleVo.valueOf(UserRole.GIFT.toString()));
+					else if(roles.contains(UserRole.STAFF))
+						resp.setLastLoginRole(UserRoleVo.valueOf(UserRole.STAFF.toString()));
+				}
+			}
 		} else {
 			throw new ClientException("用户名或密码错误!");
 		}
