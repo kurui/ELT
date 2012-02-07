@@ -22,7 +22,9 @@ import com.chinarewards.gwt.elt.client.orderHistory.plugin.OrderHistoryConstants
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemConstants;
 import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListConstants;
 import com.chinarewards.gwt.elt.client.shopWindow.plugin.ShopWindowConstants;
+import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.user.plugin.UserConstants;
+import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Anchor;
@@ -36,14 +38,16 @@ public class ButtonMenuProcessor implements MenuProcessor {
 
 	final EventBus eventBus;
 	final BreadCrumbsMenu breadCrumbsMenu;
+	final SessionManager sessionManager;
 	List<MenuItem> items = new LinkedList<MenuItem>();
 	MenuNode root = new MenuNode(null);
 	VerticalPanel grid;
 	@Inject
 	public ButtonMenuProcessor(EventBus eventBus,
-			BreadCrumbsMenu breadCrumbsMenu) {
+			BreadCrumbsMenu breadCrumbsMenu,SessionManager sessionManager) {
 		this.eventBus = eventBus;
 		this.breadCrumbsMenu = breadCrumbsMenu;
+		this.sessionManager=sessionManager;
 
 	}
 
@@ -74,8 +78,13 @@ public class ButtonMenuProcessor implements MenuProcessor {
 			root.appendChild(new MenuNode(m));
 		}
 
-		ScrollPanel menuWrapper = new ScrollPanel(
-				createButtonMenuWidget("RewardItem"));
+		String indexMenu="";
+		if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.CORP_ADMIN)
+			indexMenu="RewardItem";
+		else if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.GIFT)
+			indexMenu="Gift";
+		
+		ScrollPanel menuWrapper = new ScrollPanel(createButtonMenuWidget(indexMenu));
 		container.add(menuWrapper);
 	}
 

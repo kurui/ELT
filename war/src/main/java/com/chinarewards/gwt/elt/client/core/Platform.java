@@ -84,11 +84,12 @@ public class Platform {
 		}
 		STATIC_PLATFORM = this;
 		GWT.log("Initializing Platform");
-	//	pluginManager.initialize(pluginSet);
+		//此处可以改进..只加载需要的插件
+		pluginManager.initialize(pluginSet);
 		rootLayoutPanel = rootPanel;
 		siteManager.initializeGift(rootPanel);
-	//	editorRegistry.initialize(this);
-	//	pluginManager.activatePlugin(STARTUP_PLUGIN_ID);
+		editorRegistry.initialize(this);
+		pluginManager.activatePlugin(STARTUP_PLUGIN_ID);
 		initialized = true;
 	}
 	public PluginManager getPluginManager() {
