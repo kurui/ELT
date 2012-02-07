@@ -104,11 +104,171 @@
 				</div>
 			</g:HTMLPanel>
 		</g:south>
-		<g:west size="202">
+		<g:west size="263">
 			<g:HTMLPanel>
-
+			<div class="{new2.employee}">
+				  <!--content [[-->
+				  <div class="{new2.content} {new2.clearfix}">
+				    <!-- 导航 [[-->
+				    <div class="{new2.menu-nav}">
+				      <h3>员工天地</h3>
+				      <div>
+				        <span class="{new2.menu-border-top}"></span>
+				        <div class="{new2.menu-content}">
+				          <div class="{new2.employee-info}">
+				            <div class="{new2.employee-ps-wrap} {new2.clearfix}">
+				              <img src="elt/images/employee_headps.png" width="70px" height="70px" />
+				              <div class="{new2.employee-ps}">
+				                <strong>顾小白</strong>
+				                <a href="#">修改头像</a>
+				                <a href="#">个人资料</a>
+				                <a href="#">账户设置</a>
+				              </div>
+				            </div>
+				            <div class="{new2.employee-detail}">
+				              <p>性别：<span>男</span></p>
+				              <p>岗位：<span>产品经理</span></p>
+				              <p>所属部门：<span>业务运营部</span></p>
+				              <p>积分余额：<span class="{new2.color-orange}">1800</span> 积分</p>
+				            </div>
+				          </div>
+				
+				          <ul class="{new2.employee-menu}">
+				            <li class="{new2.on}"><a href="#" ><span class="{new2.liimg}"></span>查看积分</a></li>
+				            <li><a href="#" ><span class="{new2.liimg}"></span>获奖历史</a></li>
+				            <li><a href="#" ><span class="{new2.liimg}"></span>我参与的奖项</a></li>
+				            <li><a href="#" ><span class="{new2.liimg}"></span>公司其他奖项</a></li>
+				            <li><a href="#" ><span class="{new2.liimg}"></span>兑换历史</a></li>
+				            <li><a href="#" ><span class="{new2.liimg}"></span>奖品商城</a></li>
+				            <li><a href="#" ><span class="{new2.liimg}"></span>我的消息</a></li>
+				          </ul>
+				
+				          <div class="{new2.encash}">
+				            <h3><span>1800</span> 积分，能换什么？</h3>
+				            <div class="{new2.gift-list} {new2.clearfix}">
+				              <div class="{new2.gift}">
+				                <img src="elt/images/gift_emplate.png" width="80px" height="60px" />
+				                <p>笔记本电脑</p>
+				                <p><span class="{new2.color-orange}">1790</span> 积分</p>
+				              </div>
+				
+				              <div class="gift">
+				                <img src="img/gift_emplate.png" width="80px" height="60px" />
+				                <p>笔记本电脑</p>
+				                <p><span class="{new2.color-orange}">1790</span> 积分</p>
+				              </div>
+				
+				              <div class="gift">
+				                <img src="img/gift_emplate.png" width="80px" height="60px" />
+				                <p>笔记本电脑</p>
+				                <p><span class="{new2.color-orange}">1790</span> 积分</p>
+				              </div>
+				
+				              <div class="gift">
+				                <img src="img/gift_emplate.png" width="80px" height="60px" />
+				                <p>笔记本电脑</p>
+				                <p><span class="{new2.color-orange}">1790</span> 积分</p>
+				              </div>
+				
+				              <div class="gift">
+				                <img src="img/gift_emplate.png" width="80px" height="60px" />
+				                <p>笔记本电脑</p>
+				                <p><span class="{new2.color-orange}">1790</span> 积分</p>
+				              </div>
+				
+				              <div class="gift">
+				                <img src="img/gift_emplate.png" width="80px" height="60px" />
+				                <p>笔记本电脑</p>
+				                <p><span class="{new2.color-orange}">1790</span> 积分</p>
+				              </div>
+				              <p><a href="#" class="{new2.more}">还有什么，去看看&gt;&gt;</a></p>
+				            </div>
+				          </div>
+				        </div>
+				        <span class="{new2.menu-border-bottom}"></span>
+				      </div>
+				    </div>
+				    <!-- 导航 ]]-->
+				   </div>
+				   </div>
 			</g:HTMLPanel>
 		</g:west>
-
+			<g:east size="200">
+				<g:HTMLPanel>
+				<div class="{new2.employee}">
+				 <div class="{new2.reward-area}">
+			        <div class="{new2.reward-section}">
+			          <ul class="{new2.reward-select}">
+			            <li class="{new2.on}"><a href="#">我获得的奖项</a></li>
+			            <li><a href="#">全部奖项</a></li>
+			          </ul>
+			          <ul class="{new2.reward-list}">
+			            <li><a href="#">月度最佳</a></li>
+			            <li><a href="#">项目奖</a></li>
+			            <li class="{new2.on}"><a href="#">季度最佳</a></li>
+			            <li><a href="#">月度全勤</a></li>
+			            <li><a href="#">年度最佳</a></li>
+			          </ul>
+			          <p><a href="#">更多&gt;&gt;</a></p>
+			        </div>
+			
+			        <div class="{new2.reward-section}">
+			          <ul class="{new2.reward-select}">
+			            <li class="{new2.on}"><a href="#">努力冲奖项</a></li>
+			            <li><a href="#">公司所有奖项</a></li>
+			          </ul>
+			          <ul class="{new2.reward-list} {new2.reward-pslist}">
+			            <li>
+			              <div class="{new2.imglink} {new2.clearfix}">
+			                <img src="img/reward_emplate.png" width="28px" height="27px" />
+			                <div>
+			                  <p><a href="#">月度全勤奖</a></p>
+			                  <p>每次奖金 <span>50</span> 积分</p>
+			                </div>
+			              </div>
+			            </li>
+			            <li>
+			                <div class="{new2.imglink} {new2.clearfix}">
+			                <img src="img/reward_emplate.png" width="28px" height="27px" />
+			                <div>
+			                  <p><a href="#">月度全勤奖</a></p>
+			                  <p>每次奖金 <span>50</span> 积分</p>
+			                </div>
+			              </div>
+			            </li>
+			            <li>
+			                 <div class="{new2.imglink} {new2.clearfix}">
+			                <img src="img/reward_emplate.png" width="28px" height="27px" />
+			                <div>
+			                  <p><a href="#">月度全勤奖</a></p>
+			                  <p>每次奖金 <span>50</span> 积分</p>
+			                </div>
+			              </div>
+			            </li>
+			            <li>
+			                 <div class="{new2.imglink} {new2.clearfix}">
+			                <img src="img/reward_emplate.png" width="28px" height="27px" />
+			                <div>
+			                  <p><a href="#">月度全勤奖</a></p>
+			                  <p>每次奖金 <span>50</span> 积分</p>
+			                </div>
+			              </div>
+			            </li>
+			            <li>
+			               <div class="{new2.imglink} {new2.clearfix}">
+			                <img src="img/reward_emplate.png" width="28px" height="27px" />
+			                <div>
+			                  <p><a href="#">月度全勤奖</a></p>
+			                  <p>每次奖金 <span>50</span> 积分</p>
+			                </div>
+			              </div>
+			            </li>
+			          </ul>
+			          <p><a href="#">更多&gt;&gt;</a></p>
+			        </div>
+			      </div>
+			  </div>
+				</g:HTMLPanel>
+			</g:east>
 	</g:DockLayoutPanel>
 </ui:UiBinder>

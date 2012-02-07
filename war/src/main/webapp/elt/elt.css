@@ -70,8 +70,7 @@ a, a:visited, a:hover {
 */
 a:link {
 	font-size: 12px;
-	color: #333333;
-	text-decoration: underline;
+
 }
 
 a:visited {

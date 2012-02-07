@@ -13,8 +13,8 @@ button{cursor:pointer;}
 textarea{word-wrap:break-word;resize:none;}
 
 /*---------------------------------------全局模块----------------------------------------------*/
-.menu,.menu span,.menu-on,.menu-on span,.status-arrow,.list-top,.list-bottom,.btn,.btn button,.back-btn,.box .box-tl,.box .box-tr,.box .box-bl,.box .box-br,.box-btn-ok,.box-btn-cannel,.box-close{background:url(elt/images/elt.png) no-repeat;}
-.sidebar .title,.cutline,.footer-line{background:url(elt/images/elt_repeat.png) repeat-x;}
+.menu,.menu span,.menu-on,.menu-on span,.status-arrow,.list-top,.list-bottom,.btn,.btn button,.back-btn,.box .box-tl,.box .box-tr,.box .box-bl,.box .box-br,.box-btn-ok,.box-btn-cannel,.box-close,.employee .menu,.employee .menu span,.employee .menu-on,.employee .menu-on span,.new-tips,.employee .menu-border-top,.employee .menu-border-bottom,.liimg,.note .close,.news-icon,.gift-duihuan{background:url(elt/images/elt.png) no-repeat;}
+.sidebar .title,.cutline,.footer-line,.employee .footer .footer-wrap,.employee .menu-nav{background:url(elt/images/elt_repeat.png) repeat-x;}
 
 body{background-color:#fff;color:#333333;font:12px/1.5 Tahoma, Arial, simsun;min-width:960px;}
 a{color:#565656;text-decoration:none;}
@@ -120,7 +120,12 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .dockbody{background-color:#fff;color:#333333;font:12px/1.5 Tahoma, Arial, simsun;min-width:1024px;}
 
 
-
+.reward-area{}
+.reward-section{}
+.reward-select{}
+.reward-list{}
+.reward-pslist{}
+.imglink{}
 /*-------------------------------------------- 员工天地 -----------------------------------------------------------------------------------------------------------*/
 
 /*框架重置*/
@@ -139,7 +144,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .employee .menu-nav{background-position:0 -107px;width:259px;overflow:hidden;border:1px solid #AEAEAE;border-left:1px solid #ABCEE5;border-bottom:none;}
 .employee .menu-nav h3{border-bottom:1px solid #055AB4;height:29px;line-height:29px;text-align:center;font-size:14px;}
 .employee .menu-nav .menu-border-top{background-position:0 -174px;display:block;width:259px;height:12px;overflow:hidden;}
-.employee .menu-nav .menu-border-bottom{background-position:0 -187px;_background-position:0 -187px;display:block;width:259px;height:14px;overflow:hidden;_zoom:1;_margin-left:6px;}
+.employee .menu-nav .menu-border-bottom{background-position:0 -187px;\_background-position:0 -187px;display:block;width:259px;height:14px;overflow:hidden;\_zoom:1;\_margin-left:6px;}
 .employee .menu-nav .menu-content{border-left:3px solid #ABCEE5;border-right:4px solid #ABCEE5;background-color:#F7F7F7;padding:10px 0;}
 
 .employee .employee-info{margin:0 5px;}
@@ -155,9 +160,9 @@ a:hover{color:#010DFF;text-decoration:underline;}
 
 .employee .employee-menu{margin:0 2px;}
 .employee .employee-menu li{margin-bottom:1px;}
-.employee .employee-menu li a{background-color:#E8E8E8;display:block;height:32px;line-height:32px;_height:25px;_padding-top:7px;color:#356CA6;text-decoration:none;padding-left:45px;}
-.employee .employee-menu li a:hover,.employee .employee-menu li.on a{background-color:#DBDBDB;color:#000000;font-weight:bold;}
-.employee .employee-menu .liimg{background-position:-26px -35px;display:inline-block;width:5px;height:6px;vertical-align:middle;margin-right:2px;_margin-top:5px;}
+.employee .employee-menu li a{background-color:#E8E8E8;display:block;height:32px;line-height:32px;\_height:25px;\_padding-top:7px;color:#356CA6;text-decoration:none;padding-left:45px;}
+.employee .employee-menu li a:hover,.employee .employee-menu li.on a{text-decoration:none;background-color:#DBDBDB;color:#000000;font-weight:bold;}
+.employee .employee-menu .liimg{background-position:-26px -35px;display:inline-block;width:5px;height:6px;vertical-align:middle;margin-right:2px;\_margin-top:5px;}
 
 .employee .encash{margin-top:10px;}
 .employee .encash h3{background-color:#ABCEE5;border:none;}
@@ -170,13 +175,12 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .employee .content{position:relative;}
 .employee .menu-nav{float:left;}
 .employee .reward-area{width:200px;overflow:hidden;background-color:#F7F7F7;vertical-align:top;position:absolute;right:0;top:0;}
-
 .employee .reward-section{border-top:1px solid #77A5D3;padding-top:1px;margin-bottom:20px;}
 .employee .reward-section .reward-select li{float:left;width:100px;overflow:hidden;}
 .employee .reward-section .reward-select li a{background-color:#F7F7F7;text-align:center;padding:7px 0;display:block;font-size:13px;overflow:hidden;}
 .employee .reward-section .reward-select li.on a{background-color:#E4ECF1;font-weight:bold;}
-.employee .reward-section .reward-list{background-color:#E4ECF1;padding:10px 5px 5px;clear:both;*zoom:1;}
-.employee .reward-section .reward-list li a{display:block;background-color:#F7F7F7;margin-bottom:1px;padding:7px 0 7px 60px;font-size:13px;color:#356CA6;text-decoration:none;_overflow:hidden;_zoom:1;}
+.employee .reward-section .reward-list{background-color:#E4ECF1;padding:10px 5px 5px;clear:both;\*zoom:1;}
+.employee .reward-section .reward-list li a{display:block;background-color:#F7F7F7;margin-bottom:1px;padding:7px 0 7px 60px;font-size:13px;color:#356CA6;text-decoration:none;\_overflow:hidden;\_zoom:1;}
 .employee .reward-section .reward-list li.on a,.employee .reward-section .reward-list li a:hover{background-color:#E6E6E6;color:#000000;font-weight:bold;}
 .employee .reward-section p{text-align:right;padding:0 5px 5px 0;background-color:#E4ECF1;}
 .employee .reward-section p a{color:#8DB9FB}
@@ -201,7 +205,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .employee .content-info .news-select span{color:#292A29;}
 
 .employee .news-list .news{position:relative;padding:10px 0 5px 10px;border-bottom:1px solid #EDEEED;}
-.employee .news-list .news .news-icon{background-position:-41px -35px;float:left;width:16px;height:13px;position:absolute;left:9px;top:14px;_left:0px;}
+.employee .news-list .news .news-icon{background-position:-41px -35px;float:left;width:16px;height:13px;position:absolute;left:9px;top:14px;\_left:0px;}
 .employee .news-list .news .news-info{margin:0 30px 0 20px;}
 .employee .news-list .news .news-info a{color:#336CA4}
 .employee .news-list .news .news-info strong{font-weight:normal;color:#346BA8;}
@@ -213,7 +217,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .employee .content-info .breadcrumb span{color:#FF6102;}
 
 .employee .gift-wrap{background-color:#F6F6F6;padding:10px 17px;margin-top:10px;}
-.employee .gift-wrap .shop-gift-list{margin-top:12px;overflow:hidden;margin-bottom:-26px;*margin-bottom:0;*padding-bottom:10px;_zoom:1;_position:relative;}
+.employee .gift-wrap .shop-gift-list{margin-top:12px;overflow:hidden;margin-bottom:-26px;\*margin-bottom:0;\*padding-bottom:10px;\_zoom:1;\_position:relative;}
 .employee .gift-wrap .shop-gift{border:1px solid #CCCCCC;padding:10px;width:180px;overflow:hidden;position:relative;background-color:#FFFFFF;float:left;margin:0 35px 35px 0;}
 .employee .gift-wrap .shop-gift p{line-height:23px;}
 .employee .gift-wrap .shop-gift img{width:180px;height:135px;overflow:hidden;}
