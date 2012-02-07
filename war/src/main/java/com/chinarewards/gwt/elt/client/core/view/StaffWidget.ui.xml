@@ -24,8 +24,9 @@
 
 	<ui:style src="index.css"></ui:style>
 	<ui:style src="new2.css" field="new2"></ui:style>
+
 	<g:DockLayoutPanel ui:field="dock" unit='PX'
-		styleName="{new2.dockbody}">
+		styleName="{new2.dockbody}" >
 		<g:north size="83">
 			<g:HTMLPanel>
 				<!--head -->
@@ -105,6 +106,7 @@
 			</g:HTMLPanel>
 		</g:south>
 		<g:west size="263">
+		
 			<g:HTMLPanel>
 			<div class="{new2.employee}">
 				  <!--content [[-->
@@ -152,31 +154,31 @@
 				                <p><span class="{new2.color-orange}">1790</span> 积分</p>
 				              </div>
 				
-				              <div class="gift">
+				              <div class="{new2.gift}">
 				                <img src="img/gift_emplate.png" width="80px" height="60px" />
 				                <p>笔记本电脑</p>
 				                <p><span class="{new2.color-orange}">1790</span> 积分</p>
 				              </div>
 				
-				              <div class="gift">
+				             <div class="{new2.gift}">
 				                <img src="img/gift_emplate.png" width="80px" height="60px" />
 				                <p>笔记本电脑</p>
 				                <p><span class="{new2.color-orange}">1790</span> 积分</p>
 				              </div>
 				
-				              <div class="gift">
+				               <div class="{new2.gift}">
 				                <img src="img/gift_emplate.png" width="80px" height="60px" />
 				                <p>笔记本电脑</p>
 				                <p><span class="{new2.color-orange}">1790</span> 积分</p>
 				              </div>
 				
-				              <div class="gift">
+				               <div class="{new2.gift}">
 				                <img src="img/gift_emplate.png" width="80px" height="60px" />
 				                <p>笔记本电脑</p>
 				                <p><span class="{new2.color-orange}">1790</span> 积分</p>
 				              </div>
 				
-				              <div class="gift">
+				               <div class="{new2.gift}">
 				                <img src="img/gift_emplate.png" width="80px" height="60px" />
 				                <p>笔记本电脑</p>
 				                <p><span class="{new2.color-orange}">1790</span> 积分</p>
