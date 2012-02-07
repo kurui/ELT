@@ -9,6 +9,8 @@ import com.chinarewards.gwt.elt.client.EltGinjector;
 import com.chinarewards.gwt.elt.client.core.PluginManager;
 import com.chinarewards.gwt.elt.client.core.presenter.GiftPresenter.GiftDisplay;
 import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
+import com.chinarewards.gwt.elt.client.core.ui.event.MenuClickEvent;
+import com.chinarewards.gwt.elt.client.gift.plugin.GiftListConstants;
 import com.chinarewards.gwt.elt.client.login.LastLoginRoleRequest;
 import com.chinarewards.gwt.elt.client.login.LastLoginRoleResponse;
 import com.chinarewards.gwt.elt.client.login.event.LoginEvent;
@@ -76,7 +78,33 @@ public class GiftPresenterImpl extends BasePresenter<GiftDisplay> implements
 				Window.alert("收藏");
 			}
 		}));
-
+		registerHandler(display.getBtnEmail().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						display.setMenuTitle("收件箱");
+						display.setMenu(null);
+					}
+				}));
+		registerHandler(display.getBtnGb().addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				display.setMenuTitle("广播");
+				display.setMenu(null);
+			}
+		}));
+		
+		registerHandler(display.getBtnGift().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						display.setMenuTitle("兑换管理");
+						menuProcessor.initrender(display.getMenu(), "Gift");
+						eventBus.fireEvent(new MenuClickEvent(
+								menuProcessor
+										.getMenuItem(GiftListConstants.MENU_GIFTLIST_SEARCH)));
+					}
+				}));
 		registerHandler(display.getManagementCenter().addClickHandler(
 				new ClickHandler() {
 					@Override

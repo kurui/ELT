@@ -155,8 +155,8 @@ public class SimpleSiteManager implements SiteManager, EditorCloseHandler,
 		// FIXME 20111130
 		staffPresenter.getDisplay().setMessage(
 				sessionManager.getSession().getLoginName());
-		// menu = new LayoutPanel();
-		//menu = staffPresenter.getDisplay().getMenu();
+		 menu = new LayoutPanel();
+	//	menu = staffPresenter.getDisplay().getMenu();
 		// dock.addWest(menu, 200);
 
 		// initialize editors area.
@@ -185,7 +185,7 @@ public class SimpleSiteManager implements SiteManager, EditorCloseHandler,
 		giftPresenter.getDisplay().setMessage(
 				sessionManager.getSession().getLoginName());
 		// menu = new LayoutPanel();
-		//menu = staffPresenter.getDisplay().getMenu();
+		menu = giftPresenter.getDisplay().getMenu();
 		// dock.addWest(menu, 200);
 
 		// initialize editors area.

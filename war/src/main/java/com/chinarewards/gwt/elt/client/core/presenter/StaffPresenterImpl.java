@@ -6,6 +6,9 @@ import java.util.List;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.EltGinjector;
+import com.chinarewards.gwt.elt.client.awardShop.plugin.AwardShopListConstants;
+import com.chinarewards.gwt.elt.client.breadCrumbs.ui.BreadCrumbsMenu;
+import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.PluginManager;
 import com.chinarewards.gwt.elt.client.core.presenter.StaffPresenter.StaffDisplay;
 import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
@@ -30,16 +33,19 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 	final EltGinjector injector;
 	final MenuProcessor menuProcessor;
 	final DispatchAsync dispatchAsync;
+	final BreadCrumbsMenu breadCrumbsMenu;
+
 	@Inject
 	public StaffPresenterImpl(EventBus eventBus, StaffDisplay display,
 			SessionManager sessionManager, PluginManager pluginManager,
-			EltGinjector injector, MenuProcessor menuProcessor,DispatchAsync dispatchAsync) {
+			EltGinjector injector, MenuProcessor menuProcessor,DispatchAsync dispatchAsync,BreadCrumbsMenu breadCrumbsMenu) {
 		super(eventBus, display);
 		this.sessionManager = sessionManager;
 		this.pluginManager = pluginManager;
 		this.injector = injector;
 		this.menuProcessor = menuProcessor;
 		this.dispatchAsync=dispatchAsync;
+		this.breadCrumbsMenu=breadCrumbsMenu;
 	}
 
 	public void bind() {
@@ -124,7 +130,19 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 					}
 				}));
 
-
+		registerHandler(display.getAwardShop().addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				breadCrumbsMenu.cleanBreadCrumbsItemAll();
+				breadCrumbsMenu.addBreadCrumbsItemTop("首页",null);
+				breadCrumbsMenu.addBreadCrumbsItem("奖品商城",null);
+				Platform.getInstance()
+				.getEditorRegistry()
+				.openEditor(
+						AwardShopListConstants.EDITOR_AWARDSHOPLIST_SEARCH,
+						"EDITOR_AWARDSHOPLIST_SEARCH_DO_ID", null);
+			}
+		}));
 
 	}
 

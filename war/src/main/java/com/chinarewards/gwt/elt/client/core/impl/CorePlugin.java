@@ -10,8 +10,10 @@ import com.chinarewards.gwt.elt.client.core.PluginDescriptor;
 import com.chinarewards.gwt.elt.client.core.ui.EditorDescriptor;
 import com.chinarewards.gwt.elt.client.core.ui.MenuItem;
 import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
+import com.chinarewards.gwt.elt.client.gift.plugin.GiftConstants;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.google.gwt.core.client.GWT;
 
 public class CorePlugin extends AbstractPlugin {
@@ -36,6 +38,7 @@ public class CorePlugin extends AbstractPlugin {
 		processEditors(getPlatform());
 	}
 
+	
 	private void processMenus(Platform platform) {
 		List<Extension> exts = platform.getPluginManager().getExtensions(
 				"core.menu");
@@ -66,12 +69,25 @@ public class CorePlugin extends AbstractPlugin {
 			EditorDescriptor item = (EditorDescriptor) e.getInstance();
 			platform.getEditorRegistry().registerEditor(item);
 		}
+		
 		// open editor by default.
-		 Platform.getInstance()
-		 .getEditorRegistry()
-		 .openEditor(RewardsItemConstants.EDITOR_REWARDSITEM_List,
-		 "EDITOR_REWARDSITEM_List", null);
-		 
+		if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.CORP_ADMIN)
+		{
+			 Platform.getInstance()
+			 .getEditorRegistry()
+			 .openEditor(RewardsItemConstants.EDITOR_REWARDSITEM_List,
+			 "EDITOR_REWARDSITEM_List", null);
+			 
+		}
+		else if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.GIFT)
+		{
+			 Platform.getInstance()
+			 .getEditorRegistry()
+			 .openEditor(GiftConstants.EDITOR_GIFTLIST_SEARCH,
+			 "EDITOR_GIFTLIST_SEARCH_List", null);
+		}
+
+
 		// List<UserRoleVo> roles = new ArrayList<UserRoleVo>();
 		// {
 		// if (!GWT.isScript()) {

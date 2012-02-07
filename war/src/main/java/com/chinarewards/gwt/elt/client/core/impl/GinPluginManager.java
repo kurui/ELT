@@ -126,4 +126,5 @@ public class GinPluginManager implements PluginManager {
 		return new LinkedList<Extension>();
 	}
 
+
 }

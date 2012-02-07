@@ -12,7 +12,6 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Anchor;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.InlineLabel;
@@ -29,7 +28,7 @@ public class AwardShopLatticeWidget extends Composite implements
 	@UiField
 	Image photo;
 	@UiField
-	Button exchangeBtn;
+	Anchor exchangeBtn;
 	
 	private static AwardShopLatticeWidgetUiBinder uiBinder = GWT
 			.create(AwardShopLatticeWidgetUiBinder.class);

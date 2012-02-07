@@ -5,93 +5,51 @@
 
 	<ui:style src="new2.css" field="new2"></ui:style>
 	<g:HTMLPanel>
-		<div class="{new2.frame-wrap}">
+	<div class="{new2.employee}">
+    <!-- 内容区 [[-->
+    <div class="{new2.content-wrap}">
+      <div class="{new2.content-info}">
+        <div class="{new2.breadcrumb}">
+          <a href="#">首页</a>&gt;<a href="#">奖品商城</a>&gt;<span>奖品详情</span>
+        </div>
 
-			<div class="{new2.table}">
-				<table width="660" height="289" border="1">
-					<tr>
-						<td colspan="2" align="left"> <g:InlineLabel ui:field="giftName" text="数据加载ing.."/> </td>
-					</tr>
-					<tr>
-						<td rowspan="6">
-							<g:Image pixelSize="400,200" ui:field="giftPhoto" />
-						</td>
-						<td align="left"> 礼品号：<g:InlineLabel ui:field="giftNo" text="数据加载ing.."/> </td>
-					</tr>
-					<tr>
-						<td align="left"> 品牌: <g:InlineLabel ui:field="brand" text="数据加载ing.."/> </td>
-					</tr>
-					<tr>
-						<td align="left"> 类型： <g:InlineLabel ui:field="type" text="数据加载ing.."/> </td>
-					</tr>
-					<tr>
-						<td align="left"> 存货： <g:InlineLabel ui:field="stock" text="数据加载ing.."/> </td>
-					</tr>
-					<tr>
-						<td align="left">兑换积分： <g:InlineLabel ui:field="integral" text="数据加载ing.."/> </td>
-					</tr>
-					<tr>
-						<td>
-							<g:Button text="兑换" width="175px" height="40px" styleName="{new2.dhbtn}" ui:field="exchangeBtn" />
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2"> 图片仅供参考，实际兑换礼品，请以实物或您获取的服务为准。 </td>
-					</tr>
-				</table>
-			</div>
+        <div class="{new2.gift-info}">
+          <h3><g:InlineLabel ui:field="giftName" text="数据加载ing.."/></h3>
+          <div class="{new2.gift-info-wrap} {new2.clearfix}">
+            <div class="{new2.gift-image}">
+              <g:Image pixelSize="240,180" ui:field="giftPhoto" />
+              <p>图片仅供参考，实际兑换礼品，请以实物或您获取的服务为准。</p>
+            </div>
+            <div class="{new2.gift-type}">
+              <p><span class="{new2.gift-field}">礼品号：</span><span><g:InlineLabel ui:field="giftNo" text="数据加载ing.."/></span></p>
+              <p><span class="{new2.gift-field}">品牌：</span><span><g:InlineLabel ui:field="brand" text="数据加载ing.."/></span></p>
+              <p><span class="{new2.gift-field}">类型：</span><span><g:InlineLabel ui:field="type" text="数据加载ing.."/></span></p>
+              <p><span class="{new2.gift-field}">存货：</span><span><g:InlineLabel ui:field="stock" text="数据加载ing.."/></span></p>
+              <p class="{new2.duihuan-jifen}"><span class="{new2.gift-field}">兑换积分：</span><span><g:InlineLabel ui:field="integral" text="数据加载ing.."/></span><span class="{new2.nbspbig}"></span> <span class="{new2.blue-btn}"><g:Button text="兑换" ui:field="exchangeBtn" /></span></p>
+            </div>
+          </div>
 
-			<div class="{new2.content-wrap}">
-				<div class="{new2.form}">
-					<div class="{new2.form-line}">
-						<label class="{new2.label}">礼品概述：</label>
-						<div class="{new2.element}">
-							<g:InlineLabel ui:field="summary" text="数据加载ing.."/>
-						</div>
-					</div>
-					<div class="{new2.form-line}">
-						<label class="{new2.label}">兑换说明：</label>
-						<div class="{new2.element}">
-							<g:InlineLabel ui:field="explains" text="数据加载ing.."/>
-						</div>
-					</div>
-					<div class="{new2.form-line}">
-						<label class="{new2.label}">注意事项：</label>
-						<div class="{new2.element}">
-							<g:InlineLabel ui:field="notes" text="数据加载ing.."/>
-						</div>
-					</div>
-					<div class="{new2.form-line}">
-						<label class="{new2.label}">发货周期：</label>
-						<div class="{new2.element}">
-							<g:InlineLabel ui:field="dispatchcycle" text="数据加载ing.."/>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			
-			<div class="{new2.orderDiv}">本礼品由“缤分联盟”提供</div> 
-			
-			<div class="{new2.content-wrap}">
-				<div class="{new2.form}">
-					<div class="{new2.form-line}">
-						<label class="{new2.label}">供应商名称：</label>
-						<div class="{new2.element}">
-							<g:InlineLabel ui:field="business" text="数据加载ing.."/>
-						</div>
-					</div>
-					<div class="{new2.form-line}">
-						<label class="{new2.label}">服务电话：</label>
-						<div class="{new2.element}">
-							<g:InlineLabel ui:field="servicetell" text="数据加载ing.."/>
-						</div>
-					</div>
+          <div class="{new2.gift-detail}">
+            <div >
+              <table>
+                <tr><td class="{new2.col1}">礼品概述</td><td class="{new2.col2}"><g:InlineLabel ui:field="summary" text="数据加载ing.."/></td></tr>
+                <tr><td class="{new2.col1}">兑换说明</td><td class="{new2.col2}"><g:InlineLabel ui:field="explains" text="数据加载ing.."/></td></tr>
+                <tr><td class="{new2.col1}">注意事项</td><td class="{new2.col2}"><g:InlineLabel ui:field="notes" text="数据加载ing.."/></td></tr>
+                <tr><td class="{new2.col1}">发货周期</td><td class="{new2.col2}"><g:InlineLabel ui:field="dispatchcycle" text="数据加载ing.."/></td></tr>
+              </table>
+              <p class="{new2.color-orange}">本礼品由“缤分联盟”提供</p>
+              <table>
+                <tr><td class="{new2.col1}">供应商名称</td><td class="{new2.col2}"><g:InlineLabel ui:field="business" text="数据加载ing.."/></td></tr>
+                <tr><td class="{new2.col1}">服务电话</td><td class="{new2.col2}"><g:InlineLabel ui:field="servicetell" text="数据加载ing.."/></td></tr>
+              </table>
+            </div>
+          </div>
 
-				</div>
-			</div>
-		</div>
-
-
+         
+        </div>
+      </div>
+    </div>
+    <!-- 内容区 ]]-->
+    </div>
 	</g:HTMLPanel>
 </ui:UiBinder>

@@ -29,11 +29,38 @@ public class DepartmentBudget implements Serializable {
 	@Column(name = "id", nullable = false, updatable = false, length = 50)
 	private String id;
 	private String corpBudgetId ;   //企业财年预算ID
-		
+	private String departmentId;    //部门ID	
 	private double budgetIntegral;//预算积分
     private double useIntegeral;  //已用积分
+    private String recorduser;   //操作人
+    private Date   recorddate;   //操作时间
+    private int    deleted   ;     //是否删除 
+	public String getRecorduser() {
+		return recorduser;
+	}
+	public void setRecorduser(String recorduser) {
+		this.recorduser = recorduser;
+	}
+	public Date getRecorddate() {
+		return recorddate;
+	}
+	public void setRecorddate(Date recorddate) {
+		this.recorddate = recorddate;
+	}
+	public int getDeleted() {
+		return deleted;
+	}
+	public void setDeleted(int deleted) {
+		this.deleted = deleted;
+	}
 	public String getId() {
 		return id;
+	}
+	public String getDepartmentId() {
+		return departmentId;
+	}
+	public void setDepartmentId(String departmentId) {
+		this.departmentId = departmentId;
 	}
 	public void setId(String id) {
 		this.id = id;

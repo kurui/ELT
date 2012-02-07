@@ -617,6 +617,7 @@ public class RewardsItemCreatePresenterImpl extends
 		//奖项验证方法
 				private boolean validateFirst() {
 					boolean flag = true;
+					Date currentDate = new Date();
 					StringBuilder errorMsg = new StringBuilder();
 					if (display.getRewardsName().getValue() == null
 							|| "".equals(display.getRewardsName().getValue().trim())) {
@@ -684,8 +685,13 @@ public class RewardsItemCreatePresenterImpl extends
 				if (display.getStartTime().getValue() == null|| "".equals(display.getStartTime().getValue())) {
 					errorMsg.append("开始时间不能为空<br>");
 					flag = false;
+				}else{
+					Date date = DateTool.addSomeDay(currentDate, 0 - day);
+				   if (date.getTime()>display.getStartTime().getValue().getTime()) {
+					errorMsg.append("开始时间不能小于当前日期<br>");
+					flag = false;
+				   }
 				}
-				
 			
                    //周期性
 					if (display.getEnableCbx().getValue()==true) {
