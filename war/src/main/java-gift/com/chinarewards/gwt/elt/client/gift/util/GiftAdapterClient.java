@@ -37,15 +37,13 @@ public class GiftAdapterClient {
 			giftVo.setSource("outter");
 		}
 
-		System.out.println("=======adapterDisplay:" + giftVo.getSource());
+//		System.out.println("=======adapterDisplay:" + giftVo.getSource());
 
 		giftVo.setBusiness(display.getBusiness().getValue().trim());
 		giftVo.setAddress(display.getAddress().getValue().trim());
 		giftVo.setTell(display.getTell().getValue().trim());
 		giftVo.setServicetell(display.getServicetell().getValue().trim());
 
-		// giftVo.setGiftStatus();
-		// giftVo.setDeleted(false);
 		giftVo.setIndate(display.getIndate().getValue());
 
 		return giftVo;

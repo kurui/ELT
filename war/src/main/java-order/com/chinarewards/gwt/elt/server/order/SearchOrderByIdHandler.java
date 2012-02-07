@@ -13,7 +13,6 @@ import com.chinarewards.elt.domain.order.Orders;
 import com.chinarewards.elt.service.gift.GiftService;
 import com.chinarewards.elt.service.order.OrderService;
 import com.chinarewards.elt.service.staff.IStaffService;
-import com.chinarewards.gwt.elt.client.order.model.OrderStatus;
 import com.chinarewards.gwt.elt.client.order.model.OrderViewClient;
 import com.chinarewards.gwt.elt.client.order.request.SearchOrderByIdRequest;
 import com.chinarewards.gwt.elt.client.order.request.SearchOrderByIdResponse;

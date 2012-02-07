@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 
 import com.chinarewards.elt.model.order.search.OrderStatus;
 import com.chinarewards.elt.model.user.UserContext;
-import com.chinarewards.elt.service.gift.GiftService;
 import com.chinarewards.elt.service.order.OrderService;
 import com.chinarewards.gwt.elt.client.order.request.OrderViewRequest;
 import com.chinarewards.gwt.elt.client.order.request.OrderViewResponse;

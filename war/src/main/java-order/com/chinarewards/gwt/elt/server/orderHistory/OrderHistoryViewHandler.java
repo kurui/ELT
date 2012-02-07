@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import com.chinarewards.elt.model.order.search.OrderStatus;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.order.OrderService;
-import com.chinarewards.gwt.elt.client.order.request.OrderViewResponse;
 import com.chinarewards.gwt.elt.client.orderHistory.request.OrderHistoryViewRequest;
 import com.chinarewards.gwt.elt.client.orderHistory.request.OrderHistoryViewResponse;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
@@ -24,18 +23,15 @@ public class OrderHistoryViewHandler extends
 	@InjectLogger
 	Logger logger;
 
-	OrderService orderService;
-	
+	OrderService orderService;	
 
 	@Inject
 	public OrderHistoryViewHandler(OrderService orderService) {
-		this.orderService = orderService;
-		
+		this.orderService = orderService;		
 	}
 
 	@Override
 	public OrderHistoryViewResponse execute(OrderHistoryViewRequest request,ExecutionContext context) throws DispatchException {
-
 		UserContext uc = new UserContext();
 		uc.setUserId(request.getUserId());
 		String rs = "fail";
@@ -56,5 +52,4 @@ public class OrderHistoryViewHandler extends
 			OrderHistoryViewResponse arg1, ExecutionContext arg2)
 			throws DispatchException {
 	}
-
 }
