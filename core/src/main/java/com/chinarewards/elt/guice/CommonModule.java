@@ -1,8 +1,5 @@
 package com.chinarewards.elt.guice;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
-
 import com.chinarewards.elt.common.BaseDao;
 import com.google.inject.AbstractModule;
 import com.google.inject.persist.jpa.JpaPersistModule;

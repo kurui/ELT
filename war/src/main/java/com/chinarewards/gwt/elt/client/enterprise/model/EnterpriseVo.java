@@ -1,11 +1,14 @@
 package com.chinarewards.gwt.elt.client.enterprise.model;
 
 import java.io.Serializable;
-
 import java.util.Date;
 
 public class EnterpriseVo implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String id;
 	private String name;
 	private String description;//备注说明
@@ -25,6 +28,46 @@ public class EnterpriseVo implements Serializable {
 	private String tell;//联系电话
 
 	private String web;//企业网站
+	
+    private double integralPrice;//积分价值 
+	
+	public double getIntegralPrice() {
+		return integralPrice;
+	}
+
+	public void setIntegralPrice(double integralPrice) {
+		this.integralPrice = integralPrice;
+	}
+
+	public double getPeriod() {
+		return period;
+	}
+
+	public void setPeriod(double period) {
+		this.period = period;
+	}
+
+	public Date getFirstTime() {
+		return firstTime;
+	}
+
+	public void setFirstTime(Date firstTime) {
+		this.firstTime = firstTime;
+	}
+
+	public String getMoneyType() {
+		return moneyType;
+	}
+
+	public void setMoneyType(String moneyType) {
+		this.moneyType = moneyType;
+	}
+
+	private double period;//财年周期
+	
+	private Date   firstTime;//首个财年开始日期
+	
+	private  String moneyType;//企业所用货币类型
 
 	public String getId() {
 		return id;

@@ -14,6 +14,8 @@ import com.chinarewards.gwt.elt.client.core.ui.impl.SimpleEditorRegistry;
 import com.chinarewards.gwt.elt.client.core.ui.impl.SimpleSiteManager;
 import com.chinarewards.gwt.elt.client.detailsOfAward.plugin.DetailsOfAwardPluginDescriptor;
 import com.chinarewards.gwt.elt.client.detailsOfGift.plugin.DetailsOfGiftPluginDescriptor;
+import com.chinarewards.gwt.elt.client.enterprise.plugin.EnterprisePluginDescriptor;
+import com.chinarewards.gwt.elt.client.enterprise.plugin.EnterprisePluginModule;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftPluginDescriptor;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftViewPluginDescriptor;
@@ -29,8 +31,6 @@ import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemPluginDescri
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemStoreListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemViewPluginDescriptor;
 import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListPluginDescriptor;
-import com.chinarewards.gwt.elt.client.sample.SamplePluginDescriptor;
-import com.chinarewards.gwt.elt.client.sample.SamplePluginModule;
 import com.chinarewards.gwt.elt.client.shopWindow.plugin.ShopWindowPluginDescriptor;
 import com.chinarewards.gwt.elt.client.staff.plugin.HrRegisterPluginDescriptor;
 import com.chinarewards.gwt.elt.client.user.plugin.UserPluginDescriptor;
@@ -60,7 +60,7 @@ public class PlatformModule extends AbstractGinModule {
 		// ---- PLUGINS DEFINE BELOW (1) ----
 		bind(CorePluginDescriptor.class).in(Singleton.class);
 
-		install(new SamplePluginModule());
+		install(new EnterprisePluginModule());
 
 	}
 
@@ -69,7 +69,7 @@ public class PlatformModule extends AbstractGinModule {
 			// ---- PLUGINS DEFINE BELOW (2) ----
 			CorePluginDescriptor core, // core
 
-			SamplePluginDescriptor sample, UserPluginDescriptor user,
+			EnterprisePluginDescriptor enterprise, UserPluginDescriptor user,
 			HrRegisterPluginDescriptor hrregister,
 			NominatePluginDescriptor nominate,
 			RewardsItemPluginDescriptor rewardsItem,
@@ -93,7 +93,7 @@ public class PlatformModule extends AbstractGinModule {
 		if (pluginSet == null) {
 			pluginSet = new InMemoryPluginSet();
 			pluginSet.registerPlugin(core);
-			pluginSet.registerPlugin(sample);
+			pluginSet.registerPlugin(enterprise);
 			pluginSet.registerPlugin(user);
 			pluginSet.registerPlugin(hrregister);
 			pluginSet.registerPlugin(rewardsItemList);

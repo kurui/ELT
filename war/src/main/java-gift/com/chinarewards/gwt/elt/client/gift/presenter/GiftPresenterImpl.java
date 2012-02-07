@@ -159,7 +159,9 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 		registerHandler(display.getPhotoUpload().addChangeHandler(
 				new ChangeHandler() {
 					@Override
-					public void onChange(ChangeEvent arg0) {
+					public void onChange(ChangeEvent arg0) {						
+						System.out.println("==========="+display.getPhotoUpload());
+						
 						display.getGiftImage().setVisible(true);
 						display.getPhotoForm().setAction("fileupload");
 						display.getPhotoForm().submit();
@@ -224,7 +226,8 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 										GiftConstants.ACTION_GIFT_LIST,
 										instanceId);
 					}
-				}));
+				}));		
+	
 	}
 
 	// 验证方法

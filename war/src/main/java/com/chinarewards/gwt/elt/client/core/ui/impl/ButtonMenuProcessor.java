@@ -13,6 +13,7 @@ import com.chinarewards.gwt.elt.client.core.ui.MenuItem;
 import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
 import com.chinarewards.gwt.elt.client.core.ui.event.MenuClickEvent;
 import com.chinarewards.gwt.elt.client.detailsOfAward.plugin.DetailsOfAwardConstants;
+import com.chinarewards.gwt.elt.client.enterprise.plugin.EnterpriseConstants;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftConstants;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftListConstants;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
@@ -42,6 +43,7 @@ public class ButtonMenuProcessor implements MenuProcessor {
 	List<MenuItem> items = new LinkedList<MenuItem>();
 	MenuNode root = new MenuNode(null);
 	VerticalPanel grid;
+
 	@Inject
 	public ButtonMenuProcessor(EventBus eventBus,
 			BreadCrumbsMenu breadCrumbsMenu,SessionManager sessionManager) {
@@ -120,28 +122,32 @@ public class ButtonMenuProcessor implements MenuProcessor {
 							.equals(RewardsListConstants.MENU_REWARDSLIST_SEARCH)
 					|| menuId.equals(UserConstants.MENU_USER_SEARCH)
 					|| menuId.equals(GiftListConstants.MENU_GIFTLIST_SEARCH)
-					|| menuId.equals("sample")) {
+					|| menuId.equals(EnterpriseConstants.MENU_ENTERPRISE_EDIT)) {
 				button.setStyleName("menu-link menu-selected");
 				breadCrumbsMenu.cleanBreadCrumbsItemTop();
 				if (menuId.equals(RewardsItemConstants.MENU_REWARDSITEM_List))
-					breadCrumbsMenu.addBreadCrumbsItemTop("奖项",null);
-				else if (menuId.equals(RewardsListConstants.MENU_REWARDSLIST_SEARCH))
-					breadCrumbsMenu.addBreadCrumbsItemTop("奖项应用",null);
+					breadCrumbsMenu.addBreadCrumbsItemTop("奖项", null);
+				else if (menuId
+						.equals(RewardsListConstants.MENU_REWARDSLIST_SEARCH))
+					breadCrumbsMenu.addBreadCrumbsItemTop("奖项应用", null);
 				else if (menuId.equals(UserConstants.MENU_USER_SEARCH))
-					breadCrumbsMenu.addBreadCrumbsItemTop("员工数据",null);
+					breadCrumbsMenu.addBreadCrumbsItemTop("员工数据", null);
 				else if (menuId.equals(GiftListConstants.MENU_GIFTLIST_SEARCH))
-					breadCrumbsMenu.addBreadCrumbsItemTop("兑换管理",null);
-				else if (menuId.equals("sample"))
-					breadCrumbsMenu.addBreadCrumbsItemTop("设置",null);
-				
-				breadCrumbsMenu.addBreadCrumbsItem(menuItem.getTitle(),	menuItem.getMenuId());
+					breadCrumbsMenu.addBreadCrumbsItemTop("兑换管理", null);
+				else if (menuId
+						.equals(EnterpriseConstants.MENU_ENTERPRISE_EDIT))
+					breadCrumbsMenu.addBreadCrumbsItemTop("设置", null);
+
+				breadCrumbsMenu.addBreadCrumbsItem(menuItem.getTitle(),
+						menuItem.getMenuId());
 			}
 
 			button.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent paramClickEvent) {
 					button.setStyleName("menu-link menu-selected");
 					breadCrumbsMenu.cleanBreadCrumbsItem();
-					breadCrumbsMenu.addBreadCrumbsItem(menuItem.getTitle(),menuItem.getMenuId());
+					breadCrumbsMenu.addBreadCrumbsItem(menuItem.getTitle(),
+							menuItem.getMenuId());
 					eventBus.fireEvent(new MenuClickEvent(menuItem));
 					for (int i = 0; i < grid.getWidgetCount(); i++) {
 						if (grid.getWidget(i) instanceof Anchor) {
@@ -173,12 +179,12 @@ public class ButtonMenuProcessor implements MenuProcessor {
 		} else if ("Staff".equals(keyname)) {
 			items.add(UserConstants.MENU_USER_SEARCH);
 		} else if ("Setting".equals(keyname)) {
-			items.add("sample");
+			items.add(EnterpriseConstants.MENU_ENTERPRISE_EDIT);
 		} else if ("Gift".equals(keyname)) {
 			items.add(GiftListConstants.MENU_GIFTLIST_SEARCH);
 			items.add(GiftConstants.MENU_GIFT_ADD);
 			items.add(OrderListConstants.MENU_ORDERLIST_SEARCH);
-			
+
 			items.add(AwardShopListConstants.MENU_AWARDSHOPLIST_SEARCH);
 			items.add(ShopWindowConstants.MENU_SHOPWINDOW_SEARCH);
 			items.add(OrderHistoryConstants.MENU_ORDERHISTORY_SEARCH);
@@ -215,14 +221,12 @@ public class ButtonMenuProcessor implements MenuProcessor {
 			if (grid.getWidget(i) instanceof Anchor) {
 				if (!menuName.equals(((Anchor) grid.getWidget(i)).getText())) {
 					grid.getWidget(i).setStyleName("menu-link");
-				}
-				else
-				{
+				} else {
 					grid.getWidget(i).setStyleName("menu-link menu-selected");
 				}
 			}
 		}
-		
+
 	}
 
 }

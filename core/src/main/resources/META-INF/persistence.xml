@@ -55,6 +55,9 @@
         <class>com.chinarewards.elt.domain.gift.Gift</class>
         <!-- order -->
         <class>com.chinarewards.elt.domain.order.Orders</class>
+         <!-- budget -->
+        <class>com.chinarewards.elt.domain.budget.CorpBudget</class>
+        <class>com.chinarewards.elt.domain.budget.DepartmentBudget</class>
 		<properties>
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver" />

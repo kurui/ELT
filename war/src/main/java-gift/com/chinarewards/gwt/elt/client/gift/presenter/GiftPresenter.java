@@ -21,6 +21,7 @@ public interface GiftPresenter extends Presenter<GiftPresenter.GiftDisplay> {
 	public static interface GiftDisplay extends Display {
 
 		public HasValue<String> getName();
+//		public Label getNameError();
 
 		public HasValue<String> getSummary();
 

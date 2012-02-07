@@ -13,6 +13,8 @@ import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -22,6 +24,7 @@ import com.google.gwt.user.client.ui.FileUpload;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RadioButton;
@@ -35,7 +38,7 @@ public class GiftWidget extends Composite implements GiftDisplay {
 
 	// --------vo
 	@UiField
-	TextBox name;
+	TextBox name;		
 	@UiField
 	TextArea summary;
 	@UiField
@@ -48,8 +51,6 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	ListBox type;
 	@UiField
 	TextBox brand;
-	// @UiField
-	// TextBox source;
 	@UiField
 	TextBox photo;
 	@UiField
@@ -84,6 +85,16 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	// @UiField
 	// DateBox updatetime;
 	// ---end vo
+	
+//	@UiField
+//	Label nameError;
+	@UiField
+	Label integralError;
+	@UiField
+	Label stockError;
+	@UiField
+	Label indateError;
+	
 
 	@UiField
 	Button back;
@@ -142,39 +153,27 @@ public class GiftWidget extends Composite implements GiftDisplay {
 		integral.setText(giftVo.getIntegral() + "");
 		stock.setText(giftVo.getStock() + "");
 
-		System.out.println("-----------initEditGift getSource:"
-				+ giftVo.getSource());
+		business.setText(giftVo.getBusiness());
+		address.setText(giftVo.getAddress());
+		tell.setText(giftVo.getTell());
+		servicetell.setText(giftVo.getServicetell());
 
 		if (giftVo.getSource() != null) {
 			if (StringUtil.trim(giftVo.getSource()).equals("inner")) {
 				supplyinner.setValue(true);
+				business.setEnabled(false);
+				address.setEnabled(false);
+				tell.setEnabled(false);
 			}
 			if (StringUtil.trim(giftVo.getSource()).equals("outter")) {
 				supplyoutter.setValue(true);
 			}
 		}
 
-		business.setText(giftVo.getBusiness());
-		address.setText(giftVo.getAddress());
-		tell.setText(giftVo.getTell());
-		servicetell.setText(giftVo.getServicetell());
 		
-		
+
 		indate.setValue(giftVo.getIndate());
 
-		// @UiField
-		// Label status;// boolean
-		// @UiField
-		// Label deleted;// boolean
-		// @UiField
-		// DateBox indate;
-		// @UiField
-		// DateBox recorddate;
-		// @UiField
-		// Label recorduser;
-		// @UiField
-		// DateBox updatetime;
-		// ---end vo
 	}
 
 	@Override
@@ -182,6 +181,8 @@ public class GiftWidget extends Composite implements GiftDisplay {
 		initTypeSelect("");
 		supplyinner.setValue(false);
 		supplyoutter.setValue(true);
+
+		registerSource();
 	}
 
 	private void initTypeSelect(String selectedValue) {
@@ -191,6 +192,46 @@ public class GiftWidget extends Composite implements GiftDisplay {
 		if (StringUtil.trim(selectedValue) != "") {
 			type.setValue(0, selectedValue);
 		}
+	}
+	
+	private void registerSource(){
+		supplyinner.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
+			@Override
+			public void onValueChange(ValueChangeEvent<Boolean> event) {
+				if(event.getValue()){
+					business.setEnabled(false);
+					address.setEnabled(false);
+					tell.setEnabled(false);	
+					
+					business.setValue("");
+					address.setValue("");
+					tell.setValue("");	
+				}							
+			}
+		});
+		
+		supplyoutter.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
+			@Override
+			public void onValueChange(ValueChangeEvent<Boolean> event) {
+				if(event.getValue()){
+					business.setEnabled(true);
+					address.setEnabled(true);
+					tell.setEnabled(true);	
+				}							
+			}
+		});
+		
+//		name.addValueChangeHandler(new ValueChangeHandler<String>() {			
+//			@Override
+//			public void onValueChange(ValueChangeEvent<String> arg0) {
+//				if (name.getValue() == null
+//						|| "".equals(name.getValue().trim())) {
+//					nameError.setText("请填写礼品名称!<br>");
+////					win.alert("222");
+//				}
+//				
+//			}
+//		});
 	}
 
 	@Override
@@ -363,4 +404,9 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	public RadioButton getSupplyoutter() {
 		return supplyoutter;
 	}
+
+//	@Override
+//	public Label getNameError() {
+//		return nameError;
+//	}
 }
