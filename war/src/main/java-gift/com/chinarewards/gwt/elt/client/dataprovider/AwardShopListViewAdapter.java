@@ -72,7 +72,7 @@ public class AwardShopListViewAdapter extends BaseDataProvider<GiftClient> {
 						
 						List<GiftClient> giftList=response.getResult();
 						int index=0;
-						 Grid grid = new Grid(2, 5);
+						 Grid grid = new Grid(3, 4);
 							
 						    // Add images to the grid
 						    int numRows = grid.getRowCount();

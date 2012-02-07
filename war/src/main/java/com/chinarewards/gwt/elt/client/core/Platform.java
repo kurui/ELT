@@ -71,11 +71,11 @@ public class Platform {
 		}
 		STATIC_PLATFORM = this;
 		GWT.log("Initializing Platform");
-	//	pluginManager.initialize(pluginSet);
+		pluginManager.initialize(pluginSet);
 		rootLayoutPanel = rootPanel;
 		siteManager.initializeStaff(rootPanel);
-	//	editorRegistry.initialize(this);
-	//	pluginManager.activatePlugin(STARTUP_PLUGIN_ID);
+		editorRegistry.initialize(this);
+		pluginManager.activatePlugin(STARTUP_PLUGIN_ID);
 		initialized = true;
 	}
 	public void initializeGift(PluginSet pluginSet, RootLayoutPanel rootPanel) {

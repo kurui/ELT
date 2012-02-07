@@ -80,7 +80,7 @@ public class AwardShopListPresenterImpl extends BasePresenter<AwardShopListDispl
 		pager = new EltNewPager(TextLocation.CENTER);
 		pager.setDisplay(cellTable);
 		cellTable.setWidth(ViewConstants.page_width);
-		cellTable.setPageSize(ViewConstants.per_page_number_in_dialog);
+		cellTable.setPageSize(ViewConstants.per_page_number_in_12);
 
 
 		display.getResultpage().clear();

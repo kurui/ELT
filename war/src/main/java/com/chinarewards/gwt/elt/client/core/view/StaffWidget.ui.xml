@@ -141,7 +141,7 @@
 				            <li><a href="#" ><span class="{new2.liimg}"></span>我参与的奖项</a></li>
 				            <li><a href="#" ><span class="{new2.liimg}"></span>公司其他奖项</a></li>
 				            <li><a href="#" ><span class="{new2.liimg}"></span>兑换历史</a></li>
-				            <li><a href="#" ><span class="{new2.liimg}"></span>奖品商城</a></li>
+				            <li><g:Anchor ui:field="awardShop" styleName="{new2.staffa}"> <span class="{new2.liimg}"></span>奖品商城</g:Anchor></li>
 				            <li><a href="#" ><span class="{new2.liimg}"></span>我的消息</a></li>
 				          </ul>
 				

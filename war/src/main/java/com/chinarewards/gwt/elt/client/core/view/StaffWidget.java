@@ -39,7 +39,8 @@ public class StaffWidget extends Composite implements StaffDisplay {
 	Anchor giftExchange;
 	@UiField
 	Anchor staffCorner;
-	
+	@UiField
+	Anchor awardShop;
 	
 	// Set the format of datepicker.
 	DateTimeFormat dateFormat = DateTimeFormat
@@ -119,5 +120,10 @@ public class StaffWidget extends Composite implements StaffDisplay {
 	public void disableStaffCorner() {
 		staffCorner.setVisible(false);
 		
+	}
+
+	@Override
+	public HasClickHandlers getAwardShop() {
+		return awardShop;
 	}
 }
