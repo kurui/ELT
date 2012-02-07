@@ -5,8 +5,6 @@ import com.chinarewards.elt.domain.budget.CorpBudget;
 import com.chinarewards.elt.domain.budget.DepartmentBudget;
 import com.chinarewards.elt.model.budget.search.DepartmentBudgetVo;
 import com.chinarewards.elt.model.common.PageStore;
-import com.chinarewards.elt.model.order.search.OrderListVo;
-import com.chinarewards.elt.model.order.search.OrderStatus;
 import com.chinarewards.elt.model.user.UserContext;
 
 /**
@@ -35,7 +33,7 @@ public interface BudgetService {
 
 
 	/**
-	 * 查找根据CorpBudgetID
+	 * 查找根据企业财年预算ID
 	 * @param id
 	 * @return
 	 */
@@ -51,7 +49,7 @@ public interface BudgetService {
 	
 	
 	/**
-	 * 删除订单根据ID
+	 * 删除部门预算根据ID
 	 * @param id
 	 * @return
 	 */
