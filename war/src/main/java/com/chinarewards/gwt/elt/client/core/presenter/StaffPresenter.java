@@ -27,6 +27,7 @@ public interface StaffPresenter extends Presenter<StaffPresenter.StaffDisplay> {
 		
 		
 		HasClickHandlers getAwardShop();
+		HasClickHandlers getOrderHistory();
 	}
 	
 	

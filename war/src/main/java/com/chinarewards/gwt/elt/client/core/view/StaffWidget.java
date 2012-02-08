@@ -41,6 +41,8 @@ public class StaffWidget extends Composite implements StaffDisplay {
 	Anchor staffCorner;
 	@UiField
 	Anchor awardShop;
+	@UiField
+	Anchor orderHistory;
 	
 	// Set the format of datepicker.
 	DateTimeFormat dateFormat = DateTimeFormat
@@ -125,5 +127,9 @@ public class StaffWidget extends Composite implements StaffDisplay {
 	@Override
 	public HasClickHandlers getAwardShop() {
 		return awardShop;
+	}
+	@Override
+	public HasClickHandlers getOrderHistory() {
+		return orderHistory;
 	}
 }
