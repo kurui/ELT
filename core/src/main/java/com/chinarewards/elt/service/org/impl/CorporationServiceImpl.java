@@ -63,4 +63,9 @@ public class CorporationServiceImpl implements CorporationService {
 		return corporationLogic.updateIntegralPrice(context, corporation);
 	}
 
+	@Override
+	public Corporation updatePeriod(UserContext context, Corporation corporation) {
+		return corporationLogic.updatePeriod(context, corporation);
+	}
+
 }

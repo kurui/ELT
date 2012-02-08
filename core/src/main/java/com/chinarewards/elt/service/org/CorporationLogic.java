@@ -67,4 +67,11 @@ public interface CorporationLogic {
 	 */
 	public Corporation updateIntegralPrice(UserContext context,
 			Corporation corporation);
+
+	/**
+	 * @param context
+	 * @param corporation
+	 * @return
+	 */
+	public Corporation updatePeriod(UserContext context, Corporation corporation);
 }

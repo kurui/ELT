@@ -10,8 +10,8 @@ import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.org.CorporationService;
 import com.chinarewards.elt.service.user.UserService;
 import com.chinarewards.gwt.elt.client.enterprise.model.EnterpriseVo;
-import com.chinarewards.gwt.elt.client.enterprise.request.EditIntegralPriceRequest;
-import com.chinarewards.gwt.elt.client.enterprise.request.EditIntegralPriceResponse;
+import com.chinarewards.gwt.elt.client.enterprise.request.EditPeriodRequest;
+import com.chinarewards.gwt.elt.client.enterprise.request.EditPeriodResponse;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
 import com.chinarewards.gwt.elt.server.logger.InjectLogger;
 import com.chinarewards.gwt.elt.util.UserRoleTool;
@@ -20,8 +20,8 @@ import com.google.inject.Inject;
 /**
  * @author YanRui
  * */
-public class EditIntegralPriceHandler extends
-		BaseActionHandler<EditIntegralPriceRequest, EditIntegralPriceResponse> {
+public class EditPeriodHandler extends
+		BaseActionHandler<EditPeriodRequest, EditPeriodResponse> {
 
 	@InjectLogger
 	Logger logger;
@@ -29,26 +29,26 @@ public class EditIntegralPriceHandler extends
 	UserService userService;
 
 	@Inject
-	public EditIntegralPriceHandler(CorporationService corporationService) {
+	public EditPeriodHandler(CorporationService corporationService) {
 		this.corporationService = corporationService;
 	}
 
 	@Override
-	public Class<EditIntegralPriceRequest> getActionType() {
-		return EditIntegralPriceRequest.class;
+	public Class<EditPeriodRequest> getActionType() {
+		return EditPeriodRequest.class;
 	}
 
 	@Override
-	public EditIntegralPriceResponse execute(EditIntegralPriceRequest action,
+	public EditPeriodResponse execute(EditPeriodRequest action,
 			ExecutionContext context) throws DispatchException {
-		logger.debug("AddIntegralPriceResponse , gift:"
+		logger.debug("AddPeriodResponse , gift:"
 				+ action.getEnterpriseVo().toString());
-		logger.debug("AddIntegralPriceResponse ,rewardId="
+		logger.debug("AddPeriodResponse ,rewardId="
 				+ action.getEnterpriseVo().getId());
 
 		EnterpriseVo enterpriseVo = action.getEnterpriseVo();
 
-		Corporation corporation = assembleIntegralPrice(enterpriseVo);
+		Corporation corporation = assemblePeriod(enterpriseVo);
 
 		UserContext uc = new UserContext();
 		uc.setCorporationId(action.getUserSession().getCorporationId());
@@ -58,28 +58,26 @@ public class EditIntegralPriceHandler extends
 				.getUserRoles()));
 
 //		SysUser sysUser = userService.findUserById(uc.getUserId());
-		Corporation AdddItem = corporationService.updateIntegralPrice(uc, corporation);
+		Corporation AdddItem = corporationService.updatePeriod(uc, corporation);
 	
-		return new EditIntegralPriceResponse(AdddItem.getId());
+		return new EditPeriodResponse(AdddItem.getId());
 
 	}
 
-	public Corporation assembleIntegralPrice(EnterpriseVo enterpriseVo) {
+	public Corporation assemblePeriod(EnterpriseVo enterpriseVo) {
 		Corporation corporation = corporationService
 				.findCorporationById(enterpriseVo.getId());
 
-		corporation.setIntegralPrice(enterpriseVo.getIntegralPrice());
-		corporation.setMoneyType(enterpriseVo.getMoneyType());
-
-		System.out.println("assembleIntegralPrice moneyType:"+corporation.getMoneyType());
+		corporation.setPeriod(enterpriseVo.getPeriod());
+		corporation.setFirstTime(enterpriseVo.getFirstTime());
 
 		return corporation;
 	}
 	
 
 	@Override
-	public void rollback(EditIntegralPriceRequest action,
-			EditIntegralPriceResponse result, ExecutionContext context)
+	public void rollback(EditPeriodRequest action,
+			EditPeriodResponse result, ExecutionContext context)
 			throws DispatchException {
 
 	}

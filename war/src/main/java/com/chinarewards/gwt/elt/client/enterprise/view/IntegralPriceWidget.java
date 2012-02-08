@@ -1,6 +1,9 @@
 package com.chinarewards.gwt.elt.client.enterprise.view;
 
+import java.util.Map.Entry;
+
 import com.chinarewards.gwt.elt.client.enterprise.model.EnterpriseVo;
+import com.chinarewards.gwt.elt.client.enterprise.model.MoneyType;
 import com.chinarewards.gwt.elt.client.enterprise.presenter.IntegralPricePresenter.IntegralPriceDisplay;
 import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.core.client.GWT;
@@ -23,16 +26,15 @@ public class IntegralPriceWidget extends Composite implements
 			.create(IntegralPriceWidgetUiBinder.class);
 	@UiField
 	TextBox integralPrice;
-	
+
 	@UiField
 	Button saveButton;
 	@UiField
 	Hidden enterpriseId;
-	
+
 	@UiField
 	ListBox moneyType;
-	
-	
+
 	@UiField
 	Panel breadCrumbs;
 
@@ -47,25 +49,40 @@ public class IntegralPriceWidget extends Composite implements
 	public Widget asWidget() {
 		return this;
 	}
-	
+
 	@Override
-	public void initEditIntegralPrice(EnterpriseVo enterpriseVo) {	
+	public void initEditIntegralPrice(EnterpriseVo enterpriseVo) {
 		enterpriseId.setValue(enterpriseVo.getId());
-		
-		integralPrice.setText(enterpriseVo.getIntegralPrice()+"");
-		
+
+		integralPrice.setText(enterpriseVo.getIntegralPrice() + "");
+
 		initMoneyTypeSelect(enterpriseVo.getMoneyType());
-		
+
 	}
-	
-	private void initMoneyTypeSelect(String selectedValue){
+
+	private void initMoneyTypeSelect(String selectedValue) {
 		moneyType.clear();
-		moneyType.addItem("人民币","RMB");
-		moneyType.addItem("美元","USD");
-		moneyType.addItem("港币","HKD");
-		if (StringUtil.trim(selectedValue) != "") {
-			moneyType.setValue(0, selectedValue);
+		int selectIndex = 0;
+		for (Entry<String, String> entry : MoneyType.map.entrySet()) {
+			String keyValue = entry.getKey();
+			int i = 0;
+			// System.out.println(entry.getKey() + ": " + entry.getValue());
+			moneyType.addItem(entry.getValue(), entry.getKey());
+			
+			System.out.println(keyValue+"-------------------"+selectedValue);
+			
+			if (StringUtil.trim(selectedValue) != ""
+					&& StringUtil.trim(keyValue) != "") {
+				if (selectedValue.equals(keyValue)) {
+					selectIndex = i;
+					System.out.println(selectedValue + "-----" + i);
+				}
+			}
+			i++;
 		}
+
+		moneyType.setSelectedIndex(selectIndex);
+
 	}
 
 	@Override
@@ -96,6 +113,6 @@ public class IntegralPriceWidget extends Composite implements
 	@Override
 	public void clear() {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

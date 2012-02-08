@@ -12,7 +12,7 @@ import com.chinarewards.gwt.elt.client.support.UserSession;
  * 
  * @author yanrui
  */
-public class EditPeriodeRequest implements Action<EditPeriodResponse> {
+public class EditPeriodRequest implements Action<EditPeriodResponse> {
 
 	String enterpriseId;
 	String nowUserId;
@@ -21,7 +21,7 @@ public class EditPeriodeRequest implements Action<EditPeriodResponse> {
 
 	List<String> staffIds;
 
-	public EditPeriodeRequest(EnterpriseVo enterpriseVo, UserSession userSession) {
+	public EditPeriodRequest(EnterpriseVo enterpriseVo, UserSession userSession) {
 		this.enterpriseVo = enterpriseVo;
 		this.userSession = userSession;
 	}
@@ -29,7 +29,7 @@ public class EditPeriodeRequest implements Action<EditPeriodResponse> {
 	/**
 	 * For serialization
 	 */
-	public EditPeriodeRequest() {
+	public EditPeriodRequest() {
 	}
 
 

@@ -25,6 +25,6 @@ public interface OrderHistoryPresenter extends Presenter<OrderHistoryPresenter.O
 		Panel getResultpage();
 		public void initOrderStatus(Map<String, String> map);
 		
-		void setBreadCrumbs(Widget breadCrumbs);
+		
 	}
 }
