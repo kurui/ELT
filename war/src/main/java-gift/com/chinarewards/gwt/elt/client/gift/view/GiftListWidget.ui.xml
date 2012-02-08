@@ -24,7 +24,7 @@
 					<span class="{new2.nbspbig}"></span>
 					<span class="{new2.nbspbig}"></span>
 					<span class="{new2.btn}">
-						<g:Button ui:field="searchBtn" text="查找"  />
+						<g:Button ui:field="searchBtn" text="查询"  />
 					</span>
 					<div style="float:right;text-align:right;">
 						<span class="{new2.btn}">

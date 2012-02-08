@@ -9,7 +9,7 @@
 			<!--查询条件 [[ -->
 			<div class="{new2.query-wrap3}">
 				<div class="{new2.form}">
-					<label for="">搜索条件(名称)：</label>
+					<label for="">查询条件(名称)：</label>
 					<g:TextBox maxLength="10" ui:field="name" styleName="{new2.text2}" />
 
 					<span class="{new2.nbsp}"></span>
