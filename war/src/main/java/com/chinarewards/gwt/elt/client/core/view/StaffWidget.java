@@ -42,6 +42,19 @@ public class StaffWidget extends Composite implements StaffDisplay {
 	@UiField
 	Anchor awardShop;
 	
+	@UiField
+	Anchor viewPoints;
+	@UiField
+	Anchor winninghistory;
+	@UiField
+	Anchor participationAwards;
+	@UiField
+	Anchor otherAwards;
+	@UiField
+	Anchor exchangeHistory;
+	@UiField
+	Anchor myMessage;
+	
 	// Set the format of datepicker.
 	DateTimeFormat dateFormat = DateTimeFormat
 			.getFormat(ViewConstants.date_format_chinese);
@@ -54,9 +67,105 @@ public class StaffWidget extends Composite implements StaffDisplay {
 
 	public StaffWidget() {
 		initWidget(uiBinder.createAndBindUi(this));
-	
+		//init();
 	}
-
+//	 Style styleOn;
+//	 Style styleNo;
+//		private void init() {
+//			  styleOn=this.awardShop.getElement().getParentElement().getStyle();
+//			  styleNo=this.myMessage.getElement().getParentElement().getStyle();
+//			  viewPoints.addClickHandler(new ClickHandler() {
+//
+//				@Override
+//				public void onClick(ClickEvent event) {
+//					viewPoints.setStyleName(styleOn);	
+//					winninghistory.setStyleName(styleNo);
+//					participationAwards.setStyleName(styleNo);
+//					otherAwards.setStyleName(styleNo);
+//					exchangeHistory.setStyleName(styleNo);
+//					myMessage.setStyleName(styleNo);
+//					awardShop.setStyleName(styleNo);
+//				}
+//			});
+//			  winninghistory.addClickHandler(new ClickHandler() {
+//
+//				@Override
+//				public void onClick(ClickEvent event) {
+//					viewPoints.setStyleName(styleNo);	
+//					winninghistory.setStyleName(styleOn);
+//					participationAwards.setStyleName(styleNo);
+//					otherAwards.setStyleName(styleNo);
+//					exchangeHistory.setStyleName(styleNo);
+//					myMessage.setStyleName(styleNo);
+//					awardShop.setStyleName(styleNo);
+//				}
+//			});
+//			  participationAwards.addClickHandler(new ClickHandler() {
+//
+//				@Override
+//				public void onClick(ClickEvent event) {
+//					viewPoints.setStyleName(styleNo);	
+//					winninghistory.setStyleName(styleNo);
+//					participationAwards.setStyleName(styleOn);
+//					otherAwards.setStyleName(styleNo);
+//					exchangeHistory.setStyleName(styleNo);
+//					myMessage.setStyleName(styleNo);
+//					awardShop.setStyleName(styleNo);
+//				}
+//			});
+//			  otherAwards.addClickHandler(new ClickHandler() {
+//
+//				@Override
+//				public void onClick(ClickEvent event) {
+//					viewPoints.setStyleName(styleNo);	
+//					winninghistory.setStyleName(styleNo);
+//					participationAwards.setStyleName(styleNo);
+//					otherAwards.setStyleName(styleOn);
+//					exchangeHistory.setStyleName(styleNo);
+//					myMessage.setStyleName(styleNo);
+//					awardShop.setStyleName(styleNo);
+//				}
+//			});
+//			  exchangeHistory.addClickHandler(new ClickHandler() {
+//
+//				@Override
+//				public void onClick(ClickEvent event) {
+//					viewPoints.setStyleName(styleNo);	
+//					winninghistory.setStyleName(styleNo);
+//					participationAwards.setStyleName(styleNo);
+//					otherAwards.setStyleName(styleNo);
+//					exchangeHistory.setStyleName(styleOn);
+//					myMessage.setStyleName(styleNo);
+//					awardShop.setStyleName(styleNo);
+//				}
+//			});
+//			  myMessage.addClickHandler(new ClickHandler() {
+//
+//				@Override
+//				public void onClick(ClickEvent event) {
+//					viewPoints.setStyleName(styleNo);	
+//					winninghistory.setStyleName(styleNo);
+//					participationAwards.setStyleName(styleNo);
+//					otherAwards.setStyleName(styleNo);
+//					exchangeHistory.setStyleName(styleNo);
+//					myMessage.setStyleName(styleOn);
+//					awardShop.setStyleName(styleNo);
+//				}
+//			});
+//			  awardShop.addClickHandler(new ClickHandler() {
+//
+//				@Override
+//				public void onClick(ClickEvent event) {
+//					viewPoints.setStyleName(styleNo);	
+//					winninghistory.setStyleName(styleNo);
+//					participationAwards.setStyleName(styleNo);
+//					otherAwards.setStyleName(styleNo);
+//					exchangeHistory.setStyleName(styleNo);
+//					myMessage.setStyleName(styleNo);
+//					awardShop.setStyleName(styleOn);
+//				}
+//			});
+//		}
 	@Override
 	public Widget asWidget() {
 		return this;
@@ -125,5 +234,35 @@ public class StaffWidget extends Composite implements StaffDisplay {
 	@Override
 	public HasClickHandlers getAwardShop() {
 		return awardShop;
+	}
+
+	@Override
+	public HasClickHandlers getViewPoints() {
+		return this.viewPoints;
+	}
+
+	@Override
+	public HasClickHandlers getWinninghistory() {
+		return this.winninghistory;
+	}
+
+	@Override
+	public HasClickHandlers getParticipationAwards() {
+		return this.participationAwards;
+	}
+
+	@Override
+	public HasClickHandlers getOtherAwards() {
+		return this.otherAwards;
+	}
+
+	@Override
+	public HasClickHandlers getExchangeHistory() {
+		return this.exchangeHistory;
+	}
+
+	@Override
+	public HasClickHandlers getMyMessage() {
+		return this.myMessage;
 	}
 }

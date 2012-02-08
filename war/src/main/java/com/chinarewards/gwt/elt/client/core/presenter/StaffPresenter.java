@@ -24,9 +24,14 @@ public interface StaffPresenter extends Presenter<StaffPresenter.StaffDisplay> {
 		void disableManagementCenter();
 		void disableGiftExchange();
 		void disableStaffCorner();
-		
-		
+
 		HasClickHandlers getAwardShop();
+		HasClickHandlers getViewPoints();
+		HasClickHandlers getWinninghistory();
+		HasClickHandlers getParticipationAwards();
+		HasClickHandlers getOtherAwards();
+		HasClickHandlers getExchangeHistory();
+		HasClickHandlers getMyMessage();
 	}
 	
 	
