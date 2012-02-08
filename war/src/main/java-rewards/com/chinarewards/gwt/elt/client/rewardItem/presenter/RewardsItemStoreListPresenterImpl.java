@@ -370,7 +370,7 @@ public class RewardsItemStoreListPresenterImpl extends
 		criteria.setName(display.getSearchName().getValue());
 		criteria.setCreateTime(display.getCreateTime().getValue());
 		criteria.setCreateTimeEnd(display.getCreateTimeEnd().getValue());
-		criteria.setEnabled(false);
+		criteria.setEnabled("false");
 		listViewAdapter.setCriteria(criteria);
 		listViewAdapter.reloadToFirstPage();
 	}

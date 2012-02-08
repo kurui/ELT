@@ -208,6 +208,7 @@
 								<source>src/main/java-rewards</source>
 								<source>src/main/java-gift</source>
 								<source>src/main/java-order</source>
+								<source>src/main/java-budget</source>
 							</sources>
 						</configuration>
 					</execution>

@@ -70,6 +70,8 @@ public class EditPeriodHandler extends
 
 		corporation.setPeriod(enterpriseVo.getPeriod());
 		corporation.setFirstTime(enterpriseVo.getFirstTime());
+		
+//		System.out.println("----------------------"+enterpriseVo.getId()+"----"+enterpriseVo.getPeriod()+"--"+enterpriseVo.getFirstTime());
 
 		return corporation;
 	}

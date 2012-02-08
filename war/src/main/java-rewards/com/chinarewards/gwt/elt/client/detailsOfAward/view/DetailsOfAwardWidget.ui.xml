@@ -72,6 +72,12 @@
 						</div>
 					</div>
 					<div class="{new2.form-line}">
+						<label class="{new2.label}">待提名人：</label>
+						<div class="{new2.element}">
+							<g:InlineLabel text="等待数据加载..." ui:field="candidateList" /> <g:Anchor text="更多..." styleName="{new2.newa}" ui:field="moreCandidate"/>
+						</div>
+					</div>
+					<div class="{new2.form-line}" style="display:none">
 						<g:FlowPanel ui:field="staffPanel" />
 					</div>
 

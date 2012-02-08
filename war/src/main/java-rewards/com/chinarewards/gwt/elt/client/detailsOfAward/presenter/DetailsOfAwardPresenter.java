@@ -6,6 +6,7 @@ import com.chinarewards.gwt.elt.client.mvp.Display;
 import com.chinarewards.gwt.elt.client.mvp.Presenter;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsCriteria.RewardsStatus;
 import com.chinarewards.gwt.elt.model.awardReward.WinnerParamVo;
+import com.chinarewards.gwt.elt.model.nominate.CandidateParamVo;
 import com.chinarewards.gwt.elt.model.nominate.JudgeParamVo;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.Widget;
@@ -18,6 +19,7 @@ public interface DetailsOfAwardPresenter extends
 	public static interface DetailsOfAwardDisplay extends Display {
 
 		public HasClickHandlers getreturnClickHandlers();
+		public HasClickHandlers getMoreCandidateClickHandlers();
 
 		public void setName(String name);
 
@@ -52,6 +54,7 @@ public interface DetailsOfAwardPresenter extends
 		public void initStaffPanel(Widget w);
 		
 		public void setWinners(List<WinnerParamVo> winners);
+		public void setCandidate(List<CandidateParamVo> cand);
 		
 		public void setPageTitle(String titleName);
 		void setBreadCrumbs(Widget breadCrumbs);

@@ -60,7 +60,8 @@ public class DockWidget extends Composite implements DockDisplay {
 	Anchor giftExchange;
 	@UiField
 	Anchor staffCorner;
-	
+	@UiField
+	Anchor btnIntegral;
 	
 	// Set the format of datepicker.
 	DateTimeFormat dateFormat = DateTimeFormat
@@ -102,6 +103,7 @@ public class DockWidget extends Composite implements DockDisplay {
 				btnStaff.setStyleName(styleNo);
 				btnSetting.setStyleName(styleNo);
 				btnGift.setStyleName(styleNo);
+				btnIntegral.setStyleName(styleNo);
 			}
 		});
 		btnEmail.addClickHandler(new ClickHandler() {
@@ -115,6 +117,7 @@ public class DockWidget extends Composite implements DockDisplay {
 				btnStaff.setStyleName(styleNo);
 				btnSetting.setStyleName(styleNo);
 				btnGift.setStyleName(styleNo);
+				btnIntegral.setStyleName(styleNo);
 			}
 		});
 		btnGb.addClickHandler(new ClickHandler() {
@@ -128,6 +131,7 @@ public class DockWidget extends Composite implements DockDisplay {
 				btnStaff.setStyleName(styleNo);
 				btnSetting.setStyleName(styleNo);
 				btnGift.setStyleName(styleNo);
+				btnIntegral.setStyleName(styleNo);
 			}
 		});
 		btnRewardItem.addClickHandler(new ClickHandler() {
@@ -141,6 +145,7 @@ public class DockWidget extends Composite implements DockDisplay {
 				btnStaff.setStyleName(styleNo);
 				btnSetting.setStyleName(styleNo);
 				btnGift.setStyleName(styleNo);
+				btnIntegral.setStyleName(styleNo);
 			}
 		});
 		btnStaff.addClickHandler(new ClickHandler() {
@@ -154,6 +159,7 @@ public class DockWidget extends Composite implements DockDisplay {
 				btnStaff.setStyleName(styleOn);
 				btnSetting.setStyleName(styleNo);
 				btnGift.setStyleName(styleNo);
+				btnIntegral.setStyleName(styleNo);
 			}
 		});
 		btnSetting.addClickHandler(new ClickHandler() {
@@ -167,6 +173,7 @@ public class DockWidget extends Composite implements DockDisplay {
 				btnStaff.setStyleName(styleNo);
 				btnGift.setStyleName(styleNo);
 				btnSetting.setStyleName(styleOn);
+				btnIntegral.setStyleName(styleNo);
 			}
 		});
 		btnGift.addClickHandler(new ClickHandler() {
@@ -180,8 +187,24 @@ public class DockWidget extends Composite implements DockDisplay {
 				btnStaff.setStyleName(styleNo);
 				btnSetting.setStyleName(styleNo);
 				btnGift.setStyleName(styleOn);
+				btnIntegral.setStyleName(styleNo);
 			}
 		});
+		btnIntegral.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				btnIntegral.setStyleName(styleOn);
+				btnReward.setStyleName(styleNo);
+				btnEmail.setStyleName(styleNo);
+				btnGb.setStyleName(styleNo);
+				btnRewardItem.setStyleName(styleNo);
+				btnStaff.setStyleName(styleNo);
+				btnSetting.setStyleName(styleNo);
+				btnGift.setStyleName(styleNo);
+			}
+		});
+		
 	}
 
 	@Override
@@ -284,6 +307,11 @@ public class DockWidget extends Composite implements DockDisplay {
 	public void disableStaffCorner() {
 		staffCorner.setVisible(false);
 		
+	}
+
+	@Override
+	public HasClickHandlers getBtnIntegral() {
+		return btnIntegral;
 	}
 
 }

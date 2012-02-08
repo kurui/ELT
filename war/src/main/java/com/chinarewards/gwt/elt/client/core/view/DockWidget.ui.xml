@@ -48,10 +48,9 @@
         <li><g:Anchor styleName="{new2.menu}" ui:field="btnReward"> <span>应用奖项</span></g:Anchor></li>
         <li><g:Anchor styleName="{new2.menu}" ui:field="btnGift"><span>兑换管理</span></g:Anchor></li>
         <li><g:Anchor styleName="{new2.menu}" ui:field="btnStaff"><span>员工数据</span></g:Anchor></li>
-        <li><g:Anchor styleName="{new2.menu}" ><span>预 算</span></g:Anchor></li>
+        <li><g:Anchor styleName="{new2.menu}" ui:field="btnIntegral" ><span>积分管理</span></g:Anchor></li>
         <li><g:Anchor styleName="{new2.menu}" ui:field="btnSetting"><span>设 置</span></g:Anchor></li>
-        <li><g:Anchor styleName="{new2.menu}" ><span>报 表</span></g:Anchor></li>
-        <li><g:Anchor styleName="{new2.menu}" ><span>颁 奖</span></g:Anchor></li>
+
       </ul>
     </div>
   </div>

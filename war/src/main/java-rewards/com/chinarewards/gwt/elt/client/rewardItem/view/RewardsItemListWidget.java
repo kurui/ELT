@@ -1,9 +1,6 @@
 package com.chinarewards.gwt.elt.client.rewardItem.view;
 
 import java.util.Date;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
@@ -90,7 +87,8 @@ public class RewardsItemListWidget extends Composite implements
 		
 	}
 	public void initStatus() {
-		status.addItem("未激活", "fasle");
+		status.addItem("全部", "All");
+		status.addItem("未激活", "false");
 		status.addItem("已激活", "true");
 			
 	}

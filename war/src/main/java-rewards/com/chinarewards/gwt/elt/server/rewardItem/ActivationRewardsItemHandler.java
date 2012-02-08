@@ -33,8 +33,11 @@ public class ActivationRewardsItemHandler extends	BaseActionHandler<ActivationRe
 			ExecutionContext context) throws DispatchException {
 		UserContext uc=new UserContext();
 		uc.setUserId(action.getNowUserId());
-		String name=rewardItemService.enableRewardItem(uc, action.getRewardsItemId());
-
+		String name="";
+		if("activation".equals(action.getFal()))
+			 name=rewardItemService.enableRewardItem(uc, action.getRewardsItemId());
+		if("freeze".equals(action.getFal()))
+			 name=rewardItemService.disableRewardItem(uc, action.getRewardsItemId());
 		return new ActivationRewardsItemResponse(name);
 	}
 

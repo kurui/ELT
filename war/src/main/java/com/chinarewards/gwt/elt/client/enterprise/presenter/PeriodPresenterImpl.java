@@ -8,10 +8,10 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.enterprise.model.EnterpriseVo;
 import com.chinarewards.gwt.elt.client.enterprise.presenter.PeriodPresenter.PeriodDisplay;
+import com.chinarewards.gwt.elt.client.enterprise.request.EditPeriodRequest;
+import com.chinarewards.gwt.elt.client.enterprise.request.EditPeriodResponse;
 import com.chinarewards.gwt.elt.client.enterprise.request.EnterpriseInitRequest;
 import com.chinarewards.gwt.elt.client.enterprise.request.EnterpriseInitResponse;
-import com.chinarewards.gwt.elt.client.enterprise.request.EnterpriseRequest;
-import com.chinarewards.gwt.elt.client.enterprise.request.EnterpriseResponse;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
@@ -77,7 +77,7 @@ public class PeriodPresenterImpl extends BasePresenter<PeriodDisplay> implements
 		enterpriseVo.setId(display.getEnterpriseId().trim());
 
 		int selectedIndex = display.getPeriod().getSelectedIndex();
-		enterpriseVo.setPeriod(Double.valueOf(display.getPeriod().getItemText(
+		enterpriseVo.setPeriod(Double.valueOf(display.getPeriod().getValue(
 				selectedIndex)));
 		enterpriseVo.setFirstTime(display.getFirstTime().getValue());
 
@@ -86,16 +86,16 @@ public class PeriodPresenterImpl extends BasePresenter<PeriodDisplay> implements
 
 	public void sendService(EnterpriseVo enterprise) {
 
-		EnterpriseRequest req = new EnterpriseRequest(enterprise,
+		EditPeriodRequest req = new EditPeriodRequest(enterprise,
 				sessionManager.getSession());
-		dispatchAsync.execute(req, new AsyncCallback<EnterpriseResponse>() {
+		dispatchAsync.execute(req, new AsyncCallback<EditPeriodResponse>() {
 			public void onFailure(Throwable caught) {
 
 				win.alert("操作失败");
 			}
 
 			@Override
-			public void onSuccess(EnterpriseResponse arg0) {
+			public void onSuccess(EditPeriodResponse arg0) {
 				win.alert("操作成功");
 
 			}

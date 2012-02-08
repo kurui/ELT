@@ -30,9 +30,6 @@ import com.google.inject.Inject;
 public class IntegralPricePresenterImpl extends
 		BasePresenter<IntegralPriceDisplay> implements IntegralPricePresenter {
 	
-	private String thisAction;
-	private String enterpriseId;
-	
 	final DispatchAsync dispatcher;
 	final Win win;
 	private final SessionManager sessionManager;
@@ -52,7 +49,7 @@ public class IntegralPricePresenterImpl extends
 
 	@Override
 	public void bind() {
-		breadCrumbs.loadChildPage("企业信息注册");
+		breadCrumbs.loadChildPage("积分价值设置");
 		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
 
 		initialization();
@@ -113,8 +110,7 @@ public class IntegralPricePresenterImpl extends
 	 * 加载初始化数据
 	 */
 	private void initialization() {		
-		 String corporationId = sessionManager.getSession().getCorporationId();
-		 System.out.println("session corporationId:"+corporationId);
+//		 String corporationId = sessionManager.getSession().getCorporationId();
 		 
 		dispatcher.execute(new EnterpriseInitRequest(
 				sessionManager.getSession()), new AsyncCallback<EnterpriseInitResponse>() {
@@ -144,6 +140,6 @@ public class IntegralPricePresenterImpl extends
 
 	@Override
 	public void initEditor(String id) {		
-		this.enterpriseId=id;
+	
 	}
 }
