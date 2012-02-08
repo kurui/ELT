@@ -90,7 +90,7 @@
 				</div>
 			</g:HTMLPanel>
 		</g:north>
-		<g:south size="-220">
+		<g:south size="-300">
 			<g:HTMLPanel>
 				<div class="{new2.employee}">
 					<div class="{new2.footer}" id="footer">
