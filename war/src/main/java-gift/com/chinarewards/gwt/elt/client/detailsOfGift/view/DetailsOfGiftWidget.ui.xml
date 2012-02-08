@@ -51,5 +51,7 @@
     </div>
     <!-- 内容区 ]]-->
     </div>
+    
+    <g:FlowPanel ui:field="shopWindow" />
 	</g:HTMLPanel>
 </ui:UiBinder>
