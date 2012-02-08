@@ -64,14 +64,18 @@ public class IntegralPriceWidget extends Composite implements
 		moneyType.clear();
 		int selectIndex = 0;
 		for (Entry<String, String> entry : MoneyType.map.entrySet()) {
+			String keyValue = entry.getKey();
 			int i = 0;
 			// System.out.println(entry.getKey() + ": " + entry.getValue());
 			moneyType.addItem(entry.getValue(), entry.getKey());
-
-			if (StringUtil.trim(selectedValue) != "") {
-				if (selectedValue.equals(entry.getValue())) {
+			
+			System.out.println(keyValue+"-------------------"+selectedValue);
+			
+			if (StringUtil.trim(selectedValue) != ""
+					&& StringUtil.trim(keyValue) != "") {
+				if (selectedValue.equals(keyValue)) {
 					selectIndex = i;
-					System.out.println(selectedValue+"-----"+i);
+					System.out.println(selectedValue + "-----" + i);
 				}
 			}
 			i++;
