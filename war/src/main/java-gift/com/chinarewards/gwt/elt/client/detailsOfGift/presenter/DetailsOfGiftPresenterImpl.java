@@ -12,6 +12,7 @@ import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.orderConfirmation.model.OrderConfirmationClient;
 import com.chinarewards.gwt.elt.client.orderConfirmation.plugin.OrderConfirmationConstants;
+import com.chinarewards.gwt.elt.client.shopWindow.presenter.ShopWindowPresenter;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -26,17 +27,19 @@ public class DetailsOfGiftPresenterImpl extends
 	final ErrorHandler errorHandler;
 	final SessionManager sessionManager;
 	final Win win;
+	final ShopWindowPresenter shopWindowPresenter;
 	DetailsOfGiftClient orderVo;
 
 	@Inject
 	public DetailsOfGiftPresenterImpl(EventBus eventBus,
 			DispatchAsync dispatch, ErrorHandler errorHandler,
-			SessionManager sessionManager, DetailsOfGiftDisplay display, Win win) {
+			SessionManager sessionManager, DetailsOfGiftDisplay display, Win win,ShopWindowPresenter shopWindowPresenter) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
 		this.win = win;
+		this.shopWindowPresenter=shopWindowPresenter;
 
 	}
 
@@ -94,6 +97,9 @@ public class DetailsOfGiftPresenterImpl extends
 				
 			}
 		});
+		shopWindowPresenter.initShopWindow(1, 4);
+		shopWindowPresenter.bind();
+		display.setShopWindow(shopWindowPresenter.getDisplay().asWidget());
 
 	}
 

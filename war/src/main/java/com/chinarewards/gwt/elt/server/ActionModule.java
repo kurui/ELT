@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.chinarewards.gwt.elt.server;
 
 import net.customware.gwt.dispatch.server.guice.ActionHandlerModule;
@@ -11,6 +8,8 @@ import com.chinarewards.gwt.elt.client.awardShop.request.SearchAwardShopRequest;
 import com.chinarewards.gwt.elt.client.chooseStaff.request.SearchStaffChooseRequest;
 import com.chinarewards.gwt.elt.client.detailsOfAward.request.DetailsOfAwardInitRequest;
 import com.chinarewards.gwt.elt.client.detailsOfGift.request.DetailsOfGiftRequest;
+import com.chinarewards.gwt.elt.client.enterprise.request.EditIntegralPriceRequest;
+import com.chinarewards.gwt.elt.client.enterprise.request.EditPeriodRequest;
 import com.chinarewards.gwt.elt.client.enterprise.request.EnterpriseInitRequest;
 import com.chinarewards.gwt.elt.client.enterprise.request.EnterpriseRequest;
 import com.chinarewards.gwt.elt.client.gift.request.DeleteGiftRequest;
@@ -53,6 +52,8 @@ import com.chinarewards.gwt.elt.server.awardShop.SearchAwardShopHandler;
 import com.chinarewards.gwt.elt.server.chooseStaff.SearchStaffActionHandler;
 import com.chinarewards.gwt.elt.server.detailsOfAward.DetailsOfAwardActionHandler;
 import com.chinarewards.gwt.elt.server.detailsOfGift.DetailsOfGiftHandler;
+import com.chinarewards.gwt.elt.server.enterprise.EditIntegralPriceHandler;
+import com.chinarewards.gwt.elt.server.enterprise.EditPeriodHandler;
 import com.chinarewards.gwt.elt.server.enterprise.EnterpriseActionHandler;
 import com.chinarewards.gwt.elt.server.enterprise.EnterpriseInitActionHandler;
 import com.chinarewards.gwt.elt.server.gift.DeleteGiftHandler;
@@ -121,6 +122,11 @@ public class ActionModule extends ActionHandlerModule {
 		//企业注册以后要改
 		bindHandler(EnterpriseRequest.class, EnterpriseActionHandler.class);
 		bindHandler(EnterpriseInitRequest.class, EnterpriseInitActionHandler.class);
+		
+		bindHandler(EditIntegralPriceRequest.class,EditIntegralPriceHandler.class);
+		bindHandler(EditPeriodRequest.class, EditPeriodHandler.class);
+		
+		
 		//奖 项
         bindHandler(CreateRewardsItemRequest.class,CreateRewardsItemHandler.class);
         //奖 项修改

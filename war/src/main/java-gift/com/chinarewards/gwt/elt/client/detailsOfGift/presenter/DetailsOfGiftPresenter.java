@@ -5,6 +5,7 @@ import com.chinarewards.gwt.elt.client.detailsOfGift.model.DetailsOfGiftClient;
 import com.chinarewards.gwt.elt.client.mvp.Display;
 import com.chinarewards.gwt.elt.client.mvp.Presenter;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.user.client.ui.Widget;
 
 public interface DetailsOfGiftPresenter extends Presenter<DetailsOfGiftPresenter.DetailsOfGiftDisplay> {
 
@@ -26,6 +27,7 @@ public interface DetailsOfGiftPresenter extends Presenter<DetailsOfGiftPresenter
 		void setGiftPhoto(String url);
 		HasClickHandlers getExchangeBtn();
 		HasClickHandlers getPhotoImage();
+		void setShopWindow(Widget w);
 	
 	
 	}

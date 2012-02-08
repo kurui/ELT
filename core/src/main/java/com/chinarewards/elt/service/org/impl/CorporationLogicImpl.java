@@ -119,6 +119,14 @@ public class CorporationLogicImpl implements CorporationLogic {
 		corporation = corporationDao.update(corporation);
 		return corporation;
 	}
+	
+	@Override
+	public Corporation updatePeriod(UserContext context, Corporation corporation) {
+		logger.debug(" Process in updatePeriod method, corporation.toString:"
+				+ corporation.toString());
+		corporation = corporationDao.update(corporation);
+		return corporation;
+	}
 
 	@Override
 	public Corporation findCorporationById(String id) {
@@ -153,8 +161,10 @@ public class CorporationLogicImpl implements CorporationLogic {
 	@Override
 	public Amount getMaxConsume(String corporationId)
 			throws GetMaxConsumeErrorException {
-		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+	
 
 }

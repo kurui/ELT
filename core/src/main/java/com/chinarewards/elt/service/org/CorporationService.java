@@ -24,6 +24,9 @@ public interface CorporationService {
 	
 	public Corporation updateIntegralPrice(UserContext context,
 			Corporation corporation);
+	
+	public Corporation updatePeriod(UserContext context,
+			Corporation corporation);
 
 	/**
 	 * Find a corporation by the specified id.
