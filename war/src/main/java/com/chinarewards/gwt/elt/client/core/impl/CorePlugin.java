@@ -2,6 +2,7 @@ package com.chinarewards.gwt.elt.client.core.impl;
 
 import java.util.List;
 
+import com.chinarewards.gwt.elt.client.awardShop.plugin.AwardShopListConstants;
 import com.chinarewards.gwt.elt.client.core.AbstractPlugin;
 import com.chinarewards.gwt.elt.client.core.Extension;
 import com.chinarewards.gwt.elt.client.core.MenuRoleStore;
@@ -85,6 +86,14 @@ public class CorePlugin extends AbstractPlugin {
 			 .getEditorRegistry()
 			 .openEditor(GiftConstants.EDITOR_GIFTLIST_SEARCH,
 			 "EDITOR_GIFTLIST_SEARCH_List", null);
+		}
+		else if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.STAFF)
+		{
+			Platform.getInstance()
+			.getEditorRegistry()
+			.openEditor(
+					AwardShopListConstants.EDITOR_AWARDSHOPLIST_SEARCH,
+					"EDITOR_AWARDSHOPLIST_SEARCH_DO_ID", null);
 		}
 
 
