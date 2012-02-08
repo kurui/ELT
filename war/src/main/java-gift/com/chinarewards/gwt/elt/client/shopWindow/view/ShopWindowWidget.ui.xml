@@ -5,16 +5,18 @@
 
 	<ui:style src="new2.css" field="new2"></ui:style>
 	<g:HTMLPanel>
-			<h3>
-				<g:InlineLabel text="您还可以换什么呢？" ui:field="pageTitle" />
-			</h3>
-			<span class="{new2.cutline}"></span>
-			
-				<g:FlowPanel ui:field="resultPanel" />
-		
-			<span class="{new2.cutline}"></span>
-			<div class="{new2.shopdiv}">
-				<g:Anchor text="更多" styleName="{new2.shopa}" ui:field="more" />
+		<div class="{new2.employee}">
+			<div class="{new2.jifen-duihuan-list}">
+				<p class="{new2.tishi}">
+					<g:InlineLabel text="您还可以换：" ui:field="pageTitle" />
+				</p>
+				<div class="{new2.shop-gift-list} {new2.clearfix}">
+					<g:FlowPanel ui:field="resultPanel" />
+					<p class="{new2.more-gift}">
+						<g:Anchor text="更多>>" ui:field="more" styleName="{new2.staffa}" />
+					</p>
+				</div>
 			</div>
+		</div>
 	</g:HTMLPanel>
 </ui:UiBinder>
