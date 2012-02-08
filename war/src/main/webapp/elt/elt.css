@@ -1815,7 +1815,11 @@ li.token-input-input-token-facebook {
 	background-color: #569B01;
 	color: #FFFFFF;
 }
-
+#rewardlist_page2 .pageon {
+	text-decoration: none;
+	background-color: #333333;
+	color: #FFFFFF;
+}
 #rewardlist_page .pagedisable,#rewardlist_page .pagedisable:hover {
 	border: 1px solid #C7C7C7;
 	color: #999999;
