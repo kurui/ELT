@@ -14,7 +14,17 @@ public class ActivationRewardsItemRequest implements
 
 	private String rewardsItemId;
 	private String nowUserId;
+
+	private String fal;
 	
+
+	public String getFal() {
+		return fal;
+	}
+
+	public void setFal(String fal) {
+		this.fal = fal;
+	}
 
 	public String getNowUserId() {
 		return nowUserId;
@@ -32,9 +42,10 @@ public class ActivationRewardsItemRequest implements
 		this.rewardsItemId = rewardsItemId;
 	}
 
-	public ActivationRewardsItemRequest(String rewardsItemId,String nowUserId) {
+	public ActivationRewardsItemRequest(String rewardsItemId,String nowUserId,String fal) {
 		this.rewardsItemId=rewardsItemId;
 		this.nowUserId=nowUserId;
+		this.fal=fal;
 
 	}
 	public ActivationRewardsItemRequest() {
