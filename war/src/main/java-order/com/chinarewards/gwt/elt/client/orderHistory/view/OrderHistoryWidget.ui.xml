@@ -36,7 +36,7 @@
 
 
 			<span class="{new1.cutline}"></span>
-			<div class="{new1.divtext}">一共有 <g:InlineLabel ui:field="dataCount" styleName="{new1.divfont}"></g:InlineLabel> 条订单</div><div  class="{new1.divend}"></div>
+			<div class="{new1.divtext}">共有 <g:InlineLabel ui:field="dataCount" styleName="{new1.divfont}"></g:InlineLabel> 条订单</div><div  class="{new1.divend}"></div>
 			<div class="{new1.table}">
 				<g:FlowPanel ui:field="resultPanel" />
 			</div>

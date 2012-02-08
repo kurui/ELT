@@ -60,7 +60,7 @@
 			</p>
 
 			<div class="{newitem.divtext}">
-				一共有
+				共有
 				<g:InlineLabel ui:field="dataCount" styleName="{newitem.divfont}"></g:InlineLabel>
 				个奖项
 			</div>
