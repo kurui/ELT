@@ -39,23 +39,23 @@ a:hover{color:#010DFF;text-decoration:underline;}
 
 /*button*/
 .btn{background-position:-194px -58px;padding-left:5px;display:inline-block;}
-.btn button{background-position:right -58px;border:none;overflow:visible;padding:0 10px 0 5px;display:inline-block;height:25px;line-height:25px;color:#FFFFFF;}
+.btn button{background-position:right -58px;border:none;overflow:visible;padding:0 10px 0 5px;display:inline-block;height:25px;line-height:25px;color:#ABCEE5;}
 .back-btn{background-position:0 -90px;display:block;width:69px;height:25px;line-height:25px;padding-left:25px;color:#666666;}
 .back-btn:hover{text-decoration:none;color:#666666;}
 .blue-btn{background-position:-179px -202px;padding-left:10px;display:inline-block;}
-.blue-btn button{background-position:right -202px;border:none;overflow:visible;padding:0 20px 0 10px;display:inline-block;height:33px;line-height:33px;color:#FFFFFF;font-weight:bold;font-size:14px;}
+.blue-btn button{background-position:right -202px;border:none;overflow:visible;padding:0 20px 0 10px;display:inline-block;height:30px;line-height:30px;color:#FFFFFF;font-weight:bold;font-size:14px;}
 
 /*form*/
 .form .form-line:after{content:".";display:block;clear:both;height:0;visibility:hidden;}
 .form .form-line{margin-bottom:0px;\*zoom:1;}
-.form .form-line .label{float:left;width:15%;text-align:right;vertical-align:middle;padding:8px 0;background-color:#e5e5e5;}
+.form .form-line .label{float:left;width:15%;text-align:right;vertical-align:middle;padding:8px 0;background-color:ABCEE5;}
 .form .form-line .element{float:right;width:84%;text-align:left;padding:5px 0;}
-.form .select{border:1px solid #569A01;width:120px;height:22px;}
-.form .short-text{height:18px;width:30px;border:1px solid #569A01;text-align:center;}
-.form .text{height:22px;width:200px;border:1px solid #569A01;}
-.form .text2{height:22px;width:150px;border:1px solid #569A01;}
+.form .select{border:1px solid #ABCEE5;width:120px;height:22px;}
+.form .short-text{height:18px;width:30px;border:1px solid #ABCEE5;text-align:center;}
+.form .text{height:22px;width:200px;border:1px solid #ABCEE5;}
+.form .text2{height:22px;width:150px;border:1px solid #ABCEE5;}
 .form .long-text{width:371px;}
-.form .textarea{width:420px;height:50px;border:1px solid #569A01;}
+.form .textarea{width:420px;height:50px;border:1px solid #ABCEE5;}
 .form .form-line-btn{margin-top:0px;text-align:center;}
 .form .eline{margin-bottom:10px;}
 .form .line-info{color:#999999;}
@@ -74,10 +74,10 @@ a:hover{color:#010DFF;text-decoration:underline;}
 /*pager*/
 .pager:after{content:".";display:block;clear:both;height:0;visibility:hidden;}
 .pager{margin-top:15px;color:#569B01;\*zoom:1;}
-.pager .pager-left{float:left;width:20%;color:green;}
+.pager .pager-left{float:left;width:20%;color:#333333;}
 .pager .pager-right{float:right;text-align:right;}
-.pager .pager-right a{border:1px solid #C7C7C7;padding:2px 8px;color:#569B01;display:inline-block;vertical-align:middle;text-decoration:none;margin-right:5px;}
-.pager .pager-right a:hover,.pager .pager-right .on{text-decoration:none;background-color:#569B01;color:#FFFFFF;}
+.pager .pager-right a{border:1px solid #C7C7C7;padding:2px 8px;color:#333333;display:inline-block;vertical-align:middle;text-decoration:none;margin-right:5px;}
+.pager .pager-right a:hover,.pager .pager-right .on{text-decoration:none;background-color:#707070;color:#999999;}
 .pager .pager-right .edge{background-color:#E8E8E8}
 
 /*-------------------------------------- 框架布局 --------------------------------------------------*/
@@ -118,9 +118,11 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .frame-wrap .breadcrumb-left{float:left;width:50%;}
 .frame-wrap .breadcrumb-right{float:right;width:70px;}
 .frame-wrap .cutline{background-position:0 0;height:2px;display:block;margin:10px 0;}
-.frame-wrap .query-wrap{background-color:#D8ECC1;border:1px solid #B8DA8E;padding:10px 15px;}
+.frame-wrap .query-wrap{background-color: #ABCEE5;border:1px solid #ABCEE5;padding:10px 15px;}
 .frame-wrap .send-news{margin:10px 0;}
 .frame-wrap .content-wrap{padding-top:0px;}
+
+
 /*-nicho自定义-*/
 .nbsp{padding-left:12px;}
 .nbspbig{padding-left:32px;}
