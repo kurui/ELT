@@ -43,7 +43,7 @@
 					<span class="{newitem.nbsp}"></span>
 
 					<span class="{newitem.btn}">
-						<g:Button ui:field="search" text="搜索" />
+						<g:Button ui:field="search" text="查询" />
 					</span>
 				</div>
 			</div>

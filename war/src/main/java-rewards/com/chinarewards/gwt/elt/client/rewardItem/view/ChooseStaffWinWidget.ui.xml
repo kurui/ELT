@@ -12,7 +12,7 @@
 				<div class="{new2.form}">
 					<tr>
 
-						<td class="{style.title}">搜索条件(名称，手机，邮件)：</td>
+						<td class="{style.title}">查询条件(名称，手机，邮件)：</td>
 						<td class="{style.intext2}">
 							<g:TextBox maxLength="10" ui:field="name"></g:TextBox>
 						</td>

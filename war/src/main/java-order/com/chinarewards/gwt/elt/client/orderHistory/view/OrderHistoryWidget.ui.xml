@@ -24,7 +24,7 @@
 					
 					<span class="{new1.nbspbig}"></span>
 					    <span class="{new1.blue-btn}">
-						<g:Button ui:field="searchBtn" text="搜索" />
+						<g:Button ui:field="searchBtn" text="查询" />
 					    </span>
 					<span class="{new1.nbspbig}"></span>
 					<span class="{new1.nbspbig}"></span>
