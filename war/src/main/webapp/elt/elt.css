@@ -1849,4 +1849,4 @@ li.token-input-input-token-facebook {
 .breadcrumbsdiv{float:left;  padding-left: 3px;padding-right: 3px;}
 .breadcrumbsSpan{float:left;	font-size: 12px;}
 .breadcrumbsAnchor{float:left;	font-size: 12px;text-decoration: none;}
-.breadcrumbsAnchor:hover {font-size: 12px;color:blue;text-decoration: none;cursor: pointer;}
+.breadcrumbsAnchor:hover {font-size: 12px;color:blue;cursor: pointer;}
