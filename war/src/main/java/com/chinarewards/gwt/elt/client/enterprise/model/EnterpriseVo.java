@@ -30,6 +30,11 @@ public class EnterpriseVo implements Serializable {
 	private String web;//企业网站
 	
     private double integralPrice;//积分价值 
+    private Double period;//财年周期
+	
+	private Date   firstTime;//首个财年开始日期
+	
+	private  String moneyType;//企业所用货币类型
 	
 	public double getIntegralPrice() {
 		return integralPrice;
@@ -63,11 +68,7 @@ public class EnterpriseVo implements Serializable {
 		this.moneyType = moneyType;
 	}
 
-	private double period;//财年周期
-	
-	private Date   firstTime;//首个财年开始日期
-	
-	private  String moneyType;//企业所用货币类型
+
 
 	public String getId() {
 		return id;

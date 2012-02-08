@@ -14,7 +14,7 @@ public class EnterpriseInitRequest implements Action<EnterpriseInitResponse> {
 	public EnterpriseInitRequest(UserSession userSession) {
 		this.userSession = userSession;
 	}
-
+	
 	public UserSession getUserSession() {
 		return userSession;
 	}

@@ -26,8 +26,8 @@
 	<ui:style src="new2.css" field="new2"></ui:style>
 
 	<g:DockLayoutPanel ui:field="dock" unit='PX'
-		styleName="{new2.dockbody}" >
-		<g:north size="83">
+		styleName="{new2.dockbody2}" height="100%" >
+		<g:north size="83" >
 			<g:HTMLPanel>
 				<!--head -->
 				<div class="{new2.employee}">
@@ -90,7 +90,7 @@
 				</div>
 			</g:HTMLPanel>
 		</g:north>
-		<g:south size="60">
+		<g:south size="-200">
 			<g:HTMLPanel>
 				<div class="{new2.employee}">
 					<div class="{new2.footer}" id="footer">

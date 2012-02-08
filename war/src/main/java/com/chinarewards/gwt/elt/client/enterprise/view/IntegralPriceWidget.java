@@ -1,0 +1,101 @@
+package com.chinarewards.gwt.elt.client.enterprise.view;
+
+import com.chinarewards.gwt.elt.client.enterprise.model.EnterpriseVo;
+import com.chinarewards.gwt.elt.client.enterprise.presenter.IntegralPricePresenter.IntegralPriceDisplay;
+import com.chinarewards.gwt.elt.util.StringUtil;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.Hidden;
+import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.Widget;
+
+public class IntegralPriceWidget extends Composite implements
+		IntegralPriceDisplay {
+
+	private static IntegralPriceWidgetUiBinder uiBinder = GWT
+			.create(IntegralPriceWidgetUiBinder.class);
+	@UiField
+	TextBox integralPrice;
+	
+	@UiField
+	Button saveButton;
+	@UiField
+	Hidden enterpriseId;
+	
+	@UiField
+	ListBox moneyType;
+	
+	
+	@UiField
+	Panel breadCrumbs;
+
+	interface IntegralPriceWidgetUiBinder extends
+			UiBinder<Widget, IntegralPriceWidget> {
+	}
+
+	public IntegralPriceWidget() {
+		initWidget(uiBinder.createAndBindUi(this));
+	}
+
+	public Widget asWidget() {
+		return this;
+	}
+	
+	@Override
+	public void initEditIntegralPrice(EnterpriseVo enterpriseVo) {	
+		enterpriseId.setValue(enterpriseVo.getId());
+		
+		integralPrice.setText(enterpriseVo.getIntegralPrice()+"");
+		
+		initMoneyTypeSelect(enterpriseVo.getMoneyType());
+		
+	}
+	
+	private void initMoneyTypeSelect(String selectedValue){
+		moneyType.clear();
+		moneyType.addItem("人民币","RMB");
+		moneyType.addItem("美元","USD");
+		moneyType.addItem("港币","HKD");
+		if (StringUtil.trim(selectedValue) != "") {
+			moneyType.setValue(0, selectedValue);
+		}
+	}
+
+	@Override
+	public void setBreadCrumbs(Widget breadCrumbs) {
+		this.breadCrumbs.clear();
+		this.breadCrumbs.add(breadCrumbs);
+	}
+
+	public HasClickHandlers getSaveClickHandlers() {
+		return saveButton;
+	}
+
+	@Override
+	public String getEnterpriseId() {
+		return this.enterpriseId.getValue();
+	}
+
+	@Override
+	public HasValue<String> getIntegralPrice() {
+		return integralPrice;
+	}
+
+	@Override
+	public ListBox getMoneyType() {
+		return moneyType;
+	}
+
+	@Override
+	public void clear() {
+		// TODO Auto-generated method stub
+		
+	}
+}
