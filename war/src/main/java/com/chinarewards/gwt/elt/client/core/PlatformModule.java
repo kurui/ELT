@@ -2,6 +2,7 @@ package com.chinarewards.gwt.elt.client.core;
 
 import com.chinarewards.gwt.elt.client.awardReward.plugin.AwardRewardPluginDescriptor;
 import com.chinarewards.gwt.elt.client.awardShop.plugin.AwardShopListPluginDescriptor;
+import com.chinarewards.gwt.elt.client.budget.plugin.CorpBudgetPluginDescriptor;
 import com.chinarewards.gwt.elt.client.core.impl.CorePluginDescriptor;
 import com.chinarewards.gwt.elt.client.core.impl.GinPluginManager;
 import com.chinarewards.gwt.elt.client.core.impl.InMemoryMenuRoleStore;
@@ -90,7 +91,7 @@ public class PlatformModule extends AbstractGinModule {
 			OrderHistoryPluginDescriptor orderHistory,OrderHistoryViewPluginDescriptor orderHistoryView,
 			OrderSubmitPluginDescriptor orderSubmit,
 			OrderConfirmationPluginDescriptor orderConfirmation,
-			DetailsOfGiftPluginDescriptor detailsOfGift) {
+			DetailsOfGiftPluginDescriptor detailsOfGift,CorpBudgetPluginDescriptor corpBudget) {
 
 		if (pluginSet == null) {
 			pluginSet = new InMemoryPluginSet();
@@ -121,6 +122,8 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(orderConfirmation);
 			pluginSet.registerPlugin(orderSubmit);
 			pluginSet.registerPlugin(detailsOfGift);
+			
+			pluginSet.registerPlugin(corpBudget);
 		}
 
 		return pluginSet;

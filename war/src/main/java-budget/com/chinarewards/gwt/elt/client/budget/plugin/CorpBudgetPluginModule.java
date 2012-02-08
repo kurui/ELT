@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.chinarewards.gwt.elt.client.budget.plugin;
 
 import com.chinarewards.gwt.elt.client.budget.editor.CorpBudgetEditor;

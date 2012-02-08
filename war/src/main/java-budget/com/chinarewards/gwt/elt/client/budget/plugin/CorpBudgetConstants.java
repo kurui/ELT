@@ -6,24 +6,22 @@ package com.chinarewards.gwt.elt.client.budget.plugin;
 public abstract class CorpBudgetConstants {
 
 	// 插件
-	public static final String PLUGIN_GIFT = "PLUGIN_GIFT";
+	public static final String PLUGIN_CORPBUDGET = "PLUGIN_CORPBUDGET";
 
 	// 菜单
-	public static final String MENU_GIFT_ADD = "MENU_GIFT_ADD";
+	public static final String MENU_CORPBUDGET_EDIT = "MENU_CORPBUDGET_EDIT";
+	
 
 	// Editor/页面模块
-	public static final String EDITOR_GIFT_EDIT = "EDITOR_GIFT_EDIT";
-	public static final String EDITOR_GIFT_VIEW = "EDITOR_GIFT_VIEW";
+	public static final String EDITOR_CORPBUDGET_EDIT = "EDITOR_CORPBUDGET_EDIT";
+	public static final String EDITOR_CORPBUDGET_VIEW = "EDITOR_CORPBUDGET_VIEW";
 
-	public static final String EDITOR_GIFTLIST_SEARCH = "EDITOR_GIFTLIST_SEARCH";
+	public static final String EDITOR_CORPBUDGETLIST_SEARCH = "EDITOR_CORPBUDGETLIST_SEARCH";
 
 	// 方法
-	/** 新建礼品 */
-	public static final String ACTION_GIFT_ADD = "ACTION_GIFT_ADD";
-	/** 编辑礼品 */
-	public static final String ACTION_GIFT_EDIT = "ACTION_GIFT_EDIT";
-	/** 礼品列表 */
-	public static final String ACTION_GIFT_LIST = "ACTION_GIFT_LIST";
-	public static final String ACTION_GIFT_VIEW = "ACTION_GIFT_VIEW";
+	public static final String ACTION_CORPBUDGET_EDIT = "ACTION_CORPBUDGET_EDIT";
+	
+	public static final String ACTION_CORPBUDGET_LIST = "ACTION_CORPBUDGET_LIST";
+	public static final String ACTION_CORPBUDGET_VIEW = "ACTION_CORPBUDGET_VIEW";
 
 }

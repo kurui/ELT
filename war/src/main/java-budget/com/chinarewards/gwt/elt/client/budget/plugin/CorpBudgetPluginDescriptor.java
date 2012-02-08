@@ -35,7 +35,7 @@ public class CorpBudgetPluginDescriptor implements PluginDescriptor {
 		CorpBudgetPlugin = new CorpBudgetPlugin(this);
 
 		/**
-		 * 新建礼品
+		 * 整体预算
 		 */
 		ext.add(new Extension() {
 			@Override
@@ -48,12 +48,12 @@ public class CorpBudgetPluginDescriptor implements PluginDescriptor {
 				return new MenuItem() {
 					@Override
 					public int getOrder() {
-						return MenuConstants.MENU_ORDER_GIFT_ADD;
+						return MenuConstants.MENU_ORDER_CORPBUDGET_EDIT;
 					}
 
 					@Override
 					public String getMenuId() {
-						return CorpBudgetConstants.MENU_GIFT_ADD;
+						return CorpBudgetConstants.MENU_CORPBUDGET_EDIT;
 					}
 
 					@Override
@@ -63,7 +63,7 @@ public class CorpBudgetPluginDescriptor implements PluginDescriptor {
 
 					@Override
 					public String getTitle() {
-						return "新建礼品";
+						return "整体预算";
 					}
 
 					@Override
@@ -71,8 +71,8 @@ public class CorpBudgetPluginDescriptor implements PluginDescriptor {
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(
-										CorpBudgetConstants.EDITOR_GIFT_EDIT,
-										CorpBudgetConstants.ACTION_GIFT_ADD,
+										CorpBudgetConstants.EDITOR_CORPBUDGET_EDIT,
+										CorpBudgetConstants.ACTION_CORPBUDGET_EDIT,
 										null);
 					}
 
@@ -112,7 +112,7 @@ public class CorpBudgetPluginDescriptor implements PluginDescriptor {
 
 	@Override
 	public String getPluginId() {
-		return CorpBudgetConstants.PLUGIN_GIFT;
+		return CorpBudgetConstants.PLUGIN_CORPBUDGET;
 	}
 
 	@Override

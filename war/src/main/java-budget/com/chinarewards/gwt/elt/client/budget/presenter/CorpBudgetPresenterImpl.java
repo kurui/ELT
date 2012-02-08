@@ -54,10 +54,11 @@ public class CorpBudgetPresenterImpl extends
 		// 绑定事件
 		init();
 
-		if (CorpBudgetConstants.ACTION_GIFT_ADD.equals(thisAction)) {
+		if (CorpBudgetConstants.ACTION_CORPBUDGET_EDIT.equals(thisAction)) {
 			breadCrumbs.loadChildPage("新建礼品");
-//			initSave();
-		} else if (CorpBudgetConstants.ACTION_GIFT_EDIT.equals(thisAction)) {
+			// initSave();
+		} else if (CorpBudgetConstants.ACTION_CORPBUDGET_EDIT
+				.equals(thisAction)) {
 			initEdit();
 			breadCrumbs.loadChildPage("编辑礼品");
 		} else {
@@ -80,11 +81,11 @@ public class CorpBudgetPresenterImpl extends
 						CorpBudgetVo giftVo = CorpBudgetAdapterClient
 								.adapterDisplay(display);
 
-						if (CorpBudgetConstants.ACTION_GIFT_ADD
+						if (CorpBudgetConstants.ACTION_CORPBUDGET_EDIT
 								.equals(thisAction)) {
 							giftVo.setId(null);
 							doSave(giftVo);
-						} else if (CorpBudgetConstants.ACTION_GIFT_EDIT
+						} else if (CorpBudgetConstants.ACTION_CORPBUDGET_EDIT
 								.equals(thisAction)) {
 							giftVo.setId(giftId);
 							doEdit(giftVo);
@@ -110,8 +111,8 @@ public class CorpBudgetPresenterImpl extends
 										Platform.getInstance()
 												.getEditorRegistry()
 												.openEditor(
-														CorpBudgetConstants.EDITOR_GIFTLIST_SEARCH,
-														CorpBudgetConstants.ACTION_GIFT_LIST,
+														CorpBudgetConstants.EDITOR_CORPBUDGETLIST_SEARCH,
+														CorpBudgetConstants.ACTION_CORPBUDGET_LIST,
 														instanceId);
 									}
 								});
@@ -131,7 +132,7 @@ public class CorpBudgetPresenterImpl extends
 													Platform.getInstance()
 															.getEditorRegistry()
 															.closeEditor(
-																	CorpBudgetConstants.EDITOR_GIFT_EDIT,
+																	CorpBudgetConstants.EDITOR_CORPBUDGET_EDIT,
 																	instanceId);
 												}
 
@@ -142,8 +143,8 @@ public class CorpBudgetPresenterImpl extends
 													Platform.getInstance()
 															.getEditorRegistry()
 															.openEditor(
-																	CorpBudgetConstants.EDITOR_GIFTLIST_SEARCH,
-																	CorpBudgetConstants.ACTION_GIFT_LIST,
+																	CorpBudgetConstants.EDITOR_CORPBUDGETLIST_SEARCH,
+																	CorpBudgetConstants.ACTION_CORPBUDGET_LIST,
 																	instanceId);
 												}
 											});
@@ -159,8 +160,8 @@ public class CorpBudgetPresenterImpl extends
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(
-										CorpBudgetConstants.EDITOR_GIFTLIST_SEARCH,
-										CorpBudgetConstants.ACTION_GIFT_LIST,
+										CorpBudgetConstants.EDITOR_CORPBUDGETLIST_SEARCH,
+										CorpBudgetConstants.ACTION_CORPBUDGET_LIST,
 										instanceId);
 					}
 				}));
@@ -171,9 +172,15 @@ public class CorpBudgetPresenterImpl extends
 	private boolean validateSubmit() {
 		boolean flag = true;
 		StringBuilder errorMsg = new StringBuilder();
-		if (display.getName().getValue() == null
-				|| "".equals(display.getName().getValue().trim())) {
-			errorMsg.append("请填写礼品名称!<br>");
+		if (display.getBudgetAmount().getValue() == null
+				|| "".equals(display.getBudgetAmount().getValue().trim())) {
+			errorMsg.append("请填写预算金额!<br>");
+			flag = false;
+		}
+
+		if (display.getBudgetIntegral().getValue() == null
+				|| "".equals(display.getBudgetIntegral().getValue().trim())) {
+			errorMsg.append("请填写预算积分!<br>");
 			flag = false;
 		}
 
@@ -192,7 +199,7 @@ public class CorpBudgetPresenterImpl extends
 		// errorHandler.alert("查询出错!");
 		// Platform.getInstance()
 		// .getEditorRegistry()
-		// .closeEditor(CorpBudgetConstants.EDITOR_GIFT_EDIT,
+		// .closeEditor(CorpBudgetConstants.EDITOR_CORPBUDGET_EDIT,
 		// instanceId);
 		// }
 		//

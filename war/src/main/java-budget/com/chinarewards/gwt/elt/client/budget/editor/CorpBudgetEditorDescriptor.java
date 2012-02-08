@@ -22,7 +22,7 @@ public class CorpBudgetEditorDescriptor implements EditorDescriptor {
 
 	@Override
 	public String getEditorId() {
-		return CorpBudgetConstants.EDITOR_GIFT_EDIT;
+		return CorpBudgetConstants.EDITOR_CORPBUDGET_EDIT;
 	}
 
 	@Override
