@@ -9,6 +9,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.InlineLabel;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class DetailsOfGiftWidget extends Composite implements
@@ -42,8 +43,8 @@ public class DetailsOfGiftWidget extends Composite implements
 	Image giftPhoto;
 	@UiField
 	Button exchangeBtn;
-	
-	
+	@UiField
+	Panel shopWindow;
 	private static DetailsOfGiftWidgetUiBinder uiBinder = GWT
 			.create(DetailsOfGiftWidgetUiBinder.class);
 
@@ -142,6 +143,12 @@ public class DetailsOfGiftWidget extends Composite implements
 	@Override
 	public HasClickHandlers getPhotoImage() {
 		return giftPhoto;
+	}
+
+	@Override
+	public void setShopWindow(Widget w) {
+		this.shopWindow.clear();
+		 this.shopWindow.add(w);
 	}
 
 
