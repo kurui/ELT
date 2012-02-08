@@ -1,9 +1,11 @@
 package com.chinarewards.gwt.elt.client.gift.view;
 
 import java.util.Date;
+import java.util.Map.Entry;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import com.chinarewards.gwt.elt.client.gift.model.GiftType;
 import com.chinarewards.gwt.elt.client.gift.model.GiftVo;
 import com.chinarewards.gwt.elt.client.gift.presenter.GiftPresenter.GiftDisplay;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
@@ -38,7 +40,7 @@ public class GiftWidget extends Composite implements GiftDisplay {
 
 	// --------vo
 	@UiField
-	TextBox name;		
+	TextBox name;
 	@UiField
 	TextArea summary;
 	@UiField
@@ -85,16 +87,15 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	// @UiField
 	// DateBox updatetime;
 	// ---end vo
-	
-//	@UiField
-//	Label nameError;
+
+	// @UiField
+	// Label nameError;
 	@UiField
 	Label integralError;
 	@UiField
 	Label stockError;
 	@UiField
 	Label indateError;
-	
 
 	@UiField
 	Button back;
@@ -170,8 +171,6 @@ public class GiftWidget extends Composite implements GiftDisplay {
 			}
 		}
 
-		
-
 		indate.setValue(giftVo.getIndate());
 
 	}
@@ -186,52 +185,62 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	}
 
 	private void initTypeSelect(String selectedValue) {
-		type.addItem("实物", GiftVo.TYPE_1);
-		type.addItem("虚拟", GiftVo.TYPE_2);
-
-		if (StringUtil.trim(selectedValue) != "") {
-			type.setValue(0, selectedValue);
+		type.clear();
+		int selectIndex = 0;
+		int i = 0;
+		for (Entry<String, String> entry : GiftType.map.entrySet()) {
+			String keyValue = entry.getKey();
+			// System.out.println(entry.getKey() + ": " + entry.getValue());
+			type.addItem(entry.getValue(), entry.getKey());
+			if (selectedValue != null && StringUtil.trim(selectedValue) != ""
+					&& StringUtil.trim(keyValue) != "") {
+				if (selectedValue.equals(keyValue)) {
+					selectIndex = i;
+				}
+			}
+			i++;
 		}
+		type.setSelectedIndex(selectIndex);
 	}
-	
-	private void registerSource(){
+
+	private void registerSource() {
 		supplyinner.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
 			@Override
 			public void onValueChange(ValueChangeEvent<Boolean> event) {
-				if(event.getValue()){
+				if (event.getValue()) {
 					business.setEnabled(false);
 					address.setEnabled(false);
-					tell.setEnabled(false);	
-					
+					tell.setEnabled(false);
+
 					business.setValue("");
 					address.setValue("");
-					tell.setValue("");	
-				}							
+					tell.setValue("");
+				}
 			}
 		});
-		
+
 		supplyoutter.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
 			@Override
 			public void onValueChange(ValueChangeEvent<Boolean> event) {
-				if(event.getValue()){
+				if (event.getValue()) {
 					business.setEnabled(true);
 					address.setEnabled(true);
-					tell.setEnabled(true);	
-				}							
+					tell.setEnabled(true);
+				}
 			}
 		});
-		
-//		name.addValueChangeHandler(new ValueChangeHandler<String>() {			
-//			@Override
-//			public void onValueChange(ValueChangeEvent<String> arg0) {
-//				if (name.getValue() == null
-//						|| "".equals(name.getValue().trim())) {
-//					nameError.setText("请填写礼品名称!<br>");
-////					win.alert("222");
-//				}
-//				
-//			}
-//		});
+
+		// name.addValueChangeHandler(new ValueChangeHandler<String>() {
+		// @Override
+		// public void onValueChange(ValueChangeEvent<String> arg0) {
+		// if (name.getValue() == null
+		// || "".equals(name.getValue().trim())) {
+		// nameError.setText("请填写礼品名称!<br>");
+		// // win.alert("222");
+		// }
+		//
+		// }
+		// });
 	}
 
 	@Override
@@ -405,8 +414,8 @@ public class GiftWidget extends Composite implements GiftDisplay {
 		return supplyoutter;
 	}
 
-//	@Override
-//	public Label getNameError() {
-//		return nameError;
-//	}
+	// @Override
+	// public Label getNameError() {
+	// return nameError;
+	// }
 }
