@@ -71,7 +71,6 @@ public class EditIntegralPriceHandler extends
 		corporation.setIntegralPrice(enterpriseVo.getIntegralPrice());
 		corporation.setMoneyType(enterpriseVo.getMoneyType());
 
-		System.out.println("assembleIntegralPrice moneyType:"+corporation.getMoneyType());
 
 		return corporation;
 	}

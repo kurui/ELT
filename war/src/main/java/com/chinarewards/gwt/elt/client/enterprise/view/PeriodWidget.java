@@ -1,6 +1,9 @@
 package com.chinarewards.gwt.elt.client.enterprise.view;
 
+import java.util.Map.Entry;
+
 import com.chinarewards.gwt.elt.client.enterprise.model.EnterpriseVo;
+import com.chinarewards.gwt.elt.client.enterprise.model.PeriodType;
 import com.chinarewards.gwt.elt.client.enterprise.presenter.PeriodPresenter.PeriodDisplay;
 import com.chinarewards.gwt.elt.client.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.util.StringUtil;
@@ -51,17 +54,33 @@ public class PeriodWidget extends Composite implements PeriodDisplay {
 
 	@Override
 	public void initEditPeriod(EnterpriseVo enterpriseVo) {	
-		initPeriodSelect("");
+		enterpriseId.setValue(enterpriseVo.getId());
+	
+		initPeriodSelect(enterpriseVo.getPeriod()+"");
+		
+		firstTime.setValue(enterpriseVo.getFirstTime());
 	}
 	
 	private void initPeriodSelect(String selectedValue) {
 		period.clear();
-		period.addItem("1年", "1");
-		period.addItem("半年", "0.5");
-		period.addItem("两年", "2");
-		if (StringUtil.trim(selectedValue) != "") {
-			period.setValue(0, selectedValue);
+		int selectIndex = 0;
+		int i = 0;
+		for (Entry<String, String> entry : PeriodType.map.entrySet()) {
+			String keyValue = entry.getKey();			
+			// System.out.println(entry.getKey() + ": " + entry.getValue());
+			period.addItem(entry.getValue(), entry.getKey());
+			if (selectedValue != null && StringUtil.trim(selectedValue) != ""
+					&& StringUtil.trim(keyValue) != "") {
+				double selectDouble = Double.valueOf(selectedValue);
+				double keyDouble = Double.valueOf(keyValue);
+//				System.out.println(selectDouble+"-------double---"+keyDouble);
+				if (selectDouble == keyDouble) {
+					selectIndex = i;
+				}
+			}
+			i++;
 		}
+		period.setSelectedIndex(selectIndex);
 	}
 
 	@Override
