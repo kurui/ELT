@@ -10,6 +10,7 @@ import com.chinarewards.gwt.elt.client.core.Plugin;
 import com.chinarewards.gwt.elt.client.core.PluginDescriptor;
 import com.chinarewards.gwt.elt.client.core.ui.MenuItem;
 import com.chinarewards.gwt.elt.client.enterprise.editor.IntegralPriceEditorDescriptor;
+import com.chinarewards.gwt.elt.client.enterprise.model.EnterpriseVo;
 import com.chinarewards.gwt.elt.client.plugin.MenuConstants;
 import com.chinarewards.gwt.elt.client.plugin.PluginConstants;
 import com.google.gwt.user.client.ui.Image;
@@ -38,11 +39,13 @@ public class IntegralPricePluginDescriptor implements PluginDescriptor {
 			public Object getInstance() {
 				return new MenuItem() {
 					public void execute() {
+						EnterpriseVo enterpriseVo = new EnterpriseVo();
+
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(
 										EnterpriseConstants.EDITOR_INTEGRAL_PRICE_EDIT,
-										"IntegralPriceInstanceID", null);
+										"IntegralPriceInstanceID", enterpriseVo);
 					}
 
 					public Image getIcon() {
