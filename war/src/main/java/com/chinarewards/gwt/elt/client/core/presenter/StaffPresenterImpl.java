@@ -17,6 +17,7 @@ import com.chinarewards.gwt.elt.client.login.LastLoginRoleResponse;
 import com.chinarewards.gwt.elt.client.login.event.LoginEvent;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
+import com.chinarewards.gwt.elt.client.orderHistory.plugin.OrderHistoryConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.google.gwt.core.client.GWT;
@@ -133,14 +134,22 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 		registerHandler(display.getAwardShop().addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				breadCrumbsMenu.cleanBreadCrumbsItemAll();
-				breadCrumbsMenu.addBreadCrumbsItemTop("首页",null);
-				breadCrumbsMenu.addBreadCrumbsItem("奖品商城",null);
 				Platform.getInstance()
 				.getEditorRegistry()
 				.openEditor(
 						AwardShopListConstants.EDITOR_AWARDSHOPLIST_SEARCH,
 						"EDITOR_AWARDSHOPLIST_SEARCH_DO_ID", null);
+			}
+		}));
+		
+		registerHandler(display.getExchangeHistory().addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				Platform.getInstance()
+				.getEditorRegistry()
+				.openEditor(
+						OrderHistoryConstants.EDITOR_ORDERHISTORY_SEARCH,
+						"EDITOR_ORDERHISTORY_SEARCH_DO_ID", null);
 			}
 		}));
 

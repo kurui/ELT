@@ -65,7 +65,8 @@ public class SearchOrderByIdHandler extends
 		orderVo.setGiftImage(gift.getPhoto());
 		orderVo.setGiftName(gift.getName());
 		orderVo.setIntegral(gift.getIntegral());//礼品的积分
-		
+		orderVo.setBussiness(gift.getBusiness());
+		orderVo.setServicetell(gift.getServicetell());
 		orderVo.setSource(toSource(gift.getSource()));
 		orderVo.setOrdercode(order.getOrderCode());
 		orderVo.setOrderStatus(order.getStatus().toString());
