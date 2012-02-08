@@ -9,6 +9,7 @@ import com.chinarewards.gwt.elt.client.detailsOfAward.request.DetailsOfAwardInit
 import com.chinarewards.gwt.elt.client.detailsOfAward.request.DetailsOfAwardInitResponse;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
+import com.chinarewards.gwt.elt.client.rewardItem.dialog.ChooseStaffListDialog;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsCriteria.RewardsStatus;
 import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListConstants;
 import com.chinarewards.gwt.elt.model.ChoosePanel.InitChooseListParam;
@@ -21,6 +22,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 public class DetailsOfAwardPresenterImpl extends
 		BasePresenter<DetailsOfAwardPresenter.DetailsOfAwardDisplay> implements
@@ -33,15 +35,16 @@ public class DetailsOfAwardPresenterImpl extends
 	// private String instanceId;
 	private final BreadCrumbsPresenter breadCrumbs;
 	private final ChooseStaffPanelPresenter staffPanel;
-
+	private final Provider<ChooseStaffListDialog> chooseStaffDialogProvider;
 	@Inject
 	public DetailsOfAwardPresenterImpl(EventBus eventBus,
 			DetailsOfAwardDisplay display, DispatchAsync dispatcher,
-			ChooseStaffPanelPresenter staffPanel,BreadCrumbsPresenter breadCrumbs) {
+			ChooseStaffPanelPresenter staffPanel,BreadCrumbsPresenter breadCrumbs,Provider<ChooseStaffListDialog> chooseStaffDialogProvider) {
 		super(eventBus, display);
 		this.dispatcher = dispatcher;
 		this.staffPanel = staffPanel;
 		this.breadCrumbs=breadCrumbs;
+		this.chooseStaffDialogProvider=chooseStaffDialogProvider;
 	}
 
 	@Override
@@ -52,14 +55,14 @@ public class DetailsOfAwardPresenterImpl extends
 		init();
 		InitChoosePanelParam initChooseParam = new InitChoosePanelParam();
 		initChooseParam.setTopName("待提名人：");
-		initChooseParam.setChooseBtnName("查看");
+		initChooseParam.setChooseBtnName("更多...");
 		initChooseParam.setIscleanStaffTextAreaPanel(true);
+
 
 		InitChooseListParam initChooseListParam = new InitChooseListParam();
 		initChooseListParam.setCancelBtnText("关闭");
 		initChooseListParam.setHiddenChooseBtn(true);
 		initChooseListParam.setHiddenSpecialBoxPanel(true);
-
 		initChooseParam.setInitChooseListParam(initChooseListParam);
 		staffPanel.initChoosePanel(initChooseParam);
 		staffPanel.setRewardId(awardsId);
@@ -125,9 +128,31 @@ public class DetailsOfAwardPresenterImpl extends
 								.dateToString(response.getExpectNominateDate()));
 						display.setAwardName(response.getAwardingStaffName());
 						display.setWinners(response.getWinnerList());
+						display.setCandidate(response.getCandidateList());
 
 					}
 				});
+		registerHandler(display.getMoreCandidateClickHandlers().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent arg0) {
+						final ChooseStaffListDialog dialog = chooseStaffDialogProvider
+								.get();
+						InitChooseListParam initChooseListParam = new InitChooseListParam();
+						initChooseListParam.setCancelBtnText("关闭");
+						initChooseListParam.setHiddenChooseBtn(true);
+						initChooseListParam.setHiddenSpecialBoxPanel(true);
+						if (initChooseListParam != null)
+							dialog.initChooseList(initChooseListParam);
+						dialog.setRewardId(awardsId);
+						dialog.setNominee(false, true, null);// The key is the
+																// first
+																// parameter(false).
+				
+						Platform.getInstance().getSiteManager()
+								.openDialog(dialog, null);
+					}
+				}));
 	}
 
 	@Override
