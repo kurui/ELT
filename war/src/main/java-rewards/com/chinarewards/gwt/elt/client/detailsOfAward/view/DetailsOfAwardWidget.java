@@ -4,11 +4,13 @@ import java.util.List;
 
 import com.chinarewards.gwt.elt.client.detailsOfAward.presenter.DetailsOfAwardPresenter.DetailsOfAwardDisplay;
 import com.chinarewards.gwt.elt.model.awardReward.WinnerParamVo;
+import com.chinarewards.gwt.elt.model.nominate.CandidateParamVo;
 import com.chinarewards.gwt.elt.model.nominate.JudgeParamVo;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.InlineLabel;
@@ -58,7 +60,12 @@ public class DetailsOfAwardWidget extends Composite implements
 
 	@UiField
 	VerticalPanel winners;
-
+	@UiField
+	InlineLabel candidateList;
+	@UiField
+	Anchor moreCandidate;
+	
+	
 	// 选人模块
 	@UiField
 	Panel staffPanel;
@@ -196,7 +203,29 @@ public class DetailsOfAwardWidget extends Composite implements
 		this.winners.add(winnerlab);
 
 	}
+	@Override
+	public void setCandidate(List<CandidateParamVo> cand) {
+		String candStr = "";
+		if(cand.size()>10)
+		{
+			for (int i = 0; i < 10; i++) {
+				candStr += cand.get(i).getName() + "　";
+	
+			}
+			this.candidateList.setText(candStr);
 
+		}
+		else
+		{
+			for (int i = 0; i < cand.size(); i++) {
+				candStr += cand.get(i).getName() + "　";
+
+			}
+			this.candidateList.setText(candStr);
+			this.moreCandidate.setVisible(false);
+		}
+
+	}
 	@Override
 	public void setPageTitle(String titleName) {
 		this.pageTitle.setText(titleName);
@@ -206,5 +235,10 @@ public class DetailsOfAwardWidget extends Composite implements
 		this.breadCrumbs.clear();
 		this.breadCrumbs.add(breadCrumbs);
 		
+	}
+
+	@Override
+	public HasClickHandlers getMoreCandidateClickHandlers() {
+		return moreCandidate;
 	}
 }

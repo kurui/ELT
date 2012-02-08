@@ -2,8 +2,6 @@ package com.chinarewards.gwt.elt.client.rewardItem.presenter;
 
 import java.util.Comparator;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
@@ -229,6 +227,20 @@ public class RewardsItemListPresenterImpl extends
 						return rewards.getDegree() + "";
 					}
 				}, ref, "nexRunBatchTime");
+		resultTable.addColumn("状态", new TextCell(),
+				new GetValue<RewardsItemClient, String>() {
+					@Override
+					public String getValue(RewardsItemClient rewards) {
+						if (rewards.isEnabled() == true){
+							return "已激活";
+						}
+						else
+						{
+							return "未激活";
+						}
+						
+					}
+				}, ref, "nexRunBatchTime");
 		resultTable.addColumn("操作", new HyperLinkCell(),
 				new GetValue<RewardsItemClient, String>() {
 					@Override
@@ -308,10 +320,9 @@ public class RewardsItemListPresenterImpl extends
 					@Override
 					public String getValue(RewardsItemClient arg0) {
 
-						if (arg0.isEnabled() == false)
+
 							return "应用";
-						else
-							return "已激活";
+
 					}
 				}, new FieldUpdater<RewardsItemClient, String>() {
 					@Override
@@ -341,13 +352,40 @@ public class RewardsItemListPresenterImpl extends
 						}
 					}
 				});
+		resultTable.addColumn("操作", new HyperLinkCell(),
+				new GetValue<RewardsItemClient, String>() {
+					@Override
+					public String getValue(RewardsItemClient arg0) {
+
+
+							return "冻结";
+
+					}
+				}, new FieldUpdater<RewardsItemClient, String>() {
+					@Override
+					public void update(int index,
+							final RewardsItemClient object, String value) {
+						if (object.isEnabled() == true) {
+
+							win.confirm("提示", "确定冻结？", new ConfirmHandler() {
+								@Override
+								public void confirm() {
+									freezeRewardItem(object.getId());
+								}
+							});
+
+						} else {
+							win.alert("未激活状态,无法冻结");
+						}
+					}
+				});
 
 	}
 
 	public void activationRewardItem(String rewardsItemId) {
 
 		dispatch.execute(new ActivationRewardsItemRequest(rewardsItemId,
-				sessionManager.getSession().getToken()),
+				sessionManager.getSession().getToken(),"activation"),
 				new AsyncCallback<ActivationRewardsItemResponse>() {
 
 					@Override
@@ -362,7 +400,24 @@ public class RewardsItemListPresenterImpl extends
 					}
 				});
 	}
+	public void freezeRewardItem(String rewardsItemId) {
 
+		dispatch.execute(new ActivationRewardsItemRequest(rewardsItemId,
+				sessionManager.getSession().getToken(),"freeze"),
+				new AsyncCallback<ActivationRewardsItemResponse>() {
+
+					@Override
+					public void onFailure(Throwable t) {
+						win.alert(t.getMessage());
+					}
+
+					@Override
+					public void onSuccess(ActivationRewardsItemResponse resp) {
+						win.alert(resp.getName() + "--已冻结!");
+						doSearch();
+					}
+				});
+	}
 	public void deleteRewardItem(String rewardsItemId) {
 
 		dispatch.execute(new DeleteRewardsItemRequest(rewardsItemId,
@@ -389,10 +444,8 @@ public class RewardsItemListPresenterImpl extends
 		criteria.setName(display.getSearchName().getValue());
 		criteria.setCreateTime(display.getCreateTime().getValue());
 		criteria.setCreateTimeEnd(display.getCreateTimeEnd().getValue());
-		if(display.getStatus().equals("true"))
-		   criteria.setEnabled(true);
-		else
-			criteria.setEnabled(false);
+		criteria.setEnabled(display.getStatus());
+
 		listViewAdapter.setCriteria(criteria);
 		listViewAdapter.reloadToFirstPage();
 	}

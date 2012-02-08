@@ -60,7 +60,7 @@ public class BreadCrumbsWidget extends Composite implements BreadCrumbsDisplay {
 			}
 			if(i!=menuBreadVo.size()-1)
 			{
-				HTML h=new HTML("-->");
+				HTML h=new HTML("-");
 				h.setStyleName("breadcrumbsdiv");
 				titleText.add(h);
 			}

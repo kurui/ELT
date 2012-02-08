@@ -39,13 +39,13 @@ public class RewardItemSearchVo {
 	private Integer tmdays;//提前的天数
 	private int degree;// 生成奖励的次数
 	
-	private boolean enabled;
+	private String enabled;
 	
-	public boolean isEnabled() {
+	public String isEnabled() {
 		return enabled;
 	}
 
-	public void setEnabled(boolean enabled) {
+	public void setEnabled(String enabled) {
 		this.enabled = enabled;
 	}
 

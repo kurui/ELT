@@ -24,7 +24,7 @@
 					
 					<span class="{new1.nbspbig}"></span>
 					    <span class="{new1.blue-btn}">
-						<g:Button ui:field="searchBtn" text="搜索" />
+						<g:Button ui:field="searchBtn" text="查询" />
 					    </span>
 					<span class="{new1.nbspbig}"></span>
 					<span class="{new1.nbspbig}"></span>
@@ -36,7 +36,7 @@
 
 
 			<span class="{new1.cutline}"></span>
-			<div class="{new1.divtext}">一共有 <g:InlineLabel ui:field="dataCount" styleName="{new1.divfont}"></g:InlineLabel> 条订单</div><div  class="{new1.divend}"></div>
+			<div class="{new1.divtext}">共有 <g:InlineLabel ui:field="dataCount" styleName="{new1.divfont}"></g:InlineLabel> 条订单</div><div  class="{new1.divend}"></div>
 			<div class="{new1.table}">
 				<g:FlowPanel ui:field="resultPanel" />
 			</div>

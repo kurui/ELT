@@ -31,7 +31,7 @@
 					<g:TextBox maxLength="20" ui:field="keyName" styleName="{new2.text}" />
 
 					<span class="{new2.btn}">
-						<g:Button ui:field="searchBtn" text="搜索" />
+						<g:Button ui:field="searchBtn" text="查询" />
 					</span>
 
 				</div>
