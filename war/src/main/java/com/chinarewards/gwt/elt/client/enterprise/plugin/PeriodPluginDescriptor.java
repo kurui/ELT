@@ -11,31 +11,23 @@ import com.chinarewards.gwt.elt.client.core.PluginDescriptor;
 import com.chinarewards.gwt.elt.client.core.ui.MenuItem;
 import com.chinarewards.gwt.elt.client.enterprise.editor.PeriodEditorDescriptor;
 import com.chinarewards.gwt.elt.client.plugin.MenuConstants;
+import com.chinarewards.gwt.elt.client.plugin.PluginConstants;
 import com.google.gwt.user.client.ui.Image;
 import com.google.inject.Inject;
 
 public class PeriodPluginDescriptor implements PluginDescriptor {
-
 	final static Set<Extension> extensions = new HashSet<Extension>();
-
 	final static String PLUGIN_ID = EnterpriseConstants.PLUGIN_ENTERPRISE;
-
 	final PeriodPlugin plugin;
-
 	final PeriodEditorDescriptor descriptor;
 
 	@Inject
-	public PeriodPluginDescriptor(
-			final PeriodEditorDescriptor editorDesc) {
-
+	public PeriodPluginDescriptor(final PeriodEditorDescriptor editorDesc) {
 		this.descriptor = editorDesc;
-
 		plugin = new PeriodPlugin(this);
-
 		extensions.add(new Extension() {
-
 			public String getExtensionPointId() {
-				return "core.menu";
+				return PluginConstants.MENU;
 			}
 
 			public Object getInstance() {
@@ -78,9 +70,8 @@ public class PeriodPluginDescriptor implements PluginDescriptor {
 		});
 
 		extensions.add(new Extension() {
-
 			public String getExtensionPointId() {
-				return "core.editor";
+				return PluginConstants.EDITOR;
 			}
 
 			public Object getInstance() {

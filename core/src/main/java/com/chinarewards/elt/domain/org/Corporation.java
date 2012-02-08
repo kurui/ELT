@@ -61,19 +61,27 @@ public class Corporation extends Organization {
 	
 	private  String moneyType;//企业所用货币类型
 	
-	public double getIntegralPrice() {
+
+
+	public Double getIntegralPrice() {
+		if(integralPrice==null){
+			return Double.valueOf(0);
+		}
 		return integralPrice;
 	}
 
-	public void setIntegralPrice(double integralPrice) {
+	public void setIntegralPrice(Double integralPrice) {
 		this.integralPrice = integralPrice;
 	}
 
-	public double getPeriod() {
+	public Double getPeriod() {
+		if(period==null){
+			return Double.valueOf(0);
+		}
 		return period;
 	}
 
-	public void setPeriod(double period) {
+	public void setPeriod(Double period) {
 		this.period = period;
 	}
 

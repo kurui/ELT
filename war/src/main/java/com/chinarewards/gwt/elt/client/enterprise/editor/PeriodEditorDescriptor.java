@@ -26,7 +26,7 @@ public class PeriodEditorDescriptor implements EditorDescriptor {
 	}
 
 	public String getEditorId() {
-		return EnterpriseConstants.MENU_PERIOD_EDIT;
+		return EnterpriseConstants.EDITOR_PERIOD_EDIT;
 	}
 
 }

@@ -12,7 +12,7 @@ import com.chinarewards.elt.domain.org.Industry;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.Amount;
 import com.chinarewards.elt.model.org.CorporationVo;
-import com.chinarewards.elt.model.transaction.TransactionUnit;
+import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.exception.GetMaxConsumeErrorException;
 import com.chinarewards.elt.service.org.CorporationLogic;
 import com.chinarewards.elt.tx.model.Unit;
@@ -56,24 +56,23 @@ public class CorporationLogicImpl implements CorporationLogic {
 						corporation.getIndustryId());
 				corp.setIndustry(industry);
 			}
-			
 
 			// Create the default unit code.
-			
+
 			corp.setDefaultUnitCode(corporation.getUnitCode());
-			corp.setTxAccountId(corporation.getTxAccountId());//产生一个交易账户ID
+			corp.setTxAccountId(corporation.getTxAccountId());// 产生一个交易账户ID
 			Date now = DateUtil.getTime();
 			corp.setName(corporation.getName());
 			corp.setDescription(corporation.getDescription());
 			corp.setDefaultUnitCode(corporation.getUnitCode());
 			corp.setAddress(corporation.getAddress());
-            corp.setCellphone(corporation.getCellphone());
-            corp.setCorporation(corporation.getCorporation());
-            corp.setEmailAddress(corporation.getEmailAddress());
-            corp.setFax(corporation.getFax());
-            corp.setLinkman(corporation.getLinkman());
-            corp.setTell(corporation.getTell());
-            corp.setWeb(corporation.getWeb());
+			corp.setCellphone(corporation.getCellphone());
+			corp.setCorporation(corporation.getCorporation());
+			corp.setEmailAddress(corporation.getEmailAddress());
+			corp.setFax(corporation.getFax());
+			corp.setLinkman(corporation.getLinkman());
+			corp.setTell(corporation.getTell());
+			corp.setWeb(corporation.getWeb());
 			corp.setCreatedAt(now);
 			corp.setCreatedBy(caller);
 			corp.setLastModifiedAt(now);
@@ -94,13 +93,13 @@ public class CorporationLogicImpl implements CorporationLogic {
 			corp.setTxAccountId(corporation.getTxAccountId());
 			corp.setDefaultUnitCode(corporation.getUnitCode());
 			corp.setAddress(corporation.getAddress());
-            corp.setCellphone(corporation.getCellphone());
-            corp.setCorporation(corporation.getCorporation());
-            corp.setEmailAddress(corporation.getEmailAddress());
-            corp.setFax(corporation.getFax());
-            corp.setLinkman(corporation.getLinkman());
-            corp.setTell(corporation.getTell());
-            corp.setWeb(corporation.getWeb());
+			corp.setCellphone(corporation.getCellphone());
+			corp.setCorporation(corporation.getCorporation());
+			corp.setEmailAddress(corporation.getEmailAddress());
+			corp.setFax(corporation.getFax());
+			corp.setLinkman(corporation.getLinkman());
+			corp.setTell(corporation.getTell());
+			corp.setWeb(corporation.getWeb());
 
 			corp.setCreatedAt(now);
 			corp.setCreatedBy(caller);
@@ -110,6 +109,15 @@ public class CorporationLogicImpl implements CorporationLogic {
 		}
 
 		return corp;
+	}
+
+	@Override
+	public Corporation updateIntegralPrice(UserContext context,
+			Corporation corporation) {
+		logger.debug(" Process in updateIntegralPrice method, corporation.toString:"
+				+ corporation.toString());
+		corporation = corporationDao.update(corporation);
+		return corporation;
 	}
 
 	@Override

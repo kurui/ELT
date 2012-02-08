@@ -20,12 +20,12 @@
 			<div class="{new2.form}">
 				<div class="{new2.form-line}">
 					<label class="{new2.label}">
-						<span style="color:red">*</span>
-						积分价值：
+						1积分=
 					</label>
 					<div class="{new2.element}">
 						<g:TextBox maxLength="30" ui:field="integralPrice"
 							styleName="{new2.text}" />
+						<g:ListBox ui:field="moneyType" styleName="{new2.text}" />
 					</div>
 				</div>
 				<span class="{new2.cutline}"></span>

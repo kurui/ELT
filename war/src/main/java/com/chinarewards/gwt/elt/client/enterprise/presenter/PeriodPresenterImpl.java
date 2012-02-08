@@ -35,7 +35,6 @@ public class PeriodPresenterImpl extends BasePresenter<PeriodDisplay> implements
 	private final SessionManager sessionManager;
 	List<HandlerRegistration> handlerRegistrations = new ArrayList<HandlerRegistration>();
 	private final BreadCrumbsPresenter breadCrumbs;
-	EnterpriseVo enterpriseVo = new EnterpriseVo();
 
 	@Inject
 	public PeriodPresenterImpl(final EventBus eventBus, PeriodDisplay display,
@@ -74,9 +73,14 @@ public class PeriodPresenterImpl extends BasePresenter<PeriodDisplay> implements
 	 * @return
 	 */
 	public EnterpriseVo getEnterprise() {
+		EnterpriseVo enterpriseVo = new EnterpriseVo();
+		enterpriseVo.setId(display.getEnterpriseId().trim());
 
-		// enterpriseVo.setPeriod(display.getAddress().getValue());
-		// enterpriseVo.setId(display.getEnterpriseId().trim());
+		int selectedIndex = display.getPeriod().getSelectedIndex();
+		enterpriseVo.setPeriod(Double.valueOf(display.getPeriod().getItemText(
+				selectedIndex)));
+		enterpriseVo.setFirstTime(display.getFirstTime().getValue());
+
 		return enterpriseVo;
 	}
 
@@ -105,7 +109,7 @@ public class PeriodPresenterImpl extends BasePresenter<PeriodDisplay> implements
 
 		EnterpriseInitRequest req = new EnterpriseInitRequest(
 				sessionManager.getSession());
-		
+
 		dispatchAsync.execute(req, new AsyncCallback<EnterpriseInitResponse>() {
 			public void onFailure(Throwable caught) {
 				Window.alert("初始化失败");
@@ -115,10 +119,8 @@ public class PeriodPresenterImpl extends BasePresenter<PeriodDisplay> implements
 			public void onSuccess(EnterpriseInitResponse response) {
 
 				if (response != null) {
-					enterpriseVo = response.getEnterprise();
-					// display.setAddress(enterpriseVo.getAddress());
-					// display.setEnterpriseId(enterpriseVo.getId());
-
+					EnterpriseVo enterpriseVo = response.getEnterprise();
+					display.initEditPeriod(enterpriseVo);
 				}
 			}
 

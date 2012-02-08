@@ -11,6 +11,7 @@ import com.chinarewards.gwt.elt.client.core.PluginDescriptor;
 import com.chinarewards.gwt.elt.client.core.ui.MenuItem;
 import com.chinarewards.gwt.elt.client.enterprise.editor.IntegralPriceEditorDescriptor;
 import com.chinarewards.gwt.elt.client.plugin.MenuConstants;
+import com.chinarewards.gwt.elt.client.plugin.PluginConstants;
 import com.google.gwt.user.client.ui.Image;
 import com.google.inject.Inject;
 
@@ -27,15 +28,11 @@ public class IntegralPricePluginDescriptor implements PluginDescriptor {
 	@Inject
 	public IntegralPricePluginDescriptor(
 			final IntegralPriceEditorDescriptor editorDesc) {
-
 		this.descriptor = editorDesc;
-
 		plugin = new IntegralPricePlugin(this);
-
 		extensions.add(new Extension() {
-
 			public String getExtensionPointId() {
-				return "core.menu";
+				return PluginConstants.MENU;
 			}
 
 			public Object getInstance() {
@@ -80,7 +77,7 @@ public class IntegralPricePluginDescriptor implements PluginDescriptor {
 		extensions.add(new Extension() {
 
 			public String getExtensionPointId() {
-				return "core.editor";
+				return PluginConstants.EDITOR;
 			}
 
 			public Object getInstance() {

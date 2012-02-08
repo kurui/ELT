@@ -45,6 +45,12 @@ public class EnterpriseInitActionHandler extends
 		 vo.setTell(corp.getTell());
 		 vo.setWeb(corp.getWeb());
 		 vo.setId(corp.getId());
+		 
+		 vo.setIntegralPrice(corp.getIntegralPrice());
+		 vo.setMoneyType(corp.getMoneyType());
+		 vo.setPeriod(corp.getPeriod());
+		 vo.setFirstTime(corp.getFirstTime());
+		 
 		 resp.setEnterprise(vo);
 		 return resp;
 		 } else {

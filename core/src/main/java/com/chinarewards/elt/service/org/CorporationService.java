@@ -3,6 +3,7 @@ package com.chinarewards.elt.service.org;
 import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.org.CorporationVo;
+import com.chinarewards.elt.model.user.UserContext;
 
 /**
  * Service of corporation.
@@ -20,6 +21,9 @@ public interface CorporationService {
 	 * @return
 	 */
 	public Corporation saveCorporation(SysUser caller, CorporationVo corporation);
+	
+	public Corporation updateIntegralPrice(UserContext context,
+			Corporation corporation);
 
 	/**
 	 * Find a corporation by the specified id.

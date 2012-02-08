@@ -29,20 +29,22 @@ import com.google.inject.Inject;
  */
 public class IntegralPricePresenterImpl extends
 		BasePresenter<IntegralPriceDisplay> implements IntegralPricePresenter {
-
-	final DispatchAsync dispatchAsync;
+	
+	private String thisAction;
+	private String enterpriseId;
+	
+	final DispatchAsync dispatcher;
 	final Win win;
 	private final SessionManager sessionManager;
 	List<HandlerRegistration> handlerRegistrations = new ArrayList<HandlerRegistration>();
 	private final BreadCrumbsPresenter breadCrumbs;
-	EnterpriseVo enterpriseVo = new EnterpriseVo();
 
 	@Inject
 	public IntegralPricePresenterImpl(final EventBus eventBus,
 			IntegralPriceDisplay display, BreadCrumbsPresenter breadCrumbs,
-			DispatchAsync dispatchAsync, SessionManager sessionManager, Win win) {
+			DispatchAsync dispatcher, SessionManager sessionManager, Win win) {
 		super(eventBus, display);
-		this.dispatchAsync = dispatchAsync;
+		this.dispatcher = dispatcher;
 		this.sessionManager = sessionManager;
 		this.win = win;
 		this.breadCrumbs = breadCrumbs;
@@ -52,7 +54,9 @@ public class IntegralPricePresenterImpl extends
 	public void bind() {
 		breadCrumbs.loadChildPage("企业信息注册");
 		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
+
 		initialization();
+
 		registerHandler(display.getSaveClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
@@ -73,17 +77,23 @@ public class IntegralPricePresenterImpl extends
 	 * @return
 	 */
 	public EnterpriseVo getEnterprise() {
+		EnterpriseVo enterpriseVo = new EnterpriseVo();
+		enterpriseVo.setId(display.getEnterpriseId().trim());
+		enterpriseVo.setIntegralPrice(Double.valueOf(display.getIntegralPrice()
+				.getValue()));
 
-		// enterpriseVo.setIntegralPrice(display.getAddress().getValue());
-		// enterpriseVo.setId(display.getEnterpriseId().trim());
+		int selectedIndex = display.getMoneyType().getSelectedIndex();
+		enterpriseVo.setMoneyType(display.getMoneyType().getItemText(
+				selectedIndex));
 		return enterpriseVo;
+
 	}
 
 	public void sendService(EnterpriseVo enterprise) {
 
 		EnterpriseRequest req = new EnterpriseRequest(enterprise,
 				sessionManager.getSession());
-		dispatchAsync.execute(req, new AsyncCallback<EnterpriseResponse>() {
+		dispatcher.execute(req, new AsyncCallback<EnterpriseResponse>() {
 			public void onFailure(Throwable caught) {
 
 				win.alert("操作失败");
@@ -100,11 +110,9 @@ public class IntegralPricePresenterImpl extends
 	/**
 	 * 加载初始化数据
 	 */
-	private void initialization() {
-
-		EnterpriseInitRequest req = new EnterpriseInitRequest(
-				sessionManager.getSession());
-		dispatchAsync.execute(req, new AsyncCallback<EnterpriseInitResponse>() {
+	private void initialization() {		
+		dispatcher.execute(new EnterpriseInitRequest(
+				sessionManager.getSession()), new AsyncCallback<EnterpriseInitResponse>() {
 			public void onFailure(Throwable caught) {
 
 				Window.alert("初始化失败");
@@ -112,16 +120,25 @@ public class IntegralPricePresenterImpl extends
 
 			@Override
 			public void onSuccess(EnterpriseInitResponse response) {
-
 				if (response != null) {
-					enterpriseVo = response.getEnterprise();
-//					display.setAddress(enterpriseVo.getAddress());
-//					display.setEnterpriseId(enterpriseVo.getId());
-
+					EnterpriseVo enterpriseVo = response.getEnterprise();
+					clear();
+					display.initEditIntegralPrice(enterpriseVo);
 				}
 			}
 
 		});
 
+	}
+	
+
+	private void clear() {
+		display.clear();
+	}
+
+
+	@Override
+	public void initEditor(String id) {		
+		this.enterpriseId=id;
 	}
 }
