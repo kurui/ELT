@@ -444,10 +444,8 @@ public class RewardsItemListPresenterImpl extends
 		criteria.setName(display.getSearchName().getValue());
 		criteria.setCreateTime(display.getCreateTime().getValue());
 		criteria.setCreateTimeEnd(display.getCreateTimeEnd().getValue());
-		if(display.getStatus().equals("true"))
-		   criteria.setEnabled(true);
-		else
-			criteria.setEnabled(false);
+		criteria.setEnabled(display.getStatus());
+
 		listViewAdapter.setCriteria(criteria);
 		listViewAdapter.reloadToFirstPage();
 	}

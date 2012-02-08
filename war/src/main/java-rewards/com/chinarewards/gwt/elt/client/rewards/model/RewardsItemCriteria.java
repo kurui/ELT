@@ -50,12 +50,12 @@ public class RewardsItemCriteria implements Serializable {
 	private Date startTime;
 
 	private Date createTime;//查询时传的参数（创建时间起）
-	private boolean enabled;
-	public boolean isEnabled() {
+	private String enabled;
+	public String isEnabled() {
 		return enabled;
 	}
 
-	public void setEnabled(boolean enabled) {
+	public void setEnabled(String enabled) {
 		this.enabled = enabled;
 	}
 

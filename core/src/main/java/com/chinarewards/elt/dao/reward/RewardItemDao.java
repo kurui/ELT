@@ -110,9 +110,17 @@ public class RewardItemDao extends BaseDao<RewardItem> {
 
 		}
 		// 根据激活状态来查询
-		eql.append(" and  item.enabled= :enabled ");
-		param.put("enabled", criteria.isEnabled());
-
+		if("false".equals(criteria.isEnabled()))
+		{
+			eql.append(" and  item.enabled= :enabled ");
+			param.put("enabled", false);
+		}
+		if("true".equals(criteria.isEnabled()))
+		{
+			eql.append(" and  item.enabled= :enabled ");
+			param.put("enabled", true);
+		}
+		
 		if (!StringUtil.isEmptyString(criteria.getName())) {
 			eql.append(" AND UPPER(item.name) LIKE :name ");
 			param.put("name", "%" + criteria.getName().trim().toUpperCase()

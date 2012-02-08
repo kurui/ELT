@@ -52,12 +52,15 @@
 
 
 			<span class="{newitem.cutline}"></span>
+
 			<p class="{newitem.send-news}">
-				<span class="{newitem.btn}">
-					<g:Button ui:field="addBtn">创建奖项
-					</g:Button>
-				</span>
+					<div style="float:right;text-align:right;padding-bottom: 5px;">
+						<span class="{newitem.btn}">
+								<g:Button ui:field="addBtn">创建奖项</g:Button>
+						</span>
+					</div>
 			</p>
+
 
 			<div class="{newitem.divtext}">
 				共有
