@@ -28,18 +28,18 @@ public class OrderHistoryViewWidget extends Composite implements
 	@UiField
 	Label orderCode;
 	@UiField
-	Label exchangeDate;
+	InlineLabel exchangeDate;
 	@UiField
-	Label statusText;
+	InlineLabel statusText;
 
 	@UiField
-	Label receiver;
+	InlineLabel receiver;
 	@UiField
-	Label tel;
+	InlineLabel tel;
 	@UiField
-	Label address;
+	InlineLabel address;
 	@UiField
-	Label postcode;
+	InlineLabel postcode;
 	
 	@UiField
 	Anchor shopText;

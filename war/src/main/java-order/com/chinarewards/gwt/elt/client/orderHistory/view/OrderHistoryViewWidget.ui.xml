@@ -23,10 +23,10 @@
 		
 		          <p class="{new1.order-title}">订单收货人信息</p>
 		          <div class="{new1.order-section}">
-		            <p><span class="{new1.order-field}">收货人：</span> <g:Label ui:field="receiver" /></p>
-		            <p><span class="{new1.order-field}">电话：</span> <g:Label ui:field="tel" /></p>
-		            <p><span class="{new1.order-field}">收货地址：</span> <g:Label ui:field="address" /></p>
-		            <p><span class="{new1.order-field}">邮编：</span> <g:Label ui:field="postcode" /></p>
+		            <p><span class="{new1.order-field}">收货人：</span> <g:InlineLabel ui:field="receiver" /></p>
+		            <p><span class="{new1.order-field}">电话：</span> <g:InlineLabel ui:field="tel" /></p>
+		            <p><span class="{new1.order-field}">收货地址：</span> <g:InlineLabel ui:field="address" /></p>
+		            <p><span class="{new1.order-field}">邮编：</span> <g:InlineLabel ui:field="postcode" /></p>
 		          </div>
 		
 		          <p class="{new1.order-title}">订单包含礼品</p>

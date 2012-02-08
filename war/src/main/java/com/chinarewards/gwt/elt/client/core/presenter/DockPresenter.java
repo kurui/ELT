@@ -19,6 +19,7 @@ public interface DockPresenter extends Presenter<DockPresenter.DockDisplay> {
 		HasClickHandlers getBtnSetting();
 		HasClickHandlers getBtnGift();
 		HasClickHandlers getBtnCollection();
+		HasClickHandlers getBtnIntegral();
 		HasClickHandlers getManagementCenter();
 		HasClickHandlers getGiftExchange();
 		HasClickHandlers getStaffCorner();
