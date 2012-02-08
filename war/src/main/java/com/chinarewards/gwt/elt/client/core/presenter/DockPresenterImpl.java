@@ -154,7 +154,19 @@ public class DockPresenterImpl extends BasePresenter<DockDisplay> implements
 										.getMenuItem(GiftListConstants.MENU_GIFTLIST_SEARCH)));
 					}
 				}));
-
+		registerHandler(display.getBtnIntegral().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						display.setMenuTitle("积分管理");
+						display.setMenu(null);
+//						menuProcessor.initrender(display.getMenu(), "Integral");
+//						eventBus.fireEvent(new MenuClickEvent(
+//								menuProcessor
+//										.getMenuItem(GiftListConstants.MENU_GIFTLIST_SEARCH)));
+					}
+				}));
+		
 		registerHandler(display.getGiftExchange().addClickHandler(
 				new ClickHandler() {
 					@Override
