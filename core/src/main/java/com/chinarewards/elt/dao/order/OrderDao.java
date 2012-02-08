@@ -101,23 +101,5 @@ public class OrderDao extends BaseDao<Orders> {
 		return query;
 	}
 	
-	public int getOrderByStatus(String userId,String status){
-		int count = 0;
-		Map<String, Object> param = new HashMap<String, Object>();
-		StringBuffer eql = new StringBuffer();
-		eql.append(" SELECT COUNT(o) FROM Orders o,Gift g where o.giftId=g.id  and  o.deleted= :deleted");
-		param.put("deleted", 0);
-		if (status!=null&& !status.equals("")) {
-			eql.append(" AND UPPER(o.status) = :status ");
-			param.put("status", status);
-		}
-		if (!StringUtil.isEmptyString(userId)) {
-			eql.append(" AND UPPER(o.userId) =:userId ");
-			param.put("userId", userId);
-		}
-		Query query = getEm().createQuery(eql.toString());
-		if (query.getSingleResult() != null)
-			count = Integer.parseInt(query.getSingleResult().toString());
-		return count;
-	}
+	
 }

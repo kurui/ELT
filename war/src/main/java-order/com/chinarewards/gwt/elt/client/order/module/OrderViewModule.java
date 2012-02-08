@@ -13,6 +13,8 @@ public class OrderViewModule extends AbstractGinModule {
 	protected void configure() {
 		bind(OrderViewPresenter.class).to(OrderViewPresenterImpl.class);
 		bind(OrderViewDisplay.class).to(OrderViewWidget.class);
+		
+		
 	}
 
 }
