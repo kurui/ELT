@@ -134,9 +134,6 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 		registerHandler(display.getAwardShop().addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				breadCrumbsMenu.cleanBreadCrumbsItemAll();
-				breadCrumbsMenu.addBreadCrumbsItemTop("首页",null);
-				breadCrumbsMenu.addBreadCrumbsItem("奖品商城",null);
 				Platform.getInstance()
 				.getEditorRegistry()
 				.openEditor(
@@ -145,12 +142,9 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 			}
 		}));
 		
-		registerHandler(display.getOrderHistory().addClickHandler(new ClickHandler() {
+		registerHandler(display.getExchangeHistory().addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				breadCrumbsMenu.cleanBreadCrumbsItemAll();
-				breadCrumbsMenu.addBreadCrumbsItemTop("兑换历史",null);
-				breadCrumbsMenu.addBreadCrumbsItem("我的定单",null);
 				Platform.getInstance()
 				.getEditorRegistry()
 				.openEditor(
