@@ -59,7 +59,10 @@ public class OrderHistoryViewWidget extends Composite implements
 	InlineLabel mybalance;
 	@UiField
 	TextArea orderDefinition;
-
+	@UiField
+	InlineLabel business;
+	@UiField
+	InlineLabel servicetell;
 	@UiField
 	Panel breadCrumbs;
 	
@@ -80,7 +83,8 @@ public class OrderHistoryViewWidget extends Composite implements
 	public void showOrderHistory(OrderViewClient orderVo) {
 		orderCode.setText(orderVo.getOrdercode());
 		exchangeDate.setText(DateTool.dateToString(orderVo.getExchangeDate()));
-		
+		business.setText(orderVo.getBussiness());
+		servicetell.setText(orderVo.getServicetell());
 		statusText.setText(toChineseStatus(orderVo.getOrderStatus()));
 		orderDefinition.setText(orderVo.getOrderDefinition());
 		receiver.setText(orderVo.getName());

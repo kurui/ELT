@@ -4,6 +4,7 @@ import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.org.CorporationVo;
 import com.chinarewards.elt.model.transaction.TransactionUnit;
+import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.org.CorporationLogic;
 import com.chinarewards.elt.service.org.CorporationService;
 import com.chinarewards.elt.tx.service.TransactionService;
@@ -54,6 +55,12 @@ public class CorporationServiceImpl implements CorporationService {
 	@Override
 	public double callBalance(String corporationId) {
 		return corporationLogic.callBalance(corporationId);
+	}
+
+	@Override
+	public Corporation updateIntegralPrice(UserContext context,
+			Corporation corporation) {
+		return corporationLogic.updateIntegralPrice(context, corporation);
 	}
 
 }

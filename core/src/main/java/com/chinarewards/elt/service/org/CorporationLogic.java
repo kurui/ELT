@@ -4,6 +4,7 @@ import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.Amount;
 import com.chinarewards.elt.model.org.CorporationVo;
+import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.exception.GetMaxConsumeErrorException;
 import com.chinarewards.elt.tx.model.Unit;
 
@@ -58,4 +59,12 @@ public interface CorporationLogic {
 	 */
 	public Amount getMaxConsume(String corporationId)
 			throws GetMaxConsumeErrorException;
+
+	/**
+	 * @param context
+	 * @param corporation
+	 * @return
+	 */
+	public Corporation updateIntegralPrice(UserContext context,
+			Corporation corporation);
 }

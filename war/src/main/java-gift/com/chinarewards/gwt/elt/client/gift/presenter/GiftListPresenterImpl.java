@@ -52,8 +52,6 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 	ListCellTable<GiftClient> cellTable;
 	GiftListViewAdapter listViewAdapter;
 
-	
-
 	private final BreadCrumbsPresenter breadCrumbs;
 
 	@Inject

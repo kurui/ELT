@@ -16,6 +16,8 @@ import com.chinarewards.gwt.elt.client.detailsOfAward.plugin.DetailsOfAwardPlugi
 import com.chinarewards.gwt.elt.client.detailsOfGift.plugin.DetailsOfGiftPluginDescriptor;
 import com.chinarewards.gwt.elt.client.enterprise.plugin.EnterprisePluginDescriptor;
 import com.chinarewards.gwt.elt.client.enterprise.plugin.EnterprisePluginModule;
+import com.chinarewards.gwt.elt.client.enterprise.plugin.IntegralPricePluginDescriptor;
+import com.chinarewards.gwt.elt.client.enterprise.plugin.PeriodPluginDescriptor;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftPluginDescriptor;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftViewPluginDescriptor;
@@ -69,7 +71,7 @@ public class PlatformModule extends AbstractGinModule {
 			// ---- PLUGINS DEFINE BELOW (2) ----
 			CorePluginDescriptor core, // core
 
-			EnterprisePluginDescriptor enterprise, UserPluginDescriptor user,
+			EnterprisePluginDescriptor enterprise,IntegralPricePluginDescriptor integralPrice,PeriodPluginDescriptor period, UserPluginDescriptor user,
 			HrRegisterPluginDescriptor hrregister,
 			NominatePluginDescriptor nominate,
 			RewardsItemPluginDescriptor rewardsItem,
@@ -94,6 +96,8 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet = new InMemoryPluginSet();
 			pluginSet.registerPlugin(core);
 			pluginSet.registerPlugin(enterprise);
+			pluginSet.registerPlugin(integralPrice);
+			pluginSet.registerPlugin(period);			
 			pluginSet.registerPlugin(user);
 			pluginSet.registerPlugin(hrregister);
 			pluginSet.registerPlugin(rewardsItemList);

@@ -30,6 +30,25 @@ public class OrderViewClient implements Serializable, Comparable<OrderViewClient
 	private double total;
 	private double userBalance;
 	private String ordercode;
+	private String bussiness;
+	private String servicetell;
+	public String getBussiness() {
+		return bussiness;
+	}
+
+	public void setBussiness(String bussiness) {
+		this.bussiness = bussiness;
+	}
+
+	public String getServicetell() {
+		return servicetell;
+	}
+
+	public void setServicetell(String servicetell) {
+		this.servicetell = servicetell;
+	}
+
+
 	private Date exchangeDate;
 	public String getOrdercode() {
 		return ordercode;

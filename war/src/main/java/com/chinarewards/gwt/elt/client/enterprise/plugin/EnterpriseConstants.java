@@ -14,10 +14,17 @@ public abstract class EnterpriseConstants {
 
 		// 菜单
 		public static final String MENU_ENTERPRISE_EDIT = "MENU_ENTERPRISE_EDIT";
+		public static final String MENU_INTEGRAL_PRICE_EDIT = "MENU_INTEGRAL_PRICE_EDIT";//积分价值
+		public static final String MENU_PERIOD_EDIT = "MENU_PERIOD_EDIT";//财年		
+		
 
 		// Editor/页面模块
 		public static final String EDITOR_ENTERPRISE_EDIT = "EDITOR_ENTERPRISE_EDIT";
 		public static final String EDITOR_ENTERPRISE_VIEW = "EDITOR_ENTERPRISE_VIEW";
+		
+		public static final String EDITOR_INTEGRAL_PRICE_EDIT = "EDITOR_INTEGRAL_PRICE_EDIT";
+		public static final String EDITOR_PERIOD_EDIT = "EDITOR_PERIOD_EDIT";
+		
 
 	
 }
