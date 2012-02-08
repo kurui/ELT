@@ -5,9 +5,9 @@
 	<ui:style src="new2.css" field="new2"></ui:style>
 	<g:HTMLPanel>
 		<div class="{new2.frame-wrap}">
-			 <!--面包屑 [[ -->
-			<g:FlowPanel ui:field="breadCrumbs" />
-			<!--面包屑 ]] -->
+			 <div class="breadcrumb">
+               <a href="#">首页</a>-><a href="#">兑换历史</a>
+             </div>
 
 			<!--查询条件 [[ -->
 			<div class="{new2.query-wrap}">
@@ -23,9 +23,9 @@
 					<span class="{new2.nbspbig}"></span>
 					
 					<span class="{new2.nbspbig}"></span>
-					<span class="{new2.btn}">
+					
 						<g:Button ui:field="searchBtn" text="搜索" />
-					</span>
+					
 					<span class="{new2.nbspbig}"></span>
 					<span class="{new2.nbspbig}"></span>
 					<span class="{new2.nbspbig}"></span>
@@ -43,7 +43,7 @@
 
 
 			<!--分页 [[ -->
-			<div id="rewardlist_page" class="{new2.pager}">
+			<div id="rewardlist_page2" class="{new2.pager}">
 				<div class="{new2.pager-left}">
 					每页显示条数
 					<select class="{new2.select}">

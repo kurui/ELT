@@ -73,8 +73,8 @@ public class OrderHistoryPresenterImpl extends
 	@Override
 	public void bind() {
 		init();
-		breadCrumbs.loadListPage();
-		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
+//		breadCrumbs.loadListPage();
+//		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
 		registerHandler(display.getSearchBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {

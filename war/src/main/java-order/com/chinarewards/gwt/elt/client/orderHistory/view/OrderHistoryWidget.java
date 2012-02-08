@@ -40,8 +40,7 @@ public class OrderHistoryWidget extends Composite implements OrderHistoryDisplay
 	
 	@UiField
 	InlineLabel dataCount;
-	@UiField
-	Panel breadCrumbs;
+	
 	DateTimeFormat dateFormat = DateTimeFormat.getFormat(ViewConstants.date_format);
 	private static OrderWidgetUiBinder uiBinder = GWT
 			.create(OrderWidgetUiBinder.class);
@@ -108,10 +107,5 @@ public class OrderHistoryWidget extends Composite implements OrderHistoryDisplay
 		
 	}
 	
-	@Override
-	public void setBreadCrumbs(Widget breadCrumbs) {
-		this.breadCrumbs.clear();
-		this.breadCrumbs.add(breadCrumbs);		
-
-	}
+	
 }
