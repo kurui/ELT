@@ -12,16 +12,18 @@ import com.chinarewards.gwt.elt.client.support.UserSession;
  * 
  * @author yanrui
  */
-public class EditIntegralPriceRequest implements Action<EditIntegralPriceResponse> {
+public class EditIntegralPriceRequest implements
+		Action<EditIntegralPriceResponse> {
 
-	String giftId;
+	String enterpriseId;
 	String nowUserId;
 	private EnterpriseVo enterpriseVo;
 	private UserSession userSession;
 
 	List<String> staffIds;
 
-	public EditIntegralPriceRequest(EnterpriseVo enterpriseVo, UserSession userSession) {
+	public EditIntegralPriceRequest(EnterpriseVo enterpriseVo,
+			UserSession userSession) {
 		this.enterpriseVo = enterpriseVo;
 		this.userSession = userSession;
 	}
@@ -32,13 +34,12 @@ public class EditIntegralPriceRequest implements Action<EditIntegralPriceRespons
 	public EditIntegralPriceRequest() {
 	}
 
-
-	public String getIntegralPriceId() {
-		return giftId;
+	public String getEnterpriseId() {
+		return enterpriseId;
 	}
 
-	public void setIntegralPriceId(String giftId) {
-		this.giftId = giftId;
+	public void setEnterpriseId(String enterpriseId) {
+		this.enterpriseId = enterpriseId;
 	}
 
 	public String getNowUserId() {

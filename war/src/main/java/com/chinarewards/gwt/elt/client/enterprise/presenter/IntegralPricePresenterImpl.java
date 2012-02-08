@@ -8,10 +8,10 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.enterprise.model.EnterpriseVo;
 import com.chinarewards.gwt.elt.client.enterprise.presenter.IntegralPricePresenter.IntegralPriceDisplay;
+import com.chinarewards.gwt.elt.client.enterprise.request.EditIntegralPriceRequest;
+import com.chinarewards.gwt.elt.client.enterprise.request.EditIntegralPriceResponse;
 import com.chinarewards.gwt.elt.client.enterprise.request.EnterpriseInitRequest;
 import com.chinarewards.gwt.elt.client.enterprise.request.EnterpriseInitResponse;
-import com.chinarewards.gwt.elt.client.enterprise.request.EnterpriseRequest;
-import com.chinarewards.gwt.elt.client.enterprise.request.EnterpriseResponse;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
@@ -83,24 +83,26 @@ public class IntegralPricePresenterImpl extends
 				.getValue()));
 
 		int selectedIndex = display.getMoneyType().getSelectedIndex();
-		enterpriseVo.setMoneyType(display.getMoneyType().getItemText(
-				selectedIndex));
+		enterpriseVo.setMoneyType(display.getMoneyType().getValue(selectedIndex));
+//		enterpriseVo.setMoneyType(display.getMoneyType().getItemText(selectedIndex));
+		
 		return enterpriseVo;
 
 	}
 
-	public void sendService(EnterpriseVo enterprise) {
+	public void sendService(EnterpriseVo enterpriseVo) {
 
-		EnterpriseRequest req = new EnterpriseRequest(enterprise,
+		EditIntegralPriceRequest req = new EditIntegralPriceRequest(enterpriseVo,
 				sessionManager.getSession());
-		dispatcher.execute(req, new AsyncCallback<EnterpriseResponse>() {
+		
+		dispatcher.execute(req, new AsyncCallback<EditIntegralPriceResponse>() {
 			public void onFailure(Throwable caught) {
 
 				win.alert("操作失败");
 			}
 
 			@Override
-			public void onSuccess(EnterpriseResponse arg0) {
+			public void onSuccess(EditIntegralPriceResponse arg0) {
 				win.alert("操作成功");
 
 			}
@@ -111,6 +113,9 @@ public class IntegralPricePresenterImpl extends
 	 * 加载初始化数据
 	 */
 	private void initialization() {		
+		 String corporationId = sessionManager.getSession().getCorporationId();
+		 System.out.println("session corporationId:"+corporationId);
+		 
 		dispatcher.execute(new EnterpriseInitRequest(
 				sessionManager.getSession()), new AsyncCallback<EnterpriseInitResponse>() {
 			public void onFailure(Throwable caught) {
