@@ -52,7 +52,7 @@ public class IntegralPricePresenterImpl extends
 
 	@Override
 	public void bind() {
-		breadCrumbs.loadChildPage("企业信息注册");
+		breadCrumbs.loadChildPage("积分价值设置");
 		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
 
 		initialization();
@@ -114,7 +114,6 @@ public class IntegralPricePresenterImpl extends
 	 */
 	private void initialization() {		
 		 String corporationId = sessionManager.getSession().getCorporationId();
-		 System.out.println("session corporationId:"+corporationId);
 		 
 		dispatcher.execute(new EnterpriseInitRequest(
 				sessionManager.getSession()), new AsyncCallback<EnterpriseInitResponse>() {

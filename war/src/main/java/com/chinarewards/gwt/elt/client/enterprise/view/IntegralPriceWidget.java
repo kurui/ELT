@@ -57,32 +57,25 @@ public class IntegralPriceWidget extends Composite implements
 		integralPrice.setText(enterpriseVo.getIntegralPrice() + "");
 
 		initMoneyTypeSelect(enterpriseVo.getMoneyType());
-
 	}
 
 	private void initMoneyTypeSelect(String selectedValue) {
 		moneyType.clear();
 		int selectIndex = 0;
+		int i = 0;
 		for (Entry<String, String> entry : MoneyType.map.entrySet()) {
-			String keyValue = entry.getKey();
-			int i = 0;
+			String keyValue = entry.getKey();			
 			// System.out.println(entry.getKey() + ": " + entry.getValue());
 			moneyType.addItem(entry.getValue(), entry.getKey());
-			
-			System.out.println(keyValue+"-------------------"+selectedValue);
-			
-			if (StringUtil.trim(selectedValue) != ""
+			if (selectedValue != null && StringUtil.trim(selectedValue) != ""
 					&& StringUtil.trim(keyValue) != "") {
 				if (selectedValue.equals(keyValue)) {
 					selectIndex = i;
-					System.out.println(selectedValue + "-----" + i);
 				}
 			}
 			i++;
 		}
-
 		moneyType.setSelectedIndex(selectIndex);
-
 	}
 
 	@Override
