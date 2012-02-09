@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.chinarewards.gwt.elt.client.budget.request;
 
 import java.util.List;
@@ -19,13 +16,13 @@ public class EditCorpBudgetRequest implements Action<EditCorpBudgetResponse> {
 
 	String giftId;
 	String nowUserId;
-	private CorpBudgetVo giftVo;
+	private CorpBudgetVo corpBudgetVo;
 	private UserSession userSession;
 
 	List<String> staffIds;
 
-	public EditCorpBudgetRequest(CorpBudgetVo giftVo, UserSession userSession) {
-		this.giftVo = giftVo;
+	public EditCorpBudgetRequest(CorpBudgetVo corpBudgetVo, UserSession userSession) {
+		this.corpBudgetVo = corpBudgetVo;
 		this.userSession = userSession;
 	}
 
@@ -53,11 +50,11 @@ public class EditCorpBudgetRequest implements Action<EditCorpBudgetResponse> {
 	}
 
 	public CorpBudgetVo getCorpBudgetVo() {
-		return giftVo;
+		return corpBudgetVo;
 	}
 
-	public void setCorpBudgetVo(CorpBudgetVo giftVo) {
-		this.giftVo = giftVo;
+	public void setCorpBudgetVo(CorpBudgetVo corpBudgetVo) {
+		this.corpBudgetVo = corpBudgetVo;
 	}
 
 	public UserSession getUserSession() {

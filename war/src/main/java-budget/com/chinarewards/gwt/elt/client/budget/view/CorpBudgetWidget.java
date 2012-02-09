@@ -14,24 +14,32 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.datepicker.client.DateBox;
 import com.google.inject.Inject;
 
 public class CorpBudgetWidget extends Composite implements CorpBudgetDisplay {
 
 	// --------vo
 	@UiField
-	TextBox name;
-
+	ListBox moneyType;
 	@UiField
-	Button back;
+	TextBox budgetAmount;
+	@UiField
+	TextBox budgetIntegral;
+	@UiField
+	DateBox beginDate;
+	@UiField
+	DateBox endDate;
 
 	@UiField
 	Button save;
 
+	@UiField
+	Button back;
 	@UiField
 	Panel breadCrumbs;
 
@@ -89,43 +97,43 @@ public class CorpBudgetWidget extends Composite implements CorpBudgetDisplay {
 	}
 
 	@Override
-	public HasValue<String> getName() {
-		return name;
-	}
-
-	@Override
 	public void clear() {
 
 	}
 
 	@Override
-	public HasValue<Boolean> getStatus() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public HasValue<Boolean> getDeleted() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public HasClickHandlers getUploadClick() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public HasClickHandlers getSaveClick() {
-		// TODO Auto-generated method stub
-		return null;
+		return save;
 	}
 
 	@Override
 	public HasClickHandlers getBackClick() {
-		// TODO Auto-generated method stub
-		return null;
+		return back;
+	}
+
+	@Override
+	public ListBox getMoneyType() {
+		return moneyType;
+	}
+
+	@Override
+	public TextBox getBudgetAmount() {
+		return budgetAmount;
+	}
+
+	@Override
+	public TextBox getBudgetIntegral() {
+		return budgetIntegral;
+	}
+
+	@Override
+	public DateBox getBeginDate() {
+		return beginDate;
+	}
+
+	@Override
+	public DateBox getEndDate() {
+		return endDate;
 	}
 
 }

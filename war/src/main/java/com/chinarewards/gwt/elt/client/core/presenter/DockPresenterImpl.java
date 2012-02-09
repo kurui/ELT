@@ -6,6 +6,7 @@ import java.util.List;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.EltGinjector;
+import com.chinarewards.gwt.elt.client.budget.plugin.CorpBudgetConstants;
 import com.chinarewards.gwt.elt.client.core.PluginManager;
 import com.chinarewards.gwt.elt.client.core.presenter.DockPresenter.DockDisplay;
 import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
@@ -36,55 +37,52 @@ public class DockPresenterImpl extends BasePresenter<DockDisplay> implements
 	final EltGinjector injector;
 	final MenuProcessor menuProcessor;
 	final DispatchAsync dispatchAsync;
+
 	@Inject
 	public DockPresenterImpl(EventBus eventBus, DockDisplay display,
 			SessionManager sessionManager, PluginManager pluginManager,
-			EltGinjector injector, MenuProcessor menuProcessor,DispatchAsync dispatchAsync) {
+			EltGinjector injector, MenuProcessor menuProcessor,
+			DispatchAsync dispatchAsync) {
 		super(eventBus, display);
 		this.sessionManager = sessionManager;
 		this.pluginManager = pluginManager;
 		this.injector = injector;
 		this.menuProcessor = menuProcessor;
-		this.dispatchAsync=dispatchAsync;
+		this.dispatchAsync = dispatchAsync;
 	}
 
 	public void bind() {
-		List <UserRoleVo> roleslt = new ArrayList<UserRoleVo>();
-		UserRoleVo [] roles=sessionManager.getSession().getUserRoles();
+		List<UserRoleVo> roleslt = new ArrayList<UserRoleVo>();
+		UserRoleVo[] roles = sessionManager.getSession().getUserRoles();
 
-		if(roles.length>0)
-		{
-			for (UserRoleVo r:roles) {
+		if (roles.length > 0) {
+			for (UserRoleVo r : roles) {
 				roleslt.add(r);
 			}
-			if(!roleslt.contains(UserRoleVo.CORP_ADMIN))
-			{
+			if (!roleslt.contains(UserRoleVo.CORP_ADMIN)) {
 				display.disableManagementCenter();
 			}
-			if(!roleslt.contains(UserRoleVo.GIFT))
-			{
+			if (!roleslt.contains(UserRoleVo.GIFT)) {
 				display.disableGiftExchange();
 			}
-			if(!roleslt.contains(UserRoleVo.STAFF))
-			{
+			if (!roleslt.contains(UserRoleVo.STAFF)) {
 				display.disableStaffCorner();
 			}
 		}
 
-		
-		
 		registerHandler(display.getlogBtn().addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGOUT));
 			}
 		}));
-		registerHandler(display.getBtnCollection().addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				Window.alert("收藏");
-			}
-		}));
+		registerHandler(display.getBtnCollection().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						Window.alert("收藏");
+					}
+				}));
 		registerHandler(display.getBtnEmail().addClickHandler(
 				new ClickHandler() {
 					@Override
@@ -139,8 +137,9 @@ public class DockPresenterImpl extends BasePresenter<DockDisplay> implements
 					public void onClick(ClickEvent event) {
 						display.setMenuTitle("设置");
 						menuProcessor.initrender(display.getMenu(), "Setting");
-						eventBus.fireEvent(new MenuClickEvent(menuProcessor
-								.getMenuItem(EnterpriseConstants.MENU_ENTERPRISE_EDIT)));
+						eventBus.fireEvent(new MenuClickEvent(
+								menuProcessor
+										.getMenuItem(EnterpriseConstants.MENU_ENTERPRISE_EDIT)));
 					}
 				}));
 		registerHandler(display.getBtnGift().addClickHandler(
@@ -160,31 +159,34 @@ public class DockPresenterImpl extends BasePresenter<DockDisplay> implements
 					public void onClick(ClickEvent event) {
 						display.setMenuTitle("积分管理");
 						display.setMenu(null);
-//						menuProcessor.initrender(display.getMenu(), "Integral");
-//						eventBus.fireEvent(new MenuClickEvent(
-//								menuProcessor
-//										.getMenuItem(GiftListConstants.MENU_GIFTLIST_SEARCH)));
+						menuProcessor.initrender(display.getMenu(), "Integral");
+						eventBus.fireEvent(new MenuClickEvent(
+								menuProcessor
+										.getMenuItem(CorpBudgetConstants.MENU_CORPBUDGET_EDIT)));
 					}
 				}));
-		
+
 		registerHandler(display.getGiftExchange().addClickHandler(
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						dispatchAsync.execute(new LastLoginRoleRequest(sessionManager.getSession().getToken(),UserRoleVo.GIFT),
+						dispatchAsync.execute(new LastLoginRoleRequest(
+								sessionManager.getSession().getToken(),
+								UserRoleVo.GIFT),
 								new AsyncCallback<LastLoginRoleResponse>() {
-	
+
 									@Override
 									public void onFailure(Throwable e) {
-									//	Window.alert("系统切换出错");
+										// Window.alert("系统切换出错");
 									}
-	
+
 									@Override
-									public void onSuccess(LastLoginRoleResponse resp) {
-										//成功
-										if("success".equals(resp.getFal()))
+									public void onSuccess(
+											LastLoginRoleResponse resp) {
+										// 成功
+										if ("success".equals(resp.getFal()))
 											GWT.log("success update last login role ");
-										
+
 									}
 								});
 						Window.Location.reload();
@@ -194,26 +196,28 @@ public class DockPresenterImpl extends BasePresenter<DockDisplay> implements
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						dispatchAsync.execute(new LastLoginRoleRequest(sessionManager.getSession().getToken(),UserRoleVo.STAFF),
+						dispatchAsync.execute(new LastLoginRoleRequest(
+								sessionManager.getSession().getToken(),
+								UserRoleVo.STAFF),
 								new AsyncCallback<LastLoginRoleResponse>() {
-	
+
 									@Override
 									public void onFailure(Throwable e) {
-										//Window.alert("系统切换出错");
+										// Window.alert("系统切换出错");
 									}
-	
+
 									@Override
-									public void onSuccess(LastLoginRoleResponse resp) {
-										//成功
-										if("success".equals(resp.getFal()))
+									public void onSuccess(
+											LastLoginRoleResponse resp) {
+										// 成功
+										if ("success".equals(resp.getFal()))
 											GWT.log("success update last login role ");
-										
+
 									}
 								});
 						Window.Location.reload();
 					}
 				}));
-
 
 	}
 

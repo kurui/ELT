@@ -50,10 +50,10 @@ public class EditCorpBudgetHandler extends
 		uc.setUserId(action.getUserSession().getToken());
 		uc.setUserRoles(UserRoleTool.adaptToRole(action.getUserSession()
 				.getUserRoles()));
-//		CorpBudget AdddItem = corpBudgetService.save(uc, corpBudget);
-
-//		return new EditCorpBudgetResponse(AdddItem.getId());
-		return null;
+//		CorpBudget AddItem = corpBudgetService.save(uc, corpBudget);
+		CorpBudget AddItem=new CorpBudget();
+			
+		return new EditCorpBudgetResponse(AddItem.getId());
 	}
 
 	/**

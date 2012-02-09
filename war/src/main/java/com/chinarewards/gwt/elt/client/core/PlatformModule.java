@@ -92,7 +92,7 @@ public class PlatformModule extends AbstractGinModule {
 			OrderHistoryPluginDescriptor orderHistory,OrderHistoryViewPluginDescriptor orderHistoryView,
 			OrderSubmitPluginDescriptor orderSubmit,
 			OrderConfirmationPluginDescriptor orderConfirmation,
-			DetailsOfGiftPluginDescriptor detailsOfGift) {
+			DetailsOfGiftPluginDescriptor detailsOfGift/*,CorpBudgetPluginDescriptor corpBudget*/) {
 
 		if (pluginSet == null) {
 			pluginSet = new InMemoryPluginSet();
@@ -123,6 +123,8 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(orderConfirmation);
 			pluginSet.registerPlugin(orderSubmit);
 			pluginSet.registerPlugin(detailsOfGift);
+			
+//			pluginSet.registerPlugin(corpBudget);
 		}
 
 		return pluginSet;

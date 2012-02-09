@@ -16,19 +16,36 @@
 				<div class="{new2.form-line}">
 					<label class="{new2.label}">
 						<span style="color:red">*</span>
-						礼品名称：
+						货币类型：
 					</label>
 					<div class="{new2.element}">
-						<g:TextBox maxLength="20" ui:field="name" styleName="{new2.text}" />		
-						
+						<g:ListBox ui:field="moneyType" styleName="{new2.text}" />
 					</div>
-				</div>	
-			
+					<div class="{new2.element}">
+						<g:TextBox maxLength="20" ui:field="budgetAmount"
+							styleName="{new2.text}" />=
+					</div>
+					<div class="{new2.element}">
+						<g:TextBox maxLength="20" ui:field="budgetIntegral"
+							styleName="{new2.text}" />积分
+					</div>
+				</div>
+				<div class="{new2.form-line}">
+					<label class="{new2.label}">
+						<span style="color:red">*</span>
+						当年财年周期：
+					</label>
+					<div class="{new2.element}">
+						<d:DateBox ui:field="beginDate" styleName="{new2.text}" />
+						至
+						<d:DateBox ui:field="endDate" styleName="{new2.text}" />
+					</div>
+				</div>
 
 				<span class="{new2.cutline}"></span>
 				<div class="{new2.form-line} {new2.form-line-btn}">
 					<div class="{new2.element}">
-									
+
 						<span class="{new2.btn}">
 							<g:Button ui:field="save">保存</g:Button>
 						</span>
