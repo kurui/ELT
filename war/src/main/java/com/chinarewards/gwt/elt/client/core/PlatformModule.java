@@ -23,6 +23,7 @@ import com.chinarewards.gwt.elt.client.gift.plugin.GiftListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftPluginDescriptor;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftViewPluginDescriptor;
 import com.chinarewards.gwt.elt.client.nominate.plugin.NominatePluginDescriptor;
+import com.chinarewards.gwt.elt.client.order.plugin.OrderBoxPluginDescriptor;
 import com.chinarewards.gwt.elt.client.order.plugin.OrderListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.order.plugin.OrderViewPluginDescriptor;
 import com.chinarewards.gwt.elt.client.orderConfirmation.plugin.OrderConfirmationPluginDescriptor;
@@ -86,12 +87,13 @@ public class PlatformModule extends AbstractGinModule {
 			GiftViewPluginDescriptor giftView,
 			OrderListPluginDescriptor orderList,
 			OrderViewPluginDescriptor orderView,
+			OrderBoxPluginDescriptor orderBox,
 			AwardShopListPluginDescriptor awardShop,
 			ShopWindowPluginDescriptor shopWindow,
 			OrderHistoryPluginDescriptor orderHistory,OrderHistoryViewPluginDescriptor orderHistoryView,
 			OrderSubmitPluginDescriptor orderSubmit,
 			OrderConfirmationPluginDescriptor orderConfirmation,
-			DetailsOfGiftPluginDescriptor detailsOfGift,CorpBudgetPluginDescriptor corpBudget) {
+			DetailsOfGiftPluginDescriptor detailsOfGift/*,CorpBudgetPluginDescriptor corpBudget*/) {
 
 		if (pluginSet == null) {
 			pluginSet = new InMemoryPluginSet();
@@ -115,7 +117,7 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(orderList);
 			pluginSet.registerPlugin(orderHistory);
 			pluginSet.registerPlugin(orderHistoryView);
-			
+			pluginSet.registerPlugin(orderBox);
 			pluginSet.registerPlugin(orderView);
 			pluginSet.registerPlugin(awardShop);
 			pluginSet.registerPlugin(shopWindow);
@@ -123,7 +125,7 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(orderSubmit);
 			pluginSet.registerPlugin(detailsOfGift);
 			
-			pluginSet.registerPlugin(corpBudget);
+//			pluginSet.registerPlugin(corpBudget);
 		}
 
 		return pluginSet;

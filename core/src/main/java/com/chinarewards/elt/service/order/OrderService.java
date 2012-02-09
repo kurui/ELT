@@ -2,8 +2,8 @@ package com.chinarewards.elt.service.order;
 
 import com.chinarewards.elt.domain.order.Orders;
 import com.chinarewards.elt.model.common.PageStore;
-import com.chinarewards.elt.model.order.search.OrderStatus;
 import com.chinarewards.elt.model.order.search.OrderListVo;
+import com.chinarewards.elt.model.order.search.OrderStatus;
 import com.chinarewards.elt.model.user.UserContext;
 
 /**
@@ -60,5 +60,5 @@ public interface OrderService {
 	/*
 	 * 查找定单根据状态
 	 */
-	public int  getOrderByStatus(UserContext context,String status);
+	public int  getOrderByStatus(UserContext context,OrderStatus status);
 }

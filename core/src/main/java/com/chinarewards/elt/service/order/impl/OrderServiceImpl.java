@@ -7,6 +7,7 @@ import com.chinarewards.elt.domain.gift.Gift;
 import com.chinarewards.elt.domain.order.Orders;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
+import com.chinarewards.elt.model.gift.search.GiftListVo;
 import com.chinarewards.elt.model.order.search.OrderStatus;
 import com.chinarewards.elt.model.order.search.OrderListVo;
 import com.chinarewards.elt.model.transaction.TransactionUnit;
@@ -126,15 +127,18 @@ public class OrderServiceImpl implements OrderService {
 		return back;
 	}
 	
-	public int  getOrderByStatus(UserContext context,String status){
+	public int  getOrderByStatus(UserContext context,OrderStatus status){
 		SysUser caller = userLogic.findUserById(context.getUserId());
 		List<UserRole> roles =Arrays.asList(context.getUserRoles());
-		String userId = "";
+		OrderListVo orderVo = new OrderListVo();
+		GiftListVo giftvo = new GiftListVo();
+		orderVo.setGiftvo(giftvo);
+		orderVo.setStatus(status);
 		//如果是HR或礼品管理员，可以查看所有订单，
 		if (roles.contains(UserRole.CORP_ADMIN)||roles.contains(UserRole.GIFT))
-			userId = "";//不传订单用户的参数
+			orderVo.setUserId("");//不传订单用户的参数
 		else
-			userId = caller.getId();//把登录人的用户ID传过去做为条件
-		return orderLogic.getOrderByStatus(userId, status);
+			orderVo.setUserId(caller.getId()) ;//把登录人的用户ID传过去做为条件
+		return orderLogic.getOrderByStatus( orderVo);
 	}
 }

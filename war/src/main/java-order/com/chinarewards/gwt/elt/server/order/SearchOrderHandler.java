@@ -82,7 +82,7 @@ public class SearchOrderHandler extends
 			
 		}
 		vo.setGiftvo(giftvo);
-		System.out.println("dddd="+vo.getGiftvo().getSource());
+		
 		if (criteria.getPagination() != null) {
 			PaginationDetail detail = new PaginationDetail();
 			detail.setLimit(criteria.getPagination().getLimit());

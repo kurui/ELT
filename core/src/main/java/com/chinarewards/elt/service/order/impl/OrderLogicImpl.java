@@ -142,7 +142,7 @@ public class OrderLogicImpl implements OrderLogic{
 	}
 
 	@Override
-	public int getOrderByStatus(String userId,String status){
-		return orderDao.getOrderByStatus( userId, status);
+	public int getOrderByStatus(OrderListVo orderVo){
+		return orderDao.countOrder( orderVo);
 	}
 }

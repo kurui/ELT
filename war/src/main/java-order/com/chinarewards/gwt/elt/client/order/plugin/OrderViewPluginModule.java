@@ -17,9 +17,10 @@ public class OrderViewPluginModule extends AbstractGinModule {
 	@Override
 	protected void configure() {
 		bind(OrderViewPluginDescriptor.class).in(Singleton.class);
-
 		bind(OrderViewEditorDescriptor.class).in(Singleton.class);
 		bind(OrderViewEditor.class);
+		
+		
 	}
 
 }
