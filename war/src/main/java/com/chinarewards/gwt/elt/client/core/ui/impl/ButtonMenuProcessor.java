@@ -16,6 +16,7 @@ import com.chinarewards.gwt.elt.client.detailsOfAward.plugin.DetailsOfAwardConst
 import com.chinarewards.gwt.elt.client.enterprise.plugin.EnterpriseConstants;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftConstants;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftListConstants;
+import com.chinarewards.gwt.elt.client.integralManagement.plugin.IntegralManagementConstants;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.nominate.plugin.NominateConstants;
 import com.chinarewards.gwt.elt.client.order.plugin.OrderListConstants;
@@ -188,9 +189,9 @@ public class ButtonMenuProcessor implements MenuProcessor {
 			items.add(CorpBudgetConstants.MENU_CORPBUDGET_EDIT);
 			items.add(EnterpriseConstants.MENU_INTEGRAL_PRICE_EDIT);
 			items.add(EnterpriseConstants.MENU_PERIOD_EDIT);
-
 			items.add(OrderViewConstants.MENU_ORDERBOX_SEARCH);
-
+			items.add(IntegralManagementConstants.MENU_INTEGRALMANAGEMENT_SEARCH);
+			
 		}
 		return items;
 	}
