@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.chinarewards.gwt.elt.client.budget.plugin;
 
 import java.util.HashSet;
@@ -26,12 +23,12 @@ public class CorpBudgetPluginDescriptor implements PluginDescriptor {
 
 	final static Set<Extension> ext = new HashSet<Extension>();
 	final CorpBudgetPlugin CorpBudgetPlugin;
-	final CorpBudgetEditorDescriptor giftEditorDescriptor;
+	final CorpBudgetEditorDescriptor corpBudgetEditorDescriptor;
 
 	@Inject
 	public CorpBudgetPluginDescriptor(
-			final CorpBudgetEditorDescriptor giftEditorDescriptor) {
-		this.giftEditorDescriptor = giftEditorDescriptor;
+			final CorpBudgetEditorDescriptor corpBudgetEditorDescriptor) {
+		this.corpBudgetEditorDescriptor = corpBudgetEditorDescriptor;
 		CorpBudgetPlugin = new CorpBudgetPlugin(this);
 
 		/**
@@ -99,7 +96,7 @@ public class CorpBudgetPluginDescriptor implements PluginDescriptor {
 
 			@Override
 			public Object getInstance() {
-				return giftEditorDescriptor;
+				return corpBudgetEditorDescriptor;
 			}
 
 			@Override

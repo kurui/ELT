@@ -11,24 +11,24 @@ import com.google.inject.Inject;
  */
 public class CorpBudgetEditor extends AbstractEditor {
 
-	final CorpBudgetPresenter giftPresenter;
+	final CorpBudgetPresenter corpBudgetPresenter;
 	Object model;
 
 	@Inject
 	protected CorpBudgetEditor(CorpBudgetEditorDescriptor editorDescriptor,
-			CorpBudgetPresenter giftPresenter) {
+			CorpBudgetPresenter corpBudgetPresenter) {
 		super(editorDescriptor);
-		this.giftPresenter = giftPresenter;
+		this.corpBudgetPresenter = corpBudgetPresenter;
 	}
 
 	@Override
 	public Widget asWidget() {
-		return giftPresenter.getDisplay().asWidget();
+		return corpBudgetPresenter.getDisplay().asWidget();
 	}
 
 	@Override
 	public boolean beforeClose() {
-		giftPresenter.unbind();
+		corpBudgetPresenter.unbind();
 		return true;
 	}
 
@@ -44,6 +44,6 @@ public class CorpBudgetEditor extends AbstractEditor {
 
 	public void setModel(Object model) {
 		this.model = model;
-		giftPresenter.bind();
+		corpBudgetPresenter.bind();
 	}
 }

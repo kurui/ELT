@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.chinarewards.gwt.elt.client.awardReward.plugin.AwardRewardConstants;
 import com.chinarewards.gwt.elt.client.breadCrumbs.ui.BreadCrumbsMenu;
+import com.chinarewards.gwt.elt.client.budget.plugin.CorpBudgetConstants;
 import com.chinarewards.gwt.elt.client.core.ui.MenuItem;
 import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
 import com.chinarewards.gwt.elt.client.core.ui.event.MenuClickEvent;
@@ -182,6 +183,10 @@ public class ButtonMenuProcessor implements MenuProcessor {
 			items.add(GiftListConstants.MENU_GIFTLIST_SEARCH);
 			items.add(GiftConstants.MENU_GIFT_ADD);
 			items.add(OrderListConstants.MENU_ORDERLIST_SEARCH);
+		}else if ("Integral".equals(keyname)) {
+			items.add(CorpBudgetConstants.MENU_CORPBUDGET_EDIT);
+			items.add(EnterpriseConstants.MENU_INTEGRAL_PRICE_EDIT);
+			items.add(EnterpriseConstants.MENU_PERIOD_EDIT);
 		}
 		return items;
 	}

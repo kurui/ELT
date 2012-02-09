@@ -29,7 +29,7 @@ public class CorpBudgetEditorDescriptor implements EditorDescriptor {
 	public Editor createEditor(String instanceId, Object model) {
 		CorpBudgetEditor e = editProvider.get();
 		e.setInstanceId(instanceId);
-		e.setTitle("新建礼品");
+		e.setTitle("整体预算");
 		if (model instanceof RewardsPageClient) {
 			if (model != null)
 				e.setTitle(((RewardsPageClient) model).getTitleName());
