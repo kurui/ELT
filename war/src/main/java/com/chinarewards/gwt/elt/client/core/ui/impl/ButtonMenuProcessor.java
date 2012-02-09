@@ -185,11 +185,11 @@ public class ButtonMenuProcessor implements MenuProcessor {
 			items.add(GiftListConstants.MENU_GIFTLIST_SEARCH);
 			items.add(GiftConstants.MENU_GIFT_ADD);
 			items.add(OrderListConstants.MENU_ORDERLIST_SEARCH);
+			items.add(OrderViewConstants.MENU_ORDERBOX_SEARCH);
 		}else if ("Integral".equals(keyname)) {
 			items.add(CorpBudgetConstants.MENU_CORPBUDGET_EDIT);
 			items.add(EnterpriseConstants.MENU_INTEGRAL_PRICE_EDIT);
 			items.add(EnterpriseConstants.MENU_PERIOD_EDIT);
-			items.add(OrderViewConstants.MENU_ORDERBOX_SEARCH);
 			items.add(IntegralManagementConstants.MENU_INTEGRALMANAGEMENT_SEARCH);
 			
 		}
