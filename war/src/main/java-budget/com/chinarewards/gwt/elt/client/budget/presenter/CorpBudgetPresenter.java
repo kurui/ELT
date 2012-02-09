@@ -3,22 +3,38 @@ package com.chinarewards.gwt.elt.client.budget.presenter;
 import com.chinarewards.gwt.elt.client.budget.model.CorpBudgetVo;
 import com.chinarewards.gwt.elt.client.mvp.Display;
 import com.chinarewards.gwt.elt.client.mvp.Presenter;
+import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.datepicker.client.DateBox;
 
-
-public interface CorpBudgetPresenter extends Presenter<CorpBudgetPresenter.CorpBudgetDisplay> {
+public interface CorpBudgetPresenter extends
+		Presenter<CorpBudgetPresenter.CorpBudgetDisplay> {
 
 	public static interface CorpBudgetDisplay extends Display {
 
+		public ListBox getMoneyType();
+
+		public TextBox getBudgetAmount();
+
+		public TextBox getBudgetIntegral();
+
+		public DateBox getBeginDate();
+
+		public DateBox getEndDate();
+
+		public HasClickHandlers getSaveClick();
 
 		public void clear();
 
-		public void initEditCorpBudget(CorpBudgetVo corpBudgetVo);
+		public void initEditCorpBudget(CorpBudgetVo giftVo);
 
+		public HasClickHandlers getBackClick();
 
 		void setBreadCrumbs(Widget breadCrumbs);
 
 	}
 
-	public void initEditor(String coppBudgetId, String thisAction);
+	public void initEditor(String giftId, String thisAction);
 }

@@ -16,7 +16,7 @@ public class CorpBudgetPresenterImpl extends BasePresenter<CorpBudgetPresenter.C
 	String instanceId;// 修改时传过来的ID
 
 	private String thisAction;
-	private String corpBudgetId;
+	private String giftId;
 	//
 	private final DispatchAsync dispatcher;
 	private final ErrorHandler errorHandler;
@@ -137,7 +137,7 @@ public class CorpBudgetPresenterImpl extends BasePresenter<CorpBudgetPresenter.C
 //	}
 
 	private void initEdit() {
-		// dispatcher.execute(new SearchCorpBudgetByIdRequest(corpBudgetId),
+		// dispatcher.execute(new SearchCorpBudgetByIdRequest(giftId),
 		// new AsyncCallback<SearchCorpBudgetByIdResponse>() {
 		// @Override
 		// public void onFailure(Throwable arg0) {
@@ -150,16 +150,20 @@ public class CorpBudgetPresenterImpl extends BasePresenter<CorpBudgetPresenter.C
 		//
 		// @Override
 		// public void onSuccess(SearchCorpBudgetByIdResponse response) {
-		// CorpBudgetVo corpBudgetVo = response.getCorpBudget();
+		// CorpBudgetVo giftVo = response.getCorpBudget();
 		// clear();
-		// display.initEditCorpBudget(corpBudgetVo);
+		// display.initEditCorpBudget(giftVo);
 		// }
 		// });
 	}
 
+	public void setId(String id) {
+		this.giftId = id;
+	}
+
 	@Override
-	public void initEditor(String corpBudgetId, String thisAction) {
-		this.corpBudgetId = corpBudgetId;
+	public void initEditor(String giftId, String thisAction) {
+		this.giftId = giftId;
 		this.thisAction = thisAction;
 	}
 
