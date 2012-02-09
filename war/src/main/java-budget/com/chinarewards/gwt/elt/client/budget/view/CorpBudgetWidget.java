@@ -8,38 +8,17 @@ import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.view.constant.ViewConstants;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.gwt.user.datepicker.client.DateBox;
 import com.google.inject.Inject;
 
 public class CorpBudgetWidget extends Composite implements CorpBudgetDisplay {
 
-	// --------vo
-	@UiField
-	ListBox moneyType;
-	@UiField
-	TextBox budgetAmount;
-	@UiField
-	TextBox budgetIntegral;
-	@UiField
-	DateBox beginDate;
-	@UiField
-	DateBox endDate;
 
-	@UiField
-	Button save;
-
-	@UiField
-	Button back;
 	@UiField
 	Panel breadCrumbs;
 
@@ -66,8 +45,8 @@ public class CorpBudgetWidget extends Composite implements CorpBudgetDisplay {
 	}
 
 	@Override
-	public void initEditCorpBudget(CorpBudgetVo giftVo) {
-		// name.setText(giftVo.getName());
+	public void initEditCorpBudget(CorpBudgetVo corpBudgetVo) {
+		// name.setText(corpBudgetVo.getName());
 		// initTypeSelect("");
 	}
 
@@ -101,39 +80,5 @@ public class CorpBudgetWidget extends Composite implements CorpBudgetDisplay {
 
 	}
 
-	@Override
-	public HasClickHandlers getSaveClick() {
-		return save;
-	}
-
-	@Override
-	public HasClickHandlers getBackClick() {
-		return back;
-	}
-
-	@Override
-	public ListBox getMoneyType() {
-		return moneyType;
-	}
-
-	@Override
-	public TextBox getBudgetAmount() {
-		return budgetAmount;
-	}
-
-	@Override
-	public TextBox getBudgetIntegral() {
-		return budgetIntegral;
-	}
-
-	@Override
-	public DateBox getBeginDate() {
-		return beginDate;
-	}
-
-	@Override
-	public DateBox getEndDate() {
-		return endDate;
-	}
 
 }

@@ -9,7 +9,7 @@ import net.customware.gwt.dispatch.shared.Result;
  */
 public class EditCorpBudgetResponse implements Result {
 
-	String giftId;
+	String corpBudgetId;
 
 	public EditCorpBudgetResponse() {
 
@@ -20,12 +20,13 @@ public class EditCorpBudgetResponse implements Result {
 	}
 
 	public String getCorpBudgetId() {
-		return giftId;
+		return corpBudgetId;
 	}
 
-	public void setCorpBudgetId(String giftId) {
-		this.giftId = giftId;
+	public void setCorpBudgetId(String corpBudgetId) {
+		this.corpBudgetId = corpBudgetId;
 	}
+
 
 
 

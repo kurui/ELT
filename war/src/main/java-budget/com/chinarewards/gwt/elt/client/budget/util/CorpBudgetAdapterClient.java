@@ -11,13 +11,13 @@ public class CorpBudgetAdapterClient {
 	 * 封装表单属性
 	 * */
 	public static CorpBudgetVo adapterDisplay(CorpBudgetDisplay display) {
-		CorpBudgetVo giftVo = new CorpBudgetVo();
+		CorpBudgetVo corpBudgetVo = new CorpBudgetVo();
 
 		// // 基本信息
-//		giftVo.setName(display.getName().getValue().trim());
+//		corpBudgetVo.setName(display.getName().getValue().trim());
 //
-//		giftVo.setIndate(display.getIndate().getValue());
+//		corpBudgetVo.setIndate(display.getIndate().getValue());
 
-		return giftVo;
+		return corpBudgetVo;
 	}
 }

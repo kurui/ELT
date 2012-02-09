@@ -217,6 +217,6 @@ public class ActionModule extends ActionHandlerModule {
 		bindHandler(OrderHistoryViewRequest.class, OrderHistoryViewHandler.class);
 
 		//整体预算
-		bindHandler(EditCorpBudgetRequest.class, EditCorpBudgetHandler.class);
+//		bindHandler(EditCorpBudgetRequest.class, EditCorpBudgetHandler.class);
 	}
 }

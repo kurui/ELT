@@ -3,30 +3,20 @@ package com.chinarewards.gwt.elt.client.budget.presenter;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
-import com.chinarewards.gwt.elt.client.budget.model.CorpBudgetVo;
-import com.chinarewards.gwt.elt.client.budget.plugin.CorpBudgetConstants;
-import com.chinarewards.gwt.elt.client.budget.request.EditCorpBudgetRequest;
-import com.chinarewards.gwt.elt.client.budget.request.EditCorpBudgetResponse;
-import com.chinarewards.gwt.elt.client.budget.util.CorpBudgetAdapterClient;
-import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.win.Win;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
-public class CorpBudgetPresenterImpl extends
-		BasePresenter<CorpBudgetPresenter.CorpBudgetDisplay> implements
-		CorpBudgetPresenter {
+
+public class CorpBudgetPresenterImpl extends BasePresenter<CorpBudgetPresenter.CorpBudgetDisplay>
+		implements CorpBudgetPresenter {
 	String instanceId;// 修改时传过来的ID
 
 	private String thisAction;
-	private String giftId;
+	private String corpBudgetId;
 	//
 	private final DispatchAsync dispatcher;
 	private final ErrorHandler errorHandler;
@@ -37,17 +27,16 @@ public class CorpBudgetPresenterImpl extends
 	private final BreadCrumbsPresenter breadCrumbs;
 
 	@Inject
-	public CorpBudgetPresenterImpl(EventBus eventBus,
-			CorpBudgetDisplay display, DispatchAsync dispatcher,
-			ErrorHandler errorHandler, SessionManager sessionManager, Win win,
-			BreadCrumbsPresenter breadCrumbs) {		
+	public CorpBudgetPresenterImpl(EventBus eventBus, CorpBudgetDisplay display,
+			DispatchAsync dispatcher, ErrorHandler errorHandler,
+			SessionManager sessionManager, Win win,
+			BreadCrumbsPresenter breadCrumbs) {
 		super(eventBus, display);
 		this.dispatcher = dispatcher;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
 		this.win = win;
 		this.breadCrumbs = breadCrumbs;
-		System.out.println("============00===========");
 	}
 
 	@Override
@@ -124,31 +113,31 @@ public class CorpBudgetPresenterImpl extends
 
 	}
 
-	// 验证方法
-	private boolean validateSubmit() {
-		boolean flag = true;
-		StringBuilder errorMsg = new StringBuilder();
-		if (display.getBudgetAmount().getValue() == null
-				|| "".equals(display.getBudgetAmount().getValue().trim())) {
-			errorMsg.append("请填写预算金额!<br>");
-			flag = false;
-		}
-
-		if (display.getBudgetIntegral().getValue() == null
-				|| "".equals(display.getBudgetIntegral().getValue().trim())) {
-			errorMsg.append("请填写预算积分!<br>");
-			flag = false;
-		}
-
-		if (!flag) {
-			win.alert(errorMsg.toString());
-		}
-
-		return flag;
-	}
+//	// 验证方法
+//	private boolean validateSubmit() {
+//		boolean flag = true;
+//		StringBuilder errorMsg = new StringBuilder();
+//		if (display.getBudgetAmount().getValue() == null
+//				|| "".equals(display.getBudgetAmount().getValue().trim())) {
+//			errorMsg.append("请填写预算金额!<br>");
+//			flag = false;
+//		}
+//
+//		if (display.getBudgetIntegral().getValue() == null
+//				|| "".equals(display.getBudgetIntegral().getValue().trim())) {
+//			errorMsg.append("请填写预算积分!<br>");
+//			flag = false;
+//		}
+//
+//		if (!flag) {
+//			win.alert(errorMsg.toString());
+//		}
+//
+//		return flag;
+//	}
 
 	private void initEdit() {
-		// dispatcher.execute(new SearchCorpBudgetByIdRequest(giftId),
+		// dispatcher.execute(new SearchCorpBudgetByIdRequest(corpBudgetId),
 		// new AsyncCallback<SearchCorpBudgetByIdResponse>() {
 		// @Override
 		// public void onFailure(Throwable arg0) {
@@ -161,20 +150,16 @@ public class CorpBudgetPresenterImpl extends
 		//
 		// @Override
 		// public void onSuccess(SearchCorpBudgetByIdResponse response) {
-		// CorpBudgetVo giftVo = response.getCorpBudget();
+		// CorpBudgetVo corpBudgetVo = response.getCorpBudget();
 		// clear();
-		// display.initEditCorpBudget(giftVo);
+		// display.initEditCorpBudget(corpBudgetVo);
 		// }
 		// });
 	}
 
-	public void setId(String id) {
-		this.giftId = id;
-	}
-
 	@Override
-	public void initEditor(String giftId, String thisAction) {
-		this.giftId = giftId;
+	public void initEditor(String corpBudgetId, String thisAction) {
+		this.corpBudgetId = corpBudgetId;
 		this.thisAction = thisAction;
 	}
 

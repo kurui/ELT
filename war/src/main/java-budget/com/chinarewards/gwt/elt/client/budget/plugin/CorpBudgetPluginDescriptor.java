@@ -65,6 +65,7 @@ public class CorpBudgetPluginDescriptor implements PluginDescriptor {
 
 					@Override
 					public void execute() {
+						
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(
