@@ -1,6 +1,7 @@
 package com.chinarewards.gwt.elt.client.order.editor;
 
 import com.chinarewards.gwt.elt.client.core.ui.impl.AbstractEditor;
+import com.chinarewards.gwt.elt.client.order.model.OrderStatus;
 import com.chinarewards.gwt.elt.client.order.presenter.OrderListPresenter;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
@@ -48,6 +49,9 @@ public class OrderListEditor extends AbstractEditor {
 
 	public void setModel(Object model) {
 		this.model = model;
+		if(model instanceof OrderStatus)
+			orderListPresenter.getBoxOrder(model.toString());
 		orderListPresenter.bind();
+		
 	}
 }

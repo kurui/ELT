@@ -83,6 +83,7 @@ public class SearchRewardsItemByIdHandler
 		//client.setHasSpecialCondition(item.getItem().g)
 		client.setNextPublishTime(item.getItem().getPublishDate());
 		
+		client.setEnabled(item.getItem().isEnabled());
 		client.setTotalJF((int)item.getItem().getTotalAmtLimit());
 		client.setRewardsFrom((int)item.getItem().getAwardAmt());
 		client.setSizeLimit(item.getItem().getHeadcountLimit());

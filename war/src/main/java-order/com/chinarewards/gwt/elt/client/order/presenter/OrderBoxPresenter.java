@@ -22,6 +22,7 @@ public interface OrderBoxPresenter extends Presenter<OrderBoxPresenter.OrderBoxD
 			
 		void setBreadCrumbs(Widget breadCrumbs);
 		
-	
+		public HasClickHandlers getView() ;
+		public HasClickHandlers getOperate(); 
 	}
 }

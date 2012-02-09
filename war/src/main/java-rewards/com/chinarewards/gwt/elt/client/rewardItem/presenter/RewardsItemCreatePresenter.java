@@ -54,7 +54,9 @@ public interface RewardsItemCreatePresenter extends Presenter<RewardsItemCreateP
 		
 		public HasValue<Date> getExpectTime();
 
-
+		public HasClickHandlers getBackClick() ;
+		public HasClickHandlers getBackStoreClick() ;
+		
 		public Integer getRewardsFrom();
 		
 	//	public Integer getRewardsTo() ;
@@ -133,7 +135,7 @@ public interface RewardsItemCreatePresenter extends Presenter<RewardsItemCreateP
 		
 		// 得到提名人的id
 		List<String> getNominateIds();
-	//	void setTitle(String text);
+		void setRewardBackButtonDisplay(boolean status);
 		void setRewardButtonDisplay(boolean status);
 	}
 }

@@ -33,6 +33,7 @@ import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
@@ -114,6 +115,7 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 
 	private void doSearch() {
 		OrderSearchVo criteria = new OrderSearchVo();
+		//Window.alert("dd");
 		GiftClient giftVo = new GiftClient();
 		if (!StringUtil.isEmpty(display.getKeyName().getValue()))
 			criteria.setName(display.getKeyName().getValue());
@@ -295,6 +297,15 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 				});
 			
 	      }
+
+	@Override
+	public void getBoxOrder(String status) {//收件箱查看和操作时传的参数
+		init();
+		display.setStatus(status);
+		
+		doSearch();
+		
+	}
 	
 
 
