@@ -11,15 +11,15 @@ import com.chinarewards.gwt.elt.client.budget.model.CorpBudgetVo;
  * @author yanrui
  * @since
  */
-public class SearchCorpBudgetByCorpIdResponse implements Result {
+public class InitCorpBudgetByCorpIdResponse implements Result {
 
 	private CorpBudgetVo corpBudgetVo;
 
-	public SearchCorpBudgetByCorpIdResponse() {
+	public InitCorpBudgetByCorpIdResponse() {
 
 	}
 
-	public SearchCorpBudgetByCorpIdResponse(CorpBudgetVo corpBudgetVo) {
+	public InitCorpBudgetByCorpIdResponse(CorpBudgetVo corpBudgetVo) {
 		this.corpBudgetVo = corpBudgetVo;
 	}
 

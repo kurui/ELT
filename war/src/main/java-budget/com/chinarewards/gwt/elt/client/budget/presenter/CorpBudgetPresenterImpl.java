@@ -5,10 +5,10 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.budget.model.CorpBudgetVo;
 import com.chinarewards.gwt.elt.client.budget.plugin.CorpBudgetConstants;
+import com.chinarewards.gwt.elt.client.budget.request.InitCorpBudgetByCorpIdRequest;
+import com.chinarewards.gwt.elt.client.budget.request.InitCorpBudgetByCorpIdResponse;
 import com.chinarewards.gwt.elt.client.budget.request.EditCorpBudgetRequest;
 import com.chinarewards.gwt.elt.client.budget.request.EditCorpBudgetResponse;
-import com.chinarewards.gwt.elt.client.budget.request.SearchCorpBudgetByCorpIdRequest;
-import com.chinarewards.gwt.elt.client.budget.request.SearchCorpBudgetByCorpIdResponse;
 import com.chinarewards.gwt.elt.client.budget.util.CorpBudgetAdapterClient;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.enterprise.plugin.EnterpriseConstants;
@@ -160,8 +160,10 @@ public class CorpBudgetPresenterImpl extends
 	}
 
 	private void initEdit() {
-		dispatcher.execute(new SearchCorpBudgetByCorpIdRequest(corpId),
-				new AsyncCallback<SearchCorpBudgetByCorpIdResponse>() {
+
+		dispatcher.execute(
+				new InitCorpBudgetByCorpIdRequest(sessionManager.getSession()),
+				new AsyncCallback<InitCorpBudgetByCorpIdResponse>() {
 					@Override
 					public void onFailure(Throwable arg0) {
 						errorHandler.alert("查询出错!");
@@ -174,8 +176,8 @@ public class CorpBudgetPresenterImpl extends
 
 					@Override
 					public void onSuccess(
-							SearchCorpBudgetByCorpIdResponse response) {
-						CorpBudgetVo giftVo = response.getCorpBudget();
+							InitCorpBudgetByCorpIdResponse response) {
+						CorpBudgetVo giftVo = response.getCorpBudgetVo();
 
 						display.initEditCorpBudget(giftVo);
 					}
