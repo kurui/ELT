@@ -141,7 +141,9 @@ public abstract class MenuConstants {
 
 	//礼品详细
 	public static final int MENU_ORDER_DETAILSOFGIFT_SEARCH =  order++;
+	//今年财年预算
+	public static final int MENU_ORDER_INTEGRALMANAGEMENT_SEARCH =  order++;
 
-
+	
 	
 }
