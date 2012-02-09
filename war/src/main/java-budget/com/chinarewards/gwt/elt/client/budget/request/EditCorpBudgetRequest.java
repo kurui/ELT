@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.chinarewards.gwt.elt.client.budget.request;
 
 import java.util.List;
@@ -17,15 +14,15 @@ import com.chinarewards.gwt.elt.client.support.UserSession;
  */
 public class EditCorpBudgetRequest implements Action<EditCorpBudgetResponse> {
 
-	String giftId;
+	String corpBudgetId;
 	String nowUserId;
-	private CorpBudgetVo giftVo;
+	private CorpBudgetVo corpBudgetVo;
 	private UserSession userSession;
 
 	List<String> staffIds;
 
-	public EditCorpBudgetRequest(CorpBudgetVo giftVo, UserSession userSession) {
-		this.giftVo = giftVo;
+	public EditCorpBudgetRequest(CorpBudgetVo corpBudgetVo, UserSession userSession) {
+		this.corpBudgetVo = corpBudgetVo;
 		this.userSession = userSession;
 	}
 
@@ -36,12 +33,14 @@ public class EditCorpBudgetRequest implements Action<EditCorpBudgetResponse> {
 	}
 
 
+	
+
 	public String getCorpBudgetId() {
-		return giftId;
+		return corpBudgetId;
 	}
 
-	public void setCorpBudgetId(String giftId) {
-		this.giftId = giftId;
+	public void setCorpBudgetId(String corpBudgetId) {
+		this.corpBudgetId = corpBudgetId;
 	}
 
 	public String getNowUserId() {
@@ -53,11 +52,11 @@ public class EditCorpBudgetRequest implements Action<EditCorpBudgetResponse> {
 	}
 
 	public CorpBudgetVo getCorpBudgetVo() {
-		return giftVo;
+		return corpBudgetVo;
 	}
 
-	public void setCorpBudgetVo(CorpBudgetVo giftVo) {
-		this.giftVo = giftVo;
+	public void setCorpBudgetVo(CorpBudgetVo corpBudgetVo) {
+		this.corpBudgetVo = corpBudgetVo;
 	}
 
 	public UserSession getUserSession() {

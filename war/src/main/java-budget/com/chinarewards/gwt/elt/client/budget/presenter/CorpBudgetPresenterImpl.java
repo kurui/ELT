@@ -3,26 +3,16 @@ package com.chinarewards.gwt.elt.client.budget.presenter;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
-import com.chinarewards.gwt.elt.client.budget.model.CorpBudgetVo;
-import com.chinarewards.gwt.elt.client.budget.plugin.CorpBudgetConstants;
-import com.chinarewards.gwt.elt.client.budget.request.EditCorpBudgetRequest;
-import com.chinarewards.gwt.elt.client.budget.request.EditCorpBudgetResponse;
-import com.chinarewards.gwt.elt.client.budget.util.CorpBudgetAdapterClient;
-import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.win.Win;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
-public class CorpBudgetPresenterImpl extends
-		BasePresenter<CorpBudgetPresenter.CorpBudgetDisplay> implements
-		CorpBudgetPresenter {
+
+public class CorpBudgetPresenterImpl extends BasePresenter<CorpBudgetPresenter.CorpBudgetDisplay>
+		implements CorpBudgetPresenter {
 	String instanceId;// 修改时传过来的ID
 
 	private String thisAction;
@@ -37,9 +27,9 @@ public class CorpBudgetPresenterImpl extends
 	private final BreadCrumbsPresenter breadCrumbs;
 
 	@Inject
-	public CorpBudgetPresenterImpl(EventBus eventBus,
-			CorpBudgetDisplay display, DispatchAsync dispatcher,
-			ErrorHandler errorHandler, SessionManager sessionManager, Win win,
+	public CorpBudgetPresenterImpl(EventBus eventBus, CorpBudgetDisplay display,
+			DispatchAsync dispatcher, ErrorHandler errorHandler,
+			SessionManager sessionManager, Win win,
 			BreadCrumbsPresenter breadCrumbs) {
 		super(eventBus, display);
 		this.dispatcher = dispatcher;
@@ -51,138 +41,100 @@ public class CorpBudgetPresenterImpl extends
 
 	@Override
 	public void bind() {
+		System.out.println("============11111111===========");
+		
+//		breadCrumbs.loadChildPage("编辑礼品");
+//		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
+		
+		System.out.println("============222==========");
+		
 		// 绑定事件
-		init();
+//		registerEvent();
 
-		if (CorpBudgetConstants.ACTION_GIFT_ADD.equals(thisAction)) {
-			breadCrumbs.loadChildPage("新建礼品");
-//			initSave();
-		} else if (CorpBudgetConstants.ACTION_GIFT_EDIT.equals(thisAction)) {
-			initEdit();
-			breadCrumbs.loadChildPage("编辑礼品");
-		} else {
-			win.alert("未定义的方法");
-		}
-
-		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
+		System.out.println("============33==========");
+		
+		initEdit();
 	}
 
-	private void init() {
+	private void registerEvent() {
 		// 保存事件
-		registerHandler(display.getSaveClick().addClickHandler(
-				new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent arg0) {
-						if (!validateSubmit()) {
-							return;
-						}
-
-						CorpBudgetVo giftVo = CorpBudgetAdapterClient
-								.adapterDisplay(display);
-
-						if (CorpBudgetConstants.ACTION_GIFT_ADD
-								.equals(thisAction)) {
-							giftVo.setId(null);
-							doSave(giftVo);
-						} else if (CorpBudgetConstants.ACTION_GIFT_EDIT
-								.equals(thisAction)) {
-							giftVo.setId(giftId);
-							doEdit(giftVo);
-						} else {
-							win.alert("未定义的方法");
-						}
-					}
-
-					private void doSave(CorpBudgetVo gift) {
-						dispatcher.execute(new EditCorpBudgetRequest(gift,
-								sessionManager.getSession()),
-								new AsyncCallback<EditCorpBudgetResponse>() {
-									@Override
-									public void onFailure(Throwable t) {
-										errorHandler.alert(t.toString());
-									}
-
-									@Override
-									public void onSuccess(
-											EditCorpBudgetResponse response) {
-										Window.alert("添加成功");
-										// if(instanceId!=null||!instanceId.equals(""))
-										Platform.getInstance()
-												.getEditorRegistry()
-												.openEditor(
-														CorpBudgetConstants.EDITOR_GIFTLIST_SEARCH,
-														CorpBudgetConstants.ACTION_GIFT_LIST,
-														instanceId);
-									}
-								});
-					}
-
-					private void doEdit(CorpBudgetVo gift) {
-						if (Window.confirm("确定修改?")) {
-							dispatcher
-									.execute(
-											new EditCorpBudgetRequest(gift,
-													sessionManager.getSession()),
-											new AsyncCallback<EditCorpBudgetResponse>() {
-												@Override
-												public void onFailure(
-														Throwable t) {
-													Window.alert("修改失败");
-													Platform.getInstance()
-															.getEditorRegistry()
-															.closeEditor(
-																	CorpBudgetConstants.EDITOR_GIFT_EDIT,
-																	instanceId);
-												}
-
-												@Override
-												public void onSuccess(
-														EditCorpBudgetResponse arg0) {
-													Window.alert("修改成功");
-													Platform.getInstance()
-															.getEditorRegistry()
-															.openEditor(
-																	CorpBudgetConstants.EDITOR_GIFTLIST_SEARCH,
-																	CorpBudgetConstants.ACTION_GIFT_LIST,
-																	instanceId);
-												}
-											});
-						}
-					}
-
-				}));
-
-		registerHandler(display.getBackClick().addClickHandler(
-				new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent arg0) {
-						Platform.getInstance()
-								.getEditorRegistry()
-								.openEditor(
-										CorpBudgetConstants.EDITOR_GIFTLIST_SEARCH,
-										CorpBudgetConstants.ACTION_GIFT_LIST,
-										instanceId);
-					}
-				}));
+//		registerHandler(display.getSaveClick().addClickHandler(
+//				new ClickHandler() {
+//					@Override
+//					public void onClick(ClickEvent arg0) {
+//						if (!validateSubmit()) {
+//							return;
+//						}
+//
+//						CorpBudgetVo corpBudgetVo = CorpBudgetAdapterClient
+//								.adapterDisplay(display);
+//
+//						dispatcher.execute(new EditCorpBudgetRequest(
+//								corpBudgetVo, sessionManager.getSession()),
+//								new AsyncCallback<EditCorpBudgetResponse>() {
+//									@Override
+//									public void onFailure(Throwable t) {
+//										Window.alert("修改失败");
+//										Platform.getInstance()
+//												.getEditorRegistry()
+//												.closeEditor(
+//														CorpBudgetConstants.EDITOR_CORPBUDGET_EDIT,
+//														instanceId);
+//									}
+//
+//									@Override
+//									public void onSuccess(
+//											EditCorpBudgetResponse arg0) {
+//										Window.alert("修改成功");
+//										Platform.getInstance()
+//												.getEditorRegistry()
+//												.openEditor(
+//														CorpBudgetConstants.EDITOR_CORPBUDGET_EDIT,
+//														CorpBudgetConstants.ACTION_CORPBUDGET_EDIT,
+//														instanceId);
+//									}
+//								});
+//
+//					}
+//				}));
+//
+//		registerHandler(display.getBackClick().addClickHandler(
+//				new ClickHandler() {
+//					@Override
+//					public void onClick(ClickEvent arg0) {
+//						Platform.getInstance()
+//								.getEditorRegistry()
+//								.openEditor(
+//										CorpBudgetConstants.EDITOR_CORPBUDGET_EDIT,
+//										CorpBudgetConstants.ACTION_CORPBUDGET_EDIT,
+//										instanceId);
+//					}
+//				}));
 
 	}
 
-	// 验证方法
-	private boolean validateSubmit() {
-		boolean flag = true;
-		StringBuilder errorMsg = new StringBuilder();
-		if (display.getName().getValue() == null
-				|| "".equals(display.getName().getValue().trim())) {
-			errorMsg.append("请填写礼品名称!<br>");
-			flag = false;
-		}
-
-		if (!flag) {
-			win.alert(errorMsg.toString());
-		}
-
-		return flag;
-	}
+//	// 验证方法
+//	private boolean validateSubmit() {
+//		boolean flag = true;
+//		StringBuilder errorMsg = new StringBuilder();
+//		if (display.getBudgetAmount().getValue() == null
+//				|| "".equals(display.getBudgetAmount().getValue().trim())) {
+//			errorMsg.append("请填写预算金额!<br>");
+//			flag = false;
+//		}
+//
+//		if (display.getBudgetIntegral().getValue() == null
+//				|| "".equals(display.getBudgetIntegral().getValue().trim())) {
+//			errorMsg.append("请填写预算积分!<br>");
+//			flag = false;
+//		}
+//
+//		if (!flag) {
+//			win.alert(errorMsg.toString());
+//		}
+//
+//		return flag;
+//	}
 
 	private void initEdit() {
 		// dispatcher.execute(new SearchCorpBudgetByIdRequest(giftId),
@@ -192,7 +144,7 @@ public class CorpBudgetPresenterImpl extends
 		// errorHandler.alert("查询出错!");
 		// Platform.getInstance()
 		// .getEditorRegistry()
-		// .closeEditor(CorpBudgetConstants.EDITOR_GIFT_EDIT,
+		// .closeEditor(CorpBudgetConstants.EDITOR_CORPBUDGET_EDIT,
 		// instanceId);
 		// }
 		//
@@ -203,10 +155,6 @@ public class CorpBudgetPresenterImpl extends
 		// display.initEditCorpBudget(giftVo);
 		// }
 		// });
-	}
-
-	private void clear() {
-		display.clear();
 	}
 
 	public void setId(String id) {

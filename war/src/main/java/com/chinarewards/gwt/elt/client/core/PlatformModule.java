@@ -2,6 +2,7 @@ package com.chinarewards.gwt.elt.client.core;
 
 import com.chinarewards.gwt.elt.client.awardReward.plugin.AwardRewardPluginDescriptor;
 import com.chinarewards.gwt.elt.client.awardShop.plugin.AwardShopListPluginDescriptor;
+import com.chinarewards.gwt.elt.client.budget.plugin.CorpBudgetPluginDescriptor;
 import com.chinarewards.gwt.elt.client.core.impl.CorePluginDescriptor;
 import com.chinarewards.gwt.elt.client.core.impl.GinPluginManager;
 import com.chinarewards.gwt.elt.client.core.impl.InMemoryMenuRoleStore;
@@ -21,6 +22,7 @@ import com.chinarewards.gwt.elt.client.enterprise.plugin.PeriodPluginDescriptor;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftPluginDescriptor;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftViewPluginDescriptor;
+import com.chinarewards.gwt.elt.client.integralManagement.plugin.IntegralManagementPluginDescriptor;
 import com.chinarewards.gwt.elt.client.nominate.plugin.NominatePluginDescriptor;
 import com.chinarewards.gwt.elt.client.order.plugin.OrderBoxPluginDescriptor;
 import com.chinarewards.gwt.elt.client.order.plugin.OrderListPluginDescriptor;
@@ -72,7 +74,9 @@ public class PlatformModule extends AbstractGinModule {
 			// ---- PLUGINS DEFINE BELOW (2) ----
 			CorePluginDescriptor core, // core
 
-			EnterprisePluginDescriptor enterprise,IntegralPricePluginDescriptor integralPrice,PeriodPluginDescriptor period, UserPluginDescriptor user,
+			EnterprisePluginDescriptor enterprise,
+			IntegralPricePluginDescriptor integralPrice,
+			PeriodPluginDescriptor period, UserPluginDescriptor user,
 			HrRegisterPluginDescriptor hrregister,
 			NominatePluginDescriptor nominate,
 			RewardsItemPluginDescriptor rewardsItem,
@@ -89,17 +93,20 @@ public class PlatformModule extends AbstractGinModule {
 			OrderBoxPluginDescriptor orderBox,
 			AwardShopListPluginDescriptor awardShop,
 			ShopWindowPluginDescriptor shopWindow,
-			OrderHistoryPluginDescriptor orderHistory,OrderHistoryViewPluginDescriptor orderHistoryView,
+			OrderHistoryPluginDescriptor orderHistory,
+			OrderHistoryViewPluginDescriptor orderHistoryView,
 			OrderSubmitPluginDescriptor orderSubmit,
 			OrderConfirmationPluginDescriptor orderConfirmation,
-			DetailsOfGiftPluginDescriptor detailsOfGift) {
+			DetailsOfGiftPluginDescriptor detailsOfGift,
+			CorpBudgetPluginDescriptor corpBudget,
+			IntegralManagementPluginDescriptor integralManagement) {
 
 		if (pluginSet == null) {
 			pluginSet = new InMemoryPluginSet();
 			pluginSet.registerPlugin(core);
 			pluginSet.registerPlugin(enterprise);
 			pluginSet.registerPlugin(integralPrice);
-			pluginSet.registerPlugin(period);			
+			pluginSet.registerPlugin(period);
 			pluginSet.registerPlugin(user);
 			pluginSet.registerPlugin(hrregister);
 			pluginSet.registerPlugin(rewardsItemList);
@@ -123,6 +130,9 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(orderConfirmation);
 			pluginSet.registerPlugin(orderSubmit);
 			pluginSet.registerPlugin(detailsOfGift);
+			pluginSet.registerPlugin(integralManagement);
+
+			pluginSet.registerPlugin(corpBudget);
 		}
 
 		return pluginSet;

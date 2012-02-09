@@ -5,6 +5,7 @@ import com.chinarewards.gwt.elt.client.awardReward.module.AwardRewardModule;
 import com.chinarewards.gwt.elt.client.awardShop.module.AwardShopListModule;
 import com.chinarewards.gwt.elt.client.awardShopLattice.module.AwardShopLatticeModule;
 import com.chinarewards.gwt.elt.client.breadCrumbs.module.BreadCrumbsModule;
+import com.chinarewards.gwt.elt.client.budget.module.CorpBudgetModule;
 import com.chinarewards.gwt.elt.client.chooseStaff.module.ChooseStaffModule;
 import com.chinarewards.gwt.elt.client.core.presenter.DockModule;
 import com.chinarewards.gwt.elt.client.detailsOfAward.module.DetailsOfAwardModule;
@@ -12,6 +13,7 @@ import com.chinarewards.gwt.elt.client.detailsOfGift.module.DetailsOfGiftModule;
 import com.chinarewards.gwt.elt.client.enterprise.module.EnterprisesModule;
 import com.chinarewards.gwt.elt.client.gift.module.GiftListModule;
 import com.chinarewards.gwt.elt.client.gift.module.GiftModule;
+import com.chinarewards.gwt.elt.client.integralManagement.module.IntegralManagementModule;
 import com.chinarewards.gwt.elt.client.nominate.module.NominateModule;
 import com.chinarewards.gwt.elt.client.order.module.OrderBoxModule;
 import com.chinarewards.gwt.elt.client.order.module.OrderListModule;
@@ -55,6 +57,11 @@ public class PresenterModule extends AbstractGinModule {
 		install(new OrderConfirmationModule());
 		install(new OrderSubmitModule());
 		install(new DetailsOfGiftModule());
+
+		install(new CorpBudgetModule());
+
+		install(new IntegralManagementModule());
+
 
 	}
 

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.chinarewards.gwt.elt.client.plugin;
 
 /**
@@ -87,12 +84,13 @@ public abstract class MenuConstants {
 	public static final int MENU_ORDER_CORPORATION_INNER_INFO_PUBLISH = order++;
 	// hr注册
 	public static final int MENU_ORDER_Hr_SEARCH = order++;
-	
-	//积分价值设置
-	public static final int MENU_ORDER_INTEGRAL_PRICE_EDIT=order++;
-	//财年周期设置
-	public static final int MENU_ORDER_PERIOD_EDIT=order++;
-	
+	//今年财年预算
+	public static final int MENU_ORDER_INTEGRALMANAGEMENT_SEARCH =  order++;
+	// 积分价值设置
+	public static final int MENU_ORDER_INTEGRAL_PRICE_EDIT = order++;
+	// 财年周期设置
+	public static final int MENU_ORDER_PERIOD_EDIT = order++;
+
 	// 奖项列表查询
 	public static final int MENU_ORDER_REWARDSITEM_List = order++;
 	// 奖项库列表查询
@@ -119,7 +117,6 @@ public abstract class MenuConstants {
 	// 礼品编辑
 	public static final int MENU_ORDER_GIFT_EDIT = order++;
 
-
 	// 订单列表
 	public static final int MENU_ORDER_ORDERLIST_SEARCH = order++;
 	// 管理员的订单详细
@@ -128,20 +125,24 @@ public abstract class MenuConstants {
 	
 	// 订单新建
 	public static final int MENU_ORDER_ORDER_ADD = order++;
-	//奖品商城
-	public static final int MENU_ORDER_AWARDSHOPLIST_SEARCH =  order++;
-	//橱窗展示
-	public static final int MENU_ORDER_SHOPWINDOW_SEARCH =  order++;
-	//订单确认
-	public static final int MENU_ORDER_ORDERCONFIRMATION_SEARCH =  order++;
+	// 奖品商城
+	public static final int MENU_ORDER_AWARDSHOPLIST_SEARCH = order++;
+	// 橱窗展示
+	public static final int MENU_ORDER_SHOPWINDOW_SEARCH = order++;
+	// 订单确认
+	public static final int MENU_ORDER_ORDERCONFIRMATION_SEARCH = order++;
 	// 订单历史
 	public static final int MENU_ORDER_ORDERHISTORY_SEARCH = order++;
-	//订单提交
-	public static final int MENU_ORDER_ORDERSUBMIT_SEARCH =  order++;
 
-	//礼品详细
-	public static final int MENU_ORDER_DETAILSOFGIFT_SEARCH =  order++;
+	// 订单提交
+	public static final int MENU_ORDER_ORDERSUBMIT_SEARCH = order++;
+
+	// 礼品详细
+	public static final int MENU_ORDER_DETAILSOFGIFT_SEARCH = order++;
+
+	// 整体预算
+	public static final int MENU_ORDER_CORPBUDGET_EDIT = order++;
 
 
-	
+
 }
