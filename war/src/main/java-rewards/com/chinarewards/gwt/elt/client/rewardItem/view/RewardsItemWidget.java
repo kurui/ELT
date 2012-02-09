@@ -49,153 +49,147 @@ import com.google.inject.Inject;
 
 public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 
-	/** 基本信息 **/
-	// 名称
-	@UiField
-	TextBox rewardsName;
+		/** 基本信息 **/
+		// 名称
+		@UiField
+		TextBox rewardsName;
+		// 定义
+		@UiField
+		TextArea rewardsDefinition;
+		// 标准
+		@UiField
+		TextArea standard;
+		
+		// 限制人数
+		@UiField
+		TextBox peopleSizeLimit;
+		@UiField
+		//总积分
+		TextBox totalJF;
+		@UiField
+		TextBox rewardsFrom;
+	   //一次性的提前几天提名
+		@UiField
+		TextBox tmdays;
+		//多次性的提前几天提名
+		@UiField
+		TextBox tmday;
+		/** 频率规则 **/
+		// 频率是否生效
+		@UiField RadioButton onetimes;
+		@UiField RadioButton moretimes;
+		// 频率设定文字
+		@UiField
+		Label settingText;
+		// 频率设定按钮
+		@UiField
+		Button setting;
+		// 开始时间
+		@UiField
+		DateBox startTime;
+		// 下次公布时间
+		@UiField
+		DateBox nextPublicTime;
+		// 上次颁奖时间
+		@UiField
+		Label lastRewardsTime;
+		// 下次颁奖时间
+		@UiField
+		DateBox nextRewardsTime;
+		//期望颁奖时间
+		@UiField
+		DateBox expectTime;
+		// 是否自动
+		@UiField
+		CheckBox autoCbx;
+		// 特殊条件选择
+		@UiField
+		CheckBox specialCbx;
+		// 生日奖
+		@UiField
+		RadioButton birthRadio;
 	
-	// 定义
-	@UiField
-	TextArea rewardsDefinition;
-	// 标准
-	@UiField
-	TextArea standard;
+		/** 选人规则 **/
+		// 候选人模块
+		@UiField
+		Panel staffPanel;
+		
+		// 保存或修改
+		@UiField
+		Button save;
+		@UiField
+		Button back;
+		// 保存奖项库
+		@UiField
+		Button saveStore;
+		@UiField
+		Button backStore;
+		/** 存储有用的信息 **/
+		FrequencyClient frequency;
+		String rewardsUnit;
+		
+	   //提名选人的按钮
+		@UiField
+		Button chooseBtns;
+		//显示提名人的面板
+		@UiField
+		Panel staffAreaPanel;
+		@UiField
+		Panel breadCrumbs;	
+		SpecialTextArea<OrganicationClient> staffArea;
+		// is inject
+	//	final DepartmentComboTree buildDept;
+	//	final DepartmentComboTree accountDept;
 	
+		// Set the format of datepicker.
+		DateTimeFormat dateFormat = DateTimeFormat	.getFormat(ViewConstants.date_format);
 	
-	// 限制人数
-	@UiField
-	TextBox peopleSizeLimit;
-	@UiField
-	//总积分
-	TextBox totalJF;
-	@UiField
-	TextBox rewardsFrom;
-   //一次性的提前几天提名
-	@UiField
-	TextBox tmdays;
-	//多次性的提前几天提名
-	@UiField
-	TextBox tmday;
-	/** 频率规则 **/
-	// 频率是否生效
-	@UiField RadioButton onetimes;
-	@UiField RadioButton moretimes;
-	// 频率设定文字
-	@UiField
-	Label settingText;
-	// 频率设定按钮
-	@UiField
-	Button setting;
-	// 开始时间
-	@UiField
-	DateBox startTime;
+		interface RewardsItemWidgetBinder extends UiBinder<Widget, RewardsItemWidget> {
 	
-	// 下次公布时间
-	@UiField
-	DateBox nextPublicTime;
-	// 上次颁奖时间
-	@UiField
-	Label lastRewardsTime;
-	// 下次颁奖时间
-	@UiField
-	DateBox nextRewardsTime;
-	//期望颁奖时间
-	@UiField
-	DateBox expectTime;
-	// 是否自动
-	@UiField
-	CheckBox autoCbx;
-	// 特殊条件选择
-	@UiField
-	CheckBox specialCbx;
-	// 生日奖
-	@UiField
-	RadioButton birthRadio;
-
-	
-	
-	/** 选人规则 **/
-	// 候选人模块
-	@UiField
-	Panel staffPanel;
-
-	
-	// 保存或修改
-	@UiField
-	Button save;
-	
-	// 保存奖项库
-	@UiField
-	Button saveStore;
-
-	/** 存储有用的信息 **/
-	FrequencyClient frequency;
-	String rewardsUnit;
-	
-   //提名选人的按钮
-	@UiField
-	Button chooseBtns;
-	//显示提名人的面板
-	@UiField
-	Panel staffAreaPanel;
-	@UiField
-	Panel breadCrumbs;	
-	SpecialTextArea<OrganicationClient> staffArea;
-	// is inject
-//	final DepartmentComboTree buildDept;
-//	final DepartmentComboTree accountDept;
-
-	// Set the format of datepicker.
-	DateTimeFormat dateFormat = DateTimeFormat
-			.getFormat(ViewConstants.date_format);
-
-	interface RewardsItemWidgetBinder extends
-			UiBinder<Widget, RewardsItemWidget> {
-
-	}
-
-	private static RewardsItemWidgetBinder uiBinder = GWT
-			.create(RewardsItemWidgetBinder.class);
-
-	//Win win;
-
-		@Inject
-		public RewardsItemWidget( DispatchAsync dispatch,
-				ErrorHandler errorHandler, SessionManager sessionManager) {
-			initWidget(uiBinder.createAndBindUi(this));
-			
-			init();
 		}
 
+	  private static RewardsItemWidgetBinder uiBinder = GWT.create(RewardsItemWidgetBinder.class);
+		@Inject
+		public RewardsItemWidget( DispatchAsync dispatch,ErrorHandler errorHandler, SessionManager sessionManager) {
+			initWidget(uiBinder.createAndBindUi(this));
+			init();
+		}
+		@Override
+		public HasClickHandlers getBackClick() {
+			return back;
+		}
+	   			
+		public HasClickHandlers getBackStoreClick() {
+			return backStore;
+		}
 		@Override
 		public void setBreadCrumbs(Widget breadCrumbs) {
 			this.breadCrumbs.clear();
 			this.breadCrumbs.add(breadCrumbs);
 		}
 		private void init() {
-		staffArea = new OrganizationSpecialTextArea();
-		staffAreaPanel.add(staffArea);//提名人面板
-		startTime.setFormat(new DateBox.DefaultFormat(dateFormat));
-	    //隐藏周期性
-		expectTime.setEnabled(true);
-		tmdays.setEnabled(true);
-		
-		nextRewardsTime.setEnabled(false);
-		tmday.setEnabled(false);
-		setting.setEnabled(false);
-		autoCbx.setEnabled(false);
-		nextPublicTime.setEnabled(false);
-		specialCbx.setEnabled(false);
-		birthRadio.setEnabled(false);
-
-	//	settingText.getElement().getParentElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
-		nextRewardsTime.setFormat(new DateBox.DefaultFormat(dateFormat));
-		nextPublicTime.setFormat(new DateBox.DefaultFormat(dateFormat));
-		expectTime.setFormat(new DateBox.DefaultFormat(dateFormat));
-		//sub.setText("我的奖项");
-		//title.setText("创建奖项");
-		// settingText.setText("每1天一次");
-		birthRadio.getElement().addClassName(CssStyleConstants.hidden);
+			staffArea = new OrganizationSpecialTextArea();
+			staffAreaPanel.add(staffArea);//提名人面板
+			startTime.setFormat(new DateBox.DefaultFormat(dateFormat));
+		    //隐藏周期性
+			expectTime.setEnabled(true);
+			tmdays.setEnabled(true);
+			nextRewardsTime.setEnabled(false);
+			tmday.setEnabled(false);
+			setting.setEnabled(false);
+			autoCbx.setEnabled(false);
+			nextPublicTime.setEnabled(false);
+			specialCbx.setEnabled(false);
+			birthRadio.setEnabled(false);
+	        backStore.setVisible(false);
+		//	settingText.getElement().getParentElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
+			nextRewardsTime.setFormat(new DateBox.DefaultFormat(dateFormat));
+			nextPublicTime.setFormat(new DateBox.DefaultFormat(dateFormat));
+			expectTime.setFormat(new DateBox.DefaultFormat(dateFormat));
+			//sub.setText("我的奖项");
+			//title.setText("创建奖项");
+			// settingText.setText("每1天一次");
+			birthRadio.getElement().addClassName(CssStyleConstants.hidden);
 		//周期性选择
 		onetimes.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
 			@Override
@@ -307,8 +301,7 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 			public void onValueChange(ValueChangeEvent<Boolean> event) {
 				if (event.getValue()) {
 					FrequencyClient frequecny = getFrequencyObj();
-					if (frequecny == null
-							|| frequecny instanceof WeekFrequencyClient
+					if (frequecny == null|| frequecny instanceof WeekFrequencyClient
 							|| frequecny instanceof YearFrequencyClient) {
 						Window.alert("生日奖必须为每日或每月，已重设为每天一次");
 						DayFrequencyClient daily = new DayFrequencyClient();
@@ -425,380 +418,336 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 					}
 				} 
 			}
-		});
-	}
-//	public native void show() /*-{
-//       $wnd.alert("dd");
-//	}-*/;
-	@Override
-	public Widget asWidget() {
-		return this;
-	}
-
-	@Override
-	public HasClickHandlers getFrequencySettingClick() {
-		return setting;
-	}
-
+		 });
+	 }
+	//	public native void show() /*-{
+	//       $wnd.alert("dd");
+	//	}-*/;
+		@Override
+		public Widget asWidget() {
+			return this;
+		}
 	
-	@Override
-	public HasValue<Date> getNextPublishTime() {
-		return nextPublicTime;
-	}
-    
-	@Override
-	public HasClickHandlers getChooseStaffBtnClick() {//提名人选择事件
-		return chooseBtns;
-	}
-	@Override
-	public SpecialTextArea<OrganicationClient> getSpecialTextArea() {
-		return staffArea;
-	}
-
+		@Override
+		public HasClickHandlers getFrequencySettingClick() {
+			return setting;
+		}
 	
-	@Override
-	public HasClickHandlers getSaveClick() {
-		return save;
-	}
-
-	@Override
-	public HasClickHandlers getSaveStoreClick() {
-		return saveStore;
-	}
-	
-	
-	@Override
-	public void clear() {
-		rewardsName.setTitle("");
-		/* 增加请选择下拉选项 */
-		//rewardsType.setSelectedIndex(0);
-		rewardsDefinition.setText("");
-		standard.setText("");
-		startTime.setValue(null);
 		
-		peopleSizeLimit.setValue("");
-		frequency = null;
-		settingText.setText("");
-		autoCbx.setValue(false, true);
-		specialCbx.setValue(false, true);
-		birthRadio.setValue(false, true);
-
-		//nextPublicTime.setValue(null);
-		nextRewardsTime.setValue(null);
-		//lastRewardsTime.setText("");
-		// 清空设定规则为为设定
-		//setIsAmountLevel("未设定");
-	}
-	@Override
-	public HasValue<String> getRewardsName() {
-		return rewardsName;
-	}
-
+		@Override
+		public HasValue<Date> getNextPublishTime() {
+			return nextPublicTime;
+		}
+	    
+		@Override
+		public HasClickHandlers getChooseStaffBtnClick() {//提名人选择事件
+			return chooseBtns;
+		}
+		@Override
+		public SpecialTextArea<OrganicationClient> getSpecialTextArea() {
+			return staffArea;
+		}
+			@Override
+		public HasClickHandlers getSaveClick() {
+			return save;
+		}
+		@Override
+		public HasClickHandlers getSaveStoreClick() {
+			return saveStore;
+		}
+		
+		@Override
+		public void clear() {
+			rewardsName.setTitle("");
+			/* 增加请选择下拉选项 */
+			//rewardsType.setSelectedIndex(0);
+			rewardsDefinition.setText("");
+			standard.setText("");
+			startTime.setValue(null);
+			
+			peopleSizeLimit.setValue("");
+			frequency = null;
+			settingText.setText("");
+			autoCbx.setValue(false, true);
+			specialCbx.setValue(false, true);
+			birthRadio.setValue(false, true);
 	
-	@Override
-	public HasValue<String> getDefinition() {
-		return rewardsDefinition;
-	}
-
-	@Override
-	public HasValue<String> getStandard() {
-		return standard;
-	}
-
-	@Override
-	public Integer getRewardsFrom() {
-		if (rewardsFrom.getText() == null
-				|| "".equals(rewardsFrom.getText().trim())) {
-			return null;
-		} else {
-			try {
-				int d = Integer.parseInt(rewardsFrom.getText().trim());
-				return d;
-			} catch (Exception e) {
-				return new Integer(-1);
+			//nextPublicTime.setValue(null);
+			nextRewardsTime.setValue(null);
+			//lastRewardsTime.setText("");
+			// 清空设定规则为为设定
+			//setIsAmountLevel("未设定");
+		}
+		@Override
+		public HasValue<String> getRewardsName() {
+			return rewardsName;
+		}
+		@Override
+		public HasValue<String> getDefinition() {
+			return rewardsDefinition;
+		}
+		@Override
+		public HasValue<String> getStandard() {
+			return standard;
+		}
+		@Override
+		public Integer getRewardsFrom() {
+			if (rewardsFrom.getText() == null
+					|| "".equals(rewardsFrom.getText().trim())) {
+				return null;
+			} else {
+				try {
+					int d = Integer.parseInt(rewardsFrom.getText().trim());
+					return d;
+				} catch (Exception e) {
+					return new Integer(-1);
+				}
 			}
 		}
-	}
-
 	
-
-	@Override
-	public FrequencyClient getFrequencyObj() {
-		return frequency;
-	}
-
-	@Override
-	public HasValue<Date> getStartTime() {
-		return startTime;
-	}
-
-	@Override
-	public void initStaffBlock(Widget w) {
-		staffPanel.add(w);
-	}
-
-	
-	@Override
-	public HasValue<Date> getNextRewardsTime() {
-		return nextRewardsTime;
-	}
-
-	@Override
-	public HasValue<Boolean> getAutoCbx() {
-		return autoCbx;
-	}
-
-	@Override
-	public String getRewardsUnit() {
-		return rewardsUnit;
-	}
-
-	@Override
-	public HasValueChangeHandlers<Date> getStartTimeChangeHandler() {
-		return startTime;
-	}
-
-	@Override
-	public HasValueChangeHandlers<Date> getRewardsTimeChangeHandler() {
-		return nextRewardsTime;
-	}
-
-	@Override
-	public HasValue<Boolean> getSpecialCbx() {
-		return specialCbx;
-	}
-
-	@Override
-	public HasValue<Boolean> getBirthRadio() {
-		return birthRadio;
-	}
-
-	
-	@Override
-	public HasValue<String> getPeopleSizeLimit() {
-		return peopleSizeLimit;
-	}
-
-	
-	@Override
-	public void showFrequencyInfo(FrequencyClient frequency) {
-		String text = FrequencyCalculator.getTextFromFrequency(frequency);
-		this.frequency = frequency;
-		settingText.setText(text);
-	}
-
-	
-	
-	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.chinarewards.hr.gwt.mvp.client.rewards.presenter.
-	 * RewardsItemCreatePresenter
-	 * .RewardsItemCreateDisplay#setNextRewardsTimeVisible(boolean)
-	 */
-	@Override
-	public void setNextRewardsTimeVisible(boolean visible) {
-		this.nextRewardsTime.setVisible(visible);
-	}
-
-	
-
-	@Override
-	public TextBox getRewardsFromFocus() {
-		return rewardsFrom;
-	}
-
-	
-	
-
-	@Override
-	public CheckBox getAutoCbxElement() {
-		return autoCbx;
-	}
-
-
-	@Override
-	public Integer getTmdays() {
+		@Override
+		public FrequencyClient getFrequencyObj() {
+			return frequency;
+		}
+		@Override
+		public HasValue<Date> getStartTime() {
+			return startTime;
+		}
+		@Override
+		public void initStaffBlock(Widget w) {
+			staffPanel.add(w);
+		}
 		
-		if (tmdays.getText() == null
-				|| "".equals(tmdays.getText().trim())) {
-			return null;
-		} else {
-			try {
-				int d = Integer.parseInt(tmdays.getText().trim());
-				return d;
-			} catch (Exception e) {
-				return new Integer(-1);
+		@Override
+		public HasValue<Date> getNextRewardsTime() {
+			return nextRewardsTime;
+		}
+			@Override
+		public HasValue<Boolean> getAutoCbx() {
+			return autoCbx;
+		}
+	
+		@Override
+		public String getRewardsUnit() {
+			return rewardsUnit;
+		}
+	
+		@Override
+		public HasValueChangeHandlers<Date> getStartTimeChangeHandler() {
+			return startTime;
+		}
+	
+		@Override
+		public HasValueChangeHandlers<Date> getRewardsTimeChangeHandler() {
+			return nextRewardsTime;
+		}
+	
+		@Override
+		public HasValue<Boolean> getSpecialCbx() {
+			return specialCbx;
+		}
+	
+		@Override
+		public HasValue<Boolean> getBirthRadio() {
+			return birthRadio;
+		}
+	
+		
+		@Override
+		public HasValue<String> getPeopleSizeLimit() {
+			return peopleSizeLimit;
+		}
+			
+		@Override
+		public void showFrequencyInfo(FrequencyClient frequency) {
+			String text = FrequencyCalculator.getTextFromFrequency(frequency);
+			this.frequency = frequency;
+			settingText.setText(text);
+		}
+	
+				
+		@Override
+		public void setNextRewardsTimeVisible(boolean visible) {
+			this.nextRewardsTime.setVisible(visible);
+		}
+	
+		@Override
+		public TextBox getRewardsFromFocus() {
+			return rewardsFrom;
+		}
+		
+		@Override
+		public CheckBox getAutoCbxElement() {
+			return autoCbx;
+		}
+	
+		@Override
+		public Integer getTmdays() {
+			
+			if (tmdays.getText() == null
+					|| "".equals(tmdays.getText().trim())) {
+				return null;
+			} else {
+				try {
+					int d = Integer.parseInt(tmdays.getText().trim());
+					return d;
+				} catch (Exception e) {
+					return new Integer(-1);
+				}
 			}
 		}
-	}
-
-
-	@Override
-	public HasValue<Boolean> getEnableCbx() {
-		
-		return moretimes;
-	}
-
-
-	@Override
-	public HasValueChangeHandlers<Boolean> onetimesClick() {
-		// TODO Auto-generated method stub
-		return onetimes;
-	}
-
-
-	@Override
-	public HasValueChangeHandlers<Boolean> moretimesClick() {
-		// TODO Auto-generated method stub
-		return moretimes;
-	}
-
-
 	
-
-	@Override
-	public String getRewardsType() {
-		// 暂时没有设置启用
-		return "客户自定义";
-	}
-
-
-	@Override
-	public Integer getTotalJF() {
+		@Override
+		public HasValue<Boolean> getEnableCbx() {
+			
+			return moretimes;
+		}
 		
-		if (totalJF.getText() == null
-				|| "".equals(totalJF.getText().trim())) {
-			return null;
-		} else {
-			try {
-				int d = Integer.parseInt(totalJF.getText().trim());
-				return d;
-			} catch (Exception e) {
-				return new Integer(-1);
+		@Override
+		public HasValueChangeHandlers<Boolean> onetimesClick() {
+			// TODO Auto-generated method stub
+			return onetimes;
+		}
+		
+		@Override
+		public HasValueChangeHandlers<Boolean> moretimesClick() {
+			// TODO Auto-generated method stub
+			return moretimes;
+		}
+		@Override
+		public String getRewardsType() {
+			// 暂时没有设置启用
+			return "客户自定义";
+		}
+		
+		@Override
+		public Integer getTotalJF() {
+			
+			if (totalJF.getText() == null
+					|| "".equals(totalJF.getText().trim())) {
+				return null;
+			} else {
+				try {
+					int d = Integer.parseInt(totalJF.getText().trim());
+					return d;
+				} catch (Exception e) {
+					return new Integer(-1);
+				}
 			}
 		}
-	}
-
-
-	@Override
-	public Integer getTmday() {
-		
-		if (tmday.getText() == null
-				|| "".equals(tmday.getText().trim())) {
-			return null;
-		} else {
-			try {
-				int d = Integer.parseInt(tmday.getText().trim());
-				return d;
-			} catch (Exception e) {
-				return new Integer(-1);
+	
+	
+		@Override
+		public Integer getTmday() {
+			
+			if (tmday.getText() == null
+					|| "".equals(tmday.getText().trim())) {
+				return null;
+			} else {
+				try {
+					int d = Integer.parseInt(tmday.getText().trim());
+					return d;
+				} catch (Exception e) {
+					return new Integer(-1);
+				}
 			}
 		}
-	}
-
-	@Override
-	public HasValue<Date> getExpectTime() {
-		// TODO Auto-generated method stub
-		return this.expectTime;
-	}
-
-
 	
-
-
-	@Override
-	public List<String> getNominateIds() {
-		List<String> nominateIds = new ArrayList<String>();
-		List<OrganicationClient> existKeys = staffArea.getItemList();
-		for (OrganicationClient key : existKeys) {
-			// if (staffMap.containsKey(key.getId())) {
-			// OrganicationClient org = staffMap.get(key.getId());
-			nominateIds.add(key.getId());
-			// }
+		@Override
+		public HasValue<Date> getExpectTime() {
+			// TODO Auto-generated method stub
+			return this.expectTime;
 		}
-		return nominateIds;
-	}
-   
-	// 显示提名人
-	@Override
-	public void showJudgeInfo(RewardsItemClient info){
-			staffArea.clear();
-			ParticipateInfoClient participateInfo = info.getTmInfo();
-			 if (participateInfo instanceof SomeoneClient) {
-					for (OrganicationClient org : ((SomeoneClient) participateInfo)	.getOrganizations()) {
-						if (!staffArea.containsItem(org)) {
-							staffArea.addItem(org);
+
+		@Override
+		public List<String> getNominateIds() {
+			List<String> nominateIds = new ArrayList<String>();
+			List<OrganicationClient> existKeys = staffArea.getItemList();
+			for (OrganicationClient key : existKeys) {
+				// if (staffMap.containsKey(key.getId())) {
+				// OrganicationClient org = staffMap.get(key.getId());
+				nominateIds.add(key.getId());
+				// }
+			}
+			return nominateIds;
+		}
+	   
+		// 显示提名人
+		@Override
+		public void showJudgeInfo(RewardsItemClient info){
+				staffArea.clear();
+				ParticipateInfoClient participateInfo = info.getTmInfo();
+				 if (participateInfo instanceof SomeoneClient) {
+						for (OrganicationClient org : ((SomeoneClient) participateInfo)	.getOrganizations()) {
+							if (!staffArea.containsItem(org)) {
+								staffArea.addItem(org);
+							}
 						}
-					}
-			}
-	}
+				}
+		}
 
 	public void showRewardsItem(RewardsItemClient rewardsItem,boolean isItemStore) {
 		if (rewardsItem.getFrequency() != null) {
 			// 显示出下次颁奖时间
-			nextRewardsTime.getElement().getParentElement().getParentElement()
-					.removeClassName(CssStyleConstants.hidden);
+			nextRewardsTime.getElement().getParentElement().getParentElement().removeClassName(CssStyleConstants.hidden);
 			// 把开始时间设成只读
 			//startTime.setEnabled(false);
 			
 		} 
-        if(isItemStore==false){
-        			    
-		     saveStore.setVisible(false);
+        if(isItemStore==false){//维护按钮的状态
+        	 saveStore.setVisible(false);
+		     backStore.setVisible(false);
 		     save.setVisible(true);
+		     back.setVisible(true);	
         }else{
+        	 backStore.setVisible(true);
         	 saveStore.setVisible(true);
         	 save.setVisible(false);
+        	 back.setVisible(false);	
         } 	 
-		rewardsName.setText(rewardsItem.getName());
-		rewardsDefinition.setText(rewardsItem.getDefinition());
-		standard.setText(rewardsItem.getStandard());
-		rewardsUnit = rewardsItem.getRewardsUnit();
-
-		
-		if (rewardsItem.getFrequency() != null	&& rewardsItem.isGeneratedRewards()) {
-			//startTime.setEnabled(false);
-		}
+			  rewardsName.setText(rewardsItem.getName());
+			  rewardsDefinition.setText(rewardsItem.getDefinition());
+			  standard.setText(rewardsItem.getStandard());
+			  rewardsUnit = rewardsItem.getRewardsUnit();
 	
-	  showJudgeInfo(rewardsItem);//显示要修改的提名人
-	  startTime.setValue(rewardsItem.getStartTime());
-	  nextRewardsTime.setValue(rewardsItem.getNextTime());
-	  nextPublicTime.setValue(rewardsItem.getNextPublishTime());
-	  peopleSizeLimit.setValue(StringUtil.valueOf(rewardsItem.getSizeLimit()));
-      rewardsFrom.setValue(StringUtil.valueOf(rewardsItem.getRewardsFrom()));
-      tmday.setValue(StringUtil.valueOf(rewardsItem.getTmdays()));
-	  tmdays.setValue(StringUtil.valueOf(rewardsItem.getTmdays()));
-	  totalJF.setValue(StringUtil.valueOf(rewardsItem.getTotalJF()));
-	   expectTime.setValue(rewardsItem.getNextTime());
-	  nextPublicTime.setValue(rewardsItem.getNextPublishTime());
-	  showFrequencyInfo(rewardsItem.getFrequency());
-	  autoCbx.setValue(rewardsItem.isAuto(), true);
-	  if(rewardsItem.isAuto()==false)//隐藏提名
-	     chooseBtns.getElement().getParentElement().getParentElement().removeClassName(CssStyleConstants.hidden);
-	  else
-		  chooseBtns.getElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
-		specialCbx.setValue(rewardsItem.isHasSpecialCondition(), true);
-		if (SpecialCondition.birth == rewardsItem.getCondition()) {
-			birthRadio.setValue(true);
-		} else {
-			birthRadio.setValue(false);
-		}
-       if(rewardsItem.isPeriodEnable()==true){
-    	   moretimes.setValue(true,true);
-       }else{
-    	   onetimes.setValue(true,true);
-       }
-		
-	}
+			  showJudgeInfo(rewardsItem);//显示要修改的提名人
+			  startTime.setValue(rewardsItem.getStartTime());
+			  nextRewardsTime.setValue(rewardsItem.getNextTime());
+			  nextPublicTime.setValue(rewardsItem.getNextPublishTime());
+			  peopleSizeLimit.setValue(StringUtil.valueOf(rewardsItem.getSizeLimit()));
+		      rewardsFrom.setValue(StringUtil.valueOf(rewardsItem.getRewardsFrom()));
+		      tmday.setValue(StringUtil.valueOf(rewardsItem.getTmdays()));
+			  tmdays.setValue(StringUtil.valueOf(rewardsItem.getTmdays()));
+			  totalJF.setValue(StringUtil.valueOf(rewardsItem.getTotalJF()));
+			   expectTime.setValue(rewardsItem.getNextTime());
+			  nextPublicTime.setValue(rewardsItem.getNextPublishTime());
+			  showFrequencyInfo(rewardsItem.getFrequency());
+			  autoCbx.setValue(rewardsItem.isAuto(), true);
+			  if(rewardsItem.isAuto()==false)//隐藏提名
+			     chooseBtns.getElement().getParentElement().getParentElement().removeClassName(CssStyleConstants.hidden);
+			  else
+				  chooseBtns.getElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
+				specialCbx.setValue(rewardsItem.isHasSpecialCondition(), true);
+			  if (SpecialCondition.birth == rewardsItem.getCondition()) {
+					birthRadio.setValue(true);
+			 } else {
+					birthRadio.setValue(false);
+			  }
+	       if(rewardsItem.isPeriodEnable()==true){
+	    	   moretimes.setValue(true,true);
+	       }else{
+	    	   onetimes.setValue(true,true);
+	       }
+				
+	    }
 
-
+		@Override
+		public void setRewardButtonDisplay(boolean status) {
+			save.setVisible(status);		
+		}	
+		@Override
+		public void setRewardBackButtonDisplay(boolean status) {
+			back.setVisible(status);		
+		}	
 	
-
-	@Override
-	public void setRewardButtonDisplay(boolean status) {
-		save.setVisible(status);		
-	}	
-	
-}
+    }

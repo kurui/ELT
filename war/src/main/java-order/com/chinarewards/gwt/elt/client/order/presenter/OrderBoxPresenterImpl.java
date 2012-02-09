@@ -3,18 +3,23 @@ package com.chinarewards.gwt.elt.client.order.presenter;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
+import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.order.model.OrderStatus;
 import com.chinarewards.gwt.elt.client.order.model.OrderViewClient;
+import com.chinarewards.gwt.elt.client.order.plugin.OrderListConstants;
 import com.chinarewards.gwt.elt.client.order.presenter.OrderBoxPresenter.OrderBoxDisplay;
 import com.chinarewards.gwt.elt.client.order.request.OrderBoxRequest;
 import com.chinarewards.gwt.elt.client.order.request.OrderBoxResponse;
 import com.chinarewards.gwt.elt.client.order.request.SearchOrderByIdResponse;
+import com.chinarewards.gwt.elt.client.orderHistory.plugin.OrderHistoryConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.model.ChoosePanel.InitChoosePanelParam;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
@@ -40,12 +45,29 @@ public class OrderBoxPresenterImpl extends BasePresenter<OrderBoxDisplay>
 
 	@Override
 	public void bind() {
-		breadCrumbs.loadChildPage("订单详细");
-		InitChoosePanelParam initChooseParam = new InitChoosePanelParam();
-		initChooseParam.setTopName("订单详细：");
+		breadCrumbs.loadListPage();
 		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
 		
-		
+		registerHandler(display.getView().addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				Platform.getInstance()
+				.getEditorRegistry()
+				.openEditor(
+						OrderListConstants.EDITOR_ORDERLIST_SEARCH,
+						"EDITOR_ORDERLIST_SEARCH", OrderStatus.INITIAL);
+			}
+		}));
+		registerHandler(display.getOperate().addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				Platform.getInstance()
+				.getEditorRegistry()
+				.openEditor(
+						OrderListConstants.EDITOR_ORDERLIST_SEARCH,
+						"EDITOR_ORDERLIST_SEARCH", OrderStatus.NUSHIPMENTS);
+			}
+		}));
 
 	}
 

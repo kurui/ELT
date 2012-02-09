@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.chinarewards.gwt.elt.client.order.view.OrderListWidget;
+import com.chinarewards.gwt.elt.client.order.model.OrderStatus;
 import com.chinarewards.gwt.elt.client.order.presenter.OrderListPresenter.OrderListDisplay;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -115,5 +116,15 @@ public class OrderListWidget extends Composite implements OrderListDisplay {
 		this.breadCrumbs.clear();
 		this.breadCrumbs.add(breadCrumbs);		
 
+	}
+
+	@Override
+	public void setStatus(String statu) {
+		if(statu.equals(OrderStatus.INITIAL.toString()))
+		  status.setSelectedIndex(5);
+		else if(statu.equals(OrderStatus.NUSHIPMENTS.toString()))
+		  status.setSelectedIndex(4);	
+//		else
+//			 status.setSelectedIndex(0);
 	}
 }
