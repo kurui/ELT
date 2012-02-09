@@ -16,6 +16,7 @@ import com.chinarewards.gwt.elt.client.detailsOfAward.plugin.DetailsOfAwardConst
 import com.chinarewards.gwt.elt.client.enterprise.plugin.EnterpriseConstants;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftConstants;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftListConstants;
+import com.chinarewards.gwt.elt.client.integralManagement.plugin.IntegralManagementConstants;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.nominate.plugin.NominateConstants;
 import com.chinarewards.gwt.elt.client.order.plugin.OrderListConstants;
@@ -121,7 +122,8 @@ public class ButtonMenuProcessor implements MenuProcessor {
 							.equals(RewardsListConstants.MENU_REWARDSLIST_SEARCH)
 					|| menuId.equals(UserConstants.MENU_USER_SEARCH)
 					|| menuId.equals(GiftListConstants.MENU_GIFTLIST_SEARCH)
-					|| menuId.equals(EnterpriseConstants.MENU_ENTERPRISE_EDIT)) {
+					|| menuId.equals(EnterpriseConstants.MENU_ENTERPRISE_EDIT) 
+					|| menuId.equals(IntegralManagementConstants.MENU_INTEGRALMANAGEMENT_SEARCH)) {
 				button.setStyleName("menu-link menu-selected");
 				breadCrumbsMenu.cleanBreadCrumbsItemTop();
 				if (menuId.equals(RewardsItemConstants.MENU_REWARDSITEM_List))
@@ -135,7 +137,9 @@ public class ButtonMenuProcessor implements MenuProcessor {
 					breadCrumbsMenu.addBreadCrumbsItemTop("兑换管理", null);
 				else if (menuId.equals(EnterpriseConstants.MENU_ENTERPRISE_EDIT))
 					breadCrumbsMenu.addBreadCrumbsItemTop("设置", null);
-
+				else if (menuId.equals(IntegralManagementConstants.MENU_INTEGRALMANAGEMENT_SEARCH))
+					breadCrumbsMenu.addBreadCrumbsItemTop("今年财年预算", null);
+				
 				breadCrumbsMenu.addBreadCrumbsItem(menuItem.getTitle(),
 						menuItem.getMenuId());
 			}
@@ -184,13 +188,13 @@ public class ButtonMenuProcessor implements MenuProcessor {
 			items.add(GiftListConstants.MENU_GIFTLIST_SEARCH);
 			items.add(GiftConstants.MENU_GIFT_ADD);
 			items.add(OrderListConstants.MENU_ORDERLIST_SEARCH);
+			items.add(OrderViewConstants.MENU_ORDERBOX_SEARCH);
 		}else if ("Integral".equals(keyname)) {
 			items.add(CorpBudgetConstants.MENU_CORPBUDGET_EDIT);
 			items.add(EnterpriseConstants.MENU_INTEGRAL_PRICE_EDIT);
 			items.add(EnterpriseConstants.MENU_PERIOD_EDIT);
-
-			items.add(OrderViewConstants.MENU_ORDERBOX_SEARCH);
-
+			items.add(IntegralManagementConstants.MENU_INTEGRALMANAGEMENT_SEARCH);
+			
 		}
 		return items;
 	}

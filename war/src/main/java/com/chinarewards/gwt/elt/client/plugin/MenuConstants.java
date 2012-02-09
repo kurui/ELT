@@ -84,7 +84,8 @@ public abstract class MenuConstants {
 	public static final int MENU_ORDER_CORPORATION_INNER_INFO_PUBLISH = order++;
 	// hr注册
 	public static final int MENU_ORDER_Hr_SEARCH = order++;
-
+	//今年财年预算
+	public static final int MENU_ORDER_INTEGRALMANAGEMENT_SEARCH =  order++;
 	// 积分价值设置
 	public static final int MENU_ORDER_INTEGRAL_PRICE_EDIT = order++;
 	// 财年周期设置
@@ -132,6 +133,7 @@ public abstract class MenuConstants {
 	public static final int MENU_ORDER_ORDERCONFIRMATION_SEARCH = order++;
 	// 订单历史
 	public static final int MENU_ORDER_ORDERHISTORY_SEARCH = order++;
+
 	// 订单提交
 	public static final int MENU_ORDER_ORDERSUBMIT_SEARCH = order++;
 
@@ -140,5 +142,7 @@ public abstract class MenuConstants {
 
 	// 整体预算
 	public static final int MENU_ORDER_CORPBUDGET_EDIT = order++;
+
+
 
 }
