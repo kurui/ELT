@@ -6,13 +6,13 @@ import java.util.List;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.EltGinjector;
-import com.chinarewards.gwt.elt.client.budget.plugin.CorpBudgetConstants;
 import com.chinarewards.gwt.elt.client.core.PluginManager;
 import com.chinarewards.gwt.elt.client.core.presenter.DockPresenter.DockDisplay;
 import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
 import com.chinarewards.gwt.elt.client.core.ui.event.MenuClickEvent;
 import com.chinarewards.gwt.elt.client.enterprise.plugin.EnterpriseConstants;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftListConstants;
+import com.chinarewards.gwt.elt.client.integralManagement.plugin.IntegralManagementConstants;
 import com.chinarewards.gwt.elt.client.login.LastLoginRoleRequest;
 import com.chinarewards.gwt.elt.client.login.LastLoginRoleResponse;
 import com.chinarewards.gwt.elt.client.login.event.LoginEvent;
@@ -162,7 +162,7 @@ public class DockPresenterImpl extends BasePresenter<DockDisplay> implements
 						menuProcessor.initrender(display.getMenu(), "Integral");
 						eventBus.fireEvent(new MenuClickEvent(
 								menuProcessor
-										.getMenuItem(CorpBudgetConstants.MENU_CORPBUDGET_EDIT)));
+										.getMenuItem(IntegralManagementConstants.MENU_INTEGRALMANAGEMENT_SEARCH)));
 					}
 				}));
 

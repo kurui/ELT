@@ -122,7 +122,8 @@ public class ButtonMenuProcessor implements MenuProcessor {
 							.equals(RewardsListConstants.MENU_REWARDSLIST_SEARCH)
 					|| menuId.equals(UserConstants.MENU_USER_SEARCH)
 					|| menuId.equals(GiftListConstants.MENU_GIFTLIST_SEARCH)
-					|| menuId.equals(EnterpriseConstants.MENU_ENTERPRISE_EDIT)) {
+					|| menuId.equals(EnterpriseConstants.MENU_ENTERPRISE_EDIT) 
+					|| menuId.equals(IntegralManagementConstants.MENU_INTEGRALMANAGEMENT_SEARCH)) {
 				button.setStyleName("menu-link menu-selected");
 				breadCrumbsMenu.cleanBreadCrumbsItemTop();
 				if (menuId.equals(RewardsItemConstants.MENU_REWARDSITEM_List))
@@ -136,7 +137,9 @@ public class ButtonMenuProcessor implements MenuProcessor {
 					breadCrumbsMenu.addBreadCrumbsItemTop("兑换管理", null);
 				else if (menuId.equals(EnterpriseConstants.MENU_ENTERPRISE_EDIT))
 					breadCrumbsMenu.addBreadCrumbsItemTop("设置", null);
-
+				else if (menuId.equals(IntegralManagementConstants.MENU_INTEGRALMANAGEMENT_SEARCH))
+					breadCrumbsMenu.addBreadCrumbsItemTop("今年财年预算", null);
+				
 				breadCrumbsMenu.addBreadCrumbsItem(menuItem.getTitle(),
 						menuItem.getMenuId());
 			}
