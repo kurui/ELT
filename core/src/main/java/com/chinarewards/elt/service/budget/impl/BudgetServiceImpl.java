@@ -69,5 +69,10 @@ public class BudgetServiceImpl implements BudgetService {
 		return budgetLogic.deleteDepartmentBudget(caller, id);
 	}
 
+	@Override
+	public CorpBudget findCorpBudgetByCorpId(String corpid) {
+		return budgetLogic.findCorpBudgetByCorpId(corpid);
+	}
+
    
 }

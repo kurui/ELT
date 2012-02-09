@@ -14,6 +14,15 @@ public class CorpBudgetVo implements Serializable {
 	private Date beginDate; // 财年结束日期
 	private Date endDate; // 财年开始日期
 	private double budgetAmount; // 预算金额
+	private String moneyType;
+	public String getMoneyType() {
+		return moneyType;
+	}
+
+	public void setMoneyType(String moneyType) {
+		this.moneyType = moneyType;
+	}
+
 	private double budgetIntegral;// 预算积分
 	private double useIntegeral; // 已用积分
 	private String recorduser; // 操作人

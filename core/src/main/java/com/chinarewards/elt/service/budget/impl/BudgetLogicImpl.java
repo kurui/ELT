@@ -21,25 +21,27 @@ import com.chinarewards.elt.util.DateUtil;
 import com.chinarewards.elt.util.StringUtil;
 import com.google.inject.Inject;
 
-public class BudgetLogicImpl implements BudgetLogic{
+public class BudgetLogicImpl implements BudgetLogic {
 	private DepartmentBudgetDao departmentBudgetDao;
 	private CorpBudgetDao corpBudgetDao;
 	private DepartmentDao departmentDao;
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
+
 	@Inject
-	protected BudgetLogicImpl(DepartmentBudgetDao departmentBudgetDao,DepartmentDao departmentDao,CorpBudgetDao corpBudgetDao){
+	protected BudgetLogicImpl(DepartmentBudgetDao departmentBudgetDao,
+			DepartmentDao departmentDao, CorpBudgetDao corpBudgetDao) {
 		this.departmentBudgetDao = departmentBudgetDao;
 		this.departmentDao = departmentDao;
 		this.corpBudgetDao = corpBudgetDao;
 	}
-	
+
 	@Override
 	public CorpBudget saveCorpBudget(SysUser caller, CorpBudget corpBudget) {
 		Date currTime = DateUtil.getTime();
-		
+
 		if (StringUtil.isEmptyString(corpBudget.getId())) {
 			// Create
-			corpBudget.setDeleted(0);//正常状态，没有删除为0
+			corpBudget.setDeleted(0);// 正常状态，没有删除为0
 			corpBudget.setRecorddate(currTime);
 			corpBudget.setRecorduser(caller.getUserName());
 			corpBudget.setRecorduser(caller.getUserName());
@@ -47,7 +49,8 @@ public class BudgetLogicImpl implements BudgetLogic{
 			corpBudgetDao.save(corpBudget);
 		} else {
 			// Update
-			corpBudget = corpBudgetDao.findById(CorpBudget.class, corpBudget.getId());
+			corpBudget = corpBudgetDao.findById(CorpBudget.class,
+					corpBudget.getId());
 			corpBudget.setRecorddate(currTime);
 			corpBudget.setRecorduser(caller.getUserName());
 			corpBudgetDao.update(corpBudget);
@@ -55,18 +58,20 @@ public class BudgetLogicImpl implements BudgetLogic{
 
 		return corpBudget;
 	}
-	
+
 	@Override
-	public DepartmentBudget saveDepartmentBudget(SysUser caller, DepartmentBudget departmentBudget) {
+	public DepartmentBudget saveDepartmentBudget(SysUser caller,
+			DepartmentBudget departmentBudget) {
 		Date currTime = DateUtil.getTime();
 		if (StringUtil.isEmptyString(departmentBudget.getId())) {
 			// Create
-			departmentBudget.setDeleted(0);//正常状态，没有删除为0
+			departmentBudget.setDeleted(0);// 正常状态，没有删除为0
 			departmentBudget.setRecorduser(caller.getUserName());
 			departmentBudgetDao.save(departmentBudget);
 		} else {
 			// Update
-			departmentBudget = departmentBudgetDao.findById(DepartmentBudget.class, departmentBudget.getId());
+			departmentBudget = departmentBudgetDao.findById(
+					DepartmentBudget.class, departmentBudget.getId());
 			departmentBudget.setRecorddate(currTime);
 			departmentBudget.setRecorduser(caller.getUserName());
 			departmentBudgetDao.update(departmentBudget);
@@ -74,38 +79,45 @@ public class BudgetLogicImpl implements BudgetLogic{
 
 		return departmentBudget;
 	}
-	
 
 	@Override
 	public CorpBudget findCorpBudgetById(String id) {
-		
-		return  corpBudgetDao.findById(CorpBudget.class, id);
-	}
-	
-	@Override
-	public DepartmentBudget findDepartmentBudgetById(String id) {
-		
-		return  departmentBudgetDao.findById(DepartmentBudget.class, id);
+		return corpBudgetDao.findById(CorpBudget.class, id);
 	}
 
 	@Override
-	public String deleteDepartmentBudget(SysUser caller,String id) {
+	public CorpBudget findCorpBudgetByCorpId(String corpid) {
+		return corpBudgetDao.findByCorpId(corpid);
+	}
+
+	@Override
+	public DepartmentBudget findDepartmentBudgetById(String id) {
+
+		return departmentBudgetDao.findById(DepartmentBudget.class, id);
+	}
+
+	@Override
+	public String deleteDepartmentBudget(SysUser caller, String id) {
 		Date currTime = DateUtil.getTime();
-		DepartmentBudget departmentBudget = departmentBudgetDao.findById(DepartmentBudget.class, id);
+		DepartmentBudget departmentBudget = departmentBudgetDao.findById(
+				DepartmentBudget.class, id);
 		departmentBudget.setDeleted(1);
 		departmentBudget.setRecorddate(currTime);
 		departmentBudget.setRecorduser(caller.getUserName());
-		departmentBudget= departmentBudgetDao.update(departmentBudget);
+		departmentBudget = departmentBudgetDao.update(departmentBudget);
 		return departmentBudget.getId();
 	}
 
 	@Override
-	public PageStore<DepartmentBudgetVo> deptBudgetList(SysUser caller, DepartmentBudgetVo departmentBudgetVo) {
-		
+	public PageStore<DepartmentBudgetVo> deptBudgetList(SysUser caller,
+			DepartmentBudgetVo departmentBudgetVo) {
+
 		PageStore<DepartmentBudget> pageStore = new PageStore<DepartmentBudget>();
-		
-		pageStore.setResultCount(departmentBudgetDao.countDepartmentBudget(departmentBudgetVo));
-		List<DepartmentBudget> BudgetList = departmentBudgetDao.departmentBudgetList(departmentBudgetVo);
+
+		pageStore.setResultCount(departmentBudgetDao
+				.countDepartmentBudget(departmentBudgetVo));
+		List<DepartmentBudget> BudgetList = departmentBudgetDao
+				.departmentBudgetList(departmentBudgetVo);
 		List<DepartmentBudgetVo> BudgetVoList = new ArrayList<DepartmentBudgetVo>();
 		for (DepartmentBudget order : BudgetList) {
 			BudgetVoList.add(convertFromBudgetToVo(order));
@@ -116,18 +128,22 @@ public class BudgetLogicImpl implements BudgetLogic{
 
 		return storeVo;
 	}
-	private DepartmentBudgetVo convertFromBudgetToVo(DepartmentBudget departmentBudget) {
+
+	private DepartmentBudgetVo convertFromBudgetToVo(
+			DepartmentBudget departmentBudget) {
 		DepartmentBudgetVo departmentBudgetVo = new DepartmentBudgetVo();
-		departmentBudgetVo.setBudgetIntegral(departmentBudget.getBudgetIntegral());
+		departmentBudgetVo.setBudgetIntegral(departmentBudget
+				.getBudgetIntegral());
 		departmentBudgetVo.setCorpBudgetId(departmentBudget.getCorpBudgetId());
 		departmentBudgetVo.setDeleted(departmentBudget.getDeleted());
 		departmentBudgetVo.setDepartmentId(departmentBudget.getDepartmentId());
 		departmentBudgetVo.setId(departmentBudget.getId());
 		departmentBudgetVo.setUseIntegeral(departmentBudget.getUseIntegeral());
-		Department department = departmentDao.findById(Department.class, departmentBudget.getDepartmentId());
+		Department department = departmentDao.findById(Department.class,
+				departmentBudget.getDepartmentId());
 		departmentBudgetVo.setDepartmentName(department.getName());
-		
+
 		return departmentBudgetVo;
 	}
-	
+
 }

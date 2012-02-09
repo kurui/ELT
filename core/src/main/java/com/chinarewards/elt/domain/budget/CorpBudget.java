@@ -5,14 +5,10 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 import org.hibernate.annotations.GenericGenerator;
-
-import com.chinarewards.elt.model.gift.search.GiftStatus;
 
 /**
  * The persistent class for the gift database table.
@@ -32,6 +28,13 @@ public class CorpBudget implements Serializable {
 	private Date   beginDate;      //财年结束日期
 	private Date   endDate;        //财年开始日期
 	private double budgetAmount ; //预算金额
+	public String getMoneyType() {
+		return moneyType;
+	}
+	public void setMoneyType(String moneyType) {
+		this.moneyType = moneyType;
+	}
+	private String moneyType;//货币类型
 	private double budgetIntegral;//预算积分
     private double useIntegeral;  //已用积分
     private String recorduser;   //操作人

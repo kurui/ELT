@@ -1,11 +1,15 @@
 package com.chinarewards.gwt.elt.client.budget.view;
 
+import java.util.Map.Entry;
+
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.budget.model.CorpBudgetVo;
 import com.chinarewards.gwt.elt.client.budget.presenter.CorpBudgetPresenter.CorpBudgetDisplay;
+import com.chinarewards.gwt.elt.client.enterprise.model.MoneyType;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.chinarewards.gwt.elt.client.util.StringUtil;
 import com.chinarewards.gwt.elt.client.view.constant.ViewConstants;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -37,6 +41,8 @@ public class CorpBudgetWidget extends Composite implements CorpBudgetDisplay {
 
 	@UiField
 	Button save;
+	@UiField
+	Button periodBtn;
 
 	@UiField
 	Button back;
@@ -57,7 +63,10 @@ public class CorpBudgetWidget extends Composite implements CorpBudgetDisplay {
 	public CorpBudgetWidget(DispatchAsync dispatch, ErrorHandler errorHandler,
 			SessionManager sessionManager) {
 		initWidget(uiBinder.createAndBindUi(this));
-		// indate.setFormat(new DateBox.DefaultFormat(dateFormat));
+
+		beginDate.setFormat(new DateBox.DefaultFormat(dateFormat));
+		endDate.setFormat(new DateBox.DefaultFormat(dateFormat));
+
 	}
 
 	@Override
@@ -66,29 +75,34 @@ public class CorpBudgetWidget extends Composite implements CorpBudgetDisplay {
 	}
 
 	@Override
-	public void initEditCorpBudget(CorpBudgetVo giftVo) {
-		// name.setText(giftVo.getName());
-		// initTypeSelect("");
+	public void initEditCorpBudget(CorpBudgetVo corpBudgetVo) {
+		initMoneyTypeSelect(corpBudgetVo.getMoneyType());
+
+		budgetAmount.setText(corpBudgetVo.getBudgetAmount() + "");
+		budgetIntegral.setText(corpBudgetVo.getBudgetIntegral() + "");
+		beginDate.setValue(corpBudgetVo.getBeginDate());
+		endDate.setValue(corpBudgetVo.getEndDate());
+
 	}
 
-	// private void initTypeSelect(String selectedValue) {
-	// type.clear();
-	// int selectIndex = 0;
-	// int i = 0;
-	// for (Entry<String, String> entry : CorpBudgetType.map.entrySet()) {
-	// String keyValue = entry.getKey();
-	// // System.out.println(entry.getKey() + ": " + entry.getValue());
-	// type.addItem(entry.getValue(), entry.getKey());
-	// if (selectedValue != null && StringUtil.trim(selectedValue) != ""
-	// && StringUtil.trim(keyValue) != "") {
-	// if (selectedValue.equals(keyValue)) {
-	// selectIndex = i;
-	// }
-	// }
-	// i++;
-	// }
-	// type.setSelectedIndex(selectIndex);
-	// }
+	private void initMoneyTypeSelect(String selectedValue) {
+		moneyType.clear();
+		int selectIndex = 0;
+		int i = 0;
+		for (Entry<String, String> entry : MoneyType.map.entrySet()) {
+			String keyValue = entry.getKey();
+			// System.out.println(entry.getKey() + ": " + entry.getValue());
+			moneyType.addItem(entry.getValue(), entry.getKey());
+			if (selectedValue != null && StringUtil.trim(selectedValue) != ""
+					&& StringUtil.trim(keyValue) != "") {
+				if (selectedValue.equals(keyValue)) {
+					selectIndex = i;
+				}
+			}
+			i++;
+		}
+		moneyType.setSelectedIndex(selectIndex);
+	}
 
 	@Override
 	public void setBreadCrumbs(Widget breadCrumbs) {
@@ -134,6 +148,11 @@ public class CorpBudgetWidget extends Composite implements CorpBudgetDisplay {
 	@Override
 	public DateBox getEndDate() {
 		return endDate;
+	}
+
+	@Override
+	public HasClickHandlers getPeriodBtnClick() {
+		return periodBtn;
 	}
 
 }

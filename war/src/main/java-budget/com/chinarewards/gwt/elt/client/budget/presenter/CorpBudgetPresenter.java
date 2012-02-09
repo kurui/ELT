@@ -26,14 +26,15 @@ public interface CorpBudgetPresenter extends
 
 		public HasClickHandlers getSaveClick();
 
+		public HasClickHandlers getBackClick();
+
+		public HasClickHandlers getPeriodBtnClick();
+
 		public void clear();
 
 		public void initEditCorpBudget(CorpBudgetVo giftVo);
 
-		public HasClickHandlers getBackClick();
-
 		void setBreadCrumbs(Widget breadCrumbs);
-
 	}
 
 	public void initEditor(String giftId, String thisAction);

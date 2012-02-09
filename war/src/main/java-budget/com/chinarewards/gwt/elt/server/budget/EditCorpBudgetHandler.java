@@ -7,12 +7,14 @@ import org.slf4j.Logger;
 
 import com.chinarewards.elt.domain.budget.CorpBudget;
 import com.chinarewards.elt.model.user.UserContext;
+import com.chinarewards.elt.service.budget.BudgetService;
 import com.chinarewards.gwt.elt.client.budget.model.CorpBudgetVo;
 import com.chinarewards.gwt.elt.client.budget.request.EditCorpBudgetRequest;
 import com.chinarewards.gwt.elt.client.budget.request.EditCorpBudgetResponse;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
 import com.chinarewards.gwt.elt.server.logger.InjectLogger;
 import com.chinarewards.gwt.elt.util.UserRoleTool;
+import com.google.inject.Inject;
 
 /**
  * @author YanRui
@@ -22,12 +24,12 @@ public class EditCorpBudgetHandler extends
 
 	@InjectLogger
 	Logger logger;
-//	CorpBudgetService corpBudgetService;
+	BudgetService budgetService;
 
-//	@Inject
-//	public EditCorpBudgetHandler(CorpBudgetService corpBudgetService) {
-//		this.corpBudgetService = corpBudgetService;
-//	}
+	@Inject
+	public EditCorpBudgetHandler(BudgetService budgetService) {
+		this.budgetService = budgetService;
+	}
 
 	@Override
 	public Class<EditCorpBudgetRequest> getActionType() {
@@ -35,37 +37,44 @@ public class EditCorpBudgetHandler extends
 	}
 
 	@Override
-	public EditCorpBudgetResponse execute(EditCorpBudgetRequest action,
+	public EditCorpBudgetResponse execute(EditCorpBudgetRequest request,
 			ExecutionContext context) throws DispatchException {
-		logger.debug("AddCorpBudgetResponse , corpBudget:" + action.getCorpBudgetVo().toString());
-		logger.debug("AddCorpBudgetResponse ,rewardId=" + action.getCorpBudgetVo().getId());
+		logger.debug("AddCorpBudgetResponse , corpBudget:" + request.getCorpBudgetVo().toString());
+		logger.debug("AddCorpBudgetResponse ,rewardId=" + request.getCorpBudgetVo().getId());
+		
+		String corporationId = request.getUserSession().getCorporationId();
+		 
+		CorpBudgetVo corpBudgetVo = request.getCorpBudgetVo();
 
-		CorpBudgetVo corpBudgetVo = action.getCorpBudgetVo();
-
-		CorpBudget corpBudget = assembleCorpBudget(corpBudgetVo);
+		CorpBudget corpBudget = assembleCorpBudget(corpBudgetVo,corporationId);
 
 		UserContext uc = new UserContext();
-		uc.setCorporationId(action.getUserSession().getCorporationId());
-		uc.setLoginName(action.getUserSession().getLoginName());
-		uc.setUserId(action.getUserSession().getToken());
-		uc.setUserRoles(UserRoleTool.adaptToRole(action.getUserSession()
+		uc.setCorporationId(request.getUserSession().getCorporationId());
+		uc.setLoginName(request.getUserSession().getLoginName());
+		uc.setUserId(request.getUserSession().getToken());
+		uc.setUserRoles(UserRoleTool.adaptToRole(request.getUserSession()
 				.getUserRoles()));
-//		CorpBudget AddItem = corpBudgetService.save(uc, corpBudget);
-		CorpBudget AddItem=new CorpBudget();
+		
+		CorpBudget AddItem = budgetService.saveCorpBudget(uc, corpBudget);
 			
 		return new EditCorpBudgetResponse(AddItem.getId());
 	}
 
-	/**
-	 * Convert from CorpBudgetVo to GeneratorCorpBudgetModel.
-	 */
-	public static CorpBudget assembleCorpBudget(CorpBudgetVo corpBudgetVo) {
-		CorpBudget corpBudget = new CorpBudget();
-		corpBudget.setId(corpBudgetVo.getId());
-//		corpBudget.setName(corpBudgetVo.getName());
-
-
-
+	public  CorpBudget assembleCorpBudget(CorpBudgetVo corpBudgetVo,String coporationId) {
+		CorpBudget corpBudget = budgetService.findCorpBudgetByCorpId(coporationId);
+		
+		if(corpBudget==null){
+			corpBudget = new CorpBudget();
+		}else{
+			corpBudget.setId(corpBudgetVo.getId());
+		}
+		
+		corpBudget.setMoneyType(corpBudgetVo.getMoneyType());
+		corpBudget.setBudgetAmount(corpBudgetVo.getBudgetAmount());
+		corpBudget.setBudgetIntegral(corpBudgetVo.getBudgetIntegral());
+		corpBudget.setBeginDate(corpBudgetVo.getBeginDate());
+		corpBudget.setEndDate(corpBudgetVo.getEndDate());
+		
 		return corpBudget;
 	}
 
