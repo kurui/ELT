@@ -18,6 +18,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TextBox;
@@ -28,6 +29,8 @@ import com.google.inject.Inject;
 public class CorpBudgetWidget extends Composite implements CorpBudgetDisplay {
 
 	// --------vo
+	@UiField
+	TextBox budgetTitle;
 	@UiField
 	ListBox moneyType;
 	@UiField
@@ -76,6 +79,8 @@ public class CorpBudgetWidget extends Composite implements CorpBudgetDisplay {
 
 	@Override
 	public void initEditCorpBudget(CorpBudgetVo corpBudgetVo) {
+		budgetTitle.setValue(corpBudgetVo.getBudgetTitle());	
+		
 		System.out.println("======initEdit:"+corpBudgetVo.getMoneyType());
 		initMoneyTypeSelect(corpBudgetVo.getMoneyType());
 		
@@ -156,4 +161,8 @@ public class CorpBudgetWidget extends Composite implements CorpBudgetDisplay {
 		return periodBtn;
 	}
 
+	@Override
+	public HasValue<String> getBudgetTitle(){
+		return budgetTitle;
+	}
 }

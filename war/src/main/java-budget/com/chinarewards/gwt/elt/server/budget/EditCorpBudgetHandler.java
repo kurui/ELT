@@ -60,22 +60,23 @@ public class EditCorpBudgetHandler extends
 		return new EditCorpBudgetResponse(AddItem.getId());
 	}
 
-	public  CorpBudget assembleCorpBudget(CorpBudgetVo corpBudgetVo,String coporationId) {
-		CorpBudget corpBudget = budgetService.findCorpBudgetByCorpId(coporationId);
+	public  CorpBudget assembleCorpBudget(CorpBudgetVo corpBudgetVo,String corporationId) {
+		CorpBudget corpBudget = budgetService.findCorpBudgetByCorpId(corporationId);
 		
 		if(corpBudget==null){
-			corpBudget = new CorpBudget();
-		}else{
-			corpBudget.setId(corpBudgetVo.getId());
+			corpBudget = new CorpBudget();		
+			corpBudget.setCorporationId(corporationId);
+			System.out.println("==============create corpBudget--------");
 		}
 		
+		corpBudget.setBudgetTitle(corpBudgetVo.getBudgetTitle());
 		corpBudget.setMoneyType(corpBudgetVo.getMoneyType());
 		corpBudget.setBudgetAmount(corpBudgetVo.getBudgetAmount());
 		corpBudget.setBudgetIntegral(corpBudgetVo.getBudgetIntegral());
 		corpBudget.setBeginDate(corpBudgetVo.getBeginDate());
 		corpBudget.setEndDate(corpBudgetVo.getEndDate());
 		
-		System.out.println("=========assembleCorpBudget   moneyType:"+corpBudget.getMoneyType());
+		System.out.println("=========assembleCorpBudget   moneyType:"+corpBudget.getMoneyType()+"---"+corpBudget.getBudgetTitle());
 		
 		return corpBudget;
 	}

@@ -13,6 +13,8 @@ public class CorpBudgetAdapterClient {
 	public static CorpBudgetVo adapterDisplay(CorpBudgetDisplay display) {
 		CorpBudgetVo corpBudgetVo = new CorpBudgetVo();
 		
+		corpBudgetVo.setBudgetTitle(display.getBudgetTitle().getValue());
+		
 		int selectedIndex = display.getMoneyType().getSelectedIndex();
 		corpBudgetVo.setMoneyType(display.getMoneyType().getValue(selectedIndex));
 		corpBudgetVo.setBudgetAmount(Double.valueOf(display.getBudgetAmount().getValue()));

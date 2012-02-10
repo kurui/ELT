@@ -10,6 +10,7 @@ public class CorpBudgetVo implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private String id;
+	private String budgetTitle;//标题
 	private String corporationId; // 企业ID
 	private Date beginDate; // 财年结束日期
 	private Date endDate; // 财年开始日期
@@ -38,6 +39,16 @@ public class CorpBudgetVo implements Serializable {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+	
+	
+
+	public String getBudgetTitle() {
+		return budgetTitle;
+	}
+
+	public void setBudgetTitle(String budgetTitle) {
+		this.budgetTitle = budgetTitle;
 	}
 
 	public String getCorporationId() {
