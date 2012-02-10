@@ -20,7 +20,7 @@
               <th class="{new2.th2}" style="width: 20%;">操作</th>
             </tr>
             <tr>
-            <td colspan='4'><c:CellTree width="100%"  ui:field='cellTree' /></td>
+            <td colspan='4'><g:AbsolutePanel ui:field="cellTree" /> </td>
           
             </tr>
           </table>

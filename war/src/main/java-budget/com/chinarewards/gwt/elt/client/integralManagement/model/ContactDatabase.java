@@ -16,22 +16,6 @@ import com.google.gwt.view.client.ProvidesKey;
 public class ContactDatabase {
 
   /**
-   * A contact category.
-   */
-  public static class Category {
-
-    private final String displayName;
-
-    private Category(String displayName) {
-      this.displayName = displayName;
-    }
-
-    public String getDisplayName() {
-      return displayName;
-    }
-  }
-
-  /**
    * Information about a contact.
    */
   public static class ContactInfo implements Comparable<ContactInfo> {
@@ -325,7 +309,7 @@ public class ContactDatabase {
 //    String[] catNames = constants.contactDatabaseCategories();
     categories = new Category[10];
     for (int i = 0; i <10; i++) {
-      categories[i] = new Category(i+"");
+      categories[i] = new Category(i+"",i+"积分",i+"积分",i+"部门ID");
     }
 
     // Generate initial data.
