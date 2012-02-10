@@ -77,7 +77,7 @@ public class EditCorpBudgetHandler extends
 		corpBudget.setBeginDate(corpBudgetVo.getBeginDate());
 		corpBudget.setEndDate(corpBudgetVo.getEndDate());
 		
-		System.out.println("====="+EditCorpBudgetHandler.class.getName()+"===assembleCorpBudget:"+corpBudget.getBudgetTitle());
+//		System.out.println("====="+EditCorpBudgetHandler.class.getName()+"===assembleCorpBudget:"+corpBudget.getBudgetTitle());
 		return corpBudget;
 	}
 

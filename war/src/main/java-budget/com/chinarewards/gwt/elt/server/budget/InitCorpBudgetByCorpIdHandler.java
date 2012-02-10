@@ -52,11 +52,13 @@ public class InitCorpBudgetByCorpIdHandler
 			corpBudgetVo.setBudgetAmount(corpBudget.getBudgetAmount());
 			corpBudgetVo.setBudgetIntegral(corpBudget.getBudgetIntegral());
 			corpBudgetVo.setMoneyType(corpBudget.getMoneyType());
+			
+
+//			System.out.println("=======initCorporBudget title:"+corpBudget.getBudgetTitle());
 		}else{
 			corpBudgetVo.setId("");
 		}		
 
-		System.out.println("=======initCorporBudget title:"+corpBudget.getBudgetTitle());
 		return corpBudgetVo;
 	}
 
