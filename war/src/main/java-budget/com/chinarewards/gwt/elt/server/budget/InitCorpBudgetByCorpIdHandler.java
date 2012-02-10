@@ -44,7 +44,7 @@ public class InitCorpBudgetByCorpIdHandler
 		CorpBudgetVo corpBudgetVo = new CorpBudgetVo();
 		if(corpBudget!=null){			
 			corpBudgetVo.setId(corpBudget.getId());
-			corpBudget.setBudgetTitle(corpBudget.getBudgetTitle());
+			corpBudgetVo.setBudgetTitle(corpBudget.getBudgetTitle());
 			corpBudgetVo.setCorporationId(corpBudget.getCorporationId());
 			
 			corpBudgetVo.setBeginDate(corpBudget.getBeginDate());
@@ -56,6 +56,7 @@ public class InitCorpBudgetByCorpIdHandler
 			corpBudgetVo.setId("");
 		}		
 
+		System.out.println("=======initCorporBudget title:"+corpBudget.getBudgetTitle());
 		return corpBudgetVo;
 	}
 
