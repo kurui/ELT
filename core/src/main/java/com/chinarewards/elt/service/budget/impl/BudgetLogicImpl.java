@@ -12,6 +12,7 @@ import com.chinarewards.elt.dao.budget.DepartmentBudgetDao;
 import com.chinarewards.elt.dao.org.DepartmentDao;
 import com.chinarewards.elt.domain.budget.CorpBudget;
 import com.chinarewards.elt.domain.budget.DepartmentBudget;
+import com.chinarewards.elt.domain.gift.Gift;
 import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.budget.search.DepartmentBudgetVo;
@@ -49,11 +50,19 @@ public class BudgetLogicImpl implements BudgetLogic {
 			corpBudgetDao.save(corpBudget);
 		} else {
 			// Update
-			corpBudget = corpBudgetDao.findById(CorpBudget.class,
+			CorpBudget tempCorpBudget = corpBudgetDao.findById(CorpBudget.class,
 					corpBudget.getId());
-			corpBudget.setRecorddate(currTime);
-			corpBudget.setRecorduser(caller.getUserName());
-			corpBudgetDao.update(corpBudget);
+			tempCorpBudget.setId(corpBudget.getId());
+			tempCorpBudget.setBudgetTitle(corpBudget.getBudgetTitle());
+			tempCorpBudget.setMoneyType(corpBudget.getMoneyType());
+			tempCorpBudget.setBudgetAmount(corpBudget.getBudgetAmount());
+			tempCorpBudget.setBudgetIntegral(corpBudget.getBudgetIntegral());
+			tempCorpBudget.setBeginDate(corpBudget.getBeginDate());
+			tempCorpBudget.setEndDate(corpBudget.getEndDate());
+			
+			tempCorpBudget.setRecorddate(currTime);
+			tempCorpBudget.setRecorduser(caller.getUserName());
+			corpBudgetDao.update(tempCorpBudget);
 		}
 
 		return corpBudget;

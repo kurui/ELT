@@ -63,10 +63,11 @@ public class EditCorpBudgetHandler extends
 	public  CorpBudget assembleCorpBudget(CorpBudgetVo corpBudgetVo,String corporationId) {
 		CorpBudget corpBudget = budgetService.findCorpBudgetByCorpId(corporationId);
 		
-		if(corpBudget==null){
-			corpBudget = new CorpBudget();		
+		if (corpBudget!=null&&corpBudget.getId()!=null) {
+			
+		} else {
+			corpBudget=new  CorpBudget();
 			corpBudget.setCorporationId(corporationId);
-			System.out.println("==============create corpBudget--------");
 		}
 		
 		corpBudget.setBudgetTitle(corpBudgetVo.getBudgetTitle());
@@ -76,8 +77,7 @@ public class EditCorpBudgetHandler extends
 		corpBudget.setBeginDate(corpBudgetVo.getBeginDate());
 		corpBudget.setEndDate(corpBudgetVo.getEndDate());
 		
-		System.out.println("=========assembleCorpBudget   moneyType:"+corpBudget.getMoneyType()+"---"+corpBudget.getBudgetTitle());
-		
+		System.out.println("====="+EditCorpBudgetHandler.class.getName()+"===assembleCorpBudget:"+corpBudget.getBudgetTitle());
 		return corpBudget;
 	}
 

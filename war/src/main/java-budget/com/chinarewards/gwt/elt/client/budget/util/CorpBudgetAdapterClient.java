@@ -23,7 +23,7 @@ public class CorpBudgetAdapterClient {
 		corpBudgetVo.setBeginDate(display.getBeginDate().getValue());
 		corpBudgetVo.setEndDate(display.getEndDate().getValue());
 
-//		System.out.println("===adapterDisplay:"+corpBudgetVo.getMoneyType());
+		System.out.println("===adapterDisplay:"+corpBudgetVo.getBudgetTitle());
 		return corpBudgetVo;
 	}
 }

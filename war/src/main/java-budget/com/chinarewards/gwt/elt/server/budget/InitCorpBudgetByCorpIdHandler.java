@@ -42,10 +42,11 @@ public class InitCorpBudgetByCorpIdHandler
 
 	private CorpBudgetVo adapter(CorpBudget corpBudget) {
 		CorpBudgetVo corpBudgetVo = new CorpBudgetVo();
-		if(corpBudget!=null){
-			
+		if(corpBudget!=null){			
 			corpBudgetVo.setId(corpBudget.getId());
+			corpBudget.setBudgetTitle(corpBudget.getBudgetTitle());
 			corpBudgetVo.setCorporationId(corpBudget.getCorporationId());
+			
 			corpBudgetVo.setBeginDate(corpBudget.getBeginDate());
 			corpBudgetVo.setEndDate(corpBudget.getEndDate());
 			corpBudgetVo.setBudgetAmount(corpBudget.getBudgetAmount());
@@ -55,7 +56,6 @@ public class InitCorpBudgetByCorpIdHandler
 			corpBudgetVo.setId("");
 		}		
 
-		System.out.println("==========adapter:"+corpBudgetVo.getMoneyType());
 		return corpBudgetVo;
 	}
 
