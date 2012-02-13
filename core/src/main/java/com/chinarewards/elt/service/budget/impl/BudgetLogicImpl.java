@@ -93,7 +93,11 @@ public class BudgetLogicImpl implements BudgetLogic {
 	public CorpBudget findCorpBudgetById(String id) {
 		return corpBudgetDao.findById(CorpBudget.class, id);
 	}
-
+	@Override
+	public List<CorpBudget> findCorpBudget(String corpid) {
+		return corpBudgetDao.findCorpBudget(corpid);
+	}
+   
 	@Override
 	public CorpBudget findCorpBudgetByCorpId(String corpid) {
 		return corpBudgetDao.findByCorpId(corpid);
