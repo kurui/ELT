@@ -86,7 +86,11 @@ public class CorpBudgetWidget extends Composite implements CorpBudgetDisplay {
 		budgetTitle.setValue(corpBudgetVo.getBudgetTitle());	
 		
 //		System.out.println("======initEdit:"+corpBudgetVo.getBudgetTitle());
-		initMoneyTypeSelect(corpBudgetVo.getMoneyType());
+		if(corpBudgetVo.getMoneyType()==null){
+			initMoneyTypeSelect("RMB");
+		}else{
+			initMoneyTypeSelect(corpBudgetVo.getMoneyType());
+		}
 		
 		budgetAmount.setText(corpBudgetVo.getBudgetAmount() + "");
 		budgetIntegral.setText(corpBudgetVo.getBudgetIntegral() + "");
