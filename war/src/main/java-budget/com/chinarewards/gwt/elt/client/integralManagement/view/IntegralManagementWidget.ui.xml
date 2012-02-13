@@ -4,29 +4,42 @@
 	xmlns:c="urn:import:com.google.gwt.user.cellview.client">
 
 	<ui:style src="new2.css" field="new2"></ui:style>
-	
-
-  <g:HTMLPanel>
 
 
+	<g:HTMLPanel>
+		<div class="{new2.frame-wrap}">
+			<!--面包屑 [[ -->
+			<g:FlowPanel ui:field="breadCrumbs" />
+			<!--面包屑 ]] -->
+			<h3> 今年财年预算 : 50000积分</h3>
+			<span class="{new2.cutline}"></span>
 
-     <div class="{new2.table}">
-       	今年财年预算 : 50000积分
-          <table>
-            <tr>
-              <th class="{new2.th2}" style="width: 20%;">部门</th>
-              <th class="{new2.th2}" style="width: 20%;">今年预算积分</th>
-              <th class="{new2.th2}" style="width: 20%;">已颁发积分</th>
-              <th class="{new2.th2}" style="width: 20%;">操作</th>
-            </tr>
-            <tr>
-            <td colspan='4'><g:AbsolutePanel ui:field="cellTree" /> </td>
-          
-            </tr>
-          </table>
-    </div>
-              <g:Label
-            ui:field='selectedLabel' />
-  </g:HTMLPanel>
-	
+			<div class="{new2.table}">
+
+				<table>
+					<tr>
+						<th class="{new2.th2}" style="width: 20%;">部门</th>
+						<th class="{new2.th2}" style="width: 20%;">今年预算积分</th>
+						<th class="{new2.th2}" style="width: 20%;">已颁发积分</th>
+						<th class="{new2.th2}" style="width: 20%;">操作</th>
+					</tr>
+					<tr>
+						<td colspan='4'>
+							<g:AbsolutePanel ui:field="cellTree" />
+						</td>
+
+					</tr>
+				</table>
+			</div>
+			
+			今年财年预算剩余积分 : 20000积分
+			<span class="{new2.cutline}"></span>
+			<div class="{new2.form-line} {new2.form-line-btn}">
+			        <div class="{new2.element}">
+			          <span class="{new2.btn}"><g:Button ui:field="nominatebutton" text="马上提名" /></span>
+			        </div>
+			</div>
+		</div>
+	</g:HTMLPanel>
+
 </ui:UiBinder>

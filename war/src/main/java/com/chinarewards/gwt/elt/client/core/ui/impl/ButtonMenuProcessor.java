@@ -139,7 +139,7 @@ public class ButtonMenuProcessor implements MenuProcessor {
 				else if (menuId.equals(EnterpriseConstants.MENU_ENTERPRISE_EDIT))
 					breadCrumbsMenu.addBreadCrumbsItemTop("设置", null);
 				else if (menuId.equals(IntegralManagementConstants.MENU_INTEGRALMANAGEMENT_SEARCH))
-					breadCrumbsMenu.addBreadCrumbsItemTop("今年财年预算", null);
+					breadCrumbsMenu.addBreadCrumbsItemTop("积分管理", null);
 				
 				breadCrumbsMenu.addBreadCrumbsItem(menuItem.getTitle(),
 						menuItem.getMenuId());

@@ -31,7 +31,7 @@ public class IntegralManagementEditorDescriptor implements EditorDescriptor {
 	public Editor createEditor(String instanceId, Object model) {
 		IntegralManagementEditor e = editProvider.get();
 		e.setInstanceId(instanceId);
-		e.setTitle("今年财年预算");
+		e.setTitle("积分管理");
 		e.setModel(model);
 		return e;
 	}
