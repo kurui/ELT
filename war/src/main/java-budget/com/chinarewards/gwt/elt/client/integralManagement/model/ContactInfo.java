@@ -2,7 +2,14 @@ package com.chinarewards.gwt.elt.client.integralManagement.model;
 
 import java.io.Serializable;
 
+import com.google.gwt.view.client.ProvidesKey;
+
 public class ContactInfo implements Serializable {
+    public static final ProvidesKey<ContactInfo> KEY_PROVIDER = new ProvidesKey<ContactInfo>() {
+        public Object getKey(ContactInfo item) {
+          return item == null ? null : item.getDepartmentId();
+        }
+      };
 	/**
 	 * 
 	 */

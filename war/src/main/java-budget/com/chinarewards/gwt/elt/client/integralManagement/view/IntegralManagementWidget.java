@@ -40,32 +40,10 @@ public class IntegralManagementWidget extends Composite implements
 
 	@Override
 	public void refresh(List<Category> result) {
-//		final MultiSelectionModel<ContactInfo> selectionModel = new MultiSelectionModel<ContactInfo>(
-//				ContactDatabase.ContactInfo.KEY_PROVIDER);
-//		selectionModel
-//				.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
-//					public void onSelectionChange(SelectionChangeEvent event) {
-//						StringBuilder sb = new StringBuilder();
-//						boolean first = true;
-//						List<ContactInfo> selected = new ArrayList<ContactInfo>(
-//								selectionModel.getSelectedSet());
-//						Collections.sort(selected);
-//						for (ContactInfo value : selected) {
-//							if (first) {
-//								first = false;
-//							} else {
-//								sb.append(", ");
-//							}
-//							sb.append(value.getFullName());
-//						}
-//						selectedLabel.setText(sb.toString());
-//					}
-//				});
 
 		CellTree.Resources res = GWT.create(CellTree.BasicResources.class);
 
-		CellTree tree = new CellTree(new ContactTreeViewModel(
-				result), null, res);
+		CellTree tree = new CellTree(new ContactTreeViewModel(result), null, res);
 		tree.setAnimationEnabled(true);
 		cellTree.clear();
 		cellTree.add(tree);
