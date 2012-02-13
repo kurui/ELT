@@ -56,7 +56,13 @@ public class PeriodWidget extends Composite implements PeriodDisplay {
 	public void initEditPeriod(EnterpriseVo enterpriseVo) {	
 		enterpriseId.setValue(enterpriseVo.getId());
 	
-		initPeriodSelect(enterpriseVo.getPeriod()+"");
+		if (enterpriseVo.getPeriod()>0) {
+			initPeriodSelect(enterpriseVo.getPeriod()+"");
+		} else {
+			initPeriodSelect("1");
+		}
+		
+		
 		
 		firstTime.setValue(enterpriseVo.getFirstTime());
 	}

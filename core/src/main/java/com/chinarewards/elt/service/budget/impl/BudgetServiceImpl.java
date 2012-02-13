@@ -72,7 +72,7 @@ public class BudgetServiceImpl implements BudgetService {
 	@Override
 	public List<CorpBudget> findCorpBudget(String corpid) {
 		// TODO Auto-generated method stub
-		return null;
+		return budgetLogic.findCorpBudget(corpid);
 	}
 
 	@Override

@@ -45,6 +45,10 @@
 								ui:field="enterpriseId" />
 							<g:Button ui:field="saveButton">确定</g:Button>
 						</span>
+						<span class="{new2.nbsp}"></span>
+						<span class="{new2.btn}">
+							<g:Button ui:field="back" styleName="button-ok">返回 </g:Button>
+						</span>
 					</div>
 				</div>
 			</div>

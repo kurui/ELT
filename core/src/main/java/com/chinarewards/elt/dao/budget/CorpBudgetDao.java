@@ -25,5 +25,20 @@ public class CorpBudgetDao extends BaseDao<CorpBudget> {
 		}
 
 	}
+	
+	/**增加部门预算时，初始化得到财年的数据用于下拉表选择
+	 * @param class1
+	 * @param corpid
+	 * @return
+	 */
+	public List<CorpBudget> findCorpBudget(String corporationId) {
+		String sql = "FROM CorpBudget c WHERE c.corporationId = :corporationId";
+		logger.debug(" findByCorpId==" + corporationId + "--" + sql);
+
+		List<CorpBudget> resultList = getEm().createQuery(sql).setParameter("corporationId", corporationId).getResultList();
+		
+		return resultList;
+
+	}
 
 }

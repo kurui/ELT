@@ -43,7 +43,7 @@ public interface BudgetService {
 	public CorpBudget findCorpBudgetById(String id);
 	
 	/**
-	 * 查找根据企业财年
+	 * 查找根据企业财年(增加部门预算时，初始化得到财年的数据用于下拉表选择)
 	 * @param id
 	 * @return
 	 */

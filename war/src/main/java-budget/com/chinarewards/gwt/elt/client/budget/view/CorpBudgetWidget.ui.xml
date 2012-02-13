@@ -26,9 +26,11 @@
 						标题：
 					</label>
 					<div class="{new2.element}">
-						<g:TextBox maxLength="20" ui:field="budgetTitle" styleName="{new2.text}" />
+						<g:TextBox maxLength="20" ui:field="budgetTitle"
+							styleName="{new2.text}" />
 					</div>
 				</div>
+
 				<div class="{new2.form-line}">
 					<label class="{new2.label}">
 						<span style="color:red">*</span>
@@ -36,13 +38,15 @@
 					</label>
 					<div class="{new2.element}">
 						<g:ListBox ui:field="moneyType" styleName="{new2.select}" />
-
+						<span class="{new2.nbsp}"></span>
+						<span class="{new2.nbsp}"></span>
 						<g:TextBox maxLength="20" ui:field="budgetAmount"
 							styleName="{new2.short-text}" />
 						=
 						<g:TextBox maxLength="20" ui:field="budgetIntegral"
 							styleName="{new2.short-text}" />
 						积分
+						<g:Hidden ui:field="integralPrice"></g:Hidden>
 					</div>
 				</div>
 				<div class="{new2.form-line}">
@@ -55,6 +59,8 @@
 						至
 						<d:DateBox ui:field="endDate" styleName="{new2.text}" />
 					</div>
+					<g:Hidden ui:field="period"></g:Hidden>
+					<d:DateBox ui:field="periodBeginDate" visible="false" />
 				</div>
 
 				<span class="{new2.cutline}"></span>

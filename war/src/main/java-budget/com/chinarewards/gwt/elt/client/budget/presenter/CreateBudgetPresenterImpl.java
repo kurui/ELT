@@ -95,11 +95,14 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 					public void onSuccess(InitCorpBudgetResponse response) {
 						 List<CorpBudgetVo> list = response.getResult();
 						 Map<String, String> map = new HashMap<String, String>();
-							map.put("INITIAL", "未付积分");
-							map.put("NUSHIPMENTS", " 待发货");
-							map.put("SHIPMENTS", "已发货");
-							map.put("AFFIRM", "确认发货");
-							map.put("ERRORORDER", "问题定单");
+						 CorpBudgetVo vo = new CorpBudgetVo();
+						 if(list.size()>0){
+							 for(int i=0;i<list.size();i++){
+								   vo = list.get(i);
+								   map.put(vo.getId(), vo.getBudgetTitle());
+							 }
+						 }
+							
 							display.initYear(map);
 						
 					}
