@@ -59,6 +59,8 @@
 						至
 						<d:DateBox ui:field="endDate" styleName="{new2.text}" />
 					</div>
+					<g:Hidden ui:field="period"></g:Hidden>
+					<d:DateBox ui:field="periodBeginDate" visible="false" />
 				</div>
 
 				<span class="{new2.cutline}"></span>

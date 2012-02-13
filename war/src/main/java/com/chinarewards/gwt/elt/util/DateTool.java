@@ -1,9 +1,13 @@
 package com.chinarewards.gwt.elt.util;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import com.chinarewards.gwt.elt.util.DateTool;
 import com.google.gwt.i18n.client.DateTimeFormat;
+
 
 public abstract class DateTool {
 
@@ -53,25 +57,25 @@ public abstract class DateTool {
 		DateTimeFormat formatM = DateTimeFormat.getFormat("MM");
 		DateTimeFormat formatY = DateTimeFormat.getFormat("yyyy");
 		DateTimeFormat formatD = DateTimeFormat.getFormat("dd");
-		String month=formatM.format(date);
-		String year=formatY.format(date);
-		String day=formatD.format(date);
-		if(intervalMonth>12){
-			int y=intervalMonth/12;
-			intervalMonth=intervalMonth%12;
-			year=(Integer.parseInt(year)+y)+"";
+		String month = formatM.format(date);
+		String year = formatY.format(date);
+		String day = formatD.format(date);
+		if (intervalMonth > 12) {
+			int y = intervalMonth / 12;
+			intervalMonth = intervalMonth % 12;
+			year = (Integer.parseInt(year) + y) + "";
 		}
-		int mon=Integer.parseInt(month)+intervalMonth;
-		if(mon>12){			
-			mon=mon-12;
-			year=(Integer.parseInt(year)+1)+"";
+		int mon = Integer.parseInt(month) + intervalMonth;
+		if (mon > 12) {
+			mon = mon - 12;
+			year = (Integer.parseInt(year) + 1) + "";
 		}
-		int threeMontyAfterDay=getDaysOfMonth(Integer.parseInt(year),mon);
-		if(Integer.parseInt(day)>threeMontyAfterDay){
-			day=threeMontyAfterDay+"";
-		}			
-		month=(mon<10)?"0"+mon:mon+"";			
-		return formatYMD.parse(year+"-"+month+"-"+day);
+		int threeMontyAfterDay = getDaysOfMonth(Integer.parseInt(year), mon);
+		if (Integer.parseInt(day) > threeMontyAfterDay) {
+			day = threeMontyAfterDay + "";
+		}
+		month = (mon < 10) ? "0" + mon : mon + "";
+		return formatYMD.parse(year + "-" + month + "-" + day);
 	}
 
 	/**
@@ -97,7 +101,8 @@ public abstract class DateTool {
 		if (d == null) {
 			return null;
 		}
-		return (1900+d.getYear())+"-"+(d.getMonth()+1)+"-"+d.getDate();
+		return (1900 + d.getYear()) + "-" + (d.getMonth() + 1) + "-"
+				+ d.getDate();
 	}
 
 	/**
@@ -170,20 +175,20 @@ public abstract class DateTool {
 	}
 
 	public static int getYearOfDate(Date date) {
-		int month = date.getYear();
-		return month;
+		int yaar = date.getYear();
+		return yaar;
 	}
-	
+
 	public static int getMonthOfDate(Date date) {
 		int month = date.getMonth();
 		return month;
 	}
-	
+
 	public static int getDayOfDate(Date date) {
 		int month = date.getDate();
 		return month;
 	}
-	
+
 	/**
 	 * 得到最小的数
 	 * 
@@ -215,4 +220,25 @@ public abstract class DateTool {
 		}
 		return max;
 	}
+	
+	public static Date getEndDayByPeriod(Date beginDate,double period){
+		int months=0;
+		if(period==0.5){
+			months=6;
+		}
+		if(period==1){
+			months=12;
+		}
+		if(period==2){
+			months=24;
+		}
+		if(period==3){
+			months=36;
+		}
+		Date tempEndDate=DateTool.addSomeMonth(beginDate,months);
+		return tempEndDate;
+	}
+	
+	
+
 }

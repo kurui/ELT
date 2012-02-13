@@ -29,6 +29,9 @@ public interface CorpBudgetPresenter extends
 		public DateBox getBeginDate();
 
 		public DateBox getEndDate();
+		
+		public Hidden getPeriod();
+		public DateBox getPeriodBeginDate();
 
 		public HasClickHandlers getSaveClick();
 

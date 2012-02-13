@@ -45,6 +45,12 @@ public class CorpBudgetWidget extends Composite implements CorpBudgetDisplay {
 	DateBox beginDate;
 	@UiField
 	DateBox endDate;
+	
+	@UiField
+	Hidden period;
+	@UiField
+	DateBox periodBeginDate;
+	
 
 	@UiField
 	Button save;
@@ -86,6 +92,7 @@ public class CorpBudgetWidget extends Composite implements CorpBudgetDisplay {
 		budgetTitle.setValue(corpBudgetVo.getBudgetTitle());	
 		
 //		System.out.println("======initEdit:"+corpBudgetVo.getBudgetTitle());
+		
 		if(corpBudgetVo.getMoneyType()==null){
 			initMoneyTypeSelect("RMB");
 		}else{
@@ -94,11 +101,9 @@ public class CorpBudgetWidget extends Composite implements CorpBudgetDisplay {
 		
 		budgetAmount.setText(corpBudgetVo.getBudgetAmount() + "");
 		budgetIntegral.setText(corpBudgetVo.getBudgetIntegral() + "");
-		beginDate.setValue(corpBudgetVo.getBeginDate());
-		endDate.setValue(corpBudgetVo.getEndDate());
+//		beginDate.setValue(corpBudgetVo.getBeginDate());			
+//		endDate.setValue(corpBudgetVo.getEndDate());
 		
-		
-
 	}
 
 	private void initMoneyTypeSelect(String selectedValue) {
@@ -179,5 +184,16 @@ public class CorpBudgetWidget extends Composite implements CorpBudgetDisplay {
 	@Override
 	public Hidden getIntegralPrice() {
 		return integralPrice;
+	}
+
+
+	@Override
+	public Hidden getPeriod() {
+		return period;
+	}
+
+	@Override
+	public DateBox getPeriodBeginDate() {
+		return periodBeginDate;
 	}
 }
