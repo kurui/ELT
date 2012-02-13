@@ -66,7 +66,7 @@ public class FileUploadServlet extends HttpServlet {
 					String uploadPath = getUploadPath(request);
 					if (uploadPath != null) {
 						String itemName = item.getName();
-						itemName = itemName.substring(itemName.indexOf("."),
+						itemName = itemName.substring(itemName.lastIndexOf("."),
 								itemName.length());
 						String fileName = DateUtil
 								.getDateString("yyyyMMddHHmmss");
