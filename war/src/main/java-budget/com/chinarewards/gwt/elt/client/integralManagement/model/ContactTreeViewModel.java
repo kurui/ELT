@@ -36,22 +36,47 @@ public class ContactTreeViewModel implements TreeViewModel {
 		@Override
 		public void render(Context context, Category value, SafeHtmlBuilder sb) {
 			if (value != null) {
-				sb.appendHtmlConstant("<table style='width:100%'>");
-				sb.appendHtmlConstant("<tr>");
-				sb.appendHtmlConstant("<td >" + value.getDepartmentName()
-						+ "</td>");
-				sb.appendHtmlConstant("<td >" + value.getBudgetpoints()
-						+ "</td>");
-				sb.appendHtmlConstant("<td >" + value.getHasawardedpoints()
-						+ "</td>");
+			
+				sb.appendHtmlConstant("<div style='float: left; width: 100%;'>");
 
-				sb.appendHtmlConstant("<tr>");
-				sb.appendHtmlConstant("</tr>");
-				sb.appendHtmlConstant("</table>");
+				sb.appendHtmlConstant("<div style='float: left; width: 58%;'>" + value.getDepartmentName()
+						+ "</div>");
+				sb.appendHtmlConstant("<div style='float: left; width: 28%;'>" + value.getBudgetpoints()
+						+ "</div>");
+				sb.appendHtmlConstant("<div >" + value.getHasawardedpoints()+ "</div>");
+
+
+				sb.appendHtmlConstant("</div>");
 			}
 		}
 	}
+	private static class CategoryCell2 extends AbstractCell<Category> {
 
+		/**
+		 * The html of the image used for contacts.
+		 */
+
+		public CategoryCell2() {
+
+		}
+
+		@Override
+		public void render(Context context, Category value, SafeHtmlBuilder sb) {
+			if (value != null) {
+				sb.appendHtmlConstant("<table style='width:100%'><tr><td>");
+				sb.appendHtmlConstant("<div style='float: left; width: 46%;'>");
+
+				sb.appendHtmlConstant("<div style='float: left; width: 58%;'>" + value.getDepartmentName()
+						+ "</div>");
+				sb.appendHtmlConstant("<div style='float: left; width: 28%;'>" + value.getBudgetpoints()
+						+ "</div>");
+				sb.appendHtmlConstant("<div >" + value.getHasawardedpoints()+ "</div>");
+
+
+				sb.appendHtmlConstant("</div></td></tr></table>");
+			}
+		}
+	}
 	/**
 	 * The static used in this model.
 	 */
@@ -173,26 +198,33 @@ public class ContactTreeViewModel implements TreeViewModel {
 			@Override
 			public void render(Context context, Category value,
 					SafeHtmlBuilder sb) {
-				sb.appendHtmlConstant("<table style='width:100%'><tbody><tr>");
-				super.render(context, value, sb);
-				sb.appendHtmlConstant("</tr></tbody></table>");
-
+//				sb.appendHtmlConstant("<div style='width:100%'>");
+//				super.render(context, value, sb);
+//				sb.appendHtmlConstant("<div style='clear:both;'></div>");
+//				sb.appendHtmlConstant("</div>");
+				
+		        sb.appendHtmlConstant("<table><tbody><tr>");
+		        super.render(context, value, sb);
+		        sb.appendHtmlConstant("</tr></tbody></table>");
 			}
 
-			@Override
-			protected Element getContainerElement(Element parent) {
-				// Return the first TR element in the table.
-				return parent.getFirstChildElement().getFirstChildElement()
-						.getFirstChildElement();
-			}
+		      @Override
+		      protected Element getContainerElement(Element parent) {
+		        // Return the first TR element in the table.
+		        return parent.getFirstChildElement().getFirstChildElement().getFirstChildElement();
+		      }
 
 			@Override
 			protected <X> void render(Context context, Category value,
 					SafeHtmlBuilder sb, HasCell<Category, X> hasCell) {
 				Cell<X> cell = hasCell.getCell();
-				sb.appendHtmlConstant("<td>");
-				cell.render(context, hasCell.getValue(value), sb);
-				sb.appendHtmlConstant("</td>");
+				if("追加".equals(hasCell.getValue(value)) || "颁奖历史".equals(hasCell.getValue(value)) )
+			    sb.appendHtmlConstant("<td style='padding-left:50px;'>");
+				else
+				sb.appendHtmlConstant("<td style='width:67%;'>");
+
+		        cell.render(context, hasCell.getValue(value), sb);
+		        sb.appendHtmlConstant("</td>");
 
 			}
 		};
@@ -215,7 +247,7 @@ public class ContactTreeViewModel implements TreeViewModel {
 			ListDataProvider<Category> dataProvider = new ListDataProvider<Category>(
 					orderedCounts);
 			return new DefaultNodeInfo<Category>(dataProvider,
-					new CategoryCell());
+					new CategoryCell2());
 		}
 		// Unhandled type.
 		String type = value.getClass().getName();

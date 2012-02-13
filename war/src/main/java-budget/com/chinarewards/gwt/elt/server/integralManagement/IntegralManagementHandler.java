@@ -38,7 +38,7 @@ public class IntegralManagementHandler extends
 		List<Category> rs=new ArrayList<Category>();
 		List<IntegralManagementVo> integralManagementVoList=budgetService.getIntegralManagementList(action.getCorporationId());
 		for (IntegralManagementVo vo:integralManagementVoList) {
-			Category c=new Category(vo.getDepartmentName(), vo.getBudgetIntegral()+"", vo.getUseIntegeral()+"",vo.getDepartmentId(),vo.isLeaf(),vo.getParentId());
+			Category c=new Category(vo.getDepartmentName(), (int)vo.getBudgetIntegral()+"", (int)vo.getBudgetIntegral()+"",vo.getDepartmentId(),vo.isLeaf(),vo.getParentId());
 			rs.add(c);
 		}
 
