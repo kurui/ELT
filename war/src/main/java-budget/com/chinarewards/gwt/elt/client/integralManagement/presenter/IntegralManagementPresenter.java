@@ -19,5 +19,8 @@ public interface IntegralManagementPresenter extends Presenter<IntegralManagemen
 		void refresh(List<Category> result,String corporationId);
 		void setBreadCrumbs(Widget breadCrumbs);
 		public HasClickHandlers getNominateClickHandlers();
+
+		void setBudgetIntegral(String text);
+		void setUseIntegeral(String text);
 	}
 }

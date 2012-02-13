@@ -41,8 +41,9 @@ public class IntegralManagementHandler extends
 			Category c=new Category(vo.getDepartmentName(), (int)vo.getBudgetIntegral()+"", (int)vo.getBudgetIntegral()+"",vo.getDepartmentId(),vo.isLeaf(),vo.getParentId());
 			rs.add(c);
 		}
-
-		return new IntegralManagementResponse(rs);
+		//查询当前财年..待添加
+	//	budgetService.findCorpBudget(action.getCorporationId());
+		return new IntegralManagementResponse(rs,0,0);
 	
 	}
 	

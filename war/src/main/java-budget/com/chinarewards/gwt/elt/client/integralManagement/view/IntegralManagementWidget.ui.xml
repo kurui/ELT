@@ -11,7 +11,7 @@
 			<!--面包屑 [[ -->
 			<g:FlowPanel ui:field="breadCrumbs" />
 			<!--面包屑 ]] -->
-			<h3> 今年财年预算 : 50000积分</h3>
+			<h3> 今年财年预算 : <g:InlineLabel ui:field="budgetIntegral" /> 积分</h3>
 			<span class="{new2.cutline}"></span>
 
 			<div class="{new2.table}">
@@ -25,14 +25,14 @@
 					</tr>
 					<tr>
 						<td colspan='4'>
-							<g:AbsolutePanel ui:field="cellTree" />
+							<g:AbsolutePanel ui:field="cellTree"  height="250px"/>
 						</td>
 
 					</tr>
 				</table>
 			</div>
 			
-			今年财年预算剩余积分 : 20000积分
+			今年财年预算剩余积分 : <g:InlineLabel ui:field="useIntegeral" />积分
 			<span class="{new2.cutline}"></span>
 			<div class="{new2.form-line} {new2.form-line-btn}">
 			        <div class="{new2.element}">

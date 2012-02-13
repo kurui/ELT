@@ -12,6 +12,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.cellview.client.CellTree;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -24,7 +25,10 @@ public class IntegralManagementWidget extends Composite implements
 	Panel breadCrumbs;
 	@UiField
 	Button nominatebutton;
-	
+	@UiField
+	InlineLabel budgetIntegral;
+	@UiField
+	InlineLabel useIntegeral;
 	private static IntegralManagementWidgetUiBinder uiBinder = GWT
 			.create(IntegralManagementWidgetUiBinder.class);
 
@@ -61,6 +65,18 @@ public class IntegralManagementWidget extends Composite implements
 	@Override
 	public HasClickHandlers getNominateClickHandlers() {
 		return nominatebutton;
+	}
+
+	@Override
+	public void setBudgetIntegral(String text) {
+		budgetIntegral.setText(text);
+		
+	}
+
+	@Override
+	public void setUseIntegeral(String text) {
+		useIntegeral.setText(text);
+		
 	}
 
 }
