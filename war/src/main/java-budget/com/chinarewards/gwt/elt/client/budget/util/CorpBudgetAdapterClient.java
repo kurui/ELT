@@ -11,13 +11,19 @@ public class CorpBudgetAdapterClient {
 	 * 封装表单属性
 	 * */
 	public static CorpBudgetVo adapterDisplay(CorpBudgetDisplay display) {
-		CorpBudgetVo giftVo = new CorpBudgetVo();
+		CorpBudgetVo corpBudgetVo = new CorpBudgetVo();
+		
+		corpBudgetVo.setBudgetTitle(display.getBudgetTitle().getValue());
+		
+		int selectedIndex = display.getMoneyType().getSelectedIndex();
+		corpBudgetVo.setMoneyType(display.getMoneyType().getValue(selectedIndex));
+		corpBudgetVo.setBudgetAmount(Double.valueOf(display.getBudgetAmount().getValue()));
+		corpBudgetVo.setBudgetIntegral(Double.valueOf(display.getBudgetIntegral().getValue()));
 
-		// // 基本信息
-//		giftVo.setName(display.getName().getValue().trim());
-//
-//		giftVo.setIndate(display.getIndate().getValue());
+		corpBudgetVo.setBeginDate(display.getBeginDate().getValue());
+		corpBudgetVo.setEndDate(display.getEndDate().getValue());
 
-		return giftVo;
+//		System.out.println("===adapterDisplay:"+corpBudgetVo.getBudgetTitle());
+		return corpBudgetVo;
 	}
 }

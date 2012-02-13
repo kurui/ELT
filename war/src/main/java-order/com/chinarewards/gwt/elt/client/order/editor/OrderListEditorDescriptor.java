@@ -7,6 +7,7 @@ import com.chinarewards.gwt.elt.client.core.ui.Editor;
 import com.chinarewards.gwt.elt.client.core.ui.EditorDescriptor;
 import com.chinarewards.gwt.elt.client.order.plugin.OrderListConstants;
 import com.chinarewards.gwt.elt.model.rewards.RewardsPageClient;
+import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
@@ -41,6 +42,7 @@ public class OrderListEditorDescriptor implements EditorDescriptor {
 			if (model != null)
 				e.setTitle(((RewardsPageClient) model).getTitleName());
 		}
+		
 		e.setModel(model);
 		return e;
 	}

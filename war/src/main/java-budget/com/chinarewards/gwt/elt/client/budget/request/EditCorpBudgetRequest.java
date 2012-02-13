@@ -14,7 +14,7 @@ import com.chinarewards.gwt.elt.client.support.UserSession;
  */
 public class EditCorpBudgetRequest implements Action<EditCorpBudgetResponse> {
 
-	String giftId;
+	String corpBudgetId;
 	String nowUserId;
 	private CorpBudgetVo corpBudgetVo;
 	private UserSession userSession;
@@ -33,12 +33,14 @@ public class EditCorpBudgetRequest implements Action<EditCorpBudgetResponse> {
 	}
 
 
+	
+
 	public String getCorpBudgetId() {
-		return giftId;
+		return corpBudgetId;
 	}
 
-	public void setCorpBudgetId(String giftId) {
-		this.giftId = giftId;
+	public void setCorpBudgetId(String corpBudgetId) {
+		this.corpBudgetId = corpBudgetId;
 	}
 
 	public String getNowUserId() {

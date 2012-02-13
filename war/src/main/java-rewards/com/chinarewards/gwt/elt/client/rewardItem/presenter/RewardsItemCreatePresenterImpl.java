@@ -65,6 +65,7 @@ public class RewardsItemCreatePresenterImpl extends
 		RewardsItemCreatePresenter {
 	String instanceId;//修改时传过来的ID
 	boolean isItemStore = false;//是否是奖项库
+	boolean isEnabled = false;
 	/**
 	 * 是否为修改页，默认为false
 	 */
@@ -129,7 +130,6 @@ public class RewardsItemCreatePresenterImpl extends
 		//绑定事件
 		 init();
 		//候选人面板显示
-	//	 Window.alert(instanceId);
 		staffBlock.bind();
 		display.initStaffBlock(staffBlock.getDisplay().asWidget());
 		
@@ -137,10 +137,12 @@ public class RewardsItemCreatePresenterImpl extends
 		{
 			breadCrumbs.loadChildPage("创建奖项模板");
 			display.setRewardButtonDisplay(false);
+			display.setRewardBackButtonDisplay(false);
 			
 		}else{
 			breadCrumbs.loadChildPage("创建奖项");
 			display.setRewardButtonDisplay(true);
+			display.setRewardBackButtonDisplay(true);
 		}
 		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
 		
@@ -265,92 +267,92 @@ public class RewardsItemCreatePresenterImpl extends
 											});
 								}
 							}));
-		//保存事件
-		registerHandler(display.getSaveClick().addClickHandler(
-				new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent arg0) {
-						// validate first!
-						if (!validateFirst()) {
-							return;
-						}
-						
-						RewardsItemClient rewardsItem = new RewardsItemClient();
-						// 基本信息
-						rewardsItem.setName(display.getRewardsName().getValue().trim());
-						rewardsItem.setType(new RewardsTypeClient(display.getRewardsType(), ""));//
-						rewardsItem.setDefinition(display.getDefinition().getValue().trim());
-						rewardsItem.setStandard(display.getStandard().getValue().trim());
-						// 候选限额
-						if(display.getPeopleSizeLimit().getValue()!=null&& !display.getPeopleSizeLimit().getValue().equals(""))
-						rewardsItem.setSizeLimit(Integer.parseInt(display.getPeopleSizeLimit().getValue()));
-						
-						//定义设置奖项和入帐的部门，现为同一部门，从session中得到
-						rewardsItem.setBuilderDept(sessionManager.getSession().getDepartmentId());
-						rewardsItem.setAccountDept(sessionManager.getSession().getDepartmentId());
-
-						// 候选人信息
-						rewardsItem.setParticipateInfo(staffBlock.getparticipateInfo());
-						//开始时间
-						rewardsItem.setStartTime(display.getStartTime().getValue());
-						//提名人的信息,自动奖没有提名信息
-						 rewardsItem.setTmInfo(getNominateInfo());
-						//是否是周期性选择
-						rewardsItem.setPeriodEnable(display.getEnableCbx().getValue());
-						//总积分
-						if(display.getTotalJF()!=null&&!display.getTotalJF().toString().equals(""))
-						rewardsItem.setTotalJF(Integer.parseInt(display.getTotalJF().toString()));
-						//每人积分
-						
-						rewardsItem.setRewardsFrom(Integer.parseInt(display.getRewardsFrom().toString()));
-						
-						// 周期性频率信息启用
-						if (display.getEnableCbx().getValue() ) {
-							if(display.getTmday()!=null&&!display.getTmday().toString().equals("")){//把周期性的提名提前的天数放在一个rewardsItem
-							 rewardsItem.setTmdays(display.getTmday().intValue());
-							}else{
-								 rewardsItem.setTmdays(0);
+			//保存事件
+			registerHandler(display.getSaveClick().addClickHandler(
+					new ClickHandler() {
+						@Override
+						public void onClick(ClickEvent arg0) {
+							// validate first!
+							if (!validateFirst()) {
+								return;
 							}
-							if(display.getAutoCbx().getValue()==true){
+							
+							RewardsItemClient rewardsItem = new RewardsItemClient();
+							// 基本信息
+							rewardsItem.setName(display.getRewardsName().getValue().trim());
+							rewardsItem.setType(new RewardsTypeClient(display.getRewardsType(), ""));//
+							rewardsItem.setDefinition(display.getDefinition().getValue().trim());
+							rewardsItem.setStandard(display.getStandard().getValue().trim());
+							// 候选限额
+							if(display.getPeopleSizeLimit().getValue()!=null&& !display.getPeopleSizeLimit().getValue().equals(""))
+							rewardsItem.setSizeLimit(Integer.parseInt(display.getPeopleSizeLimit().getValue()));
+							
+							//定义设置奖项和入帐的部门，现为同一部门，从session中得到
+							rewardsItem.setBuilderDept(sessionManager.getSession().getDepartmentId());
+							rewardsItem.setAccountDept(sessionManager.getSession().getDepartmentId());
+	
+							// 候选人信息
+							rewardsItem.setParticipateInfo(staffBlock.getparticipateInfo());
+							//开始时间
+							rewardsItem.setStartTime(display.getStartTime().getValue());
+							//提名人的信息,自动奖没有提名信息
+							 rewardsItem.setTmInfo(getNominateInfo());
+							//是否是周期性选择
+							rewardsItem.setPeriodEnable(display.getEnableCbx().getValue());
+							//总积分
+							if(display.getTotalJF()!=null&&!display.getTotalJF().toString().equals(""))
+							rewardsItem.setTotalJF(Integer.parseInt(display.getTotalJF().toString()));
+							//每人积分
+							
+							rewardsItem.setRewardsFrom(Integer.parseInt(display.getRewardsFrom().toString()));
+							
+							// 周期性频率信息启用
+							if (display.getEnableCbx().getValue() ) {
+								if(display.getTmday()!=null&&!display.getTmday().toString().equals("")){//把周期性的提名提前的天数放在一个rewardsItem
+								 rewardsItem.setTmdays(display.getTmday().intValue());
+								}else{
+									 rewardsItem.setTmdays(0);
+								}
+								if(display.getAutoCbx().getValue()==true){
+									rewardsItem.setNextPublishTime(display.getStartTime().getValue());
+								}else{
+									rewardsItem.setNextPublishTime(display.getNextPublishTime().getValue());
+								}
+								rewardsItem.setExpectAwardDate(display.getNextRewardsTime().getValue());
+								rewardsItem.setNextTime(display.getNextRewardsTime().getValue());//下次颁奖的时间
+								rewardsItem.setFrequency(display.getFrequencyObj());//周期频率设置
+								
+								rewardsItem	.setAuto(display.getAutoCbx().getValue());
+								rewardsItem.setRewardsUnit(display.getRewardsUnit());
+								rewardsItem.setHasSpecialCondition(display.getSpecialCbx().getValue());
+								
+								rewardsItem.setGeneratedRewards(false);
+								if (display.getSpecialCbx().getValue()&& display.getBirthRadio().getValue()) {
+									rewardsItem.setCondition(SpecialCondition.birth);
+								}
+							}else{// 一次性质
+								rewardsItem.setFrequency(null);//周期频率设置为null
 								rewardsItem.setNextPublishTime(display.getStartTime().getValue());
-							}else{
-								rewardsItem.setNextPublishTime(display.getNextPublishTime().getValue());
+								rewardsItem.setExpectAwardDate(display.getExpectTime().getValue());//期望的时间
+								if(display.getTmdays()!=null&&!display.getTmdays().toString().equals(""))//把一次性的提名提前的天数放在一个rewardsItem
+									 rewardsItem.setTmdays(display.getTmdays().intValue());
+								else
+									 rewardsItem.setTmdays(0);
+								}
+	
+						
+							if (!isEditPage) {
+								rewardsItem.setId("");
+								doSave(rewardsItem,false);
+							} else {
+								rewardsItem.setId(rewardsItemId);
+								doEdit(rewardsItem,false);//修改功能
 							}
-							rewardsItem.setExpectAwardDate(display.getNextRewardsTime().getValue());
-							rewardsItem.setNextTime(display.getNextRewardsTime().getValue());//下次颁奖的时间
-							rewardsItem.setFrequency(display.getFrequencyObj());//周期频率设置
-							
-							rewardsItem	.setAuto(display.getAutoCbx().getValue());
-							rewardsItem.setRewardsUnit(display.getRewardsUnit());
-							rewardsItem.setHasSpecialCondition(display.getSpecialCbx().getValue());
-							
-							rewardsItem.setGeneratedRewards(false);
-							if (display.getSpecialCbx().getValue()&& display.getBirthRadio().getValue()) {
-								rewardsItem.setCondition(SpecialCondition.birth);
-							}
-						}else{// 一次性质
-							rewardsItem.setFrequency(null);//周期频率设置为null
-							rewardsItem.setNextPublishTime(display.getStartTime().getValue());
-							rewardsItem.setExpectAwardDate(display.getExpectTime().getValue());//期望的时间
-							if(display.getTmdays()!=null&&!display.getTmdays().toString().equals(""))//把一次性的提名提前的天数放在一个rewardsItem
-								 rewardsItem.setTmdays(display.getTmdays().intValue());
-							else
-								 rewardsItem.setTmdays(0);
-							}
-
-					
-						if (!isEditPage) {
-							rewardsItem.setId("");
-							doSave(rewardsItem,false);
-						} else {
-							rewardsItem.setId(rewardsItemId);
-							doEdit(rewardsItem,false);//修改功能
 						}
-					}
-				}));
+					}));
 		
-		//保存奖项库事件
-				registerHandler(display.getSaveStoreClick().addClickHandler(
+	        	  //保存奖项库事件
+				  registerHandler(display.getSaveStoreClick().addClickHandler(
 						new ClickHandler() {
 							@Override
 							public void onClick(ClickEvent arg0) {
@@ -432,30 +434,93 @@ public class RewardsItemCreatePresenterImpl extends
 								}
 							}
 						}));
-	}
-	public ParticipateInfoClient getNominateInfo(){
-		ParticipateInfoClient nominateInfo = null;
-		List<OrganicationClient> orgs = new ArrayList<OrganicationClient>();
-	     if(display.getAutoCbx().getValue()==false){	//自动奖时没有提名人ID 
-			for (String orgId : display.getNominateIds()) {
-				 orgs.add(new OrganicationClient(orgId, ""));
-			}
-	       }
-		nominateInfo = new SomeoneClient(orgs);
-		return nominateInfo;
-	 }
-	private void doSave(RewardsItemClient rewardsItem,final boolean itemStore) {
+				 registerHandler(display.getBackClick().addClickHandler(//奖项返回
+						new ClickHandler() {
+							@Override
+							public void onClick(ClickEvent arg0) {
+								
+								Platform.getInstance()
+								.getEditorRegistry()
+								.openEditor(RewardsItemConstants.EDITOR_REWARDSITEM_List,
+										"EDITOR_REWARDSITEM_List_DO_ID", instanceId);
+
+			               }
+		
+		        }));
+				 //下面为奖项库按钮
+				 registerHandler(display.getBackStoreClick().addClickHandler(
+						 
+							new ClickHandler() {
+								@Override
+								public void onClick(ClickEvent arg0) {
+									 Platform.getInstance()
+									.getEditorRegistry()
+									.openEditor(RewardsItemConstants.EDITOR_REWARDSITEMSTORE_LIST,
+											RewardsItemConstants.EDITOR_REWARDSITEMSTORE, instanceId);
+
+				               }
+			
+			    }));
+	     }
+		public ParticipateInfoClient getNominateInfo(){
+			ParticipateInfoClient nominateInfo = null;
+			List<OrganicationClient> orgs = new ArrayList<OrganicationClient>();
+		     if(display.getAutoCbx().getValue()==false){	//自动奖时没有提名人ID 
+				for (String orgId : display.getNominateIds()) {
+					 orgs.add(new OrganicationClient(orgId, ""));
+				}
+		       }
+			nominateInfo = new SomeoneClient(orgs);
+			return nominateInfo;
+		 }
+		private void doSave(RewardsItemClient rewardsItem,final boolean itemStore) {
+			dispatcher.execute(new CreateRewardsItemRequest(rewardsItem,sessionManager.getSession(),itemStore),
+			new AsyncCallback<CreateRewardsItemResponse>() {
+				@Override
+				public void onFailure(Throwable t) {
+					errorHandler.alert(t.toString());
+				}
+
+				@Override
+				public void onSuccess(CreateRewardsItemResponse response) {
+					win.alert("添加成功");
+				//	if(instanceId!=null||!instanceId.equals(""))
+					if(itemStore==false)
+					{
+						Platform.getInstance()
+						.getEditorRegistry()
+						.openEditor(
+								RewardsItemConstants.EDITOR_REWARDSITEM_List,
+								"EDITOR_REWARDSITEM_List_DO_ID", instanceId);
+					}
+					else
+					{
+						Platform.getInstance()
+						.getEditorRegistry()
+						.openEditor(
+								RewardsItemConstants.EDITOR_REWARDSITEMSTORE_LIST,
+								RewardsItemConstants.EDITOR_REWARDSITEMSTORE, instanceId);
+					}
+
+				}
+			});
+		}
+	  private void doEdit(final RewardsItemClient rewardsItem,final boolean itemStore) {
+		win.confirm("修改提示", "确定修改吗？", new ConfirmHandler() {
+			
+	@Override
+	public void confirm() {
 		dispatcher.execute(new CreateRewardsItemRequest(rewardsItem,sessionManager.getSession(),itemStore),
 				new AsyncCallback<CreateRewardsItemResponse>() {
 					@Override
 					public void onFailure(Throwable t) {
-						errorHandler.alert(t.toString());
-					}
+						win.alert("修改失败");
 
+					}
+                   
 					@Override
-					public void onSuccess(CreateRewardsItemResponse response) {
-						win.alert("添加成功");
-					//	if(instanceId!=null||!instanceId.equals(""))
+					public void onSuccess(CreateRewardsItemResponse arg0) {
+						win.alert("修改成功");
 						if(itemStore==false)
 						{
 							Platform.getInstance()
@@ -472,52 +537,12 @@ public class RewardsItemCreatePresenterImpl extends
 									RewardsItemConstants.EDITOR_REWARDSITEMSTORE_LIST,
 									RewardsItemConstants.EDITOR_REWARDSITEMSTORE, instanceId);
 						}
-
 					}
 				});
-	}
-	private void doEdit(final RewardsItemClient rewardsItem,final boolean itemStore) {
-		win.confirm("修改提示", "确定修改吗？", new ConfirmHandler() {
-			
-			@Override
-			public void confirm() {
-				dispatcher.execute(new CreateRewardsItemRequest(rewardsItem,sessionManager.getSession(),itemStore),
-						new AsyncCallback<CreateRewardsItemResponse>() {
-							@Override
-							public void onFailure(Throwable t) {
-								win.alert("修改失败");
-		
-							}
-                           
-							@Override
-							public void onSuccess(CreateRewardsItemResponse arg0) {
-								win.alert("修改成功");
-								if(itemStore==false)
-								{
-									Platform.getInstance()
-									.getEditorRegistry()
-									.openEditor(
-											RewardsItemConstants.EDITOR_REWARDSITEM_List,
-											"EDITOR_REWARDSITEM_List_DO_ID", instanceId);
-								}
-								else
-								{
-									Platform.getInstance()
-									.getEditorRegistry()
-									.openEditor(
-											RewardsItemConstants.EDITOR_REWARDSITEMSTORE_LIST,
-											RewardsItemConstants.EDITOR_REWARDSITEMSTORE, instanceId);
-								}
-							}
-						});
 				
 			}
 		});
-		
-		
-
-
-		
+			
 	}
 	// setting a new frequency.
 		private void doSettingFrequency(FrequencyClient frequency) {
@@ -601,8 +626,7 @@ public class RewardsItemCreatePresenterImpl extends
 		private void modifyNextPublishTimeClew() {
 			DateTimeFormat format = DateTimeFormat.getFormat(ViewConstants.date_format);
 			Date NextRewardsTimeDate = display.getNextRewardsTime().getValue();
-			if ((NextRewardsTimeDate.getTime() <= rewardsDateCopuy.getTime())
-					&& !okAndNo) {
+			if ((NextRewardsTimeDate.getTime() <= rewardsDateCopuy.getTime())&& !okAndNo) {
 				okAndNo = true;
 				Window.confirm("建议下次颁奖时间应该在上次颁奖时间(" + format.format(rewardsDateCopuy)
 								+ ")之后！<br/>按“确定”回复到以前的设置！<br/>按“取消”使用新的时间！");
@@ -685,14 +709,18 @@ public class RewardsItemCreatePresenterImpl extends
 				if (display.getStartTime().getValue() == null|| "".equals(display.getStartTime().getValue())) {
 					errorMsg.append("开始时间不能为空<br>");
 					flag = false;
-				}else{
-					Date date = DateTool.addSomeDay(currentDate, 0 - day);
+				}else if(isEnabled==false){
+					Date date = DateTool.addSomeDay(currentDate, 0 - 1);
 				   if (date.getTime()>display.getStartTime().getValue().getTime()) {
-					errorMsg.append("开始时间不能小于当前日期<br>");
+					errorMsg.append("开始日期不能小于当前日期<br>");
 					flag = false;
 				   }
+				}else if(isEnabled==true){
+					   if (currentDate.getTime()>display.getStartTime().getValue().getTime()) {
+						errorMsg.append("奖项已激活，开始日期要大于当前日期<br>");
+						flag = false;
+					   }
 				}
-			
                    //周期性
 					if (display.getEnableCbx().getValue()==true) {
 						
@@ -825,7 +853,7 @@ public class RewardsItemCreatePresenterImpl extends
 								        } 
 										display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
 										display.showRewardsItem(item,isItemStore);//显示奖项
-
+                                        
 										// 初始前一次颁奖时间
 										rewardsDateCopuy = item.getLastRewardedDate();
 										// 初始结束时间副本
@@ -852,7 +880,7 @@ public class RewardsItemCreatePresenterImpl extends
 										staffBlock.getDisplay().showParticipateInfo(item.getBaseInfo());
 										setId(item.getId());
 										lastRewardsDate = item.getLastRewardedDate();
-										
+										isEnabled = item.isEnabled();
 
 									}
 

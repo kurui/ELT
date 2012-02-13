@@ -39,22 +39,22 @@ public class DepartmentBudgetDao extends BaseDao<DepartmentBudget> {
 		StringBuffer eql = new StringBuffer();
 
 		if (SEARCH.equals(type)) {
-			eql.append(" SELECT o FROM departmentBudget where  o.deleted= :deleted and corpBudgetId= :corpBudgetId");
+			eql.append(" SELECT d FROM DepartmentBudget d where  d.deleted= :deleted ");
 			param.put("deleted", vo.getDeleted());
-			param.put("corpBudgetId", vo.getCorpBudgetId());
+			
 		} else if (COUNT.equals(type)) {
-			eql.append(" SELECT COUNT(o) FROM departmentBudget o where  o.deleted= :deleted and corpBudgetId= :corpBudgetId");
+			eql.append(" SELECT COUNT(d) FROM DepartmentBudget d where  d.deleted= :deleted ");
 			param.put("deleted", vo.getDeleted());
-			param.put("corpBudgetId", vo.getCorpBudgetId());
+			
 		}
 		if (vo.getDepartmentId()!=null) {
-			eql.append(" AND UPPER(o.departmentId) = :departmentId ");
+			eql.append(" AND UPPER(d.departmentId) = :departmentId ");
 			param.put("departmentId", vo.getDepartmentId());
 		}
 		
 		if (SEARCH.equals(type)) {
 			if (vo.getSortingDetail() != null) {
-				eql.append(" ORDER BY o."
+				eql.append(" ORDER BY d."
 						+ vo.getSortingDetail().getSort() + " "
 						+ vo.getSortingDetail().getDirection());
 			}

@@ -24,6 +24,10 @@ public class OrderBoxWidget extends Composite implements	OrderBoxDisplay {
 	InlineLabel send;
 		@UiField
 	Panel breadCrumbs;
+	@UiField
+	Anchor view;	
+	@UiField
+	Anchor operate;
 	
 	private static OrderBoxWidgetUiBinder uiBinder = GWT
 			.create(OrderBoxWidgetUiBinder.class);
@@ -40,8 +44,8 @@ public class OrderBoxWidget extends Composite implements	OrderBoxDisplay {
 	@Override
 	public void setBreadCrumbs(Widget breadCrumbs) {
 		this.breadCrumbs.clear();
-		this.breadCrumbs.add(breadCrumbs);
-		
+		this.breadCrumbs.add(breadCrumbs);		
+
 	}
 
 	
@@ -58,7 +62,15 @@ public class OrderBoxWidget extends Composite implements	OrderBoxDisplay {
 		
 	}
 
-
+	@Override
+	public HasClickHandlers getView() {
+		return view;
+	}
+	
+	@Override
+	public HasClickHandlers getOperate() {
+		return operate;
+	}
 
 	
 

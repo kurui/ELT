@@ -289,7 +289,6 @@ public class GiftWidget extends Composite implements GiftDisplay {
 
 	@Override
 	public HasValue<String> getTell() {
-		// return null;
 		return tell;
 	}
 

@@ -12,17 +12,21 @@
 			<!--面包屑 ]] -->
 
 			
-			<span class="{new2.cutline}"></span>
+			
 			<div class="{new2.content-wrap}">
 			 <div class="{new2.form}">
 			 	<div class="{new2.form-line}">
-				        
-				          新增订单有：<g:InlineLabel ui:field="news"  /> 个<a>马上查看</a>
+				     <span class="{new2.nbspbig}"></span>
+				     <span class="{new2.nbspbig}"></span>   
+				         新增加兑换单： <g:InlineLabel ui:field="news"  /> 个<g:Anchor text="马上查看" styleName="" ui:field="view" />
 				        
 				    </div>
+				     <span class="{new2.nbspbig}"></span>
+				      <span class="{new2.nbspbig}"></span>
  					<div class="{new2.form-line}">
-				       
-				        待发货订单有： <g:InlineLabel ui:field="send"  /> 个<a>马上操作</a>
+				      <span class="{new2.nbspbig}"></span>
+				      <span class="{new2.nbspbig}"></span> 
+				      待发货订单共： <g:InlineLabel ui:field="send"  /> 个<g:Anchor text="马上操作" styleName="" ui:field="operate" />
 				   </div>	
 			  </div>
 			  
