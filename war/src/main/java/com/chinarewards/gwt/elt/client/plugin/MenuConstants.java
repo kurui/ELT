@@ -71,8 +71,7 @@ public abstract class MenuConstants {
 	// 整个系统奖励模版
 	public static final int MENU_ORDER_ALL_REWARDS_TEMPLATE = order++;
 
-	// 新建预算
-	public static final int MENU_ORDER_CREATE_BUDGET = order++;
+	
 
 	// 查询预算列表
 	public static final int MENU_ORDER_BUDGET_LIST = order++;
@@ -90,6 +89,9 @@ public abstract class MenuConstants {
 	public static final int MENU_ORDER_INTEGRAL_PRICE_EDIT = order++;
 	// 财年周期设置
 	public static final int MENU_ORDER_PERIOD_EDIT = order++;
+	
+	// 新建预算
+	public static final int MENU_ORDER_CREATE_BUDGET = order++;
 
 	// 奖项列表查询
 	public static final int MENU_ORDER_REWARDSITEM_List = order++;

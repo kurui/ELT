@@ -19,6 +19,14 @@ public class CorpBudgetVo implements Serializable {
 	private String recorduser; // 操作人
 	private Date recorddate; // 操作时间
 	private int deleted; // 是否删除
+	 private String yearName;     //财年的名称
+	public String getYearName() {
+		return yearName;
+	}
+
+	public void setYearName(String yearName) {
+		this.yearName = yearName;
+	}
 
 	public CorpBudgetVo() {
 	}

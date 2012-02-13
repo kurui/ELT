@@ -1,6 +1,8 @@
 package com.chinarewards.elt.service.budget;
 
 
+import java.util.List;
+
 import com.chinarewards.elt.domain.budget.CorpBudget;
 import com.chinarewards.elt.domain.budget.DepartmentBudget;
 import com.chinarewards.elt.model.budget.search.DepartmentBudgetVo;
@@ -38,6 +40,13 @@ public interface BudgetService {
 	 * @return
 	 */
 	public CorpBudget findCorpBudgetById(String id);
+	
+	/**
+	 * 查找根据企业财年
+	 * @param id
+	 * @return
+	 */
+	public List<CorpBudget> findCorpBudget(String corpid);
 	
 	
 	/**
