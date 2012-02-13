@@ -68,6 +68,11 @@ public class BudgetServiceImpl implements BudgetService {
 		SysUser caller = userLogic.findUserById(context.getUserId());
 		return budgetLogic.deleteDepartmentBudget(caller, id);
 	}
+	@Override
+	public List<CorpBudget> findCorpBudget(String corpid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
 	public CorpBudget findCorpBudgetByCorpId(String corpid) {

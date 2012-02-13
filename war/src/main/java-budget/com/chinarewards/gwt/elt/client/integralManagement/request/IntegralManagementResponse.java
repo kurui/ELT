@@ -7,7 +7,7 @@ import java.util.List;
 
 import net.customware.gwt.dispatch.shared.Result;
 
-import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
+import com.chinarewards.gwt.elt.client.integralManagement.model.Category;
 
 /**
  * @author nicho
@@ -15,37 +15,21 @@ import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
  */
 public class IntegralManagementResponse implements Result {
 
-	private List<GiftClient> result;
-	private int total;
+	private List<Category> result;
 
-
-	/**
-	 * @return the result
-	 */
-	public List<GiftClient> getResult() {
-		return result;
-	}
-
-	/**
-	 * @param result
-	 *            the result to set
-	 */
-	public void setResult(List<GiftClient> result) {
+	public IntegralManagementResponse(List<Category> result) {
 		this.result = result;
 	}
 
-	/**
-	 * @return the total
-	 */
-	public int getTotal() {
-		return total;
+	public IntegralManagementResponse() {
 	}
 
-	/**
-	 * @param total
-	 *            the total to set
-	 */
-	public void setTotal(int total) {
-		this.total = total;
+	public List<Category> getResult() {
+		return result;
 	}
+
+	public void setResult(List<Category> result) {
+		this.result = result;
+	}
+
 }
