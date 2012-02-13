@@ -5,18 +5,23 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.budget.model.CorpBudgetVo;
 import com.chinarewards.gwt.elt.client.budget.plugin.CorpBudgetConstants;
-import com.chinarewards.gwt.elt.client.budget.request.InitCorpBudgetByCorpIdRequest;
-import com.chinarewards.gwt.elt.client.budget.request.InitCorpBudgetByCorpIdResponse;
 import com.chinarewards.gwt.elt.client.budget.request.EditCorpBudgetRequest;
 import com.chinarewards.gwt.elt.client.budget.request.EditCorpBudgetResponse;
+import com.chinarewards.gwt.elt.client.budget.request.InitCorpBudgetByCorpIdRequest;
+import com.chinarewards.gwt.elt.client.budget.request.InitCorpBudgetByCorpIdResponse;
 import com.chinarewards.gwt.elt.client.budget.util.CorpBudgetAdapterClient;
 import com.chinarewards.gwt.elt.client.core.Platform;
+import com.chinarewards.gwt.elt.client.enterprise.model.EnterpriseVo;
 import com.chinarewards.gwt.elt.client.enterprise.plugin.EnterpriseConstants;
+import com.chinarewards.gwt.elt.client.enterprise.request.EnterpriseInitRequest;
+import com.chinarewards.gwt.elt.client.enterprise.request.EnterpriseInitResponse;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.win.Win;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
@@ -65,6 +70,8 @@ public class CorpBudgetPresenterImpl extends
 	private void registerEvent() {
 		registerSaveEvent();
 
+		registerIntegralPriceEvent();
+
 		registerHandler(display.getPeriodBtnClick().addClickHandler(
 				new ClickHandler() {
 					@Override
@@ -91,6 +98,30 @@ public class CorpBudgetPresenterImpl extends
 					}
 				}));
 
+	}
+
+	/**
+	 * 根据积分价值设定计算积分
+	 */
+	private void registerIntegralPriceEvent() {
+		registerHandler(display.getBudgetAmount().addChangeHandler(
+				new ChangeHandler() {
+					@Override
+					public void onChange(ChangeEvent arg0) {				
+
+						if (display.getIntegralPrice().getValue() == null) {
+							setIntegralPrice();
+						}
+						
+						Double integralPrice = Double.valueOf(display
+								.getIntegralPrice().getValue());
+						double tempBudgetIntegral=0;
+						double budgetAmount=Double.valueOf(display.getBudgetAmount().getValue());
+						tempBudgetIntegral=budgetAmount*integralPrice;
+						display.getBudgetIntegral().setValue(tempBudgetIntegral+"");
+						System.out.println("==========registerIntegralPriceEvent=========="+budgetAmount+"---"+integralPrice);
+					}
+				}));
 	}
 
 	// 保存事件
@@ -177,11 +208,34 @@ public class CorpBudgetPresenterImpl extends
 					@Override
 					public void onSuccess(
 							InitCorpBudgetByCorpIdResponse response) {
-						CorpBudgetVo giftVo = response.getCorpBudgetVo();
+						CorpBudgetVo corpBudgetVo = response.getCorpBudgetVo();
 
-						display.initEditCorpBudget(giftVo);
+						display.initEditCorpBudget(corpBudgetVo);
+						setIntegralPrice();
 					}
 				});
+	}
+
+	private void setIntegralPrice() {
+		EnterpriseInitRequest req = new EnterpriseInitRequest(
+				sessionManager.getSession());
+		dispatcher.execute(req, new AsyncCallback<EnterpriseInitResponse>() {
+			public void onFailure(Throwable caught) {
+
+				Window.alert("初始化失败");
+			}
+
+			@Override
+			public void onSuccess(EnterpriseInitResponse response) {
+
+				if (response != null) {
+					EnterpriseVo enterpriseVo = response.getEnterprise();
+					display.getIntegralPrice().setValue(
+							enterpriseVo.getIntegralPrice() + "");
+
+				}
+			}
+		});
 	}
 
 	@Override

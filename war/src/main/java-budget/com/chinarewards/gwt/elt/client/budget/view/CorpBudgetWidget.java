@@ -19,6 +19,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.Hidden;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TextBox;
@@ -37,6 +38,9 @@ public class CorpBudgetWidget extends Composite implements CorpBudgetDisplay {
 	TextBox budgetAmount;
 	@UiField
 	TextBox budgetIntegral;
+	@UiField
+	Hidden integralPrice;
+	
 	@UiField
 	DateBox beginDate;
 	@UiField
@@ -88,6 +92,8 @@ public class CorpBudgetWidget extends Composite implements CorpBudgetDisplay {
 		budgetIntegral.setText(corpBudgetVo.getBudgetIntegral() + "");
 		beginDate.setValue(corpBudgetVo.getBeginDate());
 		endDate.setValue(corpBudgetVo.getEndDate());
+		
+		
 
 	}
 
@@ -164,5 +170,10 @@ public class CorpBudgetWidget extends Composite implements CorpBudgetDisplay {
 	@Override
 	public HasValue<String> getBudgetTitle(){
 		return budgetTitle;
+	}
+
+	@Override
+	public Hidden getIntegralPrice() {
+		return integralPrice;
 	}
 }

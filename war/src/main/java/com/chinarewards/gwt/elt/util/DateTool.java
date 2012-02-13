@@ -169,13 +169,11 @@ public abstract class DateTool {
 		return day;
 	}
 
-	/**
-	 * Returns the month of the date. 0 = January, 1 = February, ... 11 = 
-	 * December.
-	 * 
-	 * @param date
-	 * @return
-	 */
+	public static int getYearOfDate(Date date) {
+		int month = date.getYear();
+		return month;
+	}
+	
 	public static int getMonthOfDate(Date date) {
 		int month = date.getMonth();
 		return month;
