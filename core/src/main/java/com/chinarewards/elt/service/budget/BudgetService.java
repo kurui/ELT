@@ -47,6 +47,14 @@ public interface BudgetService {
 	 * @return
 	 */
 	public List<CorpBudget> findCorpBudget(String corpid);
+    /*
+	 * 查找根据企业ID
+	 * @param id
+	 * @return
+	 */
+	public CorpBudget findCorpBudgetByCorpId(String corpid);
+	
+
 	
 	
 	/**

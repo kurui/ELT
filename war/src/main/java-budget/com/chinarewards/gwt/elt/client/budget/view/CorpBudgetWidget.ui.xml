@@ -9,25 +9,40 @@
 		<!--面包屑 [[ -->
 		<g:FlowPanel ui:field="breadCrumbs" />
 		<!--面包屑 ]] -->
+		<h3>
+			<g:InlineLabel text="今年财年预算" />
+			<span class="{new2.btn}">
+				<g:Button ui:field="periodBtn">财年周期设置</g:Button>
+			</span>
+		</h3>
 
+		<span class="{new2.cutline}"></span>
 		<!-- 1内容 -->
 		<div class="{new2.content-wrap}">
 			<div class="{new2.form}">
 				<div class="{new2.form-line}">
 					<label class="{new2.label}">
 						<span style="color:red">*</span>
+						标题：
+					</label>
+					<div class="{new2.element}">
+						<g:TextBox maxLength="20" ui:field="budgetTitle" styleName="{new2.text}" />
+					</div>
+				</div>
+				<div class="{new2.form-line}">
+					<label class="{new2.label}">
+						<span style="color:red">*</span>
 						货币类型：
 					</label>
 					<div class="{new2.element}">
-						<g:ListBox ui:field="moneyType" styleName="{new2.text}" />
-					</div>
-					<div class="{new2.element}">
+						<g:ListBox ui:field="moneyType" styleName="{new2.select}" />
+
 						<g:TextBox maxLength="20" ui:field="budgetAmount"
-							styleName="{new2.text}" />=
-					</div>
-					<div class="{new2.element}">
+							styleName="{new2.short-text}" />
+						=
 						<g:TextBox maxLength="20" ui:field="budgetIntegral"
-							styleName="{new2.text}" />积分
+							styleName="{new2.short-text}" />
+						积分
 					</div>
 				</div>
 				<div class="{new2.form-line}">

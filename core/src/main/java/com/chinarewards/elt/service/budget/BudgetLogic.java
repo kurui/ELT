@@ -31,7 +31,12 @@ public interface BudgetLogic {
 	 * @return
 	 */
 	public CorpBudget findCorpBudgetById(String id);
-	
+	/**
+	 * 查找根据企业ID
+	 * @param corpid
+	 * @return
+	 */
+	public CorpBudget findCorpBudgetByCorpId(String corpid);
 	
 	/**
 	 * 查找根据部门预算ID
@@ -54,6 +59,8 @@ public interface BudgetLogic {
 	 * @return
 	 */
 	public PageStore<DepartmentBudgetVo> deptBudgetList(SysUser caller,DepartmentBudgetVo deptBudgetVo);
+
+
 }
 
 

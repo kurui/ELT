@@ -3,33 +3,56 @@ package com.chinarewards.gwt.elt.client.budget.model;
 import java.io.Serializable;
 import java.util.Date;
 
-public class CorpBudgetVo implements Serializable {
+import com.chinarewards.gwt.elt.model.PaginationDetailClient;
+import com.chinarewards.gwt.elt.model.SortingDetailClient;
+
+public class DepBudgetVo implements Serializable {
+
+	public DepBudgetVo() {
+	}
 
 	/**
-	 *  财年企业整体预算
+	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
+	private PaginationDetailClient pagination;
+
+	private SortingDetailClient sorting;
+
+	public PaginationDetailClient getPagination() {
+		return pagination;
+	}
+
+	public void setPagination(PaginationDetailClient pagination) {
+		this.pagination = pagination;
+	}
+
+	public SortingDetailClient getSorting() {
+		return sorting;
+	}
+
 	private String id;
-	private String budgetTitle;//标题
-	private String corporationId; // 企业ID
-	private Date beginDate; // 财年结束日期
-	private Date endDate; // 财年开始日期
-	private double budgetAmount; // 预算金额
+	private String corpBudgetId; // 企业财年预算ID
+	private String departmentId; // 部门ID
 	private double budgetIntegral;// 预算积分
 	private double useIntegeral; // 已用积分
 	private String recorduser; // 操作人
 	private Date recorddate; // 操作时间
 	private int deleted; // 是否删除
-	private String moneyType;
-	public String getMoneyType() {
-		return moneyType;
+
+	private String departmentName;// 部门的名字
+
+	public String getDepartmentName() {
+		return departmentName;
 	}
 
-	public void setMoneyType(String moneyType) {
-		this.moneyType = moneyType;
+	public void setDepartmentName(String departmentName) {
+		this.departmentName = departmentName;
 	}
 
-	public CorpBudgetVo() {
+	public void setSorting(SortingDetailClient sorting) {
+		this.sorting = sorting;
 	}
 
 	public String getId() {
@@ -39,47 +62,21 @@ public class CorpBudgetVo implements Serializable {
 	public void setId(String id) {
 		this.id = id;
 	}
-	
-	
 
-	public String getBudgetTitle() {
-		return budgetTitle;
+	public String getCorpBudgetId() {
+		return corpBudgetId;
 	}
 
-	public void setBudgetTitle(String budgetTitle) {
-		this.budgetTitle = budgetTitle;
+	public void setCorpBudgetId(String corpBudgetId) {
+		this.corpBudgetId = corpBudgetId;
 	}
 
-	public String getCorporationId() {
-		return corporationId;
+	public String getDepartmentId() {
+		return departmentId;
 	}
 
-	public void setCorporationId(String corporationId) {
-		this.corporationId = corporationId;
-	}
-
-	public Date getBeginDate() {
-		return beginDate;
-	}
-
-	public void setBeginDate(Date beginDate) {
-		this.beginDate = beginDate;
-	}
-
-	public Date getEndDate() {
-		return endDate;
-	}
-
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
-	}
-
-	public double getBudgetAmount() {
-		return budgetAmount;
-	}
-
-	public void setBudgetAmount(double budgetAmount) {
-		this.budgetAmount = budgetAmount;
+	public void setDepartmentId(String departmentId) {
+		this.departmentId = departmentId;
 	}
 
 	public double getBudgetIntegral() {

@@ -74,5 +74,10 @@ public class BudgetServiceImpl implements BudgetService {
 		return null;
 	}
 
+	@Override
+	public CorpBudget findCorpBudgetByCorpId(String corpid) {
+		return budgetLogic.findCorpBudgetByCorpId(corpid);
+	}
+
    
 }
