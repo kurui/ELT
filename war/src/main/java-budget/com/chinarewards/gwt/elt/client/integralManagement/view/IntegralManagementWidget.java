@@ -39,11 +39,11 @@ public class IntegralManagementWidget extends Composite implements
 	}
 
 	@Override
-	public void refresh(List<Category> result) {
+	public void refresh(List<Category> result,String corporationId) {
 
 		CellTree.Resources res = GWT.create(CellTree.BasicResources.class);
 
-		CellTree tree = new CellTree(new ContactTreeViewModel(result), null, res);
+		CellTree tree = new CellTree(new ContactTreeViewModel(result,corporationId), null, res);
 		tree.setAnimationEnabled(true);
 		cellTree.clear();
 		cellTree.add(tree);

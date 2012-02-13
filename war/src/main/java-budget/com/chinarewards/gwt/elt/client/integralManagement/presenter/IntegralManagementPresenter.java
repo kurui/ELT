@@ -14,6 +14,6 @@ public interface IntegralManagementPresenter extends Presenter<IntegralManagemen
 	public static interface IntegralManagementDisplay extends Display {
 
 		Panel getCellTree();
-		void refresh(List<Category> result);
+		void refresh(List<Category> result,String corporationId);
 	}
 }

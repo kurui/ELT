@@ -6,6 +6,7 @@ import java.util.List;
 import com.chinarewards.elt.domain.budget.CorpBudget;
 import com.chinarewards.elt.domain.budget.DepartmentBudget;
 import com.chinarewards.elt.model.budget.search.DepartmentBudgetVo;
+import com.chinarewards.elt.model.budget.search.IntegralManagementVo;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.user.UserContext;
 
@@ -78,6 +79,13 @@ public interface BudgetService {
 	 * @return
 	 */
 	public PageStore<DepartmentBudgetVo> deptBudgetList(UserContext context,DepartmentBudgetVo deptBudgetVo);
+	
+	/**
+	 * 积分管理(预算管理)首页.数据查询
+	 * @param corpId
+	 * @return
+	 */
+	public List<IntegralManagementVo> getIntegralManagementList(String corpId);
 
 	
 }

@@ -38,7 +38,7 @@ public class IntegralManagementPresenterImpl extends
 	@Override
 	public void bind() {
 
-		dispatch.execute(new IntegralManagementRequest("xxx"),
+		dispatch.execute(new IntegralManagementRequest(sessionManager.getSession().getCorporationId()),
 				new AsyncCallback<IntegralManagementResponse>() {
 					@Override
 					public void onFailure(Throwable e) {
@@ -48,7 +48,7 @@ public class IntegralManagementPresenterImpl extends
 					@Override
 					public void onSuccess(IntegralManagementResponse response) {
 						    	   
-						    	   display.refresh(response.getResult());
+						    	   display.refresh(response.getResult(),sessionManager.getSession().getCorporationId());
 					}
 				});
 	

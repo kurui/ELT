@@ -118,7 +118,7 @@ public class DepartmentDao extends BaseDao<Department> {
 	public List<Department> findDepartmentsByCoporationId(String corporationId) {
 		return getEm()
 				.createQuery(
-						"FROM Department d WHERE d.corporation.id =:corpId AND d.parent IS NOT NULL")
+						"FROM Department d WHERE d.corporation.id =:corpId ")
 				.setParameter("corpId", corporationId).getResultList();
 	}
 
