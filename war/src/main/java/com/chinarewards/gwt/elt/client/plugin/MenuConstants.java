@@ -29,6 +29,9 @@ public abstract class MenuConstants {
 	// 账号管理
 	public static final int MENU_ORDER_USER_SEARCH = order++;
 
+	// 组织机构
+	public static final int MENU_ORDER_DEPARTMENTLIST_SEARCH = order++;
+
 	// 员工信息维护
 	public static final int MENU_ORDER_STAFF_SEARCH = order++;
 
@@ -71,8 +74,6 @@ public abstract class MenuConstants {
 	// 整个系统奖励模版
 	public static final int MENU_ORDER_ALL_REWARDS_TEMPLATE = order++;
 
-	
-
 	// 查询预算列表
 	public static final int MENU_ORDER_BUDGET_LIST = order++;
 
@@ -83,13 +84,13 @@ public abstract class MenuConstants {
 	public static final int MENU_ORDER_CORPORATION_INNER_INFO_PUBLISH = order++;
 	// hr注册
 	public static final int MENU_ORDER_Hr_SEARCH = order++;
-	//今年财年预算
-	public static final int MENU_ORDER_INTEGRALMANAGEMENT_SEARCH =  order++;
+	// 今年财年预算
+	public static final int MENU_ORDER_INTEGRALMANAGEMENT_SEARCH = order++;
 	// 积分价值设置
 	public static final int MENU_ORDER_INTEGRAL_PRICE_EDIT = order++;
 	// 财年周期设置
 	public static final int MENU_ORDER_PERIOD_EDIT = order++;
-	
+
 	// 新建预算
 	public static final int MENU_ORDER_CREATE_BUDGET = order++;
 
@@ -123,8 +124,7 @@ public abstract class MenuConstants {
 	public static final int MENU_ORDER_ORDERLIST_SEARCH = order++;
 	// 管理员的订单详细
 	public static final int MENU_ORDER_ORDERVIEW_SEARCH = order++;
-	
-	
+
 	// 订单新建
 	public static final int MENU_ORDER_ORDER_ADD = order++;
 	// 奖品商城
@@ -144,7 +144,5 @@ public abstract class MenuConstants {
 
 	// 整体预算
 	public static final int MENU_ORDER_CORPBUDGET_EDIT = order++;
-
-
 
 }
