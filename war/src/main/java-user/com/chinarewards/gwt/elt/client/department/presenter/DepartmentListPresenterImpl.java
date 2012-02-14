@@ -11,7 +11,6 @@ import com.chinarewards.gwt.elt.client.department.request.DeleteDepartmentReques
 import com.chinarewards.gwt.elt.client.department.request.DeleteDepartmentResponse;
 import com.chinarewards.gwt.elt.client.department.request.DepartmentManageRequest;
 import com.chinarewards.gwt.elt.client.department.request.DepartmentManageResponse;
-import com.chinarewards.gwt.elt.client.integralManagement.request.IntegralManagementResponse;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;

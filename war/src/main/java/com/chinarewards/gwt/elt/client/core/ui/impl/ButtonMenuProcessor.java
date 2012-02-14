@@ -181,9 +181,8 @@ public class ButtonMenuProcessor implements MenuProcessor {
 			items.add(DetailsOfAwardConstants.MENU_DETAILSOFAWARD_SEARCH);
 			items.add(RewardsListConstants.MENU_REWARDSLIST_SEARCH);
 		} else if ("Staff".equals(keyname)) {
-			items.add(UserConstants.MENU_USER_SEARCH);
 			items.add(DepartmentListConstants.MENU_DEPARTMENTLIST_SEARCH);
-			
+			items.add(UserConstants.MENU_USER_SEARCH);
 		} else if ("Setting".equals(keyname)) {
 			items.add(EnterpriseConstants.MENU_ENTERPRISE_EDIT);
 			items.add(EnterpriseConstants.MENU_INTEGRAL_PRICE_EDIT);

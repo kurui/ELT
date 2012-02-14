@@ -10,6 +10,7 @@ import com.chinarewards.gwt.elt.client.core.PluginManager;
 import com.chinarewards.gwt.elt.client.core.presenter.DockPresenter.DockDisplay;
 import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
 import com.chinarewards.gwt.elt.client.core.ui.event.MenuClickEvent;
+import com.chinarewards.gwt.elt.client.department.plugin.DepartmentListConstants;
 import com.chinarewards.gwt.elt.client.enterprise.plugin.EnterpriseConstants;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftListConstants;
 import com.chinarewards.gwt.elt.client.integralManagement.plugin.IntegralManagementConstants;
@@ -127,8 +128,9 @@ public class DockPresenterImpl extends BasePresenter<DockDisplay> implements
 					public void onClick(ClickEvent event) {
 						display.setMenuTitle("员工数据");
 						menuProcessor.initrender(display.getMenu(), "Staff");
-						eventBus.fireEvent(new MenuClickEvent(menuProcessor
-								.getMenuItem(UserConstants.MENU_USER_SEARCH)));
+						eventBus.fireEvent(new MenuClickEvent(
+								menuProcessor
+										.getMenuItem(DepartmentListConstants.MENU_DEPARTMENTLIST_SEARCH)));
 					}
 				}));
 		registerHandler(display.getBtnSetting().addClickHandler(
