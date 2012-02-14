@@ -1,32 +1,24 @@
 package com.chinarewards.gwt.elt.client.department.presenter;
 
-import java.util.Comparator;
-
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.core.Platform;
-import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.dataprovider.DepartmentListViewAdapter;
-import com.chinarewards.gwt.elt.client.department.model.DepartmentCriteria;
 import com.chinarewards.gwt.elt.client.department.plugin.DepartmentConstants;
 import com.chinarewards.gwt.elt.client.department.presenter.DepartmentListPresenter.DepartmentListDisplay;
 import com.chinarewards.gwt.elt.client.department.request.DeleteDepartmentRequest;
 import com.chinarewards.gwt.elt.client.department.request.DeleteDepartmentResponse;
+import com.chinarewards.gwt.elt.client.integralManagement.request.IntegralManagementRequest;
+import com.chinarewards.gwt.elt.client.integralManagement.request.IntegralManagementResponse;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.rewards.model.DepartmentClient;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
-import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager;
-import com.chinarewards.gwt.elt.client.widget.EltNewPager.TextLocation;
-import com.chinarewards.gwt.elt.client.widget.GetValue;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
-import com.chinarewards.gwt.elt.client.widget.Sorting;
 import com.chinarewards.gwt.elt.client.win.Win;
-import com.google.gwt.cell.client.FieldUpdater;
-import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
@@ -66,11 +58,27 @@ public class DepartmentListPresenterImpl extends
 		breadCrumbs.loadListPage();
 		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
 
-		buildTable();
-		
 		registerEvent();
-		
-		doSearch();
+
+		initTreeTable();
+
+	}
+	
+	private void initTreeTable() {
+		dispatch.execute(new IntegralManagementRequest(sessionManager.getSession().getCorporationId()),
+				new AsyncCallback<IntegralManagementResponse>() {
+					@Override
+					public void onFailure(Throwable e) {
+						win.alert(e.getMessage());
+					}
+
+					@Override
+					public void onSuccess(IntegralManagementResponse response) {
+//						display.setBudgetIntegral((int)response.getBudgetIntegral()+"");
+//						display.setUseIntegeral((int)response.getBudgetIntegral()+"");
+						display.refresh(response.getResult(),sessionManager.getSession().getCorporationId());
+					}
+				});
 
 	}
 
@@ -91,121 +99,47 @@ public class DepartmentListPresenterImpl extends
 										client);
 					}
 				}));
+
+		// 增加子部门
+		registerHandler(display.getAddChildBtnClickHandlers().addClickHandler(
+				new ClickHandler() {
+					public void onClick(ClickEvent paramClickEvent) {
+						win.alert("功能建设中");
+					}
+				}));
+		// 删除部门
+		registerHandler(display.getDeleteBtnClickHandlers().addClickHandler(
+				new ClickHandler() {
+					public void onClick(ClickEvent paramClickEvent) {
+						win.alert("功能建设中");
+					}
+				}));
+		// 编辑部门
+		registerHandler(display.getEditBtnClickHandlers().addClickHandler(
+				new ClickHandler() {
+					public void onClick(ClickEvent paramClickEvent) {
+						win.alert("功能建设中");
+					}
+				}));
+		// 合并部门
+		registerHandler(display.getMergeBtnClickHandlers().addClickHandler(
+				new ClickHandler() {
+					public void onClick(ClickEvent paramClickEvent) {
+						win.alert("功能建设中");
+					}
+				}));
+		// 同步公司组织机构
+		registerHandler(display.getSynchBtnClickHandlers().addClickHandler(
+				new ClickHandler() {
+					public void onClick(ClickEvent paramClickEvent) {
+						win.alert("功能建设中");
+					}
+				}));
+
 	}
 
-	private void buildTable() {
-		// create a CellTable
-		cellTable = new ListCellTable<DepartmentClient>();
-
-		initTableColumns();
-		pager = new EltNewPager(TextLocation.CENTER);
-		pager.setDisplay(cellTable);
-		cellTable.setWidth(ViewConstants.page_width);
-		cellTable.setPageSize(ViewConstants.per_page_number_in_dialog);
-
-		display.getResultPanel().clear();
-		display.getResultPanel().add(cellTable);
-	}
-
-	private void doSearch() {
-		DepartmentCriteria criteria = new DepartmentCriteria();
-		// if (!StringUtil.isEmpty(display.getKeyName().getValue()))
-		// criteria.setName(display.getKeyName().getValue());
-
-		listViewAdapter = new DepartmentListViewAdapter(dispatch, criteria,
-				errorHandler, sessionManager, display);
-		listViewAdapter.addDataDisplay(cellTable);
-	}
-
-	private void initTableColumns() {
-		Sorting<DepartmentClient> ref = new Sorting<DepartmentClient>() {
-			@Override
-			public void sortingCurrentPage(
-					Comparator<DepartmentClient> comparator) {
-				// listViewAdapter.sortCurrentPage(comparator);
-			}
-
-			@Override
-			public void sortingAll(String sorting, String direction) {
-				listViewAdapter.sortFromDateBase(sorting, direction);
-
-			}
-		};
-
-		cellTable.addColumn("名称", new TextCell(),
-				new GetValue<DepartmentClient, String>() {
-					@Override
-					public String getValue(DepartmentClient department) {
-						return department.getName();
-					}
-				}, ref, "name");
-
-		cellTable.addColumn("操作", new HyperLinkCell(),
-				new GetValue<DepartmentClient, String>() {
-					@Override
-					public String getValue(DepartmentClient arg0) {
-						return "查看详细";
-					}
-				}, new FieldUpdater<DepartmentClient, String>() {
-					@Override
-					public void update(int index,
-							DepartmentClient departmentClient, String value) {
-						// departmentClient.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_VIEW);
-						Platform.getInstance()
-								.getEditorRegistry()
-								.openEditor(
-										DepartmentConstants.EDITOR_DEPARTMENT_VIEW,
-										DepartmentConstants.EDITOR_DEPARTMENT_VIEW
-												+ departmentClient.getId(),
-										departmentClient);
-					}
-				});
-
-		cellTable.addColumn("操作", new HyperLinkCell(),
-				new GetValue<DepartmentClient, String>() {
-					@Override
-					public String getValue(DepartmentClient arg0) {
-						return "修改";
-					}
-				}, new FieldUpdater<DepartmentClient, String>() {
-					@Override
-					public void update(int index,
-							final DepartmentClient departmentClient,
-							String value) {
-						// departmentClient
-						// .setThisAction(DepartmentConstants.ACTION_DEPARTMENT_EDIT);
-						Platform.getInstance()
-								.getEditorRegistry()
-								.openEditor(
-										DepartmentConstants.EDITOR_DEPARTMENT_EDIT,
-										DepartmentConstants.EDITOR_DEPARTMENT_EDIT
-												+ departmentClient.getId(),
-										departmentClient);
-					}
-				});
-
-		cellTable.addColumn("操作", new HyperLinkCell(),
-				new GetValue<DepartmentClient, String>() {
-					@Override
-					public String getValue(DepartmentClient department) {
-						return "删除";
-					}
-				}, new FieldUpdater<DepartmentClient, String>() {
-
-					@Override
-					public void update(int index, DepartmentClient o,
-							String value) {
-						if (Window.confirm("确定删除?")) {
-							delteDepartment(o.getId());
-						}
-					}
-
-				});
-
-	}
 
 	public void delteDepartment(String gifId) {
-
 		dispatch.execute(new DeleteDepartmentRequest(gifId, sessionManager
 				.getSession().getToken()),
 				new AsyncCallback<DeleteDepartmentResponse>() {
@@ -218,7 +152,6 @@ public class DepartmentListPresenterImpl extends
 					@Override
 					public void onSuccess(DeleteDepartmentResponse resp) {
 						win.alert("删除成功");
-						doSearch();
 					}
 				});
 	}

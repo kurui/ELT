@@ -1,10 +1,13 @@
 package com.chinarewards.elt.service.org.impl;
 
+import java.util.List;
+
 import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.org.exception.DepartmentDeleteException;
 import com.chinarewards.elt.model.org.search.DepartmentListVo;
+import com.chinarewards.elt.model.org.search.DepartmentManageVo;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.org.DepartmentLogic;
 import com.chinarewards.elt.service.org.DepartmentService;
@@ -44,6 +47,11 @@ public class DepartmentServiceImpl implements DepartmentService {
 	public PageStore<DepartmentListVo> departmentList(UserContext context, DepartmentListVo departmentVo) {
 		SysUser caller = userLogic.findUserById(context.getUserId());
 		return departmentLogic.departmentList(caller, departmentVo);
+	}
+
+	@Override
+	public List<DepartmentManageVo> getDepartmentManageList(String corporationId) {
+		return departmentLogic.getDepartmentManageList(corporationId);
 	}
 
 

@@ -1,5 +1,8 @@
 package com.chinarewards.gwt.elt.client.department.presenter;
 
+import java.util.List;
+
+import com.chinarewards.gwt.elt.client.integralManagement.model.Category;
 import com.chinarewards.gwt.elt.client.mvp.Display;
 import com.chinarewards.gwt.elt.client.mvp.Presenter;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -23,9 +26,11 @@ public interface DepartmentListPresenter extends
 
 		public HasClickHandlers getSynchBtnClickHandlers();
 
-		Panel getResultPanel();
+		Panel getCellTree();
 
 		void setBreadCrumbs(Widget breadCrumbs);
+
+		void refresh(List<Category> result, String corporationId);
 
 	}
 }

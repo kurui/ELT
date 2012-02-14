@@ -44,13 +44,10 @@
 		
 			<div class="{new2.divend}"></div>
 			<div class="{new2.table}">
-				<g:FlowPanel ui:field="resultPanel" />
+				<g:AbsolutePanel ui:field="cellTree"  height="250px"/>
 			</div>
 
 
 		</div>
-		<!--分页 ]] -->
-
-	</div>
 	</g:HTMLPanel>
 </ui:UiBinder>

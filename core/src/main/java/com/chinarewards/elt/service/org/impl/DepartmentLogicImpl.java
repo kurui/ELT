@@ -7,9 +7,11 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.chinarewards.elt.dao.budget.DepartmentBudgetDao;
 import com.chinarewards.elt.dao.org.CorporationDao;
 import com.chinarewards.elt.dao.org.DepartmentDao;
 import com.chinarewards.elt.dao.org.OrgPolicyDao;
+import com.chinarewards.elt.domain.budget.DepartmentBudget;
 import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.org.OrgPolicy;
@@ -20,6 +22,7 @@ import com.chinarewards.elt.model.org.DepartmentVo;
 import com.chinarewards.elt.model.org.RewardsApprovalPolicyEnum;
 import com.chinarewards.elt.model.org.exception.DepartmentDeleteException;
 import com.chinarewards.elt.model.org.search.DepartmentListVo;
+import com.chinarewards.elt.model.org.search.DepartmentManageVo;
 import com.chinarewards.elt.service.org.DepartmentLogic;
 import com.chinarewards.elt.util.DateUtil;
 import com.chinarewards.elt.util.StringUtil;
@@ -38,6 +41,7 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 	OrgPolicyDao organizationPolicyDao;
 	DepartmentDao deptDao;
 	CorporationDao corporationDao;
+	DepartmentBudgetDao departmentBudgetDao;
 
 	@Inject
 	public DepartmentLogicImpl(OrgPolicyDao organizationPolicyDao,
@@ -128,7 +132,7 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 
 		// maintain index
 		deptDao.maintainIndexAfterDeleteNode(index, corpId);
-		
+
 		return department.getId();
 	}
 
@@ -207,9 +211,6 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 		return dept;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.chinarewards.elt.service.org.DepartmentLogic#save(com.chinarewards.elt.domain.user.SysUser, com.chinarewards.elt.domain.org.Department)
-	 */
 	@Override
 	public Department save(SysUser caller, Department department) {
 		// TODO Auto-generated method stub
@@ -221,6 +222,30 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 			DepartmentListVo departmentVo) {
 		return null;
 	}
-	
-	
+
+	@Override
+	public List<DepartmentManageVo> getDepartmentManageList(String corpId) {
+		List<DepartmentManageVo> volist = new ArrayList<DepartmentManageVo>();
+		List<Department> department = getWholeDepartmentsOfCorporation(corpId);
+		for (Department dep : department) {
+			DepartmentManageVo vo = new DepartmentManageVo();
+			vo.setDepartmentId(dep.getId());
+			vo.setDepartmentName(dep.getName());
+			if (dep.getParent() != null)
+				vo.setParentId(dep.getParent().getId());
+			vo.setLeaf(isLeaf(dep));
+
+			DepartmentBudget budget = departmentBudgetDao
+					.findDepartmentBudgetByDepartmentId(dep.getId());
+			if (budget != null) {
+				vo.setCorpBudgetId(budget.getCorpBudgetId());
+				vo.setBudgetIntegral(budget.getBudgetIntegral());
+				vo.setUseIntegeral(budget.getUseIntegeral());
+			}
+			volist.add(vo);
+		}
+
+		return volist;
+	}
+
 }

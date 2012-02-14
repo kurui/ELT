@@ -9,6 +9,7 @@ import com.chinarewards.elt.model.org.DepartmentVo;
 import com.chinarewards.elt.model.org.RewardsApprovalPolicyEnum;
 import com.chinarewards.elt.model.org.exception.DepartmentDeleteException;
 import com.chinarewards.elt.model.org.search.DepartmentListVo;
+import com.chinarewards.elt.model.org.search.DepartmentManageVo;
 
 /**
  * The logic about {@link Department}
@@ -157,6 +158,12 @@ public interface DepartmentLogic {
 	 */
 	public PageStore<DepartmentListVo> departmentList(SysUser caller,
 			DepartmentListVo departmentVo);
+
+	/**
+	 * @param corpId
+	 * @return
+	 */
+	List<DepartmentManageVo> getDepartmentManageList(String corpId);
 	
 	
 	
