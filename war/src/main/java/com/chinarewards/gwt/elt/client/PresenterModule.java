@@ -26,6 +26,7 @@ import com.chinarewards.gwt.elt.client.rewardItem.module.RewardsItemModule;
 import com.chinarewards.gwt.elt.client.rewards.module.RewardsListModule;
 import com.chinarewards.gwt.elt.client.shopWindow.module.ShopWindowModule;
 import com.chinarewards.gwt.elt.client.staff.module.HrRegisterModule;
+import com.chinarewards.gwt.elt.client.staffList.module.StaffListModule;
 import com.chinarewards.gwt.elt.client.user.module.UserModule;
 import com.chinarewards.gwt.elt.client.win.WinModule;
 import com.google.gwt.inject.client.AbstractGinModule;
@@ -62,6 +63,7 @@ public class PresenterModule extends AbstractGinModule {
 		install(new CorpBudgetModule());
 		install(new DepBudgetModule());
 		install(new IntegralManagementModule());
+		install(new StaffListModule());
 
 
 	}

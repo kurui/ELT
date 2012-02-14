@@ -144,6 +144,9 @@ public abstract class MenuConstants {
 
 	// 整体预算
 	public static final int MENU_ORDER_CORPBUDGET_EDIT = order++;
+	
+	//员工列表
+	public static final int MENU_ORDER_STAFFLIST_EDIT = order++;
 
 
 

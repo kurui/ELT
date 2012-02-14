@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.chinarewards.gwt.elt.client.staff;
+package com.chinarewards.gwt.elt.client.staffList.request;
 
 import net.customware.gwt.dispatch.shared.Action;
 
@@ -11,9 +11,9 @@ import com.chinarewards.gwt.elt.client.staff.model.StaffVo;
  * An action which perform request to search user.
  * 
  * @author nicho
- * @since 2011年12月7日 09:40:32
+ * @since 2012年2月14日 10:35:43
  */
-public class HrRegisterRequest implements Action<HrRegisterResponse> {
+public class StaffListRequest implements Action<StaffListResponse> {
 
 	private StaffVo staffvo;
 
@@ -26,14 +26,14 @@ public class HrRegisterRequest implements Action<HrRegisterResponse> {
 		this.staffvo = staffvo;
 	}
 
-	public HrRegisterRequest() {
+	public StaffListRequest() {
 	}
 
 	/**
 	 * 
 	 * @param StaffListVo
 	 */
-	public HrRegisterRequest(StaffVo staffvo) {
+	public StaffListRequest(StaffVo staffvo) {
 		this.staffvo = staffvo;
 	}
 
