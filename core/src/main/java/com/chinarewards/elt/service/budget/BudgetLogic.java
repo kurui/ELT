@@ -6,8 +6,8 @@ import com.chinarewards.elt.domain.budget.CorpBudget;
 import com.chinarewards.elt.domain.budget.DepartmentBudget;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.budget.search.DepartmentBudgetVo;
+import com.chinarewards.elt.model.budget.search.IntegralManagementVo;
 import com.chinarewards.elt.model.common.PageStore;
-import com.chinarewards.elt.model.user.UserContext;
 
 public interface BudgetLogic {
 	/**
@@ -68,8 +68,27 @@ public interface BudgetLogic {
 	 */
 	public PageStore<DepartmentBudgetVo> deptBudgetList(SysUser caller,DepartmentBudgetVo deptBudgetVo);
 
+<<<<<<< HEAD
 	public String findByDepAndCorpBudgetId(DepartmentBudget departmentBudget);
 	
+=======
+	/**
+	 * 积分管理(预算管理)首页.数据查询
+	 * @param corpId
+	 * @return
+	 */
+	public List<IntegralManagementVo> getIntegralManagementList(String corpId);
+	
+	/**
+	 * 根据部门ID,查找部门预算实体
+	 * @param id
+	 * @return
+	 */
+	public DepartmentBudget findDepartmentBudgetByDepartmentId(String departmentId);
+	
+	
+
+>>>>>>> refs/remotes/origin/master
 }
 
 

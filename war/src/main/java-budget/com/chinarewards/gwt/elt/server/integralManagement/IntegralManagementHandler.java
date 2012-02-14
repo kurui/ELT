@@ -8,11 +8,14 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 
 import org.slf4j.Logger;
 
+import com.chinarewards.elt.model.budget.search.IntegralManagementVo;
+import com.chinarewards.elt.service.budget.BudgetService;
 import com.chinarewards.gwt.elt.client.integralManagement.model.Category;
 import com.chinarewards.gwt.elt.client.integralManagement.request.IntegralManagementRequest;
 import com.chinarewards.gwt.elt.client.integralManagement.request.IntegralManagementResponse;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
 import com.chinarewards.gwt.elt.server.logger.InjectLogger;
+import com.google.inject.Inject;
 
 /**
  * @author nicho
@@ -23,18 +26,24 @@ public class IntegralManagementHandler extends
 	@InjectLogger
 	Logger logger;
 
+	BudgetService budgetService;
 
-
+	@Inject
+	public IntegralManagementHandler(BudgetService budgetService) {
+		this.budgetService = budgetService;
+	}
 	@Override
 	public IntegralManagementResponse execute(IntegralManagementRequest action,
 			ExecutionContext context) throws DispatchException {
 		List<Category> rs=new ArrayList<Category>();
-		for (int i = 0; i < 5; i++) {
-			Category c=new Category("部门名称"+i, "积分", "积分", "部门ID");
+		List<IntegralManagementVo> integralManagementVoList=budgetService.getIntegralManagementList(action.getCorporationId());
+		for (IntegralManagementVo vo:integralManagementVoList) {
+			Category c=new Category(vo.getDepartmentName(), (int)vo.getBudgetIntegral()+"", (int)vo.getBudgetIntegral()+"",vo.getDepartmentId(),vo.isLeaf(),vo.getParentId());
 			rs.add(c);
 		}
-		
-		return new IntegralManagementResponse(rs);
+		//查询当前财年..待添加
+	//	budgetService.findCorpBudget(action.getCorporationId());
+		return new IntegralManagementResponse(rs,0,0);
 	
 	}
 	

@@ -19,6 +19,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.Hidden;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TextBox;
@@ -38,9 +39,18 @@ public class CorpBudgetWidget extends Composite implements CorpBudgetDisplay {
 	@UiField
 	TextBox budgetIntegral;
 	@UiField
+	Hidden integralPrice;
+	
+	@UiField
 	DateBox beginDate;
 	@UiField
 	DateBox endDate;
+	
+	@UiField
+	Hidden period;
+	@UiField
+	DateBox periodBeginDate;
+	
 
 	@UiField
 	Button save;
@@ -82,13 +92,18 @@ public class CorpBudgetWidget extends Composite implements CorpBudgetDisplay {
 		budgetTitle.setValue(corpBudgetVo.getBudgetTitle());	
 		
 //		System.out.println("======initEdit:"+corpBudgetVo.getBudgetTitle());
-		initMoneyTypeSelect(corpBudgetVo.getMoneyType());
+		
+		if(corpBudgetVo.getMoneyType()==null){
+			initMoneyTypeSelect("RMB");
+		}else{
+			initMoneyTypeSelect(corpBudgetVo.getMoneyType());
+		}
 		
 		budgetAmount.setText(corpBudgetVo.getBudgetAmount() + "");
 		budgetIntegral.setText(corpBudgetVo.getBudgetIntegral() + "");
-		beginDate.setValue(corpBudgetVo.getBeginDate());
-		endDate.setValue(corpBudgetVo.getEndDate());
-
+//		beginDate.setValue(corpBudgetVo.getBeginDate());			
+//		endDate.setValue(corpBudgetVo.getEndDate());
+		
 	}
 
 	private void initMoneyTypeSelect(String selectedValue) {
@@ -164,5 +179,21 @@ public class CorpBudgetWidget extends Composite implements CorpBudgetDisplay {
 	@Override
 	public HasValue<String> getBudgetTitle(){
 		return budgetTitle;
+	}
+
+	@Override
+	public Hidden getIntegralPrice() {
+		return integralPrice;
+	}
+
+
+	@Override
+	public Hidden getPeriod() {
+		return period;
+	}
+
+	@Override
+	public DateBox getPeriodBeginDate() {
+		return periodBeginDate;
 	}
 }
