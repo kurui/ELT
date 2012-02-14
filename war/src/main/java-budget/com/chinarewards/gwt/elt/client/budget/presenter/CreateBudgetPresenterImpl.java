@@ -252,8 +252,7 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 
 						 }
 							
-							//display.initYear(map);
-						
+													
 					}
 
 				});
@@ -367,7 +366,14 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 					public String getValue(DepBudgetVo order) {
 						return order.getDepartmentName();
 					}
-				}, ref, "depname");
+				}, ref, "departmentId");
+		cellTable.addColumn("总人数", new TextCell(),
+				new GetValue<DepBudgetVo, String>() {
+					@Override
+					public String getValue(DepBudgetVo order) {
+						return order.getPeople()+"";
+					}
+				});
 
 		cellTable.addColumn("总积分", new TextCell(),
 				new GetValue<DepBudgetVo, String>() {
@@ -385,7 +391,7 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 					public String getValue(DepBudgetVo order) {
 						return order.getUseIntegeral()+"";
 					}
-				}, ref, "integral");
+				}, ref, "useIntegeral");
 		
 
 		cellTable.addColumn("操作", new HyperLinkCell(),

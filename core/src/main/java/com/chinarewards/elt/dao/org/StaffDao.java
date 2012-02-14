@@ -133,7 +133,7 @@ public class StaffDao extends BaseDao<Staff> {
 		return getStaffQuery(searchVo, SEARCH).getResultList();
 	}
 
-	private int queryStaffPageActionCount(StaffSearchVo searchVo) {
+	public int queryStaffPageActionCount(StaffSearchVo searchVo) {
 		return Integer.parseInt(getStaffQuery(searchVo, COUNT)
 				.getSingleResult().toString());
 	}

@@ -69,7 +69,7 @@ public class SearchDepBudgetHandler extends
 			vo.setBudgetIntegral(criteria.getBudgetIntegral());
 			vo.setCorpBudgetId(criteria.getCorpBudgetId());
 			vo.setDepartmentName(criteria.getDepartmentName());
-			System.out.println("cccccccccc="+criteria.getBudgetIntegral());
+			
 			vo.setDepartmentId(criteria.getDepartmentId());
 		    vo.setUseIntegeral(criteria.getUseIntegeral());
 		    vo.setDeleted(0);//查没有删除的数据
@@ -100,6 +100,7 @@ public class SearchDepBudgetHandler extends
 				client.setCorpBudgetId(item.getCorpBudgetId());
 				client.setDepartmentName(item.getDepartmentName());
 				client.setUseIntegeral(item.getUseIntegeral());
+				client.setPeople(item.getPeople());
 				resultList.add(client);
 			}
 
