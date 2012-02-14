@@ -2,9 +2,9 @@ package com.chinarewards.gwt.elt.client.department.view;
 
 import java.util.List;
 
+import com.chinarewards.gwt.elt.client.department.model.DepartmentManageTreeModel;
+import com.chinarewards.gwt.elt.client.department.model.DepartmentNode;
 import com.chinarewards.gwt.elt.client.department.presenter.DepartmentListPresenter.DepartmentListDisplay;
-import com.chinarewards.gwt.elt.client.integralManagement.model.Category;
-import com.chinarewards.gwt.elt.client.integralManagement.model.ContactTreeViewModel;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -49,11 +49,11 @@ public class DepartmentListWidget extends Composite implements
 	}
 	
 	@Override
-	public void refresh(List<Category> result,String corporationId) {
+	public void refresh(List<DepartmentNode> result,String corporationId) {
 
 		CellTree.Resources res = GWT.create(CellTree.BasicResources.class);
 
-		CellTree tree = new CellTree(new ContactTreeViewModel(result,corporationId), null, res);
+		CellTree tree = new CellTree(new DepartmentManageTreeModel(result,corporationId), null, res);
 		tree.setAnimationEnabled(true);
 		cellTree.clear();
 		cellTree.add(tree);

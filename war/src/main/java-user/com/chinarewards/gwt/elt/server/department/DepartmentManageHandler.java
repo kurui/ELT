@@ -10,9 +10,9 @@ import org.slf4j.Logger;
 
 import com.chinarewards.elt.model.org.search.DepartmentManageVo;
 import com.chinarewards.elt.service.org.DepartmentService;
+import com.chinarewards.gwt.elt.client.department.model.DepartmentNode;
 import com.chinarewards.gwt.elt.client.department.request.DepartmentManageRequest;
 import com.chinarewards.gwt.elt.client.department.request.DepartmentManageResponse;
-import com.chinarewards.gwt.elt.client.integralManagement.model.Category;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
 import com.chinarewards.gwt.elt.server.logger.InjectLogger;
 import com.google.inject.Inject;
@@ -36,11 +36,11 @@ public class DepartmentManageHandler extends
 	@Override
 	public DepartmentManageResponse execute(DepartmentManageRequest action,
 			ExecutionContext context) throws DispatchException {
-		List<Category> rs = new ArrayList<Category>();
+		List<DepartmentNode> rs = new ArrayList<DepartmentNode>();
 		List<DepartmentManageVo> departmentManageVoList = departmentService
 				.getDepartmentManageList(action.getCorporationId());
 		for (DepartmentManageVo vo : departmentManageVoList) {
-			Category c = new Category(vo.getDepartmentName(),
+			DepartmentNode c = new DepartmentNode(vo.getDepartmentName(),
 					(int) vo.getBudgetIntegral() + "",
 					(int) vo.getBudgetIntegral() + "", vo.getDepartmentId(),
 					vo.isLeaf(), vo.getParentId());

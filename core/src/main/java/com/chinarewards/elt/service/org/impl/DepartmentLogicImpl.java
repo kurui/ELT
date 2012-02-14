@@ -11,7 +11,6 @@ import com.chinarewards.elt.dao.budget.DepartmentBudgetDao;
 import com.chinarewards.elt.dao.org.CorporationDao;
 import com.chinarewards.elt.dao.org.DepartmentDao;
 import com.chinarewards.elt.dao.org.OrgPolicyDao;
-import com.chinarewards.elt.domain.budget.DepartmentBudget;
 import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.org.OrgPolicy;
@@ -231,17 +230,19 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 			DepartmentManageVo vo = new DepartmentManageVo();
 			vo.setDepartmentId(dep.getId());
 			vo.setDepartmentName(dep.getName());
-			if (dep.getParent() != null)
+			if (dep.getParent() != null){
 				vo.setParentId(dep.getParent().getId());
+			}
+				
 			vo.setLeaf(isLeaf(dep));
 
-			DepartmentBudget budget = departmentBudgetDao
-					.findDepartmentBudgetByDepartmentId(dep.getId());
-			if (budget != null) {
-				vo.setCorpBudgetId(budget.getCorpBudgetId());
-				vo.setBudgetIntegral(budget.getBudgetIntegral());
-				vo.setUseIntegeral(budget.getUseIntegeral());
-			}
+//			DepartmentBudget budget = departmentBudgetDao
+//					.findDepartmentBudgetByDepartmentId(dep.getId());
+//			if (budget != null) {
+//				vo.setCorpBudgetId(budget.getCorpBudgetId());
+//				vo.setBudgetIntegral(budget.getBudgetIntegral());
+//				vo.setUseIntegeral(budget.getUseIntegeral());
+//			}
 			volist.add(vo);
 		}
 

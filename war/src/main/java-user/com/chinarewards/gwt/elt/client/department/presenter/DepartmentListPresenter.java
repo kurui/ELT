@@ -2,7 +2,7 @@ package com.chinarewards.gwt.elt.client.department.presenter;
 
 import java.util.List;
 
-import com.chinarewards.gwt.elt.client.integralManagement.model.Category;
+import com.chinarewards.gwt.elt.client.department.model.DepartmentNode;
 import com.chinarewards.gwt.elt.client.mvp.Display;
 import com.chinarewards.gwt.elt.client.mvp.Presenter;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -30,7 +30,7 @@ public interface DepartmentListPresenter extends
 
 		void setBreadCrumbs(Widget breadCrumbs);
 
-		void refresh(List<Category> result, String corporationId);
+		void refresh(List<DepartmentNode> result, String corporationId);
 
 	}
 }

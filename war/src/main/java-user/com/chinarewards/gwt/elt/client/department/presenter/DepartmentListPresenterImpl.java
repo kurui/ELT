@@ -9,7 +9,8 @@ import com.chinarewards.gwt.elt.client.department.plugin.DepartmentConstants;
 import com.chinarewards.gwt.elt.client.department.presenter.DepartmentListPresenter.DepartmentListDisplay;
 import com.chinarewards.gwt.elt.client.department.request.DeleteDepartmentRequest;
 import com.chinarewards.gwt.elt.client.department.request.DeleteDepartmentResponse;
-import com.chinarewards.gwt.elt.client.integralManagement.request.IntegralManagementRequest;
+import com.chinarewards.gwt.elt.client.department.request.DepartmentManageRequest;
+import com.chinarewards.gwt.elt.client.department.request.DepartmentManageResponse;
 import com.chinarewards.gwt.elt.client.integralManagement.request.IntegralManagementResponse;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
@@ -65,15 +66,15 @@ public class DepartmentListPresenterImpl extends
 	}
 	
 	private void initTreeTable() {
-		dispatch.execute(new IntegralManagementRequest(sessionManager.getSession().getCorporationId()),
-				new AsyncCallback<IntegralManagementResponse>() {
+		dispatch.execute(new DepartmentManageRequest(sessionManager.getSession().getCorporationId()),
+				new AsyncCallback<DepartmentManageResponse>() {
 					@Override
 					public void onFailure(Throwable e) {
 						win.alert(e.getMessage());
 					}
 
 					@Override
-					public void onSuccess(IntegralManagementResponse response) {
+					public void onSuccess(DepartmentManageResponse response) {
 //						display.setBudgetIntegral((int)response.getBudgetIntegral()+"");
 //						display.setUseIntegeral((int)response.getBudgetIntegral()+"");
 						display.refresh(response.getResult(),sessionManager.getSession().getCorporationId());

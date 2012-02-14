@@ -41,13 +41,19 @@
 			</p>
 
 			<span class="{new2.cutline}"></span>
-		
+
 			<div class="{new2.divend}"></div>
 			<div class="{new2.table}">
-				<g:AbsolutePanel ui:field="cellTree"  height="250px"/>
+				<table style="width:15%"></table>
+				<table style="width:15%">
+					<tr></tr>
+					<tr>
+						<td colspan='4'>
+							<g:AbsolutePanel ui:field="cellTree" height="250px" />
+						</td>
+					</tr>
+				</table>
 			</div>
-
-
 		</div>
 	</g:HTMLPanel>
 </ui:UiBinder>
