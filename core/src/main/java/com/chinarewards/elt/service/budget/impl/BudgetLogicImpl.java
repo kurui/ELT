@@ -171,11 +171,10 @@ public class BudgetLogicImpl implements BudgetLogic {
 	}
 
 	@Override
-<<<<<<< HEAD
+
 	public String findByDepAndCorpBudgetId(DepartmentBudget departmentBudget) {
 		return departmentBudgetDao.findByDepAndCorpBudgetId(departmentBudget);//是否已经有了数据
-		
-=======
+	}
 	public List<IntegralManagementVo> getIntegralManagementList(String corpId) {
 		List<IntegralManagementVo> volist = new ArrayList<IntegralManagementVo>();
 		List<Department> department = departmentLogic
@@ -205,7 +204,6 @@ public class BudgetLogicImpl implements BudgetLogic {
 			String departmentId) {
 		return departmentBudgetDao
 				.findDepartmentBudgetByDepartmentId(departmentId);
->>>>>>> refs/remotes/origin/master
 	}
 
 }

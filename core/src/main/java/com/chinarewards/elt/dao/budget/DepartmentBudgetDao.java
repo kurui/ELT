@@ -80,7 +80,7 @@ public class DepartmentBudgetDao extends BaseDao<DepartmentBudget> {
 
 		return query;
 	}
-<<<<<<< HEAD
+
 	
 	public String findByDepAndCorpBudgetId(DepartmentBudget departmentBudget) {
 		String sql = "FROM DepartmentBudget c WHERE c.corpBudgetId = :corpBudgetId and c.departmentId =:departmentId";
@@ -93,7 +93,7 @@ public class DepartmentBudgetDao extends BaseDao<DepartmentBudget> {
 		} else {
 			return "";
 		}
-=======
+	}
 
 	public DepartmentBudget findDepartmentBudgetByDepartmentId(
 			String departmentId) {
@@ -114,7 +114,6 @@ public class DepartmentBudgetDao extends BaseDao<DepartmentBudget> {
 			return (DepartmentBudget) query.getSingleResult();
 		else
 			return null;
->>>>>>> refs/remotes/origin/master
 
 	}
 }
