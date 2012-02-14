@@ -10,10 +10,24 @@ import net.customware.gwt.dispatch.shared.Result;
  */
 public class StaffAddResponse implements Result {
 
+	String staffId;
 
+
+	public String getStaffId() {
+		return staffId;
+	}
+
+
+	public void setStaffId(String staffId) {
+		this.staffId = staffId;
+	}
 
 
 	public StaffAddResponse() {
+
+	}
+	public StaffAddResponse(String staffId) {
+		this.staffId=staffId;
 
 	}
 

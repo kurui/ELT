@@ -9,6 +9,7 @@ import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.domain.user.SysUserRole;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.org.StaffVo;
+import com.chinarewards.elt.model.staff.StaffProcess;
 import com.chinarewards.elt.model.staff.StaffSearchCriteria;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.user.UserVo;
@@ -102,6 +103,11 @@ public class StaffServiceImpl implements IStaffService {
 	public QueryStaffPageActionResult queryStaffList(StaffSearchCriteria criteria,
 			UserContext context) {
 		return staffLogic.queryStaffList(criteria, context);
+	}
+
+	@Override
+	public String createOrUpdateStaff(StaffProcess staff, UserContext context) {
+		return staffLogic.createOrUpdateStaff(staff, context);
 	}
 
 }

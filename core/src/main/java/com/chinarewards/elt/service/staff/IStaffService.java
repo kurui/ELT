@@ -2,6 +2,7 @@ package com.chinarewards.elt.service.staff;
 
 import com.chinarewards.elt.dao.org.StaffDao.QueryStaffPageActionResult;
 import com.chinarewards.elt.model.common.PageStore;
+import com.chinarewards.elt.model.staff.StaffProcess;
 import com.chinarewards.elt.model.staff.StaffSearchCriteria;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.vo.WinnersRecordQueryResult;
@@ -39,5 +40,11 @@ public interface IStaffService {
 	 * @return
 	 */
 	public QueryStaffPageActionResult queryStaffList(StaffSearchCriteria criteria,UserContext context);
+	/**
+	 * 创建 and 修改..员工
+	 * @param staffProcess
+	 * @return
+	 */
+	public String createOrUpdateStaff(StaffProcess staff,UserContext context);
 	
 }

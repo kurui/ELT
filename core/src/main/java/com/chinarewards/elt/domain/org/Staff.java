@@ -134,6 +134,21 @@ public class Staff extends Organization {
 	 * 直属领导
 	 */
 	private String Leadership;
+	
+	
+	/**
+	 * 照片
+	 */
+	private String photo;
+	
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+
 	public String getLeadership() {
 		return Leadership;
 	}
