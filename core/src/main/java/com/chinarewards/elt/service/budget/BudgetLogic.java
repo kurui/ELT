@@ -68,6 +68,10 @@ public interface BudgetLogic {
 	 */
 	public PageStore<DepartmentBudgetVo> deptBudgetList(SysUser caller,DepartmentBudgetVo deptBudgetVo);
 
+
+	public String findByDepAndCorpBudgetId(DepartmentBudget departmentBudget);
+	
+
 	/**
 	 * 积分管理(预算管理)首页.数据查询
 	 * @param corpId
@@ -83,6 +87,7 @@ public interface BudgetLogic {
 	public DepartmentBudget findDepartmentBudgetByDepartmentId(String departmentId);
 	
 	
+
 
 }
 

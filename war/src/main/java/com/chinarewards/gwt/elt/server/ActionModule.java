@@ -5,9 +5,11 @@ import net.customware.gwt.dispatch.server.guice.ActionHandlerModule;
 import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardAddRequest;
 import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardInitRequest;
 import com.chinarewards.gwt.elt.client.awardShop.request.SearchAwardShopRequest;
+import com.chinarewards.gwt.elt.client.budget.request.AddDepartmentBudgetRequest;
 import com.chinarewards.gwt.elt.client.budget.request.EditCorpBudgetRequest;
 import com.chinarewards.gwt.elt.client.budget.request.InitCorpBudgetByCorpIdRequest;
 import com.chinarewards.gwt.elt.client.budget.request.InitCorpBudgetRequest;
+import com.chinarewards.gwt.elt.client.budget.request.InitDepartmentRequest;
 import com.chinarewards.gwt.elt.client.budget.request.SearchCorpBudgetByCorpIdRequest;
 import com.chinarewards.gwt.elt.client.budget.request.SearchDepBudgetRequest;
 import com.chinarewards.gwt.elt.client.chooseStaff.request.SearchStaffChooseRequest;
@@ -56,9 +58,11 @@ import com.chinarewards.gwt.elt.client.user.UserSearchRequest;
 import com.chinarewards.gwt.elt.server.awardReward.AwardRewardActionHandler;
 import com.chinarewards.gwt.elt.server.awardReward.AwardRewardAddActionHandler;
 import com.chinarewards.gwt.elt.server.awardShop.SearchAwardShopHandler;
+import com.chinarewards.gwt.elt.server.budget.AddDepBudgetHandler;
 import com.chinarewards.gwt.elt.server.budget.EditCorpBudgetHandler;
 import com.chinarewards.gwt.elt.server.budget.InitCorpBudgetByCorpIdHandler;
 import com.chinarewards.gwt.elt.server.budget.InitCorpBudgetHandler;
+import com.chinarewards.gwt.elt.server.budget.InitDepartmentHandler;
 import com.chinarewards.gwt.elt.server.budget.SearchCorpBudgetByCorpIdHandler;
 import com.chinarewards.gwt.elt.server.budget.SearchDepBudgetHandler;
 import com.chinarewards.gwt.elt.server.chooseStaff.SearchStaffActionHandler;
@@ -233,8 +237,12 @@ public class ActionModule extends ActionHandlerModule {
 		//部门预算
 		bindHandler(SearchDepBudgetRequest.class, SearchDepBudgetHandler.class);
 		
-		//得到企业预算
+		//部门预算时得到企业预算
 		bindHandler(InitCorpBudgetRequest.class, InitCorpBudgetHandler.class);
+		//部门预算时得到一级部门
+		bindHandler(InitDepartmentRequest.class, InitDepartmentHandler.class);
+		//新增部门预算
+		bindHandler(AddDepartmentBudgetRequest.class, AddDepBudgetHandler.class);
 
 		bindHandler(EditCorpBudgetRequest.class, EditCorpBudgetHandler.class);
 		bindHandler(SearchCorpBudgetByCorpIdRequest.class,SearchCorpBudgetByCorpIdHandler.class);

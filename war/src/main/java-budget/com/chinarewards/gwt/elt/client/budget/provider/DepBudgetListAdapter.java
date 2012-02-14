@@ -62,7 +62,7 @@ public class DepBudgetListAdapter extends BaseDataProvider<DepBudgetVo> {
 					public void onSuccess(SearchDepBudgetResponse response) {
 						updateRowData(start, response.getResult());
 						updateRowCount(response.getTotal(), true);
-						display.setDataCount(response.getTotal()+"");
+						
 					}
 
 				});

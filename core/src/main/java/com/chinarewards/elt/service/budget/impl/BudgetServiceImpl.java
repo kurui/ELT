@@ -84,5 +84,7 @@ public class BudgetServiceImpl implements BudgetService {
 		return budgetLogic.getIntegralManagementList(corpId);
 	}
 
-   
+	public String findByDepAndCorpBudgetId(DepartmentBudget departmentBudget){
+		return budgetLogic.findByDepAndCorpBudgetId(departmentBudget);
+	} 
 }
