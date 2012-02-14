@@ -1,24 +1,34 @@
 package com.chinarewards.gwt.elt.client.budget.presenter;
 
+import java.util.Date;
+
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.budget.model.CorpBudgetVo;
 import com.chinarewards.gwt.elt.client.budget.plugin.CorpBudgetConstants;
-import com.chinarewards.gwt.elt.client.budget.request.InitCorpBudgetByCorpIdRequest;
-import com.chinarewards.gwt.elt.client.budget.request.InitCorpBudgetByCorpIdResponse;
 import com.chinarewards.gwt.elt.client.budget.request.EditCorpBudgetRequest;
 import com.chinarewards.gwt.elt.client.budget.request.EditCorpBudgetResponse;
+import com.chinarewards.gwt.elt.client.budget.request.InitCorpBudgetByCorpIdRequest;
+import com.chinarewards.gwt.elt.client.budget.request.InitCorpBudgetByCorpIdResponse;
 import com.chinarewards.gwt.elt.client.budget.util.CorpBudgetAdapterClient;
 import com.chinarewards.gwt.elt.client.core.Platform;
+import com.chinarewards.gwt.elt.client.enterprise.model.EnterpriseVo;
 import com.chinarewards.gwt.elt.client.enterprise.plugin.EnterpriseConstants;
+import com.chinarewards.gwt.elt.client.enterprise.request.EnterpriseInitRequest;
+import com.chinarewards.gwt.elt.client.enterprise.request.EnterpriseInitResponse;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.win.Win;
+import com.chinarewards.gwt.elt.util.DateTool;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
@@ -65,6 +75,10 @@ public class CorpBudgetPresenterImpl extends
 	private void registerEvent() {
 		registerSaveEvent();
 
+		registerIntegralPriceEvent();
+		
+		registerPeriodEndDateEvent();
+
 		registerHandler(display.getPeriodBtnClick().addClickHandler(
 				new ClickHandler() {
 					@Override
@@ -91,6 +105,56 @@ public class CorpBudgetPresenterImpl extends
 					}
 				}));
 
+	}
+
+	/**
+	 * 根据积分价值设定计算积分
+	 */
+	private void registerIntegralPriceEvent() {
+		registerHandler(display.getBudgetAmount().addChangeHandler(
+				new ChangeHandler() {
+					@Override
+					public void onChange(ChangeEvent arg0) {
+
+						if (display.getIntegralPrice().getValue() == null) {
+							setEnterpriseInfo(null);
+						}
+
+						Double integralPrice = Double.valueOf(display
+								.getIntegralPrice().getValue());
+						double tempBudgetIntegral = 0;
+						double budgetAmount = Double.valueOf(display
+								.getBudgetAmount().getValue());
+						tempBudgetIntegral = budgetAmount * integralPrice;
+						display.getBudgetIntegral().setValue(
+								tempBudgetIntegral + "");
+						System.out
+								.println("==========registerIntegralPriceEvent=========="
+										+ budgetAmount + "---" + integralPrice);
+					}
+				}));
+	}
+
+	/**
+	 * 根据财年周期设置截止日期
+	 */
+	private void registerPeriodEndDateEvent() {
+		registerHandler(display.getBeginDate().addValueChangeHandler(
+				new ValueChangeHandler() {
+					@Override
+					public void onValueChange(ValueChangeEvent arg0) {
+						Date beginDate = display.getBeginDate().getValue();
+						double period = Double.valueOf(display.getPeriod()
+								.getValue());
+						if (beginDate != null && period > 0) {
+							Date tempEndDate = DateTool.getEndDayByPeriod(
+									beginDate, period);
+
+							display.getEndDate().setValue(tempEndDate);
+						}
+
+					}
+				}));
 	}
 
 	// 保存事件
@@ -177,11 +241,52 @@ public class CorpBudgetPresenterImpl extends
 					@Override
 					public void onSuccess(
 							InitCorpBudgetByCorpIdResponse response) {
-						CorpBudgetVo giftVo = response.getCorpBudgetVo();
+						CorpBudgetVo corpBudgetVo = response.getCorpBudgetVo();
 
-						display.initEditCorpBudget(giftVo);
+						display.initEditCorpBudget(corpBudgetVo);
+
+						display.getBeginDate().setValue(
+								corpBudgetVo.getBeginDate());
+						display.getEndDate()
+								.setValue(corpBudgetVo.getEndDate());
+
+						setEnterpriseInfo(corpBudgetVo.getBeginDate());
+
 					}
 				});
+	}
+
+	private void setEnterpriseInfo(final Date beginDate) {
+		EnterpriseInitRequest req = new EnterpriseInitRequest(
+				sessionManager.getSession());
+		dispatcher.execute(req, new AsyncCallback<EnterpriseInitResponse>() {
+			public void onFailure(Throwable caught) {
+				Window.alert("初始化失败");
+			}
+
+			@Override
+			public void onSuccess(EnterpriseInitResponse response) {
+				if (response != null) {
+					EnterpriseVo enterpriseVo = response.getEnterprise();
+					display.getIntegralPrice().setValue(
+							enterpriseVo.getIntegralPrice() + "");
+					display.getPeriod().setValue(enterpriseVo.getPeriod() + "");
+					display.getPeriodBeginDate().setValue(
+							enterpriseVo.getFirstTime());
+
+					if (DateTool.dateToString(beginDate) == null) {
+						display.getBeginDate().setValue(
+								enterpriseVo.getFirstTime());
+
+						Date tempEndDate = DateTool.getEndDayByPeriod(
+								enterpriseVo.getFirstTime(),
+								enterpriseVo.getPeriod());
+
+						display.getEndDate().setValue(tempEndDate);
+					}
+				}
+			}
+		});
 	}
 
 	@Override

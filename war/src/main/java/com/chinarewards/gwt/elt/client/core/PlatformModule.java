@@ -2,6 +2,7 @@ package com.chinarewards.gwt.elt.client.core;
 
 import com.chinarewards.gwt.elt.client.awardReward.plugin.AwardRewardPluginDescriptor;
 import com.chinarewards.gwt.elt.client.awardShop.plugin.AwardShopListPluginDescriptor;
+import com.chinarewards.gwt.elt.client.budget.plugin.BudgetPluginDescriptor;
 import com.chinarewards.gwt.elt.client.budget.plugin.CorpBudgetPluginDescriptor;
 import com.chinarewards.gwt.elt.client.core.impl.CorePluginDescriptor;
 import com.chinarewards.gwt.elt.client.core.impl.GinPluginManager;
@@ -99,6 +100,7 @@ public class PlatformModule extends AbstractGinModule {
 			OrderConfirmationPluginDescriptor orderConfirmation,
 			DetailsOfGiftPluginDescriptor detailsOfGift,
 			CorpBudgetPluginDescriptor corpBudget,
+			BudgetPluginDescriptor depBudget,
 			IntegralManagementPluginDescriptor integralManagement) {
 
 		if (pluginSet == null) {
@@ -131,7 +133,7 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(orderSubmit);
 			pluginSet.registerPlugin(detailsOfGift);
 			pluginSet.registerPlugin(integralManagement);
-
+			pluginSet.registerPlugin(depBudget);
 			pluginSet.registerPlugin(corpBudget);
 		}
 

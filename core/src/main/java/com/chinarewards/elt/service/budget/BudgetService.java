@@ -1,9 +1,12 @@
 package com.chinarewards.elt.service.budget;
 
 
+import java.util.List;
+
 import com.chinarewards.elt.domain.budget.CorpBudget;
 import com.chinarewards.elt.domain.budget.DepartmentBudget;
 import com.chinarewards.elt.model.budget.search.DepartmentBudgetVo;
+import com.chinarewards.elt.model.budget.search.IntegralManagementVo;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.user.UserContext;
 
@@ -40,12 +43,19 @@ public interface BudgetService {
 	public CorpBudget findCorpBudgetById(String id);
 	
 	/**
+	 * 查找根据企业财年(增加部门预算时，初始化得到财年的数据用于下拉表选择)
+	 * @param id
+	 * @return
+	 */
+	public List<CorpBudget> findCorpBudget(String corpid);
+    /*
 	 * 查找根据企业ID
 	 * @param id
 	 * @return
 	 */
 	public CorpBudget findCorpBudgetByCorpId(String corpid);
 	
+
 	
 	
 	/**
@@ -69,6 +79,13 @@ public interface BudgetService {
 	 * @return
 	 */
 	public PageStore<DepartmentBudgetVo> deptBudgetList(UserContext context,DepartmentBudgetVo deptBudgetVo);
+	
+	/**
+	 * 积分管理(预算管理)首页.数据查询
+	 * @param corpId
+	 * @return
+	 */
+	public List<IntegralManagementVo> getIntegralManagementList(String corpId);
 
 	
 }

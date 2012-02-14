@@ -12,12 +12,13 @@ import com.chinarewards.elt.dao.budget.DepartmentBudgetDao;
 import com.chinarewards.elt.dao.org.DepartmentDao;
 import com.chinarewards.elt.domain.budget.CorpBudget;
 import com.chinarewards.elt.domain.budget.DepartmentBudget;
-import com.chinarewards.elt.domain.gift.Gift;
 import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.budget.search.DepartmentBudgetVo;
+import com.chinarewards.elt.model.budget.search.IntegralManagementVo;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.service.budget.BudgetLogic;
+import com.chinarewards.elt.service.org.DepartmentLogic;
 import com.chinarewards.elt.util.DateUtil;
 import com.chinarewards.elt.util.StringUtil;
 import com.google.inject.Inject;
@@ -26,14 +27,17 @@ public class BudgetLogicImpl implements BudgetLogic {
 	private DepartmentBudgetDao departmentBudgetDao;
 	private CorpBudgetDao corpBudgetDao;
 	private DepartmentDao departmentDao;
+	private DepartmentLogic departmentLogic;
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Inject
 	protected BudgetLogicImpl(DepartmentBudgetDao departmentBudgetDao,
-			DepartmentDao departmentDao, CorpBudgetDao corpBudgetDao) {
+			DepartmentDao departmentDao, CorpBudgetDao corpBudgetDao,
+			DepartmentLogic departmentLogic) {
 		this.departmentBudgetDao = departmentBudgetDao;
 		this.departmentDao = departmentDao;
 		this.corpBudgetDao = corpBudgetDao;
+		this.departmentLogic = departmentLogic;
 	}
 
 	@Override
@@ -50,8 +54,8 @@ public class BudgetLogicImpl implements BudgetLogic {
 			corpBudgetDao.save(corpBudget);
 		} else {
 			// Update
-			CorpBudget tempCorpBudget = corpBudgetDao.findById(CorpBudget.class,
-					corpBudget.getId());
+			CorpBudget tempCorpBudget = corpBudgetDao.findById(
+					CorpBudget.class, corpBudget.getId());
 			tempCorpBudget.setId(corpBudget.getId());
 			tempCorpBudget.setBudgetTitle(corpBudget.getBudgetTitle());
 			tempCorpBudget.setMoneyType(corpBudget.getMoneyType());
@@ -59,7 +63,7 @@ public class BudgetLogicImpl implements BudgetLogic {
 			tempCorpBudget.setBudgetIntegral(corpBudget.getBudgetIntegral());
 			tempCorpBudget.setBeginDate(corpBudget.getBeginDate());
 			tempCorpBudget.setEndDate(corpBudget.getEndDate());
-			
+
 			tempCorpBudget.setRecorddate(currTime);
 			tempCorpBudget.setRecorduser(caller.getUserName());
 			corpBudgetDao.update(tempCorpBudget);
@@ -93,7 +97,11 @@ public class BudgetLogicImpl implements BudgetLogic {
 	public CorpBudget findCorpBudgetById(String id) {
 		return corpBudgetDao.findById(CorpBudget.class, id);
 	}
-
+	@Override
+	public List<CorpBudget> findCorpBudget(String corpid) {
+		return corpBudgetDao.findCorpBudget(corpid);
+	}
+   
 	@Override
 	public CorpBudget findCorpBudgetByCorpId(String corpid) {
 		return corpBudgetDao.findByCorpId(corpid);
@@ -153,6 +161,38 @@ public class BudgetLogicImpl implements BudgetLogic {
 		departmentBudgetVo.setDepartmentName(department.getName());
 
 		return departmentBudgetVo;
+	}
+
+	@Override
+	public List<IntegralManagementVo> getIntegralManagementList(String corpId) {
+		List<IntegralManagementVo> volist = new ArrayList<IntegralManagementVo>();
+		List<Department> department = departmentLogic
+				.getWholeDepartmentsOfCorporation(corpId);
+		for (Department dep : department) {
+			IntegralManagementVo vo = new IntegralManagementVo();
+			vo.setDepartmentId(dep.getId());
+			vo.setDepartmentName(dep.getName());
+			if(dep.getParent()!=null)
+			vo.setParentId(dep.getParent().getId());
+			vo.setLeaf(departmentLogic.isLeaf(dep));
+			DepartmentBudget budget = this
+					.findDepartmentBudgetByDepartmentId(dep.getId());
+			if (budget != null) {
+				vo.setCorpBudgetId(budget.getCorpBudgetId());
+				vo.setBudgetIntegral(budget.getBudgetIntegral());
+				vo.setUseIntegeral(budget.getUseIntegeral());
+			}
+			volist.add(vo);
+		}
+
+		return volist;
+	}
+
+	@Override
+	public DepartmentBudget findDepartmentBudgetByDepartmentId(
+			String departmentId) {
+		return departmentBudgetDao
+				.findDepartmentBudgetByDepartmentId(departmentId);
 	}
 
 }

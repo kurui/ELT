@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.chinarewards.gwt.elt.client.awardReward.plugin.AwardRewardConstants;
 import com.chinarewards.gwt.elt.client.breadCrumbs.ui.BreadCrumbsMenu;
+import com.chinarewards.gwt.elt.client.budget.plugin.CreateBudgetConstants;
 import com.chinarewards.gwt.elt.client.budget.plugin.CorpBudgetConstants;
 import com.chinarewards.gwt.elt.client.core.ui.MenuItem;
 import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
@@ -138,7 +139,7 @@ public class ButtonMenuProcessor implements MenuProcessor {
 				else if (menuId.equals(EnterpriseConstants.MENU_ENTERPRISE_EDIT))
 					breadCrumbsMenu.addBreadCrumbsItemTop("设置", null);
 				else if (menuId.equals(IntegralManagementConstants.MENU_INTEGRALMANAGEMENT_SEARCH))
-					breadCrumbsMenu.addBreadCrumbsItemTop("今年财年预算", null);
+					breadCrumbsMenu.addBreadCrumbsItemTop("积分管理", null);
 				
 				breadCrumbsMenu.addBreadCrumbsItem(menuItem.getTitle(),
 						menuItem.getMenuId());
@@ -194,7 +195,7 @@ public class ButtonMenuProcessor implements MenuProcessor {
 			items.add(EnterpriseConstants.MENU_INTEGRAL_PRICE_EDIT);
 			items.add(EnterpriseConstants.MENU_PERIOD_EDIT);
 			items.add(IntegralManagementConstants.MENU_INTEGRALMANAGEMENT_SEARCH);
-			
+			items.add(CreateBudgetConstants.MENU_CREATE_BUDGET);
 		}
 		return items;
 	}

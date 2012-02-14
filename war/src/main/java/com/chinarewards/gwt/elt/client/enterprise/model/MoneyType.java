@@ -20,9 +20,9 @@ public class MoneyType {
 	public static Map<String, String> map = new HashMap<String, String>();
 	
 	static {		
-		map.put("USD", "美元");
-		map.put("HKD", "港币");	
+		map.put("USD", "美元");		
 		map.put("RMB", "人民币");
+		map.put("HKD", "港币");	
 	}
 
 	public static void main(String[] args) {

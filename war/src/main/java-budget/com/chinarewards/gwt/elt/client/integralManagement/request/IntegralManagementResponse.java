@@ -7,7 +7,7 @@ import java.util.List;
 
 import net.customware.gwt.dispatch.shared.Result;
 
-import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
+import com.chinarewards.gwt.elt.client.integralManagement.model.Category;
 
 /**
  * @author nicho
@@ -15,37 +15,40 @@ import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
  */
 public class IntegralManagementResponse implements Result {
 
-	private List<GiftClient> result;
-	private int total;
+	private List<Category> result;
+	private double budgetIntegral;//预算积分
+    private double useIntegeral;  //已用积分
+	public double getBudgetIntegral() {
+		return budgetIntegral;
+	}
 
+	public void setBudgetIntegral(double budgetIntegral) {
+		this.budgetIntegral = budgetIntegral;
+	}
 
-	/**
-	 * @return the result
-	 */
-	public List<GiftClient> getResult() {
+	public double getUseIntegeral() {
+		return useIntegeral;
+	}
+
+	public void setUseIntegeral(double useIntegeral) {
+		this.useIntegeral = useIntegeral;
+	}
+
+	public IntegralManagementResponse(List<Category> result,double budgetIntegral,double useIntegeral) {
+		this.result = result;
+		this.budgetIntegral=budgetIntegral;
+		this.useIntegeral=useIntegeral;
+	}
+
+	public IntegralManagementResponse() {
+	}
+
+	public List<Category> getResult() {
 		return result;
 	}
 
-	/**
-	 * @param result
-	 *            the result to set
-	 */
-	public void setResult(List<GiftClient> result) {
+	public void setResult(List<Category> result) {
 		this.result = result;
 	}
 
-	/**
-	 * @return the total
-	 */
-	public int getTotal() {
-		return total;
-	}
-
-	/**
-	 * @param total
-	 *            the total to set
-	 */
-	public void setTotal(int total) {
-		this.total = total;
-	}
 }

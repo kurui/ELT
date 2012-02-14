@@ -7,6 +7,7 @@ import com.chinarewards.elt.domain.budget.CorpBudget;
 import com.chinarewards.elt.domain.budget.DepartmentBudget;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.budget.search.DepartmentBudgetVo;
+import com.chinarewards.elt.model.budget.search.IntegralManagementVo;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.user.UserRole;
@@ -68,10 +69,19 @@ public class BudgetServiceImpl implements BudgetService {
 		SysUser caller = userLogic.findUserById(context.getUserId());
 		return budgetLogic.deleteDepartmentBudget(caller, id);
 	}
+	@Override
+	public List<CorpBudget> findCorpBudget(String corpid) {
+		// TODO Auto-generated method stub
+		return budgetLogic.findCorpBudget(corpid);
+	}
 
 	@Override
 	public CorpBudget findCorpBudgetByCorpId(String corpid) {
 		return budgetLogic.findCorpBudgetByCorpId(corpid);
+	}
+	@Override
+	public List<IntegralManagementVo> getIntegralManagementList(String corpId) {
+		return budgetLogic.getIntegralManagementList(corpId);
 	}
 
    

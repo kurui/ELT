@@ -36,7 +36,6 @@ public class CorpBudget implements Serializable {
     private Date   recorddate;   //操作时间
     private int    deleted   ;     //是否删除 
     
-    
 	public String getMoneyType() {
 		return moneyType;
 	}
