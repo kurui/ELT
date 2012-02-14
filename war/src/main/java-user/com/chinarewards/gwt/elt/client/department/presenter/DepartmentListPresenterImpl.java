@@ -88,15 +88,7 @@ public class DepartmentListPresenterImpl extends
 				.addClickHandler(new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
 
-						DepartmentClient client = new DepartmentClient();
-						// client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_ADD);
-
-						Platform.getInstance()
-								.getEditorRegistry()
-								.openEditor(
-										DepartmentConstants.EDITOR_DEPARTMENT_EDIT,
-										DepartmentConstants.ACTION_DEPARTMENT_ADD,
-										client);
+						
 					}
 				}));
 
@@ -119,6 +111,15 @@ public class DepartmentListPresenterImpl extends
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
 						win.alert("功能建设中");
+						DepartmentClient client = new DepartmentClient();
+						// client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_ADD);
+
+						Platform.getInstance()
+								.getEditorRegistry()
+								.openEditor(
+										DepartmentConstants.EDITOR_DEPARTMENT_EDIT,
+										DepartmentConstants.ACTION_DEPARTMENT_EDIT,
+										client);
 					}
 				}));
 		// 合并部门
@@ -126,6 +127,7 @@ public class DepartmentListPresenterImpl extends
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
 						win.alert("功能建设中");
+						//跳转页面
 					}
 				}));
 		// 同步公司组织机构
