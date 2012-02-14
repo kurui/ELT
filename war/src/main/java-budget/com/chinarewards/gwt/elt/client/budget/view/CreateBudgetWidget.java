@@ -5,8 +5,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.chinarewards.gwt.elt.client.budget.presenter.CreateBudgetPresenter.CreateBudgetDisplay;
-import com.chinarewards.gwt.elt.client.order.model.OrderStatus;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.HasChangeHandlers;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -27,7 +27,8 @@ public class CreateBudgetWidget extends Composite implements CreateBudgetDisplay
 	
 	@UiField
 	Button saveBtn;
-	
+	@UiField
+	Button searchBtn;
 	@UiField
 	TextBox jf;
 	@UiField
@@ -55,7 +56,14 @@ public class CreateBudgetWidget extends Composite implements CreateBudgetDisplay
 	public HasClickHandlers getSaveBtnClickHandlers() {
 		return saveBtn;
 	}
-
+	@Override
+	public HasClickHandlers getSearchBtnClickHandlers() {
+		return searchBtn;
+	}
+	@Override
+	public HasChangeHandlers getJfChangeHandlers() {
+		return jf;
+	}
 	@Override
 	public Panel getResultPanel() {
 		return resultPanel;
@@ -95,7 +103,7 @@ public class CreateBudgetWidget extends Composite implements CreateBudgetDisplay
 	@Override
 	public void initDepart(Map<String, String> map) {
 
-		
+		depart.addItem("选择", "");
 		Iterator<Entry<String, String>> it = map.entrySet().iterator();
 		while (it.hasNext()) {
 			Entry<String, String> entry = it.next();
