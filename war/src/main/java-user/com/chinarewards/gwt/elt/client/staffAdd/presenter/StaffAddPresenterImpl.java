@@ -3,12 +3,14 @@ package com.chinarewards.gwt.elt.client.staffAdd.presenter;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
+import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.staffAdd.request.StaffAddRequest;
 import com.chinarewards.gwt.elt.client.staffAdd.request.StaffAddResponse;
 import com.chinarewards.gwt.elt.client.staffList.model.StaffListCriteria.StaffStatus;
+import com.chinarewards.gwt.elt.client.staffList.plugin.StaffListConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.util.XmlUtil_GWT;
@@ -85,7 +87,11 @@ public class StaffAddPresenterImpl extends
 									@Override
 									public void onSuccess(StaffAddResponse resp) {
 										win.alert("添加成功");
-
+										Platform.getInstance()
+										.getEditorRegistry()
+										.openEditor(
+												StaffListConstants.EDITOR_STAFFLIST_SEARCH,
+												"EDITOR_STAFFLIST_SEARCH_DO_ID", null);
 									}
 								});
 					}
