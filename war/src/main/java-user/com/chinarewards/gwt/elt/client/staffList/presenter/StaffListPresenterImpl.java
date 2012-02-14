@@ -14,12 +14,14 @@ import com.chinarewards.gwt.elt.client.staffList.model.StaffListClient;
 import com.chinarewards.gwt.elt.client.staffList.model.StaffListCriteria;
 import com.chinarewards.gwt.elt.client.staffList.model.StaffListCriteria.StaffStatus;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager.TextLocation;
 import com.chinarewards.gwt.elt.client.widget.GetValue;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.widget.Sorting;
 import com.chinarewards.gwt.elt.client.win.Win;
+import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -153,7 +155,67 @@ public class StaffListPresenterImpl extends
 						return staff.getStaffName();
 					}
 				}, ref, "name");
+		cellTable.addColumn("所属部门", new TextCell(),
+				new GetValue<StaffListClient, String>() {
+					@Override
+					public String getValue(StaffListClient staff) {
+						return staff.getDepartmentName();
+					}
+				});
+		cellTable.addColumn("职位", new TextCell(),
+				new GetValue<StaffListClient, String>() {
+					@Override
+					public String getValue(StaffListClient staff) {
+						return staff.getJobPosition();
+					}
+				}, ref, "jobPosition");
+		cellTable.addColumn("电话", new TextCell(),
+				new GetValue<StaffListClient, String>() {
+					@Override
+					public String getValue(StaffListClient staff) {
+						return staff.getPhone();
+					}
+				}, ref, "phone");
+		cellTable.addColumn("员工状态", new TextCell(),
+				new GetValue<StaffListClient, String>() {
+					@Override
+					public String getValue(StaffListClient staff) {
+						if(staff.getStaffStatus()!=null)
+						return staff.getStaffStatus().getDisplayName();
+						else
+						return "未知";
+					}
+				});
+		cellTable.addColumn("操作", new HyperLinkCell(),
+				new GetValue<StaffListClient, String>() {
+					@Override
+					public String getValue(StaffListClient rewards) {
+						return "查看";
+					}
+				}, new FieldUpdater<StaffListClient, String>() {
 
+					@Override
+					public void update(int index, final StaffListClient o,
+							String value) {
+						win.alert("待实现");
+					}
+
+				});
+		cellTable.addColumn("操作", new HyperLinkCell(),
+				new GetValue<StaffListClient, String>() {
+					@Override
+					public String getValue(StaffListClient rewards) {
+						return "发送Email";
+					}
+				}, new FieldUpdater<StaffListClient, String>() {
+
+					@Override
+					public void update(int index, final StaffListClient o,
+							String value) {
+						win.alert("待实现");
+					}
+
+				});
 	}
 
 }
