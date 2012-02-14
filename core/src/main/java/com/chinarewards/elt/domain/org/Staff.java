@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 
 import com.chinarewards.elt.model.org.Gender;
 import com.chinarewards.elt.model.org.NoticeMode;
+import com.chinarewards.elt.model.staff.StaffStatus;
 
 /**
  * It defines a staff in a corporation.
@@ -122,6 +123,19 @@ public class Staff extends Organization {
 	 * address (居住地)
 	 */
 	private String location;
+
+	/**
+	 * 状态
+	 */
+	@Enumerated(EnumType.STRING)
+	private StaffStatus status;
+	public StaffStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(StaffStatus status) {
+		this.status = status;
+	}
 
 	public Department getDepartment() {
 		return department;

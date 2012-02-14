@@ -103,7 +103,7 @@ public class StaffListPresenterImpl extends
 		pager.setDisplay(cellTable);
 		cellTable.setWidth(ViewConstants.page_width);
 		cellTable.setPageSize(ViewConstants.per_page_number_in_dialog);
-		cellTable.getColumn(0).setCellStyleNames("divTextLeft");
+	//	cellTable.getColumn(0).setCellStyleNames("divTextLeft");
 		display.getResultPanel().clear();
 		display.getResultPanel().add(cellTable);
 		display.getResultpage().clear();
@@ -139,14 +139,20 @@ public class StaffListPresenterImpl extends
 		};
 
 
-		cellTable.addColumn("xxxx", new TextCell(),
+		cellTable.addColumn("员工编号", new TextCell(),
 				new GetValue<StaffListClient, String>() {
 					@Override
-					public String getValue(StaffListClient rewards) {
-						return "xxx";
+					public String getValue(StaffListClient staff) {
+						return staff.getStaffNo();
 					}
-				}, ref, "createdBy");
-
+				}, ref, "jobNo");
+		cellTable.addColumn("姓名", new TextCell(),
+				new GetValue<StaffListClient, String>() {
+					@Override
+					public String getValue(StaffListClient staff) {
+						return staff.getStaffName();
+					}
+				}, ref, "name");
 
 	}
 

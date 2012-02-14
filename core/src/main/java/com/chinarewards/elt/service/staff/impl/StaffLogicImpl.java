@@ -12,13 +12,17 @@ import com.chinarewards.elt.common.LogicContext;
 import com.chinarewards.elt.common.UserContextProvider;
 import com.chinarewards.elt.dao.org.DepartmentDao;
 import com.chinarewards.elt.dao.org.StaffDao;
+import com.chinarewards.elt.dao.org.StaffDao.QueryStaffPageActionResult;
 import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.org.StaffVo;
+import com.chinarewards.elt.model.staff.StaffSearchCriteria;
+import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.user.UserRole;
+import com.chinarewards.elt.model.vo.StaffSearchVo;
 import com.chinarewards.elt.model.vo.WinnersRecordQueryResult;
 import com.chinarewards.elt.model.vo.WinnersRecordQueryVo;
 import com.chinarewards.elt.service.org.CorporationLogic;
@@ -237,5 +241,15 @@ public class StaffLogicImpl implements StaffLogic {
 		logger.debug("The gotten staff size={}", result.size());
 		return result;
 
+	}
+
+	@Override
+	public QueryStaffPageActionResult queryStaffList(StaffSearchCriteria criteria,
+			UserContext context) {
+		StaffSearchVo searchVo=new StaffSearchVo();
+		if(context.getCorporationId()!=null)
+			searchVo.setEnterpriseId(context.getCorporationId());
+		
+		return staffDao.queryStaffPageAction(searchVo);
 	}
 }

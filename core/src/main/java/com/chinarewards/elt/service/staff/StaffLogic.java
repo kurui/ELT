@@ -2,10 +2,13 @@ package com.chinarewards.elt.service.staff;
 
 import java.util.List;
 
+import com.chinarewards.elt.dao.org.StaffDao.QueryStaffPageActionResult;
 import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.org.StaffVo;
+import com.chinarewards.elt.model.staff.StaffSearchCriteria;
+import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.vo.WinnersRecordQueryResult;
 import com.chinarewards.elt.model.vo.WinnersRecordQueryVo;
 
@@ -63,4 +66,12 @@ public interface StaffLogic {
 	 * @return staffList(Staff)
 	 */
 	public List<Staff> findStaffsByStaffIds(List<String> staffIds);
+	
+	/**
+	 * 查询员工列表
+	 * @param criteria
+	 * @param context
+	 * @return
+	 */
+	public QueryStaffPageActionResult queryStaffList(StaffSearchCriteria criteria,UserContext context);
 }
