@@ -5,10 +5,12 @@ import java.util.Comparator;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
+import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
+import com.chinarewards.gwt.elt.client.staffAdd.plugin.StaffAddConstants;
 import com.chinarewards.gwt.elt.client.staffList.dataprovider.StaffListViewAdapter;
 import com.chinarewards.gwt.elt.client.staffList.model.StaffListClient;
 import com.chinarewards.gwt.elt.client.staffList.model.StaffListCriteria;
@@ -69,16 +71,11 @@ public class StaffListPresenterImpl extends
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						win.alert("添加");
-//						GWT.log("running click handlers. add");
-//						Platform.getInstance()
-//								.getEditorRegistry()
-//								.openEditor(
-//										HrRegisterConstants.EDITOR_HRREGISTER_SEARCH,
-//										HrRegisterConstants.EDITOR_HRREGISTER_SEARCH
-//												+ sessionManager.getSession()
-//														.getToken(),
-//										sessionManager.getSession().getToken());
+						Platform.getInstance()
+						.getEditorRegistry()
+						.openEditor(
+								StaffAddConstants.EDITOR_STAFFADD_SEARCH,
+								"EDITOR_STAFFADD_SEARCH_DO_ID", null);
 					}
 				}));
 		registerHandler(display.getSynchronousStaffBtnClickHandlers().addClickHandler(

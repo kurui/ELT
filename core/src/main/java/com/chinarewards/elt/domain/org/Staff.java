@@ -129,6 +129,19 @@ public class Staff extends Organization {
 	 */
 	@Enumerated(EnumType.STRING)
 	private StaffStatus status;
+	
+	/**
+	 * 直属领导
+	 */
+	private String Leadership;
+	public String getLeadership() {
+		return Leadership;
+	}
+
+	public void setLeadership(String leadership) {
+		Leadership = leadership;
+	}
+
 	public StaffStatus getStatus() {
 		return status;
 	}
