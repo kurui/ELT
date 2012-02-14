@@ -77,6 +77,15 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 						saveDepartmentBudget();
 					}
 				}));
+		registerHandler(display.getSearchBtnClickHandlers().addClickHandler(
+				new ClickHandler() {
+					public void onClick(ClickEvent paramClickEvent) {
+						if (!validateSearchSubmit()) {
+							return;
+						}
+						toSearch();
+					}
+				}));
 		
 			}
 
@@ -98,13 +107,13 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 			          	@Override
 						public void onFailure(Throwable arg0) {
 							errorHandler.alert("保存部门预算出错!");
-							init();
+							toRefresh();
 						}
 
 						@Override
 						public void onSuccess(AddDepartmentBudgetResponse response) {
 							 win.alert(response.getMessage());
-							 init();
+							 toRefresh();
 						}      
 
 					});
@@ -116,22 +125,24 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 			StringBuilder errorMsg = new StringBuilder();
 			
 
-			if (display.getYear() == null|| "".equals(display.getYear().trim())) {
-				errorMsg.append("请选择财年周期!<br>");
-				flag = false;
-			}
 			if (display.getDepart() == null|| "".equals(display.getDepart().trim())) {
 				errorMsg.append("请选择预算部门!<br>");
 				flag = false;
 			}
+			
 			if (display.getJF().getValue() == null|| "".equals(display.getJF().getValue().trim())) {
 				errorMsg.append("请填写预算积分!<br>");
 				flag = false;
 			}
-			int jf = Integer.parseInt(display.getJF().getValue());
-			if (jf == 0 || jf < 0) {
-				errorMsg.append("预算积分是大于0数字!<br>");
-				flag = false;
+			if (display.getJF().getValue() != null && ! "".equals(display.getJF().getValue().trim())) {
+			   try{
+				   Integer.parseInt(display.getJF().getValue());
+			   }catch(Exception   e){
+				    errorMsg.append("预算积分是大于0数字!<br>");
+					flag = false;
+			   }
+			
+				
 			}
 			if (!flag) {
 				win.alert(errorMsg.toString());
@@ -139,6 +150,29 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 
 			return flag;
 		}
+		
+		// 验证方法
+	private boolean validateSearchSubmit() {
+		boolean flag = true;
+		StringBuilder errorMsg = new StringBuilder();
+		
+		if (display.getJF().getValue() != null && ! "".equals(display.getJF().getValue().trim())) {
+			   try{
+				   Integer.parseInt(display.getJF().getValue());
+			   }catch(Exception   e){
+				    errorMsg.append("预算积分是大于0数字!<br>");
+					flag = false;
+			   }
+			
+				
+			}
+			if (!flag) {
+				win.alert(errorMsg.toString());
+			}
+
+			return flag;
+
+	}
 
    private void initYear(){
 	   
@@ -154,18 +188,20 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 					public void onSuccess(InitCorpBudgetResponse response) {
 						 List<CorpBudgetVo> list = response.getResult();
 						 Map<String, String> map = new HashMap<String, String>();
+						 map.clear();
 						 CorpBudgetVo vo = new CorpBudgetVo();
 						 if(list.size()>0){
 							 for(int i=0;i<list.size();i++){
-								// corpBudgetId = vo.getId();
-								 map.put(vo.getId(), vo.getBudgetTitle());
-								 display.setTotalCount(vo.getBudgetIntegral()+"");
-								 display.setRemainCount((vo.getBudgetIntegral()-vo.getUseIntegeral())+"");
+								   vo = list.get(i);
+								   map.put(vo.getId(), vo.getBudgetTitle());
 							 }
-							   
+							   vo = list.get(0);
+							   corpBudgetId = vo.getId();
+							  
+							   display.setTotalCount(vo.getBudgetIntegral()+"");
+							   display.setRemainCount((vo.getBudgetIntegral()-vo.getUseIntegeral())+"");
 							   
 								DepBudgetVo criteria = new DepBudgetVo();
-								win.alert(display.getYear());
 								criteria.setCorpBudgetId(corpBudgetId);
 								listViewAdapter = new DepBudgetListAdapter(dispatch, criteria,errorHandler, sessionManager, display);
 								listViewAdapter.addDataDisplay(cellTable);
@@ -178,6 +214,89 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 
 				});
 	 
+   }
+   private void toRefresh(){
+	   dispatch.execute(new InitCorpBudgetRequest(sessionManager.getSession()),
+				new AsyncCallback<InitCorpBudgetResponse>() {
+		          	@Override
+					public void onFailure(Throwable arg0) {
+						errorHandler.alert("查询财年周期出错!");
+						
+					}
+
+					@Override
+					public void onSuccess(InitCorpBudgetResponse response) {
+						
+						  List<CorpBudgetVo> list = response.getResult();
+						  CorpBudgetVo vo = new CorpBudgetVo();
+						 if(list.size()>0){//得到下拉框所选择的财年周期
+							 for(int i=0;i<list.size();i++){
+								 if(list.get(i).getId().equals(display.getYear())){
+								   vo = list.get(i);
+								 }
+								  
+							 }
+							 //刷新列表和预算总数
+							    corpBudgetId = vo.getId();
+							    display.setTotalCount(vo.getBudgetIntegral()+"");
+							    display.setRemainCount((vo.getBudgetIntegral()-vo.getUseIntegeral())+"");
+							   
+								DepBudgetVo criteria = new DepBudgetVo();
+								criteria.setCorpBudgetId(corpBudgetId);
+								listViewAdapter = new DepBudgetListAdapter(dispatch, criteria,errorHandler, sessionManager, display);
+								listViewAdapter.addDataDisplay(cellTable);
+
+						 }
+							
+							//display.initYear(map);
+						
+					}
+
+				});
+	   
+   }
+   private void toSearch(){
+	   dispatch.execute(new InitCorpBudgetRequest(sessionManager.getSession()),
+				new AsyncCallback<InitCorpBudgetResponse>() {
+		          	@Override
+					public void onFailure(Throwable arg0) {
+						errorHandler.alert("查询财年周期出错!");
+						
+					}
+
+					@Override
+					public void onSuccess(InitCorpBudgetResponse response) {
+						
+						  List<CorpBudgetVo> list = response.getResult();
+						  CorpBudgetVo vo = new CorpBudgetVo();
+						 if(list.size()>0){//得到下拉框所选择的财年周期
+							 for(int i=0;i<list.size();i++){
+								 if(list.get(i).getId().equals(display.getYear())){
+								   vo = list.get(i);
+								 }
+								  
+							 }
+							 //刷新列表和预算总数
+							    corpBudgetId = vo.getId();
+							    display.setTotalCount(vo.getBudgetIntegral()+"");
+							    display.setRemainCount((vo.getBudgetIntegral()-vo.getUseIntegeral())+"");
+							   
+								DepBudgetVo criteria = new DepBudgetVo();
+								criteria.setCorpBudgetId(corpBudgetId);
+								criteria.setDepartmentId(display.getDepart());
+								if(!display.getJF().getValue().equals(""))
+								criteria.setBudgetIntegral(Double.parseDouble(display.getJF().getValue()));
+								listViewAdapter = new DepBudgetListAdapter(dispatch, criteria,errorHandler, sessionManager, display);
+								listViewAdapter.addDataDisplay(cellTable);
+
+						 }
+							
+							//display.initYear(map);
+						
+					}
+
+				});
+	   
    }
    private void initDeparts(){
 	   dispatch.execute(new InitDepartmentRequest(sessionManager.getSession()),

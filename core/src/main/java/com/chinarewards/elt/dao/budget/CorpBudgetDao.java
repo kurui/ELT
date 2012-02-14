@@ -34,7 +34,7 @@ public class CorpBudgetDao extends BaseDao<CorpBudget> {
 	 * @return
 	 */
 	public List<CorpBudget> findCorpBudget(String corporationId) {
-		String sql = "FROM CorpBudget c WHERE  c.corporationId = :corporationId ";
+		String sql = "FROM CorpBudget c WHERE  c.corporationId = :corporationId order by endDate desc";
 		Date currTime = DateUtil.getTime();
 		List<CorpBudget> resultList = getEm().createQuery(sql)
 				.setParameter("corporationId", corporationId)

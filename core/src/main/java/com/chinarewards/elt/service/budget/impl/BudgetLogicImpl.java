@@ -84,7 +84,7 @@ public class BudgetLogicImpl implements BudgetLogic {
 			departmentBudget = departmentBudgetDao.save(departmentBudget);
 			CorpBudget corpBudget= corpBudgetDao.findById(CorpBudget.class,departmentBudget.getCorpBudgetId());
 			//更新企业财年的已用积分
-			corpBudget.setUseIntegeral(departmentBudget.getBudgetIntegral());
+			corpBudget.setUseIntegeral(corpBudget.getUseIntegeral()+departmentBudget.getBudgetIntegral());
 			corpBudgetDao.update(corpBudget);
 		} else {
 			// Update
