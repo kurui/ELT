@@ -17,7 +17,8 @@ public interface CreateBudgetPresenter extends Presenter<CreateBudgetPresenter.C
 	public static interface CreateBudgetDisplay extends Display {
 
 		public HasClickHandlers getSaveBtnClickHandlers();
-		void setDataCount(String text);
+		void setTotalCount(String text);
+		void setRemainCount(String text);
 		HasValue<String> getJF();
 		String getYear();
 		

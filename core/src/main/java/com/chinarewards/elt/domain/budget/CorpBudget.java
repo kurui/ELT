@@ -26,8 +26,8 @@ public class CorpBudget implements Serializable {
 	private String id;
 	private String budgetTitle;//标题
 	private String corporationId ;   //企业ID
-	private Date   beginDate;      //财年结束日期
-	private Date   endDate;        //财年开始日期
+	private Date   beginDate;      //财年开始日期
+	private Date   endDate;        //财年结束日期
 	private double budgetAmount ; //预算金额
 	private String moneyType;//货币类型
 	private double budgetIntegral;//预算积分

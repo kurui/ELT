@@ -67,23 +67,30 @@ public class BudgetLogicImpl implements BudgetLogic {
 
 		return corpBudget;
 	}
-
+    
 	@Override
-	public DepartmentBudget saveDepartmentBudget(SysUser caller,
-			DepartmentBudget departmentBudget) {
+	public DepartmentBudget saveDepartmentBudget(SysUser caller,DepartmentBudget departmentBudget) {
 		Date currTime = DateUtil.getTime();
+		
 		if (StringUtil.isEmptyString(departmentBudget.getId())) {
 			// Create
 			departmentBudget.setDeleted(0);// 正常状态，没有删除为0
 			departmentBudget.setRecorduser(caller.getUserName());
-			departmentBudgetDao.save(departmentBudget);
+			departmentBudget.setUseIntegeral(0);//已用的积分为0
+			departmentBudget = departmentBudgetDao.save(departmentBudget);
+			CorpBudget corpBudget= corpBudgetDao.findById(CorpBudget.class,departmentBudget.getCorpBudgetId());
+			//更新企业财年的已用积分
+			corpBudget.setUseIntegeral(departmentBudget.getBudgetIntegral());
+			corpBudgetDao.update(corpBudget);
 		} else {
 			// Update
-			departmentBudget = departmentBudgetDao.findById(
-					DepartmentBudget.class, departmentBudget.getId());
+			departmentBudget = departmentBudgetDao.findById(DepartmentBudget.class, departmentBudget.getId());
 			departmentBudget.setRecorddate(currTime);
 			departmentBudget.setRecorduser(caller.getUserName());
 			departmentBudgetDao.update(departmentBudget);
+//			CorpBudget corpBudget= corpBudgetDao.findById(CorpBudget.class,departmentBudget.getCorpBudgetId());
+//			corpBudget.setUseIntegeral(corpBudget.getBudgetIntegral()-departmentBudget.getBudgetIntegral());
+//			corpBudgetDao.update(corpBudget);
 		}
 
 		return departmentBudget;
@@ -157,6 +164,12 @@ public class BudgetLogicImpl implements BudgetLogic {
 		departmentBudgetVo.setDepartmentName(department.getName());
 
 		return departmentBudgetVo;
+	}
+
+	@Override
+	public String findByDepAndCorpBudgetId(DepartmentBudget departmentBudget) {
+		return departmentBudgetDao.findByDepAndCorpBudgetId(departmentBudget);//是否已经有了数据
+		
 	}
 
 }

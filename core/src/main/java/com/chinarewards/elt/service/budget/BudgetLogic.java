@@ -68,7 +68,8 @@ public interface BudgetLogic {
 	 */
 	public PageStore<DepartmentBudgetVo> deptBudgetList(SysUser caller,DepartmentBudgetVo deptBudgetVo);
 
-
+	public String findByDepAndCorpBudgetId(DepartmentBudget departmentBudget);
+	
 }
 
 

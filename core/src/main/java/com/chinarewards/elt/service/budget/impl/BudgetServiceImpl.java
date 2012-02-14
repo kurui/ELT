@@ -79,5 +79,7 @@ public class BudgetServiceImpl implements BudgetService {
 		return budgetLogic.findCorpBudgetByCorpId(corpid);
 	}
 
-   
+	public String findByDepAndCorpBudgetId(DepartmentBudget departmentBudget){
+		return budgetLogic.findByDepAndCorpBudgetId(departmentBudget);
+	} 
 }

@@ -35,7 +35,9 @@ public class CreateBudgetWidget extends Composite implements CreateBudgetDisplay
 	@UiField
 	ListBox depart;
 	@UiField
-	InlineLabel dataCount;
+	InlineLabel totalCount;
+	@UiField
+	InlineLabel remainCount;
 	@UiField
 	Panel breadCrumbs;
 	
@@ -105,8 +107,13 @@ public class CreateBudgetWidget extends Composite implements CreateBudgetDisplay
 	
 
 	@Override
-	public void setDataCount(String text) {
-		dataCount.setText(text);
+	public void setTotalCount(String text) {
+		totalCount.setText(text);
+		
+	}
+	@Override
+	public void setRemainCount(String text) {
+		remainCount.setText(text);
 		
 	}
 	
