@@ -1,9 +1,5 @@
 package com.chinarewards.gwt.elt.client.department.view;
 
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import com.chinarewards.gwt.elt.client.department.presenter.DepartmentListPresenter.DepartmentListDisplay;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -11,109 +7,82 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HasValue;
-import com.google.gwt.user.client.ui.InlineLabel;
-import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
-public class DepartmentListWidget extends Composite implements DepartmentListDisplay {
+public class DepartmentListWidget extends Composite implements
+		DepartmentListDisplay {
 	@UiField
 	Panel resultPanel;
-	@UiField
-	Panel resultpage;
-	
-	@UiField
-	Button searchBtn;
-	@UiField
-	Button addBtn;
-	@UiField
-	Button importingBtn;
-	
-	@UiField
-	TextBox keyName;
-	@UiField
-	ListBox status;
-	@UiField
-	InlineLabel dataCount;
 
-	
+	@UiField
+	Button addSameLevelBtn;
+	@UiField
+	Button addChildBtn;
+	@UiField
+	Button deleteBtn;
+	@UiField
+	Button editBtn;
+	@UiField
+	Button mergeBtn;
+	@UiField
+	Button synchBtn;
+
+
 	@UiField
 	Panel breadCrumbs;
-	
 
 	private static DepartmentWidgetUiBinder uiBinder = GWT
 			.create(DepartmentWidgetUiBinder.class);
 
-	interface DepartmentWidgetUiBinder extends UiBinder<Widget, DepartmentListWidget> {
+	interface DepartmentWidgetUiBinder extends
+			UiBinder<Widget, DepartmentListWidget> {
 	}
 
 	public DepartmentListWidget() {
 		initWidget(uiBinder.createAndBindUi(this));
 	}
 
-	@Override
-	public HasClickHandlers getSearchBtnClickHandlers() {
-		searchBtn.setWidth("99px");
-		return searchBtn;
-	}
 
 	@Override
 	public Panel getResultPanel() {
 		return resultPanel;
 	}
 
-
 	@Override
-	public HasValue<String> getKeyName() {
-		return keyName;
-	}
-
-	@Override
-	public Panel getResultpage() {
-		return resultpage;
-	}
-
-	@Override
-	public String getStatus() {
-		return status.getValue(status.getSelectedIndex());
-	}
-
-	@Override
-	public void initDepartmentStatus(Map<String, String> map) {
-
-		status.addItem("不限", "");
-		Iterator<Entry<String, String>> it = map.entrySet().iterator();
-		while (it.hasNext()) {
-			Entry<String, String> entry = it.next();
-			status.addItem(entry.getValue(), entry.getKey());
-		}
-	}
-
-	@Override
-	public HasClickHandlers getAddBtnClickHandlers() {
-		addBtn.setWidth("88px");
-		return addBtn;
-	}
-
-	@Override
-	public HasClickHandlers getimportingBtnClickHandlers() {
-		importingBtn.setWidth("88px");
-		return importingBtn;
-	}
-
-	@Override
-	public void setDataCount(String text) {
-		dataCount.setText(text);
-		
+	public HasClickHandlers getAddSameLevelBtnClickHandlers() {
+		return addSameLevelBtn;
 	}
 
 
 	@Override
 	public void setBreadCrumbs(Widget breadCrumbs) {
 		this.breadCrumbs.clear();
-		this.breadCrumbs.add(breadCrumbs);		
+		this.breadCrumbs.add(breadCrumbs);
+	}
 
+	@Override
+	public HasClickHandlers getAddChildBtnClickHandlers() {
+		return addChildBtn;
+	}
+
+	@Override
+	public HasClickHandlers getDeleteBtnClickHandlers() {
+		return deleteBtn;
+	}
+
+	@Override
+	public HasClickHandlers getEditBtnClickHandlers() {
+		return editBtn;
+	}
+
+	@Override
+	public HasClickHandlers getMergeBtnClickHandlers() {
+		return mergeBtn;
+	}
+
+	@Override
+	public HasClickHandlers getSynchBtnClickHandlers() {
+		return synchBtn;
 	}
 }

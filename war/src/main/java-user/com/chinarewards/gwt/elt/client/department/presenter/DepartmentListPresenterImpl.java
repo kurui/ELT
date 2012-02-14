@@ -1,8 +1,6 @@
 package com.chinarewards.gwt.elt.client.department.presenter;
 
 import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
@@ -11,7 +9,6 @@ import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.dataprovider.DepartmentListViewAdapter;
 import com.chinarewards.gwt.elt.client.department.model.DepartmentCriteria;
-import com.chinarewards.gwt.elt.client.department.model.DepartmentCriteria.DepartmentStatus;
 import com.chinarewards.gwt.elt.client.department.plugin.DepartmentConstants;
 import com.chinarewards.gwt.elt.client.department.presenter.DepartmentListPresenter.DepartmentListDisplay;
 import com.chinarewards.gwt.elt.client.department.request.DeleteDepartmentRequest;
@@ -28,7 +25,6 @@ import com.chinarewards.gwt.elt.client.widget.GetValue;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.widget.Sorting;
 import com.chinarewards.gwt.elt.client.win.Win;
-import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -69,15 +65,19 @@ public class DepartmentListPresenterImpl extends
 	public void bind() {
 		breadCrumbs.loadListPage();
 		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
-		init();
-		registerHandler(display.getSearchBtnClickHandlers().addClickHandler(
-				new ClickHandler() {
-					public void onClick(ClickEvent paramClickEvent) {
-						doSearch();
-					}
-				}));
-		registerHandler(display.getAddBtnClickHandlers().addClickHandler(
-				new ClickHandler() {
+
+		buildTable();
+		
+		registerEvent();
+		
+		doSearch();
+
+	}
+
+	private void registerEvent() {
+		// 增加同级部门
+		registerHandler(display.getAddSameLevelBtnClickHandlers()
+				.addClickHandler(new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
 
 						DepartmentClient client = new DepartmentClient();
@@ -91,21 +91,6 @@ public class DepartmentListPresenterImpl extends
 										client);
 					}
 				}));
-		registerHandler(display.getimportingBtnClickHandlers().addClickHandler(
-				new ClickHandler() {
-					public void onClick(ClickEvent paramClickEvent) {
-						win.alert("导入礼品...待实现~");
-					}
-				}));
-	}
-
-	private void init() {
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("SHELF", "未上架");
-		map.put("SHELVES", "上架");
-		display.initDepartmentStatus(map);
-		buildTable();
-		doSearch();
 	}
 
 	private void buildTable() {
@@ -120,16 +105,12 @@ public class DepartmentListPresenterImpl extends
 
 		display.getResultPanel().clear();
 		display.getResultPanel().add(cellTable);
-		display.getResultpage().clear();
-		display.getResultpage().add(pager);
 	}
 
 	private void doSearch() {
 		DepartmentCriteria criteria = new DepartmentCriteria();
-		if (!StringUtil.isEmpty(display.getKeyName().getValue()))
-			criteria.setName(display.getKeyName().getValue());
-		if (!StringUtil.isEmpty(display.getStatus()))
-			criteria.setStatus(DepartmentStatus.valueOf(display.getStatus()));
+		// if (!StringUtil.isEmpty(display.getKeyName().getValue()))
+		// criteria.setName(display.getKeyName().getValue());
 
 		listViewAdapter = new DepartmentListViewAdapter(dispatch, criteria,
 				errorHandler, sessionManager, display);

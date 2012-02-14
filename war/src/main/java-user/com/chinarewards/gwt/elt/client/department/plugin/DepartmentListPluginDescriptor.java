@@ -22,12 +22,12 @@ public class DepartmentListPluginDescriptor implements PluginDescriptor {
 
 	final static Set<Extension> ext = new HashSet<Extension>();
 	final DepartmentListPlugin DepartmentListPlugin;
-	final DepartmentListEditorDescriptor giftListEditorDescriptor;
+	final DepartmentListEditorDescriptor departmentListEditorDescriptor;
 
 	@Inject
 	public DepartmentListPluginDescriptor(
-			final DepartmentListEditorDescriptor giftListEditorDescriptor) {
-		this.giftListEditorDescriptor = giftListEditorDescriptor;
+			final DepartmentListEditorDescriptor departmentListEditorDescriptor) {
+		this.departmentListEditorDescriptor = departmentListEditorDescriptor;
 		DepartmentListPlugin = new DepartmentListPlugin(this);
 
 		/**
@@ -71,7 +71,7 @@ public class DepartmentListPluginDescriptor implements PluginDescriptor {
 								.getEditorRegistry()
 								.openEditor(
 										DepartmentListConstants.EDITOR_DEPARTMENTLIST_SEARCH,
-										"EDITOR_REWARDSLIST_SEARCH_DO_ID", null);
+										"EDITOR_DEPARTMENLIST_SEARCH_DO_ID", null);
 					}
 
 					@Override
@@ -99,7 +99,7 @@ public class DepartmentListPluginDescriptor implements PluginDescriptor {
 
 			@Override
 			public Object getInstance() {
-				return giftListEditorDescriptor;
+				return departmentListEditorDescriptor;
 			}
 
 			@Override

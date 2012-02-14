@@ -64,7 +64,7 @@ public class DepartmentListViewAdapter extends BaseDataProvider<DepartmentClient
 					public void onSuccess(SearchDepartmentResponse response) {
 //						updateRowData(start, response.getResult());
 						updateRowCount(response.getTotal(), true);
-						display.setDataCount(response.getTotal()+"");
+//						display.setDataCount(response.getTotal()+"");
 					}
 
 				});
