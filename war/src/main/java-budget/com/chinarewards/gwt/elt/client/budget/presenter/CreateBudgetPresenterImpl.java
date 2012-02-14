@@ -47,6 +47,7 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 	final SessionManager sessionManager;
 	final Win win;
     String corpBudgetId="";
+    double remainCount;//剩余的总积分
 	EltNewPager pager;
 	ListCellTable<DepBudgetVo> cellTable;
 	DepBudgetListAdapter listViewAdapter;
@@ -136,7 +137,10 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 			}
 			if (display.getJF().getValue() != null && ! "".equals(display.getJF().getValue().trim())) {
 			   try{
-				   Integer.parseInt(display.getJF().getValue());
+				   if(remainCount < Integer.parseInt(display.getJF().getValue())){
+					   errorMsg.append("公司预算剩余积分不足!<br>");
+						flag = false;
+				   }
 			   }catch(Exception   e){
 				    errorMsg.append("预算积分是大于0数字!<br>");
 					flag = false;
@@ -200,7 +204,7 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 							  
 							   display.setTotalCount(vo.getBudgetIntegral()+"");
 							   display.setRemainCount((vo.getBudgetIntegral()-vo.getUseIntegeral())+"");
-							   
+							   remainCount = vo.getBudgetIntegral()-vo.getUseIntegeral();
 								DepBudgetVo criteria = new DepBudgetVo();
 								criteria.setCorpBudgetId(corpBudgetId);
 								listViewAdapter = new DepBudgetListAdapter(dispatch, criteria,errorHandler, sessionManager, display);
@@ -240,7 +244,7 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 							    corpBudgetId = vo.getId();
 							    display.setTotalCount(vo.getBudgetIntegral()+"");
 							    display.setRemainCount((vo.getBudgetIntegral()-vo.getUseIntegeral())+"");
-							   
+							    remainCount = vo.getBudgetIntegral()-vo.getUseIntegeral();
 								DepBudgetVo criteria = new DepBudgetVo();
 								criteria.setCorpBudgetId(corpBudgetId);
 								listViewAdapter = new DepBudgetListAdapter(dispatch, criteria,errorHandler, sessionManager, display);
