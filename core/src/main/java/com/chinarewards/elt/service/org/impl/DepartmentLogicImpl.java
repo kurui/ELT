@@ -14,10 +14,12 @@ import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.org.OrgPolicy;
 import com.chinarewards.elt.domain.user.SysUser;
+import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.org.DepartmentPolicyConstants;
 import com.chinarewards.elt.model.org.DepartmentVo;
 import com.chinarewards.elt.model.org.RewardsApprovalPolicyEnum;
 import com.chinarewards.elt.model.org.exception.DepartmentDeleteException;
+import com.chinarewards.elt.model.org.search.DepartmentListVo;
 import com.chinarewards.elt.service.org.DepartmentLogic;
 import com.chinarewards.elt.util.DateUtil;
 import com.chinarewards.elt.util.StringUtil;
@@ -113,7 +115,7 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 	}
 
 	@Override
-	public void deleteDepartment(String deptId)
+	public String deleteDepartment(String deptId)
 			throws DepartmentDeleteException {
 		Department department = deptDao.findById(Department.class, deptId);
 		if (!isLeaf(department)) {
@@ -126,6 +128,8 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 
 		// maintain index
 		deptDao.maintainIndexAfterDeleteNode(index, corpId);
+		
+		return department.getId();
 	}
 
 	@Override
@@ -201,6 +205,21 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 			dept = deptDao.addRootDepartment(corp);
 		}
 		return dept;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.chinarewards.elt.service.org.DepartmentLogic#save(com.chinarewards.elt.domain.user.SysUser, com.chinarewards.elt.domain.org.Department)
+	 */
+	@Override
+	public Department save(SysUser caller, Department department) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public PageStore<DepartmentListVo> departmentList(SysUser caller,
+			DepartmentListVo departmentVo) {
+		return null;
 	}
 	
 	

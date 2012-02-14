@@ -2,8 +2,8 @@ package com.chinarewards.elt.service.org;
 
 import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.model.common.PageStore;
+import com.chinarewards.elt.model.org.exception.DepartmentDeleteException;
 import com.chinarewards.elt.model.org.search.DepartmentListVo;
-import com.chinarewards.elt.model.org.search.DepartmentStatus;
 import com.chinarewards.elt.model.user.UserContext;
 
 /**
@@ -17,10 +17,10 @@ public interface DepartmentService {
 	/**
 	 * 保存
 	 * @param context
-	 * @param gift
+	 * @param department
 	 * @return
 	 */
-	public Department save(UserContext context, Department gift);
+	public Department save(UserContext context, Department department);
 
 	/**
 	 * 查找根据ID
@@ -32,20 +32,16 @@ public interface DepartmentService {
 	 * 删除部门根据ID
 	 * @param id
 	 * @return
+	 * @throws DepartmentDeleteException 
 	 */
-	public String deleteDepartment(String id);
+	public String deleteDepartment(String id) throws DepartmentDeleteException;
 	/**
 	 * 部门列表
 	 * @param context
-	 * @param gift
+	 * @param department
 	 * @return
 	 */
-	public PageStore<DepartmentListVo> giftList(UserContext context,DepartmentListVo giftListVo);
+	public PageStore<DepartmentListVo> departmentList(UserContext context,DepartmentListVo departmentListVo);
 
-	/**
-	 * 上下架
-	 * @param id
-	 * @return
-	 */
-	public String updateStatus(String id,DepartmentStatus status);
+
 }

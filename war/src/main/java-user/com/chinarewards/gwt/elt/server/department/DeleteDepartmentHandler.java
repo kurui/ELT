@@ -5,6 +5,7 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 
 import org.slf4j.Logger;
 
+import com.chinarewards.elt.model.org.exception.DepartmentDeleteException;
 import com.chinarewards.elt.service.org.DepartmentService;
 import com.chinarewards.gwt.elt.client.department.request.DeleteDepartmentRequest;
 import com.chinarewards.gwt.elt.client.department.request.DeleteDepartmentResponse;
@@ -34,7 +35,12 @@ public class DeleteDepartmentHandler extends
 			ExecutionContext context) throws DispatchException {
 
 //wating.....最后修改人,最后修改时间
-		String totle = departmentService.deleteDepartment(request.getDepartmentId());
+		String totle="";
+		try {
+			totle = departmentService.deleteDepartment(request.getDepartmentId());
+		} catch (DepartmentDeleteException e) {
+			e.printStackTrace();
+		}
 		
 		return new DeleteDepartmentResponse(totle);
 	}

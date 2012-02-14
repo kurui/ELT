@@ -61,7 +61,7 @@ public class DepartmentListPluginDescriptor implements PluginDescriptor {
 
 					@Override
 					public String getTitle() {
-						return "礼品列表";
+						return "公司组织机构";
 					}
 
 					@Override
