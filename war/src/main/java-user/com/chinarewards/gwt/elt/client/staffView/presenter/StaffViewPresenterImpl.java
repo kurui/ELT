@@ -5,10 +5,12 @@ import java.util.Comparator;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
+import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
+import com.chinarewards.gwt.elt.client.staffAdd.plugin.StaffAddConstants;
 import com.chinarewards.gwt.elt.client.staffView.dataprovider.StaffWinAdapter;
 import com.chinarewards.gwt.elt.client.staffView.model.StaffWinClient;
 import com.chinarewards.gwt.elt.client.staffView.model.StaffWinCriteria;
@@ -23,6 +25,8 @@ import com.chinarewards.gwt.elt.client.widget.Sorting;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.util.DateTool;
 import com.google.gwt.cell.client.TextCell;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
@@ -58,6 +62,17 @@ public class StaffViewPresenterImpl extends
 		breadCrumbs.loadChildPage("员工详细信息");
 		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
 		init();
+		registerHandler(display.getupadateBtnClickHandlers().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						Platform.getInstance()
+						.getEditorRegistry()
+						.openEditor(
+								StaffAddConstants.EDITOR_STAFFADD_SEARCH,
+								"EDITOR_STAFFADD_SEARCH_DO_ID", staffId);
+					}
+				}));
 
 	}
 
@@ -90,6 +105,7 @@ public class StaffViewPresenterImpl extends
 						display.setDob(DateTool.dateToString(resp.getDob()));
 
 						display.setStaffImage(resp.getPhoto());
+						display.setStaffStatus(resp.getStatus().toString());
 						
 					}
 				});

@@ -11,7 +11,7 @@
 			<!--面包屑 ]] -->
 
 
-			<h3>添加员工
+			<h3><g:InlineLabel ui:field="titleText" />
 			</h3>
 			<span class="{new2.cutline}"></span>
 
@@ -53,7 +53,7 @@
 					<div class="{new2.form-line}">
 						<label class="{new2.label}">所属部门：</label>
 						<div class="{new2.element}">
-							<g:TextBox maxLength="10" ui:field="departmentId"
+							<g:TextBox maxLength="20" ui:field="departmentId"
 								styleName="{new2.text}" visible="false" />
 							<g:TextBox maxLength="10" ui:field="departmentName"
 								styleName="{new2.text}" />
@@ -62,14 +62,14 @@
 					<div class="{new2.form-line}">
 						<label class="{new2.label}">所属职位：</label>
 						<div class="{new2.element}">
-							<g:TextBox maxLength="10" ui:field="jobPosition"
+							<g:TextBox maxLength="20" ui:field="jobPosition"
 								styleName="{new2.text}" />
 						</div>
 					</div>
 					<div class="{new2.form-line}">
 						<label class="{new2.label}">直属领导：</label>
 						<div class="{new2.element}">
-							<g:TextBox maxLength="10" ui:field="leadership"
+							<g:TextBox maxLength="20" ui:field="leadership"
 								styleName="{new2.text}" />
 						</div>
 					</div>
@@ -77,14 +77,14 @@
 					<div class="{new2.form-line}">
 						<label class="{new2.label}">电话：</label>
 						<div class="{new2.element}">
-							<g:TextBox maxLength="10" ui:field="phone" styleName="{new2.text}" />
+							<g:TextBox maxLength="20" ui:field="phone" styleName="{new2.text}" />
 						</div>
 					</div>
 
 					<div class="{new2.form-line}">
 						<label class="{new2.label}">Email：</label>
 						<div class="{new2.element}">
-							<g:TextBox maxLength="10" ui:field="email" styleName="{new2.text}" />
+							<g:TextBox maxLength="20" ui:field="email" styleName="{new2.text}" />
 						</div>
 					</div>
 					<div class="{new2.form-line}">
@@ -110,7 +110,7 @@
 					<div class="{new2.form-line} {new2.form-line-btn}">
 						<div class="{new2.element}">
 							<span class="{new2.btn}">
-								<g:Button ui:field="addBtn" text="添加" />
+								<g:Button ui:field="addBtn" text="保存" />
 							</span>
 							<span class="{new2.btn}">
 								<g:Button ui:field="importBtn" text="外部导入" />

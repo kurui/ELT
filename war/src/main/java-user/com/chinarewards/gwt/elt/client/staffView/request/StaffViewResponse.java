@@ -18,6 +18,7 @@ public class StaffViewResponse implements Result {
 	String staffId;
 	String staffNo;
 	String staffName;
+	String departmentId;
 	String departmentName;
 	String photo;
 	String jobPosition;
@@ -26,6 +27,16 @@ public class StaffViewResponse implements Result {
 	String email;
 	Date dob;
 	StaffStatus status;
+
+	public String getDepartmentId() {
+		return departmentId;
+	}
+
+
+	public void setDepartmentId(String departmentId) {
+		this.departmentId = departmentId;
+	}
+
 
 	public String getStaffNo() {
 		return staffNo;

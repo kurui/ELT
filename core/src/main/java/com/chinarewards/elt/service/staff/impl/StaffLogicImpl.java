@@ -265,21 +265,20 @@ public class StaffLogicImpl implements StaffLogic {
 
 	@Override
 	public String createOrUpdateStaff(StaffProcess staff, UserContext context) {
-		Staff ff = new Staff();
-		// Create a new staff
-		if (context.getCorporationId() != null) {
-			Corporation corp = corporationLogic.findCorporationById(context
-					.getCorporationId());
-			ff.setCorporation(corp);
+		Staff ff=null;
+		if (StringUtil.isEmptyString(staff.getStaffId())) {
+		   	 ff = new Staff();
 		}
+		else
+		{
+			 ff = staffDao.findById(Staff.class, staff.getStaffId());
+		}
+		
 		if (staff.getDepartmentId() != null) {
-			Department dept = deptLogic.findDepartmentById(staff
-					.getDepartmentId());
+			Department dept = deptLogic.findDepartmentById(staff.getDepartmentId());
 			ff.setDepartment(dept);
 		}
-		if (context.getUserId() != null) {
-			ff.setCreatedBy(userDao.findUserById(context.getUserId()));
-		}
+
 
 		ff.setStatus(staff.getStatus());
 		ff.setJobNo(staff.getStaffNo());
@@ -291,13 +290,28 @@ public class StaffLogicImpl implements StaffLogic {
 		ff.setDob(staff.getDob());
 		ff.setName(staff.getStaffName());
 		// ff.setTxAccountId(staff.getTxAccountId());---放到激活账户在做
-		ff.setCreatedAt(DateUtil.getTime());
-		ff.setDeleted(0);
+		
 		
 		if (StringUtil.isEmptyString(staff.getStaffId())) {
+			// Create a new staff
+			if (context.getCorporationId() != null) {
+				Corporation corp = corporationLogic.findCorporationById(context
+						.getCorporationId());
+				ff.setCorporation(corp);
+			}
+			if (context.getUserId() != null) {
+				ff.setCreatedBy(userDao.findUserById(context.getUserId()));
+			}
+			ff.setCreatedAt(DateUtil.getTime());
+			ff.setDeleted(0);
 			staffDao.save(ff);
 		} else {
 			ff.setId(staff.getStaffId());
+			ff.setLastModifiedAt(DateUtil.getTime());
+			if (context.getUserId() != null) {
+				ff.setLastModifiedBy(userDao.findUserById(context.getUserId()));
+			}
+
 			staffDao.update(ff);
 		}
 

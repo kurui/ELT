@@ -1,5 +1,6 @@
 package com.chinarewards.gwt.elt.client.staffView.view;
 
+import com.chinarewards.gwt.elt.client.staffList.model.StaffListCriteria.StaffStatus;
 import com.chinarewards.gwt.elt.client.staffView.presenter.StaffViewPresenter.StaffViewDisplay;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -31,7 +32,9 @@ public class StaffViewWidget extends Composite implements StaffViewDisplay {
 	InlineLabel email;
 	@UiField
 	InlineLabel dob;
-
+	@UiField
+	InlineLabel staffStatus;
+	
 	@UiField
 	Button updateBtn;
 
@@ -126,6 +129,11 @@ public class StaffViewWidget extends Composite implements StaffViewDisplay {
 	@Override
 	public Panel getResultpage() {
 		return this.resultpage;
+	}
+
+	@Override
+	public void setStaffStatus(String text) {
+		this.staffStatus.setText(StaffStatus.valueOf(text).getDisplayName());
 	}
 
 }

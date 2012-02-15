@@ -43,7 +43,10 @@ public class SearchStaffViewActionHandler extends
 		staffResponse.setStaffNo(staff.getJobNo());
 		staffResponse.setStaffName(staff.getName());
 		if(staff.getDepartment()!=null)
+		{
+		staffResponse.setDepartmentId(staff.getDepartment().getId());
 		staffResponse.setDepartmentName(staff.getDepartment().getName());
+		}
 		staffResponse.setPhoto(staff.getPhoto());
 		staffResponse.setJobPosition(staff.getJobPosition());
 		staffResponse.setLeadership(staff.getLeadership());

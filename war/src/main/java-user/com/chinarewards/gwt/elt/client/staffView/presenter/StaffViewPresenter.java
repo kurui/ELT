@@ -32,6 +32,7 @@ public interface StaffViewPresenter extends
 		void setEmail(String text);
 
 		void setDob(String text);
+		void setStaffStatus(String text);
 
 		void setStaffImage(String url);
 		void setDataCount(String text);
