@@ -189,7 +189,7 @@ public class StaffDao extends BaseDao<Staff> {
 	
 		// ORDER BY
 		if (SEARCH.equals(type)) {
-			if (searchVo.getSortingDetail() != null) {
+			if (searchVo.getSortingDetail() != null && searchVo.getSortingDetail().getSort() != null && searchVo.getSortingDetail().getDirection() != null) {
 				hql.append(" ORDER BY staff."
 						+ searchVo.getSortingDetail().getSort() + " "
 						+ searchVo.getSortingDetail().getDirection());

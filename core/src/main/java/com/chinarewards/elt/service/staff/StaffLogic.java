@@ -11,6 +11,7 @@ import com.chinarewards.elt.model.staff.StaffProcess;
 import com.chinarewards.elt.model.staff.StaffSearchCriteria;
 import com.chinarewards.elt.model.staff.StaffWinSearchCriteria;
 import com.chinarewards.elt.model.staff.StaffWinVo;
+import com.chinarewards.elt.model.user.GeneratedUserConstants;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.vo.WinnersRecordQueryResult;
 import com.chinarewards.elt.model.vo.WinnersRecordQueryVo;
@@ -95,4 +96,10 @@ public interface StaffLogic {
 	 * @return
 	 */
 	public StaffWinVo findStaffWinReward(StaffWinSearchCriteria criteria);
+	/**
+	 * 根据员工生成账户
+	 * @param staffId,context
+	 * @return
+	 */
+	public GeneratedUserConstants generatedUserbyStaff(String staffId,UserContext context);
 }

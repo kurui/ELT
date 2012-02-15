@@ -78,7 +78,7 @@ public class StaffAddPresenterImpl extends
 							win.alert("请填写Email!");
 							return;
 						}
-						else if(!StringUtil.isEmail(display.getEmail()))
+						else if(!StringUtil.isValidEmail(display.getEmail()))
 						{
 							win.alert("Email格式不正确,请重新填写Email!");
 							return;

@@ -41,7 +41,15 @@ public class UserDao extends BaseDao<SysUser> {
 		
 		return user;
 	}
-	
+	@SuppressWarnings("unchecked")
+	public SysUser findUserByStaffId(String staffId) {
+		List<SysUser> userList = getEm().createQuery("FROM SysUser u WHERE u.staff.id = :staffId ").setParameter("staffId", staffId).getResultList();
+		SysUser user=null;
+		if(userList.size()>0)
+			user=userList.get(0);
+		
+		return user;
+	}
 	
 	@SuppressWarnings("unchecked")
 	public List<SysUser> searchHrAdminUserByCriteria(UserSearchCriteria criteria) {

@@ -1,7 +1,5 @@
 package com.chinarewards.gwt.elt.client.util;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * @author Cream
@@ -59,16 +57,32 @@ public class StringUtil {
 		return (obj == null) ? "" : obj.toString();
 	}
 
-	public static boolean isEmail(String email) {
-		try {
-	        Pattern p = Pattern.compile("(\\w+.)+@(\\w+.)+[a-z]{2,3}");  
-	        Matcher m = p.matcher(email);  
-	        boolean b = m.matches();  
-	        return b;  
+//	public static boolean isEmail(String email) {
+//		try {
+//	        Pattern p = Pattern.compile("(\\w+.)+@(\\w+.)+[a-z]{2,3}");  
+//	        Matcher m = p.matcher(email);  
+//	        boolean b = m.matches();  
+//	        return b;  
+//
+//		} catch (Exception e) {
+//			return false;
+//		}
+//		
+//		
+//	}
+    public static boolean isValidEmail(Object value) {
+        if(value == null) return false;
+        
+        String emailPattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.(?:[a-zA-Z]{2,6})$";
+        
+        boolean valid = false;
+        
+        if(value.getClass().toString().equals(String.class.toString())) {
+                valid = ((String)value).matches(emailPattern);
+        } else {
+                valid = ((Object)value).toString().matches(emailPattern);
+        }
 
-		} catch (Exception e) {
-			return false;
-		}
-	}
-
+        return valid;
+}
 }
