@@ -37,7 +37,7 @@ public class DepartmentListPresenterImpl extends
 	ListCellTable<DepartmentClient> cellTable;
 	DepartmentListViewAdapter listViewAdapter;
 
-	private String departmentId;
+	private String departmentIds;
 	
 	private final BreadCrumbsPresenter breadCrumbs;
 
@@ -52,7 +52,6 @@ public class DepartmentListPresenterImpl extends
 		this.sessionManager = sessionManager;
 		this.win = win;
 		this.breadCrumbs = breadCrumbs;
-
 	}
 
 	@Override
@@ -67,7 +66,8 @@ public class DepartmentListPresenterImpl extends
 	}
 	
 	private void initTreeTable() {
-		dispatch.execute(new DepartmentManageRequest(sessionManager.getSession().getCorporationId()),
+		String corporationId=sessionManager.getSession().getCorporationId();
+		dispatch.execute(new DepartmentManageRequest(corporationId,departmentIds),
 				new AsyncCallback<DepartmentManageResponse>() {
 					@Override
 					public void onFailure(Throwable e) {
@@ -76,12 +76,11 @@ public class DepartmentListPresenterImpl extends
 
 					@Override
 					public void onSuccess(DepartmentManageResponse response) {
-//						display.setBudgetIntegral((int)response.getBudgetIntegral()+"");
-//						display.setUseIntegeral((int)response.getBudgetIntegral()+"");
-						display.refresh(response.getResult(),sessionManager.getSession().getCorporationId());
+						//display.setBudgetIntegral((int)response.getBudgetIntegral()+"");
+						//display.setUseIntegeral((int)response.getBudgetIntegral()+"");
+						display.loadTreeData(response.getResult(),sessionManager.getSession().getCorporationId());
 					}
 				});
-
 	}
 
 	private void registerEvent() {
@@ -114,7 +113,7 @@ public class DepartmentListPresenterImpl extends
 					public void onClick(ClickEvent paramClickEvent) {
 //						win.alert("功能建设中"); 
 						DepartmentClient client = new DepartmentClient();
-						client.setId(departmentId);
+						client.setId(departmentIds);
 						client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_EDIT);
 
 						Platform.getInstance()
@@ -162,10 +161,10 @@ public class DepartmentListPresenterImpl extends
 	}
 
 	@Override
-	public void initEditor(String departmentId) {
-		System.out.println("---initEditor:"+departmentId);
-		this.departmentId = departmentId;
-		display.getCurrentDepartmentId().setValue(departmentId);
+	public void initEditor(String departmentIds) {
+		System.out.println("---initEditor:"+departmentIds);
+		this.departmentIds = departmentIds;
+		display.getCurrentDepartmentId().setValue(departmentIds);
 //		win.alert(departmentId);
 	}
 }

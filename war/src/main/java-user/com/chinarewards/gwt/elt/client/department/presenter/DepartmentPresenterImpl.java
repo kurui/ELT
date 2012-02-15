@@ -52,7 +52,7 @@ public class DepartmentPresenterImpl extends
 	}
 
 	@Override
-	public void bind() {		
+	public void bind() {
 		registerEvent();
 
 		if (DepartmentConstants.ACTION_DEPARTMENT_ADD.equals(thisAction)) {
@@ -68,7 +68,7 @@ public class DepartmentPresenterImpl extends
 
 		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
 	}
-	
+
 	// 绑定事件
 	private void registerEvent() {
 		// 保存事件
@@ -172,11 +172,11 @@ public class DepartmentPresenterImpl extends
 	private boolean validateSubmit() {
 		boolean flag = true;
 		StringBuilder errorMsg = new StringBuilder();
-//		if (display.getName().getValue() == null
-//				|| "".equals(display.getName().getValue().trim())) {
-//			errorMsg.append("请填写部门名称!<br>");
-//			flag = false;
-//		}
+		// if (display.getName().getValue() == null
+		// || "".equals(display.getName().getValue().trim())) {
+		// errorMsg.append("请填写部门名称!<br>");
+		// flag = false;
+		// }
 
 		if (!flag) {
 			win.alert(errorMsg.toString());
@@ -186,25 +186,32 @@ public class DepartmentPresenterImpl extends
 	}
 
 	private void initEdit() {
-		dispatcher.execute(new SearchDepartmentByIdRequest(departmentId),
-				new AsyncCallback<SearchDepartmentByIdResponse>() {
-					@Override
-					public void onFailure(Throwable arg0) {
-						errorHandler.alert("查询出错!");
-						Platform.getInstance()
-								.getEditorRegistry()
-								.closeEditor(
-										DepartmentConstants.EDITOR_DEPARTMENT_EDIT,
-										instanceId);
-					}
+		if (departmentId != null) {
+			dispatcher.execute(new SearchDepartmentByIdRequest(departmentId),
+					new AsyncCallback<SearchDepartmentByIdResponse>() {
+						@Override
+						public void onFailure(Throwable arg0) {
+							errorHandler.alert("查询出错!");
+							Platform.getInstance()
+									.getEditorRegistry()
+									.closeEditor(
+											DepartmentConstants.EDITOR_DEPARTMENT_EDIT,
+											instanceId);
+						}
 
-					@Override
-					public void onSuccess(SearchDepartmentByIdResponse response) {
-						DepartmentVo departmentVo = response.getDepartment();
-						clear();
-						display.initEditDepartment(departmentVo);
-					}
-				});
+						@Override
+						public void onSuccess(
+								SearchDepartmentByIdResponse response) {
+							DepartmentVo departmentVo = response
+									.getDepartment();
+							clear();
+							display.initEditDepartment(departmentVo);
+						}
+					});
+		} else {
+			System.err.println("------------缺少departmentId----------");
+		}
+
 	}
 
 	private void initSave() {

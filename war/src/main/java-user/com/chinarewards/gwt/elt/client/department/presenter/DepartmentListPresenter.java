@@ -33,7 +33,7 @@ public interface DepartmentListPresenter extends
 
 		void setBreadCrumbs(Widget breadCrumbs);
 
-		void refresh(List<DepartmentNode> result, String corporationId);
+		void loadTreeData(List<DepartmentNode> result, String corporationId);
 
 	}
 	public void initEditor(String departmentId);

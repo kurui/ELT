@@ -14,6 +14,7 @@ public class DepartmentClient implements Serializable, Comparable<DepartmentClie
 	
 
 	private String id;
+	private String ids;
 	private String name;
 	private DepartmentStatus status;// 状态
 	
@@ -21,6 +22,14 @@ public class DepartmentClient implements Serializable, Comparable<DepartmentClie
 	
 
 	
+	public String getIds() {
+		return ids;
+	}
+
+	public void setIds(String ids) {
+		this.ids = ids;
+	}
+
 	public DepartmentStatus getStatus() {
 		return status;
 	}

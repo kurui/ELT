@@ -1,5 +1,6 @@
 package com.chinarewards.gwt.elt.client.department.view;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.chinarewards.gwt.elt.client.department.model.DepartmentManageTreeModel;
@@ -15,12 +16,15 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Hidden;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.view.client.MultiSelectionModel;
+import com.google.gwt.view.client.ProvidesKey;
+import com.google.gwt.view.client.SelectionChangeEvent;
 
 public class DepartmentListWidget extends Composite implements
 		DepartmentListDisplay {
 	@UiField
 	Panel cellTree;
-	
+
 	@UiField
 	Hidden currentDepartmentId;
 
@@ -37,7 +41,6 @@ public class DepartmentListWidget extends Composite implements
 	@UiField
 	Button synchBtn;
 
-
 	@UiField
 	Panel breadCrumbs;
 
@@ -51,12 +54,43 @@ public class DepartmentListWidget extends Composite implements
 	public DepartmentListWidget() {
 		initWidget(uiBinder.createAndBindUi(this));
 	}
-	
+
 	@Override
-	public void refresh(List<DepartmentNode> result,String corporationId) {		
-		
-		DepartmentManageTreeModel treeModel=new DepartmentManageTreeModel(result,corporationId);	
-		
+	public void loadTreeData(List<DepartmentNode> nodeList, String corporationId) {
+		 final ProvidesKey<DepartmentNode> KEY_PROVIDER = new ProvidesKey<DepartmentNode>() {
+		      public Object getKey(DepartmentNode item) {
+		        return item == null ? null : item.getDepartmentId();
+		      }
+		    };
+		    
+		System.out.println("----------------DepartmentListWidget loadTreeData:============");
+		final MultiSelectionModel<DepartmentNode> selectionModel = new MultiSelectionModel<DepartmentNode>(KEY_PROVIDER);
+		selectionModel
+				.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+					public void onSelectionChange(SelectionChangeEvent event) {
+						StringBuilder sb = new StringBuilder();
+						boolean first = true;
+						List<DepartmentNode> selectedList = new ArrayList<DepartmentNode>(
+								selectionModel.getSelectedSet());
+						// Collections.sort(selected);
+						for (DepartmentNode node : selectedList) {
+							if (first) {
+								first = false;
+							} else {
+								sb.append(", ");
+							}
+							sb.append(node.getDepartmentId());
+							
+						}
+						
+						System.out.println("===========loadTreeData:"+sb);
+						// selectedLabel.setText(sb.toString());
+					}
+				});
+
+		DepartmentManageTreeModel treeModel = new DepartmentManageTreeModel(
+				nodeList, corporationId, selectionModel);
+
 		CellTree.Resources res = GWT.create(CellTree.BasicResources.class);
 		CellTree tree = new CellTree(treeModel, null, res);
 		tree.setAnimationEnabled(true);
@@ -64,12 +98,10 @@ public class DepartmentListWidget extends Composite implements
 		cellTree.add(tree);
 	}
 
-
 	@Override
 	public HasClickHandlers getAddSameLevelBtnClickHandlers() {
 		return addSameLevelBtn;
 	}
-
 
 	@Override
 	public void setBreadCrumbs(Widget breadCrumbs) {

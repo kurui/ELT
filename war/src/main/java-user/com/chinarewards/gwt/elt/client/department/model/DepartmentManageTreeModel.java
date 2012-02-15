@@ -17,6 +17,7 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.view.client.ListDataProvider;
+import com.google.gwt.view.client.SelectionModel;
 import com.google.gwt.view.client.TreeViewModel;
 
 /**
@@ -28,8 +29,10 @@ public class DepartmentManageTreeModel implements TreeViewModel {
 	final List<DepartmentNode> categoryList;
 
 	String corporationId;
-	String departmentId;
+	String departmentIds;
 	
+	private  SelectionModel<DepartmentNode> selectionModel;
+
 	public DepartmentManageTreeModel(List<DepartmentNode> categoryList,
 			String corporationId) {
 		this.corporationId = corporationId;
@@ -40,12 +43,22 @@ public class DepartmentManageTreeModel implements TreeViewModel {
 		buildNodeCell();
 	}
 	
-	
-	private void buildNodeCell(){		
+	public DepartmentManageTreeModel(List<DepartmentNode> categoryList,
+			String corporationId,SelectionModel<DepartmentNode> selectionModel) {
+		this.corporationId = corporationId;
+		this.categoryList = categoryList;
+
+		setDataProvider();
+
+		buildNodeCell();
+		
+		this.selectionModel=selectionModel;
+	}
+
+	private void buildNodeCell() {
 		List<HasCell<DepartmentNode, ?>> nodeRow = new ArrayList<HasCell<DepartmentNode, ?>>();
 		nodeRow = buildDataRow(nodeRow);
-		
-		
+
 		nodeCell = new CompositeCell<DepartmentNode>(nodeRow) {
 			@Override
 			public void render(Context context, DepartmentNode value,
@@ -78,8 +91,11 @@ public class DepartmentManageTreeModel implements TreeViewModel {
 	 * */
 	private List<HasCell<DepartmentNode, ?>> buildDataRow(
 			List<HasCell<DepartmentNode, ?>> row) {
+
+		// 选择框
 		row.add(new HasCell<DepartmentNode, Boolean>() {
 			private CheckboxCell cell = new CheckboxCell(true, false);
+
 			public Cell<Boolean> getCell() {
 				return cell;
 			}
@@ -89,24 +105,26 @@ public class DepartmentManageTreeModel implements TreeViewModel {
 					@Override
 					public void update(int index, DepartmentNode object,
 							Boolean checked) {
-//						Window.alert(object.getDepartmentId()+"--"+object.getDepartmentName());
-						departmentId=object.getDepartmentId();
+						// Window.alert(object.getDepartmentId()+"--"+object.getDepartmentName());
+						departmentIds = departmentIds + ","
+								+ object.getDepartmentId();
 						
+						System.out.println("==================departmentIds:"+departmentIds);
+
 						DepartmentClient client = new DepartmentClient();
-//						 client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_ADD);
-						client.setId(object.getDepartmentId());
+						// client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_ADD);
+						client.setIds(object.getDepartmentId());
 						Platform.getInstance()
-						.getEditorRegistry()
-						.openEditor(
-								DepartmentListConstants.EDITOR_DEPARTMENTLIST_SEARCH,
-								"EDITOR_DEPARTMENTLIST_SEARCH",
-								client);
+								.getEditorRegistry()
+								.openEditor(
+										DepartmentListConstants.EDITOR_DEPARTMENTLIST_SEARCH,
+										"EDITOR_DEPARTMENTLIST_SEARCH", client);
 					}
 				};
 			}
 
 			public Boolean getValue(DepartmentNode object) {
-				return false;
+				return selectionModel.isSelected(object);
 			}
 		});
 
@@ -123,7 +141,7 @@ public class DepartmentManageTreeModel implements TreeViewModel {
 					@Override
 					public void update(int index, DepartmentNode object,
 							String value) {
-						Window.alert(object.getDepartmentId()+"--- 部门名称");
+						Window.alert(object.getDepartmentId() + "--- 部门名称");
 					}
 				};
 			}
@@ -149,7 +167,7 @@ public class DepartmentManageTreeModel implements TreeViewModel {
 						Window.alert(object.getDepartmentId() + "===333");
 
 						DepartmentClient client = new DepartmentClient();
-						 client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_EDIT);
+						client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_EDIT);
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(
