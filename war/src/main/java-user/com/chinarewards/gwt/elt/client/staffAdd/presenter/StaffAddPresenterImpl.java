@@ -11,7 +11,10 @@ import com.chinarewards.gwt.elt.client.staffAdd.request.StaffAddRequest;
 import com.chinarewards.gwt.elt.client.staffAdd.request.StaffAddResponse;
 import com.chinarewards.gwt.elt.client.staffList.model.StaffListCriteria.StaffStatus;
 import com.chinarewards.gwt.elt.client.staffList.plugin.StaffListConstants;
+import com.chinarewards.gwt.elt.client.staffView.request.StaffViewRequest;
+import com.chinarewards.gwt.elt.client.staffView.request.StaffViewResponse;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.chinarewards.gwt.elt.client.util.StringUtil;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.util.XmlUtil_GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
@@ -31,7 +34,7 @@ public class StaffAddPresenterImpl extends
 	private final SessionManager sessionManager;
 	private final Win win;
 	final ErrorHandler errorHandler;
-
+	String staffId = null;
 	private final BreadCrumbsPresenter breadCrumbs;
 
 	@Inject
@@ -48,7 +51,16 @@ public class StaffAddPresenterImpl extends
 
 	@Override
 	public void bind() {
-		breadCrumbs.loadChildPage("添加员工");
+		if(staffId!=null)
+		{
+			breadCrumbs.loadChildPage("修改员工");
+			display.setTitleText("修改员工");
+		}
+		else
+		{
+			breadCrumbs.loadChildPage("添加员工");
+			display.setTitleText("添加员工");
+		}
 		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
 		init();
 		registerHandler(display.getAddBtnClickHandlers().addClickHandler(
@@ -56,9 +68,26 @@ public class StaffAddPresenterImpl extends
 
 					@Override
 					public void onClick(ClickEvent event) {
+						if(StringUtil.isEmpty(display.getStaffName()))
+						{
+							win.alert("请填写员工姓名!");
+							return;
+						}
+						else if(StringUtil.isEmpty(display.getEmail()))
+						{
+							win.alert("请填写Email!");
+							return;
+						}
+						else if(!StringUtil.isValidEmail(display.getEmail()))
+						{
+							win.alert("Email格式不正确,请重新填写Email!");
+							return;
+						}
+						
 						StaffAddRequest request = new StaffAddRequest();
+						if (staffId != null)
+							request.setStaffId(staffId);
 						request.setSession(sessionManager.getSession());
-
 						request.setStaffName(display.getStaffName());
 						request.setStaffNo(display.getStaffNo());
 						request.setDepartmentId(display.getDepartmentId());
@@ -86,12 +115,13 @@ public class StaffAddPresenterImpl extends
 
 									@Override
 									public void onSuccess(StaffAddResponse resp) {
-										win.alert("添加成功");
+										win.alert("保存成功");
 										Platform.getInstance()
-										.getEditorRegistry()
-										.openEditor(
-												StaffListConstants.EDITOR_STAFFLIST_SEARCH,
-												"EDITOR_STAFFLIST_SEARCH_DO_ID", null);
+												.getEditorRegistry()
+												.openEditor(
+														StaffListConstants.EDITOR_STAFFLIST_SEARCH,
+														"EDITOR_STAFFLIST_SEARCH_DO_ID",
+														null);
 									}
 								});
 					}
@@ -100,6 +130,37 @@ public class StaffAddPresenterImpl extends
 	}
 
 	private void init() {
+		if (staffId != null) {
+			// 修改加载数据
+			dispatch.execute(new StaffViewRequest(staffId),
+					new AsyncCallback<StaffViewResponse>() {
+
+						@Override
+						public void onFailure(Throwable t) {
+							win.alert(t.getMessage());
+						}
+
+						@Override
+						public void onSuccess(StaffViewResponse resp) {
+
+							display.setStaffNo(resp.getStaffNo());
+							display.setStaffName(resp.getStaffName());
+							display.setDepartmentId(resp.getDepartmentId());
+							display.setDepartmentName(resp.getDepartmentName());
+							display.setJobPosition(resp.getJobPosition());
+							display.setLeadership(resp.getLeadership());
+							display.setPhone(resp.getPhone());
+							display.setEmail(resp.getEmail());
+							display.setDob(resp.getDob());
+							display.setStaffImage(resp.getPhoto());
+							display.setPhoto(resp.getPhoto());
+							display.setStatus(resp.getStatus().toString());
+
+						}
+					});
+
+		}
+
 		// 浏览即上传事件
 		registerHandler(display.getPhotoUpload().addChangeHandler(
 				new ChangeHandler() {
@@ -167,6 +228,11 @@ public class StaffAddPresenterImpl extends
 						}
 					}
 				});
+	}
+
+	@Override
+	public void initStaffUpdate(String staffId) {
+		this.staffId = staffId;
 	}
 
 }

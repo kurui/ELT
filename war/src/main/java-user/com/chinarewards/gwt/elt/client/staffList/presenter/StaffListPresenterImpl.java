@@ -15,6 +15,9 @@ import com.chinarewards.gwt.elt.client.staffList.dataprovider.StaffListViewAdapt
 import com.chinarewards.gwt.elt.client.staffList.model.StaffListClient;
 import com.chinarewards.gwt.elt.client.staffList.model.StaffListCriteria;
 import com.chinarewards.gwt.elt.client.staffList.model.StaffListCriteria.StaffStatus;
+import com.chinarewards.gwt.elt.client.staffList.request.StaffGenerateUserRequest;
+import com.chinarewards.gwt.elt.client.staffList.request.StaffGenerateUserResponse;
+import com.chinarewards.gwt.elt.client.staffView.plugin.StaffViewConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager;
@@ -27,6 +30,7 @@ import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
 public class StaffListPresenterImpl extends
@@ -63,7 +67,7 @@ public class StaffListPresenterImpl extends
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-				//		doSearch();
+						doSearch();
 					}
 				}));
 
@@ -194,7 +198,39 @@ public class StaffListPresenterImpl extends
 					@Override
 					public void update(int index, final StaffListClient o,
 							String value) {
-						win.alert("待实现");
+						Platform.getInstance()
+						.getEditorRegistry()
+						.openEditor(
+								StaffViewConstants.EDITOR_STAFFVIEW_SEARCH,
+								"EDITOR_STAFFVIEW_SEARCH_DO_ID", o.getStaffId());
+					}
+
+				});
+		cellTable.addColumn("操作", new HyperLinkCell(),
+				new GetValue<StaffListClient, String>() {
+					@Override
+					public String getValue(StaffListClient rewards) {
+						return "生成账户";
+					}
+				}, new FieldUpdater<StaffListClient, String>() {
+
+					@Override
+					public void update(int index, final StaffListClient o,
+							String value) {
+						dispatch.execute(new StaffGenerateUserRequest(o.getStaffId(),sessionManager.getSession()),
+								new AsyncCallback<StaffGenerateUserResponse>() {
+
+									@Override
+									public void onFailure(Throwable t) {
+										win.alert(t.getMessage());
+									}
+
+									@Override
+									public void onSuccess(StaffGenerateUserResponse resp) {
+										win.alert(resp.getMessage());
+										
+									}
+								});
 					}
 
 				});

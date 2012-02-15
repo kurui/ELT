@@ -146,12 +146,14 @@ public class StaffDao extends BaseDao<Staff> {
 		} else if (COUNT.equals(type)) {
 			hql.append(" SELECT COUNT(staff) FROM Staff staff WHERE 1=1 ");
 		}
-		// 关键字 姓名/部门/卡号/邮箱
+		// 关键字 姓名/编号
 		if (!StringUtil.isEmptyString(searchVo.getKeywords())) {
 			hql.append(" AND (UPPER(staff.name) LIKE :keywords "
 					// + " OR UPPER(staff.department.name) LIKE :keywords "
-					+ " OR UPPER(staff.email) LIKE :keywords "
-					+ " OR UPPER(staff.memberCardNumber) LIKE :keywords)");
+					//+ " OR UPPER(staff.email) LIKE :keywords "
+					+ " OR UPPER(staff.jobNo) LIKE :keywords "
+				//	+ " OR UPPER(staff.memberCardNumber) LIKE :keywords)"
+					+") ");
 			param.put("keywords", "%"
 					+ searchVo.getKeywords().trim().toUpperCase() + "%");
 		}
@@ -159,7 +161,10 @@ public class StaffDao extends BaseDao<Staff> {
 			hql.append(" AND staff.department.id = :deptId ");
 			param.put("deptId", searchVo.getDeptId());
 		}
-			
+		if (searchVo.getStatus()!=null) {
+			hql.append(" AND staff.status = :status ");
+			param.put("status", searchVo.getStatus());
+		}	
 		if (searchVo.getEnterpriseId() != null) {
 			hql.append(" AND staff.corporation.id =:corporationId");
 			param.put("corporationId", searchVo.getEnterpriseId());
@@ -184,7 +189,7 @@ public class StaffDao extends BaseDao<Staff> {
 	
 		// ORDER BY
 		if (SEARCH.equals(type)) {
-			if (searchVo.getSortingDetail() != null) {
+			if (searchVo.getSortingDetail() != null && searchVo.getSortingDetail().getSort() != null && searchVo.getSortingDetail().getDirection() != null) {
 				hql.append(" ORDER BY staff."
 						+ searchVo.getSortingDetail().getSort() + " "
 						+ searchVo.getSortingDetail().getDirection());

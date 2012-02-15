@@ -77,14 +77,14 @@ public interface BudgetLogic {
 	 * @param corpId
 	 * @return
 	 */
-	public List<IntegralManagementVo> getIntegralManagementList(String corpId);
+	public List<IntegralManagementVo> getIntegralManagementList(String corpId,String corpBudgetId);
 	
 	/**
 	 * 根据部门ID,查找部门预算实体
 	 * @param id
 	 * @return
 	 */
-	public DepartmentBudget findDepartmentBudgetByDepartmentId(String departmentId);
+	public DepartmentBudget findDepartmentBudgetByDepartmentId(String departmentId,String corpBudgetId);
 	
 	
 

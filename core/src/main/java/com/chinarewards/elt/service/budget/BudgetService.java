@@ -93,7 +93,7 @@ public interface BudgetService {
 	 * @param corpId
 	 * @return
 	 */
-	public List<IntegralManagementVo> getIntegralManagementList(String corpId);
+	public List<IntegralManagementVo> getIntegralManagementList(String corpId,String corpBudgetId);
 
 	
 

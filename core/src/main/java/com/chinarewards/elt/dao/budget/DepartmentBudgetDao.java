@@ -103,14 +103,13 @@ public class DepartmentBudgetDao extends BaseDao<DepartmentBudget> {
 		}
 	}
 
-	public DepartmentBudget findDepartmentBudgetByDepartmentId(
-			String departmentId) {
+	public DepartmentBudget findDepartmentBudgetByDepartmentId(	String departmentId,String corpBudgetId) {
 		StringBuffer eql = new StringBuffer();
 		Map<String, Object> param = new HashMap<String, Object>();
-		eql.append(" SELECT d FROM DepartmentBudget d where  d.departmentId= :departmentId ");
+		eql.append(" SELECT d FROM DepartmentBudget d where  d.departmentId= :departmentId and d.corpBudgetId= :corpBudgetId ");
 		
 		param.put("departmentId", departmentId);
-
+		param.put("corpBudgetId", corpBudgetId);
 		Query query = getEm().createQuery(eql.toString());
 		if (param.size() > 0) {
 			Set<String> key = param.keySet();

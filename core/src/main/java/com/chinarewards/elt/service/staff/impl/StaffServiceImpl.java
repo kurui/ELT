@@ -11,6 +11,9 @@ import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.org.StaffVo;
 import com.chinarewards.elt.model.staff.StaffProcess;
 import com.chinarewards.elt.model.staff.StaffSearchCriteria;
+import com.chinarewards.elt.model.staff.StaffWinSearchCriteria;
+import com.chinarewards.elt.model.staff.StaffWinVo;
+import com.chinarewards.elt.model.user.GeneratedUserConstants;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.user.UserVo;
 import com.chinarewards.elt.model.vo.WinnersRecordQueryResult;
@@ -108,6 +111,21 @@ public class StaffServiceImpl implements IStaffService {
 	@Override
 	public String createOrUpdateStaff(StaffProcess staff, UserContext context) {
 		return staffLogic.createOrUpdateStaff(staff, context);
+	}
+
+	@Override
+	public Staff findStaffById(String staffId) {
+		return staffLogic.findStaffById(staffId);
+	}
+
+	@Override
+	public StaffWinVo findStaffWinReward(StaffWinSearchCriteria criteria) {
+		return staffLogic.findStaffWinReward(criteria);
+	}
+
+	@Override
+	public GeneratedUserConstants generatedUserbyStaff(String staffId, UserContext context) {
+		return staffLogic.generatedUserbyStaff(staffId, context);
 	}
 
 }

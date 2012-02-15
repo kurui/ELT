@@ -43,6 +43,7 @@ import com.chinarewards.gwt.elt.client.shopWindow.plugin.ShopWindowPluginDescrip
 import com.chinarewards.gwt.elt.client.staff.plugin.HrRegisterPluginDescriptor;
 import com.chinarewards.gwt.elt.client.staffAdd.plugin.StaffAddPluginDescriptor;
 import com.chinarewards.gwt.elt.client.staffList.plugin.StaffListPluginDescriptor;
+import com.chinarewards.gwt.elt.client.staffView.plugin.StaffViewPluginDescriptor;
 import com.chinarewards.gwt.elt.client.user.plugin.UserPluginDescriptor;
 import com.google.gwt.inject.client.AbstractGinModule;
 import com.google.inject.Provides;
@@ -107,7 +108,8 @@ public class PlatformModule extends AbstractGinModule {
 			BudgetPluginDescriptor depBudget,
 			IntegralManagementPluginDescriptor integralManagement,
 			StaffListPluginDescriptor staffList,
-			StaffAddPluginDescriptor staffAdd) {
+			StaffAddPluginDescriptor staffAdd,
+			StaffViewPluginDescriptor staffView) {
 
 		if (pluginSet == null) {
 			pluginSet = new InMemoryPluginSet();
@@ -145,6 +147,7 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(corpBudget);
 			pluginSet.registerPlugin(staffList);
 			pluginSet.registerPlugin(staffAdd);
+			pluginSet.registerPlugin(staffView);
 		}
 
 		return pluginSet;

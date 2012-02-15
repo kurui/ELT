@@ -1,5 +1,7 @@
 package com.chinarewards.gwt.elt.client.staffAdd.presenter;
 
+import java.util.Date;
+
 import com.chinarewards.gwt.elt.client.mvp.Display;
 import com.chinarewards.gwt.elt.client.mvp.Presenter;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -13,6 +15,8 @@ import com.google.gwt.user.datepicker.client.DateBox;
 
 public interface StaffAddPresenter extends
 		Presenter<StaffAddPresenter.StaffAddDisplay> {
+
+	public void initStaffUpdate(String staffId);
 
 	public static interface StaffAddDisplay extends Display {
 
@@ -54,5 +58,29 @@ public interface StaffAddPresenter extends
 
 		HasClickHandlers getUploadClick();
 
+		void setStaffNo(String text);
+
+		void setStaffName(String text);
+
+		void setDepartmentId(String text);
+
+		void setDepartmentName(String text);
+
+		void setJobPosition(String text);
+
+		void setLeadership(String text);
+
+		void setPhone(String text);
+
+		void setPhoto(String text);
+
+		void setEmail(String text);
+
+		void setDob(Date date);
+
+		void setStatus(String text);
+
+		void setStaffImage(String text);
+		void setTitleText(String text);
 	}
 }
