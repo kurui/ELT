@@ -257,9 +257,28 @@ public class StaffLogicImpl implements StaffLogic {
 			StaffSearchCriteria criteria, UserContext context) {
 		StaffSearchVo searchVo = new StaffSearchVo();
 		//待添加查询条件
+		if(!StringUtil.isEmptyString(criteria.getStaffNameorNo()))
+			searchVo.setKeywords(criteria.getStaffNameorNo());
+		if(criteria.getStaffStatus()!=null)
+			searchVo.setStatus(criteria.getStaffStatus());
 		if (context.getCorporationId() != null)
 			searchVo.setEnterpriseId(context.getCorporationId());
 
+		
+		//处理部门管理员..进入..只查询本部门数据
+		boolean fal=false;
+		for (UserRole role:context.getUserRoles()) {
+			if(role==UserRole.CORP_ADMIN)
+			{
+				fal=true;
+			}
+		}
+		if(fal==false)
+		{
+			SysUser user=userDao.findUserById(context.getUserId());
+			if(user!=null && user.getStaff()!=null && user.getStaff().getDepartment()!=null)
+				searchVo.setDeptId(user.getStaff().getDepartment().getId());
+		}
 		return staffDao.queryStaffPageAction(searchVo);
 	}
 
