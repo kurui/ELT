@@ -13,6 +13,7 @@ import com.chinarewards.elt.common.UserContextProvider;
 import com.chinarewards.elt.dao.org.DepartmentDao;
 import com.chinarewards.elt.dao.org.StaffDao;
 import com.chinarewards.elt.dao.org.StaffDao.QueryStaffPageActionResult;
+import com.chinarewards.elt.dao.reward.WinnerDao;
 import com.chinarewards.elt.dao.user.UserDao;
 import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.org.Department;
@@ -22,6 +23,8 @@ import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.org.StaffVo;
 import com.chinarewards.elt.model.staff.StaffProcess;
 import com.chinarewards.elt.model.staff.StaffSearchCriteria;
+import com.chinarewards.elt.model.staff.StaffWinSearchCriteria;
+import com.chinarewards.elt.model.staff.StaffWinVo;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.model.vo.StaffSearchVo;
@@ -48,12 +51,13 @@ public class StaffLogicImpl implements StaffLogic {
 	private final DepartmentDao depDao;
 	private final DepartmentManagerLogic departmentManagerLogic;
 	private final UserDao userDao;
+	private final WinnerDao winnerDao;
 
 	@Inject
 	public StaffLogicImpl(StaffDao staffDao, DepartmentLogic deptLogic,
 			CorporationLogic corporationLogic, DepartmentDao depDao,
 			TransactionService transactionService,
-			DepartmentManagerLogic departmentManagerLogic, UserDao userDao) {
+			DepartmentManagerLogic departmentManagerLogic, UserDao userDao,WinnerDao winnerDao) {
 		this.staffDao = staffDao;
 		this.deptLogic = deptLogic;
 		this.corporationLogic = corporationLogic;
@@ -61,6 +65,7 @@ public class StaffLogicImpl implements StaffLogic {
 		this.depDao = depDao;
 		this.departmentManagerLogic = departmentManagerLogic;
 		this.userDao = userDao;
+		this.winnerDao=winnerDao;
 	}
 
 	@Override
@@ -251,6 +256,7 @@ public class StaffLogicImpl implements StaffLogic {
 	public QueryStaffPageActionResult queryStaffList(
 			StaffSearchCriteria criteria, UserContext context) {
 		StaffSearchVo searchVo = new StaffSearchVo();
+		//待添加查询条件
 		if (context.getCorporationId() != null)
 			searchVo.setEnterpriseId(context.getCorporationId());
 
@@ -301,5 +307,10 @@ public class StaffLogicImpl implements StaffLogic {
 	@Override
 	public Staff findStaffById(String staffId) {
 		return staffDao.findById(Staff.class, staffId);
+	}
+
+	@Override
+	public StaffWinVo findStaffWinReward(StaffWinSearchCriteria criteria) {
+		return winnerDao.queryStaffWinRewardPageAction(criteria);
 	}
 }

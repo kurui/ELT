@@ -3,7 +3,10 @@ package com.chinarewards.elt.dao.reward;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.persistence.Query;
 
@@ -12,6 +15,9 @@ import com.chinarewards.elt.dao.org.StaffDao;
 import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.domain.reward.person.Winner;
 import com.chinarewards.elt.model.reward.base.WinnerProcessFlag;
+import com.chinarewards.elt.model.staff.StaffWinSearchCriteria;
+import com.chinarewards.elt.model.staff.StaffWinVo;
+import com.chinarewards.elt.util.StringUtil;
 import com.google.inject.Inject;
 
 /**
@@ -93,5 +99,75 @@ public class WinnerDao extends BaseDao<Winner> {
 			}
 		}
 		return q.getResultList();
+	}
+	
+	
+	public StaffWinVo queryStaffWinRewardPageAction(StaffWinSearchCriteria criteria) {
+
+		StaffWinVo result = new StaffWinVo();
+
+		result.setResultList(queryStaffWinRewardPageActionData(criteria));
+		result.setTotal(queryStaffWinRewardPageActionCount(criteria));
+
+		return result;
+	}
+   
+	@SuppressWarnings("unchecked")
+	private List<Winner> queryStaffWinRewardPageActionData(StaffWinSearchCriteria searchVo) {
+		return getStaffQuery(searchVo, SEARCH).getResultList();
+	}
+
+	public int queryStaffWinRewardPageActionCount(StaffWinSearchCriteria searchVo) {
+		return Integer.parseInt(getStaffQuery(searchVo, COUNT)
+				.getSingleResult().toString());
+	}
+
+	private Query getStaffQuery(StaffWinSearchCriteria searchVo, String type) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		StringBuffer hql = new StringBuffer();
+		if (SEARCH.equals(type)) {
+			hql.append(" SELECT win FROM Winner win WHERE 1=1 ");
+		} else if (COUNT.equals(type)) {
+			hql.append(" SELECT COUNT(win) FROM Winner win WHERE 1=1 ");
+		}
+		
+		if (!StringUtil.isEmptyString(searchVo.getStaffId())) {
+			hql.append(" AND win.staff.id = :staffId ");
+			param.put("staffId", searchVo.getStaffId());
+		}
+			
+		
+		// ORDER BY
+		if (SEARCH.equals(type)) {
+			if (searchVo.getSortingDetail() != null && searchVo.getSortingDetail().getSort()!=null && searchVo.getSortingDetail().getDirection()!=null) {
+				hql.append(" ORDER BY win."
+						+ searchVo.getSortingDetail().getSort() + " "
+						+ searchVo.getSortingDetail().getDirection());
+			} else {
+				hql.append(" ORDER BY win.winTime DESC ");
+			}
+		}
+		
+		logger.debug(" HQL:{} ", hql);
+		Query query = getEm().createQuery(hql.toString());
+		if (SEARCH.equals(type)) {
+			if (searchVo.getPaginationDetail() != null) {
+				int limit = searchVo.getPaginationDetail().getLimit();
+				int start = searchVo.getPaginationDetail().getStart();
+
+				logger.debug("pagination - start{}, limit:{}", new Object[] {
+						start, limit });
+
+				query.setMaxResults(limit);
+				query.setFirstResult(start);
+			}
+		}
+		if (param.size() > 0) {
+			Set<String> key = param.keySet();
+			for (String s : key) {
+				query.setParameter(s, param.get(s));
+			}
+		}
+		return query;
 	}
 }

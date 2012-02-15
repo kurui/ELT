@@ -9,6 +9,8 @@ import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.org.StaffVo;
 import com.chinarewards.elt.model.staff.StaffProcess;
 import com.chinarewards.elt.model.staff.StaffSearchCriteria;
+import com.chinarewards.elt.model.staff.StaffWinSearchCriteria;
+import com.chinarewards.elt.model.staff.StaffWinVo;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.vo.WinnersRecordQueryResult;
 import com.chinarewards.elt.model.vo.WinnersRecordQueryVo;
@@ -87,4 +89,10 @@ public interface StaffLogic {
 	 * @return
 	 */
 	public Staff findStaffById(String staffId);
+	/**
+	 * 查询员工获奖信息
+	 * @param staffId
+	 * @return
+	 */
+	public StaffWinVo findStaffWinReward(StaffWinSearchCriteria criteria);
 }

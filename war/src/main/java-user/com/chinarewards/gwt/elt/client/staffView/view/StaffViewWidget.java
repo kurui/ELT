@@ -39,7 +39,12 @@ public class StaffViewWidget extends Composite implements StaffViewDisplay {
 	Panel breadCrumbs;
 	@UiField
 	Image staffImage;
-
+	@UiField
+	InlineLabel dataCount;
+	@UiField
+	Panel resultPanel;
+	@UiField
+	Panel resultpage;
 	private static StaffViewWidgetUiBinder uiBinder = GWT
 			.create(StaffViewWidgetUiBinder.class);
 
@@ -105,6 +110,22 @@ public class StaffViewWidget extends Composite implements StaffViewDisplay {
 	@Override
 	public void setStaffImage(String url) {
 		this.staffImage.setUrl("imageshow?imageName=" + url);
+	}
+
+	@Override
+	public void setDataCount(String text) {
+		this.dataCount.setText(text);
+		
+	}
+
+	@Override
+	public Panel getResultPanel() {
+		return this.resultPanel;
+	}
+
+	@Override
+	public Panel getResultpage() {
+		return this.resultpage;
 	}
 
 }

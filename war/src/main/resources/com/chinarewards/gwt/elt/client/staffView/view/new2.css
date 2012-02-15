@@ -122,3 +122,6 @@ a:hover{color:#010DFF;text-decoration:underline;}
 /*-nicho自定义-*/
 .nbsp{padding-left:12px;}
 .nbspbig{padding-left:32px;}
+.divtext{float:left;color:#999999;padding-bottom:3px;}
+.divfont{color:red;}
+.divend{clear:both}

@@ -50,6 +50,7 @@ public class SearchStaffViewActionHandler extends
 		staffResponse.setPhone(staff.getPhone());
 		staffResponse.setEmail(staff.getEmail());
 		staffResponse.setDob(staff.getDob());
+		if(staff.getStatus()!=null)
 		staffResponse.setStatus(StaffStatus.valueOf(staff.getStatus().toString()));
 		return staffResponse;
 	}

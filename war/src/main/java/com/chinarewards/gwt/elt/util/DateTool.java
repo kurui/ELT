@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.google.gwt.i18n.client.DateTimeFormat;
 
-
 public abstract class DateTool {
 
 	/**
@@ -81,6 +80,7 @@ public abstract class DateTool {
 	 * @param d
 	 * @return
 	 */
+	@SuppressWarnings("deprecation")
 	public static Date stripTimeComponents(Date d) {
 		if (d == null) {
 			return null;
@@ -94,12 +94,27 @@ public abstract class DateTool {
 	 * @param d
 	 * @return
 	 */
+	@SuppressWarnings("deprecation")
 	public static String dateToString(Date d) {
 		if (d == null) {
 			return null;
 		}
 		return (1900 + d.getYear()) + "-" + (d.getMonth() + 1) + "-"
 				+ d.getDate();
+	}
+
+	/**
+	 * 去掉时间,留下年月(中文)
+	 * 
+	 * @param d
+	 * @return
+	 */
+	@SuppressWarnings("deprecation")
+	public static String dateToStringChina(Date d) {
+		if (d == null) {
+			return null;
+		}
+		return (1900 + d.getYear()) + "年" + (d.getMonth() + 1) + "月份";
 	}
 
 	/**
@@ -159,6 +174,7 @@ public abstract class DateTool {
 	 * @param date
 	 * @return
 	 */
+	@SuppressWarnings("deprecation")
 	public static int getWeekDayOfDate(Date date) {
 		// Date flagDate = new Date(0, 0, 1); // ---1900-1-1 星期一
 		// int intervalDays = DateTool.getIntervalDays(flagDate, date);
@@ -171,16 +187,19 @@ public abstract class DateTool {
 		return day;
 	}
 
+	@SuppressWarnings("deprecation")
 	public static int getYearOfDate(Date date) {
 		int yaar = date.getYear();
 		return yaar;
 	}
 
+	@SuppressWarnings("deprecation")
 	public static int getMonthOfDate(Date date) {
 		int month = date.getMonth();
 		return month;
 	}
 
+	@SuppressWarnings("deprecation")
 	public static int getDayOfDate(Date date) {
 		int month = date.getDate();
 		return month;
@@ -217,25 +236,23 @@ public abstract class DateTool {
 		}
 		return max;
 	}
-	
-	public static Date getEndDayByPeriod(Date beginDate,double period){
-		int months=0;
-		if(period==0.5){
-			months=6;
+
+	public static Date getEndDayByPeriod(Date beginDate, double period) {
+		int months = 0;
+		if (period == 0.5) {
+			months = 6;
 		}
-		if(period==1){
-			months=12;
+		if (period == 1) {
+			months = 12;
 		}
-		if(period==2){
-			months=24;
+		if (period == 2) {
+			months = 24;
 		}
-		if(period==3){
-			months=36;
+		if (period == 3) {
+			months = 36;
 		}
-		Date tempEndDate=DateTool.addSomeMonth(beginDate,months);
+		Date tempEndDate = DateTool.addSomeMonth(beginDate, months);
 		return tempEndDate;
 	}
-	
-	
 
 }
