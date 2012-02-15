@@ -24,15 +24,21 @@
 						</div>
 					</div>
 					<div class="{new2.form-line}">
-						<label class="{new2.label}">员工名称：</label>
+						<label class="{new2.label2}">员工名称：</label>
 						<div class="{new2.element}">
 								<g:InlineLabel ui:field="staffName" />
+												<div style="float: right;padding-right: 500px;">
+												<span class="{new2.btn}">
+													<g:Button ui:field="updateBtn" text="修改员工信息" />
+												</span>
+												</div>
 						</div>
 					</div>
 					<div class="{new2.form-line}">
 						<label class="{new2.label60}">头像：</label>
 						<div class="{new2.element}">
 							<g:Image ui:field="staffImage" width="80px" height="60px"/>
+
 						</div>
 					</div>
 
@@ -85,14 +91,7 @@
 
 
 					<span class="{new2.cutline}"></span>
-					<div class="{new2.form-line} {new2.form-line-btn}">
-						<div class="{new2.element}">
-							<span class="{new2.btn}">
-								<g:Button ui:field="updateBtn" text="修改员工信息" />
-							</span>
-
-						</div>
-					</div>
+					
 				</div>
 			</div>
 
