@@ -303,7 +303,7 @@ public class StaffLogicImpl implements StaffLogic {
 			ff = staffDao.findById(Staff.class, staff.getStaffId());
 		}
 
-		if (staff.getDepartmentId() != null) {
+		if (!StringUtil.isEmptyString(staff.getDepartmentId())) {
 			Department dept = deptLogic.findDepartmentById(staff
 					.getDepartmentId());
 			ff.setDepartment(dept);
@@ -328,23 +328,16 @@ public class StaffLogicImpl implements StaffLogic {
 
 		if (StringUtil.isEmptyString(staff.getStaffId())) {
 			// Create a new staff
-			if (context.getCorporationId() != null) {
-				Corporation corp = corporationLogic.findCorporationById(context
-						.getCorporationId());
-				ff.setCorporation(corp);
-			}
-			if (context.getUserId() != null) {
-				ff.setCreatedBy(nowuser);
-			}
+			ff.setCorporation(nowuser.getCorporation());
+			ff.setCreatedBy(nowuser);
 			ff.setCreatedAt(DateUtil.getTime());
 			ff.setDeleted(0);
 			staffDao.save(ff);
 		} else {
 			ff.setId(staff.getStaffId());
 			ff.setLastModifiedAt(DateUtil.getTime());
-			if (context.getUserId() != null) {
-				ff.setLastModifiedBy(nowuser);
-			}
+			ff.setLastModifiedBy(nowuser);
+
 
 			staffDao.update(ff);
 		}
