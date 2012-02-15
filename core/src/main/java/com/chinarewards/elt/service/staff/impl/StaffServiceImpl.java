@@ -110,4 +110,9 @@ public class StaffServiceImpl implements IStaffService {
 		return staffLogic.createOrUpdateStaff(staff, context);
 	}
 
+	@Override
+	public Staff findStaffById(String staffId) {
+		return staffLogic.findStaffById(staffId);
+	}
+
 }

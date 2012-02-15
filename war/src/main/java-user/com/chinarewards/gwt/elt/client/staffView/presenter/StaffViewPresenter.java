@@ -3,56 +3,36 @@ package com.chinarewards.gwt.elt.client.staffView.presenter;
 import com.chinarewards.gwt.elt.client.mvp.Display;
 import com.chinarewards.gwt.elt.client.mvp.Presenter;
 import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.user.client.ui.FileUpload;
-import com.google.gwt.user.client.ui.FormPanel;
-import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.RadioButton;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.gwt.user.datepicker.client.DateBox;
 
 public interface StaffViewPresenter extends
 		Presenter<StaffViewPresenter.StaffViewDisplay> {
 
+	public void initStaffView(String staffId);
+
 	public static interface StaffViewDisplay extends Display {
 
-		public HasClickHandlers getAddBtnClickHandlers();
-
-		public HasClickHandlers getImportBtnClickHandlers();
+		public HasClickHandlers getupadateBtnClickHandlers();
 
 		void setBreadCrumbs(Widget breadCrumbs);
 
-		String getStaffNo();
+		void setStaffNo(String text);
 
-		String getStaffName();
+		void setStaffName(String text);
 
-		String getDepartmentId();
+		void setDepartmentName(String text);
 
-		String getDepartmentName();
+		void setJobPosition(String text);
 
-		String getJobPosition();
+		void setLeadership(String text);
 
-		String getLeadership();
+		void setPhone(String text);
 
-		String getPhone();
+		void setEmail(String text);
 
-		TextBox getPhoto();
+		void setDob(String text);
 
-		String getEmail();
-
-		DateBox getDob();
-
-		RadioButton getStatus_JOB();
-
-		RadioButton getStatus_DEPARTURE();
-
-		Image getStaffImage();
-
-		FormPanel getPhotoForm();
-
-		FileUpload getPhotoUpload();
-
-		HasClickHandlers getUploadClick();
+		void setStaffImage(String url);
 
 	}
 }

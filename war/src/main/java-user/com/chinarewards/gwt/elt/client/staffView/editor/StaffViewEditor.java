@@ -44,6 +44,7 @@ public class StaffViewEditor extends AbstractEditor {
 
 	public void setModel(Object model) {
 		this.model = model;
+		StaffViewPresenter.initStaffView((String)model);
 		StaffViewPresenter.bind();
 	}
 }

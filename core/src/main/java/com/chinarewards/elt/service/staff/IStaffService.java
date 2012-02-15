@@ -1,6 +1,7 @@
 package com.chinarewards.elt.service.staff;
 
 import com.chinarewards.elt.dao.org.StaffDao.QueryStaffPageActionResult;
+import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.staff.StaffProcess;
 import com.chinarewards.elt.model.staff.StaffSearchCriteria;
@@ -42,9 +43,15 @@ public interface IStaffService {
 	public QueryStaffPageActionResult queryStaffList(StaffSearchCriteria criteria,UserContext context);
 	/**
 	 * 创建 and 修改..员工
-	 * @param staffProcess
+	 * @param staffProcess,context
 	 * @return
 	 */
 	public String createOrUpdateStaff(StaffProcess staff,UserContext context);
+	/**
+	 * 查询员工信息
+	 * @param staffId
+	 * @return
+	 */
+	public Staff findStaffById(String staffId);
 	
 }

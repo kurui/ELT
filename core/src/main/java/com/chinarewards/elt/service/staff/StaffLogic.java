@@ -81,4 +81,10 @@ public interface StaffLogic {
 	 * @return
 	 */
 	public String createOrUpdateStaff(StaffProcess staff,UserContext context);
+	/**
+	 * 查询员工信息
+	 * @param staffId
+	 * @return
+	 */
+	public Staff findStaffById(String staffId);
 }

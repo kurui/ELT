@@ -297,4 +297,9 @@ public class StaffLogicImpl implements StaffLogic {
 
 		return ff.getId();
 	}
+
+	@Override
+	public Staff findStaffById(String staffId) {
+		return staffDao.findById(Staff.class, staffId);
+	}
 }

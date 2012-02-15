@@ -3,12 +3,7 @@
  */
 package com.chinarewards.gwt.elt.client.staffView.request;
 
-import java.util.Date;
-
 import net.customware.gwt.dispatch.shared.Action;
-
-import com.chinarewards.gwt.elt.client.staffList.model.StaffListCriteria.StaffStatus;
-import com.chinarewards.gwt.elt.client.support.UserSession;
 
 /**
  * An action which perform request to search user.
@@ -17,28 +12,9 @@ import com.chinarewards.gwt.elt.client.support.UserSession;
  * @since 2012年2月14日 10:35:43
  */
 public class StaffViewRequest implements Action<StaffViewResponse> {
-	private UserSession session;
+
 	String staffId;
-	String staffNo;
-	String staffName;
-	String departmentId;
-	String photo;
-	String jobPosition;
-	String leadership;
-	String phone;
-	String email;
-	Date dob;
-	StaffStatus status;
 	
-
-	public UserSession getSession() {
-		return session;
-	}
-
-
-	public void setSession(UserSession session) {
-		this.session = session;
-	}
 
 
 	public String getStaffId() {
@@ -51,108 +27,14 @@ public class StaffViewRequest implements Action<StaffViewResponse> {
 	}
 
 
-	public String getStaffNo() {
-		return staffNo;
-	}
-
-
-	public void setStaffNo(String staffNo) {
-		this.staffNo = staffNo;
-	}
-
-
-	public String getStaffName() {
-		return staffName;
-	}
-
-
-	public void setStaffName(String staffName) {
-		this.staffName = staffName;
-	}
-
-
-	public String getDepartmentId() {
-		return departmentId;
-	}
-
-
-	public void setDepartmentId(String departmentId) {
-		this.departmentId = departmentId;
-	}
-
-
-	public String getPhoto() {
-		return photo;
-	}
-
-
-	public void setPhoto(String photo) {
-		this.photo = photo;
-	}
-
-
-	public String getJobPosition() {
-		return jobPosition;
-	}
-
-
-	public void setJobPosition(String jobPosition) {
-		this.jobPosition = jobPosition;
-	}
-
-
-	public String getLeadership() {
-		return leadership;
-	}
-
-
-	public void setLeadership(String leadership) {
-		this.leadership = leadership;
-	}
-
-
-	public String getPhone() {
-		return phone;
-	}
-
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
-
-	public String getEmail() {
-		return email;
-	}
-
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-
-	public Date getDob() {
-		return dob;
-	}
-
-
-	public void setDob(Date dob) {
-		this.dob = dob;
-	}
-
-
-	public StaffStatus getStatus() {
-		return status;
-	}
-
-
-	public void setStatus(StaffStatus status) {
-		this.status = status;
-	}
 
 
 	public StaffViewRequest() {
 	}
+	public StaffViewRequest(String staffId) {
+		this.staffId=staffId;
+	}
+
 
 	
 
