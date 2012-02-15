@@ -263,7 +263,8 @@ public class StaffLogicImpl implements StaffLogic {
 			searchVo.setStatus(criteria.getStaffStatus());
 		if (context.getCorporationId() != null)
 			searchVo.setEnterpriseId(context.getCorporationId());
-
+		searchVo.setPaginationDetail(criteria.getPaginationDetail());
+		searchVo.setSortingDetail(criteria.getSortingDetail());
 		
 		//处理部门管理员..进入..只查询本部门数据
 		boolean fal=false;
