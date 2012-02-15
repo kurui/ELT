@@ -76,7 +76,7 @@ public class EditDepartmentHandler extends
 //		private String yearintegral;
 //		private String issueintegral;
 		
-		System.out.println("assembleDepartment(departmentVo):" + departmentVo.getLeader());
+		System.out.println("assembleDepartment(departmentVo):"+department.getId()+"---" + department.getLeader());
 
 
 

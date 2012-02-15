@@ -11,6 +11,8 @@ public interface DepartmentPresenter extends
 		Presenter<DepartmentPresenter.DepartmentDisplay> {
 
 	public static interface DepartmentDisplay extends Display {
+		
+		public HasValue<String> getDepartmentName();
 
 		public HasValue<String> getLeader();
 

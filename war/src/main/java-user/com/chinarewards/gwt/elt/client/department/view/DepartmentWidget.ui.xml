@@ -11,7 +11,8 @@
 		<!--面包屑 ]] -->
 
 		<h3>
-			<g:InlineLabel ui:field="departmentName" />
+			<g:InlineLabel ui:field="departmentNameLabel" />
+			<g:TextBox maxLength="20" ui:field="departmentName" styleName="{new2.text}" />
 		</h3>
 		<span class="{new2.cutline}"></span>
 		<!-- 1内容 -->

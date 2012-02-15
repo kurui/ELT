@@ -25,7 +25,10 @@ import com.google.inject.Inject;
 public class DepartmentWidget extends Composite implements DepartmentDisplay {
 
 	@UiField
-	Label departmentName;
+	Label departmentNameLabel;
+	@UiField
+	TextBox departmentName;
+	
 	@UiField
 	Hidden departmentId;
 	@UiField
@@ -76,6 +79,9 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 		// Window.alert("----initEditDepartment:"+departmentVo.getId());
 		departmentId.setValue(departmentVo.getId());
 		departmentName.setText(departmentVo.getName());
+		departmentName.setVisible(false);
+		departmentNameLabel.setText(departmentVo.getName());
+		
 		leader.setValue(departmentVo.getLeader());
 		superdepartment.setValue(departmentVo.getSuperdeparmentName());
 		// private String childdeparmentIds;
@@ -140,6 +146,12 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 	@Override
 	public HasValue<String> getIssueintegral() {
 		return issueintegral;
+	}
+
+
+	@Override
+	public HasValue<String> getDepartmentName() {
+		return departmentName;
 	}
 
 }
