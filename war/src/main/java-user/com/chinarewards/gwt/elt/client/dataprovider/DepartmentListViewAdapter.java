@@ -2,12 +2,12 @@ package com.chinarewards.gwt.elt.client.dataprovider;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import com.chinarewards.gwt.elt.client.department.model.DepartmentClient;
 import com.chinarewards.gwt.elt.client.department.model.DepartmentCriteria;
 import com.chinarewards.gwt.elt.client.department.presenter.DepartmentListPresenter.DepartmentListDisplay;
 import com.chinarewards.gwt.elt.client.department.request.SearchDepartmentRequest;
 import com.chinarewards.gwt.elt.client.department.request.SearchDepartmentResponse;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
-import com.chinarewards.gwt.elt.client.rewards.model.DepartmentClient;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.model.PaginationDetailClient;
 import com.google.gwt.user.client.rpc.AsyncCallback;

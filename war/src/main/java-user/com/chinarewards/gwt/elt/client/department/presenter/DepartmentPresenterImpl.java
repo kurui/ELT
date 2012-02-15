@@ -172,11 +172,11 @@ public class DepartmentPresenterImpl extends
 	private boolean validateSubmit() {
 		boolean flag = true;
 		StringBuilder errorMsg = new StringBuilder();
-		if (display.getName().getValue() == null
-				|| "".equals(display.getName().getValue().trim())) {
-			errorMsg.append("请填写部门名称!<br>");
-			flag = false;
-		}
+//		if (display.getName().getValue() == null
+//				|| "".equals(display.getName().getValue().trim())) {
+//			errorMsg.append("请填写部门名称!<br>");
+//			flag = false;
+//		}
 
 		if (!flag) {
 			win.alert(errorMsg.toString());

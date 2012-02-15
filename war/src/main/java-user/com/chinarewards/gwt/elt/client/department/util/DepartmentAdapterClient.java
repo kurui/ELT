@@ -14,7 +14,7 @@ public class DepartmentAdapterClient {
 		DepartmentVo departmentVo = new DepartmentVo();
 
 		// // 基本信息
-		departmentVo.setName(display.getName().getValue().trim());
+//		departmentVo.setDepartmentName(display.getDepartmentName().getValue().trim());
 
 		// System.out.println("=======adapterDisplay:" +
 		// departmentVo.getSource());

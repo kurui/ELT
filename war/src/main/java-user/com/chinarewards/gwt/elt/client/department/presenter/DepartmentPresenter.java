@@ -12,7 +12,13 @@ public interface DepartmentPresenter extends
 
 	public static interface DepartmentDisplay extends Display {
 
-		public HasValue<String> getName();
+		public HasValue<String> getLeader();
+		public HasValue<String> getSuperdepartment();
+		public HasValue<String> getChilddepartment();
+		public HasValue<String> getPeopleNumber();
+		public HasValue<String> getYearintegral();
+		public HasValue<String> getIssueintegral();
+		
 
 		public HasClickHandlers getSaveClick();
 

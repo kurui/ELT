@@ -23,7 +23,18 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 
 	// --------vo
 	@UiField
-	TextBox name;
+	TextBox leader;
+	@UiField
+	TextBox superdepartment;
+	@UiField
+	TextBox childdepartment;
+	@UiField
+	TextBox peopleNumber;
+	@UiField
+	TextBox yearintegral;
+	@UiField
+	TextBox issueintegral;
+	
 
 	@UiField
 	Button save;
@@ -56,13 +67,13 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 	}
 
 	@Override
-	public void initEditDepartment(DepartmentVo giftVo) {
-		name.setText(giftVo.getName());
+	public void initEditDepartment(DepartmentVo departmentVo) {
+		leader.setText(departmentVo.getName());
 
 	}
 
 	@Override
-	public void initAddDepartment(DepartmentVo giftVo) {
+	public void initAddDepartment(DepartmentVo departmentVo) {
 
 	}
 
@@ -73,8 +84,8 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 	}
 
 	@Override
-	public HasValue<String> getName() {
-		return name;
+	public HasValue<String> getLeader() {
+		return leader;
 	}
 
 	@Override
@@ -90,6 +101,35 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 	@Override
 	public HasClickHandlers getBackClick() {
 		return back;
+	}
+
+	@Override
+	public HasValue<String> getSuperdepartment() {
+		return superdepartment;
+	}
+
+
+	@Override
+	public HasValue<String> getChilddepartment() {
+		return childdepartment;
+	}
+
+
+	@Override
+	public HasValue<String> getPeopleNumber() {
+		return peopleNumber;
+	}
+
+
+	@Override
+	public HasValue<String> getYearintegral() {
+		return yearintegral;
+	}
+
+
+	@Override
+	public HasValue<String> getIssueintegral() {
+		return issueintegral;
 	}
 
 }

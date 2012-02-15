@@ -55,7 +55,7 @@ public class SearchDepBudgetHandler extends
 		uc.setLoginName(request.getUserSession().getLoginName());
 		uc.setUserRoles(UserRoleTool.adaptToRole(request.getUserSession().getUserRoles()));
 		uc.setUserId(request.getUserSession().getToken());
-		System.out.println("=================="+request.getUserSession().getToken());
+		
 		budgetPage = budgetService.deptBudgetList(uc, serviceVo);
 		resp.setTotal(budgetPage.getResultCount());
 		resp.setResult(adapterToClient(budgetPage.getResultList()));//从服务端转为客户端
@@ -69,6 +69,8 @@ public class SearchDepBudgetHandler extends
 			vo.setBudgetIntegral(criteria.getBudgetIntegral());
 			vo.setCorpBudgetId(criteria.getCorpBudgetId());
 			vo.setDepartmentName(criteria.getDepartmentName());
+			
+			vo.setDepartmentId(criteria.getDepartmentId());
 		    vo.setUseIntegeral(criteria.getUseIntegeral());
 		    vo.setDeleted(0);//查没有删除的数据
 		if (criteria.getPagination() != null) {
@@ -98,6 +100,7 @@ public class SearchDepBudgetHandler extends
 				client.setCorpBudgetId(item.getCorpBudgetId());
 				client.setDepartmentName(item.getDepartmentName());
 				client.setUseIntegeral(item.getUseIntegeral());
+				client.setPeople(item.getPeople());
 				resultList.add(client);
 			}
 

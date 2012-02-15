@@ -26,15 +26,15 @@ public class DepartmentPluginDescriptor implements PluginDescriptor {
 
 	final static Set<Extension> ext = new HashSet<Extension>();
 	final DepartmentPlugin departmentPlugin;
-	final DepartmentEditorDescriptor giftEditorDescriptor;
+	final DepartmentEditorDescriptor departmentEditorDescriptor;
 
 	@Inject
-	public DepartmentPluginDescriptor(final DepartmentEditorDescriptor giftEditorDescriptor) {
-		this.giftEditorDescriptor = giftEditorDescriptor;
+	public DepartmentPluginDescriptor(final DepartmentEditorDescriptor departmentEditorDescriptor) {
+		this.departmentEditorDescriptor = departmentEditorDescriptor;
 		departmentPlugin = new DepartmentPlugin(this);
 
 		/**
-		 * 新建礼品
+		 * 部门
 		 */
 		ext.add(new Extension() {
 			@Override
@@ -63,18 +63,18 @@ public class DepartmentPluginDescriptor implements PluginDescriptor {
 
 					@Override
 					public String getTitle() {
-						return "新建礼品";
+						return "编辑组织机构";
 					}
 
 					@Override
 					public void execute() {
-						DepartmentClient giftClient = new DepartmentClient();
-						giftClient.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_ADD);
+						DepartmentClient departmentClient = new DepartmentClient();
+						departmentClient.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_ADD);
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(DepartmentConstants.EDITOR_DEPARTMENT_EDIT,
 										DepartmentConstants.ACTION_DEPARTMENT_ADD,
-										giftClient);
+										departmentClient);
 					}
 
 					@Override
@@ -93,7 +93,6 @@ public class DepartmentPluginDescriptor implements PluginDescriptor {
 
 		
 		ext.add(new Extension() {
-
 			@Override
 			public String getExtensionPointId() {
 				return PluginConstants.EDITOR;
@@ -101,7 +100,7 @@ public class DepartmentPluginDescriptor implements PluginDescriptor {
 
 			@Override
 			public Object getInstance() {
-				return giftEditorDescriptor;
+				return departmentEditorDescriptor;
 			}
 
 			@Override

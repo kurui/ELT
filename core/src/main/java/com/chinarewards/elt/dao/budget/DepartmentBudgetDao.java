@@ -9,8 +9,10 @@ import java.util.Set;
 import javax.persistence.Query;
 
 import com.chinarewards.elt.common.BaseDao;
+import com.chinarewards.elt.domain.budget.CorpBudget;
 import com.chinarewards.elt.domain.budget.DepartmentBudget;
 import com.chinarewards.elt.model.budget.search.DepartmentBudgetVo;
+import com.chinarewards.elt.util.StringUtil;
 
 public class DepartmentBudgetDao extends BaseDao<DepartmentBudget> {
 	@SuppressWarnings("unchecked")
@@ -48,11 +50,18 @@ public class DepartmentBudgetDao extends BaseDao<DepartmentBudget> {
 			param.put("deleted", vo.getDeleted());
 
 		}
-		if (vo.getDepartmentId() != null) {
-			eql.append(" AND UPPER(d.departmentId) = :departmentId ");
+		if (!StringUtil.isEmptyString(vo.getDepartmentId())) {
+			eql.append(" AND d.departmentId = :departmentId ");
 			param.put("departmentId", vo.getDepartmentId());
 		}
-
+		if (!StringUtil.isEmptyString(vo.getCorpBudgetId())) {
+			eql.append(" AND d.corpBudgetId = :corpBudgetId ");
+			param.put("corpBudgetId", vo.getCorpBudgetId());
+		}
+		if (vo.getBudgetIntegral() !=0.0) {
+			eql.append(" AND d.budgetIntegral = :budgetIntegral ");
+			param.put("budgetIntegral", vo.getBudgetIntegral());
+		}
 		if (SEARCH.equals(type)) {
 			if (vo.getSortingDetail() != null) {
 				eql.append(" ORDER BY d." + vo.getSortingDetail().getSort()
@@ -78,6 +87,20 @@ public class DepartmentBudgetDao extends BaseDao<DepartmentBudget> {
 		}
 
 		return query;
+	}
+
+	
+	public String findByDepAndCorpBudgetId(DepartmentBudget departmentBudget) {
+		String sql = "FROM DepartmentBudget c WHERE c.corpBudgetId = :corpBudgetId and c.departmentId =:departmentId";
+		List<DepartmentBudget> resultList = getEm().createQuery(sql)
+				.setParameter("corpBudgetId", departmentBudget.getCorpBudgetId())
+				.setParameter("departmentId", departmentBudget.getDepartmentId())
+				.getResultList();
+		if (resultList != null && resultList.size() > 0) {
+			return resultList.get(0).getId();
+		} else {
+			return "";
+		}
 	}
 
 	public DepartmentBudget findDepartmentBudgetByDepartmentId(

@@ -40,6 +40,14 @@ public class DepBudgetVo implements Serializable {
 	private String recorduser; // 操作人
 	private Date recorddate; // 操作时间
 	private int deleted; // 是否删除
+    private int people;  //部门总人数
+	public int getPeople() {
+		return people;
+	}
+
+	public void setPeople(int people) {
+		this.people = people;
+	}
 
 	private String departmentName;// 部门的名字
 

@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.department.plugin.DepartmentConstants;
-import com.chinarewards.gwt.elt.client.rewards.model.DepartmentClient;
 import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.cell.client.Cell;

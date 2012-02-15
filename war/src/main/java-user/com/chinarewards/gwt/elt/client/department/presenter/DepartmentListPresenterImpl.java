@@ -5,6 +5,7 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.dataprovider.DepartmentListViewAdapter;
+import com.chinarewards.gwt.elt.client.department.model.DepartmentClient;
 import com.chinarewards.gwt.elt.client.department.plugin.DepartmentConstants;
 import com.chinarewards.gwt.elt.client.department.presenter.DepartmentListPresenter.DepartmentListDisplay;
 import com.chinarewards.gwt.elt.client.department.request.DeleteDepartmentRequest;
@@ -14,7 +15,6 @@ import com.chinarewards.gwt.elt.client.department.request.DepartmentManageRespon
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
-import com.chinarewards.gwt.elt.client.rewards.model.DepartmentClient;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
@@ -110,7 +110,7 @@ public class DepartmentListPresenterImpl extends
 		registerHandler(display.getEditBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
-						win.alert("功能建设中");
+//						win.alert("功能建设中");
 						DepartmentClient client = new DepartmentClient();
 						// client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_ADD);
 

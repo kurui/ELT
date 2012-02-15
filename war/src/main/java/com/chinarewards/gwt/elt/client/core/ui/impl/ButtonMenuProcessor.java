@@ -25,6 +25,7 @@ import com.chinarewards.gwt.elt.client.order.plugin.OrderListConstants;
 import com.chinarewards.gwt.elt.client.order.plugin.OrderViewConstants;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemConstants;
 import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListConstants;
+import com.chinarewards.gwt.elt.client.staffList.plugin.StaffListConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.user.plugin.UserConstants;
 import com.chinarewards.gwt.elt.model.user.UserRoleVo;
@@ -183,6 +184,7 @@ public class ButtonMenuProcessor implements MenuProcessor {
 		} else if ("Staff".equals(keyname)) {
 			items.add(DepartmentListConstants.MENU_DEPARTMENTLIST_SEARCH);
 			items.add(UserConstants.MENU_USER_SEARCH);
+			items.add(StaffListConstants.MENU_STAFFLIST_SEARCH);
 		} else if ("Setting".equals(keyname)) {
 			items.add(EnterpriseConstants.MENU_ENTERPRISE_EDIT);
 			items.add(EnterpriseConstants.MENU_INTEGRAL_PRICE_EDIT);
