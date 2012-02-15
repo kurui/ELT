@@ -3,7 +3,6 @@
  */
 package com.chinarewards.gwt.elt.util;
 
-
 /**
  * @author Cream
  * @since 0.2.0 2011-01-07
@@ -76,14 +75,114 @@ public class StringUtil {
 	}
 
 	public static void printToTxt(String file, String content) {
-		//以下将导致mvn install 失败
-//		try {
-//			PrintWriter logWriter = new PrintWriter(new BufferedWriter(
-//					new FileWriter(file, true)), true);
-//			logWriter.println(content);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
+		// 以下将导致mvn install 失败
+		// try {
+		// PrintWriter logWriter = new PrintWriter(new BufferedWriter(
+		// new FileWriter(file, true)), true);
+		// logWriter.println(content);
+		// } catch (IOException e) {
+		// e.printStackTrace();
+		// }
 	}
 
+	/**
+	 * @param fullString
+	 *            原字符串
+	 * @param cellString
+	 *            需要拼接的
+	 * @param appString
+	 *            连接符
+	 * 
+	 * */
+	public static String appendString(String fullString, String cellStrng,
+			String appString) {
+		if (fullString == null || "".equals(fullString)) {
+			fullString = cellStrng + appString;
+		} else {
+			fullString = fullString + appString + cellStrng;
+		}
+		
+		return fullString;
+	}
+
+	public static boolean containsExistString(String fullString,
+			String cellString) {
+		if (fullString != null && cellString != null) {
+			int flag = fullString.indexOf(cellString);
+
+			if (flag >= 0) { // 大于0 则表示存在 为-1 则表示不存在
+				return true;
+			} else {
+				return false;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * 删除cellString
+	 */
+	public static String removeCellString(String fullString, String cellString) {
+		String[] orderArray = getSplitString(fullString, ",");
+		int orderLength = orderArray.length;
+
+		for (int i = 0; i < orderLength; i++) {
+			String tempStr = orderArray[i];
+			if (tempStr == null || "".equals(tempStr)) {
+
+			} else {
+				if (tempStr.equals(cellString)) {
+					orderArray = delArrayCellByStr(orderArray, cellString);
+					fullString = getStringByStringArray(orderArray, ",");
+					orderLength = orderArray.length;
+
+				}
+
+			}
+		}
+
+		if (fullString.lastIndexOf(",") > 0) {
+			fullString = fullString.substring(0, fullString.lastIndexOf(","));
+		}
+
+		return fullString;
+	}
+
+	public static String getStringByStringArray(String[] array, String splitStr) {
+		String returnStr = "";
+		for (int i = 0; i < array.length; i++) {
+			if (array[i] == null || "".equals(array[i])) {
+				returnStr = returnStr + "";
+			} else {
+				returnStr = returnStr + array[i] + splitStr;
+			}
+		}
+
+		if (returnStr.lastIndexOf(",") > 0) {
+			returnStr = returnStr.substring(0, returnStr.lastIndexOf(splitStr));
+		}
+		return returnStr;
+	}
+
+	public static String[] getSplitString(String strSrc, String splitStr) {
+		String splitString[] = strSrc.split(splitStr);
+		return splitString;
+	}
+
+	/**
+	 * 删除字符数组中指定的元素
+	 * 
+	 * @param String
+	 *            [] array
+	 * @param String
+	 *            para 需要删除的元素
+	 */
+	public static String[] delArrayCellByStr(String[] array, String para) {
+		for (int i = 0; i < array.length; i++) {
+			if (array[i] != null && array[i].equals(para)) {
+				array[i] = "";
+			}
+		}
+		return array;
+	}
 }

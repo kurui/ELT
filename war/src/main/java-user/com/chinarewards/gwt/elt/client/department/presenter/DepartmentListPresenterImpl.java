@@ -1,11 +1,14 @@
 package com.chinarewards.gwt.elt.client.department.presenter;
 
+import java.util.List;
+
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.dataprovider.DepartmentListViewAdapter;
 import com.chinarewards.gwt.elt.client.department.model.DepartmentClient;
+import com.chinarewards.gwt.elt.client.department.model.DepartmentNode;
 import com.chinarewards.gwt.elt.client.department.plugin.DepartmentConstants;
 import com.chinarewards.gwt.elt.client.department.presenter.DepartmentListPresenter.DepartmentListDisplay;
 import com.chinarewards.gwt.elt.client.department.request.DeleteDepartmentRequest;
@@ -38,7 +41,7 @@ public class DepartmentListPresenterImpl extends
 	DepartmentListViewAdapter listViewAdapter;
 
 	private String departmentIds;
-	
+
 	private final BreadCrumbsPresenter breadCrumbs;
 
 	@Inject
@@ -64,23 +67,25 @@ public class DepartmentListPresenterImpl extends
 		initTreeTable();
 
 	}
-	
-	private void initTreeTable() {
-		String corporationId=sessionManager.getSession().getCorporationId();
-		dispatch.execute(new DepartmentManageRequest(corporationId,departmentIds),
-				new AsyncCallback<DepartmentManageResponse>() {
-					@Override
-					public void onFailure(Throwable e) {
-						win.alert(e.getMessage());
-					}
 
-					@Override
-					public void onSuccess(DepartmentManageResponse response) {
-						//display.setBudgetIntegral((int)response.getBudgetIntegral()+"");
-						//display.setUseIntegeral((int)response.getBudgetIntegral()+"");
-						display.loadTreeData(response.getResult(),sessionManager.getSession().getCorporationId());
-					}
-				});
+	private void initTreeTable() {
+		final String corporationId = sessionManager.getSession()
+				.getCorporationId();
+		dispatch.execute(new DepartmentManageRequest(corporationId,
+				departmentIds), new AsyncCallback<DepartmentManageResponse>() {
+			@Override
+			public void onFailure(Throwable e) {
+				win.alert(e.getMessage());
+			}
+
+			@Override
+			public void onSuccess(DepartmentManageResponse response) {
+				// display.setBudgetIntegral((int)response.getBudgetIntegral()+"");
+				// display.setUseIntegeral((int)response.getBudgetIntegral()+"");
+				List<DepartmentNode> nodeList = response.getResult();
+				display.loadTreeData(nodeList, corporationId,departmentIds);
+			}
+		});
 	}
 
 	private void registerEvent() {
@@ -88,8 +93,8 @@ public class DepartmentListPresenterImpl extends
 		registerHandler(display.getAddSameLevelBtnClickHandlers()
 				.addClickHandler(new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
-//						win.alert(display.getCurrentDepartmentId()+"----"+departmentId);
-						
+						win.alert("currentDepartmentId()----" + departmentIds);
+
 					}
 				}));
 
@@ -111,17 +116,17 @@ public class DepartmentListPresenterImpl extends
 		registerHandler(display.getEditBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
-//						win.alert("功能建设中"); 
+						// win.alert("功能建设中");
 						DepartmentClient client = new DepartmentClient();
 						client.setId(departmentIds);
 						client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_EDIT);
 
-						Platform.getInstance()
-								.getEditorRegistry()
-								.openEditor(
-										DepartmentConstants.EDITOR_DEPARTMENT_EDIT,
-										DepartmentConstants.ACTION_DEPARTMENT_EDIT,
-										client);
+//						Platform.getInstance()
+//								.getEditorRegistry()
+//								.openEditor(
+//										DepartmentConstants.EDITOR_DEPARTMENT_EDIT,
+//										DepartmentConstants.ACTION_DEPARTMENT_EDIT,
+//										client);
 					}
 				}));
 		// 合并部门
@@ -129,7 +134,7 @@ public class DepartmentListPresenterImpl extends
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
 						win.alert("功能建设中");
-						//跳转页面
+						// 跳转页面
 					}
 				}));
 		// 同步公司组织机构
@@ -142,10 +147,9 @@ public class DepartmentListPresenterImpl extends
 
 	}
 
-
 	public void delteDepartment(String departmentId) {
-		dispatch.execute(new DeleteDepartmentRequest(departmentId, sessionManager
-				.getSession().getToken()),
+		dispatch.execute(new DeleteDepartmentRequest(departmentId,
+				sessionManager.getSession().getToken()),
 				new AsyncCallback<DeleteDepartmentResponse>() {
 
 					@Override
@@ -162,9 +166,9 @@ public class DepartmentListPresenterImpl extends
 
 	@Override
 	public void initEditor(String departmentIds) {
-		System.out.println("---initEditor:"+departmentIds);
+		System.out.println("---initEditor:" + departmentIds);
 		this.departmentIds = departmentIds;
 		display.getCurrentDepartmentId().setValue(departmentIds);
-//		win.alert(departmentId);
+		// win.alert(departmentId);
 	}
 }

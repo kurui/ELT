@@ -56,7 +56,7 @@ public class DepartmentListWidget extends Composite implements
 	}
 
 	@Override
-	public void loadTreeData(List<DepartmentNode> nodeList, String corporationId) {
+	public void loadTreeData(List<DepartmentNode> nodeList, String corporationId,String departmentIds) {
 		 final ProvidesKey<DepartmentNode> KEY_PROVIDER = new ProvidesKey<DepartmentNode>() {
 		      public Object getKey(DepartmentNode item) {
 		        return item == null ? null : item.getDepartmentId();
@@ -72,6 +72,7 @@ public class DepartmentListWidget extends Composite implements
 						boolean first = true;
 						List<DepartmentNode> selectedList = new ArrayList<DepartmentNode>(
 								selectionModel.getSelectedSet());
+						System.out.println("----------------DepartmentListWidget loadTreeData:===selectedSet===="+selectedList.size());
 						// Collections.sort(selected);
 						for (DepartmentNode node : selectedList) {
 							if (first) {

@@ -7,6 +7,7 @@ import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.department.plugin.DepartmentConstants;
 import com.chinarewards.gwt.elt.client.department.plugin.DepartmentListConstants;
 import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
+import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.cell.client.Cell;
 import com.google.gwt.cell.client.CheckboxCell;
@@ -16,6 +17,7 @@ import com.google.gwt.cell.client.HasCell;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.view.client.DefaultSelectionEventManager;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SelectionModel;
 import com.google.gwt.view.client.TreeViewModel;
@@ -30,29 +32,31 @@ public class DepartmentManageTreeModel implements TreeViewModel {
 
 	String corporationId;
 	String departmentIds;
-	
-	private  SelectionModel<DepartmentNode> selectionModel;
+
+	private final DefaultSelectionEventManager<DepartmentNode> selectionManager = DefaultSelectionEventManager
+			.createCheckboxManager();
+	private SelectionModel<DepartmentNode> selectionModel;
+
+	// public DepartmentManageTreeModel(List<DepartmentNode> categoryList,
+	// String corporationId) {
+	// this.corporationId = corporationId;
+	// this.categoryList = categoryList;
+	//
+	// setDataProvider();
+	//
+	// buildNodeCell();
+	// }
 
 	public DepartmentManageTreeModel(List<DepartmentNode> categoryList,
-			String corporationId) {
+			String corporationId, SelectionModel<DepartmentNode> selectionModel) {
 		this.corporationId = corporationId;
 		this.categoryList = categoryList;
 
 		setDataProvider();
 
 		buildNodeCell();
-	}
-	
-	public DepartmentManageTreeModel(List<DepartmentNode> categoryList,
-			String corporationId,SelectionModel<DepartmentNode> selectionModel) {
-		this.corporationId = corporationId;
-		this.categoryList = categoryList;
 
-		setDataProvider();
-
-		buildNodeCell();
-		
-		this.selectionModel=selectionModel;
+		this.selectionModel = selectionModel;
 	}
 
 	private void buildNodeCell() {
@@ -86,6 +90,37 @@ public class DepartmentManageTreeModel implements TreeViewModel {
 		};
 	}
 
+	// 如果 node.getId 在ids中存在，则返回true
+	private Boolean isChecked(DepartmentNode node, String departmentIds) {
+		if (node != null) {
+			String thisId = node.getDepartmentId();
+			boolean isExists = StringUtil.containsExistString(departmentIds,
+					thisId);
+
+			return isExists;
+		}
+
+		return false;
+	}
+
+	// currentId存在 则删除， 无 则加入
+	private String updateDepartmentIdsAsChecked(DepartmentNode node,
+			String departmentIds) {
+		if (node != null) {
+			String thisId = node.getDepartmentId();
+			boolean isExists = StringUtil.containsExistString(departmentIds,
+					thisId);
+
+			if (isExists) {
+				departmentIds=StringUtil.removeCellString(departmentIds,thisId);
+			}else{
+				departmentIds=StringUtil.appendString(departmentIds, thisId, ",");
+			}
+		}
+
+		return departmentIds;
+	}
+
 	/**
 	 * 构造数据行
 	 * */
@@ -106,25 +141,27 @@ public class DepartmentManageTreeModel implements TreeViewModel {
 					public void update(int index, DepartmentNode object,
 							Boolean checked) {
 						// Window.alert(object.getDepartmentId()+"--"+object.getDepartmentName());
-						departmentIds = departmentIds + ","
-								+ object.getDepartmentId();
-						
-						System.out.println("==================departmentIds:"+departmentIds);
+
+						departmentIds = updateDepartmentIdsAsChecked(object, departmentIds);
+
+						System.out
+								.println("====treeModel check event==departmentIds:"
+										+ departmentIds);
 
 						DepartmentClient client = new DepartmentClient();
 						// client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_ADD);
-						client.setIds(object.getDepartmentId());
-						Platform.getInstance()
-								.getEditorRegistry()
-								.openEditor(
-										DepartmentListConstants.EDITOR_DEPARTMENTLIST_SEARCH,
-										"EDITOR_DEPARTMENTLIST_SEARCH", client);
+						client.setIds(departmentIds);
+//						Platform.getInstance()
+//								.getEditorRegistry()
+//								.openEditor(
+//										DepartmentListConstants.EDITOR_DEPARTMENTLIST_SEARCH,
+//										"EDITOR_DEPARTMENTLIST_SEARCH", client);
 					}
 				};
 			}
 
 			public Boolean getValue(DepartmentNode object) {
-				return selectionModel.isSelected(object);
+				return isChecked(object, departmentIds);
 			}
 		});
 
@@ -202,7 +239,8 @@ public class DepartmentManageTreeModel implements TreeViewModel {
 			ListDataProvider<DepartmentNode> dataProvider = new ListDataProvider<DepartmentNode>(
 					nodeList);
 			return new DefaultNodeInfo<DepartmentNode>(dataProvider,
-					new DepartmentChildNode());//
+					new DepartmentChildNode(), selectionModel,
+					selectionManager, null);//
 		}
 		String type = node.getClass().getName();
 		throw new IllegalArgumentException("Unsupported object type: " + type);
@@ -223,16 +261,16 @@ public class DepartmentManageTreeModel implements TreeViewModel {
 			List<DepartmentNode> categoryListx = categoryDataProvider.getList();
 			// 顶级
 			DepartmentNode rootDepartmentNode = null;
-			for (DepartmentNode category : this.categoryList) {
-				if (("ROOT_DEPT" + corporationId).equals(category
+			for (DepartmentNode tempNode : this.categoryList) {
+				if (("ROOT_DEPT" + corporationId).equals(tempNode
 						.getDepartmentName()))
-					rootDepartmentNode = category;
+					rootDepartmentNode = tempNode;
 			}
 			// 一级部门
-			for (DepartmentNode category : this.categoryList) {
+			for (DepartmentNode tempNode : this.categoryList) {
 				if (rootDepartmentNode.getDepartmentId().equals(
-						category.getParentId()))
-					categoryListx.add(category);
+						tempNode.getParentId()))
+					categoryListx.add(tempNode);
 			}
 		} else {
 			categoryDataProvider = new ListDataProvider<DepartmentNode>();
