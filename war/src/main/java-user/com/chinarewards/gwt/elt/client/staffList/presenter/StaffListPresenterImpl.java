@@ -15,6 +15,7 @@ import com.chinarewards.gwt.elt.client.staffList.dataprovider.StaffListViewAdapt
 import com.chinarewards.gwt.elt.client.staffList.model.StaffListClient;
 import com.chinarewards.gwt.elt.client.staffList.model.StaffListCriteria;
 import com.chinarewards.gwt.elt.client.staffList.model.StaffListCriteria.StaffStatus;
+import com.chinarewards.gwt.elt.client.staffView.plugin.StaffViewConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager;
@@ -194,7 +195,11 @@ public class StaffListPresenterImpl extends
 					@Override
 					public void update(int index, final StaffListClient o,
 							String value) {
-						win.alert("待实现");
+						Platform.getInstance()
+						.getEditorRegistry()
+						.openEditor(
+								StaffViewConstants.EDITOR_STAFFVIEW_SEARCH,
+								"EDITOR_STAFFVIEW_SEARCH_DO_ID", o.getStaffId());
 					}
 
 				});
