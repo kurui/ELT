@@ -9,6 +9,8 @@ import com.chinarewards.gwt.elt.client.budget.module.CorpBudgetModule;
 import com.chinarewards.gwt.elt.client.budget.module.DepBudgetModule;
 import com.chinarewards.gwt.elt.client.chooseStaff.module.ChooseStaffModule;
 import com.chinarewards.gwt.elt.client.core.presenter.DockModule;
+import com.chinarewards.gwt.elt.client.department.module.DepartmentListModule;
+import com.chinarewards.gwt.elt.client.department.module.DepartmentModule;
 import com.chinarewards.gwt.elt.client.detailsOfAward.module.DetailsOfAwardModule;
 import com.chinarewards.gwt.elt.client.detailsOfGift.module.DetailsOfGiftModule;
 import com.chinarewards.gwt.elt.client.enterprise.module.EnterprisesModule;
@@ -39,6 +41,9 @@ public class PresenterModule extends AbstractGinModule {
 	protected void configure() {
 		install(new DockModule());
 		install(new UserModule());
+		install(new DepartmentListModule());
+		install(new DepartmentModule());
+		
 		install(new HrRegisterModule());
 		install(new NominateModule());
 		install(new EnterprisesModule());

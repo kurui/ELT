@@ -4,9 +4,12 @@ import java.util.List;
 
 import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.user.SysUser;
+import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.org.DepartmentVo;
 import com.chinarewards.elt.model.org.RewardsApprovalPolicyEnum;
 import com.chinarewards.elt.model.org.exception.DepartmentDeleteException;
+import com.chinarewards.elt.model.org.search.DepartmentListVo;
+import com.chinarewards.elt.model.org.search.DepartmentManageVo;
 
 /**
  * The logic about {@link Department}
@@ -48,10 +51,10 @@ public interface DepartmentLogic {
 	 * the leaf Department node.
 	 * 
 	 * @param deptId
+	 * @return 
 	 * @throws DepartmentDeleteException
 	 */
-	public void deleteDepartment(String deptId)
-			throws DepartmentDeleteException;
+	public String deleteDepartment(String deptId) throws DepartmentDeleteException;
 
 	/**
 	 * Check whether is a leaf Department.If use index maintain, only check rgt
@@ -140,6 +143,27 @@ public interface DepartmentLogic {
 	 * @return
 	 */
 	public Department getRootDepartmentOfCorporation(String corpId);
+
+	/**
+	 * @param caller
+	 * @param department
+	 * @return
+	 */
+	public Department save(SysUser caller, Department department);
+
+	/**
+	 * @param caller
+	 * @param departmentVo
+	 * @return
+	 */
+	public PageStore<DepartmentListVo> departmentList(SysUser caller,
+			DepartmentListVo departmentVo);
+
+	/**
+	 * @param corpId
+	 * @return
+	 */
+	List<DepartmentManageVo> getDepartmentManageList(String corpId);
 	
 	
 	

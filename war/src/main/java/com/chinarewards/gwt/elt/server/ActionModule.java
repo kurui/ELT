@@ -13,6 +13,11 @@ import com.chinarewards.gwt.elt.client.budget.request.InitDepartmentRequest;
 import com.chinarewards.gwt.elt.client.budget.request.SearchCorpBudgetByCorpIdRequest;
 import com.chinarewards.gwt.elt.client.budget.request.SearchDepBudgetRequest;
 import com.chinarewards.gwt.elt.client.chooseStaff.request.SearchStaffChooseRequest;
+import com.chinarewards.gwt.elt.client.department.request.DeleteDepartmentRequest;
+import com.chinarewards.gwt.elt.client.department.request.DepartmentManageRequest;
+import com.chinarewards.gwt.elt.client.department.request.EditDepartmentRequest;
+import com.chinarewards.gwt.elt.client.department.request.SearchDepartmentByIdRequest;
+import com.chinarewards.gwt.elt.client.department.request.SearchDepartmentRequest;
 import com.chinarewards.gwt.elt.client.detailsOfAward.request.DetailsOfAwardInitRequest;
 import com.chinarewards.gwt.elt.client.detailsOfGift.request.DetailsOfGiftRequest;
 import com.chinarewards.gwt.elt.client.enterprise.request.EditIntegralPriceRequest;
@@ -70,6 +75,11 @@ import com.chinarewards.gwt.elt.server.budget.InitDepartmentHandler;
 import com.chinarewards.gwt.elt.server.budget.SearchCorpBudgetByCorpIdHandler;
 import com.chinarewards.gwt.elt.server.budget.SearchDepBudgetHandler;
 import com.chinarewards.gwt.elt.server.chooseStaff.SearchStaffActionHandler;
+import com.chinarewards.gwt.elt.server.department.DeleteDepartmentHandler;
+import com.chinarewards.gwt.elt.server.department.DepartmentManageHandler;
+import com.chinarewards.gwt.elt.server.department.EditDepartmentHandler;
+import com.chinarewards.gwt.elt.server.department.SearchDepartmentByIdHandler;
+import com.chinarewards.gwt.elt.server.department.SearchDepartmentHandler;
 import com.chinarewards.gwt.elt.server.detailsOfAward.DetailsOfAwardActionHandler;
 import com.chinarewards.gwt.elt.server.detailsOfGift.DetailsOfGiftHandler;
 import com.chinarewards.gwt.elt.server.enterprise.EditIntegralPriceHandler;
@@ -137,6 +147,16 @@ public class ActionModule extends ActionHandlerModule {
 
 		// user module
 		bindHandler(UserSearchRequest.class, UserSearchActionHandler.class);
+		
+		//部门列表
+		bindHandler(DepartmentManageRequest.class,DepartmentManageHandler.class);
+		bindHandler(SearchDepartmentRequest.class, SearchDepartmentHandler.class);	   
+		bindHandler(SearchDepartmentByIdRequest.class,SearchDepartmentByIdHandler.class);		
+		//部门编辑
+		bindHandler(EditDepartmentRequest.class, EditDepartmentHandler.class); 		
+		//部门删除
+		bindHandler(DeleteDepartmentRequest.class, DeleteDepartmentHandler.class); 
+		
 		// staff module
 		bindHandler(HrRegisterRequest.class, HrRegisterActionHandler.class);
 
