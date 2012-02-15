@@ -83,8 +83,8 @@ public class BudgetServiceImpl implements BudgetService {
 		return budgetLogic.findCorpBudgetByCorpId(corpid);
 	}
 	@Override
-	public List<IntegralManagementVo> getIntegralManagementList(String corpId) {
-		return budgetLogic.getIntegralManagementList(corpId);
+	public List<IntegralManagementVo> getIntegralManagementList(String corpId,String corpBudgetId) {
+		return budgetLogic.getIntegralManagementList(corpId, corpBudgetId);
 	}
 
 	public String findByDepAndCorpBudgetId(DepartmentBudget departmentBudget){

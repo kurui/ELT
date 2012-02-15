@@ -56,11 +56,18 @@ public class AddDepBudgetHandler extends
 		uc.setUserRoles(UserRoleTool.adaptToRole(request.getUserSession().getUserRoles()));
 		uc.setUserId(request.getUserSession().getToken());
 		String id = budgetService.findByDepAndCorpBudgetId(serviceVo);
-		if(id.equals("")){
+		boolean isSave = request.isSave();
+		if(id.equals("")&& isSave==true){
 		   DepartmentBudget dep = budgetService.saveDepartmentBudget(uc, serviceVo);
-		      resp.setMessage("保存成功");
-		}else{
-			  resp.setMessage("保存失败，数据已存在");
+		     if(dep!=null)
+		      resp.setMessage("1");
+		}else if(!id.equals("")&& isSave==true){
+			  resp.setMessage("2");
+		}else if(!id.equals("")&&isSave==false){
+			  serviceVo.setId(id);
+			  DepartmentBudget dep = budgetService.saveDepartmentBudget(uc, serviceVo);
+			  if(dep!=null)
+		      resp.setMessage("3");
 		}
 		return resp;
 	}

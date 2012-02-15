@@ -15,11 +15,11 @@ public class CorpBudgetDao extends BaseDao<CorpBudget> {
 	 * @return
 	 */
 	public CorpBudget findByCorpId(String corporationId) {
-		String sql = "FROM CorpBudget c WHERE c.corporationId = :corporationId";
+		String sql = "FROM CorpBudget c WHERE c.corporationId = :corporationId and sysdate between c.beginDate and c.endDate ";
 		logger.debug(" findByCorpId==" + corporationId + "--" + sql);
-
 		List<CorpBudget> resultList = getEm().createQuery(sql)
-				.setParameter("corporationId", corporationId).getResultList();
+				.setParameter("corporationId", corporationId)
+				.getResultList();
 		if (resultList != null && resultList.size() > 0) {
 			return resultList.get(0);
 		} else {
@@ -35,7 +35,7 @@ public class CorpBudgetDao extends BaseDao<CorpBudget> {
 	 */
 	public List<CorpBudget> findCorpBudget(String corporationId) {
 		String sql = "FROM CorpBudget c WHERE  c.corporationId = :corporationId order by endDate desc";
-		Date currTime = DateUtil.getTime();
+		
 		List<CorpBudget> resultList = getEm().createQuery(sql)
 				.setParameter("corporationId", corporationId)
 				//.setParameter("nowdate", currTime)

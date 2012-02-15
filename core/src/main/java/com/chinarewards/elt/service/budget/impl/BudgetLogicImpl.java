@@ -92,13 +92,19 @@ public class BudgetLogicImpl implements BudgetLogic {
 			corpBudgetDao.update(corpBudget);
 		} else {
 			// Update
-			departmentBudget = departmentBudgetDao.findById(DepartmentBudget.class, departmentBudget.getId());
+			double newBudgetIntegral = departmentBudget.getBudgetIntegral();
+			DepartmentBudget depBudget = departmentBudgetDao.findById(DepartmentBudget.class, departmentBudget.getId());
+			double oldBudgetIntegral = depBudget.getBudgetIntegral();
+			double sc =oldBudgetIntegral-newBudgetIntegral;//得到部门以前的积分与要修改的新设置的积分差
 			departmentBudget.setRecorddate(currTime);
 			departmentBudget.setRecorduser(caller.getUserName());
+			departmentBudget = departmentBudgetDao.findById(DepartmentBudget.class, departmentBudget.getId());
+			departmentBudget.setBudgetIntegral(newBudgetIntegral);
+			
 			departmentBudgetDao.update(departmentBudget);
-//			CorpBudget corpBudget= corpBudgetDao.findById(CorpBudget.class,departmentBudget.getCorpBudgetId());
-//			corpBudget.setUseIntegeral(corpBudget.getBudgetIntegral()-departmentBudget.getBudgetIntegral());
-//			corpBudgetDao.update(corpBudget);
+			CorpBudget corpBudget= corpBudgetDao.findById(CorpBudget.class,departmentBudget.getCorpBudgetId());
+			corpBudget.setUseIntegeral(corpBudget.getUseIntegeral()-sc);//修改财年的已使用的积分
+			corpBudgetDao.update(corpBudget);
 		}
 
 		return departmentBudget;
@@ -190,7 +196,7 @@ public class BudgetLogicImpl implements BudgetLogic {
 	public String findByDepAndCorpBudgetId(DepartmentBudget departmentBudget) {
 		return departmentBudgetDao.findByDepAndCorpBudgetId(departmentBudget);//是否已经有了数据
 	}
-	public List<IntegralManagementVo> getIntegralManagementList(String corpId) {
+	public List<IntegralManagementVo> getIntegralManagementList(String corpId,String corpBudgetId) {
 		List<IntegralManagementVo> volist = new ArrayList<IntegralManagementVo>();
 		List<Department> department = departmentLogic
 				.getWholeDepartmentsOfCorporation(corpId);
@@ -202,7 +208,7 @@ public class BudgetLogicImpl implements BudgetLogic {
 			vo.setParentId(dep.getParent().getId());
 			vo.setLeaf(departmentLogic.isLeaf(dep));
 			DepartmentBudget budget = this
-					.findDepartmentBudgetByDepartmentId(dep.getId());
+					.findDepartmentBudgetByDepartmentId(dep.getId(),corpBudgetId);
 			if (budget != null) {
 				vo.setCorpBudgetId(budget.getCorpBudgetId());
 				vo.setBudgetIntegral(budget.getBudgetIntegral());
@@ -215,10 +221,9 @@ public class BudgetLogicImpl implements BudgetLogic {
 	}
 
 	@Override
-	public DepartmentBudget findDepartmentBudgetByDepartmentId(
-			String departmentId) {
+	public DepartmentBudget findDepartmentBudgetByDepartmentId(	String departmentId,String corpBudgetId) {
 		return departmentBudgetDao
-				.findDepartmentBudgetByDepartmentId(departmentId);
+				.findDepartmentBudgetByDepartmentId(departmentId,corpBudgetId);
 	}
 
 }

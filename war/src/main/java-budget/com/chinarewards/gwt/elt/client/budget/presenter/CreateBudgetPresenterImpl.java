@@ -32,6 +32,7 @@ import com.chinarewards.gwt.elt.client.widget.GetValue;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.widget.Sorting;
 import com.chinarewards.gwt.elt.client.win.Win;
+import com.chinarewards.gwt.elt.client.win.confirm.ConfirmHandler;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -75,7 +76,7 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 						if (!validateSubmit()) {
 							return;
 						}
-						saveDepartmentBudget();
+						saveDepartmentBudget(true);
 					}
 				}));
 		registerHandler(display.getSearchBtnClickHandlers().addClickHandler(
@@ -98,12 +99,12 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 		
 	}
   
-	 private void saveDepartmentBudget(){
+	 private void saveDepartmentBudget(boolean isSave){
 		   DepBudgetVo depBudgetVo = new DepBudgetVo();
 		   depBudgetVo.setBudgetIntegral(Double.parseDouble(display.getJF().getValue()));
 		   depBudgetVo.setCorpBudgetId(display.getYear());
 		   depBudgetVo.setDepartmentId(display.getDepart());
-		   dispatch.execute(new AddDepartmentBudgetRequest(sessionManager.getSession(),depBudgetVo),
+		   dispatch.execute(new AddDepartmentBudgetRequest(sessionManager.getSession(),depBudgetVo,isSave),
 					new AsyncCallback<AddDepartmentBudgetResponse>() {
 			          	@Override
 						public void onFailure(Throwable arg0) {
@@ -113,8 +114,22 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 
 						@Override
 						public void onSuccess(AddDepartmentBudgetResponse response) {
-							 win.alert(response.getMessage());
+							if(response.getMessage().equals("1")){
+							  win.alert("保存成功");
+							}
+							if(response.getMessage().equals("2")){
+							win.confirm("操作提示", "部门预算已存在,确定修改？", new ConfirmHandler() {
+								@Override
+								public void confirm() {
+									 saveDepartmentBudget(false);
+								 }
+							  });
+							}
+							 if(response.getMessage().equals("3")){
+								 win.alert("修改成功");
+							 }
 							 toRefresh();
+							 
 						}      
 
 					});
@@ -392,25 +407,6 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 						return order.getUseIntegeral()+"";
 					}
 				}, ref, "useIntegeral");
-		
-
-		cellTable.addColumn("操作", new HyperLinkCell(),
-				new GetValue<DepBudgetVo, String>() {
-					@Override
-					public String getValue(DepBudgetVo order) {
-						return "查看详细";
-					}
-				}, new FieldUpdater<DepBudgetVo, String>() {
-					@Override
-					public void update(int index, final DepBudgetVo order,String value) {
-						Platform.getInstance()
-						.getEditorRegistry()
-						.openEditor(
-								OrderViewConstants.EDITOR_ORDERVIEW_SEARCH,
-								OrderViewConstants.EDITOR_ORDERVIEW_SEARCH+ order.getId(), order);
-					}
-				});
-		
 		
 			
 	      }
