@@ -39,4 +39,12 @@ public abstract class BasePresenter<D extends Display> implements Presenter<D> {
 	protected void registerHandler(HandlerRegistration handlerRegistration) {
 		handlerRegistrations.add(handlerRegistration);
 	}
+
+	/**
+	 * @param departmentId
+	 */
+	public void initEditor(String departmentId) {
+		// TODO Auto-generated method stub
+		
+	}
 }

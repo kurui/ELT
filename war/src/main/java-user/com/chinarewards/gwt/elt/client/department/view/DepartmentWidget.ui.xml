@@ -66,6 +66,7 @@
 				<div class="{new2.form-line} {new2.form-line-btn}">
 					<div class="{new2.element}">
 						<span class="{new2.btn}">
+							<g:Hidden ui:field="departmentId"></g:Hidden>
 							<g:Button ui:field="save">保存</g:Button>
 						</span>
 						<span class="{new2.nbsp}"></span>

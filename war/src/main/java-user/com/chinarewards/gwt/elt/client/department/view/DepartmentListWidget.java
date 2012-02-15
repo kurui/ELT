@@ -12,6 +12,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.cellview.client.CellTree;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Hidden;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -19,6 +20,9 @@ public class DepartmentListWidget extends Composite implements
 		DepartmentListDisplay {
 	@UiField
 	Panel cellTree;
+	
+	@UiField
+	Hidden currentDepartmentId;
 
 	@UiField
 	Button addSameLevelBtn;
@@ -49,15 +53,15 @@ public class DepartmentListWidget extends Composite implements
 	}
 	
 	@Override
-	public void refresh(List<DepartmentNode> result,String corporationId) {
-
+	public void refresh(List<DepartmentNode> result,String corporationId) {		
+		
+		DepartmentManageTreeModel treeModel=new DepartmentManageTreeModel(result,corporationId);	
+		
 		CellTree.Resources res = GWT.create(CellTree.BasicResources.class);
-
-		CellTree tree = new CellTree(new DepartmentManageTreeModel(result,corporationId), null, res);
+		CellTree tree = new CellTree(treeModel, null, res);
 		tree.setAnimationEnabled(true);
 		cellTree.clear();
 		cellTree.add(tree);
-
 	}
 
 
@@ -101,5 +105,10 @@ public class DepartmentListWidget extends Composite implements
 	@Override
 	public Panel getCellTree() {
 		return cellTree;
+	}
+
+	@Override
+	public Hidden getCurrentDepartmentId() {
+		return currentDepartmentId;
 	}
 }

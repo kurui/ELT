@@ -69,11 +69,11 @@ public class DepartmentPluginDescriptor implements PluginDescriptor {
 					@Override
 					public void execute() {
 						DepartmentClient departmentClient = new DepartmentClient();
-						departmentClient.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_ADD);
+						departmentClient.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_EDIT);
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(DepartmentConstants.EDITOR_DEPARTMENT_EDIT,
-										DepartmentConstants.ACTION_DEPARTMENT_ADD,
+										DepartmentConstants.ACTION_DEPARTMENT_EDIT,
 										departmentClient);
 					}
 

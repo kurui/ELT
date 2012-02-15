@@ -37,6 +37,8 @@ public class DepartmentListPresenterImpl extends
 	ListCellTable<DepartmentClient> cellTable;
 	DepartmentListViewAdapter listViewAdapter;
 
+	private String departmentId;
+	
 	private final BreadCrumbsPresenter breadCrumbs;
 
 	@Inject
@@ -87,7 +89,7 @@ public class DepartmentListPresenterImpl extends
 		registerHandler(display.getAddSameLevelBtnClickHandlers()
 				.addClickHandler(new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
-
+//						win.alert(display.getCurrentDepartmentId()+"----"+departmentId);
 						
 					}
 				}));
@@ -110,9 +112,10 @@ public class DepartmentListPresenterImpl extends
 		registerHandler(display.getEditBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
-//						win.alert("功能建设中");
+//						win.alert("功能建设中"); 
 						DepartmentClient client = new DepartmentClient();
-						// client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_ADD);
+						client.setId(departmentId);
+						client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_EDIT);
 
 						Platform.getInstance()
 								.getEditorRegistry()
@@ -141,8 +144,8 @@ public class DepartmentListPresenterImpl extends
 	}
 
 
-	public void delteDepartment(String gifId) {
-		dispatch.execute(new DeleteDepartmentRequest(gifId, sessionManager
+	public void delteDepartment(String departmentId) {
+		dispatch.execute(new DeleteDepartmentRequest(departmentId, sessionManager
 				.getSession().getToken()),
 				new AsyncCallback<DeleteDepartmentResponse>() {
 
@@ -158,4 +161,11 @@ public class DepartmentListPresenterImpl extends
 				});
 	}
 
+	@Override
+	public void initEditor(String departmentId) {
+		System.out.println("---initEditor:"+departmentId);
+		this.departmentId = departmentId;
+		display.getCurrentDepartmentId().setValue(departmentId);
+//		win.alert(departmentId);
+	}
 }

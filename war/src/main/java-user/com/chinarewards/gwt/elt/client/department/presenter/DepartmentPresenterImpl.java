@@ -52,9 +52,8 @@ public class DepartmentPresenterImpl extends
 	}
 
 	@Override
-	public void bind() {
-		// 绑定事件
-		init();
+	public void bind() {		
+		registerEvent();
 
 		if (DepartmentConstants.ACTION_DEPARTMENT_ADD.equals(thisAction)) {
 			breadCrumbs.loadChildPage("新建部门");
@@ -69,8 +68,9 @@ public class DepartmentPresenterImpl extends
 
 		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
 	}
-
-	private void init() {
+	
+	// 绑定事件
+	private void registerEvent() {
 		// 保存事件
 		registerHandler(display.getSaveClick().addClickHandler(
 				new ClickHandler() {
