@@ -1,6 +1,7 @@
 package com.chinarewards.gwt.elt.client.util;
 
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author Cream
@@ -57,4 +58,17 @@ public class StringUtil {
 	public static String valueOf(Object obj) {
 		return (obj == null) ? "" : obj.toString();
 	}
+
+	public static boolean isEmail(String email) {
+		try {
+	        Pattern p = Pattern.compile("(\\w+.)+@(\\w+.)+[a-z]{2,3}");  
+	        Matcher m = p.matcher(email);  
+	        boolean b = m.matches();  
+	        return b;  
+
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
 }
