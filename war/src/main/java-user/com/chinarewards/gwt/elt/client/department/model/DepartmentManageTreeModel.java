@@ -48,8 +48,9 @@ public class DepartmentManageTreeModel implements TreeViewModel {
 	// }
 
 	public DepartmentManageTreeModel(List<DepartmentNode> categoryList,
-			String corporationId, SelectionModel<DepartmentNode> selectionModel) {
+			String corporationId,String departmentIds, SelectionModel<DepartmentNode> selectionModel) {
 		this.corporationId = corporationId;
+		this.departmentIds=departmentIds;
 		this.categoryList = categoryList;
 
 		setDataProvider();
@@ -151,11 +152,11 @@ public class DepartmentManageTreeModel implements TreeViewModel {
 						DepartmentClient client = new DepartmentClient();
 						// client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_ADD);
 						client.setIds(departmentIds);
-//						Platform.getInstance()
-//								.getEditorRegistry()
-//								.openEditor(
-//										DepartmentListConstants.EDITOR_DEPARTMENTLIST_SEARCH,
-//										"EDITOR_DEPARTMENTLIST_SEARCH", client);
+						Platform.getInstance()
+								.getEditorRegistry()
+								.openEditor(
+										DepartmentListConstants.EDITOR_DEPARTMENTLIST_SEARCH,
+										"EDITOR_DEPARTMENTLIST_SEARCH", client);
 					}
 				};
 			}

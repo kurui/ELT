@@ -89,8 +89,9 @@ public class DepartmentListWidget extends Composite implements
 					}
 				});
 
+		departmentIds=currentDepartmentId.getValue();
 		DepartmentManageTreeModel treeModel = new DepartmentManageTreeModel(
-				nodeList, corporationId, selectionModel);
+				nodeList, corporationId,departmentIds,selectionModel);
 
 		CellTree.Resources res = GWT.create(CellTree.BasicResources.class);
 		CellTree tree = new CellTree(treeModel, null, res);
