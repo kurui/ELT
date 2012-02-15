@@ -165,8 +165,13 @@ public class StringUtil {
 	}
 
 	public static String[] getSplitString(String strSrc, String splitStr) {
-		String splitString[] = strSrc.split(splitStr);
-		return splitString;
+		if (strSrc!=null) {
+			String splitString[] = strSrc.split(splitStr);
+			return splitString;
+		} else {
+			return null;
+		}
+		
 	}
 
 	/**
@@ -184,5 +189,9 @@ public class StringUtil {
 			}
 		}
 		return array;
+	}
+	
+	public static void main(String[] args) {
+		System.out.println(getSplitString(null,",").length);
 	}
 }

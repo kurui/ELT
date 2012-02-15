@@ -22,6 +22,7 @@ import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.win.Win;
+import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
@@ -116,17 +117,32 @@ public class DepartmentListPresenterImpl extends
 		registerHandler(display.getEditBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
-						// win.alert("功能建设中");
-						DepartmentClient client = new DepartmentClient();
-						client.setId(departmentIds);
-						client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_EDIT);
+						// win.alert("功能建设中");						
+						
+						if (departmentIds!=null) {
+							String[] ids=StringUtil.getSplitString(departmentIds, ",");
+							if(ids!=null){
+								if (ids.length>1) {
+									win.alert("只能选择一个需要编辑的部门");
+								}else{
+									departmentIds=departmentIds.replace(",","");
+									DepartmentClient client = new DepartmentClient();
+									client.setId(departmentIds);
+									client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_EDIT);
 
-//						Platform.getInstance()
-//								.getEditorRegistry()
-//								.openEditor(
-//										DepartmentConstants.EDITOR_DEPARTMENT_EDIT,
-//										DepartmentConstants.ACTION_DEPARTMENT_EDIT,
-//										client);
+									Platform.getInstance()
+											.getEditorRegistry()
+											.openEditor(
+													DepartmentConstants.EDITOR_DEPARTMENT_EDIT,
+													DepartmentConstants.ACTION_DEPARTMENT_EDIT,
+													client);
+								}
+							}else{
+								win.alert("请至少选择一个需要编辑的部门");
+							}
+						}else{
+							win.alert("请至少选择一个需要编辑的部门");
+						}	
 					}
 				}));
 		// 合并部门
