@@ -31,7 +31,7 @@ public class HrRegisterRequest implements Action<HrRegisterResponse> {
 
 	/**
 	 * 
-	 * @param StaffVo
+	 * @param StaffListVo
 	 */
 	public HrRegisterRequest(StaffVo staffvo) {
 		this.staffvo = staffvo;

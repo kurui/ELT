@@ -1,6 +1,13 @@
 package com.chinarewards.elt.service.staff;
 
+import com.chinarewards.elt.dao.org.StaffDao.QueryStaffPageActionResult;
+import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.model.common.PageStore;
+import com.chinarewards.elt.model.staff.StaffProcess;
+import com.chinarewards.elt.model.staff.StaffSearchCriteria;
+import com.chinarewards.elt.model.staff.StaffWinSearchCriteria;
+import com.chinarewards.elt.model.staff.StaffWinVo;
+import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.vo.WinnersRecordQueryResult;
 import com.chinarewards.elt.model.vo.WinnersRecordQueryVo;
 import com.chinarewards.gwt.elt.model.staff.StaffUserProcess;
@@ -29,4 +36,30 @@ public interface IStaffService {
 	 * @return
 	 */
 	public double getBalance(String staffId);
+	/**
+	 * 查询员工列表
+	 * @param criteria
+	 * @param context
+	 * @return
+	 */
+	public QueryStaffPageActionResult queryStaffList(StaffSearchCriteria criteria,UserContext context);
+	/**
+	 * 创建 and 修改..员工
+	 * @param staffProcess,context
+	 * @return
+	 */
+	public String createOrUpdateStaff(StaffProcess staff,UserContext context);
+	/**
+	 * 查询员工信息
+	 * @param staffId
+	 * @return
+	 */
+	public Staff findStaffById(String staffId);
+	/**
+	 * 查询员工获奖信息
+	 * @param staffId
+	 * @return
+	 */
+	public StaffWinVo findStaffWinReward(StaffWinSearchCriteria criteria);
+	
 }

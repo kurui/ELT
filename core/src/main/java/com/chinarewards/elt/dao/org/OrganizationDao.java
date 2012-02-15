@@ -6,7 +6,6 @@ import java.util.Map;
 
 import com.chinarewards.elt.common.BaseDao;
 import com.chinarewards.elt.domain.org.Organization;
-import com.chinarewards.elt.model.user.DeleteMarkConstant;
 
 public class OrganizationDao extends BaseDao<Organization> {
 

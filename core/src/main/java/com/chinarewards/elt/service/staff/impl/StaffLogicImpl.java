@@ -12,13 +12,22 @@ import com.chinarewards.elt.common.LogicContext;
 import com.chinarewards.elt.common.UserContextProvider;
 import com.chinarewards.elt.dao.org.DepartmentDao;
 import com.chinarewards.elt.dao.org.StaffDao;
+import com.chinarewards.elt.dao.org.StaffDao.QueryStaffPageActionResult;
+import com.chinarewards.elt.dao.reward.WinnerDao;
+import com.chinarewards.elt.dao.user.UserDao;
 import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.org.StaffVo;
+import com.chinarewards.elt.model.staff.StaffProcess;
+import com.chinarewards.elt.model.staff.StaffSearchCriteria;
+import com.chinarewards.elt.model.staff.StaffWinSearchCriteria;
+import com.chinarewards.elt.model.staff.StaffWinVo;
+import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.user.UserRole;
+import com.chinarewards.elt.model.vo.StaffSearchVo;
 import com.chinarewards.elt.model.vo.WinnersRecordQueryResult;
 import com.chinarewards.elt.model.vo.WinnersRecordQueryVo;
 import com.chinarewards.elt.service.org.CorporationLogic;
@@ -41,18 +50,22 @@ public class StaffLogicImpl implements StaffLogic {
 	private final TransactionService transactionService;
 	private final DepartmentDao depDao;
 	private final DepartmentManagerLogic departmentManagerLogic;
+	private final UserDao userDao;
+	private final WinnerDao winnerDao;
 
 	@Inject
 	public StaffLogicImpl(StaffDao staffDao, DepartmentLogic deptLogic,
 			CorporationLogic corporationLogic, DepartmentDao depDao,
 			TransactionService transactionService,
-			DepartmentManagerLogic departmentManagerLogic) {
+			DepartmentManagerLogic departmentManagerLogic, UserDao userDao,WinnerDao winnerDao) {
 		this.staffDao = staffDao;
 		this.deptLogic = deptLogic;
 		this.corporationLogic = corporationLogic;
 		this.transactionService = transactionService;
 		this.depDao = depDao;
 		this.departmentManagerLogic = departmentManagerLogic;
+		this.userDao = userDao;
+		this.winnerDao=winnerDao;
 	}
 
 	@Override
@@ -237,5 +250,81 @@ public class StaffLogicImpl implements StaffLogic {
 		logger.debug("The gotten staff size={}", result.size());
 		return result;
 
+	}
+
+	@Override
+	public QueryStaffPageActionResult queryStaffList(
+			StaffSearchCriteria criteria, UserContext context) {
+		StaffSearchVo searchVo = new StaffSearchVo();
+		//待添加查询条件
+		if (context.getCorporationId() != null)
+			searchVo.setEnterpriseId(context.getCorporationId());
+
+		return staffDao.queryStaffPageAction(searchVo);
+	}
+
+	@Override
+	public String createOrUpdateStaff(StaffProcess staff, UserContext context) {
+		Staff ff=null;
+		if (StringUtil.isEmptyString(staff.getStaffId())) {
+		   	 ff = new Staff();
+		}
+		else
+		{
+			 ff = staffDao.findById(Staff.class, staff.getStaffId());
+		}
+		
+		if (staff.getDepartmentId() != null) {
+			Department dept = deptLogic.findDepartmentById(staff.getDepartmentId());
+			ff.setDepartment(dept);
+		}
+
+
+		ff.setStatus(staff.getStatus());
+		ff.setJobNo(staff.getStaffNo());
+		ff.setPhoto(staff.getPhoto());
+		ff.setPhone(staff.getPhone());
+		ff.setJobPosition(staff.getJobPosition());
+		ff.setLeadership(staff.getLeadership());
+		ff.setEmail(staff.getEmail());
+		ff.setDob(staff.getDob());
+		ff.setName(staff.getStaffName());
+		// ff.setTxAccountId(staff.getTxAccountId());---放到激活账户在做
+		
+		
+		if (StringUtil.isEmptyString(staff.getStaffId())) {
+			// Create a new staff
+			if (context.getCorporationId() != null) {
+				Corporation corp = corporationLogic.findCorporationById(context
+						.getCorporationId());
+				ff.setCorporation(corp);
+			}
+			if (context.getUserId() != null) {
+				ff.setCreatedBy(userDao.findUserById(context.getUserId()));
+			}
+			ff.setCreatedAt(DateUtil.getTime());
+			ff.setDeleted(0);
+			staffDao.save(ff);
+		} else {
+			ff.setId(staff.getStaffId());
+			ff.setLastModifiedAt(DateUtil.getTime());
+			if (context.getUserId() != null) {
+				ff.setLastModifiedBy(userDao.findUserById(context.getUserId()));
+			}
+
+			staffDao.update(ff);
+		}
+
+		return ff.getId();
+	}
+
+	@Override
+	public Staff findStaffById(String staffId) {
+		return staffDao.findById(Staff.class, staffId);
+	}
+
+	@Override
+	public StaffWinVo findStaffWinReward(StaffWinSearchCriteria criteria) {
+		return winnerDao.queryStaffWinRewardPageAction(criteria);
 	}
 }

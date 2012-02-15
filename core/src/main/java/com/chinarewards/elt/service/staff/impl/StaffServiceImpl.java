@@ -1,6 +1,7 @@
 package com.chinarewards.elt.service.staff.impl;
 
 import com.chinarewards.elt.dao.org.StaffDao;
+import com.chinarewards.elt.dao.org.StaffDao.QueryStaffPageActionResult;
 import com.chinarewards.elt.dao.user.RoleDao;
 import com.chinarewards.elt.dao.user.UserRoleDao;
 import com.chinarewards.elt.domain.org.Staff;
@@ -8,6 +9,11 @@ import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.domain.user.SysUserRole;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.org.StaffVo;
+import com.chinarewards.elt.model.staff.StaffProcess;
+import com.chinarewards.elt.model.staff.StaffSearchCriteria;
+import com.chinarewards.elt.model.staff.StaffWinSearchCriteria;
+import com.chinarewards.elt.model.staff.StaffWinVo;
+import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.user.UserVo;
 import com.chinarewards.elt.model.vo.WinnersRecordQueryResult;
 import com.chinarewards.elt.model.vo.WinnersRecordQueryVo;
@@ -93,6 +99,27 @@ public class StaffServiceImpl implements IStaffService {
 	@Override
 	public double getBalance(String staffId) {
 		return staffLogic.getBalance(staffId);
+	}
+
+	@Override
+	public QueryStaffPageActionResult queryStaffList(StaffSearchCriteria criteria,
+			UserContext context) {
+		return staffLogic.queryStaffList(criteria, context);
+	}
+
+	@Override
+	public String createOrUpdateStaff(StaffProcess staff, UserContext context) {
+		return staffLogic.createOrUpdateStaff(staff, context);
+	}
+
+	@Override
+	public Staff findStaffById(String staffId) {
+		return staffLogic.findStaffById(staffId);
+	}
+
+	@Override
+	public StaffWinVo findStaffWinReward(StaffWinSearchCriteria criteria) {
+		return staffLogic.findStaffWinReward(criteria);
 	}
 
 }

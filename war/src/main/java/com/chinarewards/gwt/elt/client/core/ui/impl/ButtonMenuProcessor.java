@@ -8,11 +8,12 @@ import java.util.List;
 
 import com.chinarewards.gwt.elt.client.awardReward.plugin.AwardRewardConstants;
 import com.chinarewards.gwt.elt.client.breadCrumbs.ui.BreadCrumbsMenu;
-import com.chinarewards.gwt.elt.client.budget.plugin.CreateBudgetConstants;
 import com.chinarewards.gwt.elt.client.budget.plugin.CorpBudgetConstants;
+import com.chinarewards.gwt.elt.client.budget.plugin.CreateBudgetConstants;
 import com.chinarewards.gwt.elt.client.core.ui.MenuItem;
 import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
 import com.chinarewards.gwt.elt.client.core.ui.event.MenuClickEvent;
+import com.chinarewards.gwt.elt.client.department.plugin.DepartmentListConstants;
 import com.chinarewards.gwt.elt.client.detailsOfAward.plugin.DetailsOfAwardConstants;
 import com.chinarewards.gwt.elt.client.enterprise.plugin.EnterpriseConstants;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftConstants;
@@ -24,6 +25,7 @@ import com.chinarewards.gwt.elt.client.order.plugin.OrderListConstants;
 import com.chinarewards.gwt.elt.client.order.plugin.OrderViewConstants;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemConstants;
 import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListConstants;
+import com.chinarewards.gwt.elt.client.staffList.plugin.StaffListConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.user.plugin.UserConstants;
 import com.chinarewards.gwt.elt.model.user.UserRoleVo;
@@ -180,7 +182,9 @@ public class ButtonMenuProcessor implements MenuProcessor {
 			items.add(DetailsOfAwardConstants.MENU_DETAILSOFAWARD_SEARCH);
 			items.add(RewardsListConstants.MENU_REWARDSLIST_SEARCH);
 		} else if ("Staff".equals(keyname)) {
+			items.add(DepartmentListConstants.MENU_DEPARTMENTLIST_SEARCH);
 			items.add(UserConstants.MENU_USER_SEARCH);
+			items.add(StaffListConstants.MENU_STAFFLIST_SEARCH);
 		} else if ("Setting".equals(keyname)) {
 			items.add(EnterpriseConstants.MENU_ENTERPRISE_EDIT);
 			items.add(EnterpriseConstants.MENU_INTEGRAL_PRICE_EDIT);
