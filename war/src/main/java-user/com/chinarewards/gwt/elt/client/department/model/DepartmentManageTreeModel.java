@@ -21,8 +21,8 @@ import com.google.gwt.view.client.TreeViewModel;
 
 public class DepartmentManageTreeModel implements TreeViewModel {
 	private ListDataProvider<DepartmentNode> categoryDataProvider;
-	private Cell<DepartmentNode> nodeCell;
-	final List<DepartmentNode> nodeList;
+	private Cell<DepartmentNode> nodeCell;//格式模版
+	final List<DepartmentNode> nodeList;//数据
 
 	String corporationId;
 	String departmentIds;
@@ -87,8 +87,6 @@ public class DepartmentManageTreeModel implements TreeViewModel {
 			}
 		}
 	}
-
-
 
 	/**
 	 * 构造数据行
@@ -198,8 +196,9 @@ public class DepartmentManageTreeModel implements TreeViewModel {
 			}
 			ListDataProvider<DepartmentNode> dataProvider = new ListDataProvider<DepartmentNode>(
 					nodeList);
-			return new DefaultNodeInfo<DepartmentNode>(dataProvider,
-					new DepartmentChildNode());//
+			
+			return new DefaultNodeInfo<DepartmentNode>(dataProvider, nodeCell);
+
 		}
 		String type = node.getClass().getName();
 		throw new IllegalArgumentException("Unsupported object type: " + type);
@@ -212,7 +211,7 @@ public class DepartmentManageTreeModel implements TreeViewModel {
 			return false;
 		}
 	}
-	
+
 	// 如果 node.getId 在ids中存在，则返回true
 	private Boolean isChecked(DepartmentNode node, String departmentIds) {
 		if (node != null) {
