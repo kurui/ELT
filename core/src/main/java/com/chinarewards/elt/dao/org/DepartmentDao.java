@@ -86,11 +86,11 @@ public class DepartmentDao extends BaseDao<Department> {
 	 */
 	public void maintainIndexAfterDeleteNode(int index, String corpId) {
 		getEm().createQuery(
-				"UPDATE Departmen d SET d.lft = (d.lft-2) WHERE d.lft >= :index AND d.corporation.id =:corpId")
+				"UPDATE Department d SET d.lft = (d.lft-2) WHERE d.lft >= :index AND d.corporation.id =:corpId")
 				.setParameter("index", index).setParameter("corpId", corpId)
 				.executeUpdate();
 		getEm().createQuery(
-				"UPDATE Departmen d SET d.rgt = (d.rgt-2) WHERE d.rgt >= :index AND d.corporation.id =:corpId")
+				"UPDATE Department d SET d.rgt = (d.rgt-2) WHERE d.rgt >= :index AND d.corporation.id =:corpId")
 				.setParameter("index", index).setParameter("corpId", corpId)
 				.executeUpdate();
 	}

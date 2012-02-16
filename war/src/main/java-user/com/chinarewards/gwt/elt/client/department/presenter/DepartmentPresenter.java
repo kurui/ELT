@@ -41,6 +41,8 @@ public interface DepartmentPresenter extends
 
 		public void initSaveSameLevelDepartment(DepartmentVo departmentVo);
 
+		public void initSaveChildDepartment(DepartmentVo departmentVo);
+
 	}
 
 	public void initEditor(String giftId, String thisAction);

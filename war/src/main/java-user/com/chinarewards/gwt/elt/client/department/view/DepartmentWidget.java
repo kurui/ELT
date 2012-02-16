@@ -106,6 +106,13 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 		parentName.setValue(departmentVo.getParentName());
 		
 	}
+	
+	@Override
+	public void initSaveChildDepartment(DepartmentVo departmentVo) {
+		parentId.setValue(departmentVo.getId());
+		parentName.setValue(departmentVo.getName());
+		
+	}
 
 	@Override
 	public void setBreadCrumbs(Widget breadCrumbs) {
@@ -164,4 +171,7 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 	public Hidden getParentId() {
 		return parentId;
 	}
+
+
+	
 }

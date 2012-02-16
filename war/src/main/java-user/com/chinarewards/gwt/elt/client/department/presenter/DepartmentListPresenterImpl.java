@@ -131,7 +131,34 @@ public class DepartmentListPresenterImpl extends
 		registerHandler(display.getAddChildBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
-						win.alert("功能建设中");
+//						win.alert("功能建设中");
+						if (departmentIds != null) {
+							String[] ids = StringUtil.getSplitString(
+									departmentIds, ",");
+							if (ids != null) {
+								if (ids.length > 1) {
+									win.alert("只能选择一部门");
+								} else {
+									departmentIds = departmentIds.replace(",",
+											"");
+
+									DepartmentClient client = new DepartmentClient();
+									client.setId(departmentIds);
+									client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_ADD_CHILD);
+
+									Platform.getInstance()
+											.getEditorRegistry()
+											.openEditor(
+													DepartmentConstants.EDITOR_DEPARTMENT_EDIT,
+													DepartmentConstants.ACTION_DEPARTMENT_ADD_CHILD,
+													client);
+								}
+							} else {
+								win.alert("请至少选择一个部门");
+							}
+						} else {
+							win.alert("请至少选择一个部门");
+						}
 					}
 				}));
 		// 删除部门
@@ -176,13 +203,7 @@ public class DepartmentListPresenterImpl extends
 									DepartmentClient client = new DepartmentClient();
 									client.setId(departmentIds);
 									client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_EDIT);
-
-									Platform.getInstance()
-											.getEditorRegistry()
-											.openEditor(
-													DepartmentConstants.EDITOR_DEPARTMENT_EDIT,
-													DepartmentConstants.ACTION_DEPARTMENT_EDIT,
-													client);
+									openEditPage(client);
 								}
 							} else {
 								win.alert("请至少选择一个需要编辑的部门");
@@ -210,24 +231,6 @@ public class DepartmentListPresenterImpl extends
 
 	}
 	
-	private void addSameLevelDepartment(String departmentId) {
-		
-		dispatcher.execute(new DeleteDepartmentRequest(departmentId,
-				sessionManager.getSession().getToken()),
-				new AsyncCallback<DeleteDepartmentResponse>() {
-
-					@Override
-					public void onFailure(Throwable t) {
-						Window.alert(t.getMessage());
-					}
-
-					@Override
-					public void onSuccess(DeleteDepartmentResponse resp) {
-						win.alert("增加成功");
-						openDepartmentManagePage();
-					}
-				});
-	}
 
 	private void delteDepartment(String departmentId) {
 		dispatcher.execute(new DeleteDepartmentRequest(departmentId,

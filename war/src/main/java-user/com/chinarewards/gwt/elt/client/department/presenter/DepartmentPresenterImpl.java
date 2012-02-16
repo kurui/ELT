@@ -67,7 +67,7 @@ public class DepartmentPresenterImpl extends
 		} else if (DepartmentConstants.ACTION_DEPARTMENT_ADD_CHILD
 				.equals(thisAction)) {
 			breadCrumbs.loadChildPage("新建子部门");
-			// initSaveChild();
+			 initSaveChild();
 		} else if (DepartmentConstants.ACTION_DEPARTMENT_EDIT
 				.equals(thisAction)) {
 			initEdit();
@@ -229,6 +229,30 @@ public class DepartmentPresenterImpl extends
 									.getDepartment();
 							clear();
 							display.initSaveSameLevelDepartment(departmentVo);
+						}
+					});
+		} else {
+			System.err.println("------------缺少departmentId----------");
+		}
+	}
+	
+	private void initSaveChild() {
+		if (departmentId != null) {
+			dispatcher.execute(new SearchDepartmentByIdRequest(departmentId),
+					new AsyncCallback<SearchDepartmentByIdResponse>() {
+						@Override
+						public void onFailure(Throwable arg0) {
+							errorHandler.alert("查询结果异常!");
+							openDepartmentManagePage();
+						}
+
+						@Override
+						public void onSuccess(
+								SearchDepartmentByIdResponse response) {
+							DepartmentVo departmentVo = response
+									.getDepartment();
+							clear();
+							display.initSaveChildDepartment(departmentVo);
 						}
 					});
 		} else {
