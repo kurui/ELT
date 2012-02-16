@@ -91,6 +91,8 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 		departmentDao.maintainIndexAfterAddNode(index, corporation.getId());// maintain index
 
 		if (StringUtil.isEmptyString(department.getId())) {	
+			
+			
 			department.setLft(parent.getRgt());
 			department.setRgt(parent.getRgt() + 1);
 			
