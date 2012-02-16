@@ -109,7 +109,16 @@ public class GiftPresenterImpl extends BasePresenter<GiftDisplay> implements
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						dispatchAsync.execute(new LastLoginRoleRequest(sessionManager.getSession().getToken(),UserRoleVo.CORP_ADMIN),
+						UserRoleVo role=UserRoleVo.DEPT_MGR;
+						
+						for (int i = 0; i < sessionManager.getSession().getUserRoles().length; i++) {
+							if(UserRoleVo.CORP_ADMIN==sessionManager.getSession().getUserRoles()[i])
+							{
+								role=UserRoleVo.CORP_ADMIN;
+							}
+						}
+						
+						dispatchAsync.execute(new LastLoginRoleRequest(sessionManager.getSession().getToken(),role),
 								new AsyncCallback<LastLoginRoleResponse>() {
 	
 									@Override
