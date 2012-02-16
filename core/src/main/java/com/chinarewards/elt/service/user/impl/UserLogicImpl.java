@@ -200,4 +200,14 @@ public class UserLogicImpl implements UserLogic {
 		userDao.update(user);
 		return "success";
 	}
+
+	@Override
+	public String updateUserPwd(String staffId, String pwd,String byUserId) {
+		SysUser user=userDao.findUserByStaffId(staffId);
+		SysUser nowUser=userDao.findUserById(byUserId);
+		user.setLastModifiedAt(DateUtil.getTime());
+		user.setLastModifiedBy(nowUser);
+		user.setPassword(pwd);
+		return "success";
+	}
 }
