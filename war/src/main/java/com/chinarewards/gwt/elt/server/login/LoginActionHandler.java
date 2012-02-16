@@ -60,6 +60,8 @@ public class LoginActionHandler extends
 				{
 					if(roles.contains(UserRole.CORP_ADMIN))
 						resp.setLastLoginRole(UserRoleVo.valueOf(UserRole.CORP_ADMIN.toString()));
+					else if(roles.contains(UserRole.DEPT_MGR))
+						resp.setLastLoginRole(UserRoleVo.valueOf(UserRole.DEPT_MGR.toString()));
 					else if(roles.contains(UserRole.GIFT))
 						resp.setLastLoginRole(UserRoleVo.valueOf(UserRole.GIFT.toString()));
 					else if(roles.contains(UserRole.STAFF))

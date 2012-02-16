@@ -52,6 +52,8 @@ public class TokenValidActionHandler extends
 			{
 				if(roles.contains(UserRole.CORP_ADMIN))
 					tokenRep.setLastLoginRole(UserRoleVo.valueOf(UserRole.CORP_ADMIN.toString()));
+				else if(roles.contains(UserRole.DEPT_MGR))
+					tokenRep.setLastLoginRole(UserRoleVo.valueOf(UserRole.DEPT_MGR.toString()));
 				else if(roles.contains(UserRole.GIFT))
 					tokenRep.setLastLoginRole(UserRoleVo.valueOf(UserRole.GIFT.toString()));
 				else if(roles.contains(UserRole.STAFF))

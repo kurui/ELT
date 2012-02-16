@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.chinarewards.gwt.elt.client.core.presenter.DockPresenter.DockDisplay;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
+import com.chinarewards.gwt.elt.client.view.constant.CssStyleConstants;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -399,6 +400,17 @@ public class DockWidget extends Composite implements DockDisplay {
 			btnGift.setStyleName(styleNo);
 		}
 
+	}
+
+	@Override
+	public void displayDeptMgrMenu() {
+		btnGb.setVisible(false);
+		btnGb.getElement().getParentElement().addClassName(CssStyleConstants.hidden);
+		btnGift.setVisible(false);
+		btnGift.getElement().getParentElement().addClassName(CssStyleConstants.hidden);
+		btnIntegral.setVisible(false);
+		btnIntegral.getElement().getParentElement().addClassName(CssStyleConstants.hidden);
+		
 	}
 
 }

@@ -61,11 +61,13 @@ public class MainImpl implements Main, PlatformInitHandler, LoginHandler {
 			login.unbind();
 			UserRoleVo role=sessionManager.getSession().getLastLoginRole();
 			if(role==UserRoleVo.CORP_ADMIN)
-				injector.getPlatform().initialize(injector.getPluginSet(),rootLayoutPanel);
+				injector.getPlatform().initialize(injector.getPluginSetAdmin(),rootLayoutPanel);
+			else if( role==UserRoleVo.DEPT_MGR)
+				injector.getPlatform().initialize(injector.getPluginSetDept(),rootLayoutPanel);
 			else if(role==UserRoleVo.STAFF)
-				injector.getPlatform().initializeStaff(injector.getPluginSet(),rootLayoutPanel);
+				injector.getPlatform().initializeStaff(injector.getPluginSetStaff(),rootLayoutPanel);
 			else if(role==UserRoleVo.GIFT)
-				injector.getPlatform().initializeGift(injector.getPluginSet(),rootLayoutPanel);
+				injector.getPlatform().initializeGift(injector.getPluginSetGift(),rootLayoutPanel);
 			
 		}
 	}
@@ -75,17 +77,22 @@ public class MainImpl implements Main, PlatformInitHandler, LoginHandler {
 		case LOGIN_OK:
 			rootLayoutPanel.clear();
 			login.unbind();
-			injector.getPlatform().initialize(injector.getPluginSet(),rootLayoutPanel);
+			injector.getPlatform().initialize(injector.getPluginSetAdmin(),rootLayoutPanel);
 			break;
+		case LOGIN_OK_DEPT:
+			rootLayoutPanel.clear();
+			login.unbind();
+			injector.getPlatform().initialize(injector.getPluginSetDept(),rootLayoutPanel);
+			break;	
 		case LOGIN_OK_GIFT:
 			rootLayoutPanel.clear();
 			login.unbind();
-			injector.getPlatform().initializeGift(injector.getPluginSet(),rootLayoutPanel);
+			injector.getPlatform().initializeGift(injector.getPluginSetGift(),rootLayoutPanel);
 			break;
 		case LOGIN_OK_STAFF:
 			rootLayoutPanel.clear();
 			login.unbind();
-			injector.getPlatform().initializeStaff(injector.getPluginSet(),rootLayoutPanel);
+			injector.getPlatform().initializeStaff(injector.getPluginSetStaff(),rootLayoutPanel);
 			break;
 		case LOGIN_FAILED:
 			win.alert("登录失败，请重试！");
