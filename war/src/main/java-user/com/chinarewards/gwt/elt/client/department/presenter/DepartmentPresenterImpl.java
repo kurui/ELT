@@ -6,6 +6,7 @@ import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresente
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.department.model.DepartmentVo;
 import com.chinarewards.gwt.elt.client.department.plugin.DepartmentConstants;
+import com.chinarewards.gwt.elt.client.department.plugin.DepartmentListConstants;
 import com.chinarewards.gwt.elt.client.department.request.EditDepartmentRequest;
 import com.chinarewards.gwt.elt.client.department.request.EditDepartmentResponse;
 import com.chinarewards.gwt.elt.client.department.request.SearchDepartmentByIdRequest;
@@ -58,6 +59,14 @@ public class DepartmentPresenterImpl extends
 		if (DepartmentConstants.ACTION_DEPARTMENT_ADD.equals(thisAction)) {
 			breadCrumbs.loadChildPage("新建部门");
 			initSave();
+		} else if (DepartmentConstants.ACTION_DEPARTMENT_ADD_SAMELEVEL
+				.equals(thisAction)) {
+			breadCrumbs.loadChildPage("新建同级部门");
+			initSaveSameLevel();
+		} else if (DepartmentConstants.ACTION_DEPARTMENT_ADD_CHILD
+				.equals(thisAction)) {
+			breadCrumbs.loadChildPage("新建子部门");
+			// initSaveChild();
 		} else if (DepartmentConstants.ACTION_DEPARTMENT_EDIT
 				.equals(thisAction)) {
 			initEdit();
@@ -87,6 +96,14 @@ public class DepartmentPresenterImpl extends
 								.equals(thisAction)) {
 							departmentVo.setId(null);
 							doSave(departmentVo);
+						} else if (DepartmentConstants.ACTION_DEPARTMENT_ADD_SAMELEVEL
+								.equals(thisAction)) {
+							departmentVo.setId(null);
+							doSave(departmentVo);
+						} else if (DepartmentConstants.ACTION_DEPARTMENT_ADD_CHILD
+								.equals(thisAction)) {
+							departmentVo.setId(null);
+							doSave(departmentVo);
 						} else if (DepartmentConstants.ACTION_DEPARTMENT_EDIT
 								.equals(thisAction)) {
 							departmentVo.setId(departmentId);
@@ -110,12 +127,7 @@ public class DepartmentPresenterImpl extends
 											EditDepartmentResponse response) {
 										Window.alert("添加成功");
 										// if(instanceId!=null||!instanceId.equals(""))
-										Platform.getInstance()
-												.getEditorRegistry()
-												.openEditor(
-														DepartmentConstants.EDITOR_DEPARTMENTLIST_SEARCH,
-														DepartmentConstants.ACTION_DEPARTMENT_LIST,
-														instanceId);
+										openDepartmentManagePage();
 									}
 								});
 					}
@@ -129,23 +141,14 @@ public class DepartmentPresenterImpl extends
 										@Override
 										public void onFailure(Throwable t) {
 											Window.alert("修改失败");
-											Platform.getInstance()
-													.getEditorRegistry()
-													.closeEditor(
-															DepartmentConstants.EDITOR_DEPARTMENT_EDIT,
-															instanceId);
+											openEditPage();
 										}
 
 										@Override
 										public void onSuccess(
 												EditDepartmentResponse arg0) {
 											Window.alert("修改成功");
-											Platform.getInstance()
-													.getEditorRegistry()
-													.openEditor(
-															DepartmentConstants.EDITOR_DEPARTMENTLIST_SEARCH,
-															DepartmentConstants.ACTION_DEPARTMENT_LIST,
-															instanceId);
+											openDepartmentManagePage();
 										}
 									});
 						}
@@ -157,12 +160,7 @@ public class DepartmentPresenterImpl extends
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent arg0) {
-						Platform.getInstance()
-								.getEditorRegistry()
-								.openEditor(
-										DepartmentConstants.EDITOR_DEPARTMENTLIST_SEARCH,
-										DepartmentConstants.ACTION_DEPARTMENT_LIST,
-										instanceId);
+						openDepartmentManagePage();
 					}
 				}));
 
@@ -211,11 +209,50 @@ public class DepartmentPresenterImpl extends
 		} else {
 			System.err.println("------------缺少departmentId----------");
 		}
-
 	}
 
 	private void initSave() {
 		display.initAddDepartment(new DepartmentVo());
+	}
+
+	private void initSaveSameLevel() {
+		if (departmentId != null) {
+			dispatcher.execute(new SearchDepartmentByIdRequest(departmentId),
+					new AsyncCallback<SearchDepartmentByIdResponse>() {
+						@Override
+						public void onFailure(Throwable arg0) {
+							errorHandler.alert("查询结果异常!");
+							openDepartmentManagePage();
+						}
+
+						@Override
+						public void onSuccess(
+								SearchDepartmentByIdResponse response) {
+							DepartmentVo departmentVo = response
+									.getDepartment();
+							clear();
+							display.initSaveSameLevelDepartment(departmentVo);
+						}
+					});
+		} else {
+			System.err.println("------------缺少departmentId----------");
+		}
+	}
+
+	private void openDepartmentManagePage() {
+		Platform.getInstance()
+				.getEditorRegistry()
+				.openEditor(
+						DepartmentListConstants.EDITOR_DEPARTMENTLIST_SEARCH,
+						"DepartmentListConstants.EDITOR_DEPARTMENTLIST_SEARCH",
+						null);
+	}
+
+	private void openEditPage() {
+		Platform.getInstance()
+				.getEditorRegistry()
+				.closeEditor(DepartmentConstants.EDITOR_DEPARTMENT_EDIT,
+						instanceId);
 	}
 
 	private void clear() {

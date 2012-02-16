@@ -11,13 +11,11 @@ import com.chinarewards.elt.dao.budget.DepartmentBudgetDao;
 import com.chinarewards.elt.dao.org.CorporationDao;
 import com.chinarewards.elt.dao.org.DepartmentDao;
 import com.chinarewards.elt.dao.org.OrgPolicyDao;
-import com.chinarewards.elt.domain.gift.Gift;
 import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.org.OrgPolicy;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
-import com.chinarewards.elt.model.gift.search.GiftStatus;
 import com.chinarewards.elt.model.org.DepartmentPolicyConstants;
 import com.chinarewards.elt.model.org.DepartmentVo;
 import com.chinarewards.elt.model.org.RewardsApprovalPolicyEnum;
@@ -80,10 +78,48 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 	}
 
 	@Override
+	public Department saveDepartment(SysUser caller, Department department) {
+
+		Department parent = department.getParent();
+		Corporation corporation = department.getCorporation();
+
+		if (parent == null) {
+			throw new IllegalArgumentException("Can not find the root parent.");
+		}
+
+		int index = parent.getRgt();
+		// maintain index
+		departmentDao.maintainIndexAfterAddNode(index, corporation.getId());
+
+		Date now = DateUtil.getTime();
+		Department tempDepartment = new Department();
+		tempDepartment.setName(department.getName());
+		tempDepartment.setDescription(department.getDescription());
+		tempDepartment.setParent(parent);
+		tempDepartment.setCorporation(corporation);
+		tempDepartment.setLft(parent.getRgt());
+		tempDepartment.setRgt(parent.getRgt() + 1);
+
+
+		if (StringUtil.isEmptyString(department.getId())) {
+			tempDepartment.setCreatedAt(now);
+			tempDepartment.setCreatedBy(caller);
+			departmentDao.save(tempDepartment);
+		} else {
+			tempDepartment.setLastModifiedAt(now);
+			tempDepartment.setLastModifiedBy(caller);
+			departmentDao.update(tempDepartment);
+		}
+
+		return tempDepartment;
+	}
+
+	@Override
 	public Department addDepartment(SysUser caller, DepartmentVo department) {
 
 		Department parent;
 		Corporation corporation;
+
 		if (StringUtil.isEmptyString(department.getParentId())) {
 			String corpId = department.getCorporationId();
 			corporation = corporationDao.findById(Corporation.class, corpId);
@@ -145,7 +181,7 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 
 	@Override
 	public Department editDepartment(SysUser caller, String id,
-			DepartmentVo department) {
+			Department department) {
 		Date now = DateUtil.getTime();
 		Department dept = departmentDao.findById(Department.class, id);
 		dept.setName(department.getName());

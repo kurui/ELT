@@ -30,7 +30,9 @@
 				<div class="{new2.form-line}">
 					<label class="{new2.label}">上级部门：</label>
 					<div class="{new2.element}">
-						<g:TextBox ui:field="superdepartment" styleName="{new2.text}" />
+						<g:Hidden ui:field="parentId"  />
+						<g:TextBox ui:field="parentName" styleName="{new2.text}" />
+						
 					</div>
 				</div>
 				<div class="{new2.form-line}">

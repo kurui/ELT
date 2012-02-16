@@ -14,6 +14,9 @@ public class DepartmentAdapterClient {
 		DepartmentVo departmentVo = new DepartmentVo();
 
 		departmentVo.setName(display.getDepartmentName().getValue());
+
+		departmentVo.setParentId(display.getParentId().getValue());
+		
 		departmentVo.setLeader(display.getLeader().getValue());
 		departmentVo.setPeopleNumber(display.getPeopleNumber().getValue());
 		

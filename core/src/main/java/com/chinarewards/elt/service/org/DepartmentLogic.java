@@ -33,7 +33,7 @@ public interface DepartmentLogic {
 	 * @param department
 	 * @return
 	 */
-	public Department addDepartment(SysUser caller, DepartmentVo department);
+	public Department saveDepartment(SysUser caller, Department department);
 
 	/**
 	 * Only supported edit the name and description.
@@ -44,7 +44,7 @@ public interface DepartmentLogic {
 	 * @return
 	 */
 	public Department editDepartment(SysUser caller, String id,
-			DepartmentVo department);
+			Department department);
 
 	/**
 	 * Delete the specified Department. Notice: you are only permitted to delete
@@ -164,6 +164,13 @@ public interface DepartmentLogic {
 	 * @return
 	 */
 	List<DepartmentManageVo> getDepartmentManageList(String corpId);
+
+	/**
+	 * @param caller
+	 * @param department
+	 * @return
+	 */
+	Department addDepartment(SysUser caller, DepartmentVo department);
 	
 	
 	

@@ -10,6 +10,7 @@ import com.chinarewards.gwt.elt.client.dataprovider.DepartmentListViewAdapter;
 import com.chinarewards.gwt.elt.client.department.model.DepartmentClient;
 import com.chinarewards.gwt.elt.client.department.model.DepartmentNode;
 import com.chinarewards.gwt.elt.client.department.plugin.DepartmentConstants;
+import com.chinarewards.gwt.elt.client.department.plugin.DepartmentListConstants;
 import com.chinarewards.gwt.elt.client.department.presenter.DepartmentListPresenter.DepartmentListDisplay;
 import com.chinarewards.gwt.elt.client.department.request.DeleteDepartmentRequest;
 import com.chinarewards.gwt.elt.client.department.request.DeleteDepartmentResponse;
@@ -32,7 +33,7 @@ import com.google.inject.Inject;
 public class DepartmentListPresenterImpl extends
 		BasePresenter<DepartmentListDisplay> implements DepartmentListPresenter {
 
-	final DispatchAsync dispatch;
+	final DispatchAsync dispatcher;
 	final ErrorHandler errorHandler;
 	final SessionManager sessionManager;
 	final Win win;
@@ -47,11 +48,11 @@ public class DepartmentListPresenterImpl extends
 
 	@Inject
 	public DepartmentListPresenterImpl(EventBus eventBus,
-			DispatchAsync dispatch, ErrorHandler errorHandler,
+			DispatchAsync dispatcher, ErrorHandler errorHandler,
 			SessionManager sessionManager, DepartmentListDisplay display,
 			Win win, BreadCrumbsPresenter breadCrumbs) {
 		super(eventBus, display);
-		this.dispatch = dispatch;
+		this.dispatcher = dispatcher;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
 		this.win = win;
@@ -72,7 +73,7 @@ public class DepartmentListPresenterImpl extends
 	private void initTreeTable() {
 		final String corporationId = sessionManager.getSession()
 				.getCorporationId();
-		dispatch.execute(new DepartmentManageRequest(corporationId,
+		dispatcher.execute(new DepartmentManageRequest(corporationId,
 				departmentIds), new AsyncCallback<DepartmentManageResponse>() {
 			@Override
 			public void onFailure(Throwable e) {
@@ -84,7 +85,7 @@ public class DepartmentListPresenterImpl extends
 				// display.setBudgetIntegral((int)response.getBudgetIntegral()+"");
 				// display.setUseIntegeral((int)response.getBudgetIntegral()+"");
 				List<DepartmentNode> nodeList = response.getResult();
-				display.loadTreeData(nodeList, corporationId,departmentIds);
+				display.loadTreeData(nodeList, corporationId, departmentIds);
 			}
 		});
 	}
@@ -95,6 +96,33 @@ public class DepartmentListPresenterImpl extends
 				.addClickHandler(new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
 						win.alert("currentDepartmentId()----" + departmentIds);
+						if (departmentIds != null) {
+							String[] ids = StringUtil.getSplitString(
+									departmentIds, ",");
+							if (ids != null) {
+								if (ids.length > 1) {
+									win.alert("只能选择一部门");
+								} else {
+									departmentIds = departmentIds.replace(",",
+											"");
+
+									DepartmentClient client = new DepartmentClient();
+									client.setId(departmentIds);
+									client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_ADD_SAMELEVEL);
+
+									Platform.getInstance()
+											.getEditorRegistry()
+											.openEditor(
+													DepartmentConstants.EDITOR_DEPARTMENT_EDIT,
+													DepartmentConstants.ACTION_DEPARTMENT_ADD_SAMELEVEL,
+													client);
+								}
+							} else {
+								win.alert("请至少选择一个部门");
+							}
+						} else {
+							win.alert("请至少选择一个部门");
+						}
 
 					}
 				}));
@@ -110,22 +138,41 @@ public class DepartmentListPresenterImpl extends
 		registerHandler(display.getDeleteBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
-						win.alert("功能建设中");
+						// win.alert("功能建设中");
+						if (departmentIds != null) {
+							String[] ids = StringUtil.getSplitString(
+									departmentIds, ",");
+							if (ids != null) {
+								if (ids.length > 1) {
+									win.alert("只能选择一个需要删除的部门");
+								} else {
+									departmentIds = departmentIds.replace(",",
+											"");
+									delteDepartment(departmentIds);
+								}
+							} else {
+								win.alert("请至少选择一个需要删除的部门");
+							}
+						} else {
+							win.alert("请至少选择一个需要删除的部门");
+						}
 					}
 				}));
 		// 编辑部门
 		registerHandler(display.getEditBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
-						// win.alert("功能建设中");						
-						
-						if (departmentIds!=null) {
-							String[] ids=StringUtil.getSplitString(departmentIds, ",");
-							if(ids!=null){
-								if (ids.length>1) {
+						// win.alert("功能建设中");
+
+						if (departmentIds != null) {
+							String[] ids = StringUtil.getSplitString(
+									departmentIds, ",");
+							if (ids != null) {
+								if (ids.length > 1) {
 									win.alert("只能选择一个需要编辑的部门");
-								}else{
-									departmentIds=departmentIds.replace(",","");
+								} else {
+									departmentIds = departmentIds.replace(",",
+											"");
 									DepartmentClient client = new DepartmentClient();
 									client.setId(departmentIds);
 									client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_EDIT);
@@ -137,12 +184,12 @@ public class DepartmentListPresenterImpl extends
 													DepartmentConstants.ACTION_DEPARTMENT_EDIT,
 													client);
 								}
-							}else{
+							} else {
 								win.alert("请至少选择一个需要编辑的部门");
 							}
-						}else{
+						} else {
 							win.alert("请至少选择一个需要编辑的部门");
-						}	
+						}
 					}
 				}));
 		// 合并部门
@@ -162,9 +209,28 @@ public class DepartmentListPresenterImpl extends
 				}));
 
 	}
+	
+	private void addSameLevelDepartment(String departmentId) {
+		
+		dispatcher.execute(new DeleteDepartmentRequest(departmentId,
+				sessionManager.getSession().getToken()),
+				new AsyncCallback<DeleteDepartmentResponse>() {
 
-	public void delteDepartment(String departmentId) {
-		dispatch.execute(new DeleteDepartmentRequest(departmentId,
+					@Override
+					public void onFailure(Throwable t) {
+						Window.alert(t.getMessage());
+					}
+
+					@Override
+					public void onSuccess(DeleteDepartmentResponse resp) {
+						win.alert("增加成功");
+						openDepartmentManagePage();
+					}
+				});
+	}
+
+	private void delteDepartment(String departmentId) {
+		dispatcher.execute(new DeleteDepartmentRequest(departmentId,
 				sessionManager.getSession().getToken()),
 				new AsyncCallback<DeleteDepartmentResponse>() {
 
@@ -176,8 +242,18 @@ public class DepartmentListPresenterImpl extends
 					@Override
 					public void onSuccess(DeleteDepartmentResponse resp) {
 						win.alert("删除成功");
+						openDepartmentManagePage();
 					}
 				});
+	}
+
+	private void openDepartmentManagePage() {
+		Platform.getInstance()
+				.getEditorRegistry()
+				.openEditor(
+						DepartmentListConstants.EDITOR_DEPARTMENTLIST_SEARCH,
+						"DepartmentListConstants.EDITOR_DEPARTMENTLIST_SEARCH",
+						null);
 	}
 
 	@Override

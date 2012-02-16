@@ -33,7 +33,8 @@ public class Department extends Organization {
 	/**
 	 * Who is the parent department.
 	 */
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
+	//(fetch = FetchType.LAZY)
 	private Department parent;
 
 	/**
