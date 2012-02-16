@@ -3,7 +3,15 @@ package com.chinarewards.gwt.elt.client.integralManagement.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.chinarewards.gwt.elt.client.breadCrumbs.ui.BreadCrumbsMenu;
+import com.chinarewards.gwt.elt.client.budget.plugin.CreateBudgetConstants;
+import com.chinarewards.gwt.elt.client.core.Platform;
+import com.chinarewards.gwt.elt.client.core.presenter.DockPresenter;
+import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
+import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListConstants;
 import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
+import com.chinarewards.gwt.elt.model.rewards.RewardPageType;
+import com.chinarewards.gwt.elt.model.rewards.RewardsPageClient;
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.cell.client.Cell;
 import com.google.gwt.cell.client.CompositeCell;
@@ -11,7 +19,6 @@ import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.HasCell;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.TreeViewModel;
 
@@ -85,12 +92,16 @@ public class ContactTreeViewModel implements TreeViewModel {
 	private Cell<Category> contactCell1;
 	String corporationId;
 	final List<Category> categoryList;
-
+	final MenuProcessor menuProcessor;
+	final DockPresenter dockPresenter;
+	final BreadCrumbsMenu breadCrumbspresenter;
 	public ContactTreeViewModel(List<Category> categoryList,
-			String corporationId) {
+			String corporationId,final MenuProcessor menuProcessor,final DockPresenter dockPresenter,final BreadCrumbsMenu breadCrumbspresenter) {
 		this.corporationId = corporationId;
 		this.categoryList = categoryList;
-
+		this.menuProcessor=menuProcessor;
+		this.dockPresenter=dockPresenter;
+		this.breadCrumbspresenter=breadCrumbspresenter;
 		// 一级部门加载
 		if (this.categoryList != null) {
 
@@ -129,15 +140,7 @@ public class ContactTreeViewModel implements TreeViewModel {
 			}
 
 			public FieldUpdater<Category, Category> getFieldUpdater() {
-				return new FieldUpdater<Category, Category>() {
-
-					@Override
-					public void update(int index, Category object,
-							Category value) {
-						Window.alert(object.getDepartmentId());
-
-					}
-				};
+				return null;
 			}
 
 			public Category getValue(Category object) {
@@ -158,7 +161,14 @@ public class ContactTreeViewModel implements TreeViewModel {
 
 					@Override
 					public void update(int index, Category object, String value) {
-						Window.alert(object.getDepartmentId());
+
+						menuProcessor.changItemColor("部门预算");
+						breadCrumbspresenter.addBreadCrumbsItem("部门预算",CreateBudgetConstants.MENU_CREATE_BUDGET);
+						Platform.getInstance()
+						.getEditorRegistry()
+						.openEditor(
+								CreateBudgetConstants.EDITOR_CREATE_BUDGET,
+								"EDITOR_CREATE_BUDGET_ID", null);
 
 					}
 				};
@@ -183,8 +193,21 @@ public class ContactTreeViewModel implements TreeViewModel {
 
 					@Override
 					public void update(int index, Category object, String value) {
-						Window.alert(object.getDepartmentId());
+						
+						dockPresenter.getDisplay().changeTopMenu("Reward");
+						dockPresenter.getDisplay().setMenuTitle("应用奖项");
+						menuProcessor.initrender(dockPresenter.getDisplay().getMenu(), "Reward");
 
+					//	eventBus.fireEvent(new MenuClickEvent(menuProcessor.getMenuItem(RewardsListConstants.MENU_REWARDSLIST_SEARCH)));
+						RewardsPageClient rpc=new RewardsPageClient();
+						rpc.setTitleName("已颁奖历史");
+						rpc.setPageType(RewardPageType.DETAILSOFAWARDPAGE);
+						Platform.getInstance()
+								.getEditorRegistry()
+								.openEditor(
+										RewardsListConstants.EDITOR_REWARDSLIST_SEARCH,
+										"EDITOR_REWARDSLIST_SEARCH_DO_ID", rpc);
+						menuProcessor.changItemColor("已颁奖历史");
 					}
 				};
 			}

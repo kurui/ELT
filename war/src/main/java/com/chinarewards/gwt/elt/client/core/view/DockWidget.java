@@ -50,10 +50,10 @@ public class DockWidget extends Composite implements DockDisplay {
 	Anchor btnGift;
 	@UiField
 	Anchor collectionBtn;
-	
+
 	@UiField
 	InlineLabel menuTitle;
-	
+
 	@UiField
 	Anchor managementCenter;
 	@UiField
@@ -62,7 +62,7 @@ public class DockWidget extends Composite implements DockDisplay {
 	Anchor staffCorner;
 	@UiField
 	Anchor btnIntegral;
-	
+
 	// Set the format of datepicker.
 	DateTimeFormat dateFormat = DateTimeFormat
 			.getFormat(ViewConstants.date_format_chinese);
@@ -87,11 +87,13 @@ public class DockWidget extends Composite implements DockDisplay {
 	public HasClickHandlers getlogBtn() {
 		return logBtn;
 	}
- String styleOn="";
- String styleNo="";
+
+	String styleOn = "";
+	String styleNo = "";
+
 	private void init() {
-		  styleOn=btnRewardItem.getStyleName();
-		  styleNo=btnEmail.getStyleName();
+		styleOn = btnRewardItem.getStyleName();
+		styleNo = btnEmail.getStyleName();
 		btnReward.addClickHandler(new ClickHandler() {
 
 			@Override
@@ -204,7 +206,7 @@ public class DockWidget extends Composite implements DockDisplay {
 				btnGift.setStyleName(styleNo);
 			}
 		});
-		
+
 	}
 
 	@Override
@@ -294,24 +296,109 @@ public class DockWidget extends Composite implements DockDisplay {
 	@Override
 	public void disableManagementCenter() {
 		managementCenter.setVisible(false);
-		
+
 	}
 
 	@Override
 	public void disableGiftExchange() {
 		giftExchange.setVisible(false);
-		
+
 	}
 
 	@Override
 	public void disableStaffCorner() {
 		staffCorner.setVisible(false);
-		
+
 	}
 
 	@Override
 	public HasClickHandlers getBtnIntegral() {
 		return btnIntegral;
+	}
+
+	@Override
+	public void changeTopMenu(String key) {
+		if ("Reward".equals(key)) {
+			btnReward.setStyleName(styleOn);
+			btnEmail.setStyleName(styleNo);
+			btnGb.setStyleName(styleNo);
+			btnRewardItem.setStyleName(styleNo);
+			btnStaff.setStyleName(styleNo);
+			btnSetting.setStyleName(styleNo);
+			btnGift.setStyleName(styleNo);
+			btnIntegral.setStyleName(styleNo);
+		}
+		if ("Email".equals(key)) {
+			btnReward.setStyleName(styleNo);
+			btnEmail.setStyleName(styleOn);
+			btnGb.setStyleName(styleNo);
+			btnRewardItem.setStyleName(styleNo);
+			btnStaff.setStyleName(styleNo);
+			btnSetting.setStyleName(styleNo);
+			btnGift.setStyleName(styleNo);
+			btnIntegral.setStyleName(styleNo);
+		}
+		if ("Gb".equals(key)) {
+			btnReward.setStyleName(styleNo);
+			btnEmail.setStyleName(styleNo);
+			btnGb.setStyleName(styleOn);
+			btnRewardItem.setStyleName(styleNo);
+			btnStaff.setStyleName(styleNo);
+			btnSetting.setStyleName(styleNo);
+			btnGift.setStyleName(styleNo);
+			btnIntegral.setStyleName(styleNo);
+		}
+		if ("RewardItem".equals(key)) {
+			btnReward.setStyleName(styleNo);
+			btnEmail.setStyleName(styleNo);
+			btnGb.setStyleName(styleNo);
+			btnRewardItem.setStyleName(styleOn);
+			btnStaff.setStyleName(styleNo);
+			btnSetting.setStyleName(styleNo);
+			btnGift.setStyleName(styleNo);
+			btnIntegral.setStyleName(styleNo);
+		}
+		if ("Staff".equals(key)) {
+			btnReward.setStyleName(styleNo);
+			btnEmail.setStyleName(styleNo);
+			btnGb.setStyleName(styleNo);
+			btnRewardItem.setStyleName(styleNo);
+			btnStaff.setStyleName(styleOn);
+			btnSetting.setStyleName(styleNo);
+			btnGift.setStyleName(styleNo);
+			btnIntegral.setStyleName(styleNo);
+		}
+		if ("Setting".equals(key)) {
+			btnReward.setStyleName(styleNo);
+			btnEmail.setStyleName(styleNo);
+			btnGb.setStyleName(styleNo);
+			btnRewardItem.setStyleName(styleNo);
+			btnStaff.setStyleName(styleNo);
+			btnGift.setStyleName(styleNo);
+			btnSetting.setStyleName(styleOn);
+			btnIntegral.setStyleName(styleNo);
+		}
+		if ("Gift".equals(key)) {
+			btnReward.setStyleName(styleNo);
+			btnEmail.setStyleName(styleNo);
+			btnGb.setStyleName(styleNo);
+			btnRewardItem.setStyleName(styleNo);
+			btnStaff.setStyleName(styleNo);
+			btnSetting.setStyleName(styleNo);
+			btnGift.setStyleName(styleOn);
+			btnIntegral.setStyleName(styleNo);
+		}
+		if ("Integral".equals(key)) {
+			btnIntegral.setStyleName(styleOn);
+			btnReward.setStyleName(styleNo);
+			btnEmail.setStyleName(styleNo);
+			btnGb.setStyleName(styleNo);
+			btnRewardItem.setStyleName(styleNo);
+			btnStaff.setStyleName(styleNo);
+			btnSetting.setStyleName(styleNo);
+			btnGift.setStyleName(styleNo);
+		}
+
 	}
 
 }

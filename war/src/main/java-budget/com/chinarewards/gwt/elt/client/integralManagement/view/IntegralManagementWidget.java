@@ -2,6 +2,9 @@ package com.chinarewards.gwt.elt.client.integralManagement.view;
 
 import java.util.List;
 
+import com.chinarewards.gwt.elt.client.breadCrumbs.ui.BreadCrumbsMenu;
+import com.chinarewards.gwt.elt.client.core.presenter.DockPresenter;
+import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
 import com.chinarewards.gwt.elt.client.integralManagement.model.Category;
 import com.chinarewards.gwt.elt.client.integralManagement.model.ContactTreeViewModel;
 import com.chinarewards.gwt.elt.client.integralManagement.presenter.IntegralManagementPresenter.IntegralManagementDisplay;
@@ -29,6 +32,10 @@ public class IntegralManagementWidget extends Composite implements
 	InlineLabel budgetIntegral;
 	@UiField
 	InlineLabel useIntegeral;
+	
+	 MenuProcessor menuProcessor;
+	 DockPresenter dockPresenter;
+	 BreadCrumbsMenu breadCrumbspresenter;
 	private static IntegralManagementWidgetUiBinder uiBinder = GWT
 			.create(IntegralManagementWidgetUiBinder.class);
 
@@ -50,7 +57,7 @@ public class IntegralManagementWidget extends Composite implements
 
 		CellTree.Resources res = GWT.create(CellTree.BasicResources.class);
 
-		CellTree tree = new CellTree(new ContactTreeViewModel(result,corporationId), null, res);
+		CellTree tree = new CellTree(new ContactTreeViewModel(result,corporationId,menuProcessor,dockPresenter,breadCrumbspresenter), null, res);
 		tree.setAnimationEnabled(true);
 		cellTree.clear();
 		cellTree.add(tree);
@@ -77,6 +84,22 @@ public class IntegralManagementWidget extends Composite implements
 	public void setUseIntegeral(String text) {
 		useIntegeral.setText(text);
 		
+	}
+
+	@Override
+	public void setMenuProcessor(MenuProcessor menuProcessor) {
+		this.menuProcessor=menuProcessor;
+		
+	}
+
+	@Override
+	public void setDockPresenter(DockPresenter dockPresenter) {
+		this.dockPresenter=dockPresenter;
+	}
+
+	@Override
+	public void setBreadCrumbsMenu(BreadCrumbsMenu breadCrumbspresenter) {
+		this.breadCrumbspresenter=breadCrumbspresenter;
 	}
 
 }
