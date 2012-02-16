@@ -114,7 +114,7 @@ public class DepartmentListPresenterImpl extends
 								} else {
 									departmentIds = departmentIds.replace(",",
 											"");
-
+									win.alert(departmentIds);
 									DepartmentClient client = new DepartmentClient();
 									client.setId(departmentIds);
 									client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_ADD_SAMELEVEL);
