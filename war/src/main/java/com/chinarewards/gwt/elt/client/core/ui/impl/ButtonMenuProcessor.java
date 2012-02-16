@@ -84,7 +84,7 @@ public class ButtonMenuProcessor implements MenuProcessor {
 		}
 
 		String indexMenu="";
-		if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.CORP_ADMIN)
+		if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.CORP_ADMIN || sessionManager.getSession().getLastLoginRole()==UserRoleVo.DEPT_MGR)
 			indexMenu="RewardItem";
 		else if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.GIFT)
 			indexMenu="Gift";

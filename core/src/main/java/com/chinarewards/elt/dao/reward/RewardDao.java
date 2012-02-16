@@ -78,12 +78,12 @@ public class RewardDao extends BaseDao<Reward> {
 	public PageStore<Reward> searchRewards_departmentId(
 			List<String> departmentIds, RewardSearchVo criteria) {
 		// 是否查某部门所有子部门下的数据
-		if (!StringUtil.isEmptyString(criteria.getBuilderDeptId())
-				&& criteria.isSubDepartmentChosen()) {
-			List<String> childrenIds = departmentLogic.getWholeChildrenIds(
-					criteria.getBuilderDeptId(), true);
-			criteria.setDeptIds(new ArrayList<String>(childrenIds));
-		}
+//		if (!StringUtil.isEmptyString(criteria.getBuilderDeptId())
+//				&& criteria.isSubDepartmentChosen()) {
+//			List<String> childrenIds = departmentLogic.getWholeChildrenIds(
+//					criteria.getBuilderDeptId(), true);
+//			criteria.setDeptIds(new ArrayList<String>(childrenIds));
+//		}
 		PageStore<Reward> res = new PageStore<Reward>();
 		List<Reward> list = searchRewardsData_departmentId(departmentIds,
 				criteria);

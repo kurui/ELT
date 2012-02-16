@@ -58,7 +58,7 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 			for (UserRoleVo r:roles) {
 				roleslt.add(r);
 			}
-			if(!roleslt.contains(UserRoleVo.CORP_ADMIN))
+			if(!roleslt.contains(UserRoleVo.CORP_ADMIN) && !roleslt.contains(UserRoleVo.DEPT_MGR))
 			{
 				display.disableManagementCenter();
 			}

@@ -10,5 +10,4 @@ public interface PlatformGinjector extends MVPGinjector, PresentersGinjector {
 	Platform getPlatform();
 
 	PluginSet getPluginSet();
-
 }

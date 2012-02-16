@@ -50,13 +50,21 @@ public class SearchRewardsHandler extends
 		RewardSearchVo criteria = adapter(rewards);
 		PageStore<RewardVo> rewardsPage = null;
 
-		UserContext uc = new UserContext();
-		uc.setCorporationId(request.getCorporationId());
-		uc.setUserRoles(UserRoleTool.adaptToRole(request.getUserRoles()));
+		UserContext uc=new UserContext();
+		uc.setCorporationId(request.getSession().getCorporationId());
+		uc.setUserId(request.getSession().getToken());
+		uc.setLoginName(request.getSession().getLoginName());
+		uc.setUserRoles(UserRoleTool.adaptToRole(request.getSession().getUserRoles()));
+		
+		
 
 		rewardsPage = rewardService.fetchRewards(uc, criteria);
+		if(rewardsPage!=null)
+		{
 		resp.setTotal(rewardsPage.getResultCount());
 		resp.setResult(RewardsAdapter.adapter(rewardsPage.getResultList()));
+		}
+		
 
 		return resp;
 	}

@@ -1,10 +1,12 @@
 package com.chinarewards.elt.service.staff.impl;
 
+import com.chinarewards.elt.dao.org.DepartmentManagerDao;
 import com.chinarewards.elt.dao.org.StaffDao;
 import com.chinarewards.elt.dao.org.StaffDao.QueryStaffPageActionResult;
 import com.chinarewards.elt.dao.user.RoleDao;
 import com.chinarewards.elt.dao.user.UserRoleDao;
 import com.chinarewards.elt.domain.org.Staff;
+import com.chinarewards.elt.domain.org.manager.DepartmentManager;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.domain.user.SysUserRole;
 import com.chinarewards.elt.model.common.PageStore;
@@ -15,6 +17,7 @@ import com.chinarewards.elt.model.staff.StaffWinSearchCriteria;
 import com.chinarewards.elt.model.staff.StaffWinVo;
 import com.chinarewards.elt.model.user.GeneratedUserConstants;
 import com.chinarewards.elt.model.user.UserContext;
+import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.model.user.UserVo;
 import com.chinarewards.elt.model.vo.WinnersRecordQueryResult;
 import com.chinarewards.elt.model.vo.WinnersRecordQueryVo;
@@ -36,17 +39,19 @@ public class StaffServiceImpl implements IStaffService {
 	TransactionService transactionService;
 	UserRoleDao userRoleDao;
 	RoleDao roleDao;
+	DepartmentManagerDao departmentManagerDao;
 
 	@Inject
 	public StaffServiceImpl(StaffDao staffDao, StaffLogic staffLogic,
 			UserLogic userLogic, TransactionService transactionService,
-			UserRoleDao userRoleDao, RoleDao roleDao) {
+			UserRoleDao userRoleDao, RoleDao roleDao,DepartmentManagerDao departmentManagerDao) {
 		this.staffDao = staffDao;
 		this.staffLogic = staffLogic;
 		this.userLogic = userLogic;
 		this.transactionService = transactionService;
 		this.userRoleDao = userRoleDao;
 		this.roleDao = roleDao;
+		this.departmentManagerDao=departmentManagerDao;
 	}
 
 	@Override
@@ -83,12 +88,21 @@ public class StaffServiceImpl implements IStaffService {
 		userRole.setLastModifiedBy(user);
 		userRole.setUser(user);
 		userRoleDao.createUserRole(userRole);
-	}
 		
 
-		// em.getTransaction().commit();
-		return user.getId();
 	}
+	//如果是部门管理员.加入部门管理表
+
+			if(staffProcess.getRoles().contains(UserRole.DEPT_MGR))
+			{
+				DepartmentManager dm=new DepartmentManager();
+				dm.setStaff(staff);
+				dm.setDepartment(staff.getDepartment());
+				departmentManagerDao.save(dm);
+			}
+			return user.getId();
+	}
+
 
 	public PageStore<WinnersRecordQueryResult> queryWinnerRecords(
 			WinnersRecordQueryVo queryVo, String corporationId,

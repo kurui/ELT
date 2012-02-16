@@ -60,7 +60,7 @@ public class MainImpl implements Main, PlatformInitHandler, LoginHandler {
 		} else {
 			login.unbind();
 			UserRoleVo role=sessionManager.getSession().getLastLoginRole();
-			if(role==UserRoleVo.CORP_ADMIN)
+			if(role==UserRoleVo.CORP_ADMIN || role==UserRoleVo.DEPT_MGR)
 				injector.getPlatform().initialize(injector.getPluginSet(),rootLayoutPanel);
 			else if(role==UserRoleVo.STAFF)
 				injector.getPlatform().initializeStaff(injector.getPluginSet(),rootLayoutPanel);
