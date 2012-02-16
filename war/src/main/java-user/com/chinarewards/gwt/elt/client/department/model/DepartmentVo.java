@@ -19,7 +19,7 @@ public class DepartmentVo implements Serializable {
 	private String peopleNumber;
 	private String yearintegral;
 	private String issueintegral;
-
+	
 	public String getId() {
 		return id;
 	}
@@ -60,7 +60,7 @@ public class DepartmentVo implements Serializable {
 		this.parentId = parentId;
 	}
 
-	public String getParentName() {
+	public String getParentName() {		
 		return parentName;
 	}
 

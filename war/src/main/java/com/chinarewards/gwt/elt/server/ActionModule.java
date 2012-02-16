@@ -16,6 +16,7 @@ import com.chinarewards.gwt.elt.client.chooseStaff.request.SearchStaffChooseRequ
 import com.chinarewards.gwt.elt.client.department.request.DeleteDepartmentRequest;
 import com.chinarewards.gwt.elt.client.department.request.DepartmentManageRequest;
 import com.chinarewards.gwt.elt.client.department.request.EditDepartmentRequest;
+import com.chinarewards.gwt.elt.client.department.request.MergeDepartmentRequest;
 import com.chinarewards.gwt.elt.client.department.request.SearchDepartmentByIdRequest;
 import com.chinarewards.gwt.elt.client.department.request.SearchDepartmentRequest;
 import com.chinarewards.gwt.elt.client.detailsOfAward.request.DetailsOfAwardInitRequest;
@@ -79,6 +80,7 @@ import com.chinarewards.gwt.elt.server.chooseStaff.SearchStaffActionHandler;
 import com.chinarewards.gwt.elt.server.department.DeleteDepartmentHandler;
 import com.chinarewards.gwt.elt.server.department.DepartmentManageHandler;
 import com.chinarewards.gwt.elt.server.department.EditDepartmentHandler;
+import com.chinarewards.gwt.elt.server.department.MergeDepartmentHandler;
 import com.chinarewards.gwt.elt.server.department.SearchDepartmentByIdHandler;
 import com.chinarewards.gwt.elt.server.department.SearchDepartmentHandler;
 import com.chinarewards.gwt.elt.server.detailsOfAward.DetailsOfAwardActionHandler;
@@ -158,6 +160,9 @@ public class ActionModule extends ActionHandlerModule {
 		bindHandler(EditDepartmentRequest.class, EditDepartmentHandler.class); 		
 		//部门删除
 		bindHandler(DeleteDepartmentRequest.class, DeleteDepartmentHandler.class); 
+		//合并部门
+		bindHandler(MergeDepartmentRequest.class, MergeDepartmentHandler.class); 
+				
 		
 		// staff module
 		bindHandler(HrRegisterRequest.class, HrRegisterActionHandler.class);

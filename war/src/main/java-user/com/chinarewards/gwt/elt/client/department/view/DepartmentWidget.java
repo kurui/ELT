@@ -87,7 +87,7 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 
 		leader.setValue(departmentVo.getLeader());
 		parentId.setValue(departmentVo.getParentId());
-		parentName.setText(departmentVo.getParentName());
+		parentName.setText(getDepartmentParentName(departmentVo.getParentName()));
 		// private String childdeparmentIds;
 		// private String childdeparmentNames;
 		peopleNumber.setValue(departmentVo.getPeopleNumber());
@@ -104,8 +104,18 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 	@Override
 	public void initSaveSameLevelDepartment(DepartmentVo departmentVo) {
 		parentId.setValue(departmentVo.getParentId());
-		parentName.setText(departmentVo.getParentName());
+		parentName.setText(getDepartmentParentName(departmentVo.getParentName()));
 
+	}
+	
+	
+	private static String getDepartmentParentName(String parentName){
+		if(parentName!=null){
+			if(parentName.indexOf("ROOT_DEPT")>-1){
+				return "";
+			}
+		}
+		return parentName;
 	}
 
 	@Override

@@ -7,7 +7,6 @@ import com.chinarewards.gwt.elt.client.department.plugin.DepartmentConstants;
 import com.chinarewards.gwt.elt.client.department.plugin.DepartmentListConstants;
 import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
 import com.chinarewards.gwt.elt.util.StringUtil;
-import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.cell.client.Cell;
 import com.google.gwt.cell.client.CheckboxCell;
 import com.google.gwt.cell.client.CompositeCell;
@@ -67,25 +66,7 @@ public class DepartmentManageTreeModel implements TreeViewModel {
 				sb.appendHtmlConstant("</td>");
 			}
 		};
-	}
-
-	private static class DepartmentChildNode extends
-			AbstractCell<DepartmentNode> {
-		public DepartmentChildNode() {
-		}
-
-		@Override
-		public void render(Context context, DepartmentNode node,
-				SafeHtmlBuilder sb) {
-			if (node != null) {
-				sb.appendHtmlConstant("<table><tr>");
-				sb.appendHtmlConstant("<td>" + node.getDepartmentName()
-						+ "</td>");
-				sb.appendHtmlConstant("<td>" + "操作child" + "</td>");
-
-				sb.appendHtmlConstant("</tr></table>");
-			}
-		}
+		
 	}
 
 	/**
