@@ -9,10 +9,11 @@ public class DepartmentVo implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private String id;
+	private String corporationId;
 	private String name; // 部门名称
 	private String leader;
-	private String superdeparmentId;
-	private String superdeparmentName;
+	private String parentId;
+	private String parentName;
 	private String childdeparmentIds;
 	private String childdeparmentNames;
 	private String peopleNumber;
@@ -25,6 +26,14 @@ public class DepartmentVo implements Serializable {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getCorporationId() {
+		return corporationId;
+	}
+
+	public void setCorporationId(String corporationId) {
+		this.corporationId = corporationId;
 	}
 
 	public String getName() {
@@ -43,20 +52,20 @@ public class DepartmentVo implements Serializable {
 		this.leader = leader;
 	}
 
-	public String getSuperdeparmentId() {
-		return superdeparmentId;
+	public String getParentId() {
+		return parentId;
 	}
 
-	public void setSuperdeparmentId(String superdeparmentId) {
-		this.superdeparmentId = superdeparmentId;
+	public void setParentId(String parentId) {
+		this.parentId = parentId;
 	}
 
-	public String getSuperdeparmentName() {
-		return superdeparmentName;
+	public String getParentName() {
+		return parentName;
 	}
 
-	public void setSuperdeparmentName(String superdeparmentName) {
-		this.superdeparmentName = superdeparmentName;
+	public void setParentName(String parentName) {
+		this.parentName = parentName;
 	}
 
 	public String getChilddeparmentIds() {

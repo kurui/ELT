@@ -202,16 +202,10 @@ public class DepartmentManageTreeModel implements TreeViewModel {
 					@Override
 					public void update(int index, DepartmentNode object,
 							String value) {
-						Window.alert(object.getDepartmentId() + "===333");
-
 						DepartmentClient client = new DepartmentClient();
+						client.setId(object.getDepartmentId());
 						client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_EDIT);
-						Platform.getInstance()
-								.getEditorRegistry()
-								.openEditor(
-										DepartmentConstants.EDITOR_DEPARTMENT_EDIT,
-										DepartmentConstants.ACTION_DEPARTMENT_EDIT,
-										client);
+						openEditPage(client);
 					}
 				};
 			}
@@ -296,5 +290,10 @@ public class DepartmentManageTreeModel implements TreeViewModel {
 				sb.appendHtmlConstant("</tr></table>");
 			}
 		}
+	}
+	
+	private void openEditPage(DepartmentClient client) {
+		Platform.getInstance()
+				.getEditorRegistry().openEditor(DepartmentConstants.EDITOR_DEPARTMENT_EDIT, "EDITOR_DEPARTMENT_EDIT", client);
 	}
 }

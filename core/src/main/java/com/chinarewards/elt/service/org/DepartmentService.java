@@ -52,5 +52,25 @@ public interface DepartmentService {
 	 */
 	public List<DepartmentManageVo> getDepartmentManageList(String corporationId);
 
+	/**
+	 * @param uc
+	 * @param department
+	 * @return
+	 */
+	public Department saveDepartment(UserContext uc, Department department);
+
+	/**
+	 * @param corpId
+	 * @return
+	 */
+	public Department getRootDepartmentOfCorporation(String corpId);
+
+	/**
+	 * @param uc
+	 * @param departmentIds
+	 * @return
+	 */
+	public String mergeDepartment(UserContext uc, String departmentIds);
+
 
 }

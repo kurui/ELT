@@ -44,8 +44,21 @@ public class SearchDepartmentByIdHandler extends
 		departmentVo.setLeader(department.getLeader());
 		departmentVo.setPeopleNumber(department.getPeopleNumber());
 //		private String leader;
+
+		
+		Department parent=department.getParent();
+		if (parent!=null) {
+			departmentVo.setParentId(parent.getId());
+			departmentVo.setParentName(parent.getName());
+		}else{
+			
+		}
+		
+		System.out.println("===================SearchByIdHandler=="+departmentVo.getParentName());
+		
 //		private String superdeparmentId;
 //		private String superdeparmentName;
+
 //		private String childdeparmentIds;
 //		private String childdeparmentNames;
 //		private String peopleNumber;

@@ -63,7 +63,7 @@ public class DepartmentListWidget extends Composite implements
 		      }
 		    };
 		    
-		System.out.println("----------------DepartmentListWidget loadTreeData:============");
+//		System.out.println("----------------DepartmentListWidget loadTreeData:============");
 		final MultiSelectionModel<DepartmentNode> selectionModel = new MultiSelectionModel<DepartmentNode>(KEY_PROVIDER);
 		selectionModel
 				.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {

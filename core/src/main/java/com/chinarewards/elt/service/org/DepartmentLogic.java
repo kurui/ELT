@@ -10,6 +10,7 @@ import com.chinarewards.elt.model.org.RewardsApprovalPolicyEnum;
 import com.chinarewards.elt.model.org.exception.DepartmentDeleteException;
 import com.chinarewards.elt.model.org.search.DepartmentListVo;
 import com.chinarewards.elt.model.org.search.DepartmentManageVo;
+import com.chinarewards.elt.model.user.UserContext;
 
 /**
  * The logic about {@link Department}
@@ -33,7 +34,7 @@ public interface DepartmentLogic {
 	 * @param department
 	 * @return
 	 */
-	public Department addDepartment(SysUser caller, DepartmentVo department);
+	public Department saveDepartment(SysUser caller, Department department);
 
 	/**
 	 * Only supported edit the name and description.
@@ -44,7 +45,7 @@ public interface DepartmentLogic {
 	 * @return
 	 */
 	public Department editDepartment(SysUser caller, String id,
-			DepartmentVo department);
+			Department department);
 
 	/**
 	 * Delete the specified Department. Notice: you are only permitted to delete
@@ -163,7 +164,21 @@ public interface DepartmentLogic {
 	 * @param corpId
 	 * @return
 	 */
-	List<DepartmentManageVo> getDepartmentManageList(String corpId);
+	public List<DepartmentManageVo> getDepartmentManageList(String corpId);
+
+	/**
+	 * @param caller
+	 * @param department
+	 * @return
+	 */
+	public Department addDepartment(SysUser caller, DepartmentVo department);
+
+	/**
+	 * @param uc
+	 * @param departmentIds
+	 * @return
+	 */
+	public String mergeDepartment(UserContext uc, String departmentIds);
 	
 	
 	

@@ -20,6 +20,12 @@ public abstract class DepartmentConstants {
 	// 方法
 	/** 新建部门 */
 	public static final String ACTION_DEPARTMENT_ADD = "ACTION_DEPARTMENT_ADD";
+	
+	/** 新建同级部门 */
+	public static final String ACTION_DEPARTMENT_ADD_SAMELEVEL = "ACTION_DEPARTMENT_ADD_SAMELEVEL";
+	/** 新建子部门 */
+	public static final String ACTION_DEPARTMENT_ADD_CHILD = "ACTION_DEPARTMENT_ADD_CHILD";	
+	
 	/** 编辑部门 */
 	public static final String ACTION_DEPARTMENT_EDIT = "ACTION_DEPARTMENT_EDIT";
 	/** 部门列表 */

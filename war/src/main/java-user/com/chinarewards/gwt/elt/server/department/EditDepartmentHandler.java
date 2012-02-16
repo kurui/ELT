@@ -5,9 +5,12 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 
 import org.slf4j.Logger;
 
+import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.model.user.UserContext;
+import com.chinarewards.elt.service.org.CorporationService;
 import com.chinarewards.elt.service.org.DepartmentService;
+import com.chinarewards.elt.util.StringUtil;
 import com.chinarewards.gwt.elt.client.department.model.DepartmentVo;
 import com.chinarewards.gwt.elt.client.department.request.EditDepartmentRequest;
 import com.chinarewards.gwt.elt.client.department.request.EditDepartmentResponse;
@@ -25,10 +28,12 @@ public class EditDepartmentHandler extends
 	@InjectLogger
 	Logger logger;
 	DepartmentService departmentService;
+	CorporationService corporationService;
 
 	@Inject
-	public EditDepartmentHandler(DepartmentService departmentService) {
+	public EditDepartmentHandler(DepartmentService departmentService,CorporationService corporationService) {
 		this.departmentService = departmentService;
+		this.corporationService=corporationService;
 	}
 
 	@Override
@@ -52,7 +57,9 @@ public class EditDepartmentHandler extends
 		uc.setUserId(action.getUserSession().getToken());
 		uc.setUserRoles(UserRoleTool.adaptToRole(action.getUserSession()
 				.getUserRoles()));
-		Department AdddItem = departmentService.save(uc, department);
+		
+		
+		Department AdddItem = departmentService.saveDepartment(uc, department);
 
 		return new EditDepartmentResponse(AdddItem.getId());
 	}
@@ -60,7 +67,7 @@ public class EditDepartmentHandler extends
 	/**
 	 * Convert from DepartmentVo to GeneratorDepartmentModel.
 	 */
-	public static Department assembleDepartment(DepartmentVo departmentVo) {
+	public Department assembleDepartment(DepartmentVo departmentVo) {
 		Department department = new Department();
 		department.setId(departmentVo.getId());
 		department.setName(departmentVo.getName());
@@ -68,6 +75,19 @@ public class EditDepartmentHandler extends
 		department.setPeopleNumber(departmentVo.getPeopleNumber());
 
 //		private String leader;
+		
+		Department parent;
+		Corporation corporation;
+		if (StringUtil.isEmptyString(departmentVo.getParentId())) {
+			String corpId = departmentVo.getCorporationId();
+			parent = departmentService.getRootDepartmentOfCorporation(corpId);			
+			corporation = corporationService.findCorporationById(corpId);			
+		} else {
+			parent = departmentService.findDepartmentById(departmentVo.getParentId());
+			corporation = parent.getCorporation();
+		}
+		department.setParent(parent);
+		department.setCorporation(corporation);
 //		private String superdeparmentId;
 //		private String superdeparmentName;
 //		private String childdeparmentIds;

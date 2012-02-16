@@ -5,18 +5,20 @@ import com.chinarewards.gwt.elt.client.mvp.Display;
 import com.chinarewards.gwt.elt.client.mvp.Presenter;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.Hidden;
 import com.google.gwt.user.client.ui.Widget;
 
 public interface DepartmentPresenter extends
 		Presenter<DepartmentPresenter.DepartmentDisplay> {
 
 	public static interface DepartmentDisplay extends Display {
-		
+
+		public Hidden getDepartmentId();
 		public HasValue<String> getDepartmentName();
 
 		public HasValue<String> getLeader();
 
-		public HasValue<String> getSuperdepartment();
+		public Hidden getParentId();
 
 		public HasValue<String> getChilddepartment();
 
@@ -30,13 +32,17 @@ public interface DepartmentPresenter extends
 
 		public void clear();
 
+		public HasClickHandlers getBackClick();
+
+		void setBreadCrumbs(Widget breadCrumbs);
+
 		public void initAddDepartment(DepartmentVo giftVo);
 
 		public void initEditDepartment(DepartmentVo giftVo);
 
-		public HasClickHandlers getBackClick();
+		public void initSaveSameLevelDepartment(DepartmentVo departmentVo);
 
-		void setBreadCrumbs(Widget breadCrumbs);
+		public void initSaveChildDepartment(DepartmentVo departmentVo);
 
 	}
 
