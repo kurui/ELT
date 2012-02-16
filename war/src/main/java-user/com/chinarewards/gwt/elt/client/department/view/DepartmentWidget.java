@@ -1,6 +1,7 @@
 package com.chinarewards.gwt.elt.client.department.view;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
+
 import com.chinarewards.gwt.elt.client.department.model.DepartmentVo;
 import com.chinarewards.gwt.elt.client.department.presenter.DepartmentPresenter.DepartmentDisplay;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
@@ -14,6 +15,8 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.Hidden;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
@@ -21,7 +24,13 @@ import com.google.inject.Inject;
 
 public class DepartmentWidget extends Composite implements DepartmentDisplay {
 
-	// --------vo
+	@UiField
+	Label departmentNameLabel;
+	@UiField
+	TextBox departmentName;
+	
+	@UiField
+	Hidden departmentId;
 	@UiField
 	TextBox leader;
 	@UiField
@@ -34,7 +43,6 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 	TextBox yearintegral;
 	@UiField
 	TextBox issueintegral;
-	
 
 	@UiField
 	Button save;
@@ -68,13 +76,25 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 
 	@Override
 	public void initEditDepartment(DepartmentVo departmentVo) {
-		leader.setText(departmentVo.getName());
+		// Window.alert("----initEditDepartment:"+departmentVo.getId());
+		departmentId.setValue(departmentVo.getId());
+		departmentName.setText(departmentVo.getName());
+		departmentName.setVisible(false);
+		departmentNameLabel.setText(departmentVo.getName());
+		
+		leader.setValue(departmentVo.getLeader());
+		superdepartment.setValue(departmentVo.getSuperdeparmentName());
+		// private String childdeparmentIds;
+		// private String childdeparmentNames;
+		peopleNumber.setValue(departmentVo.getPeopleNumber());
+		yearintegral.setValue(departmentVo.getYearintegral());
+		issueintegral.setValue(departmentVo.getIssueintegral());
 
 	}
 
 	@Override
 	public void initAddDepartment(DepartmentVo departmentVo) {
-
+		departmentId.setValue(departmentVo.getId());
 	}
 
 	@Override
@@ -108,28 +128,30 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 		return superdepartment;
 	}
 
-
 	@Override
 	public HasValue<String> getChilddepartment() {
 		return childdepartment;
 	}
-
 
 	@Override
 	public HasValue<String> getPeopleNumber() {
 		return peopleNumber;
 	}
 
-
 	@Override
 	public HasValue<String> getYearintegral() {
 		return yearintegral;
 	}
 
-
 	@Override
 	public HasValue<String> getIssueintegral() {
 		return issueintegral;
+	}
+
+
+	@Override
+	public HasValue<String> getDepartmentName() {
+		return departmentName;
 	}
 
 }

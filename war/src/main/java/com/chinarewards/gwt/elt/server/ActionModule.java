@@ -60,6 +60,7 @@ import com.chinarewards.gwt.elt.client.shopWindow.request.ShopWindowRequest;
 import com.chinarewards.gwt.elt.client.staff.HrRegisterRequest;
 import com.chinarewards.gwt.elt.client.staffAdd.request.StaffAddRequest;
 import com.chinarewards.gwt.elt.client.staffList.request.SearchStaffListRequest;
+import com.chinarewards.gwt.elt.client.staffList.request.StaffGenerateUserRequest;
 import com.chinarewards.gwt.elt.client.staffView.request.StaffViewRequest;
 import com.chinarewards.gwt.elt.client.staffView.request.StaffWinRequest;
 import com.chinarewards.gwt.elt.client.user.DeleteUserRequest;
@@ -124,6 +125,7 @@ import com.chinarewards.gwt.elt.server.staff.SearchStaffListActionHandler;
 import com.chinarewards.gwt.elt.server.staff.SearchStaffViewActionHandler;
 import com.chinarewards.gwt.elt.server.staff.SearchStaffWinActionHandler;
 import com.chinarewards.gwt.elt.server.staff.StaffAddActionHandler;
+import com.chinarewards.gwt.elt.server.staff.StaffGenerateUserActionHandler;
 import com.chinarewards.gwt.elt.server.user.DeleteUserActionHandler;
 import com.chinarewards.gwt.elt.server.user.UserSearchActionHandler;
 
@@ -283,6 +285,8 @@ public class ActionModule extends ActionHandlerModule {
 		bindHandler(StaffViewRequest.class,SearchStaffViewActionHandler.class);
 		//员工获奖情况
 		bindHandler(StaffWinRequest.class,SearchStaffWinActionHandler.class);
+		//员工生成用户
+		bindHandler(StaffGenerateUserRequest.class,StaffGenerateUserActionHandler.class);
 		
 		
 	}

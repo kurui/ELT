@@ -24,7 +24,7 @@
 						</div>
 					</div>
 					<div class="{new2.form-line}">
-						<label class="{new2.label}">员工名称：</label>
+						<label class="{new2.label}"><span style="color:red">*</span>员工名称：</label>
 						<div class="{new2.element}">
 							<g:TextBox maxLength="10" ui:field="staffName"
 								styleName="{new2.text}" />
@@ -82,9 +82,9 @@
 					</div>
 
 					<div class="{new2.form-line}">
-						<label class="{new2.label}">Email：</label>
+						<label class="{new2.label}"><span style="color:red">*</span>Email：</label>
 						<div class="{new2.element}">
-							<g:TextBox maxLength="20" ui:field="email" styleName="{new2.text}" />
+							<g:TextBox maxLength="30" ui:field="email" styleName="{new2.text}" />
 						</div>
 					</div>
 					<div class="{new2.form-line}">

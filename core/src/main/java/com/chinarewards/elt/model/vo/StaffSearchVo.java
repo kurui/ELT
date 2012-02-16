@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import com.chinarewards.elt.model.common.PaginationDetail;
 import com.chinarewards.elt.model.common.SortingDetail;
+import com.chinarewards.elt.model.staff.StaffStatus;
 import com.chinarewards.elt.model.user.DeleteMarkConstant;
 
 public class StaffSearchVo {
@@ -106,6 +107,15 @@ public class StaffSearchVo {
 
 	// 部门名称
 	private String departmentname;
+
+	private StaffStatus status;
+	public StaffStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(StaffStatus status) {
+		this.status = status;
+	}
 
 	@Override
 	public String toString() {

@@ -11,7 +11,8 @@
 		<!--面包屑 ]] -->
 
 		<h3>
-			<g:InlineLabel ui:field="departmentName" />
+			<g:InlineLabel ui:field="departmentNameLabel" />
+			<g:TextBox maxLength="20" ui:field="departmentName" styleName="{new2.text}" />
 		</h3>
 		<span class="{new2.cutline}"></span>
 		<!-- 1内容 -->
@@ -66,6 +67,7 @@
 				<div class="{new2.form-line} {new2.form-line-btn}">
 					<div class="{new2.element}">
 						<span class="{new2.btn}">
+							<g:Hidden ui:field="departmentId"></g:Hidden>
 							<g:Button ui:field="save">保存</g:Button>
 						</span>
 						<span class="{new2.nbsp}"></span>

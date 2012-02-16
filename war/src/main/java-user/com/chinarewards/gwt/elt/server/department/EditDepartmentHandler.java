@@ -64,8 +64,19 @@ public class EditDepartmentHandler extends
 		Department department = new Department();
 		department.setId(departmentVo.getId());
 		department.setName(departmentVo.getName());
+		department.setLeader(departmentVo.getLeader());
+		department.setPeopleNumber(departmentVo.getPeopleNumber());
 
-		System.out.println("assembleDepartment(departmentVo):" + departmentVo.getName());
+//		private String leader;
+//		private String superdeparmentId;
+//		private String superdeparmentName;
+//		private String childdeparmentIds;
+//		private String childdeparmentNames;
+//		private String peopleNumber;
+//		private String yearintegral;
+//		private String issueintegral;
+		
+		System.out.println("assembleDepartment(departmentVo):"+department.getId()+"---" + department.getLeader());
 
 
 

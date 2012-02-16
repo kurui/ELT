@@ -1,6 +1,7 @@
 package com.chinarewards.gwt.elt.client.department.editor;
 
 import com.chinarewards.gwt.elt.client.core.ui.impl.AbstractEditor;
+import com.chinarewards.gwt.elt.client.department.model.DepartmentClient;
 import com.chinarewards.gwt.elt.client.department.presenter.DepartmentListPresenter;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
@@ -43,6 +44,14 @@ public class DepartmentListEditor extends AbstractEditor {
 
 	public void setModel(Object model) {
 		this.model = model;
+		
+		DepartmentClient departmentClient = (DepartmentClient) model;
+		if(departmentClient!=null){
+			departmentListPresenter.initEditor(departmentClient.getIds());
+		}else{
+			System.err.println("----------ListEditor setModel client is null...");
+		}
+	
 		departmentListPresenter.bind();
 	}
 }

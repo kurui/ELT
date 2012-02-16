@@ -11,14 +11,20 @@ public interface DepartmentPresenter extends
 		Presenter<DepartmentPresenter.DepartmentDisplay> {
 
 	public static interface DepartmentDisplay extends Display {
+		
+		public HasValue<String> getDepartmentName();
 
 		public HasValue<String> getLeader();
+
 		public HasValue<String> getSuperdepartment();
+
 		public HasValue<String> getChilddepartment();
+
 		public HasValue<String> getPeopleNumber();
+
 		public HasValue<String> getYearintegral();
+
 		public HasValue<String> getIssueintegral();
-		
 
 		public HasClickHandlers getSaveClick();
 

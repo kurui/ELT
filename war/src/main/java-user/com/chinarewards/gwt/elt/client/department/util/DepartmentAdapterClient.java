@@ -13,12 +13,21 @@ public class DepartmentAdapterClient {
 	public static DepartmentVo adapterDisplay(DepartmentDisplay display) {
 		DepartmentVo departmentVo = new DepartmentVo();
 
-		// // 基本信息
-//		departmentVo.setDepartmentName(display.getDepartmentName().getValue().trim());
-
-		// System.out.println("=======adapterDisplay:" +
-		// departmentVo.getSource());
-
+		departmentVo.setName(display.getDepartmentName().getValue());
+		departmentVo.setLeader(display.getLeader().getValue());
+		departmentVo.setPeopleNumber(display.getPeopleNumber().getValue());
+		
+		
+		// private String superdeparmentId;
+		// private String superdeparmentName;
+		// private String childdeparmentIds;
+		// private String childdeparmentNames;
+		// private String peopleNumber;
+		// private String yearintegral;
+		// private String issueintegral;
+		
+		
+		
 		return departmentVo;
 	}
 }

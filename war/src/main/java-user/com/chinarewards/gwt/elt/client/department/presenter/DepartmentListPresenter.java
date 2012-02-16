@@ -6,6 +6,7 @@ import com.chinarewards.gwt.elt.client.department.model.DepartmentNode;
 import com.chinarewards.gwt.elt.client.mvp.Display;
 import com.chinarewards.gwt.elt.client.mvp.Presenter;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.user.client.ui.Hidden;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -14,6 +15,8 @@ public interface DepartmentListPresenter extends
 
 	public static interface DepartmentListDisplay extends Display {
 
+		public Hidden getCurrentDepartmentId();
+		
 		public HasClickHandlers getAddSameLevelBtnClickHandlers();
 
 		public HasClickHandlers getAddChildBtnClickHandlers();
@@ -30,7 +33,8 @@ public interface DepartmentListPresenter extends
 
 		void setBreadCrumbs(Widget breadCrumbs);
 
-		void refresh(List<DepartmentNode> result, String corporationId);
+		void loadTreeData(List<DepartmentNode> result, String corporationId,String departmentIds);
 
 	}
+	public void initEditor(String currentdepartmentIds);
 }

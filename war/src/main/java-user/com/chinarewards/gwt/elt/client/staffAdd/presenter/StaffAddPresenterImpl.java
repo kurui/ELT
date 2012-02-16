@@ -14,6 +14,7 @@ import com.chinarewards.gwt.elt.client.staffList.plugin.StaffListConstants;
 import com.chinarewards.gwt.elt.client.staffView.request.StaffViewRequest;
 import com.chinarewards.gwt.elt.client.staffView.request.StaffViewResponse;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.chinarewards.gwt.elt.client.util.StringUtil;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.util.XmlUtil_GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
@@ -67,6 +68,22 @@ public class StaffAddPresenterImpl extends
 
 					@Override
 					public void onClick(ClickEvent event) {
+						if(StringUtil.isEmpty(display.getStaffName()))
+						{
+							win.alert("请填写员工姓名!");
+							return;
+						}
+						else if(StringUtil.isEmpty(display.getEmail()))
+						{
+							win.alert("请填写Email!");
+							return;
+						}
+						else if(!StringUtil.isValidEmail(display.getEmail()))
+						{
+							win.alert("Email格式不正确,请重新填写Email!");
+							return;
+						}
+						
 						StaffAddRequest request = new StaffAddRequest();
 						if (staffId != null)
 							request.setStaffId(staffId);
