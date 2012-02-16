@@ -65,5 +65,12 @@ public interface DepartmentService {
 	 */
 	public Department getRootDepartmentOfCorporation(String corpId);
 
+	/**
+	 * @param uc
+	 * @param departmentIds
+	 * @return
+	 */
+	public String mergeDepartment(UserContext uc, String departmentIds);
+
 
 }

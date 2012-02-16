@@ -22,6 +22,7 @@ import com.chinarewards.elt.model.org.RewardsApprovalPolicyEnum;
 import com.chinarewards.elt.model.org.exception.DepartmentDeleteException;
 import com.chinarewards.elt.model.org.search.DepartmentListVo;
 import com.chinarewards.elt.model.org.search.DepartmentManageVo;
+import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.org.DepartmentLogic;
 import com.chinarewards.elt.util.DateUtil;
 import com.chinarewards.elt.util.StringUtil;
@@ -304,6 +305,12 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 		}
 
 		return volist;
+	}
+
+
+	@Override
+	public String mergeDepartment(UserContext uc, String departmentIds) {
+		return departmentDao.mergeDepartment(departmentIds);
 	}
 
 }

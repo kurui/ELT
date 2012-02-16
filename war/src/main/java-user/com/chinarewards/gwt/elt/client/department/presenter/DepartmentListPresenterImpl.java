@@ -16,6 +16,8 @@ import com.chinarewards.gwt.elt.client.department.request.DeleteDepartmentReques
 import com.chinarewards.gwt.elt.client.department.request.DeleteDepartmentResponse;
 import com.chinarewards.gwt.elt.client.department.request.DepartmentManageRequest;
 import com.chinarewards.gwt.elt.client.department.request.DepartmentManageResponse;
+import com.chinarewards.gwt.elt.client.department.request.MergeDepartmentRequest;
+import com.chinarewards.gwt.elt.client.department.request.MergeDepartmentResponse;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
@@ -131,7 +133,7 @@ public class DepartmentListPresenterImpl extends
 		registerHandler(display.getAddChildBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
-//						win.alert("功能建设中");
+						// win.alert("功能建设中");
 						if (departmentIds != null) {
 							String[] ids = StringUtil.getSplitString(
 									departmentIds, ",");
@@ -217,10 +219,38 @@ public class DepartmentListPresenterImpl extends
 		registerHandler(display.getMergeBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
-						win.alert("功能建设中");
-						// 跳转页面
+						// win.alert("功能建设中");
+						if (departmentIds != null) {
+							String[] ids = StringUtil.getSplitString(
+									departmentIds, ",");
+							if (ids != null) {
+								if (ids.length < 2) {
+									win.alert("请至少选择两个需要合并的部门");
+								} else {
+									departmentIds = departmentIds.replace(",",
+											"");								
+									dispatcher.execute(new MergeDepartmentRequest(departmentIds), new AsyncCallback<MergeDepartmentResponse>() {
+										@Override
+										public void onFailure(Throwable e) {
+											win.alert("合并失败："+e.getMessage());
+										}
+
+										@Override
+										public void onSuccess(MergeDepartmentResponse response) {
+											openDepartmentManagePage();
+										}
+									});
+									
+								}
+							} else {
+								win.alert("请选择需要合并的部门");
+							}
+						} else {
+							win.alert("请选择需要合并的部门");
+						}
 					}
 				}));
+
 		// 同步公司组织机构
 		registerHandler(display.getSynchBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
@@ -230,7 +260,6 @@ public class DepartmentListPresenterImpl extends
 				}));
 
 	}
-	
 
 	private void delteDepartment(String departmentId) {
 		dispatcher.execute(new DeleteDepartmentRequest(departmentId,
@@ -258,10 +287,12 @@ public class DepartmentListPresenterImpl extends
 						"DepartmentListConstants.EDITOR_DEPARTMENTLIST_SEARCH",
 						null);
 	}
-	
+
 	private void openEditPage(DepartmentClient client) {
 		Platform.getInstance()
-				.getEditorRegistry().openEditor(DepartmentConstants.EDITOR_DEPARTMENT_EDIT, "EDITOR_DEPARTMENT_EDIT", client);
+				.getEditorRegistry()
+				.openEditor(DepartmentConstants.EDITOR_DEPARTMENT_EDIT,
+						"EDITOR_DEPARTMENT_EDIT", client);
 	}
 
 	@Override
