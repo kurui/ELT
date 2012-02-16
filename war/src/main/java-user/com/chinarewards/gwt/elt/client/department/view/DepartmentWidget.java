@@ -28,7 +28,7 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 	Label departmentNameLabel;
 	@UiField
 	TextBox departmentName;
-	
+
 	@UiField
 	Hidden departmentId;
 	@UiField
@@ -36,7 +36,7 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 	@UiField
 	Hidden parentId;
 	@UiField
-	TextBox parentName;
+	Label parentName;
 	@UiField
 	TextBox childdepartment;
 	@UiField
@@ -78,15 +78,16 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 
 	@Override
 	public void initEditDepartment(DepartmentVo departmentVo) {
-		 System.out.println("----widget  initEditDepartment:"+departmentVo.getId());
+		System.out.println("----widget  initEditDepartment:"
+				+ departmentVo.getId());
 		departmentId.setValue(departmentVo.getId());
 		departmentName.setText(departmentVo.getName());
-		departmentName.setVisible(false);
+		// departmentName.setVisible(false);
 		departmentNameLabel.setText(departmentVo.getName());
-		
+
 		leader.setValue(departmentVo.getLeader());
 		parentId.setValue(departmentVo.getParentId());
-		parentName.setValue(departmentVo.getParentName());
+		parentName.setText(departmentVo.getParentName());
 		// private String childdeparmentIds;
 		// private String childdeparmentNames;
 		peopleNumber.setValue(departmentVo.getPeopleNumber());
@@ -99,19 +100,19 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 	public void initAddDepartment(DepartmentVo departmentVo) {
 		departmentId.setValue(departmentVo.getId());
 	}
-	
+
 	@Override
 	public void initSaveSameLevelDepartment(DepartmentVo departmentVo) {
 		parentId.setValue(departmentVo.getParentId());
-		parentName.setValue(departmentVo.getParentName());
-		
+		parentName.setText(departmentVo.getParentName());
+
 	}
-	
+
 	@Override
 	public void initSaveChildDepartment(DepartmentVo departmentVo) {
 		parentId.setValue(departmentVo.getId());
-		parentName.setValue(departmentVo.getName());
-		
+		parentName.setText(departmentVo.getName());
+
 	}
 
 	@Override
@@ -140,7 +141,6 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 		return back;
 	}
 
-	
 	@Override
 	public HasValue<String> getChilddepartment() {
 		return childdepartment;
@@ -161,7 +161,6 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 		return issueintegral;
 	}
 
-
 	@Override
 	public HasValue<String> getDepartmentName() {
 		return departmentName;
@@ -172,6 +171,9 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 		return parentId;
 	}
 
+	@Override
+	public Hidden getDepartmentId() {
+		return departmentId;
+	}
 
-	
 }

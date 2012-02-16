@@ -80,39 +80,38 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 
 	@Override
 	public Department saveDepartment(SysUser caller, Department department) {
-
 		Department parent = department.getParent();
 		Corporation corporation = department.getCorporation();
 
 		if (parent == null) {
-			throw new IllegalArgumentException("Can not find the root parent.");
-		}
-
-		int index = parent.getRgt();
-		// maintain index
-		departmentDao.maintainIndexAfterAddNode(index, corporation.getId());
-
-		Date now = DateUtil.getTime();
-		Department tempDepartment = new Department();
-		tempDepartment.setName(department.getName());
-		tempDepartment.setDescription(department.getDescription());
-		tempDepartment.setParent(parent);
-		tempDepartment.setCorporation(corporation);
-		tempDepartment.setLft(parent.getRgt());
-		tempDepartment.setRgt(parent.getRgt() + 1);
+			throw new IllegalArgumentException("Can not find the root parent...");
+		}		
 
 
-		if (StringUtil.isEmptyString(department.getId())) {
-			tempDepartment.setCreatedAt(now);
-			tempDepartment.setCreatedBy(caller);
-			departmentDao.save(tempDepartment);
+		if (StringUtil.isEmptyString(department.getId())) {			
+			department.setCreatedAt(DateUtil.getTime());
+			department.setCreatedBy(caller);
+			departmentDao.save(department);
 		} else {
-			tempDepartment.setLastModifiedAt(now);
+			Department tempDepartment = departmentDao.findById(Department.class,department.getId());
+			
+			tempDepartment.setName(department.getName());
+			tempDepartment.setLeader(department.getLeader());
+//			tempDepartment.setDescription(department.getDescription());
+//			tempDepartment.setParent(parent);
+//			tempDepartment.setCorporation(corporation);
+			tempDepartment.setLft(parent.getRgt());
+			tempDepartment.setRgt(parent.getRgt() + 1);
+			
+			tempDepartment.setLastModifiedAt(DateUtil.getTime());
 			tempDepartment.setLastModifiedBy(caller);
 			departmentDao.update(tempDepartment);
 		}
+		
+		int index = parent.getRgt();		
+		departmentDao.maintainIndexAfterAddNode(index, corporation.getId());// maintain index
 
-		return tempDepartment;
+		return department;
 	}
 
 	@Override

@@ -97,7 +97,7 @@ public class DepartmentListPresenterImpl extends
 		registerHandler(display.getAddSameLevelBtnClickHandlers()
 				.addClickHandler(new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
-						win.alert("currentDepartmentId()----" + departmentIds);
+					
 						if (departmentIds != null) {
 							String[] ids = StringUtil.getSplitString(
 									departmentIds, ",");
@@ -255,7 +255,8 @@ public class DepartmentListPresenterImpl extends
 		registerHandler(display.getSynchBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
-						win.alert("功能建设中");
+//						win.alert("功能建设中");
+						win.alert("currentDepartmentId()----" + departmentIds);
 					}
 				}));
 

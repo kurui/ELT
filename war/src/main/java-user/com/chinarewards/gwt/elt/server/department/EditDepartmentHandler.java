@@ -80,8 +80,8 @@ public class EditDepartmentHandler extends
 		Corporation corporation;
 		if (StringUtil.isEmptyString(departmentVo.getParentId())) {
 			String corpId = departmentVo.getCorporationId();
-			corporation = corporationService.findCorporationById(corpId);
 			parent = departmentService.getRootDepartmentOfCorporation(corpId);			
+			corporation = corporationService.findCorporationById(corpId);			
 		} else {
 			parent = departmentService.findDepartmentById(departmentVo.getParentId());
 			corporation = parent.getCorporation();

@@ -13,6 +13,7 @@ public interface DepartmentPresenter extends
 
 	public static interface DepartmentDisplay extends Display {
 
+		public Hidden getDepartmentId();
 		public HasValue<String> getDepartmentName();
 
 		public HasValue<String> getLeader();
