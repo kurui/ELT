@@ -3,6 +3,9 @@ package com.chinarewards.gwt.elt.client.integralManagement.presenter;
 
 import java.util.List;
 
+import com.chinarewards.gwt.elt.client.breadCrumbs.ui.BreadCrumbsMenu;
+import com.chinarewards.gwt.elt.client.core.presenter.DockPresenter;
+import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
 import com.chinarewards.gwt.elt.client.integralManagement.model.Category;
 import com.chinarewards.gwt.elt.client.mvp.Display;
 import com.chinarewards.gwt.elt.client.mvp.Presenter;
@@ -22,5 +25,10 @@ public interface IntegralManagementPresenter extends Presenter<IntegralManagemen
 
 		void setBudgetIntegral(String text);
 		void setUseIntegeral(String text);
+		
+		void setMenuProcessor(MenuProcessor menuProcessor);
+		void setDockPresenter(DockPresenter dockPresenter);
+		void setBreadCrumbsMenu(BreadCrumbsMenu breadCrumbspresenter);
+		
 	}
 }
