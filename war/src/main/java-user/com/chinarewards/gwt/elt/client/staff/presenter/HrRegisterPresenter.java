@@ -21,6 +21,7 @@ public interface HrRegisterPresenter extends Presenter<HrRegisterPresenter.HrReg
 		public boolean isCheckAdmin();
 		public boolean isCheckStaff();
 		public boolean isCheckGift();
+		public boolean isCheckDeptMgr();
 
 
 	}
