@@ -28,6 +28,7 @@ import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
@@ -35,6 +36,8 @@ import com.google.inject.Inject;
 public class DepartmentListPresenterImpl extends
 		BasePresenter<DepartmentListDisplay> implements DepartmentListPresenter {
 
+	String departmentIds="";
+	
 	final DispatchAsync dispatcher;
 	final ErrorHandler errorHandler;
 	final SessionManager sessionManager;
@@ -43,8 +46,6 @@ public class DepartmentListPresenterImpl extends
 	EltNewPager pager;
 	ListCellTable<DepartmentClient> cellTable;
 	DepartmentListViewAdapter listViewAdapter;
-
-	private String departmentIds;
 
 	private final BreadCrumbsPresenter breadCrumbs;
 
@@ -70,13 +71,13 @@ public class DepartmentListPresenterImpl extends
 
 		initTreeTable();
 
+		
 	}
 
 	private void initTreeTable() {
 		final String corporationId = sessionManager.getSession()
 				.getCorporationId();
-		dispatcher.execute(new DepartmentManageRequest(corporationId,
-				departmentIds), new AsyncCallback<DepartmentManageResponse>() {
+		dispatcher.execute(new DepartmentManageRequest(corporationId), new AsyncCallback<DepartmentManageResponse>() {
 			@Override
 			public void onFailure(Throwable e) {
 				win.alert(e.getMessage());
@@ -87,17 +88,23 @@ public class DepartmentListPresenterImpl extends
 				// display.setBudgetIntegral((int)response.getBudgetIntegral()+"");
 				// display.setUseIntegeral((int)response.getBudgetIntegral()+"");
 				List<DepartmentNode> nodeList = response.getResult();
-				display.loadTreeData(nodeList, corporationId, departmentIds);
+				display.loadTreeData(nodeList, corporationId);
 			}
 		});
 	}
+	
+	private String getDepartmentIds(){
+		departmentIds=display.getCurrentDepartmentId().getValue();
+		
+		return departmentIds;
+	}
 
-	private void registerEvent() {
+	private void registerEvent() {		
 		// 增加同级部门
 		registerHandler(display.getAddSameLevelBtnClickHandlers()
 				.addClickHandler(new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
-					
+						String departmentIds=getDepartmentIds();
 						if (departmentIds != null) {
 							String[] ids = StringUtil.getSplitString(
 									departmentIds, ",");
@@ -133,6 +140,7 @@ public class DepartmentListPresenterImpl extends
 		registerHandler(display.getAddChildBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
+						String departmentIds=getDepartmentIds();
 						// win.alert("功能建设中");
 						if (departmentIds != null) {
 							String[] ids = StringUtil.getSplitString(
@@ -168,6 +176,7 @@ public class DepartmentListPresenterImpl extends
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
 						// win.alert("功能建设中");
+						String departmentIds=getDepartmentIds();
 						if (departmentIds != null) {
 							String[] ids = StringUtil.getSplitString(
 									departmentIds, ",");
@@ -192,7 +201,7 @@ public class DepartmentListPresenterImpl extends
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
 						// win.alert("功能建设中");
-
+						String departmentIds=getDepartmentIds();
 						if (departmentIds != null) {
 							String[] ids = StringUtil.getSplitString(
 									departmentIds, ",");
@@ -220,6 +229,7 @@ public class DepartmentListPresenterImpl extends
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
 						// win.alert("功能建设中");
+						String departmentIds=getDepartmentIds();
 						if (departmentIds != null) {
 							String[] ids = StringUtil.getSplitString(
 									departmentIds, ",");
@@ -256,7 +266,10 @@ public class DepartmentListPresenterImpl extends
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
 //						win.alert("功能建设中");
-						win.alert("currentDepartmentId()----" + departmentIds);
+//						win.alert("currentDepartmentId()----" + departmentIds);
+						Element element=display.getCellTree().getElement();
+						win.alert(element.getInnerHTML());
+						System.out.println(element.getChildNodes());
 					}
 				}));
 
@@ -297,10 +310,6 @@ public class DepartmentListPresenterImpl extends
 	}
 
 	@Override
-	public void initEditor(String departmentIds) {
-		System.out.println("---initEditor:" + departmentIds);
-		this.departmentIds = departmentIds;
-		display.getCurrentDepartmentId().setValue(departmentIds);
-		// win.alert(departmentId);
+	public void initEditor() {
 	}
 }

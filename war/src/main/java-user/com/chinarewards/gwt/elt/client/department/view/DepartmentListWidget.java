@@ -53,10 +53,9 @@ public class DepartmentListWidget extends Composite implements
 
 	@Override
 	public void loadTreeData(List<DepartmentNode> nodeList,
-			String corporationId, String departmentIds) {
-		departmentIds = currentDepartmentId.getValue();
+			String corporationId) {
 		DepartmentManageTreeModel treeModel = new DepartmentManageTreeModel(
-				nodeList, corporationId, departmentIds);
+				nodeList, corporationId,this);
 
 		CellTree.Resources res = GWT.create(CellTree.BasicResources.class);
 		CellTree tree = new CellTree(treeModel, null, res);

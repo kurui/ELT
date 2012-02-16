@@ -101,7 +101,7 @@ public class StringUtil {
 		} else {
 			fullString = fullString + appString + cellStrng;
 		}
-		
+
 		return fullString;
 	}
 
@@ -135,14 +135,8 @@ public class StringUtil {
 					orderArray = delArrayCellByStr(orderArray, cellString);
 					fullString = getStringByStringArray(orderArray, ",");
 					orderLength = orderArray.length;
-
 				}
-
 			}
-		}
-
-		if (fullString.lastIndexOf(",") > 0) {
-			fullString = fullString.substring(0, fullString.lastIndexOf(","));
 		}
 
 		return fullString;
@@ -165,13 +159,13 @@ public class StringUtil {
 	}
 
 	public static String[] getSplitString(String strSrc, String splitStr) {
-		if (strSrc!=null) {
+		if (strSrc != null) {
 			String splitString[] = strSrc.split(splitStr);
 			return splitString;
 		} else {
 			return null;
 		}
-		
+
 	}
 
 	/**
@@ -190,8 +184,18 @@ public class StringUtil {
 		}
 		return array;
 	}
-	
+
 	public static void main(String[] args) {
-		System.out.println(getSplitString(null,",").length);
+		String str = "";
+		str = appendString(str, "123", ",");
+		System.out.println(str);
+		str = appendString(str, "456", ",");
+		System.out.println(str);
+		str = appendString(str, "789", ",");
+		System.out.println(str);
+		str = removeCellString(str, "456");
+		System.out.println(str);
+		
+		
 	}
 }

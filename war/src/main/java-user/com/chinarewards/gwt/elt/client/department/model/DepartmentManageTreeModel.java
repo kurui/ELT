@@ -2,9 +2,10 @@ package com.chinarewards.gwt.elt.client.department.model;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.department.plugin.DepartmentConstants;
-import com.chinarewards.gwt.elt.client.department.plugin.DepartmentListConstants;
+import com.chinarewards.gwt.elt.client.department.presenter.DepartmentListPresenter.DepartmentListDisplay;
 import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
 import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.cell.client.Cell;
@@ -22,16 +23,16 @@ public class DepartmentManageTreeModel implements TreeViewModel {
 	private ListDataProvider<DepartmentNode> categoryDataProvider;
 	private Cell<DepartmentNode> nodeCell;//格式模版
 	final List<DepartmentNode> nodeList;//数据
-
+	DepartmentListDisplay departmentListDisplay;
 	String corporationId;
 	String departmentIds;
 
 	public DepartmentManageTreeModel(List<DepartmentNode> nodeList,
-			String corporationId, String departmentIds) {
+			String corporationId,DepartmentListDisplay departmentListDisplay) {
 		this.corporationId = corporationId;
-		this.departmentIds = departmentIds;
 		this.nodeList = nodeList;
-
+		this.departmentListDisplay=departmentListDisplay;
+		
 		setDataProvider();
 
 		buildNodeCell();
@@ -90,23 +91,20 @@ public class DepartmentManageTreeModel implements TreeViewModel {
 							Boolean checked) {
 						// Window.alert(object.getDepartmentId()+"--"+object.getDepartmentName());
 
+						departmentIds=departmentListDisplay.getCurrentDepartmentId().getValue();
 						departmentIds = updateDepartmentIdsAsChecked(object,
 								departmentIds);
-
-						DepartmentClient client = new DepartmentClient();
-						// client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_ADD);
-						client.setIds(departmentIds);
-						Platform.getInstance()
-								.getEditorRegistry()
-								.openEditor(
-										DepartmentListConstants.EDITOR_DEPARTMENTLIST_SEARCH,
-										"EDITOR_DEPARTMENTLIST_SEARCH", client);
+			
+						departmentListDisplay.getCurrentDepartmentId().setValue(departmentIds);
+						
+						
 					}
 				};
 			}
 
 			public Boolean getValue(DepartmentNode object) {
-				return isChecked(object, departmentIds);
+//				return isChecked(object, departmentIds);
+				return false;
 			}
 		});
 
@@ -221,6 +219,7 @@ public class DepartmentManageTreeModel implements TreeViewModel {
 						",");
 			}
 		}
+		System.out.println("==========update selected Ids:"+departmentIds);
 		return departmentIds;
 	}
 
