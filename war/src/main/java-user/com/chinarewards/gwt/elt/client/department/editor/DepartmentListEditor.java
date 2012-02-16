@@ -49,7 +49,7 @@ public class DepartmentListEditor extends AbstractEditor {
 		if(departmentClient!=null){
 			departmentListPresenter.initEditor(departmentClient.getIds());
 		}else{
-			System.err.println("----------ListEditor setModel client is null...");
+			//System.err.println("----------ListEditor setModel client is null...");
 		}
 	
 		departmentListPresenter.bind();

@@ -4,6 +4,7 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.core.Platform;
+import com.chinarewards.gwt.elt.client.department.model.DepartmentClient;
 import com.chinarewards.gwt.elt.client.department.model.DepartmentVo;
 import com.chinarewards.gwt.elt.client.department.plugin.DepartmentConstants;
 import com.chinarewards.gwt.elt.client.department.plugin.DepartmentListConstants;
@@ -141,7 +142,7 @@ public class DepartmentPresenterImpl extends
 										@Override
 										public void onFailure(Throwable t) {
 											Window.alert("修改失败");
-											openEditPage();
+											closeEditPage();
 										}
 
 										@Override
@@ -190,11 +191,7 @@ public class DepartmentPresenterImpl extends
 						@Override
 						public void onFailure(Throwable arg0) {
 							errorHandler.alert("查询出错!");
-							Platform.getInstance()
-									.getEditorRegistry()
-									.closeEditor(
-											DepartmentConstants.EDITOR_DEPARTMENT_EDIT,
-											instanceId);
+							closeEditPage();
 						}
 
 						@Override
@@ -248,7 +245,13 @@ public class DepartmentPresenterImpl extends
 						null);
 	}
 
-	private void openEditPage() {
+	private void openEditPage(DepartmentClient client) {
+		Platform.getInstance()
+				.getEditorRegistry().openEditor(DepartmentConstants.EDITOR_DEPARTMENT_EDIT, "EDITOR_DEPARTMENT_EDIT", client);
+	}
+
+	
+	private void closeEditPage() {
 		Platform.getInstance()
 				.getEditorRegistry()
 				.closeEditor(DepartmentConstants.EDITOR_DEPARTMENT_EDIT,

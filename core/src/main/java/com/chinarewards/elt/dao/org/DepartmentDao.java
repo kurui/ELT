@@ -48,7 +48,8 @@ public class DepartmentDao extends BaseDao<Department> {
 		Date now = DateUtil.getTime();
 		Department dept = new Department();
 		dept.setCorporation(corp);
-		dept.setName(name);
+//		dept.setName(name);
+		dept.setName(corp.getName());
 		dept.setLft(1);
 		dept.setRgt(2);
 		dept.setCreatedAt(now);

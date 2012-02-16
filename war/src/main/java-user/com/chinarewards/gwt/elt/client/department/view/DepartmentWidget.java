@@ -78,13 +78,14 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 
 	@Override
 	public void initEditDepartment(DepartmentVo departmentVo) {
-		// Window.alert("----initEditDepartment:"+departmentVo.getId());
+		 System.out.println("----widget  initEditDepartment:"+departmentVo.getId());
 		departmentId.setValue(departmentVo.getId());
 		departmentName.setText(departmentVo.getName());
 		departmentName.setVisible(false);
 		departmentNameLabel.setText(departmentVo.getName());
 		
 		leader.setValue(departmentVo.getLeader());
+		parentId.setValue(departmentVo.getParentId());
 		parentName.setValue(departmentVo.getParentName());
 		// private String childdeparmentIds;
 		// private String childdeparmentNames;

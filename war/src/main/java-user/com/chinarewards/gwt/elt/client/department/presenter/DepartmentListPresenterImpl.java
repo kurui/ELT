@@ -255,6 +255,11 @@ public class DepartmentListPresenterImpl extends
 						"DepartmentListConstants.EDITOR_DEPARTMENTLIST_SEARCH",
 						null);
 	}
+	
+	private void openEditPage(DepartmentClient client) {
+		Platform.getInstance()
+				.getEditorRegistry().openEditor(DepartmentConstants.EDITOR_DEPARTMENT_EDIT, "EDITOR_DEPARTMENT_EDIT", client);
+	}
 
 	@Override
 	public void initEditor(String departmentIds) {

@@ -54,6 +54,8 @@ public class SearchDepartmentByIdHandler extends
 			
 		}
 		
+		System.out.println("===================SearchByIdHandler=="+departmentVo.getParentName());
+		
 //		private String superdeparmentId;
 //		private String superdeparmentName;
 
