@@ -1,16 +1,30 @@
 package com.chinarewards.elt.domain.org;
 
+import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-public class Members {
+import org.hibernate.annotations.GenericGenerator;
 
-    private static final long serialVersionUID = 8744769908375326416L;
-    
+@Entity
+public class Members implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(generator = "system-uuid")
+	@GenericGenerator(name = "system-uuid", strategy = "uuid")
+	@Column(name = "id", nullable = false, updatable = false, length = 50)
     private String id; 
     @ManyToOne
-	private Team teamId; //组
+	private Team team; //组
 	@ManyToOne
 	private Staff staff;//成员ID
 	private int memberType;//成员类型0 组员，1 负责人
@@ -22,16 +36,16 @@ public class Members {
 		this.id = id;
 	}
 	
-	public Team getTeamId() {
-		return teamId;
+	public Team getTeam() {
+		return team;
 	}
-	public void setTeamId(Team teamId) {
-		this.teamId = teamId;
+	public void setTeam(Team team) {
+		this.team = team;
 	}
 	public Staff getStaff() {
 		return staff;
 	}
-	public void setStaffId(Staff staff) {
+	public void setStaff(Staff staff) {
 		this.staff = staff;
 	}
 	public int getMemberType() {

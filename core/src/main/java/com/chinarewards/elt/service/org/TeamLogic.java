@@ -1,9 +1,12 @@
 package com.chinarewards.elt.service.org;
 
+import java.util.List;
+
 import com.chinarewards.elt.domain.org.Members;
 import com.chinarewards.elt.domain.org.Team;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
+import com.chinarewards.elt.model.org.search.TeamParam;
 import com.chinarewards.elt.model.vo.TeamListVo;
 
 /**
@@ -20,15 +23,21 @@ public interface TeamLogic {
 	 * @param team
 	 * @return
 	 */
-	public Team save(SysUser user, Team team);
-   
-	public Members saveMembers(SysUser caller, Members members);
+	public Team save(SysUser user, TeamParam team);
+   /**
+    * 保存成员
+    * @param caller
+    * @param teamObj
+    * @param staffIds
+    * @param type
+    */
+	public void saveMembers(SysUser caller,Team teamObj, List<String> staffIds,int type);
 	/**
 	 * 查找根据ID
 	 * @param id
 	 * @return
 	 */
-	public Team findTeamById(String id);
+	public TeamListVo findTeamById(String id);
 	/**
 	 * 删除组根据ID
 	 * @param id
@@ -44,7 +53,10 @@ public interface TeamLogic {
 	 */
 	public PageStore<TeamListVo> teamList(SysUser user,TeamListVo teamListVo);
 
-	
-	
+	/**
+	 * 根据小组删除人员
+	 * @param teamId
+	 */
+	public void removeMembersByTeam(String teamId) ;
 	
 }

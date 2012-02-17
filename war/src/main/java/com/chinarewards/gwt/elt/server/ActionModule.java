@@ -63,6 +63,9 @@ import com.chinarewards.gwt.elt.client.staffList.request.SearchStaffListRequest;
 import com.chinarewards.gwt.elt.client.staffList.request.StaffGenerateUserRequest;
 import com.chinarewards.gwt.elt.client.staffView.request.StaffViewRequest;
 import com.chinarewards.gwt.elt.client.staffView.request.StaffWinRequest;
+import com.chinarewards.gwt.elt.client.team.request.SearchTeamByIdRequest;
+import com.chinarewards.gwt.elt.client.team.request.SearchTeamRequest;
+import com.chinarewards.gwt.elt.client.team.request.TeamAddRequest;
 import com.chinarewards.gwt.elt.client.user.DeleteUserRequest;
 import com.chinarewards.gwt.elt.client.user.UserSearchRequest;
 import com.chinarewards.gwt.elt.server.awardReward.AwardRewardActionHandler;
@@ -126,6 +129,9 @@ import com.chinarewards.gwt.elt.server.staff.SearchStaffViewActionHandler;
 import com.chinarewards.gwt.elt.server.staff.SearchStaffWinActionHandler;
 import com.chinarewards.gwt.elt.server.staff.StaffAddActionHandler;
 import com.chinarewards.gwt.elt.server.staff.StaffGenerateUserActionHandler;
+import com.chinarewards.gwt.elt.server.team.SearchTeamByIdHandler;
+import com.chinarewards.gwt.elt.server.team.SearchTeamHandler;
+import com.chinarewards.gwt.elt.server.team.TeamHandler;
 import com.chinarewards.gwt.elt.server.user.DeleteUserActionHandler;
 import com.chinarewards.gwt.elt.server.user.UserSearchActionHandler;
 
@@ -288,6 +294,11 @@ public class ActionModule extends ActionHandlerModule {
 		//员工生成用户
 		bindHandler(StaffGenerateUserRequest.class,StaffGenerateUserActionHandler.class);
 		
-		
+		//小组列表
+		bindHandler(SearchTeamRequest.class,SearchTeamHandler.class);
+		//小组增加
+		bindHandler(TeamAddRequest.class,TeamHandler.class);
+		//小组查找BYID
+		bindHandler(SearchTeamByIdRequest.class,SearchTeamByIdHandler.class);
 	}
 }

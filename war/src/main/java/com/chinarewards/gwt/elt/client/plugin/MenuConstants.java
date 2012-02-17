@@ -147,5 +147,9 @@ public abstract class MenuConstants {
 	
 	//员工列表
 	public static final int MENU_ORDER_STAFFLIST_EDIT = order++;
+	//小组列表
+	public static final int MENU_ORDER_TEAMLIST_EDIT = order++;
+	//小组增加
+	public static final int MENU_ORDER_TEAMADD_EDIT = order++;
 
 }

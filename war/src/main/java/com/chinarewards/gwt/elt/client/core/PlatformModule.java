@@ -44,6 +44,8 @@ import com.chinarewards.gwt.elt.client.staff.plugin.HrRegisterPluginDescriptor;
 import com.chinarewards.gwt.elt.client.staffAdd.plugin.StaffAddPluginDescriptor;
 import com.chinarewards.gwt.elt.client.staffList.plugin.StaffListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.staffView.plugin.StaffViewPluginDescriptor;
+import com.chinarewards.gwt.elt.client.team.plugin.TeamAddPluginDescriptor;
+import com.chinarewards.gwt.elt.client.team.plugin.TeamListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.user.plugin.UserPluginDescriptor;
 import com.google.gwt.inject.client.AbstractGinModule;
 import com.google.inject.Provides;
@@ -109,6 +111,8 @@ public class PlatformModule extends AbstractGinModule {
 			IntegralManagementPluginDescriptor integralManagement,
 			StaffListPluginDescriptor staffList,
 			StaffAddPluginDescriptor staffAdd,
+			TeamListPluginDescriptor teamList,
+			TeamAddPluginDescriptor teamAdd,
 			StaffViewPluginDescriptor staffView) {
 
 		if (pluginSet == null) {
@@ -148,6 +152,8 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(staffList);
 			pluginSet.registerPlugin(staffAdd);
 			pluginSet.registerPlugin(staffView);
+			pluginSet.registerPlugin(teamList);
+			pluginSet.registerPlugin(teamAdd);
 		}
 
 		return pluginSet;

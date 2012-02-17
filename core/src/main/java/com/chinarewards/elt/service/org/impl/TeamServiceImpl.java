@@ -4,6 +4,7 @@ import com.chinarewards.elt.domain.org.Members;
 import com.chinarewards.elt.domain.org.Team;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
+import com.chinarewards.elt.model.org.search.TeamParam;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.vo.TeamListVo;
 import com.chinarewards.elt.service.org.TeamLogic;
@@ -23,20 +24,15 @@ public class TeamServiceImpl implements TeamService {
 		
 	}
 	@Override
-	public Team save(UserContext context, Team team) {
+	public Team save(UserContext context, TeamParam team) {
 		SysUser caller = userLogic.findUserById(context.getUserId());
 		Team teams = teamLogic.save(caller, team);
 		return teams;
 	}
 	
+	
 	@Override
-	public Members saveMembers(UserContext context, Members members) {
-		SysUser caller = userLogic.findUserById(context.getUserId());
-		Members member = teamLogic.saveMembers(caller, members);
-		return member;
-	}
-	@Override
-	public Team findTeamById(String id) {		
+	public TeamListVo findTeamById(String id) {		
 		return teamLogic.findTeamById(id);
 	}
 
