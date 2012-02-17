@@ -42,7 +42,6 @@ public class SearchDepartmentByIdHandler extends
 		departmentVo.setId(department.getId());
 		departmentVo.setName(department.getName());
 		departmentVo.setLeader(department.getLeader());
-		departmentVo.setPeopleNumber(department.getPeopleNumber());
 //		private String leader;
 
 		

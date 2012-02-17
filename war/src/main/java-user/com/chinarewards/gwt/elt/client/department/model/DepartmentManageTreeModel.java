@@ -121,7 +121,11 @@ public class DepartmentManageTreeModel implements TreeViewModel {
 					@Override
 					public void update(int index, DepartmentNode object,
 							String value) {
-						Window.alert(object.getDepartmentId() + "--- 部门名称");
+//						Window.alert(object.getDepartmentId() + "--- 部门名称");
+						DepartmentClient client = new DepartmentClient();
+						client.setId(object.getDepartmentId());
+						client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_EDIT);
+						openEditPage(client);
 					}
 				};
 			}

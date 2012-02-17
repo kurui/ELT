@@ -270,7 +270,6 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 					Department.class, department.getId());
 			tempDepartment.setName(department.getName());
 			tempDepartment.setLeader(department.getLeader());
-			tempDepartment.setPeopleNumber(department.getPeopleNumber());
 
 			departmentDao.update(tempDepartment);
 		}

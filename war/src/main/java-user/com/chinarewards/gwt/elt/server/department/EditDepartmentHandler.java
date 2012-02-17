@@ -72,7 +72,6 @@ public class EditDepartmentHandler extends
 		department.setId(departmentVo.getId());
 		department.setName(departmentVo.getName());
 		department.setLeader(departmentVo.getLeader());
-		department.setPeopleNumber(departmentVo.getPeopleNumber());
 
 //		private String leader;
 		
