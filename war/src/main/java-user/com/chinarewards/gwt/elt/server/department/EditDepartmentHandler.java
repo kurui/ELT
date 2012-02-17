@@ -30,10 +30,12 @@ public class EditDepartmentHandler extends
 	DepartmentService departmentService;
 	CorporationService corporationService;
 
+
 	@Inject
 	public EditDepartmentHandler(DepartmentService departmentService,CorporationService corporationService) {
 		this.departmentService = departmentService;
 		this.corporationService=corporationService;
+		
 	}
 
 	@Override
@@ -71,9 +73,9 @@ public class EditDepartmentHandler extends
 		Department department = new Department();
 		department.setId(departmentVo.getId());
 		department.setName(departmentVo.getName());
-		department.setLeader(departmentVo.getLeader());
-
-//		private String leader;
+		department.setLeaderId(departmentVo.getLeaderId());
+		
+	//		private String leader;
 		
 		Department parent;
 		Corporation corporation;
@@ -87,15 +89,14 @@ public class EditDepartmentHandler extends
 		}
 		department.setParent(parent);
 		department.setCorporation(corporation);
-//		private String superdeparmentId;
-//		private String superdeparmentName;
 //		private String childdeparmentIds;
 //		private String childdeparmentNames;
 //		private String peopleNumber;
 //		private String yearintegral;
 //		private String issueintegral;
+		//processRewarditemCount
 		
-		System.out.println("assembleDepartment(departmentVo):"+department.getId()+"---" + department.getLeader());
+		System.out.println("assembleDepartment(departmentVo):"+department.getId()+"---" + department.getLeaderId());
 
 
 

@@ -6,7 +6,10 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 import org.slf4j.Logger;
 
 import com.chinarewards.elt.domain.org.Department;
+import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.service.org.DepartmentService;
+import com.chinarewards.elt.service.user.UserService;
+import com.chinarewards.elt.util.StringUtil;
 import com.chinarewards.gwt.elt.client.department.model.DepartmentVo;
 import com.chinarewards.gwt.elt.client.department.request.SearchDepartmentByIdRequest;
 import com.chinarewards.gwt.elt.client.department.request.SearchDepartmentByIdResponse;
@@ -22,10 +25,12 @@ public class SearchDepartmentByIdHandler extends
 	@InjectLogger
 	Logger logger;
 	DepartmentService departmentService;
+	UserService userService;
 
 	@Inject
-	public SearchDepartmentByIdHandler(DepartmentService departmentService) {
+	public SearchDepartmentByIdHandler(DepartmentService departmentService,UserService userService) {
 		this.departmentService = departmentService;
+		this.userService=userService;
 	}
 
 	@Override
@@ -41,8 +46,15 @@ public class SearchDepartmentByIdHandler extends
 		DepartmentVo departmentVo = new DepartmentVo();
 		departmentVo.setId(department.getId());
 		departmentVo.setName(department.getName());
-		departmentVo.setLeader(department.getLeader());
-//		private String leader;
+		departmentVo.setLeaderId(department.getLeaderId());
+		SysUser user = null;
+		System.out.println(department.getLeaderId()+"==================leaderId==");
+		if (department.getLeaderId()!=null&&StringUtil.isEmptyString(department.getLeaderId())) {
+			user=userService.findUserById(department.getLeaderId());
+		}
+		if(user!=null){
+			departmentVo.setLeaderName(user.getUserName());
+		}
 
 		
 		Department parent=department.getParent();

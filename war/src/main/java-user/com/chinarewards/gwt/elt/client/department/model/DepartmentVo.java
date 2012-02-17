@@ -11,7 +11,8 @@ public class DepartmentVo implements Serializable {
 	private String id;
 	private String corporationId;
 	private String name; // 部门名称
-	private String leader;
+	private String leaderId;
+	private String leaderName;	
 	private String parentId;
 	private String parentName;
 	private String childdeparmentIds;
@@ -44,12 +45,21 @@ public class DepartmentVo implements Serializable {
 		this.name = name;
 	}
 
-	public String getLeader() {
-		return leader;
+
+	public String getLeaderId() {
+		return leaderId;
 	}
 
-	public void setLeader(String leader) {
-		this.leader = leader;
+	public void setLeaderId(String leaderId) {
+		this.leaderId = leaderId;
+	}
+
+	public String getLeaderName() {
+		return leaderName;
+	}
+
+	public void setLeaderName(String leaderName) {
+		this.leaderName = leaderName;
 	}
 
 	public String getParentId() {

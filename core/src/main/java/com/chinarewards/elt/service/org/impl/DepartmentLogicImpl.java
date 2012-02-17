@@ -103,9 +103,7 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 			Department tempDepartment = departmentDao.findById(Department.class,department.getId());
 			
 			tempDepartment.setName(department.getName());
-			tempDepartment.setLeader(department.getLeader());
-//			tempDepartment.setDescription(department.getDescription());
-//			tempDepartment.setParent(parent);
+			tempDepartment.setLeaderId(department.getLeaderId());
 //			tempDepartment.setCorporation(corporation);
 			
 			
@@ -269,7 +267,7 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 			Department tempDepartment = departmentDao.findById(
 					Department.class, department.getId());
 			tempDepartment.setName(department.getName());
-			tempDepartment.setLeader(department.getLeader());
+			tempDepartment.setLeaderId(department.getLeaderId());
 
 			departmentDao.update(tempDepartment);
 		}

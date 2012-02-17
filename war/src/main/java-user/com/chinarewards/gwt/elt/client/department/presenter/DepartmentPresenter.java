@@ -3,6 +3,8 @@ package com.chinarewards.gwt.elt.client.department.presenter;
 import com.chinarewards.gwt.elt.client.department.model.DepartmentVo;
 import com.chinarewards.gwt.elt.client.mvp.Display;
 import com.chinarewards.gwt.elt.client.mvp.Presenter;
+import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
+import com.chinarewards.gwt.elt.client.widget.SpecialTextArea;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Hidden;
@@ -18,7 +20,9 @@ public interface DepartmentPresenter extends
 
 		public HasValue<String> getDepartmentName();
 
-		public HasValue<String> getLeader();
+		public Hidden getLeaderId();
+
+		public HasValue<String> getLeaderName();
 
 		public Hidden getParentId();
 
@@ -29,6 +33,8 @@ public interface DepartmentPresenter extends
 		public Label getYearintegral();
 
 		public Label getIssueintegral();
+		
+		public Label getProcesRewarditemCount();
 
 		public HasClickHandlers getSaveClick();
 
@@ -47,6 +53,8 @@ public interface DepartmentPresenter extends
 		public void initSaveSameLevelDepartment(DepartmentVo departmentVo);
 
 		public void initSaveChildDepartment(DepartmentVo departmentVo);
+
+		public SpecialTextArea<OrganicationClient> getLeaderArea();
 
 	}
 

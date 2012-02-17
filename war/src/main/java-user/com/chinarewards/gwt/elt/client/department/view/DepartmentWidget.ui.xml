@@ -34,12 +34,13 @@
 						部门经理(总监)：
 					</label>
 					<div class="{new2.element}">
-						<g:TextBox maxLength="20" ui:field="leader" styleName="{new2.text}" />
-						<g:Button ui:field="chooseLeaderBtn">选择</g:Button>
+						<g:FlowPanel ui:field="leaderPanel" visible="false"/>
+						<g:Hidden ui:field="leaderId"></g:Hidden>
+						<g:TextBox maxLength="20" ui:field="leaderName" styleName="{new2.text}" />
+					<span class="{new2.btn}">	<g:Button ui:field="chooseLeaderBtn">选择</g:Button></span>
 						
 					</div>
-				</div>
-				<g:FlowPanel ui:field="leaderPanel" />
+				</div>			
 				
 				<div class="{new2.form-line}">
 					<label class="{new2.label}">上级部门：</label>
@@ -51,31 +52,31 @@
 				<div class="{new2.form-line}">
 					<label class="{new2.label}">下一级子部门：</label>
 					<div class="{new2.element}">
-						<g:Label ui:field="childdepartment" styleName="{new2.text}" />
+						<g:Label ui:field="childdepartment"  />
 					</div>
 				</div>
 				<div class="{new2.form-line}">
 					<label class="{new2.label}">部门人数：</label>
 					<div class="{new2.element}">
-						<g:Label ui:field="peopleNumber" styleName="{new2.text}" />
+						<g:Label ui:field="peopleNumber" />
 					</div>
 				</div>
 				<div class="{new2.form-line}">
 					<label class="{new2.label}">财年积分度：</label>
 					<div class="{new2.element}">
-						<g:Label ui:field="yearintegral" styleName="{new2.text}" />
+						<g:Label ui:field="yearintegral"  />
 					</div>
 				</div>
 				<div class="{new2.form-line}">
 					<label class="{new2.label}">已颁发积分：</label>
 					<div class="{new2.element}">
-						<g:Label ui:field="issueintegral" styleName="{new2.text}" />
+						<g:Label ui:field="issueintegral"  />
 					</div>
 				</div>
 				<div class="{new2.form-line}">
 					<label class="{new2.label}">进行中奖项：</label>
 					<div class="{new2.element}">
-						<g:Label styleName="{new2.text}" />
+						<g:Label ui:field="procesRewarditemCount"  />
 					</div>
 				</div>
 				<span class="{new2.cutline}"></span>

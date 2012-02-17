@@ -18,7 +18,7 @@ public class DepartmentAdapterClient {
 
 		departmentVo.setParentId(display.getParentId().getValue());
 
-		departmentVo.setLeader(display.getLeader().getValue());
+		departmentVo.setLeaderId(display.getLeaderId().getValue());
 
 		// private String superdeparmentId;
 		// private String superdeparmentName;

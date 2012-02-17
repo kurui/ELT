@@ -44,14 +44,16 @@ public class Department extends Organization {
 	private int rgt;
 	
 	
-	private String leader;
+	private String leaderId;
 
-	public String getLeader() {
-		return leader;
+	
+
+	public String getLeaderId() {
+		return leaderId;
 	}
 
-	public void setLeader(String leader) {
-		this.leader = leader;
+	public void setLeaderId(String leaderId) {
+		this.leaderId = leaderId;
 	}
 
 	public Corporation getCorporation() {

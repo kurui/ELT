@@ -19,6 +19,7 @@ import com.chinarewards.gwt.elt.client.department.util.DepartmentAdapterClient;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
+import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
 import com.chinarewards.gwt.elt.client.rewards.model.StaffClient;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.win.Win;
@@ -189,9 +190,13 @@ public class DepartmentPresenterImpl extends
 						final HandlerRegistration registration = eventBus.addHandler(ChooseLeaderEvent.getType(),new ChooseLeaderHandler() {
 											@Override
 											public void chosenLeader(List<StaffClient> list) {
-												for (StaffClient r : list) {
-//													Window.alert("=========chooseLeader click event");
-													
+												for (StaffClient item : list) {
+													if (!display.getLeaderArea().containsItem(item)) {
+														
+														display.getLeaderArea().addItem(item);
+														
+														setLeaderAreaString();
+													}
 												}
 											}
 										});
@@ -205,6 +210,25 @@ public class DepartmentPresenterImpl extends
 					}
 				}));
 	}
+	
+	private void setLeaderAreaString(){
+		List<OrganicationClient> itemList= display.getLeaderArea().getItemList();
+		String leaderIds="";
+		String leaderNames="";
+		
+		for (int i = 0; i < itemList.size(); i++) {
+			leaderIds+=itemList.get(i).getId()+",";
+			leaderNames+=itemList.get(i).getName()+",";
+			
+		}
+		leaderIds=leaderIds.substring(0,leaderIds.lastIndexOf(","));		
+		leaderNames=leaderNames.substring(0,leaderNames.lastIndexOf(","));
+		
+		
+		display.getLeaderId().setValue(leaderIds);
+		display.getLeaderName().setValue(leaderNames);
+	}
+	
 
 	// 验证方法
 	private boolean validateSubmit() {

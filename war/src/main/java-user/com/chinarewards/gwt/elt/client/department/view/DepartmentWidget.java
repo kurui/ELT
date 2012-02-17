@@ -5,8 +5,11 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 import com.chinarewards.gwt.elt.client.department.model.DepartmentVo;
 import com.chinarewards.gwt.elt.client.department.presenter.DepartmentPresenter.DepartmentDisplay;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
+import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.chinarewards.gwt.elt.client.view.OrganizationSpecialTextArea;
 import com.chinarewards.gwt.elt.client.view.constant.ViewConstants;
+import com.chinarewards.gwt.elt.client.widget.SpecialTextArea;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.i18n.client.DateTimeFormat;
@@ -31,8 +34,12 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 
 	@UiField
 	Hidden departmentId;
+
 	@UiField
-	TextBox leader;
+	Hidden leaderId;
+	@UiField
+	TextBox leaderName;
+
 	@UiField
 	Hidden parentId;
 	@UiField
@@ -45,12 +52,18 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 	Label yearintegral;
 	@UiField
 	Label issueintegral;
+	@UiField
+	Label procesRewarditemCount;
 	
 	// 候选人模块
 	@UiField
 	Panel leaderPanel;
+
+	SpecialTextArea<OrganicationClient> leaderArea;
+	
 	@UiField
 	Button chooseLeaderBtn;
+	
 	
 	@UiField
 	Button save;
@@ -92,7 +105,9 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 		// departmentName.setVisible(false);
 		departmentNameLabel.setText(departmentVo.getName());
 
-		leader.setValue(departmentVo.getLeader());
+		leaderId.setValue(departmentVo.getLeaderId());
+		leaderName.setValue(departmentVo.getLeaderName());
+
 		parentId.setValue(departmentVo.getParentId());
 		parentName.setText(getDepartmentParentName(departmentVo.getParentName()));
 		// private String childdeparmentIds;
@@ -100,6 +115,9 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 		peopleNumber.setText(departmentVo.getPeopleNumber());
 		yearintegral.setText(departmentVo.getYearintegral());
 		issueintegral.setText(departmentVo.getIssueintegral());
+		
+		leaderArea = new OrganizationSpecialTextArea();
+		leaderPanel.add(leaderArea);//提名人面板
 
 	}
 
@@ -138,11 +156,7 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 		this.breadCrumbs.add(breadCrumbs);
 	}
 
-	@Override
-	public HasValue<String> getLeader() {
-		return leader;
-	}
-
+	
 	@Override
 	public void clear() {
 
@@ -196,6 +210,28 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 	@Override
 	public HasClickHandlers getChooseLeaderBtnClick() {
 		return chooseLeaderBtn;
+	}
+
+	@Override
+	public SpecialTextArea<OrganicationClient> getLeaderArea() {
+		return leaderArea;
+	}
+
+	@Override
+	public Label getProcesRewarditemCount() {
+		return procesRewarditemCount;
+	}
+
+
+	@Override
+	public Hidden getLeaderId() {
+		return leaderId;
+	}
+
+
+	@Override
+	public HasValue<String> getLeaderName() {
+		return leaderName;
 	}
 
 }
