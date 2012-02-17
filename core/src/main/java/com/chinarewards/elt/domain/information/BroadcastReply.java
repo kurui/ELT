@@ -5,12 +5,15 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.user.SysUser;
 
 @Entity
@@ -46,6 +49,19 @@ public class BroadcastReply implements Serializable {
 	private SysUser lastModifiedBy;
 	
 	private Date lastModifiedAt;
+	/**
+	 * 公司
+	 */
+	@OneToOne(fetch = FetchType.EAGER)
+	private Corporation corporation;
+	
+	public Corporation getCorporation() {
+		return corporation;
+	}
+
+	public void setCorporation(Corporation corporation) {
+		this.corporation = corporation;
+	}
 
 	public String getId() {
 		return id;

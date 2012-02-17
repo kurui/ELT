@@ -6,12 +6,15 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.information.BroadcastingCategory;
 import com.chinarewards.elt.model.information.BroadcastingStatus;
@@ -46,13 +49,10 @@ public class Broadcasting implements Serializable {
 	 */
 	private BroadcastingCategory category;
 	/**
-	 * 开始时间
+	 * 广播时间
 	 */
-	private Date broadcastingTimeStart;
-	/**
-	 * 结束时间
-	 */
-	private Date broadcastingTimeEnd;
+	private Date broadcastingTime;
+
 	@ManyToOne
 	private SysUser lastModifiedBy;
 	
@@ -69,9 +69,41 @@ public class Broadcasting implements Serializable {
 	 */
 	private List<ReceivingObject> receivingObject;
 	
+	/**
+	 * 公司
+	 */
+	@OneToOne(fetch = FetchType.EAGER)
+	private Corporation corporation;
+	
+	/**
+	 * 是否删除
+	 */
+	private boolean deleted;
+	/**
+	 * 回复数
+	 */
+	private int replyNumber;
 	
 	
-	
+
+	public int getReplyNumber() {
+		return replyNumber;
+	}
+	public void setReplyNumber(int replyNumber) {
+		this.replyNumber = replyNumber;
+	}
+	public boolean isDeleted() {
+		return deleted;
+	}
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+	public Corporation getCorporation() {
+		return corporation;
+	}
+	public void setCorporation(Corporation corporation) {
+		this.corporation = corporation;
+	}
 	public List<ReceivingObject> getReceivingObject() {
 		return receivingObject;
 	}
@@ -114,17 +146,12 @@ public class Broadcasting implements Serializable {
 	public void setCategory(BroadcastingCategory category) {
 		this.category = category;
 	}
-	public Date getBroadcastingTimeStart() {
-		return broadcastingTimeStart;
+
+	public Date getBroadcastingTime() {
+		return broadcastingTime;
 	}
-	public void setBroadcastingTimeStart(Date broadcastingTimeStart) {
-		this.broadcastingTimeStart = broadcastingTimeStart;
-	}
-	public Date getBroadcastingTimeEnd() {
-		return broadcastingTimeEnd;
-	}
-	public void setBroadcastingTimeEnd(Date broadcastingTimeEnd) {
-		this.broadcastingTimeEnd = broadcastingTimeEnd;
+	public void setBroadcastingTime(Date broadcastingTime) {
+		this.broadcastingTime = broadcastingTime;
 	}
 	public SysUser getLastModifiedBy() {
 		return lastModifiedBy;
