@@ -16,6 +16,10 @@ public class DeleteDepartmentRequest implements
 	public DeleteDepartmentRequest() {
 	}
 
+	public DeleteDepartmentRequest(String departmentId) {
+		this.departmentId = departmentId;
+	}
+
 	public DeleteDepartmentRequest(String departmentId, String userId) {
 		this.departmentId = departmentId;
 		this.userId = userId;

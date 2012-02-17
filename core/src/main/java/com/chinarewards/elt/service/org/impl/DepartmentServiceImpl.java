@@ -14,37 +14,40 @@ import com.chinarewards.elt.service.org.DepartmentService;
 import com.chinarewards.elt.service.user.UserLogic;
 import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
+
 @Transactional
 public class DepartmentServiceImpl implements DepartmentService {
 	private final DepartmentLogic departmentLogic;
 	private final UserLogic userLogic;
 
 	@Inject
-	public DepartmentServiceImpl(DepartmentLogic departmentLogic,UserLogic userLogic) {
+	public DepartmentServiceImpl(DepartmentLogic departmentLogic,
+			UserLogic userLogic) {
 		this.userLogic = userLogic;
 		this.departmentLogic = departmentLogic;
-		
+
 	}
+
 	@Override
 	public Department save(UserContext context, Department department) {
 		SysUser caller = userLogic.findUserById(context.getUserId());
 		Department departments = departmentLogic.save(caller, department);
 		return departments;
 	}
-	
 
 	@Override
-	public Department findDepartmentById(String id) {		
+	public Department findDepartmentById(String id) {
 		return departmentLogic.findDepartmentById(id);
 	}
 
 	@Override
-	public String deleteDepartment(String id) throws DepartmentDeleteException {		
+	public String deleteDepartment(String id) throws DepartmentDeleteException {
 		return departmentLogic.deleteDepartment(id);
 	}
 
 	@Override
-	public PageStore<DepartmentListVo> departmentList(UserContext context, DepartmentListVo departmentVo) {
+	public PageStore<DepartmentListVo> departmentList(UserContext context,
+			DepartmentListVo departmentVo) {
 		SysUser caller = userLogic.findUserById(context.getUserId());
 		return departmentLogic.departmentList(caller, departmentVo);
 	}
@@ -54,5 +57,21 @@ public class DepartmentServiceImpl implements DepartmentService {
 		return departmentLogic.getDepartmentManageList(corporationId);
 	}
 
+	@Override
+	public Department saveDepartment(UserContext uc, Department department) {
+		SysUser caller = userLogic.findUserById(uc.getUserId());
+		return departmentLogic.saveDepartment(caller, department);
+	}
+
+	@Override
+	public Department getRootDepartmentOfCorporation(String corpId) {
+		return departmentLogic.getRootDepartmentOfCorporation(corpId);
+	}
+
+
+	@Override
+	public String mergeDepartment(UserContext uc, String departmentIds) {	
+		return departmentLogic.mergeDepartment(uc,departmentIds);
+	}
 
 }

@@ -36,6 +36,8 @@ public class HrRegisterWidget extends Composite implements HrRegisterDisplay {
 	CheckBox gift;
 	@UiField
 	CheckBox staff;
+	@UiField
+	CheckBox deptMgr;
 	
 	
 	private static HrRegisterWidgetUiBinder uiBinder = GWT
@@ -57,57 +59,54 @@ public class HrRegisterWidget extends Composite implements HrRegisterDisplay {
 
 	@Override
 	public HasValue<String> getUsername() {
-		// TODO Auto-generated method stub
 		return username;
 	}
 
 	@Override
 	public HasValue<String> getPassword() {
-		// TODO Auto-generated method stub
 		return password;
 	}
 
 	@Override
 	public HasValue<String> getTell() {
-		// TODO Auto-generated method stub
 		return tell;
 	}
 
 	@Override
 	public HasValue<String> getName() {
-		// TODO Auto-generated method stub
 		return name;
 	}
 
 	@Override
 	public HasValue<String> getEmail() {
-		// TODO Auto-generated method stub
 		return email;
 	}
 
 	@Override
 	public HasValue<String> getValidatePassword() {
-		// TODO Auto-generated method stub
 		return validatePassword;
 	}
 
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public boolean isCheckAdmin() {
-		return admin.isChecked();
+		return admin.getValue();
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public boolean isCheckStaff() {
-		return staff.isChecked();
+		return staff.getValue();
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public boolean isCheckGift() {
-		return gift.isChecked();
+		return gift.getValue();
+	}
+
+
+	@Override
+	public boolean isCheckDeptMgr() {
+		return this.deptMgr.getValue();
 	}
 
 }

@@ -48,7 +48,8 @@ public class DepartmentDao extends BaseDao<Department> {
 		Date now = DateUtil.getTime();
 		Department dept = new Department();
 		dept.setCorporation(corp);
-		dept.setName(name);
+//		dept.setName(name);
+		dept.setName(corp.getName());
 		dept.setLft(1);
 		dept.setRgt(2);
 		dept.setCreatedAt(now);
@@ -85,11 +86,11 @@ public class DepartmentDao extends BaseDao<Department> {
 	 */
 	public void maintainIndexAfterDeleteNode(int index, String corpId) {
 		getEm().createQuery(
-				"UPDATE Departmen d SET d.lft = (d.lft-2) WHERE d.lft >= :index AND d.corporation.id =:corpId")
+				"UPDATE Department d SET d.lft = (d.lft-2) WHERE d.lft >= :index AND d.corporation.id =:corpId")
 				.setParameter("index", index).setParameter("corpId", corpId)
 				.executeUpdate();
 		getEm().createQuery(
-				"UPDATE Departmen d SET d.rgt = (d.rgt-2) WHERE d.rgt >= :index AND d.corporation.id =:corpId")
+				"UPDATE Department d SET d.rgt = (d.rgt-2) WHERE d.rgt >= :index AND d.corporation.id =:corpId")
 				.setParameter("index", index).setParameter("corpId", corpId)
 				.executeUpdate();
 	}
@@ -185,6 +186,15 @@ public class DepartmentDao extends BaseDao<Department> {
 		}
 
 		return result;
+	}
+
+	/**
+	 * @param departmentIds
+	 * @return
+	 */
+	public String mergeDepartment(String departmentIds) {
+	
+		return "";
 	}
 	
 }

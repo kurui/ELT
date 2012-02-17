@@ -17,6 +17,8 @@ import com.chinarewards.gwt.elt.client.staffList.model.StaffListCriteria;
 import com.chinarewards.gwt.elt.client.staffList.model.StaffListCriteria.StaffStatus;
 import com.chinarewards.gwt.elt.client.staffList.request.StaffGenerateUserRequest;
 import com.chinarewards.gwt.elt.client.staffList.request.StaffGenerateUserResponse;
+import com.chinarewards.gwt.elt.client.staffList.request.UpdateUserPwdRequest;
+import com.chinarewards.gwt.elt.client.staffList.request.UpdateUserPwdResponse;
 import com.chinarewards.gwt.elt.client.staffView.plugin.StaffViewConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
@@ -26,6 +28,7 @@ import com.chinarewards.gwt.elt.client.widget.GetValue;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.widget.Sorting;
 import com.chinarewards.gwt.elt.client.win.Win;
+import com.chinarewards.gwt.elt.client.win.confirm.ConfirmHandler;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -217,20 +220,70 @@ public class StaffListPresenterImpl extends
 					@Override
 					public void update(int index, final StaffListClient o,
 							String value) {
-						dispatch.execute(new StaffGenerateUserRequest(o.getStaffId(),sessionManager.getSession()),
-								new AsyncCallback<StaffGenerateUserResponse>() {
+						
+						win.confirm("提示", "确定生成 <font color='blue'>"+o.getStaffName()+"</font> 的账户",new ConfirmHandler() {
+							
+							@Override
+							public void confirm() {
+								dispatch.execute(new StaffGenerateUserRequest(o.getStaffId(),sessionManager.getSession()),
+										new AsyncCallback<StaffGenerateUserResponse>() {
 
-									@Override
-									public void onFailure(Throwable t) {
-										win.alert(t.getMessage());
-									}
+											@Override
+											public void onFailure(Throwable t) {
+												win.alert(t.getMessage());
+											}
 
-									@Override
-									public void onSuccess(StaffGenerateUserResponse resp) {
-										win.alert(resp.getMessage());
-										
-									}
-								});
+											@Override
+											public void onSuccess(StaffGenerateUserResponse resp) {
+												win.alert(resp.getMessage());
+												
+											}
+										});
+								
+							}
+						});
+
+					}
+
+				});
+		cellTable.addColumn("操作", new HyperLinkCell(),
+				new GetValue<StaffListClient, String>() {
+					@Override
+					public String getValue(StaffListClient rewards) {
+						return "重置密码";
+					}
+				}, new FieldUpdater<StaffListClient, String>() {
+
+					@Override
+					public void update(int index, final StaffListClient o,
+							String value) {
+						
+						win.confirm("提示", "确定重置 <font color='blue'>"+o.getStaffName()+"</font> 的密码", new ConfirmHandler() {
+							
+							@Override
+							public void confirm() {
+								dispatch.execute(new UpdateUserPwdRequest(o.getStaffId(),"123",sessionManager.getSession()),
+										new AsyncCallback<UpdateUserPwdResponse>() {
+
+											@Override
+											public void onFailure(Throwable t) {
+												win.alert(t.getMessage());
+											}
+
+											@Override
+											public void onSuccess(UpdateUserPwdResponse resp) {
+												if("success".equals(resp.getMessage()))
+												{
+													win.alert("密码重置成功!初始密码:123");
+												}
+												
+											}
+										});
+								
+							}
+						});
+						
+						
 					}
 
 				});

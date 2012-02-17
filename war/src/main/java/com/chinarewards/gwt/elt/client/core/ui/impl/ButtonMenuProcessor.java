@@ -85,7 +85,7 @@ public class ButtonMenuProcessor implements MenuProcessor {
 		}
 
 		String indexMenu="";
-		if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.CORP_ADMIN)
+		if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.CORP_ADMIN || sessionManager.getSession().getLastLoginRole()==UserRoleVo.DEPT_MGR)
 			indexMenu="RewardItem";
 		else if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.GIFT)
 			indexMenu="Gift";
@@ -233,6 +233,7 @@ public class ButtonMenuProcessor implements MenuProcessor {
 	public void changItemColor(String menuName) {
 		for (int i = 0; i < grid.getWidgetCount(); i++) {
 			if (grid.getWidget(i) instanceof Anchor) {
+				System.out.println(((Anchor) grid.getWidget(i)).getText()+"");
 				if (!menuName.equals(((Anchor) grid.getWidget(i)).getText())) {
 					grid.getWidget(i).setStyleName("menu-link");
 				} else {

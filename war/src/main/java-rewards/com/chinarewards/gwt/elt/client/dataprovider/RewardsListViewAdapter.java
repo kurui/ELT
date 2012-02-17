@@ -51,9 +51,7 @@ public class RewardsListViewAdapter extends BaseDataProvider<RewardsClient> {
 		if (getSorting() != null) {
 			getCriteria().setSorting(getSorting());
 		}
-		dispatch.execute(new SearchRewardsRequest(getCriteria(), sessionManager
-				.getSession().getCorporationId(), sessionManager.getSession()
-				.getUserRoles()), new AsyncCallback<SearchRewardsResponse>() {
+		dispatch.execute(new SearchRewardsRequest(getCriteria(),sessionManager.getSession()), new AsyncCallback<SearchRewardsResponse>() {
 			@Override
 			public void onFailure(Throwable e) {
 				errorHandler.alert(e.getMessage());

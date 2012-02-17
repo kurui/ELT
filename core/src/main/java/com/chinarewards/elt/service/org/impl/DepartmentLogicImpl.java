@@ -11,19 +11,18 @@ import com.chinarewards.elt.dao.budget.DepartmentBudgetDao;
 import com.chinarewards.elt.dao.org.CorporationDao;
 import com.chinarewards.elt.dao.org.DepartmentDao;
 import com.chinarewards.elt.dao.org.OrgPolicyDao;
-import com.chinarewards.elt.domain.gift.Gift;
 import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.org.OrgPolicy;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
-import com.chinarewards.elt.model.gift.search.GiftStatus;
 import com.chinarewards.elt.model.org.DepartmentPolicyConstants;
 import com.chinarewards.elt.model.org.DepartmentVo;
 import com.chinarewards.elt.model.org.RewardsApprovalPolicyEnum;
 import com.chinarewards.elt.model.org.exception.DepartmentDeleteException;
 import com.chinarewards.elt.model.org.search.DepartmentListVo;
 import com.chinarewards.elt.model.org.search.DepartmentManageVo;
+import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.org.DepartmentLogic;
 import com.chinarewards.elt.util.DateUtil;
 import com.chinarewards.elt.util.StringUtil;
@@ -80,10 +79,52 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 	}
 
 	@Override
+	public Department saveDepartment(SysUser caller, Department department) {
+		Department parent = department.getParent();
+		Corporation corporation = department.getCorporation();
+
+		if (parent == null) {
+			throw new IllegalArgumentException("Can not find the root parent...");
+		}		
+		
+		int index = parent.getRgt();		
+		departmentDao.maintainIndexAfterAddNode(index, corporation.getId());// maintain index
+
+		if (StringUtil.isEmptyString(department.getId())) {	
+			
+			
+			department.setLft(parent.getRgt());
+			department.setRgt(parent.getRgt() + 1);
+			
+			department.setCreatedAt(DateUtil.getTime());
+			department.setCreatedBy(caller);
+			departmentDao.save(department);
+		} else {
+			Department tempDepartment = departmentDao.findById(Department.class,department.getId());
+			
+			tempDepartment.setName(department.getName());
+			tempDepartment.setLeader(department.getLeader());
+//			tempDepartment.setDescription(department.getDescription());
+//			tempDepartment.setParent(parent);
+//			tempDepartment.setCorporation(corporation);
+			
+			
+			tempDepartment.setLastModifiedAt(DateUtil.getTime());
+			tempDepartment.setLastModifiedBy(caller);
+			departmentDao.update(tempDepartment);
+		}
+		
+		
+
+		return department;
+	}
+
+	@Override
 	public Department addDepartment(SysUser caller, DepartmentVo department) {
 
 		Department parent;
 		Corporation corporation;
+
 		if (StringUtil.isEmptyString(department.getParentId())) {
 			String corpId = department.getCorporationId();
 			corporation = corporationDao.findById(Corporation.class, corpId);
@@ -145,7 +186,7 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 
 	@Override
 	public Department editDepartment(SysUser caller, String id,
-			DepartmentVo department) {
+			Department department) {
 		Date now = DateUtil.getTime();
 		Department dept = departmentDao.findById(Department.class, id);
 		dept.setName(department.getName());
@@ -268,6 +309,12 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 		}
 
 		return volist;
+	}
+
+
+	@Override
+	public String mergeDepartment(UserContext uc, String departmentIds) {
+		return departmentDao.mergeDepartment(departmentIds);
 	}
 
 }

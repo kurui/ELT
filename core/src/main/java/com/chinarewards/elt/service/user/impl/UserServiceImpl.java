@@ -47,4 +47,9 @@ public class UserServiceImpl implements UserService {
 	public String updateLastLoginRole(String userId, UserRole role) {
 		return userLogic.updateLastLoginRole(userId, role);
 	}
+
+	@Override
+	public String updateUserPwd(String staffId,String pwd,String byUserId) {
+		return userLogic.updateUserPwd(staffId, pwd,byUserId);
+	}
 }

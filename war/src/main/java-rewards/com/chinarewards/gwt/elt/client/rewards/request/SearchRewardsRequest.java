@@ -6,47 +6,44 @@ package com.chinarewards.gwt.elt.client.rewards.request;
 import net.customware.gwt.dispatch.shared.Action;
 
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsCriteria;
-import com.chinarewards.gwt.elt.model.user.UserRoleVo;
+import com.chinarewards.gwt.elt.client.support.UserSession;
 
 /**
- * @author Cream
- * @since 0.2.0 2010-12-27
+ * @author nicho
+ * @since 
  */
 public class SearchRewardsRequest implements Action<SearchRewardsResponse> {
 
 	private RewardsCriteria rewards;
-	private String corporationId;
-	private UserRoleVo[] userRoles;
+	private UserSession session;
 
+	public void setRewards(RewardsCriteria rewards) {
+		this.rewards = rewards;
+	}
 
 	public SearchRewardsRequest() {
 	}
 
-	public SearchRewardsRequest(RewardsCriteria criteria,String corporationId,UserRoleVo[] userRoles) {
+	public SearchRewardsRequest(RewardsCriteria criteria,UserSession session) {
 		this.rewards = criteria;
-		this.corporationId=corporationId;
-		this.userRoles=userRoles;
+		this.session = session;
 	}
 
-	public String getCorporationId() {
-		return corporationId;
+	public UserSession getSession() {
+		return session;
 	}
 
-	public UserRoleVo[] getUserRoles() {
-		return userRoles;
+	public void setSession(UserSession session) {
+		this.session = session;
+	}
+
+	public RewardsCriteria getRewards() {
+		return rewards;
 	}
 
 	@Override
 	public String toString() {
 		return "SearchRewardsRequest [rewards=" + rewards + "]";
-	}
-
-	// ---- getter ----
-	/**
-	 * @return the rewards
-	 */
-	public RewardsCriteria getRewards() {
-		return rewards;
 	}
 
 }

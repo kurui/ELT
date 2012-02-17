@@ -20,4 +20,14 @@ public interface UserService {
 	public SysUser findUserById(String id);
 	public String deleteUserById(String id);
 	public String updateLastLoginRole(String userId,UserRole role);
+	
+	/**
+	 * 重置密码
+	 * @param staffId
+	 * @param pwd
+	 * @return
+	 */
+	public String updateUserPwd(String staffId,String pwd,String byUserId);
+	
+	
 }

@@ -16,6 +16,7 @@ import com.chinarewards.gwt.elt.client.chooseStaff.request.SearchStaffChooseRequ
 import com.chinarewards.gwt.elt.client.department.request.DeleteDepartmentRequest;
 import com.chinarewards.gwt.elt.client.department.request.DepartmentManageRequest;
 import com.chinarewards.gwt.elt.client.department.request.EditDepartmentRequest;
+import com.chinarewards.gwt.elt.client.department.request.MergeDepartmentRequest;
 import com.chinarewards.gwt.elt.client.department.request.SearchDepartmentByIdRequest;
 import com.chinarewards.gwt.elt.client.department.request.SearchDepartmentRequest;
 import com.chinarewards.gwt.elt.client.detailsOfAward.request.DetailsOfAwardInitRequest;
@@ -61,6 +62,7 @@ import com.chinarewards.gwt.elt.client.staff.HrRegisterRequest;
 import com.chinarewards.gwt.elt.client.staffAdd.request.StaffAddRequest;
 import com.chinarewards.gwt.elt.client.staffList.request.SearchStaffListRequest;
 import com.chinarewards.gwt.elt.client.staffList.request.StaffGenerateUserRequest;
+import com.chinarewards.gwt.elt.client.staffList.request.UpdateUserPwdRequest;
 import com.chinarewards.gwt.elt.client.staffView.request.StaffViewRequest;
 import com.chinarewards.gwt.elt.client.staffView.request.StaffWinRequest;
 import com.chinarewards.gwt.elt.client.team.request.SearchTeamByIdRequest;
@@ -82,6 +84,7 @@ import com.chinarewards.gwt.elt.server.chooseStaff.SearchStaffActionHandler;
 import com.chinarewards.gwt.elt.server.department.DeleteDepartmentHandler;
 import com.chinarewards.gwt.elt.server.department.DepartmentManageHandler;
 import com.chinarewards.gwt.elt.server.department.EditDepartmentHandler;
+import com.chinarewards.gwt.elt.server.department.MergeDepartmentHandler;
 import com.chinarewards.gwt.elt.server.department.SearchDepartmentByIdHandler;
 import com.chinarewards.gwt.elt.server.department.SearchDepartmentHandler;
 import com.chinarewards.gwt.elt.server.detailsOfAward.DetailsOfAwardActionHandler;
@@ -133,6 +136,7 @@ import com.chinarewards.gwt.elt.server.team.SearchTeamByIdHandler;
 import com.chinarewards.gwt.elt.server.team.SearchTeamHandler;
 import com.chinarewards.gwt.elt.server.team.TeamHandler;
 import com.chinarewards.gwt.elt.server.user.DeleteUserActionHandler;
+import com.chinarewards.gwt.elt.server.user.UpdateUserPwdActionHandler;
 import com.chinarewards.gwt.elt.server.user.UserSearchActionHandler;
 
 /**
@@ -164,6 +168,9 @@ public class ActionModule extends ActionHandlerModule {
 		bindHandler(EditDepartmentRequest.class, EditDepartmentHandler.class); 		
 		//部门删除
 		bindHandler(DeleteDepartmentRequest.class, DeleteDepartmentHandler.class); 
+		//合并部门
+		bindHandler(MergeDepartmentRequest.class, MergeDepartmentHandler.class); 
+				
 		
 		// staff module
 		bindHandler(HrRegisterRequest.class, HrRegisterActionHandler.class);
@@ -293,6 +300,8 @@ public class ActionModule extends ActionHandlerModule {
 		bindHandler(StaffWinRequest.class,SearchStaffWinActionHandler.class);
 		//员工生成用户
 		bindHandler(StaffGenerateUserRequest.class,StaffGenerateUserActionHandler.class);
+		//员工修改密码
+		bindHandler(UpdateUserPwdRequest.class,UpdateUserPwdActionHandler.class);
 		
 		//小组列表
 		bindHandler(SearchTeamRequest.class,SearchTeamHandler.class);

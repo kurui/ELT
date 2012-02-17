@@ -12,12 +12,21 @@
 
 		<h3>
 			<g:InlineLabel ui:field="departmentNameLabel" />
-			<g:TextBox maxLength="20" ui:field="departmentName" styleName="{new2.text}" />
 		</h3>
 		<span class="{new2.cutline}"></span>
 		<!-- 1内容 -->
 		<div class="{new2.content-wrap}">
 			<div class="{new2.form}">
+				<div class="{new2.form-line}">
+					<label class="{new2.label}">
+						<span style="color:red">*</span>
+						部门名称：
+					</label>
+					<div class="{new2.element}">
+						<g:Hidden ui:field="departmentId"></g:Hidden>
+						<g:TextBox maxLength="20" ui:field="departmentName" styleName="{new2.text}" />
+					</div>
+				</div>
 				<div class="{new2.form-line}">
 					<label class="{new2.label}">
 						<span style="color:red">*</span>
@@ -30,7 +39,8 @@
 				<div class="{new2.form-line}">
 					<label class="{new2.label}">上级部门：</label>
 					<div class="{new2.element}">
-						<g:TextBox ui:field="superdepartment" styleName="{new2.text}" />
+						<g:Hidden ui:field="parentId" />
+						<g:Label ui:field="parentName"  />
 					</div>
 				</div>
 				<div class="{new2.form-line}">
@@ -66,8 +76,7 @@
 				<span class="{new2.cutline}"></span>
 				<div class="{new2.form-line} {new2.form-line-btn}">
 					<div class="{new2.element}">
-						<span class="{new2.btn}">
-							<g:Hidden ui:field="departmentId"></g:Hidden>
+						<span class="{new2.btn}">						
 							<g:Button ui:field="save">保存</g:Button>
 						</span>
 						<span class="{new2.nbsp}"></span>

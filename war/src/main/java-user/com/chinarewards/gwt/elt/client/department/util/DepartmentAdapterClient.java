@@ -13,11 +13,14 @@ public class DepartmentAdapterClient {
 	public static DepartmentVo adapterDisplay(DepartmentDisplay display) {
 		DepartmentVo departmentVo = new DepartmentVo();
 
+		departmentVo.setId(display.getDepartmentId().getValue());
 		departmentVo.setName(display.getDepartmentName().getValue());
+
+		departmentVo.setParentId(display.getParentId().getValue());
+
 		departmentVo.setLeader(display.getLeader().getValue());
 		departmentVo.setPeopleNumber(display.getPeopleNumber().getValue());
-		
-		
+
 		// private String superdeparmentId;
 		// private String superdeparmentName;
 		// private String childdeparmentIds;
@@ -25,9 +28,7 @@ public class DepartmentAdapterClient {
 		// private String peopleNumber;
 		// private String yearintegral;
 		// private String issueintegral;
-		
-		
-		
+
 		return departmentVo;
 	}
 }

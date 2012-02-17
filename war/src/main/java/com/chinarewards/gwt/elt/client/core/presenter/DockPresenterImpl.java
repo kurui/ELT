@@ -22,7 +22,6 @@ import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemConstants;
 import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
-import com.chinarewards.gwt.elt.client.user.plugin.UserConstants;
 import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -60,7 +59,7 @@ public class DockPresenterImpl extends BasePresenter<DockDisplay> implements
 			for (UserRoleVo r : roles) {
 				roleslt.add(r);
 			}
-			if (!roleslt.contains(UserRoleVo.CORP_ADMIN)) {
+			if (!roleslt.contains(UserRoleVo.CORP_ADMIN) && !roleslt.contains(UserRoleVo.DEPT_MGR)) {
 				display.disableManagementCenter();
 			}
 			if (!roleslt.contains(UserRoleVo.GIFT)) {
@@ -68,6 +67,10 @@ public class DockPresenterImpl extends BasePresenter<DockDisplay> implements
 			}
 			if (!roleslt.contains(UserRoleVo.STAFF)) {
 				display.disableStaffCorner();
+			}
+			if(roleslt.contains(UserRoleVo.DEPT_MGR) && !roleslt.contains(UserRoleVo.CORP_ADMIN))
+			{
+				display.displayDeptMgrMenu();
 			}
 		}
 
