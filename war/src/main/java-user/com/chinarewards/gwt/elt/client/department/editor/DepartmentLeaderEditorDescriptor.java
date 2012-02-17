@@ -2,7 +2,7 @@ package com.chinarewards.gwt.elt.client.department.editor;
 
 import com.chinarewards.gwt.elt.client.core.ui.Editor;
 import com.chinarewards.gwt.elt.client.core.ui.EditorDescriptor;
-import com.chinarewards.gwt.elt.client.department.plugin.DepartmentListConstants;
+import com.chinarewards.gwt.elt.client.department.plugin.DepartmentLeaderConstants;
 import com.chinarewards.gwt.elt.model.rewards.RewardsPageClient;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -10,25 +10,25 @@ import com.google.inject.Provider;
 /**
  * @author yanrui
  */
-public class DepartmentListEditorDescriptor implements EditorDescriptor {
+public class DepartmentLeaderEditorDescriptor implements EditorDescriptor {
 
-	final Provider<DepartmentListEditor> editProvider;
+	final Provider<DepartmentLeaderEditor> editProvider;
 
 	@Inject
-	DepartmentListEditorDescriptor(Provider<DepartmentListEditor> editProvider) {
+	DepartmentLeaderEditorDescriptor(Provider<DepartmentLeaderEditor> editProvider) {
 		this.editProvider = editProvider;
 	}
 
 	@Override
 	public String getEditorId() {
-		return DepartmentListConstants.EDITOR_DEPARTMENTLIST_SEARCH;
+		return DepartmentLeaderConstants.EDITOR_DEPARTMENTLEADER_SEARCH;
 	}
 
 	@Override
 	public Editor createEditor(String instanceId, Object model) {
-		DepartmentListEditor e = editProvider.get();
+		DepartmentLeaderEditor e = editProvider.get();
 		e.setInstanceId(instanceId);
-		e.setTitle("公司组织结构");
+		e.setTitle("部门组织结构");
 		if (model instanceof RewardsPageClient) {
 			if (model != null)
 				e.setTitle(((RewardsPageClient) model).getTitleName());

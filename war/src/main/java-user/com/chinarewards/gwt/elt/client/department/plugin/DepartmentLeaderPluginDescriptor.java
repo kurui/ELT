@@ -9,7 +9,7 @@ import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.Plugin;
 import com.chinarewards.gwt.elt.client.core.PluginDescriptor;
 import com.chinarewards.gwt.elt.client.core.ui.MenuItem;
-import com.chinarewards.gwt.elt.client.department.editor.DepartmentListEditorDescriptor;
+import com.chinarewards.gwt.elt.client.department.editor.DepartmentLeaderEditorDescriptor;
 import com.chinarewards.gwt.elt.client.plugin.MenuConstants;
 import com.chinarewards.gwt.elt.client.plugin.PluginConstants;
 import com.google.gwt.user.client.ui.Image;
@@ -18,17 +18,17 @@ import com.google.inject.Inject;
 /**
  * @author yanrui
  */
-public class DepartmentListPluginDescriptor implements PluginDescriptor {
+public class DepartmentLeaderPluginDescriptor implements PluginDescriptor {
 
 	final static Set<Extension> ext = new HashSet<Extension>();
-	final DepartmentListPlugin departmentListPlugin;
-	final DepartmentListEditorDescriptor departmentListEditorDescriptor;
+	final DepartmentLeaderPlugin departmentLeaderPlugin;
+	final DepartmentLeaderEditorDescriptor departmentListEditorDescriptor;
 
 	@Inject
-	public DepartmentListPluginDescriptor(
-			final DepartmentListEditorDescriptor departmentListEditorDescriptor) {
+	public DepartmentLeaderPluginDescriptor(
+			final DepartmentLeaderEditorDescriptor departmentListEditorDescriptor) {
 		this.departmentListEditorDescriptor = departmentListEditorDescriptor;
-		this.departmentListPlugin = new DepartmentListPlugin(this);
+		this.departmentLeaderPlugin = new DepartmentLeaderPlugin(this);
 
 		/**
 		 * Search user menu
@@ -51,7 +51,7 @@ public class DepartmentListPluginDescriptor implements PluginDescriptor {
 
 					@Override
 					public String getMenuId() {
-						return DepartmentListConstants.MENU_DEPARTMENTLIST_SEARCH;
+						return DepartmentLeaderConstants.MENU_DEPARTMENTLEADER_SEARCH;
 					}
 
 					@Override
@@ -61,7 +61,7 @@ public class DepartmentListPluginDescriptor implements PluginDescriptor {
 
 					@Override
 					public String getTitle() {
-						return "公司组织结构";
+						return "部门组织结构";
 					}
 
 					@Override
@@ -70,8 +70,8 @@ public class DepartmentListPluginDescriptor implements PluginDescriptor {
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(
-										DepartmentListConstants.EDITOR_DEPARTMENTLIST_SEARCH,
-										"EDITOR_DEPARTMENLIST_SEARCH_DO_ID", null);
+										DepartmentLeaderConstants.EDITOR_DEPARTMENTLEADER_SEARCH,
+										"EDITOR_DEPARTMENLEADER_SEARCH_DO_ID", null);
 					}
 
 					@Override
@@ -84,7 +84,7 @@ public class DepartmentListPluginDescriptor implements PluginDescriptor {
 
 			@Override
 			public PluginDescriptor getPluginDescriptor() {
-				return DepartmentListPluginDescriptor.this;
+				return DepartmentLeaderPluginDescriptor.this;
 			}
 
 		});
@@ -104,7 +104,7 @@ public class DepartmentListPluginDescriptor implements PluginDescriptor {
 
 			@Override
 			public PluginDescriptor getPluginDescriptor() {
-				return DepartmentListPluginDescriptor.this;
+				return DepartmentLeaderPluginDescriptor.this;
 			}
 
 		});
@@ -112,12 +112,12 @@ public class DepartmentListPluginDescriptor implements PluginDescriptor {
 
 	@Override
 	public String getPluginId() {
-		return DepartmentListConstants.PLUGIN_DEPARTMENTLIST;
+		return DepartmentLeaderConstants.PLUGIN_DEPARTMENTLEADER;
 	}
 
 	@Override
 	public Plugin getInstance() {
-		return departmentListPlugin;
+		return departmentLeaderPlugin;
 	}
 
 	@Override

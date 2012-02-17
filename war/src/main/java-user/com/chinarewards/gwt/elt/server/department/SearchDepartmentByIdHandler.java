@@ -9,7 +9,6 @@ import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.service.org.DepartmentService;
 import com.chinarewards.elt.service.user.UserService;
-import com.chinarewards.elt.util.StringUtil;
 import com.chinarewards.gwt.elt.client.department.model.DepartmentVo;
 import com.chinarewards.gwt.elt.client.department.request.SearchDepartmentByIdRequest;
 import com.chinarewards.gwt.elt.client.department.request.SearchDepartmentByIdResponse;
@@ -48,14 +47,14 @@ public class SearchDepartmentByIdHandler extends
 		departmentVo.setName(department.getName());
 		departmentVo.setLeaderId(department.getLeaderId());
 		SysUser user = null;
-		System.out.println(department.getLeaderId()+"==================leaderId==");
-		if (department.getLeaderId()!=null&&StringUtil.isEmptyString(department.getLeaderId())) {
+		
+		if (department.getLeaderId()!=null) {
 			user=userService.findUserById(department.getLeaderId());
 		}
 		if(user!=null){
 			departmentVo.setLeaderName(user.getUserName());
 		}
-
+		System.out.println(department.getLeaderId()+"==================leaderId==name:"+departmentVo.getLeaderName());
 		
 		Department parent=department.getParent();
 		if (parent!=null) {

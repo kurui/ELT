@@ -14,6 +14,7 @@ import com.chinarewards.gwt.elt.client.core.ui.SiteManager;
 import com.chinarewards.gwt.elt.client.core.ui.impl.ButtonMenuProcessor;
 import com.chinarewards.gwt.elt.client.core.ui.impl.SimpleEditorRegistry;
 import com.chinarewards.gwt.elt.client.core.ui.impl.SimpleSiteManager;
+import com.chinarewards.gwt.elt.client.department.plugin.DepartmentLeaderPluginDescriptor;
 import com.chinarewards.gwt.elt.client.department.plugin.DepartmentListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.department.plugin.DepartmentPluginDescriptor;
 import com.chinarewards.gwt.elt.client.detailsOfAward.plugin.DetailsOfAwardPluginDescriptor;
@@ -85,7 +86,7 @@ public class PlatformModule extends AbstractGinModule {
 			EnterprisePluginDescriptor enterprise,
 			IntegralPricePluginDescriptor integralPrice,
 			PeriodPluginDescriptor period, UserPluginDescriptor user,
-			DepartmentListPluginDescriptor departmentList,
+			DepartmentListPluginDescriptor departmentList,DepartmentLeaderPluginDescriptor departmentLeader,
 			DepartmentPluginDescriptor department,
 			HrRegisterPluginDescriptor hrregister,
 			NominatePluginDescriptor nominate,
@@ -123,6 +124,7 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(period);
 			pluginSet.registerPlugin(user);
 			pluginSet.registerPlugin(departmentList);
+			pluginSet.registerPlugin(departmentLeader);
 			pluginSet.registerPlugin(department);
 			pluginSet.registerPlugin(hrregister);
 			pluginSet.registerPlugin(rewardsItemList);

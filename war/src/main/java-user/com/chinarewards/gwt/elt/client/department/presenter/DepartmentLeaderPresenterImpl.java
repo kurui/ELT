@@ -10,8 +10,8 @@ import com.chinarewards.gwt.elt.client.department.dataprovider.DepartmentListVie
 import com.chinarewards.gwt.elt.client.department.model.DepartmentClient;
 import com.chinarewards.gwt.elt.client.department.model.DepartmentNode;
 import com.chinarewards.gwt.elt.client.department.plugin.DepartmentConstants;
-import com.chinarewards.gwt.elt.client.department.plugin.DepartmentListConstants;
-import com.chinarewards.gwt.elt.client.department.presenter.DepartmentListPresenter.DepartmentListDisplay;
+import com.chinarewards.gwt.elt.client.department.plugin.DepartmentLeaderConstants;
+import com.chinarewards.gwt.elt.client.department.presenter.DepartmentLeaderPresenter.DepartmentLeaderDisplay;
 import com.chinarewards.gwt.elt.client.department.request.DeleteDepartmentRequest;
 import com.chinarewards.gwt.elt.client.department.request.DeleteDepartmentResponse;
 import com.chinarewards.gwt.elt.client.department.request.DepartmentManageRequest;
@@ -33,8 +33,8 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
-public class DepartmentListPresenterImpl extends
-		BasePresenter<DepartmentListDisplay> implements DepartmentListPresenter {
+public class DepartmentLeaderPresenterImpl extends
+		BasePresenter<DepartmentLeaderDisplay> implements DepartmentLeaderPresenter {
 
 	String departmentIds="";
 	
@@ -50,9 +50,9 @@ public class DepartmentListPresenterImpl extends
 	private final BreadCrumbsPresenter breadCrumbs;
 
 	@Inject
-	public DepartmentListPresenterImpl(EventBus eventBus,
+	public DepartmentLeaderPresenterImpl(EventBus eventBus,
 			DispatchAsync dispatcher, ErrorHandler errorHandler,
-			SessionManager sessionManager, DepartmentListDisplay display,
+			SessionManager sessionManager, DepartmentLeaderDisplay display,
 			Win win, BreadCrumbsPresenter breadCrumbs) {
 		super(eventBus, display);
 		this.dispatcher = dispatcher;
@@ -297,8 +297,8 @@ public class DepartmentListPresenterImpl extends
 		Platform.getInstance()
 				.getEditorRegistry()
 				.openEditor(
-						DepartmentListConstants.EDITOR_DEPARTMENTLIST_SEARCH,
-						"DepartmentListConstants.EDITOR_DEPARTMENTLIST_SEARCH",
+						DepartmentLeaderConstants.EDITOR_DEPARTMENTLEADER_SEARCH,
+						"DepartmentLeaderConstants.EDITOR_DEPARTMENTLEADER_SEARCH",
 						null);
 	}
 

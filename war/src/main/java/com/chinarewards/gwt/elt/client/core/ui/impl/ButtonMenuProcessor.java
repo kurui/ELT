@@ -13,6 +13,7 @@ import com.chinarewards.gwt.elt.client.budget.plugin.CreateBudgetConstants;
 import com.chinarewards.gwt.elt.client.core.ui.MenuItem;
 import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
 import com.chinarewards.gwt.elt.client.core.ui.event.MenuClickEvent;
+import com.chinarewards.gwt.elt.client.department.plugin.DepartmentLeaderConstants;
 import com.chinarewards.gwt.elt.client.department.plugin.DepartmentListConstants;
 import com.chinarewards.gwt.elt.client.detailsOfAward.plugin.DetailsOfAwardConstants;
 import com.chinarewards.gwt.elt.client.enterprise.plugin.EnterpriseConstants;
@@ -183,6 +184,8 @@ public class ButtonMenuProcessor implements MenuProcessor {
 			items.add(RewardsListConstants.MENU_REWARDSLIST_SEARCH);
 		} else if ("Staff".equals(keyname)) {
 			items.add(DepartmentListConstants.MENU_DEPARTMENTLIST_SEARCH);
+			items.add(DepartmentLeaderConstants.MENU_DEPARTMENTLEADER_SEARCH);
+			
 			items.add(UserConstants.MENU_USER_SEARCH);
 			items.add(StaffListConstants.MENU_STAFFLIST_SEARCH);
 		} else if ("Setting".equals(keyname)) {
