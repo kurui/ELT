@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import com.chinarewards.elt.common.LogicContext;
 import com.chinarewards.elt.common.UserContextProvider;
 import com.chinarewards.elt.dao.org.DepartmentDao;
+import com.chinarewards.elt.dao.org.DepartmentManagerDao;
 import com.chinarewards.elt.dao.org.StaffDao;
 import com.chinarewards.elt.dao.org.StaffDao.QueryStaffPageActionResult;
 import com.chinarewards.elt.dao.reward.WinnerDao;
@@ -34,6 +35,7 @@ import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.model.user.UserStatus;
 import com.chinarewards.elt.model.vo.StaffSearchVo;
+import com.chinarewards.elt.model.vo.StaffSearchVo.MultipleIdParam;
 import com.chinarewards.elt.model.vo.WinnersRecordQueryResult;
 import com.chinarewards.elt.model.vo.WinnersRecordQueryVo;
 import com.chinarewards.elt.service.org.CorporationLogic;
@@ -60,13 +62,16 @@ public class StaffLogicImpl implements StaffLogic {
 	private final WinnerDao winnerDao;
 	private final UserRoleDao userRoleDao;
 	private final RoleDao roleDao;
+	private final DepartmentManagerDao deptMgrDao;
+	private final DepartmentLogic departmentLogic;
 
 	@Inject
 	public StaffLogicImpl(StaffDao staffDao, DepartmentLogic deptLogic,
 			CorporationLogic corporationLogic, DepartmentDao depDao,
 			TransactionService transactionService,
 			DepartmentManagerLogic departmentManagerLogic, UserDao userDao,
-			WinnerDao winnerDao, UserRoleDao userRoleDao, RoleDao roleDao) {
+			WinnerDao winnerDao, UserRoleDao userRoleDao, RoleDao roleDao,
+			DepartmentManagerDao deptMgrDao, DepartmentLogic departmentLogic) {
 		this.staffDao = staffDao;
 		this.deptLogic = deptLogic;
 		this.corporationLogic = corporationLogic;
@@ -77,6 +82,8 @@ public class StaffLogicImpl implements StaffLogic {
 		this.winnerDao = winnerDao;
 		this.userRoleDao = userRoleDao;
 		this.roleDao = roleDao;
+		this.deptMgrDao = deptMgrDao;
+		this.departmentLogic = departmentLogic;
 	}
 
 	@Override
@@ -286,9 +293,22 @@ public class StaffLogicImpl implements StaffLogic {
 		}
 		if (fal == false) {
 			SysUser user = userDao.findUserById(context.getUserId());
-			if (user != null && user.getStaff() != null
-					&& user.getStaff().getDepartment() != null)
-				searchVo.setDeptId(user.getStaff().getDepartment().getId());
+			if (user != null && user.getStaff() != null) {
+				List<String> departmentIds = deptMgrDao
+						.findDepartmentIdsManagedByStaffId(user.getStaff()
+								.getId());
+				if (departmentIds.size() > 0) {
+					Set<String> allDepartmentIds = new HashSet<String>();
+					for (String id : departmentIds) {
+						allDepartmentIds.addAll(departmentLogic
+								.getWholeChildrenIds(id, true));
+					}
+					searchVo.setDeptParam(new MultipleIdParam(allDepartmentIds));
+				}
+				
+				
+			}
+
 		}
 		return staffDao.queryStaffPageAction(searchVo);
 	}
@@ -296,7 +316,7 @@ public class StaffLogicImpl implements StaffLogic {
 	@Override
 	public String createOrUpdateStaff(StaffProcess staff, UserContext context) {
 		Staff ff = null;
-		SysUser nowuser=userDao.findUserById(context.getUserId());
+		SysUser nowuser = userDao.findUserById(context.getUserId());
 		if (StringUtil.isEmptyString(staff.getStaffId())) {
 			ff = new Staff();
 		} else {
@@ -307,12 +327,10 @@ public class StaffLogicImpl implements StaffLogic {
 			Department dept = deptLogic.findDepartmentById(staff
 					.getDepartmentId());
 			ff.setDepartment(dept);
-		}
-		else
-		{
-			//如果传入空部门,默认当前用户部门
+		} else {
+			// 如果传入空部门,默认当前用户部门
 			ff.setDepartment(nowuser.getStaff().getDepartment());
-			
+
 		}
 
 		ff.setStatus(staff.getStatus());
@@ -337,7 +355,6 @@ public class StaffLogicImpl implements StaffLogic {
 			ff.setId(staff.getStaffId());
 			ff.setLastModifiedAt(DateUtil.getTime());
 			ff.setLastModifiedBy(nowuser);
-
 
 			staffDao.update(ff);
 		}
@@ -379,7 +396,7 @@ public class StaffLogicImpl implements StaffLogic {
 				staff.setTxAccountId(accountId);
 				staffDao.update(staff);
 
-				//创建用户
+				// 创建用户
 				u.setUserName(username);
 				u.setPassword("123");
 				u.setCorporation(staff.getCorporation());

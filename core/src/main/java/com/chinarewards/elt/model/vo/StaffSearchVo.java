@@ -109,6 +109,7 @@ public class StaffSearchVo {
 	private String departmentname;
 
 	private StaffStatus status;
+
 	public StaffStatus getStatus() {
 		return status;
 	}
