@@ -1,4 +1,4 @@
-package com.chinarewards.gwt.elt.client.department.util;
+package com.chinarewards.gwt.elt.client.department.dataprovider;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
@@ -12,7 +12,8 @@ import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.model.PaginationDetailClient;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-public class LeaderChooseAsyncDataProvider extends BaseDataProvider<StaffClient> {
+public class LeaderChooseAsyncDataProvider extends
+		BaseDataProvider<StaffClient> {
 
 	final DispatchAsync dispatch;
 	final ErrorHandler errorHandler;
@@ -32,36 +33,27 @@ public class LeaderChooseAsyncDataProvider extends BaseDataProvider<StaffClient>
 
 	@Override
 	public void fetchData(final int start, final int length) {
-//		if (false) {
-//			List<StaffClient> list = new ArrayList<StaffClient>();
-//			for (int i = start; i < start + length; i++) {
-//				list.add(new StaffClient("" + i,
-//						criteria.getKey() == null ? "name" : criteria.getKey()
-//								+ i, "cardNo" + i, "deptName" + i, "email" + i));
-//			}
-//			updateRowData(start, list);
-//			updateRowCount(100, true);
-//		} else {
-			PaginationDetailClient pagination = new PaginationDetailClient();
-			pagination.setStart(start);
-			pagination.setLimit(length);
-			criteria.setPagination(pagination);
-			criteria.setSorting(getSorting());
-			dispatch.execute(new SearchLeaderChooseRequest(criteria,	sessionManager.getSession(), filterByAcl),
-					new AsyncCallback<SearchLeaderChooseResponse>() {
+		PaginationDetailClient pagination = new PaginationDetailClient();
+		pagination.setStart(start);
+		pagination.setLimit(length);
+		criteria.setPagination(pagination);
+		criteria.setSorting(getSorting());
+		dispatch.execute(
+				new SearchLeaderChooseRequest(criteria, sessionManager
+						.getSession(), filterByAcl),
+				new AsyncCallback<SearchLeaderChooseResponse>() {
 
-						@Override
-						public void onFailure(Throwable e) {
-							errorHandler.alert(e.getMessage());
-						}
+					@Override
+					public void onFailure(Throwable e) {
+						errorHandler.alert(e.getMessage());
+					}
 
-						@Override
-						public void onSuccess(SearchLeaderChooseResponse response) {
-							updateRowData(start, response.getResult().getResult());
-							updateRowCount(response.getResult().getTotal(),true);
-						}
-					});
-		}
-//	}
+					@Override
+					public void onSuccess(SearchLeaderChooseResponse response) {
+						updateRowData(start, response.getResult().getResult());
+						updateRowCount(response.getResult().getTotal(), true);
+					}
+				});
+	}
 
 }

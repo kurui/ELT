@@ -178,7 +178,7 @@ public class DepartmentPresenterImpl extends
 
 	}
 	
-	//提名人按钮事件
+	//选择Leader
 	private void registerChooseLeader(){	
 		registerHandler(display.getChooseLeaderBtnClick().addClickHandler(
 				new ClickHandler() {
@@ -190,7 +190,7 @@ public class DepartmentPresenterImpl extends
 											@Override
 											public void chosenLeader(List<StaffClient> list) {
 												for (StaffClient r : list) {
-													
+//													Window.alert("=========chooseLeader click event");
 													
 												}
 											}

@@ -1,4 +1,4 @@
-package com.chinarewards.gwt.elt.client.department.util;
+package com.chinarewards.gwt.elt.client.department.dataprovider;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 

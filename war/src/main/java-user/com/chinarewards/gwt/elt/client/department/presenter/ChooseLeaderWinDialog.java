@@ -1,6 +1,7 @@
 package com.chinarewards.gwt.elt.client.department.presenter;
 
 import java.util.List;
+
 import com.chinarewards.gwt.elt.client.core.ui.impl.AbstractDialog;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
@@ -39,7 +40,7 @@ public class ChooseLeaderWinDialog extends AbstractDialog {
 		presenter.unbind();
 		return true;
 	}
-
+	
 	public void setNominee(boolean isLimitByNominee, boolean isChooseAll,
 			List<String> orgIds) {
 		presenter.setNominee(isLimitByNominee, isChooseAll, orgIds);
@@ -48,4 +49,5 @@ public class ChooseLeaderWinDialog extends AbstractDialog {
 	public void setLeaderOnly(boolean staffOnly) {
 		presenter.setLeaderOnly(staffOnly);
 	}
+
 }

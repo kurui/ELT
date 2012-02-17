@@ -6,7 +6,7 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.core.Platform;
-import com.chinarewards.gwt.elt.client.dataprovider.DepartmentListViewAdapter;
+import com.chinarewards.gwt.elt.client.department.dataprovider.DepartmentListViewAdapter;
 import com.chinarewards.gwt.elt.client.department.model.DepartmentClient;
 import com.chinarewards.gwt.elt.client.department.model.DepartmentNode;
 import com.chinarewards.gwt.elt.client.department.plugin.DepartmentConstants;

@@ -107,7 +107,7 @@ public class SearchLeaderHandler extends
 	private List<StaffClient> adapter(List<WinnersRecordQueryResult> records) {
 
 		List<StaffClient> list = new ArrayList<StaffClient>();
-		System.out.println("dd=" + records);
+		System.out.println("=========adapter staffClient list=====" + records);
 		for (WinnersRecordQueryResult record : records) {
 			StaffClient staff = new StaffClient();
 			staff.setId(record.getStaffId());
