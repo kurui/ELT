@@ -110,8 +110,8 @@ public class SearchLeaderHandler extends
 		System.out.println("dd=" + records);
 		for (WinnersRecordQueryResult record : records) {
 			StaffClient staff = new StaffClient();
-//			staff.setId(record.getLeaderId());
-//			staff.setName(record.getLeaderName());
+			staff.setId(record.getStaffId());
+			staff.setName(record.getStaffName());
 			staff.setDeptName(record.getDepName());
 			staff.setDeptId(record.getDepId());
 

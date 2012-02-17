@@ -173,6 +173,8 @@ public class DepartmentPresenterImpl extends
 						openDepartmentManagePage();
 					}
 				}));
+		
+		registerChooseLeader();
 
 	}
 	
