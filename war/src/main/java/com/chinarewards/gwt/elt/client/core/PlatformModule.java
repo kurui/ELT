@@ -2,6 +2,7 @@ package com.chinarewards.gwt.elt.client.core;
 
 import com.chinarewards.gwt.elt.client.awardReward.plugin.AwardRewardPluginDescriptor;
 import com.chinarewards.gwt.elt.client.awardShop.plugin.AwardShopListPluginDescriptor;
+import com.chinarewards.gwt.elt.client.broadcasting.plugin.BroadcastingListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.budget.plugin.BudgetPluginDescriptor;
 import com.chinarewards.gwt.elt.client.budget.plugin.CorpBudgetPluginDescriptor;
 import com.chinarewards.gwt.elt.client.core.impl.CorePluginDescriptor;
@@ -113,7 +114,8 @@ public class PlatformModule extends AbstractGinModule {
 			IntegralManagementPluginDescriptor integralManagement,
 			StaffListPluginDescriptor staffList,
 			StaffAddPluginDescriptor staffAdd,
-			StaffViewPluginDescriptor staffView) {
+			StaffViewPluginDescriptor staffView,
+			BroadcastingListPluginDescriptor broadcasting) {
 
 		if (pluginSet == null) {
 			pluginSet = new InMemoryPluginSet();
@@ -152,6 +154,7 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(staffList);
 			pluginSet.registerPlugin(staffAdd);
 			pluginSet.registerPlugin(staffView);
+			pluginSet.registerPlugin(broadcasting);
 		}
 
 		return pluginSet;

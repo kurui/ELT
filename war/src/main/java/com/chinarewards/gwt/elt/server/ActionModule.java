@@ -5,6 +5,7 @@ import net.customware.gwt.dispatch.server.guice.ActionHandlerModule;
 import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardAddRequest;
 import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardInitRequest;
 import com.chinarewards.gwt.elt.client.awardShop.request.SearchAwardShopRequest;
+import com.chinarewards.gwt.elt.client.broadcasting.request.SearchBroadcastingListRequest;
 import com.chinarewards.gwt.elt.client.budget.request.AddDepartmentBudgetRequest;
 import com.chinarewards.gwt.elt.client.budget.request.EditCorpBudgetRequest;
 import com.chinarewards.gwt.elt.client.budget.request.InitCorpBudgetByCorpIdRequest;
@@ -70,6 +71,7 @@ import com.chinarewards.gwt.elt.client.user.UserSearchRequest;
 import com.chinarewards.gwt.elt.server.awardReward.AwardRewardActionHandler;
 import com.chinarewards.gwt.elt.server.awardReward.AwardRewardAddActionHandler;
 import com.chinarewards.gwt.elt.server.awardShop.SearchAwardShopHandler;
+import com.chinarewards.gwt.elt.server.broadcasting.SearchBroadcastingListActionHandler;
 import com.chinarewards.gwt.elt.server.budget.AddDepBudgetHandler;
 import com.chinarewards.gwt.elt.server.budget.EditCorpBudgetHandler;
 import com.chinarewards.gwt.elt.server.budget.InitCorpBudgetByCorpIdHandler;
@@ -296,6 +298,8 @@ public class ActionModule extends ActionHandlerModule {
 		bindHandler(StaffGenerateUserRequest.class,StaffGenerateUserActionHandler.class);
 		//员工修改密码
 		bindHandler(UpdateUserPwdRequest.class,UpdateUserPwdActionHandler.class);
+		//广播列表
+		bindHandler(SearchBroadcastingListRequest.class,SearchBroadcastingListActionHandler.class);
 		
 		
 	}

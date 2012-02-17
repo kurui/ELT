@@ -6,6 +6,7 @@ import java.util.List;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.EltGinjector;
+import com.chinarewards.gwt.elt.client.broadcasting.plugin.BroadcastingListConstants;
 import com.chinarewards.gwt.elt.client.core.PluginManager;
 import com.chinarewards.gwt.elt.client.core.presenter.DockPresenter.DockDisplay;
 import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
@@ -99,7 +100,11 @@ public class DockPresenterImpl extends BasePresenter<DockDisplay> implements
 			@Override
 			public void onClick(ClickEvent event) {
 				display.setMenuTitle("广播");
-				display.setMenu(null);
+				menuProcessor.initrender(display.getMenu(),
+						"Broadcasting");
+				eventBus.fireEvent(new MenuClickEvent(
+						menuProcessor
+								.getMenuItem(BroadcastingListConstants.MENU_BROADCASTINGLIST_SEARCH)));
 			}
 		}));
 		registerHandler(display.getBtnRewardItem().addClickHandler(
