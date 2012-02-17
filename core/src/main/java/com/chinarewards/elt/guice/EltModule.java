@@ -6,6 +6,7 @@ import com.chinarewards.elt.guice.sub.OrderModule;
 import com.chinarewards.elt.guice.sub.OrgModule;
 import com.chinarewards.elt.guice.sub.RewardModule;
 import com.chinarewards.elt.guice.sub.StaffModule;
+import com.chinarewards.elt.guice.sub.TeamModule;
 import com.chinarewards.elt.guice.sub.UserModule;
 import com.chinarewards.elt.tx.guice.TxModule;
 import com.google.inject.AbstractModule;
@@ -27,6 +28,7 @@ public class EltModule extends AbstractModule {
 		install(new GiftModule());
 		install(new BudgetModule());
 		install(new OrderModule());
+		install(new TeamModule());
 	}
 
 }

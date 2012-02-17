@@ -3,6 +3,7 @@ package com.chinarewards.elt.service.org;
 import com.chinarewards.elt.domain.org.Members;
 import com.chinarewards.elt.domain.org.Team;
 import com.chinarewards.elt.model.common.PageStore;
+import com.chinarewards.elt.model.org.search.TeamParam;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.vo.TeamListVo;
 
@@ -20,21 +21,14 @@ public interface TeamService {
 	 * @param team
 	 * @return
 	 */
-	public Team save(UserContext context, Team team);
+	public Team save(UserContext context, TeamParam team);
 	/**
-	 * 保存小组成员
-	 * @param context
-	 * @param members
-	 * @return
-	 */
-	public Members saveMembers(UserContext context, Members members);
-
 	/**
 	 * 查找根据ID
 	 * @param id
 	 * @return
 	 */
-	public Team findTeamById(String id);
+	public TeamListVo findTeamById(String id);
 	/**
 	 * 删除组根据ID
 	 * @param id

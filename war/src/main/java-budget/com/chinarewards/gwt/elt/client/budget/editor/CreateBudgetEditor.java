@@ -2,7 +2,6 @@ package com.chinarewards.gwt.elt.client.budget.editor;
 
 import com.chinarewards.gwt.elt.client.budget.presenter.CreateBudgetPresenter;
 import com.chinarewards.gwt.elt.client.core.ui.impl.AbstractEditor;
-import com.chinarewards.gwt.elt.client.order.model.OrderStatus;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
