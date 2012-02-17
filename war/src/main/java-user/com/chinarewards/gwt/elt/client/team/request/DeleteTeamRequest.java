@@ -3,35 +3,35 @@
  */
 package com.chinarewards.gwt.elt.client.team.request;
 
-import com.chinarewards.gwt.elt.client.order.request.DeleteOrderResponse;
+import com.chinarewards.gwt.elt.client.team.request.DeleteTeamResponse;
 import com.chinarewards.gwt.elt.client.support.UserSession;
 
 import net.customware.gwt.dispatch.shared.Action;
 
 /**
- * @author yanrui
+ * @author lw
  */
-public class DeleteTeamRequest implements Action<DeleteOrderResponse> {
+public class DeleteTeamRequest implements Action<DeleteTeamResponse> {
 
-	private String orderId;
+	private String teamId;
 	private UserSession userSession;
 
 	public DeleteTeamRequest() {
 	}
 
-	public DeleteTeamRequest(String orderId, UserSession userSession) {
-		this.orderId = orderId;
+	public DeleteTeamRequest(String teamId, UserSession userSession) {
+		this.teamId = teamId;
 
 		this.userSession = userSession;
 
 	}
 
-	public String getOrderId() {
-		return orderId;
+	public String getTeamId() {
+		return teamId;
 	}
 
-	public void setOrderId(String orderId) {
-		this.orderId = orderId;
+	public void setTeamId(String teamId) {
+		this.teamId = teamId;
 	}
 
 	public UserSession getUserSession() {

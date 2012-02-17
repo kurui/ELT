@@ -111,7 +111,7 @@ public class TeamAddPresenterImpl extends BasePresenter<TeamAddPresenter.TeamAdd
 								@Override
 								public void onSuccess(
 										TeamAddResponse response) {
-									win.alert("添加成功");
+									win.alert("操作成功");
 									// if(instanceId!=null||!instanceId.equals(""))
 									Platform.getInstance()
 											.getEditorRegistry()

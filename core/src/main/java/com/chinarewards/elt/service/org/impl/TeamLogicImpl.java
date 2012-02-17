@@ -51,9 +51,10 @@ public class TeamLogicImpl implements TeamLogic {
        return listvo;
 	}
 	@Override
-	public String deleteTeam(String deptId)	throws Exception {
-		Team team = teamDao.findById(Team.class, deptId);
+	public String deleteTeam(String id)	throws Exception {
+		Team team = teamDao.findById(Team.class, id);
 		teamDao.delete(team);
+		removeMembersByTeam(id);//删除人员
 		return team.getId();
 	}
 

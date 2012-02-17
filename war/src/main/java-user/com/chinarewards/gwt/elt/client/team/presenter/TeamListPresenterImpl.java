@@ -6,16 +6,16 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
-import com.chinarewards.gwt.elt.client.gift.plugin.GiftConstants;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.team.dataprovider.TeamListViewAdapter;
 import com.chinarewards.gwt.elt.client.team.model.TeamSearchVo;
-import com.chinarewards.gwt.elt.client.team.model.TeamVo;
 import com.chinarewards.gwt.elt.client.team.plugin.TeamConstants;
 import com.chinarewards.gwt.elt.client.team.presenter.TeamListPresenter.TeamListDisplay;
+import com.chinarewards.gwt.elt.client.team.request.DeleteTeamRequest;
+import com.chinarewards.gwt.elt.client.team.request.DeleteTeamResponse;
 import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager.TextLocation;
@@ -23,11 +23,13 @@ import com.chinarewards.gwt.elt.client.widget.GetValue;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.widget.Sorting;
 import com.chinarewards.gwt.elt.client.win.Win;
+import com.chinarewards.gwt.elt.client.win.confirm.ConfirmHandler;
 import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
 public class TeamListPresenterImpl extends BasePresenter<TeamListDisplay>
@@ -168,12 +170,17 @@ public class TeamListPresenterImpl extends BasePresenter<TeamListDisplay>
 				}, new FieldUpdater<TeamSearchVo, String>() {
 					@Override
 					public void update(int index, final TeamSearchVo team,String value) {
-						Platform.getInstance()
-						.getEditorRegistry()
-						.openEditor(
+						win.confirm("操作提示", "确认修改？", new ConfirmHandler() {
+						@Override
+						public void confirm() {
+						  Platform.getInstance()
+						  .getEditorRegistry()
+						  .openEditor(
 								TeamConstants.EDITOR_TEAM_ADD,
 								TeamConstants.ACTION_TEAM_EDIT, team);
 					}
+						
+					});}
 				});
 		
 		cellTable.addColumn("操作", new HyperLinkCell(),
@@ -190,6 +197,40 @@ public class TeamListPresenterImpl extends BasePresenter<TeamListDisplay>
 						.openEditor(
 								TeamConstants.EDITOR_TEAM_ADD,
 								TeamConstants.ACTION_TEAM_VIEW, team);
+					}
+				});
+		cellTable.addColumn("操作", new HyperLinkCell(),
+				new GetValue<TeamSearchVo, String>() {
+					@Override
+					public String getValue(TeamSearchVo order) {
+						return "删除";
+					}
+				}, new FieldUpdater<TeamSearchVo, String>() {
+					@Override
+					public void update(int index, final TeamSearchVo object,	String value) {
+							win.confirm("操作提示", "确认删除吗？", new ConfirmHandler() {
+							@Override
+							public void confirm() {
+								 
+									dispatch.execute(new DeleteTeamRequest(object.getId(),sessionManager.getSession()),
+										new AsyncCallback<DeleteTeamResponse>() {
+
+											@Override
+											public void onFailure(Throwable t) {
+												errorHandler.alert("操作失败");												}
+
+											@Override
+											public void onSuccess(DeleteTeamResponse resp) {
+												if(!resp.getTotal().equals(""))
+												   win.alert("操作成功!");
+												if(resp.getTotal().equals(""))
+													win.alert("操作失败!");
+												doSearch();
+											}
+										});
+							}
+						});
+											
 					}
 				});
 			

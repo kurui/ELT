@@ -65,6 +65,7 @@ import com.chinarewards.gwt.elt.client.staffList.request.StaffGenerateUserReques
 import com.chinarewards.gwt.elt.client.staffList.request.UpdateUserPwdRequest;
 import com.chinarewards.gwt.elt.client.staffView.request.StaffViewRequest;
 import com.chinarewards.gwt.elt.client.staffView.request.StaffWinRequest;
+import com.chinarewards.gwt.elt.client.team.request.DeleteTeamRequest;
 import com.chinarewards.gwt.elt.client.team.request.SearchTeamByIdRequest;
 import com.chinarewards.gwt.elt.client.team.request.SearchTeamRequest;
 import com.chinarewards.gwt.elt.client.team.request.TeamAddRequest;
@@ -135,6 +136,7 @@ import com.chinarewards.gwt.elt.server.staff.StaffGenerateUserActionHandler;
 import com.chinarewards.gwt.elt.server.team.SearchTeamByIdHandler;
 import com.chinarewards.gwt.elt.server.team.SearchTeamHandler;
 import com.chinarewards.gwt.elt.server.team.TeamHandler;
+import com.chinarewards.gwt.elt.server.user.DeleteTeamByIdHandler;
 import com.chinarewards.gwt.elt.server.user.DeleteUserActionHandler;
 import com.chinarewards.gwt.elt.server.user.UpdateUserPwdActionHandler;
 import com.chinarewards.gwt.elt.server.user.UserSearchActionHandler;
@@ -307,6 +309,8 @@ public class ActionModule extends ActionHandlerModule {
 		bindHandler(SearchTeamRequest.class,SearchTeamHandler.class);
 		//小组增加
 		bindHandler(TeamAddRequest.class,TeamHandler.class);
+		//小组删除
+		bindHandler(DeleteTeamRequest.class,DeleteTeamByIdHandler.class);
 		//小组查找BYID
 		bindHandler(SearchTeamByIdRequest.class,SearchTeamByIdHandler.class);
 	}
