@@ -38,14 +38,20 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 	@UiField
 	Label parentName;
 	@UiField
-	TextBox childdepartment;
+	Label childdepartment;
 	@UiField
-	TextBox peopleNumber;
+	Label peopleNumber;
 	@UiField
-	TextBox yearintegral;
+	Label yearintegral;
 	@UiField
-	TextBox issueintegral;
-
+	Label issueintegral;
+	
+	// 候选人模块
+	@UiField
+	Panel leaderPanel;
+	@UiField
+	Button chooseLeaderBtn;
+	
 	@UiField
 	Button save;
 
@@ -53,7 +59,8 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 	Button back;
 
 	@UiField
-	Panel breadCrumbs;
+	Panel breadCrumbs;	
+	
 
 	DateTimeFormat dateFormat = DateTimeFormat
 			.getFormat(ViewConstants.date_format);
@@ -90,9 +97,9 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 		parentName.setText(getDepartmentParentName(departmentVo.getParentName()));
 		// private String childdeparmentIds;
 		// private String childdeparmentNames;
-		peopleNumber.setValue(departmentVo.getPeopleNumber());
-		yearintegral.setValue(departmentVo.getYearintegral());
-		issueintegral.setValue(departmentVo.getIssueintegral());
+		peopleNumber.setText(departmentVo.getPeopleNumber());
+		yearintegral.setText(departmentVo.getYearintegral());
+		issueintegral.setText(departmentVo.getIssueintegral());
 
 	}
 
@@ -152,22 +159,22 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 	}
 
 	@Override
-	public HasValue<String> getChilddepartment() {
+	public Label getChilddepartment() {
 		return childdepartment;
 	}
 
 	@Override
-	public HasValue<String> getPeopleNumber() {
+	public Label getPeopleNumber() {
 		return peopleNumber;
 	}
 
 	@Override
-	public HasValue<String> getYearintegral() {
+	public Label getYearintegral() {
 		return yearintegral;
 	}
 
 	@Override
-	public HasValue<String> getIssueintegral() {
+	public Label getIssueintegral() {
 		return issueintegral;
 	}
 
@@ -184,6 +191,11 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 	@Override
 	public Hidden getDepartmentId() {
 		return departmentId;
+	}
+
+	@Override
+	public HasClickHandlers getChooseLeaderBtnClick() {
+		return chooseLeaderBtn;
 	}
 
 }

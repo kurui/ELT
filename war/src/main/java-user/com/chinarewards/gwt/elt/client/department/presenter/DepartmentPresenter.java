@@ -6,6 +6,7 @@ import com.chinarewards.gwt.elt.client.mvp.Presenter;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Hidden;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
 public interface DepartmentPresenter extends
@@ -14,21 +15,24 @@ public interface DepartmentPresenter extends
 	public static interface DepartmentDisplay extends Display {
 
 		public Hidden getDepartmentId();
+
 		public HasValue<String> getDepartmentName();
 
 		public HasValue<String> getLeader();
 
 		public Hidden getParentId();
 
-		public HasValue<String> getChilddepartment();
+		public Label getChilddepartment();
 
-		public HasValue<String> getPeopleNumber();
+		public Label getPeopleNumber();
 
-		public HasValue<String> getYearintegral();
+		public Label getYearintegral();
 
-		public HasValue<String> getIssueintegral();
+		public Label getIssueintegral();
 
 		public HasClickHandlers getSaveClick();
+
+		public HasClickHandlers getChooseLeaderBtnClick();
 
 		public void clear();
 
