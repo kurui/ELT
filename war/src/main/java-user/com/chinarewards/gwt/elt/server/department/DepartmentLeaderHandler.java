@@ -34,8 +34,14 @@ public class DepartmentLeaderHandler extends
 	public DepartmentLeaderResponse execute(DepartmentLeaderRequest action,
 			ExecutionContext context) throws DispatchException {
 		List<DepartmentNode> rs = new ArrayList<DepartmentNode>();
+		
+		
+		System.out.println("==========before=======departmentService.getDepartmentLeaderList======="+action.getLeaderId());
+		
 		List<DepartmentManageVo> departmentManageVoList = departmentService
 				.getDepartmentLeaderList(action.getLeaderId());
+		
+		System.out.println("==========after=======departmentService.getDepartmentLeaderList=======");
 		
 		for (DepartmentManageVo vo : departmentManageVoList) {
 			DepartmentNode c = new DepartmentNode(vo.getDepartmentName(),
@@ -44,11 +50,8 @@ public class DepartmentLeaderHandler extends
 					vo.isLeaf(), vo.getParentId());
 			rs.add(c);
 		}
-		// 查询当前财年..待添加
-		// budgetService.findCorpBudget(action.getCorporationId());
-		// return new DepartmentLeaderResponse(rs, 0, 0);
+		
 		return new DepartmentLeaderResponse(rs);
-
 	}
 
 	@Override

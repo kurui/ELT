@@ -166,6 +166,9 @@ public class ActionModule extends ActionHandlerModule {
 		
 		//部门列表
 		bindHandler(DepartmentManageRequest.class,DepartmentManageHandler.class);
+		//Leader部门列表
+		bindHandler(DepartmentLeaderRequest.class,DepartmentLeaderHandler.class);
+		
 		bindHandler(SearchDepartmentRequest.class, SearchDepartmentHandler.class);	   
 		bindHandler(SearchDepartmentByIdRequest.class,SearchDepartmentByIdHandler.class);		
 		//部门编辑
@@ -173,8 +176,7 @@ public class ActionModule extends ActionHandlerModule {
 		//部门删除
 		bindHandler(DeleteDepartmentRequest.class, DeleteDepartmentHandler.class); 
 		//合并部门
-		bindHandler(MergeDepartmentRequest.class, MergeDepartmentHandler.class); 
-		bindHandler(DepartmentLeaderRequest.class,DepartmentLeaderHandler.class);		
+		bindHandler(MergeDepartmentRequest.class, MergeDepartmentHandler.class); 	
 		
 		// staff module
 		bindHandler(HrRegisterRequest.class, HrRegisterActionHandler.class);

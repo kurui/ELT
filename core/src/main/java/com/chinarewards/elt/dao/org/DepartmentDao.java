@@ -48,7 +48,7 @@ public class DepartmentDao extends BaseDao<Department> {
 		Date now = DateUtil.getTime();
 		Department dept = new Department();
 		dept.setCorporation(corp);
-//		dept.setName(name);
+		// dept.setName(name);
 		dept.setName(corp.getName());
 		dept.setLft(1);
 		dept.setRgt(2);
@@ -122,8 +122,6 @@ public class DepartmentDao extends BaseDao<Department> {
 						"FROM Department d WHERE d.corporation.id =:corpId ")
 				.setParameter("corpId", corporationId).getResultList();
 	}
-	
-	
 
 	/**
 	 * Find list of department by parent id and corporation id.
@@ -156,11 +154,12 @@ public class DepartmentDao extends BaseDao<Department> {
 				.setParameter("lft", lft).setParameter("rgt", rgt)
 				.getResultList();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public Set<String> findSiblingIds(String rootId, boolean includeRoot) {
 
-		logger.debug(" Process in findSiblingIds, rootId:{}, includeRoot:{}",new Object[] { rootId, includeRoot });
+		logger.debug(" Process in findSiblingIds, rootId:{}, includeRoot:{}",
+				new Object[] { rootId, includeRoot });
 
 		Set<String> result = new TreeSet<String>();
 		List<String> currectList = new ArrayList<String>();
@@ -195,7 +194,7 @@ public class DepartmentDao extends BaseDao<Department> {
 	 * @return
 	 */
 	public String mergeDepartment(String departmentIds) {
-	
+
 		return "";
 	}
 
@@ -204,10 +203,9 @@ public class DepartmentDao extends BaseDao<Department> {
 	 * @return
 	 */
 	public List<Department> findDepartmentsByLeader(String leaderId) {
-		// TODO Auto-generated method stub
-		return null;
+		return getEm().createQuery(
+				"FROM Department d WHERE  d.leaderId =:leaderId").setParameter(
+				"leaderId", leaderId).getResultList();
 	}
 
-	
-	
 }

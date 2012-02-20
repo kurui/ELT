@@ -75,12 +75,13 @@ public class DepartmentLeaderPresenterImpl extends
 		final String corporationId = sessionManager.getSession()
 				.getCorporationId();
 
-		String leaderId = sessionManager.getSession().getToken();
+		final String leaderId = sessionManager.getSession().getToken();
 		dispatcher.execute(new DepartmentLeaderRequest(leaderId),
 				new AsyncCallback<DepartmentLeaderResponse>() {
 					@Override
 					public void onFailure(Throwable e) {
-						win.alert("查询异常：" + e.getMessage());
+						win.alert("查询异常：leaderId=" + leaderId + "<br>"
+								+ e.getMessage());
 					}
 
 					@Override
