@@ -11,7 +11,7 @@ public interface BroadcastLogic {
 	 * @param staffProcess
 	 * @return
 	 */
-	public String createOrUpdateBroadcast(Broadcasting broadcast);
+	public Broadcasting createOrUpdateBroadcast(Broadcasting broadcast);
 
 	/**
 	 * 广播列表

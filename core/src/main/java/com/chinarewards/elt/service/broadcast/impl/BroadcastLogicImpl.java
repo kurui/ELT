@@ -17,13 +17,12 @@ public class BroadcastLogicImpl implements BroadcastLogic {
 	}
 
 	@Override
-	public String createOrUpdateBroadcast(Broadcasting broadcast) {
+	public Broadcasting createOrUpdateBroadcast(Broadcasting broadcast) {
 		if (StringUtil.isEmptyString(broadcast.getId())) {
-			broadcastDao.save(broadcast);
+			return broadcastDao.save(broadcast);
 		} else {
-			broadcastDao.update(broadcast);
+			return broadcastDao.update(broadcast);
 		}
-		return broadcast.getId();
 	}
 
 	@Override

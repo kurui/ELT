@@ -4,6 +4,7 @@
 package com.chinarewards.gwt.elt.client.broadcastSave.request;
 
 import java.util.Date;
+import java.util.List;
 
 import net.customware.gwt.dispatch.shared.Action;
 
@@ -18,10 +19,33 @@ import com.chinarewards.gwt.elt.client.support.UserSession;
 public class BroadcastSaveRequest implements Action<BroadcastSaveResponse> {
 	private UserSession session;
 	String broadcastId;
+	String content;
+	List<String[]> organList;
 	Date broadcastingTimeStart;
 	Date broadcastingTimeEnd;
+	
 	boolean allowreplies;
 	
+
+	public String getContent() {
+		return content;
+	}
+
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+
+	public List<String[]> getOrganList() {
+		return organList;
+	}
+
+
+	public void setOrganList(List<String[]> organList) {
+		this.organList = organList;
+	}
+
 
 	public UserSession getSession() {
 		return session;

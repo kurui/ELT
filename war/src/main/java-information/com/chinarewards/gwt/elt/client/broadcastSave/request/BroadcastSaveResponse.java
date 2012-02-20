@@ -10,24 +10,22 @@ import net.customware.gwt.dispatch.shared.Result;
  */
 public class BroadcastSaveResponse implements Result {
 
-	String staffId;
+	String message;
 
 
-	public String getStaffId() {
-		return staffId;
+	
+
+	public String getMessage() {
+		return message;
 	}
-
-
-	public void setStaffId(String staffId) {
-		this.staffId = staffId;
+	public void setMessage(String message) {
+		this.message = message;
 	}
-
-
 	public BroadcastSaveResponse() {
 
 	}
-	public BroadcastSaveResponse(String staffId) {
-		this.staffId=staffId;
+	public BroadcastSaveResponse(String message) {
+		this.message=message;
 
 	}
 
