@@ -91,8 +91,6 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 		departmentDao.maintainIndexAfterAddNode(index, corporation.getId());// maintain index
 
 		if (StringUtil.isEmptyString(department.getId())) {	
-			
-			
 			department.setLft(parent.getRgt());
 			department.setRgt(parent.getRgt() + 1);
 			
@@ -104,8 +102,6 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 			
 			tempDepartment.setName(department.getName());
 			tempDepartment.setLeaderId(department.getLeaderId());
-//			tempDepartment.setCorporation(corporation);
-			
 			
 			tempDepartment.setLastModifiedAt(DateUtil.getTime());
 			tempDepartment.setLastModifiedBy(caller);
@@ -309,10 +305,15 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 	}
 
 	@Override
-	public List<DepartmentManageVo> getDepartmentLeaderList(String leaderId) {
+	public List<DepartmentManageVo> getDepartmentLeaderList(String leaderId,String corporcationId) {
 		List<DepartmentManageVo> volist = new ArrayList<DepartmentManageVo>();
-		List<Department> department = findDepartmentsByLeader(leaderId);
-		for (Department dep : department) {
+		List<Department> departmentList = new ArrayList<Department>();
+		departmentList.add(getRootDepartmentOfCorporation(corporcationId));
+		List<Department> tempList=findDepartmentsByLeader(leaderId);
+		departmentList.addAll(tempList);		
+		
+		
+		for (Department dep : departmentList) {
 			DepartmentManageVo vo = new DepartmentManageVo();
 			vo.setDepartmentId(dep.getId());
 			vo.setDepartmentName(dep.getName());

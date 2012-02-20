@@ -52,7 +52,7 @@ public interface DepartmentService {
 	 */
 	public List<DepartmentManageVo> getDepartmentManageList(String corporationId);
 	
-	public List<DepartmentManageVo> getDepartmentLeaderList(String leaderId);
+	public List<DepartmentManageVo> getDepartmentLeaderList(String leaderId,String corporcationId);
 
 	/**
 	 * @param uc

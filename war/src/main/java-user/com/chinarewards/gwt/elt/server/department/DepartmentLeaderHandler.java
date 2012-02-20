@@ -34,15 +34,16 @@ public class DepartmentLeaderHandler extends
 	public DepartmentLeaderResponse execute(DepartmentLeaderRequest action,
 			ExecutionContext context) throws DispatchException {
 		List<DepartmentNode> nodeList = new ArrayList<DepartmentNode>();
-		
-		
-		System.out.println("==========before=======departmentService.getDepartmentLeaderList======="+action.getLeaderId());
-		
+
 		List<DepartmentManageVo> departmentManageVoList = departmentService
-				.getDepartmentLeaderList(action.getLeaderId());
-		
-		System.out.println("==========after=======departmentService.getDepartmentLeaderList======="+departmentManageVoList.size());
-		
+				.getDepartmentLeaderList(action.getLeaderId(),
+						action.getCorporcationId());
+
+		System.out
+				.println(action.getLeaderId()
+						+ "=====after====departmentService.getDepartmentLeaderList======="
+						+ departmentManageVoList.size());
+
 		for (DepartmentManageVo vo : departmentManageVoList) {
 			DepartmentNode c = new DepartmentNode(vo.getDepartmentName(),
 					(int) vo.getBudgetIntegral() + "",
@@ -51,9 +52,7 @@ public class DepartmentLeaderHandler extends
 			nodeList.add(c);
 		}
 
-		return new DepartmentLeaderResponse();
-		
-//		return new DepartmentLeaderResponse(nodeList);
+		return new DepartmentLeaderResponse(nodeList);
 
 	}
 

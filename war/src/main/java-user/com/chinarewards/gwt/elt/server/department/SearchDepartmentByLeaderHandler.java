@@ -8,7 +8,6 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 import org.slf4j.Logger;
 
 import com.chinarewards.elt.domain.org.Department;
-import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.service.org.DepartmentService;
 import com.chinarewards.gwt.elt.client.department.request.SearchDepartmentByLeaderRequest;
 import com.chinarewards.gwt.elt.client.department.request.SearchDepartmentByLeaderResponse;
@@ -44,6 +43,8 @@ public class SearchDepartmentByLeaderHandler
 				.findDepartmentsByLeader(request.getLeaderId());
 		searchResponse.setDepartmentList(departmentList);
 
+		System.out.println(request.getLeaderId()+"=========leader departmentList:===="+departmentList.size());
+		
 		return searchResponse;
 	}
 

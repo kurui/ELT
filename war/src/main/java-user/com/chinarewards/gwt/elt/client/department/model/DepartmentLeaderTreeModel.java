@@ -20,18 +20,18 @@ import com.google.gwt.view.client.TreeViewModel;
 
 public class DepartmentLeaderTreeModel implements TreeViewModel {
 	private ListDataProvider<DepartmentNode> categoryDataProvider;
-	private Cell<DepartmentNode> nodeCell;//格式模版
-	final List<DepartmentNode> nodeList;//数据
+	private Cell<DepartmentNode> nodeCell;// 格式模版
+	final List<DepartmentNode> nodeList;// 数据
 	DepartmentLeaderDisplay departmentListDisplay;
 	String corporationId;
 	String departmentIds;
 
 	public DepartmentLeaderTreeModel(List<DepartmentNode> nodeList,
-			String corporationId,DepartmentLeaderDisplay departmentListDisplay) {
+			String corporationId, DepartmentLeaderDisplay departmentListDisplay) {
 		this.corporationId = corporationId;
 		this.nodeList = nodeList;
-		this.departmentListDisplay=departmentListDisplay;
-		
+		this.departmentListDisplay = departmentListDisplay;
+
 		setDataProvider();
 
 		buildNodeCell();
@@ -66,7 +66,7 @@ public class DepartmentLeaderTreeModel implements TreeViewModel {
 				sb.appendHtmlConstant("</td>");
 			}
 		};
-		
+
 	}
 
 	/**
@@ -90,19 +90,20 @@ public class DepartmentLeaderTreeModel implements TreeViewModel {
 							Boolean checked) {
 						// Window.alert(object.getDepartmentId()+"--"+object.getDepartmentName());
 
-						departmentIds=departmentListDisplay.getCurrentDepartmentId().getValue();
+						departmentIds = departmentListDisplay
+								.getCurrentDepartmentId().getValue();
 						departmentIds = updateDepartmentIdsAsChecked(object,
 								departmentIds);
-			
-						departmentListDisplay.getCurrentDepartmentId().setValue(departmentIds);
-						
-						
+
+						departmentListDisplay.getCurrentDepartmentId()
+								.setValue(departmentIds);
+
 					}
 				};
 			}
 
 			public Boolean getValue(DepartmentNode object) {
-//				return isChecked(object, departmentIds);
+				// return isChecked(object, departmentIds);
 				return false;
 			}
 		});
@@ -120,7 +121,7 @@ public class DepartmentLeaderTreeModel implements TreeViewModel {
 					@Override
 					public void update(int index, DepartmentNode object,
 							String value) {
-//						Window.alert(object.getDepartmentId() + "--- 部门名称");
+						// Window.alert(object.getDepartmentId() + "--- 部门名称");
 						DepartmentClient client = new DepartmentClient();
 						client.setId(object.getDepartmentId());
 						client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_EDIT);
@@ -178,7 +179,7 @@ public class DepartmentLeaderTreeModel implements TreeViewModel {
 			}
 			ListDataProvider<DepartmentNode> dataProvider = new ListDataProvider<DepartmentNode>(
 					nodeList);
-			
+
 			return new DefaultNodeInfo<DepartmentNode>(dataProvider, nodeCell);
 
 		}
@@ -222,7 +223,7 @@ public class DepartmentLeaderTreeModel implements TreeViewModel {
 						",");
 			}
 		}
-		System.out.println("==========update selected Ids:"+departmentIds);
+		System.out.println("==========update selected Ids:" + departmentIds);
 		return departmentIds;
 	}
 
@@ -240,9 +241,13 @@ public class DepartmentLeaderTreeModel implements TreeViewModel {
 			}
 			// 一级部门
 			for (DepartmentNode tempNode : nodeList) {
-				if (rootDepartmentNode.getDepartmentId().equals(
-						tempNode.getParentId()))
-					categoryList.add(tempNode);
+				if (rootDepartmentNode != null) {
+					if (rootDepartmentNode.getDepartmentId().equals(
+							tempNode.getParentId())) {
+						categoryList.add(tempNode);
+					}
+				}
+
 			}
 		} else {
 			categoryDataProvider = new ListDataProvider<DepartmentNode>();

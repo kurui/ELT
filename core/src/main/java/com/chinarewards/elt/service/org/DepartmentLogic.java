@@ -166,7 +166,7 @@ public interface DepartmentLogic {
 	 */
 	public List<DepartmentManageVo> getDepartmentManageList(String corpId);
 
-	public List<DepartmentManageVo> getDepartmentLeaderList(String leaderId);
+	public List<DepartmentManageVo> getDepartmentLeaderList(String leaderId,String corporcationId);
 	/**
 	 * @param caller
 	 * @param department

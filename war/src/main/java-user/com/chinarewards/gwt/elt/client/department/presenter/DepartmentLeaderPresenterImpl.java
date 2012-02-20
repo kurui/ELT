@@ -75,8 +75,8 @@ public class DepartmentLeaderPresenterImpl extends
 		final String corporationId = sessionManager.getSession()
 				.getCorporationId();
 		
-		final String leaderId = sessionManager.getSession().getToken();
-		dispatcher.execute(new DepartmentLeaderRequest(leaderId),new AsyncCallback<DepartmentLeaderResponse>() {
+		final String leaderId = sessionManager.getSession().getStaffId();
+		dispatcher.execute(new DepartmentLeaderRequest(leaderId,corporationId),new AsyncCallback<DepartmentLeaderResponse>() {
 					@Override
 					public void onFailure(Throwable e) {
 						win.alert(e.getMessage()+"<br>"+e.getLocalizedMessage()+"<br>"+e);
@@ -87,6 +87,10 @@ public class DepartmentLeaderPresenterImpl extends
 						// display.setBudgetIntegral((int)response.getBudgetIntegral()+"");
 						// display.setUseIntegeral((int)response.getBudgetIntegral()+"");
 						List<DepartmentNode> nodeList = response.getResult();
+						if(nodeList!=null){
+							System.out.println("=================DepartmentLeaderPresentImpl:"+nodeList.size());
+						}
+						
 						display.loadTreeData(nodeList, corporationId);
 					}
 				});

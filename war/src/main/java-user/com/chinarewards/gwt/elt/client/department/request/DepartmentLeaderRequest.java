@@ -9,12 +9,14 @@ public class DepartmentLeaderRequest implements
 		Action<DepartmentLeaderResponse> {
 
 	private String leaderId;
+	private String corporcationId;
 
 	public DepartmentLeaderRequest() {
 	}
 
-	public DepartmentLeaderRequest(String leaderId) {
+	public DepartmentLeaderRequest(String leaderId,String corporcationId) {
 		this.leaderId = leaderId;
+		this.corporcationId=corporcationId;
 	}
 
 	public String getLeaderId() {
@@ -24,6 +26,16 @@ public class DepartmentLeaderRequest implements
 	public void setLeaderId(String leaderId) {
 		this.leaderId = leaderId;
 	}
+
+	public String getCorporcationId() {
+		return corporcationId;
+	}
+
+	public void setCorporcationId(String corporcationId) {
+		this.corporcationId = corporcationId;
+	}
+	
+	
 	
 	
 	

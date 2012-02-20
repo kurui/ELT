@@ -74,8 +74,8 @@ public class DepartmentServiceImpl implements DepartmentService {
 	}
 
 	@Override
-	public List<DepartmentManageVo> getDepartmentLeaderList(String leaderId) {
-		return departmentLogic.getDepartmentLeaderList(leaderId);
+	public List<DepartmentManageVo> getDepartmentLeaderList(String leaderId,String corporcationId) {
+		return departmentLogic.getDepartmentLeaderList(leaderId,corporcationId);
 	}
 
 	@Override
