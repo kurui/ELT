@@ -6,9 +6,9 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 import org.slf4j.Logger;
 
 import com.chinarewards.elt.domain.org.Department;
-import com.chinarewards.elt.domain.user.SysUser;
+import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.service.org.DepartmentService;
-import com.chinarewards.elt.service.user.UserService;
+import com.chinarewards.elt.service.staff.IStaffService;
 import com.chinarewards.gwt.elt.client.department.model.DepartmentVo;
 import com.chinarewards.gwt.elt.client.department.request.SearchDepartmentByIdRequest;
 import com.chinarewards.gwt.elt.client.department.request.SearchDepartmentByIdResponse;
@@ -24,12 +24,12 @@ public class SearchDepartmentByIdHandler extends
 	@InjectLogger
 	Logger logger;
 	DepartmentService departmentService;
-	UserService userService;
+	IStaffService staffService;
 
 	@Inject
-	public SearchDepartmentByIdHandler(DepartmentService departmentService,UserService userService) {
+	public SearchDepartmentByIdHandler(DepartmentService departmentService,IStaffService staffService) {
 		this.departmentService = departmentService;
-		this.userService=userService;
+		this.staffService=staffService;
 	}
 
 	@Override
@@ -47,15 +47,16 @@ public class SearchDepartmentByIdHandler extends
 			departmentVo.setId(department.getId());
 			departmentVo.setName(department.getName());
 			departmentVo.setLeaderId(department.getLeaderId());
-			SysUser user = null;
 			
+			Staff staff = null;
 			if (department.getLeaderId()!=null) {
-				user=userService.findUserById(department.getLeaderId());
+				staff=staffService.findStaffById(department.getLeaderId());
 			}
-			if(user!=null){
-				departmentVo.setLeaderName(user.getUserName());
+			if(staff!=null){				
+				departmentVo.setLeaderName(staff.getName());
 			}
-			System.out.println(department.getLeaderId()+"==================leaderId==name:"+departmentVo.getLeaderName());
+			
+//			System.out.println(department.getLeaderId()+"==================leaderId==name:"+departmentVo.getLeaderName());
 			
 			Department parent=department.getParent();
 			if (parent!=null) {
@@ -65,7 +66,7 @@ public class SearchDepartmentByIdHandler extends
 				
 			}
 			
-			System.out.println("===================SearchByIdHandler=="+departmentVo.getParentName());
+//			System.out.println("===================SearchByIdHandler=="+departmentVo.getParentName());
 			
 //			private String superdeparmentId;
 //			private String superdeparmentName;
