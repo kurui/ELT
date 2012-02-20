@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.chinarewards.gwt.elt.client.rewards.model.StaffClient;
 
-public class LeaderSearchResult implements Serializable {
+public class DepartmentLeaderResult implements Serializable {
 	/**
 	 * 
 	 */

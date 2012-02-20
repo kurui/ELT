@@ -240,6 +240,11 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 			String corporationId) {
 		return departmentDao.findDepartmentsByCoporationId(corporationId);
 	}
+	
+	@Override
+	public List<Department> getLeaderDepartments(String corporationId,String departmentId) {
+		return departmentDao.findLeaderDepartments(corporationId,departmentId);
+	}
 
 	@Override
 	public Department getRootDepartmentOfCorporation(String corpId) {
@@ -308,6 +313,32 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 		return volist;
 	}
 
+	@Override
+	public List<DepartmentManageVo> getDepartmentLeaderList(String corpId,String departmentId) {
+		List<DepartmentManageVo> volist = new ArrayList<DepartmentManageVo>();
+		List<Department> department = getWholeDepartmentsOfCorporation(corpId);
+		for (Department dep : department) {
+			DepartmentManageVo vo = new DepartmentManageVo();
+			vo.setDepartmentId(dep.getId());
+			vo.setDepartmentName(dep.getName());
+			if (dep.getParent() != null) {
+				vo.setParentId(dep.getParent().getId());
+			}
+
+			vo.setLeaf(isLeaf(dep));
+
+			// DepartmentBudget budget = departmentBudgetDao
+			// .findDepartmentBudgetByDepartmentId(dep.getId());
+			// if (budget != null) {
+			// vo.setCorpBudgetId(budget.getCorpBudgetId());
+			// vo.setBudgetIntegral(budget.getBudgetIntegral());
+			// vo.setUseIntegeral(budget.getUseIntegeral());
+			// }
+			volist.add(vo);
+		}
+
+		return volist;
+	}
 
 	@Override
 	public String mergeDepartment(UserContext uc, String departmentIds) {

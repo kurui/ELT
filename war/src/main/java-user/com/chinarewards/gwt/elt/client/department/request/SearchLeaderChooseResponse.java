@@ -2,24 +2,24 @@ package com.chinarewards.gwt.elt.client.department.request;
 
 import net.customware.gwt.dispatch.shared.Result;
 
-import com.chinarewards.gwt.elt.client.department.model.LeaderSearchResult;
+import com.chinarewards.gwt.elt.client.department.model.DepartmentLeaderResult;
 
 public class SearchLeaderChooseResponse implements Result {
 
-	private LeaderSearchResult result;
+	private DepartmentLeaderResult result;
 
 	public SearchLeaderChooseResponse() {
 	}
 
-	public SearchLeaderChooseResponse(LeaderSearchResult result) {
+	public SearchLeaderChooseResponse(DepartmentLeaderResult result) {
 		this.result = result;
 	}
 
-	public LeaderSearchResult getResult() {
+	public DepartmentLeaderResult getResult() {
 		return result;
 	}
 
-	public void setResult(LeaderSearchResult result) {
+	public void setResult(DepartmentLeaderResult result) {
 		this.result = result;
 	}
 

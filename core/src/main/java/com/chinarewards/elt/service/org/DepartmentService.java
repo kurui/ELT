@@ -51,6 +51,8 @@ public interface DepartmentService {
 	 * @return
 	 */
 	public List<DepartmentManageVo> getDepartmentManageList(String corporationId);
+	
+	public List<DepartmentManageVo> getDepartmentLeaderList(String corporationId,String departmentId);
 
 	/**
 	 * @param uc

@@ -14,12 +14,12 @@ import com.chinarewards.gwt.elt.client.budget.request.SearchCorpBudgetByCorpIdRe
 import com.chinarewards.gwt.elt.client.budget.request.SearchDepBudgetRequest;
 import com.chinarewards.gwt.elt.client.chooseStaff.request.SearchStaffChooseRequest;
 import com.chinarewards.gwt.elt.client.department.request.DeleteDepartmentRequest;
+import com.chinarewards.gwt.elt.client.department.request.DepartmentLeaderRequest;
 import com.chinarewards.gwt.elt.client.department.request.DepartmentManageRequest;
 import com.chinarewards.gwt.elt.client.department.request.EditDepartmentRequest;
 import com.chinarewards.gwt.elt.client.department.request.MergeDepartmentRequest;
 import com.chinarewards.gwt.elt.client.department.request.SearchDepartmentByIdRequest;
 import com.chinarewards.gwt.elt.client.department.request.SearchDepartmentRequest;
-import com.chinarewards.gwt.elt.client.department.request.SearchLeaderRequest;
 import com.chinarewards.gwt.elt.client.detailsOfAward.request.DetailsOfAwardInitRequest;
 import com.chinarewards.gwt.elt.client.detailsOfGift.request.DetailsOfGiftRequest;
 import com.chinarewards.gwt.elt.client.enterprise.request.EditIntegralPriceRequest;
@@ -84,12 +84,12 @@ import com.chinarewards.gwt.elt.server.budget.SearchCorpBudgetByCorpIdHandler;
 import com.chinarewards.gwt.elt.server.budget.SearchDepBudgetHandler;
 import com.chinarewards.gwt.elt.server.chooseStaff.SearchStaffActionHandler;
 import com.chinarewards.gwt.elt.server.department.DeleteDepartmentHandler;
+import com.chinarewards.gwt.elt.server.department.DepartmentLeaderHandler;
 import com.chinarewards.gwt.elt.server.department.DepartmentManageHandler;
 import com.chinarewards.gwt.elt.server.department.EditDepartmentHandler;
 import com.chinarewards.gwt.elt.server.department.MergeDepartmentHandler;
 import com.chinarewards.gwt.elt.server.department.SearchDepartmentByIdHandler;
 import com.chinarewards.gwt.elt.server.department.SearchDepartmentHandler;
-import com.chinarewards.gwt.elt.server.department.SearchLeaderHandler;
 import com.chinarewards.gwt.elt.server.detailsOfAward.DetailsOfAwardActionHandler;
 import com.chinarewards.gwt.elt.server.detailsOfGift.DetailsOfGiftHandler;
 import com.chinarewards.gwt.elt.server.enterprise.EditIntegralPriceHandler;
@@ -174,7 +174,7 @@ public class ActionModule extends ActionHandlerModule {
 		bindHandler(DeleteDepartmentRequest.class, DeleteDepartmentHandler.class); 
 		//合并部门
 		bindHandler(MergeDepartmentRequest.class, MergeDepartmentHandler.class); 
-		bindHandler(SearchLeaderRequest.class,SearchLeaderHandler.class);		
+		bindHandler(DepartmentLeaderRequest.class,DepartmentLeaderHandler.class);		
 		
 		// staff module
 		bindHandler(HrRegisterRequest.class, HrRegisterActionHandler.class);

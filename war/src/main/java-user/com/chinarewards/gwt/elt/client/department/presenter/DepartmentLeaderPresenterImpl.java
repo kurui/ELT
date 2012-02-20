@@ -14,8 +14,8 @@ import com.chinarewards.gwt.elt.client.department.plugin.DepartmentLeaderConstan
 import com.chinarewards.gwt.elt.client.department.presenter.DepartmentLeaderPresenter.DepartmentLeaderDisplay;
 import com.chinarewards.gwt.elt.client.department.request.DeleteDepartmentRequest;
 import com.chinarewards.gwt.elt.client.department.request.DeleteDepartmentResponse;
-import com.chinarewards.gwt.elt.client.department.request.DepartmentManageRequest;
-import com.chinarewards.gwt.elt.client.department.request.DepartmentManageResponse;
+import com.chinarewards.gwt.elt.client.department.request.DepartmentLeaderRequest;
+import com.chinarewards.gwt.elt.client.department.request.DepartmentLeaderResponse;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
@@ -74,14 +74,15 @@ public class DepartmentLeaderPresenterImpl extends
 	private void initTreeTable() {
 		final String corporationId = sessionManager.getSession()
 				.getCorporationId();
-		dispatcher.execute(new DepartmentManageRequest(corporationId), new AsyncCallback<DepartmentManageResponse>() {
+		String departmentId="";
+		dispatcher.execute(new DepartmentLeaderRequest(corporationId,departmentId), new AsyncCallback<DepartmentLeaderResponse>() {
 			@Override
 			public void onFailure(Throwable e) {
 				win.alert(e.getMessage());
 			}
 
 			@Override
-			public void onSuccess(DepartmentManageResponse response) {
+			public void onSuccess(DepartmentLeaderResponse response) {
 				// display.setBudgetIntegral((int)response.getBudgetIntegral()+"");
 				// display.setUseIntegeral((int)response.getBudgetIntegral()+"");
 				List<DepartmentNode> nodeList = response.getResult();
@@ -97,8 +98,6 @@ public class DepartmentLeaderPresenterImpl extends
 	}
 
 	private void registerEvent() {		
-	
-
 		// 增加子部门
 		registerHandler(display.getAddChildBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
@@ -203,12 +202,12 @@ public class DepartmentLeaderPresenterImpl extends
 					@Override
 					public void onSuccess(DeleteDepartmentResponse resp) {
 						win.alert("删除成功");
-						openDepartmentManagePage();
+						openDepartmentLeaderPage();
 					}
 				});
 	}
 
-	private void openDepartmentManagePage() {
+	private void openDepartmentLeaderPage() {
 		Platform.getInstance()
 				.getEditorRegistry()
 				.openEditor(

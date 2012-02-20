@@ -122,6 +122,22 @@ public class DepartmentDao extends BaseDao<Department> {
 						"FROM Department d WHERE d.corporation.id =:corpId ")
 				.setParameter("corpId", corporationId).getResultList();
 	}
+	
+	
+	/**
+	 * @param corporationId
+	 * @param departmentId
+	 * @return
+	 */
+	public List<Department> findLeaderDepartments(String corporationId,
+			String departmentId) {
+		return getEm()
+				.createQuery(
+						"FROM Department d WHERE  d.corporation.id =:corporationId and d.id =:departmentId ")
+				.setParameter("corporationId", corporationId)
+				.setParameter("departmentId", departmentId)
+				.getResultList();
+	}
 
 	/**
 	 * Find list of department by parent id and corporation id.
@@ -196,5 +212,7 @@ public class DepartmentDao extends BaseDao<Department> {
 	
 		return "";
 	}
+
+	
 	
 }

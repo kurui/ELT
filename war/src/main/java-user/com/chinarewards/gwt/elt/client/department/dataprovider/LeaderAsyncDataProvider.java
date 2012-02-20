@@ -4,8 +4,8 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.dataprovider.BaseDataProvider;
 import com.chinarewards.gwt.elt.client.department.model.LeaderSearchCriteria;
-import com.chinarewards.gwt.elt.client.department.request.SearchLeaderRequest;
-import com.chinarewards.gwt.elt.client.department.request.SearchLeaderResponse;
+import com.chinarewards.gwt.elt.client.department.request.DepartmentLeaderRequest;
+import com.chinarewards.gwt.elt.client.department.request.DepartmentLeaderResponse;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.rewards.model.StaffClient;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
@@ -47,21 +47,24 @@ public class LeaderAsyncDataProvider extends BaseDataProvider<StaffClient> {
 		pagination.setLimit(length);
 		criteria.setPagination(pagination);
 		criteria.setSorting(getSorting());
-		dispatch.execute(
-				new SearchLeaderRequest(criteria, sessionManager.getSession(),filterByAcl), new AsyncCallback<SearchLeaderResponse>() {
-
-					@Override
-					public void onFailure(Throwable e) {
-						errorHandler.alert(e.getMessage());
-					}
-
-					@Override
-					public void onSuccess(SearchLeaderResponse response) {
-						updateRowData(start, response.getResult().getResult());
-						updateRowCount(response.getResult().getTotal(), true);
-					}
-				});
+//		dispatch.execute(
+//				new DepartmentLeaderRequest(criteria, sessionManager
+//						.getSession(), filterByAcl),
+//				new AsyncCallback<DepartmentLeaderResponse>() {
+//
+//					@Override
+//					public void onFailure(Throwable e) {
+//						errorHandler.alert(e.getMessage());
+//					}
+//
+//					@Override
+//					public void onSuccess(DepartmentLeaderResponse response) {
+//						// updateRowData(start,
+//						// response.getResult().getResult());
+//						// updateRowCount(response.getResult().getTotal(),
+//						// true);
+//					}
+//				});
 	}
-	// }
 
 }
