@@ -150,12 +150,6 @@ import com.chinarewards.gwt.elt.server.user.UserSearchActionHandler;
  */
 public class ActionModule extends ActionHandlerModule {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see net.customware.gwt.dispatch.server.guice.ActionHandlerModule#
-	 * configureHandlers()
-	 */
 	@Override
 	protected void configureHandlers() {
 		// login module

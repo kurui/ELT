@@ -138,6 +138,18 @@ public class DepartmentDao extends BaseDao<Department> {
 				.setParameter("deptId", deptId)
 				.setParameter("corpId", corporationId).getResultList();
 	}
+	
+	
+	/**
+	 * @param leaderId
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Department> findDepartmentsByLeader(String leaderId) {
+		return getEm().createQuery(
+				"FROM Department d WHERE  d.leaderId =:leaderId").setParameter(
+				"leaderId", leaderId).getResultList();
+	}
 
 	/**
 	 * Find list of department by index(lft and rgt).
@@ -198,14 +210,6 @@ public class DepartmentDao extends BaseDao<Department> {
 		return "";
 	}
 
-	/**
-	 * @param leaderId
-	 * @return
-	 */
-	public List<Department> findDepartmentsByLeader(String leaderId) {
-		return getEm().createQuery(
-				"FROM Department d WHERE  d.leaderId =:leaderId").setParameter(
-				"leaderId", leaderId).getResultList();
-	}
+
 
 }

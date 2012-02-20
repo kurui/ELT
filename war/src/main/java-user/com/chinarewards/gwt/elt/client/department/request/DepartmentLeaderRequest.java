@@ -3,8 +3,6 @@ package com.chinarewards.gwt.elt.client.department.request;
 import net.customware.gwt.dispatch.shared.Action;
 
 /**
- * 
- * 
  * @author yanrui
  * 
  */
@@ -13,6 +11,10 @@ public class DepartmentLeaderRequest implements
 
 	private String leaderId;
 
+	public DepartmentLeaderRequest()
+	{
+		
+	}
 	public DepartmentLeaderRequest(String leaderId) {
 		this.leaderId = leaderId;
 	}
@@ -24,7 +26,5 @@ public class DepartmentLeaderRequest implements
 	public void setLeaderId(String leaderId) {
 		this.leaderId = leaderId;
 	}
-	
-	
 
 }

@@ -76,12 +76,10 @@ public class DepartmentLeaderPresenterImpl extends
 				.getCorporationId();
 		
 		final String leaderId = sessionManager.getSession().getToken();
-		dispatcher.execute(new DepartmentLeaderRequest(leaderId),
-				new AsyncCallback<DepartmentLeaderResponse>() {
+		dispatcher.execute(new DepartmentLeaderRequest(leaderId),new AsyncCallback<DepartmentLeaderResponse>() {
 					@Override
 					public void onFailure(Throwable e) {
-						win.alert("查询异常：leaderId=" + leaderId + "<br>"
-								+ e.getMessage());
+						win.alert(e.getMessage()+"<br>"+e.getLocalizedMessage()+"<br>"+e);
 					}
 
 					@Override
@@ -142,7 +140,7 @@ public class DepartmentLeaderPresenterImpl extends
 					public void onClick(ClickEvent paramClickEvent) {
 						// win.alert("功能建设中");
 						String departmentIds = getDepartmentIds();
-						if (departmentIds != null) {
+						if (departmentIds != null&&"".equals(departmentIds)==false) {
 							String[] ids = StringUtil.getSplitString(
 									departmentIds, ",");
 							if (ids != null) {
@@ -167,7 +165,7 @@ public class DepartmentLeaderPresenterImpl extends
 					public void onClick(ClickEvent paramClickEvent) {
 						// win.alert("功能建设中");
 						String departmentIds = getDepartmentIds();
-						if (departmentIds != null) {
+						if (departmentIds != null&&"".equals(departmentIds)==false) {
 							String[] ids = StringUtil.getSplitString(
 									departmentIds, ",");
 							if (ids != null) {

@@ -43,38 +43,43 @@ public class SearchDepartmentByIdHandler extends
 
 	private DepartmentVo adapter(Department department) {
 		DepartmentVo departmentVo = new DepartmentVo();
-		departmentVo.setId(department.getId());
-		departmentVo.setName(department.getName());
-		departmentVo.setLeaderId(department.getLeaderId());
-		SysUser user = null;
-		
-		if (department.getLeaderId()!=null) {
-			user=userService.findUserById(department.getLeaderId());
-		}
-		if(user!=null){
-			departmentVo.setLeaderName(user.getUserName());
-		}
-		System.out.println(department.getLeaderId()+"==================leaderId==name:"+departmentVo.getLeaderName());
-		
-		Department parent=department.getParent();
-		if (parent!=null) {
-			departmentVo.setParentId(parent.getId());
-			departmentVo.setParentName(parent.getName());
-		}else{
+		if(department!=null){
+			departmentVo.setId(department.getId());
+			departmentVo.setName(department.getName());
+			departmentVo.setLeaderId(department.getLeaderId());
+			SysUser user = null;
 			
+			if (department.getLeaderId()!=null) {
+				user=userService.findUserById(department.getLeaderId());
+			}
+			if(user!=null){
+				departmentVo.setLeaderName(user.getUserName());
+			}
+			System.out.println(department.getLeaderId()+"==================leaderId==name:"+departmentVo.getLeaderName());
+			
+			Department parent=department.getParent();
+			if (parent!=null) {
+				departmentVo.setParentId(parent.getId());
+				departmentVo.setParentName(parent.getName());
+			}else{
+				
+			}
+			
+			System.out.println("===================SearchByIdHandler=="+departmentVo.getParentName());
+			
+//			private String superdeparmentId;
+//			private String superdeparmentName;
+
+//			private String childdeparmentIds;
+//			private String childdeparmentNames;
+//			private String peopleNumber;
+//			private String yearintegral;
+//			private String issueintegral;
+
+		}else{
+			System.err.println("SearchDepartmentById adapter()====department is null===");
 		}
 		
-		System.out.println("===================SearchByIdHandler=="+departmentVo.getParentName());
-		
-//		private String superdeparmentId;
-//		private String superdeparmentName;
-
-//		private String childdeparmentIds;
-//		private String childdeparmentNames;
-//		private String peopleNumber;
-//		private String yearintegral;
-//		private String issueintegral;
-
 		return departmentVo;
 	}
 

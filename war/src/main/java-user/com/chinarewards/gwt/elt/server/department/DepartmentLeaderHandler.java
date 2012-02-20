@@ -5,7 +5,9 @@ import java.util.List;
 
 import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.DispatchException;
+
 import org.slf4j.Logger;
+
 import com.chinarewards.elt.model.org.search.DepartmentManageVo;
 import com.chinarewards.elt.service.org.DepartmentService;
 import com.chinarewards.gwt.elt.client.department.model.DepartmentNode;
@@ -31,7 +33,7 @@ public class DepartmentLeaderHandler extends
 	@Override
 	public DepartmentLeaderResponse execute(DepartmentLeaderRequest action,
 			ExecutionContext context) throws DispatchException {
-		List<DepartmentNode> rs = new ArrayList<DepartmentNode>();
+		List<DepartmentNode> nodeList = new ArrayList<DepartmentNode>();
 		
 		
 		System.out.println("==========before=======departmentService.getDepartmentLeaderList======="+action.getLeaderId());
@@ -39,17 +41,20 @@ public class DepartmentLeaderHandler extends
 		List<DepartmentManageVo> departmentManageVoList = departmentService
 				.getDepartmentLeaderList(action.getLeaderId());
 		
-		System.out.println("==========after=======departmentService.getDepartmentLeaderList=======");
+		System.out.println("==========after=======departmentService.getDepartmentLeaderList======="+departmentManageVoList.size());
 		
 		for (DepartmentManageVo vo : departmentManageVoList) {
 			DepartmentNode c = new DepartmentNode(vo.getDepartmentName(),
 					(int) vo.getBudgetIntegral() + "",
 					(int) vo.getBudgetIntegral() + "", vo.getDepartmentId(),
 					vo.isLeaf(), vo.getParentId());
-			rs.add(c);
+			nodeList.add(c);
 		}
+
+		return new DepartmentLeaderResponse();
 		
-		return new DepartmentLeaderResponse(rs);
+//		return new DepartmentLeaderResponse(nodeList);
+
 	}
 
 	@Override
