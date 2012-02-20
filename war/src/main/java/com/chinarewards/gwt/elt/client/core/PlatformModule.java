@@ -164,6 +164,7 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(broadcasting);
 			pluginSet.registerPlugin(teamList);
 			pluginSet.registerPlugin(teamAdd);
+
 		}
 
 		return pluginSet;

@@ -71,7 +71,6 @@ public class PresenterModule extends AbstractGinModule {
 		install(new OrderConfirmationModule());
 		install(new OrderSubmitModule());
 		install(new DetailsOfGiftModule());
-
 		install(new CorpBudgetModule());
 		install(new DepBudgetModule());
 		install(new IntegralManagementModule());
