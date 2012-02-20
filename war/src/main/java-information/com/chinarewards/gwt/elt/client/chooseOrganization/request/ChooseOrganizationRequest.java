@@ -2,7 +2,7 @@ package com.chinarewards.gwt.elt.client.chooseOrganization.request;
 
 import net.customware.gwt.dispatch.shared.Action;
 
-import com.chinarewards.gwt.elt.client.rewards.model.StaffSearchCriteria;
+import com.chinarewards.gwt.elt.client.chooseOrganization.model.OrganSearchCriteria;
 import com.chinarewards.gwt.elt.client.support.UserSession;
 
 /**
@@ -13,9 +13,9 @@ import com.chinarewards.gwt.elt.client.support.UserSession;
  */
 public class ChooseOrganizationRequest implements Action<ChooseOrganizationResponse> {
 
-	private StaffSearchCriteria criteria;
+	private OrganSearchCriteria criteria;
 
-	private UserSession userSession;
+	private UserSession session;
 
 
 	private boolean limitDataByUserRole = false;
@@ -23,27 +23,29 @@ public class ChooseOrganizationRequest implements Action<ChooseOrganizationRespo
 	public ChooseOrganizationRequest() {
 	}
 
-	public ChooseOrganizationRequest(StaffSearchCriteria criteria,
-			UserSession userSession, boolean limitDataByUserRole) {
+	public ChooseOrganizationRequest(OrganSearchCriteria criteria,
+			UserSession session, boolean limitDataByUserRole) {
 		this.criteria = criteria;
-		this.userSession = userSession;
+		this.session = session;
 		this.limitDataByUserRole = limitDataByUserRole;
 	}
 
-	public StaffSearchCriteria getCriteria() {
+	public OrganSearchCriteria getCriteria() {
 		return criteria;
 	}
 
-	public void setCriteria(StaffSearchCriteria criteria) {
+	public void setCriteria(OrganSearchCriteria criteria) {
 		this.criteria = criteria;
 	}
 
-	public UserSession getUserSession() {
-		return userSession;
+
+
+	public UserSession getSession() {
+		return session;
 	}
 
-	public void setUserSession(UserSession userSession) {
-		this.userSession = userSession;
+	public void setSession(UserSession session) {
+		this.session = session;
 	}
 
 	/**

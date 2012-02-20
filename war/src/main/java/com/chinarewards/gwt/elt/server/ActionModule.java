@@ -13,6 +13,7 @@ import com.chinarewards.gwt.elt.client.budget.request.InitCorpBudgetRequest;
 import com.chinarewards.gwt.elt.client.budget.request.InitDepartmentRequest;
 import com.chinarewards.gwt.elt.client.budget.request.SearchCorpBudgetByCorpIdRequest;
 import com.chinarewards.gwt.elt.client.budget.request.SearchDepBudgetRequest;
+import com.chinarewards.gwt.elt.client.chooseOrganization.request.ChooseOrganizationRequest;
 import com.chinarewards.gwt.elt.client.chooseStaff.request.SearchStaffChooseRequest;
 import com.chinarewards.gwt.elt.client.department.request.DeleteDepartmentRequest;
 import com.chinarewards.gwt.elt.client.department.request.DepartmentManageRequest;
@@ -84,6 +85,7 @@ import com.chinarewards.gwt.elt.server.budget.InitCorpBudgetHandler;
 import com.chinarewards.gwt.elt.server.budget.InitDepartmentHandler;
 import com.chinarewards.gwt.elt.server.budget.SearchCorpBudgetByCorpIdHandler;
 import com.chinarewards.gwt.elt.server.budget.SearchDepBudgetHandler;
+import com.chinarewards.gwt.elt.server.chooseOrganization.ChooseOrganizationListActionHandler;
 import com.chinarewards.gwt.elt.server.chooseStaff.SearchStaffActionHandler;
 import com.chinarewards.gwt.elt.server.department.DeleteDepartmentHandler;
 import com.chinarewards.gwt.elt.server.department.DepartmentManageHandler;
@@ -319,5 +321,7 @@ public class ActionModule extends ActionHandlerModule {
 		bindHandler(DeleteTeamRequest.class,DeleteTeamByIdHandler.class);
 		//小组查找BYID
 		bindHandler(SearchTeamByIdRequest.class,SearchTeamByIdHandler.class);
+		//选择用户/部门/小组/机构
+		bindHandler(ChooseOrganizationRequest.class,ChooseOrganizationListActionHandler.class);
 	}
 }
