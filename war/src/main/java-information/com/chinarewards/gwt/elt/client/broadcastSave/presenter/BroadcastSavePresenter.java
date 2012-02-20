@@ -1,9 +1,12 @@
 package com.chinarewards.gwt.elt.client.broadcastSave.presenter;
 
 import java.util.Date;
+import java.util.List;
 
 import com.chinarewards.gwt.elt.client.mvp.Display;
 import com.chinarewards.gwt.elt.client.mvp.Presenter;
+import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
+import com.chinarewards.gwt.elt.client.widget.SpecialTextArea;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RadioButton;
@@ -20,6 +23,7 @@ public interface BroadcastSavePresenter extends
 		public HasClickHandlers getSaveBtnClickHandlers();
 
 		public HasClickHandlers getReturnBtnClickHandlers();
+		public HasClickHandlers getChooseBtnClickHandlers();
 
 		void setBreadCrumbs(Widget breadCrumbs);
 
@@ -42,7 +46,13 @@ public interface BroadcastSavePresenter extends
 
 		void setAllowreplies(boolean fal);
 		void setTitleText(String text);
+		
+		
+		// 得到候选人的id,和名称
+		List<String[]> getRealOrginzationIds();
 
+
+		SpecialTextArea<OrganicationClient> getSpecialTextArea();
 		 
 	}
 }

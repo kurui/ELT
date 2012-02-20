@@ -1,9 +1,14 @@
 package com.chinarewards.gwt.elt.client.broadcastSave.view;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.chinarewards.gwt.elt.client.broadcastSave.presenter.BroadcastSavePresenter.BroadcastSaveDisplay;
+import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
+import com.chinarewards.gwt.elt.client.view.OrganizationSpecialTextArea;
 import com.chinarewards.gwt.elt.client.view.constant.ViewConstants;
+import com.chinarewards.gwt.elt.client.widget.SpecialTextArea;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.i18n.client.DateTimeFormat;
@@ -37,12 +42,15 @@ public class BroadcastSaveWidget extends Composite implements
 	Button saveBtn;
 	@UiField
 	Button returnBtn;
-
+	@UiField
+	Button chooseBtn;
+	
 	@UiField
 	Panel breadCrumbs;
 	@UiField
 	Panel staffOrDeptTextAreaPanel;
 
+	SpecialTextArea<OrganicationClient> staffTextArea;
 	DateTimeFormat dateFormat = DateTimeFormat
 			.getFormat(ViewConstants.date_format);
 	private static BroadcastSaveWidgetUiBinder uiBinder = GWT
@@ -56,6 +64,8 @@ public class BroadcastSaveWidget extends Composite implements
 		initWidget(uiBinder.createAndBindUi(this));
 		broadcastingTimeStart.setFormat(new DateBox.DefaultFormat(dateFormat));
 		broadcastingTimeEnd.setFormat(new DateBox.DefaultFormat(dateFormat));
+		staffTextArea = new OrganizationSpecialTextArea();
+		staffOrDeptTextAreaPanel.add(staffTextArea);
 	}
 
 	@Override
@@ -132,6 +142,29 @@ public class BroadcastSaveWidget extends Composite implements
 	@Override
 	public void setTitleText(String text) {
 		titleText.setText(text);
+	}
+
+	@Override
+	public HasClickHandlers getChooseBtnClickHandlers() {
+		return chooseBtn;
+	}
+
+	@Override
+	public List<String[]> getRealOrginzationIds() {
+		List<String[]> realOrginzationIds = new ArrayList<String[]>();
+		List<OrganicationClient> existKeys = staffTextArea.getItemList();
+		for (OrganicationClient key : existKeys) {
+			String[] nameAndId = new String[2];
+			nameAndId[0] = key.getId();
+			nameAndId[1] = key.getName();
+			realOrginzationIds.add(nameAndId);
+		}
+		return realOrginzationIds;
+	}
+
+	@Override
+	public SpecialTextArea<OrganicationClient> getSpecialTextArea() {
+		return staffTextArea;
 	}
 
 }

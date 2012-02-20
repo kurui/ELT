@@ -109,6 +109,47 @@ public class BroadcastSavePresenterImpl extends
 								});
 					}
 				}));
+		
+//		registerHandler(display.getChooseBtnClickHandlers().addClickHandler(
+//				new ClickHandler() {
+//					@Override
+//					public void onClick(ClickEvent arg0) {
+//						final ChooseStaffListDialog dialog = chooseStaffDialogProvider
+//								.get();
+//						if (initChooseListParam != null)
+//							dialog.initChooseList(initChooseListParam);
+//						dialog.setRewardId(rewardId);
+//						dialog.setNominee(false, true, null);// The key is the
+//																// first
+//																// parameter(false).
+//						final HandlerRegistration registration = eventBus
+//								.addHandler(ChooseStaffEvent.getType(),
+//										new ChooseStaffHandler() {
+//											@Override
+//											public void chosenStaff(
+//													List<StaffClient> list) {
+//												for (StaffClient r : list) {
+//													System.out.println("ds=="
+//															+ r);
+//													if (!display
+//															.getSpecialTextArea()
+//															.containsItem(r)) {
+//														display.getSpecialTextArea()
+//																.addItem(r);
+//													}
+//												}
+//											}
+//										});
+//
+//						Platform.getInstance().getSiteManager()
+//								.openDialog(dialog, new DialogCloseListener() {
+//									public void onClose(String dialogId,
+//											String instanceId) {
+//										registration.removeHandler();
+//									}
+//								});
+//					}
+//				}));
 
 	}
 
