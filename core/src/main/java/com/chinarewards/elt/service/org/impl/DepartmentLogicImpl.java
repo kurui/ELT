@@ -304,14 +304,26 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 		return volist;
 	}
 
+	
 	@Override
 	public List<DepartmentManageVo> getDepartmentLeaderList(String leaderId,String corporcationId) {
 		List<DepartmentManageVo> volist = new ArrayList<DepartmentManageVo>();
 		List<Department> departmentList = new ArrayList<Department>();
-		departmentList.add(getRootDepartmentOfCorporation(corporcationId));
+	
+		//Leader负责的部门
 		List<Department> tempList=findDepartmentsByLeader(leaderId);
 		departmentList.addAll(tempList);		
 		
+		for (int i = 0; i <departmentList.size(); i++) {
+			Department tempDept=departmentList.get(i);
+			List<Department> childList=departmentDao.findDepartmentsByParentId(tempDept.getId());
+			departmentList.addAll(childList);	
+		}
+		
+		//Root顶级部门
+		departmentList.add(getRootDepartmentOfCorporation(corporcationId));
+		
+	
 		
 		for (Department dep : departmentList) {
 			DepartmentManageVo vo = new DepartmentManageVo();
