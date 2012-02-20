@@ -118,6 +118,7 @@ public class ChooseOrganizationListActionHandler
 			OrganicationClient client=new OrganicationClient();
 			client.setId(team.getId());
 			client.setName(team.getName());
+			client.setType(OrganType.GROUP);
 			lt.add(client);
 		}
 
@@ -134,6 +135,7 @@ public class ChooseOrganizationListActionHandler
 		Corporation corp=corporationService.findCorporationById(request.getSession().getCorporationId());
 		client.setId(corp.getId());
 		client.setName(corp.getName());
+		client.setType(OrganType.ORG);
 		lt.add(client);
 		
 		rs.setResult(lt);
@@ -148,6 +150,7 @@ public class ChooseOrganizationListActionHandler
 			OrganicationClient client=new OrganicationClient();
 			client.setId(dept.getId());
 			client.setName(dept.getName());
+			client.setType(OrganType.DEPT);
 			lt.add(client);
 		}
 		OrganSearchResult rs=new OrganSearchResult();
@@ -189,6 +192,7 @@ public class ChooseOrganizationListActionHandler
 			OrganicationClient client=new OrganicationClient();
 			client.setId(staff.getId());
 			client.setName(staff.getName());
+			client.setType(OrganType.STAFF);
 			lt.add(client);
 		}
 		OrganSearchResult rs=new OrganSearchResult();

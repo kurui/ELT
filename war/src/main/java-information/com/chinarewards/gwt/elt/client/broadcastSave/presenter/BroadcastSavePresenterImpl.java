@@ -7,8 +7,6 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.broadcastSave.dialog.ChooseOrganizationListDialog;
 import com.chinarewards.gwt.elt.client.broadcastSave.request.BroadcastSaveRequest;
-import com.chinarewards.gwt.elt.client.broadcastSave.request.BroadcastSaveResponse;
-import com.chinarewards.gwt.elt.client.broadcasting.plugin.BroadcastingListConstants;
 import com.chinarewards.gwt.elt.client.chooseOrganization.event.ChooseOrganizationEvent;
 import com.chinarewards.gwt.elt.client.chooseOrganization.handler.ChooseOrganizationHandler;
 import com.chinarewards.gwt.elt.client.core.Platform;
@@ -23,7 +21,6 @@ import com.chinarewards.gwt.elt.client.win.Win;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
@@ -98,25 +95,33 @@ public class BroadcastSavePresenterImpl extends
 						}  else {
 							request.setAllowreplies(false);
 						}
+						List<String[]> orginList=display.getRealOrginzationIds();
+						if(orginList.size()>0)
+						{
+							for (int i = 0; i < orginList.size(); i++) {
+								String [] orgin=orginList.get(i);
+								win.alert(orgin[0]+"--"+orgin[1]+"--"+orgin[2]);
+							}
+						}
 
-						dispatch.execute(request,
-								new AsyncCallback<BroadcastSaveResponse>() {
-
-									@Override
-									public void onFailure(Throwable t) {
-										win.alert(t.getMessage());
-									}
-
-									@Override
-									public void onSuccess(BroadcastSaveResponse resp) {
-										win.alert("保存成功");
-										Platform.getInstance()
-										.getEditorRegistry()
-										.openEditor(
-												BroadcastingListConstants.EDITOR_BROADCASTINGLIST_SEARCH,
-												"EDITOR_BROADCASTINGLIST_SEARCH_DO_ID", null);
-									}
-								});
+//						dispatch.execute(request,
+//								new AsyncCallback<BroadcastSaveResponse>() {
+//
+//									@Override
+//									public void onFailure(Throwable t) {
+//										win.alert(t.getMessage());
+//									}
+//
+//									@Override
+//									public void onSuccess(BroadcastSaveResponse resp) {
+//										win.alert("保存成功");
+//										Platform.getInstance()
+//										.getEditorRegistry()
+//										.openEditor(
+//												BroadcastingListConstants.EDITOR_BROADCASTINGLIST_SEARCH,
+//												"EDITOR_BROADCASTINGLIST_SEARCH_DO_ID", null);
+//									}
+//								});
 					}
 				}));
 		

@@ -154,9 +154,10 @@ public class BroadcastSaveWidget extends Composite implements
 		List<String[]> realOrginzationIds = new ArrayList<String[]>();
 		List<OrganicationClient> existKeys = staffTextArea.getItemList();
 		for (OrganicationClient key : existKeys) {
-			String[] nameAndId = new String[2];
+			String[] nameAndId = new String[3];
 			nameAndId[0] = key.getId();
 			nameAndId[1] = key.getName();
+			nameAndId[2] = key.getType().toString();
 			realOrginzationIds.add(nameAndId);
 		}
 		return realOrginzationIds;
