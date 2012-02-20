@@ -5,8 +5,10 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 
 import org.slf4j.Logger;
 
+import com.chinarewards.elt.domain.budget.DepartmentBudget;
 import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.org.Staff;
+import com.chinarewards.elt.service.budget.BudgetService;
 import com.chinarewards.elt.service.org.DepartmentService;
 import com.chinarewards.elt.service.staff.IStaffService;
 import com.chinarewards.gwt.elt.client.department.model.DepartmentVo;
@@ -19,68 +21,80 @@ import com.google.inject.Inject;
 /**
  * @author yanrui
  */
-public class SearchDepartmentByIdHandler extends
+public class SearchDepartmentByIdHandler
+		extends
 		BaseActionHandler<SearchDepartmentByIdRequest, SearchDepartmentByIdResponse> {
 	@InjectLogger
 	Logger logger;
 	DepartmentService departmentService;
 	IStaffService staffService;
+	BudgetService budgetService;
 
 	@Inject
-	public SearchDepartmentByIdHandler(DepartmentService departmentService,IStaffService staffService) {
+	public SearchDepartmentByIdHandler(DepartmentService departmentService,
+			IStaffService staffService, BudgetService budgetService) {
 		this.departmentService = departmentService;
-		this.staffService=staffService;
+		this.staffService = staffService;
+		this.budgetService = budgetService;
 	}
 
 	@Override
-	public SearchDepartmentByIdResponse execute(SearchDepartmentByIdRequest request,
-			ExecutionContext context) throws DispatchException {
+	public SearchDepartmentByIdResponse execute(
+			SearchDepartmentByIdRequest request, ExecutionContext context)
+			throws DispatchException {
 		logger.debug(" parameters:{}", request.getId());
-		Department department = departmentService.findDepartmentById(request.getId());
+		Department department = departmentService.findDepartmentById(request
+				.getId());
 		return new SearchDepartmentByIdResponse(adapter(department));
 
 	}
 
 	private DepartmentVo adapter(Department department) {
 		DepartmentVo departmentVo = new DepartmentVo();
-		if(department!=null){
+		if (department != null) {
 			departmentVo.setId(department.getId());
 			departmentVo.setName(department.getName());
 			departmentVo.setLeaderId(department.getLeaderId());
-			
+
 			Staff staff = null;
-			if (department.getLeaderId()!=null) {
-				staff=staffService.findStaffById(department.getLeaderId());
+			if (department.getLeaderId() != null) {
+				staff = staffService.findStaffById(department.getLeaderId());
 			}
-			if(staff!=null){				
+			if (staff != null) {
 				departmentVo.setLeaderName(staff.getName());
 			}
-			
-//			System.out.println(department.getLeaderId()+"==================leaderId==name:"+departmentVo.getLeaderName());
-			
-			Department parent=department.getParent();
-			if (parent!=null) {
+
+			// System.out.println(department.getLeaderId()+"==================leaderId==name:"+departmentVo.getLeaderName());
+
+			Department parent = department.getParent();
+			if (parent != null) {
 				departmentVo.setParentId(parent.getId());
 				departmentVo.setParentName(parent.getName());
-			}else{
-				
+			} else {
+
 			}
-			
-//			System.out.println("===================SearchByIdHandler=="+departmentVo.getParentName());
-			
-//			private String superdeparmentId;
-//			private String superdeparmentName;
 
-//			private String childdeparmentIds;
-//			private String childdeparmentNames;
-//			private String peopleNumber;
-//			private String yearintegral;
-//			private String issueintegral;
+			// private String childdeparmentIds;
+			// private String childdeparmentNames;
+			// private String peopleNumber;
+			
+			DepartmentBudget departmentBudget = budgetService
+					.findDepartmentBudgetByDepartmentId(departmentVo.getId(),
+							departmentVo.getCorporationId());
+			if (departmentBudget != null) {
+				departmentVo.setYearintegral(departmentBudget
+						.getBudgetIntegral() + "");
+				departmentVo.setIssueintegral(departmentBudget
+						.getUseIntegeral() + "");
+				// private String yearintegral;
+				// private String issueintegral;
+			}
 
-		}else{
-			System.err.println("SearchDepartmentById adapter()====department is null===");
+		} else {
+			System.err
+					.println("SearchDepartmentById adapter()====department is null===");
 		}
-		
+
 		return departmentVo;
 	}
 

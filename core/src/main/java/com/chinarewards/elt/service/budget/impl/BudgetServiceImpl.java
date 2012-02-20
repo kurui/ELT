@@ -90,4 +90,9 @@ public class BudgetServiceImpl implements BudgetService {
 	public String findByDepAndCorpBudgetId(DepartmentBudget departmentBudget){
 		return budgetLogic.findByDepAndCorpBudgetId(departmentBudget);
 	} 
+	
+	@Override
+	public DepartmentBudget findDepartmentBudgetByDepartmentId(String departmentId,String corpBudgetId){
+		return budgetLogic.findDepartmentBudgetByDepartmentId(departmentId, corpBudgetId);
+	}
 }

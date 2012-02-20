@@ -52,8 +52,7 @@ public interface BudgetLogic {
 	 * @return
 	 */
 	public DepartmentBudget findDepartmentBudgetById(String id);
-	
-	
+
 	/**
 	 * 删除订单根据ID
 	 * @param id
