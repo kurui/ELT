@@ -22,7 +22,8 @@ public interface BroadcastingListPresenter extends Presenter<BroadcastingListPre
 		
 		Panel getResultPanel();
 		Panel getResultpage();
-
+		
+		void initStatus();
 
 
 

@@ -13,12 +13,15 @@ import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager.TextLocation;
 import com.chinarewards.gwt.elt.client.widget.GetValue;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.widget.Sorting;
 import com.chinarewards.gwt.elt.client.win.Win;
+import com.chinarewards.gwt.elt.util.DateTool;
+import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -77,7 +80,7 @@ public class BroadcastingListPresenterImpl extends
 	}
 	
 	private void init() {	
-	
+		display.initStatus();
 		buildTable();
 		doSearch();
 	}
@@ -128,17 +131,81 @@ public class BroadcastingListPresenterImpl extends
 				new GetValue<BroadcastingListClient, String>() {
 					@Override
 					public String getValue(BroadcastingListClient staff) {
-						return staff.getStaffNo();
+						return staff.getNumber();
 					}
-				}, ref, "jobNo");
+				}, ref, "number");
 		cellTable.addColumn("广播内容", new TextCell(),
 				new GetValue<BroadcastingListClient, String>() {
 					@Override
 					public String getValue(BroadcastingListClient staff) {
-						return staff.getStaffName();
+						return staff.getContent();
 					}
-				}, ref, "name");
-	
+				}, ref, "content");
+		cellTable.addColumn("状态", new TextCell(),
+				new GetValue<BroadcastingListClient, String>() {
+					@Override
+					public String getValue(BroadcastingListClient staff) {
+						return staff.getStatus().getDisplayName();
+					}
+				});
+		cellTable.addColumn("创建人", new TextCell(),
+				new GetValue<BroadcastingListClient, String>() {
+					@Override
+					public String getValue(BroadcastingListClient staff) {
+						return staff.getCreatedByUserName();
+					}
+				});
+		cellTable.addColumn("广播类别", new TextCell(),
+				new GetValue<BroadcastingListClient, String>() {
+					@Override
+					public String getValue(BroadcastingListClient staff) {
+						return staff.getCategory().getDisplayName();
+					}
+				});
+		cellTable.addColumn("广播时间", new TextCell(),
+				new GetValue<BroadcastingListClient, String>() {
+					@Override
+					public String getValue(BroadcastingListClient staff) {
+						return DateTool.dateToString(staff.getBroadcastingTime());
+					}
+				});
+		cellTable.addColumn("回复数", new TextCell(),
+				new GetValue<BroadcastingListClient, String>() {
+					@Override
+					public String getValue(BroadcastingListClient staff) {
+						return staff.getReplyNumber()+"";
+					}
+				});
+		cellTable.addColumn("操作", new HyperLinkCell(),
+				new GetValue<BroadcastingListClient, String>() {
+					@Override
+					public String getValue(BroadcastingListClient rewards) {
+						return "查看详细";
+					}
+				}, new FieldUpdater<BroadcastingListClient, String>() {
+
+					@Override
+					public void update(int index, final BroadcastingListClient o,
+							String value) {
+						win.alert("待实现");
+					}
+
+				});
+		cellTable.addColumn("操作", new HyperLinkCell(),
+				new GetValue<BroadcastingListClient, String>() {
+					@Override
+					public String getValue(BroadcastingListClient rewards) {
+						return "回复";
+					}
+				}, new FieldUpdater<BroadcastingListClient, String>() {
+
+					@Override
+					public void update(int index, final BroadcastingListClient o,
+							String value) {
+						win.alert("待实现");
+					}
+
+				});
 	}
 
 }

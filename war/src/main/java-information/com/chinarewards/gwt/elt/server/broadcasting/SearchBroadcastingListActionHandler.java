@@ -1,19 +1,28 @@
 package com.chinarewards.gwt.elt.server.broadcasting;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.DispatchException;
 
 import org.slf4j.Logger;
 
+import com.chinarewards.elt.domain.information.Broadcasting;
+import com.chinarewards.elt.model.broadcast.BroadcastQueryListCriteria;
+import com.chinarewards.elt.model.broadcast.BroadcastQueryListVo;
 import com.chinarewards.elt.model.common.PaginationDetail;
 import com.chinarewards.elt.model.common.SortingDetail;
-import com.chinarewards.elt.model.staff.StaffSearchCriteria;
+import com.chinarewards.elt.model.information.BroadcastingStatus;
 import com.chinarewards.elt.model.user.UserContext;
-import com.chinarewards.elt.service.staff.IStaffService;
+import com.chinarewards.elt.service.broadcast.BroadcastService;
+import com.chinarewards.gwt.elt.client.broadcasting.model.BroadcastingListClient;
+import com.chinarewards.gwt.elt.client.broadcasting.model.BroadcastingListCriteria.BroadcastingCategory;
 import com.chinarewards.gwt.elt.client.broadcasting.request.SearchBroadcastingListRequest;
 import com.chinarewards.gwt.elt.client.broadcasting.request.SearchBroadcastingListResponse;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
 import com.chinarewards.gwt.elt.server.logger.InjectLogger;
+import com.chinarewards.gwt.elt.util.StringUtil;
 import com.chinarewards.gwt.elt.util.UserRoleTool;
 import com.google.inject.Inject;
 
@@ -29,12 +38,12 @@ public class SearchBroadcastingListActionHandler extends
 	@InjectLogger
 	Logger logger;
 
-	IStaffService staffService;
+	BroadcastService broadcastService;
 
 
 	@Inject
-	public SearchBroadcastingListActionHandler(IStaffService staffService) {
-		this.staffService = staffService;
+	public SearchBroadcastingListActionHandler(BroadcastService broadcastService) {
+		this.broadcastService = broadcastService;
 	}
 
 	@Override
@@ -42,7 +51,7 @@ public class SearchBroadcastingListActionHandler extends
 			ExecutionContext response) throws DispatchException {
 
 		SearchBroadcastingListResponse staffResponse = new SearchBroadcastingListResponse();
-		StaffSearchCriteria criteria=new StaffSearchCriteria();
+		BroadcastQueryListCriteria criteria=new BroadcastQueryListCriteria();
 		if (request.getCriteria().getPagination() != null) {
 			PaginationDetail detail = new PaginationDetail();
 			detail.setLimit(request.getCriteria().getPagination().getLimit());
@@ -57,10 +66,16 @@ public class SearchBroadcastingListActionHandler extends
 			sortingDetail.setDirection(request.getCriteria().getSorting().getDirection());
 			criteria.setSortingDetail(sortingDetail);
 		}
-		if(request.getCriteria().getStaffNameorNo()!=null)
-			criteria.setStaffNameorNo(request.getCriteria().getStaffNameorNo());
-		if(request.getCriteria().getStaffStatus()!=null)
-			criteria.setStaffStatus(com.chinarewards.elt.model.staff.StaffStatus.valueOf(request.getCriteria().getStaffStatus().toString()));
+		if(StringUtil.isEmpty(request.getCriteria().getCorporationId()))
+			criteria.setCorporationId(request.getCriteria().getCorporationId());
+		if(StringUtil.isEmpty(request.getCriteria().getCreatedByUserId()))
+			criteria.setCreatedByUserId(request.getCriteria().getCreatedByUserId());
+		if(request.getCriteria().getBroadcastingTimeStart()!=null)
+			criteria.setBroadcastingTimeStart(request.getCriteria().getBroadcastingTimeStart());
+		if(request.getCriteria().getBroadcastingTimeEnd()!=null)
+			criteria.setBroadcastingTimeStart(request.getCriteria().getBroadcastingTimeEnd());
+		if(request.getCriteria().getStatus()!=null)
+			criteria.setStatus(BroadcastingStatus.valueOf(request.getCriteria().getStatus().toString()));
 		
 		UserContext context=new UserContext();
 		context.setCorporationId(request.getSession().getCorporationId());
@@ -68,23 +83,22 @@ public class SearchBroadcastingListActionHandler extends
 		context.setLoginName(request.getSession().getLoginName());
 		context.setUserRoles(UserRoleTool.adaptToRole(request.getSession().getUserRoles()));
 		
-//		QueryStaffPageActionResult result=staffService.queryBroadcastingList(criteria, context);
-//		
-//		List<BroadcastingListClient> lt=new ArrayList<BroadcastingListClient>();
-//		for (Staff staff:result.getResultList()) {
-//			BroadcastingListClient client=new BroadcastingListClient();
-//			client.setStaffId(staff.getId());
-//			client.setStaffNo(staff.getJobNo());
-//			client.setStaffName(staff.getName());
-//			client.setPhone(staff.getPhone());
-//			client.setJobPosition(staff.getJobPosition());
-//			if(staff.getDepartment()!=null)
-//			client.setDepartmentName(staff.getDepartment().getName());
-//	
-//			lt.add(client);
-//		}
-//		staffResponse.setResult(lt);
-//		staffResponse.setTotal(result.getTotal());
+		BroadcastQueryListVo result=broadcastService.queryBroadcastList(criteria);
+		
+		List<BroadcastingListClient> lt=new ArrayList<BroadcastingListClient>();
+		for (Broadcasting broadcast:result.getResultList()) {
+			BroadcastingListClient client=new BroadcastingListClient();
+			client.setNumber(broadcast.getNumber());
+			client.setContent(broadcast.getContent());
+			client.setBroadcastingTime(broadcast.getBroadcastingTime());
+			client.setCreatedByUserName(broadcast.getCreatedBy().getStaff().getName());
+			client.setReplyNumber(broadcast.getReplyNumber());
+			client.setStatus(com.chinarewards.gwt.elt.client.broadcasting.model.BroadcastingListCriteria.BroadcastingStatus.valueOf(broadcast.getStatus().toString()));
+			client.setCategory(BroadcastingCategory.valueOf(broadcast.getCategory().toString()));
+			lt.add(client);
+		}
+		staffResponse.setResult(lt);
+		staffResponse.setTotal(result.getTotal());
 		
 		return staffResponse;
 	}

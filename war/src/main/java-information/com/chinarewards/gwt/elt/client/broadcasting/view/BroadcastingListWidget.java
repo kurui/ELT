@@ -87,6 +87,13 @@ public class BroadcastingListWidget extends Composite implements BroadcastingLis
 		return this.resultpage;
 	}
 
+	@Override
+	public void initStatus() {
+		status.addItem("不限", "ALL");
+		status.addItem("已广播", "HASBROADCAST");
+		status.addItem("未广播", "NOTBROADCAST");
+	}
+
 	
 
 
