@@ -2,7 +2,6 @@ package com.chinarewards.elt.domain.information;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -67,7 +66,7 @@ public class Broadcasting implements Serializable {
 	/**
 	 * 接收对象
 	 */
-	private List<ReceivingObject> receivingObject;
+	private ReceivingObject receivingObject;
 	
 	/**
 	 * 公司
@@ -104,10 +103,11 @@ public class Broadcasting implements Serializable {
 	public void setCorporation(Corporation corporation) {
 		this.corporation = corporation;
 	}
-	public List<ReceivingObject> getReceivingObject() {
+
+	public ReceivingObject getReceivingObject() {
 		return receivingObject;
 	}
-	public void setReceivingObject(List<ReceivingObject> receivingObject) {
+	public void setReceivingObject(ReceivingObject receivingObject) {
 		this.receivingObject = receivingObject;
 	}
 	public String getId() {
