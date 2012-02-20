@@ -4,6 +4,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 
 /**
  * It defines the departments of a corporation. e.g. IT department, Sales
@@ -17,8 +18,14 @@ import javax.persistence.InheritanceType;
 @DiscriminatorValue(value = "team")
 public class Team extends Organization {
 		
-	private String  corpId;
-    private String   departId;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@ManyToOne
+	private Corporation corporation;
+	@ManyToOne
+	private Department department;
 	private String code;//编号
 	 
 	private int deleted;//删除状态0存在,1删除
@@ -38,20 +45,22 @@ public class Team extends Organization {
 	
 
 
-	public String getCorpId() {
-		return corpId;
+	
+
+	public Corporation getCorporation() {
+		return corporation;
 	}
 
-	public void setCorpId(String corpId) {
-		this.corpId = corpId;
+	public void setCorporation(Corporation corporation) {
+		this.corporation = corporation;
 	}
 
-	public String getDepartId() {
-		return departId;
+	public Department getDepartment() {
+		return department;
 	}
 
-	public void setDepartId(String departId) {
-		this.departId = departId;
+	public void setDepartment(Department department) {
+		this.department = department;
 	}
 
 	public String getCode() {

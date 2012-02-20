@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.chinarewards.elt.dao.org.MembersDao;
 import com.chinarewards.elt.dao.org.OrganizationDao;
 import com.chinarewards.elt.dao.reward.CandidateRuleDao;
 import com.chinarewards.elt.dao.reward.DirectCandidateDataDao;
@@ -15,8 +16,10 @@ import com.chinarewards.elt.dao.reward.RewardItemDao;
 import com.chinarewards.elt.dao.reward.RewardItemStoreDao;
 import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.org.Department;
+import com.chinarewards.elt.domain.org.Members;
 import com.chinarewards.elt.domain.org.Organization;
 import com.chinarewards.elt.domain.org.Staff;
+import com.chinarewards.elt.domain.org.Team;
 import com.chinarewards.elt.domain.reward.base.Reward;
 import com.chinarewards.elt.domain.reward.base.RewardItem;
 import com.chinarewards.elt.domain.reward.base.RewardItemStore;
@@ -50,12 +53,13 @@ public class CandidateRuleLogicImpl implements CandidateRuleLogic {
 	private final StaffLogic staffLogic;
 	private final FrequencyLogic frequencyLogic;
     private final RewardItemStoreDao rewardItemStoreDao;
+    private final MembersDao membersDao;
 	@Inject
 	public CandidateRuleLogicImpl(CandidateRuleDao candidateRuleDao,
 			DirectCandidateRuleDao directCandidateRuleDao,
 			DirectCandidateDataDao directCandidateDataDao,
 			DobRuleDao dobRuleDao, RewardDao rewardDao,RewardItemStoreDao rewardItemStoreDao,
-			RewardItemDao rewardItemDao, OrganizationDao organizationDao,
+			RewardItemDao rewardItemDao, OrganizationDao organizationDao,MembersDao membersDao,
 			StaffLogic staffLogic, FrequencyLogic frequencyLogic) {
 		this.candidateRuleDao = candidateRuleDao;
 		this.directCandidateRuleDao = directCandidateRuleDao;
@@ -67,6 +71,7 @@ public class CandidateRuleLogicImpl implements CandidateRuleLogic {
 		this.staffLogic = staffLogic;
 		this.frequencyLogic = frequencyLogic;
 		this.rewardItemStoreDao = rewardItemStoreDao;
+		this.membersDao = membersDao;
 	}
 
 	@Override
@@ -300,6 +305,14 @@ public class CandidateRuleLogicImpl implements CandidateRuleLogic {
 				staffs.add((Staff) data.getOrg());
 			}else if (data.getOrg() instanceof Corporation) {
 				staffs.addAll(staffLogic.getStaffsFromCorporationId(data.getOrg().getId()));
+			}else if (data.getOrg() instanceof Team) {
+				List<Members> memberlist = membersDao.findMemberByTeam(data.getOrg().getId());//查所有小组成员 
+				if(memberlist.size()>0){
+					for(int i=0;i<memberlist.size();i++){
+						staffs.add(memberlist.get(i).getStaff());
+					}
+				}
+
 			}
 		}
 

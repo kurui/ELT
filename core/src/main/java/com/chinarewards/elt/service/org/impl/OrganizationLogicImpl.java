@@ -54,8 +54,7 @@ public class OrganizationLogicImpl implements OrganizationLogic {
 		// logger.debug(" principal.toString :" + principal.printTheProperty());
 		List<StaffAndDeptmentAutoCompile> res = new ArrayList<StaffAndDeptmentAutoCompile>();
 		List<String> orgIds = organizationDao
-				.findOrganizationBySomePropertyPageAction(corporationId, falg,
-						limit);// 查找出的符合条件的ID
+				.findOrganizationBySomePropertyPageAction(corporationId, falg,limit);// 查找出的符合条件的ID
 		System.out.println("  orgIds.size : " + orgIds.size());
 		if (orgIds.size() != 0) {
 			Map<String, Organization> maps = organizationDao

@@ -26,6 +26,7 @@ import com.chinarewards.elt.service.org.impl.OrganizationProcessor;
 import com.chinarewards.elt.service.org.impl.Organizationfactory;
 import com.chinarewards.elt.service.org.impl.OrganizationfactoryImpl;
 import com.chinarewards.elt.service.org.impl.StaffProcessor;
+import com.chinarewards.elt.service.org.impl.TeamProcessor;
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 import com.google.inject.name.Names;
@@ -59,13 +60,10 @@ public class OrgModule extends AbstractModule {
 		
 		
 		bind(Organizationfactory.class).to(OrganizationfactoryImpl.class).in(Singleton.class);
-		bind(OrganizationProcessor.class).annotatedWith(
-				Names.named("StaffProcessor")).to(StaffProcessor.class);
-		bind(OrganizationProcessor.class).annotatedWith(
-				Names.named("DeptmentProcessor")).to(DeptmentProcessor.class);
-		bind(OrganizationProcessor.class).annotatedWith(
-				Names.named("CorporationProcessor")).to(
-				CorporationProcessor.class);
+		bind(OrganizationProcessor.class).annotatedWith(Names.named("StaffProcessor")).to(StaffProcessor.class);
+		bind(OrganizationProcessor.class).annotatedWith(Names.named("DeptmentProcessor")).to(DeptmentProcessor.class);
+		bind(OrganizationProcessor.class).annotatedWith(Names.named("CorporationProcessor")).to(CorporationProcessor.class);
+		bind(OrganizationProcessor.class).annotatedWith(Names.named("TeamProcessor")).to(TeamProcessor.class);
 		bind(DepartmentManagerLogic.class).to(DepartmentManagerLogicImpl.class).in(Singleton.class);
 		
 	

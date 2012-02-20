@@ -1,6 +1,5 @@
 package com.chinarewards.elt.service.org.impl;
 
-import com.chinarewards.elt.domain.org.Members;
 import com.chinarewards.elt.domain.org.Team;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
