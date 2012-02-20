@@ -6,15 +6,18 @@ import net.customware.gwt.dispatch.shared.Result;
 
 import com.chinarewards.gwt.elt.client.department.model.DepartmentNode;
 
+/**
+ * @author yanrui
+ */
 public class DepartmentLeaderResponse implements Result {
 
 	private List<DepartmentNode> result;
 
-	public DepartmentLeaderResponse() {
-	}
-
 	public DepartmentLeaderResponse(List<DepartmentNode> result) {
 		this.result = result;
+	}
+
+	public DepartmentLeaderResponse() {
 	}
 
 	public List<DepartmentNode> getResult() {

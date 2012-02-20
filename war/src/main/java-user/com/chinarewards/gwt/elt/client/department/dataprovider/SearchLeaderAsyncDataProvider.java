@@ -4,15 +4,15 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.dataprovider.BaseDataProvider;
 import com.chinarewards.gwt.elt.client.department.model.LeaderSearchCriteria;
-import com.chinarewards.gwt.elt.client.department.request.SearchLeaderChooseRequest;
-import com.chinarewards.gwt.elt.client.department.request.SearchLeaderChooseResponse;
+import com.chinarewards.gwt.elt.client.department.request.SearchLeaderRequest;
+import com.chinarewards.gwt.elt.client.department.request.SearchLeaderResponse;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.rewards.model.StaffClient;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.model.PaginationDetailClient;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-public class LeaderChooseAsyncDataProvider extends
+public class SearchLeaderAsyncDataProvider extends
 		BaseDataProvider<StaffClient> {
 
 	final DispatchAsync dispatch;
@@ -21,7 +21,7 @@ public class LeaderChooseAsyncDataProvider extends
 	final LeaderSearchCriteria criteria;
 	final boolean filterByAcl;
 
-	public LeaderChooseAsyncDataProvider(DispatchAsync dispatch,
+	public SearchLeaderAsyncDataProvider(DispatchAsync dispatch,
 			ErrorHandler errorHandler, SessionManager sessionManager,
 			LeaderSearchCriteria criteria, boolean filterByAcl) {
 		this.dispatch = dispatch;
@@ -39,9 +39,9 @@ public class LeaderChooseAsyncDataProvider extends
 		criteria.setPagination(pagination);
 		criteria.setSorting(getSorting());
 		dispatch.execute(
-				new SearchLeaderChooseRequest(criteria, sessionManager
+				new SearchLeaderRequest(criteria, sessionManager
 						.getSession(), filterByAcl),
-				new AsyncCallback<SearchLeaderChooseResponse>() {
+				new AsyncCallback<SearchLeaderResponse>() {
 
 					@Override
 					public void onFailure(Throwable e) {
@@ -49,7 +49,7 @@ public class LeaderChooseAsyncDataProvider extends
 					}
 
 					@Override
-					public void onSuccess(SearchLeaderChooseResponse response) {
+					public void onSuccess(SearchLeaderResponse response) {
 						updateRowData(start, response.getResult().getResult());
 						updateRowCount(response.getResult().getTotal(), true);
 					}

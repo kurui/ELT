@@ -4,17 +4,15 @@ import net.customware.gwt.dispatch.shared.Action;
 
 /**
  * @author yanrui
- * 
  */
 public class DepartmentLeaderRequest implements
 		Action<DepartmentLeaderResponse> {
 
 	private String leaderId;
 
-	public DepartmentLeaderRequest()
-	{
-		
+	public DepartmentLeaderRequest() {
 	}
+
 	public DepartmentLeaderRequest(String leaderId) {
 		this.leaderId = leaderId;
 	}
@@ -26,5 +24,8 @@ public class DepartmentLeaderRequest implements
 	public void setLeaderId(String leaderId) {
 		this.leaderId = leaderId;
 	}
+	
+	
+	
 
 }
