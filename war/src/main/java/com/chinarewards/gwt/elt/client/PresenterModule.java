@@ -5,6 +5,8 @@ import com.chinarewards.gwt.elt.client.awardReward.module.AwardRewardModule;
 import com.chinarewards.gwt.elt.client.awardShop.module.AwardShopListModule;
 import com.chinarewards.gwt.elt.client.awardShopLattice.module.AwardShopLatticeModule;
 import com.chinarewards.gwt.elt.client.breadCrumbs.module.BreadCrumbsModule;
+import com.chinarewards.gwt.elt.client.broadcastSave.module.BroadcastSaveModule;
+import com.chinarewards.gwt.elt.client.broadcasting.module.BroadcastingModule;
 import com.chinarewards.gwt.elt.client.budget.module.CorpBudgetModule;
 import com.chinarewards.gwt.elt.client.budget.module.DepBudgetModule;
 import com.chinarewards.gwt.elt.client.chooseStaff.module.ChooseStaffModule;
@@ -70,15 +72,16 @@ public class PresenterModule extends AbstractGinModule {
 		install(new OrderConfirmationModule());
 		install(new OrderSubmitModule());
 		install(new DetailsOfGiftModule());
-
 		install(new CorpBudgetModule());
 		install(new DepBudgetModule());
 		install(new IntegralManagementModule());
 		install(new StaffListModule());
 		install(new StaffAddModule());
 		install(new StaffViewModule());
+		install(new BroadcastingModule());
 		install(new TeamListModule());
 		install(new TeamAddModule());
+		install(new BroadcastSaveModule());
 		
 
 	}

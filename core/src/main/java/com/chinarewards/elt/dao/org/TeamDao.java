@@ -59,13 +59,10 @@ public class TeamDao extends BaseDao<Team> {
 			param.put("name", "%" + vo.getName().trim().toUpperCase()+ "%");
 		}
 		if (!StringUtil.isEmptyString(vo.getCorpid())) {//
-			eql.append(" AND o.corpId = :corpId ");
+			eql.append(" AND o.corporation.id = :corpId ");
 			param.put("corpId",  vo.getCorpid().trim());
 		}
-		if (!StringUtil.isEmptyString(vo.getDepartId())) {//
-			eql.append(" AND o.departId = :departId ");
-			param.put("departId",  vo.getDepartId().trim());
-		}
+		
 		if (SEARCH.equals(type)) {
 			if (vo.getSortingDetail() != null) {
 				eql.append(" ORDER BY o."

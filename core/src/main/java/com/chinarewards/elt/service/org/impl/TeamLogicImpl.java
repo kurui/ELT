@@ -69,8 +69,8 @@ public class TeamLogicImpl implements TeamLogic {
 			// Create
 			itemObj.setDeleted(0);//正常状态，没有删除为0
 			itemObj.setCreatedBy(caller);
-			itemObj.setCorpId(caller.getCorporation().getId());
-			itemObj.setDepartId(caller.getStaff().getDepartment().getId());
+			itemObj.setCorporation(caller.getCorporation());
+			itemObj.setDepartment(caller.getStaff().getDepartment());
 			itemObj.setCreatedAt(currTime);
 			itemObj.setCode(teamCode);//用当前时间作为编号
 			itemObj = teamDao.save(itemObj);

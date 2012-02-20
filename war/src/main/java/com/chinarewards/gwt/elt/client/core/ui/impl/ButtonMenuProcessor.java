@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.chinarewards.gwt.elt.client.awardReward.plugin.AwardRewardConstants;
 import com.chinarewards.gwt.elt.client.breadCrumbs.ui.BreadCrumbsMenu;
+import com.chinarewards.gwt.elt.client.broadcasting.plugin.BroadcastingListConstants;
 import com.chinarewards.gwt.elt.client.budget.plugin.CorpBudgetConstants;
 import com.chinarewards.gwt.elt.client.budget.plugin.CreateBudgetConstants;
 import com.chinarewards.gwt.elt.client.core.ui.MenuItem;
@@ -125,10 +126,11 @@ public class ButtonMenuProcessor implements MenuProcessor {
 			if (menuId.equals(RewardsItemConstants.MENU_REWARDSITEM_List)
 					|| menuId
 							.equals(RewardsListConstants.MENU_REWARDSLIST_SEARCH)
-					|| menuId.equals(UserConstants.MENU_USER_SEARCH)
+					|| menuId.equals(DepartmentListConstants.MENU_DEPARTMENTLIST_SEARCH)
 					|| menuId.equals(GiftListConstants.MENU_GIFTLIST_SEARCH)
 					|| menuId.equals(EnterpriseConstants.MENU_ENTERPRISE_EDIT) 
-					|| menuId.equals(IntegralManagementConstants.MENU_INTEGRALMANAGEMENT_SEARCH)) {
+					|| menuId.equals(IntegralManagementConstants.MENU_INTEGRALMANAGEMENT_SEARCH)
+					|| menuId.equals(BroadcastingListConstants.MENU_BROADCASTINGLIST_SEARCH)) {
 				button.setStyleName("menu-link menu-selected");
 				breadCrumbsMenu.cleanBreadCrumbsItemTop();
 				if (menuId.equals(RewardsItemConstants.MENU_REWARDSITEM_List))
@@ -136,7 +138,7 @@ public class ButtonMenuProcessor implements MenuProcessor {
 				else if (menuId
 						.equals(RewardsListConstants.MENU_REWARDSLIST_SEARCH))
 					breadCrumbsMenu.addBreadCrumbsItemTop("奖项应用", null);
-				else if (menuId.equals(UserConstants.MENU_USER_SEARCH))
+				else if (menuId.equals(DepartmentListConstants.MENU_DEPARTMENTLIST_SEARCH))
 					breadCrumbsMenu.addBreadCrumbsItemTop("员工数据", null);
 				else if (menuId.equals(GiftListConstants.MENU_GIFTLIST_SEARCH))
 					breadCrumbsMenu.addBreadCrumbsItemTop("兑换管理", null);
@@ -144,7 +146,8 @@ public class ButtonMenuProcessor implements MenuProcessor {
 					breadCrumbsMenu.addBreadCrumbsItemTop("设置", null);
 				else if (menuId.equals(IntegralManagementConstants.MENU_INTEGRALMANAGEMENT_SEARCH))
 					breadCrumbsMenu.addBreadCrumbsItemTop("积分管理", null);
-				
+				else if (menuId.equals(BroadcastingListConstants.MENU_BROADCASTINGLIST_SEARCH))
+					breadCrumbsMenu.addBreadCrumbsItemTop("广播", null);
 				breadCrumbsMenu.addBreadCrumbsItem(menuItem.getTitle(),
 						menuItem.getMenuId());
 			}
@@ -205,6 +208,9 @@ public class ButtonMenuProcessor implements MenuProcessor {
 			items.add(EnterpriseConstants.MENU_PERIOD_EDIT);
 			items.add(IntegralManagementConstants.MENU_INTEGRALMANAGEMENT_SEARCH);
 			items.add(CreateBudgetConstants.MENU_CREATE_BUDGET);
+		}else if("Broadcasting".equals(keyname))
+		{
+			items.add(BroadcastingListConstants.MENU_BROADCASTINGLIST_SEARCH);
 		}
 		return items;
 	}
