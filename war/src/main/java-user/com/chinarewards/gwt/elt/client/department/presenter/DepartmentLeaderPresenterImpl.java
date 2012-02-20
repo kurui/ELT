@@ -31,10 +31,11 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
 public class DepartmentLeaderPresenterImpl extends
-		BasePresenter<DepartmentLeaderDisplay> implements DepartmentLeaderPresenter {
+		BasePresenter<DepartmentLeaderDisplay> implements
+		DepartmentLeaderPresenter {
 
-	String departmentIds="";
-	
+	String departmentIds = "";
+
 	final DispatchAsync dispatcher;
 	final ErrorHandler errorHandler;
 	final SessionManager sessionManager;
@@ -68,41 +69,42 @@ public class DepartmentLeaderPresenterImpl extends
 
 		initTreeTable();
 
-		
 	}
 
 	private void initTreeTable() {
 		final String corporationId = sessionManager.getSession()
 				.getCorporationId();
-		String departmentId="";
-		dispatcher.execute(new DepartmentLeaderRequest(corporationId,departmentId), new AsyncCallback<DepartmentLeaderResponse>() {
-			@Override
-			public void onFailure(Throwable e) {
-				win.alert(e.getMessage());
-			}
 
-			@Override
-			public void onSuccess(DepartmentLeaderResponse response) {
-				// display.setBudgetIntegral((int)response.getBudgetIntegral()+"");
-				// display.setUseIntegeral((int)response.getBudgetIntegral()+"");
-				List<DepartmentNode> nodeList = response.getResult();
-				display.loadTreeData(nodeList, corporationId);
-			}
-		});
+		String leaderId = sessionManager.getSession().getToken();
+		dispatcher.execute(new DepartmentLeaderRequest(leaderId),
+				new AsyncCallback<DepartmentLeaderResponse>() {
+					@Override
+					public void onFailure(Throwable e) {
+						win.alert("查询异常：" + e.getMessage());
+					}
+
+					@Override
+					public void onSuccess(DepartmentLeaderResponse response) {
+						// display.setBudgetIntegral((int)response.getBudgetIntegral()+"");
+						// display.setUseIntegeral((int)response.getBudgetIntegral()+"");
+						List<DepartmentNode> nodeList = response.getResult();
+						display.loadTreeData(nodeList, corporationId);
+					}
+				});
 	}
-	
-	private String getDepartmentIds(){
-		departmentIds=display.getCurrentDepartmentId().getValue();
-		
+
+	private String getDepartmentIds() {
+		departmentIds = display.getCurrentDepartmentId().getValue();
+
 		return departmentIds;
 	}
 
-	private void registerEvent() {		
+	private void registerEvent() {
 		// 增加子部门
 		registerHandler(display.getAddChildBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
-						String departmentIds=getDepartmentIds();
+						String departmentIds = getDepartmentIds();
 						// win.alert("功能建设中");
 						if (departmentIds != null) {
 							String[] ids = StringUtil.getSplitString(
@@ -138,7 +140,7 @@ public class DepartmentLeaderPresenterImpl extends
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
 						// win.alert("功能建设中");
-						String departmentIds=getDepartmentIds();
+						String departmentIds = getDepartmentIds();
 						if (departmentIds != null) {
 							String[] ids = StringUtil.getSplitString(
 									departmentIds, ",");
@@ -163,7 +165,7 @@ public class DepartmentLeaderPresenterImpl extends
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
 						// win.alert("功能建设中");
-						String departmentIds=getDepartmentIds();
+						String departmentIds = getDepartmentIds();
 						if (departmentIds != null) {
 							String[] ids = StringUtil.getSplitString(
 									departmentIds, ",");

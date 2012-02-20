@@ -52,7 +52,7 @@ public interface DepartmentService {
 	 */
 	public List<DepartmentManageVo> getDepartmentManageList(String corporationId);
 	
-	public List<DepartmentManageVo> getDepartmentLeaderList(String corporationId,String departmentId);
+	public List<DepartmentManageVo> getDepartmentLeaderList(String leaderId);
 
 	/**
 	 * @param uc
@@ -73,6 +73,12 @@ public interface DepartmentService {
 	 * @return
 	 */
 	public String mergeDepartment(UserContext uc, String departmentIds);
+
+	/**
+	 * @param leaderId
+	 * @return
+	 */
+	public List<Department> findDepartmentsByLeader(String leaderId);
 
 
 }

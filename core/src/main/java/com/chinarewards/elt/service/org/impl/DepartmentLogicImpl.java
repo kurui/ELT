@@ -240,11 +240,6 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 			String corporationId) {
 		return departmentDao.findDepartmentsByCoporationId(corporationId);
 	}
-	
-	@Override
-	public List<Department> getLeaderDepartments(String corporationId,String departmentId) {
-		return departmentDao.findLeaderDepartments(corporationId,departmentId);
-	}
 
 	@Override
 	public Department getRootDepartmentOfCorporation(String corpId) {
@@ -314,9 +309,9 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 	}
 
 	@Override
-	public List<DepartmentManageVo> getDepartmentLeaderList(String corpId,String departmentId) {
+	public List<DepartmentManageVo> getDepartmentLeaderList(String leaderId) {
 		List<DepartmentManageVo> volist = new ArrayList<DepartmentManageVo>();
-		List<Department> department = getWholeDepartmentsOfCorporation(corpId);
+		List<Department> department = findDepartmentsByLeader(leaderId);
 		for (Department dep : department) {
 			DepartmentManageVo vo = new DepartmentManageVo();
 			vo.setDepartmentId(dep.getId());
@@ -343,6 +338,11 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 	@Override
 	public String mergeDepartment(UserContext uc, String departmentIds) {
 		return departmentDao.mergeDepartment(departmentIds);
+	}
+
+	@Override
+	public List<Department> findDepartmentsByLeader(String leaderId) {
+		return departmentDao.findDepartmentsByLeader(leaderId);
 	}
 
 }

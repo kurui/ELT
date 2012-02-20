@@ -35,7 +35,8 @@ public class DepartmentLeaderHandler extends
 			ExecutionContext context) throws DispatchException {
 		List<DepartmentNode> rs = new ArrayList<DepartmentNode>();
 		List<DepartmentManageVo> departmentManageVoList = departmentService
-				.getDepartmentLeaderList(action.getCorporationId(),action.getDepartmentId());
+				.getDepartmentLeaderList(action.getLeaderId());
+		
 		for (DepartmentManageVo vo : departmentManageVoList) {
 			DepartmentNode c = new DepartmentNode(vo.getDepartmentName(),
 					(int) vo.getBudgetIntegral() + "",
