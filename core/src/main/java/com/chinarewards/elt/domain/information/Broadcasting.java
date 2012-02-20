@@ -47,11 +47,16 @@ public class Broadcasting implements Serializable {
 	 * 类别
 	 */
 	private BroadcastingCategory category;
-	/**
-	 * 广播时间
-	 */
-	private Date broadcastingTime;
 
+	/**
+	 * 广播时间-开始时间
+	 */
+	private Date broadcastingTimeStart;
+	/**
+	 * 广播时间-结束时间
+	 */
+	private Date broadcastingTimeEnd;
+	
 	@ManyToOne
 	private SysUser lastModifiedBy;
 	
@@ -137,11 +142,18 @@ public class Broadcasting implements Serializable {
 		this.category = category;
 	}
 
-	public Date getBroadcastingTime() {
-		return broadcastingTime;
+
+	public Date getBroadcastingTimeStart() {
+		return broadcastingTimeStart;
 	}
-	public void setBroadcastingTime(Date broadcastingTime) {
-		this.broadcastingTime = broadcastingTime;
+	public void setBroadcastingTimeStart(Date broadcastingTimeStart) {
+		this.broadcastingTimeStart = broadcastingTimeStart;
+	}
+	public Date getBroadcastingTimeEnd() {
+		return broadcastingTimeEnd;
+	}
+	public void setBroadcastingTimeEnd(Date broadcastingTimeEnd) {
+		this.broadcastingTimeEnd = broadcastingTimeEnd;
 	}
 	public SysUser getLastModifiedBy() {
 		return lastModifiedBy;

@@ -5,9 +5,11 @@ import java.util.Comparator;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
+import com.chinarewards.gwt.elt.client.broadcastSave.plugin.BroadcastSaveConstants;
 import com.chinarewards.gwt.elt.client.broadcasting.dataprovider.BroadcastingListViewAdapter;
 import com.chinarewards.gwt.elt.client.broadcasting.model.BroadcastingListClient;
 import com.chinarewards.gwt.elt.client.broadcasting.model.BroadcastingListCriteria;
+import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
@@ -69,11 +71,11 @@ public class BroadcastingListPresenterImpl extends
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-//						Platform.getInstance()
-//						.getEditorRegistry()
-//						.openEditor(
-//								StaffAddConstants.EDITOR_STAFFADD_SEARCH,
-//								"EDITOR_STAFFADD_SEARCH_DO_ID", null);
+						Platform.getInstance()
+						.getEditorRegistry()
+						.openEditor(
+								BroadcastSaveConstants.EDITOR_BROADCASTSAVE_SEARCH,
+								"EDITOR_BROADCASTSAVE_SEARCH_DO_ID", null);
 					}
 				}));
 	

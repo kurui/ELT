@@ -90,7 +90,7 @@ public class SearchBroadcastingListActionHandler extends
 			BroadcastingListClient client=new BroadcastingListClient();
 			client.setNumber(broadcast.getNumber());
 			client.setContent(broadcast.getContent());
-			client.setBroadcastingTime(broadcast.getBroadcastingTime());
+			client.setBroadcastingTime(broadcast.getBroadcastingTimeStart());
 			client.setCreatedByUserName(broadcast.getCreatedBy().getStaff().getName());
 			client.setReplyNumber(broadcast.getReplyNumber());
 			client.setStatus(com.chinarewards.gwt.elt.client.broadcasting.model.BroadcastingListCriteria.BroadcastingStatus.valueOf(broadcast.getStatus().toString()));
