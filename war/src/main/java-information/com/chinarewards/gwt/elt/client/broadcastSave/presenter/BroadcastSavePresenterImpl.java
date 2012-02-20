@@ -1,22 +1,31 @@
 package com.chinarewards.gwt.elt.client.broadcastSave.presenter;
 
+import java.util.List;
+
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
+import com.chinarewards.gwt.elt.client.broadcastSave.dialog.ChooseOrganizationListDialog;
 import com.chinarewards.gwt.elt.client.broadcastSave.request.BroadcastSaveRequest;
 import com.chinarewards.gwt.elt.client.broadcastSave.request.BroadcastSaveResponse;
 import com.chinarewards.gwt.elt.client.broadcasting.plugin.BroadcastingListConstants;
+import com.chinarewards.gwt.elt.client.chooseOrganization.event.ChooseOrganizationEvent;
+import com.chinarewards.gwt.elt.client.chooseOrganization.handler.ChooseOrganizationHandler;
 import com.chinarewards.gwt.elt.client.core.Platform;
+import com.chinarewards.gwt.elt.client.core.ui.DialogCloseListener;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
+import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.util.StringUtil;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 public class BroadcastSavePresenterImpl extends
 		BasePresenter<BroadcastSavePresenter.BroadcastSaveDisplay> implements
@@ -28,17 +37,18 @@ public class BroadcastSavePresenterImpl extends
 	final ErrorHandler errorHandler;
 	String broadcastId = null;
 	private final BreadCrumbsPresenter breadCrumbs;
-
+	private final Provider<ChooseOrganizationListDialog> chooseOrganizationDialogProvider;
 	@Inject
 	public BroadcastSavePresenterImpl(EventBus eventBus, BroadcastSaveDisplay display,
 			DispatchAsync dispatch, SessionManager sessionManager, Win win,
-			BreadCrumbsPresenter breadCrumbs, ErrorHandler errorHandler) {
+			BreadCrumbsPresenter breadCrumbs, ErrorHandler errorHandler,Provider<ChooseOrganizationListDialog> chooseOrganizationDialogProvider) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.sessionManager = sessionManager;
 		this.errorHandler = errorHandler;
 		this.win = win;
 		this.breadCrumbs = breadCrumbs;
+		this.chooseOrganizationDialogProvider=chooseOrganizationDialogProvider;
 	}
 
 	@Override
@@ -110,46 +120,35 @@ public class BroadcastSavePresenterImpl extends
 					}
 				}));
 		
-//		registerHandler(display.getChooseBtnClickHandlers().addClickHandler(
-//				new ClickHandler() {
-//					@Override
-//					public void onClick(ClickEvent arg0) {
-//						final ChooseStaffListDialog dialog = chooseStaffDialogProvider
-//								.get();
-//						if (initChooseListParam != null)
-//							dialog.initChooseList(initChooseListParam);
-//						dialog.setRewardId(rewardId);
-//						dialog.setNominee(false, true, null);// The key is the
-//																// first
-//																// parameter(false).
-//						final HandlerRegistration registration = eventBus
-//								.addHandler(ChooseStaffEvent.getType(),
-//										new ChooseStaffHandler() {
-//											@Override
-//											public void chosenStaff(
-//													List<StaffClient> list) {
-//												for (StaffClient r : list) {
-//													System.out.println("ds=="
-//															+ r);
-//													if (!display
-//															.getSpecialTextArea()
-//															.containsItem(r)) {
-//														display.getSpecialTextArea()
-//																.addItem(r);
-//													}
-//												}
-//											}
-//										});
-//
-//						Platform.getInstance().getSiteManager()
-//								.openDialog(dialog, new DialogCloseListener() {
-//									public void onClose(String dialogId,
-//											String instanceId) {
-//										registration.removeHandler();
-//									}
-//								});
-//					}
-//				}));
+		registerHandler(display.getChooseBtnClickHandlers().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent arg0) {
+						final ChooseOrganizationListDialog dialog = chooseOrganizationDialogProvider.get();
+						final HandlerRegistration registration = eventBus
+								.addHandler(ChooseOrganizationEvent.getType(),
+										new ChooseOrganizationHandler() {
+											@Override
+											public void chosenOrganization(
+													List<OrganicationClient> list) {
+												for (OrganicationClient r : list) {
+													System.out.println("ds=="+ r);
+													if (!display.getSpecialTextArea().containsItem(r)) {
+														display.getSpecialTextArea().addItem(r);
+													}
+												}
+											}
+										});
+
+						Platform.getInstance().getSiteManager()
+								.openDialog(dialog, new DialogCloseListener() {
+									public void onClose(String dialogId,
+											String instanceId) {
+										registration.removeHandler();
+									}
+								});
+					}
+				}));
 
 	}
 

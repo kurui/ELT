@@ -13,6 +13,7 @@ import com.chinarewards.gwt.elt.client.dataprovider.StaffChooseAsyncDataProvider
 import com.chinarewards.gwt.elt.client.mvp.BaseDialogPresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
+import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
 import com.chinarewards.gwt.elt.client.rewards.model.StaffClient;
 import com.chinarewards.gwt.elt.client.rewards.model.StaffSearchCriteria;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
@@ -177,13 +178,7 @@ public class ChooseOrganizationListPresenterImpl extends
 						return staff.getName();
 					}
 				}, ref, "staff.name");
-		resultTable.addColumn("被提名次数", new TextCell(),
-				new GetValue<StaffClient, String>() {
-					@Override
-					public String getValue(StaffClient staff) {
-						return staff.getNominateCount() + "";
-					}
-				}, ref, "nominatecount");
+
 
 	}
 
@@ -192,10 +187,10 @@ public class ChooseOrganizationListPresenterImpl extends
 	 * 
 	 * @return
 	 */
-	private List<StaffClient> getRealStaffs() {
-		List<StaffClient> result = new ArrayList<StaffClient>();
-		for (StaffClient staff : display.getSpecialTextBox().getItemList()) {
-			result.add(staff);
+	private List<OrganicationClient> getRealStaffs() {
+		List<OrganicationClient> result = new ArrayList<OrganicationClient>();
+		for (OrganicationClient organ : display.getSpecialTextBox().getItemList()) {
+			result.add(organ);
 		}
 		return result;
 	}

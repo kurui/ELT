@@ -2,7 +2,7 @@ package com.chinarewards.gwt.elt.client.chooseOrganization.view;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
-import com.chinarewards.gwt.elt.client.chooseStaff.presenter.ChooseStaffListPresenter.ChooseStaffListDisplay;
+import com.chinarewards.gwt.elt.client.chooseOrganization.presenter.ChooseOrganizationListPresenter.ChooseOrganizationListDisplay;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.rewards.model.StaffClient;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
@@ -23,7 +23,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
 public class ChooseOrganizationListWidget extends Composite implements
-		ChooseStaffListDisplay {
+		ChooseOrganizationListDisplay {
 
 	// @UiField
 	// Panel deptPanel;
@@ -57,12 +57,12 @@ public class ChooseOrganizationListWidget extends Composite implements
 	// is inject
 	// final DepartmentComboTree deptCombo;
 
-	interface ChooseStaffListWidgetBinder extends
+	interface ChooseOrganizationListWidgetBinder extends
 			UiBinder<Widget, ChooseOrganizationListWidget> {
 	}
 
-	private static ChooseStaffListWidgetBinder uiBinder = GWT
-			.create(ChooseStaffListWidgetBinder.class);
+	private static ChooseOrganizationListWidgetBinder uiBinder = GWT
+			.create(ChooseOrganizationListWidgetBinder.class);
 
 	@Inject
 	public ChooseOrganizationListWidget(DispatchAsync dispatch,

@@ -59,7 +59,7 @@ public class BroadcastDao  extends BaseDao<Broadcasting>{
 			param.put("createdByUserId", "%"+searchVo.getCreatedByUserId()+"%");
 		}
 		if (searchVo.getBroadcastingTimeStart()!=null && searchVo.getBroadcastingTimeEnd()!=null) {
-			hql.append(" and ( broadcast.broadcastingTime  between :broadcastingTimeStart and :broadcastingTimeEnd)");
+			hql.append(" and ( broadcast.broadcastingTimeStart  between :broadcastingTimeStart and :broadcastingTimeEnd)");
 			param.put("broadcastingTimeStart", searchVo.getBroadcastingTimeStart());
 			param.put("broadcastingTimeEnd", searchVo.getBroadcastingTimeEnd());
 
@@ -76,7 +76,7 @@ public class BroadcastDao  extends BaseDao<Broadcasting>{
 						+ searchVo.getSortingDetail().getSort() + " "
 						+ searchVo.getSortingDetail().getDirection());
 			} else {
-				hql.append(" ORDER BY broadcast.broadcastingTime DESC ");
+				hql.append(" ORDER BY broadcast.broadcastingTimeStart DESC ");
 			}
 		}
 		logger.debug(" HQL:{} ", hql);

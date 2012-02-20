@@ -9,6 +9,7 @@ import com.chinarewards.gwt.elt.client.broadcastSave.module.BroadcastSaveModule;
 import com.chinarewards.gwt.elt.client.broadcasting.module.BroadcastingModule;
 import com.chinarewards.gwt.elt.client.budget.module.CorpBudgetModule;
 import com.chinarewards.gwt.elt.client.budget.module.DepBudgetModule;
+import com.chinarewards.gwt.elt.client.chooseOrganization.module.ChooseOrganizationModule;
 import com.chinarewards.gwt.elt.client.chooseStaff.module.ChooseStaffModule;
 import com.chinarewards.gwt.elt.client.core.presenter.DockModule;
 import com.chinarewards.gwt.elt.client.department.module.DepartmentLeaderModule;
@@ -82,6 +83,7 @@ public class PresenterModule extends AbstractGinModule {
 		install(new TeamListModule());
 		install(new TeamAddModule());
 		install(new BroadcastSaveModule());
+		install(new ChooseOrganizationModule());
 		
 
 	}
