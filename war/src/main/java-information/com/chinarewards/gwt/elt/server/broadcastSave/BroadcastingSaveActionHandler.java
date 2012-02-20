@@ -5,11 +5,14 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 
 import org.slf4j.Logger;
 
+import com.chinarewards.elt.model.broadcast.BroadcastingVo;
+import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.broadcast.BroadcastService;
 import com.chinarewards.gwt.elt.client.broadcastSave.request.BroadcastSaveRequest;
 import com.chinarewards.gwt.elt.client.broadcastSave.request.BroadcastSaveResponse;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
 import com.chinarewards.gwt.elt.server.logger.InjectLogger;
+import com.chinarewards.gwt.elt.util.UserRoleTool;
 import com.google.inject.Inject;
 
 /**
@@ -18,7 +21,7 @@ import com.google.inject.Inject;
  * @author nicho
  * @since 2012年2月20日 18:30:54
  */
-public class SearchBroadcastingListActionHandler extends
+public class BroadcastingSaveActionHandler extends
 		BaseActionHandler<BroadcastSaveRequest, BroadcastSaveResponse> {
 
 	@InjectLogger
@@ -28,7 +31,7 @@ public class SearchBroadcastingListActionHandler extends
 
 
 	@Inject
-	public SearchBroadcastingListActionHandler(BroadcastService broadcastService) {
+	public BroadcastingSaveActionHandler(BroadcastService broadcastService) {
 		this.broadcastService = broadcastService;
 	}
 
@@ -37,7 +40,16 @@ public class SearchBroadcastingListActionHandler extends
 			ExecutionContext response) throws DispatchException {
 
 		BroadcastSaveResponse staffResponse = new BroadcastSaveResponse();
-	
+		UserContext context=new UserContext();
+		context.setCorporationId(request.getSession().getCorporationId());
+		context.setUserId(request.getSession().getToken());
+		context.setLoginName(request.getSession().getLoginName());
+		context.setUserRoles(UserRoleTool.adaptToRole(request.getSession().getUserRoles()));
+		
+		BroadcastingVo vo=new BroadcastingVo();
+		vo.setBroadcastingId(request.getBroadcastId());
+		
+		broadcastService.createOrUpdateBroadcast(vo, context);
 		return staffResponse;
 	}
 
