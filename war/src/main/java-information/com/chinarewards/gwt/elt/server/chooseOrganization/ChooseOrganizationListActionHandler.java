@@ -9,11 +9,15 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 import org.slf4j.Logger;
 
 import com.chinarewards.elt.dao.org.StaffDao.QueryStaffPageActionResult;
+import com.chinarewards.elt.domain.org.Corporation;
+import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.org.Staff;
+import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.common.PaginationDetail;
 import com.chinarewards.elt.model.common.SortingDetail;
 import com.chinarewards.elt.model.staff.StaffSearchCriteria;
 import com.chinarewards.elt.model.user.UserContext;
+import com.chinarewards.elt.model.vo.TeamListVo;
 import com.chinarewards.elt.service.org.CorporationService;
 import com.chinarewards.elt.service.org.DepartmentService;
 import com.chinarewards.elt.service.org.TeamService;
@@ -68,19 +72,89 @@ public class ChooseOrganizationListActionHandler
 		}
 		else if(request.getCriteria().getOrganType()==OrganType.DEPT)
 		{
-			
+			return queryDept(request);
 		}
 		else if(request.getCriteria().getOrganType()==OrganType.GROUP)
 		{
-			
+			return queryGroup(request);
 		}
 		else if(request.getCriteria().getOrganType()==OrganType.ORG)
 		{
-			
+			return queryOrg(request);
 		}
 		return staffResponse;
 	}
+	private ChooseOrganizationResponse queryGroup(ChooseOrganizationRequest request)
+	{
+		UserContext context=new UserContext();
+		context.setCorporationId(request.getSession().getCorporationId());
+		context.setUserId(request.getSession().getToken());
+		context.setLoginName(request.getSession().getLoginName());
+		context.setUserRoles(UserRoleTool.adaptToRole(request.getSession().getUserRoles()));
+		
+		TeamListVo teamListVo=new TeamListVo();
+		if (request.getCriteria().getPagination() != null) {
+			PaginationDetail detail = new PaginationDetail();
+			detail.setLimit(request.getCriteria().getPagination().getLimit());
+			detail.setStart(request.getCriteria().getPagination().getStart());
 
+			teamListVo.setPaginationDetail(detail);
+		}
+		if(request.getCriteria().getKey()!=null)
+			teamListVo.setName(request.getCriteria().getKey());
+		
+		if (request.getCriteria().getSorting() != null) {
+			SortingDetail sortingDetail = new SortingDetail();
+			sortingDetail.setSort(request.getCriteria().getSorting().getSort());
+			sortingDetail.setDirection(request.getCriteria().getSorting().getDirection());
+			teamListVo.setSortingDetail(sortingDetail);
+		}
+		
+		OrganSearchResult rs=new OrganSearchResult();
+		List<OrganicationClient> lt=new ArrayList<OrganicationClient>();
+
+		PageStore<TeamListVo>  volist=teamService.teamList(context, teamListVo);
+		for (TeamListVo team:volist.getResultList()) {
+			OrganicationClient client=new OrganicationClient();
+			client.setId(team.getId());
+			client.setName(team.getName());
+			lt.add(client);
+		}
+
+		
+		rs.setResult(lt);
+		rs.setTotal(volist.getResultCount());
+		return new ChooseOrganizationResponse(rs);
+	}
+	private ChooseOrganizationResponse queryOrg(ChooseOrganizationRequest request)
+	{
+		OrganSearchResult rs=new OrganSearchResult();
+		List<OrganicationClient> lt=new ArrayList<OrganicationClient>();
+		OrganicationClient client=new OrganicationClient();
+		Corporation corp=corporationService.findCorporationById(request.getSession().getCorporationId());
+		client.setId(corp.getId());
+		client.setName(corp.getName());
+		lt.add(client);
+		
+		rs.setResult(lt);
+		rs.setTotal(1);
+		return new ChooseOrganizationResponse(rs);
+	}
+	private ChooseOrganizationResponse queryDept(ChooseOrganizationRequest request)
+	{
+		List<Department> result=departmentService.getWholeDepartmentsOfCorporation(request.getSession().getCorporationId());
+		List<OrganicationClient> lt=new ArrayList<OrganicationClient>();
+		for (Department dept:result) {
+			OrganicationClient client=new OrganicationClient();
+			client.setId(dept.getId());
+			client.setName(dept.getName());
+			lt.add(client);
+		}
+		OrganSearchResult rs=new OrganSearchResult();
+		rs.setResult(lt);
+		rs.setTotal(result.size());
+		return new ChooseOrganizationResponse(rs);
+	}
 	private ChooseOrganizationResponse queryStaff(ChooseOrganizationRequest request)
 	{
 		StaffSearchCriteria criteria=new StaffSearchCriteria();

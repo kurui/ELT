@@ -72,5 +72,12 @@ public interface DepartmentService {
 	 */
 	public String mergeDepartment(UserContext uc, String departmentIds);
 
-
+	/**
+	 * Get all of the departments of the specified corporation.
+	 * 
+	 * @param corporationId
+	 * @return
+	 */
+	public List<Department> getWholeDepartmentsOfCorporation(
+			String corporationId);
 }

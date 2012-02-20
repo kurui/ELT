@@ -74,4 +74,10 @@ public class DepartmentServiceImpl implements DepartmentService {
 		return departmentLogic.mergeDepartment(uc,departmentIds);
 	}
 
+	@Override
+	public List<Department> getWholeDepartmentsOfCorporation(
+			String corporationId) {
+		return departmentLogic.getWholeDepartmentsOfCorporation(corporationId);
+	}
+
 }

@@ -72,7 +72,7 @@ public class ChooseOrganizationListPresenterImpl extends
 
 	private void init() {
 		buildTable();
-		doSearch();
+		doSearch(OrganType.STAFF);
 	}
 
 	public void bind() {
@@ -83,7 +83,15 @@ public class ChooseOrganizationListPresenterImpl extends
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent arg0) {
-						doSearch();
+						buildTable();
+						if(display.getRadioDept().getValue())
+							doSearch(OrganType.DEPT);
+						else if(display.getRadioGroup().getValue())
+							doSearch(OrganType.GROUP);
+						else if(display.getRadioOrg().getValue())
+							doSearch(OrganType.ORG);
+						else if(display.getRadioStaff().getValue())
+							doSearch(OrganType.STAFF);
 					}
 				}));
 
@@ -110,6 +118,38 @@ public class ChooseOrganizationListPresenterImpl extends
 					@Override
 					public void onClick(ClickEvent arg0) {
 						closeDialog();
+					}
+				}));
+		registerHandler(display.getRadioStaff().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent arg0) {
+						buildTable();
+						doSearch(OrganType.STAFF);
+					}
+				}));
+		registerHandler(display.getRadioGroup().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent arg0) {
+						buildTable();
+						doSearch(OrganType.GROUP);
+					}
+				}));
+		registerHandler(display.getRadioOrg().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent arg0) {
+						buildTable();
+						doSearch(OrganType.ORG);
+					}
+				}));
+		registerHandler(display.getRadioDept().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent arg0) {
+						buildTable();
+						doSearch(OrganType.DEPT);
 					}
 				}));
 	}
@@ -197,10 +237,10 @@ public class ChooseOrganizationListPresenterImpl extends
 	/**
 	 * 查询员工
 	 */
-	private void doSearch() {
+	private void doSearch(OrganType organType) {
 		OrganSearchCriteria criteriaVo = new OrganSearchCriteria();
 		 criteriaVo.setKey(display.getName().getValue());
-		 criteriaVo.setOrganType(OrganType.STAFF);
+		 criteriaVo.setOrganType(organType);
 
 
 		resultTable.setPageStart(0);
