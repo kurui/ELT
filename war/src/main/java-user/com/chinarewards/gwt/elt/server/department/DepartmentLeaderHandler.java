@@ -5,9 +5,7 @@ import java.util.List;
 
 import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.DispatchException;
-
 import org.slf4j.Logger;
-
 import com.chinarewards.elt.model.org.search.DepartmentManageVo;
 import com.chinarewards.elt.service.org.DepartmentService;
 import com.chinarewards.gwt.elt.client.department.model.DepartmentNode;

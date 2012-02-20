@@ -74,7 +74,7 @@ public class DepartmentLeaderPresenterImpl extends
 	private void initTreeTable() {
 		final String corporationId = sessionManager.getSession()
 				.getCorporationId();
-
+		
 		final String leaderId = sessionManager.getSession().getToken();
 		dispatcher.execute(new DepartmentLeaderRequest(leaderId),
 				new AsyncCallback<DepartmentLeaderResponse>() {

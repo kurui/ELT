@@ -46,9 +46,6 @@ public class DepartmentManageHandler extends
 					vo.isLeaf(), vo.getParentId());
 			rs.add(c);
 		}
-		// 查询当前财年..待添加
-		// budgetService.findCorpBudget(action.getCorporationId());
-		// return new DepartmentManageResponse(rs, 0, 0);
 		return new DepartmentManageResponse(rs);
 
 	}
