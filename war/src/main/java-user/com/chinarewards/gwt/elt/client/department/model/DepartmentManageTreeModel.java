@@ -15,7 +15,6 @@ import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.HasCell;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.TreeViewModel;
 
@@ -121,7 +120,11 @@ public class DepartmentManageTreeModel implements TreeViewModel {
 					@Override
 					public void update(int index, DepartmentNode object,
 							String value) {
-						Window.alert(object.getDepartmentId() + "--- 部门名称");
+//						Window.alert(object.getDepartmentId() + "--- 部门名称");
+						DepartmentClient client = new DepartmentClient();
+						client.setId(object.getDepartmentId());
+						client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_EDIT);
+						openEditPage(client);
 					}
 				};
 			}

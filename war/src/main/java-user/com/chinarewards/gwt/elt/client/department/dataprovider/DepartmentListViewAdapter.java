@@ -1,7 +1,8 @@
-package com.chinarewards.gwt.elt.client.dataprovider;
+package com.chinarewards.gwt.elt.client.department.dataprovider;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import com.chinarewards.gwt.elt.client.dataprovider.BaseDataProvider;
 import com.chinarewards.gwt.elt.client.department.model.DepartmentClient;
 import com.chinarewards.gwt.elt.client.department.model.DepartmentCriteria;
 import com.chinarewards.gwt.elt.client.department.presenter.DepartmentListPresenter.DepartmentListDisplay;
@@ -30,20 +31,6 @@ public class DepartmentListViewAdapter extends BaseDataProvider<DepartmentClient
 	}
 
 	public void fetchData(final int start, final int length) {
-		// if (!GWT.isScript()) {
-		// List<DepartmentClient> list = new ArrayList<DepartmentClient>();
-		// for (int i = start; i < start + length; i++) {
-		// DepartmentClient item = new DepartmentClient();
-		// item.setId("id" + i);
-		// item.setName("gift" + i);
-		// item.setSource("来源"+i);
-		// item.setStatus(DepartmentStatus.SHELF);
-		// list.add(item);
-		// }
-		//
-		// updateRowData(start, list);
-		// updateRowCount(100, true);
-		// } else {
 		PaginationDetailClient pagination = new PaginationDetailClient();
 		pagination.setStart(start);
 		pagination.setLimit(length);

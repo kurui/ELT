@@ -1,5 +1,7 @@
 package com.chinarewards.elt.dao.org;
 
+import java.util.List;
+
 import com.chinarewards.elt.common.BaseDao;
 import com.chinarewards.elt.domain.org.Members;
 
@@ -11,7 +13,29 @@ import com.chinarewards.elt.domain.org.Members;
  */
 public class MembersDao extends BaseDao<Members> {
 
-	
-	
-	
+	@SuppressWarnings("unchecked")
+	/**
+	 * 得到得有人员
+	 * @param teamId
+	 * @return
+	 */
+	public List<Members> findMemberByTeam(String teamId) {
+		return getEm()
+				.createQuery(
+						"FROM Members m WHERE m.team.id =:teamId")
+				.setParameter("teamId", teamId).getResultList();
+	}
+	/**
+	 * 得到列表要用的负责人
+	 * @param teamId
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Members> findStaffByTeam(String teamId,int type) {
+		return getEm()
+				.createQuery("FROM Members m WHERE m.team.id =:teamId and m.memberType =:type")
+				.setParameter("teamId", teamId)
+				.setParameter("type", type)
+				.getResultList();
+	}
 }

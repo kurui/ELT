@@ -1,9 +1,12 @@
 package com.chinarewards.gwt.elt.client.department.presenter;
 
+import java.util.List;
+
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.core.Platform;
+import com.chinarewards.gwt.elt.client.core.ui.DialogCloseListener;
 import com.chinarewards.gwt.elt.client.department.model.DepartmentClient;
 import com.chinarewards.gwt.elt.client.department.model.DepartmentVo;
 import com.chinarewards.gwt.elt.client.department.plugin.DepartmentConstants;
@@ -16,13 +19,17 @@ import com.chinarewards.gwt.elt.client.department.util.DepartmentAdapterClient;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
+import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
+import com.chinarewards.gwt.elt.client.rewards.model.StaffClient;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 public class DepartmentPresenterImpl extends
 		BasePresenter<DepartmentPresenter.DepartmentDisplay> implements
@@ -35,6 +42,8 @@ public class DepartmentPresenterImpl extends
 	private final DispatchAsync dispatcher;
 	private final ErrorHandler errorHandler;
 	private final SessionManager sessionManager;
+	
+	private final Provider<ChooseLeaderWinDialog> chooseLeaderDialogProvider;
 
 	private final Win win;
 
@@ -44,13 +53,14 @@ public class DepartmentPresenterImpl extends
 	public DepartmentPresenterImpl(EventBus eventBus,
 			DepartmentDisplay display, DispatchAsync dispatcher,
 			ErrorHandler errorHandler, SessionManager sessionManager, Win win,
-			BreadCrumbsPresenter breadCrumbs) {
+			BreadCrumbsPresenter breadCrumbs,Provider<ChooseLeaderWinDialog> chooseLeaderDialogProvider) {
 		super(eventBus, display);
 		this.dispatcher = dispatcher;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
 		this.win = win;
 		this.breadCrumbs = breadCrumbs;
+		this.chooseLeaderDialogProvider=chooseLeaderDialogProvider;
 	}
 
 	@Override
@@ -164,8 +174,61 @@ public class DepartmentPresenterImpl extends
 						openDepartmentManagePage();
 					}
 				}));
+		
+		registerChooseLeader();
 
 	}
+	
+	//选择Leader
+	private void registerChooseLeader(){	
+		registerHandler(display.getChooseLeaderBtnClick().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent arg0) {
+						final ChooseLeaderWinDialog dialog = chooseLeaderDialogProvider.get();
+						dialog.setNominee(false, true, null);
+						final HandlerRegistration registration = eventBus.addHandler(ChooseLeaderEvent.getType(),new ChooseLeaderHandler() {
+											@Override
+											public void chosenLeader(List<StaffClient> list) {
+												for (StaffClient item : list) {
+													if (!display.getLeaderArea().containsItem(item)) {
+														
+														display.getLeaderArea().addItem(item);
+														
+														setLeaderAreaString();
+													}
+												}
+											}
+										});
+
+						       Platform.getInstance().getSiteManager()
+								.openDialog(dialog, new DialogCloseListener() {
+									public void onClose(String dialogId,String instanceId) {
+										registration.removeHandler();
+									}
+								});
+					}
+				}));
+	}
+	
+	private void setLeaderAreaString(){
+		List<OrganicationClient> itemList= display.getLeaderArea().getItemList();
+		String leaderIds="";
+		String leaderNames="";
+		
+		for (int i = 0; i < itemList.size(); i++) {
+			leaderIds+=itemList.get(i).getId()+",";
+			leaderNames+=itemList.get(i).getName()+",";
+			
+		}
+		leaderIds=leaderIds.substring(0,leaderIds.lastIndexOf(","));		
+		leaderNames=leaderNames.substring(0,leaderNames.lastIndexOf(","));
+		
+		
+		display.getLeaderId().setValue(leaderIds);
+		display.getLeaderName().setValue(leaderNames);
+	}
+	
 
 	// 验证方法
 	private boolean validateSubmit() {

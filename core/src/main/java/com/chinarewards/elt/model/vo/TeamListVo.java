@@ -24,19 +24,54 @@ public class TeamListVo implements Serializable {
 	private SortingDetail sortingDetail;
 	private String id;
 	private String corpid ;
-	public String getCorpid() {
-		return corpid;
-	}
-
-	public void setCorpid(String corpid) {
-		this.corpid = corpid;
-	}
+	private String departId;
 
 	private String name; // 组名
 	private String code;
 	private String description;
 	private List<Members>  membersList;
+	private List<Members>  managersList;
+	public List<Members> getManagersList() {
+		return managersList;
+	}
 
+	public void setManagersList(List<Members> managersList) {
+		this.managersList = managersList;
+	}
+
+	private String manager;
+	private int people;
+	public int getPeople() {
+		return people;
+	}
+
+	public void setPeople(int people) {
+		this.people = people;
+	}
+
+	public String getManager() {
+		return manager;
+	}
+
+	public void setManager(String manager) {
+		this.manager = manager;
+	}
+
+	public String getCorpid() {
+		return corpid;
+	}
+
+	public String getDepartId() {
+		return departId;
+	}
+
+	public void setDepartId(String departId) {
+		this.departId = departId;
+	}
+
+	public void setCorpid(String corpid) {
+		this.corpid = corpid;
+	}
 	public TeamListVo() {
 	}
 

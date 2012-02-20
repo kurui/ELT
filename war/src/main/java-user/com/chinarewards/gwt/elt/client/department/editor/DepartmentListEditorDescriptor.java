@@ -28,7 +28,7 @@ public class DepartmentListEditorDescriptor implements EditorDescriptor {
 	public Editor createEditor(String instanceId, Object model) {
 		DepartmentListEditor e = editProvider.get();
 		e.setInstanceId(instanceId);
-		e.setTitle("公司组织机构");
+		e.setTitle("公司组织结构");
 		if (model instanceof RewardsPageClient) {
 			if (model != null)
 				e.setTitle(((RewardsPageClient) model).getTitleName());

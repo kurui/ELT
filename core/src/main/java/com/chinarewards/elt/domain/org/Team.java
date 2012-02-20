@@ -2,10 +2,8 @@ package com.chinarewards.elt.domain.org;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.ManyToOne;
 
 /**
  * It defines the departments of a corporation. e.g. IT department, Sales
@@ -16,15 +14,11 @@ import javax.persistence.ManyToOne;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorValue(value = "term")
+@DiscriminatorValue(value = "team")
 public class Team extends Organization {
-
-	private static final long serialVersionUID = 8744769908375326416L;
-
-	
-	@ManyToOne
-	private Corporation corporation;
- 
+		
+	private String  corpId;
+    private String   departId;
 	private String code;//编号
 	 
 	private int deleted;//删除状态0存在,1删除
@@ -41,17 +35,24 @@ public class Team extends Organization {
 		return "";
 	}
 
-	public Corporation getCorporation() {
-		return corporation;
+	
+
+
+	public String getCorpId() {
+		return corpId;
 	}
 
-
-
-	public void setCorporation(Corporation corporation) {
-		this.corporation = corporation;
+	public void setCorpId(String corpId) {
+		this.corpId = corpId;
 	}
 
+	public String getDepartId() {
+		return departId;
+	}
 
+	public void setDepartId(String departId) {
+		this.departId = departId;
+	}
 
 	public String getCode() {
 		return code;

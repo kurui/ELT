@@ -57,9 +57,15 @@ public class TeamDao extends BaseDao<Team> {
 		if (!StringUtil.isEmptyString(vo.getName())) {//查询姓名或编码时
 			eql.append(" AND o.name LIKE :name ");
 			param.put("name", "%" + vo.getName().trim().toUpperCase()+ "%");
-			
 		}
-		
+		if (!StringUtil.isEmptyString(vo.getCorpid())) {//
+			eql.append(" AND o.corpId = :corpId ");
+			param.put("corpId",  vo.getCorpid().trim());
+		}
+		if (!StringUtil.isEmptyString(vo.getDepartId())) {//
+			eql.append(" AND o.departId = :departId ");
+			param.put("departId",  vo.getDepartId().trim());
+		}
 		if (SEARCH.equals(type)) {
 			if (vo.getSortingDetail() != null) {
 				eql.append(" ORDER BY o."

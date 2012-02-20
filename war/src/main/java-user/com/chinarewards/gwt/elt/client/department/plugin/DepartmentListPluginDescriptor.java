@@ -21,14 +21,14 @@ import com.google.inject.Inject;
 public class DepartmentListPluginDescriptor implements PluginDescriptor {
 
 	final static Set<Extension> ext = new HashSet<Extension>();
-	final DepartmentListPlugin DepartmentListPlugin;
+	final DepartmentListPlugin departmentListPlugin;
 	final DepartmentListEditorDescriptor departmentListEditorDescriptor;
 
 	@Inject
 	public DepartmentListPluginDescriptor(
 			final DepartmentListEditorDescriptor departmentListEditorDescriptor) {
 		this.departmentListEditorDescriptor = departmentListEditorDescriptor;
-		DepartmentListPlugin = new DepartmentListPlugin(this);
+		this.departmentListPlugin = new DepartmentListPlugin(this);
 
 		/**
 		 * Search user menu
@@ -61,7 +61,7 @@ public class DepartmentListPluginDescriptor implements PluginDescriptor {
 
 					@Override
 					public String getTitle() {
-						return "公司组织机构";
+						return "公司组织结构";
 					}
 
 					@Override
@@ -117,7 +117,7 @@ public class DepartmentListPluginDescriptor implements PluginDescriptor {
 
 	@Override
 	public Plugin getInstance() {
-		return DepartmentListPlugin;
+		return departmentListPlugin;
 	}
 
 	@Override

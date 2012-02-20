@@ -10,6 +10,7 @@ import com.chinarewards.gwt.elt.client.budget.module.CorpBudgetModule;
 import com.chinarewards.gwt.elt.client.budget.module.DepBudgetModule;
 import com.chinarewards.gwt.elt.client.chooseStaff.module.ChooseStaffModule;
 import com.chinarewards.gwt.elt.client.core.presenter.DockModule;
+import com.chinarewards.gwt.elt.client.department.module.DepartmentLeaderModule;
 import com.chinarewards.gwt.elt.client.department.module.DepartmentListModule;
 import com.chinarewards.gwt.elt.client.department.module.DepartmentModule;
 import com.chinarewards.gwt.elt.client.detailsOfAward.module.DetailsOfAwardModule;
@@ -32,6 +33,8 @@ import com.chinarewards.gwt.elt.client.staff.module.HrRegisterModule;
 import com.chinarewards.gwt.elt.client.staffAdd.module.StaffAddModule;
 import com.chinarewards.gwt.elt.client.staffList.module.StaffListModule;
 import com.chinarewards.gwt.elt.client.staffView.module.StaffViewModule;
+import com.chinarewards.gwt.elt.client.team.module.TeamAddModule;
+import com.chinarewards.gwt.elt.client.team.module.TeamListModule;
 import com.chinarewards.gwt.elt.client.user.module.UserModule;
 import com.chinarewards.gwt.elt.client.win.WinModule;
 import com.google.gwt.inject.client.AbstractGinModule;
@@ -43,6 +46,7 @@ public class PresenterModule extends AbstractGinModule {
 		install(new DockModule());
 		install(new UserModule());
 		install(new DepartmentListModule());
+		install(new DepartmentLeaderModule());
 		install(new DepartmentModule());
 		
 		install(new HrRegisterModule());
@@ -75,7 +79,9 @@ public class PresenterModule extends AbstractGinModule {
 		install(new StaffAddModule());
 		install(new StaffViewModule());
 		install(new BroadcastingModule());
-
+		install(new TeamListModule());
+		install(new TeamAddModule());
+		
 
 	}
 
