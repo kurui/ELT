@@ -63,11 +63,7 @@ public class Broadcasting implements Serializable {
 	 */
 	private boolean isAllowreplies;
 	
-	/**
-	 * 接收对象
-	 */
-	private ReceivingObject receivingObject;
-	
+
 	/**
 	 * 公司
 	 */
@@ -104,12 +100,6 @@ public class Broadcasting implements Serializable {
 		this.corporation = corporation;
 	}
 
-	public ReceivingObject getReceivingObject() {
-		return receivingObject;
-	}
-	public void setReceivingObject(ReceivingObject receivingObject) {
-		this.receivingObject = receivingObject;
-	}
 	public String getId() {
 		return id;
 	}
