@@ -101,6 +101,10 @@ public class BroadcastServiceImpl implements BroadcastService {
 			broadcastBo.setLastModifiedAt(DateUtil.getTime());
 			broadcastBo.setLastModifiedBy(nowUser);
 			
+			
+			//修改时..清空发送对象
+			broadcastLogic.deleteBroadcastReceiving(broadcastBo.getId());
+			
 		}
 		Broadcasting broadcastNew = broadcastLogic.createOrUpdateBroadcast(broadcastBo);
 		// 处理接收对象保存

@@ -47,5 +47,11 @@ public interface BroadcastLogic {
 	 * @param broadcastingId
 	 */
 	public void deletebroadcasting(Broadcasting broadcasting);
+	
+	/**
+	 * 情况.广播发送对象数据
+	 * @param broadcastingId
+	 */
+	public void deleteBroadcastReceiving(String broadcastingId);
 
 }

@@ -1,7 +1,12 @@
 package com.chinarewards.elt.service.broadcast.impl;
 
+import java.util.List;
+
 import com.chinarewards.elt.dao.broadcast.BroadcastDao;
+import com.chinarewards.elt.dao.broadcast.BroadcastingReceivingDao;
+import com.chinarewards.elt.dao.broadcast.ReceivingObjectDao;
 import com.chinarewards.elt.domain.information.Broadcasting;
+import com.chinarewards.elt.domain.information.BroadcastingReceiving;
 import com.chinarewards.elt.model.broadcast.BroadcastQueryListCriteria;
 import com.chinarewards.elt.model.broadcast.BroadcastQueryListVo;
 import com.chinarewards.elt.service.broadcast.BroadcastLogic;
@@ -10,10 +15,13 @@ import com.google.inject.Inject;
 
 public class BroadcastLogicImpl implements BroadcastLogic {
 	private final BroadcastDao broadcastDao;
-
+	private final BroadcastingReceivingDao broadcastingReceivingDao;
+	private final ReceivingObjectDao receivingObjectDao;
 	@Inject
-	public BroadcastLogicImpl(BroadcastDao broadcastDao) {
+	public BroadcastLogicImpl(BroadcastDao broadcastDao,BroadcastingReceivingDao broadcastingReceivingDao,ReceivingObjectDao receivingObjectDao) {
 		this.broadcastDao = broadcastDao;
+		this.broadcastingReceivingDao=broadcastingReceivingDao;
+		this.receivingObjectDao=receivingObjectDao;
 	}
 
 	@Override
@@ -53,6 +61,19 @@ public class BroadcastLogicImpl implements BroadcastLogic {
 	@Override
 	public void deletebroadcasting(Broadcasting broadcasting) {
 		broadcastDao.delete(broadcasting);
+	}
+
+	@Override
+	public void deleteBroadcastReceiving(String broadcastingId) {
+		List<BroadcastingReceiving> broadcastingList=broadcastingReceivingDao.findBroadcastingReceivingList(broadcastingId);
+		if(broadcastingList.size()>0)
+		{
+			for (BroadcastingReceiving cast:broadcastingList) {
+				broadcastingReceivingDao.delete(cast);
+				receivingObjectDao.delete(cast.getReceiving());
+			}
+		}
+		
 	}
 
 
