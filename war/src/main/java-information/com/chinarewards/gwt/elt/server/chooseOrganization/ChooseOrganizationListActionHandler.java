@@ -142,7 +142,7 @@ public class ChooseOrganizationListActionHandler
 	}
 	private ChooseOrganizationResponse queryDept(ChooseOrganizationRequest request)
 	{
-		List<Department> result=departmentService.getWholeDepartmentsOfCorporation(request.getSession().getCorporationId());
+		List<Department> result=departmentService.getDepartmentsOfCorporationAndKey(request.getSession().getCorporationId(),request.getCriteria().getKey());
 		List<OrganicationClient> lt=new ArrayList<OrganicationClient>();
 		for (Department dept:result) {
 			OrganicationClient client=new OrganicationClient();

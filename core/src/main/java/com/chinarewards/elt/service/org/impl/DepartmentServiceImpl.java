@@ -75,9 +75,8 @@ public class DepartmentServiceImpl implements DepartmentService {
 	}
 
 	@Override
-	public List<Department> getWholeDepartmentsOfCorporation(
-			String corporationId) {
-		return departmentLogic.getWholeDepartmentsOfCorporation(corporationId);
+	public List<Department> getDepartmentsOfCorporationAndKey(String corporationId,String key)
+	{
+		return departmentLogic.getDepartmentsOfCorporationAndKey(corporationId, key);
 	}
-
 }

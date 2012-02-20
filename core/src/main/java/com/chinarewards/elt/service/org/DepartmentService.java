@@ -73,11 +73,10 @@ public interface DepartmentService {
 	public String mergeDepartment(UserContext uc, String departmentIds);
 
 	/**
-	 * Get all of the departments of the specified corporation.
+	 *获取部门.查询.key(name).去掉根部门
 	 * 
 	 * @param corporationId
 	 * @return
 	 */
-	public List<Department> getWholeDepartmentsOfCorporation(
-			String corporationId);
+	public List<Department> getDepartmentsOfCorporationAndKey(String corporationId,String key);
 }

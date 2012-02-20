@@ -2,7 +2,9 @@ package com.chinarewards.elt.dao.org;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -13,6 +15,7 @@ import com.chinarewards.elt.common.BaseDao;
 import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.util.DateUtil;
+import com.chinarewards.elt.util.StringUtil;
 
 /**
  * Dao of {@link Department}
@@ -196,5 +199,27 @@ public class DepartmentDao extends BaseDao<Department> {
 	
 		return "";
 	}
-	
+	@SuppressWarnings("unchecked")
+	public List<Department> getDepartmentsOfCorporationAndKey(String corporationId,String name)
+	{
+		Map<String, Object> param = new HashMap<String, Object>();
+		StringBuffer hql = new StringBuffer();
+		hql.append(" SELECT d FROM Department d WHERE d.parent is not null");
+		if(!StringUtil.isEmptyString(corporationId))
+		{
+			hql.append(" AND d.corporation.id =:corpId  ");
+			param.put("corpId",corporationId);
+		}
+		if(!StringUtil.isEmptyString(name))
+		{
+			hql.append(" AND d.name LIKE :name  ");
+			param.put("name", "%"+ name + "%");
+		}
+		Query query = getEm().createQuery(hql.toString());
+		for (String key : param.keySet()) {
+			query.setParameter(key, param.get(key));
+		}
+		
+		return query.getResultList();
+	}
 }

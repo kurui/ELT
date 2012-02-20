@@ -314,4 +314,10 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 		return departmentDao.mergeDepartment(departmentIds);
 	}
 
+	@Override
+	public List<Department> getDepartmentsOfCorporationAndKey(
+			String corporationId, String key) {
+		return departmentDao.getDepartmentsOfCorporationAndKey(corporationId, key);
+	}
+
 }
