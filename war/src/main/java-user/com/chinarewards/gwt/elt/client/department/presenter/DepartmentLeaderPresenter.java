@@ -17,17 +17,11 @@ public interface DepartmentLeaderPresenter extends
 
 		public Hidden getCurrentDepartmentId();
 		
-		public HasClickHandlers getAddSameLevelBtnClickHandlers();
-
 		public HasClickHandlers getAddChildBtnClickHandlers();
 
 		public HasClickHandlers getDeleteBtnClickHandlers();
 
 		public HasClickHandlers getEditBtnClickHandlers();
-
-		public HasClickHandlers getMergeBtnClickHandlers();
-
-		public HasClickHandlers getSynchBtnClickHandlers();
 
 		Panel getCellTree();
 

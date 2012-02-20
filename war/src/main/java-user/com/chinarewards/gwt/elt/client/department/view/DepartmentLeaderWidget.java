@@ -3,7 +3,6 @@ package com.chinarewards.gwt.elt.client.department.view;
 import java.util.List;
 
 import com.chinarewards.gwt.elt.client.department.model.DepartmentLeaderTreeModel;
-import com.chinarewards.gwt.elt.client.department.model.DepartmentManageTreeModel;
 import com.chinarewards.gwt.elt.client.department.model.DepartmentNode;
 import com.chinarewards.gwt.elt.client.department.presenter.DepartmentLeaderPresenter.DepartmentLeaderDisplay;
 import com.google.gwt.core.client.GWT;
@@ -26,17 +25,11 @@ public class DepartmentLeaderWidget extends Composite implements
 	Hidden currentDepartmentId;
 
 	@UiField
-	Button addSameLevelBtn;
-	@UiField
 	Button addChildBtn;
 	@UiField
 	Button deleteBtn;
 	@UiField
 	Button editBtn;
-	@UiField
-	Button mergeBtn;
-	@UiField
-	Button synchBtn;
 
 	@UiField
 	Panel breadCrumbs;
@@ -65,10 +58,6 @@ public class DepartmentLeaderWidget extends Composite implements
 		cellTree.add(tree);
 	}
 
-	@Override
-	public HasClickHandlers getAddSameLevelBtnClickHandlers() {
-		return addSameLevelBtn;
-	}
 
 	@Override
 	public void setBreadCrumbs(Widget breadCrumbs) {
@@ -89,16 +78,6 @@ public class DepartmentLeaderWidget extends Composite implements
 	@Override
 	public HasClickHandlers getEditBtnClickHandlers() {
 		return editBtn;
-	}
-
-	@Override
-	public HasClickHandlers getMergeBtnClickHandlers() {
-		return mergeBtn;
-	}
-
-	@Override
-	public HasClickHandlers getSynchBtnClickHandlers() {
-		return synchBtn;
 	}
 
 	@Override
