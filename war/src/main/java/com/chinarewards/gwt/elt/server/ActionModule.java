@@ -5,6 +5,7 @@ import net.customware.gwt.dispatch.server.guice.ActionHandlerModule;
 import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardAddRequest;
 import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardInitRequest;
 import com.chinarewards.gwt.elt.client.awardShop.request.SearchAwardShopRequest;
+import com.chinarewards.gwt.elt.client.broadcasting.request.SearchBroadcastingListRequest;
 import com.chinarewards.gwt.elt.client.budget.request.AddDepartmentBudgetRequest;
 import com.chinarewards.gwt.elt.client.budget.request.EditCorpBudgetRequest;
 import com.chinarewards.gwt.elt.client.budget.request.InitCorpBudgetByCorpIdRequest;
@@ -19,6 +20,7 @@ import com.chinarewards.gwt.elt.client.department.request.EditDepartmentRequest;
 import com.chinarewards.gwt.elt.client.department.request.MergeDepartmentRequest;
 import com.chinarewards.gwt.elt.client.department.request.SearchDepartmentByIdRequest;
 import com.chinarewards.gwt.elt.client.department.request.SearchDepartmentRequest;
+import com.chinarewards.gwt.elt.client.department.request.SearchLeaderRequest;
 import com.chinarewards.gwt.elt.client.detailsOfAward.request.DetailsOfAwardInitRequest;
 import com.chinarewards.gwt.elt.client.detailsOfGift.request.DetailsOfGiftRequest;
 import com.chinarewards.gwt.elt.client.enterprise.request.EditIntegralPriceRequest;
@@ -74,6 +76,7 @@ import com.chinarewards.gwt.elt.client.user.UserSearchRequest;
 import com.chinarewards.gwt.elt.server.awardReward.AwardRewardActionHandler;
 import com.chinarewards.gwt.elt.server.awardReward.AwardRewardAddActionHandler;
 import com.chinarewards.gwt.elt.server.awardShop.SearchAwardShopHandler;
+import com.chinarewards.gwt.elt.server.broadcasting.SearchBroadcastingListActionHandler;
 import com.chinarewards.gwt.elt.server.budget.AddDepBudgetHandler;
 import com.chinarewards.gwt.elt.server.budget.EditCorpBudgetHandler;
 import com.chinarewards.gwt.elt.server.budget.InitCorpBudgetByCorpIdHandler;
@@ -88,6 +91,7 @@ import com.chinarewards.gwt.elt.server.department.EditDepartmentHandler;
 import com.chinarewards.gwt.elt.server.department.MergeDepartmentHandler;
 import com.chinarewards.gwt.elt.server.department.SearchDepartmentByIdHandler;
 import com.chinarewards.gwt.elt.server.department.SearchDepartmentHandler;
+import com.chinarewards.gwt.elt.server.department.SearchLeaderHandler;
 import com.chinarewards.gwt.elt.server.detailsOfAward.DetailsOfAwardActionHandler;
 import com.chinarewards.gwt.elt.server.detailsOfGift.DetailsOfGiftHandler;
 import com.chinarewards.gwt.elt.server.enterprise.EditIntegralPriceHandler;
@@ -172,7 +176,7 @@ public class ActionModule extends ActionHandlerModule {
 		bindHandler(DeleteDepartmentRequest.class, DeleteDepartmentHandler.class); 
 		//合并部门
 		bindHandler(MergeDepartmentRequest.class, MergeDepartmentHandler.class); 
-				
+		bindHandler(SearchLeaderRequest.class,SearchLeaderHandler.class);		
 		
 		// staff module
 		bindHandler(HrRegisterRequest.class, HrRegisterActionHandler.class);
@@ -304,6 +308,8 @@ public class ActionModule extends ActionHandlerModule {
 		bindHandler(StaffGenerateUserRequest.class,StaffGenerateUserActionHandler.class);
 		//员工修改密码
 		bindHandler(UpdateUserPwdRequest.class,UpdateUserPwdActionHandler.class);
+		//广播列表
+		bindHandler(SearchBroadcastingListRequest.class,SearchBroadcastingListActionHandler.class);
 		
 		//小组列表
 		bindHandler(SearchTeamRequest.class,SearchTeamHandler.class);

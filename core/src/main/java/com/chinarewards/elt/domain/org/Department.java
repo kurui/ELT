@@ -44,42 +44,16 @@ public class Department extends Organization {
 	private int rgt;
 	
 	
-	private String leader;
-	private String peopleNumber;
-	private String yearintegral;
-	private String issueintegral;
+	private String leaderId;
+
 	
 
-	public String getLeader() {
-		return leader;
+	public String getLeaderId() {
+		return leaderId;
 	}
 
-	public void setLeader(String leader) {
-		this.leader = leader;
-	}
-
-	public String getPeopleNumber() {
-		return peopleNumber;
-	}
-
-	public void setPeopleNumber(String peopleNumber) {
-		this.peopleNumber = peopleNumber;
-	}
-
-	public String getYearintegral() {
-		return yearintegral;
-	}
-
-	public void setYearintegral(String yearintegral) {
-		this.yearintegral = yearintegral;
-	}
-
-	public String getIssueintegral() {
-		return issueintegral;
-	}
-
-	public void setIssueintegral(String issueintegral) {
-		this.issueintegral = issueintegral;
+	public void setLeaderId(String leaderId) {
+		this.leaderId = leaderId;
 	}
 
 	public Corporation getCorporation() {

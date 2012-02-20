@@ -2,6 +2,7 @@ package com.chinarewards.gwt.elt.client.core;
 
 import com.chinarewards.gwt.elt.client.awardReward.plugin.AwardRewardPluginDescriptor;
 import com.chinarewards.gwt.elt.client.awardShop.plugin.AwardShopListPluginDescriptor;
+import com.chinarewards.gwt.elt.client.broadcasting.plugin.BroadcastingListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.budget.plugin.BudgetPluginDescriptor;
 import com.chinarewards.gwt.elt.client.budget.plugin.CorpBudgetPluginDescriptor;
 import com.chinarewards.gwt.elt.client.core.impl.CorePluginDescriptor;
@@ -14,6 +15,7 @@ import com.chinarewards.gwt.elt.client.core.ui.SiteManager;
 import com.chinarewards.gwt.elt.client.core.ui.impl.ButtonMenuProcessor;
 import com.chinarewards.gwt.elt.client.core.ui.impl.SimpleEditorRegistry;
 import com.chinarewards.gwt.elt.client.core.ui.impl.SimpleSiteManager;
+import com.chinarewards.gwt.elt.client.department.plugin.DepartmentLeaderPluginDescriptor;
 import com.chinarewards.gwt.elt.client.department.plugin.DepartmentListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.department.plugin.DepartmentPluginDescriptor;
 import com.chinarewards.gwt.elt.client.detailsOfAward.plugin.DetailsOfAwardPluginDescriptor;
@@ -87,7 +89,7 @@ public class PlatformModule extends AbstractGinModule {
 			EnterprisePluginDescriptor enterprise,
 			IntegralPricePluginDescriptor integralPrice,
 			PeriodPluginDescriptor period, UserPluginDescriptor user,
-			DepartmentListPluginDescriptor departmentList,
+			DepartmentListPluginDescriptor departmentList,DepartmentLeaderPluginDescriptor departmentLeader,
 			DepartmentPluginDescriptor department,
 			HrRegisterPluginDescriptor hrregister,
 			NominatePluginDescriptor nominate,
@@ -117,7 +119,9 @@ public class PlatformModule extends AbstractGinModule {
 			StaffAddPluginDescriptor staffAdd,
 			TeamListPluginDescriptor teamList,
 			TeamAddPluginDescriptor teamAdd,
-			StaffViewPluginDescriptor staffView) {
+			StaffViewPluginDescriptor staffView,
+			BroadcastingListPluginDescriptor broadcasting) {
+
 
 		if (pluginSet == null) {
 			pluginSet = new InMemoryPluginSet();
@@ -127,6 +131,7 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(period);
 			pluginSet.registerPlugin(user);
 			pluginSet.registerPlugin(departmentList);
+			pluginSet.registerPlugin(departmentLeader);
 			pluginSet.registerPlugin(department);
 			pluginSet.registerPlugin(hrregister);
 			pluginSet.registerPlugin(rewardsItemList);
@@ -156,8 +161,10 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(staffList);
 			pluginSet.registerPlugin(staffAdd);
 			pluginSet.registerPlugin(staffView);
+			pluginSet.registerPlugin(broadcasting);
 			pluginSet.registerPlugin(teamList);
 			pluginSet.registerPlugin(teamAdd);
+
 		}
 
 		return pluginSet;
