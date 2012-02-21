@@ -180,6 +180,11 @@ public class BroadcastServiceImpl implements BroadcastService {
 		return broadcastLogic.findBroadcastReceiving(broadcastingId);
 	}
 
+	@Override
+	public Broadcasting findBroadcast2ById(String broadcastId) {
+		return broadcastLogic.findbroadcastingById(broadcastId);
+	}
+
 
 
 }

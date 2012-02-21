@@ -2,6 +2,7 @@ package com.chinarewards.elt.service.broadcast;
 
 import java.util.List;
 
+import com.chinarewards.elt.domain.information.Broadcasting;
 import com.chinarewards.elt.domain.information.BroadcastingReceiving;
 import com.chinarewards.elt.model.broadcast.BroadcastAndReplyQueryListVo;
 import com.chinarewards.elt.model.broadcast.BroadcastQueryListCriteria;
@@ -34,7 +35,12 @@ public interface BroadcastService {
 	 * @return
 	 */
 	public BroadcastAndReplyQueryListVo findBroadcastById(String broadcastId);
-	
+	/**
+	 * 查询广播详细(不包括回复)
+	 * @param broadcastId
+	 * @return
+	 */
+	public Broadcasting findBroadcast2ById(String broadcastId);
 	
 	/**
 	 * 获取 发送对象数据

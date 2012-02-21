@@ -6,6 +6,7 @@ import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardAddRequest
 import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardInitRequest;
 import com.chinarewards.gwt.elt.client.awardShop.request.SearchAwardShopRequest;
 import com.chinarewards.gwt.elt.client.broadcastSave.request.BroadcastSaveRequest;
+import com.chinarewards.gwt.elt.client.broadcastSave.request.BroadcastUpdateRequest;
 import com.chinarewards.gwt.elt.client.broadcasting.request.SearchBroadcastingListRequest;
 import com.chinarewards.gwt.elt.client.budget.request.AddDepartmentBudgetRequest;
 import com.chinarewards.gwt.elt.client.budget.request.EditCorpBudgetRequest;
@@ -79,6 +80,7 @@ import com.chinarewards.gwt.elt.client.user.UserSearchRequest;
 import com.chinarewards.gwt.elt.server.awardReward.AwardRewardActionHandler;
 import com.chinarewards.gwt.elt.server.awardReward.AwardRewardAddActionHandler;
 import com.chinarewards.gwt.elt.server.awardShop.SearchAwardShopHandler;
+import com.chinarewards.gwt.elt.server.broadcastSave.BroadcastUpdateActionHandler;
 import com.chinarewards.gwt.elt.server.broadcastSave.BroadcastingSaveActionHandler;
 import com.chinarewards.gwt.elt.server.broadcasting.SearchBroadcastingListActionHandler;
 import com.chinarewards.gwt.elt.server.budget.AddDepBudgetHandler;
@@ -331,5 +333,8 @@ public class ActionModule extends ActionHandlerModule {
 		bindHandler(BroadcastSaveRequest.class,BroadcastingSaveActionHandler.class);
 		//广播详细
 		bindHandler(DetailsOfBroadcastRequest.class,DetailsOfBroadcastActionHandler.class);
+		//广播修改
+		bindHandler(BroadcastUpdateRequest.class,BroadcastUpdateActionHandler.class);
+		
 	}
 }

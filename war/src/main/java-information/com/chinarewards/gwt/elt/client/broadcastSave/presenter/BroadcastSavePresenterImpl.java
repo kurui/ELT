@@ -8,6 +8,8 @@ import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresente
 import com.chinarewards.gwt.elt.client.broadcastSave.dialog.ChooseOrganizationListDialog;
 import com.chinarewards.gwt.elt.client.broadcastSave.request.BroadcastSaveRequest;
 import com.chinarewards.gwt.elt.client.broadcastSave.request.BroadcastSaveResponse;
+import com.chinarewards.gwt.elt.client.broadcastSave.request.BroadcastUpdateRequest;
+import com.chinarewards.gwt.elt.client.broadcastSave.request.BroadcastUpdateResponse;
 import com.chinarewards.gwt.elt.client.broadcasting.plugin.BroadcastingListConstants;
 import com.chinarewards.gwt.elt.client.chooseOrganization.event.ChooseOrganizationEvent;
 import com.chinarewards.gwt.elt.client.chooseOrganization.handler.ChooseOrganizationHandler;
@@ -172,32 +174,30 @@ public class BroadcastSavePresenterImpl extends
 	private void init() {
 		if (broadcastId != null) {
 //			// 修改加载数据
-//			dispatch.execute(new BroadcastViewRequest(broadcastId),
-//					new AsyncCallback<BroadcastViewResponse>() {
-//
-//						@Override
-//						public void onFailure(Throwable t) {
-//							win.alert(t.getMessage());
-//						}
-//
-//						@Override
-//						public void onSuccess(BroadcastViewResponse resp) {
-//
-//							display.setBroadcastNo(resp.getBroadcastNo());
-//							display.setBroadcastName(resp.getBroadcastName());
-//							display.setDepartmentId(resp.getDepartmentId());
-//							display.setDepartmentName(resp.getDepartmentName());
-//							display.setJobPosition(resp.getJobPosition());
-//							display.setLeadership(resp.getLeadership());
-//							display.setPhone(resp.getPhone());
-//							display.setEmail(resp.getEmail());
-//							display.setDob(resp.getDob());
-//							display.setBroadcastImage(resp.getPhoto());
-//							display.setPhoto(resp.getPhoto());
-//							display.setStatus(resp.getStatus().toString());
-//
-//						}
-//					});
+			dispatch.execute(new BroadcastUpdateRequest(broadcastId),
+					new AsyncCallback<BroadcastUpdateResponse>() {
+						@Override
+						public void onFailure(Throwable e) {
+							errorHandler.alert(e.getMessage());
+						}
+
+						@Override
+						public void onSuccess(BroadcastUpdateResponse response) {
+							display.setAllowreplies(response.isAllowreplies());
+							display.setBroadcastingTimeStart(response.getBroadcastingTimeStart());
+							display.setBroadcastingTimeEnd(response.getBroadcastingTimeEnd());
+							display.setContent(response.getContent());
+							if(response.getReceivingObject().size()>0)
+							{
+								for (OrganicationClient client:response.getReceivingObject()) {
+									display.getSpecialTextArea().addItem(client);
+								}
+							}
+							
+						}
+
+					});
+
 
 		}
 
