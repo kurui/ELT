@@ -9,11 +9,15 @@ import com.chinarewards.elt.dao.broadcast.ReceivingObjectDao;
 import com.chinarewards.elt.domain.information.BroadcastReply;
 import com.chinarewards.elt.domain.information.Broadcasting;
 import com.chinarewards.elt.domain.information.BroadcastingReceiving;
+import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.broadcast.BroadcastQueryListCriteria;
 import com.chinarewards.elt.model.broadcast.BroadcastQueryListVo;
 import com.chinarewards.elt.model.broadcastReply.BroadcastReplyListCriteria;
 import com.chinarewards.elt.model.common.PageStore;
+import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.broadcast.BroadcastLogic;
+import com.chinarewards.elt.service.user.UserLogic;
+import com.chinarewards.elt.util.DateUtil;
 import com.chinarewards.elt.util.StringUtil;
 import com.google.inject.Inject;
 
@@ -22,15 +26,17 @@ public class BroadcastLogicImpl implements BroadcastLogic {
 	private final BroadcastingReceivingDao broadcastingReceivingDao;
 	private final ReceivingObjectDao receivingObjectDao;
 	private final BroadcastReplyDao broadcastReplyDao;
+	private final UserLogic userLogic;
 
 	@Inject
 	public BroadcastLogicImpl(BroadcastDao broadcastDao,
 			BroadcastingReceivingDao broadcastingReceivingDao,
-			ReceivingObjectDao receivingObjectDao,BroadcastReplyDao broadcastReplyDao) {
+			ReceivingObjectDao receivingObjectDao,BroadcastReplyDao broadcastReplyDao,UserLogic userLogic) {
 		this.broadcastDao = broadcastDao;
 		this.broadcastingReceivingDao = broadcastingReceivingDao;
 		this.receivingObjectDao = receivingObjectDao;
 		this.broadcastReplyDao=broadcastReplyDao;
+		this.userLogic=userLogic;
 	}
 
 	@Override
@@ -107,8 +113,24 @@ public class BroadcastLogicImpl implements BroadcastLogic {
 
 	@Override
 	public PageStore<BroadcastReply> findBroadcastReplyList(BroadcastReplyListCriteria criteria) {
-		// TODO Auto-generated method stub
 		return broadcastReplyDao.findBroadcastReplyList(criteria);
+	}
+
+	@Override
+	public BroadcastReply saveBroadcastReply(String broadcastId,String replyContent,
+			UserContext context) {
+		Broadcasting broadcast=broadcastDao.findById(Broadcasting.class, broadcastId);
+		SysUser nowUser = userLogic.findUserById(context.getUserId());
+		BroadcastReply reply=new BroadcastReply();
+		reply.setBroadcast(broadcast);
+		reply.setReplyUser(nowUser);
+		reply.setCorporation(nowUser.getCorporation());
+		reply.setReplyContent(replyContent);
+		reply.setReplyTime(DateUtil.getTime());
+		reply.setLastModifiedAt(DateUtil.getTime());
+		reply.setLastModifiedBy(nowUser);
+		addReplyNumber(broadcast);
+		return broadcastReplyDao.save(reply);
 	}
 
 

@@ -20,7 +20,7 @@ public class BroadcastReplyDao extends BaseDao<BroadcastReply> {
 		PageStore<BroadcastReply> result = new PageStore<BroadcastReply>();
 		result.setResultList(queryBroadcastReplyPageActionData(criteria));
 		result.setResultCount(queryBroadcastReplyPageActionCount(criteria));
-		return null;
+		return result;
 	}
 
 	@SuppressWarnings("unchecked")

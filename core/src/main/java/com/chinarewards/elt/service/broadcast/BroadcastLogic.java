@@ -9,6 +9,7 @@ import com.chinarewards.elt.model.broadcast.BroadcastQueryListCriteria;
 import com.chinarewards.elt.model.broadcast.BroadcastQueryListVo;
 import com.chinarewards.elt.model.broadcastReply.BroadcastReplyListCriteria;
 import com.chinarewards.elt.model.common.PageStore;
+import com.chinarewards.elt.model.user.UserContext;
 
 public interface BroadcastLogic {
 	/**
@@ -78,4 +79,10 @@ public interface BroadcastLogic {
 	 * @return
 	 */
 	public PageStore<BroadcastReply> findBroadcastReplyList(BroadcastReplyListCriteria criteria);
+	/**
+	 * 保存广播回复
+	 * @param broadcastId
+	 * @return
+	 */
+	public BroadcastReply saveBroadcastReply(String broadcastId,String replyContent,UserContext context);
 }
