@@ -3,6 +3,7 @@ package com.chinarewards.gwt.elt.client.detailsOfBroadcast.presenter;
 import com.chinarewards.gwt.elt.client.mvp.Display;
 import com.chinarewards.gwt.elt.client.mvp.Presenter;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
 public interface DetailsOfBroadcastPresenter extends
@@ -21,6 +22,10 @@ public interface DetailsOfBroadcastPresenter extends
 		void setBroadcastingTime(String text);
 		void setAllowreplies(String text);
 		void setCreateUser(String text);
-
+		
+		
+		void setDataCount(String text);
+		Panel getResultPanel();
+		Panel getResultpage();
 	}
 }

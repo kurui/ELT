@@ -1,6 +1,7 @@
 package com.chinarewards.elt.guice.sub;
 
 import com.chinarewards.elt.dao.broadcast.BroadcastDao;
+import com.chinarewards.elt.dao.broadcast.BroadcastReplyDao;
 import com.chinarewards.elt.dao.broadcast.BroadcastingReceivingDao;
 import com.chinarewards.elt.dao.broadcast.DepartmentObjectDao;
 import com.chinarewards.elt.dao.broadcast.OrgObjectDao;
@@ -24,6 +25,7 @@ public class BroadcastingModule extends AbstractModule {
 		bind(OrgObjectDao.class);
 		bind(StaffObjectDao.class);
 		bind(TeamObjectDao.class);
+		bind(BroadcastReplyDao.class);
 		bind(BroadcastLogic.class).to(BroadcastLogicImpl.class);
 		bind(BroadcastService.class).to(BroadcastServiceImpl.class);
 	}

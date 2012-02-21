@@ -2,12 +2,15 @@ package com.chinarewards.elt.service.broadcast;
 
 import java.util.List;
 
+import com.chinarewards.elt.domain.information.BroadcastReply;
 import com.chinarewards.elt.domain.information.Broadcasting;
 import com.chinarewards.elt.domain.information.BroadcastingReceiving;
 import com.chinarewards.elt.model.broadcast.BroadcastAndReplyQueryListVo;
 import com.chinarewards.elt.model.broadcast.BroadcastQueryListCriteria;
 import com.chinarewards.elt.model.broadcast.BroadcastQueryListVo;
 import com.chinarewards.elt.model.broadcast.BroadcastingVo;
+import com.chinarewards.elt.model.broadcastReply.BroadcastReplyListCriteria;
+import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.user.UserContext;
 
 public interface BroadcastService {
@@ -47,4 +50,11 @@ public interface BroadcastService {
 	 * @param broadcastingId
 	 */
 	public List<BroadcastingReceiving> findBroadcastReceiving(String broadcastingId);
+	
+	/**
+	 * 查询回复列表
+	 * @param broadcastId
+	 * @return
+	 */
+	public PageStore<BroadcastReply> findBroadcastReplyList(BroadcastReplyListCriteria criteria);
 }

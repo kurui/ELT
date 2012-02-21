@@ -5,6 +5,7 @@ import net.customware.gwt.dispatch.server.guice.ActionHandlerModule;
 import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardAddRequest;
 import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardInitRequest;
 import com.chinarewards.gwt.elt.client.awardShop.request.SearchAwardShopRequest;
+import com.chinarewards.gwt.elt.client.broadcastReply.request.SearchBroadcastReplyRequest;
 import com.chinarewards.gwt.elt.client.broadcastSave.request.BroadcastSaveRequest;
 import com.chinarewards.gwt.elt.client.broadcastSave.request.BroadcastUpdateRequest;
 import com.chinarewards.gwt.elt.client.broadcasting.request.SearchBroadcastingListRequest;
@@ -80,6 +81,7 @@ import com.chinarewards.gwt.elt.client.user.UserSearchRequest;
 import com.chinarewards.gwt.elt.server.awardReward.AwardRewardActionHandler;
 import com.chinarewards.gwt.elt.server.awardReward.AwardRewardAddActionHandler;
 import com.chinarewards.gwt.elt.server.awardShop.SearchAwardShopHandler;
+import com.chinarewards.gwt.elt.server.broadcastReply.SearchBroadcastReplyActionHandler;
 import com.chinarewards.gwt.elt.server.broadcastSave.BroadcastUpdateActionHandler;
 import com.chinarewards.gwt.elt.server.broadcastSave.BroadcastingSaveActionHandler;
 import com.chinarewards.gwt.elt.server.broadcasting.SearchBroadcastingListActionHandler;
@@ -335,6 +337,8 @@ public class ActionModule extends ActionHandlerModule {
 		bindHandler(DetailsOfBroadcastRequest.class,DetailsOfBroadcastActionHandler.class);
 		//广播修改
 		bindHandler(BroadcastUpdateRequest.class,BroadcastUpdateActionHandler.class);
+		//广播回复
+		bindHandler(SearchBroadcastReplyRequest.class,SearchBroadcastReplyActionHandler.class);
 		
 	}
 }

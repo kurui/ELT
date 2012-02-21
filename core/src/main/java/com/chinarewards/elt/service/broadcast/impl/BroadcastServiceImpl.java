@@ -7,6 +7,7 @@ import com.chinarewards.elt.dao.broadcast.DepartmentObjectDao;
 import com.chinarewards.elt.dao.broadcast.OrgObjectDao;
 import com.chinarewards.elt.dao.broadcast.StaffObjectDao;
 import com.chinarewards.elt.dao.broadcast.TeamObjectDao;
+import com.chinarewards.elt.domain.information.BroadcastReply;
 import com.chinarewards.elt.domain.information.Broadcasting;
 import com.chinarewards.elt.domain.information.BroadcastingReceiving;
 import com.chinarewards.elt.domain.information.DepartmentObject;
@@ -20,6 +21,8 @@ import com.chinarewards.elt.model.broadcast.BroadcastQueryListCriteria;
 import com.chinarewards.elt.model.broadcast.BroadcastQueryListVo;
 import com.chinarewards.elt.model.broadcast.BroadcastingVo;
 import com.chinarewards.elt.model.broadcast.OrganType;
+import com.chinarewards.elt.model.broadcastReply.BroadcastReplyListCriteria;
+import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.information.BroadcastingCategory;
 import com.chinarewards.elt.model.information.BroadcastingStatus;
 import com.chinarewards.elt.model.user.UserContext;
@@ -183,6 +186,11 @@ public class BroadcastServiceImpl implements BroadcastService {
 	@Override
 	public Broadcasting findBroadcast2ById(String broadcastId) {
 		return broadcastLogic.findbroadcastingById(broadcastId);
+	}
+
+	@Override
+	public PageStore<BroadcastReply> findBroadcastReplyList(BroadcastReplyListCriteria criteria) {
+		return broadcastLogic.findBroadcastReplyList(criteria);
 	}
 
 

@@ -31,7 +31,12 @@ public class DetailsOfBroadcastWidget extends Composite implements
 
 	@UiField
 	Panel breadCrumbs;
-
+	@UiField
+	InlineLabel dataCount;
+	@UiField
+	Panel resultPanel;
+	@UiField
+	Panel resultpage;
 	private static DetailsOfBroadcastWidgetUiBinder uiBinder = GWT
 			.create(DetailsOfBroadcastWidgetUiBinder.class);
 
@@ -79,5 +84,18 @@ public class DetailsOfBroadcastWidget extends Composite implements
 	public void setCreateUser(String text) {
 		createUser.setText(text);		
 	}
+	@Override
+	public void setDataCount(String text) {
+		dataCount.setText(text);
+		
+	}
+	@Override
+	public Panel getResultPanel() {
+		return this.resultPanel;
+	}
 
+	@Override
+	public Panel getResultpage() {
+		return this.resultpage;
+	}
 }
