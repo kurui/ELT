@@ -185,13 +185,12 @@ public class DepartmentPresenterImpl extends
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent arg0) {
-						final ChooseLeaderWinDialog dialog = chooseLeaderDialogProvider.get();
-						dialog.setNominee(false, true, null);
 						final HandlerRegistration registration = eventBus.addHandler(ChooseLeaderEvent.getType(),new ChooseLeaderHandler() {
 											@Override
 											public void chosenLeader(List<StaffClient> list) {
 												for (StaffClient item : list) {
 													if (!display.getLeaderArea().containsItem(item)) {
+														display.getLeaderArea().clear();//只可以设置一个Leader 
 														
 														display.getLeaderArea().addItem(item);
 														
@@ -200,8 +199,12 @@ public class DepartmentPresenterImpl extends
 												}
 											}
 										});
-
-						       Platform.getInstance().getSiteManager()
+							//
+						final ChooseLeaderWinDialog dialog = chooseLeaderDialogProvider
+								.get();
+						dialog.setNominee(false, true, null);
+						//    
+						Platform.getInstance().getSiteManager()
 								.openDialog(dialog, new DialogCloseListener() {
 									public void onClose(String dialogId,String instanceId) {
 										registration.removeHandler();
@@ -211,6 +214,7 @@ public class DepartmentPresenterImpl extends
 				}));
 	}
 	
+	//设置Leader参数
 	private void setLeaderAreaString(){
 		List<OrganicationClient> itemList= display.getLeaderArea().getItemList();
 		String leaderIds="";
@@ -229,6 +233,7 @@ public class DepartmentPresenterImpl extends
 		display.getLeaderId().setValue(leaderIds);
 		display.getLeaderName().setValue(leaderNames);
 	}
+	
 	
 
 	// 验证方法
