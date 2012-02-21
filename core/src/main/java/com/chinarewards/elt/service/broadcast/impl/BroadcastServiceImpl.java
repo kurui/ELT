@@ -3,7 +3,10 @@ package com.chinarewards.elt.service.broadcast.impl;
 import java.util.List;
 
 import com.chinarewards.elt.dao.broadcast.BroadcastingReceivingDao;
-import com.chinarewards.elt.dao.broadcast.ReceivingObjectDao;
+import com.chinarewards.elt.dao.broadcast.DepartmentObjectDao;
+import com.chinarewards.elt.dao.broadcast.OrgObjectDao;
+import com.chinarewards.elt.dao.broadcast.StaffObjectDao;
+import com.chinarewards.elt.dao.broadcast.TeamObjectDao;
 import com.chinarewards.elt.domain.information.Broadcasting;
 import com.chinarewards.elt.domain.information.BroadcastingReceiving;
 import com.chinarewards.elt.domain.information.DepartmentObject;
@@ -40,22 +43,32 @@ public class BroadcastServiceImpl implements BroadcastService {
 	private final StaffLogic staffLogic;
 	private final DepartmentLogic departmentLogic;
 	private final BroadcastingReceivingDao broadcastingReceivingDao;
-	private final ReceivingObjectDao receivingObjectDao;
+//	private final ReceivingObjectDao receivingObjectDao;
 	private final TeamLogic teamLogic;
+	private final DepartmentObjectDao departmentObjectDao;
+	private final OrgObjectDao orgObjectDao;
+	private final StaffObjectDao staffObjectDao;
+	private final TeamObjectDao teamObjectDao;
 
 	@Inject
 	public BroadcastServiceImpl(BroadcastLogic broadcastLogic,
 			CorporationLogic corporationLogic, UserLogic userLogic,
 			StaffLogic staffLogic, DepartmentLogic departmentLogic,
-			BroadcastingReceivingDao broadcastingReceivingDao,ReceivingObjectDao receivingObjectDao,TeamLogic teamLogic) {
+			BroadcastingReceivingDao broadcastingReceivingDao,TeamLogic teamLogic,
+			DepartmentObjectDao departmentObjectDao, OrgObjectDao orgObjectDao,
+			StaffObjectDao staffObjectDao,TeamObjectDao teamObjectDao) {
 		this.broadcastLogic = broadcastLogic;
 		this.corporationLogic = corporationLogic;
 		this.userLogic = userLogic;
 		this.staffLogic = staffLogic;
 		this.departmentLogic = departmentLogic;
 		this.broadcastingReceivingDao = broadcastingReceivingDao;
-		this.receivingObjectDao=receivingObjectDao;
-		this.teamLogic=teamLogic;
+	//	this.receivingObjectDao = receivingObjectDao;
+		this.teamLogic = teamLogic;
+		this.departmentObjectDao = departmentObjectDao;
+		this.orgObjectDao = orgObjectDao;
+		this.staffObjectDao = staffObjectDao;
+		this.teamObjectDao = teamObjectDao;
 	}
 
 	@Override
@@ -100,46 +113,43 @@ public class BroadcastServiceImpl implements BroadcastService {
 			broadcastBo.setAllowreplies(broadcast.isAllowreplies());
 			broadcastBo.setLastModifiedAt(DateUtil.getTime());
 			broadcastBo.setLastModifiedBy(nowUser);
-			
-			
-			//修改时..清空发送对象
+
+			// 修改时..清空发送对象
 			broadcastLogic.deleteBroadcastReceiving(broadcastBo.getId());
-			
+
 		}
-		Broadcasting broadcastNew = broadcastLogic.createOrUpdateBroadcast(broadcastBo);
+		Broadcasting broadcastNew = broadcastLogic
+				.createOrUpdateBroadcast(broadcastBo);
 		// 处理接收对象保存
 		List<String[]> organList = broadcast.getOrganList();
 		if (organList.size() > 0) {
 			for (int i = 0; i < organList.size(); i++) {
 				String[] organ = organList.get(i);
-				ReceivingObject receivingObj=null;
+				ReceivingObject receivingObj = null;
 				if (OrganType.valueOf(organ[2].toString()) == OrganType.STAFF) {
 					StaffObject staff = new StaffObject();
-					staff.setId(organ[0]);
 					staff.setName(organ[1]);
 					staff.setStaff(staffLogic.findStaffById(organ[0]));
-					receivingObj=receivingObjectDao.save(staff);
+					receivingObj = staffObjectDao.save(staff);
 				} else if (OrganType.valueOf(organ[2].toString()) == OrganType.DEPT) {
 					DepartmentObject dept = new DepartmentObject();
-					dept.setId(organ[0]);
 					dept.setName(organ[1]);
 					dept.setDept(departmentLogic.findDepartmentById(organ[0]));
-					receivingObj=receivingObjectDao.save(dept);
+					receivingObj = departmentObjectDao.save(dept);
 				} else if (OrganType.valueOf(organ[2].toString()) == OrganType.GROUP) {
-					TeamObject team=new TeamObject();
-					team.setId(organ[0]);
+					TeamObject team = new TeamObject();
 					team.setName(organ[1]);
 					team.setTeam(teamLogic.findTeamBoById(organ[0]));
-					receivingObj=receivingObjectDao.save(team);
+					receivingObj = teamObjectDao.save(team);
 				} else if (OrganType.valueOf(organ[2].toString()) == OrganType.ORG) {
-					OrgObject org=new OrgObject();
-					org.setId(organ[0]);
+					OrgObject org = new OrgObject();
 					org.setName(organ[1]);
-					org.setCorporation(corporationLogic.findCorporationById(organ[0]));
-					receivingObj=receivingObjectDao.save(org);
+					org.setCorporation(corporationLogic
+							.findCorporationById(organ[0]));
+					receivingObj = orgObjectDao.save(org);
 				}
-				
-				BroadcastingReceiving broadcastReceiving=new BroadcastingReceiving();
+
+				BroadcastingReceiving broadcastReceiving = new BroadcastingReceiving();
 				broadcastReceiving.setBroadcast(broadcastNew);
 				broadcastReceiving.setReceiving(receivingObj);
 				broadcastReceiving.setCreatedAt(DateUtil.getTime());
@@ -150,7 +160,6 @@ public class BroadcastServiceImpl implements BroadcastService {
 			}
 
 		}
-
 
 		return null;
 	}

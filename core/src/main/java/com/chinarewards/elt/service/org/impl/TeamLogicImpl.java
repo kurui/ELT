@@ -28,7 +28,9 @@ import com.google.inject.Inject;
  * @author lw
  * @since 1.0
  */
-public abstract class TeamLogicImpl implements TeamLogic {
+public  class TeamLogicImpl implements TeamLogic {
+
+
 
 	Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -181,9 +183,10 @@ public abstract class TeamLogicImpl implements TeamLogic {
 		}
 				
 	}
-
+	
 	@Override
 	public Team findTeamBoById(String id) {
 		return 	teamDao.findById(Team.class, id);
 	}
+
 }

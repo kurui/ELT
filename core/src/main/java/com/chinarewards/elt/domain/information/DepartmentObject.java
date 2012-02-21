@@ -4,6 +4,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToOne;
 
 import com.chinarewards.elt.domain.org.Department;
 
@@ -15,6 +16,7 @@ public class DepartmentObject  extends ReceivingObject {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@OneToOne
 	private Department dept;
 
 	public Department getDept() {

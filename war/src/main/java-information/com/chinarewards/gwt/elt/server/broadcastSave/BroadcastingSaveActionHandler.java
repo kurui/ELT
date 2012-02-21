@@ -48,6 +48,11 @@ public class BroadcastingSaveActionHandler extends
 		
 		BroadcastingVo vo=new BroadcastingVo();
 		vo.setBroadcastingId(request.getBroadcastId());
+		vo.setBroadcastingTimeStart(request.getBroadcastingTimeStart());
+		vo.setBroadcastingTimeEnd(request.getBroadcastingTimeEnd());
+		vo.setAllowreplies(request.isAllowreplies());
+		vo.setContent(request.getContent());
+		vo.setOrganList(request.getOrganList());
 		
 		broadcastService.createOrUpdateBroadcast(vo, context);
 		return staffResponse;
