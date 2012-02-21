@@ -66,8 +66,8 @@ public class MergeDepartmentPresenterImpl extends
 	}
 
 	@Override
-	public void initDialog() {
-
+	public void initDialog(String deparatmentIds) {
+		display.getDepartmentIds().setValue(deparatmentIds);
 	}
 
 }

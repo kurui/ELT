@@ -24,6 +24,6 @@ public interface MergeDepartmentPresenter extends
 		public Widget asWidget();
 	}
 
-	void initDialog();
+	void initDialog(String departmentIds);
 
 }

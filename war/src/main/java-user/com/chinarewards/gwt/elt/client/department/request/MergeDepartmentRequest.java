@@ -10,11 +10,18 @@ import com.chinarewards.gwt.elt.client.support.UserSession;
  */
 public class MergeDepartmentRequest implements Action<MergeDepartmentResponse> {
 
-	String departmentIds;
+	private String departmentIds;
+	private String departmentName;
+	private String leaderId;
 	private UserSession userSession;
 
-	public MergeDepartmentRequest(String departmentIds) {
+	public MergeDepartmentRequest() {
+	}
+	
+	public MergeDepartmentRequest(String departmentIds,String departmentName,String leaderId) {
 		this.departmentIds = departmentIds;
+		this.departmentName=departmentName;
+		this.leaderId=leaderId;
 	}
 	
 	public MergeDepartmentRequest(String departmentIds, UserSession userSession) {
@@ -22,10 +29,23 @@ public class MergeDepartmentRequest implements Action<MergeDepartmentResponse> {
 		this.userSession = userSession;
 	}
 
-	/**
-	 * For serialization
-	 */
-	public MergeDepartmentRequest() {
+
+
+
+	public String getDepartmentName() {
+		return departmentName;
+	}
+
+	public void setDepartmentName(String departmentName) {
+		this.departmentName = departmentName;
+	}
+
+	public String getLeaderId() {
+		return leaderId;
+	}
+
+	public void setLeaderId(String leaderId) {
+		this.leaderId = leaderId;
 	}
 
 	public String getDepartmentIds() {

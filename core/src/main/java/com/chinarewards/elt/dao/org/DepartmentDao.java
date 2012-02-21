@@ -205,8 +205,11 @@ public class DepartmentDao extends BaseDao<Department> {
 	 * @param departmentIds
 	 * @return
 	 */
-	public String mergeDepartment(String departmentIds) {
+	public String mergeDepartment(String departmentIds,String departmentName,String leaderId) {
+		
+		
 
+		
 		return "";
 	}
 

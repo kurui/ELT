@@ -112,6 +112,13 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 
 		return department;
 	}
+	
+	
+	
+	@Override
+	public String mergeDepartment(UserContext uc, String departmentIds,String departmentName,String leaderId) {
+		return departmentDao.mergeDepartment(departmentIds,departmentName,leaderId);
+	}
 
 	@Override
 	public Department addDepartment(SysUser caller, DepartmentVo department) {
@@ -348,10 +355,7 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 		return volist;
 	}
 
-	@Override
-	public String mergeDepartment(UserContext uc, String departmentIds) {
-		return departmentDao.mergeDepartment(departmentIds);
-	}
+
 
 	@Override
 	public List<Department> findDepartmentsByLeader(String leaderId) {

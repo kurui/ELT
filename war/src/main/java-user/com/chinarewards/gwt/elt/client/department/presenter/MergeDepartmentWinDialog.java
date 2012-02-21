@@ -40,8 +40,8 @@ public class MergeDepartmentWinDialog extends AbstractDialog {
 	}
 
 
-	public void initDialog() {
-		presenter.initDialog();
+	public void initDialog(String departmentIds) {
+		presenter.initDialog(departmentIds);
 		
 	}
 

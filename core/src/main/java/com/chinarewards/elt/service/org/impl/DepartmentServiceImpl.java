@@ -69,8 +69,8 @@ public class DepartmentServiceImpl implements DepartmentService {
 	}
 
 	@Override
-	public String mergeDepartment(UserContext uc, String departmentIds) {
-		return departmentLogic.mergeDepartment(uc, departmentIds);
+	public String mergeDepartment(UserContext uc, String departmentIds,String departmentName,String leaderId) {
+		return departmentLogic.mergeDepartment(uc, departmentIds,departmentName,leaderId);
 	}
 
 	@Override

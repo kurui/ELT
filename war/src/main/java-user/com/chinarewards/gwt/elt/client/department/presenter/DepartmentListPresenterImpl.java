@@ -251,7 +251,7 @@ public class DepartmentListPresenterImpl extends
 									departmentIds = departmentIds.replace(",",
 											"");
 
-									openMergeWinDialog();
+									openMergeWinDialog(departmentIds);
 								}
 							} else {
 								win.alert("请选择需要合并的部门");
@@ -277,26 +277,37 @@ public class DepartmentListPresenterImpl extends
 
 	}
 
-	private void openMergeWinDialog() {
-
-		final HandlerRegistration registration = eventBus.addHandler(
-				MergeDepartmentEvent.getType(), new MergeDepartmentHandler() {
-					@Override
-					public void mergeDepartment(String departmentIds,
-							String departmentName, String leaderId) {
-						win.alert(" mergeDepartment ====");
-					}
-				});
+	private void openMergeWinDialog(String departmentIds) {
 
 		final MergeDepartmentWinDialog dialog = mergeDialogProvider.get();
-		dialog.initDialog();
+		dialog.initDialog(departmentIds);
 		//
+		
+		final HandlerRegistration registration=registerMergeEvent();
+		
 		Platform.getInstance().getSiteManager()
 				.openDialog(dialog, new DialogCloseListener() {
 					public void onClose(String dialogId, String instanceId) {
 						registration.removeHandler();
 					}
 				});
+	}
+	
+	//合并部门窗口处理事件
+	private HandlerRegistration registerMergeEvent(){
+		final HandlerRegistration registration = eventBus.addHandler(
+				MergeDepartmentEvent.getType(), new MergeDepartmentHandler() {
+					@Override
+					public void mergeDepartment(String departmentIds,
+							String departmentName, String leaderId) {
+						win.alert(" mergeDepartment ===="+departmentIds);
+						
+						
+						
+						
+					}
+				});
+		return registration;
 	}
 
 	private void delteDepartment(String departmentId) {

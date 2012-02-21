@@ -179,7 +179,7 @@ public interface DepartmentLogic {
 	 * @param departmentIds
 	 * @return
 	 */
-	public String mergeDepartment(UserContext uc, String departmentIds);
+	public String mergeDepartment(UserContext uc, String departmentIds,String departmentName,String leaderId);
 
 
 	/**
