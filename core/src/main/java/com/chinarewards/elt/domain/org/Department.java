@@ -2,7 +2,6 @@ package com.chinarewards.elt.domain.org;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
@@ -33,7 +32,8 @@ public class Department extends Organization {
 	/**
 	 * Who is the parent department.
 	 */
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
+	//(fetch = FetchType.LAZY)
 	private Department parent;
 
 	/**
@@ -42,6 +42,19 @@ public class Department extends Organization {
 	private int lft;
 
 	private int rgt;
+	
+	
+	private String leaderId;
+
+	
+
+	public String getLeaderId() {
+		return leaderId;
+	}
+
+	public void setLeaderId(String leaderId) {
+		this.leaderId = leaderId;
+	}
 
 	public Corporation getCorporation() {
 		return corporation;

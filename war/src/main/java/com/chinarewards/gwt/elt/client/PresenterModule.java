@@ -5,10 +5,15 @@ import com.chinarewards.gwt.elt.client.awardReward.module.AwardRewardModule;
 import com.chinarewards.gwt.elt.client.awardShop.module.AwardShopListModule;
 import com.chinarewards.gwt.elt.client.awardShopLattice.module.AwardShopLatticeModule;
 import com.chinarewards.gwt.elt.client.breadCrumbs.module.BreadCrumbsModule;
+import com.chinarewards.gwt.elt.client.broadcastSave.module.BroadcastSaveModule;
+import com.chinarewards.gwt.elt.client.broadcasting.module.BroadcastingModule;
 import com.chinarewards.gwt.elt.client.budget.module.CorpBudgetModule;
 import com.chinarewards.gwt.elt.client.budget.module.DepBudgetModule;
 import com.chinarewards.gwt.elt.client.chooseStaff.module.ChooseStaffModule;
 import com.chinarewards.gwt.elt.client.core.presenter.DockModule;
+import com.chinarewards.gwt.elt.client.department.module.DepartmentLeaderModule;
+import com.chinarewards.gwt.elt.client.department.module.DepartmentListModule;
+import com.chinarewards.gwt.elt.client.department.module.DepartmentModule;
 import com.chinarewards.gwt.elt.client.detailsOfAward.module.DetailsOfAwardModule;
 import com.chinarewards.gwt.elt.client.detailsOfGift.module.DetailsOfGiftModule;
 import com.chinarewards.gwt.elt.client.enterprise.module.EnterprisesModule;
@@ -26,6 +31,11 @@ import com.chinarewards.gwt.elt.client.rewardItem.module.RewardsItemModule;
 import com.chinarewards.gwt.elt.client.rewards.module.RewardsListModule;
 import com.chinarewards.gwt.elt.client.shopWindow.module.ShopWindowModule;
 import com.chinarewards.gwt.elt.client.staff.module.HrRegisterModule;
+import com.chinarewards.gwt.elt.client.staffAdd.module.StaffAddModule;
+import com.chinarewards.gwt.elt.client.staffList.module.StaffListModule;
+import com.chinarewards.gwt.elt.client.staffView.module.StaffViewModule;
+import com.chinarewards.gwt.elt.client.team.module.TeamAddModule;
+import com.chinarewards.gwt.elt.client.team.module.TeamListModule;
 import com.chinarewards.gwt.elt.client.user.module.UserModule;
 import com.chinarewards.gwt.elt.client.win.WinModule;
 import com.google.gwt.inject.client.AbstractGinModule;
@@ -36,6 +46,10 @@ public class PresenterModule extends AbstractGinModule {
 	protected void configure() {
 		install(new DockModule());
 		install(new UserModule());
+		install(new DepartmentListModule());
+		install(new DepartmentLeaderModule());
+		install(new DepartmentModule());
+		
 		install(new HrRegisterModule());
 		install(new NominateModule());
 		install(new EnterprisesModule());
@@ -58,11 +72,17 @@ public class PresenterModule extends AbstractGinModule {
 		install(new OrderConfirmationModule());
 		install(new OrderSubmitModule());
 		install(new DetailsOfGiftModule());
-
 		install(new CorpBudgetModule());
 		install(new DepBudgetModule());
 		install(new IntegralManagementModule());
-
+		install(new StaffListModule());
+		install(new StaffAddModule());
+		install(new StaffViewModule());
+		install(new BroadcastingModule());
+		install(new TeamListModule());
+		install(new TeamAddModule());
+		install(new BroadcastSaveModule());
+		
 
 	}
 

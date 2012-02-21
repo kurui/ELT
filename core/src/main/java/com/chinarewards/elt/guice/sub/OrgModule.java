@@ -12,18 +12,21 @@ import com.chinarewards.elt.service.org.CorporationLogic;
 import com.chinarewards.elt.service.org.CorporationService;
 import com.chinarewards.elt.service.org.DepartmentLogic;
 import com.chinarewards.elt.service.org.DepartmentManagerLogic;
+import com.chinarewards.elt.service.org.DepartmentService;
 import com.chinarewards.elt.service.org.OrganizationLogic;
 import com.chinarewards.elt.service.org.impl.CorporationLogicImpl;
 import com.chinarewards.elt.service.org.impl.CorporationProcessor;
 import com.chinarewards.elt.service.org.impl.CorporationServiceImpl;
 import com.chinarewards.elt.service.org.impl.DepartmentLogicImpl;
 import com.chinarewards.elt.service.org.impl.DepartmentManagerLogicImpl;
+import com.chinarewards.elt.service.org.impl.DepartmentServiceImpl;
 import com.chinarewards.elt.service.org.impl.DeptmentProcessor;
 import com.chinarewards.elt.service.org.impl.OrganizationLogicImpl;
 import com.chinarewards.elt.service.org.impl.OrganizationProcessor;
 import com.chinarewards.elt.service.org.impl.Organizationfactory;
 import com.chinarewards.elt.service.org.impl.OrganizationfactoryImpl;
 import com.chinarewards.elt.service.org.impl.StaffProcessor;
+import com.chinarewards.elt.service.org.impl.TeamProcessor;
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 import com.google.inject.name.Names;
@@ -39,7 +42,9 @@ public class OrgModule extends AbstractModule {
 	@Override
 	protected void configure() {
 		bind(DepartmentDao.class).in(Singleton.class);
+
 		bind(OrganizationDao.class).in(Singleton.class);
+	
 		bind(CorporationDao.class).in(Singleton.class);
 		bind(IndustryDao.class).in(Singleton.class);
 		bind(DepartmentManagerDao.class).in(Singleton.class);
@@ -49,16 +54,19 @@ public class OrgModule extends AbstractModule {
 				Singleton.class);
 		bind(OrganizationLogic.class).to(OrganizationLogicImpl.class).in(
 				Singleton.class);
+		
 		bind(DepartmentLogic.class).to(DepartmentLogicImpl.class);
+		bind(DepartmentService.class).to(DepartmentServiceImpl.class);
+		
+		
 		bind(Organizationfactory.class).to(OrganizationfactoryImpl.class).in(Singleton.class);
-		bind(OrganizationProcessor.class).annotatedWith(
-				Names.named("StaffProcessor")).to(StaffProcessor.class);
-		bind(OrganizationProcessor.class).annotatedWith(
-				Names.named("DeptmentProcessor")).to(DeptmentProcessor.class);
-		bind(OrganizationProcessor.class).annotatedWith(
-				Names.named("CorporationProcessor")).to(
-				CorporationProcessor.class);
+		bind(OrganizationProcessor.class).annotatedWith(Names.named("StaffProcessor")).to(StaffProcessor.class);
+		bind(OrganizationProcessor.class).annotatedWith(Names.named("DeptmentProcessor")).to(DeptmentProcessor.class);
+		bind(OrganizationProcessor.class).annotatedWith(Names.named("CorporationProcessor")).to(CorporationProcessor.class);
+		bind(OrganizationProcessor.class).annotatedWith(Names.named("TeamProcessor")).to(TeamProcessor.class);
 		bind(DepartmentManagerLogic.class).to(DepartmentManagerLogicImpl.class).in(Singleton.class);
+		
+	
 	}
 
 }

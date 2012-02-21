@@ -8,11 +8,14 @@ import java.util.List;
 
 import com.chinarewards.gwt.elt.client.awardReward.plugin.AwardRewardConstants;
 import com.chinarewards.gwt.elt.client.breadCrumbs.ui.BreadCrumbsMenu;
-import com.chinarewards.gwt.elt.client.budget.plugin.CreateBudgetConstants;
+import com.chinarewards.gwt.elt.client.broadcasting.plugin.BroadcastingListConstants;
 import com.chinarewards.gwt.elt.client.budget.plugin.CorpBudgetConstants;
+import com.chinarewards.gwt.elt.client.budget.plugin.CreateBudgetConstants;
 import com.chinarewards.gwt.elt.client.core.ui.MenuItem;
 import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
 import com.chinarewards.gwt.elt.client.core.ui.event.MenuClickEvent;
+import com.chinarewards.gwt.elt.client.department.plugin.DepartmentLeaderConstants;
+import com.chinarewards.gwt.elt.client.department.plugin.DepartmentListConstants;
 import com.chinarewards.gwt.elt.client.detailsOfAward.plugin.DetailsOfAwardConstants;
 import com.chinarewards.gwt.elt.client.enterprise.plugin.EnterpriseConstants;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftConstants;
@@ -24,7 +27,9 @@ import com.chinarewards.gwt.elt.client.order.plugin.OrderListConstants;
 import com.chinarewards.gwt.elt.client.order.plugin.OrderViewConstants;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemConstants;
 import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListConstants;
+import com.chinarewards.gwt.elt.client.staffList.plugin.StaffListConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.chinarewards.gwt.elt.client.team.plugin.TeamConstants;
 import com.chinarewards.gwt.elt.client.user.plugin.UserConstants;
 import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -82,7 +87,7 @@ public class ButtonMenuProcessor implements MenuProcessor {
 		}
 
 		String indexMenu="";
-		if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.CORP_ADMIN)
+		if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.CORP_ADMIN || sessionManager.getSession().getLastLoginRole()==UserRoleVo.DEPT_MGR)
 			indexMenu="RewardItem";
 		else if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.GIFT)
 			indexMenu="Gift";
@@ -121,10 +126,11 @@ public class ButtonMenuProcessor implements MenuProcessor {
 			if (menuId.equals(RewardsItemConstants.MENU_REWARDSITEM_List)
 					|| menuId
 							.equals(RewardsListConstants.MENU_REWARDSLIST_SEARCH)
-					|| menuId.equals(UserConstants.MENU_USER_SEARCH)
+					|| menuId.equals(DepartmentListConstants.MENU_DEPARTMENTLIST_SEARCH)
 					|| menuId.equals(GiftListConstants.MENU_GIFTLIST_SEARCH)
 					|| menuId.equals(EnterpriseConstants.MENU_ENTERPRISE_EDIT) 
-					|| menuId.equals(IntegralManagementConstants.MENU_INTEGRALMANAGEMENT_SEARCH)) {
+					|| menuId.equals(IntegralManagementConstants.MENU_INTEGRALMANAGEMENT_SEARCH)
+					|| menuId.equals(BroadcastingListConstants.MENU_BROADCASTINGLIST_SEARCH)) {
 				button.setStyleName("menu-link menu-selected");
 				breadCrumbsMenu.cleanBreadCrumbsItemTop();
 				if (menuId.equals(RewardsItemConstants.MENU_REWARDSITEM_List))
@@ -132,7 +138,7 @@ public class ButtonMenuProcessor implements MenuProcessor {
 				else if (menuId
 						.equals(RewardsListConstants.MENU_REWARDSLIST_SEARCH))
 					breadCrumbsMenu.addBreadCrumbsItemTop("奖项应用", null);
-				else if (menuId.equals(UserConstants.MENU_USER_SEARCH))
+				else if (menuId.equals(DepartmentListConstants.MENU_DEPARTMENTLIST_SEARCH))
 					breadCrumbsMenu.addBreadCrumbsItemTop("员工数据", null);
 				else if (menuId.equals(GiftListConstants.MENU_GIFTLIST_SEARCH))
 					breadCrumbsMenu.addBreadCrumbsItemTop("兑换管理", null);
@@ -140,7 +146,8 @@ public class ButtonMenuProcessor implements MenuProcessor {
 					breadCrumbsMenu.addBreadCrumbsItemTop("设置", null);
 				else if (menuId.equals(IntegralManagementConstants.MENU_INTEGRALMANAGEMENT_SEARCH))
 					breadCrumbsMenu.addBreadCrumbsItemTop("积分管理", null);
-				
+				else if (menuId.equals(BroadcastingListConstants.MENU_BROADCASTINGLIST_SEARCH))
+					breadCrumbsMenu.addBreadCrumbsItemTop("广播", null);
 				breadCrumbsMenu.addBreadCrumbsItem(menuItem.getTitle(),
 						menuItem.getMenuId());
 			}
@@ -180,7 +187,12 @@ public class ButtonMenuProcessor implements MenuProcessor {
 			items.add(DetailsOfAwardConstants.MENU_DETAILSOFAWARD_SEARCH);
 			items.add(RewardsListConstants.MENU_REWARDSLIST_SEARCH);
 		} else if ("Staff".equals(keyname)) {
+			items.add(DepartmentListConstants.MENU_DEPARTMENTLIST_SEARCH);
+			items.add(DepartmentLeaderConstants.MENU_DEPARTMENTLEADER_SEARCH);
+			
 			items.add(UserConstants.MENU_USER_SEARCH);
+			items.add(StaffListConstants.MENU_STAFFLIST_SEARCH);
+			items.add(TeamConstants.MENU_TEAMLIST_SEARCH);
 		} else if ("Setting".equals(keyname)) {
 			items.add(EnterpriseConstants.MENU_ENTERPRISE_EDIT);
 			items.add(EnterpriseConstants.MENU_INTEGRAL_PRICE_EDIT);
@@ -196,6 +208,9 @@ public class ButtonMenuProcessor implements MenuProcessor {
 			items.add(EnterpriseConstants.MENU_PERIOD_EDIT);
 			items.add(IntegralManagementConstants.MENU_INTEGRALMANAGEMENT_SEARCH);
 			items.add(CreateBudgetConstants.MENU_CREATE_BUDGET);
+		}else if("Broadcasting".equals(keyname))
+		{
+			items.add(BroadcastingListConstants.MENU_BROADCASTINGLIST_SEARCH);
 		}
 		return items;
 	}
@@ -227,6 +242,7 @@ public class ButtonMenuProcessor implements MenuProcessor {
 	public void changItemColor(String menuName) {
 		for (int i = 0; i < grid.getWidgetCount(); i++) {
 			if (grid.getWidget(i) instanceof Anchor) {
+				System.out.println(((Anchor) grid.getWidget(i)).getText()+"");
 				if (!menuName.equals(((Anchor) grid.getWidget(i)).getText())) {
 					grid.getWidget(i).setStyleName("menu-link");
 				} else {

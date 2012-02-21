@@ -144,6 +144,11 @@ public class CookieSessionManager implements SessionManager {
 							 role=UserRoleVo.CORP_ADMIN;
 							 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK));
 						}
+						else if(roleslt.contains(UserRoleVo.DEPT_MGR))
+						{
+							 role=UserRoleVo.DEPT_MGR;
+							 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_DEPT));
+						}
 						else if(roleslt.contains(UserRoleVo.GIFT))
 						{
 							 role=UserRoleVo.GIFT;

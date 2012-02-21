@@ -6,10 +6,12 @@ import java.util.List;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.EltGinjector;
+import com.chinarewards.gwt.elt.client.broadcasting.plugin.BroadcastingListConstants;
 import com.chinarewards.gwt.elt.client.core.PluginManager;
 import com.chinarewards.gwt.elt.client.core.presenter.DockPresenter.DockDisplay;
 import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
 import com.chinarewards.gwt.elt.client.core.ui.event.MenuClickEvent;
+import com.chinarewards.gwt.elt.client.department.plugin.DepartmentListConstants;
 import com.chinarewards.gwt.elt.client.enterprise.plugin.EnterpriseConstants;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftListConstants;
 import com.chinarewards.gwt.elt.client.integralManagement.plugin.IntegralManagementConstants;
@@ -21,7 +23,6 @@ import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemConstants;
 import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
-import com.chinarewards.gwt.elt.client.user.plugin.UserConstants;
 import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -59,7 +60,7 @@ public class DockPresenterImpl extends BasePresenter<DockDisplay> implements
 			for (UserRoleVo r : roles) {
 				roleslt.add(r);
 			}
-			if (!roleslt.contains(UserRoleVo.CORP_ADMIN)) {
+			if (!roleslt.contains(UserRoleVo.CORP_ADMIN) && !roleslt.contains(UserRoleVo.DEPT_MGR)) {
 				display.disableManagementCenter();
 			}
 			if (!roleslt.contains(UserRoleVo.GIFT)) {
@@ -67,6 +68,10 @@ public class DockPresenterImpl extends BasePresenter<DockDisplay> implements
 			}
 			if (!roleslt.contains(UserRoleVo.STAFF)) {
 				display.disableStaffCorner();
+			}
+			if(roleslt.contains(UserRoleVo.DEPT_MGR) && !roleslt.contains(UserRoleVo.CORP_ADMIN))
+			{
+				display.displayDeptMgrMenu();
 			}
 		}
 
@@ -95,7 +100,11 @@ public class DockPresenterImpl extends BasePresenter<DockDisplay> implements
 			@Override
 			public void onClick(ClickEvent event) {
 				display.setMenuTitle("广播");
-				display.setMenu(null);
+				menuProcessor.initrender(display.getMenu(),
+						"Broadcasting");
+				eventBus.fireEvent(new MenuClickEvent(
+						menuProcessor
+								.getMenuItem(BroadcastingListConstants.MENU_BROADCASTINGLIST_SEARCH)));
 			}
 		}));
 		registerHandler(display.getBtnRewardItem().addClickHandler(
@@ -127,8 +136,9 @@ public class DockPresenterImpl extends BasePresenter<DockDisplay> implements
 					public void onClick(ClickEvent event) {
 						display.setMenuTitle("员工数据");
 						menuProcessor.initrender(display.getMenu(), "Staff");
-						eventBus.fireEvent(new MenuClickEvent(menuProcessor
-								.getMenuItem(UserConstants.MENU_USER_SEARCH)));
+						eventBus.fireEvent(new MenuClickEvent(
+								menuProcessor
+										.getMenuItem(DepartmentListConstants.MENU_DEPARTMENTLIST_SEARCH)));
 					}
 				}));
 		registerHandler(display.getBtnSetting().addClickHandler(

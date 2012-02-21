@@ -30,6 +30,11 @@
 						<g:Button ui:field="saveBtn" text="保存" />
 					</span>
 					<span class="{new2.nbspbig}"></span>
+					<span class="{new2.btn}">
+						<g:Button ui:field="searchBtn" text="查询" />
+					</span>
+					
+					<span class="{new2.nbspbig}"></span>
 					<span class="{new2.nbspbig}"></span>
 					<span class="{new2.nbspbig}"></span>
 					
@@ -39,7 +44,9 @@
 
 
 			<span class="{new2.cutline}"></span>
-			<div class="{new2.divtext}">一共有 <g:InlineLabel ui:field="dataCount" styleName="{new2.divfont}"></g:InlineLabel> 条订单</div><div  class="{new2.divend}"></div>
+			<div class="{new2.divend}">公司预算总共:<g:InlineLabel ui:field="totalCount" styleName="{new2.divfont}"></g:InlineLabel> 积分
+			<span class="{new2.nbspbig}"></span>
+			公司预算还有:<g:InlineLabel ui:field="remainCount" styleName="{new2.divfont}"></g:InlineLabel> 积分</div>
 			<div class="{new2.table}">
 				<g:FlowPanel ui:field="resultPanel" />
 			</div>

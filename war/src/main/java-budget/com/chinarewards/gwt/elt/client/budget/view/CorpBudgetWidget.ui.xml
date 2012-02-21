@@ -41,10 +41,10 @@
 						<span class="{new2.nbsp}"></span>
 						<span class="{new2.nbsp}"></span>
 						<g:TextBox maxLength="20" ui:field="budgetAmount"
-							styleName="{new2.short-text}" />
+							styleName="{new2.middle-text}" />
 						=
 						<g:TextBox maxLength="20" ui:field="budgetIntegral"
-							styleName="{new2.short-text}" />
+							styleName="{new2.middle-text}" />
 						积分
 						<g:Hidden ui:field="integralPrice"></g:Hidden>
 					</div>

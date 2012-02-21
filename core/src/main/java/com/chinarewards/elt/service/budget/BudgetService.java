@@ -79,13 +79,30 @@ public interface BudgetService {
 	 * @return
 	 */
 	public PageStore<DepartmentBudgetVo> deptBudgetList(UserContext context,DepartmentBudgetVo deptBudgetVo);
+
+  /**
+   * 是否存在同一财年和部门的数据,如果有就返回ID，没有返回空
+   * @param departmentBudget
+   * @return
+   */
+	public String findByDepAndCorpBudgetId(DepartmentBudget departmentBudget);
+
 	
 	/**
 	 * 积分管理(预算管理)首页.数据查询
 	 * @param corpId
 	 * @return
 	 */
-	public List<IntegralManagementVo> getIntegralManagementList(String corpId);
+	public List<IntegralManagementVo> getIntegralManagementList(String corpId,String corpBudgetId);
+
+	/**
+	 * @param departmentId
+	 * @param corpBudgetId
+	 * @return
+	 */
+	public DepartmentBudget findDepartmentBudgetByDepartmentId(String departmentId,
+			String corpBudgetId);
 
 	
+
 }

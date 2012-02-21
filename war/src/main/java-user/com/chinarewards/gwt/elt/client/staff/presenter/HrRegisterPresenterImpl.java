@@ -98,6 +98,10 @@ public class HrRegisterPresenterImpl extends
 		{
 			userRoleVos.add(UserRoleVo.STAFF);
 		}
+		if(display.isCheckDeptMgr()==true)
+		{
+			userRoleVos.add(UserRoleVo.DEPT_MGR);
+		}
 		vo.setUserRoleVos(userRoleVos);
 		dispatcher.execute(new HrRegisterRequest(vo),
 				new AsyncCallback<HrRegisterResponse>() {

@@ -52,8 +52,7 @@ public interface BudgetLogic {
 	 * @return
 	 */
 	public DepartmentBudget findDepartmentBudgetById(String id);
-	
-	
+
 	/**
 	 * 删除订单根据ID
 	 * @param id
@@ -68,21 +67,26 @@ public interface BudgetLogic {
 	 */
 	public PageStore<DepartmentBudgetVo> deptBudgetList(SysUser caller,DepartmentBudgetVo deptBudgetVo);
 
+
+	public String findByDepAndCorpBudgetId(DepartmentBudget departmentBudget);
+	
+
 	/**
 	 * 积分管理(预算管理)首页.数据查询
 	 * @param corpId
 	 * @return
 	 */
-	public List<IntegralManagementVo> getIntegralManagementList(String corpId);
+	public List<IntegralManagementVo> getIntegralManagementList(String corpId,String corpBudgetId);
 	
 	/**
 	 * 根据部门ID,查找部门预算实体
 	 * @param id
 	 * @return
 	 */
-	public DepartmentBudget findDepartmentBudgetByDepartmentId(String departmentId);
+	public DepartmentBudget findDepartmentBudgetByDepartmentId(String departmentId,String corpBudgetId);
 	
 	
+
 
 }
 

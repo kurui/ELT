@@ -2,6 +2,8 @@ package com.chinarewards.gwt.elt.client.core;
 
 import com.chinarewards.gwt.elt.client.awardReward.plugin.AwardRewardPluginDescriptor;
 import com.chinarewards.gwt.elt.client.awardShop.plugin.AwardShopListPluginDescriptor;
+import com.chinarewards.gwt.elt.client.broadcastSave.plugin.BroadcastSavePluginDescriptor;
+import com.chinarewards.gwt.elt.client.broadcasting.plugin.BroadcastingListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.budget.plugin.BudgetPluginDescriptor;
 import com.chinarewards.gwt.elt.client.budget.plugin.CorpBudgetPluginDescriptor;
 import com.chinarewards.gwt.elt.client.core.impl.CorePluginDescriptor;
@@ -14,6 +16,9 @@ import com.chinarewards.gwt.elt.client.core.ui.SiteManager;
 import com.chinarewards.gwt.elt.client.core.ui.impl.ButtonMenuProcessor;
 import com.chinarewards.gwt.elt.client.core.ui.impl.SimpleEditorRegistry;
 import com.chinarewards.gwt.elt.client.core.ui.impl.SimpleSiteManager;
+import com.chinarewards.gwt.elt.client.department.plugin.DepartmentLeaderPluginDescriptor;
+import com.chinarewards.gwt.elt.client.department.plugin.DepartmentListPluginDescriptor;
+import com.chinarewards.gwt.elt.client.department.plugin.DepartmentPluginDescriptor;
 import com.chinarewards.gwt.elt.client.detailsOfAward.plugin.DetailsOfAwardPluginDescriptor;
 import com.chinarewards.gwt.elt.client.detailsOfGift.plugin.DetailsOfGiftPluginDescriptor;
 import com.chinarewards.gwt.elt.client.enterprise.plugin.EnterprisePluginDescriptor;
@@ -39,10 +44,16 @@ import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemViewPluginDe
 import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.shopWindow.plugin.ShopWindowPluginDescriptor;
 import com.chinarewards.gwt.elt.client.staff.plugin.HrRegisterPluginDescriptor;
+import com.chinarewards.gwt.elt.client.staffAdd.plugin.StaffAddPluginDescriptor;
+import com.chinarewards.gwt.elt.client.staffList.plugin.StaffListPluginDescriptor;
+import com.chinarewards.gwt.elt.client.staffView.plugin.StaffViewPluginDescriptor;
+import com.chinarewards.gwt.elt.client.team.plugin.TeamAddPluginDescriptor;
+import com.chinarewards.gwt.elt.client.team.plugin.TeamListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.user.plugin.UserPluginDescriptor;
 import com.google.gwt.inject.client.AbstractGinModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
+import com.google.inject.name.Named;
 
 public class PlatformModule extends AbstractGinModule {
 
@@ -71,6 +82,7 @@ public class PlatformModule extends AbstractGinModule {
 	}
 
 	@Provides
+	@Named("admin")
 	PluginSet providePluginSet(
 			// ---- PLUGINS DEFINE BELOW (2) ----
 			CorePluginDescriptor core, // core
@@ -78,6 +90,8 @@ public class PlatformModule extends AbstractGinModule {
 			EnterprisePluginDescriptor enterprise,
 			IntegralPricePluginDescriptor integralPrice,
 			PeriodPluginDescriptor period, UserPluginDescriptor user,
+			DepartmentListPluginDescriptor departmentList,DepartmentLeaderPluginDescriptor departmentLeader,
+			DepartmentPluginDescriptor department,
 			HrRegisterPluginDescriptor hrregister,
 			NominatePluginDescriptor nominate,
 			RewardsItemPluginDescriptor rewardsItem,
@@ -101,7 +115,15 @@ public class PlatformModule extends AbstractGinModule {
 			DetailsOfGiftPluginDescriptor detailsOfGift,
 			CorpBudgetPluginDescriptor corpBudget,
 			BudgetPluginDescriptor depBudget,
-			IntegralManagementPluginDescriptor integralManagement) {
+			IntegralManagementPluginDescriptor integralManagement,
+			StaffListPluginDescriptor staffList,
+			StaffAddPluginDescriptor staffAdd,
+			TeamListPluginDescriptor teamList,
+			TeamAddPluginDescriptor teamAdd,
+			StaffViewPluginDescriptor staffView,
+			BroadcastingListPluginDescriptor broadcasting,
+			BroadcastSavePluginDescriptor BroadcastSave) {
+
 
 		if (pluginSet == null) {
 			pluginSet = new InMemoryPluginSet();
@@ -110,6 +132,9 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(integralPrice);
 			pluginSet.registerPlugin(period);
 			pluginSet.registerPlugin(user);
+			pluginSet.registerPlugin(departmentList);
+			pluginSet.registerPlugin(departmentLeader);
+			pluginSet.registerPlugin(department);
 			pluginSet.registerPlugin(hrregister);
 			pluginSet.registerPlugin(rewardsItemList);
 			pluginSet.registerPlugin(rewardsItemStoreList);
@@ -135,6 +160,150 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(integralManagement);
 			pluginSet.registerPlugin(depBudget);
 			pluginSet.registerPlugin(corpBudget);
+			pluginSet.registerPlugin(staffList);
+			pluginSet.registerPlugin(staffAdd);
+			pluginSet.registerPlugin(staffView);
+			pluginSet.registerPlugin(broadcasting);
+			pluginSet.registerPlugin(teamList);
+			pluginSet.registerPlugin(teamAdd);
+			pluginSet.registerPlugin(BroadcastSave);
+
+		}
+
+		return pluginSet;
+	}
+
+	@Provides
+	@Named("dept")
+	PluginSet providePluginSettwo(
+			// ---- PLUGINS DEFINE BELOW (2) ----
+			CorePluginDescriptor core, // core
+			EnterprisePluginDescriptor enterprise,
+			IntegralPricePluginDescriptor integralPrice,
+			PeriodPluginDescriptor period, UserPluginDescriptor user,
+			DepartmentListPluginDescriptor departmentList,
+			DepartmentPluginDescriptor department,
+			HrRegisterPluginDescriptor hrregister,
+			NominatePluginDescriptor nominate,
+			RewardsItemPluginDescriptor rewardsItem,
+			RewardsItemListPluginDescriptor rewardsItemList,
+			RewardsItemViewPluginDescriptor rewardsItemView,
+			RewardsListPluginDescriptor rewardsList,
+			AwardRewardPluginDescriptor awardreward,
+			DetailsOfAwardPluginDescriptor detailsAward,
+			BudgetPluginDescriptor depBudget,
+			IntegralManagementPluginDescriptor integralManagement,
+			StaffListPluginDescriptor staffList,
+			StaffViewPluginDescriptor staffView) {
+
+		if (pluginSet == null) {
+			pluginSet = new InMemoryPluginSet();
+			pluginSet.registerPlugin(core);
+			pluginSet.registerPlugin(enterprise);
+			pluginSet.registerPlugin(integralPrice);
+			pluginSet.registerPlugin(period);
+			pluginSet.registerPlugin(user);
+			pluginSet.registerPlugin(departmentList);
+			pluginSet.registerPlugin(department);
+			pluginSet.registerPlugin(hrregister);
+			pluginSet.registerPlugin(rewardsItemList);
+			pluginSet.registerPlugin(nominate);
+			pluginSet.registerPlugin(rewardsItem);
+			pluginSet.registerPlugin(rewardsList);
+			pluginSet.registerPlugin(awardreward);
+			pluginSet.registerPlugin(detailsAward);
+			pluginSet.registerPlugin(rewardsItemView);
+			pluginSet.registerPlugin(integralManagement);
+			pluginSet.registerPlugin(depBudget);
+			pluginSet.registerPlugin(staffList);
+			pluginSet.registerPlugin(staffView);
+		}
+
+		return pluginSet;
+	}
+
+	@Provides
+	@Named("staff")
+	PluginSet providePluginSet(
+			// ---- PLUGINS DEFINE BELOW (2) ----
+			CorePluginDescriptor core, // core
+
+			GiftPluginDescriptor gift, GiftListPluginDescriptor giftList,
+			GiftViewPluginDescriptor giftView,
+			OrderListPluginDescriptor orderList,
+			OrderViewPluginDescriptor orderView,
+			OrderBoxPluginDescriptor orderBox,
+			AwardShopListPluginDescriptor awardShop,
+			ShopWindowPluginDescriptor shopWindow,
+			OrderHistoryPluginDescriptor orderHistory,
+			OrderHistoryViewPluginDescriptor orderHistoryView,
+			OrderSubmitPluginDescriptor orderSubmit,
+			OrderConfirmationPluginDescriptor orderConfirmation,
+			DetailsOfGiftPluginDescriptor detailsOfGift) {
+
+		if (pluginSet == null) {
+			pluginSet = new InMemoryPluginSet();
+			pluginSet.registerPlugin(core);
+			pluginSet.registerPlugin(giftList);
+			pluginSet.registerPlugin(gift);
+			pluginSet.registerPlugin(giftView);
+			pluginSet.registerPlugin(orderList);
+			pluginSet.registerPlugin(orderHistory);
+			pluginSet.registerPlugin(orderHistoryView);
+			pluginSet.registerPlugin(orderBox);
+			pluginSet.registerPlugin(orderView);
+			pluginSet.registerPlugin(awardShop);
+			pluginSet.registerPlugin(shopWindow);
+			pluginSet.registerPlugin(orderConfirmation);
+			pluginSet.registerPlugin(orderSubmit);
+			pluginSet.registerPlugin(detailsOfGift);
+
+		}
+
+		return pluginSet;
+	}
+
+	@Provides
+	@Named("gift")
+	PluginSet providePluginSetGift(
+			// ---- PLUGINS DEFINE BELOW (2) ----
+			CorePluginDescriptor core, // core
+
+			IntegralPricePluginDescriptor integralPrice,
+			PeriodPluginDescriptor period, UserPluginDescriptor user,
+			GiftPluginDescriptor gift, GiftListPluginDescriptor giftList,
+			GiftViewPluginDescriptor giftView,
+			OrderListPluginDescriptor orderList,
+			OrderViewPluginDescriptor orderView,
+			OrderBoxPluginDescriptor orderBox,
+			AwardShopListPluginDescriptor awardShop,
+			ShopWindowPluginDescriptor shopWindow,
+			OrderHistoryPluginDescriptor orderHistory,
+			OrderHistoryViewPluginDescriptor orderHistoryView,
+			OrderSubmitPluginDescriptor orderSubmit,
+			OrderConfirmationPluginDescriptor orderConfirmation,
+			DetailsOfGiftPluginDescriptor detailsOfGift) {
+
+		if (pluginSet == null) {
+			pluginSet = new InMemoryPluginSet();
+			pluginSet.registerPlugin(core);
+			pluginSet.registerPlugin(integralPrice);
+			pluginSet.registerPlugin(period);
+			pluginSet.registerPlugin(user);
+			pluginSet.registerPlugin(giftList);
+			pluginSet.registerPlugin(gift);
+			pluginSet.registerPlugin(giftView);
+			pluginSet.registerPlugin(orderList);
+			pluginSet.registerPlugin(orderHistory);
+			pluginSet.registerPlugin(orderHistoryView);
+			pluginSet.registerPlugin(orderBox);
+			pluginSet.registerPlugin(orderView);
+			pluginSet.registerPlugin(awardShop);
+			pluginSet.registerPlugin(shopWindow);
+			pluginSet.registerPlugin(orderConfirmation);
+			pluginSet.registerPlugin(orderSubmit);
+			pluginSet.registerPlugin(detailsOfGift);
+
 		}
 
 		return pluginSet;

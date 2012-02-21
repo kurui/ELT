@@ -232,6 +232,8 @@ public class RewardAclProcessorDept extends AbstractRewardAclProcessor {
 		logger.debug(" This HrUser is department manager Staff ");
 		List<String> departmentIds = deptMgrDao
 				.findDepartmentIdsManagedByStaffId(hrUser.getStaff().getId());
+		if(departmentIds.size()>0)
+		{
 		Set<String> allDepartmentIds = new HashSet<String>();
 		for (String id : departmentIds) {
 			allDepartmentIds.addAll(departmentLogic.getWholeChildrenIds(id,
@@ -242,6 +244,8 @@ public class RewardAclProcessorDept extends AbstractRewardAclProcessor {
 
 		logger.debug(" This Hruser manager department.id:" + departmentIds);
 		res = rewardsDao.searchRewards_departmentId(departmentIds, criteria);
+		}
+
 		return res;
 	}
 }

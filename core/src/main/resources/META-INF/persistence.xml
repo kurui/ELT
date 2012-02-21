@@ -21,7 +21,8 @@
 		<class>com.chinarewards.elt.domain.org.Industry</class>
 		<class>com.chinarewards.elt.domain.org.OrgPolicy</class>
 		<class>com.chinarewards.elt.domain.org.Staff</class>
-
+		<class>com.chinarewards.elt.domain.org.Team</class>
+        <class>com.chinarewards.elt.domain.org.Members</class>
 		<!-- reward -->
 		<class>com.chinarewards.elt.domain.reward.base.Reward</class>
 		<class>com.chinarewards.elt.domain.reward.base.RewardItem</class>
@@ -58,6 +59,14 @@
          <!-- budget -->
         <class>com.chinarewards.elt.domain.budget.CorpBudget</class>
         <class>com.chinarewards.elt.domain.budget.DepartmentBudget</class>
+        <!-- information -->
+		<class>com.chinarewards.elt.domain.information.Broadcasting</class>
+		<class>com.chinarewards.elt.domain.information.DepartmentObject</class>
+		<class>com.chinarewards.elt.domain.information.ReceivingObject</class>
+		<class>com.chinarewards.elt.domain.information.StaffObject</class>
+		<class>com.chinarewards.elt.domain.information.BroadcastReply</class>
+		<class>com.chinarewards.elt.domain.information.BroadcastingReceiving</class>
+		
 		<properties>
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver" />

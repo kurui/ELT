@@ -34,6 +34,9 @@ public interface DockPresenter extends Presenter<DockPresenter.DockDisplay> {
 		void disableManagementCenter();
 		void disableGiftExchange();
 		void disableStaffCorner();
+		
+		void changeTopMenu(String key);
+		void displayDeptMgrMenu();
 	}
 	
 	

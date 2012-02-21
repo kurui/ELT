@@ -72,7 +72,7 @@ public class CorePlugin extends AbstractPlugin {
 		}
 		
 		// open editor by default.
-		if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.CORP_ADMIN)
+		if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.CORP_ADMIN || sessionManager.getSession().getLastLoginRole()==UserRoleVo.DEPT_MGR)
 		{
 			 Platform.getInstance()
 			 .getEditorRegistry()

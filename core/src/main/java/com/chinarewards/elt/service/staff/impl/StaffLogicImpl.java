@@ -1,6 +1,7 @@
 package com.chinarewards.elt.service.staff.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -11,14 +12,30 @@ import org.slf4j.LoggerFactory;
 import com.chinarewards.elt.common.LogicContext;
 import com.chinarewards.elt.common.UserContextProvider;
 import com.chinarewards.elt.dao.org.DepartmentDao;
+import com.chinarewards.elt.dao.org.DepartmentManagerDao;
 import com.chinarewards.elt.dao.org.StaffDao;
+import com.chinarewards.elt.dao.org.StaffDao.QueryStaffPageActionResult;
+import com.chinarewards.elt.dao.reward.WinnerDao;
+import com.chinarewards.elt.dao.user.RoleDao;
+import com.chinarewards.elt.dao.user.UserDao;
+import com.chinarewards.elt.dao.user.UserRoleDao;
 import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.domain.user.SysUser;
+import com.chinarewards.elt.domain.user.SysUserRole;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.org.StaffVo;
+import com.chinarewards.elt.model.staff.StaffProcess;
+import com.chinarewards.elt.model.staff.StaffSearchCriteria;
+import com.chinarewards.elt.model.staff.StaffWinSearchCriteria;
+import com.chinarewards.elt.model.staff.StaffWinVo;
+import com.chinarewards.elt.model.user.GeneratedUserConstants;
+import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.user.UserRole;
+import com.chinarewards.elt.model.user.UserStatus;
+import com.chinarewards.elt.model.vo.StaffSearchVo;
+import com.chinarewards.elt.model.vo.StaffSearchVo.MultipleIdParam;
 import com.chinarewards.elt.model.vo.WinnersRecordQueryResult;
 import com.chinarewards.elt.model.vo.WinnersRecordQueryVo;
 import com.chinarewards.elt.service.org.CorporationLogic;
@@ -41,18 +58,32 @@ public class StaffLogicImpl implements StaffLogic {
 	private final TransactionService transactionService;
 	private final DepartmentDao depDao;
 	private final DepartmentManagerLogic departmentManagerLogic;
+	private final UserDao userDao;
+	private final WinnerDao winnerDao;
+	private final UserRoleDao userRoleDao;
+	private final RoleDao roleDao;
+	private final DepartmentManagerDao deptMgrDao;
+	private final DepartmentLogic departmentLogic;
 
 	@Inject
 	public StaffLogicImpl(StaffDao staffDao, DepartmentLogic deptLogic,
 			CorporationLogic corporationLogic, DepartmentDao depDao,
 			TransactionService transactionService,
-			DepartmentManagerLogic departmentManagerLogic) {
+			DepartmentManagerLogic departmentManagerLogic, UserDao userDao,
+			WinnerDao winnerDao, UserRoleDao userRoleDao, RoleDao roleDao,
+			DepartmentManagerDao deptMgrDao, DepartmentLogic departmentLogic) {
 		this.staffDao = staffDao;
 		this.deptLogic = deptLogic;
 		this.corporationLogic = corporationLogic;
 		this.transactionService = transactionService;
 		this.depDao = depDao;
 		this.departmentManagerLogic = departmentManagerLogic;
+		this.userDao = userDao;
+		this.winnerDao = winnerDao;
+		this.userRoleDao = userRoleDao;
+		this.roleDao = roleDao;
+		this.deptMgrDao = deptMgrDao;
+		this.departmentLogic = departmentLogic;
 	}
 
 	@Override
@@ -237,5 +268,159 @@ public class StaffLogicImpl implements StaffLogic {
 		logger.debug("The gotten staff size={}", result.size());
 		return result;
 
+	}
+
+	@Override
+	public QueryStaffPageActionResult queryStaffList(
+			StaffSearchCriteria criteria, UserContext context) {
+		StaffSearchVo searchVo = new StaffSearchVo();
+		// 待添加查询条件
+		if (!StringUtil.isEmptyString(criteria.getStaffNameorNo()))
+			searchVo.setKeywords(criteria.getStaffNameorNo());
+		if (criteria.getStaffStatus() != null)
+			searchVo.setStatus(criteria.getStaffStatus());
+		if (context.getCorporationId() != null)
+			searchVo.setEnterpriseId(context.getCorporationId());
+		searchVo.setPaginationDetail(criteria.getPaginationDetail());
+		searchVo.setSortingDetail(criteria.getSortingDetail());
+
+		// 处理部门管理员..进入..只查询本部门数据
+		boolean fal = false;
+		for (UserRole role : context.getUserRoles()) {
+			if (role == UserRole.CORP_ADMIN) {
+				fal = true;
+			}
+		}
+		if (fal == false) {
+			SysUser user = userDao.findUserById(context.getUserId());
+			if (user != null && user.getStaff() != null) {
+				List<String> departmentIds = deptMgrDao
+						.findDepartmentIdsManagedByStaffId(user.getStaff()
+								.getId());
+				if (departmentIds.size() > 0) {
+					Set<String> allDepartmentIds = new HashSet<String>();
+					for (String id : departmentIds) {
+						allDepartmentIds.addAll(departmentLogic
+								.getWholeChildrenIds(id, true));
+					}
+					searchVo.setDeptParam(new MultipleIdParam(allDepartmentIds));
+				}
+				
+				
+			}
+
+		}
+		return staffDao.queryStaffPageAction(searchVo);
+	}
+
+	@Override
+	public String createOrUpdateStaff(StaffProcess staff, UserContext context) {
+		Staff ff = null;
+		SysUser nowuser = userDao.findUserById(context.getUserId());
+		if (StringUtil.isEmptyString(staff.getStaffId())) {
+			ff = new Staff();
+		} else {
+			ff = staffDao.findById(Staff.class, staff.getStaffId());
+		}
+
+		if (!StringUtil.isEmptyString(staff.getDepartmentId())) {
+			Department dept = deptLogic.findDepartmentById(staff
+					.getDepartmentId());
+			ff.setDepartment(dept);
+		} else {
+			// 如果传入空部门,默认当前用户部门
+			ff.setDepartment(nowuser.getStaff().getDepartment());
+
+		}
+
+		ff.setStatus(staff.getStatus());
+		ff.setJobNo(staff.getStaffNo());
+		ff.setPhoto(staff.getPhoto());
+		ff.setPhone(staff.getPhone());
+		ff.setJobPosition(staff.getJobPosition());
+		ff.setLeadership(staff.getLeadership());
+		ff.setEmail(staff.getEmail());
+		ff.setDob(staff.getDob());
+		ff.setName(staff.getStaffName());
+		// ff.setTxAccountId(staff.getTxAccountId());---放到激活账户在做
+
+		if (StringUtil.isEmptyString(staff.getStaffId())) {
+			// Create a new staff
+			ff.setCorporation(nowuser.getCorporation());
+			ff.setCreatedBy(nowuser);
+			ff.setCreatedAt(DateUtil.getTime());
+			ff.setDeleted(0);
+			staffDao.save(ff);
+		} else {
+			ff.setId(staff.getStaffId());
+			ff.setLastModifiedAt(DateUtil.getTime());
+			ff.setLastModifiedBy(nowuser);
+
+			staffDao.update(ff);
+		}
+
+		return ff.getId();
+	}
+
+	@Override
+	public Staff findStaffById(String staffId) {
+		return staffDao.findById(Staff.class, staffId);
+	}
+
+	@Override
+	public StaffWinVo findStaffWinReward(StaffWinSearchCriteria criteria) {
+		return winnerDao.queryStaffWinRewardPageAction(criteria);
+	}
+
+	@Override
+	public GeneratedUserConstants generatedUserbyStaff(String staffId,
+			UserContext context) {
+		Staff staff = staffDao.findById(Staff.class, staffId);
+		SysUser user = userDao.findUserByStaffId(staff.getId());
+		SysUser nowuser = userDao.findUserById(context.getUserId());
+
+		if (user != null) {
+			return GeneratedUserConstants.UsernamePresence;
+		} else {
+			// create user
+			Date now = DateUtil.getTime();
+			SysUser u = new SysUser();
+			// check duplicate username
+			String username = staff.getEmail().substring(0,
+					staff.getEmail().indexOf("@"));
+			if (userDao.findUserByUserName(username).size() > 0) {
+				return GeneratedUserConstants.UsernameRepeat;
+			} else {
+				// 创建交易系统ID
+				String accountId = transactionService.createNewAccount();
+				staff.setTxAccountId(accountId);
+				staffDao.update(staff);
+
+				// 创建用户
+				u.setUserName(username);
+				u.setPassword("123");
+				u.setCorporation(staff.getCorporation());
+				u.setCreatedAt(now);
+				u.setCreatedBy(nowuser);
+				u.setLastModifiedAt(now);
+				u.setLastModifiedBy(nowuser);
+				u.setStatus(UserStatus.Active);
+				u.setStaff(staff);
+				userDao.save(u);
+
+				// 创建角色---员工
+
+				SysUserRole userRole = new SysUserRole();
+				userRole.setRole(roleDao.findRoleByRoleName(UserRole.STAFF));
+				userRole.setCreatedBy(nowuser);
+				userRole.setCreatedAt(DateUtil.getTime());
+				userRole.setLastModifiedAt(DateUtil.getTime());
+				userRole.setLastModifiedBy(nowuser);
+				userRole.setUser(u);
+				userRoleDao.createUserRole(userRole);
+
+			}
+		}
+		return GeneratedUserConstants.Success;
 	}
 }

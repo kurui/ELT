@@ -466,9 +466,12 @@ public class RewardLogicImpl implements RewardLogic {
 		List<Reward> list = pageStore.getResultList();
 		// post-process and convert
 		List<RewardVo> rewardVoList = new ArrayList<RewardVo>();
-		for (Reward reward : list) {
-			rewardVoList.add(convertFromRewardToVo(reward, true));
-		}
+		if(list.size()>0)
+		{
+			for (Reward reward : list) {
+				rewardVoList.add(convertFromRewardToVo(reward, true));
+			}
+
 		logger.debug("The result size:{}, total:{}", new Object[] {
 				rewardVoList.size(), pageStore.getResultCount() });
 
@@ -477,6 +480,14 @@ public class RewardLogicImpl implements RewardLogic {
 		storeVo.setResultList(rewardVoList);
 
 		return storeVo;
+		}
+		else
+		{
+			PageStore<RewardVo> storeVo = new PageStore<RewardVo>();
+			storeVo.setResultCount(0);
+			storeVo.setResultList(rewardVoList);
+			return storeVo;
+		}
 	}
 
 	@Override

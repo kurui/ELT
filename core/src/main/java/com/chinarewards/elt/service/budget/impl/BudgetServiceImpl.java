@@ -51,6 +51,9 @@ public class BudgetServiceImpl implements BudgetService {
 	public PageStore<DepartmentBudgetVo> deptBudgetList(UserContext context, DepartmentBudgetVo deptBudgetVo) {
 		SysUser caller = userLogic.findUserById(context.getUserId());
 		List<UserRole> roles =Arrays.asList(context.getUserRoles());
+		//如果是部门管理员，只可以查看本部门记录，
+		if (roles.contains(UserRole.DEPT_MGR))
+			deptBudgetVo.setDepartmentId(caller.getStaff().getDepartment().getId());//不传部门的ID
 		
 		return budgetLogic.deptBudgetList(caller, deptBudgetVo);
 	}
@@ -80,9 +83,16 @@ public class BudgetServiceImpl implements BudgetService {
 		return budgetLogic.findCorpBudgetByCorpId(corpid);
 	}
 	@Override
-	public List<IntegralManagementVo> getIntegralManagementList(String corpId) {
-		return budgetLogic.getIntegralManagementList(corpId);
+	public List<IntegralManagementVo> getIntegralManagementList(String corpId,String corpBudgetId) {
+		return budgetLogic.getIntegralManagementList(corpId, corpBudgetId);
 	}
 
-   
+	public String findByDepAndCorpBudgetId(DepartmentBudget departmentBudget){
+		return budgetLogic.findByDepAndCorpBudgetId(departmentBudget);
+	} 
+	
+	@Override
+	public DepartmentBudget findDepartmentBudgetByDepartmentId(String departmentId,String corpBudgetId){
+		return budgetLogic.findDepartmentBudgetByDepartmentId(departmentId, corpBudgetId);
+	}
 }

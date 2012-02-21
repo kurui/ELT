@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import com.chinarewards.elt.dao.budget.CorpBudgetDao;
 import com.chinarewards.elt.dao.budget.DepartmentBudgetDao;
 import com.chinarewards.elt.dao.org.DepartmentDao;
+import com.chinarewards.elt.dao.org.StaffDao;
 import com.chinarewards.elt.domain.budget.CorpBudget;
 import com.chinarewards.elt.domain.budget.DepartmentBudget;
 import com.chinarewards.elt.domain.org.Department;
@@ -17,6 +18,7 @@ import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.budget.search.DepartmentBudgetVo;
 import com.chinarewards.elt.model.budget.search.IntegralManagementVo;
 import com.chinarewards.elt.model.common.PageStore;
+import com.chinarewards.elt.model.vo.StaffSearchVo;
 import com.chinarewards.elt.service.budget.BudgetLogic;
 import com.chinarewards.elt.service.org.DepartmentLogic;
 import com.chinarewards.elt.util.DateUtil;
@@ -28,16 +30,18 @@ public class BudgetLogicImpl implements BudgetLogic {
 	private CorpBudgetDao corpBudgetDao;
 	private DepartmentDao departmentDao;
 	private DepartmentLogic departmentLogic;
+	private StaffDao   staffDao;
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Inject
 	protected BudgetLogicImpl(DepartmentBudgetDao departmentBudgetDao,
-			DepartmentDao departmentDao, CorpBudgetDao corpBudgetDao,
+			DepartmentDao departmentDao, CorpBudgetDao corpBudgetDao,StaffDao   staffDao,
 			DepartmentLogic departmentLogic) {
 		this.departmentBudgetDao = departmentBudgetDao;
 		this.departmentDao = departmentDao;
 		this.corpBudgetDao = corpBudgetDao;
 		this.departmentLogic = departmentLogic;
+		this.staffDao  = staffDao;
 	}
 
 	@Override
@@ -71,23 +75,36 @@ public class BudgetLogicImpl implements BudgetLogic {
 
 		return corpBudget;
 	}
-
+    
 	@Override
-	public DepartmentBudget saveDepartmentBudget(SysUser caller,
-			DepartmentBudget departmentBudget) {
+	public DepartmentBudget saveDepartmentBudget(SysUser caller,DepartmentBudget departmentBudget) {
 		Date currTime = DateUtil.getTime();
+		
 		if (StringUtil.isEmptyString(departmentBudget.getId())) {
 			// Create
 			departmentBudget.setDeleted(0);// 正常状态，没有删除为0
 			departmentBudget.setRecorduser(caller.getUserName());
-			departmentBudgetDao.save(departmentBudget);
+			departmentBudget.setUseIntegeral(0);//已用的积分为0
+			departmentBudget = departmentBudgetDao.save(departmentBudget);
+			CorpBudget corpBudget= corpBudgetDao.findById(CorpBudget.class,departmentBudget.getCorpBudgetId());
+			//更新企业财年的已用积分
+			corpBudget.setUseIntegeral(corpBudget.getUseIntegeral()+departmentBudget.getBudgetIntegral());
+			corpBudgetDao.update(corpBudget);
 		} else {
 			// Update
-			departmentBudget = departmentBudgetDao.findById(
-					DepartmentBudget.class, departmentBudget.getId());
+			double newBudgetIntegral = departmentBudget.getBudgetIntegral();
+			DepartmentBudget depBudget = departmentBudgetDao.findById(DepartmentBudget.class, departmentBudget.getId());
+			double oldBudgetIntegral = depBudget.getBudgetIntegral();
+			double sc =oldBudgetIntegral-newBudgetIntegral;//得到部门以前的积分与要修改的新设置的积分差
 			departmentBudget.setRecorddate(currTime);
 			departmentBudget.setRecorduser(caller.getUserName());
+			departmentBudget = departmentBudgetDao.findById(DepartmentBudget.class, departmentBudget.getId());
+			departmentBudget.setBudgetIntegral(newBudgetIntegral);
+			
 			departmentBudgetDao.update(departmentBudget);
+			CorpBudget corpBudget= corpBudgetDao.findById(CorpBudget.class,departmentBudget.getCorpBudgetId());
+			corpBudget.setUseIntegeral(corpBudget.getUseIntegeral()-sc);//修改财年的已使用的积分
+			corpBudgetDao.update(corpBudget);
 		}
 
 		return departmentBudget;
@@ -149,22 +166,37 @@ public class BudgetLogicImpl implements BudgetLogic {
 	private DepartmentBudgetVo convertFromBudgetToVo(
 			DepartmentBudget departmentBudget) {
 		DepartmentBudgetVo departmentBudgetVo = new DepartmentBudgetVo();
-		departmentBudgetVo.setBudgetIntegral(departmentBudget
-				.getBudgetIntegral());
+		departmentBudgetVo.setBudgetIntegral(departmentBudget.getBudgetIntegral());
 		departmentBudgetVo.setCorpBudgetId(departmentBudget.getCorpBudgetId());
 		departmentBudgetVo.setDeleted(departmentBudget.getDeleted());
 		departmentBudgetVo.setDepartmentId(departmentBudget.getDepartmentId());
 		departmentBudgetVo.setId(departmentBudget.getId());
 		departmentBudgetVo.setUseIntegeral(departmentBudget.getUseIntegeral());
-		Department department = departmentDao.findById(Department.class,
-				departmentBudget.getDepartmentId());
+		Department department = departmentDao.findById(Department.class,departmentBudget.getDepartmentId());
+		StaffSearchVo searchVo = new StaffSearchVo ();
+		int people =0;
+		List<Department>  list=departmentLogic.getWholeChildren(departmentBudget.getDepartmentId(),true);//得到子部门及本身
+		if(list.size()>0){
+			Department depar = new Department();
+			for(int i=0;i<list.size();i++){
+				depar = list.get(i);
+				searchVo.setDeptId(depar.getId());
+				 people = staffDao.queryStaffPageActionCount(searchVo)+people;//查找部门人数
+				
+			}
+		}
+		departmentBudgetVo.setPeople(people);
 		departmentBudgetVo.setDepartmentName(department.getName());
 
 		return departmentBudgetVo;
 	}
 
 	@Override
-	public List<IntegralManagementVo> getIntegralManagementList(String corpId) {
+
+	public String findByDepAndCorpBudgetId(DepartmentBudget departmentBudget) {
+		return departmentBudgetDao.findByDepAndCorpBudgetId(departmentBudget);//是否已经有了数据
+	}
+	public List<IntegralManagementVo> getIntegralManagementList(String corpId,String corpBudgetId) {
 		List<IntegralManagementVo> volist = new ArrayList<IntegralManagementVo>();
 		List<Department> department = departmentLogic
 				.getWholeDepartmentsOfCorporation(corpId);
@@ -176,7 +208,7 @@ public class BudgetLogicImpl implements BudgetLogic {
 			vo.setParentId(dep.getParent().getId());
 			vo.setLeaf(departmentLogic.isLeaf(dep));
 			DepartmentBudget budget = this
-					.findDepartmentBudgetByDepartmentId(dep.getId());
+					.findDepartmentBudgetByDepartmentId(dep.getId(),corpBudgetId);
 			if (budget != null) {
 				vo.setCorpBudgetId(budget.getCorpBudgetId());
 				vo.setBudgetIntegral(budget.getBudgetIntegral());
@@ -189,10 +221,9 @@ public class BudgetLogicImpl implements BudgetLogic {
 	}
 
 	@Override
-	public DepartmentBudget findDepartmentBudgetByDepartmentId(
-			String departmentId) {
+	public DepartmentBudget findDepartmentBudgetByDepartmentId(	String departmentId,String corpBudgetId) {
 		return departmentBudgetDao
-				.findDepartmentBudgetByDepartmentId(departmentId);
+				.findDepartmentBudgetByDepartmentId(departmentId,corpBudgetId);
 	}
 
 }

@@ -105,11 +105,17 @@ public class BreadCrumbsMenuImpl implements BreadCrumbsMenu {
 		
 		List<MenuBreadVo> volist = null;
 		if (allList.size() > 1) {
-			volist = allList.get(allList.size() - 2);
+			if(childlist.size()>0)
+				volist = allList.get(allList.size() - 1);
+			else
+				volist = allList.get(allList.size() - 2);
+			
+			allList.remove(allList.size() - 1);
 
 		}
-		if (allList.size() > 1) {
-			allList.remove(allList.size() - 1);
+		else if(childlist.size()>0)
+		{
+			volist=allList.get(0);
 		}
 		return volist;
 	}
@@ -121,6 +127,7 @@ public class BreadCrumbsMenuImpl implements BreadCrumbsMenu {
 		vo.setMenuName(name);
 		vo.setMenuUrl(null);
 		childlist.add(vo);
+
 
 	}
 

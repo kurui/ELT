@@ -22,7 +22,7 @@ import com.chinarewards.gwt.elt.util.UserRoleTool;
 import com.google.inject.Inject;
 
 /**
- * @author YanRui
+ * @author lw
  * */
 public class InitCorpBudgetHandler extends	BaseActionHandler<InitCorpBudgetRequest, InitCorpBudgetResponse> {
 
