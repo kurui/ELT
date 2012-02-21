@@ -5,6 +5,7 @@ import java.util.Comparator;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
+import com.chinarewards.gwt.elt.client.broadcastReply.plugin.BroadcastReplyConstants;
 import com.chinarewards.gwt.elt.client.broadcastSave.plugin.BroadcastSaveConstants;
 import com.chinarewards.gwt.elt.client.broadcasting.dataprovider.BroadcastingListViewAdapter;
 import com.chinarewards.gwt.elt.client.broadcasting.model.BroadcastingListClient;
@@ -209,7 +210,11 @@ public class BroadcastingListPresenterImpl extends
 					@Override
 					public void update(int index, final BroadcastingListClient o,
 							String value) {
-						win.alert("待实现");
+						Platform.getInstance()
+						.getEditorRegistry()
+						.openEditor(
+								BroadcastReplyConstants.EDITOR_BROADCASTREPLY_SEARCH,
+								"EDITOR_BROADCASTREPLY_SEARCH_DO_ID",  o.getId());
 					}
 
 				});
