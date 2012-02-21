@@ -15,6 +15,7 @@ import com.chinarewards.elt.domain.information.ReceivingObject;
 import com.chinarewards.elt.domain.information.StaffObject;
 import com.chinarewards.elt.domain.information.TeamObject;
 import com.chinarewards.elt.domain.user.SysUser;
+import com.chinarewards.elt.model.broadcast.BroadcastAndReplyQueryListVo;
 import com.chinarewards.elt.model.broadcast.BroadcastQueryListCriteria;
 import com.chinarewards.elt.model.broadcast.BroadcastQueryListVo;
 import com.chinarewards.elt.model.broadcast.BroadcastingVo;
@@ -43,7 +44,7 @@ public class BroadcastServiceImpl implements BroadcastService {
 	private final StaffLogic staffLogic;
 	private final DepartmentLogic departmentLogic;
 	private final BroadcastingReceivingDao broadcastingReceivingDao;
-//	private final ReceivingObjectDao receivingObjectDao;
+	// private final ReceivingObjectDao receivingObjectDao;
 	private final TeamLogic teamLogic;
 	private final DepartmentObjectDao departmentObjectDao;
 	private final OrgObjectDao orgObjectDao;
@@ -54,16 +55,17 @@ public class BroadcastServiceImpl implements BroadcastService {
 	public BroadcastServiceImpl(BroadcastLogic broadcastLogic,
 			CorporationLogic corporationLogic, UserLogic userLogic,
 			StaffLogic staffLogic, DepartmentLogic departmentLogic,
-			BroadcastingReceivingDao broadcastingReceivingDao,TeamLogic teamLogic,
-			DepartmentObjectDao departmentObjectDao, OrgObjectDao orgObjectDao,
-			StaffObjectDao staffObjectDao,TeamObjectDao teamObjectDao) {
+			BroadcastingReceivingDao broadcastingReceivingDao,
+			TeamLogic teamLogic, DepartmentObjectDao departmentObjectDao,
+			OrgObjectDao orgObjectDao, StaffObjectDao staffObjectDao,
+			TeamObjectDao teamObjectDao) {
 		this.broadcastLogic = broadcastLogic;
 		this.corporationLogic = corporationLogic;
 		this.userLogic = userLogic;
 		this.staffLogic = staffLogic;
 		this.departmentLogic = departmentLogic;
 		this.broadcastingReceivingDao = broadcastingReceivingDao;
-	//	this.receivingObjectDao = receivingObjectDao;
+		// this.receivingObjectDao = receivingObjectDao;
 		this.teamLogic = teamLogic;
 		this.departmentObjectDao = departmentObjectDao;
 		this.orgObjectDao = orgObjectDao;
@@ -163,5 +165,21 @@ public class BroadcastServiceImpl implements BroadcastService {
 
 		return null;
 	}
+
+	@Override
+	public BroadcastAndReplyQueryListVo findBroadcastById(String broadcastId) {
+		BroadcastAndReplyQueryListVo vo = new BroadcastAndReplyQueryListVo();
+		vo.setBroadcasting(broadcastLogic.findbroadcastingById(broadcastId));
+		//获取列表
+		return vo;
+	}
+
+	@Override
+	public List<BroadcastingReceiving> findBroadcastReceiving(
+			String broadcastingId) {
+		return broadcastLogic.findBroadcastReceiving(broadcastingId);
+	}
+
+
 
 }

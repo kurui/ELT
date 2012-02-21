@@ -12,7 +12,10 @@ public class BroadcastingListClient implements Serializable, Comparable<Broadcas
 	 * 
 	 */
 	private static final long serialVersionUID = 4934837755724342679L;
-	
+	/**
+	 * ID
+	 */
+	private String id;
 	/**
 	 * 编号
 	 */
@@ -42,6 +45,14 @@ public class BroadcastingListClient implements Serializable, Comparable<Broadcas
 	 */
 	private int replyNumber;
 	
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public String getNumber() {
 		return number;
 	}

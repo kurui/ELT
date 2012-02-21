@@ -88,6 +88,7 @@ public class SearchBroadcastingListActionHandler extends
 		List<BroadcastingListClient> lt=new ArrayList<BroadcastingListClient>();
 		for (Broadcasting broadcast:result.getResultList()) {
 			BroadcastingListClient client=new BroadcastingListClient();
+			client.setId(broadcast.getId());
 			client.setNumber(broadcast.getNumber());
 			client.setContent(broadcast.getContent());
 			client.setBroadcastingTime(broadcast.getBroadcastingTimeStart());

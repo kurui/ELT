@@ -1,6 +1,9 @@
 package com.chinarewards.elt.service.broadcast;
 
+import java.util.List;
+
 import com.chinarewards.elt.domain.information.Broadcasting;
+import com.chinarewards.elt.domain.information.BroadcastingReceiving;
 import com.chinarewards.elt.model.broadcast.BroadcastQueryListCriteria;
 import com.chinarewards.elt.model.broadcast.BroadcastQueryListVo;
 
@@ -49,10 +52,16 @@ public interface BroadcastLogic {
 	public void deletebroadcasting(Broadcasting broadcasting);
 	
 	/**
-	 * 情况.广播发送对象数据
+	 * 清空.广播发送对象数据
 	 * @param broadcastingId
 	 */
 	public void deleteBroadcastReceiving(String broadcastingId);
+	
+	/**
+	 * 获取 发送对象数据
+	 * @param broadcastingId
+	 */
+	public List<BroadcastingReceiving> findBroadcastReceiving(String broadcastingId);
 	
 	/**
 	 * 获取下一个number

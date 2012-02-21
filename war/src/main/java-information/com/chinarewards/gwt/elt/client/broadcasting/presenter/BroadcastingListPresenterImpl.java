@@ -11,6 +11,7 @@ import com.chinarewards.gwt.elt.client.broadcasting.model.BroadcastingListClient
 import com.chinarewards.gwt.elt.client.broadcasting.model.BroadcastingListCriteria;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
+import com.chinarewards.gwt.elt.client.detailsOfBroadcast.plugin.DetailsOfBroadcastConstants;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
@@ -189,7 +190,11 @@ public class BroadcastingListPresenterImpl extends
 					@Override
 					public void update(int index, final BroadcastingListClient o,
 							String value) {
-						win.alert("待实现");
+						Platform.getInstance()
+						.getEditorRegistry()
+						.openEditor(
+								DetailsOfBroadcastConstants.EDITOR_DETAILSOFBROADCAST_SEARCH,
+								"EDITOR_DETAILSOFBROADCAST_SEARCH_DO_ID", o.getId());
 					}
 
 				});

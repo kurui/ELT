@@ -93,4 +93,12 @@ public class BroadcastLogicImpl implements BroadcastLogic {
 		return strNum;
 	}
 
+	@Override
+	public List<BroadcastingReceiving> findBroadcastReceiving(
+			String broadcastingId) {
+		return broadcastingReceivingDao	.findBroadcastingReceivingList(broadcastingId);
+	}
+
+
+
 }
