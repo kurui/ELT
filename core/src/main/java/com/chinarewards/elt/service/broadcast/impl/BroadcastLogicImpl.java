@@ -17,11 +17,14 @@ public class BroadcastLogicImpl implements BroadcastLogic {
 	private final BroadcastDao broadcastDao;
 	private final BroadcastingReceivingDao broadcastingReceivingDao;
 	private final ReceivingObjectDao receivingObjectDao;
+
 	@Inject
-	public BroadcastLogicImpl(BroadcastDao broadcastDao,BroadcastingReceivingDao broadcastingReceivingDao,ReceivingObjectDao receivingObjectDao) {
+	public BroadcastLogicImpl(BroadcastDao broadcastDao,
+			BroadcastingReceivingDao broadcastingReceivingDao,
+			ReceivingObjectDao receivingObjectDao) {
 		this.broadcastDao = broadcastDao;
-		this.broadcastingReceivingDao=broadcastingReceivingDao;
-		this.receivingObjectDao=receivingObjectDao;
+		this.broadcastingReceivingDao = broadcastingReceivingDao;
+		this.receivingObjectDao = receivingObjectDao;
 	}
 
 	@Override
@@ -41,15 +44,15 @@ public class BroadcastLogicImpl implements BroadcastLogic {
 
 	@Override
 	public void addReplyNumber(Broadcasting broadcasting) {
-		broadcasting.setReplyNumber(broadcasting.getReplyNumber()+1);
+		broadcasting.setReplyNumber(broadcasting.getReplyNumber() + 1);
 		broadcastDao.update(broadcasting);
-		
+
 	}
 
 	@Override
 	public void minusReplyNumber(Broadcasting broadcasting) {
-		broadcasting.setReplyNumber(broadcasting.getReplyNumber()-1);
-		broadcastDao.update(broadcasting);	
+		broadcasting.setReplyNumber(broadcasting.getReplyNumber() - 1);
+		broadcastDao.update(broadcasting);
 	}
 
 	@Override
@@ -65,23 +68,29 @@ public class BroadcastLogicImpl implements BroadcastLogic {
 
 	@Override
 	public void deleteBroadcastReceiving(String broadcastingId) {
-		List<BroadcastingReceiving> broadcastingList=broadcastingReceivingDao.findBroadcastingReceivingList(broadcastingId);
-		if(broadcastingList.size()>0)
-		{
-			for (BroadcastingReceiving cast:broadcastingList) {
+		List<BroadcastingReceiving> broadcastingList = broadcastingReceivingDao
+				.findBroadcastingReceivingList(broadcastingId);
+		if (broadcastingList.size() > 0) {
+			for (BroadcastingReceiving cast : broadcastingList) {
 				broadcastingReceivingDao.delete(cast);
 				receivingObjectDao.delete(cast.getReceiving());
 			}
 		}
-		
+
 	}
 
 	@Override
 	public String getMaxNumber() {
-		return (Integer.parseInt(broadcastDao.getMaxNumber())+1)+"";
+		String strNum;
+		int num = (Integer.parseInt(broadcastDao.getMaxNumber()) + 1);
+		if (num < 10)
+			strNum = "00" + num;
+		else if (num < 100)
+			strNum = "0" + num;
+		else
+			strNum = num + "";
+
+		return strNum;
 	}
-
-
-
 
 }
