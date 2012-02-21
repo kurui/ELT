@@ -53,5 +53,12 @@ public interface BroadcastLogic {
 	 * @param broadcastingId
 	 */
 	public void deleteBroadcastReceiving(String broadcastingId);
+	
+	/**
+	 * 获取下一个number
+	 * @return
+	 */
+	public String getMaxNumber();
+	
 
 }

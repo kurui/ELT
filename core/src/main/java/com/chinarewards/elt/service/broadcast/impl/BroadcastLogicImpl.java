@@ -76,6 +76,11 @@ public class BroadcastLogicImpl implements BroadcastLogic {
 		
 	}
 
+	@Override
+	public String getMaxNumber() {
+		return (Integer.parseInt(broadcastDao.getMaxNumber())+1)+"";
+	}
+
 
 
 

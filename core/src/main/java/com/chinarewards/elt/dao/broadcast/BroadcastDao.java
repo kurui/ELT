@@ -101,4 +101,12 @@ public class BroadcastDao  extends BaseDao<Broadcasting>{
 		}
 		return query;
 	}
+	
+
+	public String getMaxNumber() {
+		StringBuffer hql = new StringBuffer();
+		hql.append(" SELECT COUNT(broadcast) FROM Broadcasting broadcast WHERE 1=1 ");
+		Query query = getEm().createQuery(hql.toString());
+		return query.getSingleResult().toString();
+	}
 }

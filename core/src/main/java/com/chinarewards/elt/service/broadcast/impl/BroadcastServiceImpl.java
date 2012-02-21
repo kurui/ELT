@@ -90,7 +90,7 @@ public class BroadcastServiceImpl implements BroadcastService {
 			broadcastBo.setBroadcastingTimeEnd(broadcast
 					.getBroadcastingTimeEnd());
 			broadcastBo.setAllowreplies(broadcast.isAllowreplies());
-			broadcastBo.setNumber("编号");
+			broadcastBo.setNumber(broadcastLogic.getMaxNumber());
 			broadcastBo.setStatus(BroadcastingStatus.HASBROADCAST);
 			broadcastBo.setCategory(BroadcastingCategory.COMPANYBROADCAST);
 			broadcastBo.setCorporation(corporationLogic

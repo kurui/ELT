@@ -154,6 +154,18 @@ public class BroadcastSavePresenterImpl extends
 								});
 					}
 				}));
+		registerHandler(display.getReturnBtnClickHandlers().addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				Platform.getInstance()
+				.getEditorRegistry()
+				.openEditor(
+						BroadcastingListConstants.EDITOR_BROADCASTINGLIST_SEARCH,
+						"EDITOR_BROADCASTINGLIST_SEARCH_DO_ID", null);
+				
+			}
+		}));
 
 	}
 
