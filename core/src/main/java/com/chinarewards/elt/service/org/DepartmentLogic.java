@@ -187,6 +187,13 @@ public interface DepartmentLogic {
 	 * @return
 	 */
 	public List<Department> findDepartmentsByLeader(String leaderId);
+
+	/**
+	 * @param deptId
+	 * @param containItSelf
+	 * @return
+	 */
+	public List<String> getWholeChildrenNames(String deptId, boolean containItSelf);
 	
 	
 	

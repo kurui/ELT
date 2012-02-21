@@ -1,5 +1,6 @@
 package com.chinarewards.elt.service.org.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.chinarewards.elt.domain.org.Department;
@@ -81,6 +82,17 @@ public class DepartmentServiceImpl implements DepartmentService {
 	@Override
 	public List<Department> findDepartmentsByLeader(String leaderId) {
 		return departmentLogic.findDepartmentsByLeader(leaderId);
+	}
+	
+	@Override
+	public List<Department> getWholeChildren(String deptId,
+			boolean containItSelf){
+		return departmentLogic.getWholeChildren(deptId, containItSelf);
+	}
+	
+	@Override
+	public List<String> getWholeChildrenNames(String deptId, boolean containItSelf) {
+		return departmentLogic.getWholeChildrenNames(deptId, containItSelf);
 	}
 
 }

@@ -80,5 +80,19 @@ public interface DepartmentService {
 	 */
 	public List<Department> findDepartmentsByLeader(String leaderId);
 
+	/**
+	 * @param deptId
+	 * @param containItSelf
+	 * @return
+	 */
+	public List<Department> getWholeChildren(String deptId, boolean containItSelf);
+
+	/**
+	 * @param deptId
+	 * @param containItSelf
+	 * @return
+	 */
+	public List<String> getWholeChildrenNames(String deptId, boolean containItSelf);
+
 
 }

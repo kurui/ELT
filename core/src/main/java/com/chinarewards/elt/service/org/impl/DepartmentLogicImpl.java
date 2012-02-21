@@ -228,6 +228,16 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 		}
 		return list;
 	}
+	
+	@Override
+	public List<String> getWholeChildrenNames(String deptId, boolean containItSelf) {
+		List<String> list = new ArrayList<String>();
+		List<Department> depts = getWholeChildren(deptId, containItSelf);
+		for (Department dept : depts) {
+			list.add(dept.getName());
+		}
+		return list;
+	}
 
 	@Override
 	public List<Department> getImmediacyDepartmentsOfCorporation(

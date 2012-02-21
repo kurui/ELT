@@ -1,5 +1,7 @@
 package com.chinarewards.gwt.elt.server.department;
 
+import java.util.List;
+
 import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.DispatchException;
 
@@ -74,7 +76,9 @@ public class SearchDepartmentByIdHandler
 
 			}
 
-			// private String childdeparmentIds;
+		List<String> childNames=departmentService.getWholeChildrenNames(departmentVo.getId(),false);
+		departmentVo.setChildNames(childNames);
+			
 			// private String childdeparmentNames;
 			// private String peopleNumber;
 			
