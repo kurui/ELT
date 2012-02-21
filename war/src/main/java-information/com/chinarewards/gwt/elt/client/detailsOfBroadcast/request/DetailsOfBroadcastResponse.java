@@ -14,6 +14,15 @@ public class DetailsOfBroadcastResponse implements Result {
 	String receivingObject;
 	String broadcastingTime;
 	String allowreplies;
+	String createUser;
+
+	public String getCreateUser() {
+		return createUser;
+	}
+
+	public void setCreateUser(String createUser) {
+		this.createUser = createUser;
+	}
 
 	public String getContent() {
 		return content;

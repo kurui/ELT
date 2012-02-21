@@ -65,7 +65,7 @@ public class DetailsOfBroadcastActionHandler
 			}
 		}
 		staffResponse.setReceivingObject(receivingobject);
-			
+		staffResponse.setCreateUser(vo.getBroadcasting().getCreatedBy().getStaff().getName());
 		return staffResponse;
 	}
 

@@ -10,8 +10,6 @@ import com.chinarewards.gwt.elt.client.detailsOfBroadcast.request.DetailsOfBroad
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
-import com.chinarewards.gwt.elt.client.support.SessionManager;
-import com.chinarewards.gwt.elt.client.win.Win;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -22,8 +20,8 @@ public class DetailsOfBroadcastPresenterImpl extends
 		implements DetailsOfBroadcastPresenter {
 
 	private final DispatchAsync dispatch;
-	private final SessionManager sessionManager;
-	private final Win win;
+//	private final SessionManager sessionManager;
+//	private final Win win;
 	final ErrorHandler errorHandler;
 	String broadcastId = null;
 	private final BreadCrumbsPresenter breadCrumbs;
@@ -31,13 +29,13 @@ public class DetailsOfBroadcastPresenterImpl extends
 	@Inject
 	public DetailsOfBroadcastPresenterImpl(EventBus eventBus,
 			DetailsOfBroadcastDisplay display, DispatchAsync dispatch,
-			SessionManager sessionManager, Win win,
+			//SessionManager sessionManager, Win win,
 			BreadCrumbsPresenter breadCrumbs, ErrorHandler errorHandler) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
-		this.sessionManager = sessionManager;
+	//	this.sessionManager = sessionManager;
 		this.errorHandler = errorHandler;
-		this.win = win;
+	//	this.win = win;
 		this.breadCrumbs = breadCrumbs;
 
 	}
@@ -79,6 +77,7 @@ public class DetailsOfBroadcastPresenterImpl extends
 						display.setBroadcastingTime(response.getBroadcastingTime());
 						display.setContent(response.getContent());
 						display.setReceivingObject(response.getReceivingObject());
+						display.setCreateUser(response.getCreateUser());
 					}
 
 				});

@@ -18,28 +18,33 @@
 			<div class="{new2.content-wrap}">
 				<div class="{new2.form}">
 					<div class="{new2.form-line}">
-						<label class="{new2.label3}"><span style="color:red">*</span>广播内容：</label>
+						<label class="{new2.label3}">广播内容：</label>
 						<div class="{new2.element}">
 							<g:TextArea ui:field="content" styleName="{new2.textarea}" enabled="false" />
 						</div>
 					</div>
 					
 					<div class="{new2.form-line}">
-						<label class="{new2.label3}"><span style="color:red">*</span>接收对象：</label>
+						<label class="{new2.label3}">接收对象：</label>
 						<div class="{new2.element}">
 							<g:TextArea ui:field="receivingObject" styleName="{new2.textarea}" enabled="false"/>
 						</div>
 					</div>
 
 					<div class="{new2.form-line}">
-						<label class="{new2.label}"><span style="color:red">*</span>广播时间：</label>
+						<label class="{new2.label}">广播时间：</label>
 						<div class="{new2.element}">
 							<g:InlineLabel ui:field="broadcastingTime" />
 						</div>
 					</div>
-				
 					<div class="{new2.form-line}">
-						<label class="{new2.label}"><span style="color:red">*</span>回复设置：</label>
+						<label class="{new2.label}">广播人：</label>
+						<div class="{new2.element}">
+							<g:InlineLabel ui:field="createUser" />
+						</div>
+					</div>
+					<div class="{new2.form-line}">
+						<label class="{new2.label}">回复设置：</label>
 						<div class="{new2.element}">
 							<g:InlineLabel ui:field="isAllowreplies" />
 						</div>

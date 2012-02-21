@@ -20,6 +20,7 @@ public interface DetailsOfBroadcastPresenter extends
 		void setReceivingObject(String text);
 		void setBroadcastingTime(String text);
 		void setAllowreplies(String text);
+		void setCreateUser(String text);
 
 	}
 }

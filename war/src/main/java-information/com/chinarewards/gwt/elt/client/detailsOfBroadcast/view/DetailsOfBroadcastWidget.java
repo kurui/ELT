@@ -24,6 +24,9 @@ public class DetailsOfBroadcastWidget extends Composite implements
 	@UiField
 	InlineLabel isAllowreplies;
 	@UiField
+	InlineLabel createUser;
+	
+	@UiField
 	Button updateBtn;
 
 	@UiField
@@ -70,6 +73,11 @@ public class DetailsOfBroadcastWidget extends Composite implements
 	@Override
 	public void setAllowreplies(String text) {
 		isAllowreplies.setText(text);
+	}
+
+	@Override
+	public void setCreateUser(String text) {
+		createUser.setText(text);		
 	}
 
 }
