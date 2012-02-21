@@ -12,7 +12,8 @@ import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.model.PaginationDetailClient;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-public class LeaderAsyncDataProvider extends BaseDataProvider<StaffClient> {
+public class SearchLeaderAsyncDataProvider extends
+		BaseDataProvider<StaffClient> {
 
 	final DispatchAsync dispatch;
 	final ErrorHandler errorHandler;
@@ -20,7 +21,7 @@ public class LeaderAsyncDataProvider extends BaseDataProvider<StaffClient> {
 	final LeaderSearchCriteria criteria;
 	final boolean filterByAcl;
 
-	public LeaderAsyncDataProvider(DispatchAsync dispatch,
+	public SearchLeaderAsyncDataProvider(DispatchAsync dispatch,
 			ErrorHandler errorHandler, SessionManager sessionManager,
 			LeaderSearchCriteria criteria, boolean filterByAcl) {
 		this.dispatch = dispatch;
@@ -32,23 +33,15 @@ public class LeaderAsyncDataProvider extends BaseDataProvider<StaffClient> {
 
 	@Override
 	public void fetchData(final int start, final int length) {
-		// if (!GWT.isScript()) {
-		// List<StaffClient> list = new ArrayList<StaffClient>();
-		// for (int i = start; i < start + length; i++) {
-		// list.add(new StaffClient("" + i,
-		// criteria.getKey() == null ? "name" : criteria.getKey()
-		// + i, "cardNo" + i, "deptName" + i, "email" + i));
-		// }
-		// updateRowData(start, list);
-		// updateRowCount(100, true);
-		// } else {
 		PaginationDetailClient pagination = new PaginationDetailClient();
 		pagination.setStart(start);
 		pagination.setLimit(length);
 		criteria.setPagination(pagination);
 		criteria.setSorting(getSorting());
 		dispatch.execute(
-				new SearchLeaderRequest(criteria, sessionManager.getSession(),filterByAcl), new AsyncCallback<SearchLeaderResponse>() {
+				new SearchLeaderRequest(criteria, sessionManager
+						.getSession(), filterByAcl),
+				new AsyncCallback<SearchLeaderResponse>() {
 
 					@Override
 					public void onFailure(Throwable e) {
@@ -62,6 +55,5 @@ public class LeaderAsyncDataProvider extends BaseDataProvider<StaffClient> {
 					}
 				});
 	}
-	// }
 
 }

@@ -166,6 +166,7 @@ public interface DepartmentLogic {
 	 */
 	public List<DepartmentManageVo> getDepartmentManageList(String corpId);
 
+	public List<DepartmentManageVo> getDepartmentLeaderList(String leaderId,String corporcationId);
 	/**
 	 * @param caller
 	 * @param department
@@ -179,6 +180,13 @@ public interface DepartmentLogic {
 	 * @return
 	 */
 	public String mergeDepartment(UserContext uc, String departmentIds);
+
+
+	/**
+	 * @param leaderId
+	 * @return
+	 */
+	public List<Department> findDepartmentsByLeader(String leaderId);
 	
 	
 	

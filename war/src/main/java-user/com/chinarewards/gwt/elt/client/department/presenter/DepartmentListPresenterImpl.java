@@ -114,7 +114,7 @@ public class DepartmentListPresenterImpl extends
 								} else {
 									departmentIds = departmentIds.replace(",",
 											"");
-//									win.alert(departmentIds);
+									//win.alert(departmentIds+"=="+ids);
 									DepartmentClient client = new DepartmentClient();
 									client.setId(departmentIds);
 									client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_ADD_SAMELEVEL);
@@ -124,7 +124,7 @@ public class DepartmentListPresenterImpl extends
 											.openEditor(
 													DepartmentConstants.EDITOR_DEPARTMENT_EDIT,
 													DepartmentConstants.ACTION_DEPARTMENT_ADD_SAMELEVEL,
-													client);
+													client);								
 								}
 							} else {
 								win.alert("请至少选择一个部门");
@@ -142,7 +142,7 @@ public class DepartmentListPresenterImpl extends
 					public void onClick(ClickEvent paramClickEvent) {
 						String departmentIds=getDepartmentIds();
 						// win.alert("功能建设中");
-						if (departmentIds != null) {
+						if (departmentIds != null&&"".equals(departmentIds)==false) {
 							String[] ids = StringUtil.getSplitString(
 									departmentIds, ",");
 							if (ids != null) {
@@ -177,7 +177,7 @@ public class DepartmentListPresenterImpl extends
 					public void onClick(ClickEvent paramClickEvent) {
 						// win.alert("功能建设中");
 						String departmentIds=getDepartmentIds();
-						if (departmentIds != null) {
+						if (departmentIds != null&&"".equals(departmentIds)==false) {
 							String[] ids = StringUtil.getSplitString(
 									departmentIds, ",");
 							if (ids != null) {
@@ -202,7 +202,7 @@ public class DepartmentListPresenterImpl extends
 					public void onClick(ClickEvent paramClickEvent) {
 						// win.alert("功能建设中");
 						String departmentIds=getDepartmentIds();
-						if (departmentIds != null) {
+						if (departmentIds != null&&"".equals(departmentIds)==false) {
 							String[] ids = StringUtil.getSplitString(
 									departmentIds, ",");
 							if (ids != null) {
@@ -230,7 +230,7 @@ public class DepartmentListPresenterImpl extends
 					public void onClick(ClickEvent paramClickEvent) {
 						// win.alert("功能建设中");
 						String departmentIds=getDepartmentIds();
-						if (departmentIds != null) {
+						if (departmentIds != null&&"".equals(departmentIds)==false) {
 							String[] ids = StringUtil.getSplitString(
 									departmentIds, ",");
 							if (ids != null) {
@@ -274,6 +274,7 @@ public class DepartmentListPresenterImpl extends
 				}));
 
 	}
+
 
 	private void delteDepartment(String departmentId) {
 		dispatcher.execute(new DeleteDepartmentRequest(departmentId,
