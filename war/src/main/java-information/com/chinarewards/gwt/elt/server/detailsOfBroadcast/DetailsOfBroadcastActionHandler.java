@@ -49,7 +49,7 @@ public class DetailsOfBroadcastActionHandler
 		staffResponse.setContent(vo.getBroadcasting().getContent());
 		staffResponse.setBroadcastingTime(DateTool.dateToString(vo
 				.getBroadcasting().getBroadcastingTimeStart())
-				+ "-"
+				+ " - "
 				+ DateTool.dateToString(vo.getBroadcasting()
 						.getBroadcastingTimeEnd()));
 		if (vo.getBroadcasting().isAllowreplies())

@@ -15,11 +15,11 @@ import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.chinarewards.gwt.elt.client.view.constant.CssStyleConstants;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager.TextLocation;
 import com.chinarewards.gwt.elt.client.widget.GetValue;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
-import com.chinarewards.gwt.elt.client.win.Win;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -32,7 +32,7 @@ public class DetailsOfBroadcastPresenterImpl extends
 
 	private final DispatchAsync dispatch;
 	private final SessionManager sessionManager;
-	private final Win win;
+	//private final Win win;
 	final ErrorHandler errorHandler;
 	String broadcastId = null;
 	private final BreadCrumbsPresenter breadCrumbs;
@@ -44,13 +44,13 @@ public class DetailsOfBroadcastPresenterImpl extends
 	@Inject
 	public DetailsOfBroadcastPresenterImpl(EventBus eventBus,
 			DetailsOfBroadcastDisplay display, DispatchAsync dispatch,
-			SessionManager sessionManager, Win win,
+			SessionManager sessionManager,// Win win,
 			BreadCrumbsPresenter breadCrumbs, ErrorHandler errorHandler) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.sessionManager = sessionManager;
 		this.errorHandler = errorHandler;
-		this.win = win;
+//		this.win = win;
 		this.breadCrumbs = breadCrumbs;
 
 	}
@@ -95,11 +95,20 @@ public class DetailsOfBroadcastPresenterImpl extends
 						display.setReceivingObject(response
 								.getReceivingObject());
 						display.setCreateUser(response.getCreateUser());
+						if("允许回复".equals(response.getAllowreplies()))
+						{
+							buildTable();
+							doSearch();
+						}
+						else
+						{
+							display.getResultpage().getElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
+							display.getDataCount().getElement().getParentElement().addClassName(CssStyleConstants.hidden);
+						}
 					}
 
 				});
-		buildTable();
-		doSearch();
+
 	}
 
 	@Override
@@ -115,7 +124,7 @@ public class DetailsOfBroadcastPresenterImpl extends
 		pager = new EltNewPager(TextLocation.CENTER);
 		pager.setDisplay(cellTable);
 		cellTable.setWidth(ViewConstants.page_width);
-		cellTable.setPageSize(ViewConstants.per_page_number_in_dialog);
+		cellTable.setPageSize(ViewConstants.per_page_number_in_entry);
 		// cellTable.getColumn(0).setCellStyleNames("divTextLeft");
 		display.getResultPanel().clear();
 		display.getResultPanel().add(cellTable);

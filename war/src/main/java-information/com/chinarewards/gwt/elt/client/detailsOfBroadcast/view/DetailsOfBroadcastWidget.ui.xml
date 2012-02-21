@@ -50,7 +50,7 @@
 						</div>
 					</div>
 
-		<span class="{new2.cutline}"></span>
+
 			<div class="{new2.divtext}">共有 <g:InlineLabel ui:field="dataCount" styleName="{new2.divfont}"></g:InlineLabel> 条回复</div><div  class="{new2.divend}"></div>
 			<div class="{new2.table}">
 				<g:FlowPanel ui:field="resultPanel" />
@@ -62,7 +62,7 @@
 				<div class="{new2.pager-left}">
 					每页显示条数
 					<select class="{new2.select}">
-						<option>10</option>
+						<option>5</option>
 					</select>
 				</div>
 

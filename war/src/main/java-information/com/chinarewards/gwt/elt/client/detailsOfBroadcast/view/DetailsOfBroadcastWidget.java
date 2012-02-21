@@ -98,4 +98,9 @@ public class DetailsOfBroadcastWidget extends Composite implements
 	public Panel getResultpage() {
 		return this.resultpage;
 	}
+
+	@Override
+	public InlineLabel getDataCount() {
+		return dataCount;
+	}
 }
