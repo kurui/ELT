@@ -7,7 +7,7 @@ import net.customware.gwt.dispatch.shared.Action;
 
 /**
  * @author yanrui
- * 
+ * test git commit
  */
 public class SearchLeaderRequest implements Action<SearchLeaderResponse> {
 
