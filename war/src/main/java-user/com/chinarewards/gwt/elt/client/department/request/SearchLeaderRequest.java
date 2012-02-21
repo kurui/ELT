@@ -1,33 +1,34 @@
 package com.chinarewards.gwt.elt.client.department.request;
 
-import net.customware.gwt.dispatch.shared.Action;
-
 import com.chinarewards.gwt.elt.client.department.model.LeaderSearchCriteria;
 import com.chinarewards.gwt.elt.client.support.UserSession;
 
+import net.customware.gwt.dispatch.shared.Action;
+
 /**
- * 
- * 
- * @author cyril
- *
+ * @author yanrui
+ * test git commit
  */
 public class SearchLeaderRequest implements Action<SearchLeaderResponse> {
 
 	private LeaderSearchCriteria criteria;
-
 	private UserSession userSession;
-
-
-	private boolean limitDataByUserRole = false;
+	private boolean isLimitDataByUserRole;
 
 	public SearchLeaderRequest() {
+
 	}
 
+	/**
+	 * @param criteria
+	 * @param session
+	 * @param filterByAcl
+	 */
 	public SearchLeaderRequest(LeaderSearchCriteria criteria,
-			UserSession userSession, boolean limitDataByUserRole) {
+			UserSession userSession, boolean isLimitDataByUserRole) {
 		this.criteria = criteria;
 		this.userSession = userSession;
-		this.limitDataByUserRole = limitDataByUserRole;
+		this.isLimitDataByUserRole = isLimitDataByUserRole;
 	}
 
 	public LeaderSearchCriteria getCriteria() {
@@ -46,22 +47,12 @@ public class SearchLeaderRequest implements Action<SearchLeaderResponse> {
 		this.userSession = userSession;
 	}
 
-	/**
-	 * Whether to limit data visible by the caller user (LoginContext). Default
-	 * value is <code>false</code>.
-	 * 
-	 * @return the limitDataByUserRole
-	 */
 	public boolean isLimitDataByUserRole() {
-		return limitDataByUserRole;
+		return isLimitDataByUserRole;
 	}
 
-	/**
-	 * @param limitDataByUserRole
-	 *            the limitDataByUserRole to set
-	 */
-	public void setLimitDataByUserRole(boolean limitDataByUserRole) {
-		this.limitDataByUserRole = limitDataByUserRole;
+	public void setLimitDataByUserRole(boolean isLimitDataByUserRole) {
+		this.isLimitDataByUserRole = isLimitDataByUserRole;
 	}
 
 }

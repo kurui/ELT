@@ -20,6 +20,7 @@ import com.chinarewards.gwt.elt.client.budget.request.SearchDepBudgetRequest;
 import com.chinarewards.gwt.elt.client.chooseOrganization.request.ChooseOrganizationRequest;
 import com.chinarewards.gwt.elt.client.chooseStaff.request.SearchStaffChooseRequest;
 import com.chinarewards.gwt.elt.client.department.request.DeleteDepartmentRequest;
+import com.chinarewards.gwt.elt.client.department.request.DepartmentLeaderRequest;
 import com.chinarewards.gwt.elt.client.department.request.DepartmentManageRequest;
 import com.chinarewards.gwt.elt.client.department.request.EditDepartmentRequest;
 import com.chinarewards.gwt.elt.client.department.request.MergeDepartmentRequest;
@@ -53,6 +54,8 @@ import com.chinarewards.gwt.elt.client.orderConfirmation.request.OrderConfirmati
 import com.chinarewards.gwt.elt.client.orderConfirmation.request.OrderConfirmationRequest;
 import com.chinarewards.gwt.elt.client.orderHistory.request.OrderHistoryViewRequest;
 import com.chinarewards.gwt.elt.client.orderSubmit.request.OrderSubmitRequest;
+import com.chinarewards.gwt.elt.client.register.request.RegisterInitRequest;
+import com.chinarewards.gwt.elt.client.register.request.RegisterRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.ActivationRewardsItemRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.ActivationRewardsItemStoreRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.CreateRewardsItemRequest;
@@ -97,6 +100,7 @@ import com.chinarewards.gwt.elt.server.budget.SearchDepBudgetHandler;
 import com.chinarewards.gwt.elt.server.chooseOrganization.ChooseOrganizationListActionHandler;
 import com.chinarewards.gwt.elt.server.chooseStaff.SearchStaffActionHandler;
 import com.chinarewards.gwt.elt.server.department.DeleteDepartmentHandler;
+import com.chinarewards.gwt.elt.server.department.DepartmentLeaderHandler;
 import com.chinarewards.gwt.elt.server.department.DepartmentManageHandler;
 import com.chinarewards.gwt.elt.server.department.EditDepartmentHandler;
 import com.chinarewards.gwt.elt.server.department.MergeDepartmentHandler;
@@ -130,6 +134,8 @@ import com.chinarewards.gwt.elt.server.orderConfirmation.AddOrderConfirmationHan
 import com.chinarewards.gwt.elt.server.orderConfirmation.SearchOrderConfirmationHandler;
 import com.chinarewards.gwt.elt.server.orderHistory.OrderHistoryViewHandler;
 import com.chinarewards.gwt.elt.server.orderSubmit.AddOrderSubmitHandler;
+import com.chinarewards.gwt.elt.server.register.RegisterActionHandler;
+import com.chinarewards.gwt.elt.server.register.RegisterInitActionHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.ActivationRewardsItemHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.ActivationRewardsItemStroeHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.CreateRewardsItemHandler;
@@ -164,12 +170,6 @@ import com.chinarewards.gwt.elt.server.user.UserSearchActionHandler;
  */
 public class ActionModule extends ActionHandlerModule {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see net.customware.gwt.dispatch.server.guice.ActionHandlerModule#
-	 * configureHandlers()
-	 */
 	@Override
 	protected void configureHandlers() {
 		// login module
@@ -180,15 +180,20 @@ public class ActionModule extends ActionHandlerModule {
 		
 		//部门列表
 		bindHandler(DepartmentManageRequest.class,DepartmentManageHandler.class);
+		//Leader部门列表
+		bindHandler(DepartmentLeaderRequest.class,DepartmentLeaderHandler.class);
+		
 		bindHandler(SearchDepartmentRequest.class, SearchDepartmentHandler.class);	   
 		bindHandler(SearchDepartmentByIdRequest.class,SearchDepartmentByIdHandler.class);		
+		//选择Leader
+		bindHandler(SearchLeaderRequest.class,SearchLeaderHandler.class);
+		
 		//部门编辑
 		bindHandler(EditDepartmentRequest.class, EditDepartmentHandler.class); 		
 		//部门删除
 		bindHandler(DeleteDepartmentRequest.class, DeleteDepartmentHandler.class); 
 		//合并部门
-		bindHandler(MergeDepartmentRequest.class, MergeDepartmentHandler.class); 
-		bindHandler(SearchLeaderRequest.class,SearchLeaderHandler.class);		
+		bindHandler(MergeDepartmentRequest.class, MergeDepartmentHandler.class); 	
 		
 		// staff module
 		bindHandler(HrRegisterRequest.class, HrRegisterActionHandler.class);
@@ -197,8 +202,11 @@ public class ActionModule extends ActionHandlerModule {
 		bindHandler(NominateInitRequest.class, NominateActionHandler.class);
 		//Nominate add module
 		bindHandler(NominateAddRequest.class, NominateAddActionHandler.class);
-		
-		//企业注册以后要改
+		//是否有企业
+		bindHandler(RegisterInitRequest.class, RegisterInitActionHandler.class);
+		//HR企业注册
+		bindHandler(RegisterRequest.class, RegisterActionHandler.class);
+		//企业注册修改
 		bindHandler(EnterpriseRequest.class, EnterpriseActionHandler.class);
 		bindHandler(EnterpriseInitRequest.class, EnterpriseInitActionHandler.class);
 		

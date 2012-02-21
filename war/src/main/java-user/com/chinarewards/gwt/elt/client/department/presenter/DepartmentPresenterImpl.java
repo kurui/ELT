@@ -217,6 +217,7 @@ public class DepartmentPresenterImpl extends
 		String leaderNames="";
 		
 		for (int i = 0; i < itemList.size(); i++) {
+			
 			leaderIds+=itemList.get(i).getId()+",";
 			leaderNames+=itemList.get(i).getName()+",";
 			

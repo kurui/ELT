@@ -98,8 +98,8 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 
 	@Override
 	public void initEditDepartment(DepartmentVo departmentVo) {
-		System.out.println("----widget  initEditDepartment:"
-				+ departmentVo.getId());
+//		System.out.println("----widget  initEditDepartment:"
+//				+ departmentVo.getId());
 		departmentId.setValue(departmentVo.getId());
 		departmentName.setText(departmentVo.getName());
 		// departmentName.setVisible(false);
@@ -107,6 +107,7 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 
 		leaderId.setValue(departmentVo.getLeaderId());
 		leaderName.setValue(departmentVo.getLeaderName());
+		leaderName.setEnabled(false);
 
 		parentId.setValue(departmentVo.getParentId());
 		parentName.setText(getDepartmentParentName(departmentVo.getParentName()));
@@ -119,6 +120,7 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 		leaderArea = new OrganizationSpecialTextArea();
 		leaderPanel.add(leaderArea);//提名人面板
 
+//		System.out.println("-------initDepartmentWidget===:"+departmentVo.getLeaderId());
 	}
 
 	@Override

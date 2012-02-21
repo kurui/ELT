@@ -17,9 +17,10 @@ public class DepartmentVo implements Serializable {
 	private String parentName;
 	private String childdeparmentIds;
 	private String childdeparmentNames;
-	private String peopleNumber;
-	private String yearintegral;
-	private String issueintegral;
+	private String peopleNumber;//员工数
+	private String yearintegral;//财年积分
+	private String issueintegral;//已颁发积分
+	private String procesRewarditemCount;//进行中奖项(数量)
 	
 	public String getId() {
 		return id;
@@ -117,5 +118,15 @@ public class DepartmentVo implements Serializable {
 	public void setIssueintegral(String issueintegral) {
 		this.issueintegral = issueintegral;
 	}
+
+	public String getProcesRewarditemCount() {
+		return procesRewarditemCount;
+	}
+
+	public void setProcesRewarditemCount(String procesRewarditemCount) {
+		this.procesRewarditemCount = procesRewarditemCount;
+	}
+	
+	
 
 }

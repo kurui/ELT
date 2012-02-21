@@ -11,8 +11,9 @@ public class Elt implements EntryPoint {
 
 	@Override
 	public void onModuleLoad() {
-
-		injector.getMain().init(RootLayoutPanel.get());
+		injector.getRegisterPresenter().bind();
+		RootLayoutPanel.get().add(injector.getRegisterPresenter().getDisplay().asWidget());
+	//	injector.getMain().init(RootLayoutPanel.get());
 		
 //		RootLayoutPanel.get().add(injector.getAwardShopLatticePresenter().getDisplay().asWidget());
 		

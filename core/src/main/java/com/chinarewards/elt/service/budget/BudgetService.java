@@ -95,6 +95,14 @@ public interface BudgetService {
 	 */
 	public List<IntegralManagementVo> getIntegralManagementList(String corpId,String corpBudgetId);
 
+	/**
+	 * @param departmentId
+	 * @param corpBudgetId
+	 * @return
+	 */
+	public DepartmentBudget findDepartmentBudgetByDepartmentId(String departmentId,
+			String corpBudgetId);
+
 	
 
 }

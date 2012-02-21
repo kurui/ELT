@@ -22,8 +22,7 @@ public interface CorporationService {
 	 */
 	public Corporation saveCorporation(SysUser caller, CorporationVo corporation);
 	
-	public Corporation updateIntegralPrice(UserContext context,
-			Corporation corporation);
+	public Corporation updateIntegralPrice(UserContext context,	Corporation corporation);
 	
 	public Corporation updatePeriod(UserContext context,
 			Corporation corporation);
@@ -44,4 +43,10 @@ public interface CorporationService {
 	 * @return
 	 */
 	public double callBalance(String corporationId);
+	/**
+	 * 得到企业的数量用于注册
+	 * @return
+	 */
+	
+	public int getCorp();
 }

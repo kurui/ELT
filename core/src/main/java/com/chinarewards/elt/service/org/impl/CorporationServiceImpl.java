@@ -68,4 +68,10 @@ public class CorporationServiceImpl implements CorporationService {
 		return corporationLogic.updatePeriod(context, corporation);
 	}
 
+	@Override
+	public int getCorp() {
+		return corporationLogic.getCorp();
+		
+	}
+   
 }

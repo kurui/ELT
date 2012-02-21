@@ -164,6 +164,11 @@ public class CorporationLogicImpl implements CorporationLogic {
 		return null;
 	}
 
+	@Override
+	public int getCorp() {
+		return corporationDao.getCorp();
+	}
+
 
 	
 

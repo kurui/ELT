@@ -51,7 +51,7 @@ public class DepartmentDao extends BaseDao<Department> {
 		Date now = DateUtil.getTime();
 		Department dept = new Department();
 		dept.setCorporation(corp);
-//		dept.setName(name);
+		// dept.setName(name);
 		dept.setName(corp.getName());
 		dept.setLft(1);
 		dept.setRgt(2);
@@ -143,6 +143,17 @@ public class DepartmentDao extends BaseDao<Department> {
 	}
 
 	/**
+	 * @param leaderId
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Department> findDepartmentsByLeader(String leaderId) {
+		return getEm()
+				.createQuery("FROM Department d WHERE  d.leaderId =:leaderId")
+				.setParameter("leaderId", leaderId).getResultList();
+	}
+
+	/**
 	 * Find list of department by index(lft and rgt).
 	 * 
 	 * @param lft
@@ -157,11 +168,12 @@ public class DepartmentDao extends BaseDao<Department> {
 				.setParameter("lft", lft).setParameter("rgt", rgt)
 				.getResultList();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public Set<String> findSiblingIds(String rootId, boolean includeRoot) {
 
-		logger.debug(" Process in findSiblingIds, rootId:{}, includeRoot:{}",new Object[] { rootId, includeRoot });
+		logger.debug(" Process in findSiblingIds, rootId:{}, includeRoot:{}",
+				new Object[] { rootId, includeRoot });
 
 		Set<String> result = new TreeSet<String>();
 		List<String> currectList = new ArrayList<String>();
@@ -196,30 +208,30 @@ public class DepartmentDao extends BaseDao<Department> {
 	 * @return
 	 */
 	public String mergeDepartment(String departmentIds) {
-	
+
 		return "";
 	}
+
 	@SuppressWarnings("unchecked")
-	public List<Department> getDepartmentsOfCorporationAndKey(String corporationId,String name)
-	{
+	public List<Department> getDepartmentsOfCorporationAndKey(
+			String corporationId, String name) {
 		Map<String, Object> param = new HashMap<String, Object>();
 		StringBuffer hql = new StringBuffer();
 		hql.append(" SELECT d FROM Department d WHERE d.parent is not null");
-		if(!StringUtil.isEmptyString(corporationId))
-		{
+		if (!StringUtil.isEmptyString(corporationId)) {
 			hql.append(" AND d.corporation.id =:corpId  ");
-			param.put("corpId",corporationId);
+			param.put("corpId", corporationId);
 		}
-		if(!StringUtil.isEmptyString(name))
-		{
+		if (!StringUtil.isEmptyString(name)) {
 			hql.append(" AND d.name LIKE :name  ");
-			param.put("name", "%"+ name + "%");
+			param.put("name", "%" + name + "%");
 		}
 		Query query = getEm().createQuery(hql.toString());
 		for (String key : param.keySet()) {
 			query.setParameter(key, param.get(key));
 		}
-		
+
 		return query.getResultList();
 	}
+
 }

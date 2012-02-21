@@ -7,7 +7,7 @@ import java.util.List;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
-import com.chinarewards.gwt.elt.client.department.dataprovider.LeaderAsyncDataProvider;
+import com.chinarewards.gwt.elt.client.department.dataprovider.SearchLeaderAsyncDataProvider;
 import com.chinarewards.gwt.elt.client.department.model.LeaderSearchCriteria;
 import com.chinarewards.gwt.elt.client.department.presenter.ChooseLeaderWinPresenter.ChooseLeaderWinDisplay;
 import com.chinarewards.gwt.elt.client.mvp.BaseDialogPresenter;
@@ -40,7 +40,7 @@ public class ChooseLeaderWinPresenterImpl extends
 
 	final EltNewPager simplePager = new EltNewPager(TextLocation.CENTER);
 	ListCellTable<StaffClient> resultTable;
-	LeaderAsyncDataProvider listViewAdapter;
+	SearchLeaderAsyncDataProvider listViewAdapter;
 
 	// 为LeaderAsyncDataProvider准备的数据。
 	boolean isChooseAll = false;
@@ -210,7 +210,7 @@ public class ChooseLeaderWinPresenterImpl extends
 		resultTable.setPageStart(0);
 		resultTable.setRowCount(0, false);
 
-		listViewAdapter = new LeaderAsyncDataProvider(dispatch, errorHandler,
+		listViewAdapter = new SearchLeaderAsyncDataProvider(dispatch, errorHandler,
 				sessionManager, criteriaVo, false);// 提供数据
 		listViewAdapter.addDataDisplay(resultTable);
 	}
