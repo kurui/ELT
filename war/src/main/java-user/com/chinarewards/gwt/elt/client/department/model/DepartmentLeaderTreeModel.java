@@ -55,7 +55,8 @@ public class DepartmentLeaderTreeModel implements TreeViewModel {
 			}
 
 			@Override
-			protected Element getContainerElement(Element parent) {
+			protected Element getContainerElement(Element parent) {//<td></td>触发事件
+//				System.out.println("==========================="+parent.getFirstChildElement().getInnerHTML());
 				return parent.getFirstChildElement().getFirstChildElement()
 						.getFirstChildElement();
 			}

@@ -11,7 +11,7 @@ public class DepartmentNode implements Serializable {
 	private String departmentName;
 
 	private boolean isLeaf; // 是否子节点
-	private boolean isChecked;// 是否选中
+//	private boolean isChecked;// 是否选中
 
 	private String parentId; // 上级部门ID
 
@@ -60,12 +60,12 @@ public class DepartmentNode implements Serializable {
 		this.departmentId = departmentId;
 	}
 
-	public boolean isChecked() {
-		return isChecked;
-	}
-
-	public void setChecked(boolean isChecked) {
-		this.isChecked = isChecked;
-	}
+//	public boolean isChecked() {
+//		return isChecked;
+//	}
+//
+//	public void setChecked(boolean isChecked) {
+//		this.isChecked = isChecked;
+//	}
 
 }

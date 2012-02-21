@@ -6,10 +6,12 @@ import com.chinarewards.gwt.elt.client.department.model.DepartmentLeaderTreeMode
 import com.chinarewards.gwt.elt.client.department.model.DepartmentNode;
 import com.chinarewards.gwt.elt.client.department.presenter.DepartmentLeaderPresenter.DepartmentLeaderDisplay;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Node;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.cellview.client.CellTree;
+import com.google.gwt.user.cellview.client.TreeNode;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Hidden;
@@ -54,8 +56,12 @@ public class DepartmentLeaderWidget extends Composite implements
 		CellTree.Resources res = GWT.create(CellTree.BasicResources.class);
 		CellTree tree = new CellTree(treeModel, null, res);
 		tree.setAnimationEnabled(true);
+		
+		
 		cellTree.clear();
 		cellTree.add(tree);
+	
+//		cellTree.getElement().getFirstChild().insertFirst(testNode);
 	}
 
 

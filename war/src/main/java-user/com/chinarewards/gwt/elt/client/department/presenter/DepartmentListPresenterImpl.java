@@ -20,7 +20,6 @@ import com.chinarewards.gwt.elt.client.department.request.DepartmentManageRespon
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
-import com.chinarewards.gwt.elt.client.rewards.model.StaffClient;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
@@ -28,7 +27,6 @@ import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Window;
@@ -271,7 +269,12 @@ public class DepartmentListPresenterImpl extends
 						// departmentIds);
 						Element element = display.getCellTree().getElement();
 						win.alert(element.getInnerHTML());
+//						win.alert(element.get);
+//						element.get
+						
 						System.out.println(element.getChildNodes());
+//						element.
+//						display.loadTreeData(nodeList, corporationId);
 					}
 				}));
 

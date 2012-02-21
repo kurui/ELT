@@ -88,7 +88,7 @@ public class DepartmentLeaderPresenterImpl extends
 						// display.setUseIntegeral((int)response.getBudgetIntegral()+"");
 						List<DepartmentNode> nodeList = response.getResult();
 						if(nodeList!=null){
-							System.out.println("=================DepartmentLeaderPresentImpl:"+nodeList.size());
+//							System.out.println("=================DepartmentLeaderPresentImpl:"+nodeList.size());
 						}
 						
 						display.loadTreeData(nodeList, corporationId);
