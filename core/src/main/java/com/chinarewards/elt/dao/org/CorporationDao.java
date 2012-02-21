@@ -68,5 +68,12 @@ public class CorporationDao extends BaseDao<Corporation> {
 				.setParameter("crmEnterPriserId", crmEnterPriserId)
 				.getResultList();
 	}
-
+	@SuppressWarnings("unchecked")
+	public int getCorp() {
+		 int sum = 0;
+		 List<Corporation> list = getEm().createQuery(" FROM Corporation c  ").getResultList();
+		 if(list.size()>0)
+			 sum=list.size();
+		 return sum;
+	}
 }

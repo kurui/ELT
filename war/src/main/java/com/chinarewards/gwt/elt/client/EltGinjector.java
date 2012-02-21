@@ -7,15 +7,18 @@ import com.chinarewards.gwt.elt.client.login.presenter.LoginModule;
 import com.chinarewards.gwt.elt.client.login.presenter.LoginPresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
+import com.chinarewards.gwt.elt.client.register.presenter.RegisterModule;
+import com.chinarewards.gwt.elt.client.register.presenter.RegisterPresenter;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.google.gwt.inject.client.GinModules;
 
-@GinModules({ MainModule.class, LoginModule.class, EltStandardDispatchModule.class })
+@GinModules({ MainModule.class, LoginModule.class, RegisterModule.class, EltStandardDispatchModule.class })
 public interface EltGinjector extends PlatformGinjector {
 
 	// MainPresenter getMainPresenter();
 
 	LoginPresenter getLoginPresenter();
+	RegisterPresenter getRegisterPresenter();
 	AwardShopLatticePresenter getAwardShopLatticePresenter();
 
 	EventBus getEventBus();
