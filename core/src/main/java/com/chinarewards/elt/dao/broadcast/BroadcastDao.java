@@ -54,9 +54,9 @@ public class BroadcastDao  extends BaseDao<Broadcasting>{
 			param.put("status", searchVo.getStatus());
 		}
 	
-		if (!StringUtil.isEmptyString(searchVo.getCreatedByUserId())) {
-			hql.append(" AND broadcast.createdBy.id LIKE :createdByUserId ");
-			param.put("createdByUserId", "%"+searchVo.getCreatedByUserId()+"%");
+		if (!StringUtil.isEmptyString(searchVo.getCreatedByUserName())) {
+			hql.append(" AND broadcast.createdBy.staff.name LIKE :createdByUserName ");
+			param.put("createdByUserName", "%"+searchVo.getCreatedByUserName()+"%");
 		}
 		if (searchVo.getBroadcastingTimeStart()!=null && searchVo.getBroadcastingTimeEnd()!=null) {
 			hql.append(" and ( broadcast.broadcastingTimeStart  between :broadcastingTimeStart and :broadcastingTimeEnd)");
