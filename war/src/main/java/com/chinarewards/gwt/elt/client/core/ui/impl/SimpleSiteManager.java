@@ -28,7 +28,6 @@ import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.LayoutPanel;
@@ -52,7 +51,7 @@ public class SimpleSiteManager implements SiteManager, EditorCloseHandler,
 
 	RootLayoutPanel root;
 
-	DockLayoutPanel dock;
+	Panel dock;
 
 	Panel menu;
 
