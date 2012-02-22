@@ -1,10 +1,6 @@
 package com.chinarewards.gwt.elt.client.register.model;
 
 import java.io.Serializable;
-import java.util.Date;
-
-import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria.GiftStatus;
-import com.chinarewards.gwt.elt.util.StringUtil;
 
 public class OrgInitVo implements Serializable {
 

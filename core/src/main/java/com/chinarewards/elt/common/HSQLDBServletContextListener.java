@@ -38,9 +38,12 @@ private void startServer(String dbPath, String dbName, int port) {
     server.start();    
     System.out.println("hsqldb 服务启动了...");    
    
-     
 }  
 
+
+/**   
+* Listener销毁方法，在Web应用终止的时候执行"shutdown"命令关闭数据库.   
+*/  
     public void contextDestroyed(ServletContextEvent evt) {
         Connection conn = null;
         try {

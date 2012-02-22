@@ -11,9 +11,7 @@ import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.registerHr.model.HrVo;
 import com.chinarewards.gwt.elt.client.registerHr.request.RegisterHrRequest;
 import com.chinarewards.gwt.elt.client.registerHr.request.RegisterHrResponse;
-import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.util.StringUtil;
-import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -83,7 +81,7 @@ public class RegisterHrPresenterImpl extends
 		userRoleVos.add(UserRoleVo.CORP_ADMIN);
 		userRoleVos.add(UserRoleVo.GIFT);
 		userRoleVos.add(UserRoleVo.STAFF);
-		userRoleVos.add(UserRoleVo.DEPT_MGR);
+		//userRoleVos.add(UserRoleVo.DEPT_MGR);
 		
 		vo.setUserRoleVos(userRoleVos);
 		dispatcher.execute(new RegisterHrRequest(vo),

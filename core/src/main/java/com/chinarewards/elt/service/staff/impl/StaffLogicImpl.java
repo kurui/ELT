@@ -22,6 +22,7 @@ import com.chinarewards.elt.dao.user.UserRoleDao;
 import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.org.Staff;
+import com.chinarewards.elt.domain.user.SysRole;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.domain.user.SysUserRole;
 import com.chinarewards.elt.model.common.PageStore;
@@ -459,7 +460,20 @@ public class StaffLogicImpl implements StaffLogic {
 		    user.setStatus(UserStatus.Active);
 		    user.setStaff(newstaff);
 		    user =userDao.save(user);
-
+		    //初始化增加角色表数据
+		    SysRole role1 = new SysRole();
+		    role1.setName(UserRole.CORP_ADMIN);
+		    roleDao.save(role1);
+		    SysRole role2 = new SysRole();
+		    role2.setName(UserRole.GIFT);
+		    roleDao.save(role2);
+		    SysRole role3 = new SysRole();
+		    role3.setName(UserRole.DEPT_MGR);
+		    roleDao.save(role3);
+		    SysRole role4 = new SysRole();
+		    role4.setName(UserRole.STAFF);
+		    roleDao.save(role4);
+            //创建用户角色
 			for (int i = 0; i < staffProcess.getRoles().size(); i++) {
 				SysUserRole userRole = new SysUserRole();
 				userRole.setRole(roleDao.findRoleByRoleName(staffProcess.getRoles().get(i)));
