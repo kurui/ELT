@@ -1,8 +1,15 @@
 package com.chinarewards.elt.service.broadcast;
 
+import java.util.List;
+
+import com.chinarewards.elt.domain.information.BroadcastReply;
 import com.chinarewards.elt.domain.information.Broadcasting;
+import com.chinarewards.elt.domain.information.BroadcastingReceiving;
 import com.chinarewards.elt.model.broadcast.BroadcastQueryListCriteria;
 import com.chinarewards.elt.model.broadcast.BroadcastQueryListVo;
+import com.chinarewards.elt.model.broadcastReply.BroadcastReplyListCriteria;
+import com.chinarewards.elt.model.common.PageStore;
+import com.chinarewards.elt.model.user.UserContext;
 
 public interface BroadcastLogic {
 	/**
@@ -11,7 +18,7 @@ public interface BroadcastLogic {
 	 * @param staffProcess
 	 * @return
 	 */
-	public String createOrUpdateBroadcast(Broadcasting broadcast);
+	public Broadcasting createOrUpdateBroadcast(Broadcasting broadcast);
 
 	/**
 	 * 广播列表
@@ -47,5 +54,35 @@ public interface BroadcastLogic {
 	 * @param broadcastingId
 	 */
 	public void deletebroadcasting(Broadcasting broadcasting);
-
+	
+	/**
+	 * 清空.广播发送对象数据
+	 * @param broadcastingId
+	 */
+	public void deleteBroadcastReceiving(String broadcastingId);
+	
+	/**
+	 * 获取 发送对象数据
+	 * @param broadcastingId
+	 */
+	public List<BroadcastingReceiving> findBroadcastReceiving(String broadcastingId);
+	
+	/**
+	 * 获取下一个number
+	 * @return
+	 */
+	public String getMaxNumber();
+	
+	/**
+	 * 查询回复列表
+	 * @param broadcastId
+	 * @return
+	 */
+	public PageStore<BroadcastReply> findBroadcastReplyList(BroadcastReplyListCriteria criteria);
+	/**
+	 * 保存广播回复
+	 * @param broadcastId
+	 * @return
+	 */
+	public BroadcastReply saveBroadcastReply(String broadcastId,String replyContent,UserContext context);
 }

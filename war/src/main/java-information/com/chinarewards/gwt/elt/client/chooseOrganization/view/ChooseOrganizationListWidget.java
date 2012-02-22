@@ -2,11 +2,11 @@ package com.chinarewards.gwt.elt.client.chooseOrganization.view;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
-import com.chinarewards.gwt.elt.client.chooseStaff.presenter.ChooseStaffListPresenter.ChooseStaffListDisplay;
+import com.chinarewards.gwt.elt.client.chooseOrganization.presenter.ChooseOrganizationListPresenter.ChooseOrganizationListDisplay;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
-import com.chinarewards.gwt.elt.client.rewards.model.StaffClient;
+import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
-import com.chinarewards.gwt.elt.client.ui.StaffSpecialTextArea;
+import com.chinarewards.gwt.elt.client.view.OrganizationSpecialTextArea;
 import com.chinarewards.gwt.elt.client.view.constant.CssStyleConstants;
 import com.chinarewards.gwt.elt.client.widget.SpecialTextArea;
 import com.google.gwt.core.client.GWT;
@@ -18,12 +18,13 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
 public class ChooseOrganizationListWidget extends Composite implements
-		ChooseStaffListDisplay {
+		ChooseOrganizationListDisplay {
 
 	// @UiField
 	// Panel deptPanel;
@@ -52,17 +53,25 @@ public class ChooseOrganizationListWidget extends Composite implements
 	@UiField
 	InlineLabel addLabel;
 	
-	SpecialTextArea<StaffClient> textBox;
+	@UiField
+	RadioButton radioStaff;
+	@UiField
+	RadioButton radioDept;
+	@UiField
+	RadioButton radioGroup;
+	@UiField
+	RadioButton radioOrg;
+	SpecialTextArea<OrganicationClient> textBox;
 
 	// is inject
 	// final DepartmentComboTree deptCombo;
 
-	interface ChooseStaffListWidgetBinder extends
+	interface ChooseOrganizationListWidgetBinder extends
 			UiBinder<Widget, ChooseOrganizationListWidget> {
 	}
 
-	private static ChooseStaffListWidgetBinder uiBinder = GWT
-			.create(ChooseStaffListWidgetBinder.class);
+	private static ChooseOrganizationListWidgetBinder uiBinder = GWT
+			.create(ChooseOrganizationListWidgetBinder.class);
 
 	@Inject
 	public ChooseOrganizationListWidget(DispatchAsync dispatch,
@@ -75,7 +84,7 @@ public class ChooseOrganizationListWidget extends Composite implements
 	}
 
 	private void initSpecialTextBox() {
-		textBox = new StaffSpecialTextArea();
+		textBox = new OrganizationSpecialTextArea();
 		specialBoxPanel.add(textBox);
 	}
 
@@ -115,7 +124,7 @@ public class ChooseOrganizationListWidget extends Composite implements
 	}
 
 	@Override
-	public SpecialTextArea<StaffClient> getSpecialTextBox() {
+	public SpecialTextArea<OrganicationClient> getSpecialTextBox() {
 		return textBox;
 	}
 
@@ -151,6 +160,26 @@ public class ChooseOrganizationListWidget extends Composite implements
 	public void hiddenAddLabel() {
 		this.addLabel.getElement().addClassName(CssStyleConstants.hidden);
 		
+	}
+
+	@Override
+	public RadioButton getRadioStaff() {
+		return radioStaff;
+	}
+
+	@Override
+	public RadioButton getRadioDept() {
+		return radioDept;
+	}
+
+	@Override
+	public RadioButton getRadioGroup() {
+		return radioGroup;
+	}
+
+	@Override
+	public RadioButton getRadioOrg() {
+		return radioOrg;
 	}
 
 	// @Override

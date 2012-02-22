@@ -33,9 +33,9 @@ public class BroadcastQueryListCriteria implements Serializable {
 	 */
 	private BroadcastingStatus status;
 	/**
-	 * 创建人ID
+	 * 创建人名称(员工名称)
 	 */
-	private String createdByUserId;
+	private String createdByUserName;
 	/**
 	 * 开始时间
 	 */
@@ -62,12 +62,14 @@ public class BroadcastQueryListCriteria implements Serializable {
 		this.status = status;
 	}
 
-	public String getCreatedByUserId() {
-		return createdByUserId;
+
+
+	public String getCreatedByUserName() {
+		return createdByUserName;
 	}
 
-	public void setCreatedByUserId(String createdByUserId) {
-		this.createdByUserId = createdByUserId;
+	public void setCreatedByUserName(String createdByUserName) {
+		this.createdByUserName = createdByUserName;
 	}
 
 	public Date getBroadcastingTimeStart() {

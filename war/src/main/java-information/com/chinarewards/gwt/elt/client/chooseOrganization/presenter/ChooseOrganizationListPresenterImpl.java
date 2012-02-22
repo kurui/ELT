@@ -1,26 +1,25 @@
 package com.chinarewards.gwt.elt.client.chooseOrganization.presenter;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import com.chinarewards.gwt.elt.client.chooseOrganization.dataprovider.OrganizationChooseAsyncDataProvider;
 import com.chinarewards.gwt.elt.client.chooseOrganization.event.ChooseOrganizationEvent;
+import com.chinarewards.gwt.elt.client.chooseOrganization.model.OrganSearchCriteria;
+import com.chinarewards.gwt.elt.client.chooseOrganization.model.OrganSearchCriteria.OrganType;
 import com.chinarewards.gwt.elt.client.chooseOrganization.presenter.ChooseOrganizationListPresenter.ChooseOrganizationListDisplay;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
-import com.chinarewards.gwt.elt.client.dataprovider.StaffChooseAsyncDataProvider;
 import com.chinarewards.gwt.elt.client.mvp.BaseDialogPresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
-import com.chinarewards.gwt.elt.client.rewards.model.StaffClient;
-import com.chinarewards.gwt.elt.client.rewards.model.StaffSearchCriteria;
+import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager.TextLocation;
 import com.chinarewards.gwt.elt.client.widget.GetValue;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
-import com.chinarewards.gwt.elt.client.widget.Sorting;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -41,8 +40,8 @@ public class ChooseOrganizationListPresenterImpl extends
 
 	String rewardId;
 	final EltNewPager simplePager = new EltNewPager(TextLocation.CENTER);
-	ListCellTable<StaffClient> resultTable;
-	StaffChooseAsyncDataProvider listViewAdapter;
+	ListCellTable<OrganicationClient> resultTable;
+	OrganizationChooseAsyncDataProvider listViewAdapter;
 
 	// 为StaffAsyncDataProvider准备的数据。
 	boolean isChooseAll = false;
@@ -73,6 +72,7 @@ public class ChooseOrganizationListPresenterImpl extends
 
 	private void init() {
 		buildTable();
+		doSearch(OrganType.STAFF);
 	}
 
 	public void bind() {
@@ -83,7 +83,15 @@ public class ChooseOrganizationListPresenterImpl extends
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent arg0) {
-						doSearch();
+						buildTable();
+						if(display.getRadioDept().getValue())
+							doSearch(OrganType.DEPT);
+						else if(display.getRadioGroup().getValue())
+							doSearch(OrganType.GROUP);
+						else if(display.getRadioOrg().getValue())
+							doSearch(OrganType.ORG);
+						else if(display.getRadioStaff().getValue())
+							doSearch(OrganType.STAFF);
 					}
 				}));
 
@@ -112,12 +120,44 @@ public class ChooseOrganizationListPresenterImpl extends
 						closeDialog();
 					}
 				}));
+		registerHandler(display.getRadioStaff().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent arg0) {
+						buildTable();
+						doSearch(OrganType.STAFF);
+					}
+				}));
+		registerHandler(display.getRadioGroup().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent arg0) {
+						buildTable();
+						doSearch(OrganType.GROUP);
+					}
+				}));
+		registerHandler(display.getRadioOrg().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent arg0) {
+						buildTable();
+						doSearch(OrganType.ORG);
+					}
+				}));
+		registerHandler(display.getRadioDept().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent arg0) {
+						buildTable();
+						doSearch(OrganType.DEPT);
+					}
+				}));
 	}
 
 	private void buildTable() {
 
-		resultTable = new ListCellTable<StaffClient>();
-		final SingleSelectionModel<StaffClient> selectionModel = setSelectionModel(resultTable);
+		resultTable = new ListCellTable<OrganicationClient>();
+		final SingleSelectionModel<OrganicationClient> selectionModel = setSelectionModel(resultTable);
 		initTableColumns(selectionModel);
 
 		simplePager.setDisplay(resultTable);
@@ -129,14 +169,14 @@ public class ChooseOrganizationListPresenterImpl extends
 		display.getResultpage().add(simplePager);
 	}
 
-	private SingleSelectionModel<StaffClient> setSelectionModel(
-			CellTable<StaffClient> cellTable) {
-		final SingleSelectionModel<StaffClient> selectionModel = new SingleSelectionModel<StaffClient>();
+	private SingleSelectionModel<OrganicationClient> setSelectionModel(
+			CellTable<OrganicationClient> cellTable) {
+		final SingleSelectionModel<OrganicationClient> selectionModel = new SingleSelectionModel<OrganicationClient>();
 
 		SelectionChangeEvent.Handler selectionHandler = new SelectionChangeEvent.Handler() {
 			@Override
 			public void onSelectionChange(SelectionChangeEvent event) {
-				StaffClient staff = selectionModel.getSelectedObject();
+				OrganicationClient staff = selectionModel.getSelectedObject();
 				if (!display.getSpecialTextBox().containsItem(staff)) {
 					display.getSpecialTextBox().addItem(staff);
 				}
@@ -156,34 +196,28 @@ public class ChooseOrganizationListPresenterImpl extends
 	 * @param selectionModel
 	 */
 	private void initTableColumns(
-			final SelectionModel<StaffClient> selectionModel) {
+			final SelectionModel<OrganicationClient> selectionModel) {
 
-		Sorting<StaffClient> ref = new Sorting<StaffClient>() {
-			@Override
-			public void sortingCurrentPage(Comparator<StaffClient> comparator) {
-				listViewAdapter.sortCurrentPage(comparator);
-			}
+//		Sorting<OrganicationClient> ref = new Sorting<OrganicationClient>() {
+//			@Override
+//			public void sortingCurrentPage(Comparator<OrganicationClient> comparator) {
+//				//listViewAdapter.sortCurrentPage(comparator);
+//			}
+//
+//			@Override
+//			public void sortingAll(String sorting, String direction) {
+//				listViewAdapter.sortFromDateBase(sorting, direction);
+//			}
+//		};
 
-			@Override
-			public void sortingAll(String sorting, String direction) {
-				listViewAdapter.sortFromDateBase(sorting, direction);
-			}
-		};
-
-		resultTable.addColumn("员工姓名", new TextCell(),
-				new GetValue<StaffClient, String>() {
+		resultTable.addColumn("名称", new TextCell(),
+				new GetValue<OrganicationClient, String>() {
 					@Override
-					public String getValue(StaffClient staff) {
+					public String getValue(OrganicationClient staff) {
 						return staff.getName();
 					}
-				}, ref, "staff.name");
-		resultTable.addColumn("被提名次数", new TextCell(),
-				new GetValue<StaffClient, String>() {
-					@Override
-					public String getValue(StaffClient staff) {
-						return staff.getNominateCount() + "";
-					}
-				}, ref, "nominatecount");
+				});
+
 
 	}
 
@@ -192,10 +226,10 @@ public class ChooseOrganizationListPresenterImpl extends
 	 * 
 	 * @return
 	 */
-	private List<StaffClient> getRealStaffs() {
-		List<StaffClient> result = new ArrayList<StaffClient>();
-		for (StaffClient staff : display.getSpecialTextBox().getItemList()) {
-			result.add(staff);
+	private List<OrganicationClient> getRealStaffs() {
+		List<OrganicationClient> result = new ArrayList<OrganicationClient>();
+		for (OrganicationClient organ : display.getSpecialTextBox().getItemList()) {
+			result.add(organ);
 		}
 		return result;
 	}
@@ -203,31 +237,20 @@ public class ChooseOrganizationListPresenterImpl extends
 	/**
 	 * 查询员工
 	 */
-	private void doSearch() {
-		StaffSearchCriteria criteriaVo = new StaffSearchCriteria();
+	private void doSearch(OrganType organType) {
+		OrganSearchCriteria criteriaVo = new OrganSearchCriteria();
 		 criteriaVo.setKey(display.getName().getValue());
-		// criteriaVo.setDeptId(display.getDeptId());
-		// if (isLimitByNominee) {
-		// criteriaVo.setChooseAll(isChooseAll);
-		// criteriaVo.setOrgIds(orgIds);
-		// }
-		criteriaVo.setRewardId(rewardId);
+		 criteriaVo.setOrganType(organType);
+
+
 		resultTable.setPageStart(0);
 		resultTable.setRowCount(0, false);
-		listViewAdapter = new StaffChooseAsyncDataProvider(dispatch,
+		listViewAdapter = new OrganizationChooseAsyncDataProvider(dispatch,
 				errorHandler, sessionManager, criteriaVo, false);
 		listViewAdapter.addDataDisplay(resultTable);
 	}
 
-	public void setNominee(boolean isLimitByNominee, boolean isChooseAll,
-			List<String> orgIds) {
-		if (isLimitByNominee) {
-			this.isChooseAll = isChooseAll;
-			this.orgIds = orgIds;
-			this.isLimitByNominee = isLimitByNominee;
-		}
-		doSearch();
-	}
+
 
 
 

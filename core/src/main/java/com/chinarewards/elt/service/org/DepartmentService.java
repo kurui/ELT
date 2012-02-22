@@ -75,6 +75,13 @@ public interface DepartmentService {
 	public String mergeDepartment(UserContext uc, String departmentIds,String departmentName,String leaderId);
 
 	/**
+	 *获取部门.查询.key(name).去掉根部门
+	 * 
+	 * @param corporationId
+	 * @return
+	 */
+	public List<Department> getDepartmentsOfCorporationAndKey(String corporationId,String key);
+	/**
 	 * @param leaderId
 	 * @return
 	 */
@@ -93,6 +100,7 @@ public interface DepartmentService {
 	 * @return
 	 */
 	public List<String> getWholeChildrenNames(String deptId, boolean containItSelf);
+
 
 
 }

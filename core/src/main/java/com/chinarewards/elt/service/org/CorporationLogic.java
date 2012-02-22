@@ -74,4 +74,11 @@ public interface CorporationLogic {
 	 * @return
 	 */
 	public Corporation updatePeriod(UserContext context, Corporation corporation);
+	
+	/**
+	 * 得到企业的数量用于注册
+	 * @return
+	 */
+	
+	public int getCorp();
 }

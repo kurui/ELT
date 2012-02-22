@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:p1="urn:import:com.google.gwt.user.cellview.client">
+	<ui:style>
+		.important {
+			font-weight: bold;
+		}
+	</ui:style>
+	<g:HTMLPanel>
+		<g:AbsolutePanel height="549px" width="696px">
+			<g:at left="156" top="96">
+				<g:Label text="企业基本信息" width="126px" height="23px"/>
+			</g:at>
+			<g:at left="208" top="146">
+				<g:Label text="企业名称"/>
+			</g:at>
+			<g:at left="278" top="139">
+				<g:TextBox maxLength="30" ui:field="enterpriseName"/>
+			</g:at>
+			<g:at left="461" top="146">
+				<g:Label text="法人"/>
+			</g:at>
+			<g:at left="208" top="185">
+				<g:Label text="企业地址"/>
+			</g:at>
+			<g:at left="532" top="139">
+				<g:TextBox maxLength="30" ui:field="corporation"/>
+			</g:at>
+			<g:at left="278" top="185">
+				<g:TextBox width="400px" height="15px" ui:field="address"/>
+			</g:at>
+			<g:at left="208" top="237">
+				<g:Label width="65px" height="16px" text="联系人"/>
+			</g:at>
+			<g:at left="278" top="229">
+				<g:TextBox width="154px" height="15px" ui:field="linkman"/>
+			</g:at>
+			<g:at left="461" top="237">
+				<g:Label width="65px" height="16px" text="联系电话"/>
+			</g:at>
+			<g:at left="532" top="229">
+				<g:TextBox width="146px" height="15px" ui:field="tell"/>
+			</g:at>
+			<g:at left="208" top="282">
+				<g:Label width="65px" height="16px" text="手机号"/>
+			</g:at>
+			<g:at left="278" top="274">
+				<g:TextBox width="154px" height="15px" ui:field="cellphone"/>
+			</g:at>
+			<g:at left="461" top="282">
+				<g:Label width="65px" height="16px" text="Email"/>
+			</g:at>
+			<g:at left="532" top="274">
+				<g:TextBox width="146px" height="15px" ui:field="email"/>
+			</g:at>
+			<g:at left="208" top="416">
+				<g:Label width="65px" height="16px" text="备注"/>
+			</g:at>
+			<g:at left="278" top="388">
+				<g:TextArea width="385px" height="75px" ui:field="remark"/>
+			</g:at>
+			<g:at left="208" top="336">
+				<g:Label width="65px" height="16px" text="网站"/>
+			</g:at>
+			<g:at left="278" top="336">
+				<g:TextBox width="154px" height="15px" ui:field="web"/>
+			</g:at>
+			<g:at left="461" top="336">
+				<g:Label width="65px" height="16px" text="传真"/>
+			</g:at>
+			<g:at left="532" top="336">
+				<g:TextBox width="146px" height="15px" ui:field="fax"/>
+			</g:at>
+			<g:at left="443" top="496">
+				<g:Button width="100px" height="23px" ui:field="saveButton" text="确定"/>
+			</g:at>
+			<g:at left="204" top="10">
+				<g:Hidden name="Hidden name" width="20px" height="20px" ui:field="enterpriseId"/>
+			</g:at>
+			<g:at left="62" top="24">
+				<g:InlineLabel text="企业账号注册"/>
+			</g:at>
+		</g:AbsolutePanel>
+	
+		
+	</g:HTMLPanel>
+</ui:UiBinder> 

@@ -141,5 +141,8 @@ public class StaffServiceImpl implements IStaffService {
 	public GeneratedUserConstants generatedUserbyStaff(String staffId, UserContext context) {
 		return staffLogic.generatedUserbyStaff(staffId, context);
 	}
-
+	@Override
+	public String createHrUser(StaffUserProcess staff){
+		return staffLogic.createHrUser( staff);
+	}
 }

@@ -57,6 +57,7 @@
 										 
 										<input type="checkbox" checked="true" />
 										 下次自动登录
+										 <g:Anchor  styleName="{new2.anchor}" text="设置" /> <g:Anchor  styleName="{new2.anchor}" text="注册企业" />
 									</div>
 								</div>
 							</div>

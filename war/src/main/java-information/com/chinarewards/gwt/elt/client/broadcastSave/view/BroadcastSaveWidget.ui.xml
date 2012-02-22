@@ -47,7 +47,7 @@
 					<div class="{new2.form-line}">
 						<label class="{new2.label}"><span style="color:red">*</span>回复设置：</label>
 						<div class="{new2.element}">
-							<g:RadioButton ui:field="isAllowreplies_true" name="statusCheckBox">允许回复
+							<g:RadioButton ui:field="isAllowreplies_true" name="statusCheckBox" checked="true">允许回复
 							</g:RadioButton>
 							<g:RadioButton ui:field="isAllowreplies_false" name="statusCheckBox">不允许回复
 							</g:RadioButton>

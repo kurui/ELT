@@ -2,6 +2,8 @@ package com.chinarewards.gwt.elt.client.rewards.model;
 
 import java.io.Serializable;
 
+import com.chinarewards.gwt.elt.client.chooseOrganization.model.OrganSearchCriteria.OrganType;
+
 public class OrganicationClient implements Serializable {
 
 	/**
@@ -12,6 +14,7 @@ public class OrganicationClient implements Serializable {
 	protected String id;
 
 	protected String name;
+	protected OrganType type;
 
 	public OrganicationClient() {
 
@@ -20,6 +23,14 @@ public class OrganicationClient implements Serializable {
 	public OrganicationClient(String id, String name) {
 		this.id = id;
 		this.name = name;
+	}
+
+	public OrganType getType() {
+		return type;
+	}
+
+	public void setType(OrganType type) {
+		this.type = type;
 	}
 
 	@Override

@@ -2,11 +2,12 @@ package com.chinarewards.gwt.elt.client.chooseOrganization.presenter;
 
 import com.chinarewards.gwt.elt.client.mvp.DialogPresenter;
 import com.chinarewards.gwt.elt.client.mvp.Display;
-import com.chinarewards.gwt.elt.client.rewards.model.StaffClient;
+import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
 import com.chinarewards.gwt.elt.client.widget.SpecialTextArea;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.Widget;
 
 public interface ChooseOrganizationListPresenter extends
@@ -32,7 +33,7 @@ public interface ChooseOrganizationListPresenter extends
 		 */
 		void reset();
 
-		SpecialTextArea<StaffClient> getSpecialTextBox();
+		SpecialTextArea<OrganicationClient> getSpecialTextBox();
 
 		Panel getResultPanel();
 		Panel getResultpage();
@@ -47,6 +48,14 @@ public interface ChooseOrganizationListPresenter extends
 		void setCancelBtnText(String text);
 		
 		
+		
+		RadioButton getRadioStaff();
+		
+		RadioButton getRadioDept();
+		
+		RadioButton getRadioGroup();
+		
+		RadioButton getRadioOrg();
 	}
 
 }

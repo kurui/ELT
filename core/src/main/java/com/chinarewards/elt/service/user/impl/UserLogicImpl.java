@@ -156,6 +156,7 @@ public class UserLogicImpl implements UserLogic {
 		vo.setCorporationId(user.getCorporation().getId());
 		vo.setUsername(user.getUserName());
 		vo.setUserRoles(userRoles);
+		if(user.getStaff().getDepartment()!=null)
 		vo.setDepartmentId(user.getStaff().getDepartment().getId());
 		vo.setStaffId(user.getStaff().getId());
 		vo.setLastLoginRole(user.getLastLoginRole());

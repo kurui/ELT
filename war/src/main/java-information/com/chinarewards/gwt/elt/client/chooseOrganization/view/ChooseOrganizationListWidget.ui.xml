@@ -9,6 +9,12 @@
 			<!--查询条件 [[ -->
 			<div class="{new2.query-wrap3}">
 				<div class="{new2.form}">
+					<g:RadioButton text="员工" name="radioCheckBox" ui:field="radioStaff" checked="true" />
+					<g:RadioButton text="部门" name="radioCheckBox" ui:field="radioDept" />
+					<g:RadioButton text="小组" name="radioCheckBox" ui:field="radioGroup" />
+					<g:RadioButton text="机构" name="radioCheckBox" ui:field="radioOrg" />
+				</div>
+				<div class="{new2.form}">
 					<label for="">查询条件(名称)：</label>
 					<g:TextBox maxLength="10" ui:field="name" styleName="{new2.text2}" />
 
@@ -20,6 +26,7 @@
 					<span class="{new2.btn}">
 						<g:Button ui:field="resetBtn" text="重置" />
 					</span>
+
 				</div>
 			</div>
 			<!--查询条件 ]] -->

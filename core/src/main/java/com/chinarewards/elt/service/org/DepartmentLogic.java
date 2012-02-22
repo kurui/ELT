@@ -195,6 +195,12 @@ public interface DepartmentLogic {
 	 */
 	public List<String> getWholeChildrenNames(String deptId, boolean containItSelf);
 	
-	
+	/**
+	 *获取部门.查询.key(name).去掉根部门
+	 * 
+	 * @param corporationId
+	 * @return
+	 */
+	public List<Department> getDepartmentsOfCorporationAndKey(String corporationId,String key);
 	
 }

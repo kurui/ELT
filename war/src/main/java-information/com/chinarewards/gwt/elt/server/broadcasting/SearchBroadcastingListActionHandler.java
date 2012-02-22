@@ -66,14 +66,14 @@ public class SearchBroadcastingListActionHandler extends
 			sortingDetail.setDirection(request.getCriteria().getSorting().getDirection());
 			criteria.setSortingDetail(sortingDetail);
 		}
-		if(StringUtil.isEmpty(request.getCriteria().getCorporationId()))
+		if(!StringUtil.isEmpty(request.getCriteria().getCorporationId()))
 			criteria.setCorporationId(request.getCriteria().getCorporationId());
-		if(StringUtil.isEmpty(request.getCriteria().getCreatedByUserId()))
-			criteria.setCreatedByUserId(request.getCriteria().getCreatedByUserId());
+		if(!StringUtil.isEmpty(request.getCriteria().getCreatedByUserName()))
+			criteria.setCreatedByUserName(request.getCriteria().getCreatedByUserName());
 		if(request.getCriteria().getBroadcastingTimeStart()!=null)
 			criteria.setBroadcastingTimeStart(request.getCriteria().getBroadcastingTimeStart());
 		if(request.getCriteria().getBroadcastingTimeEnd()!=null)
-			criteria.setBroadcastingTimeStart(request.getCriteria().getBroadcastingTimeEnd());
+			criteria.setBroadcastingTimeEnd(request.getCriteria().getBroadcastingTimeEnd());
 		if(request.getCriteria().getStatus()!=null)
 			criteria.setStatus(BroadcastingStatus.valueOf(request.getCriteria().getStatus().toString()));
 		
@@ -88,6 +88,7 @@ public class SearchBroadcastingListActionHandler extends
 		List<BroadcastingListClient> lt=new ArrayList<BroadcastingListClient>();
 		for (Broadcasting broadcast:result.getResultList()) {
 			BroadcastingListClient client=new BroadcastingListClient();
+			client.setId(broadcast.getId());
 			client.setNumber(broadcast.getNumber());
 			client.setContent(broadcast.getContent());
 			client.setBroadcastingTime(broadcast.getBroadcastingTimeStart());

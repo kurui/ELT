@@ -1,9 +1,13 @@
 package com.chinarewards.gwt.elt.client.broadcasting.view;
 
 
+import java.util.Date;
+
 import com.chinarewards.gwt.elt.client.broadcasting.presenter.BroadcastingListPresenter.BroadcastingListDisplay;
+import com.chinarewards.gwt.elt.client.view.constant.ViewConstants;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
@@ -40,6 +44,8 @@ public class BroadcastingListWidget extends Composite implements BroadcastingLis
 	DateBox broadcastingTime;
 	@UiField
 	DateBox broadcastingTimeEnd;
+	DateTimeFormat dateFormat = DateTimeFormat
+			.getFormat(ViewConstants.date_format);
 	private static BroadcastingListWidgetUiBinder uiBinder = GWT
 			.create(BroadcastingListWidgetUiBinder.class);
 
@@ -49,6 +55,8 @@ public class BroadcastingListWidget extends Composite implements BroadcastingLis
 
 	public BroadcastingListWidget() {
 		initWidget(uiBinder.createAndBindUi(this));
+		broadcastingTime.setFormat(new DateBox.DefaultFormat(dateFormat));
+		broadcastingTimeEnd.setFormat(new DateBox.DefaultFormat(dateFormat));
 	}
 
 	@Override
@@ -92,6 +100,26 @@ public class BroadcastingListWidget extends Composite implements BroadcastingLis
 		status.addItem("不限", "ALL");
 		status.addItem("已广播", "HASBROADCAST");
 		status.addItem("未广播", "NOTBROADCAST");
+	}
+
+	@Override
+	public String getStatus() {
+		return status.getValue(status.getSelectedIndex());
+	}
+
+	@Override
+	public String getCreateUser() {
+		return createUser.getValue();
+	}
+
+	@Override
+	public Date getBroadcastingTime() {
+		return broadcastingTime.getValue();
+	}
+
+	@Override
+	public Date getBroadcastingTimeEnd() {
+		return broadcastingTimeEnd.getValue();
 	}
 
 	
