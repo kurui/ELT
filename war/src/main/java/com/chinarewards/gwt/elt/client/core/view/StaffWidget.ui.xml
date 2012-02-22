@@ -180,7 +180,7 @@
 				    <!-- 导航 ]]-->
 				
 	
-	<g:AbsolutePanel ui:field="dock" styleName="{new2.content-wrap}" />
+	<g:FlowPanel ui:field="dock" />
 	
 				 <div class="{new2.reward-area}">
 			        <div class="{new2.reward-section}">
