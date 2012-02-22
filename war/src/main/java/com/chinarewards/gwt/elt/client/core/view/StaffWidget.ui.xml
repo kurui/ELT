@@ -121,11 +121,11 @@
 				
 				          <ul class="{new2.employee-menu}">
 
-				            <li><g:Anchor ui:field="viewPoints" styleName="{new2.staffa}"> <span class="{new2.liimg}"></span>查看积分</g:Anchor></li>
+				            <li  class="{new2.on}"><g:Anchor ui:field="viewPoints" styleName="{new2.staffa}"> <span class="{new2.liimg}"></span>查看积分</g:Anchor></li>
 				            <li><g:Anchor ui:field="winninghistory" styleName="{new2.staffa}"> <span class="{new2.liimg}"></span>获奖历史</g:Anchor></li>
 				            <li><g:Anchor ui:field="participationAwards" styleName="{new2.staffa}"> <span class="{new2.liimg}"></span>我参与的奖项</g:Anchor></li>
 				            <li><g:Anchor ui:field="otherAwards" styleName="{new2.staffa}"> <span class="{new2.liimg}"></span>公司其他奖项</g:Anchor></li>
-				            <li class="{new2.on}"><g:Anchor ui:field="awardShop" styleName="{new2.staffa}"> <span class="{new2.liimg}"></span>奖品商城</g:Anchor></li>
+				            <li><g:Anchor ui:field="awardShop" styleName="{new2.staffa}"> <span class="{new2.liimg}"></span>奖品商城</g:Anchor></li>
 				            <li><g:Anchor ui:field="exchangeHistory" styleName="{new2.staffa}"> <span class="{new2.liimg}"></span>兑换历史</g:Anchor></li>
 				            <li><g:Anchor ui:field="myMessage" styleName="{new2.staffa}"> <span class="{new2.liimg}"></span>我的消息</g:Anchor></li>
 
