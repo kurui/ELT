@@ -20,6 +20,7 @@ import com.google.gwt.view.client.TreeViewModel;
 
 public class DepartmentLeaderTreeModel implements TreeViewModel {
 	private ListDataProvider<DepartmentNode> categoryDataProvider;
+	private Cell<DepartmentNode> rootNodeCell;// 格式模版（一级 无前置复选框）
 	private Cell<DepartmentNode> nodeCell;// 格式模版
 	final List<DepartmentNode> nodeList;// 数据
 	DepartmentLeaderDisplay departmentListDisplay;
@@ -34,7 +35,43 @@ public class DepartmentLeaderTreeModel implements TreeViewModel {
 
 		setDataProvider();
 
+		buildRootNodeCell();
+		
 		buildNodeCell();
+		
+	}
+
+	private void buildRootNodeCell() {
+		List<HasCell<DepartmentNode, ?>> nodeRow = new ArrayList<HasCell<DepartmentNode, ?>>();
+		nodeRow = buildRootDataRow(nodeRow);
+
+		rootNodeCell = new CompositeCell<DepartmentNode>(nodeRow) {
+			@Override
+			public void render(Context context, DepartmentNode value,
+					SafeHtmlBuilder sb) {
+				sb.appendHtmlConstant("<table><tbody><tr>");
+				super.render(context, value, sb);
+				sb.appendHtmlConstant("</tr></tbody></table>");
+			}
+
+			@Override
+			protected Element getContainerElement(Element parent) {//<td></td>触发事件
+//				System.out.println("==========================="+parent.getFirstChildElement().getInnerHTML());
+				return parent.getFirstChildElement().getFirstChildElement()
+						.getFirstChildElement();
+			}
+
+			@Override
+			protected <X> void render(Context context, DepartmentNode value,
+					SafeHtmlBuilder sb, HasCell<DepartmentNode, X> hasCell) {
+				Cell<X> cell = hasCell.getCell();
+				sb.appendHtmlConstant("<td>");
+
+				cell.render(context, hasCell.getValue(value), sb);
+				sb.appendHtmlConstant("</td>");
+			}
+		};
+
 	}
 
 	private void buildNodeCell() {
@@ -70,7 +107,68 @@ public class DepartmentLeaderTreeModel implements TreeViewModel {
 	}
 
 	/**
-	 * 构造数据行
+	 * 构造一级部门数据行模版
+	 * */
+	private List<HasCell<DepartmentNode, ?>> buildRootDataRow(
+			List<HasCell<DepartmentNode, ?>> nodeRow) {
+		// 部门名称
+		nodeRow.add(new HasCell<DepartmentNode, String>() {
+			private HyperLinkCell cell = new HyperLinkCell();
+
+			public Cell<String> getCell() {
+				return cell;
+			}
+
+			public FieldUpdater<DepartmentNode, String> getFieldUpdater() {
+				return new FieldUpdater<DepartmentNode, String>() {
+					@Override
+					public void update(int index, DepartmentNode object,
+							String value) {
+						// Window.alert(object.getDepartmentId() + "--- 部门名称");
+						DepartmentClient client = new DepartmentClient();
+						client.setId(object.getDepartmentId());
+						client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_EDIT);
+						openEditPage(client);
+					}
+				};
+			}
+
+			public String getValue(DepartmentNode object) {
+				return object.getDepartmentName();
+			}
+		});
+
+		// 操作
+		nodeRow.add(new HasCell<DepartmentNode, String>() {
+			private HyperLinkCell cell = new HyperLinkCell();
+
+			public Cell<String> getCell() {
+				return cell;
+			}
+
+			public FieldUpdater<DepartmentNode, String> getFieldUpdater() {
+				return new FieldUpdater<DepartmentNode, String>() {
+					@Override
+					public void update(int index, DepartmentNode object,
+							String value) {
+						DepartmentClient client = new DepartmentClient();
+						client.setId(object.getDepartmentId());
+						client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_EDIT);
+						openEditPage(client);
+					}
+				};
+			}
+
+			public String getValue(DepartmentNode object) {
+				return "操作";
+			}
+		});
+
+		return nodeRow;
+	}
+
+	/**
+	 * 构造数据行模版
 	 * */
 	private List<HasCell<DepartmentNode, ?>> buildDataRow(
 			List<HasCell<DepartmentNode, ?>> nodeRow) {
@@ -167,7 +265,7 @@ public class DepartmentLeaderTreeModel implements TreeViewModel {
 	public <T> NodeInfo<?> getNodeInfo(T node) {
 		if (node == null) {
 			return new DefaultNodeInfo<DepartmentNode>(categoryDataProvider,
-					nodeCell);
+					rootNodeCell);
 		} else if (node instanceof DepartmentNode) {
 			DepartmentNode departmentNode = (DepartmentNode) node;
 			List<DepartmentNode> nodeList = new ArrayList<DepartmentNode>();

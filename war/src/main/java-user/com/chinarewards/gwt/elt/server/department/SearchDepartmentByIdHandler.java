@@ -1,5 +1,8 @@
 package com.chinarewards.gwt.elt.server.department;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.DispatchException;
 
@@ -14,6 +17,7 @@ import com.chinarewards.elt.service.staff.IStaffService;
 import com.chinarewards.gwt.elt.client.department.model.DepartmentVo;
 import com.chinarewards.gwt.elt.client.department.request.SearchDepartmentByIdRequest;
 import com.chinarewards.gwt.elt.client.department.request.SearchDepartmentByIdResponse;
+import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
 import com.chinarewards.gwt.elt.server.logger.InjectLogger;
 import com.google.inject.Inject;
@@ -54,15 +58,19 @@ public class SearchDepartmentByIdHandler
 		if (department != null) {
 			departmentVo.setId(department.getId());
 			departmentVo.setName(department.getName());
-			departmentVo.setLeaderId(department.getLeaderId());
-
-			Staff staff = null;
-			if (department.getLeaderId() != null) {
-				staff = staffService.findStaffById(department.getLeaderId());
+			
+			List<Staff> staffList=departmentService.findManagersByDepartmentId(departmentVo.getId());
+			List<OrganicationClient> leaderList=new ArrayList<OrganicationClient>();
+			
+			for (int i = 0; i < staffList.size(); i++) {
+				Staff staff=staffList.get(i);
+				OrganicationClient client=new OrganicationClient();
+				client.setId(staff.getId());
+				client.setName(staff.getName());
+				leaderList.add(client);
 			}
-			if (staff != null) {
-				departmentVo.setLeaderName(staff.getName());
-			}
+			
+			departmentVo.setLeaderList(leaderList);
 
 			// System.out.println(department.getLeaderId()+"==================leaderId==name:"+departmentVo.getLeaderName());
 
@@ -74,7 +82,9 @@ public class SearchDepartmentByIdHandler
 
 			}
 
-			// private String childdeparmentIds;
+		List<String> childNames=departmentService.getWholeChildrenNames(departmentVo.getId(),false);
+		departmentVo.setChildNames(childNames);
+			
 			// private String childdeparmentNames;
 			// private String peopleNumber;
 			

@@ -13,6 +13,9 @@ import com.chinarewards.elt.common.Principal;
 import com.chinarewards.elt.common.UserContextProvider;
 import com.chinarewards.elt.dao.org.DepartmentManagerDao;
 import com.chinarewards.elt.dao.user.UserDao;
+import com.chinarewards.elt.domain.org.Department;
+import com.chinarewards.elt.domain.org.Staff;
+import com.chinarewards.elt.domain.org.manager.DepartmentManager;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.service.org.DepartmentManagerLogic;
 import com.google.inject.Inject;
@@ -55,6 +58,23 @@ public class DepartmentManagerLogicImpl implements DepartmentManagerLogic {
 		logger.debug(" result list:{}", result);
 
 		return result;
+	}
+	
+	@Override
+	public List<DepartmentManager> createManager(String deptId,
+			List<String> staffIds){
+		return deptMgrDao.createManager(deptId, staffIds);
+	}
+
+
+	@Override
+	public List<Staff> findManagersByDepartmentId(String deptId) {
+		return deptMgrDao.findManagersByDepartmentId(deptId);
+	}
+	
+	@Override
+	public List<Department> findDepartmentsManagedByStaffId(String staffId){
+		return deptMgrDao.findDepartmentsManagedByStaffId(staffId);
 	}
 
 }

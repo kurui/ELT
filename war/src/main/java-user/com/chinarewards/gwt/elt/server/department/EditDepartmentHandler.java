@@ -1,5 +1,7 @@
 package com.chinarewards.gwt.elt.server.department;
 
+import java.util.List;
+
 import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.DispatchException;
 
@@ -50,8 +52,9 @@ public class EditDepartmentHandler extends
 		logger.debug("AddDepartmentResponse ,rewardId=" + action.getDepartmentVo().getId());
 
 		DepartmentVo departmentVo = action.getDepartmentVo();
+		List<String> leaderIds=departmentVo.getLeaderIds();
 
-		Department department = assembleDepartment(departmentVo);
+		Department department = assembleDepartment(departmentVo,action);
 
 		UserContext uc = new UserContext();
 		uc.setCorporationId(action.getUserSession().getCorporationId());
@@ -61,7 +64,7 @@ public class EditDepartmentHandler extends
 				.getUserRoles()));
 		
 		
-		Department AdddItem = departmentService.saveDepartment(uc, department);
+		Department AdddItem = departmentService.saveDepartment(uc, department,leaderIds);
 
 		return new EditDepartmentResponse(AdddItem.getId());
 	}
@@ -69,18 +72,18 @@ public class EditDepartmentHandler extends
 	/**
 	 * Convert from DepartmentVo to GeneratorDepartmentModel.
 	 */
-	public Department assembleDepartment(DepartmentVo departmentVo) {
+	public Department assembleDepartment(DepartmentVo departmentVo,EditDepartmentRequest action) {
 		Department department = new Department();
 		department.setId(departmentVo.getId());
 		department.setName(departmentVo.getName());
-		department.setLeaderId(departmentVo.getLeaderId());
-		
-	//		private String leader;
 		
 		Department parent;
 		Corporation corporation;
 		if (StringUtil.isEmptyString(departmentVo.getParentId())) {
 			String corpId = departmentVo.getCorporationId();
+			if(StringUtil.isEmptyString(corpId)){
+				corpId=action.getUserSession().getCorporationId();
+			}
 			parent = departmentService.getRootDepartmentOfCorporation(corpId);			
 			corporation = corporationService.findCorporationById(corpId);			
 		} else {
@@ -89,16 +92,6 @@ public class EditDepartmentHandler extends
 		}
 		department.setParent(parent);
 		department.setCorporation(corporation);
-//		private String childdeparmentIds;
-//		private String childdeparmentNames;
-//		private String peopleNumber;
-//		private String yearintegral;
-//		private String issueintegral;
-		//processRewarditemCount
-		
-		System.out.println("assembleDepartment(departmentVo):"+department.getId()+"---" + department.getLeaderId());
-
-
 
 		return department;
 	}

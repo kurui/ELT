@@ -39,19 +39,21 @@ public class MergeDepartmentHandler extends
 	}
 
 	@Override
-	public MergeDepartmentResponse execute(MergeDepartmentRequest action,
+	public MergeDepartmentResponse execute(MergeDepartmentRequest request,
 			ExecutionContext context) throws DispatchException {
 
-		String departmentIds = action.getDepartmentIds();
+		String departmentIds = request.getDepartmentIds();
+		String departmentName=request.getDepartmentName();
+		String leaderId=request.getLeaderId();
 
 		UserContext uc = new UserContext();
-		uc.setCorporationId(action.getUserSession().getCorporationId());
-		uc.setLoginName(action.getUserSession().getLoginName());
-		uc.setUserId(action.getUserSession().getToken());
-		uc.setUserRoles(UserRoleTool.adaptToRole(action.getUserSession()
+		uc.setCorporationId(request.getUserSession().getCorporationId());
+		uc.setLoginName(request.getUserSession().getLoginName());
+		uc.setUserId(request.getUserSession().getToken());
+		uc.setUserRoles(UserRoleTool.adaptToRole(request.getUserSession()
 				.getUserRoles()));
 
-		String message = departmentService.mergeDepartment(uc, departmentIds);
+		String message = departmentService.mergeDepartment(uc, departmentIds,departmentName,leaderId);
 
 		return new MergeDepartmentResponse(message);
 	}

@@ -1,6 +1,10 @@
 package com.chinarewards.gwt.elt.client.department.model;
 
 import java.io.Serializable;
+import java.util.List;
+
+import com.chinarewards.elt.domain.org.Staff;
+import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
 
 public class DepartmentVo implements Serializable {
 
@@ -11,12 +15,13 @@ public class DepartmentVo implements Serializable {
 	private String id;
 	private String corporationId;
 	private String name; // 部门名称
-	private String leaderId;
-	private String leaderName;	
+	private List<String> leaderIds;
+	private List<OrganicationClient> leaderList;
+	
 	private String parentId;
 	private String parentName;
-	private String childdeparmentIds;
-	private String childdeparmentNames;
+	private List<String> childIds;
+	private List<String> childNames;
 	private String peopleNumber;//员工数
 	private String yearintegral;//财年积分
 	private String issueintegral;//已颁发积分
@@ -46,21 +51,14 @@ public class DepartmentVo implements Serializable {
 		this.name = name;
 	}
 
+	
 
-	public String getLeaderId() {
-		return leaderId;
+	public List<OrganicationClient> getLeaderList() {
+		return leaderList;
 	}
 
-	public void setLeaderId(String leaderId) {
-		this.leaderId = leaderId;
-	}
-
-	public String getLeaderName() {
-		return leaderName;
-	}
-
-	public void setLeaderName(String leaderName) {
-		this.leaderName = leaderName;
+	public void setLeaderList(List<OrganicationClient> leaderList) {
+		this.leaderList = leaderList;
 	}
 
 	public String getParentId() {
@@ -79,20 +77,21 @@ public class DepartmentVo implements Serializable {
 		this.parentName = parentName;
 	}
 
-	public String getChilddeparmentIds() {
-		return childdeparmentIds;
+
+	public List<String> getChildIds() {
+		return childIds;
 	}
 
-	public void setChilddeparmentIds(String childdeparmentIds) {
-		this.childdeparmentIds = childdeparmentIds;
+	public void setChildIds(List<String> childIds) {
+		this.childIds = childIds;
 	}
 
-	public String getChilddeparmentNames() {
-		return childdeparmentNames;
+	public List<String> getChildNames() {
+		return childNames;
 	}
 
-	public void setChilddeparmentNames(String childdeparmentNames) {
-		this.childdeparmentNames = childdeparmentNames;
+	public void setChildNames(List<String> childNames) {
+		this.childNames = childNames;
 	}
 
 	public String getPeopleNumber() {
@@ -125,6 +124,14 @@ public class DepartmentVo implements Serializable {
 
 	public void setProcesRewarditemCount(String procesRewarditemCount) {
 		this.procesRewarditemCount = procesRewarditemCount;
+	}
+
+	public List<String> getLeaderIds() {
+		return leaderIds;
+	}
+
+	public void setLeaderIds(List<String> leaderIds) {
+		this.leaderIds = leaderIds;
 	}
 	
 	
