@@ -3,6 +3,7 @@ package com.chinarewards.elt.service.org;
 import java.util.List;
 
 import com.chinarewards.elt.domain.org.Department;
+import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.org.exception.DepartmentDeleteException;
 import com.chinarewards.elt.model.org.search.DepartmentListVo;
@@ -59,7 +60,7 @@ public interface DepartmentService {
 	 * @param department
 	 * @return
 	 */
-	public Department saveDepartment(UserContext uc, Department department);
+	public Department saveDepartment(UserContext uc, Department department,List<String> staffId);
 
 	/**
 	 * @param corpId
@@ -102,5 +103,6 @@ public interface DepartmentService {
 	public List<String> getWholeChildrenNames(String deptId, boolean containItSelf);
 
 
+	public List<Staff> findManagersByDepartmentId(String deptId);
 
 }

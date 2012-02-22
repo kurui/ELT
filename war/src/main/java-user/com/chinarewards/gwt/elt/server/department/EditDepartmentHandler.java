@@ -1,5 +1,7 @@
 package com.chinarewards.gwt.elt.server.department;
 
+import java.util.List;
+
 import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.DispatchException;
 
@@ -50,6 +52,7 @@ public class EditDepartmentHandler extends
 		logger.debug("AddDepartmentResponse ,rewardId=" + action.getDepartmentVo().getId());
 
 		DepartmentVo departmentVo = action.getDepartmentVo();
+		List<String> leaderIds=departmentVo.getLeaderIds();
 
 		Department department = assembleDepartment(departmentVo);
 
@@ -61,7 +64,7 @@ public class EditDepartmentHandler extends
 				.getUserRoles()));
 		
 		
-		Department AdddItem = departmentService.saveDepartment(uc, department);
+		Department AdddItem = departmentService.saveDepartment(uc, department,leaderIds);
 
 		return new EditDepartmentResponse(AdddItem.getId());
 	}
@@ -73,9 +76,6 @@ public class EditDepartmentHandler extends
 		Department department = new Department();
 		department.setId(departmentVo.getId());
 		department.setName(departmentVo.getName());
-		department.setLeaderId(departmentVo.getLeaderId());
-		
-	//		private String leader;
 		
 		Department parent;
 		Corporation corporation;
@@ -89,16 +89,6 @@ public class EditDepartmentHandler extends
 		}
 		department.setParent(parent);
 		department.setCorporation(corporation);
-//		private String childdeparmentIds;
-//		private String childdeparmentNames;
-//		private String peopleNumber;
-//		private String yearintegral;
-//		private String issueintegral;
-		//processRewarditemCount
-		
-		System.out.println("assembleDepartment(departmentVo):"+department.getId()+"---" + department.getLeaderId());
-
-
 
 		return department;
 	}

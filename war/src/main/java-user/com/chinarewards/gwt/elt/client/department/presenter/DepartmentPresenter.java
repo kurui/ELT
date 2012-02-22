@@ -20,10 +20,6 @@ public interface DepartmentPresenter extends
 
 		public HasValue<String> getDepartmentName();
 
-		public Hidden getLeaderId();
-
-		public HasValue<String> getLeaderName();
-
 		public Hidden getParentId();
 
 		public Label getChilddepartment();

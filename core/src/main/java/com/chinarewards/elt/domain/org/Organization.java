@@ -43,6 +43,8 @@ public class Organization implements Serializable {
 	 * The description.
 	 */
 	private String description;
+	
+	private String deleteMarkConstant;
 
 	private Date createdAt;
 
@@ -109,4 +111,14 @@ public class Organization implements Serializable {
 	public void setLastModifiedBy(SysUser lastModifiedBy) {
 		this.lastModifiedBy = lastModifiedBy;
 	}
+
+	public String getDeleteMarkConstant() {
+		return deleteMarkConstant;
+	}
+
+	public void setDeleteMarkConstant(String deleteMarkConstant) {
+		this.deleteMarkConstant = deleteMarkConstant;
+	}
+	
+	
 }

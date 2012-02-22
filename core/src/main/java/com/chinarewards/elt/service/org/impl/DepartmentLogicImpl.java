@@ -101,7 +101,6 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 			Department tempDepartment = departmentDao.findById(Department.class,department.getId());
 			
 			tempDepartment.setName(department.getName());
-			tempDepartment.setLeaderId(department.getLeaderId());
 			
 			tempDepartment.setLastModifiedAt(DateUtil.getTime());
 			tempDepartment.setLastModifiedBy(caller);
@@ -280,7 +279,7 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 			Department tempDepartment = departmentDao.findById(
 					Department.class, department.getId());
 			tempDepartment.setName(department.getName());
-			tempDepartment.setLeaderId(department.getLeaderId());
+//			tempDepartment.setLeaderId(department.getLeaderId());
 
 			departmentDao.update(tempDepartment);
 		}

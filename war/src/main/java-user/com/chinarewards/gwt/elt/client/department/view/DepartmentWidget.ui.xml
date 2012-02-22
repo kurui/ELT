@@ -34,9 +34,7 @@
 						部门经理(总监)：
 					</label>
 					<div class="{new2.element}">
-						<g:FlowPanel ui:field="leaderPanel" visible="false"/>
-						<g:Hidden ui:field="leaderId"></g:Hidden>
-						<g:TextBox maxLength="20" ui:field="leaderName" styleName="{new2.text}" />
+						<g:FlowPanel ui:field="leaderPanel" width="200px"/>
 					<span class="{new2.btn}">	<g:Button ui:field="chooseLeaderBtn">选择</g:Button></span>
 						
 					</div>

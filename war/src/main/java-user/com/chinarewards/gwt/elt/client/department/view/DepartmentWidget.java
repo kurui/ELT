@@ -38,11 +38,6 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 	Hidden departmentId;
 
 	@UiField
-	Hidden leaderId;
-	@UiField
-	TextBox leaderName;
-
-	@UiField
 	Hidden parentId;
 	@UiField
 	Label parentName;
@@ -104,14 +99,17 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 		departmentName.setText(departmentVo.getName());
 		// departmentName.setVisible(false);
 		departmentNameLabel.setText(departmentVo.getName());
-
-		leaderId.setValue(departmentVo.getLeaderId());
-		leaderName.setValue(departmentVo.getLeaderName());
-		leaderName.setEnabled(false);
-
+		
+		
+		leaderArea = new OrganizationSpecialTextArea();
+		List<OrganicationClient> leaderList= departmentVo.getLeaderList();
+		for (int i = 0; i <leaderList.size(); i++) {
+			leaderArea.addItem(leaderList.get(i));
+		}
+	
+		
 		parentId.setValue(departmentVo.getParentId());
-		parentName
-				.setText(getDepartmentParentName(departmentVo.getParentName()));
+		parentName.setText(getDepartmentParentName(departmentVo.getParentName()));
 
 		// private String childdeparmentNames;
 
@@ -129,7 +127,7 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 		yearintegral.setText(departmentVo.getYearintegral());
 		issueintegral.setText(departmentVo.getIssueintegral());
 
-		leaderArea = new OrganizationSpecialTextArea();
+		
 		leaderPanel.add(leaderArea);// 提名人面板
 
 		// System.out.println("-------initDepartmentWidget===:"+departmentVo.getLeaderId());
@@ -233,16 +231,6 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 	@Override
 	public Label getProcesRewarditemCount() {
 		return procesRewarditemCount;
-	}
-
-	@Override
-	public Hidden getLeaderId() {
-		return leaderId;
-	}
-
-	@Override
-	public HasValue<String> getLeaderName() {
-		return leaderName;
 	}
 
 }

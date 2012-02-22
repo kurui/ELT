@@ -3,6 +3,9 @@ package com.chinarewards.gwt.elt.client.department.model;
 import java.io.Serializable;
 import java.util.List;
 
+import com.chinarewards.elt.domain.org.Staff;
+import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
+
 public class DepartmentVo implements Serializable {
 
 	/**
@@ -12,8 +15,9 @@ public class DepartmentVo implements Serializable {
 	private String id;
 	private String corporationId;
 	private String name; // 部门名称
-	private String leaderId;
-	private String leaderName;	
+	private List<String> leaderIds;
+	private List<OrganicationClient> leaderList;
+	
 	private String parentId;
 	private String parentName;
 	private List<String> childIds;
@@ -47,21 +51,14 @@ public class DepartmentVo implements Serializable {
 		this.name = name;
 	}
 
+	
 
-	public String getLeaderId() {
-		return leaderId;
+	public List<OrganicationClient> getLeaderList() {
+		return leaderList;
 	}
 
-	public void setLeaderId(String leaderId) {
-		this.leaderId = leaderId;
-	}
-
-	public String getLeaderName() {
-		return leaderName;
-	}
-
-	public void setLeaderName(String leaderName) {
-		this.leaderName = leaderName;
+	public void setLeaderList(List<OrganicationClient> leaderList) {
+		this.leaderList = leaderList;
 	}
 
 	public String getParentId() {
@@ -127,6 +124,14 @@ public class DepartmentVo implements Serializable {
 
 	public void setProcesRewarditemCount(String procesRewarditemCount) {
 		this.procesRewarditemCount = procesRewarditemCount;
+	}
+
+	public List<String> getLeaderIds() {
+		return leaderIds;
+	}
+
+	public void setLeaderIds(List<String> leaderIds) {
+		this.leaderIds = leaderIds;
 	}
 	
 	

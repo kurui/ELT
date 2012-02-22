@@ -1,9 +1,9 @@
 package com.chinarewards.elt.service.org.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.chinarewards.elt.domain.org.Department;
+import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.org.exception.DepartmentDeleteException;
@@ -11,6 +11,7 @@ import com.chinarewards.elt.model.org.search.DepartmentListVo;
 import com.chinarewards.elt.model.org.search.DepartmentManageVo;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.org.DepartmentLogic;
+import com.chinarewards.elt.service.org.DepartmentManagerLogic;
 import com.chinarewards.elt.service.org.DepartmentService;
 import com.chinarewards.elt.service.user.UserLogic;
 import com.google.inject.Inject;
@@ -19,13 +20,15 @@ import com.google.inject.persist.Transactional;
 @Transactional
 public class DepartmentServiceImpl implements DepartmentService {
 	private final DepartmentLogic departmentLogic;
+	private final DepartmentManagerLogic departmentManagerLogic;
 	private final UserLogic userLogic;
 
 	@Inject
-	public DepartmentServiceImpl(DepartmentLogic departmentLogic,
+	public DepartmentServiceImpl(DepartmentLogic departmentLogic,DepartmentManagerLogic departmentManagerLogic,
 			UserLogic userLogic) {
 		this.userLogic = userLogic;
 		this.departmentLogic = departmentLogic;
+		this.departmentManagerLogic=departmentManagerLogic;
 
 	}
 
@@ -59,9 +62,15 @@ public class DepartmentServiceImpl implements DepartmentService {
 	}
 
 	@Override
-	public Department saveDepartment(UserContext uc, Department department) {
+	public Department saveDepartment(UserContext uc, Department department,List<String> staffIds) {
 		SysUser caller = userLogic.findUserById(uc.getUserId());
-		return departmentLogic.saveDepartment(caller, department);
+		department= departmentLogic.saveDepartment(caller, department);
+		
+		departmentManagerLogic.createManager(department.getId(), staffIds);
+		
+		
+		
+		return department;
 	}
 
 	@Override
@@ -99,5 +108,10 @@ public class DepartmentServiceImpl implements DepartmentService {
 	public List<Department> getDepartmentsOfCorporationAndKey(String corporationId,String key)
 	{
 		return departmentLogic.getDepartmentsOfCorporationAndKey(corporationId, key);
+	}
+	
+	@Override
+	public List<Staff> findManagersByDepartmentId(String deptId) {
+		return departmentManagerLogic.findManagersByDepartmentId(deptId);
 	}
 }
