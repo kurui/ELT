@@ -88,7 +88,7 @@ public class DepartmentLeaderPresenterImpl extends
 						// display.setUseIntegeral((int)response.getBudgetIntegral()+"");
 						List<DepartmentNode> nodeList = response.getResult();
 						if(nodeList!=null){
-							System.out.println("=================DepartmentLeaderPresentImpl:"+nodeList.size());
+//							System.out.println("=================DepartmentLeaderPresentImpl:"+nodeList.size());
 						}
 						
 						display.loadTreeData(nodeList, corporationId);
@@ -109,7 +109,7 @@ public class DepartmentLeaderPresenterImpl extends
 					public void onClick(ClickEvent paramClickEvent) {
 						String departmentIds = getDepartmentIds();
 						// win.alert("功能建设中");
-						if (departmentIds != null) {
+						if (departmentIds != null&&"".equals(departmentIds)==false) {
 							String[] ids = StringUtil.getSplitString(
 									departmentIds, ",");
 							if (ids != null) {

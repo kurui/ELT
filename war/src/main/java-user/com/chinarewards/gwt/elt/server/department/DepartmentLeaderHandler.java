@@ -39,10 +39,10 @@ public class DepartmentLeaderHandler extends
 				.getDepartmentLeaderList(action.getLeaderId(),
 						action.getCorporcationId());
 
-		System.out
-				.println(action.getLeaderId()
-						+ "=====after====departmentService.getDepartmentLeaderList======="
-						+ departmentManageVoList.size());
+//		System.out
+//				.println(action.getLeaderId()
+//						+ "=====after====departmentService.getDepartmentLeaderList======="
+//						+ departmentManageVoList.size());
 
 		for (DepartmentManageVo vo : departmentManageVoList) {
 			DepartmentNode c = new DepartmentNode(vo.getDepartmentName(),

@@ -1,7 +1,11 @@
 package com.chinarewards.gwt.elt.client.department.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.chinarewards.gwt.elt.client.department.model.DepartmentVo;
 import com.chinarewards.gwt.elt.client.department.presenter.DepartmentPresenter.DepartmentDisplay;
+import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
 
 /**
  * @author yanrui
@@ -18,15 +22,13 @@ public class DepartmentAdapterClient {
 
 		departmentVo.setParentId(display.getParentId().getValue());
 
-		departmentVo.setLeaderId(display.getLeaderId().getValue());
-
-		// private String superdeparmentId;
-		// private String superdeparmentName;
-		// private String childdeparmentIds;
-		// private String childdeparmentNames;
-		// private String peopleNumber;
-		// private String yearintegral;
-		// private String issueintegral;
+		List<OrganicationClient> leaderList= display.getLeaderArea().getItemList();
+		List<String> leaderIds=new ArrayList<String>();
+		for (int i = 0; i < leaderList.size(); i++) {
+			leaderIds.add(leaderList.get(i).getId());
+		}
+		
+		departmentVo.setLeaderIds(leaderIds);
 
 		return departmentVo;
 	}

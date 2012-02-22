@@ -179,14 +179,15 @@ public interface DepartmentLogic {
 	 * @param departmentIds
 	 * @return
 	 */
-	public String mergeDepartment(UserContext uc, String departmentIds);
+	public String mergeDepartment(UserContext uc, String departmentIds,String departmentName,String leaderId);
 
 
 	/**
-	 * @param leaderId
+	 * @param deptId
+	 * @param containItSelf
 	 * @return
 	 */
-	public List<Department> findDepartmentsByLeader(String leaderId);
+	public List<String> getWholeChildrenNames(String deptId, boolean containItSelf);
 	
 	/**
 	 *获取部门.查询.key(name).去掉根部门

@@ -134,6 +134,7 @@ public class ChooseLeaderWinPresenterImpl extends
 			public void onSelectionChange(SelectionChangeEvent event) {
 				StaffClient staff = selectionModel.getSelectedObject();
 				if (!display.getSpecialTextBox().containsItem(staff)) {
+//					display.getSpecialTextBox().clear();//清空原有选项，只能选一个
 					display.getSpecialTextBox().addItem(staff);
 				}
 			}

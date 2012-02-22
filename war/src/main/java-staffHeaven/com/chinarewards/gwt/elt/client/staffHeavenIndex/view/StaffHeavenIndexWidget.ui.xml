@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:p1="urn:import:com.google.gwt.user.cellview.client"
+	xmlns:d='urn:import:com.google.gwt.user.datepicker.client'>
+	<ui:style src="new2.css" field="new2"></ui:style>
+	<g:HTMLPanel>
+	<div class="{new2.employee}">
+	  <!-- 内容区 [[-->
+    <div class="{new2.content-wrap}">
+      <div class="{new2.content-info}">
+        <div class="{new2.note}">
+          <span class="{new2.close}"></span>
+          恭喜您，您获得上月度全勤奖，获得奖金50积分！
+        </div>
+
+        <div class="{new2.broadcast}">
+          <h3>公司广播</h3>
+          <p>这周五晚上打羽毛球，有没有一起去的啊，打羽毛球、提高球技、认识美女新同事、锻炼身体，一举多得，天天坐在办公室的帅
+锅媚籹 你伤不起啊！赶紧来回复报名 @@</p>
+        </div>
+
+        <div class="{new2.news-select}">
+          <span>全部信息</span>|<a href="#">同事说</a>|<a href="#">系统信息</a>|<a href="#">主题讨论区</a>
+        </div>
+
+        <div class="{new2.news-list}">
+          <div class="{new2.news}">
+            <span class="{new2.news-icon}"></span>
+            <div class="{new2.news-info}">
+              <p><strong>运营部</strong><strong>Jol</strong><span>获得9月份全勤奖，获得奖金50积分。</span></p>
+              <p><span>9月13日 10:33</span><span>来自人事部</span><a href="#">回复(9)</a>|<a href="#">我来回复</a></p>
+
+              <div class="{new2.remark}">
+                <div class="{new2.clearfix}">
+                  <img src="img/ps_emplate_big.png" width="50px" height="50px" />
+                  <div class="{new2.remark-info}">
+                    <textarea class="{new2.textarea}">@JOL 祝贺你！什么时候请客吃饭？！哈哈哈哈……</textarea>
+                    <div class="{new2.remark-tool}">
+                      <button type="button" class="{new2.button}">回复</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="{new2.news}">
+            <span class="{new2.news-icon}"></span>
+            <div class="{new2.news-info}">
+              <p><strong>运营部</strong><strong>Jol</strong><span>获得9月份全勤奖，获得奖金50积分。</span></p>
+              <p><span>9月13日 10:33</span><span>来自人事部</span><a href="#">回复(9)</a>|<a href="#">我来回复</a></p>
+
+              <div class="{new2.remark-list}">
+                <div class="{new2.remark-list-info} {new2.clearfix}">
+                  <img src="img/ps_emplate_small.png" width="30px" height="30px" />
+                  <div class="{new2.remark-info-wrap}">
+                    <p><span class="{new2.remark-name}">Mervyn</span> 说：<span class="{new2.remark-content}">祝贺你！什么时候请客吃饭？！哈哈哈哈……</span></p>
+                    <p><span>9月14日 09:35</span><a href="#">回复</a></p>
+
+                    <div class="{new2.remark-reply} {new2.clearfix}">
+                      <img src="img/ps_emplate_small2.png" width="30px" height="30px" />
+                      <div class="{new2.remark-info-wrap}">
+                        <p><span class="{new2.remark-name}">Jol</span> 回复：<span class="{new2.remark-content}">谢谢！今天晚上吧？怎么样？</span></p>
+                        <p><span>9月14日 09:35</span></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <input type="text" class="{new2.remark-text" value="输入你的评论…" />
+            </div>
+          </div>
+
+          <div class="{new2.news}">
+            <span class="{new2.news-icon}"></span>
+            <div class="{new2.news-info}">
+              <p><strong>运营部</strong><strong>Jol</strong><span>获得9月份全勤奖，获得奖金50积分。</span></p>
+              <p><span>9月13日 10:33</span><span>来自人事部</span><a href="#">回复(9)</a>|<a href="#">我来回复</a></p>
+            </div>
+          </div>
+
+         <div class="{new2.news}">
+            <span class="{new2.news-icon}"></span>
+            <div class="{new2.news-info}">
+              <p><strong>运营部</strong><strong>Jol</strong><span>获得9月份全勤奖，获得奖金50积分。</span></p>
+              <p><span>9月13日 10:33</span><span>来自人事部</span><a href="#">回复(9)</a>|<a href="#">我来回复</a></p>
+            </div>
+          </div>
+         <div class="{new2.news}">
+            <span class="{new2.news-icon}"></span>
+            <div class="{new2.news-info}">
+              <p><strong>运营部</strong><strong>Jol</strong><span>获得9月份全勤奖，获得奖金50积分。</span></p>
+              <p><span>9月13日 10:33</span><span>来自人事部</span><a href="#">回复(9)</a>|<a href="#">我来回复</a></p>
+            </div>
+          </div>
+                    <div class="{new2.news}">
+            <span class="{new2.news-icon}"></span>
+            <div class="{new2.news-info}">
+              <p><strong>运营部</strong><strong>Jol</strong><span>获得9月份全勤奖，获得奖金50积分。</span></p>
+              <p><span>9月13日 10:33</span><span>来自人事部</span><a href="#">回复(9)</a>|<a href="#">我来回复</a></p>
+            </div>
+          </div>
+
+
+        <!--分页 [[ -->
+			<div id="rewardlist_page2" class="{new2.pager}">
+				<div class="{new2.pager-left}">
+					每页显示广播条数
+					<select class="{new2.select}">
+						<option>10</option>
+					</select>
+				</div>
+
+				<div class="{new2.pager-right}">
+					<g:FlowPanel ui:field="resultpage" />
+				</div>
+			</div>
+			<!--分页 ]] -->
+      </div>
+    </div>
+    <!-- 内容区 ]]-->
+	
+	
+	
+		<div class="{new2.frame-wrap}">
+
+
+			<g:InlineLabel ui:field="dataCount" ></g:InlineLabel>
+	
+	
+			<div class="{new2.table}">
+				<g:FlowPanel ui:field="resultPanel" />
+			</div>
+
+
+			
+
+		</div></div></div>
+	</g:HTMLPanel>
+</ui:UiBinder> 

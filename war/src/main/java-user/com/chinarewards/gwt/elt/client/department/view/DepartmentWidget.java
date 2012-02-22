@@ -1,5 +1,7 @@
 package com.chinarewards.gwt.elt.client.department.view;
 
+import java.util.List;
+
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.department.model.DepartmentVo;
@@ -36,11 +38,6 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 	Hidden departmentId;
 
 	@UiField
-	Hidden leaderId;
-	@UiField
-	TextBox leaderName;
-
-	@UiField
 	Hidden parentId;
 	@UiField
 	Label parentName;
@@ -54,17 +51,16 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 	Label issueintegral;
 	@UiField
 	Label procesRewarditemCount;
-	
+
 	// 候选人模块
 	@UiField
 	Panel leaderPanel;
 
 	SpecialTextArea<OrganicationClient> leaderArea;
-	
+
 	@UiField
 	Button chooseLeaderBtn;
-	
-	
+
 	@UiField
 	Button save;
 
@@ -72,8 +68,7 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 	Button back;
 
 	@UiField
-	Panel breadCrumbs;	
-	
+	Panel breadCrumbs;
 
 	DateTimeFormat dateFormat = DateTimeFormat
 			.getFormat(ViewConstants.date_format);
@@ -98,58 +93,83 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 
 	@Override
 	public void initEditDepartment(DepartmentVo departmentVo) {
-//		System.out.println("----widget  initEditDepartment:"
-//				+ departmentVo.getId());
+		// System.out.println("----widget  initEditDepartment:"
+		// + departmentVo.getId());
 		departmentId.setValue(departmentVo.getId());
 		departmentName.setText(departmentVo.getName());
 		// departmentName.setVisible(false);
-		departmentNameLabel.setText(departmentVo.getName());
+		departmentNameLabel.setText(departmentVo.getName());		
+		
+	
+		leaderArea = new OrganizationSpecialTextArea();
+		List<OrganicationClient> leaderList= departmentVo.getLeaderList();
+		for (int i = 0; i <leaderList.size(); i++) {
+			leaderArea.addItem(leaderList.get(i));
+		}
+		leaderPanel.add(leaderArea);// 提名人面板
+		
+		initStatsInfo(departmentVo);		
 
-		leaderId.setValue(departmentVo.getLeaderId());
-		leaderName.setValue(departmentVo.getLeaderName());
-		leaderName.setEnabled(false);
 
+		// System.out.println("-------initDepartmentWidget===:"+departmentVo.getLeaderId());
+	}
+
+	private  void initStatsInfo(DepartmentVo departmentVo){
 		parentId.setValue(departmentVo.getParentId());
 		parentName.setText(getDepartmentParentName(departmentVo.getParentName()));
-		// private String childdeparmentIds;
+
 		// private String childdeparmentNames;
+
+		String childNames = "";
+		List<String> childList = departmentVo.getChildNames();
+		if (childList != null) {
+			for (int i = 0; i < childList.size(); i++) {
+				childNames += childList.get(i) + ",";
+			}
+			childNames=childNames.substring(0,childNames.lastIndexOf(","));
+			childdepartment.setText(childNames);
+		}
+
 		peopleNumber.setText(departmentVo.getPeopleNumber());
 		yearintegral.setText(departmentVo.getYearintegral());
 		issueintegral.setText(departmentVo.getIssueintegral());
-		
-		leaderArea = new OrganizationSpecialTextArea();
-		leaderPanel.add(leaderArea);//提名人面板
-
-//		System.out.println("-------initDepartmentWidget===:"+departmentVo.getLeaderId());
 	}
-
+	
 	@Override
 	public void initAddDepartment(DepartmentVo departmentVo) {
 		departmentId.setValue(departmentVo.getId());
+		
+		leaderArea = new OrganizationSpecialTextArea();
+		leaderPanel.add(leaderArea);// 
 	}
 
 	@Override
 	public void initSaveSameLevelDepartment(DepartmentVo departmentVo) {
 		parentId.setValue(departmentVo.getParentId());
-		parentName.setText(getDepartmentParentName(departmentVo.getParentName()));
+		parentName
+				.setText(getDepartmentParentName(departmentVo.getParentName()));
 
-	}
-	
-	
-	private static String getDepartmentParentName(String parentName){
-		if(parentName!=null){
-			if(parentName.indexOf("ROOT_DEPT")>-1){
-				return "";
-			}
-		}
-		return parentName;
+		leaderArea = new OrganizationSpecialTextArea();
+		leaderPanel.add(leaderArea);// 
 	}
 
 	@Override
 	public void initSaveChildDepartment(DepartmentVo departmentVo) {
 		parentId.setValue(departmentVo.getId());
 		parentName.setText(departmentVo.getName());
+		
+		leaderArea = new OrganizationSpecialTextArea();
+		leaderPanel.add(leaderArea);// 
 
+	}
+	
+	private static String getDepartmentParentName(String parentName) {
+		if (parentName != null) {
+			if (parentName.indexOf("ROOT_DEPT") > -1) {
+				return "";
+			}
+		}
+		return parentName;
 	}
 
 	@Override
@@ -158,7 +178,6 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 		this.breadCrumbs.add(breadCrumbs);
 	}
 
-	
 	@Override
 	public void clear() {
 
@@ -222,18 +241,6 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 	@Override
 	public Label getProcesRewarditemCount() {
 		return procesRewarditemCount;
-	}
-
-
-	@Override
-	public Hidden getLeaderId() {
-		return leaderId;
-	}
-
-
-	@Override
-	public HasValue<String> getLeaderName() {
-		return leaderName;
 	}
 
 }

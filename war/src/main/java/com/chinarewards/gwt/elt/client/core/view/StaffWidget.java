@@ -57,6 +57,8 @@ public class StaffWidget extends Composite implements StaffDisplay {
 	Anchor exchangeHistory;
 	@UiField
 	Anchor myMessage;
+	@UiField
+	Anchor staffHeavenIndex;
 	
 	// Set the format of datepicker.
 	DateTimeFormat dateFormat = DateTimeFormat
@@ -269,5 +271,9 @@ public class StaffWidget extends Composite implements StaffDisplay {
 	public HasClickHandlers getMyMessage() {
 		return this.myMessage;
 
+	}
+	@Override
+	public HasClickHandlers getStaffHeavenIndex() {
+		return staffHeavenIndex;
 	}
 }

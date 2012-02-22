@@ -39,8 +39,7 @@ public class SearchDepartmentByLeaderHandler
 			SearchDepartmentByLeaderRequest request, ExecutionContext response)
 			throws DispatchException {
 		SearchDepartmentByLeaderResponse searchResponse = new SearchDepartmentByLeaderResponse();
-		List<Department> departmentList = departmentService
-				.findDepartmentsByLeader(request.getLeaderId());
+		List<Department> departmentList = departmentService.findDepartmentsManagedByStaffId(request.getLeaderId());
 		searchResponse.setDepartmentList(departmentList);
 
 		System.out.println(request.getLeaderId()+"=========leader departmentList:===="+departmentList.size());

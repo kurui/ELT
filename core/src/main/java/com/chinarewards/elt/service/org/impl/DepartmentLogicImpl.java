@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import com.chinarewards.elt.dao.budget.DepartmentBudgetDao;
 import com.chinarewards.elt.dao.org.CorporationDao;
 import com.chinarewards.elt.dao.org.DepartmentDao;
+import com.chinarewards.elt.dao.org.DepartmentManagerDao;
 import com.chinarewards.elt.dao.org.OrgPolicyDao;
 import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.org.Department;
@@ -40,6 +41,7 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 
 	OrgPolicyDao organizationPolicyDao;
 	DepartmentDao departmentDao;
+	DepartmentManagerDao departmentManagerDao;
 	CorporationDao corporationDao;
 	DepartmentBudgetDao departmentBudgetDao;
 
@@ -101,7 +103,6 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 			Department tempDepartment = departmentDao.findById(Department.class,department.getId());
 			
 			tempDepartment.setName(department.getName());
-			tempDepartment.setLeaderId(department.getLeaderId());
 			
 			tempDepartment.setLastModifiedAt(DateUtil.getTime());
 			tempDepartment.setLastModifiedBy(caller);
@@ -111,6 +112,13 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 		
 
 		return department;
+	}
+	
+	
+	
+	@Override
+	public String mergeDepartment(UserContext uc, String departmentIds,String departmentName,String leaderId) {
+		return departmentDao.mergeDepartment(departmentIds,departmentName,leaderId);
 	}
 
 	@Override
@@ -221,6 +229,16 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 		}
 		return list;
 	}
+	
+	@Override
+	public List<String> getWholeChildrenNames(String deptId, boolean containItSelf) {
+		List<String> list = new ArrayList<String>();
+		List<Department> depts = getWholeChildren(deptId, containItSelf);
+		for (Department dept : depts) {
+			list.add(dept.getName());
+		}
+		return list;
+	}
 
 	@Override
 	public List<Department> getImmediacyDepartmentsOfCorporation(
@@ -263,7 +281,7 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 			Department tempDepartment = departmentDao.findById(
 					Department.class, department.getId());
 			tempDepartment.setName(department.getName());
-			tempDepartment.setLeaderId(department.getLeaderId());
+//			tempDepartment.setLeaderId(department.getLeaderId());
 
 			departmentDao.update(tempDepartment);
 		}
@@ -311,7 +329,7 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 		List<Department> departmentList = new ArrayList<Department>();
 	
 		//Leader负责的部门
-		List<Department> tempList=findDepartmentsByLeader(leaderId);
+		List<Department> tempList=departmentManagerDao.findDepartmentsManagedByStaffId(leaderId);
 		departmentList.addAll(tempList);		
 		
 		for (int i = 0; i <departmentList.size(); i++) {
@@ -348,21 +366,13 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 		return volist;
 	}
 
-	@Override
-	public String mergeDepartment(UserContext uc, String departmentIds) {
-		return departmentDao.mergeDepartment(departmentIds);
-	}
+
 
 	@Override
 
 	public List<Department> getDepartmentsOfCorporationAndKey(
 			String corporationId, String key) {
 		return departmentDao.getDepartmentsOfCorporationAndKey(corporationId, key);
-	}
-
-	public List<Department> findDepartmentsByLeader(String leaderId) {
-		return departmentDao.findDepartmentsByLeader(leaderId);
-
 	}
 
 }
