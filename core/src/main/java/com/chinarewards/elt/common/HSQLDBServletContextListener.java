@@ -11,7 +11,7 @@ public class HSQLDBServletContextListener implements ServletContextListener {
  public void contextInitialized(ServletContextEvent evt) {
         try {
             ServletContext context = evt.getServletContext();
-              String dbPath =  context.getRealPath("/") + "/WEB-INF/db";
+              String dbPath =  context.getRealPath("/") + "/WEB-INF/db/";
               String dbName = "mydb";
               int port = 9001;
               startServer(dbPath,dbName,port);

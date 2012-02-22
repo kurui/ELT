@@ -70,4 +70,6 @@ public interface IStaffService {
 	 */
 	public GeneratedUserConstants generatedUserbyStaff(String staffId,UserContext context);
 	
+	public String createHrUser(StaffUserProcess staff);
+	
 }

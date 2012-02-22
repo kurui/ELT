@@ -1,22 +1,23 @@
-package com.chinarewards.gwt.elt.client.register.request;
+package com.chinarewards.gwt.elt.client.registerHr.request;
 
 import net.customware.gwt.dispatch.shared.Result;
 
 import com.chinarewards.gwt.elt.client.enterprise.model.EnterpriseVo;
 
-public class RegisterResponse implements Result {
+public class RegisterHrResponse implements Result {
 	private String token;
-	private String corpId;
+	private String userId;
 
-	public String getCorpId() {
-		return corpId;
+	
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setCorpId(String corpId) {
-		this.corpId = corpId;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
-	public RegisterResponse() {
+	public RegisterHrResponse() {
 
 	}
 

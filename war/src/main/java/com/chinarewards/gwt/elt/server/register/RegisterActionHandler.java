@@ -4,9 +4,11 @@ import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.DispatchException;
 
 import com.chinarewards.elt.domain.org.Corporation;
+import com.chinarewards.elt.domain.org.OrgInit;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.org.CorporationVo;
 import com.chinarewards.elt.service.org.CorporationService;
+import com.chinarewards.elt.service.org.OrgInitService;
 import com.chinarewards.elt.service.user.UserService;
 import com.chinarewards.gwt.elt.client.enterprise.model.EnterpriseVo;
 import com.chinarewards.gwt.elt.client.register.request.RegisterRequest;
@@ -19,10 +21,12 @@ public class RegisterActionHandler extends	BaseActionHandler<RegisterRequest, Re
 
 	CorporationService corporationService;
 	UserService userService;
+	OrgInitService orgInitSerivce;
 	@Inject
-	public RegisterActionHandler(CorporationService corporationService,UserService userService) {
+	public RegisterActionHandler(CorporationService corporationService,UserService userService,OrgInitService orgInitSerivce) {
 		this.corporationService = corporationService;
 		this.userService = userService;
+		this.orgInitSerivce = orgInitSerivce;
 	}
 
 	@Override
@@ -49,9 +53,15 @@ public class RegisterActionHandler extends	BaseActionHandler<RegisterRequest, Re
 		 model.setId(vo.getId());
 		 SysUser caller = null;
 		 Corporation coporation = corporationService.saveCorporation(caller, model);
+		 OrgInit init = new OrgInit();
+		  init.setCorpInit(1);
+		  init.setHrInit(0);
+		  init.setCorpId(coporation.getId());
+		  orgInitSerivce.save(init);
 		 if (coporation.getId() != null) {
 		 RegisterResponse resp = new RegisterResponse();
 		 resp.setToken("注册成功");
+		 resp.setCorpId(coporation.getId());
 		 return resp;
 		 } else {
 		 throw new ClientException("注册失败!");

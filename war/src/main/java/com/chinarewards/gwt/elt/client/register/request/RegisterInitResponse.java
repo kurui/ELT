@@ -3,19 +3,21 @@ package com.chinarewards.gwt.elt.client.register.request;
 import net.customware.gwt.dispatch.shared.Result;
 
 import com.chinarewards.gwt.elt.client.enterprise.model.EnterpriseVo;
+import com.chinarewards.gwt.elt.client.register.model.OrgInitVo;
 
 public class RegisterInitResponse implements Result {
 
-	private int count;
+	private OrgInitVo orgInitVo;;
 
-	public int getCount() {
-		return count;
+	
+	public RegisterInitResponse(OrgInitVo orgInitVo) {
+      this.orgInitVo = orgInitVo;
 	}
-	public void setCount(int count) {
-		this.count = count;
+	public OrgInitVo getOrgInitVo() {
+		return orgInitVo;
 	}
-	public RegisterInitResponse(int count) {
-      this.count = count;
+	public void setOrgInitVo(OrgInitVo orgInitVo) {
+		this.orgInitVo = orgInitVo;
 	}
 	public RegisterInitResponse() {
 	      

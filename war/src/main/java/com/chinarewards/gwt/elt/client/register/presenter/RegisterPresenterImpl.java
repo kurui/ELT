@@ -7,13 +7,12 @@ import com.chinarewards.gwt.elt.client.EltGinjector;
 import com.chinarewards.gwt.elt.client.enterprise.model.EnterpriseVo;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
+import com.chinarewards.gwt.elt.client.register.model.OrgInitVo;
 import com.chinarewards.gwt.elt.client.register.presenter.RegisterPresenter.RegisterDisplay;
 import com.chinarewards.gwt.elt.client.register.request.RegisterInitRequest;
 import com.chinarewards.gwt.elt.client.register.request.RegisterInitResponse;
 import com.chinarewards.gwt.elt.client.register.request.RegisterRequest;
 import com.chinarewards.gwt.elt.client.register.request.RegisterResponse;
-import com.chinarewards.gwt.elt.client.support.SessionManager;
-import com.chinarewards.gwt.elt.client.win.Win;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -31,17 +30,15 @@ public class RegisterPresenterImpl extends BasePresenter<RegisterDisplay> implem
 
 	private final EltGinjector injector = GWT.create(EltGinjector.class);
 	final DispatchAsync dispatchAsync;
-	final Win  win;
-	private final SessionManager sessionManager;
-	EnterpriseVo enterpriseVo = new EnterpriseVo();
 	
+	EnterpriseVo enterpriseVo = new EnterpriseVo();
+	OrgInitVo vo;
 	@Inject
 	public RegisterPresenterImpl(final EventBus eventBus, RegisterDisplay display,
-			DispatchAsync dispatchAsync,SessionManager sessionManager,Win  win) {
+			DispatchAsync dispatchAsync) {
 		super(eventBus, display);
 		this.dispatchAsync = dispatchAsync;
-		this.sessionManager = sessionManager;
-		this.win =win;
+		
 	}
 
 	@Override
@@ -66,7 +63,7 @@ public class RegisterPresenterImpl extends BasePresenter<RegisterDisplay> implem
 	 * @return
 	 */
     public EnterpriseVo getEnterprise(){
-    	Window.alert("d"+display.getAddress().getValue());
+    	
     	enterpriseVo.setAddress(display.getAddress().getValue());
     	enterpriseVo.setCellphone(display.getCellphone().getValue());
     	enterpriseVo.setCorporation(display.getCorporation().getValue());
@@ -95,9 +92,15 @@ public class RegisterPresenterImpl extends BasePresenter<RegisterDisplay> implem
 						Window.alert("创建失败");
 					}
 					@Override
-					public void onSuccess(RegisterResponse arg0) {
-						Window.alert("创建成功");
-						
+					public void onSuccess(RegisterResponse arg) {
+						if(!arg.getCorpId().equals("")){
+						    Window.alert("创建成功");
+						    injector.getRegisterPresenter().unbind();
+						    RootLayoutPanel.get().clear();
+						    injector.getRegisterHrPresenter().bind();
+							RootLayoutPanel.get().add(injector.getRegisterHrPresenter().getDisplay().asWidget());
+						}else
+							Window.alert("创建失败");
 					}
 				});
 	}
@@ -114,13 +117,21 @@ public class RegisterPresenterImpl extends BasePresenter<RegisterDisplay> implem
 
 			@Override
 			public void onSuccess(RegisterInitResponse response) {
-				
-					int sum= response.getCount();
-					if(sum>0){
+					 vo= response.getOrgInitVo();
+					if(vo !=null&&vo.getCorpInit()!=0&&vo.getHrInit()!=0){//只 一个企业存在
 						injector.getMain().init(RootLayoutPanel.get());
+					 }
+					else if(vo !=null&&vo.getCorpInit()!=0&&vo.getHrInit()==0){//初始化HR账户
+						injector.getRegisterPresenter().unbind();
+						RootLayoutPanel.get().clear();
+						injector.getRegisterHrPresenter().bind();
+						RootLayoutPanel.get().add(injector.getRegisterHrPresenter().getDisplay().asWidget());
+					 }
+					else
+					{
+						RootLayoutPanel.get().add(injector.getRegisterPresenter().getDisplay().asWidget());
 					}
-						
-				
+					
 			}
 
 		});
