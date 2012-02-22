@@ -47,6 +47,7 @@ import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListPluginDescripto
 import com.chinarewards.gwt.elt.client.shopWindow.plugin.ShopWindowPluginDescriptor;
 import com.chinarewards.gwt.elt.client.staff.plugin.HrRegisterPluginDescriptor;
 import com.chinarewards.gwt.elt.client.staffAdd.plugin.StaffAddPluginDescriptor;
+import com.chinarewards.gwt.elt.client.staffHeavenIndex.plugin.StaffHeavenIndexPluginDescriptor;
 import com.chinarewards.gwt.elt.client.staffList.plugin.StaffListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.staffView.plugin.StaffViewPluginDescriptor;
 import com.chinarewards.gwt.elt.client.team.plugin.TeamAddPluginDescriptor;
@@ -245,7 +246,8 @@ public class PlatformModule extends AbstractGinModule {
 			OrderHistoryViewPluginDescriptor orderHistoryView,
 			OrderSubmitPluginDescriptor orderSubmit,
 			OrderConfirmationPluginDescriptor orderConfirmation,
-			DetailsOfGiftPluginDescriptor detailsOfGift) {
+			DetailsOfGiftPluginDescriptor detailsOfGift,
+			StaffHeavenIndexPluginDescriptor staffHeavenIndex) {
 
 		if (pluginSet == null) {
 			pluginSet = new InMemoryPluginSet();
@@ -263,6 +265,7 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(orderConfirmation);
 			pluginSet.registerPlugin(orderSubmit);
 			pluginSet.registerPlugin(detailsOfGift);
+			pluginSet.registerPlugin(staffHeavenIndex);
 
 		}
 

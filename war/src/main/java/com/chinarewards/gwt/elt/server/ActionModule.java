@@ -72,6 +72,7 @@ import com.chinarewards.gwt.elt.client.rewards.request.SearchRewardsRequest;
 import com.chinarewards.gwt.elt.client.shopWindow.request.ShopWindowRequest;
 import com.chinarewards.gwt.elt.client.staff.HrRegisterRequest;
 import com.chinarewards.gwt.elt.client.staffAdd.request.StaffAddRequest;
+import com.chinarewards.gwt.elt.client.staffHeavenIndex.request.StaffHeavenIndexRequest;
 import com.chinarewards.gwt.elt.client.staffList.request.SearchStaffListRequest;
 import com.chinarewards.gwt.elt.client.staffList.request.StaffGenerateUserRequest;
 import com.chinarewards.gwt.elt.client.staffList.request.UpdateUserPwdRequest;
@@ -157,6 +158,7 @@ import com.chinarewards.gwt.elt.server.staff.SearchStaffViewActionHandler;
 import com.chinarewards.gwt.elt.server.staff.SearchStaffWinActionHandler;
 import com.chinarewards.gwt.elt.server.staff.StaffAddActionHandler;
 import com.chinarewards.gwt.elt.server.staff.StaffGenerateUserActionHandler;
+import com.chinarewards.gwt.elt.server.staffHeavenIndex.StaffHeavenIndexActionHandler;
 import com.chinarewards.gwt.elt.server.team.SearchTeamByIdHandler;
 import com.chinarewards.gwt.elt.server.team.SearchTeamHandler;
 import com.chinarewards.gwt.elt.server.team.TeamHandler;
@@ -355,6 +357,8 @@ public class ActionModule extends ActionHandlerModule {
 		bindHandler(SearchBroadcastReplyRequest.class,SearchBroadcastReplyActionHandler.class);
 		//回复保存
 		bindHandler(BroadcastReplyAddRequest.class,BroadcastReplyAddActionHandler.class);
+		//员工天地首页
+		bindHandler(StaffHeavenIndexRequest.class,StaffHeavenIndexActionHandler.class);
 		
 	}
 }

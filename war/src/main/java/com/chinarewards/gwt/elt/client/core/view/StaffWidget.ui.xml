@@ -58,7 +58,7 @@
 						<div class="{new2.nav} {new2.clearfix}">
 							<ul>
 								<li>
-									<g:Anchor styleName="{new2.menu} {new2.menu-on}">
+									<g:Anchor styleName="{new2.menu} {new2.menu-on}" ui:field="staffHeavenIndex">
 										<span>首 页</span>
 									</g:Anchor>
 								</li>
