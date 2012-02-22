@@ -1,7 +1,10 @@
 package com.chinarewards.gwt.elt.client.staffHeavenIndex.dataprovider;
 
+import java.util.List;
+
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import com.chinarewards.gwt.elt.client.broadcastReplyLattice.view.BroadcastReplyLatticeWidget;
 import com.chinarewards.gwt.elt.client.dataprovider.BaseDataProvider;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.staffHeavenIndex.model.StaffHeavenIndexClient;
@@ -12,6 +15,7 @@ import com.chinarewards.gwt.elt.client.staffHeavenIndex.request.StaffHeavenIndex
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.model.PaginationDetailClient;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Grid;
 
 public class StaffHeavenIndexViewAdapter extends BaseDataProvider<StaffHeavenIndexClient> {
 
@@ -63,6 +67,36 @@ public class StaffHeavenIndexViewAdapter extends BaseDataProvider<StaffHeavenInd
 			public void onSuccess(StaffHeavenIndexResponse response) {
 				updateRowData(start, response.getResult());
 				updateRowCount(response.getTotal(), true);
+				display.setDataCount(response.getTotal()+"");
+				
+				List<StaffHeavenIndexClient> giftList=response.getResult();
+				int index=0;
+				 Grid grid = new Grid(10, 1);
+					
+				    // Add images to the grid
+				    int numRows = grid.getRowCount();
+				    int numColumns = grid.getColumnCount();
+				    for (int row = 0; row < numRows; row++) {
+				      for (int col = 0; col < numColumns; col++) {
+				    	  if(index<giftList.size())	
+				    	  {
+				    	//	  StaffHeavenIndexClient clint=giftList.get(index);
+				    		  grid.setWidget(row, col,new BroadcastReplyLatticeWidget().asWidget());
+				    	  	  index++;
+				    	  }
+				    	  else
+				    	  {
+				    		  break;
+				    		  //grid.setWidget(row, col,new BroadcastReplyLatticeWidget().asWidget());
+				    	  }
+				      }
+				    }
+
+				    // Return the panel
+				    grid.ensureDebugId("cwGrid");
+				    
+					display.getResultPanel().clear();
+					display.getResultPanel().add(grid);
 				display.setDataCount(response.getTotal()+"");
 			}
 
