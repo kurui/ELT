@@ -354,8 +354,15 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 	}
 
 	@Override
+
+	public List<Department> getDepartmentsOfCorporationAndKey(
+			String corporationId, String key) {
+		return departmentDao.getDepartmentsOfCorporationAndKey(corporationId, key);
+	}
+
 	public List<Department> findDepartmentsByLeader(String leaderId) {
 		return departmentDao.findDepartmentsByLeader(leaderId);
+
 	}
 
 }

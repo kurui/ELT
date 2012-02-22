@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -24,10 +23,10 @@ public class BroadcastingReceiving  implements Serializable {
 	@GenericGenerator(name = "system-uuid", strategy = "uuid")
 	private String id;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	private Broadcasting broadcast;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	private ReceivingObject receiving;
 
 	private Date createdAt;

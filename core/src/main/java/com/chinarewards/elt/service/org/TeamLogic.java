@@ -2,7 +2,6 @@ package com.chinarewards.elt.service.org;
 
 import java.util.List;
 
-import com.chinarewards.elt.domain.org.Members;
 import com.chinarewards.elt.domain.org.Team;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
@@ -58,5 +57,12 @@ public interface TeamLogic {
 	 * @param teamId
 	 */
 	public void removeMembersByTeam(String teamId) ;
+	
+	/**
+	 * 查找根据ID.返回对象
+	 * @param id
+	 * @return
+	 */
+	public Team findTeamBoById(String id);
 	
 }

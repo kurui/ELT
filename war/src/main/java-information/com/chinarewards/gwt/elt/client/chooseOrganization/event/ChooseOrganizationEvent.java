@@ -2,35 +2,35 @@ package com.chinarewards.gwt.elt.client.chooseOrganization.event;
 
 import java.util.List;
 
-import com.chinarewards.gwt.elt.client.rewardItem.handler.ChooseStaffHandler;
-import com.chinarewards.gwt.elt.client.rewards.model.StaffClient;
+import com.chinarewards.gwt.elt.client.chooseOrganization.handler.ChooseOrganizationHandler;
+import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
 import com.google.gwt.event.shared.GwtEvent;
 
-public class ChooseOrganizationEvent extends GwtEvent<ChooseStaffHandler> {
+public class ChooseOrganizationEvent extends GwtEvent<ChooseOrganizationHandler> {
 
-	private static Type<ChooseStaffHandler> TYPE = new Type<ChooseStaffHandler>();
+	private static Type<ChooseOrganizationHandler> TYPE = new Type<ChooseOrganizationHandler>();
 
-	List<StaffClient> list;
+	List<OrganicationClient> list;
 
 	public ChooseOrganizationEvent() {
 
 	}
 
-	public ChooseOrganizationEvent(List<StaffClient> list) {
+	public ChooseOrganizationEvent(List<OrganicationClient> list) {
 		this.list = list;
 	}
 
-	public static Type<ChooseStaffHandler> getType() {
+	public static Type<ChooseOrganizationHandler> getType() {
 		return TYPE;
 	}
 
 	@Override
-	protected void dispatch(ChooseStaffHandler handler) {
-		handler.chosenStaff(list);
+	protected void dispatch(ChooseOrganizationHandler handler) {
+		handler.chosenOrganization(list);
 	}
 
 	@Override
-	public Type<ChooseStaffHandler> getAssociatedType() {
+	public Type<ChooseOrganizationHandler> getAssociatedType() {
 		return getType();
 	}
 }

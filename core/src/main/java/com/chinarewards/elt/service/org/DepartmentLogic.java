@@ -188,6 +188,12 @@ public interface DepartmentLogic {
 	 */
 	public List<Department> findDepartmentsByLeader(String leaderId);
 	
-	
+	/**
+	 *获取部门.查询.key(name).去掉根部门
+	 * 
+	 * @param corporationId
+	 * @return
+	 */
+	public List<Department> getDepartmentsOfCorporationAndKey(String corporationId,String key);
 	
 }

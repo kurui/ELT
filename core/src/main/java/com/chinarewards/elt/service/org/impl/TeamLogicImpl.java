@@ -13,7 +13,6 @@ import com.chinarewards.elt.dao.org.TeamDao;
 import com.chinarewards.elt.domain.org.Members;
 import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.domain.org.Team;
-import com.chinarewards.elt.domain.reward.person.Judge;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.org.search.TeamParam;
@@ -29,7 +28,9 @@ import com.google.inject.Inject;
  * @author lw
  * @since 1.0
  */
-public class TeamLogicImpl implements TeamLogic {
+public  class TeamLogicImpl implements TeamLogic {
+
+
 
 	Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -182,4 +183,10 @@ public class TeamLogicImpl implements TeamLogic {
 		}
 				
 	}
+	
+	@Override
+	public Team findTeamBoById(String id) {
+		return 	teamDao.findById(Team.class, id);
+	}
+
 }

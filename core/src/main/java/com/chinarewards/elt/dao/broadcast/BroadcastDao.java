@@ -54,12 +54,12 @@ public class BroadcastDao  extends BaseDao<Broadcasting>{
 			param.put("status", searchVo.getStatus());
 		}
 	
-		if (!StringUtil.isEmptyString(searchVo.getCreatedByUserId())) {
-			hql.append(" AND broadcast.createdBy.id LIKE :createdByUserId ");
-			param.put("createdByUserId", "%"+searchVo.getCreatedByUserId()+"%");
+		if (!StringUtil.isEmptyString(searchVo.getCreatedByUserName())) {
+			hql.append(" AND broadcast.createdBy.staff.name LIKE :createdByUserName ");
+			param.put("createdByUserName", "%"+searchVo.getCreatedByUserName()+"%");
 		}
 		if (searchVo.getBroadcastingTimeStart()!=null && searchVo.getBroadcastingTimeEnd()!=null) {
-			hql.append(" and ( broadcast.broadcastingTime  between :broadcastingTimeStart and :broadcastingTimeEnd)");
+			hql.append(" and ( broadcast.broadcastingTimeStart  between :broadcastingTimeStart and :broadcastingTimeEnd)");
 			param.put("broadcastingTimeStart", searchVo.getBroadcastingTimeStart());
 			param.put("broadcastingTimeEnd", searchVo.getBroadcastingTimeEnd());
 
@@ -76,7 +76,7 @@ public class BroadcastDao  extends BaseDao<Broadcasting>{
 						+ searchVo.getSortingDetail().getSort() + " "
 						+ searchVo.getSortingDetail().getDirection());
 			} else {
-				hql.append(" ORDER BY broadcast.broadcastingTime DESC ");
+				hql.append(" ORDER BY broadcast.broadcastingTimeStart DESC ");
 			}
 		}
 		logger.debug(" HQL:{} ", hql);
@@ -100,5 +100,13 @@ public class BroadcastDao  extends BaseDao<Broadcasting>{
 			}
 		}
 		return query;
+	}
+	
+
+	public String getMaxNumber() {
+		StringBuffer hql = new StringBuffer();
+		hql.append(" SELECT COUNT(broadcast) FROM Broadcasting broadcast WHERE 1=1 ");
+		Query query = getEm().createQuery(hql.toString());
+		return query.getSingleResult().toString();
 	}
 }

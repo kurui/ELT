@@ -5,12 +5,15 @@ import java.util.Comparator;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
+import com.chinarewards.gwt.elt.client.broadcastReply.plugin.BroadcastReplyConstants;
 import com.chinarewards.gwt.elt.client.broadcastSave.plugin.BroadcastSaveConstants;
 import com.chinarewards.gwt.elt.client.broadcasting.dataprovider.BroadcastingListViewAdapter;
 import com.chinarewards.gwt.elt.client.broadcasting.model.BroadcastingListClient;
 import com.chinarewards.gwt.elt.client.broadcasting.model.BroadcastingListCriteria;
+import com.chinarewards.gwt.elt.client.broadcasting.model.BroadcastingListCriteria.BroadcastingStatus;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
+import com.chinarewards.gwt.elt.client.detailsOfBroadcast.plugin.DetailsOfBroadcastConstants;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
@@ -21,8 +24,8 @@ import com.chinarewards.gwt.elt.client.widget.EltNewPager.TextLocation;
 import com.chinarewards.gwt.elt.client.widget.GetValue;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.widget.Sorting;
-import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.util.DateTool;
+import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -35,7 +38,7 @@ public class BroadcastingListPresenterImpl extends
 
 	private final DispatchAsync dispatch;
 	private final SessionManager sessionManager;
-	private final Win win;
+//	private final Win win;
 	final ErrorHandler errorHandler;
 	EltNewPager pager;
 	ListCellTable<BroadcastingListClient> cellTable;
@@ -45,12 +48,12 @@ public class BroadcastingListPresenterImpl extends
 	@Inject
 	public BroadcastingListPresenterImpl(EventBus eventBus,
 			BroadcastingListDisplay display, DispatchAsync dispatch,
-			SessionManager sessionManager,Win win,BreadCrumbsPresenter breadCrumbs,ErrorHandler errorHandler) {
+			SessionManager sessionManager,BreadCrumbsPresenter breadCrumbs,ErrorHandler errorHandler) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.sessionManager = sessionManager;
 		this.errorHandler=errorHandler;
-		this.win=win;
+		//this.win=win;
 		this.breadCrumbs=breadCrumbs;
 	}
 
@@ -106,8 +109,15 @@ public class BroadcastingListPresenterImpl extends
 
 	private void doSearch() {
 		BroadcastingListCriteria criteria = new BroadcastingListCriteria();
-
-
+		if(!"ALL".equals(display.getStatus()))
+			criteria.setStatus(BroadcastingStatus.valueOf(display.getStatus()));
+		if(!StringUtil.isEmpty(display.getCreateUser()))
+			criteria.setCreatedByUserName(display.getCreateUser());
+		if(display.getBroadcastingTime()!=null)
+			criteria.setBroadcastingTimeStart(display.getBroadcastingTime());
+		if(display.getBroadcastingTimeEnd()!=null)
+			criteria.setBroadcastingTimeEnd(display.getBroadcastingTimeEnd());
+		
 		listViewAdapter = new BroadcastingListViewAdapter(dispatch, criteria,
 				errorHandler, sessionManager,display);
 		listViewAdapter.addDataDisplay(cellTable);
@@ -189,7 +199,11 @@ public class BroadcastingListPresenterImpl extends
 					@Override
 					public void update(int index, final BroadcastingListClient o,
 							String value) {
-						win.alert("待实现");
+						Platform.getInstance()
+						.getEditorRegistry()
+						.openEditor(
+								DetailsOfBroadcastConstants.EDITOR_DETAILSOFBROADCAST_SEARCH,
+								"EDITOR_DETAILSOFBROADCAST_SEARCH_DO_ID", o.getId());
 					}
 
 				});
@@ -204,7 +218,11 @@ public class BroadcastingListPresenterImpl extends
 					@Override
 					public void update(int index, final BroadcastingListClient o,
 							String value) {
-						win.alert("待实现");
+						Platform.getInstance()
+						.getEditorRegistry()
+						.openEditor(
+								BroadcastReplyConstants.EDITOR_BROADCASTREPLY_SEARCH,
+								"EDITOR_BROADCASTREPLY_SEARCH_DO_ID",  o.getId());
 					}
 
 				});

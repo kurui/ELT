@@ -2,24 +2,24 @@ package com.chinarewards.gwt.elt.client.chooseOrganization.request;
 
 import net.customware.gwt.dispatch.shared.Result;
 
-import com.chinarewards.gwt.elt.client.rewards.model.StaffSearchResult;
+import com.chinarewards.gwt.elt.client.chooseOrganization.model.OrganSearchResult;
 
 public class ChooseOrganizationResponse implements Result {
 
-	private StaffSearchResult result;
+	private OrganSearchResult result;
 
 	public ChooseOrganizationResponse() {
 	}
 
-	public ChooseOrganizationResponse(StaffSearchResult result) {
+	public ChooseOrganizationResponse(OrganSearchResult result) {
 		this.result = result;
 	}
 
-	public StaffSearchResult getResult() {
+	public OrganSearchResult getResult() {
 		return result;
 	}
 
-	public void setResult(StaffSearchResult result) {
+	public void setResult(OrganSearchResult result) {
 		this.result = result;
 	}
 
