@@ -65,7 +65,7 @@ public class RegisterPresenterImpl extends BasePresenter<RegisterDisplay> implem
 	 * @return
 	 */
     public EnterpriseVo getEnterprise(){
-    	Window.alert("d"+display.getAddress().getValue());
+    	
     	enterpriseVo.setAddress(display.getAddress().getValue());
     	enterpriseVo.setCellphone(display.getCellphone().getValue());
     	enterpriseVo.setCorporation(display.getCorporation().getValue());

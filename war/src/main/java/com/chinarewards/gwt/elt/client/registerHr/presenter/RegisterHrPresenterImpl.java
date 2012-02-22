@@ -5,6 +5,7 @@ import java.util.List;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import com.chinarewards.gwt.elt.client.EltGinjector;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.registerHr.model.HrVo;
@@ -14,10 +15,12 @@ import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.util.StringUtil;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.model.user.UserRoleVo;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.inject.Inject;
 
 public class RegisterHrPresenterImpl extends
@@ -25,7 +28,7 @@ public class RegisterHrPresenterImpl extends
 		RegisterHrPresenter {
 
 	private final DispatchAsync dispatcher;
-	
+	private final EltGinjector injector = GWT.create(EltGinjector.class);
 
 	@Inject
 	public RegisterHrPresenterImpl(EventBus eventBus,
@@ -93,7 +96,7 @@ public class RegisterHrPresenterImpl extends
 					public void onSuccess(RegisterHrResponse response) {
 
 						Window.alert("添加成功!");
-						
+						injector.getMain().init(RootLayoutPanel.get());
 					}
 				});
 	}
