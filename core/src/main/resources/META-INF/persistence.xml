@@ -14,6 +14,7 @@
 		<class>com.chinarewards.elt.domain.user.SysUserRole</class>
 
 		<!-- org -->
+		<class>com.chinarewards.elt.domain.org.OrgInit</class>
 		<class>com.chinarewards.elt.domain.org.Organization</class>
 		<class>com.chinarewards.elt.domain.org.Corporation</class>
 		<class>com.chinarewards.elt.domain.org.Department</class>

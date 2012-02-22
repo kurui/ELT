@@ -1,5 +1,6 @@
-package com.chinarewards.gwt.elt.client.register.presenter;
+package com.chinarewards.gwt.elt.client.register.view;
 
+import com.chinarewards.gwt.elt.client.register.presenter.RegisterPresenter;
 import com.chinarewards.gwt.elt.client.register.presenter.RegisterPresenter.RegisterDisplay;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;

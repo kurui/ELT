@@ -28,6 +28,7 @@ import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.org.StaffVo;
 import com.chinarewards.elt.model.staff.StaffProcess;
 import com.chinarewards.elt.model.staff.StaffSearchCriteria;
+import com.chinarewards.elt.model.staff.StaffStatus;
 import com.chinarewards.elt.model.staff.StaffWinSearchCriteria;
 import com.chinarewards.elt.model.staff.StaffWinVo;
 import com.chinarewards.elt.model.user.GeneratedUserConstants;
@@ -46,6 +47,7 @@ import com.chinarewards.elt.tx.model.Unit;
 import com.chinarewards.elt.tx.service.TransactionService;
 import com.chinarewards.elt.util.DateUtil;
 import com.chinarewards.elt.util.StringUtil;
+import com.chinarewards.gwt.elt.model.staff.StaffUserProcess;
 import com.google.inject.Inject;
 
 public class StaffLogicImpl implements StaffLogic {
@@ -423,4 +425,54 @@ public class StaffLogicImpl implements StaffLogic {
 		}
 		return GeneratedUserConstants.Success;
 	}
+	public String createHrUser(StaffUserProcess staffProcess){
+		   Staff ff = new Staff();
+				
+			// 如果传入空部门,默认当前用户部门
+			//ff.setDepartment(nowuser.getStaff().getDepartment());
+			ff.setStatus(StaffStatus.JOB);
+			ff.setPhone(staffProcess.getTell());
+			ff.setEmail(staffProcess.getEmail());
+			ff.setName(staffProcess.getName());
+			String accountId = transactionService.createNewAccount();
+			ff.setTxAccountId(accountId);
+			// Create a new staff
+			Corporation corporation=corporationLogic.findCorporationById(staffProcess.getCorpId());
+			ff.setCorporation(corporation);
+			//ff.setCreatedBy(nowuser);
+			ff.setCreatedAt(DateUtil.getTime());
+			ff.setDeleted(0);
+			Staff newstaff = staffDao.save(ff);
+		
+		//==================创建用户
+
+		   // create user
+		    Date now = DateUtil.getTime();
+		    SysUser user = new SysUser();
+		    user.setUserName(staffProcess.getUsername());
+		    user.setPassword(staffProcess.getPassword());
+		    user.setCorporation(corporation);
+		    user.setCreatedAt(now);
+			//u.setCreatedBy(nowuser);
+		    user.setLastModifiedAt(now);
+			//u.setLastModifiedBy(nowuser);
+		    user.setStatus(UserStatus.Active);
+		    user.setStaff(newstaff);
+		    user =userDao.save(user);
+
+			for (int i = 0; i < staffProcess.getRoles().size(); i++) {
+				SysUserRole userRole = new SysUserRole();
+				userRole.setRole(roleDao.findRoleByRoleName(staffProcess.getRoles().get(i)));
+				userRole.setCreatedBy(user);
+				userRole.setCreatedAt(DateUtil.getTime());
+				userRole.setLastModifiedAt(DateUtil.getTime());
+				userRole.setLastModifiedBy(user);
+				userRole.setUser(user);
+				userRoleDao.createUserRole(userRole);
+		
+			}
+           return user.getId();
+		}
+
+	
 }

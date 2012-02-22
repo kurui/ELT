@@ -6,14 +6,14 @@ import com.chinarewards.gwt.elt.client.enterprise.model.EnterpriseVo;
 
 public class RegisterResponse implements Result {
 	private String token;
-	private EnterpriseVo enterprise;
+	private String corpId;
 
-	public EnterpriseVo getEnterprise() {
-		return enterprise;
+	public String getCorpId() {
+		return corpId;
 	}
 
-	public void setEnterprise(EnterpriseVo enterprise) {
-		this.enterprise = enterprise;
+	public void setCorpId(String corpId) {
+		this.corpId = corpId;
 	}
 
 	public RegisterResponse() {

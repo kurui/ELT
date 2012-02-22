@@ -9,10 +9,12 @@ import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.register.presenter.RegisterModule;
 import com.chinarewards.gwt.elt.client.register.presenter.RegisterPresenter;
+import com.chinarewards.gwt.elt.client.registerHr.presenter.RegisterHrModule;
+import com.chinarewards.gwt.elt.client.registerHr.presenter.RegisterHrPresenter;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.google.gwt.inject.client.GinModules;
 
-@GinModules({ MainModule.class, LoginModule.class, RegisterModule.class, EltStandardDispatchModule.class })
+@GinModules({ MainModule.class, LoginModule.class, RegisterModule.class,RegisterHrModule.class, EltStandardDispatchModule.class })
 public interface EltGinjector extends PlatformGinjector {
 
 	// MainPresenter getMainPresenter();
@@ -20,7 +22,7 @@ public interface EltGinjector extends PlatformGinjector {
 	LoginPresenter getLoginPresenter();
 	RegisterPresenter getRegisterPresenter();
 	AwardShopLatticePresenter getAwardShopLatticePresenter();
-
+	RegisterHrPresenter getRegisterHrPresenter();
 	EventBus getEventBus();
 
 	SessionManager getSessionManager();

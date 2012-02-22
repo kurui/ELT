@@ -50,6 +50,7 @@ import com.chinarewards.gwt.elt.client.orderHistory.request.OrderHistoryViewRequ
 import com.chinarewards.gwt.elt.client.orderSubmit.request.OrderSubmitRequest;
 import com.chinarewards.gwt.elt.client.register.request.RegisterInitRequest;
 import com.chinarewards.gwt.elt.client.register.request.RegisterRequest;
+import com.chinarewards.gwt.elt.client.registerHr.request.RegisterHrRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.ActivationRewardsItemRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.ActivationRewardsItemStoreRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.CreateRewardsItemRequest;
@@ -123,6 +124,7 @@ import com.chinarewards.gwt.elt.server.orderConfirmation.SearchOrderConfirmation
 import com.chinarewards.gwt.elt.server.orderHistory.OrderHistoryViewHandler;
 import com.chinarewards.gwt.elt.server.orderSubmit.AddOrderSubmitHandler;
 import com.chinarewards.gwt.elt.server.register.RegisterActionHandler;
+import com.chinarewards.gwt.elt.server.register.RegisterHrActionHandler;
 import com.chinarewards.gwt.elt.server.register.RegisterInitActionHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.ActivationRewardsItemHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.ActivationRewardsItemStroeHandler;
@@ -194,6 +196,8 @@ public class ActionModule extends ActionHandlerModule {
 		bindHandler(RegisterInitRequest.class, RegisterInitActionHandler.class);
 		//HR企业注册
 		bindHandler(RegisterRequest.class, RegisterActionHandler.class);
+		//HR账户初始化
+		bindHandler(RegisterHrRequest.class, RegisterHrActionHandler.class);
 		//企业注册修改
 		bindHandler(EnterpriseRequest.class, EnterpriseActionHandler.class);
 		bindHandler(EnterpriseInitRequest.class, EnterpriseInitActionHandler.class);

@@ -15,6 +15,7 @@ import com.chinarewards.elt.model.user.GeneratedUserConstants;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.vo.WinnersRecordQueryResult;
 import com.chinarewards.elt.model.vo.WinnersRecordQueryVo;
+import com.chinarewards.gwt.elt.model.staff.StaffUserProcess;
 
 /**
  * Provides some useful methods to manipulate Staff.
@@ -102,4 +103,6 @@ public interface StaffLogic {
 	 * @return
 	 */
 	public GeneratedUserConstants generatedUserbyStaff(String staffId,UserContext context);
+	
+	public String createHrUser(StaffUserProcess staff);
 }

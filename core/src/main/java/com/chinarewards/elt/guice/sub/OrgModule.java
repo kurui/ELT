@@ -13,6 +13,8 @@ import com.chinarewards.elt.service.org.CorporationService;
 import com.chinarewards.elt.service.org.DepartmentLogic;
 import com.chinarewards.elt.service.org.DepartmentManagerLogic;
 import com.chinarewards.elt.service.org.DepartmentService;
+import com.chinarewards.elt.service.org.OrgInitLogic;
+import com.chinarewards.elt.service.org.OrgInitService;
 import com.chinarewards.elt.service.org.OrganizationLogic;
 import com.chinarewards.elt.service.org.impl.CorporationLogicImpl;
 import com.chinarewards.elt.service.org.impl.CorporationProcessor;
@@ -21,6 +23,8 @@ import com.chinarewards.elt.service.org.impl.DepartmentLogicImpl;
 import com.chinarewards.elt.service.org.impl.DepartmentManagerLogicImpl;
 import com.chinarewards.elt.service.org.impl.DepartmentServiceImpl;
 import com.chinarewards.elt.service.org.impl.DeptmentProcessor;
+import com.chinarewards.elt.service.org.impl.OrgInitLogicImpl;
+import com.chinarewards.elt.service.org.impl.OrgInitServiceImpl;
 import com.chinarewards.elt.service.org.impl.OrganizationLogicImpl;
 import com.chinarewards.elt.service.org.impl.OrganizationProcessor;
 import com.chinarewards.elt.service.org.impl.Organizationfactory;
@@ -58,6 +62,8 @@ public class OrgModule extends AbstractModule {
 		bind(DepartmentLogic.class).to(DepartmentLogicImpl.class);
 		bind(DepartmentService.class).to(DepartmentServiceImpl.class);
 		
+		bind(OrgInitLogic.class).to(OrgInitLogicImpl.class);
+		bind(OrgInitService.class).to(OrgInitServiceImpl.class);
 		
 		bind(Organizationfactory.class).to(OrganizationfactoryImpl.class).in(Singleton.class);
 		bind(OrganizationProcessor.class).annotatedWith(Names.named("StaffProcessor")).to(StaffProcessor.class);
