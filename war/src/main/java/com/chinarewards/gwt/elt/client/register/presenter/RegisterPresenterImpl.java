@@ -13,8 +13,6 @@ import com.chinarewards.gwt.elt.client.register.request.RegisterInitRequest;
 import com.chinarewards.gwt.elt.client.register.request.RegisterInitResponse;
 import com.chinarewards.gwt.elt.client.register.request.RegisterRequest;
 import com.chinarewards.gwt.elt.client.register.request.RegisterResponse;
-import com.chinarewards.gwt.elt.client.support.SessionManager;
-import com.chinarewards.gwt.elt.client.win.Win;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -123,12 +121,16 @@ public class RegisterPresenterImpl extends BasePresenter<RegisterDisplay> implem
 					if(vo !=null&&vo.getCorpInit()!=0&&vo.getHrInit()!=0){//只 一个企业存在
 						injector.getMain().init(RootLayoutPanel.get());
 					 }
-					if(vo !=null&&vo.getCorpInit()!=0&&vo.getHrInit()==0){//初始化HR账户
-						 injector.getRegisterPresenter().unbind();
-						 RootLayoutPanel.get().clear();
+					else if(vo !=null&&vo.getCorpInit()!=0&&vo.getHrInit()==0){//初始化HR账户
+						injector.getRegisterPresenter().unbind();
+						RootLayoutPanel.get().clear();
 						injector.getRegisterHrPresenter().bind();
 						RootLayoutPanel.get().add(injector.getRegisterHrPresenter().getDisplay().asWidget());
 					 }
+					else
+					{
+						RootLayoutPanel.get().add(injector.getRegisterPresenter().getDisplay().asWidget());
+					}
 					
 			}
 
