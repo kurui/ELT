@@ -25,12 +25,11 @@
 	<ui:style src="index.css"></ui:style>
 	<ui:style src="new2.css" field="new2"></ui:style>
 
-	<g:DockLayoutPanel ui:field="dock" unit='PX'
-		styleName="{new2.dockbody2}" height="100%" >
-		<g:north size="83" >
+<g:ScrollPanel>
 			<g:HTMLPanel>
 				<!--head -->
 				<div class="{new2.employee}">
+
 					<div class="{new2.index} {new2.head}" id="head">
 						<div class="{new2.top-nav} {new2.clearfix}">
 							<ul>
@@ -87,28 +86,13 @@
 						</div>
 					</div>
 					<!--head ]] -->
-				</div>
-			</g:HTMLPanel>
-		</g:north>
-		<g:south size="-300">
-			<g:HTMLPanel>
-				<div class="{new2.employee}">
-					<div class="{new2.footer}" id="footer">
-						<div class="{new2.footer-line}"></div>
-						<div class="{new2.footer-wrap}">
-							<div class="{new2.copyright}">
-								<p>版权所有 深圳积享通信息技术有限公司 粤ICP备09007295</p>
-								<p>电话：0755-82671268 传真：0755-86271610</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</g:HTMLPanel>
-		</g:south>
-		<g:west size="263">
+				
 		
-			<g:HTMLPanel>
-			<div class="{new2.employee}">
+	
+
+
+		
+
 				  <!--content [[-->
 				  <div class="{new2.content} {new2.clearfix}">
 				    <!-- 导航 [[-->
@@ -194,13 +178,10 @@
 				      </div>
 				    </div>
 				    <!-- 导航 ]]-->
-				   </div>
-				   </div>
-			</g:HTMLPanel>
-		</g:west>
-			<g:east size="200">
-				<g:HTMLPanel>
-				<div class="{new2.employee}">
+				
+	
+	<g:FlowPanel ui:field="dock" />
+	
 				 <div class="{new2.reward-area}">
 			        <div class="{new2.reward-section}">
 			          <ul class="{new2.reward-select}">
@@ -272,8 +253,17 @@
 			          <p><a href="#">更多&gt;&gt;</a></p>
 			        </div>
 			      </div>
-			  </div>
-				</g:HTMLPanel>
-			</g:east>
-	</g:DockLayoutPanel>
+	   </div>
+						<div class="{new2.footer}" id="footer">
+						<div class="{new2.footer-line}"></div>
+						<div class="{new2.footer-wrap}">
+							<div class="{new2.copyright}">
+								<p>版权所有 深圳积享通信息技术有限公司 粤ICP备09007295</p>
+								<p>电话：0755-82671268 传真：0755-86271610</p>
+							</div>
+						</div>
+					</div>
+					</div>
+					</g:HTMLPanel>
+</g:ScrollPanel>
 </ui:UiBinder>

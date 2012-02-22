@@ -11,7 +11,7 @@ public class HSQLDBServletContextListener implements ServletContextListener {
  public void contextInitialized(ServletContextEvent evt) {
         try {
             ServletContext context = evt.getServletContext();
-              String dbPath =  context.getRealPath("/") + "/WEB-INF/db";
+              String dbPath =  context.getRealPath("/") + "/WEB-INF/db/";
               String dbName = "mydb";
               int port = 9001;
               startServer(dbPath,dbName,port);
@@ -38,9 +38,12 @@ private void startServer(String dbPath, String dbName, int port) {
     server.start();    
     System.out.println("hsqldb 服务启动了...");    
    
-     
 }  
 
+
+/**   
+* Listener销毁方法，在Web应用终止的时候执行"shutdown"命令关闭数据库.   
+*/  
     public void contextDestroyed(ServletContextEvent evt) {
         Connection conn = null;
         try {

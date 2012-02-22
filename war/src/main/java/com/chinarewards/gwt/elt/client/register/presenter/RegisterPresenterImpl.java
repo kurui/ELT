@@ -9,12 +9,8 @@ import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.register.model.OrgInitVo;
 import com.chinarewards.gwt.elt.client.register.presenter.RegisterPresenter.RegisterDisplay;
-import com.chinarewards.gwt.elt.client.register.request.RegisterInitRequest;
-import com.chinarewards.gwt.elt.client.register.request.RegisterInitResponse;
 import com.chinarewards.gwt.elt.client.register.request.RegisterRequest;
 import com.chinarewards.gwt.elt.client.register.request.RegisterResponse;
-import com.chinarewards.gwt.elt.client.support.SessionManager;
-import com.chinarewards.gwt.elt.client.win.Win;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -45,7 +41,7 @@ public class RegisterPresenterImpl extends BasePresenter<RegisterDisplay> implem
 
 	@Override
 	public void bind() {
-		initialization();
+	//	initialization();
 		registerHandler(display.getSaveClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
@@ -65,7 +61,7 @@ public class RegisterPresenterImpl extends BasePresenter<RegisterDisplay> implem
 	 * @return
 	 */
     public EnterpriseVo getEnterprise(){
-    	Window.alert("d"+display.getAddress().getValue());
+    	
     	enterpriseVo.setAddress(display.getAddress().getValue());
     	enterpriseVo.setCellphone(display.getCellphone().getValue());
     	enterpriseVo.setCorporation(display.getCorporation().getValue());
@@ -107,31 +103,5 @@ public class RegisterPresenterImpl extends BasePresenter<RegisterDisplay> implem
 				});
 	}
     
-    /**
-	 * 加载初始化数据
-	 */
-	private void initialization() {		
-		dispatchAsync.execute(new RegisterInitRequest(), new AsyncCallback<RegisterInitResponse>() {
-			public void onFailure(Throwable caught) {
 
-				Window.alert("初始化失败");
-			}
-
-			@Override
-			public void onSuccess(RegisterInitResponse response) {
-					 vo= response.getOrgInitVo();
-					if(vo !=null&&vo.getCorpInit()!=0&&vo.getHrInit()!=0){//只 一个企业存在
-						injector.getMain().init(RootLayoutPanel.get());
-					 }
-					if(vo !=null&&vo.getCorpInit()!=0&&vo.getHrInit()==0){//初始化HR账户
-						 injector.getRegisterPresenter().unbind();
-						 RootLayoutPanel.get().clear();
-						injector.getRegisterHrPresenter().bind();
-						RootLayoutPanel.get().add(injector.getRegisterHrPresenter().getDisplay().asWidget());
-					 }
-					
-			}
-
-		});
-	}
 }
