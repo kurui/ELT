@@ -28,7 +28,7 @@ import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.DockLayoutPanel;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.LayoutPanel;
@@ -52,11 +52,11 @@ public class SimpleSiteManager implements SiteManager, EditorCloseHandler,
 
 	RootLayoutPanel root;
 
-	DockLayoutPanel dock;
+	Panel dock;
 
 	Panel menu;
 
-	LayoutPanel editor;
+	Panel editor;
 
 	List<Editor> openedEditors = new LinkedList<Editor>();
 
@@ -160,7 +160,7 @@ public class SimpleSiteManager implements SiteManager, EditorCloseHandler,
 		// dock.addWest(menu, 200);
 
 		// initialize editors area.
-		editor = new LayoutPanel();
+		editor = new FlowPanel();
 		editor.setVisible(false);
 		dock.add(editor);
 
@@ -225,7 +225,7 @@ public class SimpleSiteManager implements SiteManager, EditorCloseHandler,
 			Editor i = openedEditors.get(idx);
 			if (instanceId != null && instanceId.equals(i.getInstanceId())) {
 				openedEditors.remove(i);
-				editor.remove(idx);
+				//editor.remove(idx);
 				break;
 			}
 		}
@@ -242,7 +242,7 @@ public class SimpleSiteManager implements SiteManager, EditorCloseHandler,
 		editor.clear();
 		ScrollPanel sp = new ScrollPanel(e.asWidget());
 		editor.add(sp);
-		editor.forceLayout();
+	//	editor.forceLayout();
 	}
 
 	public void onValueChange(ValueChangeEvent<String> event) {

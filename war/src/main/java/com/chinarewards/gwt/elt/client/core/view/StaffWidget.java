@@ -13,14 +13,14 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.InlineLabel;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class StaffWidget extends Composite implements StaffDisplay {
 
 	@UiField
-	DockLayoutPanel dock;
+	Panel dock;
 
 
 	@UiField
@@ -181,7 +181,7 @@ public class StaffWidget extends Composite implements StaffDisplay {
 
 
 	@Override
-	public DockLayoutPanel getDock() {
+	public Panel  getDock() {
 		return dock;
 	}
 
