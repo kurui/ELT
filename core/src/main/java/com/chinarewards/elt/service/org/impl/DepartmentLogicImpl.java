@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import com.chinarewards.elt.dao.budget.DepartmentBudgetDao;
 import com.chinarewards.elt.dao.org.CorporationDao;
 import com.chinarewards.elt.dao.org.DepartmentDao;
+import com.chinarewards.elt.dao.org.DepartmentManagerDao;
 import com.chinarewards.elt.dao.org.OrgPolicyDao;
 import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.org.Department;
@@ -40,6 +41,7 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 
 	OrgPolicyDao organizationPolicyDao;
 	DepartmentDao departmentDao;
+	DepartmentManagerDao departmentManagerDao;
 	CorporationDao corporationDao;
 	DepartmentBudgetDao departmentBudgetDao;
 
@@ -327,7 +329,7 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 		List<Department> departmentList = new ArrayList<Department>();
 	
 		//Leader负责的部门
-		List<Department> tempList=findDepartmentsByLeader(leaderId);
+		List<Department> tempList=departmentManagerDao.findDepartmentsManagedByStaffId(leaderId);
 		departmentList.addAll(tempList);		
 		
 		for (int i = 0; i <departmentList.size(); i++) {
@@ -371,11 +373,6 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 	public List<Department> getDepartmentsOfCorporationAndKey(
 			String corporationId, String key) {
 		return departmentDao.getDepartmentsOfCorporationAndKey(corporationId, key);
-	}
-
-	public List<Department> findDepartmentsByLeader(String leaderId) {
-		return departmentDao.findDepartmentsByLeader(leaderId);
-
 	}
 
 }

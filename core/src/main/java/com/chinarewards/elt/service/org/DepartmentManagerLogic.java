@@ -5,6 +5,7 @@ package com.chinarewards.elt.service.org;
 
 import java.util.List;
 
+import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.domain.org.manager.DepartmentManager;
 
@@ -32,4 +33,10 @@ public interface DepartmentManagerLogic {
 	 * @return
 	 */
 	public List<Staff> findManagersByDepartmentId(String deptId);
+
+	/**
+	 * @param staffId
+	 * @return
+	 */
+	public List<Department> findDepartmentsManagedByStaffId(String staffId);
 }

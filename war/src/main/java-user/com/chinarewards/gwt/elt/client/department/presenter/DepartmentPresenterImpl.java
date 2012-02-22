@@ -188,13 +188,13 @@ public class DepartmentPresenterImpl extends
 											@Override
 											public void chosenLeader(List<StaffClient> list) {
 												for (StaffClient item : list) {
-													if (!display.getLeaderArea().containsItem(item)) {
-//														display.getLeaderArea().clear();
-														
-														display.getLeaderArea().addItem(item);
-														
-														
+													if(display.getLeaderArea()!=null&&item!=null){
+														if (!display.getLeaderArea().containsItem(item)) {
+//															display.getLeaderArea().clear();														
+															display.getLeaderArea().addItem(item);		
+														}
 													}
+													
 												}
 											}
 										});

@@ -98,16 +98,23 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 		departmentId.setValue(departmentVo.getId());
 		departmentName.setText(departmentVo.getName());
 		// departmentName.setVisible(false);
-		departmentNameLabel.setText(departmentVo.getName());
+		departmentNameLabel.setText(departmentVo.getName());		
 		
-		
+	
 		leaderArea = new OrganizationSpecialTextArea();
 		List<OrganicationClient> leaderList= departmentVo.getLeaderList();
 		for (int i = 0; i <leaderList.size(); i++) {
 			leaderArea.addItem(leaderList.get(i));
 		}
-	
+		leaderPanel.add(leaderArea);// 提名人面板
 		
+		initStatsInfo(departmentVo);		
+
+
+		// System.out.println("-------initDepartmentWidget===:"+departmentVo.getLeaderId());
+	}
+
+	private  void initStatsInfo(DepartmentVo departmentVo){
 		parentId.setValue(departmentVo.getParentId());
 		parentName.setText(getDepartmentParentName(departmentVo.getParentName()));
 
@@ -126,16 +133,14 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 		peopleNumber.setText(departmentVo.getPeopleNumber());
 		yearintegral.setText(departmentVo.getYearintegral());
 		issueintegral.setText(departmentVo.getIssueintegral());
-
-		
-		leaderPanel.add(leaderArea);// 提名人面板
-
-		// System.out.println("-------initDepartmentWidget===:"+departmentVo.getLeaderId());
 	}
-
+	
 	@Override
 	public void initAddDepartment(DepartmentVo departmentVo) {
 		departmentId.setValue(departmentVo.getId());
+		
+		leaderArea = new OrganizationSpecialTextArea();
+		leaderPanel.add(leaderArea);// 
 	}
 
 	@Override
@@ -144,8 +149,20 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 		parentName
 				.setText(getDepartmentParentName(departmentVo.getParentName()));
 
+		leaderArea = new OrganizationSpecialTextArea();
+		leaderPanel.add(leaderArea);// 
 	}
 
+	@Override
+	public void initSaveChildDepartment(DepartmentVo departmentVo) {
+		parentId.setValue(departmentVo.getId());
+		parentName.setText(departmentVo.getName());
+		
+		leaderArea = new OrganizationSpecialTextArea();
+		leaderPanel.add(leaderArea);// 
+
+	}
+	
 	private static String getDepartmentParentName(String parentName) {
 		if (parentName != null) {
 			if (parentName.indexOf("ROOT_DEPT") > -1) {
@@ -153,13 +170,6 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 			}
 		}
 		return parentName;
-	}
-
-	@Override
-	public void initSaveChildDepartment(DepartmentVo departmentVo) {
-		parentId.setValue(departmentVo.getId());
-		parentName.setText(departmentVo.getName());
-
 	}
 
 	@Override

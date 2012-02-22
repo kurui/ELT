@@ -183,12 +183,6 @@ public interface DepartmentLogic {
 
 
 	/**
-	 * @param leaderId
-	 * @return
-	 */
-	public List<Department> findDepartmentsByLeader(String leaderId);
-
-	/**
 	 * @param deptId
 	 * @param containItSelf
 	 * @return

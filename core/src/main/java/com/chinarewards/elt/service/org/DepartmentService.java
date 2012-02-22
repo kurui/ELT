@@ -82,12 +82,8 @@ public interface DepartmentService {
 	 * @return
 	 */
 	public List<Department> getDepartmentsOfCorporationAndKey(String corporationId,String key);
-	/**
-	 * @param leaderId
-	 * @return
-	 */
-	public List<Department> findDepartmentsByLeader(String leaderId);
 
+	
 	/**
 	 * @param deptId
 	 * @param containItSelf
@@ -104,5 +100,7 @@ public interface DepartmentService {
 
 
 	public List<Staff> findManagersByDepartmentId(String deptId);
+	
+	public List<Department> findDepartmentsManagedByStaffId(String staffId);
 
 }

@@ -54,7 +54,7 @@ public class EditDepartmentHandler extends
 		DepartmentVo departmentVo = action.getDepartmentVo();
 		List<String> leaderIds=departmentVo.getLeaderIds();
 
-		Department department = assembleDepartment(departmentVo);
+		Department department = assembleDepartment(departmentVo,action);
 
 		UserContext uc = new UserContext();
 		uc.setCorporationId(action.getUserSession().getCorporationId());
@@ -72,7 +72,7 @@ public class EditDepartmentHandler extends
 	/**
 	 * Convert from DepartmentVo to GeneratorDepartmentModel.
 	 */
-	public Department assembleDepartment(DepartmentVo departmentVo) {
+	public Department assembleDepartment(DepartmentVo departmentVo,EditDepartmentRequest action) {
 		Department department = new Department();
 		department.setId(departmentVo.getId());
 		department.setName(departmentVo.getName());
@@ -81,6 +81,9 @@ public class EditDepartmentHandler extends
 		Corporation corporation;
 		if (StringUtil.isEmptyString(departmentVo.getParentId())) {
 			String corpId = departmentVo.getCorporationId();
+			if(StringUtil.isEmptyString(corpId)){
+				corpId=action.getUserSession().getCorporationId();
+			}
 			parent = departmentService.getRootDepartmentOfCorporation(corpId);			
 			corporation = corporationService.findCorporationById(corpId);			
 		} else {

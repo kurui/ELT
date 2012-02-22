@@ -109,7 +109,7 @@ public class DepartmentLeaderPresenterImpl extends
 					public void onClick(ClickEvent paramClickEvent) {
 						String departmentIds = getDepartmentIds();
 						// win.alert("功能建设中");
-						if (departmentIds != null) {
+						if (departmentIds != null&&"".equals(departmentIds)==false) {
 							String[] ids = StringUtil.getSplitString(
 									departmentIds, ",");
 							if (ids != null) {

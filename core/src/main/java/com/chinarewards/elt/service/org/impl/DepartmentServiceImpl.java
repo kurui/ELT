@@ -88,11 +88,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 		return departmentLogic.getDepartmentLeaderList(leaderId,corporcationId);
 	}
 
-	@Override
-	public List<Department> findDepartmentsByLeader(String leaderId) {
-		return departmentLogic.findDepartmentsByLeader(leaderId);
-	}
-	
+
 	@Override
 	public List<Department> getWholeChildren(String deptId,
 			boolean containItSelf){
@@ -113,5 +109,10 @@ public class DepartmentServiceImpl implements DepartmentService {
 	@Override
 	public List<Staff> findManagersByDepartmentId(String deptId) {
 		return departmentManagerLogic.findManagersByDepartmentId(deptId);
+	}
+
+	@Override
+	public List<Department> findDepartmentsManagedByStaffId(String staffId) {
+		return departmentManagerLogic.findDepartmentsManagedByStaffId(staffId);
 	}
 }

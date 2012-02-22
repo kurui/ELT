@@ -13,6 +13,7 @@ import com.chinarewards.elt.common.Principal;
 import com.chinarewards.elt.common.UserContextProvider;
 import com.chinarewards.elt.dao.org.DepartmentManagerDao;
 import com.chinarewards.elt.dao.user.UserDao;
+import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.domain.org.manager.DepartmentManager;
 import com.chinarewards.elt.domain.user.SysUser;
@@ -69,6 +70,11 @@ public class DepartmentManagerLogicImpl implements DepartmentManagerLogic {
 	@Override
 	public List<Staff> findManagersByDepartmentId(String deptId) {
 		return deptMgrDao.findManagersByDepartmentId(deptId);
+	}
+	
+	@Override
+	public List<Department> findDepartmentsManagedByStaffId(String staffId){
+		return deptMgrDao.findDepartmentsManagedByStaffId(staffId);
 	}
 
 }
