@@ -2,7 +2,6 @@ package com.chinarewards.gwt.elt.client.core.impl;
 
 import java.util.List;
 
-import com.chinarewards.gwt.elt.client.awardShop.plugin.AwardShopListConstants;
 import com.chinarewards.gwt.elt.client.core.AbstractPlugin;
 import com.chinarewards.gwt.elt.client.core.Extension;
 import com.chinarewards.gwt.elt.client.core.MenuRoleStore;
@@ -13,6 +12,7 @@ import com.chinarewards.gwt.elt.client.core.ui.MenuItem;
 import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftConstants;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemConstants;
+import com.chinarewards.gwt.elt.client.staffHeavenIndex.plugin.StaffHeavenIndexConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.google.gwt.core.client.GWT;
@@ -92,8 +92,8 @@ public class CorePlugin extends AbstractPlugin {
 			Platform.getInstance()
 			.getEditorRegistry()
 			.openEditor(
-					AwardShopListConstants.EDITOR_AWARDSHOPLIST_SEARCH,
-					"EDITOR_AWARDSHOPLIST_SEARCH_DO_ID", null);
+					StaffHeavenIndexConstants.EDITOR_STAFFHEAVENINDEX_SEARCH,
+					"EDITOR_STAFFHEAVENINDEX_SEARCH_DO_ID", null);
 		}
 
 

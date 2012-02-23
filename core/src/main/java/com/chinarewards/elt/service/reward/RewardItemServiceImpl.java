@@ -59,6 +59,7 @@ public class RewardItemServiceImpl implements RewardItemService {
 
 		SysUser caller = userLogic.findUserById(context.getUserId());
 		RewardItem rewardItem = rewardItemLogic.saveRewardItem(caller, param);
+		if(rewardItem.getBuilderDept()!=null)
 		rewardItemLogic.saveOrgPolicy(rewardItem.getBuilderDept());
 
 		return rewardItem;
@@ -68,8 +69,8 @@ public class RewardItemServiceImpl implements RewardItemService {
 	public RewardItemStore saveRewardItemStore(UserContext context,
 			RewardItemParam param) {
 		SysUser caller = userLogic.findUserById(context.getUserId());
-		RewardItemStore rewardItemStore = rewardItemLogic.saveRewardItemStore(
-				caller, param);
+		RewardItemStore rewardItemStore = rewardItemLogic.saveRewardItemStore(caller, param);
+		if(rewardItemStore.getBuilderDept()!=null)
 		rewardItemLogic.saveOrgPolicy(rewardItemStore.getBuilderDept());
 		return rewardItemStore;
 	}

@@ -114,10 +114,8 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 		}
 
 		// Found build department and account department
-		Department builderDept = deptLogic.findDepartmentById(param
-				.getBuilderDeptId());
-		Department accountDept = deptLogic.findDepartmentById(param
-				.getAccountDeptId());
+		Department builderDept = deptLogic.findDepartmentById(param.getBuilderDeptId());
+		Department accountDept = deptLogic.findDepartmentById(param.getAccountDeptId());
 		item.setBuilderDept(builderDept);
 		item.setAccountDept(accountDept);
 		item.setCorporation(builderDept.getCorporation());

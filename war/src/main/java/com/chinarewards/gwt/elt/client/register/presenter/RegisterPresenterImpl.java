@@ -64,15 +64,15 @@ public class RegisterPresenterImpl extends BasePresenter<RegisterDisplay> implem
     	
     	enterpriseVo.setAddress(display.getAddress().getValue());
     	enterpriseVo.setCellphone(display.getCellphone().getValue());
-    	enterpriseVo.setCorporation(display.getCorporation().getValue());
+    	//enterpriseVo.setCorporation(display.getCorporation().getValue());
     	enterpriseVo.setEmailAddress(display.getEmail().getValue());
     	enterpriseVo.setName(display.getEnterpriseName().getValue());
-    	enterpriseVo.setFax(display.getFax().getValue());
+    	//enterpriseVo.setFax(display.getFax().getValue());
     	enterpriseVo.setLinkman(display.getLinkman().getValue());
     	enterpriseVo.setDescription(display.getRemark().getValue());
     	enterpriseVo.setTell(display.getTell().getValue());
     	enterpriseVo.setWeb(display.getWeb().getValue());
-    	enterpriseVo.setId(display.getEnterpriseId().trim());
+    	
     	return enterpriseVo;
     }
     
@@ -82,7 +82,11 @@ public class RegisterPresenterImpl extends BasePresenter<RegisterDisplay> implem
 			Window.alert("企业名称不能为空!");
 			return;
 		}
-		
+		if(display.isCheckSee()!=true)
+		{
+			Window.alert("请确定已阅读注册协议!");
+			return;
+		}
 		RegisterRequest req = new RegisterRequest(enterprise);
 		dispatchAsync.execute(req, new AsyncCallback<RegisterResponse>() {
 					public void onFailure(Throwable caught) {

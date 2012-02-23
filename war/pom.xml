@@ -210,6 +210,7 @@
 								<source>src/main/java-order</source>
 								<source>src/main/java-budget</source>
 								<source>src/main/java-information</source>
+								<source>src/main/java-staffHeaven</source>
 							</sources>
 						</configuration>
 					</execution>

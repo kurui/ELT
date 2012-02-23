@@ -33,11 +33,11 @@ public class CorporationServiceImpl implements CorporationService {
 		corporationVo.setUnitCode(unitCode);
 		// ===============================================================
 		// 设置企业积分比例暂时不用-李伟
-		// try {
-		// transactionService.createNewUnit("缤分", UnitCode, 0.8);
-		// } catch (DuplicateUnitCodeException e) {
-		// // should not be here
-		// }
+		 try {
+		 transactionService.createNewUnit("缤分", unitCode, 1);
+		 } catch (Exception e) {
+		 // should not be here
+		 }
 		// 初始化企业积分给1亿-李伟
 		if(corporationVo.getId()==null||corporationVo.getId().equals(""))
 		   transactionService.deposit(accountId, unitCode, initBalance);

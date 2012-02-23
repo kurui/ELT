@@ -240,7 +240,9 @@ public class DepartmentManageTreeModel implements TreeViewModel {
 			}
 			// 一级部门
 			for (DepartmentNode tempNode : nodeList) {
+
 				if (rootDepartmentNode != null) {
+
 				if (rootDepartmentNode.getDepartmentId().equals(
 						tempNode.getParentId()))
 					categoryList.add(tempNode);
