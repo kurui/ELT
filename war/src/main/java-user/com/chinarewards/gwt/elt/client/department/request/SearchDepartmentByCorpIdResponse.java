@@ -2,7 +2,7 @@ package com.chinarewards.gwt.elt.client.department.request;
 
 import java.util.List;
 import net.customware.gwt.dispatch.shared.Result;
-import com.chinarewards.elt.domain.org.Department;
+import com.chinarewards.gwt.elt.client.department.model.DepartmentVo;
 
 /**
  * @author yanrui
@@ -10,21 +10,21 @@ import com.chinarewards.elt.domain.org.Department;
  */
 public class SearchDepartmentByCorpIdResponse implements Result {
 
-	private List<Department> departmentList;
+	private List<DepartmentVo> departmentList;
 
 	public SearchDepartmentByCorpIdResponse() {
 
 	}
 
-	public SearchDepartmentByCorpIdResponse(List<Department> departmentList) {
+	public SearchDepartmentByCorpIdResponse(List<DepartmentVo> departmentList) {
 		this.departmentList = departmentList;
 	}
 
-	public List<Department> getDepartmentList() {
+	public List<DepartmentVo> getDepartmentList() {
 		return departmentList;
 	}
 
-	public void setDepartmentList(List<Department> departmentList) {
+	public void setDepartmentList(List<DepartmentVo> departmentList) {
 		this.departmentList = departmentList;
 	}
 
