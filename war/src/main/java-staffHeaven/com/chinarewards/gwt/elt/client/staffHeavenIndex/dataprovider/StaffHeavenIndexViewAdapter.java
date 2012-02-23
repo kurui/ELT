@@ -14,6 +14,7 @@ import com.chinarewards.gwt.elt.client.staffHeavenIndex.request.StaffHeavenIndex
 import com.chinarewards.gwt.elt.client.staffHeavenIndex.request.StaffHeavenIndexResponse;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.model.PaginationDetailClient;
+import com.chinarewards.gwt.elt.util.DateTool;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Grid;
 
@@ -80,8 +81,8 @@ public class StaffHeavenIndexViewAdapter extends BaseDataProvider<StaffHeavenInd
 				      for (int col = 0; col < numColumns; col++) {
 				    	  if(index<giftList.size())	
 				    	  {
-				    	//	  StaffHeavenIndexClient clint=giftList.get(index);
-				    		  grid.setWidget(row, col,new BroadcastReplyLatticeWidget().asWidget());
+				    		  StaffHeavenIndexClient clint=giftList.get(index);
+				    		  grid.setWidget(row, col,new BroadcastReplyLatticeWidget(null,null,clint.getContent(),DateTool.dateToStringChina2(clint.getBroadcastingTime()),clint.getCreatedByUserName(),clint.getReplyNumber()+"").asWidget());
 				    	  	  index++;
 				    	  }
 				    	  else

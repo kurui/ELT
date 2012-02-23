@@ -4,16 +4,40 @@
 	xmlns:d='urn:import:com.google.gwt.user.datepicker.client'>
 	<ui:style src="new2.css" field="new2"></ui:style>
 	<g:HTMLPanel>
-	<div class="{new2.employee}">
-		<div class="{new2.news-list}">
-          <div class="{new2.news}">
-            <span class="{new2.news-icon}"></span>
-            <div class="{new2.news-info}">
-              <p> <strong>运营部</strong> <strong>Jol</strong> <span>获得9月份全勤奖，获得奖金50积分。</span></p>
-              <p> <span>9月13日 10:33</span> <span>来自人事部</span> <a href="#">回复(9)</a> | <a href="#">我来回复</a></p>
-            </div>
-          </div>
-          </div>
-	</div>
+		<div class="{new2.employee}">
+			<div class="{new2.news-list}">
+				<div class="{new2.news}">
+					<span class="{new2.news-icon}"></span>
+					<div class="{new2.news-info}">
+						<p>
+							<strong>
+								<g:InlineLabel ui:field="deptName" />
+							</strong>
+							<strong>
+								<g:InlineLabel ui:field="staffName" />
+							</strong>
+							<span>
+								<g:InlineLabel ui:field="content" />
+							</span>
+						</p>
+						<p>
+							<span>
+								<g:InlineLabel ui:field="createDate" />
+							</span>
+							<span>
+								来自
+								<g:InlineLabel ui:field="createDept" />
+							</span>
+							<a href="#">
+								回复
+								(<g:InlineLabel ui:field="replyNumber" />)
+							</a>
+							|
+							<a href="#">我来回复</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
 	</g:HTMLPanel>
 </ui:UiBinder> 
