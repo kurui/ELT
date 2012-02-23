@@ -11,6 +11,7 @@ import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.org.DepartmentPolicyConstants;
 import com.chinarewards.elt.model.org.DepartmentVo;
 import com.chinarewards.elt.model.org.RewardsApprovalPolicyEnum;
+import com.chinarewards.elt.service.common.JPATestCase;
 import com.chinarewards.elt.service.org.DepartmentLogic;
 import com.google.inject.Injector;
 
@@ -20,7 +21,7 @@ import com.google.inject.Injector;
  * @author yanxin
  * @since 1.0
  */
-public class DepartmentHelper {
+public class DepartmentHelper extends JPATestCase{
 
 	private static Department defaultDept = null;
 

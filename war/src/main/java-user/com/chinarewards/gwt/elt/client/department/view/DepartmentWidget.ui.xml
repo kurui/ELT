@@ -30,7 +30,6 @@
 				</div>
 				<div class="{new2.form-line}">
 					<label class="{new2.label}">
-						<span style="color:red">*</span>
 						部门经理(总监)：
 					</label>
 					<div class="{new2.element}">

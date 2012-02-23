@@ -18,8 +18,7 @@ import net.customware.gwt.dispatch.shared.Action;
  */
 public class EditDepartmentRequest implements Action<EditDepartmentResponse> {
 
-	String departmentId;
-	String nowUserId;
+
 	private DepartmentVo departmentVo;
 	private UserSession userSession;
 
@@ -36,22 +35,6 @@ public class EditDepartmentRequest implements Action<EditDepartmentResponse> {
 	public EditDepartmentRequest() {
 	}
 
-
-	public String getDepartmentId() {
-		return departmentId;
-	}
-
-	public void setDepartmentId(String departmentId) {
-		this.departmentId = departmentId;
-	}
-
-	public String getNowUserId() {
-		return nowUserId;
-	}
-
-	public void setNowUserId(String nowUserId) {
-		this.nowUserId = nowUserId;
-	}
 
 	public DepartmentVo getDepartmentVo() {
 		return departmentVo;
