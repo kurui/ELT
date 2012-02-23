@@ -73,8 +73,8 @@ public class ReplyListViewAdapter extends BaseDataProvider<ReplyListClient> {
 				List<ReplyListClient> giftList=response.getResult();
 				int index=0;
 				int tol=10;
-				if(response.getTotal()<10)
-					tol=response.getTotal();
+				if(response.getResult().size()<tol)
+					tol=response.getResult().size();
 				 Grid grid = new Grid(tol, 1);
 					
 				    // Add images to the grid

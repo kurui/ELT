@@ -13,6 +13,7 @@ import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager.TextLocation;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
+import com.chinarewards.gwt.elt.client.win.Win;
 import com.google.inject.Inject;
 
 public class StaffHeavenIndexPresenterImpl extends
@@ -21,7 +22,7 @@ public class StaffHeavenIndexPresenterImpl extends
 
 	private final DispatchAsync dispatch;
 	private final SessionManager sessionManager;
-	// private final Win win;
+	private final Win win;
 	final ErrorHandler errorHandler;
 	EltNewPager pager;
 	ListCellTable<StaffHeavenIndexClient> cellTable;
@@ -30,12 +31,12 @@ public class StaffHeavenIndexPresenterImpl extends
 	@Inject
 	public StaffHeavenIndexPresenterImpl(EventBus eventBus,
 			StaffHeavenIndexDisplay display, DispatchAsync dispatch,
-			SessionManager sessionManager, ErrorHandler errorHandler) {
+			SessionManager sessionManager, ErrorHandler errorHandler,Win win) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.sessionManager = sessionManager;
 		this.errorHandler = errorHandler;
-		// this.win=win;
+		 this.win=win;
 
 	}
 
@@ -73,7 +74,7 @@ public class StaffHeavenIndexPresenterImpl extends
 		StaffHeavenIndexCriteria criteria = new StaffHeavenIndexCriteria();
 
 		listViewAdapter = new StaffHeavenIndexViewAdapter(dispatch, criteria,
-				errorHandler, sessionManager, display);
+				errorHandler, sessionManager, display,win);
 		listViewAdapter.addDataDisplay(cellTable);
 
 	}

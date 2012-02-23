@@ -28,13 +28,12 @@
 								来自
 								<g:InlineLabel ui:field="createDept" />
 							</span>
-							<a href="#">
-								回复
-								(<g:InlineLabel ui:field="replyNumber" />)
-							</a>
+
+							<g:Anchor text="回复()" ui:field="replyNumber" />
 							|
-							<a href="#">我来回复</a>
+							<g:Anchor text="我来回复" ui:field="myreply" />
 						</p>
+						<g:FlowPanel ui:field="replyPanel" />
 					</div>
 				</div>
 			</div>
