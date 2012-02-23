@@ -82,7 +82,7 @@ public class RegisterPresenterImpl extends BasePresenter<RegisterDisplay> implem
 			Window.alert("企业名称不能为空!");
 			return;
 		}
-		if(display.isCheckSee()==true)
+		if(display.isCheckSee()!=true)
 		{
 			Window.alert("请确定已阅读注册协议!");
 			return;
