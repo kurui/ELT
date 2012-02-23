@@ -118,7 +118,7 @@ public class BroadcastLogicImpl implements BroadcastLogic {
 
 	@Override
 	public BroadcastReply saveBroadcastReply(String broadcastId,String replyContent,
-			UserContext context) {
+			UserContext context,String replyParentId) {
 		Broadcasting broadcast=broadcastDao.findById(Broadcasting.class, broadcastId);
 		SysUser nowUser = userLogic.findUserById(context.getUserId());
 		BroadcastReply reply=new BroadcastReply();
@@ -129,6 +129,8 @@ public class BroadcastLogicImpl implements BroadcastLogic {
 		reply.setReplyTime(DateUtil.getTime());
 		reply.setLastModifiedAt(DateUtil.getTime());
 		reply.setLastModifiedBy(nowUser);
+		if(!StringUtil.isEmptyString(replyParentId))
+			reply.setParent(broadcastReplyDao.findById(BroadcastReply.class, replyParentId));
 		addReplyNumber(broadcast);
 		return broadcastReplyDao.save(reply);
 	}

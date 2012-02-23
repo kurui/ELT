@@ -30,6 +30,7 @@ public class MyReplyShortLatticeWidget extends Composite {
 	@UiField
 	Button replyBtn;
 
+	String replyParentId;
 	DateTimeFormat dateFormat = DateTimeFormat
 			.getFormat(ViewConstants.date_format);
 	private static MyReplyShortLatticeWidgetWidgetUiBinder uiBinder = GWT
@@ -48,7 +49,12 @@ public class MyReplyShortLatticeWidget extends Composite {
 			
 			@Override
 			public void onFocus(FocusEvent event) {
-				replyContent.setValue("");
+				if("输入你的评论…".equals(replyContent.getValue()))
+				{
+					replyContent.setValue("");
+					replyContent.setStyleName("remark-text2");
+					
+				}
 				
 			}
 		});
@@ -63,7 +69,7 @@ public class MyReplyShortLatticeWidget extends Composite {
 				}
 
 				dispatch.execute(new BroadcastReplyAddRequest(broadcastId,
-						replyContent.getValue(), sessionManager.getSession()),
+						replyContent.getValue(), sessionManager.getSession(),replyParentId),
 						new AsyncCallback<BroadcastReplyAddResponse>() {
 
 							@Override

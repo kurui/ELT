@@ -125,7 +125,7 @@ public class BroadcastReplyLatticeWidget extends Composite {
 
 					@Override
 					public void onSuccess(SearchBroadcastReplyResponse response) {
-
+						MyReplyShortLatticeWidget myshort=new MyReplyShortLatticeWidget(win, dispatch, sessionManager, broadcastId, replyNumber, widget);
 						List<ReplyListClient> giftList = response.getResult();
 						int index = 0;
 						int tol  = response.getResult().size();
@@ -143,6 +143,8 @@ public class BroadcastReplyLatticeWidget extends Composite {
 											row,
 											col,
 											new ReplyLatticeWidget(
+													myshort,
+													clint.getId(),
 													clint.getReplyUserPhoto(),
 													clint.getReplyUserName(),
 													clint.getReplyContent(),
@@ -163,7 +165,7 @@ public class BroadcastReplyLatticeWidget extends Composite {
 
 						replyPanel.clear();
 						replyPanel.add(grid);
-						replyPanel.add(new MyReplyShortLatticeWidget(win, dispatch, sessionManager, broadcastId, replyNumber, widget));
+						replyPanel.add(myshort);
 						
 					}
 

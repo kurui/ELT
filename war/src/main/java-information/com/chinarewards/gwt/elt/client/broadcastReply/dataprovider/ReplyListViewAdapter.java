@@ -85,7 +85,7 @@ public class ReplyListViewAdapter extends BaseDataProvider<ReplyListClient> {
 				    	  if(index<giftList.size())	
 				    	  {
 				    		  ReplyListClient clint=giftList.get(index);
-				    		  grid.setWidget(row, col,new ReplyLatticeWidget(clint.getReplyUserPhoto(),clint.getReplyUserName(),clint.getReplyContent(),DateTool.dateToStringChina2(clint.getReplyTime())).asWidget());
+				    		  grid.setWidget(row, col,new ReplyLatticeWidget(null,null,clint.getReplyUserPhoto(),clint.getReplyUserName(),clint.getReplyContent(),DateTool.dateToStringChina2(clint.getReplyTime())).asWidget());
 				    	  	  index++;
 				    	  }
 				    	  else

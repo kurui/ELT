@@ -195,8 +195,8 @@ public class BroadcastServiceImpl implements BroadcastService {
 
 	@Override
 	public BroadcastReply saveBroadcastReply(String broadcastId,String replyContent,
-			UserContext context) {
-		return broadcastLogic.saveBroadcastReply(broadcastId,replyContent, context);
+			UserContext context,String replyParentId) {
+		return broadcastLogic.saveBroadcastReply(broadcastId,replyContent, context,replyParentId);
 	}
 
 
