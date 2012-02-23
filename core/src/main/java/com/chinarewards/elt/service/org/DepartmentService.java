@@ -103,4 +103,10 @@ public interface DepartmentService {
 	
 	public List<Department> findDepartmentsManagedByStaffId(String staffId);
 
+	/**
+	 * @param corporationId
+	 * @return
+	 */
+	public List<Department> getWholeDepartmentsOfCorporation(String corporationId);
+
 }

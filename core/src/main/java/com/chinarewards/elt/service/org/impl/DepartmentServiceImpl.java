@@ -96,6 +96,12 @@ public class DepartmentServiceImpl implements DepartmentService {
 	}
 	
 	@Override
+	public List<Department> getWholeDepartmentsOfCorporation(
+			String corporationId){
+		return departmentLogic.getWholeDepartmentsOfCorporation(corporationId);
+	}
+	
+	@Override
 	public List<String> getWholeChildrenNames(String deptId, boolean containItSelf) {
 		return departmentLogic.getWholeChildrenNames(deptId, containItSelf);
 	}

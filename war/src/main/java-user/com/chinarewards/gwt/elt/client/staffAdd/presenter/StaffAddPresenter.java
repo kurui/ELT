@@ -8,6 +8,7 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.FileUpload;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
@@ -29,10 +30,8 @@ public interface StaffAddPresenter extends
 		String getStaffNo();
 
 		String getStaffName();
-
-		String getDepartmentId();
-
-		String getDepartmentName();
+		
+		public ListBox getDepartment();
 
 		String getJobPosition();
 
@@ -61,10 +60,6 @@ public interface StaffAddPresenter extends
 		void setStaffNo(String text);
 
 		void setStaffName(String text);
-
-		void setDepartmentId(String text);
-
-		void setDepartmentName(String text);
 
 		void setJobPosition(String text);
 
