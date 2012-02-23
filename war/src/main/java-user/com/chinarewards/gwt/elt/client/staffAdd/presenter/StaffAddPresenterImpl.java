@@ -1,7 +1,5 @@
 package com.chinarewards.gwt.elt.client.staffAdd.presenter;
 
-import java.util.Map.Entry;
-
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
@@ -9,7 +7,6 @@ import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.department.model.DepartmentVo;
 import com.chinarewards.gwt.elt.client.department.request.SearchDepartmentByCorpIdRequest;
 import com.chinarewards.gwt.elt.client.department.request.SearchDepartmentByCorpIdResponse;
-import com.chinarewards.gwt.elt.client.gift.model.GiftType;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
