@@ -41,10 +41,7 @@ public class RegisterHrPresenterImpl extends
 		registerHandler(display.getRegisterHrClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
-						if (StringUtil.isEmpty(display.getEmail().getValue())) {
-							Window.alert("电子邮件不能为空!<br>");
-							return;
-						}
+						
 						if (StringUtil.isEmpty(display.getName().getValue())) {
 							Window.alert("名字不能为空!<br>");
 							return;
@@ -61,7 +58,15 @@ public class RegisterHrPresenterImpl extends
 							Window.alert("密码和确认密码不一致!<br>");
 							return;
 						}
-						
+						if (StringUtil.isEmpty(display.getEmail().getValue())) {
+							Window.alert("电子邮件不能为空!<br>");
+							return;
+						}
+//						else if(!StringUtil.isValidEmail(display.getEmail()))
+//						{
+//                           Window.alert("Email格式不正确,请重新填写Email!");
+//							return;
+//						}
 						doRegisterHr();
 					}
 				}));
