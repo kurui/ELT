@@ -91,7 +91,7 @@ public class StaffHeavenIndexActionHandler extends
 			client.setId(broadcast.getId());
 			client.setNumber(broadcast.getNumber());
 			client.setContent(broadcast.getContent());
-			client.setBroadcastingTime(broadcast.getBroadcastingTimeStart());
+			client.setBroadcastingTime(broadcast.getCreatedAt());
 			client.setCreatedByUserName(broadcast.getCreatedBy().getStaff().getName());
 			client.setReplyNumber(broadcast.getReplyNumber());
 			client.setStatus(com.chinarewards.gwt.elt.client.broadcasting.model.BroadcastingListCriteria.BroadcastingStatus.valueOf(broadcast.getStatus().toString()));
