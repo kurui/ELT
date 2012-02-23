@@ -19,6 +19,13 @@ public class DepartmentManagerDao extends BaseDao<DepartmentManager> {
 						" SELECT dm.department FROM DepartmentManager dm WHERE dm.staff.id=:staffId ")
 				.setParameter("staffId", staffId).getResultList();
 	}
+	
+	public List<DepartmentManager> findDepartmentsManagedByDeptStaffId(String deptId,String staffId) {
+		return getEm()
+				.createQuery(
+						" SELECT dm FROM DepartmentManager dm WHERE dm.staff.id=:staffId AND dm.department.id=:deptId ")
+				.setParameter("staffId", staffId).setParameter("deptId",deptId).getResultList();
+	}
 
 	/**
 	 * Find out the department that managed by giving staff. Not include sub
@@ -93,12 +100,18 @@ public class DepartmentManagerDao extends BaseDao<DepartmentManager> {
 		List<DepartmentManager> resultList = new ArrayList<DepartmentManager>();
 		Department dept = getEm().find(Department.class, deptId);
 		for (String staffId : staffIds) {
-			Staff staff = getEm().find(Staff.class, staffId);
-			DepartmentManager dm = new DepartmentManager();
-			dm.setDepartment(dept);
-			dm.setStaff(staff);
-			getEm().persist(dm);
-			resultList.add(dm);
+			List<DepartmentManager> tempManageList=findDepartmentsManagedByDeptStaffId(dept.getId(), staffId);
+			if(tempManageList!=null&&tempManageList.size()>0){
+				//-------------
+			}else{
+				Staff staff = getEm().find(Staff.class, staffId);
+				DepartmentManager dm = new DepartmentManager();
+				dm.setDepartment(dept);
+				dm.setStaff(staff);
+				getEm().persist(dm);
+				resultList.add(dm);
+			}
+		
 		}
 
 		return resultList;
