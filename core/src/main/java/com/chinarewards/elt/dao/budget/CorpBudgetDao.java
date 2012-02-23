@@ -1,11 +1,9 @@
 package com.chinarewards.elt.dao.budget;
 
-import java.util.Date;
 import java.util.List;
 
 import com.chinarewards.elt.common.BaseDao;
 import com.chinarewards.elt.domain.budget.CorpBudget;
-import com.chinarewards.elt.util.DateUtil;
 
 public class CorpBudgetDao extends BaseDao<CorpBudget> {
 
