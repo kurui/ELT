@@ -123,9 +123,9 @@ public class DepartmentPresenterImpl extends
 						}
 					}
 
-					private void doSave(DepartmentVo department) {
+					private void doSave(DepartmentVo departmentVo) {
 						dispatcher.execute(new EditDepartmentRequest(
-								department, sessionManager.getSession()),
+								departmentVo, sessionManager.getSession()),
 								new AsyncCallback<EditDepartmentResponse>() {
 									@Override
 									public void onFailure(Throwable t) {

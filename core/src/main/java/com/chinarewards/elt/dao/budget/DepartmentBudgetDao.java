@@ -9,7 +9,6 @@ import java.util.Set;
 import javax.persistence.Query;
 
 import com.chinarewards.elt.common.BaseDao;
-import com.chinarewards.elt.domain.budget.CorpBudget;
 import com.chinarewards.elt.domain.budget.DepartmentBudget;
 import com.chinarewards.elt.model.budget.search.DepartmentBudgetVo;
 import com.chinarewards.elt.util.StringUtil;
@@ -89,7 +88,7 @@ public class DepartmentBudgetDao extends BaseDao<DepartmentBudget> {
 		return query;
 	}
 
-	
+	@SuppressWarnings("unchecked")
 	public String findByDepAndCorpBudgetId(DepartmentBudget departmentBudget) {
 		String sql = "FROM DepartmentBudget c WHERE c.corpBudgetId = :corpBudgetId and c.departmentId =:departmentId";
 		List<DepartmentBudget> resultList = getEm().createQuery(sql)

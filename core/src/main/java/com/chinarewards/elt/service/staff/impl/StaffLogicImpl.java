@@ -427,10 +427,12 @@ public class StaffLogicImpl implements StaffLogic {
 		return GeneratedUserConstants.Success;
 	}
 	public String createHrUser(StaffUserProcess staffProcess){
-		   Staff ff = new Staff();
-				
-			// 如果传入空部门,默认当前用户部门
-			//ff.setDepartment(nowuser.getStaff().getDepartment());
+		    Corporation corporation=corporationLogic.findCorporationById(staffProcess.getCorpId());
+		    //创建部门为顶级部门
+		    Department rootdepart =  depDao.addRootDepartment(corporation);
+		    Staff ff = new Staff();
+			// 默认当前用户部门为顶级部门Root_
+			ff.setDepartment(rootdepart);
 			ff.setStatus(StaffStatus.JOB);
 			ff.setPhone(staffProcess.getTell());
 			ff.setEmail(staffProcess.getEmail());
@@ -438,13 +440,13 @@ public class StaffLogicImpl implements StaffLogic {
 			String accountId = transactionService.createNewAccount();
 			ff.setTxAccountId(accountId);
 			// Create a new staff
-			Corporation corporation=corporationLogic.findCorporationById(staffProcess.getCorpId());
+			
 			ff.setCorporation(corporation);
 			//ff.setCreatedBy(nowuser);
 			ff.setCreatedAt(DateUtil.getTime());
 			ff.setDeleted(0);
 			Staff newstaff = staffDao.save(ff);
-		
+		  		
 		//==================创建用户
 
 		   // create user

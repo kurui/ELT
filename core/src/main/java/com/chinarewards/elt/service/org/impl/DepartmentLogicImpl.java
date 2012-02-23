@@ -47,10 +47,12 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 
 	@Inject
 	public DepartmentLogicImpl(OrgPolicyDao organizationPolicyDao,
-			DepartmentDao departmentDao, CorporationDao corporationDao) {
+			DepartmentDao departmentDao,DepartmentManagerDao departmentManagerDao,CorporationDao corporationDao,DepartmentBudgetDao departmentBudgetDao) {
 		this.organizationPolicyDao = organizationPolicyDao;
 		this.departmentDao = departmentDao;
+		this.departmentManagerDao=departmentManagerDao;
 		this.corporationDao = corporationDao;
+		this.departmentBudgetDao=departmentBudgetDao;
 	}
 
 	@Override
@@ -340,8 +342,7 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 		
 		//Root顶级部门
 		departmentList.add(getRootDepartmentOfCorporation(corporcationId));
-		
-	
+
 		
 		for (Department dep : departmentList) {
 			DepartmentManageVo vo = new DepartmentManageVo();

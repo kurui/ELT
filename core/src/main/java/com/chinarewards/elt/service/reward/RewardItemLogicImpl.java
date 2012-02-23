@@ -114,13 +114,11 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 		}
 
 		// Found build department and account department
-	   if(param.getBuilderDeptId()!=null && !param.getBuilderDeptId().equals("")){
 		Department builderDept = deptLogic.findDepartmentById(param.getBuilderDeptId());
 		Department accountDept = deptLogic.findDepartmentById(param.getAccountDeptId());
 		item.setBuilderDept(builderDept);
 		item.setAccountDept(accountDept);
-	   }
-		item.setCorporation(caller.getCorporation());
+		item.setCorporation(builderDept.getCorporation());
 		// item.setFrequency(param.getFrequency());
 		// Calculate publish date and ahead publish days
 		int publishAheadDays = DateUtil.betweenDays(param.getPublishDate(),
@@ -285,15 +283,13 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 		}
 
 		// Found build department and account department
-	 if(param.getBuilderDeptId()!=null && !param.getBuilderDeptId().equals("")){
 		Department builderDept = deptLogic.findDepartmentById(param
 				.getBuilderDeptId());
 		Department accountDept = deptLogic.findDepartmentById(param
 				.getAccountDeptId());
 		item.setBuilderDept(builderDept);
 		item.setAccountDept(accountDept);
-	 }
-		item.setCorporation(caller.getCorporation());
+		item.setCorporation(builderDept.getCorporation());
 		// item.setFrequency(param.getFrequency());
 		// Calculate publish date and ahead publish days
 		int publishAheadDays = DateUtil.betweenDays(param.getPublishDate(),
@@ -758,7 +754,8 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 
 	public void saveOrgPolicy(Department dep) {
 
-		if (orgPolicyDao.findByOrganizationIdPolicyKey(dep.getId(),	DepartmentPolicyConstants.REWARDS_APPROVAL_POLICY) == null) {
+		if (orgPolicyDao.findByOrganizationIdPolicyKey(dep.getId(),
+				DepartmentPolicyConstants.REWARDS_APPROVAL_POLICY) == null) {
 			OrgPolicy policy = new OrgPolicy();
 			policy.setKey2(DepartmentPolicyConstants.REWARDS_APPROVAL_POLICY);
 			policy.setValue(RewardsApprovalPolicyEnum.NOT_REQUIRED.toString());

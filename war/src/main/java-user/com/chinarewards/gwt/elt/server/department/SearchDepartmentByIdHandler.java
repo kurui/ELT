@@ -79,7 +79,8 @@ public class SearchDepartmentByIdHandler
 				departmentVo.setParentId(parent.getId());
 				departmentVo.setParentName(parent.getName());
 			} else {
-
+				departmentVo.setParentId("");
+				departmentVo.setParentName("");
 			}
 
 		List<String> childNames=departmentService.getWholeChildrenNames(departmentVo.getId(),false);
