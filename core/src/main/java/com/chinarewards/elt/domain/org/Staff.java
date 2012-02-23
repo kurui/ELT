@@ -23,7 +23,7 @@ import com.chinarewards.elt.model.staff.StaffStatus;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorValue(value = "staff")
-public class Staff extends Organization {
+public class Staff extends Organization { 
 
 	/**
 	 * 

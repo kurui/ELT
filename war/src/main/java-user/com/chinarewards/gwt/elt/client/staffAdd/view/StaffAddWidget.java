@@ -17,6 +17,7 @@ import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.TextBox;
@@ -31,9 +32,7 @@ public class StaffAddWidget extends Composite implements StaffAddDisplay {
 	@UiField
 	TextBox staffName;
 	@UiField
-	TextBox departmentId;
-	@UiField
-	TextBox departmentName;
+	ListBox department;
 	@UiField
 	TextBox jobPosition;
 	@UiField
@@ -108,15 +107,6 @@ public class StaffAddWidget extends Composite implements StaffAddDisplay {
 		return this.staffName.getValue();
 	}
 
-	@Override
-	public String getDepartmentId() {
-		return this.departmentId.getValue();
-	}
-
-	@Override
-	public String getDepartmentName() {
-		return this.departmentName.getValue();
-	}
 
 	@Override
 	public String getJobPosition() {
@@ -188,16 +178,8 @@ public class StaffAddWidget extends Composite implements StaffAddDisplay {
 		this.staffName.setText(text);
 	}
 
-	@Override
-	public void setDepartmentId(String text) {
-		this.departmentId.setText(text);
-	}
 
-	@Override
-	public void setDepartmentName(String text) {
-		this.departmentName.setText(text);
-	}
-
+	
 	@Override
 	public void setJobPosition(String text) {
 		this.jobPosition.setText(text);
@@ -247,4 +229,8 @@ public class StaffAddWidget extends Composite implements StaffAddDisplay {
 		titleText.setText(text);
 	}
 
+	@Override
+	public ListBox getDepartment() {
+		return department;
+	}
 }

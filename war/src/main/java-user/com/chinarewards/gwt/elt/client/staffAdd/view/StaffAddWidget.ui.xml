@@ -53,10 +53,7 @@
 					<div class="{new2.form-line}">
 						<label class="{new2.label}">所属部门：</label>
 						<div class="{new2.element}">
-							<g:TextBox maxLength="20" ui:field="departmentId"
-								styleName="{new2.text}" visible="false" />
-							<g:TextBox maxLength="10" ui:field="departmentName"
-								styleName="{new2.text}" />
+							<g:ListBox ui:field="department" styleName="{new2.text}" />
 						</div>
 					</div>
 					<div class="{new2.form-line}">
