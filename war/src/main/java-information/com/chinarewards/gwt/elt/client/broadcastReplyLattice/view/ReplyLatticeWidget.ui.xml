@@ -10,6 +10,7 @@
                 <div class="{new2.remark-info-wrap}">
                   <p><span class="{new2.remark-name}"><g:InlineLabel ui:field="staffName" /></span> 说：<span class="{new2.remark-content}"><g:InlineLabel ui:field="content" /></span></p>
                   <p><span><g:InlineLabel ui:field="createDate" /></span> <g:Anchor text="回复" ui:field="replyBtn" /> </p>
+                  <g:FlowPanel ui:field="leafPanel" />
                 </div>
               </div>
             </div>

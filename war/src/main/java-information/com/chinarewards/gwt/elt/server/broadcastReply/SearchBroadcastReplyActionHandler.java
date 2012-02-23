@@ -90,6 +90,8 @@ public class SearchBroadcastReplyActionHandler
 						.getName());
 				client.setReplyUserPhoto(reply.getReplyUser().getStaff()
 						.getPhoto());
+				if(reply.getParent()!=null)
+					client.setParent(reply.getParent().getId());
 				lt.add(client);
 			}
 

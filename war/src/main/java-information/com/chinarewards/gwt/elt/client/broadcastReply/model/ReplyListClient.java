@@ -19,7 +19,15 @@ public class ReplyListClient implements Serializable,
 	private String replyUserPhoto;
 	private String replyContent;
 	private Date replyTime;
+	private String parent;
+	
+	public String getParent() {
+		return parent;
+	}
 
+	public void setParent(String parent) {
+		this.parent = parent;
+	}
 	public String getId() {
 		return id;
 	}

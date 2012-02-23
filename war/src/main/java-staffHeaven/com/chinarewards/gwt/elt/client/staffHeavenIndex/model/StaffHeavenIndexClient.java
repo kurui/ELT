@@ -44,7 +44,8 @@ public class StaffHeavenIndexClient implements Serializable, Comparable<StaffHea
 	 * 回复数
 	 */
 	private int replyNumber;
-	
+
+
 	public String getId() {
 		return id;
 	}

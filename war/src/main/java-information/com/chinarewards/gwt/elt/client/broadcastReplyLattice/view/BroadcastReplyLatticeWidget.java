@@ -1,6 +1,9 @@
 package com.chinarewards.gwt.elt.client.broadcastReplyLattice.view;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
@@ -127,9 +130,37 @@ public class BroadcastReplyLatticeWidget extends Composite {
 					public void onSuccess(SearchBroadcastReplyResponse response) {
 						MyReplyShortLatticeWidget myshort=new MyReplyShortLatticeWidget(win, dispatch, sessionManager, broadcastId, replyNumber, widget);
 						List<ReplyListClient> giftList = response.getResult();
+						
+						
+						List<ReplyListClient> replyList = new ArrayList<ReplyListClient>();
+						
+						
+						Map<String,List<ReplyListClient>> map=new HashMap<String,List<ReplyListClient>>();
+						
+						for (int i = 0; i < giftList.size(); i++) {
+							ReplyListClient reply=giftList.get(i);
+							if(StringUtil.isEmpty(reply.getParent()))
+							{
+								replyList.add(reply);
+							}
+							else
+							{
+								List<ReplyListClient> parentClient=map.get(reply.getParent());
+								if(parentClient==null)
+									parentClient=new ArrayList<ReplyListClient>();
+								parentClient.add(reply);
+								map.put(reply.getParent(), parentClient);
+							}
+						}
+						
+						
+						
+						
+						
+						
 						int index = 0;
-						int tol  = response.getResult().size();
-
+						int tol  = replyList.size();
+						
 						Grid grid = new Grid(tol, 1);
 
 						// Add images to the grid
@@ -137,20 +168,20 @@ public class BroadcastReplyLatticeWidget extends Composite {
 						int numColumns = grid.getColumnCount();
 						for (int row = 0; row < numRows; row++) {
 							for (int col = 0; col < numColumns; col++) {
-								if (index < giftList.size()) {
-									ReplyListClient clint = giftList.get(index);
-									grid.setWidget(
-											row,
-											col,
-											new ReplyLatticeWidget(
-													myshort,
-													clint.getId(),
-													clint.getReplyUserPhoto(),
-													clint.getReplyUserName(),
-													clint.getReplyContent(),
-													DateTool.dateToStringChina2(clint
-															.getReplyTime()))
-													.asWidget());
+								if (index < replyList.size()) {
+									ReplyListClient clint = replyList.get(index);
+										grid.setWidget(
+												row,
+												col,
+												new ReplyLatticeWidget(
+														myshort,
+														clint.getId(),
+														clint.getReplyUserPhoto(),
+														clint.getReplyUserName(),
+														clint.getReplyContent(),
+														DateTool.dateToStringChina2(clint
+																.getReplyTime()),map)
+														.asWidget());
 									index++;
 								} else {
 									break;

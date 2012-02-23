@@ -1,6 +1,11 @@
 package com.chinarewards.gwt.elt.client.broadcastReplyLattice.view;
 
+import java.util.List;
+import java.util.Map;
+
+import com.chinarewards.gwt.elt.client.broadcastReply.model.ReplyListClient;
 import com.chinarewards.gwt.elt.client.view.constant.ViewConstants;
+import com.chinarewards.gwt.elt.util.DateTool;
 import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -10,8 +15,10 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.InlineLabel;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class ReplyLatticeWidget extends Composite {
@@ -27,6 +34,9 @@ public class ReplyLatticeWidget extends Composite {
 	Image photo;
 	@UiField
 	Anchor replyBtn;
+	@UiField
+	Panel leafPanel;
+	
 	MyReplyShortLatticeWidget myshort;
 	ReplyLatticeWidget mywidget;
 	String replyParentId;
@@ -38,11 +48,12 @@ public class ReplyLatticeWidget extends Composite {
 	interface ReplyLatticeWidgetWidgetUiBinder extends
 			UiBinder<Widget, ReplyLatticeWidget> {
 	}
-
+	Map<String,List<ReplyListClient>> map;
 	public ReplyLatticeWidget(MyReplyShortLatticeWidget myshort,String replyParentId, String photo,final String staffName,
-			String content, String createDate) {
+			String content, String createDate,Map<String,List<ReplyListClient>> map) {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.mywidget=this;
+		this.map=map;
 		if (!StringUtil.isEmpty(photo))
 			this.photo.setUrl("imageshow?imageName="+photo);
 		if (!StringUtil.isEmpty(staffName))
@@ -61,10 +72,58 @@ public class ReplyLatticeWidget extends Composite {
 			@Override
 			public void onClick(ClickEvent event) {
 				mywidget.myshort.replyContent.setFocus(true);
-				mywidget.myshort.replyContent.setValue("@"+staffName+" ");
+				mywidget.myshort.replyContent.setValue("");
 				mywidget.myshort.replyParentId=mywidget.replyParentId;
 			}
 		});
+		
+		if(this.map!=null)
+		{
+			List<ReplyListClient> replyList=map.get(replyParentId);
+			if(replyList!=null && replyList.size()>0)
+			{
+				int index = 0;
+				int tol  = replyList.size();
+				
+				Grid grid = new Grid(tol, 1);
+
+				// Add images to the grid
+				int numRows = grid.getRowCount();
+				int numColumns = grid.getColumnCount();
+				for (int row = 0; row < numRows; row++) {
+					for (int col = 0; col < numColumns; col++) {
+						if (index < replyList.size()) {
+							ReplyListClient clint = replyList.get(index);
+								grid.setWidget(
+										row,
+										col,
+										new ReplyLatticeWidget(
+												myshort,
+												clint.getId(),
+												clint.getReplyUserPhoto(),
+												clint.getReplyUserName(),
+												clint.getReplyContent(),
+												DateTool.dateToStringChina2(clint
+														.getReplyTime()),map)
+												.asWidget());
+							index++;
+						} else {
+							break;
+							// grid.setWidget(row, col,new
+							// BroadcastReplyLatticeWidget().asWidget());
+						}
+					}
+				}
+
+				// Return the panel
+				grid.ensureDebugId("cwGrid");
+
+				leafPanel.clear();
+				leafPanel.add(grid);
+
+			}
+		}
+		
 	}
 
 }
