@@ -29,7 +29,7 @@
 								<g:InlineLabel ui:field="createDept" />
 							</span>
 
-							<g:Anchor text="回复()" ui:field="replyNumber" />
+							<g:Anchor text="回复()" ui:field="replyNumberA" />
 							|
 							<g:Anchor text="我来回复" ui:field="myreply" />
 						</p>

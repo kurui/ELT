@@ -41,7 +41,7 @@ public class BroadcastReplyLatticeWidget extends Composite {
 	@UiField
 	InlineLabel createDept;
 	@UiField
-	Anchor replyNumber;
+	Anchor replyNumberA;
 	@UiField
 	Anchor myreply;
 	@UiField
@@ -50,11 +50,12 @@ public class BroadcastReplyLatticeWidget extends Composite {
 	DateTimeFormat dateFormat = DateTimeFormat
 			.getFormat(ViewConstants.date_format);
 
-	final Win win;
-	final DispatchAsync dispatch;
-	final SessionManager sessionManager;
-	final String broadcastId;
-	final BroadcastReplyLatticeWidget widget;
+	 Win win;
+	 DispatchAsync dispatch;
+	 SessionManager sessionManager;
+	 String broadcastId;
+	 BroadcastReplyLatticeWidget widget;
+	 int replyNumber;
 	private static BroadcastReplyLatticeWidgetUiBinder uiBinder = GWT
 			.create(BroadcastReplyLatticeWidgetUiBinder.class);
 
@@ -71,6 +72,7 @@ public class BroadcastReplyLatticeWidget extends Composite {
 		this.sessionManager=sessionManager;
 		this.broadcastId=broadcastId;
 		this.widget=this;
+		this.replyNumber=replyNumber;
 		initWidget(uiBinder.createAndBindUi(this));
 		if (!StringUtil.isEmpty(deptName))
 			this.deptName.setText(deptName);
@@ -83,20 +85,18 @@ public class BroadcastReplyLatticeWidget extends Composite {
 		if (!StringUtil.isEmpty(createDept))
 			this.createDept.setText(createDept);
 
-		this.replyNumber.setText("回复(" + replyNumber + ")");
+		this.replyNumberA.setText("回复(" + replyNumber + ")");
 
 		myreply.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				replyPanel.clear();
-				replyPanel.add(new MyReplyLatticeWidget(win, dispatch,
-						sessionManager, null, broadcastId,replyNumber,widget));
-
+				
+				refMyreply();
 			}
 		});
 		if (replyNumber != 0) {
-			this.replyNumber.addClickHandler(new ClickHandler() {
+			this.replyNumberA.addClickHandler(new ClickHandler() {
 
 				@Override
 				public void onClick(ClickEvent event) {
@@ -106,6 +106,12 @@ public class BroadcastReplyLatticeWidget extends Composite {
 		}
 	}
 
+	void refMyreply()
+	{
+		replyPanel.clear();
+		replyPanel.add(new MyReplyLatticeWidget(win, dispatch,sessionManager, null, broadcastId,replyNumber,widget));
+	}
+	
 	void refWidget() {
 		ReplyListCriteria cr = new ReplyListCriteria();
 		cr.setBroadcastId(broadcastId);
@@ -122,9 +128,8 @@ public class BroadcastReplyLatticeWidget extends Composite {
 
 						List<ReplyListClient> giftList = response.getResult();
 						int index = 0;
-						int tol = 10;
-						if (response.getResult().size() < tol)
-							tol = response.getResult().size();
+						int tol  = response.getResult().size();
+
 						Grid grid = new Grid(tol, 1);
 
 						// Add images to the grid
@@ -158,6 +163,8 @@ public class BroadcastReplyLatticeWidget extends Composite {
 
 						replyPanel.clear();
 						replyPanel.add(grid);
+						replyPanel.add(new MyReplyShortLatticeWidget(win, dispatch, sessionManager, broadcastId, replyNumber, widget));
+						
 					}
 
 				});
