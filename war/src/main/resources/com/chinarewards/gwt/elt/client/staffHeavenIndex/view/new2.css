@@ -206,6 +206,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .employee .content-info .broadcast h3{text-align:center;color:#FE0100;margin-bottom:5px;}
 .employee .content-info .news-select{background-color:#F1F2F1;text-align:right;padding:5px 0;color:#7A9BBA;padding-right:10px;}
 .employee .content-info .news-select a{color:#7A9BBA;}
+.employee .content-info .news-select .onselecta{color:#565656;}
 .employee .content-info .news-select span{color:#292A29;}
 
 .employee .news-list .news{position:relative;padding:10px 0 5px 10px;border-bottom:1px solid #EDEEED;}

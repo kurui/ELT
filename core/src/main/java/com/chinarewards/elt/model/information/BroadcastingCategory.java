@@ -1,6 +1,5 @@
 package com.chinarewards.elt.model.information;
 
-
 /**
  * The status of account.
  * 
@@ -10,12 +9,15 @@ package com.chinarewards.elt.model.information;
  */
 public enum BroadcastingCategory {
 	/* 公司广播 */
-	COMPANYBROADCAST("公司广播"),
+	COMPANYBROADCAST("公司广播"), STAFFBROADCAST("员工广播"),
 
-	/*其他广播 */
+	SYSBROADCAST("系统广播"),
+
+	REWARDBROADCAST("奖励广播"),
+
+	THEMEBROADCAST("主题广播"),
+	/* 其他广播 */
 	OTHERBROADCAST("其他广播");
-
-
 
 	private final String displayName;
 

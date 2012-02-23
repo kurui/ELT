@@ -5,6 +5,7 @@ import java.util.Date;
 
 import com.chinarewards.elt.model.common.PaginationDetail;
 import com.chinarewards.elt.model.common.SortingDetail;
+import com.chinarewards.elt.model.information.BroadcastingCategory;
 import com.chinarewards.elt.model.information.BroadcastingStatus;
 
 /**
@@ -45,6 +46,18 @@ public class BroadcastQueryListCriteria implements Serializable {
 	 */
 	private Date broadcastingTimeEnd;
 	
+	/**
+	 * 广播类型
+	 */
+	private BroadcastingCategory category;
+	
+	public BroadcastingCategory getCategory() {
+		return category;
+	}
+
+	public void setCategory(BroadcastingCategory category) {
+		this.category = category;
+	}
 
 	public String getCorporationId() {
 		return corporationId;

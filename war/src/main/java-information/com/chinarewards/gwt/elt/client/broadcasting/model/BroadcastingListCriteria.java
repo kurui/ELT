@@ -19,10 +19,8 @@ public class BroadcastingListCriteria implements IsSerializable {
 		/* 已广播 */
 		HASBROADCAST("已广播"),
 
-		/*未广播 */
+		/* 未广播 */
 		NOTBROADCAST("未广播");
-
-
 
 		private final String displayName;
 
@@ -34,14 +32,20 @@ public class BroadcastingListCriteria implements IsSerializable {
 			return displayName;
 		}
 	}
+
 	public enum BroadcastingCategory {
 		/* 公司广播 */
 		COMPANYBROADCAST("公司广播"),
 
-		/*其他广播 */
+		STAFFBROADCAST("员工广播"),
+
+		SYSBROADCAST("系统广播"),
+
+		REWARDBROADCAST("奖励广播"),
+
+		THEMEBROADCAST("主题广播"),
+		/* 其他广播 */
 		OTHERBROADCAST("其他广播");
-
-
 
 		private final String displayName;
 
@@ -53,6 +57,7 @@ public class BroadcastingListCriteria implements IsSerializable {
 			return displayName;
 		}
 	}
+
 	private PaginationDetailClient pagination;
 
 	private SortingDetailClient sorting;
@@ -77,8 +82,7 @@ public class BroadcastingListCriteria implements IsSerializable {
 	 * 结束时间
 	 */
 	private Date broadcastingTimeEnd;
-	
-	
+
 	public String getCorporationId() {
 		return corporationId;
 	}
@@ -94,8 +98,6 @@ public class BroadcastingListCriteria implements IsSerializable {
 	public void setStatus(BroadcastingStatus status) {
 		this.status = status;
 	}
-
-
 
 	public String getCreatedByUserName() {
 		return createdByUserName;
@@ -136,7 +138,5 @@ public class BroadcastingListCriteria implements IsSerializable {
 	public void setSorting(SortingDetailClient sorting) {
 		this.sorting = sorting;
 	}
-
-
 
 }
