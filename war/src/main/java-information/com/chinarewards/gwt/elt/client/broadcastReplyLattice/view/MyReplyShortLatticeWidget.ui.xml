@@ -7,9 +7,10 @@
 	   
         <div class="{new2.employee}">		
  			<g:TextBox styleName="{new2.remark-text}" text="输入你的评论…" ui:field="replyContent" />
-			<div class="{new2.remark} {new2.remark-info} {new2.remark-tool}">		
+			<div class="{new2.remark} {new2.remark-info}">		
+			<div class="{new2.remark-tool}" style="text-align:right;">
              <g:Button styleName="{new2.button}" text="回复" ui:field="replyBtn" />
-			</div>
+			</div></div>
   		</div>
 	</g:HTMLPanel>
 </ui:UiBinder> 
