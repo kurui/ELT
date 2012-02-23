@@ -241,7 +241,10 @@ public class SimpleSiteManager implements SiteManager, EditorCloseHandler,
 	//	int idx = openedEditors.indexOf(e);
 		editor.clear();
 		ScrollPanel sp = new ScrollPanel(e.asWidget());
-		editor.add(sp);
+		if(editor instanceof FlowPanel)
+			editor.add(e.asWidget());
+		else
+			editor.add(sp);
 	//	editor.forceLayout();
 	}
 
