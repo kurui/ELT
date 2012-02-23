@@ -12,9 +12,7 @@ import com.chinarewards.gwt.elt.client.staffHeavenIndex.model.StaffHeavenIndexCr
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager.TextLocation;
-import com.chinarewards.gwt.elt.client.widget.GetValue;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
-import com.google.gwt.cell.client.TextCell;
 import com.google.inject.Inject;
 
 public class StaffHeavenIndexPresenterImpl extends
@@ -58,14 +56,14 @@ public class StaffHeavenIndexPresenterImpl extends
 		// create a CellTable
 		cellTable = new ListCellTable<StaffHeavenIndexClient>();
 
-		initTableColumns();
+	//	initTableColumns();
 		pager = new EltNewPager(TextLocation.CENTER);
 		pager.setDisplay(cellTable);
 		cellTable.setWidth(ViewConstants.page_width);
 		cellTable.setPageSize(ViewConstants.per_page_number_in_dialog);
 		// cellTable.getColumn(0).setCellStyleNames("divTextLeft");
-		display.getResultPanel().clear();
-		display.getResultPanel().add(cellTable);
+//		display.getResultPanel().clear();
+//		display.getResultPanel().add(cellTable);
 		display.getResultpage().clear();
 		display.getResultpage().add(pager);
 
@@ -80,16 +78,6 @@ public class StaffHeavenIndexPresenterImpl extends
 
 	}
 
-	private void initTableColumns() {
 
-		cellTable.addColumn("广播编号", new TextCell(),
-				new GetValue<StaffHeavenIndexClient, String>() {
-					@Override
-					public String getValue(StaffHeavenIndexClient staff) {
-						return staff.getNumber();
-					}
-				});
-
-	}
 
 }

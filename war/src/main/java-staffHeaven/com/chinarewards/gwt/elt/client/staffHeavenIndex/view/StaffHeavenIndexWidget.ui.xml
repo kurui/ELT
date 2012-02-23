@@ -72,36 +72,7 @@
             </div>
           </div>
 
-          <div class="{new2.news}">
-            <span class="{new2.news-icon}"></span>
-            <div class="{new2.news-info}">
-              <p><strong>运营部</strong><strong>Jol</strong><span>获得9月份全勤奖，获得奖金50积分。</span></p>
-              <p><span>9月13日 10:33</span><span>来自人事部</span><a href="#">回复(9)</a>|<a href="#">我来回复</a></p>
-            </div>
-          </div>
-
-         <div class="{new2.news}">
-            <span class="{new2.news-icon}"></span>
-            <div class="{new2.news-info}">
-              <p><strong>运营部</strong><strong>Jol</strong><span>获得9月份全勤奖，获得奖金50积分。</span></p>
-              <p><span>9月13日 10:33</span><span>来自人事部</span><a href="#">回复(9)</a>|<a href="#">我来回复</a></p>
-            </div>
-          </div>
-         <div class="{new2.news}">
-            <span class="{new2.news-icon}"></span>
-            <div class="{new2.news-info}">
-              <p><strong>运营部</strong><strong>Jol</strong><span>获得9月份全勤奖，获得奖金50积分。</span></p>
-              <p><span>9月13日 10:33</span><span>来自人事部</span><a href="#">回复(9)</a>|<a href="#">我来回复</a></p>
-            </div>
-          </div>
-                    <div class="{new2.news}">
-            <span class="{new2.news-icon}"></span>
-            <div class="{new2.news-info}">
-              <p><strong>运营部</strong><strong>Jol</strong><span>获得9月份全勤奖，获得奖金50积分。</span></p>
-              <p><span>9月13日 10:33</span><span>来自人事部</span><a href="#">回复(9)</a>|<a href="#">我来回复</a></p>
-            </div>
-          </div>
-
+			<g:FlowPanel ui:field="resultPanel" />
 
         <!--分页 [[ -->
 			<div id="rewardlist_page2" class="{new2.pager}">
@@ -110,6 +81,7 @@
 					<select class="{new2.select}">
 						<option>10</option>
 					</select>
+					共<g:InlineLabel ui:field="dataCount"  />条
 				</div>
 
 				<div class="{new2.pager-right}">
@@ -120,22 +92,7 @@
       </div>
     </div>
     <!-- 内容区 ]]-->
-	
-	
-	
-		<div class="{new2.frame-wrap}">
-
-
-			<g:InlineLabel ui:field="dataCount" ></g:InlineLabel>
-	
-	
-			<div class="{new2.table}">
-				<g:FlowPanel ui:field="resultPanel" />
-			</div>
-
-
-			
-
-		</div></div></div>
+		
+</div></div>
 	</g:HTMLPanel>
 </ui:UiBinder> 
