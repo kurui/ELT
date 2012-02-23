@@ -126,7 +126,11 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 			for (int i = 0; i < childList.size(); i++) {
 				childNames += childList.get(i) + ",";
 			}
-			childNames=childNames.substring(0,childNames.lastIndexOf(","));
+			int subIndex=childNames.lastIndexOf(",");
+			if(subIndex>0){
+				childNames=childNames.substring(0,subIndex);
+			}
+			
 			childdepartment.setText(childNames);
 		}
 
