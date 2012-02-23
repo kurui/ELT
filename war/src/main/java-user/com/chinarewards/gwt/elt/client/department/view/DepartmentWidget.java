@@ -106,6 +106,7 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 		for (int i = 0; i <leaderList.size(); i++) {
 			leaderArea.addItem(leaderList.get(i));
 		}
+		leaderPanel.clear();
 		leaderPanel.add(leaderArea);// 提名人面板
 		
 		initStatsInfo(departmentVo);		

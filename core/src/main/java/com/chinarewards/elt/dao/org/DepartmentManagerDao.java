@@ -51,8 +51,8 @@ public class DepartmentManagerDao extends BaseDao<DepartmentManager> {
 		return getEm()
 				.createQuery(
 						" SELECT dm.staff FROM DepartmentManager dm " +
-						" WHERE dm.department.id = :deptId AND dm.staff.deleteMarkConstant = 'ACTIVING'")
-				.setParameter("deptId", deptId).getResultList();
+						" WHERE dm.department.id = :deptId AND dm.staff.deleted =:deleted")
+				.setParameter("deptId", deptId).setParameter("deleted", 0).getResultList();
 	}
 
 	public int removeManagerFromDepartment(String deptId, List<String> staffs) {
