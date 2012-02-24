@@ -136,7 +136,7 @@
 				            <h3><span><g:InlineLabel ui:field="integral2" /></span> 积分，能换什么？</h3>
 				            <div class="{new2.gift-list} {new2.clearfix}">
 								<g:FlowPanel ui:field="smaillShopWindow" />
-				              <p><a href="#" class="{new2.more}">还有什么，去看看&gt;&gt;</a></p>
+				              <p><g:Anchor styleName="{new2.more}" text="还有什么，去看看&gt;&gt;" ui:field="more" /> </p>
 				            </div>
 				          </div>
 				        </div>

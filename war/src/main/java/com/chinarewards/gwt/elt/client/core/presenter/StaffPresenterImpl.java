@@ -7,6 +7,8 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.EltGinjector;
 import com.chinarewards.gwt.elt.client.awardShop.plugin.AwardShopListConstants;
+import com.chinarewards.gwt.elt.client.awardShop.request.SearchAwardShopRequest;
+import com.chinarewards.gwt.elt.client.awardShop.request.SearchAwardShopResponse;
 import com.chinarewards.gwt.elt.client.breadCrumbs.ui.BreadCrumbsMenu;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.PluginManager;
@@ -15,6 +17,9 @@ import com.chinarewards.gwt.elt.client.core.request.StaffInitRequest;
 import com.chinarewards.gwt.elt.client.core.request.StaffInitResponse;
 import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
 import com.chinarewards.gwt.elt.client.corpBroadcast.plugin.CorpBroadcastConstants;
+import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
+import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria;
+import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria.GiftStatus;
 import com.chinarewards.gwt.elt.client.gloryBroadcast.plugin.GloryBroadcastConstants;
 import com.chinarewards.gwt.elt.client.login.LastLoginRoleRequest;
 import com.chinarewards.gwt.elt.client.login.LastLoginRoleResponse;
@@ -225,23 +230,66 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 					}
 				});
 		//加载小橱窗控件
-		Grid grid = new Grid(3, 2);
+	
+		GiftCriteria criteria = new GiftCriteria();
+		criteria.setStatus(GiftStatus.SHELVES);
+		// 查询参数....待添加
+		dispatchAsync.execute(new SearchAwardShopRequest(criteria, sessionManager
+				.getSession().getCorporationId(), sessionManager.getSession()
+				.getUserRoles(), sessionManager.getSession().getToken()),
+				new AsyncCallback<SearchAwardShopResponse>() {
+					@Override
+					public void onFailure(Throwable e) {
+						Window.alert(e.getMessage());
+					}
 
-		// Add images to the grid
-		int numRows = grid.getRowCount();
-		int numColumns = grid.getColumnCount();
-		for (int row = 0; row < numRows; row++) {
-			for (int col = 0; col < numColumns; col++) {
+					@Override
+					public void onSuccess(SearchAwardShopResponse response) {
+
+						List<GiftClient> giftList = response.getResult();
+						int index = 0;
+						Grid grid = new Grid(3, 2);
+
+						// Add images to the grid
+						int numRows = grid.getRowCount();
+						int numColumns = grid.getColumnCount();
+						for (int row = 0; row < numRows; row++) {
+							for (int col = 0; col < numColumns; col++) {
+								if (index < giftList.size()) {
+									GiftClient clint = giftList.get(index);
+									grid.setWidget(
+											row,
+											col,
+											new SmallShopWindowWidget(clint.getId(),clint.getName(),clint.getIntegral()+"",clint.getPhoto()));
+									index++;
+								} else {
+									grid.setWidget(row, col,
+											new SmallShopWindowWidget(null,"","0",null));
+								}
+							}
+						}
+
+						// Return the panel
+						grid.ensureDebugId("cwGrid");
+
+						display.getSmaillShopWindow().clear();
+						display.getSmaillShopWindow().add(grid);
+
+					}
+
+				});
+		display.getMore().addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				Platform.getInstance()
+				.getEditorRegistry()
+				.openEditor(
+						AwardShopListConstants.EDITOR_AWARDSHOPLIST_SEARCH,
+						"EDITOR_AWARDSHOPLIST_SEARCH_DO_ID", null);
 				
-					grid.setWidget(
-							row,
-							col,
-							new SmallShopWindowWidget("11","22","33","44"));
-					
-				} 
-		}
-		display.getSmaillShopWindow().clear();
-		display.getSmaillShopWindow().add(grid);
+			}
+		});
 		
 	}
 	public StaffDisplay getDisplay() {

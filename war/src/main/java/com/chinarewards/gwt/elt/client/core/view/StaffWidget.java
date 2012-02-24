@@ -34,8 +34,10 @@ public class StaffWidget extends Composite implements StaffDisplay {
 
 	@UiField
 	Anchor collectionBtn;
+	@UiField
+	Anchor more;
 	
-
+	
 	
 	@UiField
 	Anchor managementCenter;
@@ -406,5 +408,9 @@ public class StaffWidget extends Composite implements StaffDisplay {
 	@Override
 	public Panel getSmaillShopWindow() {
 		return smaillShopWindow;
+	}
+	@Override
+	public HasClickHandlers getMore() {
+		return more;
 	}
 }

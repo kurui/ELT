@@ -6,6 +6,8 @@
 	<ui:style src="new2.css" field="new2"></ui:style>
 	<g:HTMLPanel>
 		<div class="{new2.employee}">
+		
+		<div class="{new2.content-wrap} {new2.content-info}">
 			<div class="{new2.jifen-duihuan-list}">
 				<p class="{new2.tishi}">
 					<g:InlineLabel text="您还可以换：" ui:field="pageTitle" />
@@ -16,7 +18,7 @@
 						<g:Anchor text="更多>>" ui:field="more" styleName="{new2.staffa}" />
 					</p>
 				</div>
-			</div>
+			</div></div>
 		</div>
 	</g:HTMLPanel>
 </ui:UiBinder>

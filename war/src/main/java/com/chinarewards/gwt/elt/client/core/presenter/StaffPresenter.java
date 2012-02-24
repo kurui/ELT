@@ -38,7 +38,7 @@ public interface StaffPresenter extends Presenter<StaffPresenter.StaffDisplay> {
 		HasClickHandlers getCorpBroadcastAnchor();
 		HasClickHandlers getGloryAnchor();
 		HasClickHandlers getSettingAnchor();
-
+		HasClickHandlers getMore();
 
 		
 		void setPhoto(String photo);
@@ -47,6 +47,7 @@ public interface StaffPresenter extends Presenter<StaffPresenter.StaffDisplay> {
 		void setDeptName(String deptName);
 		void setIntegral(int integral);
 		Panel getSmaillShopWindow();
+	
 	}
 	
 	
