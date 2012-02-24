@@ -11,6 +11,7 @@ public interface StaffHeavenIndexPresenter extends
 	public static interface StaffHeavenIndexDisplay extends Display {
 
 		void setDataCount(String text);
+		void setTopBroadcast(String text);
 
 		Panel getResultPanel();
 
