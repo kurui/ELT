@@ -112,13 +112,13 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .footer .copyright{padding:10px 0;width:400px;text-align:left;margin:0 auto;color:#9E9E9E;}
 .footer .copyright p{line-height:20px;}
 /*-------------------------------------iframe页面------------------------------------------------------*/
-.frame-wrap{background-color:#F4F4F4;width:99%;padding-top:15px; min-width: 1010px;}
+.frame-wrap{background-color:#F4F4F4;width:100%;margin-top:15px; min-width: 1010px;}
 .frame-wrap .breadcrumb-wrap:after{content:".";display:block;clear:both;height:0;visibility:hidden;}
 .frame-wrap .breadcrumb-wrap{\*zoom:1;}
 .frame-wrap .breadcrumb-left{float:left;width:50%;}
 .frame-wrap .breadcrumb-right{float:right;width:70px;}
 .frame-wrap .cutline{background-position:0 0;height:2px;display:block;margin:10px 0;}
-.frame-wrap .query-wrap{background-color: #ABCEE5;border:1px solid #ABCEE5;padding:10px 15px;}
+.frame-wrap .query-wrap{background-color: #F1F7FB;border:1px solid #D7D7D7;padding:10px 15px;margin-right:218px;}
 .frame-wrap .send-news{margin:10px 0;}
 .frame-wrap .content-wrap{padding-top:0px;}
 
@@ -210,8 +210,8 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .employee .reward-section .imglink p a{padding-left:0;font-size:12px;}
 .employee .reward-section .reward-pslist li{margin-top:3px;}
 
-.employee .content-wrap{background:url(elt/images/employee_repeaty.png) repeat-y right top;}
-.employee .content-wrap .content-info{position:relative;}
+.employee .content-wrap{background:url(elt/images/employee_repeaty.png) repeat-y right top;margin-left:277px;}
+.employee .content-wrap .content-info{margin-right:218px;position:relative;}
 /*----------------------------------------- 员工主页面 -------------------------------------------------------*/
 .employee .content-info .note{background-color:#FEFFF4;border:1px solid #D8D9D8;padding:6px 8px;color:#F03E59;position:relative;margin-bottom:10px;}
 .employee .content-info .note .close{background-position:-32px -35px;width:8px;height:9px;position:absolute;right:8px;top:9px;cursor:pointer;}
@@ -246,7 +246,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .employee .pager,.employee .pager a{color:#333333;}
 .employee .pager a:hover{background-color:#707070;}
 
-.remark{background-color:#F8F9FD;overflow:hidden;padding:15px;width:720px;}
+.remark{background-color:#F8F9FD;overflow:hidden;margin-right: 220px;width:50px;float: right;}
 .remark img{border:1px solid #CACACA;padding:2px;width:54px;height:54px;overflow:hidden;float:left;margin-right:10px;}
 .remark .remark-info{float:left;width:650px;}
 .remark .remark-info .remark-tool{text-align:right;margin-top:5px;}

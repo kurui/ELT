@@ -9,7 +9,6 @@ import com.chinarewards.gwt.elt.client.mvp.Presenter;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Panel;
-import com.google.gwt.user.client.ui.Widget;
 
 public interface OrderHistoryPresenter extends Presenter<OrderHistoryPresenter.OrderHistoryDisplay> {
 

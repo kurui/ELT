@@ -7,7 +7,6 @@ import java.util.Map;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
-import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
@@ -53,21 +52,21 @@ public class OrderHistoryPresenterImpl extends
 	EltNewPager pager;
 	ListCellTable<OrderSearchVo> cellTable;
 	OrderHistoryDataAdapter listViewAdapter;
-	private final BreadCrumbsPresenter breadCrumbs;
+	
 	DateTimeFormat dateFormatAll = DateTimeFormat
 			.getFormat(ViewConstants.date_format_all);
 
 	@Inject
 	public OrderHistoryPresenterImpl(EventBus eventBus, DispatchAsync dispatch,
 			ErrorHandler errorHandler, SessionManager sessionManager,
-			BreadCrumbsPresenter breadCrumbs, OrderHistoryDisplay display,
+			 OrderHistoryDisplay display,
 			Win win) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
 		this.win = win;
-		this.breadCrumbs = breadCrumbs;
+		
 	}
 
 	@Override

@@ -77,7 +77,7 @@ public class StaffWidget extends Composite implements StaffDisplay {
 	 String styleOn="";
 	 String styleNo="";
 		private void init() {
-			  styleOn=this.awardShop.getElement().getParentElement().getAttribute("class");
+			  styleOn=this.viewPoints.getElement().getParentElement().getAttribute("class");
 			  viewPoints.addClickHandler(new ClickHandler() {
 
 				@Override

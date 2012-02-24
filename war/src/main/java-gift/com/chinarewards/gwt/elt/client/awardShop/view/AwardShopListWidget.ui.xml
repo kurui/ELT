@@ -5,23 +5,25 @@
 
 	<ui:style src="new2.css" field="new2"></ui:style>
 	<g:HTMLPanel>
-	
+
 		<div class="{new2.frame-wrap}" style="display:none;">
 			<!--面包屑 [[ -->
 			<g:FlowPanel ui:field="breadCrumbs" />
-			<!--面包屑 ]] -->	
-        </div>
-   <div class="{new2.employee}" >
-        
-    <div class="{new2.content-wrap}">
-      <div class="{new2.content-info}">
-        <div class="{new2.breadcrumb}">
-          <a href="#">首页</a>&gt;<span>奖品商城</span>
-        </div>
-        </div>
-        </div>
+			<!--面包屑 ]] -->
+		</div>
+		<div class="{new2.employee}">
 
-        <div class="gift-wrap">
+			<div class="{new2.content-wrap}">
+				<div class="{new2.content-info}">
+					<div class="{new2.breadcrumb}">
+						<a href="#">首页</a>
+						&gt;
+						<span>奖品商城</span>
+					</div>
+				</div>
+		
+
+
 
 			<!--查询条件 [[ -->
 			<div class="{new2.query-wrap}" style="display:none;">
@@ -38,30 +40,36 @@
 			</div>
 			<!--查询条件 ]] -->
 
-        <div class="{new2.gift-wrap}">
-          <p>共 <span class="{new2.color-red}"><g:InlineLabel ui:field="dataCount" /></span> 份礼品</p>
-			
+			<div class="{new2.gift-wrap}">
+				<p>
+					共
+					<span class="{new2.color-red}">
+						<g:InlineLabel ui:field="dataCount" />
+					</span>
+					份礼品
+				</p>
+
 
 				<g:FlowPanel ui:field="resultPanel" />
-			
 
 
-			<!--分页 [[ -->
-			<div id="rewardlist_page2" class="{new2.pager}">
-				<div class="{new2.pager-left}">
-					每页显示条数
-					<select class="{new2.select}">
-						<option>12</option>
-					</select>
+
+				<!--分页 [[ -->
+				<div id="rewardlist_page2" class="{new2.pager}">
+					<div class="{new2.pager-left}">
+						每页显示条数
+						<select class="{new2.select}">
+							<option>12</option>
+						</select>
+					</div>
+
+					<div class="{new2.pager-right}">
+						<g:FlowPanel ui:field="resultpage" />
+					</div>
 				</div>
+				<!--分页 ]] -->
 
-				<div class="{new2.pager-right}">
-					<g:FlowPanel ui:field="resultpage" />
-				</div>
 			</div>
-			<!--分页 ]] -->
-
-		</div>
-		</div></div>
+		</div>	</div>
 	</g:HTMLPanel>
 </ui:UiBinder>
