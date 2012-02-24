@@ -77,11 +77,15 @@ public class DepartmentPresenterImpl extends
 				.equals(thisAction)) {
 			breadCrumbs.loadChildPage("新建子部门");
 			 initSaveChild();
-		} else if (DepartmentConstants.ACTION_DEPARTMENT_EDIT
+		} else if (DepartmentConstants.ACTION_DEPARTMENT_EDIT_CORP
 				.equals(thisAction)) {
 			initEdit();
 			breadCrumbs.loadChildPage("编辑部门");
-		} else {
+		} else if (DepartmentConstants.ACTION_DEPARTMENT_EDIT_DEPT
+				.equals(thisAction)) {
+			initEdit();
+			breadCrumbs.loadChildPage("编辑部门");
+		}else {
 			win.alert("未定义的方法");
 		}
 
@@ -101,6 +105,7 @@ public class DepartmentPresenterImpl extends
 
 						DepartmentVo departmentVo = DepartmentAdapterClient
 								.adapterDisplay(display);
+						departmentVo.setThisAction(thisAction);
 
 						if (DepartmentConstants.ACTION_DEPARTMENT_ADD
 								.equals(thisAction)) {
@@ -114,7 +119,11 @@ public class DepartmentPresenterImpl extends
 								.equals(thisAction)) {
 							departmentVo.setId(null);
 							doSave(departmentVo);
-						} else if (DepartmentConstants.ACTION_DEPARTMENT_EDIT
+						} else if (DepartmentConstants.ACTION_DEPARTMENT_EDIT_CORP
+								.equals(thisAction)) {
+							departmentVo.setId(departmentId);
+							doEdit(departmentVo);
+						}else if (DepartmentConstants.ACTION_DEPARTMENT_EDIT_DEPT
 								.equals(thisAction)) {
 							departmentVo.setId(departmentId);
 							doEdit(departmentVo);
@@ -246,6 +255,7 @@ public class DepartmentPresenterImpl extends
 								SearchDepartmentByIdResponse response) {
 							DepartmentVo departmentVo = response
 									.getDepartment();
+							departmentVo.setThisAction(thisAction);
 							clear();
 							display.initEditDepartment(departmentVo);
 						}

@@ -10,8 +10,10 @@ import org.slf4j.Logger;
 import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.model.user.UserContext;
+import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.service.org.CorporationService;
 import com.chinarewards.elt.service.org.DepartmentService;
+import com.chinarewards.elt.service.user.UserService;
 import com.chinarewards.elt.util.StringUtil;
 import com.chinarewards.gwt.elt.client.department.model.DepartmentVo;
 import com.chinarewards.gwt.elt.client.department.request.EditDepartmentRequest;
@@ -31,13 +33,13 @@ public class EditDepartmentHandler extends
 	Logger logger;
 	DepartmentService departmentService;
 	CorporationService corporationService;
-
+	UserService userService;
 
 	@Inject
-	public EditDepartmentHandler(DepartmentService departmentService,CorporationService corporationService) {
+	public EditDepartmentHandler(DepartmentService departmentService,CorporationService corporationService,UserService userService) {
 		this.departmentService = departmentService;
 		this.corporationService=corporationService;
-		
+		this.userService=userService;		
 	}
 
 	@Override
@@ -53,7 +55,9 @@ public class EditDepartmentHandler extends
 
 		DepartmentVo departmentVo = action.getDepartmentVo();
 		List<String> leaderIds=departmentVo.getLeaderIds();
-
+		List<String> preLeaderIds=departmentVo.getPreLeaderIds();
+		
+		
 		Department department = assembleDepartment(departmentVo,action);
 
 		UserContext uc = new UserContext();
@@ -64,8 +68,13 @@ public class EditDepartmentHandler extends
 				.getUserRoles()));
 		
 		
-		Department AdddItem = departmentService.saveDepartment(uc, department,leaderIds);
+		Department AdddItem = departmentService.saveDepartment(uc, department,leaderIds,preLeaderIds);
 
+	
+		userService.deleteUserRole(UserRole.DEPT_MGR.toString(),preLeaderIds);
+		userService.createUserRole(UserRole.DEPT_MGR.toString(),leaderIds);
+
+		
 		return new EditDepartmentResponse(AdddItem.getId());
 	}
 
@@ -92,7 +101,8 @@ public class EditDepartmentHandler extends
 		}
 		department.setParent(parent);
 		department.setCorporation(corporation);
-
+		
+		
 		return department;
 	}
 

@@ -27,7 +27,10 @@ public abstract class DepartmentConstants {
 	public static final String ACTION_DEPARTMENT_ADD_CHILD = "ACTION_DEPARTMENT_ADD_CHILD";	
 	
 	/** 编辑部门 */
-	public static final String ACTION_DEPARTMENT_EDIT = "ACTION_DEPARTMENT_EDIT";
+	public static final String ACTION_DEPARTMENT_EDIT_CORP = "ACTION_DEPARTMENT_EDIT_CORP";
+	public static final String ACTION_DEPARTMENT_EDIT_DEPT = "ACTION_DEPARTMENT_EDIT_DEPT";
+	
+	
 	/** 部门列表 */
 	public static final String ACTION_DEPARTMENT_LIST = "ACTION_DEPARTMENT_LIST";
 	public static final String ACTION_DEPARTMENT_VIEW = "ACTION_DEPARTMENT_VIEW";

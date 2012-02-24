@@ -53,27 +53,32 @@ public class DepartmentManagerLogicImpl implements DepartmentManagerLogic {
 		if (user.getStaff() == null) {
 			return new ArrayList<String>();
 		}
-		List<String> result = deptMgrDao.findDepartmentIdsManagedByStaffId(user.getStaff().getId());
+		List<String> result = deptMgrDao.findDepartmentIdsManagedByStaffId(user
+				.getStaff().getId());
 
 		logger.debug(" result list:{}", result);
 
 		return result;
 	}
-	
+
 	@Override
 	public List<DepartmentManager> createManager(String deptId,
-			List<String> staffIds){
+			List<String> staffIds) {
 		return deptMgrDao.createManager(deptId, staffIds);
 	}
 
+	@Override
+	public void deleteManager(String deptId, List<String> staffIds) {
+		deptMgrDao.deleteManager(deptId, staffIds);
+	}
 
 	@Override
 	public List<Staff> findManagersByDepartmentId(String deptId) {
 		return deptMgrDao.findManagersByDepartmentId(deptId);
 	}
-	
+
 	@Override
-	public List<Department> findDepartmentsManagedByStaffId(String staffId){
+	public List<Department> findDepartmentsManagedByStaffId(String staffId) {
 		return deptMgrDao.findDepartmentsManagedByStaffId(staffId);
 	}
 

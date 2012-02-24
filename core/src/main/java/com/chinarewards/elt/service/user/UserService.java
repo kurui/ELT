@@ -1,5 +1,7 @@
 package com.chinarewards.elt.service.user;
 
+import java.util.List;
+
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.model.user.UserSearchCriteria;
@@ -28,6 +30,23 @@ public interface UserService {
 	 * @return
 	 */
 	public String updateUserPwd(String staffId,String pwd,String byUserId);
+	/**
+	 * @param roleName
+	 * @param staffId
+	 */
+	
+	public void createUserRole(String roleName, List<String> staffIds);
+	/**
+	 * @param roleName
+	 * @param staffId
+	 */
+	public void createUserRole(String roleName, String staffId);
 	
 	
+	public void deleteUserRole(String roleName, List<String> staffIds);
+	/**
+	 * @param roleName
+	 * @param staffId
+	 */
+	public void deleteUserRole(String roleName, String staffId);
 }

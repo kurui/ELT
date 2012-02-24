@@ -15,15 +15,15 @@
 				<div style="float:right;text-align:right;padding-top: 5px;">
 					<g:Hidden ui:field="currentDepartmentId"></g:Hidden>
 					<span class="{new2.btn}">
-						<g:Button ui:field="addChildBtn" text="增加子部门" />
+						<g:Button ui:field="addChildBtn" text="增加子部门" visible="false" />
 					</span>
 					<span class="{new2.nbsp}"></span>
 					<span class="{new2.btn}">
-						<g:Button ui:field="deleteBtn" text="删除部门" />
+						<g:Button ui:field="deleteBtn" text="删除部门"  visible="false"/>
 					</span>
 					<span class="{new2.nbsp}"></span>
 					<span class="{new2.btn}">
-						<g:Button ui:field="editBtn" text="编辑部门详细" />
+						<g:Button ui:field="editBtn" text="编辑部门详细"  />
 					</span>
 				</div>
 			</p>

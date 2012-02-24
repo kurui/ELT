@@ -116,4 +116,24 @@ public class DepartmentManagerDao extends BaseDao<DepartmentManager> {
 
 		return resultList;
 	}
+
+	/**
+	 * @param deptId
+	 * @param staffIds
+	 */
+	public void deleteManager(String deptId, List<String> staffIds) {
+		Department dept = getEm().find(Department.class, deptId);
+		for (String staffId : staffIds) {
+			List<DepartmentManager> tempManageList=findDepartmentsManagedByDeptStaffId(dept.getId(), staffId);
+			if(tempManageList!=null&&tempManageList.size()>0){
+				for (int i = 0; i < tempManageList.size(); i++) {
+					delete(tempManageList.get(i));
+				}
+			}else{
+			//--------
+			}
+		
+		}
+		
+	}
 }

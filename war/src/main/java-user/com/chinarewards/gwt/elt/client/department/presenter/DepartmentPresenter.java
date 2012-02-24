@@ -51,6 +51,8 @@ public interface DepartmentPresenter extends
 		public void initSaveChildDepartment(DepartmentVo departmentVo);
 
 		public SpecialTextArea<OrganicationClient> getLeaderArea();
+		
+		public SpecialTextArea<OrganicationClient> getPreLeaderArea();
 
 	}
 

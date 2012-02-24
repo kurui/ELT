@@ -62,10 +62,12 @@ public class DepartmentServiceImpl implements DepartmentService {
 	}
 
 	@Override
-	public Department saveDepartment(UserContext uc, Department department,List<String> staffIds) {
+	public Department saveDepartment(UserContext uc, Department department,List<String> staffIds,List<String> preLeaderIds) {
 		SysUser caller = userLogic.findUserById(uc.getUserId());
 		department= departmentLogic.saveDepartment(caller, department);
 		
+		
+		departmentManagerLogic.deleteManager(department.getId(), preLeaderIds);
 		departmentManagerLogic.createManager(department.getId(), staffIds);
 		
 		

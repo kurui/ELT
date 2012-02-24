@@ -127,7 +127,7 @@ public class DepartmentLeaderTreeModel implements TreeViewModel {
 						// Window.alert(object.getDepartmentId() + "--- 部门名称");
 						DepartmentClient client = new DepartmentClient();
 						client.setId(object.getDepartmentId());
-						client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_EDIT);
+						client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_EDIT_DEPT);
 						openEditPage(client);
 					}
 				};
@@ -153,7 +153,7 @@ public class DepartmentLeaderTreeModel implements TreeViewModel {
 							String value) {
 						DepartmentClient client = new DepartmentClient();
 						client.setId(object.getDepartmentId());
-						client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_EDIT);
+						client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_EDIT_DEPT);
 						openEditPage(client);
 					}
 				};
@@ -222,7 +222,7 @@ public class DepartmentLeaderTreeModel implements TreeViewModel {
 						// Window.alert(object.getDepartmentId() + "--- 部门名称");
 						DepartmentClient client = new DepartmentClient();
 						client.setId(object.getDepartmentId());
-						client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_EDIT);
+						client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_EDIT_DEPT);
 						openEditPage(client);
 					}
 				};
@@ -248,7 +248,7 @@ public class DepartmentLeaderTreeModel implements TreeViewModel {
 							String value) {
 						DepartmentClient client = new DepartmentClient();
 						client.setId(object.getDepartmentId());
-						client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_EDIT);
+						client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_EDIT_DEPT);
 						openEditPage(client);
 					}
 				};

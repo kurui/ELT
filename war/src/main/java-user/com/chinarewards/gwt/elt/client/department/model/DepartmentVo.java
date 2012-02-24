@@ -3,7 +3,6 @@ package com.chinarewards.gwt.elt.client.department.model;
 import java.io.Serializable;
 import java.util.List;
 
-import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
 
 public class DepartmentVo implements Serializable {
@@ -16,6 +15,8 @@ public class DepartmentVo implements Serializable {
 	private String corporationId;
 	private String name; // 部门名称
 	private List<String> leaderIds;
+	private List<String> preLeaderIds;//临时字段 记录修改前的Leaders
+	
 	private List<OrganicationClient> leaderList;
 	
 	private String parentId;
@@ -26,6 +27,8 @@ public class DepartmentVo implements Serializable {
 	private String yearintegral;//财年积分
 	private String issueintegral;//已颁发积分
 	private String procesRewarditemCount;//进行中奖项(数量)
+	
+	private String thisAction="";
 	
 	public String getId() {
 		return id;
@@ -52,11 +55,19 @@ public class DepartmentVo implements Serializable {
 	}
 
 	
+	public String getThisAction() {
+		return thisAction;
+	}
+
+	public void setThisAction(String thisAction) {
+		this.thisAction = thisAction;
+	}
 
 	public List<OrganicationClient> getLeaderList() {
 		return leaderList;
 	}
 
+	
 	public void setLeaderList(List<OrganicationClient> leaderList) {
 		this.leaderList = leaderList;
 	}
@@ -77,6 +88,13 @@ public class DepartmentVo implements Serializable {
 		this.parentName = parentName;
 	}
 
+	public List<String> getPreLeaderIds() {
+		return preLeaderIds;
+	}
+
+	public void setPreLeaderIds(List<String> preLeaderIds) {
+		this.preLeaderIds = preLeaderIds;
+	}
 
 	public List<String> getChildIds() {
 		return childIds;

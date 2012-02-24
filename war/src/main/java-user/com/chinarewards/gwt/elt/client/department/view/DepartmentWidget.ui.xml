@@ -34,6 +34,8 @@
 					</label>
 					<div class="{new2.element}">
 						<g:FlowPanel ui:field="leaderPanel" width="200px"/>
+						<g:FlowPanel ui:field="preLeaderPanel" width="200px" visible="false"/>
+						
 					<span class="{new2.btn}">	<g:Button ui:field="chooseLeaderBtn">选择</g:Button></span>
 						
 					</div>

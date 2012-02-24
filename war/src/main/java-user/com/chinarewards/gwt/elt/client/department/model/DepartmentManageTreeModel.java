@@ -123,7 +123,7 @@ public class DepartmentManageTreeModel implements TreeViewModel {
 //						Window.alert(object.getDepartmentId() + "--- 部门名称");
 						DepartmentClient client = new DepartmentClient();
 						client.setId(object.getDepartmentId());
-						client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_EDIT);
+						client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_EDIT_CORP);
 						openEditPage(client);
 					}
 				};
@@ -149,7 +149,7 @@ public class DepartmentManageTreeModel implements TreeViewModel {
 							String value) {
 						DepartmentClient client = new DepartmentClient();
 						client.setId(object.getDepartmentId());
-						client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_EDIT);
+						client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_EDIT_CORP);
 						openEditPage(client);
 					}
 				};
