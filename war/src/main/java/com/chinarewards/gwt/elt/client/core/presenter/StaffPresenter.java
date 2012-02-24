@@ -34,6 +34,11 @@ public interface StaffPresenter extends Presenter<StaffPresenter.StaffDisplay> {
 		HasClickHandlers getExchangeHistory();
 		HasClickHandlers getMyMessage();
 		HasClickHandlers getStaffHeavenIndex();
+		HasClickHandlers getStaffAnchor();
+		HasClickHandlers getCorpBroadcastAnchor();
+		HasClickHandlers getGloryAnchor();
+		HasClickHandlers getSettingAnchor();
+
 
 	}
 	

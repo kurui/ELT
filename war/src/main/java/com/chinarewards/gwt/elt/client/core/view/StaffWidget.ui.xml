@@ -63,22 +63,22 @@
 									</g:Anchor>
 								</li>
 								<li>
-									<g:Anchor styleName="{new2.menu}">
+									<g:Anchor styleName="{new2.menu}" ui:field="staffAnchor">
 										<span>同 事</span>
 									</g:Anchor>
 								</li>
 								<li>
-									<g:Anchor styleName="{new2.menu}">
+									<g:Anchor styleName="{new2.menu}" ui:field="corpBroadcastAnchor">
 										<span>公司广播</span>
 									</g:Anchor>
 								</li>
 								<li>
-									<g:Anchor styleName="{new2.menu}">
+									<g:Anchor styleName="{new2.menu}" ui:field="gloryAnchor">
 										<span>光荣榜</span>
 									</g:Anchor>
 								</li>
 								<li>
-									<g:Anchor styleName="{new2.menu}">
+									<g:Anchor styleName="{new2.menu}" ui:field="settingAnchor">
 										<span>设 置</span>
 									</g:Anchor>
 								</li>

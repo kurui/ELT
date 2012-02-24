@@ -59,6 +59,14 @@ public class StaffWidget extends Composite implements StaffDisplay {
 	Anchor myMessage;
 	@UiField
 	Anchor staffHeavenIndex;
+	@UiField
+	Anchor staffAnchor;
+	@UiField
+	Anchor corpBroadcastAnchor;
+	@UiField
+	Anchor gloryAnchor;
+	@UiField
+	Anchor settingAnchor;
 	
 	// Set the format of datepicker.
 	DateTimeFormat dateFormat = DateTimeFormat
@@ -76,7 +84,74 @@ public class StaffWidget extends Composite implements StaffDisplay {
 	}
 	 String styleOn="";
 	 String styleNo="";
+	 
+	 String anchorOn="";
+	 String anchorNo="";
 		private void init() {
+			anchorOn=this.staffHeavenIndex.getStyleName();
+			anchorNo=this.staffAnchor.getStyleName();
+			staffHeavenIndex.addClickHandler(new ClickHandler() {
+				
+				@Override
+				public void onClick(ClickEvent event) {
+					staffHeavenIndex.setStyleName(anchorOn);
+					staffAnchor.setStyleName(anchorNo);
+					corpBroadcastAnchor.setStyleName(anchorNo);
+					gloryAnchor.setStyleName(anchorNo);
+					settingAnchor.setStyleName(anchorNo);
+					
+				}
+			});
+			staffAnchor.addClickHandler(new ClickHandler() {
+				
+				@Override
+				public void onClick(ClickEvent event) {
+					staffHeavenIndex.setStyleName(anchorNo);
+					staffAnchor.setStyleName(anchorOn);
+					corpBroadcastAnchor.setStyleName(anchorNo);
+					gloryAnchor.setStyleName(anchorNo);
+					settingAnchor.setStyleName(anchorNo);
+					
+				}
+			});
+			corpBroadcastAnchor.addClickHandler(new ClickHandler() {
+				
+				@Override
+				public void onClick(ClickEvent event) {
+					staffHeavenIndex.setStyleName(anchorNo);
+					staffAnchor.setStyleName(anchorNo);
+					corpBroadcastAnchor.setStyleName(anchorOn);
+					gloryAnchor.setStyleName(anchorNo);
+					settingAnchor.setStyleName(anchorNo);
+					
+				}
+			});
+			gloryAnchor.addClickHandler(new ClickHandler() {
+				
+				@Override
+				public void onClick(ClickEvent event) {
+					staffHeavenIndex.setStyleName(anchorNo);
+					staffAnchor.setStyleName(anchorNo);
+					corpBroadcastAnchor.setStyleName(anchorNo);
+					gloryAnchor.setStyleName(anchorOn);
+					settingAnchor.setStyleName(anchorNo);
+					
+				}
+			});
+			settingAnchor.addClickHandler(new ClickHandler() {
+				
+				@Override
+				public void onClick(ClickEvent event) {
+					staffHeavenIndex.setStyleName(anchorNo);
+					staffAnchor.setStyleName(anchorNo);
+					corpBroadcastAnchor.setStyleName(anchorNo);
+					gloryAnchor.setStyleName(anchorNo);
+					settingAnchor.setStyleName(anchorOn);
+					
+				}
+			});
+			
+			
 			  styleOn=this.viewPoints.getElement().getParentElement().getAttribute("class");
 			  viewPoints.addClickHandler(new ClickHandler() {
 
@@ -275,5 +350,21 @@ public class StaffWidget extends Composite implements StaffDisplay {
 	@Override
 	public HasClickHandlers getStaffHeavenIndex() {
 		return staffHeavenIndex;
+	}
+	@Override
+	public HasClickHandlers getStaffAnchor() {
+		return staffAnchor;
+	}
+	@Override
+	public HasClickHandlers getCorpBroadcastAnchor() {
+		return corpBroadcastAnchor;
+	}
+	@Override
+	public HasClickHandlers getGloryAnchor() {
+		return gloryAnchor;
+	}
+	@Override
+	public HasClickHandlers getSettingAnchor() {
+		return settingAnchor;
 	}
 }
