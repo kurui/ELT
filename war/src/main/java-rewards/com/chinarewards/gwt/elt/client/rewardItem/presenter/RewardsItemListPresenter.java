@@ -31,9 +31,8 @@ public interface RewardsItemListPresenter extends
 		
 		public Panel getDataPager() ;
 		
-		public Panel getDepartmentPanel();
-		
-		public HasValue<Boolean> getChooseSubDepartment();
+				
+		public boolean getChooseSubDepartment();
 		
 		public HasClickHandlers getSearchClick();
 		
@@ -54,8 +53,7 @@ public interface RewardsItemListPresenter extends
 		 * 选择部门
 		 * @param deptIds
 		 */
-	//	public void showDept(List<String> deptIds);
-
-	//	String getBuildDept();
+		public void initDepart(Map<String, String> map);
+		String getDepart();
 	}
 }

@@ -214,8 +214,7 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 		Department dept = departmentDao.findById(Department.class, deptId);
 		logger.debug("Prepare to search by lft={} and rgt={}", new Object[] {
 				dept.getLft(), dept.getRgt() });
-		List<Department> depts = departmentDao.findDepartmentsByLefRgt(
-				dept.getLft(), dept.getRgt());
+		List<Department> depts = departmentDao.findDepartmentsByLefRgt(dept.getLft(), dept.getRgt());
 		if (containItSelf) {
 			depts.add(dept);
 		}

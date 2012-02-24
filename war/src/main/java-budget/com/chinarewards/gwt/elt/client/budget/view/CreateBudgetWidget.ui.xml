@@ -44,9 +44,9 @@
 
 
 			<span class="{new2.cutline}"></span>
-			<div class="{new2.divend}">公司预算总共:<g:InlineLabel ui:field="totalCount" styleName="{new2.divfont}"></g:InlineLabel> 积分
+			<div class="{new2.divend}">预算总共:<g:InlineLabel ui:field="totalCount" styleName="{new2.divfont}"></g:InlineLabel> 积分
 			<span class="{new2.nbspbig}"></span>
-			公司预算还有:<g:InlineLabel ui:field="remainCount" styleName="{new2.divfont}"></g:InlineLabel> 积分</div>
+			预算还有:<g:InlineLabel ui:field="remainCount" styleName="{new2.divfont}"></g:InlineLabel> 积分</div>
 			<div class="{new2.table}">
 				<g:FlowPanel ui:field="resultPanel" />
 			</div>

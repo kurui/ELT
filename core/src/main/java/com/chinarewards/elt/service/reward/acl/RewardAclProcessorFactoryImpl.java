@@ -29,7 +29,6 @@ public class RewardAclProcessorFactoryImpl implements RewardAclProcessorFactory 
 	public RewardAclProcessor generateRewardAclProcessor(List<UserRole> roles) {
 
 		RewardAclProcessor res = null;
-
 		if (roles.contains(UserRole.CORP_ADMIN)) {
 			res = hrRewardProcessor;
 		} else if (roles.contains(UserRole.DEPT_MGR)) {

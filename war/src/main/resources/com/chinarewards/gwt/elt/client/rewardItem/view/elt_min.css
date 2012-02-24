@@ -204,5 +204,5 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .box .close-wrap{position:absolute;height:50px;right:0;top:1px;\*top:2px;height:40px;line-height:40px;overflow:hidden;}
 .box .box-close{background-position:-14px -116px;width:18px;height:18px;display:inline-block;cursor:pointer;vertical-align:middle;margin-right:15px;}
 .box .box-title-sep{width:1px;height:40px;display:inline-block;background-color:#fff;vertical-align:middle;margin-right:15px;}
-
+.divfont{color:red;}
 

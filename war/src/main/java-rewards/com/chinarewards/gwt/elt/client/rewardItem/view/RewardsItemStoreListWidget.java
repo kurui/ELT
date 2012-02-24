@@ -1,6 +1,9 @@
 package com.chinarewards.gwt.elt.client.rewardItem.view;
 
 import java.util.Date;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
@@ -18,6 +21,7 @@ import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.InlineLabel;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
@@ -60,7 +64,9 @@ public class RewardsItemStoreListWidget extends Composite implements
 	InlineLabel dataCount;
 	@UiField
 	Panel breadCrumbs;
-	
+	@UiField
+	ListBox depart;
+
 	// is inject
 	//final DepartmentComboTree DeptCombTree;
 	DateTimeFormat dateFormat = DateTimeFormat.getFormat(ViewConstants.date_format);
@@ -113,8 +119,8 @@ public class RewardsItemStoreListWidget extends Composite implements
 
 	
 	@Override
-	public HasValue<Boolean> getChooseSubDepartment() {
-		return chooseSubDepartment;
+	public boolean getChooseSubDepartment() {
+		return chooseSubDepartment.getValue();
 	}
 
 	@Override
@@ -137,21 +143,21 @@ public class RewardsItemStoreListWidget extends Composite implements
 		return createTimeEnd;
 	}
 
-//	@Override
-//	public void showDept(List<String> deptIds) {
-//		if (deptIds != null) {
-//			DeptCombTree.setRoot(deptIds);
-//		}
-//		departmentName.add(DeptCombTree);
-//		
-//	}
-	
-//	@Override
-//	public String getBuildDept() {
-//		return DeptCombTree.getSelectedItem() != null ? DeptCombTree
-//				.getSelectedItem().getId() : null;
-//	}
+	@Override
+	public String getDepart() {
+		return depart.getValue(depart.getSelectedIndex());
+	}
+	@Override
+	public void initDepart(Map<String, String> map) {
 
+		depart.addItem("选择", "");
+		Iterator<Entry<String, String>> it = map.entrySet().iterator();
+		while (it.hasNext()) {
+			Entry<String, String> entry = it.next();
+			depart.addItem(entry.getValue(), entry.getKey());
+		}
+	}
+	
 	@Override
 	public HasClickHandlers getAddBut() {
 		return addBtn;

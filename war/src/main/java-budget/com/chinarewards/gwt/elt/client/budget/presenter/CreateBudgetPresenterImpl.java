@@ -49,6 +49,7 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 	final Win win;
     String corpBudgetId="";
     double remainCount;//剩余的总积分
+    double oldCount;//修改时得到旧的预算积分
 	EltNewPager pager;
 	ListCellTable<DepBudgetVo> cellTable;
 	DepBudgetListAdapter listViewAdapter;
@@ -73,10 +74,7 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 		registerHandler(display.getSaveBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
-						if (!validateSubmit()) {
-							return;
-						}
-						saveDepartmentBudget(true);
+						saveDepartmentBudget("init");//查看有没有存在数据有的就更新
 					}
 				}));
 		registerHandler(display.getSearchBtnClickHandlers().addClickHandler(
@@ -99,12 +97,18 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 		
 	}
   
-	 private void saveDepartmentBudget(boolean isSave){
+	 private void saveDepartmentBudget(String operate){
+		   if (!validateSubmit()&& operate.equals("save")) {//是保存
+				return;
+			}
+		   else if (!validateSubmited()&& operate.equals("update")) {//是修改
+				return;
+			}
 		   DepBudgetVo depBudgetVo = new DepBudgetVo();
 		   depBudgetVo.setBudgetIntegral(Double.parseDouble(display.getJF().getValue()));
 		   depBudgetVo.setCorpBudgetId(display.getYear());
 		   depBudgetVo.setDepartmentId(display.getDepart());
-		   dispatch.execute(new AddDepartmentBudgetRequest(sessionManager.getSession(),depBudgetVo,isSave),
+		   dispatch.execute(new AddDepartmentBudgetRequest(sessionManager.getSession(),depBudgetVo,operate),
 					new AsyncCallback<AddDepartmentBudgetResponse>() {
 			          	@Override
 						public void onFailure(Throwable arg0) {
@@ -114,28 +118,34 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 
 						@Override
 						public void onSuccess(AddDepartmentBudgetResponse response) {
+							if(response.getMessage().equals("save")){
+								saveDepartmentBudget("save");
+							}
 							if(response.getMessage().equals("1")){
 							  win.alert("保存成功");
+							  toRefresh();
 							}
-							if(response.getMessage().equals("2")){
-							win.confirm("操作提示", "部门预算已存在,确定修改？", new ConfirmHandler() {
+							if(response.getMessage().equals("update")){
+								oldCount = response.getOldJf();
+							 win.confirm("操作提示", "部门预算已存在,确定修改？", new ConfirmHandler() {
 								@Override
 								public void confirm() {
-									 saveDepartmentBudget(false);
+									 saveDepartmentBudget("update");
 								 }
 							  });
 							}
 							 if(response.getMessage().equals("3")){
 								 win.alert("修改成功");
+								 toRefresh();
 							 }
-							 toRefresh();
+							 
 							 
 						}      
 
 					});
 		 
 	   }	
-	// 验证方法
+	   // 保存验证方法
 		private boolean validateSubmit() {
 			boolean flag = true;
 			StringBuilder errorMsg = new StringBuilder();
@@ -152,7 +162,7 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 			}
 			if (display.getJF().getValue() != null && ! "".equals(display.getJF().getValue().trim())) {
 			   try{
-				   if(remainCount < Integer.parseInt(display.getJF().getValue())){
+				   if(remainCount < Double.parseDouble(display.getJF().getValue())){
 					   errorMsg.append("公司预算剩余积分不足!<br>");
 						flag = false;
 				   }
@@ -170,6 +180,38 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 			return flag;
 		}
 		
+      // 验证方法提交后
+		private boolean validateSubmited() {
+			boolean flag = true;
+			StringBuilder errorMsg = new StringBuilder();
+			if (display.getDepart() == null|| "".equals(display.getDepart().trim())) {
+				errorMsg.append("请选择预算部门!<br>");
+				flag = false;
+			}
+			if (display.getJF().getValue() == null|| "".equals(display.getJF().getValue().trim())) {
+				errorMsg.append("请填写预算积分!<br>");
+				flag = false;
+			}
+			if (display.getJF().getValue() != null && ! "".equals(display.getJF().getValue().trim())) {
+			   try{
+				   if(oldCount+remainCount < Integer.parseInt(display.getJF().getValue())){
+					   errorMsg.append("公司预算剩余积分不足!<br>");
+						flag = false;
+				   }
+			   }catch(Exception   e){
+				    errorMsg.append("预算积分是大于0数字!<br>");
+					flag = false;
+			   }
+			
+				
+			}
+			if (!flag) {
+				win.alert(errorMsg.toString());
+			}
+
+			return flag;
+		}
+
 		// 验证方法
 	private boolean validateSearchSubmit() {
 		boolean flag = true;

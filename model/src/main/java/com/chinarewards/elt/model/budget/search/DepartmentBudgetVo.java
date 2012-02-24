@@ -1,6 +1,7 @@
 package com.chinarewards.elt.model.budget.search;
 
 import java.util.Date;
+import java.util.List;
 
 import com.chinarewards.elt.model.common.PaginationDetail;
 import com.chinarewards.elt.model.common.SortingDetail;
@@ -36,6 +37,14 @@ public class DepartmentBudgetVo {
     private Date   recorddate;   //操作时间
     private int    deleted   ;     //是否删除 
     private int people;  //部门总人数
+    private List<String> deptIds;
+    
+	public List<String> getDeptIds() {
+		return deptIds;
+	}
+	public void setDeptIds(List<String> deptIds) {
+		this.deptIds = deptIds;
+	}
 	public int getPeople() {
 		return people;
 	}

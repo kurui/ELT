@@ -1,6 +1,7 @@
 package com.chinarewards.gwt.elt.server.budget;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import net.customware.gwt.dispatch.server.ExecutionContext;
@@ -10,10 +11,10 @@ import org.slf4j.Logger;
 
 import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.service.org.DepartmentLogic;
-
 import com.chinarewards.gwt.elt.client.budget.model.DepartmentVo;
 import com.chinarewards.gwt.elt.client.budget.request.InitDepartmentRequest;
 import com.chinarewards.gwt.elt.client.budget.request.InitDepartmentResponse;
+import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
 import com.chinarewards.gwt.elt.server.logger.InjectLogger;
 import com.google.inject.Inject;
@@ -40,11 +41,16 @@ public class InitDepartmentHandler extends	BaseActionHandler<InitDepartmentReque
 	@Override
 	public InitDepartmentResponse execute(InitDepartmentRequest action,
 			ExecutionContext context) throws DispatchException {
-			
-		List<Department> listVo = departmentLogic.getImmediacyDepartmentsOfCorporation(action.getUserSession().getCorporationId());
+		List<UserRoleVo> roleList = Arrays.asList(action.getUserSession().getUserRoles());
 		InitDepartmentResponse resp = new InitDepartmentResponse();
-		resp.setResult(adapterToClient(listVo));//从服务端转为客户端
-
+		List<Department> listVo;
+		if (roleList.contains(UserRoleVo.CORP_ADMIN)) {	//得到一级部门
+		    listVo = departmentLogic.getImmediacyDepartmentsOfCorporation(action.getUserSession().getCorporationId());
+		    resp.setResult(adapterToClient(listVo));//从服务端转为客户端
+		 } else if (roleList.contains(UserRoleVo.DEPT_MGR)) {//得到子部门
+			 listVo = departmentLogic.getWholeChildren(action.getUserSession().getDepartmentId(),false);
+			 resp.setResult(adapterToClient(listVo));//从服务端转为客户端
+		 }
 		return resp;
 	   }
 	

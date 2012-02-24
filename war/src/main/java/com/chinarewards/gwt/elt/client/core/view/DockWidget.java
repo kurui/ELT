@@ -408,8 +408,7 @@ public class DockWidget extends Composite implements DockDisplay {
 		btnGb.getElement().getParentElement().addClassName(CssStyleConstants.hidden);
 		btnGift.setVisible(false);
 		btnGift.getElement().getParentElement().addClassName(CssStyleConstants.hidden);
-		btnIntegral.setVisible(false);
-		btnIntegral.getElement().getParentElement().addClassName(CssStyleConstants.hidden);
+
 		
 	}
 
