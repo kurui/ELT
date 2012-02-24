@@ -14,9 +14,9 @@ public class DepartmentLeaderRequest implements
 	public DepartmentLeaderRequest() {
 	}
 
-	public DepartmentLeaderRequest(String leaderId,String corporcationId) {
+	public DepartmentLeaderRequest(String leaderId, String corporcationId) {
 		this.leaderId = leaderId;
-		this.corporcationId=corporcationId;
+		this.corporcationId = corporcationId;
 	}
 
 	public String getLeaderId() {
@@ -34,10 +34,5 @@ public class DepartmentLeaderRequest implements
 	public void setCorporcationId(String corporcationId) {
 		this.corporcationId = corporcationId;
 	}
-	
-	
-	
-	
-	
 
 }

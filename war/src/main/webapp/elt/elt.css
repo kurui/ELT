@@ -1850,3 +1850,5 @@ li.token-input-input-token-facebook {
 .breadcrumbsSpan{float:left;	font-size: 12px;}
 .breadcrumbsAnchor{float:left;	font-size: 12px;text-decoration: none;}
 .breadcrumbsAnchor:hover {font-size: 12px;color:blue;cursor: pointer;}
+
+.remark-text2{border:1px solid #C3C3C3;padding:3px 5px;width:738px;margin-top:10px;}

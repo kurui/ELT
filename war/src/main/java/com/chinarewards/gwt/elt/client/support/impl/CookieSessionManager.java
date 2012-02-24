@@ -128,41 +128,58 @@ public class CookieSessionManager implements SessionManager {
 			@Override
 			public void onSuccess(LoginResponse resp) {
 				tokenObtained(resp);
+
+				UserRoleVo role = resp.getLastLoginRole();
+				if(role!=null)
+				{
+					if (role == UserRoleVo.CORP_ADMIN)
+						 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK));
+					else if (role == UserRoleVo.DEPT_MGR)
+						 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_DEPT));
+					else if (role == UserRoleVo.STAFF)
+						 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_STAFF));
+					else if (role == UserRoleVo.GIFT)
+						eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_GIFT));	
+
+				}
+				else
+				{
 				List <UserRoleVo> roleslt = new ArrayList<UserRoleVo>();
 				UserRoleVo [] roles=resp.getUserRoles();
-				UserRoleVo role=null;
-				if(roles.length>0)
-				{
-					for (UserRoleVo r:roles) {
-						roleslt.add(r);
-					}
-					
-					if(roleslt.size()>0)
+				
+					if(roles.length>0)
 					{
-						if(roleslt.contains(UserRoleVo.CORP_ADMIN))
-						{
-							 role=UserRoleVo.CORP_ADMIN;
-							 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK));
+						for (UserRoleVo r:roles) {
+							roleslt.add(r);
 						}
-						else if(roleslt.contains(UserRoleVo.DEPT_MGR))
+						
+						if(roleslt.size()>0)
 						{
-							 role=UserRoleVo.DEPT_MGR;
-							 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_DEPT));
+							if(roleslt.contains(UserRoleVo.CORP_ADMIN))
+							{
+								 role=UserRoleVo.CORP_ADMIN;
+								 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK));
+							}
+							else if(roleslt.contains(UserRoleVo.DEPT_MGR))
+							{
+								 role=UserRoleVo.DEPT_MGR;
+								 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_DEPT));
+							}
+							else if(roleslt.contains(UserRoleVo.GIFT))
+							{
+								 role=UserRoleVo.GIFT;
+								 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_GIFT));							 
+							}
+							else if(roleslt.contains(UserRoleVo.STAFF))
+							{
+								 role=UserRoleVo.STAFF;
+								 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_STAFF));
+							}
+							else 
+								Window.alert("没有角色");
 						}
-						else if(roleslt.contains(UserRoleVo.GIFT))
-						{
-							 role=UserRoleVo.GIFT;
-							 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_GIFT));							 
-						}
-						else if(roleslt.contains(UserRoleVo.STAFF))
-						{
-							 role=UserRoleVo.STAFF;
-							 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_STAFF));
-						}
-						else 
-							Window.alert("没有角色");
 					}
-					
+				}
 					if(role!=null)
 					{
 						dispatchAsync.execute(new LastLoginRoleRequest(resp.getToken(),role),
@@ -183,7 +200,7 @@ public class CookieSessionManager implements SessionManager {
 									}
 								});
 					}
-				}
+				
 
 			}
 		});

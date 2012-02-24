@@ -18,12 +18,24 @@ public class BroadcastReplyAddRequest implements Action<BroadcastReplyAddRespons
 	private String broadcastId;
 	private String replyContent;
 	private UserSession session;
-
+	private String replyParentId;
 
 	public BroadcastReplyAddRequest() {
 	}
 
 	
+
+	public String getReplyParentId() {
+		return replyParentId;
+	}
+
+
+
+	public void setReplyParentId(String replyParentId) {
+		this.replyParentId = replyParentId;
+	}
+
+
 
 	public String getReplyContent() {
 		return replyContent;
@@ -65,6 +77,12 @@ public class BroadcastReplyAddRequest implements Action<BroadcastReplyAddRespons
 		this.broadcastId = broadcastId;
 		this.session=session;
 		this.replyContent=replyContent;
+	}
+	public BroadcastReplyAddRequest(String broadcastId,String replyContent,UserSession session,String replyParentId) {
+		this.broadcastId = broadcastId;
+		this.session=session;
+		this.replyContent=replyContent;
+		this.replyParentId=replyParentId;
 	}
 
 

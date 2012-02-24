@@ -116,7 +116,19 @@ public abstract class DateTool {
 		}
 		return (1900 + d.getYear()) + "年" + (d.getMonth() + 1) + "月份";
 	}
-
+	/**
+	 * 去掉时间,留下月(中文)时间
+	 * 
+	 * @param d
+	 * @return
+	 */
+	@SuppressWarnings("deprecation")
+	public static String dateToStringChina2(Date d) {
+		if (d == null) {
+			return null;
+		}
+		return  (d.getMonth() + 1) + "月"+d.getDate()+"日 "+d.getHours()+":"+d.getMinutes();
+	}
 	/**
 	 * 精确到半年
 	 * 

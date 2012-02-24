@@ -63,5 +63,5 @@ public interface BroadcastService {
 	 * @param broadcastId
 	 * @return
 	 */
-	public BroadcastReply saveBroadcastReply(String broadcastId,String replyContent,UserContext context);
+	public BroadcastReply saveBroadcastReply(String broadcastId,String replyContent,UserContext context,String replyParentId);
 }

@@ -49,12 +49,22 @@ public class BroadcastReply implements Serializable {
 	private SysUser lastModifiedBy;
 	
 	private Date lastModifiedAt;
+	
+	private BroadcastReply parent;
 	/**
 	 * 公司
 	 */
 	@OneToOne(fetch = FetchType.EAGER)
 	private Corporation corporation;
 	
+	public BroadcastReply getParent() {
+		return parent;
+	}
+
+	public void setParent(BroadcastReply parent) {
+		this.parent = parent;
+	}
+
 	public Corporation getCorporation() {
 		return corporation;
 	}

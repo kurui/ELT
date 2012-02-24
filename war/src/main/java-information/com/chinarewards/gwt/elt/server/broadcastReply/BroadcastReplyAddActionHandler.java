@@ -45,7 +45,7 @@ public class BroadcastReplyAddActionHandler extends
 		context.setLoginName(request.getSession().getLoginName());
 		context.setUserRoles(UserRoleTool.adaptToRole(request.getSession()
 				.getUserRoles()));
-		broadcastService.saveBroadcastReply(request.getBroadcastId(), request.getReplyContent(), context);
+		broadcastService.saveBroadcastReply(request.getBroadcastId(), request.getReplyContent(), context,request.getReplyParentId());
 		
 		return staffResponse;
 	}

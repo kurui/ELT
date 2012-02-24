@@ -5,6 +5,7 @@ package com.chinarewards.gwt.elt.client.staffHeavenIndex.model;
 
 import java.util.Date;
 
+import com.chinarewards.gwt.elt.client.broadcasting.model.BroadcastingListCriteria.BroadcastingCategory;
 import com.chinarewards.gwt.elt.client.broadcasting.model.BroadcastingListCriteria.BroadcastingStatus;
 import com.chinarewards.gwt.elt.model.PaginationDetailClient;
 import com.chinarewards.gwt.elt.model.SortingDetailClient;
@@ -42,7 +43,20 @@ public class StaffHeavenIndexCriteria implements IsSerializable {
 	 */
 	private Date broadcastingTimeEnd;
 	
+	/**
+	 * 广播类型
+	 */
+	private BroadcastingCategory category;
 	
+	
+	public BroadcastingCategory getCategory() {
+		return category;
+	}
+
+	public void setCategory(BroadcastingCategory category) {
+		this.category = category;
+	}
+
 	public String getCorporationId() {
 		return corporationId;
 	}

@@ -6,6 +6,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Panel;
@@ -21,6 +22,17 @@ public class StaffHeavenIndexWidget extends Composite implements
 	@UiField
 	Panel resultpage;
 
+	@UiField
+	Anchor allInformation;
+	@UiField
+	Anchor staffInformation;
+	@UiField
+	Anchor sysInformation;
+	@UiField
+	Anchor themeInformation;
+	@UiField
+	InlineLabel topBroadcast;
+	
 	DateTimeFormat dateFormat = DateTimeFormat
 			.getFormat(ViewConstants.date_format);
 	private static StaffHeavenIndexWidgetUiBinder uiBinder = GWT
@@ -49,6 +61,32 @@ public class StaffHeavenIndexWidget extends Composite implements
 	@Override
 	public Panel getResultpage() {
 		return this.resultpage;
+	}
+
+	@Override
+	public Anchor getAllInformation() {
+		return this.allInformation;
+	}
+
+	@Override
+	public Anchor getStaffInformation() {
+		return staffInformation;
+	}
+
+	@Override
+	public Anchor getSysInformation() {
+		return sysInformation;
+	}
+
+	@Override
+	public Anchor getThemeInformation() {
+		return themeInformation;
+	}
+
+	@Override
+	public void setTopBroadcast(String text) {
+		topBroadcast.setText(text);
+		
 	}
 
 }

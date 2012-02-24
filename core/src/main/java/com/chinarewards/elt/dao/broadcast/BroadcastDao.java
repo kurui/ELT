@@ -53,7 +53,13 @@ public class BroadcastDao  extends BaseDao<Broadcasting>{
 			hql.append(" AND broadcast.status = :status ");
 			param.put("status", searchVo.getStatus());
 		}
-	
+		if(searchVo.getCategory()!=null)
+		{
+			hql.append(" AND broadcast.category = :category ");
+			param.put("category", searchVo.getCategory());
+		}
+		
+		
 		if (!StringUtil.isEmptyString(searchVo.getCreatedByUserName())) {
 			hql.append(" AND broadcast.createdBy.staff.name LIKE :createdByUserName ");
 			param.put("createdByUserName", "%"+searchVo.getCreatedByUserName()+"%");
@@ -82,7 +88,7 @@ public class BroadcastDao  extends BaseDao<Broadcasting>{
 		logger.debug(" HQL:{} ", hql);
 		Query query = getEm().createQuery(hql.toString());
 		if (SEARCH.equals(type)) {
-			if (searchVo.getPaginationDetail() != null) {
+			if (searchVo.getPaginationDetail() != null && searchVo.getPaginationDetail().getLimit()!=0 && searchVo.getPaginationDetail().getStart()!=0) {
 				int limit = searchVo.getPaginationDetail().getLimit();
 				int start = searchVo.getPaginationDetail().getStart();
 

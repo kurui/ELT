@@ -4,6 +4,9 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.core.Platform;
+import com.chinarewards.gwt.elt.client.department.model.DepartmentVo;
+import com.chinarewards.gwt.elt.client.department.request.SearchDepartmentByCorpIdRequest;
+import com.chinarewards.gwt.elt.client.department.request.SearchDepartmentByCorpIdResponse;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
@@ -90,7 +93,10 @@ public class StaffAddPresenterImpl extends
 						request.setSession(sessionManager.getSession());
 						request.setStaffName(display.getStaffName());
 						request.setStaffNo(display.getStaffNo());
-						request.setDepartmentId(display.getDepartmentId());
+						
+						int selectedIndex = display.getDepartment().getSelectedIndex();
+						request.setDepartmentId(display.getDepartment().getValue(selectedIndex));
+						
 						request.setPhoto(display.getPhoto().getValue());
 						request.setJobPosition(display.getJobPosition());
 						request.setLeadership(display.getLeadership());
@@ -128,8 +134,11 @@ public class StaffAddPresenterImpl extends
 				}));
 
 	}
+	
+
 
 	private void init() {
+		
 		if (staffId != null) {
 			// 修改加载数据
 			dispatch.execute(new StaffViewRequest(staffId),
@@ -145,8 +154,7 @@ public class StaffAddPresenterImpl extends
 
 							display.setStaffNo(resp.getStaffNo());
 							display.setStaffName(resp.getStaffName());
-							display.setDepartmentId(resp.getDepartmentId());
-							display.setDepartmentName(resp.getDepartmentName());
+							initDepartmentList(resp.getDepartmentId());
 							display.setJobPosition(resp.getJobPosition());
 							display.setLeadership(resp.getLeadership());
 							display.setPhone(resp.getPhone());
@@ -157,9 +165,14 @@ public class StaffAddPresenterImpl extends
 							display.setStatus(resp.getStatus().toString());
 
 						}
-					});
+					});			
+			
 
+		}else{
+			initDepartmentList("");
 		}
+		
+		
 
 		// 浏览即上传事件
 		registerHandler(display.getPhotoUpload().addChangeHandler(
@@ -228,6 +241,49 @@ public class StaffAddPresenterImpl extends
 						}
 					}
 				});
+	}
+	
+	
+	
+	private void initDepartmentList(final String selectedValue){
+		String corporationId=sessionManager.getSession().getCorporationId();
+		dispatch.execute(new SearchDepartmentByCorpIdRequest(corporationId),
+				new AsyncCallback<SearchDepartmentByCorpIdResponse>() {
+
+					@Override
+					public void onFailure(Throwable t) {
+						win.alert("查询部门列表异常："+t.getMessage());
+					}
+		
+					@Override
+					public void onSuccess(SearchDepartmentByCorpIdResponse resp) {
+						
+						display.getDepartment().clear();
+						int selectIndex = 0;
+						int i = 0;
+						for (DepartmentVo entry : resp.getDepartmentList()) {
+							String keyValue = entry.getId();
+							// System.out.println(entry.getId() + ": " + entry.getName());
+							if(entry.getName().indexOf("ROOT")>-1){
+								display.getDepartment().addItem("", entry.getId());
+							}else{
+								display.getDepartment().addItem(entry.getName(), entry.getId());
+							}
+							
+							
+							if (selectedValue != null && StringUtil.trim(selectedValue) != ""
+									&& StringUtil.trim(keyValue) != "") {
+								if (selectedValue.equals(keyValue)) {
+									
+									selectIndex = i;
+								}
+							}
+							i++;
+						}
+						display.getDepartment().setSelectedIndex(selectIndex);
+						
+					}					
+		});
 	}
 
 	@Override

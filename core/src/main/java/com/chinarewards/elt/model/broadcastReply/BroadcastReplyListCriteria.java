@@ -23,7 +23,16 @@ public class BroadcastReplyListCriteria implements Serializable {
 	private SortingDetail sortingDetail = new SortingDetail();
 
 	private String broadcastId;
+	private String replyParentId;
 	
+	public String getReplyParentId() {
+		return replyParentId;
+	}
+
+	public void setReplyParentId(String replyParentId) {
+		this.replyParentId = replyParentId;
+	}
+
 	public String getBroadcastId() {
 		return broadcastId;
 	}
