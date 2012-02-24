@@ -13,6 +13,7 @@ import com.chinarewards.gwt.elt.client.budget.module.DepBudgetModule;
 import com.chinarewards.gwt.elt.client.chooseOrganization.module.ChooseOrganizationModule;
 import com.chinarewards.gwt.elt.client.chooseStaff.module.ChooseStaffModule;
 import com.chinarewards.gwt.elt.client.core.presenter.DockModule;
+import com.chinarewards.gwt.elt.client.corpBroadcast.module.CorpBroadcastModule;
 import com.chinarewards.gwt.elt.client.department.module.DepartmentLeaderModule;
 import com.chinarewards.gwt.elt.client.department.module.DepartmentListModule;
 import com.chinarewards.gwt.elt.client.department.module.DepartmentModule;
@@ -22,6 +23,7 @@ import com.chinarewards.gwt.elt.client.detailsOfGift.module.DetailsOfGiftModule;
 import com.chinarewards.gwt.elt.client.enterprise.module.EnterprisesModule;
 import com.chinarewards.gwt.elt.client.gift.module.GiftListModule;
 import com.chinarewards.gwt.elt.client.gift.module.GiftModule;
+import com.chinarewards.gwt.elt.client.gloryBroadcast.module.GloryBroadcastModule;
 import com.chinarewards.gwt.elt.client.integralManagement.module.IntegralManagementModule;
 import com.chinarewards.gwt.elt.client.nominate.module.NominateModule;
 import com.chinarewards.gwt.elt.client.order.module.OrderBoxModule;
@@ -90,6 +92,8 @@ public class PresenterModule extends AbstractGinModule {
 		install(new DetailsOfBroadcastModule());
 		install(new BroadcastReplyModule());
 		install(new StaffHeavenIndexModule());
+		install(new CorpBroadcastModule());
+		install(new GloryBroadcastModule());
 		
 
 	}

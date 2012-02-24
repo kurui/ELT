@@ -12,6 +12,8 @@ import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.PluginManager;
 import com.chinarewards.gwt.elt.client.core.presenter.StaffPresenter.StaffDisplay;
 import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
+import com.chinarewards.gwt.elt.client.corpBroadcast.plugin.CorpBroadcastConstants;
+import com.chinarewards.gwt.elt.client.gloryBroadcast.plugin.GloryBroadcastConstants;
 import com.chinarewards.gwt.elt.client.login.LastLoginRoleRequest;
 import com.chinarewards.gwt.elt.client.login.LastLoginRoleResponse;
 import com.chinarewards.gwt.elt.client.login.event.LoginEvent;
@@ -172,6 +174,29 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 						"EDITOR_STAFFHEAVENINDEX_SEARCH_DO_ID", null);
 			}
 		}));
+		//公司广播
+		registerHandler(display.getCorpBroadcastAnchor().addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				Platform.getInstance()
+				.getEditorRegistry()
+				.openEditor(
+						CorpBroadcastConstants.EDITOR_CORPBROADCAST_SEARCH,
+						"EDITOR_CORPBROADCAST_SEARCH_DO_ID", null);
+			}
+		}));
+		//光荣榜
+		registerHandler(display.getGloryAnchor().addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				Platform.getInstance()
+				.getEditorRegistry()
+				.openEditor(
+						GloryBroadcastConstants.EDITOR_GLORYBROADCAST_SEARCH,
+						"EDITOR_GLORYBROADCAST_SEARCH_DO_ID", null);
+			}
+		}));
+
 	}
 
 	public StaffDisplay getDisplay() {
