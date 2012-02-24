@@ -107,6 +107,16 @@ public interface RewardService {
 	 */
 	public PageStore<RewardVo> fetchRewards(UserContext context,
 			RewardSearchVo criteria);
+	
+	/**
+	 * 查询我的获奖列表
+	 * 
+	 * @param context
+	 * @param criteria
+	 * @return
+	 */
+	public PageStore<RewardVo> fetchRewardsStaff(UserContext context,
+			RewardSearchVo criteria);
 
 	/**
 	 * 颁奖时...查询给定员工中有无离职人员

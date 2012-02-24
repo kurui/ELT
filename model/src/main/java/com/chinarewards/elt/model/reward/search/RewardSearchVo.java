@@ -25,54 +25,24 @@ public class RewardSearchVo {
 	 * 提名人-用户ID
 	 */
 	private String judgeUserId;
-	public String getJudgeUserId() {
-		return judgeUserId;
-	}
-
-	public void setJudgeUserId(String judgeUserId) {
-		this.judgeUserId = judgeUserId;
-	}
 
 	/**
-	 * id of Reward
+	 * The staff who win a reward
 	 */
+	private String winnerStaffId;
+
 	private String rewardId;
-	public String getRewardId() {
-		return rewardId;
-	}
 
-	public void setRewardId(String rewardId) {
-		this.rewardId = rewardId;
-	}
-
-	/**
-	 * name
-	 */
 	private String name;
 
-	/**
-	 * status
-	 */
 	private RewardStatus status;
 
-	/**
-	 * id of RewardItem
-	 */
 	private String rewardItemId;
 
-	/**
-	 * The corporation which Reward owns to.
-	 */
 	private String corporationId;
 
-	/**
-	 * definition
-	 */
 	private String definition;
 
-	/**
-	 * standard
-	 */
 	private String standard;
 
 	/**
@@ -110,10 +80,21 @@ public class RewardSearchVo {
 	 */
 	private TransactionUnit awardUnit;
 
-	/**
-	 * The staff who win a reward
-	 */
-	private String winnerStaffId;
+	public String getJudgeUserId() {
+		return judgeUserId;
+	}
+
+	public void setJudgeUserId(String judgeUserId) {
+		this.judgeUserId = judgeUserId;
+	}
+
+	public String getRewardId() {
+		return rewardId;
+	}
+
+	public void setRewardId(String rewardId) {
+		this.rewardId = rewardId;
+	}
 
 	public PaginationDetail getPaginationDetail() {
 		return paginationDetail;

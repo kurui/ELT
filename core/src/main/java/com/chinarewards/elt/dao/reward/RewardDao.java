@@ -40,9 +40,9 @@ public class RewardDao extends BaseDao<Reward> {
 	UserDao userDao;
 
 	@Inject
-	public RewardDao(DepartmentLogic departmentLogic,UserDao userDao) {
+	public RewardDao(DepartmentLogic departmentLogic, UserDao userDao) {
 		this.departmentLogic = departmentLogic;
-		this.userDao=userDao;
+		this.userDao = userDao;
 	}
 
 	/**
@@ -78,12 +78,12 @@ public class RewardDao extends BaseDao<Reward> {
 	public PageStore<Reward> searchRewards_departmentId(
 			List<String> departmentIds, RewardSearchVo criteria) {
 		// 是否查某部门所有子部门下的数据
-//		if (!StringUtil.isEmptyString(criteria.getBuilderDeptId())
-//				&& criteria.isSubDepartmentChosen()) {
-//			List<String> childrenIds = departmentLogic.getWholeChildrenIds(
-//					criteria.getBuilderDeptId(), true);
-//			criteria.setDeptIds(new ArrayList<String>(childrenIds));
-//		}
+		// if (!StringUtil.isEmptyString(criteria.getBuilderDeptId())
+		// && criteria.isSubDepartmentChosen()) {
+		// List<String> childrenIds = departmentLogic.getWholeChildrenIds(
+		// criteria.getBuilderDeptId(), true);
+		// criteria.setDeptIds(new ArrayList<String>(childrenIds));
+		// }
 		PageStore<Reward> res = new PageStore<Reward>();
 		List<Reward> list = searchRewardsData_departmentId(departmentIds,
 				criteria);
@@ -140,32 +140,28 @@ public class RewardDao extends BaseDao<Reward> {
 		}
 
 		if (criteria.getStatus() != null) {
-			List<RewardStatus> rstatus=new ArrayList<RewardStatus>();
-			if(criteria.getStatus()==RewardStatus.PENDING_NOMINATE || criteria.getStatus()==RewardStatus.NEW)
-			{
+			List<RewardStatus> rstatus = new ArrayList<RewardStatus>();
+			if (criteria.getStatus() == RewardStatus.PENDING_NOMINATE
+					|| criteria.getStatus() == RewardStatus.NEW) {
 				rstatus.add(RewardStatus.PENDING_NOMINATE);
 				rstatus.add(RewardStatus.NEW);
 				hql.append(" AND rew.status IN (:status)");
 				param.put("status", rstatus);
-			}
-			else
-			{
+			} else {
 				hql.append(" AND rew.status = :status");
 				param.put("status", criteria.getStatus());
 			}
 
-		}
-		else
-		{
+		} else {
 			hql.append(" AND rew.status != :status");
 			param.put("status", RewardStatus.REWARDED);
 		}
-		
+
 		if (!StringUtil.isEmptyString(criteria.getName())) {
 			hql.append(" AND ( Upper(rew.name) LIKE Upper(:key))");
 			param.put("key", "%" + criteria.getName() + "%");
 		}
-		
+
 		if (!StringUtil.isEmptyString(criteria.getDefinition())) {
 			hql.append(" AND ( Upper(rew.definition) LIKE Upper(:definition))");
 			param.put("definition", "%" + criteria.getDefinition() + "%");
@@ -178,10 +174,10 @@ public class RewardDao extends BaseDao<Reward> {
 		// 增加新的查询条件
 		addQueryCondition(hql, param, criteria);
 
-		//过滤已删除的数据
+		// 过滤已删除的数据
 		hql.append(" AND rew.deleted != :deleted");
-		param.put("deleted",true);
-		
+		param.put("deleted", true);
+
 		if (SEARCH.equals(type)) {
 			if (null != criteria && null != criteria.getSortingDetail()) {
 				hql.append(" ORDER BY rew.");
@@ -214,6 +210,8 @@ public class RewardDao extends BaseDao<Reward> {
 
 		return query;
 	}
+
+	
 
 	private void addQueryCondition(StringBuffer hql, Map<String, Object> param,
 			RewardSearchVo criteria) {
@@ -278,10 +276,12 @@ public class RewardDao extends BaseDao<Reward> {
 				hql.append(" AND rew.id IN(SELECT w.reward.id FROM Winner w WHERE w.staff.id = :staffId)");
 				param.put("staffId", criteria.getWinnerStaffId());
 			}
-			
-			//添加当前用户需要提名的数据
+
+			// 添加当前用户需要提名的数据
 			if (!StringUtil.isEmptyString(criteria.getJudgeUserId())) {
-				String staffid=userDao.findById(SysUser.class, criteria.getJudgeUserId()).getStaff().getId();
+				String staffid = userDao
+						.findById(SysUser.class, criteria.getJudgeUserId())
+						.getStaff().getId();
 				hql.append(" AND rew.id IN(SELECT w.reward.id FROM Judge w WHERE w.staff.id = :judgeUserId)");
 				param.put("judgeUserId", staffid);
 			}

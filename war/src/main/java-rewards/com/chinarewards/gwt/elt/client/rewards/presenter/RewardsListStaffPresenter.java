@@ -21,8 +21,6 @@ public interface RewardsListStaffPresenter extends
 
 		public HasValue<String> getDefinition();
 
-		public void setDataCount(String text);
-
 		public Panel getResultPanel();
 
 		public Panel getResultpage();

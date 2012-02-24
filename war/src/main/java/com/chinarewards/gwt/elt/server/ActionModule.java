@@ -70,6 +70,7 @@ import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsItemViewR
 import com.chinarewards.gwt.elt.client.rewardItem.request.SearchStaffRequest;
 import com.chinarewards.gwt.elt.client.rewards.request.DeleteRewardsRequest;
 import com.chinarewards.gwt.elt.client.rewards.request.SearchRewardsRequest;
+import com.chinarewards.gwt.elt.client.rewards.request.SearchRewardsStaffRequest;
 import com.chinarewards.gwt.elt.client.shopWindow.request.ShopWindowRequest;
 import com.chinarewards.gwt.elt.client.staff.HrRegisterRequest;
 import com.chinarewards.gwt.elt.client.staffAdd.request.StaffAddRequest;
@@ -153,6 +154,7 @@ import com.chinarewards.gwt.elt.server.rewardItem.SearchRewardsItemViewHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.SearchStaffHandler;
 import com.chinarewards.gwt.elt.server.rewards.DeleteRewardsHandler;
 import com.chinarewards.gwt.elt.server.rewards.SearchRewardsHandler;
+import com.chinarewards.gwt.elt.server.rewards.SearchRewardsStaffHandler;
 import com.chinarewards.gwt.elt.server.shopWindow.SearchShopWindowHandler;
 import com.chinarewards.gwt.elt.server.staff.HrRegisterActionHandler;
 import com.chinarewards.gwt.elt.server.staff.SearchStaffListActionHandler;
@@ -243,6 +245,9 @@ public class ActionModule extends ActionHandlerModule {
 		
 		//奖励列表
 		bindHandler(SearchRewardsRequest.class, SearchRewardsHandler.class);
+		//我的获奖列表
+		bindHandler(SearchRewardsStaffRequest.class, SearchRewardsStaffHandler.class);
+						
 		bindHandler(SearchStaffChooseRequest.class, SearchStaffActionHandler.class);
 
 		//颁奖

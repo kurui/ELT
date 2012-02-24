@@ -15,8 +15,8 @@ import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.reward.RewardService;
 import com.chinarewards.gwt.elt.adapter.rewards.RewardsAdapter;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsCriteria;
-import com.chinarewards.gwt.elt.client.rewards.request.SearchRewardsRequest;
-import com.chinarewards.gwt.elt.client.rewards.request.SearchRewardsResponse;
+import com.chinarewards.gwt.elt.client.rewards.request.SearchRewardsStaffRequest;
+import com.chinarewards.gwt.elt.client.rewards.request.SearchRewardsStaffResponse;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
 import com.chinarewards.gwt.elt.server.logger.InjectLogger;
 import com.chinarewards.gwt.elt.util.UserRoleTool;
@@ -26,7 +26,7 @@ import com.google.inject.Inject;
  * @author yanrui
  */
 public class SearchRewardsStaffHandler extends
-		BaseActionHandler<SearchRewardsRequest, SearchRewardsResponse> {
+		BaseActionHandler<SearchRewardsStaffRequest, SearchRewardsStaffResponse> {
 
 	@InjectLogger
 	Logger logger;
@@ -40,10 +40,10 @@ public class SearchRewardsStaffHandler extends
 	}
 
 	@Override
-	public SearchRewardsResponse execute(SearchRewardsRequest request,
+	public SearchRewardsStaffResponse execute(SearchRewardsStaffRequest request,
 			ExecutionContext context) throws DispatchException {
 
-		SearchRewardsResponse resp = new SearchRewardsResponse();
+		SearchRewardsStaffResponse resp = new SearchRewardsStaffResponse();
 
 		RewardsCriteria rewards = request.getRewards();
 		RewardSearchVo criteria = adapter(rewards);
@@ -56,7 +56,7 @@ public class SearchRewardsStaffHandler extends
 		uc.setUserRoles(UserRoleTool.adaptToRole(request.getSession()
 				.getUserRoles()));
 
-		rewardsPage = rewardService.fetchRewards(uc, criteria);
+		rewardsPage = rewardService.fetchRewardsStaff(uc, criteria);
 		if (rewardsPage != null) {
 			resp.setTotal(rewardsPage.getResultCount());
 			resp.setResult(RewardsAdapter.adapter(rewardsPage.getResultList()));
@@ -102,12 +102,12 @@ public class SearchRewardsStaffHandler extends
 	}
 
 	@Override
-	public Class<SearchRewardsRequest> getActionType() {
-		return SearchRewardsRequest.class;
+	public Class<SearchRewardsStaffRequest> getActionType() {
+		return SearchRewardsStaffRequest.class;
 	}
 
 	@Override
-	public void rollback(SearchRewardsRequest req, SearchRewardsResponse resp,
+	public void rollback(SearchRewardsStaffRequest req, SearchRewardsStaffResponse resp,
 			ExecutionContext cxt) throws DispatchException {
 	}
 

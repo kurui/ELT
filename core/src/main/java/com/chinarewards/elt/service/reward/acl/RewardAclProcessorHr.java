@@ -6,6 +6,7 @@ import java.util.List;
 import com.chinarewards.elt.dao.reward.RewardDao;
 import com.chinarewards.elt.dao.reward.RewardItemDao;
 import com.chinarewards.elt.dao.reward.RewardItemStoreDao;
+import com.chinarewards.elt.dao.reward.WinnerDao;
 import com.chinarewards.elt.domain.reward.base.Reward;
 import com.chinarewards.elt.domain.reward.base.RewardItem;
 import com.chinarewards.elt.domain.reward.base.RewardItemStore;
@@ -23,13 +24,16 @@ public class RewardAclProcessorHr extends AbstractRewardAclProcessor {
 	private final RewardItemDao rewardsItemDao;
 	private final DepartmentLogic departmentLogic;
 	private final RewardItemStoreDao rewardsItemStoreDao;
+	private final WinnerDao winnerDao;
+	
 	@Inject
 	public RewardAclProcessorHr(RewardDao rewardsDao,RewardItemStoreDao rewardsItemStoreDao,
-			RewardItemDao rewardsItemDao, DepartmentLogic departmentLogic) {
+			RewardItemDao rewardsItemDao,WinnerDao winnerDao,DepartmentLogic departmentLogic) {
 		this.rewardsDao = rewardsDao;
 		this.rewardsItemDao = rewardsItemDao;
 		this.departmentLogic = departmentLogic;
 		this.rewardsItemStoreDao = rewardsItemStoreDao;
+		this.winnerDao=winnerDao;
 	}
 
 	@Override
@@ -76,6 +80,18 @@ public class RewardAclProcessorHr extends AbstractRewardAclProcessor {
 		String corporationId = context.getCorporationId();
 		PageStore<Reward> res = new PageStore<Reward>();
 		res = rewardsDao.searchRewards_hrManager(corporationId, criteria);
+		return res;
+	}
+	
+	@Override
+	public PageStore<Reward> fetchRewardsStaff(UserContext context,
+			RewardSearchVo criteria) {
+		logger.debug(
+				" Process in fetchRewards method, CorporationId:{}, criteria:{}",
+				new Object[] { context.getCorporationId(), criteria.toString() });
+
+		PageStore<Reward> res = new PageStore<Reward>();
+		res = winnerDao.searchRewards_staff(criteria);
 		return res;
 	}
 

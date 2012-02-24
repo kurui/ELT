@@ -52,7 +52,6 @@ public class RewardsListStaffViewAdapter extends
 					public void onSuccess(SearchRewardsResponse response) {
 						updateRowData(start, response.getResult());
 						updateRowCount(response.getTotal(), true);
-						display.setDataCount(response.getTotal() + "");
 					}
 
 				});

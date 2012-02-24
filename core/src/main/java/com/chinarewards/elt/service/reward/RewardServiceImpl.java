@@ -96,6 +96,12 @@ public class RewardServiceImpl implements RewardService {
 			RewardSearchVo criteria) {
 		return rewardLogic.fetchRewards(context, criteria);
 	}
+	
+	@Override
+	public PageStore<RewardVo> fetchRewardsStaff(UserContext context,
+			RewardSearchVo criteria) {
+		return rewardLogic.fetchRewardsStaff(context, criteria);
+	}
 
 	@Override
 	public RewardQueryVo fetchWinRewardQueryVoById(String rewardId) {
