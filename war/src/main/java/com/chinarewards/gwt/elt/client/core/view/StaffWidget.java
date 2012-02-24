@@ -79,7 +79,9 @@ public class StaffWidget extends Composite implements StaffDisplay {
 	InlineLabel deptName;
 	@UiField
 	InlineLabel integral;
-
+	@UiField
+	InlineLabel integral2;
+	
 	// Set the format of datepicker.
 	DateTimeFormat dateFormat = DateTimeFormat
 			.getFormat(ViewConstants.date_format_chinese);
@@ -398,5 +400,6 @@ public class StaffWidget extends Composite implements StaffDisplay {
 	@Override
 	public void setIntegral(int integral) {
 		this.integral.setText(integral+"");
+		this.integral2.setText(integral+"");
 	}
 }

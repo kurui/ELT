@@ -133,7 +133,7 @@
 				          </ul>
 				
 				          <div class="{new2.encash}">
-				            <h3><span>1800</span> 积分，能换什么？</h3>
+				            <h3><span><g:InlineLabel ui:field="integral2" /></span> 积分，能换什么？</h3>
 				            <div class="{new2.gift-list} {new2.clearfix}">
 				              <div class="{new2.gift}">
 				                <img src="elt/images/gift_emplate.png" width="80px" height="60px" />
