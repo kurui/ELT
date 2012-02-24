@@ -27,6 +27,7 @@ import com.chinarewards.gwt.elt.client.login.event.LoginEvent;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.orderHistory.plugin.OrderHistoryConstants;
+import com.chinarewards.gwt.elt.client.smallControl.view.SmallRewardWindowWidget;
 import com.chinarewards.gwt.elt.client.smallControl.view.SmallShopWindowWidget;
 import com.chinarewards.gwt.elt.client.staffHeavenIndex.plugin.StaffHeavenIndexConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
@@ -290,6 +291,31 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 				
 			}
 		});
+		
+		//奖励小控件加载
+		
+		Grid grid = new Grid(5, 1);
+
+		// Add images to the grid
+		int numRows = grid.getRowCount();
+		int numColumns = grid.getColumnCount();
+		for (int row = 0; row < numRows; row++) {
+			for (int col = 0; col < numColumns; col++) {
+				
+					grid.setWidget(
+							row,
+							col,
+							new SmallRewardWindowWidget("11","test"));
+			
+				
+			}
+		}
+
+		// Return the panel
+		grid.ensureDebugId("cwGridreward");
+
+		display.getRewardPanel().clear();
+		display.getRewardPanel().add(grid);
 		
 	}
 	public StaffDisplay getDisplay() {

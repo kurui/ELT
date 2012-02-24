@@ -151,23 +151,20 @@
 				 <div class="{new2.reward-area}">
 			        <div class="{new2.reward-section}">
 			          <ul class="{new2.reward-select}">
-			            <li class="{new2.on}"><a href="#">我获得的奖项</a></li>
-			            <li><a href="#">全部奖项</a></li>
+			            <li class="{new2.on}"><g:Anchor ui:field="myWinReward" text="我获得的奖项" /> </li>
+			            <li><g:Anchor ui:field="allReward" text="全部奖项" /></li>
 			          </ul>
 			          <ul class="{new2.reward-list}">
-			            <li><a href="#">月度最佳</a></li>
-			            <li><a href="#">项目奖</a></li>
-			            <li class="{new2.on}"><a href="#">季度最佳</a></li>
-			            <li><a href="#">月度全勤</a></li>
-			            <li><a href="#">年度最佳</a></li>
+			          <g:FlowPanel ui:field="rewardPanel" />
 			          </ul>
+			        
 			          <p><a href="#">更多&gt;&gt;</a></p>
 			        </div>
 			
 			        <div class="{new2.reward-section}">
 			          <ul class="{new2.reward-select}">
-			            <li class="{new2.on}"><a href="#">努力冲奖项</a></li>
-			            <li><a href="#">公司所有奖项</a></li>
+			            <li class="{new2.on}"> <g:Anchor ui:field="effortRewardItem" text="努力冲奖项" /></li>
+			            <li><g:Anchor ui:field="allRewardItem" text="公司所有奖项" /></li>
 			          </ul>
 			          <ul class="{new2.reward-list} {new2.reward-pslist}">
 			            <li>

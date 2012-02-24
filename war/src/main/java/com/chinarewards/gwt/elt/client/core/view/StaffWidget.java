@@ -24,6 +24,8 @@ public class StaffWidget extends Composite implements StaffDisplay {
 	Panel dock;
 	@UiField
 	Panel smaillShopWindow;
+	@UiField
+	Panel rewardPanel;
 	
 	@UiField
 	Anchor logBtn;
@@ -85,6 +87,15 @@ public class StaffWidget extends Composite implements StaffDisplay {
 	@UiField
 	InlineLabel integral2;
 	
+	@UiField
+	Anchor myWinReward;
+	@UiField
+	Anchor allReward;
+	@UiField
+	Anchor effortRewardItem;
+	@UiField
+	Anchor allRewardItem;
+	
 	// Set the format of datepicker.
 	DateTimeFormat dateFormat = DateTimeFormat
 			.getFormat(ViewConstants.date_format_chinese);
@@ -104,7 +115,50 @@ public class StaffWidget extends Composite implements StaffDisplay {
 	 
 	 String anchorOn="";
 	 String anchorNo="";
+	 
+	 String styleRewardOn="";
+	 String styleRewardNo="";
+	 
 		private void init() {
+			styleRewardOn=myWinReward.getElement().getParentElement().getAttribute("class");
+			
+			
+			effortRewardItem.addClickHandler(new ClickHandler() {
+				
+				@Override
+				public void onClick(ClickEvent event) {
+					effortRewardItem.getElement().getParentElement().setAttribute("class", styleRewardOn);						
+					allRewardItem.getElement().getParentElement().setAttribute("class", styleRewardNo);						
+				}
+			});
+			allRewardItem.addClickHandler(new ClickHandler() {
+				
+				@Override
+				public void onClick(ClickEvent event) {
+					effortRewardItem.getElement().getParentElement().setAttribute("class", styleRewardNo);						
+					allRewardItem.getElement().getParentElement().setAttribute("class", styleRewardOn);						
+				}
+			});
+			
+			
+			myWinReward.addClickHandler(new ClickHandler() {
+				
+				@Override
+				public void onClick(ClickEvent event) {
+					myWinReward.getElement().getParentElement().setAttribute("class", styleRewardOn);						
+					allReward.getElement().getParentElement().setAttribute("class", styleRewardNo);						
+				}
+			});
+			allReward.addClickHandler(new ClickHandler() {
+				
+				@Override
+				public void onClick(ClickEvent event) {
+					myWinReward.getElement().getParentElement().setAttribute("class", styleRewardNo);						
+					allReward.getElement().getParentElement().setAttribute("class", styleRewardOn);						
+				}
+			});
+			
+			
 			anchorOn=this.staffHeavenIndex.getStyleName();
 			anchorNo=this.staffAnchor.getStyleName();
 			staffHeavenIndex.addClickHandler(new ClickHandler() {
@@ -412,5 +466,9 @@ public class StaffWidget extends Composite implements StaffDisplay {
 	@Override
 	public HasClickHandlers getMore() {
 		return more;
+	}
+	@Override
+	public Panel getRewardPanel() {
+		return rewardPanel;
 	}
 }

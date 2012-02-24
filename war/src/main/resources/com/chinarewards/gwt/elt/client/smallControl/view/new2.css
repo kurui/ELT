@@ -6,7 +6,7 @@ img,fieldset{border:none;}
 img{display:inline-block;overflow:hidden;vertical-align:top;}
 em,address{font-style:normal;}
 sup,sub{vertical-align:baseline;}
-table{border-collapse:collapse;border-spacing:0;}
+table{border-collapse:collapse;border-spacing:0;width:100%}
 q:before{content:"";}
 q:after{content:"";}
 button{cursor:pointer;}
