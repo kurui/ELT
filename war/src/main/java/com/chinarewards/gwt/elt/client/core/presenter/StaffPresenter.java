@@ -48,6 +48,7 @@ public interface StaffPresenter extends Presenter<StaffPresenter.StaffDisplay> {
 		void setIntegral(int integral);
 		Panel getSmaillShopWindow();
 		Panel getRewardPanel();
+		Panel getRewardItemPanel();
 		
 	}
 	

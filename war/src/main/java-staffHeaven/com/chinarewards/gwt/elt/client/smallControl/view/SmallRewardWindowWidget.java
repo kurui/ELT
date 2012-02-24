@@ -26,7 +26,6 @@ public class SmallRewardWindowWidget extends Composite {
 	public SmallRewardWindowWidget(final String rewardId, String rewardName) {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.rewardName.setText(rewardName);
-
 		if (rewardId != null) {
 
 			this.rewardName.addClickHandler(new ClickHandler() {

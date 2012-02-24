@@ -4,20 +4,25 @@
 	xmlns:d='urn:import:com.google.gwt.user.datepicker.client'>
 	<ui:style src="new2.css" field="new2"></ui:style>
 	<g:HTMLPanel>
-		<div class="{new2.employee}">
-			<div class="{new2.encash}">
-				<div class="{new2.gift-list} {new2.clearfix}">
-					<div class="{new2.gift}">
-						<g:Image ui:field="shopPhoto" pixelSize="80,60" />
-						<p><g:Anchor ui:field="shopName" /> </p>
-						<p>
-							<span class="{new2.color-orange}"><g:InlineLabel ui:field="integral" /></span>
-							积分
-						</p>
-					</div>
+	<div class="{new2.employee}">
+	<div class="{new2.reward-section}">
+	
+	<ul class="{new2.reward-list} {new2.reward-pslist}">
+		<li>
+			<div class="{new2.imglink} {new2.clearfix}">
+				<g:Image pixelSize="28,27" ui:field="rewardItemPhoto" />
+				<div>
+					<p>
+						<g:Anchor ui:field="rewardItemName" />
+					</p>
+					<p>
+						每次奖金
+						<span><g:InlineLabel ui:field="integral" /> </span>
+						积分
+					</p>
 				</div>
 			</div>
-
-		</div>
+		</li>
+		</ul></div></div>
 	</g:HTMLPanel>
 </ui:UiBinder> 

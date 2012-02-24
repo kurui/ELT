@@ -1,8 +1,5 @@
 package com.chinarewards.gwt.elt.client.smallControl.view;
 
-import com.chinarewards.gwt.elt.client.core.Platform;
-import com.chinarewards.gwt.elt.client.detailsOfGift.model.DetailsOfGiftClient;
-import com.chinarewards.gwt.elt.client.detailsOfGift.plugin.DetailsOfGiftConstants;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -15,15 +12,13 @@ import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class SmallRewardItemWindowWidget extends Composite {
-
 	@UiField
-	Image shopPhoto;
+	Image rewardItemPhoto;
 	@UiField
-	Anchor shopName;
+	Anchor rewardItemName;
 	@UiField
 	InlineLabel integral;
 
-	String shopId;
 	private static GloryBroadcastWidgetUiBinder uiBinder = GWT
 			.create(GloryBroadcastWidgetUiBinder.class);
 
@@ -31,26 +26,18 @@ public class SmallRewardItemWindowWidget extends Composite {
 			UiBinder<Widget, SmallRewardItemWindowWidget> {
 	}
 
-	public SmallRewardItemWindowWidget(final String shopId, String shopName,
-			String integral, String shopPhoto) {
+	public SmallRewardItemWindowWidget(final String rewardItemId,
+			String rewardItemName, String integral,String rewardItemPhoto) {
 		initWidget(uiBinder.createAndBindUi(this));
-		this.shopId = shopId;
-		this.shopName.setText(shopName);
+		this.rewardItemName.setText(rewardItemName);
 		this.integral.setText(integral);
-		this.shopPhoto.setUrl("imageshow?imageName=" + shopPhoto);
+		this.rewardItemPhoto.setUrl("imageshow?imageName=" + rewardItemPhoto);
+		if (rewardItemId != null) {
 
-		if (shopId != null) {
-
-			this.shopName.addClickHandler(new ClickHandler() {
+			this.rewardItemName.addClickHandler(new ClickHandler() {
 
 				@Override
 				public void onClick(ClickEvent event) {
-					Platform.getInstance()
-							.getEditorRegistry()
-							.openEditor(
-									DetailsOfGiftConstants.EDITOR_DETAILSOFGIFT_SEARCH,
-									"EDITOR_DETAILSOFGIFT_SEARCH_DO_ID",
-									new DetailsOfGiftClient(shopId));
 
 				}
 			});

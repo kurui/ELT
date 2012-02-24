@@ -26,6 +26,8 @@ public class StaffWidget extends Composite implements StaffDisplay {
 	Panel smaillShopWindow;
 	@UiField
 	Panel rewardPanel;
+	@UiField
+	Panel rewardItemPanel;
 	
 	@UiField
 	Anchor logBtn;
@@ -470,5 +472,9 @@ public class StaffWidget extends Composite implements StaffDisplay {
 	@Override
 	public Panel getRewardPanel() {
 		return rewardPanel;
+	}
+	@Override
+	public Panel getRewardItemPanel() {
+		return rewardItemPanel;
 	}
 }

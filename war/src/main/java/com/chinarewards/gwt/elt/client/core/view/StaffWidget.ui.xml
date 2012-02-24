@@ -167,51 +167,7 @@
 			            <li><g:Anchor ui:field="allRewardItem" text="公司所有奖项" /></li>
 			          </ul>
 			          <ul class="{new2.reward-list} {new2.reward-pslist}">
-			            <li>
-			              <div class="{new2.imglink} {new2.clearfix}">
-			                <img src="img/reward_emplate.png" width="28px" height="27px" />
-			                <div>
-			                  <p><a href="#">月度全勤奖</a></p>
-			                  <p>每次奖金 <span>50</span> 积分</p>
-			                </div>
-			              </div>
-			            </li>
-			            <li>
-			                <div class="{new2.imglink} {new2.clearfix}">
-			                <img src="img/reward_emplate.png" width="28px" height="27px" />
-			                <div>
-			                  <p><a href="#">月度全勤奖</a></p>
-			                  <p>每次奖金 <span>50</span> 积分</p>
-			                </div>
-			              </div>
-			            </li>
-			            <li>
-			                 <div class="{new2.imglink} {new2.clearfix}">
-			                <img src="img/reward_emplate.png" width="28px" height="27px" />
-			                <div>
-			                  <p><a href="#">月度全勤奖</a></p>
-			                  <p>每次奖金 <span>50</span> 积分</p>
-			                </div>
-			              </div>
-			            </li>
-			            <li>
-			                 <div class="{new2.imglink} {new2.clearfix}">
-			                <img src="img/reward_emplate.png" width="28px" height="27px" />
-			                <div>
-			                  <p><a href="#">月度全勤奖</a></p>
-			                  <p>每次奖金 <span>50</span> 积分</p>
-			                </div>
-			              </div>
-			            </li>
-			            <li>
-			               <div class="{new2.imglink} {new2.clearfix}">
-			                <img src="img/reward_emplate.png" width="28px" height="27px" />
-			                <div>
-			                  <p><a href="#">月度全勤奖</a></p>
-			                  <p>每次奖金 <span>50</span> 积分</p>
-			                </div>
-			              </div>
-			            </li>
+			             <g:FlowPanel ui:field="rewardItemPanel" />
 			          </ul>
 			          <p><a href="#">更多&gt;&gt;</a></p>
 			        </div>

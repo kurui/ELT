@@ -4,8 +4,15 @@
 	xmlns:d='urn:import:com.google.gwt.user.datepicker.client'>
 	<ui:style src="new2.css" field="new2"></ui:style>
 	<g:HTMLPanel>
-		
-			            <li><g:Anchor ui:field="rewardName" /> </li>
-			
+
+		<div class="{new2.employee}">
+			<div class="{new2.reward-section}">
+				<ul class="{new2.reward-list}">
+					<li>
+						<g:Anchor ui:field="rewardName" width="100%" />
+					</li>
+				</ul>
+			</div>
+		</div>
 	</g:HTMLPanel>
 </ui:UiBinder> 
