@@ -22,6 +22,7 @@ import com.chinarewards.gwt.elt.client.login.event.LoginEvent;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.orderHistory.plugin.OrderHistoryConstants;
+import com.chinarewards.gwt.elt.client.smallControl.view.SmallShopWindowWidget;
 import com.chinarewards.gwt.elt.client.staffHeavenIndex.plugin.StaffHeavenIndexConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.model.user.UserRoleVo;
@@ -30,6 +31,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Grid;
 import com.google.inject.Inject;
 
 public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
@@ -222,6 +224,25 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 						display.setStation(resp.getStation());
 					}
 				});
+		//加载小橱窗控件
+		Grid grid = new Grid(3, 2);
+
+		// Add images to the grid
+		int numRows = grid.getRowCount();
+		int numColumns = grid.getColumnCount();
+		for (int row = 0; row < numRows; row++) {
+			for (int col = 0; col < numColumns; col++) {
+				
+					grid.setWidget(
+							row,
+							col,
+							new SmallShopWindowWidget("11","22","33","44"));
+					
+				} 
+		}
+		display.getSmaillShopWindow().clear();
+		display.getSmaillShopWindow().add(grid);
+		
 	}
 	public StaffDisplay getDisplay() {
 		return display;

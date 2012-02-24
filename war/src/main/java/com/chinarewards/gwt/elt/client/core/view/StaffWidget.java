@@ -22,8 +22,9 @@ public class StaffWidget extends Composite implements StaffDisplay {
 
 	@UiField
 	Panel dock;
-
-
+	@UiField
+	Panel smaillShopWindow;
+	
 	@UiField
 	Anchor logBtn;
 
@@ -401,5 +402,9 @@ public class StaffWidget extends Composite implements StaffDisplay {
 	public void setIntegral(int integral) {
 		this.integral.setText(integral+"");
 		this.integral2.setText(integral+"");
+	}
+	@Override
+	public Panel getSmaillShopWindow() {
+		return smaillShopWindow;
 	}
 }

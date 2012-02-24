@@ -135,41 +135,7 @@
 				          <div class="{new2.encash}">
 				            <h3><span><g:InlineLabel ui:field="integral2" /></span> 积分，能换什么？</h3>
 				            <div class="{new2.gift-list} {new2.clearfix}">
-				              <div class="{new2.gift}">
-				                <img src="elt/images/gift_emplate.png" width="80px" height="60px" />
-				                <p>笔记本电脑</p>
-				                <p><span class="{new2.color-orange}">1790</span> 积分</p>
-				              </div>
-				
-				              <div class="{new2.gift}">
-				                <img src="img/gift_emplate.png" width="80px" height="60px" />
-				                <p>笔记本电脑</p>
-				                <p><span class="{new2.color-orange}">1790</span> 积分</p>
-				              </div>
-				
-				             <div class="{new2.gift}">
-				                <img src="img/gift_emplate.png" width="80px" height="60px" />
-				                <p>笔记本电脑</p>
-				                <p><span class="{new2.color-orange}">1790</span> 积分</p>
-				              </div>
-				
-				               <div class="{new2.gift}">
-				                <img src="img/gift_emplate.png" width="80px" height="60px" />
-				                <p>笔记本电脑</p>
-				                <p><span class="{new2.color-orange}">1790</span> 积分</p>
-				              </div>
-				
-				               <div class="{new2.gift}">
-				                <img src="img/gift_emplate.png" width="80px" height="60px" />
-				                <p>笔记本电脑</p>
-				                <p><span class="{new2.color-orange}">1790</span> 积分</p>
-				              </div>
-				
-				               <div class="{new2.gift}">
-				                <img src="img/gift_emplate.png" width="80px" height="60px" />
-				                <p>笔记本电脑</p>
-				                <p><span class="{new2.color-orange}">1790</span> 积分</p>
-				              </div>
+								<g:FlowPanel ui:field="smaillShopWindow" />
 				              <p><a href="#" class="{new2.more}">还有什么，去看看&gt;&gt;</a></p>
 				            </div>
 				          </div>

@@ -46,7 +46,7 @@ public interface StaffPresenter extends Presenter<StaffPresenter.StaffDisplay> {
 		void setStation(String station);
 		void setDeptName(String deptName);
 		void setIntegral(int integral);
-
+		Panel getSmaillShopWindow();
 	}
 	
 	
