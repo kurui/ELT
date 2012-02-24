@@ -18,6 +18,7 @@ import com.chinarewards.gwt.elt.client.login.event.LoginEvent;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.orderHistory.plugin.OrderHistoryConstants;
+import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListStaffConstants;
 import com.chinarewards.gwt.elt.client.staffHeavenIndex.plugin.StaffHeavenIndexConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.model.user.UserRoleVo;
@@ -139,6 +140,53 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 						Window.Location.reload();
 					}
 				}));
+		
+		//查看积分
+		registerHandler(display.getViewPoints().addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				Platform.getInstance()
+				.getEditorRegistry()
+				.openEditor(
+						AwardShopListConstants.EDITOR_AWARDSHOPLIST_SEARCH,
+						"EDITOR_AWARDSHOPLIST_SEARCH_DO_ID", null);
+			}
+		}));
+		//获奖历史
+		registerHandler(display.getWinninghistory().addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				Platform.getInstance()
+				.getEditorRegistry()
+				.openEditor(
+						RewardsListStaffConstants.EDITOR_REWARDSLIST_STAFF_SEARCH,
+						"EDITOR_REWARDSLIST_SEARCH_DO_ID", null);
+			}
+		}));
+		
+		//我参与的奖项
+		registerHandler(display.getParticipationAwards().addClickHandler(new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						Platform.getInstance()
+						.getEditorRegistry()
+						.openEditor(
+								AwardShopListConstants.EDITOR_AWARDSHOPLIST_SEARCH,
+								"EDITOR_AWARDSHOPLIST_SEARCH_DO_ID", null);
+					}
+			}));
+				
+		//公司其他奖项
+		registerHandler(display.getOtherAwards().addClickHandler(new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						Platform.getInstance()
+						.getEditorRegistry()
+						.openEditor(
+								AwardShopListConstants.EDITOR_AWARDSHOPLIST_SEARCH,
+								"EDITOR_AWARDSHOPLIST_SEARCH_DO_ID", null);
+					}
+		}));
 
 		registerHandler(display.getAwardShop().addClickHandler(new ClickHandler() {
 			@Override

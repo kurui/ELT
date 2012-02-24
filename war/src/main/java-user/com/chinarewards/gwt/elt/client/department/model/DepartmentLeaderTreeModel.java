@@ -82,7 +82,7 @@ public class DepartmentLeaderTreeModel implements TreeViewModel {
 			@Override
 			public void render(Context context, DepartmentNode value,
 					SafeHtmlBuilder sb) {
-				sb.appendHtmlConstant("<table><tbody><tr>");
+				sb.appendHtmlConstant("<table border='0'><tbody><tr>");
 				super.render(context, value, sb);
 				sb.appendHtmlConstant("</tr></tbody></table>");
 			}

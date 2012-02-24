@@ -14,7 +14,6 @@
 			<p class="{new2.send-news}">
 				<div style="float:right;text-align:right;padding-top: 5px;">
 					<g:Hidden ui:field="currentDepartmentId"></g:Hidden>
-					<span class="{new2.nbsp}"></span>
 					<span class="{new2.btn}">
 						<g:Button ui:field="addChildBtn" text="增加子部门" />
 					</span>
@@ -29,7 +28,6 @@
 				</div>
 			</p>
 
-			<span class="{new2.cutline}"></span>
 
 			<div class="{new2.divend}"></div>
 			<div class="{new2.table}">
