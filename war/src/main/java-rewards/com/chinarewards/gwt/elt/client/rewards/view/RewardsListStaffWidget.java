@@ -6,7 +6,6 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.InlineLabel;
@@ -19,8 +18,8 @@ public class RewardsListStaffWidget extends Composite implements RewardsListStaf
 	Panel resultPanel;
 	@UiField
 	Panel resultpage;
-	@UiField
-	Panel breadCrumbs;
+//	@UiField
+//	Panel breadCrumbs;
 	
 	@UiField
 	Button searchBtn;
@@ -29,8 +28,7 @@ public class RewardsListStaffWidget extends Composite implements RewardsListStaf
 	TextBox rewardsName;
 	@UiField
 	TextBox definition;
-	@UiField
-	CheckBox nowJudge;
+
 	@UiField
 	InlineLabel dataCount;
 	private static RewardsListStaffWidgetUiBinder uiBinder = GWT
@@ -47,10 +45,7 @@ public class RewardsListStaffWidget extends Composite implements RewardsListStaf
 	public HasClickHandlers getSearchBtnClickHandlers() {
 		return searchBtn;
 	}
-	@Override
-	public HasValue<Boolean> getNowJudge() {
-		return nowJudge;
-	}
+
 	@Override
 	public Panel getResultPanel() {
 		return resultPanel;
@@ -79,8 +74,8 @@ public class RewardsListStaffWidget extends Composite implements RewardsListStaf
 
 	@Override
 	public void setBreadCrumbs(Widget breadCrumbs) {
-		this.breadCrumbs.clear();
-		this.breadCrumbs.add(breadCrumbs);
+//		this.breadCrumbs.clear();
+//		this.breadCrumbs.add(breadCrumbs);
 		
 	}
 

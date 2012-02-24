@@ -2,9 +2,7 @@ package com.chinarewards.gwt.elt.client.rewards.presenter;
 
 import java.util.Comparator;
 import java.util.Date;
-
 import net.customware.gwt.dispatch.client.DispatchAsync;
-
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.dataprovider.RewardsListStaffViewAdapter;
@@ -65,23 +63,24 @@ public class RewardsListStaffPresenterImpl extends
 	public void bind() {
 		breadCrumbs.loadListPage();
 		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
-		init();
+
+		iniWidget();
+
 		registerHandler(display.getSearchBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
 						// Window.alert(sessionManager.getSession().getLoginName());
-						init();
+						iniWidget();
 					}
 				}));
 	}
 
-	private void init() {
+	private void iniWidget() {
 		buildTable();
 		doSearch();
 	}
 
 	private void buildTable() {
-		// create a CellTable
 		cellTable = new ListCellTable<RewardsClient>();
 
 		initTableColumns();
@@ -101,9 +100,7 @@ public class RewardsListStaffPresenterImpl extends
 		RewardsCriteria criteria = new RewardsCriteria();
 		criteria.setName(display.getName().getValue());
 		criteria.setDefinition(display.getDefinition().getValue());
-		if (display.getNowJudge().getValue()) {
-			criteria.setJudgeUserId(sessionManager.getSession().getToken());
-		}
+
 		if (pageType == RewardPageType.NOMINATEPAGE) {
 			criteria.setStatus(RewardsStatus.PENDING_NOMINATE);
 		}
@@ -129,9 +126,9 @@ public class RewardsListStaffPresenterImpl extends
 			@Override
 			public void sortingAll(String sorting, String direction) {
 				listViewAdapter.sortFromDateBase(sorting, direction);
-
 			}
 		};
+
 		cellTable.addColumn("奖项名称", new HyperLinkCell(),
 				new GetValue<RewardsClient, String>() {
 					@Override
