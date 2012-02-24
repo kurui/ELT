@@ -40,6 +40,13 @@ public interface StaffPresenter extends Presenter<StaffPresenter.StaffDisplay> {
 		HasClickHandlers getSettingAnchor();
 
 
+		
+		void setPhoto(String photo);
+		void setStaffName(String staffName);
+		void setStation(String station);
+		void setDeptName(String deptName);
+		void setIntegral(int integral);
+
 	}
 	
 	

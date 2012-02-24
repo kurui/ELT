@@ -11,6 +11,8 @@ import com.chinarewards.gwt.elt.client.breadCrumbs.ui.BreadCrumbsMenu;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.PluginManager;
 import com.chinarewards.gwt.elt.client.core.presenter.StaffPresenter.StaffDisplay;
+import com.chinarewards.gwt.elt.client.core.request.StaffInitRequest;
+import com.chinarewards.gwt.elt.client.core.request.StaffInitResponse;
 import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
 import com.chinarewards.gwt.elt.client.corpBroadcast.plugin.CorpBroadcastConstants;
 import com.chinarewards.gwt.elt.client.gloryBroadcast.plugin.GloryBroadcastConstants;
@@ -74,6 +76,7 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 				display.disableStaffCorner();
 			}
 		}
+		init();
 		registerHandler(display.getlogBtn().addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -199,6 +202,27 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 
 	}
 
+	void init()
+	{
+		//加载员工信息....
+		dispatchAsync.execute(new StaffInitRequest(sessionManager.getSession().getStaffId()),
+				new AsyncCallback<StaffInitResponse>() {
+
+					@Override
+					public void onFailure(Throwable e) {
+				
+					}
+
+					@Override
+					public void onSuccess(StaffInitResponse resp) {
+						display.setStaffName(resp.getName());
+						display.setDeptName(resp.getDeptName());
+						display.setIntegral(resp.getIntegral());
+						display.setPhoto(resp.getPhoto());
+						display.setStation(resp.getStation());
+					}
+				});
+	}
 	public StaffDisplay getDisplay() {
 		return display;
 	}

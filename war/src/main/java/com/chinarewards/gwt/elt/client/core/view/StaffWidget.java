@@ -13,6 +13,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
@@ -68,6 +69,17 @@ public class StaffWidget extends Composite implements StaffDisplay {
 	@UiField
 	Anchor settingAnchor;
 	
+	@UiField
+	Image photo;
+	@UiField
+	InlineLabel staffName;
+	@UiField
+	InlineLabel station;
+	@UiField
+	InlineLabel deptName;
+	@UiField
+	InlineLabel integral;
+
 	// Set the format of datepicker.
 	DateTimeFormat dateFormat = DateTimeFormat
 			.getFormat(ViewConstants.date_format_chinese);
@@ -366,5 +378,25 @@ public class StaffWidget extends Composite implements StaffDisplay {
 	@Override
 	public HasClickHandlers getSettingAnchor() {
 		return settingAnchor;
+	}
+	@Override
+	public void setPhoto(String photo) {
+		this.photo.setUrl("imageshow?imageName="+photo);
+	}
+	@Override
+	public void setStaffName(String staffName) {
+		this.staffName.setText(staffName);
+	}
+	@Override
+	public void setStation(String station) {
+		this.station.setText(station);
+	}
+	@Override
+	public void setDeptName(String deptName) {
+		this.deptName.setText(deptName);
+	}
+	@Override
+	public void setIntegral(int integral) {
+		this.integral.setText(integral+"");
 	}
 }
