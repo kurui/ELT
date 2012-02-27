@@ -1,5 +1,7 @@
 package com.chinarewards.gwt.elt.client.message.dataprovider;
 
+import java.util.List;
+
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.dataprovider.BaseDataProvider;
@@ -8,10 +10,13 @@ import com.chinarewards.gwt.elt.client.message.model.MessageListCriteria;
 import com.chinarewards.gwt.elt.client.message.presenter.MessageListPresenter.MessageListDisplay;
 import com.chinarewards.gwt.elt.client.message.request.SearchMessageListRequest;
 import com.chinarewards.gwt.elt.client.message.request.SearchMessageListResponse;
+import com.chinarewards.gwt.elt.client.messageLattice.view.MessageLatticeWidget;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.model.PaginationDetailClient;
+import com.chinarewards.gwt.elt.util.DateTool;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Grid;
 
 public class MessageListViewAdapter extends BaseDataProvider<MessageListClient> {
 
@@ -61,9 +66,27 @@ public class MessageListViewAdapter extends BaseDataProvider<MessageListClient> 
 
 			@Override
 			public void onSuccess(SearchMessageListResponse response) {
-				updateRowData(start, response.getResult());
-				updateRowCount(response.getTotal(), true);
-				display.setDataCount(response.getTotal()+"");
+				List<MessageListClient> giftList = response.getResult();
+
+				Grid grid = new Grid(response.getResult().size(), 1);
+
+
+	
+				for (int row = 0; row < response.getResult().size(); row++) {
+			
+					MessageListClient clint = giftList.get(row);
+							grid.setWidget(
+									row,
+									1,
+									new MessageLatticeWidget(clint.getId(), clint.getStaffPhoto(), clint.getCreatedByUserName(), clint.getContent(), DateTool.dateToStringChina2(clint.getBroadcastingTime())));			
+				}
+
+				// Return the panel
+				grid.ensureDebugId("cwGrid");
+
+				display.getResultPanel().clear();
+				display.getResultPanel().add(grid);
+				display.setDataCount(response.getTotal() + "");
 			}
 
 		});

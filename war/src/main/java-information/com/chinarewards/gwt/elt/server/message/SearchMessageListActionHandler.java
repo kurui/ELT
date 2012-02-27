@@ -83,7 +83,7 @@ public class SearchMessageListActionHandler extends
 		context.setLoginName(request.getSession().getLoginName());
 		context.setUserRoles(UserRoleTool.adaptToRole(request.getSession().getUserRoles()));
 		
-		BroadcastQueryListVo result=broadcastService.queryBroadcastList(criteria);
+		BroadcastQueryListVo result=broadcastService.queryMessageList(criteria);
 		
 		List<MessageListClient> lt=new ArrayList<MessageListClient>();
 		for (Broadcasting broadcast:result.getResultList()) {
@@ -96,6 +96,7 @@ public class SearchMessageListActionHandler extends
 			client.setReplyNumber(broadcast.getReplyNumber());
 			client.setStatus(com.chinarewards.gwt.elt.client.broadcasting.model.BroadcastingListCriteria.BroadcastingStatus.valueOf(broadcast.getStatus().toString()));
 			client.setCategory(BroadcastingCategory.valueOf(broadcast.getCategory().toString()));
+			client.setStaffPhoto(broadcast.getCreatedBy().getStaff().getPhoto());
 			lt.add(client);
 		}
 		staffResponse.setResult(lt);

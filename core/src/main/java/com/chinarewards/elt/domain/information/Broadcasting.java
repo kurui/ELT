@@ -15,6 +15,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.user.SysUser;
+import com.chinarewards.elt.model.information.BroadcastMessage;
 import com.chinarewards.elt.model.information.BroadcastingCategory;
 import com.chinarewards.elt.model.information.BroadcastingStatus;
 @Entity
@@ -84,8 +85,17 @@ public class Broadcasting implements Serializable {
 	 */
 	private int replyNumber;
 	
-	
+	/**
+	 * 广播 or 消息
+	 */
+	private BroadcastMessage broadcastMessagetype;
 
+	public BroadcastMessage getBroadcastMessagetype() {
+		return broadcastMessagetype;
+	}
+	public void setBroadcastMessagetype(BroadcastMessage broadcastMessagetype) {
+		this.broadcastMessagetype = broadcastMessagetype;
+	}
 	public int getReplyNumber() {
 		return replyNumber;
 	}

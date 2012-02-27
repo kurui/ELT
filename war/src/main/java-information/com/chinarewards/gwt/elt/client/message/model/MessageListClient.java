@@ -44,7 +44,19 @@ public class MessageListClient implements Serializable, Comparable<MessageListCl
 	 * 回复数
 	 */
 	private int replyNumber;
+	/**
+	 * 员工照片
+	 */
+	private String staffPhoto;
 	
+	public String getStaffPhoto() {
+		return staffPhoto;
+	}
+
+	public void setStaffPhoto(String staffPhoto) {
+		this.staffPhoto = staffPhoto;
+	}
+
 	public String getId() {
 		return id;
 	}
