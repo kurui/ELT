@@ -145,7 +145,7 @@ public class ButtonMenuProcessor implements MenuProcessor {
 					breadCrumbsMenu.addBreadCrumbsItemTop("兑换管理", null);
 				else if (menuId.equals(EnterpriseConstants.MENU_ENTERPRISE_EDIT))
 					breadCrumbsMenu.addBreadCrumbsItemTop("设置", null);
-				else if (menuId.equals(IntegralManagementConstants.MENU_INTEGRALMANAGEMENT_SEARCH))
+				else if (menuId.equals(LeadTimeConstants.MENU_LEADTIME_SEARCH))
 					breadCrumbsMenu.addBreadCrumbsItemTop("积分管理", null);
 				else if (menuId.equals(BroadcastingListConstants.MENU_BROADCASTINGLIST_SEARCH))
 					breadCrumbsMenu.addBreadCrumbsItemTop("广播", null);
