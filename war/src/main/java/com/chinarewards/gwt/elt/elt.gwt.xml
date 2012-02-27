@@ -14,12 +14,9 @@
 	  
 	<!-- Specify the app entry point class. -->
 	<entry-point class="com.chinarewards.gwt.elt.client.Elt" />
-<<<<<<< HEAD
-	<set-property name="user.agent" value="gecko1_8" />    
-    
-=======
+
 	<set-property name="user.agent" value="gecko1_8,safari,opera,ie8,ie9" />
->>>>>>> refs/remotes/origin/master
+
 	<stylesheet src="elt.css" />                      
 	
 	<!-- 指定编译输出 geck01_8:firefox -->
