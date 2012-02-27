@@ -277,7 +277,13 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 						"EDITOR_GLORYBROADCAST_SEARCH_DO_ID", null);
 			}
 		}));
-
+		//我的消息
+		registerHandler(display.getMyMessage().addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				Window.alert("实现ing");
+			}
+		}));
 
 	}
 
