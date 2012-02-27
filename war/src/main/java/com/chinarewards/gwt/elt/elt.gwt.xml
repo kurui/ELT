@@ -19,6 +19,6 @@
 	
 	<!-- 指定编译输出 geck01_8:firefox -->
 	<!-- <set-property name="user.agent" value="ie9" /> -->
-	<!-- 
-	<set-property name="user.agent" value="gecko1_8" />  -->                   
+	<!-- --> 
+	<set-property name="user.agent" value="gecko1_8" />                    
 </module>

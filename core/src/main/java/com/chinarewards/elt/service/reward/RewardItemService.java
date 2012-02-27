@@ -82,6 +82,8 @@ public interface RewardItemService {
 	
 	public PageStore<RewardItemStoreVo> fetchRewardItemsStore(UserContext context,
 			RewardItemSearchVo criteria);
+	
+	
 
 	/**
 	 * Fetch list of RewardItem by RewardItemSearchVo. All roles would get the
@@ -92,6 +94,9 @@ public interface RewardItemService {
 	 */
 	public PageStore<RewardItemVo> fetchRewardItemsNoAcl(
 			RewardItemSearchVo criteria);
+	
+	
+	
 
 	/**
 	 * Fetch all auto-generate RewardItem by current time. Which means find out
