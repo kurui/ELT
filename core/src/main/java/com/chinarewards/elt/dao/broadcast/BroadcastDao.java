@@ -71,7 +71,9 @@ public class BroadcastDao  extends BaseDao<Broadcasting>{
 
 		}
 		
-	
+		hql.append(" AND broadcast.broadcastMessagetype = :broadcastMessagetype ");
+		param.put("broadcastMessagetype", searchVo.getBroadcastMessagetype());
+		
 		hql.append(" AND broadcast.deleted = :deleted ");
 		param.put("deleted", false);
 	

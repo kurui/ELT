@@ -59,6 +59,12 @@ public class PeriodPresenterImpl extends BasePresenter<PeriodDisplay> implements
 						doSaveEnterprise();
 					}
 				}));
+		registerHandler(display.getBackHandlers().addClickHandler(
+				new ClickHandler() {
+					public void onClick(ClickEvent paramClickEvent) {
+						breadCrumbs.getGoHistory();
+					}
+				}));
 
 	}
 

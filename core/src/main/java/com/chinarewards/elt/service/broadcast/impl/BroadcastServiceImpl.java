@@ -23,6 +23,7 @@ import com.chinarewards.elt.model.broadcast.BroadcastingVo;
 import com.chinarewards.elt.model.broadcast.OrganType;
 import com.chinarewards.elt.model.broadcastReply.BroadcastReplyListCriteria;
 import com.chinarewards.elt.model.common.PageStore;
+import com.chinarewards.elt.model.information.BroadcastMessage;
 import com.chinarewards.elt.model.information.BroadcastingCategory;
 import com.chinarewards.elt.model.information.BroadcastingStatus;
 import com.chinarewards.elt.model.user.UserContext;
@@ -79,12 +80,18 @@ public class BroadcastServiceImpl implements BroadcastService {
 	@Override
 	public BroadcastQueryListVo queryBroadcastList(
 			BroadcastQueryListCriteria criteria) {
+		criteria.setBroadcastMessagetype(BroadcastMessage.BROADCASTING);
 		return broadcastLogic.queryBroadcastList(criteria);
 	}
-
 	@Override
-	public String createOrUpdateBroadcast(BroadcastingVo broadcast,
-			UserContext context) {
+	public BroadcastQueryListVo queryMessageList(
+			BroadcastQueryListCriteria criteria) {
+		criteria.setBroadcastMessagetype(BroadcastMessage.MESSAGE);
+		return broadcastLogic.queryBroadcastList(criteria);
+	}
+	private void createOrUpdateBroadcastAndMessage(BroadcastingVo broadcast,
+			UserContext context,BroadcastMessage broadcastMessage)
+	{
 		Broadcasting broadcastBo = null;
 		SysUser nowUser = userLogic.findUserById(context.getUserId());
 		if (StringUtil.isEmptyString(broadcast.getBroadcastingId())) {
@@ -106,6 +113,7 @@ public class BroadcastServiceImpl implements BroadcastService {
 			broadcastBo.setLastModifiedAt(DateUtil.getTime());
 			broadcastBo.setLastModifiedBy(nowUser);
 			broadcastBo.setReplyNumber(0);
+			broadcastBo.setBroadcastMessagetype(broadcastMessage);
 
 		} else {
 			broadcastBo = broadcastLogic.findbroadcastingById(broadcast
@@ -118,7 +126,7 @@ public class BroadcastServiceImpl implements BroadcastService {
 			broadcastBo.setAllowreplies(broadcast.isAllowreplies());
 			broadcastBo.setLastModifiedAt(DateUtil.getTime());
 			broadcastBo.setLastModifiedBy(nowUser);
-
+			broadcastBo.setBroadcastMessagetype(broadcastMessage);
 			// 修改时..清空发送对象
 			broadcastLogic.deleteBroadcastReceiving(broadcastBo.getId());
 
@@ -165,10 +173,19 @@ public class BroadcastServiceImpl implements BroadcastService {
 			}
 
 		}
-
+	}
+	@Override
+	public String createOrUpdateBroadcast(BroadcastingVo broadcast,
+			UserContext context) {
+		createOrUpdateBroadcastAndMessage(broadcast, context, BroadcastMessage.BROADCASTING);
 		return null;
 	}
-
+	@Override
+	public String createOrUpdateMessage(BroadcastingVo broadcast,
+			UserContext context) {
+		createOrUpdateBroadcastAndMessage(broadcast, context, BroadcastMessage.MESSAGE);
+		return null;
+	}
 	@Override
 	public BroadcastAndReplyQueryListVo findBroadcastById(String broadcastId) {
 		BroadcastAndReplyQueryListVo vo = new BroadcastAndReplyQueryListVo();

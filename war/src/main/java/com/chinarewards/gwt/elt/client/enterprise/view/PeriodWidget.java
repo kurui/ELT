@@ -32,6 +32,8 @@ public class PeriodWidget extends Composite implements PeriodDisplay {
 	@UiField
 	Button saveButton;
 	@UiField
+	Button back;
+	@UiField
 	Hidden enterpriseId;
 	@UiField
 	Panel breadCrumbs;
@@ -112,5 +114,11 @@ public class PeriodWidget extends Composite implements PeriodDisplay {
 	@Override
 	public DateBox getFirstTime() {
 		return firstTime;
+	}
+
+
+	@Override
+	public HasClickHandlers getBackHandlers() {
+		return back;
 	}
 }

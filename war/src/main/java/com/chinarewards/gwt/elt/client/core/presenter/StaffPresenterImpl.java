@@ -24,6 +24,7 @@ import com.chinarewards.gwt.elt.client.gloryBroadcast.plugin.GloryBroadcastConst
 import com.chinarewards.gwt.elt.client.login.LastLoginRoleRequest;
 import com.chinarewards.gwt.elt.client.login.LastLoginRoleResponse;
 import com.chinarewards.gwt.elt.client.login.event.LoginEvent;
+import com.chinarewards.gwt.elt.client.message.plugin.MessageListConstants;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.orderHistory.plugin.OrderHistoryConstants;
@@ -85,7 +86,7 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 				display.disableStaffCorner();
 			}
 		}
-//		init();
+		init();
 		registerHandler(display.getlogBtn().addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -277,7 +278,17 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 						"EDITOR_GLORYBROADCAST_SEARCH_DO_ID", null);
 			}
 		}));
-
+		//我的消息
+		registerHandler(display.getMyMessage().addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				Platform.getInstance()
+				.getEditorRegistry()
+				.openEditor(
+						MessageListConstants.EDITOR_MESSAGELIST_SEARCH,
+						"EDITOR_MESSAGELIST_SEARCH_DO_ID", null);
+			}
+		}));
 
 	}
 

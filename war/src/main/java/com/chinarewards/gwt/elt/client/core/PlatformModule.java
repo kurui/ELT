@@ -33,6 +33,7 @@ import com.chinarewards.gwt.elt.client.gift.plugin.GiftPluginDescriptor;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftViewPluginDescriptor;
 import com.chinarewards.gwt.elt.client.gloryBroadcast.plugin.GloryBroadcastPluginDescriptor;
 import com.chinarewards.gwt.elt.client.integralManagement.plugin.IntegralManagementPluginDescriptor;
+import com.chinarewards.gwt.elt.client.message.plugin.MessageListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.nominate.plugin.NominatePluginDescriptor;
 import com.chinarewards.gwt.elt.client.order.plugin.OrderBoxPluginDescriptor;
 import com.chinarewards.gwt.elt.client.order.plugin.OrderListPluginDescriptor;
@@ -256,7 +257,8 @@ public class PlatformModule extends AbstractGinModule {
 			DetailsOfGiftPluginDescriptor detailsOfGift,
 			StaffHeavenIndexPluginDescriptor staffHeavenIndex,
 			CorpBroadcastPluginDescriptor corpBroadcast,
-			GloryBroadcastPluginDescriptor gloryBroadcast) {
+			GloryBroadcastPluginDescriptor gloryBroadcast,
+			MessageListPluginDescriptor message) {
 
 		if (pluginSet == null) {
 			pluginSet = new InMemoryPluginSet();
@@ -278,6 +280,7 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(staffHeavenIndex);
 			pluginSet.registerPlugin(corpBroadcast);
 			pluginSet.registerPlugin(gloryBroadcast);
+			pluginSet.registerPlugin(message);
 
 		}
 

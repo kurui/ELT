@@ -45,6 +45,7 @@ import com.chinarewards.gwt.elt.client.integralManagement.request.IntegralManage
 import com.chinarewards.gwt.elt.client.login.LastLoginRoleRequest;
 import com.chinarewards.gwt.elt.client.login.LoginRequest;
 import com.chinarewards.gwt.elt.client.login.TokenValidRequest;
+import com.chinarewards.gwt.elt.client.message.request.SearchMessageListRequest;
 import com.chinarewards.gwt.elt.client.nominate.NominateAddRequest;
 import com.chinarewards.gwt.elt.client.nominate.NominateInitRequest;
 import com.chinarewards.gwt.elt.client.order.request.DeleteOrderRequest;
@@ -130,6 +131,7 @@ import com.chinarewards.gwt.elt.server.integralManagement.IntegralManagementHand
 import com.chinarewards.gwt.elt.server.login.LoginActionHandler;
 import com.chinarewards.gwt.elt.server.login.TokenValidActionHandler;
 import com.chinarewards.gwt.elt.server.login.UpdatelastLoginRoleActionHandler;
+import com.chinarewards.gwt.elt.server.message.SearchMessageListActionHandler;
 import com.chinarewards.gwt.elt.server.nominate.NominateActionHandler;
 import com.chinarewards.gwt.elt.server.nominate.NominateAddActionHandler;
 import com.chinarewards.gwt.elt.server.order.DeleteOrderHandler;
@@ -372,6 +374,8 @@ public class ActionModule extends ActionHandlerModule {
 		bindHandler(StaffHeavenIndexRequest.class,StaffHeavenIndexActionHandler.class);
 		//员工天地,员工数据加载
 		bindHandler(StaffInitRequest.class,StaffInitActionHandler.class);
+		//信息
+		bindHandler(SearchMessageListRequest.class,SearchMessageListActionHandler.class);
 		
 	}
 }

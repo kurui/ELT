@@ -86,4 +86,21 @@ public class BreadCrumbsPresenterImpl extends
 		
 	}
 
+	@Override
+	public void getGoHistory() {
+		List<MenuBreadVo> listvo=breadCrumbsMenu.getHistoryBreadCrumbsItem();
+		if(listvo!=null)
+		{
+			isHistory=true;
+			display.setTitleText(listvo);
+			menuProcessor.changItemColor(menuProcessor.getMenuItem(listvo.get(listvo.size()-1).getMenuUrl()).getTitle());
+			eventBus.fireEvent(new MenuClickEvent(menuProcessor.getMenuItem(listvo.get(listvo.size()-1).getMenuUrl())));
+		}
+		else
+		{
+			win.alert("无上一页");
+		}
+		
+	}
+
 }

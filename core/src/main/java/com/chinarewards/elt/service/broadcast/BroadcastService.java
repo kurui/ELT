@@ -22,7 +22,14 @@ public interface BroadcastService {
 	 */
 	public BroadcastQueryListVo queryBroadcastList(
 			BroadcastQueryListCriteria criteria);
-	
+	/**
+	 * 信息列表
+	 * 
+	 * @param broadcast
+	 * @return
+	 */
+	public BroadcastQueryListVo queryMessageList(
+			BroadcastQueryListCriteria criteria);
 	/**
 	 * 创建 and 修改..广播
 	 * 
@@ -31,7 +38,13 @@ public interface BroadcastService {
 	 */
 	public String createOrUpdateBroadcast(BroadcastingVo broadcast,UserContext context);
 	
-	
+	/**
+	 * 创建 and 修改..信息
+	 * 
+	 * @param staffProcess
+	 * @return
+	 */
+	public String createOrUpdateMessage(BroadcastingVo broadcast,UserContext context);
 	/**
 	 * 查询广播详细(包括回复)
 	 * @param broadcastId

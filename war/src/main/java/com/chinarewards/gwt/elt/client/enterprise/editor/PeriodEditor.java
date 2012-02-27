@@ -27,8 +27,6 @@ public class PeriodEditor extends AbstractEditor {
 	}
 
 	public Widget asWidget() {
-
-		enterprisePresenter.bind();
 		return enterprisePresenter.getDisplay().asWidget();
 	}
 
@@ -39,6 +37,7 @@ public class PeriodEditor extends AbstractEditor {
 
 	public void setModel(Object model) {
 		this.model = model;
+		enterprisePresenter.bind();
 	}
 
 }
