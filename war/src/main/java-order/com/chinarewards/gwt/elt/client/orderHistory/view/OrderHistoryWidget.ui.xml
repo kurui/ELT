@@ -35,7 +35,6 @@
 				             <g:Button styleName="{new2.button}" text="查询" ui:field="searchBtn" />
 							</div>
 						</div>
-
 					</div>
 				</div>
 				

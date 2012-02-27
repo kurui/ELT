@@ -8,6 +8,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
@@ -27,6 +28,9 @@ public class RewardsListStaffWidget extends Composite implements RewardsListStaf
 	TextBox rewardsName;
 	@UiField
 	TextBox definition;
+	
+	@UiField
+	InlineLabel dataCount;
 
 
 	private static RewardsListStaffWidgetUiBinder uiBinder = GWT
@@ -64,6 +68,10 @@ public class RewardsListStaffWidget extends Composite implements RewardsListStaf
 		return resultpage;
 	}
 
+	@Override
+	public void setDataCount(String text) {
+		dataCount.setText(text);	
+	}
 
 	@Override
 	public void setBreadCrumbs(Widget breadCrumbs) {

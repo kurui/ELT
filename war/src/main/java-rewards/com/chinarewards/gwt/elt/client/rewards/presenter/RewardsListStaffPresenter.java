@@ -25,6 +25,8 @@ public interface RewardsListStaffPresenter extends
 
 		public Panel getResultpage();
 
+		public void setDataCount(String text);
+
 		public void setBreadCrumbs(Widget breadCrumbs);
 
 	}
