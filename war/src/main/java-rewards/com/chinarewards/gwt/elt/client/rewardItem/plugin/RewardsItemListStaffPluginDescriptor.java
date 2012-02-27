@@ -69,8 +69,8 @@ public class RewardsItemListStaffPluginDescriptor implements PluginDescriptor {
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(
-										RewardsItemConstants.EDITOR_REWARDSITEM_List,
-										"EDITOR_REWARDSITEM_List_DO_ID", null);
+										RewardsItemConstants.EDITOR_REWARDSITEM_STAFF_LIST,
+										"EDITOR_REWARDSITEM_STAFF_LIST_DO_ID", null);
 					}
 
 					@Override
