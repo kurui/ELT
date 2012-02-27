@@ -45,7 +45,7 @@ public class LeadTimePresenterImpl extends
 
 	@Override
 	public void bind() {
-		breadCrumbs.loadChildPage("提前颁奖通知时间设置");
+		breadCrumbs.loadChildPage("接收短信或邮件时间");
 		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
 
 		initialization();

@@ -64,7 +64,7 @@ public class LeadTimePluginDescriptor implements PluginDescriptor {
 					}
 
 					public String getTitle() {
-						return "颁奖提前通知时间设置";
+						return "接收颁奖通知";
 					}
 
 				};
