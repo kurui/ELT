@@ -85,7 +85,7 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 				display.disableStaffCorner();
 			}
 		}
-//		init();
+		init();
 		registerHandler(display.getlogBtn().addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -190,93 +190,93 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 					}
 				}));
 
-//		// 我参与的奖项
-//		registerHandler(display.getParticipationAwards().addClickHandler(
-//				new ClickHandler() {
-//					@Override
-//					public void onClick(ClickEvent event) {
-//						Platform.getInstance()
-//								.getEditorRegistry()
-//								.openEditor(
-//										AwardShopListConstants.EDITOR_AWARDSHOPLIST_SEARCH,
-//										"EDITOR_AWARDSHOPLIST_SEARCH_DO_ID",
-//										null);
-//					}
-//				}));
-//
-//		// 公司其他奖项
-//		registerHandler(display.getOtherAwards().addClickHandler(
-//				new ClickHandler() {
-//					@Override
-//					public void onClick(ClickEvent event) {
-//						Platform.getInstance()
-//								.getEditorRegistry()
-//								.openEditor(
-//										AwardShopListConstants.EDITOR_AWARDSHOPLIST_SEARCH,
-//										"EDITOR_AWARDSHOPLIST_SEARCH_DO_ID",
-//										null);
-//					}
-//				}));
+		// 我参与的奖项
+		registerHandler(display.getParticipationAwards().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						Platform.getInstance()
+								.getEditorRegistry()
+								.openEditor(
+										AwardShopListConstants.EDITOR_AWARDSHOPLIST_SEARCH,
+										"EDITOR_AWARDSHOPLIST_SEARCH_DO_ID",
+										null);
+					}
+				}));
 
-//		registerHandler(display.getExchangeHistory().addClickHandler(
-//				new ClickHandler() {
-//					@Override
-//					public void onClick(ClickEvent event) {
-//						Platform.getInstance()
-//								.getEditorRegistry()
-//								.openEditor(
-//										OrderHistoryConstants.EDITOR_ORDERHISTORY_SEARCH,
-//										"EDITOR_ORDERHISTORY_SEARCH_DO_ID",
-//										null);
-//					}
-//				}));
-//		// 员工首页
-//		registerHandler(display.getStaffHeavenIndex().addClickHandler(
-//				new ClickHandler() {
-//					@Override
-//					public void onClick(ClickEvent event) {
-//						Platform.getInstance()
-//								.getEditorRegistry()
-//								.openEditor(
-//										StaffHeavenIndexConstants.EDITOR_STAFFHEAVENINDEX_SEARCH,
-//										"EDITOR_STAFFHEAVENINDEX_SEARCH_DO_ID",
-//										null);
-//					}
-//				}));
+		// 公司其他奖项
+		registerHandler(display.getOtherAwards().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						Platform.getInstance()
+								.getEditorRegistry()
+								.openEditor(
+										AwardShopListConstants.EDITOR_AWARDSHOPLIST_SEARCH,
+										"EDITOR_AWARDSHOPLIST_SEARCH_DO_ID",
+										null);
+					}
+				}));
 
-//		registerHandler(display.getAwardShop().addClickHandler(new ClickHandler() {
-//			@Override
-//			public void onClick(ClickEvent event) {
-//				Platform.getInstance()
-//				.getEditorRegistry()
-//				.openEditor(
-//						AwardShopListConstants.EDITOR_AWARDSHOPLIST_SEARCH,
-//						"EDITOR_AWARDSHOPLIST_SEARCH_DO_ID", null);
-//			}
-//		}));
-//
-//		//公司广播
-//		registerHandler(display.getCorpBroadcastAnchor().addClickHandler(new ClickHandler() {
-//			@Override
-//			public void onClick(ClickEvent event) {
-//				Platform.getInstance()
-//				.getEditorRegistry()
-//				.openEditor(
-//						CorpBroadcastConstants.EDITOR_CORPBROADCAST_SEARCH,
-//						"EDITOR_CORPBROADCAST_SEARCH_DO_ID", null);
-//			}
-//		}));
-//		//光荣榜
-//		registerHandler(display.getGloryAnchor().addClickHandler(new ClickHandler() {
-//			@Override
-//			public void onClick(ClickEvent event) {
-//				Platform.getInstance()
-//				.getEditorRegistry()
-//				.openEditor(
-//						GloryBroadcastConstants.EDITOR_GLORYBROADCAST_SEARCH,
-//						"EDITOR_GLORYBROADCAST_SEARCH_DO_ID", null);
-//			}
-//		}));
+		registerHandler(display.getExchangeHistory().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						Platform.getInstance()
+								.getEditorRegistry()
+								.openEditor(
+										OrderHistoryConstants.EDITOR_ORDERHISTORY_SEARCH,
+										"EDITOR_ORDERHISTORY_SEARCH_DO_ID",
+										null);
+					}
+				}));
+		// 员工首页
+		registerHandler(display.getStaffHeavenIndex().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						Platform.getInstance()
+								.getEditorRegistry()
+								.openEditor(
+										StaffHeavenIndexConstants.EDITOR_STAFFHEAVENINDEX_SEARCH,
+										"EDITOR_STAFFHEAVENINDEX_SEARCH_DO_ID",
+										null);
+					}
+				}));
+
+		registerHandler(display.getAwardShop().addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				Platform.getInstance()
+				.getEditorRegistry()
+				.openEditor(
+						AwardShopListConstants.EDITOR_AWARDSHOPLIST_SEARCH,
+						"EDITOR_AWARDSHOPLIST_SEARCH_DO_ID", null);
+			}
+		}));
+
+		//公司广播
+		registerHandler(display.getCorpBroadcastAnchor().addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				Platform.getInstance()
+				.getEditorRegistry()
+				.openEditor(
+						CorpBroadcastConstants.EDITOR_CORPBROADCAST_SEARCH,
+						"EDITOR_CORPBROADCAST_SEARCH_DO_ID", null);
+			}
+		}));
+		//光荣榜
+		registerHandler(display.getGloryAnchor().addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				Platform.getInstance()
+				.getEditorRegistry()
+				.openEditor(
+						GloryBroadcastConstants.EDITOR_GLORYBROADCAST_SEARCH,
+						"EDITOR_GLORYBROADCAST_SEARCH_DO_ID", null);
+			}
+		}));
 
 
 	}
