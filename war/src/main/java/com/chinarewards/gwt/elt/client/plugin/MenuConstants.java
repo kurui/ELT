@@ -90,6 +90,8 @@ public abstract class MenuConstants {
 	public static final int MENU_ORDER_INTEGRAL_PRICE_EDIT = order++;
 	// 财年周期设置
 	public static final int MENU_ORDER_PERIOD_EDIT = order++;
+	// 提前颁奖通知时间设置
+	public static final int MENU_ORDER_LEADTIME_EDIT = order++;
 
 	// 新建预算
 	public static final int MENU_ORDER_CREATE_BUDGET = order++;

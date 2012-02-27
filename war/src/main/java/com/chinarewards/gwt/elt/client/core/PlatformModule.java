@@ -50,6 +50,7 @@ import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListPluginDescripto
 import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListStaffPluginDescriptor;
 import com.chinarewards.gwt.elt.client.shopWindow.plugin.ShopWindowPluginDescriptor;
 import com.chinarewards.gwt.elt.client.staff.plugin.HrRegisterPluginDescriptor;
+import com.chinarewards.gwt.elt.client.staff.plugin.LeadTimePluginDescriptor;
 import com.chinarewards.gwt.elt.client.staffAdd.plugin.StaffAddPluginDescriptor;
 import com.chinarewards.gwt.elt.client.staffHeavenIndex.plugin.StaffHeavenIndexPluginDescriptor;
 import com.chinarewards.gwt.elt.client.staffList.plugin.StaffListPluginDescriptor;
@@ -132,7 +133,8 @@ public class PlatformModule extends AbstractGinModule {
 			BroadcastingListPluginDescriptor broadcasting,
 			BroadcastSavePluginDescriptor BroadcastSave,
 			DetailsOfBroadcastPluginDescriptor dtailsOfBroadcast,
-			BroadcastReplyPluginDescriptor BroadcastReply) {
+			BroadcastReplyPluginDescriptor BroadcastReply,
+			LeadTimePluginDescriptor leadTime) {
 
 
 		if (pluginSet == null) {
@@ -180,7 +182,7 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(BroadcastSave);
 			pluginSet.registerPlugin(dtailsOfBroadcast);
 			pluginSet.registerPlugin(BroadcastReply);
-
+			pluginSet.registerPlugin(leadTime);
 		}
 
 		return pluginSet;
@@ -208,12 +210,13 @@ public class PlatformModule extends AbstractGinModule {
 			BudgetPluginDescriptor depBudget,
 			IntegralManagementPluginDescriptor integralManagement,
 			StaffListPluginDescriptor staffList,
-			StaffViewPluginDescriptor staffView) {
+			StaffViewPluginDescriptor staffView,
+			LeadTimePluginDescriptor leadTime) {
 
 		if (pluginSet == null) {
 			pluginSet = new InMemoryPluginSet();
 			pluginSet.registerPlugin(core);
-			pluginSet.registerPlugin(enterprise);
+		//	pluginSet.registerPlugin(enterprise);
 		//	pluginSet.registerPlugin(integralPrice);
 		//	pluginSet.registerPlugin(period);
 			pluginSet.registerPlugin(user);
@@ -232,6 +235,7 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(depBudget);
 			pluginSet.registerPlugin(staffList);
 			pluginSet.registerPlugin(staffView);
+			pluginSet.registerPlugin(leadTime);
 		}
 
 		return pluginSet;

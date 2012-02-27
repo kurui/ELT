@@ -10,8 +10,8 @@ import org.slf4j.Logger;
 
 import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.service.staff.IStaffService;
-import com.chinarewards.gwt.elt.client.staff.HrRegisterRequest;
-import com.chinarewards.gwt.elt.client.staff.HrRegisterResponse;
+import com.chinarewards.gwt.elt.client.staff.request.HrRegisterRequest;
+import com.chinarewards.gwt.elt.client.staff.request.HrRegisterResponse;
 import com.chinarewards.gwt.elt.model.staff.StaffUserProcess;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
 import com.chinarewards.gwt.elt.server.logger.InjectLogger;

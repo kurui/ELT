@@ -105,4 +105,6 @@ public interface StaffLogic {
 	public GeneratedUserConstants generatedUserbyStaff(String staffId,UserContext context);
 	
 	public String createHrUser(StaffUserProcess staff);
+	
+	public Staff updateLeadTime(String staffId,int leadTime);
 }

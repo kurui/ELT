@@ -14,6 +14,13 @@ public class StaffUserProcess {
 	private String deptId;
 	private String corpId;
 	private List<UserRole> roles;
+	private int leadTime;
+	public int getLeadTime() {
+		return leadTime;
+	}
+	public void setLeadTime(int leadTime) {
+		this.leadTime = leadTime;
+	}
 	public List<UserRole> getRoles() {
 		return roles;
 	}

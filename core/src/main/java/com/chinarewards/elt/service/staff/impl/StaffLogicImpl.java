@@ -490,5 +490,9 @@ public class StaffLogicImpl implements StaffLogic {
            return user.getId();
 		}
 
-	
+	public Staff updateLeadTime(String staffId,int leadTime){
+		    Staff staff = staffDao.findById(Staff.class, staffId);
+		    staff.setLeadTime(leadTime);
+		    return staffDao.update(staff);
+	}
 }
