@@ -299,7 +299,7 @@ public class SimpleSiteManager implements SiteManager, EditorCloseHandler,
 		}
 		openedDialogBoxes.put(dialog.getInstanceId(), dialogBox);
 	}
-
+	
 	@Override
 	public void closeDialog(final Dialog dialog) {
 		Dialog d = openedDialogs.get(dialog.getInstanceId());
