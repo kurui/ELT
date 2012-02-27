@@ -25,7 +25,7 @@
 				</div>
 				
 				<div class="{new2.form-line}">
-					<label class="{new2.label6}">职位说明：</label>
+					<label class="{new2.label6}">小组说明：</label>
 					<div class="{new2.element}">
 						<g:TextArea ui:field="explains" visibleLines="3"
 							styleName="{new2.textarea}" />
