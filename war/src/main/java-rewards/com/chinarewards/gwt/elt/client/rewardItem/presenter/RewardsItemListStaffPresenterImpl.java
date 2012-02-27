@@ -139,7 +139,12 @@ public class RewardsItemListStaffPresenterImpl extends
 				new GetValue<RewardsItemClient, String>() {
 					@Override
 					public String getValue(RewardsItemClient rewards) {
-						return rewards.getName();
+						if (rewards.isEnabled() == true) {
+							return "已激活";
+						} else {
+							return "未激活";
+						}
+
 					}
 				}, ref, "name");
 
