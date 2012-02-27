@@ -84,6 +84,9 @@ public interface RewardItemService {
 			RewardItemSearchVo criteria);
 	
 	
+	public PageStore<RewardItemVo> fetchStaffRewardItems(UserContext context,
+			RewardItemSearchVo criteria);
+	
 
 	/**
 	 * Fetch list of RewardItem by RewardItemSearchVo. All roles would get the
