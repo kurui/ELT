@@ -24,6 +24,7 @@ import com.chinarewards.gwt.elt.client.gloryBroadcast.plugin.GloryBroadcastConst
 import com.chinarewards.gwt.elt.client.login.LastLoginRoleRequest;
 import com.chinarewards.gwt.elt.client.login.LastLoginRoleResponse;
 import com.chinarewards.gwt.elt.client.login.event.LoginEvent;
+import com.chinarewards.gwt.elt.client.message.plugin.MessageListConstants;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.orderHistory.plugin.OrderHistoryConstants;
@@ -281,7 +282,11 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 		registerHandler(display.getMyMessage().addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				Window.alert("实现ing");
+				Platform.getInstance()
+				.getEditorRegistry()
+				.openEditor(
+						MessageListConstants.EDITOR_MESSAGELIST_SEARCH,
+						"EDITOR_MESSAGELIST_SEARCH_DO_ID", null);
 			}
 		}));
 
