@@ -5,6 +5,7 @@ import java.util.Date;
 
 import com.chinarewards.elt.model.common.PaginationDetail;
 import com.chinarewards.elt.model.common.SortingDetail;
+import com.chinarewards.elt.model.information.BroadcastMessage;
 import com.chinarewards.elt.model.information.BroadcastingCategory;
 import com.chinarewards.elt.model.information.BroadcastingStatus;
 
@@ -51,6 +52,19 @@ public class BroadcastQueryListCriteria implements Serializable {
 	 */
 	private BroadcastingCategory category;
 	
+	/**
+	 * 广播 or 消息
+	 */
+	private BroadcastMessage broadcastMessagetype;
+	
+	public BroadcastMessage getBroadcastMessagetype() {
+		return broadcastMessagetype;
+	}
+
+	public void setBroadcastMessagetype(BroadcastMessage broadcastMessagetype) {
+		this.broadcastMessagetype = broadcastMessagetype;
+	}
+
 	public BroadcastingCategory getCategory() {
 		return category;
 	}

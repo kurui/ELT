@@ -93,6 +93,16 @@ public class RewardDao extends BaseDao<Reward> {
 		return res;
 	}
 
+	public PageStore<Reward> searchRewards_staff(String staffId,
+			RewardSearchVo criteria) {
+		PageStore<Reward> res = new PageStore<Reward>();
+		List<Reward> list = searchRewardsData_staff(staffId, criteria);
+		int count = searchRewardsCount_staff(staffId, criteria);
+		res.setResultList(list);
+		res.setResultCount(count);
+		return res;
+	}
+
 	@SuppressWarnings("unchecked")
 	private List<Reward> searchRewardsData_hrManager(String corporationId,
 			RewardSearchVo criteria) {
@@ -118,6 +128,18 @@ public class RewardDao extends BaseDao<Reward> {
 			RewardSearchVo criteria) {
 		return Integer.parseInt(generatorSearchRewardsQuery(false, null,
 				departmentIds, COUNT, criteria).getSingleResult().toString());
+	}
+
+	@SuppressWarnings("unchecked")
+	private List<Reward> searchRewardsData_staff(String staffId,
+			RewardSearchVo criteria) {
+		return generatorSearchRewardsQuery(staffId, SEARCH, criteria)
+				.getResultList();
+	}
+
+	private int searchRewardsCount_staff(String staffId, RewardSearchVo criteria) {
+		return Integer.parseInt(generatorSearchRewardsQuery(staffId, COUNT,
+				criteria).getSingleResult().toString());
 	}
 
 	private Query generatorSearchRewardsQuery(boolean isHrManager,
@@ -211,7 +233,83 @@ public class RewardDao extends BaseDao<Reward> {
 		return query;
 	}
 
-	
+	private Query generatorSearchRewardsQuery(String staffId, String type,
+			RewardSearchVo criteria) {
+		StringBuffer hql = new StringBuffer();
+		if (SEARCH.equals(type)) {
+			hql.append(" FROM Reward rew WHERE 1=1 ");
+		} else if (COUNT.equals(type)) {
+			hql.append("SELECT COUNT(rew) FROM Reward rew WHERE 1=1 ");
+		}
+
+		Map<String, Object> param = new HashMap<String, Object>();
+
+		if (criteria.getStatus() != null) {
+			List<RewardStatus> rstatus = new ArrayList<RewardStatus>();
+			if (criteria.getStatus() == RewardStatus.PENDING_NOMINATE
+					|| criteria.getStatus() == RewardStatus.NEW) {
+				rstatus.add(RewardStatus.PENDING_NOMINATE);
+				rstatus.add(RewardStatus.NEW);
+				hql.append(" AND rew.status IN (:status)");
+				param.put("status", rstatus);
+			} else {
+				hql.append(" AND rew.status = :status");
+				param.put("status", criteria.getStatus());
+			}
+
+		} else {
+			hql.append(" AND rew.status != :status");
+			param.put("status", RewardStatus.REWARDED);
+		}
+
+		if (!StringUtil.isEmptyString(criteria.getName())) {
+			hql.append(" AND ( Upper(rew.name) LIKE Upper(:key))");
+			param.put("key", "%" + criteria.getName() + "%");
+		}
+
+		if (!StringUtil.isEmptyString(criteria.getDefinition())) {
+			hql.append(" AND ( Upper(rew.definition) LIKE Upper(:definition))");
+			param.put("definition", "%" + criteria.getDefinition() + "%");
+		}
+		// 增加新的查询条件
+//		addQueryCondition(hql, param, criteria);
+
+		// 过滤已删除的数据
+		hql.append(" AND rew.deleted != :deleted");
+		param.put("deleted", true);
+
+		if (SEARCH.equals(type)) {
+			if (null != criteria && null != criteria.getSortingDetail()) {
+				hql.append(" ORDER BY rew.");
+				hql.append(criteria.getSortingDetail().getSort());
+				hql.append(" ");
+				hql.append(criteria.getSortingDetail().getDirection());
+			} else {
+				hql.append(" ORDER BY rew.createdAt DESC ");
+			}
+		}
+
+		logger.debug(" EQL :" + hql);
+		Query query = getEm().createQuery(hql.toString());
+		if (param.size() > 0) {
+			Set<String> key = param.keySet();
+			for (String s : key) {
+				query.setParameter(s, param.get(s));
+			}
+		}
+
+		if (SEARCH.equals(type) && null != criteria
+				&& null != criteria.getPaginationDetail()) {
+			int start = criteria.getPaginationDetail().getStart();
+			int limit = criteria.getPaginationDetail().getLimit();
+			logger.debug(" pagination detail - start:{}, limit:{}",
+					new Object[] { start, limit });
+			query.setFirstResult(start);
+			query.setMaxResults(limit);
+		}
+
+		return query;
+	}
 
 	private void addQueryCondition(StringBuffer hql, Map<String, Object> param,
 			RewardSearchVo criteria) {

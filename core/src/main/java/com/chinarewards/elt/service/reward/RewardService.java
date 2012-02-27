@@ -117,6 +117,7 @@ public interface RewardService {
 	 */
 	public PageStore<RewardVo> fetchRewardsStaff(UserContext context,
 			RewardSearchVo criteria);
+	
 
 	/**
 	 * 颁奖时...查询给定员工中有无离职人员

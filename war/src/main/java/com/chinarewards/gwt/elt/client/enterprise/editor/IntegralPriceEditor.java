@@ -29,7 +29,6 @@ public class IntegralPriceEditor extends AbstractEditor {
 	}
 
 	public Widget asWidget() {
-		enterprisePresenter.bind();
 		return enterprisePresenter.getDisplay().asWidget();
 	}
 

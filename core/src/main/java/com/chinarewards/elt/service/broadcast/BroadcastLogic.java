@@ -13,7 +13,7 @@ import com.chinarewards.elt.model.user.UserContext;
 
 public interface BroadcastLogic {
 	/**
-	 * 创建 and 修改..广播
+	 * 创建 and 修改..广播(信息)
 	 * 
 	 * @param staffProcess
 	 * @return

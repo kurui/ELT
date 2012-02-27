@@ -44,6 +44,7 @@ public class GiftViewEditor extends AbstractEditor {
 	}
 
 	public void setModel(String instanceId, Object model) {
+		this.model=model;
 		giftViewPresenter.bind();
 		if (model != null) {
 			giftViewPresenter.initInstanceId(instanceId, (GiftClient) model);
