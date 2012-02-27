@@ -46,6 +46,7 @@ import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemPluginDescri
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemStoreListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemViewPluginDescriptor;
 import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListPluginDescriptor;
+import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListStaffPluginDescriptor;
 import com.chinarewards.gwt.elt.client.shopWindow.plugin.ShopWindowPluginDescriptor;
 import com.chinarewards.gwt.elt.client.staff.plugin.HrRegisterPluginDescriptor;
 import com.chinarewards.gwt.elt.client.staffAdd.plugin.StaffAddPluginDescriptor;
@@ -104,6 +105,7 @@ public class PlatformModule extends AbstractGinModule {
 			RewardsItemListPluginDescriptor rewardsItemList,
 			RewardsItemViewPluginDescriptor rewardsItemView,
 			RewardsListPluginDescriptor rewardsList,
+			
 			AwardRewardPluginDescriptor awardreward,
 			DetailsOfAwardPluginDescriptor detailsAward,
 			GiftPluginDescriptor gift, GiftListPluginDescriptor giftList,
@@ -148,6 +150,7 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(nominate);
 			pluginSet.registerPlugin(rewardsItem);
 			pluginSet.registerPlugin(rewardsList);
+			
 			pluginSet.registerPlugin(awardreward);
 			pluginSet.registerPlugin(detailsAward);
 			pluginSet.registerPlugin(rewardsItemView);
@@ -195,6 +198,7 @@ public class PlatformModule extends AbstractGinModule {
 			HrRegisterPluginDescriptor hrregister,
 			NominatePluginDescriptor nominate,
 			RewardsItemPluginDescriptor rewardsItem,
+			RewardsItemStoreListPluginDescriptor rewardsItemStoreList,
 			RewardsItemListPluginDescriptor rewardsItemList,
 			RewardsItemViewPluginDescriptor rewardsItemView,
 			RewardsListPluginDescriptor rewardsList,
@@ -209,20 +213,21 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet = new InMemoryPluginSet();
 			pluginSet.registerPlugin(core);
 			pluginSet.registerPlugin(enterprise);
-			pluginSet.registerPlugin(integralPrice);
-			pluginSet.registerPlugin(period);
+		//	pluginSet.registerPlugin(integralPrice);
+		//	pluginSet.registerPlugin(period);
 			pluginSet.registerPlugin(user);
 			pluginSet.registerPlugin(departmentList);
 			pluginSet.registerPlugin(department);
 			pluginSet.registerPlugin(hrregister);
 			pluginSet.registerPlugin(rewardsItemList);
+			pluginSet.registerPlugin(rewardsItemStoreList);
 			pluginSet.registerPlugin(nominate);
 			pluginSet.registerPlugin(rewardsItem);
 			pluginSet.registerPlugin(rewardsList);
 			pluginSet.registerPlugin(awardreward);
 			pluginSet.registerPlugin(detailsAward);
 			pluginSet.registerPlugin(rewardsItemView);
-			pluginSet.registerPlugin(integralManagement);
+		//	pluginSet.registerPlugin(integralManagement);
 			pluginSet.registerPlugin(depBudget);
 			pluginSet.registerPlugin(staffList);
 			pluginSet.registerPlugin(staffView);
@@ -236,7 +241,7 @@ public class PlatformModule extends AbstractGinModule {
 	PluginSet providePluginSet(
 			// ---- PLUGINS DEFINE BELOW (2) ----
 			CorePluginDescriptor core, // core
-
+			RewardsListStaffPluginDescriptor rewardsListStaff,
 			GiftPluginDescriptor gift, GiftListPluginDescriptor giftList,
 			GiftViewPluginDescriptor giftView,
 			OrderListPluginDescriptor orderList,
@@ -256,6 +261,7 @@ public class PlatformModule extends AbstractGinModule {
 		if (pluginSet == null) {
 			pluginSet = new InMemoryPluginSet();
 			pluginSet.registerPlugin(core);
+			pluginSet.registerPlugin(rewardsListStaff);
 			pluginSet.registerPlugin(giftList);
 			pluginSet.registerPlugin(gift);
 			pluginSet.registerPlugin(giftView);

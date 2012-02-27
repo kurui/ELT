@@ -17,13 +17,14 @@ public class AddDepartmentBudgetRequest implements Action<AddDepartmentBudgetRes
 	
 	private UserSession userSession;
 	private DepBudgetVo  departmentBudgetVo;
-	private  boolean isSave; 
-    public boolean isSave() {
-		return isSave;
+	private  String operate; 
+   
+	public String getOperate() {
+		return operate;
 	}
 
-	public void setSave(boolean isSave) {
-		this.isSave = isSave;
+	public void setOperate(String operate) {
+		this.operate = operate;
 	}
 
 	public DepBudgetVo getDepartmentBudgetVo() {
@@ -38,11 +39,11 @@ public class AddDepartmentBudgetRequest implements Action<AddDepartmentBudgetRes
 	public AddDepartmentBudgetRequest() {
 	}
 
-	public AddDepartmentBudgetRequest(UserSession userSession,DepBudgetVo  departmentBudgetVo,boolean isSave) {
+	public AddDepartmentBudgetRequest(UserSession userSession,DepBudgetVo  departmentBudgetVo,String operate) {
 		
 		this.userSession = userSession;
 		this.departmentBudgetVo = departmentBudgetVo;
-		this.isSave = isSave;
+		this.operate = operate;
 	}
 
 	

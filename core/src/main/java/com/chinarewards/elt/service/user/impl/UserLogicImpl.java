@@ -6,10 +6,13 @@ import java.util.List;
 
 import com.chinarewards.elt.dao.org.CorporationDao;
 import com.chinarewards.elt.dao.org.StaffDao;
+import com.chinarewards.elt.dao.user.RoleDao;
 import com.chinarewards.elt.dao.user.UserDao;
 import com.chinarewards.elt.dao.user.UserRoleDao;
 import com.chinarewards.elt.domain.org.Corporation;
+import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.org.Staff;
+import com.chinarewards.elt.domain.org.manager.DepartmentManager;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.domain.user.SysUserRole;
 import com.chinarewards.elt.model.user.SearchUserInfo;
@@ -40,14 +43,16 @@ public class UserLogicImpl implements UserLogic {
 	UserDao userDao;
 	StaffDao staffDao;
 	CorporationDao corporationDao;
+	RoleDao roleDao;
 	UserRoleDao userRoleDao;
 	StaffLogic staffLogic;
 
 	@Inject
-	public UserLogicImpl(UserDao userDao, CorporationDao corporationDao,
+	public UserLogicImpl(UserDao userDao, CorporationDao corporationDao,RoleDao roleDao,
 			UserRoleDao userRoleDao, StaffDao staffDao,StaffLogic staffLogic) {
 		this.userDao = userDao;
 		this.corporationDao = corporationDao;
+		this.roleDao=roleDao;
 		this.userRoleDao = userRoleDao;
 		this.staffDao = staffDao;
 		this.staffLogic=staffLogic;
@@ -211,4 +216,76 @@ public class UserLogicImpl implements UserLogic {
 		user.setPassword(pwd);
 		return "success";
 	}
+	
+	@Override
+	public void createUserRole(String roleName,List<String> staffIds){
+		if(staffIds!=null){
+			for (int i = 0; i < staffIds.size(); i++) {
+				String staffId=staffIds.get(i);
+				createUserRole(roleName, staffId);
+			}
+		}		
+	}
+	
+	@Override
+	public void deleteUserRole(String roleName,List<String> staffIds){
+		if(staffIds!=null){
+			for (int i = 0; i < staffIds.size(); i++) {
+				String staffId=staffIds.get(i);
+				createUserRole(roleName, staffId);
+			}
+		}		
+	}
+	
+	@Override
+	public void createUserRole(String roleName,String staffId){
+		List<SysUserRole> userRoleList=userRoleDao.findUserRoleByUserId(staffId);
+		
+		SysUserRole existUserRole=null;
+		for (int j = 0; j < userRoleList.size(); j++) {
+			SysUserRole tempUserRole=userRoleList.get(j);
+			if(tempUserRole.getRole().getName().equals(UserRole.valueOf(roleName))){
+				existUserRole=tempUserRole;
+				break;
+			}
+		}
+		
+		if (existUserRole!=null) {
+			
+		} else {
+			SysUser user=userDao.findUserByStaffId(staffId);
+			SysUserRole userRole = new SysUserRole();
+			userRole.setRole(roleDao.findRoleByRoleName(UserRole.valueOf(roleName)));
+			userRole.setCreatedBy(user);
+			userRole.setCreatedAt(DateUtil.getTime());
+			userRole.setLastModifiedAt(DateUtil.getTime());
+			userRole.setLastModifiedBy(user);
+			userRole.setUser(user);
+			userRoleDao.createUserRole(userRole);	
+		}
+	}
+	
+	
+	
+	
+	@Override
+	public void deleteUserRole(String roleName,String staffId){
+		List<SysUserRole> userRoleList=userRoleDao.findUserRoleByUserId(staffId);
+		
+		SysUserRole existUserRole=null;
+		for (int j = 0; j < userRoleList.size(); j++) {
+			SysUserRole tempUserRole=userRoleList.get(j);
+			if(tempUserRole.getRole().getName().equals(UserRole.valueOf(roleName))){
+				existUserRole=tempUserRole;
+				break;
+			}
+		}
+		
+		if (existUserRole!=null) {
+			userRoleDao.delete(existUserRole);
+		} else {
+		
+		}
+	}
+	
 }

@@ -180,7 +180,7 @@ public class DepartmentLeaderPresenterImpl extends
 											"");
 									DepartmentClient client = new DepartmentClient();
 									client.setId(departmentIds);
-									client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_EDIT);
+									client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_EDIT_DEPT);
 									openEditPage(client);
 								}
 							} else {

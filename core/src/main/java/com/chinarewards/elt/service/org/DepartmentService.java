@@ -60,7 +60,7 @@ public interface DepartmentService {
 	 * @param department
 	 * @return
 	 */
-	public Department saveDepartment(UserContext uc, Department department,List<String> staffId);
+	public Department saveDepartment(UserContext uc, Department department,List<String> staffIds,List<String> preLeaderIds);
 
 	/**
 	 * @param corpId

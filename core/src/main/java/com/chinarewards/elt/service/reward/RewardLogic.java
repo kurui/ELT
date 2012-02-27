@@ -125,10 +125,20 @@ public interface RewardLogic {
 			RewardSearchVo criteria);
 	
 	/**
+	 * @param context
+	 * @param criteria
+	 * @return
+	 */
+	public PageStore<RewardVo> fetchRewardsStaff(UserContext context,
+			RewardSearchVo criteria);
+	
+	/**
 	 * 删除奖励...非物理删除
 	 * 
 	 * @param rewardId
 	 * @return
 	 */
 	public String deleteReward(String rewardId,UserContext context);
+
+	
 }

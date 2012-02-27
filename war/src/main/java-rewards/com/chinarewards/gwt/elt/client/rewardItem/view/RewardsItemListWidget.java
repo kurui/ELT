@@ -1,6 +1,9 @@
 package com.chinarewards.gwt.elt.client.rewardItem.view;
 
 import java.util.Date;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
@@ -46,7 +49,7 @@ public class RewardsItemListWidget extends Composite implements
 	DateBox createTimeEnd;
 
 	@UiField
-	Panel departmentName;
+	ListBox depart;
 
 	@UiField
 	CheckBox chooseSubDepartment;
@@ -124,8 +127,8 @@ public class RewardsItemListWidget extends Composite implements
 
 	
 	@Override
-	public HasValue<Boolean> getChooseSubDepartment() {
-		return chooseSubDepartment;
+	public boolean getChooseSubDepartment() {
+		return chooseSubDepartment.getValue();
 	}
 
 	@Override
@@ -134,8 +137,18 @@ public class RewardsItemListWidget extends Composite implements
 	}
 
 	@Override
-	public Panel getDepartmentPanel() {
-		return departmentName;
+	public String getDepart() {
+		return depart.getValue(depart.getSelectedIndex());
+	}
+	@Override
+	public void initDepart(Map<String, String> map) {
+
+		depart.addItem("选择", "");
+		Iterator<Entry<String, String>> it = map.entrySet().iterator();
+		while (it.hasNext()) {
+			Entry<String, String> entry = it.next();
+			depart.addItem(entry.getValue(), entry.getKey());
+		}
 	}
 
 	@Override
@@ -171,6 +184,7 @@ public class RewardsItemListWidget extends Composite implements
 	public void setDataCount(String text) {
 		dataCount.setText(text);
 	}
+	
 	
 
 }

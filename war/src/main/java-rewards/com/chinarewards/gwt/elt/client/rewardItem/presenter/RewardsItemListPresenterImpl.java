@@ -2,10 +2,16 @@ package com.chinarewards.gwt.elt.client.rewardItem.presenter;
 
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
+import com.chinarewards.gwt.elt.client.budget.model.DepartmentVo;
+import com.chinarewards.gwt.elt.client.budget.request.InitDepartmentRequest;
+import com.chinarewards.gwt.elt.client.budget.request.InitDepartmentResponse;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.dataprovider.RewardsItemListViewAdapter;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
@@ -34,6 +40,7 @@ import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
@@ -109,8 +116,7 @@ public class RewardsItemListPresenterImpl extends
 		pager.setDisplay(resultTable);
 		resultTable.setWidth(ViewConstants.page_width);
 		resultTable.setPageSize(ViewConstants.per_page_number_in_dialog);
-		listViewAdapter = new RewardsItemListViewAdapter(dispatch,
-				errorHandler, sessionManager,display);
+		listViewAdapter = new RewardsItemListViewAdapter(dispatch,errorHandler, sessionManager,display);
 		listViewAdapter.addDataDisplay(resultTable);
 		resultTable.getColumn(0).setCellStyleNames("divTextLeft");
 		display.getDataContainer().clear();
@@ -160,9 +166,37 @@ public class RewardsItemListPresenterImpl extends
 //		map.put("false", "未激活");
 //		map.put("true", "已激活");
 		display.initStatus();
+		initDeparts();
 		
 	}
-	
+	private void initDeparts(){
+		   dispatch.execute(new InitDepartmentRequest(sessionManager.getSession()),
+					new AsyncCallback<InitDepartmentResponse>() {
+			          	@Override
+						public void onFailure(Throwable arg0) {
+							errorHandler.alert("查询部门出错!");
+							
+						}
+
+						@Override
+						public void onSuccess(InitDepartmentResponse response) {
+							 List<DepartmentVo> list = response.getResult();
+							 Map<String, String> map = new HashMap<String, String>();
+							 DepartmentVo vo = new DepartmentVo();
+							 if(list.size()>0){
+								 for(int i=0;i<list.size();i++){
+									   vo = list.get(i);
+									   map.put(vo.getId(), vo.getDepartmentName());
+								 }
+							 }
+								
+								display.initDepart(map);
+							
+						}
+
+					});
+			
+	   }
 	private void initTableColumns() {
 		Sorting<RewardsItemClient> ref = new Sorting<RewardsItemClient>() {
 			@Override
@@ -439,13 +473,12 @@ public class RewardsItemListPresenterImpl extends
 
 	public void doSearch() {
 		RewardsItemCriteria criteria = new RewardsItemCriteria();
-		// criteria.setDepartmentId(display.getBuildDept());
-		criteria.setSubDepartmentChoose(display.getChooseSubDepartment().getValue());
 		criteria.setName(display.getSearchName().getValue());
 		criteria.setCreateTime(display.getCreateTime().getValue());
 		criteria.setCreateTimeEnd(display.getCreateTimeEnd().getValue());
 		criteria.setEnabled(display.getStatus());
-
+		criteria.setDepartmentId(display.getDepart());
+		criteria.setSubDepartmentChoose(display.getChooseSubDepartment());
 		listViewAdapter.setCriteria(criteria);
 		listViewAdapter.reloadToFirstPage();
 	}

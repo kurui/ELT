@@ -32,7 +32,7 @@ public interface RewardsItemStoreListPresenter extends	Presenter<RewardsItemStor
 		
 		public Panel getDepartmentPanel();
 		
-		public HasValue<Boolean> getChooseSubDepartment();
+		public boolean getChooseSubDepartment();
 		
 		public HasClickHandlers getSearchClick();
 		
@@ -45,12 +45,7 @@ public interface RewardsItemStoreListPresenter extends	Presenter<RewardsItemStor
 		
 		void initialize();
 		void setDataCount(String text);
-		/**
-		 * 选择部门
-		 * @param deptIds
-		 */
-	//	public void showDept(List<String> deptIds);
-
-	//	String getBuildDept();
+		public void initDepart(Map<String, String> map);
+		String getDepart();
 	}
 }

@@ -27,11 +27,13 @@ import com.chinarewards.gwt.elt.client.login.event.LoginEvent;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.orderHistory.plugin.OrderHistoryConstants;
+import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListStaffConstants;
 import com.chinarewards.gwt.elt.client.smallControl.view.SmallRewardItemWindowWidget;
 import com.chinarewards.gwt.elt.client.smallControl.view.SmallRewardWindowWidget;
 import com.chinarewards.gwt.elt.client.smallControl.view.SmallShopWindowWidget;
 import com.chinarewards.gwt.elt.client.staffHeavenIndex.plugin.StaffHeavenIndexConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.chinarewards.gwt.elt.model.rewards.RewardsPageClient;
 import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -53,78 +55,80 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 	@Inject
 	public StaffPresenterImpl(EventBus eventBus, StaffDisplay display,
 			SessionManager sessionManager, PluginManager pluginManager,
-			EltGinjector injector, MenuProcessor menuProcessor,DispatchAsync dispatchAsync,BreadCrumbsMenu breadCrumbsMenu) {
+			EltGinjector injector, MenuProcessor menuProcessor,
+			DispatchAsync dispatchAsync, BreadCrumbsMenu breadCrumbsMenu) {
 		super(eventBus, display);
 		this.sessionManager = sessionManager;
 		this.pluginManager = pluginManager;
 		this.injector = injector;
 		this.menuProcessor = menuProcessor;
-		this.dispatchAsync=dispatchAsync;
-		this.breadCrumbsMenu=breadCrumbsMenu;
+		this.dispatchAsync = dispatchAsync;
+		this.breadCrumbsMenu = breadCrumbsMenu;
 	}
 
 	public void bind() {
-		List <UserRoleVo> roleslt = new ArrayList<UserRoleVo>();
-		UserRoleVo [] roles=sessionManager.getSession().getUserRoles();
+		List<UserRoleVo> roleslt = new ArrayList<UserRoleVo>();
+		UserRoleVo[] roles = sessionManager.getSession().getUserRoles();
 
-		if(roles.length>0)
-		{
-			for (UserRoleVo r:roles) {
+		if (roles.length > 0) {
+			for (UserRoleVo r : roles) {
 				roleslt.add(r);
 			}
-			if(!roleslt.contains(UserRoleVo.CORP_ADMIN) && !roleslt.contains(UserRoleVo.DEPT_MGR))
-			{
+			if (!roleslt.contains(UserRoleVo.CORP_ADMIN)
+					&& !roleslt.contains(UserRoleVo.DEPT_MGR)) {
 				display.disableManagementCenter();
 			}
-			if(!roleslt.contains(UserRoleVo.GIFT))
-			{
+			if (!roleslt.contains(UserRoleVo.GIFT)) {
 				display.disableGiftExchange();
 			}
-			if(!roleslt.contains(UserRoleVo.STAFF))
-			{
+			if (!roleslt.contains(UserRoleVo.STAFF)) {
 				display.disableStaffCorner();
 			}
 		}
-		init();
+//		init();
 		registerHandler(display.getlogBtn().addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGOUT));
 			}
 		}));
-		registerHandler(display.getBtnCollection().addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				Window.alert("收藏");
-			}
-		}));
+		registerHandler(display.getBtnCollection().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						Window.alert("收藏");
+					}
+				}));
 
 		registerHandler(display.getManagementCenter().addClickHandler(
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						UserRoleVo role=UserRoleVo.DEPT_MGR;
-						
-						for (int i = 0; i < sessionManager.getSession().getUserRoles().length; i++) {
-							if(UserRoleVo.CORP_ADMIN==sessionManager.getSession().getUserRoles()[i])
-							{
-								role=UserRoleVo.CORP_ADMIN;
+						UserRoleVo role = UserRoleVo.DEPT_MGR;
+
+						for (int i = 0; i < sessionManager.getSession()
+								.getUserRoles().length; i++) {
+							if (UserRoleVo.CORP_ADMIN == sessionManager
+									.getSession().getUserRoles()[i]) {
+								role = UserRoleVo.CORP_ADMIN;
 							}
 						}
-						dispatchAsync.execute(new LastLoginRoleRequest(sessionManager.getSession().getToken(),role),
+						dispatchAsync.execute(new LastLoginRoleRequest(
+								sessionManager.getSession().getToken(), role),
 								new AsyncCallback<LastLoginRoleResponse>() {
-	
+
 									@Override
 									public void onFailure(Throwable e) {
-									//	Window.alert("系统切换出错");
+										// Window.alert("系统切换出错");
 									}
-	
+
 									@Override
-									public void onSuccess(LastLoginRoleResponse resp) {
-										//成功
-										if("success".equals(resp.getFal()))
+									public void onSuccess(
+											LastLoginRoleResponse resp) {
+										// 成功
+										if ("success".equals(resp.getFal()))
 											GWT.log("success update last login role ");
-										
+
 									}
 								});
 						Window.Location.reload();
@@ -134,80 +138,146 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						dispatchAsync.execute(new LastLoginRoleRequest(sessionManager.getSession().getToken(),UserRoleVo.GIFT),
+						dispatchAsync.execute(new LastLoginRoleRequest(
+								sessionManager.getSession().getToken(),
+								UserRoleVo.GIFT),
 								new AsyncCallback<LastLoginRoleResponse>() {
-	
+
 									@Override
 									public void onFailure(Throwable e) {
-									//	Window.alert("系统切换出错");
+										// Window.alert("系统切换出错");
 									}
-	
+
 									@Override
-									public void onSuccess(LastLoginRoleResponse resp) {
-										//成功
-										if("success".equals(resp.getFal()))
+									public void onSuccess(
+											LastLoginRoleResponse resp) {
+										// 成功
+										if ("success".equals(resp.getFal()))
 											GWT.log("success update last login role ");
-										
+
 									}
 								});
 						Window.Location.reload();
 					}
 				}));
 
-		registerHandler(display.getAwardShop().addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				Platform.getInstance()
-				.getEditorRegistry()
-				.openEditor(
-						AwardShopListConstants.EDITOR_AWARDSHOPLIST_SEARCH,
-						"EDITOR_AWARDSHOPLIST_SEARCH_DO_ID", null);
-			}
-		}));
-		
-		registerHandler(display.getExchangeHistory().addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				Platform.getInstance()
-				.getEditorRegistry()
-				.openEditor(
-						OrderHistoryConstants.EDITOR_ORDERHISTORY_SEARCH,
-						"EDITOR_ORDERHISTORY_SEARCH_DO_ID", null);
-			}
-		}));
-		//员工首页
-		registerHandler(display.getStaffHeavenIndex().addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				Platform.getInstance()
-				.getEditorRegistry()
-				.openEditor(
-						StaffHeavenIndexConstants.EDITOR_STAFFHEAVENINDEX_SEARCH,
-						"EDITOR_STAFFHEAVENINDEX_SEARCH_DO_ID", null);
-			}
-		}));
-		//公司广播
-		registerHandler(display.getCorpBroadcastAnchor().addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				Platform.getInstance()
-				.getEditorRegistry()
-				.openEditor(
-						CorpBroadcastConstants.EDITOR_CORPBROADCAST_SEARCH,
-						"EDITOR_CORPBROADCAST_SEARCH_DO_ID", null);
-			}
-		}));
-		//光荣榜
-		registerHandler(display.getGloryAnchor().addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				Platform.getInstance()
-				.getEditorRegistry()
-				.openEditor(
-						GloryBroadcastConstants.EDITOR_GLORYBROADCAST_SEARCH,
-						"EDITOR_GLORYBROADCAST_SEARCH_DO_ID", null);
-			}
-		}));
+
+		// 查看积分
+		registerHandler(display.getViewPoints().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						Platform.getInstance()
+								.getEditorRegistry()
+								.openEditor(
+										AwardShopListConstants.EDITOR_AWARDSHOPLIST_SEARCH,
+										"EDITOR_AWARDSHOPLIST_SEARCH_DO_ID",
+										null);
+					}
+				}));
+		// 获奖历史
+		registerHandler(display.getWinninghistory().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						RewardsPageClient client = new RewardsPageClient();
+						Platform.getInstance()
+								.getEditorRegistry()
+								.openEditor(
+										RewardsListStaffConstants.EDITOR_REWARDSLIST_STAFF_SEARCH,
+										"EDITOR_REWARDSLIST_STAFF_SEARCH_DO_ID",
+										client);
+					}
+				}));
+
+//		// 我参与的奖项
+//		registerHandler(display.getParticipationAwards().addClickHandler(
+//				new ClickHandler() {
+//					@Override
+//					public void onClick(ClickEvent event) {
+//						Platform.getInstance()
+//								.getEditorRegistry()
+//								.openEditor(
+//										AwardShopListConstants.EDITOR_AWARDSHOPLIST_SEARCH,
+//										"EDITOR_AWARDSHOPLIST_SEARCH_DO_ID",
+//										null);
+//					}
+//				}));
+//
+//		// 公司其他奖项
+//		registerHandler(display.getOtherAwards().addClickHandler(
+//				new ClickHandler() {
+//					@Override
+//					public void onClick(ClickEvent event) {
+//						Platform.getInstance()
+//								.getEditorRegistry()
+//								.openEditor(
+//										AwardShopListConstants.EDITOR_AWARDSHOPLIST_SEARCH,
+//										"EDITOR_AWARDSHOPLIST_SEARCH_DO_ID",
+//										null);
+//					}
+//				}));
+
+//		registerHandler(display.getExchangeHistory().addClickHandler(
+//				new ClickHandler() {
+//					@Override
+//					public void onClick(ClickEvent event) {
+//						Platform.getInstance()
+//								.getEditorRegistry()
+//								.openEditor(
+//										OrderHistoryConstants.EDITOR_ORDERHISTORY_SEARCH,
+//										"EDITOR_ORDERHISTORY_SEARCH_DO_ID",
+//										null);
+//					}
+//				}));
+//		// 员工首页
+//		registerHandler(display.getStaffHeavenIndex().addClickHandler(
+//				new ClickHandler() {
+//					@Override
+//					public void onClick(ClickEvent event) {
+//						Platform.getInstance()
+//								.getEditorRegistry()
+//								.openEditor(
+//										StaffHeavenIndexConstants.EDITOR_STAFFHEAVENINDEX_SEARCH,
+//										"EDITOR_STAFFHEAVENINDEX_SEARCH_DO_ID",
+//										null);
+//					}
+//				}));
+
+//		registerHandler(display.getAwardShop().addClickHandler(new ClickHandler() {
+//			@Override
+//			public void onClick(ClickEvent event) {
+//				Platform.getInstance()
+//				.getEditorRegistry()
+//				.openEditor(
+//						AwardShopListConstants.EDITOR_AWARDSHOPLIST_SEARCH,
+//						"EDITOR_AWARDSHOPLIST_SEARCH_DO_ID", null);
+//			}
+//		}));
+//
+//		//公司广播
+//		registerHandler(display.getCorpBroadcastAnchor().addClickHandler(new ClickHandler() {
+//			@Override
+//			public void onClick(ClickEvent event) {
+//				Platform.getInstance()
+//				.getEditorRegistry()
+//				.openEditor(
+//						CorpBroadcastConstants.EDITOR_CORPBROADCAST_SEARCH,
+//						"EDITOR_CORPBROADCAST_SEARCH_DO_ID", null);
+//			}
+//		}));
+//		//光荣榜
+//		registerHandler(display.getGloryAnchor().addClickHandler(new ClickHandler() {
+//			@Override
+//			public void onClick(ClickEvent event) {
+//				Platform.getInstance()
+//				.getEditorRegistry()
+//				.openEditor(
+//						GloryBroadcastConstants.EDITOR_GLORYBROADCAST_SEARCH,
+//						"EDITOR_GLORYBROADCAST_SEARCH_DO_ID", null);
+//			}
+//		}));
+
 
 	}
 

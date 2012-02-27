@@ -8,6 +8,7 @@ import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.budget.search.DepartmentBudgetVo;
 import com.chinarewards.elt.model.budget.search.IntegralManagementVo;
 import com.chinarewards.elt.model.common.PageStore;
+import com.chinarewards.elt.model.user.UserContext;
 
 public interface BudgetLogic {
 	/**
@@ -24,7 +25,7 @@ public interface BudgetLogic {
 	 * @param order
 	 * @return
 	 */
-	public DepartmentBudget saveDepartmentBudget(SysUser caller, DepartmentBudget budget);
+	public DepartmentBudget saveDepartmentBudget(UserContext context, DepartmentBudget budget);
 
 
 	/**
@@ -46,6 +47,7 @@ public interface BudgetLogic {
 	 */
 	public List<CorpBudget> findCorpBudget(String corpid);
 	
+	public List<DepartmentBudget> findDepartBudget(String depId);
 	/**
 	 * 查找根据部门预算ID
 	 * @param id
@@ -68,7 +70,7 @@ public interface BudgetLogic {
 	public PageStore<DepartmentBudgetVo> deptBudgetList(SysUser caller,DepartmentBudgetVo deptBudgetVo);
 
 
-	public String findByDepAndCorpBudgetId(DepartmentBudget departmentBudget);
+	public DepartmentBudget findByDepAndCorpBudgetId(DepartmentBudget departmentBudget);
 	
 
 	/**

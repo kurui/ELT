@@ -489,6 +489,41 @@ public class RewardLogicImpl implements RewardLogic {
 			return storeVo;
 		}
 	}
+	
+	@Override
+	public PageStore<RewardVo> fetchRewardsStaff(UserContext context,
+			RewardSearchVo criteria) {
+		PageStore<Reward> pageStore = rewardAclProcessorFactory
+				.generateRewardAclProcessor(context.getUserRoles())
+				.fetchRewardsStaff(context, criteria);
+
+		List<Reward> list = pageStore.getResultList();
+		// post-process and convert
+		List<RewardVo> rewardVoList = new ArrayList<RewardVo>();
+		if(list.size()>0)
+		{
+			for (Reward reward : list) {
+				rewardVoList.add(convertFromRewardToVo(reward, true));
+			}
+
+		logger.debug("The result size:{}, total:{}", new Object[] {
+				rewardVoList.size(), pageStore.getResultCount() });
+
+		PageStore<RewardVo> storeVo = new PageStore<RewardVo>();
+		storeVo.setResultCount(pageStore.getResultCount());
+		storeVo.setResultList(rewardVoList);
+
+		return storeVo;
+		}
+		else
+		{
+			PageStore<RewardVo> storeVo = new PageStore<RewardVo>();
+			storeVo.setResultCount(0);
+			storeVo.setResultList(rewardVoList);
+			return storeVo;
+		}
+	}
+
 
 	@Override
 	public String deleteReward(String rewardId,UserContext context) {

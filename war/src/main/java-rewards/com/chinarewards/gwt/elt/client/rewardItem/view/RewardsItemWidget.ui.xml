@@ -46,8 +46,8 @@
 				        <label class="{newitem.label}">  总积分：</label>
 				        <div class="{newitem.element}">
 				          <g:TextBox maxLength="9" ui:field="totalJF" styleName="{newitem.text}"/>
-
-				        </div>
+                             <span class="{newitem.nbsp}"/><g:InlineLabel ui:field="title"></g:InlineLabel>年度预算还有:<g:InlineLabel ui:field="remainCount" styleName="{newitem.divfont}"></g:InlineLabel> 积分
+                          </div>
 				      </div>
                       <div class="{newitem.form-line}">
 				        <label class="{newitem.label}"> 每人得奖积分：</label>

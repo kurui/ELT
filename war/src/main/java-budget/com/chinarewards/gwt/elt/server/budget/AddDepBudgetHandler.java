@@ -55,19 +55,26 @@ public class AddDepBudgetHandler extends
 		uc.setLoginName(request.getUserSession().getLoginName());
 		uc.setUserRoles(UserRoleTool.adaptToRole(request.getUserSession().getUserRoles()));
 		uc.setUserId(request.getUserSession().getToken());
-		String id = budgetService.findByDepAndCorpBudgetId(serviceVo);
-		boolean isSave = request.isSave();
-		if(id.equals("")&& isSave==true){
+		DepartmentBudget oldDepartmentBudget = budgetService.findByDepAndCorpBudgetId(serviceVo);
+		String operate = request.getOperate();
+		if(operate.equals("init")){//返回如何操作
+			if(oldDepartmentBudget==null)
+				resp.setMessage("save");
+			else{
+				resp.setMessage("update");
+				resp.setOldJf(oldDepartmentBudget.getBudgetIntegral());//返回旧的积分
+			}
+		}
+		if(operate.equals("save")&& oldDepartmentBudget==null){//是新增
 		   DepartmentBudget dep = budgetService.saveDepartmentBudget(uc, serviceVo);
 		     if(dep!=null)
 		      resp.setMessage("1");
-		}else if(!id.equals("")&& isSave==true){
-			  resp.setMessage("2");
-		}else if(!id.equals("")&&isSave==false){
-			  serviceVo.setId(id);
+		
+		}else if(oldDepartmentBudget!=null&& operate.equals("update")){//是修改的保存
+			  serviceVo.setId(oldDepartmentBudget.getId());
 			  DepartmentBudget dep = budgetService.saveDepartmentBudget(uc, serviceVo);
 			  if(dep!=null)
-		      resp.setMessage("3");
+		      resp.setMessage("2");
 		}
 		return resp;
 	}

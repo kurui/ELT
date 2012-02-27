@@ -43,11 +43,18 @@ public interface BudgetService {
 	public CorpBudget findCorpBudgetById(String id);
 	
 	/**
-	 * 查找根据企业财年(增加部门预算时，初始化得到财年的数据用于下拉表选择)
+	 * HR查找根据企业财年(增加部门预算时，初始化得到财年的数据用于下拉表选择)
 	 * @param id
 	 * @return
 	 */
 	public List<CorpBudget> findCorpBudget(String corpid);
+	
+	/**
+	 * 部门查找根据企业财年(增加部门预算时，初始化得到财年的数据用于下拉表选择)
+	 * @param id
+	 * @return
+	 */
+	public List<DepartmentBudget> findDepartBudget(String depId);
     /*
 	 * 查找根据企业ID
 	 * @param id
@@ -85,7 +92,7 @@ public interface BudgetService {
    * @param departmentBudget
    * @return
    */
-	public String findByDepAndCorpBudgetId(DepartmentBudget departmentBudget);
+	public DepartmentBudget findByDepAndCorpBudgetId(DepartmentBudget departmentBudget);
 
 	
 	/**

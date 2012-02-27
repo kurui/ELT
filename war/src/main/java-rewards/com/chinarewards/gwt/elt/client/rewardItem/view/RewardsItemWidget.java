@@ -37,6 +37,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RadioButton;
@@ -135,6 +136,10 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 		Panel staffAreaPanel;
 		@UiField
 		Panel breadCrumbs;	
+		@UiField
+		InlineLabel remainCount;
+		@UiField
+		InlineLabel title;
 		SpecialTextArea<OrganicationClient> staffArea;
 		// is inject
 	//	final DepartmentComboTree buildDept;
@@ -160,6 +165,16 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 	   			
 		public HasClickHandlers getBackStoreClick() {
 			return backStore;
+		}
+		@Override
+		public void setRemainCount(String text) {
+			remainCount.setText(text);
+			
+		}
+		@Override
+		public void setTitle(String text) {
+			title.setText(text);
+			
 		}
 		@Override
 		public void setBreadCrumbs(Widget breadCrumbs) {

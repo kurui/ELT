@@ -12,6 +12,7 @@ public class CorpBudgetDao extends BaseDao<CorpBudget> {
 	 * @param corpid
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	public CorpBudget findByCorpId(String corporationId) {
 		String sql = "FROM CorpBudget c WHERE c.corporationId = :corporationId and sysdate between c.beginDate and c.endDate ";
 		logger.debug(" findByCorpId==" + corporationId + "--" + sql);
@@ -31,6 +32,7 @@ public class CorpBudgetDao extends BaseDao<CorpBudget> {
 	 * @param corpid
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	public List<CorpBudget> findCorpBudget(String corporationId) {
 		String sql = "FROM CorpBudget c WHERE  c.corporationId = :corporationId order by endDate desc";
 		

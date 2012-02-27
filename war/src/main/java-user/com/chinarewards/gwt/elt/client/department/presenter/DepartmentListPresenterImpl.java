@@ -221,7 +221,7 @@ public class DepartmentListPresenterImpl extends
 											"");
 									DepartmentClient client = new DepartmentClient();
 									client.setId(departmentIds);
-									client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_EDIT);
+									client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_EDIT_CORP);
 									openEditPage(client);
 								}
 							} else {

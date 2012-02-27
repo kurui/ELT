@@ -4,11 +4,18 @@ package com.chinarewards.gwt.elt.client.rewardItem.presenter;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
+import com.chinarewards.gwt.elt.client.budget.model.CorpBudgetVo;
+import com.chinarewards.gwt.elt.client.budget.model.DepBudgetVo;
+import com.chinarewards.gwt.elt.client.budget.provider.DepBudgetListAdapter;
+import com.chinarewards.gwt.elt.client.budget.request.InitCorpBudgetRequest;
+import com.chinarewards.gwt.elt.client.budget.request.InitCorpBudgetResponse;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.ui.DialogCloseListener;
 import com.chinarewards.gwt.elt.client.frequency.CalculatorSelectFactory;
@@ -66,6 +73,7 @@ public class RewardsItemCreatePresenterImpl extends
 	String instanceId;//修改时传过来的ID
 	boolean isItemStore = false;//是否是奖项库
 	boolean isEnabled = false;
+	 double remainCount;//剩余的总积分
 	/**
 	 * 是否为修改页，默认为false
 	 */
@@ -129,6 +137,7 @@ public class RewardsItemCreatePresenterImpl extends
 	public void bind() {
 		//绑定事件
 		 init();
+		 initBudget();
 		//候选人面板显示
 		staffBlock.bind();
 		display.initStaffBlock(staffBlock.getDisplay().asWidget());
@@ -423,7 +432,6 @@ public class RewardsItemCreatePresenterImpl extends
 									else
 										 rewardsItemStore.setTmdays(0);
 									}
-
 							
 								if (!isEditPage) {
 									rewardsItemStore.setId("");
@@ -473,6 +481,35 @@ public class RewardsItemCreatePresenterImpl extends
 			nominateInfo = new SomeoneClient(orgs);
 			return nominateInfo;
 		 }
+		private void initBudget(){
+			   
+			dispatcher.execute(new InitCorpBudgetRequest(sessionManager.getSession()),
+						new AsyncCallback<InitCorpBudgetResponse>() {
+				          	@Override
+							public void onFailure(Throwable arg0) {
+								errorHandler.alert("查询财年周期出错!");
+								
+							}
+
+							@Override
+							public void onSuccess(InitCorpBudgetResponse response) {
+								 List<CorpBudgetVo> list = response.getResult();
+								 CorpBudgetVo vo = new CorpBudgetVo();
+								 if(list.size()>0){
+									   vo = list.get(0);
+									   display.setRemainCount((vo.getBudgetIntegral()-vo.getUseIntegeral())+"");
+									   display.setTitle(vo.getBudgetTitle());
+									   remainCount = vo.getBudgetIntegral()-vo.getUseIntegeral();
+										
+								 }
+									
+									
+								
+							}
+
+						});
+			 
+		   }
 		private void doSave(RewardsItemClient rewardsItem,final boolean itemStore) {
 			dispatcher.execute(new CreateRewardsItemRequest(rewardsItem,sessionManager.getSession(),itemStore),
 			new AsyncCallback<CreateRewardsItemResponse>() {
@@ -675,11 +712,11 @@ public class RewardsItemCreatePresenterImpl extends
 					if (display.getTotalJF() == null|| display.getTotalJF().intValue() <= 0) {
 						errorMsg.append("总积分额度出错，总积分要是正整数!<br>");
 						flag = false;
-					}else	if (display.getRewardsFrom() == null|| display.getRewardsFrom().intValue() <= 0) {
+					}else if (display.getRewardsFrom() == null|| display.getRewardsFrom().intValue() <= 0) {
 							errorMsg.append("每人得奖积分额度出错，积分要是正整数!<br>");
 							flag = false;
-					} 
-					
+					 } 
+															
 					if (display.getRewardsFrom() != null) {
 						if (display.getRewardsFrom().intValue() == 0) {
 							errorMsg.append("每人得奖积分“0”!<br>");

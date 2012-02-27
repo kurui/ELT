@@ -26,6 +26,14 @@ public interface RewardAclProcessor {
 	 */
 	public PageStore<Reward> fetchRewards(UserContext context,
 			RewardSearchVo criteria);
+	
+	/**
+	 * @param context
+	 * @param criteria
+	 * @return
+	 */
+	public PageStore<Reward> fetchRewardsStaff(UserContext context,
+			RewardSearchVo criteria);
 
 	/**
 	 * Obtain the list of {@link RewardItem} managed by the login user.
@@ -39,4 +47,6 @@ public interface RewardAclProcessor {
 	
 	public PageStore<RewardItemStore> fetchRewardItemsStore(UserContext context,
 			RewardItemSearchVo criteria);
+
+	
 }

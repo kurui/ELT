@@ -23,11 +23,7 @@
 					<span class="{newitem.nbsp}"></span>
 					<label for="">部门:</label>
 					<g:FlowPanel ui:field="departmentName" styleName="{newitem.divtext}"/>
-					<select class="{newitem.select}" >
-						<option value="">技术部</option>
-						<option value="">财务部</option>
-						<option value="">人事部</option>
-					</select>
+					<g:ListBox ui:field="depart"  styleName="{newitem.select}"/>
 					<g:CheckBox ui:field="chooseSubDepartment" checked="true" />
 					<label for="">包含子部门</label>
 

@@ -1,6 +1,7 @@
 package com.chinarewards.elt.service.budget.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -18,9 +19,12 @@ import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.budget.search.DepartmentBudgetVo;
 import com.chinarewards.elt.model.budget.search.IntegralManagementVo;
 import com.chinarewards.elt.model.common.PageStore;
+import com.chinarewards.elt.model.user.UserContext;
+import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.model.vo.StaffSearchVo;
 import com.chinarewards.elt.service.budget.BudgetLogic;
 import com.chinarewards.elt.service.org.DepartmentLogic;
+import com.chinarewards.elt.service.user.UserLogic;
 import com.chinarewards.elt.util.DateUtil;
 import com.chinarewards.elt.util.StringUtil;
 import com.google.inject.Inject;
@@ -30,11 +34,12 @@ public class BudgetLogicImpl implements BudgetLogic {
 	private CorpBudgetDao corpBudgetDao;
 	private DepartmentDao departmentDao;
 	private DepartmentLogic departmentLogic;
+	private UserLogic userLogic;
 	private StaffDao   staffDao;
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Inject
-	protected BudgetLogicImpl(DepartmentBudgetDao departmentBudgetDao,
+	protected BudgetLogicImpl(DepartmentBudgetDao departmentBudgetDao,UserLogic userLogic,
 			DepartmentDao departmentDao, CorpBudgetDao corpBudgetDao,StaffDao   staffDao,
 			DepartmentLogic departmentLogic) {
 		this.departmentBudgetDao = departmentBudgetDao;
@@ -42,6 +47,7 @@ public class BudgetLogicImpl implements BudgetLogic {
 		this.corpBudgetDao = corpBudgetDao;
 		this.departmentLogic = departmentLogic;
 		this.staffDao  = staffDao;
+		this.userLogic = userLogic;
 	}
 
 	@Override
@@ -77,19 +83,31 @@ public class BudgetLogicImpl implements BudgetLogic {
 	}
     
 	@Override
-	public DepartmentBudget saveDepartmentBudget(SysUser caller,DepartmentBudget departmentBudget) {
+	public DepartmentBudget saveDepartmentBudget(UserContext context,DepartmentBudget departmentBudget) {
 		Date currTime = DateUtil.getTime();
-		
+		SysUser caller = userLogic.findUserById(context.getUserId());
+		CorpBudget corpBudget= corpBudgetDao.findById(CorpBudget.class,departmentBudget.getCorpBudgetId());
+		//Department sonDepartment= departmentDao.findById(Department.class,departmentBudget.getDepartmentId());//得到操作的部门ID
+		// Department ParentDepartment= departmentDao.findById(Department.class,sonDepartment.getParent().getId());//得到操作的部门的父部门
+		List<UserRole> roleList = Arrays.asList(context.getUserRoles());//得到角色是HR还是leader
 		if (StringUtil.isEmptyString(departmentBudget.getId())) {
 			// Create
 			departmentBudget.setDeleted(0);// 正常状态，没有删除为0
 			departmentBudget.setRecorduser(caller.getUserName());
 			departmentBudget.setUseIntegeral(0);//已用的积分为0
 			departmentBudget = departmentBudgetDao.save(departmentBudget);
-			CorpBudget corpBudget= corpBudgetDao.findById(CorpBudget.class,departmentBudget.getCorpBudgetId());
-			//更新企业财年的已用积分
-			corpBudget.setUseIntegeral(corpBudget.getUseIntegeral()+departmentBudget.getBudgetIntegral());
-			corpBudgetDao.update(corpBudget);
+			if (roleList.contains(UserRole.CORP_ADMIN)){//是HR就更新企业的财年预算
+			 //更新企业财年的已用积分
+			  
+			  corpBudget.setUseIntegeral(corpBudget.getUseIntegeral()+departmentBudget.getBudgetIntegral());
+			  corpBudgetDao.update(corpBudget);
+		     }else if (roleList.contains(UserRole.DEPT_MGR)){
+		    	  //得到父部门的预算,getCorpBudgetId得到的是父部门的ID
+		    	  DepartmentBudget ParentdepartmentBudget= departmentBudgetDao.findById(DepartmentBudget.class,departmentBudget.getCorpBudgetId());
+		    	  ParentdepartmentBudget.setUseIntegeral(ParentdepartmentBudget.getUseIntegeral()+departmentBudget.getBudgetIntegral());
+		    	//更新父部门财年的已用积分
+		    	  departmentBudgetDao.update(ParentdepartmentBudget);
+			 }
 		} else {
 			// Update
 			double newBudgetIntegral = departmentBudget.getBudgetIntegral();
@@ -100,11 +118,17 @@ public class BudgetLogicImpl implements BudgetLogic {
 			departmentBudget.setRecorduser(caller.getUserName());
 			departmentBudget = departmentBudgetDao.findById(DepartmentBudget.class, departmentBudget.getId());
 			departmentBudget.setBudgetIntegral(newBudgetIntegral);
-			
 			departmentBudgetDao.update(departmentBudget);
-			CorpBudget corpBudget= corpBudgetDao.findById(CorpBudget.class,departmentBudget.getCorpBudgetId());
-			corpBudget.setUseIntegeral(corpBudget.getUseIntegeral()-sc);//修改财年的已使用的积分
-			corpBudgetDao.update(corpBudget);
+			if (roleList.contains(UserRole.CORP_ADMIN)){//是HR就更新企业的财年预算
+			   corpBudget.setUseIntegeral(corpBudget.getUseIntegeral()-sc);//修改财年的已使用的积分
+			   corpBudgetDao.update(corpBudget);
+			}else if (roleList.contains(UserRole.DEPT_MGR)){
+		    	  //得到父部门的预算,getCorpBudgetId得到的是父部门的ID
+				  DepartmentBudget ParentdepartmentBudget= departmentBudgetDao.findById(DepartmentBudget.class,departmentBudget.getCorpBudgetId());
+		    	  ParentdepartmentBudget.setUseIntegeral(ParentdepartmentBudget.getUseIntegeral()-sc);
+		    	//更新父部门财年的已用积分
+		    	  departmentBudgetDao.update(ParentdepartmentBudget);
+			 }
 		}
 
 		return departmentBudget;
@@ -118,7 +142,10 @@ public class BudgetLogicImpl implements BudgetLogic {
 	public List<CorpBudget> findCorpBudget(String corpid) {
 		return corpBudgetDao.findCorpBudget(corpid);
 	}
-   
+	@Override
+	public List<DepartmentBudget> findDepartBudget(String depId) {
+		return departmentBudgetDao.findDepartBudget(depId);
+	}
 	@Override
 	public CorpBudget findCorpBudgetByCorpId(String corpid) {
 		return corpBudgetDao.findByCorpId(corpid);
@@ -193,7 +220,7 @@ public class BudgetLogicImpl implements BudgetLogic {
 
 	@Override
 
-	public String findByDepAndCorpBudgetId(DepartmentBudget departmentBudget) {
+	public DepartmentBudget findByDepAndCorpBudgetId(DepartmentBudget departmentBudget) {
 		return departmentBudgetDao.findByDepAndCorpBudgetId(departmentBudget);//是否已经有了数据
 	}
 	public List<IntegralManagementVo> getIntegralManagementList(String corpId,String corpBudgetId) {

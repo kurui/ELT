@@ -27,6 +27,8 @@ public interface DepartmentManagerLogic {
 	 * @return
 	 */
 	public List<DepartmentManager> createManager(String deptId, List<String> staffIds);
+	
+	public void deleteManager(String deptId, List<String> staffIds);
 
 	/**
 	 * @param deptId
