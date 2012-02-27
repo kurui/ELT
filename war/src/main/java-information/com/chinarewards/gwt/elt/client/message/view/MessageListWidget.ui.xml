@@ -4,24 +4,94 @@
 	xmlns:d='urn:import:com.google.gwt.user.datepicker.client'>
 	<ui:style src="new2.css" field="new2"></ui:style>
 	<g:HTMLPanel>
-		<div class="{new2.frame-wrap}">
+		<div class="{new2.employee}">
+	  <!-- 内容区 [[-->
+    <div class="{new2.content-wrap}">
+      <div class="{new2.content-info}">
 
-123123
+ 					<div class="{new2.breadcrumb}">
+						<a href="#">首页</a>
+						&gt;
+						<span>我的消息</span>
+					</div>
 
-			<div class="{new2.table}">
-				<g:FlowPanel ui:field="resultPanel" />
-			</div>
+ <div class="{new2.news-wrap}">
+          <ul class="{new2.news-menu}">
+            <li class="{new2.news-on}"><a href="#" hidefocus="true">已收消息</a></li>
+            <li><a href="#" hidefocus="true">已发消息</a></li>
+          </ul>
 
-			<!--分页 [[ -->
-			<div id="rewardlist_page" class="{new2.pager}">
+          <div class="{new2.news-content}">
+            <div class="{new2.send-news}">
+            			 <div class="{new2.remark} {new2.remark-info}">		
+							<div class="{new2.remark-tool}" >
+				             <g:Button styleName="{new2.button}" text="发送短消息" ui:field="addBtn" />
+							</div>
+						</div>
+            </div>
+            			
+
+            <div class="{new2.news-list} {new2.remark-list}">
+              <div class="{new2.remark-list-info} {new2.clearfix}">
+                <img src="img/ps_emplate_small.png" width="30px" height="30px" />
+                <div class="{new2.remark-info-wrap}">
+                  <p><span class="{new2.remark-name}">Mervyn</span> 说：<span class="{new2.remark-content}">祝贺你！什么时候请客吃饭？！哈哈哈哈……</span></p>
+                  <p><span>9月14日 09:35</span>  <a href="#">回复</a>  <a href="#">删除</a></p>
+
+                  <div class="{new2.remark}">
+                    <div class="{new2.remark-info}">
+                      <textarea class="{new2.textarea}">@JOL 祝贺你！什么时候请客吃饭？！哈哈哈哈……</textarea>
+                      <div class="{new2.remark-tool}">
+                        <button type="button" class="{new2.button}">回复</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="{new2.remark-list-info} {new2.clearfix}">
+                <img src="img/ps_emplate_small.png" width="30px" height="30px" />
+                <div class="{new2.remark-info-wrap}">
+                  <p><span class="{new2.remark-name">Mervyn</span> 说：<span class="{new2.remark-content}">祝贺你！什么时候请客吃饭？！哈哈哈哈……</span></p>
+                  <p><span>9月14日 09:35</span>  <a href="#">回复</a></p>
+                </div>
+              </div>
+              <div class="{new2.remark-list-info} {new2.clearfix}">
+                <img src="img/ps_emplate_small.png" width="30px" height="30px" />
+                <div class="{new2.remark-info-wrap}">
+                  <p><span class="{new2.remark-name">Mervyn</span> 说：<span class="{new2.remark-content}">祝贺你！什么时候请客吃饭？！哈哈哈哈……</span></p>
+                  <p><span>9月14日 09:35</span>  <a href="#">回复</a></p>
+                </div>
+              </div>
+              <div class="{new2.remark-list-info} {new2.clearfix}">
+                <img src="img/ps_emplate_small.png" width="30px" height="30px" />
+                <div class="{new2.remark-info-wrap}">
+                  <p><span class="{new2.remark-name">Mervyn</span> 说：<span class="{new2.remark-content}">祝贺你！什么时候请客吃饭？！哈哈哈哈……</span></p>
+                  <p><span>9月14日 09:35</span>  <a href="#">回复</a></p>
+                </div>
+              </div>
+            <div class="{new2.remark-list-info} {new2.clearfix}">
+                <img src="img/ps_emplate_small.png" width="30px" height="30px" />
+                <div class="{new2.remark-info-wrap}">
+                  <p><span class="{new2.remark-name">Mervyn</span> 说：<span class="{new2.remark-content}">祝贺你！什么时候请客吃饭？！哈哈哈哈……</span></p>
+                  <p><span>9月14日 09:35</span>  <a href="#">回复</a></p>
+                </div>
+              </div>
+
+         
+
+
+
+		<g:FlowPanel ui:field="resultPanel" />
+
+        <!--分页 [[ -->
+			<div id="rewardlist_page2" class="{new2.pager}">
 				<div class="{new2.pager-left}">
-					每页显示条数
+					每页显示广播条数
 					<select class="{new2.select}">
 						<option>10</option>
 					</select>
-					共有
-					<g:InlineLabel ui:field="dataCount" />
-					条广播
+					共<g:InlineLabel ui:field="dataCount"  />条
 				</div>
 
 				<div class="{new2.pager-right}">
@@ -29,7 +99,10 @@
 				</div>
 			</div>
 			<!--分页 ]] -->
-
-		</div>
+      </div>
+    </div>
+    <!-- 内容区 ]]-->
+		
+</div></div></div></div>
 	</g:HTMLPanel>
 </ui:UiBinder> 

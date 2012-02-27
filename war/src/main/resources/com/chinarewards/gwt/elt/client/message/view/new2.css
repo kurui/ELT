@@ -13,8 +13,8 @@ button{cursor:pointer;}
 textarea{word-wrap:break-word;resize:none;}
 
 /*---------------------------------------全局模块----------------------------------------------*/
-.menu,.menu span,.menu-on,.menu-on span,.status-arrow,.list-top,.list-bottom,.btn,.btn button,.back-btn,.box .box-tl,.box .box-tr,.box .box-bl,.box .box-br,.box-btn-ok,.box-btn-cannel,.box-close,.employee .menu,.employee .menu span,.employee .menu-on,.employee .menu-on span,.new-tips,.employee .menu-border-top,.employee .menu-border-bottom,.liimg,.note .close,.news-icon,.gift-duihuan{background:url(elt/images/elt.png) no-repeat;}
-.sidebar .title,.cutline,.footer-line,.employee .footer .footer-wrap,.employee .menu-nav{background:url(elt/images/elt_repeat.png) repeat-x;}
+.menu,.menu span,.menu-on,.menu-on span,.status-arrow,.list-top,.list-bottom,.btn,.btn button,.blue-btn,.blue-btn button,.back-btn,.box .box-tl,.box .box-tr,.box .box-bl,.box .box-br,.box-btn-ok,.box-btn-cannel,.box-close,.employee .menu,.employee .menu span,.employee .menu-on,.employee .menu-on span,.new-tips,.employee .menu-border-top,.employee .menu-border-bottom,.liimg,.note .close,.news-icon,.gift-duihuan,.jifen-btn,.award-icon{background:url(elt/images/elt.png) no-repeat;}
+.sidebar .title,.cutline,.footer-line,.employee .footer .footer-wrap,.employee .menu-nav,.news-menu .news-on a,.award-history h3{background:url(elt/images/elt_repeat.png) repeat-x;}
 
 body{background-color:#fff;color:#333333;font:12px/1.5 Tahoma, Arial, simsun;min-width:960px;}
 a{color:#565656;text-decoration:none;}
@@ -44,6 +44,8 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .btn button{background-position:right -58px;border:none;overflow:visible;padding:0 10px 0 5px;display:inline-block;height:25px;line-height:25px;color:#FFFFFF;}
 .back-btn{background-position:0 -90px;display:block;width:69px;height:25px;line-height:25px;padding-left:25px;color:#666666;}
 .back-btn:hover{text-decoration:none;color:#666666;}
+.blue-btn{background-position:-179px -202px;padding-left:10px;display:inline-block;}
+.blue-btn button{background-position:right -202px;border:none;overflow:visible;padding:0 20px 0 10px;display:inline-block;height:33px;line-height:33px;color:#FFFFFF;font-weight:bold;font-size:14px;}
 
 /*form*/
 .form .form-line:after{content:".";display:block;clear:both;height:0;visibility:hidden;}
@@ -234,7 +236,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .employee .pager,.employee .pager a{color:#333333;}
 .employee .pager a:hover{background-color:#707070;}
 
-.remark{background-color:#F8F9FD;overflow:hidden;padding:15px;width:720px;}
+.remark{background-color:#F8F9FD;overflow:hidden;padding:0px;width:720px;}
 .remark img{border:1px solid #CACACA;padding:2px;width:54px;height:54px;overflow:hidden;float:left;margin-right:10px;}
 .remark .remark-info{float:left;width:650px;}
 .remark .remark-info .remark-tool{text-align:right;margin-top:5px;}
@@ -251,6 +253,20 @@ a:hover{color:#010DFF;text-decoration:underline;}
 
 .employee .remark-text{border:1px solid #C3C3C3;color:#C3C3C3;padding:3px 5px;width:738px;margin-top:10px;}
 
+/*----------------------------------------- 我的消息 -------------------------------------------------------*/
+.employee .news-wrap{margin:22px 0;border-left:1px solid #CCCCCC;}
+.employee .news-wrap .news-menu:after{content:".";display:block;clear:both;height:0;visibility:hidden;}
+.employee .news-wrap .news-menu{\*zoom:1;overflow:hidden;z-index:20px;\_margin-left:-3px;}
+.employee .news-wrap .news-menu li{float:left;margin-right:4px;overflow:hidden;height:29px;}
+.employee .news-wrap .news-menu li a{display:inline-block;padding:0 8px;height:29px;line-height:29px;color:#3E3E3E;font-size:12px;text-decoration:none;outline:none;}
+.employee .news-wrap .news-menu .news-on{border:1px solid #CCCCCC;border-left:none;border-bottom:1px solid #FFFFFF;background-color:#ffffff;}
+.employee .news-wrap .news-menu .news-on a{font-weight:bold;background-position:0 -137px;height:29px;overflow:hidden;}
+.employee .news-wrap .news-content{border:1px solid #CCCCCC;border-left:none;z-index:10;margin-top:-1px;}
 
+.employee .news-wrap .send-news{padding:17px 0 12px 12px;border-bottom:1px solid #E0E0E0;}
+.employee .news-wrap .news-list{padding:0 12px;width:auto;background-color:#ffffff;}
+.employee .news-wrap .news-list .remark-list-info{padding:16px 0;border-bottom:1px solid #E5E5E5;}
+.employee .news-wrap .news-list a{color:#356CA6}
+.employee .news-wrap .news-list .remark{background-color:#fff;padding:15px 0 0;}
 
 
