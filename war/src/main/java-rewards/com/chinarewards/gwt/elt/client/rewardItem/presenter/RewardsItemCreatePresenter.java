@@ -63,7 +63,8 @@ public interface RewardsItemCreatePresenter extends Presenter<RewardsItemCreateP
 	//	public String getBuildDept();
 		public HasValue<Boolean> getEnableCbx();
 		
-	
+		public void setRemainCount(String text) ;
+		public void setTitle(String text) ;
 
 		public HasValue<Boolean> getAutoCbx();
 

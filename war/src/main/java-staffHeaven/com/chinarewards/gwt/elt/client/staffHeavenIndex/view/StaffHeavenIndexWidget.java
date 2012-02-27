@@ -30,6 +30,9 @@ public class StaffHeavenIndexWidget extends Composite implements
 	Anchor sysInformation;
 	@UiField
 	Anchor themeInformation;
+	@UiField
+	InlineLabel topBroadcast;
+	
 	DateTimeFormat dateFormat = DateTimeFormat
 			.getFormat(ViewConstants.date_format);
 	private static StaffHeavenIndexWidgetUiBinder uiBinder = GWT
@@ -78,6 +81,12 @@ public class StaffHeavenIndexWidget extends Composite implements
 	@Override
 	public Anchor getThemeInformation() {
 		return themeInformation;
+	}
+
+	@Override
+	public void setTopBroadcast(String text) {
+		topBroadcast.setText(text);
+		
 	}
 
 }

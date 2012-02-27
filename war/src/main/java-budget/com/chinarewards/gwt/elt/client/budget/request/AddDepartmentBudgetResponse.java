@@ -12,9 +12,17 @@ import net.customware.gwt.dispatch.shared.Result;
 public class AddDepartmentBudgetResponse implements Result {
 
 	private String message;
-
+    private double oldJf;//修改时返回的旧的积分
 	public String getMessage() {
 		return message;
+	}
+
+	public double getOldJf() {
+		return oldJf;
+	}
+
+	public void setOldJf(double oldJf) {
+		this.oldJf = oldJf;
 	}
 
 	public void setMessage(String message) {

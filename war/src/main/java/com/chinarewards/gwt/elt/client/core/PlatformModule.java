@@ -17,6 +17,7 @@ import com.chinarewards.gwt.elt.client.core.ui.SiteManager;
 import com.chinarewards.gwt.elt.client.core.ui.impl.ButtonMenuProcessor;
 import com.chinarewards.gwt.elt.client.core.ui.impl.SimpleEditorRegistry;
 import com.chinarewards.gwt.elt.client.core.ui.impl.SimpleSiteManager;
+import com.chinarewards.gwt.elt.client.corpBroadcast.plugin.CorpBroadcastPluginDescriptor;
 import com.chinarewards.gwt.elt.client.department.plugin.DepartmentLeaderPluginDescriptor;
 import com.chinarewards.gwt.elt.client.department.plugin.DepartmentListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.department.plugin.DepartmentPluginDescriptor;
@@ -30,6 +31,7 @@ import com.chinarewards.gwt.elt.client.enterprise.plugin.PeriodPluginDescriptor;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftPluginDescriptor;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftViewPluginDescriptor;
+import com.chinarewards.gwt.elt.client.gloryBroadcast.plugin.GloryBroadcastPluginDescriptor;
 import com.chinarewards.gwt.elt.client.integralManagement.plugin.IntegralManagementPluginDescriptor;
 import com.chinarewards.gwt.elt.client.nominate.plugin.NominatePluginDescriptor;
 import com.chinarewards.gwt.elt.client.order.plugin.OrderBoxPluginDescriptor;
@@ -196,6 +198,7 @@ public class PlatformModule extends AbstractGinModule {
 			HrRegisterPluginDescriptor hrregister,
 			NominatePluginDescriptor nominate,
 			RewardsItemPluginDescriptor rewardsItem,
+			RewardsItemStoreListPluginDescriptor rewardsItemStoreList,
 			RewardsItemListPluginDescriptor rewardsItemList,
 			RewardsItemViewPluginDescriptor rewardsItemView,
 			RewardsListPluginDescriptor rewardsList,
@@ -210,20 +213,21 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet = new InMemoryPluginSet();
 			pluginSet.registerPlugin(core);
 			pluginSet.registerPlugin(enterprise);
-			pluginSet.registerPlugin(integralPrice);
-			pluginSet.registerPlugin(period);
+		//	pluginSet.registerPlugin(integralPrice);
+		//	pluginSet.registerPlugin(period);
 			pluginSet.registerPlugin(user);
 			pluginSet.registerPlugin(departmentList);
 			pluginSet.registerPlugin(department);
 			pluginSet.registerPlugin(hrregister);
 			pluginSet.registerPlugin(rewardsItemList);
+			pluginSet.registerPlugin(rewardsItemStoreList);
 			pluginSet.registerPlugin(nominate);
 			pluginSet.registerPlugin(rewardsItem);
 			pluginSet.registerPlugin(rewardsList);
 			pluginSet.registerPlugin(awardreward);
 			pluginSet.registerPlugin(detailsAward);
 			pluginSet.registerPlugin(rewardsItemView);
-			pluginSet.registerPlugin(integralManagement);
+		//	pluginSet.registerPlugin(integralManagement);
 			pluginSet.registerPlugin(depBudget);
 			pluginSet.registerPlugin(staffList);
 			pluginSet.registerPlugin(staffView);
@@ -250,7 +254,9 @@ public class PlatformModule extends AbstractGinModule {
 			OrderSubmitPluginDescriptor orderSubmit,
 			OrderConfirmationPluginDescriptor orderConfirmation,
 			DetailsOfGiftPluginDescriptor detailsOfGift,
-			StaffHeavenIndexPluginDescriptor staffHeavenIndex) {
+			StaffHeavenIndexPluginDescriptor staffHeavenIndex,
+			CorpBroadcastPluginDescriptor corpBroadcast,
+			GloryBroadcastPluginDescriptor gloryBroadcast) {
 
 		if (pluginSet == null) {
 			pluginSet = new InMemoryPluginSet();
@@ -270,6 +276,8 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(orderSubmit);
 			pluginSet.registerPlugin(detailsOfGift);
 			pluginSet.registerPlugin(staffHeavenIndex);
+			pluginSet.registerPlugin(corpBroadcast);
+			pluginSet.registerPlugin(gloryBroadcast);
 
 		}
 

@@ -15,8 +15,7 @@
 
         <div class="{new2.broadcast}">
           <h3>公司广播</h3>
-          <p>这周五晚上打羽毛球，有没有一起去的啊，打羽毛球、提高球技、认识美女新同事、锻炼身体，一举多得，天天坐在办公室的帅
-锅媚籹 你伤不起啊！赶紧来回复报名 @@</p>
+          <p><g:InlineLabel ui:field="topBroadcast" /> </p>
         </div>
 
         <div class="{new2.news-select}">

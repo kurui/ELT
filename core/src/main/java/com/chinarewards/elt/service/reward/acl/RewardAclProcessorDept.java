@@ -71,11 +71,9 @@ public class RewardAclProcessorDept extends AbstractRewardAclProcessor {
 				new Object[] { context.getUserId(), criteria });
 		SysUser sysUser = userDao.findById(SysUser.class, context.getUserId());
 
-		List<UserRole> roles = new ArrayList<UserRole>(Arrays.asList(context
-				.getUserRoles()));
+		List<UserRole> roles = new ArrayList<UserRole>(Arrays.asList(context.getUserRoles()));
 
-		logger.debug("Is department manager:{}",
-				roles.contains(UserRole.DEPT_MGR));
+		logger.debug("Is department manager:{}",roles.contains(UserRole.DEPT_MGR));
 
 		logger.debug("criteria.getDeptIds() = {}", criteria.getDeptIds());
 
@@ -85,13 +83,10 @@ public class RewardAclProcessorDept extends AbstractRewardAclProcessor {
 			// departmentId again.
 		} else if (!StringUtil.isEmptyString(criteria.getDepartmentId())) {
 			List<String> deptIds = null;
-			logger.debug("criteria.isSubDepartmentChoose: {}",
-					criteria.isSubDepartmentChosen());
+			logger.debug("criteria.isSubDepartmentChoose: {}",criteria.isSubDepartmentChosen());
 			if (criteria.isSubDepartmentChosen()) {
-				deptIds = departmentLogic.getWholeChildrenIds(
-						criteria.getDepartmentId(), true);
-				logger.debug("Siblings dept IDs of {}: {}",
-						criteria.getDepartmentId(), deptIds);
+				  deptIds = departmentLogic.getWholeChildrenIds(criteria.getDepartmentId(), true);
+				logger.debug("Siblings dept IDs of {}: {}",	criteria.getDepartmentId(), deptIds);
 			} else {
 				deptIds = new ArrayList<String>();
 				deptIds.add(criteria.getDepartmentId());
@@ -104,8 +99,10 @@ public class RewardAclProcessorDept extends AbstractRewardAclProcessor {
 				"criteria.getDeptIds() after resolving child departments = {}",
 				criteria.getDeptIds());
 
-		List<String> expectedDeptIds = getSupportedDeptIds(sysUser.getStaff()
-				.getId());
+
+		// Strip out any invisible departments
+
+		List<String> expectedDeptIds = getSupportedDeptIds(sysUser.getStaff().getId());
 
 		if (criteria.getDeptIds() != null && !criteria.getDeptIds().isEmpty()) {
 			List<String> ids = new ArrayList<String>();
@@ -132,10 +129,11 @@ public class RewardAclProcessorDept extends AbstractRewardAclProcessor {
 		return pageStore;
 	}
 
-	@Override
-	// 奖项库查询
-	public PageStore<RewardItemStore> fetchRewardItemsStore(
-			UserContext context, RewardItemSearchVo criteria) {
+	
+	@Override//奖项库查询
+	public PageStore<RewardItemStore> fetchRewardItemsStore(UserContext context,
+			RewardItemSearchVo criteria) {//与HR的一样不过滤
+
 		logger.debug(
 				" Process in fetchRewardsItems method, UserId:{}, criteria:{}",
 				new Object[] { context.getUserId(), criteria });
@@ -149,26 +147,23 @@ public class RewardAclProcessorDept extends AbstractRewardAclProcessor {
 
 		logger.debug("criteria.getDeptIds() = {}", criteria.getDeptIds());
 
-		// serialize to a list of department IDs.
-		if (null != criteria.getDeptIds() && !criteria.getDeptIds().isEmpty()) {
-			// The depIds have priority. If it exist, do not need to observe
-			// departmentId again.
-		} else if (!StringUtil.isEmptyString(criteria.getDepartmentId())) {
-			List<String> deptIds = null;
-			logger.debug("criteria.isSubDepartmentChoose: {}",
-					criteria.isSubDepartmentChosen());
-			if (criteria.isSubDepartmentChosen()) {
-				deptIds = departmentLogic.getWholeChildrenIds(
-						criteria.getDepartmentId(), true);
-				logger.debug("Siblings dept IDs of {}: {}",
-						criteria.getDepartmentId(), deptIds);
-			} else {
-				deptIds = new ArrayList<String>();
-				deptIds.add(criteria.getDepartmentId());
-			}
-			criteria.setDeptIds(new ArrayList<String>(deptIds));
-			criteria.setSubDepartmentChosen(false);
-		}
+		// Should not pollute the input object! Clone it!
+				if (null != criteria.getDeptIds() && !criteria.getDeptIds().isEmpty()) {
+					// The depIds have priority. If it exist, do not need to observe
+					// departmentId again.
+				} else if (!StringUtil.isEmptyString(criteria.getDepartmentId())) {
+					List<String> deptIds = null;
+					if (criteria.isSubDepartmentChosen()) {
+						deptIds = departmentLogic.getWholeChildrenIds(
+								criteria.getDepartmentId(), true);
+					} else {
+						deptIds = new ArrayList<String>();
+						deptIds.add(criteria.getDepartmentId());
+					}
+					criteria.setDeptIds(new ArrayList<String>(deptIds));
+					criteria.setSubDepartmentChosen(false); // since we have converted
+															// it.
+				}
 
 		logger.debug(
 				"criteria.getDeptIds() after resolving child departments = {}",
@@ -186,11 +181,12 @@ public class RewardAclProcessorDept extends AbstractRewardAclProcessor {
 					criteria.getDeptIds());
 			if (ids.isEmpty()) {
 				PageStore<RewardItemStore> pageStore = new PageStore<RewardItemStore>();
-				pageStore.setResultCount(0);
-				pageStore.setResultList(new ArrayList<RewardItemStore>());
+				pageStore.setResultCount(rewardsItemStoreDao.countRewardsItemsStore(criteria));
+				List<RewardItemStore> itemList = rewardsItemStoreDao.fetchRewardsItemsStore(criteria);
+				pageStore.setResultList(itemList);
 				return pageStore;
 			}
-		} else {
+		}else {
 			criteria.setDeptIds(expectedDeptIds);
 		}
 

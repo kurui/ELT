@@ -208,8 +208,8 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .employee .reward-section .imglink p a{padding-left:0;font-size:12px;}
 .employee .reward-section .reward-pslist li{margin-top:3px;}
 
-.employee .content-wrap{background:url(elt/images/employee_repeaty.png) repeat-y right top;padding-left:19px;}
-.employee .content-wrap .content-info{position:relative;padding-right:19px;}
+.employee .content-wrap{background:url(elt/images/employee_repeaty.png) repeat-y right top;margin-left:277px;}
+.employee .content-wrap .content-info{margin-right:218px;position:relative;}
 /*----------------------------------------- 员工主页面 -------------------------------------------------------*/
 .employee .content-info .note{background-color:#FEFFF4;border:1px solid #D8D9D8;padding:6px 8px;color:#F03E59;position:relative;margin-bottom:10px;}
 .employee .content-info .note .close{background-position:-32px -35px;width:8px;height:9px;position:absolute;right:8px;top:9px;cursor:pointer;}
@@ -281,10 +281,10 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .employee .gift-detail table .col2{color:#666666;background-color:#F7F7F7;}
 .employee .gift-detail p{padding:15px 0 5px 0;}
 
-.employee .jifen-duihuan-list{margin:0 12px;border-top:1px dashed #CCCCCC;margin-top:15px;}
+.employee .jifen-duihuan-list{margin:15px 12px 33px;border-top:1px dashed #CCCCCC;}
 .employee .jifen-duihuan-list .tishi{padding:10px 0 2px;}
 .employee .jifen-duihuan-list p{padding:5px 0;line-height:1;}
-.employee .more-gift{text-align:right;}
+.employee .more-gift{text-align:right;margin-right:218px;}
 .employee .more-gift a{padding:5px 0;color:#003CFF;display:inline-block;}
 
 /*----------------------------------------- 订单详细 -------------------------------------------------------*/

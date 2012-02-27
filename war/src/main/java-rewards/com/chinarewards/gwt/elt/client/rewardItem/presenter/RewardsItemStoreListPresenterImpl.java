@@ -2,10 +2,16 @@ package com.chinarewards.gwt.elt.client.rewardItem.presenter;
 
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
+import com.chinarewards.gwt.elt.client.budget.model.DepartmentVo;
+import com.chinarewards.gwt.elt.client.budget.request.InitDepartmentRequest;
+import com.chinarewards.gwt.elt.client.budget.request.InitDepartmentResponse;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.dataprovider.RewardsItemStoreListViewAdapter;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
@@ -119,49 +125,37 @@ public class RewardsItemStoreListPresenterImpl extends
 
 	// init department name
 	private void init() {
-		// if (!GWT.isScript()) {
-		// isDepartmentManager = false;
-		// } else {
-		// List<UserRoleVo> roleList =
-		// Arrays.asList(sessionManager.getSession().getUserRoles());
-		// if (roleList.contains(UserRoleVo.CORP_ADMIN)) { isHr = true;
-		// } else if (roleList.contains(UserRoleVo.DEPT_MGR)) {
-		// isDepartmentManager = true;
-		// }
-		// if (isHr) {
-		// //display.showDept(null);
-		// } else if (isDepartmentManager) {
-		// dispatch.execute(new DepartmentIdRequest(),
-		// new AsyncCallback<DepartmentIdResponse>() {
-		//
-		// @Override
-		// public void onFailure(Throwable t) {
-		// errorHandler.alert(t);
-		// }
-		//
-		// @Override
-		// public void onSuccess(DepartmentIdResponse resp) {
-		// display.showDept(resp.getDeptIds());
-		// }
-		// });
-		// } else {
-		// // local test
-		// display.showDept(null);
-		// }
-		// }
-
-		// comboTree = new DepartmentComboTree(dispatch, errorHandler,
-		// sessionManager);
-		// display.getDepartmentPanel().add(comboTree);
-		// deptId = comboTree.getSelectedItem().getId();
-		// setRewardsTypeList();
-//		Map<String, String> map = new HashMap<String, String>();
-//		map.put("true", "已应用");
-//		map.put("false", "未应用");
-//		display.initStatus(map);
 		
+		initDeparts();
 	}
-	
+	private void initDeparts(){
+		   dispatch.execute(new InitDepartmentRequest(sessionManager.getSession()),
+					new AsyncCallback<InitDepartmentResponse>() {
+			          	@Override
+						public void onFailure(Throwable arg0) {
+							errorHandler.alert("查询部门出错!");
+							
+						}
+
+						@Override
+						public void onSuccess(InitDepartmentResponse response) {
+							 List<DepartmentVo> list = response.getResult();
+							 Map<String, String> map = new HashMap<String, String>();
+							 DepartmentVo vo = new DepartmentVo();
+							 if(list.size()>0){
+								 for(int i=0;i<list.size();i++){
+									   vo = list.get(i);
+									   map.put(vo.getId(), vo.getDepartmentName());
+								 }
+							 }
+								
+								display.initDepart(map);
+							
+						}
+
+					});
+			
+	   }
 	private void initTableColumns() {
 		Sorting<RewardsItemClient> ref = new Sorting<RewardsItemClient>() {
 			@Override
@@ -365,8 +359,8 @@ public class RewardsItemStoreListPresenterImpl extends
 
 	public void doSearch() {
 		RewardsItemCriteria criteria = new RewardsItemCriteria();
-		// criteria.setDepartmentId(display.getBuildDept());
-		criteria.setSubDepartmentChoose(display.getChooseSubDepartment().getValue());
+		criteria.setDepartmentId(display.getDepart());
+		criteria.setSubDepartmentChoose(display.getChooseSubDepartment());
 		criteria.setName(display.getSearchName().getValue());
 		criteria.setCreateTime(display.getCreateTime().getValue());
 		criteria.setCreateTimeEnd(display.getCreateTimeEnd().getValue());
