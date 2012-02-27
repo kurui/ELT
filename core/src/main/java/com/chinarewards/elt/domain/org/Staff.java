@@ -46,6 +46,21 @@ public class Staff extends Organization {
 	 * mobile phone number
 	 */
 	private String phone;
+	/**
+	 * 颁奖提前通知的天数
+	 */
+	private int leadtime;
+	public int getLeadtime() {
+		return leadtime;
+	}
+
+	public void setLeadtime(int leadtime) {
+		this.leadtime = leadtime;
+	}
+
+	public Integer getDeleted() {
+		return deleted;
+	}
 
 	/**
 	 * email
