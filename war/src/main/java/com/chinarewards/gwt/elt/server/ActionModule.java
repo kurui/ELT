@@ -73,7 +73,8 @@ import com.chinarewards.gwt.elt.client.rewards.request.DeleteRewardsRequest;
 import com.chinarewards.gwt.elt.client.rewards.request.SearchRewardsRequest;
 import com.chinarewards.gwt.elt.client.rewards.request.SearchRewardsStaffRequest;
 import com.chinarewards.gwt.elt.client.shopWindow.request.ShopWindowRequest;
-import com.chinarewards.gwt.elt.client.staff.HrRegisterRequest;
+import com.chinarewards.gwt.elt.client.staff.request.HrRegisterRequest;
+import com.chinarewards.gwt.elt.client.staff.request.LeadTimeRequest;
 import com.chinarewards.gwt.elt.client.staffAdd.request.StaffAddRequest;
 import com.chinarewards.gwt.elt.client.staffHeavenIndex.request.StaffHeavenIndexRequest;
 import com.chinarewards.gwt.elt.client.staffList.request.SearchStaffListRequest;
@@ -159,6 +160,7 @@ import com.chinarewards.gwt.elt.server.rewards.SearchRewardsHandler;
 import com.chinarewards.gwt.elt.server.rewards.SearchRewardsStaffHandler;
 import com.chinarewards.gwt.elt.server.shopWindow.SearchShopWindowHandler;
 import com.chinarewards.gwt.elt.server.staff.HrRegisterActionHandler;
+import com.chinarewards.gwt.elt.server.staff.LeadTimeActionHandler;
 import com.chinarewards.gwt.elt.server.staff.SearchStaffListActionHandler;
 import com.chinarewards.gwt.elt.server.staff.SearchStaffViewActionHandler;
 import com.chinarewards.gwt.elt.server.staff.SearchStaffWinActionHandler;
@@ -372,6 +374,7 @@ public class ActionModule extends ActionHandlerModule {
 		bindHandler(StaffHeavenIndexRequest.class,StaffHeavenIndexActionHandler.class);
 		//员工天地,员工数据加载
 		bindHandler(StaffInitRequest.class,StaffInitActionHandler.class);
-		
+		//颁奖提前通知时间设置
+		bindHandler(LeadTimeRequest.class, LeadTimeActionHandler.class);
 	}
 }

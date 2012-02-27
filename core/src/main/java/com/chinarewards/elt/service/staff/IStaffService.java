@@ -56,6 +56,7 @@ public interface IStaffService {
 	 * @return
 	 */
 	public Staff findStaffById(String staffId);
+	
 	/**
 	 * 查询员工获奖信息
 	 * @param staffId
@@ -71,5 +72,13 @@ public interface IStaffService {
 	public GeneratedUserConstants generatedUserbyStaff(String staffId,UserContext context);
 	
 	public String createHrUser(StaffUserProcess staff);
-	
+	/**
+	 * 更新颁奖通知时间
+	 */
+	/**
+	 * 查询员工信息
+	 * @param staffId
+	 * @return
+	 */
+	public Staff updateLeadTime(String staffId,int leadTime);
 }

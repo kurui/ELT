@@ -27,6 +27,16 @@ public class StaffViewResponse implements Result {
 	String email;
 	Date dob;
 	StaffStatus status;
+    int leadTime;//颁奖提前通知时间
+	public int getLeadTime() {
+		return leadTime;
+	}
+
+
+	public void setLeadTime(int leadTime) {
+		this.leadTime = leadTime;
+	}
+
 
 	public String getDepartmentId() {
 		return departmentId;

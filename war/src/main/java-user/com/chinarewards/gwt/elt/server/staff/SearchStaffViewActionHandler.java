@@ -42,6 +42,7 @@ public class SearchStaffViewActionHandler extends
 		staffResponse.setStaffId(staff.getId());
 		staffResponse.setStaffNo(staff.getJobNo());
 		staffResponse.setStaffName(staff.getName());
+		staffResponse.setLeadTime(staff.getLeadTime());//新加的返回的提前颁奖通知时间
 		if(staff.getDepartment()!=null)
 		{
 		staffResponse.setDepartmentId(staff.getDepartment().getId());

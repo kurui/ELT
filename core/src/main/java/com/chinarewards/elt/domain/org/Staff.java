@@ -49,13 +49,15 @@ public class Staff extends Organization {
 	/**
 	 * 颁奖提前通知的天数
 	 */
-	private int leadtime;
-	public int getLeadtime() {
-		return leadtime;
+	private Integer leadTime;
+	
+
+	public Integer getLeadTime() {
+		return leadTime;
 	}
 
-	public void setLeadtime(int leadtime) {
-		this.leadtime = leadtime;
+	public void setLeadTime(Integer leadTime) {
+		this.leadTime = leadTime;
 	}
 
 	public Integer getDeleted() {

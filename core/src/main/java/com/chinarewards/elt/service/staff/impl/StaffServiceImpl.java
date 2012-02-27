@@ -145,4 +145,8 @@ public class StaffServiceImpl implements IStaffService {
 	public String createHrUser(StaffUserProcess staff){
 		return staffLogic.createHrUser( staff);
 	}
+	@Override
+	public Staff updateLeadTime(String staffId,int leadTime){
+		return staffLogic.updateLeadTime(staffId, leadTime);
+	}
 }
