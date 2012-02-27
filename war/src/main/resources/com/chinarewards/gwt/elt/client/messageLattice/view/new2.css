@@ -243,7 +243,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .remark .textarea{width:638px;height:80px;border:1px solid #CBCBCB;padding:5px;overflow:auto;}
 .remark .button{color:#FFFFFF;background-color:#0D63B8;padding:2px 8px;border:1px solid #7CD2FD;border-bottom:1px solid #2E5F77;border-right:1px solid #3C7D9C;}
 
-.remark-list{background-color:#F8F9FD;overflow:hidden;padding:15px;width:720px;}
+.remark-list{background-color:#F8F9FD;overflow:hidden;padding:0px;width:720px;}
 .remark-list .remark-list-info img{border:1px solid #CACACA;padding:2px;width:34px;height:34px;overflow:hidden;float:left;margin-right:10px;}
 .remark-list .remark-list-info .remark-info-wrap{float:left;width:670px;color:#999999;overflow:hidden;}
 .remark-list .remark-list-info .remark-info-wrap .remark-name{color:#356CA6;}
@@ -264,7 +264,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .employee .news-wrap .news-content{border:1px solid #CCCCCC;border-left:none;z-index:10;margin-top:-1px;}
 
 .employee .news-wrap .send-news{padding:17px 0 12px 12px;border-bottom:1px solid #E0E0E0;}
-.employee .news-wrap .news-list{padding:0 12px;width:auto;background-color:#ffffff;}
+.employee .news-wrap .news-list{padding:0 0px;width:auto;background-color:#ffffff;}
 .employee .news-wrap .news-list .remark-list-info{padding:16px 0;border-bottom:1px solid #E5E5E5;}
 .employee .news-wrap .news-list a{color:#356CA6}
 .employee .news-wrap .news-list .remark{background-color:#fff;padding:15px 0 0;}

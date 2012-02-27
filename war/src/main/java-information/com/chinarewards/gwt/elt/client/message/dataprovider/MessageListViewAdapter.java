@@ -33,7 +33,7 @@ public class MessageListViewAdapter extends BaseDataProvider<MessageListClient> 
 		this.criteria = criteria;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
-		this.display=display;
+		this.display = display;
 	}
 
 	public void fetchData(final int start, final int length) {
@@ -57,42 +57,45 @@ public class MessageListViewAdapter extends BaseDataProvider<MessageListClient> 
 		if (getSorting() != null) {
 			getCriteria().setSorting(getSorting());
 		}
-		dispatch.execute(new SearchMessageListRequest(getCriteria(), sessionManager
-				.getSession()), new AsyncCallback<SearchMessageListResponse>() {
-			@Override
-			public void onFailure(Throwable e) {
-				errorHandler.alert(e.getMessage());
-			}
+		dispatch.execute(new SearchMessageListRequest(getCriteria(),
+				sessionManager.getSession()),
+				new AsyncCallback<SearchMessageListResponse>() {
+					@Override
+					public void onFailure(Throwable e) {
+						errorHandler.alert(e.getMessage());
+					}
 
-			@Override
-			public void onSuccess(SearchMessageListResponse response) {
-				List<MessageListClient> giftList = response.getResult();
-
-				Grid grid = new Grid(response.getResult().size(), 1);
-
+					@Override
+					public void onSuccess(SearchMessageListResponse response) {
+						List<MessageListClient> giftList = response.getResult();
+						int numRows=response.getResult().size();
+						Grid grid = new Grid(numRows, 1);
 
 	
-				for (int row = 0; row < response.getResult().size(); row++) {
-			
-					MessageListClient clint = giftList.get(row);
+						for (int row = 0; row < numRows; row++) {
+							MessageListClient clint = giftList.get(row);
 							grid.setWidget(
 									row,
-									1,
-									new MessageLatticeWidget(clint.getId(), clint.getStaffPhoto(), clint.getCreatedByUserName(), clint.getContent(), DateTool.dateToStringChina2(clint.getBroadcastingTime())));			
-				}
+									0,
+									new MessageLatticeWidget(clint.getId(),
+											clint.getStaffPhoto(), clint
+													.getCreatedByUserName(),
+											clint.getContent(),
+											DateTool.dateToStringChina2(clint
+													.getBroadcastingTime())));
+						}
 
-				// Return the panel
-				grid.ensureDebugId("cwGrid");
+						// Return the panel
+						grid.ensureDebugId("cwGrid");
 
-				display.getResultPanel().clear();
-				display.getResultPanel().add(grid);
-				display.setDataCount(response.getTotal() + "");
-			}
+						display.getResultPanel().clear();
+						display.getResultPanel().add(grid);
+						display.setDataCount(response.getTotal() + "");
+					}
 
-		});
+				});
 		// }
 	}
-
 
 	public void setCriteria(MessageListCriteria criteria) {
 		this.criteria = criteria;
