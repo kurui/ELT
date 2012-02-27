@@ -21,22 +21,16 @@
 						颁奖时间提前
 						<g:TextBox maxLength="2" ui:field="leadTime"
 							styleName="{new2.short-text}" />天接收通知
-												
-					</div>
-				</div>
-				<span class="{new2.cutline}"></span>
-				<div class="{new2.form-line} {new2.form-line-btn}">
-					<div class="{new2.element}">
-
+						<span class="{new2.nbsp}"></span>
 						<span class="{new2.btn}">
 							<g:Hidden name="Hidden name" width="20px" height="20px"
 								ui:field="staffId" />
 							<g:Button ui:field="saveButton">确定</g:Button>
-						</span>
-						<span class="{new2.nbsp}"></span>
-						
+						</span>						
 					</div>
 				</div>
+				<span class="{new2.cutline}"></span>
+				
 			</div>
 		</div>
 	</g:HTMLPanel>
