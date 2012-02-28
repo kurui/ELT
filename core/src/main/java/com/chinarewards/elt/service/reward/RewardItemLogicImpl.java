@@ -440,6 +440,32 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 
 		return storeVo;
 	}
+	
+	
+	@Override
+	public PageStore<RewardItemVo> fetchStaffRewardItems(UserContext context,
+			RewardItemSearchVo criteria) {
+		logger.debug("Process in fetchRewardItems method, parameter RewardItemSearchVo.toString:"
+				+ criteria);
+		PageStore<RewardItem> pageStore = rewardAclProcessorFactory
+				.generateRewardAclProcessor(context.getUserRoles())
+				.fetchStaffRewardItems(context, criteria);
+
+		List<RewardItem> itemList = pageStore.getResultList();
+		// post-process and convert
+		List<RewardItemVo> itemVoList = new ArrayList<RewardItemVo>();
+		for (RewardItem item : itemList) {
+			itemVoList.add(convertFromRewardItemToVo(item, true));
+		}
+		logger.debug("The result size:{}, total:{}",
+				new Object[] { itemVoList.size(), pageStore.getResultCount() });
+
+		PageStore<RewardItemVo> storeVo = new PageStore<RewardItemVo>();
+		storeVo.setResultCount(pageStore.getResultCount());
+		storeVo.setResultList(itemVoList);
+
+		return storeVo;
+	}
 
 	@Override
 	// 奖项库的列表查询

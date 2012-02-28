@@ -133,6 +133,80 @@ public class RewardAclProcessorDept extends AbstractRewardAclProcessor {
 		pageStore.setResultList(itemList);
 		return pageStore;
 	}
+	
+	/**
+	 * 员工 我参与的奖项
+	 * */
+	@Override
+	public PageStore<RewardItem> fetchStaffRewardItems(UserContext context,
+			RewardItemSearchVo criteria) {
+		logger.debug(
+				" Process in fetchRewardsItems method, UserId:{}, criteria:{}",
+				new Object[] { context.getUserId(), criteria });
+		SysUser sysUser = userDao.findById(SysUser.class, context.getUserId());
+
+		List<UserRole> roles = new ArrayList<UserRole>(Arrays.asList(context
+				.getUserRoles()));
+
+		logger.debug("Is department manager:{}",
+				roles.contains(UserRole.DEPT_MGR));
+
+		logger.debug("criteria.getDeptIds() = {}", criteria.getDeptIds());
+
+		// serialize to a list of department IDs.
+		if (null != criteria.getDeptIds() && !criteria.getDeptIds().isEmpty()) {
+			// The depIds have priority. If it exist, do not need to observe
+			// departmentId again.
+		} else if (!StringUtil.isEmptyString(criteria.getDepartmentId())) {
+			List<String> deptIds = null;
+			logger.debug("criteria.isSubDepartmentChoose: {}",
+					criteria.isSubDepartmentChosen());
+			if (criteria.isSubDepartmentChosen()) {
+				deptIds = departmentLogic.getWholeChildrenIds(
+						criteria.getDepartmentId(), true);
+				logger.debug("Siblings dept IDs of {}: {}",
+						criteria.getDepartmentId(), deptIds);
+			} else {
+				deptIds = new ArrayList<String>();
+				deptIds.add(criteria.getDepartmentId());
+			}
+			criteria.setDeptIds(new ArrayList<String>(deptIds));
+			criteria.setSubDepartmentChosen(false);
+		}
+
+		logger.debug(
+				"criteria.getDeptIds() after resolving child departments = {}",
+				criteria.getDeptIds());
+
+		// Strip out any invisible departments
+
+		List<String> expectedDeptIds = getSupportedDeptIds(sysUser.getStaff()
+				.getId());
+
+		if (criteria.getDeptIds() != null && !criteria.getDeptIds().isEmpty()) {
+			List<String> ids = new ArrayList<String>();
+			ids.addAll(criteria.getDeptIds());
+			ids.retainAll(expectedDeptIds);
+			criteria.setDeptIds(ids);
+			logger.debug("After stripping, criteria.getDeptIds()={}",
+					criteria.getDeptIds());
+			// if we made it empty, no hope
+			if (ids.isEmpty()) {
+				PageStore<RewardItem> pageStore = new PageStore<RewardItem>();
+				pageStore.setResultCount(0);
+				pageStore.setResultList(new ArrayList<RewardItem>());
+				return pageStore;
+			}
+		} else {
+			criteria.setDeptIds(expectedDeptIds);
+		}
+
+		PageStore<RewardItem> pageStore = new PageStore<RewardItem>();
+		pageStore.setResultCount(rewardsItemDao.countStaffRewardsItems(criteria));
+		List<RewardItem> itemList = rewardsItemDao.fetchStaffRewardsItems(criteria);
+		pageStore.setResultList(itemList);
+		return pageStore;
+	}
 
 	@Override
 	// 奖项库查询
@@ -258,4 +332,6 @@ public class RewardAclProcessorDept extends AbstractRewardAclProcessor {
 
 		return res;
 	}
+
+
 }

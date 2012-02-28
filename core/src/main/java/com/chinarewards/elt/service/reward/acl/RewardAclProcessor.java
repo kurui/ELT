@@ -48,5 +48,13 @@ public interface RewardAclProcessor {
 	public PageStore<RewardItemStore> fetchRewardItemsStore(UserContext context,
 			RewardItemSearchVo criteria);
 
+	/**
+	 * @param context
+	 * @param criteria
+	 * @return
+	 */
+	public PageStore<RewardItem> fetchStaffRewardItems(UserContext context,
+			RewardItemSearchVo criteria);
+
 	
 }
