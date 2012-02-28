@@ -75,6 +75,10 @@ public class BroadcastDao  extends BaseDao<Broadcasting>{
 		{
 			hql.append(" and ( SYSDATE  between broadcast.broadcastingTimeStart and broadcast.broadcastingTimeEnd)");
 		}
+		if (!StringUtil.isEmptyString(searchVo.getCreateUserId())) {
+			hql.append(" AND broadcast.createdBy.id = :createUserId ");
+			param.put("createUserId", searchVo.getCreateUserId());
+		}
 		hql.append(" AND broadcast.broadcastMessagetype = :broadcastMessagetype ");
 		param.put("broadcastMessagetype", searchVo.getBroadcastMessagetype());
 		

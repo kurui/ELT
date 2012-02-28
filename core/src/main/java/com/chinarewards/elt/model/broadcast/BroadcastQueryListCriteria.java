@@ -72,6 +72,18 @@ public class BroadcastQueryListCriteria implements Serializable {
 	 */
 	private boolean nowDate;
 	
+	/**
+	 * 创建人用户ID
+	 */
+	private String createUserId;
+	
+	public String getCreateUserId() {
+		return createUserId;
+	}
+
+	public void setCreateUserId(String createUserId) {
+		this.createUserId = createUserId;
+	}
 	public boolean isNowDate() {
 		return nowDate;
 	}

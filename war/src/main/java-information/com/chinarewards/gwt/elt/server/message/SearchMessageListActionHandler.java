@@ -82,10 +82,18 @@ public class SearchMessageListActionHandler extends
 		context.setUserId(request.getSession().getToken());
 		context.setLoginName(request.getSession().getLoginName());
 		context.setUserRoles(UserRoleTool.adaptToRole(request.getSession().getUserRoles()));
-		//接收用户ID
-		criteria.setReceivingUserId(context.getUserId());
-		BroadcastQueryListVo result=broadcastService.queryMessageList(criteria);
 		
+		if(!StringUtil.isEmpty(request.getCriteria().getCreateUserId()))
+		{
+			//发送用户
+			criteria.setCreateUserId(request.getCriteria().getCreateUserId());
+		}
+		else
+		{
+		  //接收用户ID
+			criteria.setReceivingUserId(context.getUserId());
+		}
+		BroadcastQueryListVo result=broadcastService.queryMessageList(criteria);
 		List<MessageListClient> lt=new ArrayList<MessageListClient>();
 		for (Broadcasting broadcast:result.getResultList()) {
 			MessageListClient client=new MessageListClient();
