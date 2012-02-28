@@ -24,7 +24,6 @@ import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemConstants;
 import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.model.user.UserRoleVo;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
@@ -195,11 +194,13 @@ public class DockPresenterImpl extends BasePresenter<DockDisplay> implements
 											LastLoginRoleResponse resp) {
 										// 成功
 										if ("success".equals(resp.getFal()))
-											GWT.log("success update last login role ");
+											Window.Location.reload();
+										else
+											Window.alert("系统切换出错");
 
 									}
 								});
-						Window.Location.reload();
+						
 					}
 				}));
 		registerHandler(display.getStaffCorner().addClickHandler(
@@ -221,11 +222,13 @@ public class DockPresenterImpl extends BasePresenter<DockDisplay> implements
 											LastLoginRoleResponse resp) {
 										// 成功
 										if ("success".equals(resp.getFal()))
-											GWT.log("success update last login role ");
+											Window.Location.reload();
+										else
+											Window.alert("系统切换出错");
 
 									}
 								});
-						Window.Location.reload();
+		
 					}
 				}));
 

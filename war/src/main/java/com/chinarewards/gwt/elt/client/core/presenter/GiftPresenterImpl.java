@@ -18,7 +18,6 @@ import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.model.user.UserRoleVo;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
@@ -128,13 +127,14 @@ public class GiftPresenterImpl extends BasePresenter<GiftDisplay> implements
 	
 									@Override
 									public void onSuccess(LastLoginRoleResponse resp) {
-										//成功
-										if("success".equals(resp.getFal()))
-											GWT.log("success update last login role ");
+										// 成功
+										if ("success".equals(resp.getFal()))
+											Window.Location.reload();
+										else
+											Window.alert("系统切换出错");
 										
 									}
 								});
-						Window.Location.reload();
 					}
 				}));
 		registerHandler(display.getStaffCorner().addClickHandler(
@@ -151,13 +151,14 @@ public class GiftPresenterImpl extends BasePresenter<GiftDisplay> implements
 	
 									@Override
 									public void onSuccess(LastLoginRoleResponse resp) {
-										//成功
-										if("success".equals(resp.getFal()))
-											GWT.log("success update last login role ");
+										// 成功
+										if ("success".equals(resp.getFal()))
+											Window.Location.reload();
+										else
+											Window.alert("系统切换出错");
 										
 									}
 								});
-						Window.Location.reload();
 					}
 				}));
 
