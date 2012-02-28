@@ -47,7 +47,7 @@ public class CorpBudgetWidget extends Composite implements CorpBudgetDisplay {
 	DateBox endDate;
 	
 	@UiField
-	Hidden period;
+	Hidden period;  
 	@UiField
 	DateBox periodBeginDate;
 	
@@ -124,7 +124,7 @@ public class CorpBudgetWidget extends Composite implements CorpBudgetDisplay {
 		}
 		moneyType.setSelectedIndex(selectIndex);
 	}
-
+	
 	@Override
 	public void setBreadCrumbs(Widget breadCrumbs) {
 		this.breadCrumbs.clear();

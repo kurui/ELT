@@ -44,6 +44,7 @@ import com.chinarewards.gwt.elt.client.orderHistory.plugin.OrderHistoryPluginDes
 import com.chinarewards.gwt.elt.client.orderHistory.plugin.OrderHistoryViewPluginDescriptor;
 import com.chinarewards.gwt.elt.client.orderSubmit.plugin.OrderSubmitPluginDescriptor;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemListPluginDescriptor;
+import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemListStaffPluginDescriptor;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemPluginDescriptor;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemStoreListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemViewPluginDescriptor;
@@ -51,6 +52,7 @@ import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListPluginDescripto
 import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListStaffPluginDescriptor;
 import com.chinarewards.gwt.elt.client.shopWindow.plugin.ShopWindowPluginDescriptor;
 import com.chinarewards.gwt.elt.client.staff.plugin.HrRegisterPluginDescriptor;
+import com.chinarewards.gwt.elt.client.staff.plugin.LeadTimePluginDescriptor;
 import com.chinarewards.gwt.elt.client.staffAdd.plugin.StaffAddPluginDescriptor;
 import com.chinarewards.gwt.elt.client.staffHeavenIndex.plugin.StaffHeavenIndexPluginDescriptor;
 import com.chinarewards.gwt.elt.client.staffList.plugin.StaffListPluginDescriptor;
@@ -133,7 +135,8 @@ public class PlatformModule extends AbstractGinModule {
 			BroadcastingListPluginDescriptor broadcasting,
 			BroadcastSavePluginDescriptor BroadcastSave,
 			DetailsOfBroadcastPluginDescriptor dtailsOfBroadcast,
-			BroadcastReplyPluginDescriptor BroadcastReply) {
+			BroadcastReplyPluginDescriptor BroadcastReply,
+			LeadTimePluginDescriptor leadTime) {
 
 
 		if (pluginSet == null) {
@@ -181,7 +184,7 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(BroadcastSave);
 			pluginSet.registerPlugin(dtailsOfBroadcast);
 			pluginSet.registerPlugin(BroadcastReply);
-
+			pluginSet.registerPlugin(leadTime);
 		}
 
 		return pluginSet;
@@ -209,12 +212,13 @@ public class PlatformModule extends AbstractGinModule {
 			BudgetPluginDescriptor depBudget,
 			IntegralManagementPluginDescriptor integralManagement,
 			StaffListPluginDescriptor staffList,
-			StaffViewPluginDescriptor staffView) {
+			StaffViewPluginDescriptor staffView,
+			LeadTimePluginDescriptor leadTime) {
 
 		if (pluginSet == null) {
 			pluginSet = new InMemoryPluginSet();
 			pluginSet.registerPlugin(core);
-			pluginSet.registerPlugin(enterprise);
+		//	pluginSet.registerPlugin(enterprise);
 		//	pluginSet.registerPlugin(integralPrice);
 		//	pluginSet.registerPlugin(period);
 			pluginSet.registerPlugin(user);
@@ -233,6 +237,7 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(depBudget);
 			pluginSet.registerPlugin(staffList);
 			pluginSet.registerPlugin(staffView);
+			pluginSet.registerPlugin(leadTime);
 		}
 
 		return pluginSet;
@@ -244,6 +249,7 @@ public class PlatformModule extends AbstractGinModule {
 			// ---- PLUGINS DEFINE BELOW (2) ----
 			CorePluginDescriptor core, // core
 			RewardsListStaffPluginDescriptor rewardsListStaff,
+			RewardsItemListStaffPluginDescriptor rewardsItemListStaff,			
 			GiftPluginDescriptor gift, GiftListPluginDescriptor giftList,
 			GiftViewPluginDescriptor giftView,
 			OrderListPluginDescriptor orderList,
@@ -266,6 +272,7 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet = new InMemoryPluginSet();
 			pluginSet.registerPlugin(core);
 			pluginSet.registerPlugin(rewardsListStaff);
+			pluginSet.registerPlugin(rewardsItemListStaff);
 			pluginSet.registerPlugin(giftList);
 			pluginSet.registerPlugin(gift);
 			pluginSet.registerPlugin(giftView);

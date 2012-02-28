@@ -45,7 +45,7 @@ public class Sample2Editor extends AbstractEditor {
 		// }
 		// });
 		// return b;
-		loginPresenter.bind();
+	
 		return loginPresenter.getDisplay().asWidget();
 	}
 
@@ -57,6 +57,7 @@ public class Sample2Editor extends AbstractEditor {
 
 	public void setModel(Object model) {
 		this.model = model;
+		loginPresenter.bind();
 	}
 
 }

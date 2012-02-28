@@ -125,7 +125,7 @@ public class CorpBudgetPresenterImpl extends
 						double tempBudgetIntegral = 0;
 						double budgetAmount = Double.valueOf(display
 								.getBudgetAmount().getValue());
-						tempBudgetIntegral = budgetAmount * integralPrice;
+						tempBudgetIntegral = budgetAmount/integralPrice;
 						display.getBudgetIntegral().setValue(
 								tempBudgetIntegral + "");
 						System.out

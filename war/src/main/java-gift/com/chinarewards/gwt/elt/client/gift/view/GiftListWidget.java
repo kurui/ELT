@@ -106,8 +106,7 @@ public class GiftListWidget extends Composite implements GiftListDisplay {
 
 	@Override
 	public void setDataCount(String text) {
-		dataCount.setText(text);
-		
+		dataCount.setText(text);		
 	}
 
 

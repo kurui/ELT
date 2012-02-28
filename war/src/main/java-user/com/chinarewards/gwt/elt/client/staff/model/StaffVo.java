@@ -16,8 +16,18 @@ public class StaffVo implements Serializable, Comparable<StaffVo> {
 	private String email;
 	private String createUserId;
 	private String deptId;
+	/**
+	 * 颁奖提前通知的天数
+	 */
+	private int leadTime;
 	private List<UserRoleVo> UserRoleVos;
 	
+	public int getLeadTime() {
+		return leadTime;
+	}
+	public void setLeadTime(int leadTime) {
+		this.leadTime = leadTime;
+	}
 	public List<UserRoleVo> getUserRoleVos() {
 		return UserRoleVos;
 	}

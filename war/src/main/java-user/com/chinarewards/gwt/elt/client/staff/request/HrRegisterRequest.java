@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.chinarewards.gwt.elt.client.staff;
+package com.chinarewards.gwt.elt.client.staff.request;
 
 import net.customware.gwt.dispatch.shared.Action;
 

@@ -18,6 +18,9 @@ import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemCreatePre
 import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemListPresenter;
 import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemListPresenter.RewardsItemListDisplay;
 import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemListPresenterImpl;
+import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemListStaffPresenter;
+import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemListStaffPresenter.RewardsItemListStaffDisplay;
+import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemListStaffPresenterImpl;
 import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemStoreListPresenter;
 import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemStoreListPresenter.RewardsItemStoreListDisplay;
 import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemStoreListPresenterImpl;
@@ -27,6 +30,7 @@ import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemViewPrese
 import com.chinarewards.gwt.elt.client.rewardItem.view.ChooseStaffBlockWidget;
 import com.chinarewards.gwt.elt.client.rewardItem.view.ChooseStaffWinWidget;
 import com.chinarewards.gwt.elt.client.rewardItem.view.FrequencySettingWidget;
+import com.chinarewards.gwt.elt.client.rewardItem.view.RewardsItemListStaffWidget;
 import com.chinarewards.gwt.elt.client.rewardItem.view.RewardsItemListWidget;
 import com.chinarewards.gwt.elt.client.rewardItem.view.RewardsItemStoreListWidget;
 import com.chinarewards.gwt.elt.client.rewardItem.view.RewardsItemViewWidget;
@@ -53,6 +57,9 @@ public class RewardsItemModule extends AbstractGinModule {
 		//列表
 		bind(RewardsItemListPresenter.class).to(RewardsItemListPresenterImpl.class);
 		bind(RewardsItemListDisplay.class).to(RewardsItemListWidget.class);
+		
+		bind(RewardsItemListStaffPresenter.class).to(RewardsItemListStaffPresenterImpl.class);
+		bind(RewardsItemListStaffDisplay.class).to(RewardsItemListStaffWidget.class);
 		
 		bind(RewardsItemViewPresenter.class).to(RewardsItemViewPresenterImpl.class);
 		bind(RewardsItemViewDisplay.class).to(RewardsItemViewWidget.class);

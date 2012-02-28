@@ -182,7 +182,10 @@ public class ChooseStaffWinPresenterImpl extends
 				new GetValue<StaffClient, String>() {
 					@Override
 					public String getValue(StaffClient staff) {
-						return staff.getDeptName();
+						if(staff.getDeptName().indexOf("ROOT_DEPT")==-1)
+							return staff.getDeptName();
+						else
+							return "";
 					}
 				}, ref, "deptName");
 //		if (!staffOnly) {

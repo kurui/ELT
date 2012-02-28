@@ -6,8 +6,8 @@ import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsCriteria;
 import com.chinarewards.gwt.elt.client.rewards.presenter.RewardsListStaffPresenter.RewardsListStaffDisplay;
-import com.chinarewards.gwt.elt.client.rewards.request.SearchRewardsRequest;
-import com.chinarewards.gwt.elt.client.rewards.request.SearchRewardsResponse;
+import com.chinarewards.gwt.elt.client.rewards.request.SearchRewardsStaffRequest;
+import com.chinarewards.gwt.elt.client.rewards.request.SearchRewardsStaffResponse;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.model.PaginationDetailClient;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -40,18 +40,19 @@ public class RewardsListStaffViewAdapter extends
 			getCriteria().setSorting(getSorting());
 		}
 		dispatch.execute(
-				new SearchRewardsRequest(getCriteria(), sessionManager
+				new SearchRewardsStaffRequest(getCriteria(), sessionManager
 						.getSession()),
-				new AsyncCallback<SearchRewardsResponse>() {
+				new AsyncCallback<SearchRewardsStaffResponse>() {
 					@Override
 					public void onFailure(Throwable e) {
 						errorHandler.alert(e.getMessage());
 					}
 
 					@Override
-					public void onSuccess(SearchRewardsResponse response) {
+					public void onSuccess(SearchRewardsStaffResponse response) {
 						updateRowData(start, response.getResult());
 						updateRowCount(response.getTotal(), true);
+						display.setDataCount(response.getTotal()+"");
 					}
 
 				});

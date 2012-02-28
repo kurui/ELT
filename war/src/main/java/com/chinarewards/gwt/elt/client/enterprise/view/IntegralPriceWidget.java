@@ -105,7 +105,12 @@ public class IntegralPriceWidget extends Composite implements
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
 
+	}
+
+
+	@Override
+	public void setSaveUnVisible() {
+		saveButton.setVisible(false);
 	}
 }

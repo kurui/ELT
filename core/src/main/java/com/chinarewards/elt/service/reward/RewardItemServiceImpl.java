@@ -114,6 +114,13 @@ public class RewardItemServiceImpl implements RewardItemService {
 
 		return rewardItemLogic.fetchRewardItems(context, criteria);
 	}
+	
+	@Override
+	public PageStore<RewardItemVo> fetchStaffRewardItems(UserContext context,
+			RewardItemSearchVo criteria) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
 	public PageStore<RewardItemStoreVo> fetchRewardItemsStore(
@@ -215,6 +222,9 @@ public class RewardItemServiceImpl implements RewardItemService {
 		 rewardItemLogic.updateRewardItemStoreCount(rewardItemStoreId);
 		
 	}
+
+	
+
 	
 
 }

@@ -98,10 +98,10 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 	}
   
 	 private void saveDepartmentBudget(String operate){
-		   if (!validateSubmit()&& operate.equals("save")) {//是保存
+		   if (operate.equals("save")&&!validateSubmit()) {//是保存
 				return;
 			}
-		   else if (!validateSubmited()&& operate.equals("update")) {//是修改
+		    if (operate.equals("update")&&!validateSubmited()) {//是修改
 				return;
 			}
 		   DepBudgetVo depBudgetVo = new DepBudgetVo();
@@ -134,7 +134,7 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 								 }
 							  });
 							}
-							 if(response.getMessage().equals("3")){
+							 if(response.getMessage().equals("2")){
 								 win.alert("修改成功");
 								 toRefresh();
 							 }
@@ -163,7 +163,7 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 			if (display.getJF().getValue() != null && ! "".equals(display.getJF().getValue().trim())) {
 			   try{
 				   if(remainCount < Double.parseDouble(display.getJF().getValue())){
-					   errorMsg.append("公司预算剩余积分不足!<br>");
+					   errorMsg.append("新增时公司预算剩余积分不足!<br>");
 						flag = false;
 				   }
 			   }catch(Exception   e){
@@ -194,8 +194,8 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 			}
 			if (display.getJF().getValue() != null && ! "".equals(display.getJF().getValue().trim())) {
 			   try{
-				   if(oldCount+remainCount < Integer.parseInt(display.getJF().getValue())){
-					   errorMsg.append("公司预算剩余积分不足!<br>");
+				  if((oldCount+remainCount) < Integer.parseInt(display.getJF().getValue())){
+					   errorMsg.append("修改时公司预算剩余积分不足!<br>");
 						flag = false;
 				   }
 			   }catch(Exception   e){

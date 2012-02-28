@@ -13,6 +13,7 @@ import com.chinarewards.gwt.elt.client.enterprise.view.EnterpriseWidget;
 import com.chinarewards.gwt.elt.client.enterprise.view.IntegralPriceWidget;
 import com.chinarewards.gwt.elt.client.enterprise.view.PeriodWidget;
 import com.google.gwt.inject.client.AbstractGinModule;
+import com.google.inject.Singleton;
 
 public class EnterprisesModule extends AbstractGinModule {
 
@@ -24,7 +25,7 @@ public class EnterprisesModule extends AbstractGinModule {
 		bind(IntegralPricePresenter.class).to(IntegralPricePresenterImpl.class);
 		bind(IntegralPriceDisplay.class).to(IntegralPriceWidget.class);
 		
-		bind(PeriodPresenter.class).to(PeriodPresenterImpl.class);
+		bind(PeriodPresenter.class).to(PeriodPresenterImpl.class).in(Singleton.class);
 		bind(PeriodDisplay.class).to(PeriodWidget.class);
 		
 		

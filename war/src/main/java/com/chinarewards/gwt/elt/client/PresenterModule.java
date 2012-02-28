@@ -39,6 +39,7 @@ import com.chinarewards.gwt.elt.client.rewards.module.RewardsListModule;
 import com.chinarewards.gwt.elt.client.rewards.module.RewardsListStaffModule;
 import com.chinarewards.gwt.elt.client.shopWindow.module.ShopWindowModule;
 import com.chinarewards.gwt.elt.client.staff.module.HrRegisterModule;
+import com.chinarewards.gwt.elt.client.staff.module.LeadTimeModule;
 import com.chinarewards.gwt.elt.client.staffAdd.module.StaffAddModule;
 import com.chinarewards.gwt.elt.client.staffHeavenIndex.module.StaffHeavenIndexModule;
 import com.chinarewards.gwt.elt.client.staffList.module.StaffListModule;
@@ -99,10 +100,10 @@ public class PresenterModule extends AbstractGinModule {
 		install(new StaffHeavenIndexModule());
 		install(new CorpBroadcastModule());
 		install(new GloryBroadcastModule());
+		install(new LeadTimeModule());
 		install(new MessageListModule());
 		install(new MessageSaveModule());
 		
-
 	}
 
 }

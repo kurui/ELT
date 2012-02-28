@@ -39,12 +39,6 @@ public class RewardAclProcessorFactoryImpl implements RewardAclProcessorFactory 
 		return res;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.chinarewards.hr.service.user.RewardsRoleProcessorFactory#
-	 * generatorRewardsRoleProcessor(com.chinarewards.hr.model.user.UserRole[])
-	 */
 	public RewardAclProcessor generateRewardAclProcessor(UserRole[] userRoles) {
 		return generateRewardAclProcessor(Arrays.asList(userRoles));
 	}

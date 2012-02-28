@@ -26,6 +26,11 @@ public interface PeriodPresenter extends
 	
 		void initEditPeriod(EnterpriseVo enterpriseVo);
 
+		
+		public HasClickHandlers getBackHandlers();
+
+		public void setSaveUnVisible();
+
 	}
 
 }
