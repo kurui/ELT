@@ -65,7 +65,7 @@ public class PresenterModule extends AbstractGinModule {
 		install(new EnterprisesModule());
 		install(new RewardsItemModule());
 		install(new RewardsListModule());
-		install(new RewardsListStaffModule());
+		install(new RewardsListStaffModule());		
 		
 		install(new ChooseStaffModule());
 		install(new AwardRewardModule());

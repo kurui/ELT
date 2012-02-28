@@ -9,25 +9,25 @@ import com.google.inject.Provider;
 /**
  * @author yanrui
  */
-public class RewardsItemListStaffEditorDescriptor implements EditorDescriptor {
+public class RewardsItemListCompanyOtherEditorDescriptor implements EditorDescriptor {
 
-	final Provider<RewardsItemListStaffEditor> editProvider;
+	final Provider<RewardsItemListCompanyOtherEditor> editProvider;
 
 	@Inject
-	RewardsItemListStaffEditorDescriptor(Provider<RewardsItemListStaffEditor> editProvider) {
+	RewardsItemListCompanyOtherEditorDescriptor(Provider<RewardsItemListCompanyOtherEditor> editProvider) {
 		this.editProvider = editProvider;
 	}
 
 	@Override
 	public String getEditorId() {
-		return RewardsItemConstants.EDITOR_REWARDSITEM_STAFF_LIST;
+		return RewardsItemConstants.EDITOR_REWARDSITEM_COMPANYOTHER_LIST;
 	}
 
 	@Override
 	public Editor createEditor(String instanceId, Object model) {
-		RewardsItemListStaffEditor e = editProvider.get();
+		RewardsItemListCompanyOtherEditor e = editProvider.get();
 		e.setInstanceId(instanceId);
-		e.setTitle("我参与的奖项");
+		e.setTitle("公司其他奖项");
 		e.setModel(model);
 		return e;
 	}

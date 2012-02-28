@@ -43,6 +43,7 @@ import com.chinarewards.gwt.elt.client.orderConfirmation.plugin.OrderConfirmatio
 import com.chinarewards.gwt.elt.client.orderHistory.plugin.OrderHistoryPluginDescriptor;
 import com.chinarewards.gwt.elt.client.orderHistory.plugin.OrderHistoryViewPluginDescriptor;
 import com.chinarewards.gwt.elt.client.orderSubmit.plugin.OrderSubmitPluginDescriptor;
+import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemListCompanyOtherPluginDescriptor;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemListStaffPluginDescriptor;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemPluginDescriptor;
@@ -249,7 +250,8 @@ public class PlatformModule extends AbstractGinModule {
 			// ---- PLUGINS DEFINE BELOW (2) ----
 			CorePluginDescriptor core, // core
 			RewardsListStaffPluginDescriptor rewardsListStaff,
-			RewardsItemListStaffPluginDescriptor rewardsItemListStaff,			
+			RewardsItemListStaffPluginDescriptor rewardsItemListStaff,	
+			RewardsItemListCompanyOtherPluginDescriptor rewardsItemListCompanyOther,	
 			GiftPluginDescriptor gift, GiftListPluginDescriptor giftList,
 			GiftViewPluginDescriptor giftView,
 			OrderListPluginDescriptor orderList,
@@ -273,6 +275,7 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(core);
 			pluginSet.registerPlugin(rewardsListStaff);
 			pluginSet.registerPlugin(rewardsItemListStaff);
+			pluginSet.registerPlugin(rewardsItemListCompanyOther);
 			pluginSet.registerPlugin(giftList);
 			pluginSet.registerPlugin(gift);
 			pluginSet.registerPlugin(giftView);
