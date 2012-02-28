@@ -163,7 +163,10 @@ public class StaffListPresenterImpl extends
 				new GetValue<StaffListClient, String>() {
 					@Override
 					public String getValue(StaffListClient staff) {
+						if(staff.getDepartmentName().indexOf("ROOT")==-1)
 						return staff.getDepartmentName();
+						else
+						return "";
 					}
 				});
 		cellTable.addColumn("职位", new TextCell(),
