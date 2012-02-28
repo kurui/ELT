@@ -6,6 +6,7 @@ import com.chinarewards.elt.dao.broadcast.BroadcastDao;
 import com.chinarewards.elt.dao.broadcast.BroadcastReplyDao;
 import com.chinarewards.elt.dao.broadcast.BroadcastingReceivingDao;
 import com.chinarewards.elt.dao.broadcast.ReceivingObjectDao;
+import com.chinarewards.elt.dao.org.MembersDao;
 import com.chinarewards.elt.domain.information.BroadcastReply;
 import com.chinarewards.elt.domain.information.Broadcasting;
 import com.chinarewards.elt.domain.information.BroadcastingReceiving;
@@ -27,16 +28,18 @@ public class BroadcastLogicImpl implements BroadcastLogic {
 	private final ReceivingObjectDao receivingObjectDao;
 	private final BroadcastReplyDao broadcastReplyDao;
 	private final UserLogic userLogic;
+	private final MembersDao membersDao;
 
 	@Inject
 	public BroadcastLogicImpl(BroadcastDao broadcastDao,
 			BroadcastingReceivingDao broadcastingReceivingDao,
-			ReceivingObjectDao receivingObjectDao,BroadcastReplyDao broadcastReplyDao,UserLogic userLogic) {
+			ReceivingObjectDao receivingObjectDao,BroadcastReplyDao broadcastReplyDao,UserLogic userLogic,MembersDao membersDao) {
 		this.broadcastDao = broadcastDao;
 		this.broadcastingReceivingDao = broadcastingReceivingDao;
 		this.receivingObjectDao = receivingObjectDao;
 		this.broadcastReplyDao=broadcastReplyDao;
 		this.userLogic=userLogic;
+		this.membersDao=membersDao;
 	}
 
 	@Override
@@ -51,6 +54,18 @@ public class BroadcastLogicImpl implements BroadcastLogic {
 	@Override
 	public BroadcastQueryListVo queryBroadcastList(
 			BroadcastQueryListCriteria criteria) {
+		//查询接收对象的broadcastID LIST
+		SysUser user=userLogic.findUserById(criteria.getReceivingUserId());
+		String deptId=null;
+		List<String> teamIds=null;
+		if(user.getStaff().getDepartment()!=null)
+			deptId=user.getStaff().getDepartment().getId();
+		List<String> tList=membersDao.findTeamIdsListByStaffId(user.getStaff().getId());
+		if(tList.size()>0)
+			teamIds=tList;
+		List<String> broadcastList =broadcastingReceivingDao.findBroadcastingReceivingIdList(user.getCorporation().getId(), deptId, user.getStaff().getId(), teamIds,criteria.getBroadcastMessagetype());
+		if(broadcastList.size()>0)
+			criteria.setBroadcastList(broadcastList);
 		return broadcastDao.queryBroadcastPageAction(criteria);
 	}
 

@@ -38,4 +38,17 @@ public class MembersDao extends BaseDao<Members> {
 				.setParameter("type", type)
 				.getResultList();
 	}
+	/**
+	 * 根据员工ID.获取小组IDs
+	 * @param teamId
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List<String> findTeamIdsListByStaffId(String staffId) {
+		return getEm()
+				.createQuery("SELECT m.team.id FROM Members m WHERE m.staff.id =:staffId")
+				.setParameter("staffId", staffId)
+				.getResultList();
+	}
+
 }

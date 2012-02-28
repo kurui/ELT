@@ -82,7 +82,8 @@ public class SearchBroadcastingListActionHandler extends
 		context.setUserId(request.getSession().getToken());
 		context.setLoginName(request.getSession().getLoginName());
 		context.setUserRoles(UserRoleTool.adaptToRole(request.getSession().getUserRoles()));
-		
+		//接收用户ID
+		criteria.setReceivingUserId(context.getUserId());
 		BroadcastQueryListVo result=broadcastService.queryBroadcastList(criteria);
 		
 		List<BroadcastingListClient> lt=new ArrayList<BroadcastingListClient>();

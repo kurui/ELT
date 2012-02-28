@@ -77,6 +77,11 @@ public class BroadcastDao  extends BaseDao<Broadcasting>{
 		hql.append(" AND broadcast.deleted = :deleted ");
 		param.put("deleted", false);
 	
+		if (searchVo.getBroadcastList()!=null && searchVo.getBroadcastList().size()>0) {
+			hql.append(" AND  broadcast.id  IN (:broadcastList) ");
+			param.put("broadcastList", searchVo.getBroadcastList());
+
+		}
 		// ORDER BY
 		if (SEARCH.equals(type)) {
 			if (searchVo.getSortingDetail() != null && searchVo.getSortingDetail().getSort() != null && searchVo.getSortingDetail().getDirection() != null) {

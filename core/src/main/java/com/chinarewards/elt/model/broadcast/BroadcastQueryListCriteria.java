@@ -2,6 +2,7 @@ package com.chinarewards.elt.model.broadcast;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import com.chinarewards.elt.model.common.PaginationDetail;
 import com.chinarewards.elt.model.common.SortingDetail;
@@ -57,6 +58,32 @@ public class BroadcastQueryListCriteria implements Serializable {
 	 */
 	private BroadcastMessage broadcastMessagetype;
 	
+	/**
+	 * 接收用户ID
+	 */
+	private String receivingUserId;
+	
+	/**
+	 * 广播ID list
+	 */
+	private List<String> broadcastList;
+	
+	public List<String> getBroadcastList() {
+		return broadcastList;
+	}
+
+	public void setBroadcastList(List<String> broadcastList) {
+		this.broadcastList = broadcastList;
+	}
+
+	public String getReceivingUserId() {
+		return receivingUserId;
+	}
+
+	public void setReceivingUserId(String receivingUserId) {
+		this.receivingUserId = receivingUserId;
+	}
+
 	public BroadcastMessage getBroadcastMessagetype() {
 		return broadcastMessagetype;
 	}

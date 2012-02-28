@@ -85,6 +85,8 @@ public class StaffHeavenIndexActionHandler extends
 		context.setLoginName(request.getSession().getLoginName());
 		context.setUserRoles(UserRoleTool.adaptToRole(request.getSession().getUserRoles()));
 		
+		//接收用户ID
+		criteria.setReceivingUserId(context.getUserId());
 		BroadcastQueryListVo result=broadcastService.queryBroadcastList(criteria);
 		
 		List<StaffHeavenIndexClient> lt=new ArrayList<StaffHeavenIndexClient>();
