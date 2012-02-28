@@ -54,6 +54,8 @@ public class BroadcastLogicImpl implements BroadcastLogic {
 	@Override
 	public BroadcastQueryListVo queryBroadcastList(
 			BroadcastQueryListCriteria criteria) {
+		if(!StringUtil.isEmptyString(criteria.getReceivingUserId()))
+	{
 		//查询接收对象的broadcastID LIST
 		SysUser user=userLogic.findUserById(criteria.getReceivingUserId());
 		String deptId=null;
@@ -66,6 +68,7 @@ public class BroadcastLogicImpl implements BroadcastLogic {
 		List<String> broadcastList =broadcastingReceivingDao.findBroadcastingReceivingIdList(user.getCorporation().getId(), deptId, user.getStaff().getId(), teamIds,criteria.getBroadcastMessagetype());
 		if(broadcastList.size()>0)
 			criteria.setBroadcastList(broadcastList);
+	}
 		return broadcastDao.queryBroadcastPageAction(criteria);
 	}
 
