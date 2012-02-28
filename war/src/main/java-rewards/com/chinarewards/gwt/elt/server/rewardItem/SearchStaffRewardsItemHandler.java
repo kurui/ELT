@@ -81,9 +81,6 @@ public class SearchStaffRewardsItemHandler extends	BaseActionHandler<SearchStaff
         model.setEnabled(criteria.isEnabled());
 		model.setCreateTime(criteria.getCreateTime());
 		model.setCreateTimeEnd(criteria.getCreateTimeEnd());
-     //   model.setEnabled(criteria.isEnabled());
-//		model.setSubDepartmentChoose(criteria.isSubDepartmentChoose());
-//		model.setRewardFrom(criteria.getRewardFrom());
 		model.setStandard(criteria.getStandard());
 		model.setStartTime(criteria.getStartTime());
 		model.setTypeId(criteria.getTypeId());
@@ -119,6 +116,7 @@ public class SearchStaffRewardsItemHandler extends	BaseActionHandler<SearchStaff
 			client.setPeriodEnable(item.getAutoGenerate()==RequireAutoGenerate.requireCyclic);//周期性
 			client.setStartTime(item.getItem().getStartTime());
 			client.setCreateAt(item.getItem().getCreatedAt());
+			client.setCreatedBy(item.getCreatedBy().getUserName());
 			client.setNextPublishTime(item.getExpectAwardDate());
 			client.setEnabled(item.isEnabled());
 			resultList.add(client);

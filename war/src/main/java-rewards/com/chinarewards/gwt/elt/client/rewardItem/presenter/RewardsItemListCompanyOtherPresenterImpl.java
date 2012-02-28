@@ -74,6 +74,9 @@ public class RewardsItemListCompanyOtherPresenterImpl extends
 	}
 
 	private void iniWidget() {
+		display.getRewardsItemType().addItem("全部奖项","ALL");
+		display.getRewardsItemType().addItem("努力冲奖项","GO");	
+		
 		buildTable();
 		doSearch();
 	}
@@ -96,8 +99,12 @@ public class RewardsItemListCompanyOtherPresenterImpl extends
 
 	private void doSearch() {
 		RewardsItemCompanyOtherCriteria criteria = new RewardsItemCompanyOtherCriteria();
-		criteria.setName(display.getName().getValue());
-		criteria.setDefinition(display.getDefinition().getValue());
+//		criteria.setName(display.getName().getValue());
+//		criteria.setDefinition(display.getDefinition().getValue());
+		
+		int selectedIndex = display.getRewardsItemType().getSelectedIndex();
+		String rewardsItemType=display.getRewardsItemType().getValue(selectedIndex);
+		criteria.setRewardsItemType(rewardsItemType);		
 
 		listViewAdapter = new RewardsItemListCompanyOtherViewAdapter(dispatch,
 				criteria, errorHandler, sessionManager, display);

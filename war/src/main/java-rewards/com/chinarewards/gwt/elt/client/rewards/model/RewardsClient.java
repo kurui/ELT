@@ -52,6 +52,37 @@ public class RewardsClient implements Serializable, Comparable<RewardsClient> {
 	/** 提名人信息 **/
 	private List<JudgeModelClient> judgeList;
 
+	
+	
+	private List<WinnerModelClient> winnerList;
+	
+	
+	public String getWinnersText(){
+		String text="";
+		if (winnerList!=null) {
+			for (int i = 0; i < winnerList.size(); i++) {
+				WinnerModelClient param=winnerList.get(i);
+				if(param!=null){
+					text+=param.getName()+",";
+				}				
+			}
+			int subIndex=text.lastIndexOf(",");
+			if(subIndex>-1){
+				text=text.substring(0, subIndex);
+			}
+		}
+		return text;
+	}
+	
+	
+	public List<WinnerModelClient> getWinnerList() {
+		return winnerList;
+	}
+
+	public void setWinnerList(List<WinnerModelClient> winnerList) {
+		this.winnerList = winnerList;
+	}
+
 	public List<JudgeModelClient> getJudgeList() {
 		return judgeList;
 	}

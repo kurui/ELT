@@ -20,19 +20,7 @@
 
 					<div class="{new2.query-wrap}">
 						<div class="{new2.form}">
-							<label for="">获奖人:</label>
-							<g:TextBox maxLength="20" ui:field="rewardsName"
-								styleName="{new2.text2}" />
-							<span class="{new2.nbspbig}"></span>
-							<label for="">奖项名称:</label>
-							<g:TextBox maxLength="30" ui:field="definition"
-								styleName="{new2.text2}" />
-							<span class="{new2.nbspbig}"></span>
-							<div class="{new2.remark} {new2.remark-info}">
-								<div class="{new2.remark-tool}" style="text-align:right;">
-									<g:Button ui:field="searchBtn" text="查询" styleName="{new2.button}" />
-								</div>
-							</div>
+							<span><h3>我参与的奖项</h3></span>
 							<!--查询条件 ]] -->
 
 							<span class="{new2.cutline}"></span>

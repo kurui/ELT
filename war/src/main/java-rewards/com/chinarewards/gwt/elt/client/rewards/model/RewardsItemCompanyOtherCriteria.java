@@ -12,9 +12,6 @@ import com.chinarewards.gwt.elt.model.SortingDetailClient;
  */
 public class RewardsItemCompanyOtherCriteria implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 8705022589947502175L;
 
 	private PaginationDetailClient pagination;
@@ -48,6 +45,19 @@ public class RewardsItemCompanyOtherCriteria implements Serializable {
 
 	private Date createTime;//查询时传的参数（创建时间起）
 	private String enabled;
+	
+	
+	private String rewardsItemType;//所有奖项/已获得的奖项/努力冲奖项	
+	
+	
+	public String getRewardsItemType() {
+		return rewardsItemType;
+	}
+
+	public void setRewardsItemType(String rewardsItemType) {
+		this.rewardsItemType = rewardsItemType;
+	}
+
 	public String isEnabled() {
 		return enabled;
 	}
@@ -126,12 +136,6 @@ public class RewardsItemCompanyOtherCriteria implements Serializable {
 		this.degree = degree;
 	}
 
-	
-	
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
 		return "RewardsItemCriteria [pagination=" + pagination + ", sorting="

@@ -7,10 +7,9 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.InlineLabel;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
 public class RewardsItemListCompanyOtherWidget extends Composite implements
@@ -19,16 +18,14 @@ public class RewardsItemListCompanyOtherWidget extends Composite implements
 	Panel resultPanel;
 	@UiField
 	Panel resultpage;
-	// @UiField
-	// Panel breadCrumbs;
+//	 @UiField
+//	 Panel breadCrumbs;
 
 	@UiField
 	Button searchBtn;
 
 	@UiField
-	TextBox rewardsName;
-	@UiField
-	TextBox definition;
+	ListBox rewardsItemType;
 
 	@UiField
 	InlineLabel dataCount;
@@ -54,15 +51,7 @@ public class RewardsItemListCompanyOtherWidget extends Composite implements
 		return resultPanel;
 	}
 
-	@Override
-	public HasValue<String> getName() {
-		return rewardsName;
-	}
-
-	@Override
-	public HasValue<String> getDefinition() {
-		return definition;
-	}
+	
 
 	@Override
 	public Panel getResultpage() {
@@ -79,6 +68,11 @@ public class RewardsItemListCompanyOtherWidget extends Composite implements
 		// this.breadCrumbs.clear();
 		// this.breadCrumbs.add(breadCrumbs);
 
+	}
+
+	@Override
+	public ListBox getRewardsItemType() {
+		return rewardsItemType;
 	}
 
 }

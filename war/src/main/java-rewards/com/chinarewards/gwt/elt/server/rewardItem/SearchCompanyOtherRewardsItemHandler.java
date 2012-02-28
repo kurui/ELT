@@ -50,6 +50,7 @@ public class SearchCompanyOtherRewardsItemHandler extends	BaseActionHandler<Sear
      
 		RewardsItemCompanyOtherCriteria rewardsItemClient = request.getRewardsItemCompanyOtherCriteria();
 
+		rewardsItemClient.setStaffId(request.getUserSession().getStaffId());
 		RewardItemSearchVo model = adapter(rewardsItemClient);
 		
 		UserContext uc = new UserContext();
@@ -81,15 +82,13 @@ public class SearchCompanyOtherRewardsItemHandler extends	BaseActionHandler<Sear
         model.setEnabled(criteria.isEnabled());
 		model.setCreateTime(criteria.getCreateTime());
 		model.setCreateTimeEnd(criteria.getCreateTimeEnd());
-     //   model.setEnabled(criteria.isEnabled());
-//		model.setSubDepartmentChoose(criteria.isSubDepartmentChoose());
-//		model.setRewardFrom(criteria.getRewardFrom());
 		model.setStandard(criteria.getStandard());
 		model.setStartTime(criteria.getStartTime());
 		model.setTypeId(criteria.getTypeId());
 		model.setTypeName(criteria.getTypeName());
 		
 
+		model.setStaffId(criteria.getStaffId());
 
 		if (criteria.getPagination() != null) {
 			PaginationDetail paginationDetail = new PaginationDetail();
@@ -119,6 +118,7 @@ public class SearchCompanyOtherRewardsItemHandler extends	BaseActionHandler<Sear
 			client.setPeriodEnable(item.getAutoGenerate()==RequireAutoGenerate.requireCyclic);//周期性
 			client.setStartTime(item.getItem().getStartTime());
 			client.setCreateAt(item.getItem().getCreatedAt());
+			client.setCreatedBy(item.getItem().getCreatedBy().getUserName());
 			client.setNextPublishTime(item.getExpectAwardDate());
 			client.setEnabled(item.isEnabled());
 			resultList.add(client);

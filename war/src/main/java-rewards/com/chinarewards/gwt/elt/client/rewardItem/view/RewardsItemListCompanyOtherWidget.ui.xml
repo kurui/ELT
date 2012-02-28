@@ -20,13 +20,8 @@
 
 					<div class="{new2.query-wrap}">
 						<div class="{new2.form}">
-							<label for="">获奖人:</label>
-							<g:TextBox maxLength="20" ui:field="rewardsName"
-								styleName="{new2.text2}" />
-							<span class="{new2.nbspbig}"></span>
-							<label for="">奖项名称:</label>
-							<g:TextBox maxLength="30" ui:field="definition"
-								styleName="{new2.text2}" />
+							<label for="">奖项状态:</label>
+							<g:ListBox ui:field="rewardsItemType" styleName="{new2.text2}" />
 							<span class="{new2.nbspbig}"></span>
 							<div class="{new2.remark} {new2.remark-info}">
 								<div class="{new2.remark-tool}" style="text-align:right;">

@@ -335,29 +335,30 @@ public class WinnerDao extends BaseDao<Winner> {
 		Map<String, Object> param = new HashMap<String, Object>();
 		StringBuffer hql = new StringBuffer();
 		if (SEARCH.equals(type)) {
-			hql.append(" SELECT win.reward.rewardItem FROM Winner win WHERE 1=1 ");
+			hql.append(" SELECT rewardItem FROM RewardItem rewardItem WHERE 1=1 ");
 		} else if (COUNT.equals(type)) {
-			hql.append(" SELECT COUNT(win.reward.rewardItem) FROM Winner win WHERE 1=1 ");
+			hql.append(" SELECT COUNT(rewardItem) FROM RewardItem rewardItem  WHERE 1=1 ");
 		}
 		
 		if (!StringUtil.isEmptyString(searchVo.getCorporationId())) {
-			hql.append(" AND win.reward.corporation.id = :corporationId ");
+			hql.append(" AND rewardItem.corporation.id = :corporationId ");
 			param.put("corporationId", searchVo.getCorporationId());
 		}	
 		
+				
 		if (!StringUtil.isEmptyString(searchVo.getStaffId())) {
-			hql.append(" AND win.staff.id != :staffId ");
+			hql.append(" AND rewardItem NOT IN ( SELECT  win.reward.rewardItem FROM Winner win where 1=1 AND win.staff.id = :staffId )");
 			param.put("staffId", searchVo.getStaffId());
 		}			
 		
 		// ORDER BY
 		if (SEARCH.equals(type)) {
 			if (searchVo.getSortingDetail() != null && searchVo.getSortingDetail().getSort()!=null && searchVo.getSortingDetail().getDirection()!=null) {
-				hql.append(" ORDER BY win."
+				hql.append(" ORDER BY rewardItem."
 						+ searchVo.getSortingDetail().getSort() + " "
 						+ searchVo.getSortingDetail().getDirection());
 			} else {
-				hql.append(" ORDER BY win.winTime DESC ");
+				hql.append(" ORDER BY rewardItem.startTime DESC ");
 			}
 		}
 		

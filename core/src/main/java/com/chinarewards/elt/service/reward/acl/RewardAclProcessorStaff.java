@@ -9,7 +9,6 @@ import com.chinarewards.elt.dao.user.UserDao;
 import com.chinarewards.elt.domain.reward.base.Reward;
 import com.chinarewards.elt.domain.reward.base.RewardItem;
 import com.chinarewards.elt.domain.reward.base.RewardItemStore;
-import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.reward.search.RewardItemSearchVo;
 import com.chinarewards.elt.model.reward.search.RewardSearchVo;
@@ -58,7 +57,6 @@ public class RewardAclProcessorStaff extends AbstractRewardAclProcessor {
 	@Override
 	public PageStore<RewardItem> fetchRewardItems(UserContext context,
 			RewardItemSearchVo criteria) {
-		SysUser sysUser = userDao.findById(SysUser.class, context.getUserId());
 
 		PageStore<RewardItem> pageStore = new PageStore<RewardItem>();
 		pageStore = winnerDao.searchRewardItem_staff(criteria);
@@ -68,7 +66,6 @@ public class RewardAclProcessorStaff extends AbstractRewardAclProcessor {
 	
 	public PageStore<RewardItem> fetchRewardItems_companyOther(UserContext context,
 			RewardItemSearchVo criteria) {
-		SysUser sysUser = userDao.findById(SysUser.class, context.getUserId());
 
 		PageStore<RewardItem> pageStore = new PageStore<RewardItem>();
 		

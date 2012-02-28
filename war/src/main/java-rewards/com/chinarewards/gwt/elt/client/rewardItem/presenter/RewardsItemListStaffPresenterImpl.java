@@ -23,8 +23,6 @@ import com.chinarewards.gwt.elt.client.widget.Sorting;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.model.rewards.RewardPageType;
 import com.google.gwt.cell.client.TextCell;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.inject.Inject;
 
 public class RewardsItemListStaffPresenterImpl extends
@@ -64,13 +62,13 @@ public class RewardsItemListStaffPresenterImpl extends
 
 		iniWidget();
 
-		registerHandler(display.getSearchBtnClickHandlers().addClickHandler(
-				new ClickHandler() {
-					public void onClick(ClickEvent paramClickEvent) {
-						// Window.alert(sessionManager.getSession().getLoginName());
-						iniWidget();
-					}
-				}));
+//		registerHandler(display.getSearchBtnClickHandlers().addClickHandler(
+//				new ClickHandler() {
+//					public void onClick(ClickEvent paramClickEvent) {
+//						// Window.alert(sessionManager.getSession().getLoginName());
+//						iniWidget();
+//					}
+//				}));
 	}
 
 	private void iniWidget() {
@@ -96,8 +94,8 @@ public class RewardsItemListStaffPresenterImpl extends
 
 	private void doSearch() {
 		RewardsItemStaffCriteria criteria = new RewardsItemStaffCriteria();
-		criteria.setName(display.getName().getValue());
-		criteria.setDefinition(display.getDefinition().getValue());
+//		criteria.setName(display.getName().getValue());
+//		criteria.setDefinition(display.getDefinition().getValue());
 
 		listViewAdapter = new RewardsItemListStaffViewAdapter(dispatch,
 				criteria, errorHandler, sessionManager, display);
