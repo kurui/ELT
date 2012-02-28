@@ -228,7 +228,21 @@ a:active {
 	height: 29px;
 	line-height: 25px;
 }
-
+.gwt-DialogBox .Caption2 {
+	background: url() no-repeat;
+	border-bottom: 0px solid #BBBBBB;
+	border-top: 2px solid #333333;
+	border-left: 2px solid #333333;
+	border-right: 2px solid #333333;
+	padding-left: 10px;
+	font-weight: bold;
+	background-color: #F4F4F4;
+	font-size: 14px;
+	position: relative;
+	height: 29px;
+	line-height: 25px;
+	padding-top: 5px;
+}
 .gwt-DialogBox .dialogContent {
 	border: 0px solid #9bb1be;
 }
@@ -1852,3 +1866,49 @@ li.token-input-input-token-facebook {
 .breadcrumbsAnchor:hover {font-size: 12px;color:blue;cursor: pointer;}
 
 .remark-text2{border:1px solid #C3C3C3;padding:3px 5px;width:738px;margin-top:10px;}
+
+
+.staffTextArea2{border:1px solid #DDDDDD;width:350px;}
+
+
+ul.token-input-list-facebook2 {
+	border: 1px solid #ccc;
+	width: 350px;
+	color: #666;
+	overflow: hidden;
+	height: auto !important;
+	border: 1px solid #DDDDDD;
+	cursor: text;
+	font-size: 12px;
+	font-family: Verdana;
+	min-height: 1px;
+	z-index: 999;
+	margin: 0;
+	padding: 0;
+	background-color: #fff;
+}
+
+
+ul.token-input-list-facebook2 {
+	list-style-type: none;
+}
+
+ul.token-input-list-facebook2 li input {
+	border: 0;
+	width: 12px;
+	padding: 4px 0px;
+	background-color: white;
+	margin: 2px 0;
+}
+li.token-input-token-facebook2 p {
+	display: inline;
+	padding: 0;
+	margin: 0;
+}
+
+li.token-input-token-facebook2 span {
+	color: #a6b3cf;
+	margin-left: 5px;
+	font-weight: bold;
+	cursor: pointer;
+}
