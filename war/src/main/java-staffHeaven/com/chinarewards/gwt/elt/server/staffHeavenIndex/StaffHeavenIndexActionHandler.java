@@ -79,6 +79,10 @@ public class StaffHeavenIndexActionHandler extends
 		if(request.getCriteria().getCategory()!=null)
 			criteria.setCategory(com.chinarewards.elt.model.information.BroadcastingCategory.valueOf(request.getCriteria().getCategory().toString()));
 		
+		if(request.getCriteria().isNowDate()==true)
+		{
+			criteria.setNowDate(true);
+		}
 		UserContext context=new UserContext();
 		context.setCorporationId(request.getSession().getCorporationId());
 		context.setUserId(request.getSession().getToken());

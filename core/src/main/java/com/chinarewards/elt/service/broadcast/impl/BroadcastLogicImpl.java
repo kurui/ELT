@@ -15,6 +15,7 @@ import com.chinarewards.elt.model.broadcast.BroadcastQueryListCriteria;
 import com.chinarewards.elt.model.broadcast.BroadcastQueryListVo;
 import com.chinarewards.elt.model.broadcastReply.BroadcastReplyListCriteria;
 import com.chinarewards.elt.model.common.PageStore;
+import com.chinarewards.elt.model.information.BroadcastMessage;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.broadcast.BroadcastLogic;
 import com.chinarewards.elt.service.user.UserLogic;
@@ -110,9 +111,9 @@ public class BroadcastLogicImpl implements BroadcastLogic {
 	}
 
 	@Override
-	public String getMaxNumber() {
+	public String getMaxNumber(BroadcastMessage broadcastMessage) {
 		String strNum;
-		int num = (Integer.parseInt(broadcastDao.getMaxNumber()) + 1);
+		int num = (Integer.parseInt(broadcastDao.getMaxNumber(broadcastMessage)) + 1);
 		if (num < 10)
 			strNum = "00" + num;
 		else if (num < 100)

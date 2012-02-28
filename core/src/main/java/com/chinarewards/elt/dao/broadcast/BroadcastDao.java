@@ -11,6 +11,7 @@ import com.chinarewards.elt.common.BaseDao;
 import com.chinarewards.elt.domain.information.Broadcasting;
 import com.chinarewards.elt.model.broadcast.BroadcastQueryListCriteria;
 import com.chinarewards.elt.model.broadcast.BroadcastQueryListVo;
+import com.chinarewards.elt.model.information.BroadcastMessage;
 import com.chinarewards.elt.util.StringUtil;
 
 public class BroadcastDao  extends BaseDao<Broadcasting>{
@@ -70,7 +71,10 @@ public class BroadcastDao  extends BaseDao<Broadcasting>{
 			param.put("broadcastingTimeEnd", searchVo.getBroadcastingTimeEnd());
 
 		}
-		
+		if(searchVo.isNowDate())
+		{
+			hql.append(" and ( SYSDATE  between broadcast.broadcastingTimeStart and broadcast.broadcastingTimeEnd)");
+		}
 		hql.append(" AND broadcast.broadcastMessagetype = :broadcastMessagetype ");
 		param.put("broadcastMessagetype", searchVo.getBroadcastMessagetype());
 		
@@ -116,10 +120,10 @@ public class BroadcastDao  extends BaseDao<Broadcasting>{
 	}
 	
 
-	public String getMaxNumber() {
+	public String getMaxNumber(BroadcastMessage broadcastMessage) {
 		StringBuffer hql = new StringBuffer();
-		hql.append(" SELECT COUNT(broadcast) FROM Broadcasting broadcast WHERE 1=1 ");
-		Query query = getEm().createQuery(hql.toString());
+		hql.append(" SELECT COUNT(broadcast) FROM Broadcasting broadcast WHERE 1=1  AND broadcast.broadcastMessagetype = :broadcastMessagetype ");
+		Query query = getEm().createQuery(hql.toString()).setParameter("broadcastMessagetype", broadcastMessage);
 		return query.getSingleResult().toString();
 	}
 }

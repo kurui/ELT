@@ -9,6 +9,7 @@ import com.chinarewards.elt.model.broadcast.BroadcastQueryListCriteria;
 import com.chinarewards.elt.model.broadcast.BroadcastQueryListVo;
 import com.chinarewards.elt.model.broadcastReply.BroadcastReplyListCriteria;
 import com.chinarewards.elt.model.common.PageStore;
+import com.chinarewards.elt.model.information.BroadcastMessage;
 import com.chinarewards.elt.model.user.UserContext;
 
 public interface BroadcastLogic {
@@ -71,7 +72,7 @@ public interface BroadcastLogic {
 	 * 获取下一个number
 	 * @return
 	 */
-	public String getMaxNumber();
+	public String getMaxNumber(BroadcastMessage broadcastMessage);
 	
 	/**
 	 * 查询回复列表

@@ -67,7 +67,18 @@ public class BroadcastQueryListCriteria implements Serializable {
 	 * 广播ID list
 	 */
 	private List<String> broadcastList;
+	/**
+	 * 是否根据当前时间取广播
+	 */
+	private boolean nowDate;
 	
+	public boolean isNowDate() {
+		return nowDate;
+	}
+
+	public void setNowDate(boolean nowDate) {
+		this.nowDate = nowDate;
+	}
 	public List<String> getBroadcastList() {
 		return broadcastList;
 	}

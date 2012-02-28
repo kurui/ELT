@@ -55,7 +55,7 @@ public class StaffHeavenIndexPresenterImpl extends
 		init();
 
 	     StaffHeavenIndexCriteria  criteria = new StaffHeavenIndexCriteria();
-	     
+	     criteria.setNowDate(true);
 	     //条件未加
 	 	dispatch.execute(new StaffHeavenIndexRequest(criteria,
 				sessionManager.getSession()),
