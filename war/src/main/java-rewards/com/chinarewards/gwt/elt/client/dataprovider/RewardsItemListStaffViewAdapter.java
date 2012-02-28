@@ -4,10 +4,10 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemListStaffPresenter.RewardsItemListStaffDisplay;
-import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsItemRequest;
-import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsItemResponse;
-import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemClient;
-import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemCriteria;
+import com.chinarewards.gwt.elt.client.rewardItem.request.SearchStaffRewardsItemRequest;
+import com.chinarewards.gwt.elt.client.rewardItem.request.SearchStaffRewardsItemResponse;
+import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemStaffClient;
+import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemStaffCriteria;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.model.PaginationDetailClient;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -17,15 +17,15 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  * @author yanrui
  */
 public class RewardsItemListStaffViewAdapter extends
-		BaseDataProvider<RewardsItemClient> {
+		BaseDataProvider<RewardsItemStaffClient> {
 
 	final DispatchAsync dispatch;
-	RewardsItemCriteria criteria;
+	RewardsItemStaffCriteria criteria;
 	final ErrorHandler errorHandler;
 	final SessionManager sessionManager;
 	final RewardsItemListStaffDisplay display;
 
-	public RewardsItemListStaffViewAdapter(DispatchAsync dispatch,RewardsItemCriteria criteria,
+	public RewardsItemListStaffViewAdapter(DispatchAsync dispatch,RewardsItemStaffCriteria criteria,
 			ErrorHandler errorHandler, SessionManager sessionManager,
 			RewardsItemListStaffDisplay display) {
 		this.dispatch = dispatch;
@@ -44,16 +44,16 @@ public class RewardsItemListStaffViewAdapter extends
 		if (getSorting() != null) {
 			getCriteria().setSorting(getSorting());
 		}
-		dispatch.execute(new SearchRewardsItemRequest(getCriteria(),
+		dispatch.execute(new SearchStaffRewardsItemRequest(getCriteria(),
 				sessionManager.getSession()),
-				new AsyncCallback<SearchRewardsItemResponse>() {
+				new AsyncCallback<SearchStaffRewardsItemResponse>() {
 					@Override
 					public void onFailure(Throwable e) {
 						errorHandler.alert(e.getMessage());
 					}
 
 					@Override
-					public void onSuccess(SearchRewardsItemResponse response) {
+					public void onSuccess(SearchStaffRewardsItemResponse response) {
 						updateRowData(start, response.getResult());
 						updateRowCount(response.getTotal(), true);
 						display.setDataCount(response.getTotal() + "");
@@ -61,13 +61,13 @@ public class RewardsItemListStaffViewAdapter extends
 				});
 	}
 
-	public void setCriteria(RewardsItemCriteria criteria) {
+	public void setCriteria(RewardsItemStaffCriteria criteria) {
 		this.criteria = criteria;
 	}
 
-	public RewardsItemCriteria getCriteria() {
+	public RewardsItemStaffCriteria getCriteria() {
 		if (criteria == null) {
-			criteria = new RewardsItemCriteria();
+			criteria = new RewardsItemStaffCriteria();
 		}
 		return criteria;
 	}

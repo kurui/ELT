@@ -92,13 +92,13 @@ public interface RewardItemLogic {
 	public PageStore<RewardItemVo> fetchRewardItems(UserContext context,
 			RewardItemSearchVo criteria);
 	
-	/**
-	 * @param context
-	 * @param criteria
-	 * @return
-	 */
+
 	public PageStore<RewardItemVo> fetchStaffRewardItems(UserContext context,
-			RewardItemSearchVo criteria);
+			RewardItemSearchVo criteria);	
+
+	public PageStore<RewardItemVo> fetchCompanyOtherRewardItems(
+			UserContext context, RewardItemSearchVo criteria);
+	
 	
 	public PageStore<RewardItemStoreVo> fetchRewardItemsStore(UserContext context,
 			RewardItemSearchVo criteria);
@@ -186,6 +186,8 @@ public interface RewardItemLogic {
 	 * 奖项库应用后,奖项模板次数+1
 	 */
 	public void updateRewardItemStoreCount(String rewardItemStoreId);
+
+
 
 
 }

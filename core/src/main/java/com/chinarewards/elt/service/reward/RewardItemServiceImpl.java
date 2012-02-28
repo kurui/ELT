@@ -120,6 +120,12 @@ public class RewardItemServiceImpl implements RewardItemService {
 			RewardItemSearchVo criteria) {
 		return rewardItemLogic.fetchStaffRewardItems(context, criteria);
 	}
+	
+	@Override
+	public PageStore<RewardItemVo> fetchCompanyOtherRewardItems(UserContext context,
+			RewardItemSearchVo criteria) {
+		return rewardItemLogic.fetchCompanyOtherRewardItems(context, criteria);
+	}
 
 	@Override
 	public PageStore<RewardItemStoreVo> fetchRewardItemsStore(

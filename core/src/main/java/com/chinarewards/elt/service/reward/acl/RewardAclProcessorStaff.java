@@ -65,6 +65,17 @@ public class RewardAclProcessorStaff extends AbstractRewardAclProcessor {
 
 		return pageStore;
 	}
+	
+	public PageStore<RewardItem> fetchRewardItems_companyOther(UserContext context,
+			RewardItemSearchVo criteria) {
+		SysUser sysUser = userDao.findById(SysUser.class, context.getUserId());
+
+		PageStore<RewardItem> pageStore = new PageStore<RewardItem>();
+		
+		pageStore = winnerDao.searchRewardItem_companyOther(criteria);
+
+		return pageStore;
+	}
 
 	@Override
 	public PageStore<RewardItemStore> fetchRewardItemsStore(

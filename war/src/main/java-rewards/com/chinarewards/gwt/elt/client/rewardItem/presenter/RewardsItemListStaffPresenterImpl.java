@@ -11,8 +11,8 @@ import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemListStaffPresenter.RewardsItemListStaffDisplay;
-import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemClient;
-import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemCriteria;
+import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemStaffClient;
+import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemStaffCriteria;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager;
@@ -38,7 +38,7 @@ public class RewardsItemListStaffPresenterImpl extends
 	RewardPageType pageType;
 
 	EltNewPager pager;
-	ListCellTable<RewardsItemClient> cellTable;
+	ListCellTable<RewardsItemStaffClient> cellTable;
 	RewardsItemListStaffViewAdapter listViewAdapter;
 
 	private final BreadCrumbsPresenter breadCrumbs;
@@ -79,7 +79,7 @@ public class RewardsItemListStaffPresenterImpl extends
 	}
 
 	private void buildTable() {
-		cellTable = new ListCellTable<RewardsItemClient>();
+		cellTable = new ListCellTable<RewardsItemStaffClient>();
 
 		initTableColumns();
 		pager = new EltNewPager(TextLocation.CENTER);
@@ -95,7 +95,7 @@ public class RewardsItemListStaffPresenterImpl extends
 	}
 
 	private void doSearch() {
-		RewardsItemCriteria criteria = new RewardsItemCriteria();
+		RewardsItemStaffCriteria criteria = new RewardsItemStaffCriteria();
 		criteria.setName(display.getName().getValue());
 		criteria.setDefinition(display.getDefinition().getValue());
 
@@ -106,10 +106,10 @@ public class RewardsItemListStaffPresenterImpl extends
 	}
 
 	private void initTableColumns() {
-		Sorting<RewardsItemClient> ref = new Sorting<RewardsItemClient>() {
+		Sorting<RewardsItemStaffClient> ref = new Sorting<RewardsItemStaffClient>() {
 			@Override
 			public void sortingCurrentPage(
-					Comparator<RewardsItemClient> comparator) {
+					Comparator<RewardsItemStaffClient> comparator) {
 				// listViewAdapter.sortCurrentPage(comparator);
 			}
 
@@ -120,25 +120,25 @@ public class RewardsItemListStaffPresenterImpl extends
 		};
 
 		cellTable.addColumn("奖项编号", new HyperLinkCell(),
-				new GetValue<RewardsItemClient, String>() {
+				new GetValue<RewardsItemStaffClient, String>() {
 					@Override
-					public String getValue(RewardsItemClient rewards) {
+					public String getValue(RewardsItemStaffClient rewards) {
 						return rewards.getName();
 					}
 				}, ref, "name");
 
 		cellTable.addColumn("奖项名称", new HyperLinkCell(),
-				new GetValue<RewardsItemClient, String>() {
+				new GetValue<RewardsItemStaffClient, String>() {
 					@Override
-					public String getValue(RewardsItemClient rewards) {
+					public String getValue(RewardsItemStaffClient rewards) {
 						return rewards.getName();
 					}
 				}, ref, "name");
 
 		cellTable.addColumn("奖励状态", new TextCell(),
-				new GetValue<RewardsItemClient, String>() {
+				new GetValue<RewardsItemStaffClient, String>() {
 					@Override
-					public String getValue(RewardsItemClient rewards) {
+					public String getValue(RewardsItemStaffClient rewards) {
 						if (rewards.isEnabled() == true) {
 							return "已激活";
 						} else {
@@ -149,17 +149,17 @@ public class RewardsItemListStaffPresenterImpl extends
 				}, ref, "name");
 
 		cellTable.addColumn("创建人", new TextCell(),
-				new GetValue<RewardsItemClient, String>() {
+				new GetValue<RewardsItemStaffClient, String>() {
 					@Override
-					public String getValue(RewardsItemClient rewards) {
+					public String getValue(RewardsItemStaffClient rewards) {
 						return rewards.getCreatedBy();
 					}
 				}, ref, "createdBy");
 
 		cellTable.addColumn("获奖人", new TextCell(),
-				new GetValue<RewardsItemClient, String>() {
+				new GetValue<RewardsItemStaffClient, String>() {
 					@Override
-					public String getValue(RewardsItemClient rewards) {
+					public String getValue(RewardsItemStaffClient rewards) {
 						return rewards.getCreatedBy();
 					}
 				}, ref, "createdBy");

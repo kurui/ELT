@@ -244,6 +244,14 @@ public class RewardAclProcessorDept extends AbstractRewardAclProcessor {
 	}
 
 
+	@Override
+	public PageStore<RewardItem> fetchRewardItems_companyOther(
+			UserContext context, RewardItemSearchVo criteria) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 
 
 }

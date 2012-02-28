@@ -87,6 +87,9 @@ public interface RewardItemService {
 	public PageStore<RewardItemVo> fetchStaffRewardItems(UserContext context,
 			RewardItemSearchVo criteria);
 	
+	public PageStore<RewardItemVo> fetchCompanyOtherRewardItems(UserContext uc,
+			RewardItemSearchVo criteria);
+	
 
 	/**
 	 * Fetch list of RewardItem by RewardItemSearchVo. All roles would get the
@@ -161,5 +164,8 @@ public interface RewardItemService {
 
 	
     public void updateRewardItemStoreCount(UserContext context, String rewardItemStoreId);
+
+
+
 
 }
