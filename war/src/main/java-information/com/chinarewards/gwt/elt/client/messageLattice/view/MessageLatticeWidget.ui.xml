@@ -5,18 +5,16 @@
 	<ui:style src="new2.css" field="new2"></ui:style>
 	<g:HTMLPanel>
 		<div class="{new2.employee}">
-			<!-- 内容区 [[ -->
-			<div class="{new2.content-wrap}">
-				<div class="{new2.content-info}">
 
 					<div class="{new2.news-wrap}">
 						<div class="{new2.news-content}">
+						  <div class="{new2.news-list} {new2.remark-list}">
 
 							<div class="{new2.remark-list-info} {new2.clearfix}">
-								<g:Image pixelSize="30,30" ui:field="photo" />
+								<g:Image pixelSize="34,34" ui:field="photo"  />
 								<div class="{new2.remark-info-wrap}">
 									<p>
-										<span class="{new2.remark-name"><g:InlineLabel ui:field="staffName" /> </span>
+										<span class="{new2.remark-name}"><g:InlineLabel ui:field="staffName" /> </span>
 										说：
 										<span class="{new2.remark-content}"><g:InlineLabel ui:field="message" /></span>
 									</p>
@@ -24,15 +22,16 @@
 										<span><g:InlineLabel ui:field="replyDate" /></span>
 										<g:Anchor ui:field="replyBtn" text="回复" />
 									</p>
+									
+									<g:FlowPanel ui:field="replyTextarea" />
 								</div>
 							</div>
 
 						</div>
 						<!-- 内容区 ]] -->
-
+</div>
 					</div>
 				</div>
-			</div>
-		</div>
+
 	</g:HTMLPanel>
 </ui:UiBinder> 
