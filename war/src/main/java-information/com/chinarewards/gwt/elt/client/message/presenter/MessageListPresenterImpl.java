@@ -45,10 +45,11 @@ public class MessageListPresenterImpl extends
 		this.win=win;
 
 	}
-
+String styleon="";
+String styleno="";
 	@Override
 	public void bind() {
-
+		styleon=display.getReceivedMessage().getElement().getParentElement().getAttribute("class");
 		init();
 
 		registerHandler(display.getAddBtn().addClickHandler(
@@ -59,6 +60,24 @@ public class MessageListPresenterImpl extends
 
 						Platform.getInstance().getSiteManager().openDialog(dialog,null);
 						
+					}
+				}));
+		registerHandler(display.getReceivedMessage().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						display.getReceivedMessage().getElement().getParentElement().setAttribute("class", styleon);
+						display.getSendMessage().getElement().getParentElement().setAttribute("class", styleno);
+						doSearch();
+					}
+				}));
+		registerHandler(display.getSendMessage().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						display.getReceivedMessage().getElement().getParentElement().setAttribute("class", styleno);
+						display.getSendMessage().getElement().getParentElement().setAttribute("class", styleon);
+						doSearch();
 					}
 				}));
 	}

@@ -17,8 +17,8 @@
 
  <div class="{new2.news-wrap}">
           <ul class="{new2.news-menu}">
-            <li class="{new2.news-on}"><a href="#" hidefocus="true">已收消息</a></li>
-            <li><a href="#" hidefocus="true">已发消息</a></li>
+            <li class="{new2.news-on}"><g:Anchor text="已收消息" ui:field="receivedMessage" /> </li>
+            <li><g:Anchor text="已发消息" ui:field="sendMessage" /></li>
           </ul>
 
           <div class="{new2.news-content}">
