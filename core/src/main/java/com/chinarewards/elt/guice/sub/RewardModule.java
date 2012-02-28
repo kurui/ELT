@@ -19,8 +19,6 @@ import com.chinarewards.elt.dao.reward.WeekFrequencyDao;
 import com.chinarewards.elt.dao.reward.WeekFrequencyDaysDao;
 import com.chinarewards.elt.dao.reward.WinnerDao;
 import com.chinarewards.elt.dao.reward.YearFrequencyDao;
-import com.chinarewards.elt.service.gift.GiftService;
-import com.chinarewards.elt.service.gift.impl.GiftServiceImpl;
 import com.chinarewards.elt.service.reward.RewardItemLogic;
 import com.chinarewards.elt.service.reward.RewardItemLogicImpl;
 import com.chinarewards.elt.service.reward.RewardItemService;
@@ -34,6 +32,7 @@ import com.chinarewards.elt.service.reward.acl.RewardAclProcessorDept;
 import com.chinarewards.elt.service.reward.acl.RewardAclProcessorFactory;
 import com.chinarewards.elt.service.reward.acl.RewardAclProcessorFactoryImpl;
 import com.chinarewards.elt.service.reward.acl.RewardAclProcessorHr;
+import com.chinarewards.elt.service.reward.acl.RewardAclProcessorStaff;
 import com.chinarewards.elt.service.reward.frequency.FrequencyFactory;
 import com.chinarewards.elt.service.reward.frequency.FrequencyFactoryImpl;
 import com.chinarewards.elt.service.reward.frequency.FrequencyLogic;
@@ -112,6 +111,9 @@ public class RewardModule extends AbstractModule {
 		bind(RewardAclProcessor.class).annotatedWith(
 				Names.named("RewardAclProcessorDept")).to(
 				RewardAclProcessorDept.class);
+		bind(RewardAclProcessor.class).annotatedWith(
+				Names.named("RewardAclProcessorStaff")).to(
+				RewardAclProcessorStaff.class);
 
 		bind(FrequencyLogic.class).to(FrequencyLogicImpl.class);
 		bind(FrequencyFactory.class).to(FrequencyFactoryImpl.class);

@@ -4,6 +4,7 @@ package com.chinarewards.gwt.elt.client;
 import com.chinarewards.gwt.elt.client.awardReward.module.AwardRewardModule;
 import com.chinarewards.gwt.elt.client.awardShop.module.AwardShopListModule;
 import com.chinarewards.gwt.elt.client.awardShopLattice.module.AwardShopLatticeModule;
+import com.chinarewards.gwt.elt.client.box.module.UserBoxModule;
 import com.chinarewards.gwt.elt.client.breadCrumbs.module.BreadCrumbsModule;
 import com.chinarewards.gwt.elt.client.broadcastReply.module.BroadcastReplyModule;
 import com.chinarewards.gwt.elt.client.broadcastSave.module.BroadcastSaveModule;
@@ -65,7 +66,7 @@ public class PresenterModule extends AbstractGinModule {
 		install(new EnterprisesModule());
 		install(new RewardsItemModule());
 		install(new RewardsListModule());
-		install(new RewardsListStaffModule());
+		install(new RewardsListStaffModule());		
 		
 		install(new ChooseStaffModule());
 		install(new AwardRewardModule());
@@ -102,8 +103,9 @@ public class PresenterModule extends AbstractGinModule {
 		install(new GloryBroadcastModule());
 		install(new LeadTimeModule());
 		install(new MessageListModule());
+		install(new UserBoxModule());
 		install(new MessageSaveModule());
-		
+
 	}
 
 }

@@ -1,7 +1,6 @@
 package com.chinarewards.gwt.elt.client.rewardItem.editor;
 
 import com.chinarewards.gwt.elt.client.core.ui.impl.AbstractEditor;
-import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemCreatePresenter;
 import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemListPresenter;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;

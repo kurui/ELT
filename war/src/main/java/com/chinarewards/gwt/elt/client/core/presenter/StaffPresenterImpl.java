@@ -217,8 +217,8 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(
-										RewardsItemConstants.EDITOR_REWARDSITEM_STAFF_LIST,
-										"EDITOR_REWARDSITEMLIST_STAFF_SEARCH_DO_ID",
+										RewardsItemConstants.EDITOR_REWARDSITEM_COMPANYOTHER_LIST,
+										"EDITOR_REWARDSITEMLIST_COMPANYOTHER_SEARCH_DO_ID",
 										client);
 					}
 				}));

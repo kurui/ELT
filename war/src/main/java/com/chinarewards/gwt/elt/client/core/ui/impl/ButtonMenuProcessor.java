@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.chinarewards.gwt.elt.client.awardReward.plugin.AwardRewardConstants;
+import com.chinarewards.gwt.elt.client.box.plugin.UserBoxConstants;
 import com.chinarewards.gwt.elt.client.breadCrumbs.ui.BreadCrumbsMenu;
 import com.chinarewards.gwt.elt.client.broadcasting.plugin.BroadcastingListConstants;
 import com.chinarewards.gwt.elt.client.budget.plugin.CorpBudgetConstants;
@@ -203,7 +204,7 @@ public class ButtonMenuProcessor implements MenuProcessor {
 			items.add(GiftListConstants.MENU_GIFTLIST_SEARCH);
 			items.add(GiftConstants.MENU_GIFT_ADD);
 			items.add(OrderListConstants.MENU_ORDERLIST_SEARCH);
-			items.add(OrderViewConstants.MENU_ORDERBOX_SEARCH);
+			
 		}else if ("Integral".equals(keyname)) {
 			items.add(CorpBudgetConstants.MENU_CORPBUDGET_EDIT);
 			items.add(EnterpriseConstants.MENU_INTEGRAL_PRICE_EDIT);
@@ -213,6 +214,10 @@ public class ButtonMenuProcessor implements MenuProcessor {
 		}else if("Broadcasting".equals(keyname))
 		{
 			items.add(BroadcastingListConstants.MENU_BROADCASTINGLIST_SEARCH);
+		}else if ("Box".equals(keyname)) {
+			items.add(OrderViewConstants.MENU_ORDERBOX_SEARCH);
+			items.add(UserBoxConstants.MENU_USERBOX_SEARCH);
+
 		}
 		return items;
 	}

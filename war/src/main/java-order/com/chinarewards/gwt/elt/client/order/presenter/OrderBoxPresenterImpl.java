@@ -4,6 +4,8 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.core.Platform;
+import com.chinarewards.gwt.elt.client.core.presenter.DockPresenter;
+import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
@@ -32,8 +34,10 @@ public class OrderBoxPresenterImpl extends BasePresenter<OrderBoxDisplay>
 	final Win win;
 	String orderId;
 	private final BreadCrumbsPresenter breadCrumbs;
+	final MenuProcessor menuProcessor;
+	final DockPresenter dockPresenter;
 	@Inject
-	public OrderBoxPresenterImpl(EventBus eventBus, DispatchAsync dispatch,BreadCrumbsPresenter breadCrumbs,
+	public OrderBoxPresenterImpl(EventBus eventBus, DispatchAsync dispatch,BreadCrumbsPresenter breadCrumbs,MenuProcessor menuProcessor,DockPresenter dockPresenter,
 			ErrorHandler errorHandler, SessionManager sessionManager,OrderBoxDisplay display, Win win) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
@@ -41,6 +45,8 @@ public class OrderBoxPresenterImpl extends BasePresenter<OrderBoxDisplay>
 		this.sessionManager = sessionManager;
 		this.win = win;
         this.breadCrumbs = breadCrumbs;
+        this.dockPresenter=dockPresenter;
+		this.menuProcessor=menuProcessor;
 	}
 
 	@Override
@@ -51,6 +57,9 @@ public class OrderBoxPresenterImpl extends BasePresenter<OrderBoxDisplay>
 		registerHandler(display.getView().addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
+				dockPresenter.getDisplay().changeTopMenu("Gift");
+				dockPresenter.getDisplay().setMenuTitle("兑换管理");
+				menuProcessor.initrender(dockPresenter.getDisplay().getMenu(), "Gift");
 				Platform.getInstance()
 				.getEditorRegistry()
 				.openEditor(
@@ -61,6 +70,9 @@ public class OrderBoxPresenterImpl extends BasePresenter<OrderBoxDisplay>
 		registerHandler(display.getOperate().addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
+				dockPresenter.getDisplay().changeTopMenu("Gift");
+				dockPresenter.getDisplay().setMenuTitle("兑换管理");
+				menuProcessor.initrender(dockPresenter.getDisplay().getMenu(), "Gift");
 				Platform.getInstance()
 				.getEditorRegistry()
 				.openEditor(

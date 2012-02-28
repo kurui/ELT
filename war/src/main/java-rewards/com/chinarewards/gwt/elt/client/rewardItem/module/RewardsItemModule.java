@@ -15,6 +15,9 @@ import com.chinarewards.gwt.elt.client.rewardItem.presenter.FrequencySettingPres
 import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemCreatePresenter;
 import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemCreatePresenter.RewardsItemDisplay;
 import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemCreatePresenterImpl;
+import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemListCompanyOtherPresenter;
+import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemListCompanyOtherPresenter.RewardsItemListCompanyOtherDisplay;
+import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemListCompanyOtherPresenterImpl;
 import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemListPresenter;
 import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemListPresenter.RewardsItemListDisplay;
 import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemListPresenterImpl;
@@ -30,6 +33,7 @@ import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemViewPrese
 import com.chinarewards.gwt.elt.client.rewardItem.view.ChooseStaffBlockWidget;
 import com.chinarewards.gwt.elt.client.rewardItem.view.ChooseStaffWinWidget;
 import com.chinarewards.gwt.elt.client.rewardItem.view.FrequencySettingWidget;
+import com.chinarewards.gwt.elt.client.rewardItem.view.RewardsItemListCompanyOtherWidget;
 import com.chinarewards.gwt.elt.client.rewardItem.view.RewardsItemListStaffWidget;
 import com.chinarewards.gwt.elt.client.rewardItem.view.RewardsItemListWidget;
 import com.chinarewards.gwt.elt.client.rewardItem.view.RewardsItemStoreListWidget;
@@ -58,8 +62,13 @@ public class RewardsItemModule extends AbstractGinModule {
 		bind(RewardsItemListPresenter.class).to(RewardsItemListPresenterImpl.class);
 		bind(RewardsItemListDisplay.class).to(RewardsItemListWidget.class);
 		
+		//员工 
 		bind(RewardsItemListStaffPresenter.class).to(RewardsItemListStaffPresenterImpl.class);
 		bind(RewardsItemListStaffDisplay.class).to(RewardsItemListStaffWidget.class);
+		
+		bind(RewardsItemListCompanyOtherPresenter.class).to(RewardsItemListCompanyOtherPresenterImpl.class);
+		bind(RewardsItemListCompanyOtherDisplay.class).to(RewardsItemListCompanyOtherWidget.class);
+		
 		
 		bind(RewardsItemViewPresenter.class).to(RewardsItemViewPresenterImpl.class);
 		bind(RewardsItemViewDisplay.class).to(RewardsItemViewWidget.class);

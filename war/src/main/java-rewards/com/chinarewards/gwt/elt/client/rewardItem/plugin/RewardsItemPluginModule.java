@@ -6,6 +6,8 @@ package com.chinarewards.gwt.elt.client.rewardItem.plugin;
 
 import com.chinarewards.gwt.elt.client.rewardItem.editor.RewardsItemEditor;
 import com.chinarewards.gwt.elt.client.rewardItem.editor.RewardsItemEditorDescriptor;
+import com.chinarewards.gwt.elt.client.rewardItem.editor.RewardsItemListCompanyOtherEditor;
+import com.chinarewards.gwt.elt.client.rewardItem.editor.RewardsItemListCompanyOtherEditorDescriptor;
 import com.chinarewards.gwt.elt.client.rewardItem.editor.RewardsItemListEditor;
 import com.chinarewards.gwt.elt.client.rewardItem.editor.RewardsItemListEditorDescriptor;
 import com.chinarewards.gwt.elt.client.rewardItem.editor.RewardsItemListStaffEditor;
@@ -36,6 +38,11 @@ public class RewardsItemPluginModule extends AbstractGinModule {
 		bind(RewardsItemListStaffPluginDescriptor.class).in(Singleton.class);
 		bind(RewardsItemListStaffEditorDescriptor.class).in(Singleton.class);
 		bind(RewardsItemListStaffEditor.class);
+		
+		bind(RewardsItemListCompanyOtherPluginDescriptor.class).in(Singleton.class);
+		bind(RewardsItemListCompanyOtherEditorDescriptor.class).in(Singleton.class);
+		bind(RewardsItemListCompanyOtherEditor.class);
+		
 		
 		bind(RewardsItemViewPluginDescriptor.class).in(Singleton.class);
 		bind(RewardsItemViewEditorDescriptor.class).in(Singleton.class);
