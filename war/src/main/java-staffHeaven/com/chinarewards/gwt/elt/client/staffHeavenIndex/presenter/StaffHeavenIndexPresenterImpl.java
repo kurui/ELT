@@ -1,10 +1,15 @@
 package com.chinarewards.gwt.elt.client.staffHeavenIndex.presenter;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import com.chinarewards.gwt.elt.client.broadcastSave.request.BroadcastSaveRequest;
+import com.chinarewards.gwt.elt.client.broadcastSave.request.BroadcastSaveResponse;
 import com.chinarewards.gwt.elt.client.broadcasting.model.BroadcastingListCriteria.BroadcastingCategory;
+import com.chinarewards.gwt.elt.client.chooseOrganization.model.OrganSearchCriteria.OrganType;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.message.model.MessageListClient;
 import com.chinarewards.gwt.elt.client.message.model.MessageListCriteria;
@@ -19,6 +24,7 @@ import com.chinarewards.gwt.elt.client.staffHeavenIndex.model.StaffHeavenIndexCr
 import com.chinarewards.gwt.elt.client.staffHeavenIndex.request.StaffHeavenIndexRequest;
 import com.chinarewards.gwt.elt.client.staffHeavenIndex.request.StaffHeavenIndexResponse;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.chinarewards.gwt.elt.client.util.StringUtil;
 import com.chinarewards.gwt.elt.client.view.constant.CssStyleConstants;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager.TextLocation;
@@ -134,6 +140,62 @@ public class StaffHeavenIndexPresenterImpl extends
 					}
 
 				});
+		//员工主界面添加广播
+		display.getAddBroadcastBtn().addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+
+				
+				if(StringUtil.isEmpty(display.getBroadcastContent()))
+				{
+					win.alert("请填写广播内容!");
+					return;
+				}
+
+				BroadcastSaveRequest request = new BroadcastSaveRequest();
+
+				request.setSession(sessionManager.getSession());
+				request.setBroadcastingTimeStart(new Date());
+				request.setBroadcastingTimeEnd(new Date());
+				request.setContent(display.getBroadcastContent());
+				
+				request.setAllowreplies(true);
+
+				//接收对象为当前人机构
+				List<String[]> organList=new ArrayList<String[]>();
+				String[] nameAndId = new String[3];
+				nameAndId[0] = sessionManager.getSession().getCorporationId();
+				nameAndId[1] = "员工主界面添加(默认当前机构)";
+				nameAndId[2] = OrganType.ORG.toString();
+				organList.add(nameAndId);
+				
+				request.setOrganList(organList);
+				if(display.getMoot())
+					request.setBroadcastingCategory(BroadcastingCategory.THEMEBROADCAST);
+				else
+					request.setBroadcastingCategory(BroadcastingCategory.STAFFBROADCAST);
+				
+				dispatch.execute(request,
+						new AsyncCallback<BroadcastSaveResponse>() {
+
+							@Override
+							public void onFailure(Throwable t) {
+								win.alert(t.getMessage());
+							}
+
+							@Override
+							public void onSuccess(BroadcastSaveResponse resp) {
+								win.alert("保存成功");
+								display.successClean();
+								doSearch(null);
+							}
+						});
+			
+			
+		
+			}
+		});
 		
 	}
 

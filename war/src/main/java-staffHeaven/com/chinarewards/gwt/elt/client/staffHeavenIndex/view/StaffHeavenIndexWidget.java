@@ -3,13 +3,17 @@ package com.chinarewards.gwt.elt.client.staffHeavenIndex.view;
 import com.chinarewards.gwt.elt.client.staffHeavenIndex.presenter.StaffHeavenIndexPresenter.StaffHeavenIndexDisplay;
 import com.chinarewards.gwt.elt.client.view.constant.ViewConstants;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Anchor;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.Widget;
 
 public class StaffHeavenIndexWidget extends Composite implements
@@ -36,6 +40,13 @@ public class StaffHeavenIndexWidget extends Composite implements
 	Anchor closeMessageBtn;
 	@UiField
 	InlineLabel topMessage;
+	
+	@UiField
+	TextArea broadcastContent;
+	@UiField
+	CheckBox moot;
+	@UiField
+	Button addBroadcastBtn;
 	
 	DateTimeFormat dateFormat = DateTimeFormat
 			.getFormat(ViewConstants.date_format);
@@ -101,6 +112,27 @@ public class StaffHeavenIndexWidget extends Composite implements
 	@Override
 	public void setTopMessage(String text) {
 		topMessage.setText(text);	
+	}
+
+	@Override
+	public String getBroadcastContent() {
+		return broadcastContent.getValue();
+	}
+
+	@Override
+	public boolean getMoot() {
+		return moot.getValue();
+	}
+
+	@Override
+	public HasClickHandlers getAddBroadcastBtn() {
+		return addBroadcastBtn;
+	}
+
+	@Override
+	public void successClean() {
+		broadcastContent.setValue("");
+		moot.setValue(false);
 	}
 
 }
