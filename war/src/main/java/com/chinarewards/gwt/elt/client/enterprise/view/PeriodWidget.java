@@ -121,4 +121,9 @@ public class PeriodWidget extends Composite implements PeriodDisplay {
 	public HasClickHandlers getBackHandlers() {
 		return back;
 	}
+
+	@Override
+	public void setSaveUnVisible() {
+		saveButton.setVisible(false);		
+	}
 }

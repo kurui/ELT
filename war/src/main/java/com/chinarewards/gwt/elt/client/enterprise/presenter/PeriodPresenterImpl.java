@@ -6,6 +6,9 @@ import java.util.List;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
+import com.chinarewards.gwt.elt.client.budget.model.CorpBudgetVo;
+import com.chinarewards.gwt.elt.client.budget.request.SearchCorpBudgetByCorpIdRequest;
+import com.chinarewards.gwt.elt.client.budget.request.SearchCorpBudgetByCorpIdResponse;
 import com.chinarewards.gwt.elt.client.enterprise.model.EnterpriseVo;
 import com.chinarewards.gwt.elt.client.enterprise.presenter.PeriodPresenter.PeriodDisplay;
 import com.chinarewards.gwt.elt.client.enterprise.request.EditPeriodRequest;
@@ -112,6 +115,7 @@ public class PeriodPresenterImpl extends BasePresenter<PeriodDisplay> implements
 	 * 加载初始化数据
 	 */
 	private void initialization() {
+		 String corporationId = sessionManager.getSession().getCorporationId();
 
 		EnterpriseInitRequest req = new EnterpriseInitRequest(
 				sessionManager.getSession());
@@ -130,6 +134,29 @@ public class PeriodPresenterImpl extends BasePresenter<PeriodDisplay> implements
 				}
 			}
 
+		});
+		
+		
+		dispatchAsync.execute(new SearchCorpBudgetByCorpIdRequest(
+				corporationId), new AsyncCallback<SearchCorpBudgetByCorpIdResponse>() {
+			public void onFailure(Throwable caught) {
+				Window.alert("初始化失败");
+			}
+
+			@Override
+			public void onSuccess(SearchCorpBudgetByCorpIdResponse response) {
+				if (response != null) {
+					CorpBudgetVo corpBudgetVo = response.getCorpBudgetVo();
+				
+					if (corpBudgetVo!=null) {
+						if(corpBudgetVo.getId()!=null&&"".equals(corpBudgetVo.getCorporationId())==false){
+							display.setSaveUnVisible();
+						}
+					} else {
+
+					}
+				}
+			}
 		});
 
 	}
