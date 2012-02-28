@@ -90,7 +90,7 @@ public class BroadcastServiceImpl implements BroadcastService {
 		return broadcastLogic.queryBroadcastList(criteria);
 	}
 	private void createOrUpdateBroadcastAndMessage(BroadcastingVo broadcast,
-			UserContext context,BroadcastMessage broadcastMessage)
+			UserContext context,BroadcastMessage broadcastMessage,BroadcastingCategory broadcastingCategory)
 	{
 		Broadcasting broadcastBo = null;
 		SysUser nowUser = userLogic.findUserById(context.getUserId());
@@ -102,9 +102,9 @@ public class BroadcastServiceImpl implements BroadcastService {
 			broadcastBo.setBroadcastingTimeEnd(broadcast
 					.getBroadcastingTimeEnd());
 			broadcastBo.setAllowreplies(broadcast.isAllowreplies());
-			broadcastBo.setNumber(broadcastLogic.getMaxNumber());
+			broadcastBo.setNumber(broadcastLogic.getMaxNumber(broadcastMessage));
 			broadcastBo.setStatus(BroadcastingStatus.HASBROADCAST);
-			broadcastBo.setCategory(BroadcastingCategory.COMPANYBROADCAST);
+			broadcastBo.setCategory(broadcastingCategory);
 			broadcastBo.setCorporation(corporationLogic
 					.findCorporationById(context.getCorporationId()));
 			broadcastBo.setCreatedAt(DateUtil.getTime());
@@ -176,14 +176,14 @@ public class BroadcastServiceImpl implements BroadcastService {
 	}
 	@Override
 	public String createOrUpdateBroadcast(BroadcastingVo broadcast,
-			UserContext context) {
-		createOrUpdateBroadcastAndMessage(broadcast, context, BroadcastMessage.BROADCASTING);
+			UserContext context,BroadcastingCategory broadcastingCategory) {
+		createOrUpdateBroadcastAndMessage(broadcast, context, BroadcastMessage.BROADCASTING,broadcastingCategory);
 		return null;
 	}
 	@Override
 	public String createOrUpdateMessage(BroadcastingVo broadcast,
 			UserContext context) {
-		createOrUpdateBroadcastAndMessage(broadcast, context, BroadcastMessage.MESSAGE);
+		createOrUpdateBroadcastAndMessage(broadcast, context, BroadcastMessage.MESSAGE,null);
 		return null;
 	}
 	@Override

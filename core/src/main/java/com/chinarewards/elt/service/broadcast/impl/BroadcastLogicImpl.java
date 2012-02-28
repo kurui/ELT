@@ -6,6 +6,7 @@ import com.chinarewards.elt.dao.broadcast.BroadcastDao;
 import com.chinarewards.elt.dao.broadcast.BroadcastReplyDao;
 import com.chinarewards.elt.dao.broadcast.BroadcastingReceivingDao;
 import com.chinarewards.elt.dao.broadcast.ReceivingObjectDao;
+import com.chinarewards.elt.dao.org.MembersDao;
 import com.chinarewards.elt.domain.information.BroadcastReply;
 import com.chinarewards.elt.domain.information.Broadcasting;
 import com.chinarewards.elt.domain.information.BroadcastingReceiving;
@@ -14,6 +15,7 @@ import com.chinarewards.elt.model.broadcast.BroadcastQueryListCriteria;
 import com.chinarewards.elt.model.broadcast.BroadcastQueryListVo;
 import com.chinarewards.elt.model.broadcastReply.BroadcastReplyListCriteria;
 import com.chinarewards.elt.model.common.PageStore;
+import com.chinarewards.elt.model.information.BroadcastMessage;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.broadcast.BroadcastLogic;
 import com.chinarewards.elt.service.user.UserLogic;
@@ -27,16 +29,18 @@ public class BroadcastLogicImpl implements BroadcastLogic {
 	private final ReceivingObjectDao receivingObjectDao;
 	private final BroadcastReplyDao broadcastReplyDao;
 	private final UserLogic userLogic;
+	private final MembersDao membersDao;
 
 	@Inject
 	public BroadcastLogicImpl(BroadcastDao broadcastDao,
 			BroadcastingReceivingDao broadcastingReceivingDao,
-			ReceivingObjectDao receivingObjectDao,BroadcastReplyDao broadcastReplyDao,UserLogic userLogic) {
+			ReceivingObjectDao receivingObjectDao,BroadcastReplyDao broadcastReplyDao,UserLogic userLogic,MembersDao membersDao) {
 		this.broadcastDao = broadcastDao;
 		this.broadcastingReceivingDao = broadcastingReceivingDao;
 		this.receivingObjectDao = receivingObjectDao;
 		this.broadcastReplyDao=broadcastReplyDao;
 		this.userLogic=userLogic;
+		this.membersDao=membersDao;
 	}
 
 	@Override
@@ -51,6 +55,21 @@ public class BroadcastLogicImpl implements BroadcastLogic {
 	@Override
 	public BroadcastQueryListVo queryBroadcastList(
 			BroadcastQueryListCriteria criteria) {
+		if(!StringUtil.isEmptyString(criteria.getReceivingUserId()))
+	{
+		//查询接收对象的broadcastID LIST
+		SysUser user=userLogic.findUserById(criteria.getReceivingUserId());
+		String deptId=null;
+		List<String> teamIds=null;
+		if(user.getStaff().getDepartment()!=null)
+			deptId=user.getStaff().getDepartment().getId();
+		List<String> tList=membersDao.findTeamIdsListByStaffId(user.getStaff().getId());
+		if(tList.size()>0)
+			teamIds=tList;
+		List<String> broadcastList =broadcastingReceivingDao.findBroadcastingReceivingIdList(user.getCorporation().getId(), deptId, user.getStaff().getId(), teamIds,criteria.getBroadcastMessagetype());
+		if(broadcastList.size()>0)
+			criteria.setBroadcastList(broadcastList);
+	}
 		return broadcastDao.queryBroadcastPageAction(criteria);
 	}
 
@@ -92,9 +111,9 @@ public class BroadcastLogicImpl implements BroadcastLogic {
 	}
 
 	@Override
-	public String getMaxNumber() {
+	public String getMaxNumber(BroadcastMessage broadcastMessage) {
 		String strNum;
-		int num = (Integer.parseInt(broadcastDao.getMaxNumber()) + 1);
+		int num = (Integer.parseInt(broadcastDao.getMaxNumber(broadcastMessage)) + 1);
 		if (num < 10)
 			strNum = "00" + num;
 		else if (num < 100)

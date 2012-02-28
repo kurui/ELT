@@ -2,7 +2,6 @@ package com.chinarewards.gwt.elt.client.box.view;
 
 import java.util.Date;
 
-import com.chinarewards.elt.util.DateUtil;
 import com.chinarewards.gwt.elt.client.box.presenter.UserBoxPresenter.UserBoxDisplay;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
 import com.google.gwt.core.client.GWT;

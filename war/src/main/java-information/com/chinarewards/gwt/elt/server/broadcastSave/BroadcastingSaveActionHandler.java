@@ -6,6 +6,7 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 import org.slf4j.Logger;
 
 import com.chinarewards.elt.model.broadcast.BroadcastingVo;
+import com.chinarewards.elt.model.information.BroadcastingCategory;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.broadcast.BroadcastService;
 import com.chinarewards.gwt.elt.client.broadcastSave.request.BroadcastSaveRequest;
@@ -53,8 +54,10 @@ public class BroadcastingSaveActionHandler extends
 		vo.setAllowreplies(request.isAllowreplies());
 		vo.setContent(request.getContent());
 		vo.setOrganList(request.getOrganList());
-		
-		broadcastService.createOrUpdateBroadcast(vo, context);
+		BroadcastingCategory broadcastingCategory=BroadcastingCategory.COMPANYBROADCAST;
+		if(request.getBroadcastingCategory()!=null)
+			broadcastingCategory=BroadcastingCategory.valueOf(request.getBroadcastingCategory().toString());
+		broadcastService.createOrUpdateBroadcast(vo, context,broadcastingCategory);
 		return staffResponse;
 	}
 

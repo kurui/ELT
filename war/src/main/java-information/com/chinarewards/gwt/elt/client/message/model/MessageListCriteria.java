@@ -40,6 +40,18 @@ public class MessageListCriteria implements IsSerializable {
 	 * 结束时间
 	 */
 	private Date broadcastingTimeEnd;
+	/**
+	 * 创建人用户ID
+	 */
+	private String createUserId;
+	
+	public String getCreateUserId() {
+		return createUserId;
+	}
+
+	public void setCreateUserId(String createUserId) {
+		this.createUserId = createUserId;
+	}
 
 	public String getCorporationId() {
 		return corporationId;
