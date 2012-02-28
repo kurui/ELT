@@ -9,8 +9,8 @@
     <div class="{new2.content-wrap}">
       <div class="{new2.content-info}">
         <div class="{new2.note}">
-          <span class="{new2.close}"></span>
-          恭喜您，您获得上月度全勤奖，获得奖金50积分！
+          <g:Anchor ui:field="closeMessageBtn" styleName="{new2.close}" />
+          <g:InlineLabel ui:field="topMessage" />
         </div>
 
         <div class="{new2.broadcast}">

@@ -32,6 +32,10 @@ public class StaffHeavenIndexWidget extends Composite implements
 	Anchor themeInformation;
 	@UiField
 	InlineLabel topBroadcast;
+	@UiField
+	Anchor closeMessageBtn;
+	@UiField
+	InlineLabel topMessage;
 	
 	DateTimeFormat dateFormat = DateTimeFormat
 			.getFormat(ViewConstants.date_format);
@@ -87,6 +91,16 @@ public class StaffHeavenIndexWidget extends Composite implements
 	public void setTopBroadcast(String text) {
 		topBroadcast.setText(text);
 		
+	}
+
+	@Override
+	public Anchor getCloseMessageBtn() {
+		return closeMessageBtn;
+	}
+
+	@Override
+	public void setTopMessage(String text) {
+		topMessage.setText(text);	
 	}
 
 }

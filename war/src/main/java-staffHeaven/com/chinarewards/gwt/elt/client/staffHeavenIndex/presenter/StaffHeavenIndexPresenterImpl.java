@@ -6,6 +6,10 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.broadcasting.model.BroadcastingListCriteria.BroadcastingCategory;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
+import com.chinarewards.gwt.elt.client.message.model.MessageListClient;
+import com.chinarewards.gwt.elt.client.message.model.MessageListCriteria;
+import com.chinarewards.gwt.elt.client.message.request.SearchMessageListRequest;
+import com.chinarewards.gwt.elt.client.message.request.SearchMessageListResponse;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
@@ -15,10 +19,12 @@ import com.chinarewards.gwt.elt.client.staffHeavenIndex.model.StaffHeavenIndexCr
 import com.chinarewards.gwt.elt.client.staffHeavenIndex.request.StaffHeavenIndexRequest;
 import com.chinarewards.gwt.elt.client.staffHeavenIndex.request.StaffHeavenIndexResponse;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.chinarewards.gwt.elt.client.view.constant.CssStyleConstants;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager.TextLocation;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.win.Win;
+import com.chinarewards.gwt.elt.model.PaginationDetailClient;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Timer;
@@ -56,7 +62,7 @@ public class StaffHeavenIndexPresenterImpl extends
 
 	     StaffHeavenIndexCriteria  criteria = new StaffHeavenIndexCriteria();
 	     criteria.setNowDate(true);
-	     //条件未加
+	     //当前可以在顶级显示的广播
 	 	dispatch.execute(new StaffHeavenIndexRequest(criteria,
 				sessionManager.getSession()),
 				new AsyncCallback<StaffHeavenIndexResponse>() {
@@ -88,6 +94,43 @@ public class StaffHeavenIndexPresenterImpl extends
 						     timer.scheduleRepeating(10000); 
 						     timer.run();
 						}
+					}
+
+				});
+	 	//当前可以在顶级显示的消息
+	 	MessageListCriteria crteria=new MessageListCriteria();
+		PaginationDetailClient pagination = new PaginationDetailClient();
+		pagination.setStart(0);
+		pagination.setLimit(1);
+		crteria.setPagination(pagination);
+
+		dispatch.execute(new SearchMessageListRequest(crteria,
+				sessionManager.getSession()),
+				new AsyncCallback<SearchMessageListResponse>() {
+					@Override
+					public void onFailure(Throwable e) {
+						errorHandler.alert(e.getMessage());
+					}
+
+					@Override
+					public void onSuccess(SearchMessageListResponse response) {
+						List<MessageListClient> giftList = response.getResult();
+						if(giftList.size()>0)
+						{
+							display.setTopMessage(giftList.get(0).getContent());
+							display.getCloseMessageBtn().addClickHandler(new ClickHandler() {
+
+								@Override
+								public void onClick(ClickEvent event) {
+									display.getCloseMessageBtn().getElement().getParentElement().addClassName(CssStyleConstants.hidden);
+								}
+							});
+						}
+						else
+						{
+							display.getCloseMessageBtn().getElement().getParentElement().addClassName(CssStyleConstants.hidden);
+						}
+
 					}
 
 				});
