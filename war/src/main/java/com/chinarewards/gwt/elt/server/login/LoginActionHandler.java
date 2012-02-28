@@ -44,6 +44,8 @@ public class LoginActionHandler extends
 				throw new ClientException("用户无角色!");
 			}
 			resp.setCorporationId(u.getCorporationId());
+			resp.setCorporationName(u.getCorporationName());
+			resp.setPhoto(u.getPhoto());
 			resp.setLoginName(u.getUsername());
 			resp.setToken(u.getId());
 			resp.setDepartmentId(u.getDepartmentId());

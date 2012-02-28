@@ -112,7 +112,7 @@ public class BroadcastReplyLatticeWidget extends Composite {
 	void refMyreply()
 	{
 		replyPanel.clear();
-		replyPanel.add(new MyReplyLatticeWidget(win, dispatch,sessionManager, null, broadcastId,replyNumber,widget));
+		replyPanel.add(new MyReplyLatticeWidget(win, dispatch,sessionManager, sessionManager.getSession().getPhoto(), broadcastId,replyNumber,widget));
 	}
 	
 	void refWidget() {

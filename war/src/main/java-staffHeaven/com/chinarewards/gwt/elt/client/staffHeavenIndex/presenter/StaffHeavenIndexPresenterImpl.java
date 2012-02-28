@@ -166,7 +166,7 @@ public class StaffHeavenIndexPresenterImpl extends
 				List<String[]> organList=new ArrayList<String[]>();
 				String[] nameAndId = new String[3];
 				nameAndId[0] = sessionManager.getSession().getCorporationId();
-				nameAndId[1] = "员工主界面添加(默认当前机构)";
+				nameAndId[1] = sessionManager.getSession().getCorporationName();
 				nameAndId[2] = OrganType.ORG.toString();
 				organList.add(nameAndId);
 				
