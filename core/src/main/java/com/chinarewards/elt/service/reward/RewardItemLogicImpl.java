@@ -449,7 +449,7 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 				+ criteria);
 		PageStore<RewardItem> pageStore = rewardAclProcessorFactory
 				.generateRewardAclProcessor(context.getUserRoles())
-				.fetchStaffRewardItems(context, criteria);
+				.fetchRewardItems(context, criteria);
 
 		List<RewardItem> itemList = pageStore.getResultList();
 		// post-process and convert

@@ -14,9 +14,11 @@ import com.chinarewards.elt.common.BaseDao;
 import com.chinarewards.elt.dao.org.StaffDao;
 import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.domain.reward.base.Reward;
+import com.chinarewards.elt.domain.reward.base.RewardItem;
 import com.chinarewards.elt.domain.reward.person.Winner;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.reward.base.WinnerProcessFlag;
+import com.chinarewards.elt.model.reward.search.RewardItemSearchVo;
 import com.chinarewards.elt.model.reward.search.RewardSearchVo;
 import com.chinarewards.elt.model.staff.StaffWinSearchCriteria;
 import com.chinarewards.elt.model.staff.StaffWinVo;
@@ -206,8 +208,74 @@ public class WinnerDao extends BaseDao<Winner> {
 		if (!StringUtil.isEmptyString(searchVo.getWinnerStaffId())) {
 			hql.append(" AND win.staff.id = :staffId ");
 			param.put("staffId", searchVo.getWinnerStaffId());
+		}			
+		
+		// ORDER BY
+		if (SEARCH.equals(type)) {
+			if (searchVo.getSortingDetail() != null && searchVo.getSortingDetail().getSort()!=null && searchVo.getSortingDetail().getDirection()!=null) {
+				hql.append(" ORDER BY win."
+						+ searchVo.getSortingDetail().getSort() + " "
+						+ searchVo.getSortingDetail().getDirection());
+			} else {
+				hql.append(" ORDER BY win.winTime DESC ");
+			}
 		}
-			
+		
+		logger.debug(" HQL:{} ", hql);
+		Query query = getEm().createQuery(hql.toString());
+		if (SEARCH.equals(type)) {
+			if (searchVo.getPaginationDetail() != null) {
+				int limit = searchVo.getPaginationDetail().getLimit();
+				int start = searchVo.getPaginationDetail().getStart();
+
+				logger.debug("pagination - start{}, limit:{}", new Object[] {
+						start, limit });
+
+				query.setMaxResults(limit);
+				query.setFirstResult(start);
+			}
+		}
+		if (param.size() > 0) {
+			Set<String> key = param.keySet();
+			for (String s : key) {
+				query.setParameter(s, param.get(s));
+			}
+		}
+		return query;
+	}
+	
+	public PageStore<RewardItem> searchRewardItem_staff(RewardItemSearchVo criteria) {
+		PageStore<RewardItem> res = new PageStore<RewardItem>();
+		List<RewardItem> list = queryCurrentStaffWinRewardItemData(criteria);
+		int count = searchCurrentStaffWinRewardItemCount(criteria);
+		res.setResultList(list);
+		res.setResultCount(count);
+		return res;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private List<RewardItem> queryCurrentStaffWinRewardItemData(RewardItemSearchVo searchVo) {
+		return getCurrentStaffRewardItemQuery(searchVo, SEARCH).getResultList();
+	}
+
+	public int searchCurrentStaffWinRewardItemCount(RewardItemSearchVo searchVo) {
+		return Integer.parseInt(getCurrentStaffRewardItemQuery(searchVo, COUNT)
+				.getSingleResult().toString());
+	}
+
+	private Query getCurrentStaffRewardItemQuery(RewardItemSearchVo searchVo, String type) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		StringBuffer hql = new StringBuffer();
+		if (SEARCH.equals(type)) {
+			hql.append(" SELECT win.reward.rewardItem FROM Winner win WHERE 1=1 ");
+		} else if (COUNT.equals(type)) {
+			hql.append(" SELECT COUNT(win.reward.rewardItem) FROM Winner win WHERE 1=1 ");
+		}
+		
+		if (!StringUtil.isEmptyString(searchVo.getStaffId())) {
+			hql.append(" AND win.staff.id = :staffId ");
+			param.put("staffId", searchVo.getStaffId());
+		}			
 		
 		// ORDER BY
 		if (SEARCH.equals(type)) {

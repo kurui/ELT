@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.chinarewards.gwt.elt.client.rewards.model;
 
 import java.io.Serializable;
@@ -11,8 +8,7 @@ import com.chinarewards.gwt.elt.model.PaginationDetailClient;
 import com.chinarewards.gwt.elt.model.SortingDetailClient;
 
 /**
- * @author Cream
- * @since 0.2.0 2010-12-16
+ * @author yanrui
  */
 public class RewardsItemStaffCriteria implements Serializable {
 
@@ -44,6 +40,7 @@ public class RewardsItemStaffCriteria implements Serializable {
 	private String buildDeptName;
 	
 	private String departmentId;
+	private String staffId;
 	
 	private boolean subDepartmentChoose;
 
@@ -283,6 +280,14 @@ public class RewardsItemStaffCriteria implements Serializable {
 
 	public void setSubDepartmentChoose(boolean subDepartmentChoose) {
 		this.subDepartmentChoose = subDepartmentChoose;
+	}
+
+	public String getStaffId() {
+		return staffId;
+	}
+
+	public void setStaffId(String staffId) {
+		this.staffId = staffId;
 	}
 	
 	

@@ -33,14 +33,16 @@ public class RewardItemSearchVo {
 	 * Search by id of RewardItem
 	 */
 	private String typeId;
-	private Integer totalJF;//总积分
-	private double rewardFrom;//个人得分
-	private int headcountLimit;//总人数
-	private Integer tmdays;//提前的天数
+	private Integer totalJF;// 总积分
+	private double rewardFrom;// 个人得分
+	private int headcountLimit;// 总人数
+	private Integer tmdays;// 提前的天数
 	private int degree;// 生成奖励的次数
-	
+
+	private String staffId;
+
 	private String enabled;
-	
+
 	public String isEnabled() {
 		return enabled;
 	}
@@ -52,7 +54,9 @@ public class RewardItemSearchVo {
 	public int getDegree() {
 		return degree;
 	}
-    private String id;
+
+	private String id;
+
 	public String getId() {
 		return id;
 	}
@@ -72,8 +76,6 @@ public class RewardItemSearchVo {
 	public void setTotalJF(Integer totalJF) {
 		this.totalJF = totalJF;
 	}
-
-	
 
 	public double getRewardFrom() {
 		return rewardFrom;
@@ -113,11 +115,10 @@ public class RewardItemSearchVo {
 	 */
 	private Date startTime;
 
-
 	private Date createTime;
-	
+
 	private Date createTimeEnd;
-	
+
 	public Date getCreateTimeEnd() {
 		return createTimeEnd;
 	}
@@ -221,8 +222,6 @@ public class RewardItemSearchVo {
 		this.standard = standard;
 	}
 
-		
-
 	public Date getStartTime() {
 		return startTime;
 	}
@@ -277,5 +276,13 @@ public class RewardItemSearchVo {
 
 	public void setDeptIds(List<String> deptIds) {
 		this.deptIds = deptIds;
+	}
+
+	public String getStaffId() {
+		return staffId;
+	}
+
+	public void setStaffId(String staffId) {
+		this.staffId = staffId;
 	}
 }

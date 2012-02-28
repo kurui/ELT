@@ -71,34 +71,6 @@ public class RewardAclProcessorHr extends AbstractRewardAclProcessor {
 		return pageStore;
 	}
 	
-	@Override
-	public PageStore<RewardItem> fetchStaffRewardItems(UserContext context,
-			RewardItemSearchVo criteria) {
-		criteria.setCorporationId(context.getCorporationId());
-
-		// Should not pollute the input object! Clone it!
-		if (null != criteria.getDeptIds() && !criteria.getDeptIds().isEmpty()) {
-			// The depIds have priority. If it exist, do not need to observe
-			// departmentId again.
-		} else if (!StringUtil.isEmptyString(criteria.getDepartmentId())) {
-			List<String> deptIds = null;
-			if (criteria.isSubDepartmentChosen()) {
-				deptIds = departmentLogic.getWholeChildrenIds(
-						criteria.getDepartmentId(), true);
-			} else {
-				deptIds = new ArrayList<String>();
-				deptIds.add(criteria.getDepartmentId());
-			}
-			criteria.setDeptIds(new ArrayList<String>(deptIds));
-			criteria.setSubDepartmentChosen(false); // since we have converted it.
-		}
-
-		PageStore<RewardItem> pageStore = new PageStore<RewardItem>();
-		pageStore.setResultCount(rewardsItemDao.countStaffRewardsItems(criteria));
-		List<RewardItem> itemList = rewardsItemDao.fetchStaffRewardsItems(criteria);
-		pageStore.setResultList(itemList);
-		return pageStore;
-	}
 
 	@Override
 	public PageStore<Reward> fetchRewards(UserContext context,
@@ -112,19 +84,6 @@ public class RewardAclProcessorHr extends AbstractRewardAclProcessor {
 		return res;
 	}
 	
-	@Override
-	public PageStore<Reward> fetchRewardsStaff(UserContext context,
-			RewardSearchVo criteria) {
-		logger.debug(
-				" Process in fetchRewards method, CorporationId:{}, criteria:{}",
-				new Object[] { context.getCorporationId(), criteria.toString() });
-
-		PageStore<Reward> res = new PageStore<Reward>();
-		res = winnerDao.searchRewards_staff(criteria);
-		return res;
-	}
-	
-
 
 	@Override
 	public PageStore<RewardItemStore> fetchRewardItemsStore(

@@ -268,16 +268,6 @@ public class RewardItemDao extends BaseDao<RewardItem> {
 
 		param.put("deleted", false);
 
-		if (!StringUtil.isEmptyString(criteria.getAccountDeptName())) {
-			eql.append(" AND item.accountDept IN (FROM Department dept WHERE UPPER(dept.name) LIKE :accountDeptName) ");
-			param.put("accountDeptName", "%"
-					+ criteria.getAccountDeptName().trim().toUpperCase() + "%");
-		}
-		if (!StringUtil.isEmptyString(criteria.getBuildDeptName())) {
-			eql.append(" AND item.builderDept IN (FROM Department dept WHERE UPPER(dept.name) LIKE :buildDeptName) ");
-			param.put("buildDeptName", "%"
-					+ criteria.getBuildDeptName().trim().toUpperCase() + "%");
-		}
 		// 根据部门id来查询
 		if (null != criteria.getDeptIds() && !criteria.getDeptIds().isEmpty()) {
 			eql.append(" AND item.builderDept.id IN (:deptIds)");
@@ -288,12 +278,13 @@ public class RewardItemDao extends BaseDao<RewardItem> {
 			eql.append(" AND item.corporation.id = :corporationId");
 			param.put("corporationId", criteria.getCorporationId());
 		}
+		
 		if (!StringUtil.isEmptyString(criteria.getDefinition())) {
 			eql.append(" AND UPPER(item.definition) LIKE :definition ");
 			param.put("definition", "%"
 					+ criteria.getDefinition().trim().toUpperCase() + "%");
-
 		}
+		
 		// 根据创建时间来查询
 		if (null != criteria.getCreateTime()
 				&& !criteria.getCreateTime().equals("")

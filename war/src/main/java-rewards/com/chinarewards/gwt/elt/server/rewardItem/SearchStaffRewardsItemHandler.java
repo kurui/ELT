@@ -49,6 +49,7 @@ public class SearchStaffRewardsItemHandler extends	BaseActionHandler<SearchStaff
 		SearchStaffRewardsItemResponse resp = new SearchStaffRewardsItemResponse();
      
 		RewardsItemStaffCriteria rewardsItemClient = request.getRewardsItemStaffCriteria();
+		rewardsItemClient.setStaffId(request.getUserSession().getStaffId());
 		RewardItemSearchVo model = adapter(rewardsItemClient);
 		
 		UserContext uc = new UserContext();
@@ -87,6 +88,8 @@ public class SearchStaffRewardsItemHandler extends	BaseActionHandler<SearchStaff
 		model.setStartTime(criteria.getStartTime());
 		model.setTypeId(criteria.getTypeId());
 		model.setTypeName(criteria.getTypeName());
+		
+		model.setStaffId(criteria.getStaffId());
 
 		if (criteria.getPagination() != null) {
 			PaginationDetail paginationDetail = new PaginationDetail();

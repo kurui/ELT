@@ -37,6 +37,7 @@ import com.chinarewards.elt.model.reward.search.RewardQueryVo;
 import com.chinarewards.elt.model.reward.search.RewardSearchVo;
 import com.chinarewards.elt.model.reward.vo.RewardVo;
 import com.chinarewards.elt.model.user.UserContext;
+import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.service.reward.acl.RewardAclProcessorFactory;
 import com.chinarewards.elt.service.reward.frequency.FrequencyLogic;
 import com.chinarewards.elt.service.reward.rule.AwardApprovalDeterminer;
@@ -181,9 +182,7 @@ public class RewardLogicImpl implements RewardLogic {
 			String name = frequencyLogic.calRewardNameFromFrequency(
 					item.getName(), item.getFrequency(), currTime);
 			reward.setName(name);
-		}
-		else
-		{
+		} else {
 			reward.setName(item.getName());
 		}
 		reward.setRewardItem(item);
@@ -441,7 +440,6 @@ public class RewardLogicImpl implements RewardLogic {
 					.getPreWinnerLotsFromReward(rewardId);
 			// winner
 			List<Winner> winners = winnerLogic.getWinnersOfReward(rewardId);
-			
 
 			rewardVo.setReward(reward);
 			rewardVo.setCandidateRule(candidateRule);
@@ -466,57 +464,55 @@ public class RewardLogicImpl implements RewardLogic {
 		List<Reward> list = pageStore.getResultList();
 		// post-process and convert
 		List<RewardVo> rewardVoList = new ArrayList<RewardVo>();
-		if(list.size()>0)
-		{
+		if (list.size() > 0) {
 			for (Reward reward : list) {
 				rewardVoList.add(convertFromRewardToVo(reward, true));
 			}
 
-		logger.debug("The result size:{}, total:{}", new Object[] {
-				rewardVoList.size(), pageStore.getResultCount() });
+			logger.debug("The result size:{}, total:{}", new Object[] {
+					rewardVoList.size(), pageStore.getResultCount() });
 
-		PageStore<RewardVo> storeVo = new PageStore<RewardVo>();
-		storeVo.setResultCount(pageStore.getResultCount());
-		storeVo.setResultList(rewardVoList);
+			PageStore<RewardVo> storeVo = new PageStore<RewardVo>();
+			storeVo.setResultCount(pageStore.getResultCount());
+			storeVo.setResultList(rewardVoList);
 
-		return storeVo;
-		}
-		else
-		{
+			return storeVo;
+		} else {
 			PageStore<RewardVo> storeVo = new PageStore<RewardVo>();
 			storeVo.setResultCount(0);
 			storeVo.setResultList(rewardVoList);
 			return storeVo;
 		}
 	}
-	
+
 	@Override
 	public PageStore<RewardVo> fetchRewardsStaff(UserContext context,
 			RewardSearchVo criteria) {
+
+		List<UserRole> userRoleList=new ArrayList<UserRole>();
+		userRoleList.add(UserRole.STAFF);
+		
 		PageStore<Reward> pageStore = rewardAclProcessorFactory
-				.generateRewardAclProcessor(context.getUserRoles())
-				.fetchRewardsStaff(context, criteria);
+				.generateRewardAclProcessor(userRoleList).fetchRewards(context,
+						criteria);
 
 		List<Reward> list = pageStore.getResultList();
 		// post-process and convert
 		List<RewardVo> rewardVoList = new ArrayList<RewardVo>();
-		if(list.size()>0)
-		{
+		if (list.size() > 0) {
 			for (Reward reward : list) {
 				rewardVoList.add(convertFromRewardToVo(reward, true));
 			}
 
-		logger.debug("The result size:{}, total:{}", new Object[] {
-				rewardVoList.size(), pageStore.getResultCount() });
+			logger.debug("The result size:{}, total:{}", new Object[] {
+					rewardVoList.size(), pageStore.getResultCount() });
 
-		PageStore<RewardVo> storeVo = new PageStore<RewardVo>();
-		storeVo.setResultCount(pageStore.getResultCount());
-		storeVo.setResultList(rewardVoList);
+			PageStore<RewardVo> storeVo = new PageStore<RewardVo>();
+			storeVo.setResultCount(pageStore.getResultCount());
+			storeVo.setResultList(rewardVoList);
 
-		return storeVo;
-		}
-		else
-		{
+			return storeVo;
+		} else {
 			PageStore<RewardVo> storeVo = new PageStore<RewardVo>();
 			storeVo.setResultCount(0);
 			storeVo.setResultList(rewardVoList);
@@ -524,11 +520,11 @@ public class RewardLogicImpl implements RewardLogic {
 		}
 	}
 
-
 	@Override
-	public String deleteReward(String rewardId,UserContext context) {
-		Reward rewardbo=rewardDao.findById(Reward.class, rewardId);
-		SysUser caller = sysUserDao.findById(SysUser.class, context.getUserId());
+	public String deleteReward(String rewardId, UserContext context) {
+		Reward rewardbo = rewardDao.findById(Reward.class, rewardId);
+		SysUser caller = sysUserDao
+				.findById(SysUser.class, context.getUserId());
 		rewardbo.setDeleted(true);
 		rewardbo.setLastModifiedAt(DateUtil.getTime());
 		rewardbo.setLastModifiedBy(caller);
