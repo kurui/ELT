@@ -35,6 +35,7 @@ import com.chinarewards.gwt.elt.client.gift.plugin.GiftViewPluginDescriptor;
 import com.chinarewards.gwt.elt.client.gloryBroadcast.plugin.GloryBroadcastPluginDescriptor;
 import com.chinarewards.gwt.elt.client.integralManagement.plugin.IntegralManagementPluginDescriptor;
 import com.chinarewards.gwt.elt.client.message.plugin.MessageListPluginDescriptor;
+import com.chinarewards.gwt.elt.client.messageSave.plugin.MessageSavePluginDescriptor;
 import com.chinarewards.gwt.elt.client.nominate.plugin.NominatePluginDescriptor;
 import com.chinarewards.gwt.elt.client.order.plugin.OrderBoxPluginDescriptor;
 import com.chinarewards.gwt.elt.client.order.plugin.OrderListPluginDescriptor;
@@ -44,6 +45,7 @@ import com.chinarewards.gwt.elt.client.orderHistory.plugin.OrderHistoryPluginDes
 import com.chinarewards.gwt.elt.client.orderHistory.plugin.OrderHistoryViewPluginDescriptor;
 import com.chinarewards.gwt.elt.client.orderSubmit.plugin.OrderSubmitPluginDescriptor;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemListPluginDescriptor;
+import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemListStaffPluginDescriptor;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemPluginDescriptor;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemStoreListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemViewPluginDescriptor;
@@ -251,6 +253,7 @@ public class PlatformModule extends AbstractGinModule {
 			// ---- PLUGINS DEFINE BELOW (2) ----
 			CorePluginDescriptor core, // core
 			RewardsListStaffPluginDescriptor rewardsListStaff,
+			RewardsItemListStaffPluginDescriptor rewardsItemListStaff,			
 			GiftPluginDescriptor gift, GiftListPluginDescriptor giftList,
 			GiftViewPluginDescriptor giftView,
 			OrderListPluginDescriptor orderList,
@@ -266,12 +269,14 @@ public class PlatformModule extends AbstractGinModule {
 			StaffHeavenIndexPluginDescriptor staffHeavenIndex,
 			CorpBroadcastPluginDescriptor corpBroadcast,
 			GloryBroadcastPluginDescriptor gloryBroadcast,
-			MessageListPluginDescriptor message) {
+			MessageListPluginDescriptor message,
+			MessageSavePluginDescriptor messageSave) {
 
 		if (pluginSet == null) {
 			pluginSet = new InMemoryPluginSet();
 			pluginSet.registerPlugin(core);
 			pluginSet.registerPlugin(rewardsListStaff);
+			pluginSet.registerPlugin(rewardsItemListStaff);
 			pluginSet.registerPlugin(giftList);
 			pluginSet.registerPlugin(gift);
 			pluginSet.registerPlugin(giftView);
@@ -289,6 +294,7 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(corpBroadcast);
 			pluginSet.registerPlugin(gloryBroadcast);
 			pluginSet.registerPlugin(message);
+			pluginSet.registerPlugin(messageSave);
 
 		}
 

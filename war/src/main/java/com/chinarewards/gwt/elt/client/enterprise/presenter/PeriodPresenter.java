@@ -29,6 +29,8 @@ public interface PeriodPresenter extends
 		
 		public HasClickHandlers getBackHandlers();
 
+		public void setSaveUnVisible();
+
 	}
 
 }

@@ -1,9 +1,7 @@
 package com.chinarewards.gwt.elt.client.rewards.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class RewardsItemClient implements Serializable,
 		Comparable<RewardsItemClient> {

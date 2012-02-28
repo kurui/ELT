@@ -1,7 +1,6 @@
 package com.chinarewards.gwt.elt.client.rewardItem.presenter;
 
 import java.util.Comparator;
-import java.util.Date;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
@@ -12,8 +11,7 @@ import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemListStaffPresenter.RewardsItemListStaffDisplay;
-import com.chinarewards.gwt.elt.client.rewards.model.RewardsClient;
-import com.chinarewards.gwt.elt.client.rewards.model.RewardsCriteria.RewardsStatus;
+import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemCriteria;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
@@ -24,11 +22,9 @@ import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.widget.Sorting;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.model.rewards.RewardPageType;
-import com.google.gwt.cell.client.DateCell;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.inject.Inject;
 
 public class RewardsItemListStaffPresenterImpl extends
@@ -42,7 +38,7 @@ public class RewardsItemListStaffPresenterImpl extends
 	RewardPageType pageType;
 
 	EltNewPager pager;
-	ListCellTable<RewardsClient> cellTable;
+	ListCellTable<RewardsItemClient> cellTable;
 	RewardsItemListStaffViewAdapter listViewAdapter;
 
 	private final BreadCrumbsPresenter breadCrumbs;
@@ -83,7 +79,7 @@ public class RewardsItemListStaffPresenterImpl extends
 	}
 
 	private void buildTable() {
-		cellTable = new ListCellTable<RewardsClient>();
+		cellTable = new ListCellTable<RewardsItemClient>();
 
 		initTableColumns();
 		pager = new EltNewPager(TextLocation.CENTER);
@@ -103,17 +99,17 @@ public class RewardsItemListStaffPresenterImpl extends
 		criteria.setName(display.getName().getValue());
 		criteria.setDefinition(display.getDefinition().getValue());
 
-		
-		listViewAdapter = new RewardsItemListStaffViewAdapter(dispatch, criteria,
-				errorHandler, sessionManager, display);
-//		listViewAdapter.addDataDisplay(cellTable);
+		listViewAdapter = new RewardsItemListStaffViewAdapter(dispatch,
+				criteria, errorHandler, sessionManager, display);
+		listViewAdapter.addDataDisplay(cellTable);
 
 	}
 
 	private void initTableColumns() {
-		Sorting<RewardsClient> ref = new Sorting<RewardsClient>() {
+		Sorting<RewardsItemClient> ref = new Sorting<RewardsItemClient>() {
 			@Override
-			public void sortingCurrentPage(Comparator<RewardsClient> comparator) {
+			public void sortingCurrentPage(
+					Comparator<RewardsItemClient> comparator) {
 				// listViewAdapter.sortCurrentPage(comparator);
 			}
 
@@ -123,44 +119,47 @@ public class RewardsItemListStaffPresenterImpl extends
 			}
 		};
 
-		cellTable.addColumn("奖项名称", new HyperLinkCell(),
-				new GetValue<RewardsClient, String>() {
+		cellTable.addColumn("奖项编号", new HyperLinkCell(),
+				new GetValue<RewardsItemClient, String>() {
 					@Override
-					public String getValue(RewardsClient rewards) {
+					public String getValue(RewardsItemClient rewards) {
 						return rewards.getName();
 					}
 				}, ref, "name");
 
-		cellTable.addColumn("奖励积分", new TextCell(),
-				new GetValue<RewardsClient, String>() {
+		cellTable.addColumn("奖项名称", new HyperLinkCell(),
+				new GetValue<RewardsItemClient, String>() {
 					@Override
-					public String getValue(RewardsClient rewards) {
-						int total = (int) (rewards.getTotalAmtLimit());
-						return total + "";
+					public String getValue(RewardsItemClient rewards) {
+						return rewards.getName();
 					}
-				}, ref, "totalAmtLimit");
+				}, ref, "name");
 
-		cellTable.addColumn("奖励时间",
-				new DateCell(DateTimeFormat.getFormat("yyyy-MM-dd")),
-				new GetValue<RewardsClient, Date>() {
+		cellTable.addColumn("奖励状态", new TextCell(),
+				new GetValue<RewardsItemClient, String>() {
 					@Override
-					public Date getValue(RewardsClient rewards) {
-						return rewards.getExpectNominateDate();
+					public String getValue(RewardsItemClient rewards) {
+						if (rewards.isEnabled() == true) {
+							return "已激活";
+						} else {
+							return "未激活";
+						}
+
 					}
-				}, ref, "expectNominateDate");
+				}, ref, "name");
 
-		cellTable.addColumn("颁奖人", new TextCell(),
-				new GetValue<RewardsClient, String>() {
+		cellTable.addColumn("创建人", new TextCell(),
+				new GetValue<RewardsItemClient, String>() {
 					@Override
-					public String getValue(RewardsClient rewards) {
+					public String getValue(RewardsItemClient rewards) {
 						return rewards.getCreatedBy();
 					}
 				}, ref, "createdBy");
 
 		cellTable.addColumn("获奖人", new TextCell(),
-				new GetValue<RewardsClient, String>() {
+				new GetValue<RewardsItemClient, String>() {
 					@Override
-					public String getValue(RewardsClient rewards) {
+					public String getValue(RewardsItemClient rewards) {
 						return rewards.getCreatedBy();
 					}
 				}, ref, "createdBy");

@@ -7,6 +7,7 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.InlineLabel;
@@ -23,7 +24,10 @@ public class MessageListWidget extends Composite implements MessageListDisplay {
 	Panel resultpage;
 	@UiField
 	Button addBtn;
-	
+	@UiField
+	Anchor receivedMessage;
+	@UiField
+	Anchor sendMessage;
 	DateTimeFormat dateFormat = DateTimeFormat
 			.getFormat(ViewConstants.date_format);
 	private static MessageListWidgetUiBinder uiBinder = GWT
@@ -57,6 +61,16 @@ public class MessageListWidget extends Composite implements MessageListDisplay {
 	@Override
 	public HasClickHandlers getAddBtn() {
 		return addBtn;
+	}
+
+	@Override
+	public Anchor getReceivedMessage() {
+		return receivedMessage;
+	}
+
+	@Override
+	public Anchor getSendMessage() {
+		return sendMessage;
 	}
 
 }

@@ -28,6 +28,7 @@ import com.chinarewards.gwt.elt.client.message.plugin.MessageListConstants;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.orderHistory.plugin.OrderHistoryConstants;
+import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemConstants;
 import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListStaffConstants;
 import com.chinarewards.gwt.elt.client.smallControl.view.SmallRewardItemWindowWidget;
 import com.chinarewards.gwt.elt.client.smallControl.view.SmallRewardWindowWidget;
@@ -196,12 +197,13 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
+						RewardsPageClient client = new RewardsPageClient();
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(
-										AwardShopListConstants.EDITOR_AWARDSHOPLIST_SEARCH,
-										"EDITOR_AWARDSHOPLIST_SEARCH_DO_ID",
-										null);
+										RewardsItemConstants.EDITOR_REWARDSITEM_STAFF_LIST,
+										"EDITOR_REWARDSITEMLIST_STAFF_SEARCH_DO_ID",
+										client);
 					}
 				}));
 
@@ -210,12 +212,13 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
+						RewardsPageClient client = new RewardsPageClient();
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(
-										AwardShopListConstants.EDITOR_AWARDSHOPLIST_SEARCH,
-										"EDITOR_AWARDSHOPLIST_SEARCH_DO_ID",
-										null);
+										RewardsItemConstants.EDITOR_REWARDSITEM_STAFF_LIST,
+										"EDITOR_REWARDSITEMLIST_STAFF_SEARCH_DO_ID",
+										client);
 					}
 				}));
 
