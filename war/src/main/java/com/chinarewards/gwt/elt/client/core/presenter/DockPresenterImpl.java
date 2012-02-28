@@ -20,6 +20,7 @@ import com.chinarewards.gwt.elt.client.login.LastLoginRoleResponse;
 import com.chinarewards.gwt.elt.client.login.event.LoginEvent;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
+import com.chinarewards.gwt.elt.client.order.plugin.OrderViewConstants;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemConstants;
 import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
@@ -93,7 +94,10 @@ public class DockPresenterImpl extends BasePresenter<DockDisplay> implements
 					@Override
 					public void onClick(ClickEvent event) {
 						display.setMenuTitle("收件箱");
-						display.setMenu(null);
+						menuProcessor.initrender(display.getMenu(), "Box");
+						eventBus.fireEvent(new MenuClickEvent(
+								menuProcessor
+										.getMenuItem(OrderViewConstants.MENU_ORDERBOX_SEARCH)));
 					}
 				}));
 		registerHandler(display.getBtnGb().addClickHandler(new ClickHandler() {

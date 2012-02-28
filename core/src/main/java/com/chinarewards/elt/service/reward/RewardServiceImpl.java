@@ -138,4 +138,15 @@ public class RewardServiceImpl implements RewardService {
 		return rewardLogic.deleteReward(rewardId,context);
 	}
 
+	@Override
+	public int getNominatorByStaffId(String staffId) {
+		return rewardLogic.getNominatorByStaffId(staffId);
+	}
+
+	@Override
+	public int getRewardsByStaffId(String staffId) {
+		// TODO Auto-generated method stub
+		return rewardLogic.getRewardsByStaffId(staffId);
+	}
+
 }

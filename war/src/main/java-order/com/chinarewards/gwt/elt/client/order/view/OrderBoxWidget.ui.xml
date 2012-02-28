@@ -5,34 +5,22 @@
 
 	<ui:style src="new2.css" field="new2"></ui:style>
 	<g:HTMLPanel>
-		<div class="{new2.frame-wrap}">
-
-			<!--面包屑 [[ -->
+	   <div class="{new2.frame-wrap} {new2.inbox-leader}">
+           <div class="{new2.inbox-wrap}">
+            <div class="{new2.inbox-content}">
+			 <!--面包屑 [[ -->
 			<g:FlowPanel ui:field="breadCrumbs" />
 			<!--面包屑 ]] -->
-
-			
-			
-			<div class="{new2.content-wrap}">
-			 <div class="{new2.form}">
-			 	<div class="{new2.form-line}">
-				     <span class="{new2.nbspbig}"></span>
-				     <span class="{new2.nbspbig}"></span>   
-				         新增加兑换单： <g:InlineLabel ui:field="news"  /> 个<g:Anchor text="马上查看" styleName="" ui:field="view" />
-				        
-				    </div>
-				     <span class="{new2.nbspbig}"></span>
-				      <span class="{new2.nbspbig}"></span>
- 					<div class="{new2.form-line}">
-				      <span class="{new2.nbspbig}"></span>
-				      <span class="{new2.nbspbig}"></span> 
-				      待发货订单共： <g:InlineLabel ui:field="send"  /> 个<g:Anchor text="马上操作" styleName="" ui:field="operate" />
-				   </div>	
-			  </div>
-			  
-			  
+           
+			  <div class="{new2.inbox-info}">
+               <p><span class="{new2.tishi-wrap}">  新增加兑换单： <span class="{new2.color-red}"><g:InlineLabel ui:field="news"  /></span> 个</span><g:Anchor text="马上查看" styleName="" ui:field="view" />&gt;&gt;</p>
+               <p><span class="{new2.tishi-wrap}"> 待发货订单共: <span class="{new2.color-red}"><g:InlineLabel ui:field="send"  /></span> 个</span><g:Anchor text="马上操作" styleName="" ui:field="operate" />&gt;&gt;</p>
+              </div>		
+					  
+			</div>
 							
 			</div>
 		</div>
+		
 	</g:HTMLPanel>
 </ui:UiBinder>

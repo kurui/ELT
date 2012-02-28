@@ -2,6 +2,7 @@ package com.chinarewards.gwt.elt.client.core;
 
 import com.chinarewards.gwt.elt.client.awardReward.plugin.AwardRewardPluginDescriptor;
 import com.chinarewards.gwt.elt.client.awardShop.plugin.AwardShopListPluginDescriptor;
+import com.chinarewards.gwt.elt.client.box.plugin.UserBoxPluginDescriptor;
 import com.chinarewards.gwt.elt.client.broadcastReply.plugin.BroadcastReplyPluginDescriptor;
 import com.chinarewards.gwt.elt.client.broadcastSave.plugin.BroadcastSavePluginDescriptor;
 import com.chinarewards.gwt.elt.client.broadcasting.plugin.BroadcastingListPluginDescriptor;
@@ -137,6 +138,7 @@ public class PlatformModule extends AbstractGinModule {
 			BroadcastSavePluginDescriptor BroadcastSave,
 			DetailsOfBroadcastPluginDescriptor dtailsOfBroadcast,
 			BroadcastReplyPluginDescriptor BroadcastReply,
+			UserBoxPluginDescriptor hrBox,
 			LeadTimePluginDescriptor leadTime) {
 
 
@@ -166,7 +168,7 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(orderList);
 			pluginSet.registerPlugin(orderHistory);
 			pluginSet.registerPlugin(orderHistoryView);
-			pluginSet.registerPlugin(orderBox);
+			pluginSet.registerPlugin(hrBox);
 			pluginSet.registerPlugin(orderView);
 			pluginSet.registerPlugin(awardShop);
 			pluginSet.registerPlugin(shopWindow);
@@ -214,7 +216,8 @@ public class PlatformModule extends AbstractGinModule {
 			IntegralManagementPluginDescriptor integralManagement,
 			StaffListPluginDescriptor staffList,
 			StaffViewPluginDescriptor staffView,
-			LeadTimePluginDescriptor leadTime) {
+			LeadTimePluginDescriptor leadTime,
+			UserBoxPluginDescriptor leadBox) {
 
 		if (pluginSet == null) {
 			pluginSet = new InMemoryPluginSet();
@@ -239,6 +242,7 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(staffList);
 			pluginSet.registerPlugin(staffView);
 			pluginSet.registerPlugin(leadTime);
+			pluginSet.registerPlugin(leadBox);
 		}
 
 		return pluginSet;

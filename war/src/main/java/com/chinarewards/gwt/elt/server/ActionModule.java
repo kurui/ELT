@@ -5,6 +5,7 @@ import net.customware.gwt.dispatch.server.guice.ActionHandlerModule;
 import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardAddRequest;
 import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardInitRequest;
 import com.chinarewards.gwt.elt.client.awardShop.request.SearchAwardShopRequest;
+import com.chinarewards.gwt.elt.client.box.request.UserBoxRequest;
 import com.chinarewards.gwt.elt.client.broadcastReply.request.BroadcastReplyAddRequest;
 import com.chinarewards.gwt.elt.client.broadcastReply.request.SearchBroadcastReplyRequest;
 import com.chinarewards.gwt.elt.client.broadcastSave.request.BroadcastSaveRequest;
@@ -95,6 +96,7 @@ import com.chinarewards.gwt.elt.client.user.UserSearchRequest;
 import com.chinarewards.gwt.elt.server.awardReward.AwardRewardActionHandler;
 import com.chinarewards.gwt.elt.server.awardReward.AwardRewardAddActionHandler;
 import com.chinarewards.gwt.elt.server.awardShop.SearchAwardShopHandler;
+import com.chinarewards.gwt.elt.server.box.UserBoxHandler;
 import com.chinarewards.gwt.elt.server.broadcastReply.BroadcastReplyAddActionHandler;
 import com.chinarewards.gwt.elt.server.broadcastReply.SearchBroadcastReplyActionHandler;
 import com.chinarewards.gwt.elt.server.broadcastSave.BroadcastUpdateActionHandler;
@@ -392,9 +394,12 @@ public class ActionModule extends ActionHandlerModule {
 		bindHandler(LeadTimeRequest.class, LeadTimeActionHandler.class);
 		//信息
 		bindHandler(SearchMessageListRequest.class,SearchMessageListActionHandler.class);
+		//leader收件箱
+		bindHandler(UserBoxRequest.class,UserBoxHandler.class);
 		//信息添加
 		bindHandler(MessageSaveRequest.class,MessageSaveActionHandler.class);
 		
+
 
 	}
 }

@@ -532,4 +532,16 @@ public class RewardLogicImpl implements RewardLogic {
 		return rewardbo.getId();
 	}
 
+	@Override
+	public int getNominatorByStaffId(String staffId) {
+		// TODO Auto-generated method stub
+		return rewardDao.getNominatorByStaffId(staffId);
+	}
+
+	@Override
+	public int getRewardsByStaffId(String staffId) {
+		// TODO Auto-generated method stub
+		return rewardDao.getRewardsByStaffId(staffId);
+	}
+
 }

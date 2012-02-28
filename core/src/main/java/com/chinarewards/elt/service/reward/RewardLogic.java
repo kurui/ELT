@@ -140,5 +140,16 @@ public interface RewardLogic {
 	 */
 	public String deleteReward(String rewardId,UserContext context);
 
-	
+	/**
+	 * 得到当前人要提名的奖励数
+	 * @param staffId
+	 * @return
+	 */
+	public int getNominatorByStaffId(String staffId);
+	/**
+	 * 得到当前人要进行颁奖的奖励数
+	 * @param staffId
+	 * @return
+	 */
+	public int getRewardsByStaffId(String staffId);
 }

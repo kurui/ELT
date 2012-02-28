@@ -16,6 +16,7 @@ import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.org.Organization;
 import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.domain.reward.base.Reward;
+import com.chinarewards.elt.domain.reward.person.Judge;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.reward.base.PreWinnerLotStatus;
@@ -505,5 +506,25 @@ public class RewardDao extends BaseDao<Reward> {
 				.createQuery(
 						" FROM Reward r WHERE r.rewardItem.id = :rewardItemId")
 				.setParameter("rewardItemId", rewardItemId).getResultList();
+	}
+	@SuppressWarnings("unchecked")
+	public int getNominatorByStaffId(String staffId) {
+		List<Judge> judgeList = getEm()
+				.createQuery(
+						"select j FROM Judge j,Reward r WHERE j.reward.id =r.id and j.status='NONE' and r.status='PENDING_NOMINATE'  AND j.staff.id =:staffId")
+				.setParameter("staffId", staffId).getResultList();
+		
+		return judgeList.size();
+		
+	}
+	@SuppressWarnings("unchecked")
+	public int getRewardsByStaffId(String staffId) {
+		List<Judge> judgeList = getEm()
+				.createQuery(
+						"select j FROM Judge j,Reward r WHERE j.reward.id =r.id and j.status='NOMINATED' and r.status='NEW'  AND j.staff.id =:staffId")
+				.setParameter("staffId", staffId).getResultList();
+		
+		return judgeList.size();
+		
 	}
 }
