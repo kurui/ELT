@@ -13,6 +13,7 @@ import com.chinarewards.gwt.elt.client.message.request.SearchMessageListResponse
 import com.chinarewards.gwt.elt.client.messageLattice.view.MessageLatticeWidget;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.model.PaginationDetailClient;
 import com.chinarewards.gwt.elt.util.DateTool;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -25,15 +26,17 @@ public class MessageListViewAdapter extends BaseDataProvider<MessageListClient> 
 	MessageListCriteria criteria;
 	final ErrorHandler errorHandler;
 	final SessionManager sessionManager;
+	final Win win;
 
 	public MessageListViewAdapter(DispatchAsync dispatch,
 			MessageListCriteria criteria, ErrorHandler errorHandler,
-			SessionManager sessionManager, MessageListDisplay display) {
+			SessionManager sessionManager, MessageListDisplay display,Win win) {
 		this.dispatch = dispatch;
 		this.criteria = criteria;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
 		this.display = display;
+		this.win=win;
 	}
 
 	public void fetchData(final int start, final int length) {
@@ -82,7 +85,7 @@ public class MessageListViewAdapter extends BaseDataProvider<MessageListClient> 
 													.getCreatedByUserName(),
 											clint.getContent(),
 											DateTool.dateToStringChina2(clint
-													.getBroadcastingTime())));
+													.getBroadcastingTime()),win,dispatch,sessionManager));
 						}
 
 						// Return the panel

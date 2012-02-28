@@ -15,6 +15,7 @@ import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager.TextLocation;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
+import com.chinarewards.gwt.elt.client.win.Win;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.inject.Inject;
@@ -26,7 +27,7 @@ public class MessageListPresenterImpl extends
 
 	private final DispatchAsync dispatch;
 	private final SessionManager sessionManager;
-//	private final Win win;
+	private final Win win;
 	final ErrorHandler errorHandler;
 	EltNewPager pager;
 	ListCellTable<MessageListClient> cellTable;
@@ -35,13 +36,13 @@ public class MessageListPresenterImpl extends
 	@Inject
 	public MessageListPresenterImpl(EventBus eventBus,
 			MessageListDisplay display, DispatchAsync dispatch,
-			SessionManager sessionManager,ErrorHandler errorHandler,Provider<MessageSaveDialog> messageSaveDialog) {
+			SessionManager sessionManager,ErrorHandler errorHandler,Provider<MessageSaveDialog> messageSaveDialog,Win win) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.sessionManager = sessionManager;
 		this.errorHandler=errorHandler;
 		this.messageSaveDialog=messageSaveDialog;
-		//this.win=win;
+		this.win=win;
 
 	}
 
@@ -89,7 +90,7 @@ public class MessageListPresenterImpl extends
 		MessageListCriteria criteria = new MessageListCriteria();
 
 		listViewAdapter = new MessageListViewAdapter(dispatch, criteria,
-				errorHandler, sessionManager,display);
+				errorHandler, sessionManager,display,win);
 		listViewAdapter.addDataDisplay(cellTable);
 
 	}

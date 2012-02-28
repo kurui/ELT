@@ -22,6 +22,8 @@
 										<span><g:InlineLabel ui:field="replyDate" /></span>
 										<g:Anchor ui:field="replyBtn" text="回复" />
 									</p>
+									
+									<g:FlowPanel ui:field="replyTextarea" />
 								</div>
 							</div>
 

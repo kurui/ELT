@@ -32,39 +32,9 @@
             			
 
             <div class="{new2.news-list} {new2.remark-list}">
-              <div class="{new2.remark-list-info} {new2.clearfix}">
-                <img src="img/ps_emplate_small.png" width="30px" height="30px" />
-                <div class="{new2.remark-info-wrap}">
-                  <p><span class="{new2.remark-name}">Mervyn</span> 说：<span class="{new2.remark-content}">祝贺你！什么时候请客吃饭？！哈哈哈哈……</span></p>
-                  <p><span>9月14日 09:35</span>  <a href="#">回复</a>  <a href="#">删除</a></p>
-
-                  <div class="{new2.remark}">
-                    <div class="{new2.remark-info}">
-                      <textarea class="{new2.textarea}">@JOL 祝贺你！什么时候请客吃饭？！哈哈哈哈……</textarea>
-                      <div class="{new2.remark-tool}">
-                        <button type="button" class="{new2.button}">回复</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="{new2.remark-list-info} {new2.clearfix}">
-                <img src="img/ps_emplate_small.png" width="30px" height="30px" />
-                <div class="{new2.remark-info-wrap}">
-                  <p><span class="{new2.remark-name">Mervyn</span> 说：<span class="{new2.remark-content}">祝贺你！什么时候请客吃饭？！哈哈哈哈……</span></p>
-                  <p><span>9月14日 09:35</span>  <a href="#">回复</a></p>
-                </div>
-              </div>
-     
         
-              <div class="{new2.remark-list-info} {new2.clearfix}">
-                <img src="img/ps_emplate_small.png" width="30px" height="30px" />
-                <div class="{new2.remark-info-wrap}">
-                  <p><span class="{new2.remark-name">Mervyn</span> 说：<span class="{new2.remark-content}">祝贺你！什么时候请客吃饭？！哈哈哈哈……</span></p>
-                  <p><span>9月14日 09:35</span>  <a href="#">回复</a></p>
-                </div>
-              </div>
+
+ 
 
 
 		<g:FlowPanel ui:field="resultPanel" />
