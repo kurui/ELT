@@ -10,8 +10,8 @@ import net.customware.gwt.dispatch.shared.Result;
 public class StaffIntegralResponse implements Result {
 
 	private String staffId;
-	private String totalIntegral;
-	private String expenseIntegral;
+	private String historyIntegral;
+	private String consumptionIntegral;
 	private String balanceIntegral;
 
 	public StaffIntegralResponse() {
@@ -26,20 +26,20 @@ public class StaffIntegralResponse implements Result {
 		this.staffId = staffId;
 	}
 
-	public String getTotalIntegral() {
-		return totalIntegral;
+	public String getHistoryIntegral() {
+		return historyIntegral;
 	}
 
-	public void setTotalIntegral(String totalIntegral) {
-		this.totalIntegral = totalIntegral;
+	public void setHistoryIntegral(String historyIntegral) {
+		this.historyIntegral = historyIntegral;
 	}
 
-	public String getExpenseIntegral() {
-		return expenseIntegral;
+	public String getConsumptionIntegral() {
+		return consumptionIntegral;
 	}
 
-	public void setExpenseIntegral(String expenseIntegral) {
-		this.expenseIntegral = expenseIntegral;
+	public void setConsumptionIntegral(String consumptionIntegral) {
+		this.consumptionIntegral = consumptionIntegral;
 	}
 
 	public String getBalanceIntegral() {

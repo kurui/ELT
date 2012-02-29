@@ -56,7 +56,9 @@ public class StaffIntegralPresenterImpl extends
 
 					@Override
 					public void onSuccess(StaffIntegralResponse resp) {
-//						display.setStaffName(resp.getStaffName());
+						display.getHistoryIntegral().setText(resp.getHistoryIntegral());
+						display.getConsumptionIntegral().setText(resp.getConsumptionIntegral());
+						display.getBalanceIntegral().setText(resp.getBalanceIntegral());
 
 					}
 				});

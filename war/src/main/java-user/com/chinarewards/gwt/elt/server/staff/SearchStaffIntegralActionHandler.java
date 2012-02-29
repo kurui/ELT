@@ -36,10 +36,14 @@ public class SearchStaffIntegralActionHandler extends
 			ExecutionContext response) throws DispatchException {
 		StaffIntegralResponse staffResponse = new StaffIntegralResponse();
 		Staff staff = staffService.findStaffById(request.getStaffId());
-		staffResponse.setStaffId(staff.getId());
-		
-		//=======
-		
+		if (staff != null) {
+			staffResponse.setStaffId(staff.getId());
+			staffResponse.setHistoryIntegral(staff.getHistoryIntegral() + "");
+			staffResponse.setConsumptionIntegral(staff.getConsumptionIntegral()
+					+ "");
+			staffResponse.setBalanceIntegral(staffService.getBalance(staff
+					.getId()) + "");
+		}
 		return staffResponse;
 	}
 
