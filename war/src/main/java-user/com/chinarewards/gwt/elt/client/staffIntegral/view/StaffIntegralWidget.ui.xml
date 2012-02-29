@@ -9,116 +9,32 @@
 			<!--面包屑 [[ -->
 			<g:FlowPanel ui:field="breadCrumbs" />
 			<!--面包屑 ]] -->
-
-
-			<h3>员工详细信息
+			<h3>查看积分
 			</h3>
 			<span class="{new2.cutline}"></span>
 
 			<div class="{new2.content-wrap}">
 				<div class="{new2.form}">
 					<div class="{new2.form-line}">
-						<label class="{new2.label}">员工编号：</label>
+						<label class="{new2.label}">获得的总积分：</label>
 						<div class="{new2.element}">
-							<g:InlineLabel ui:field="staffNo" />
+							<g:InlineLabel ui:field="historyIntegral" />
 						</div>
 					</div>
 					<div class="{new2.form-line}">
-						<label class="{new2.label}">员工名称：</label>
+						<label class="{new2.label}">剩余积分：</label>
 						<div class="{new2.element}">
-								<g:InlineLabel ui:field="staffName" />
-												<div style="float: right;padding-right: 500px;">
-												<span class="{new2.btn}">
-													<g:Button ui:field="updateBtn" text="修改员工信息" />
-												</span>
-												</div>
+							<g:InlineLabel ui:field="balanceIntegral" />
 						</div>
 					</div>
 					<div class="{new2.form-line}">
-						<label class="{new2.label}">头像：</label>
+						<label class="{new2.label}">已消费积分：</label>
 						<div class="{new2.element}">
-							<g:Image ui:field="staffImage" width="80px" height="60px"/>
-
+							<g:InlineLabel ui:field="consumptionIntegral" />
 						</div>
 					</div>
-
-					<div class="{new2.form-line}">
-						<label class="{new2.label}">所属部门：</label>
-						<div class="{new2.element}">
-							<g:InlineLabel ui:field="departmentName" />
-						</div>
-					</div>
-					<div class="{new2.form-line}">
-						<label class="{new2.label}">所属职位：</label>
-						<div class="{new2.element}">
-								<g:InlineLabel ui:field="jobPosition" />
-						</div>
-					</div>
-					<div class="{new2.form-line}">
-						<label class="{new2.label}">直属领导：</label>
-						<div class="{new2.element}">
-
-								<g:InlineLabel ui:field="leadership" />
-						</div>
-					</div>
-
-					<div class="{new2.form-line}">
-						<label class="{new2.label}">电话：</label>
-						<div class="{new2.element}">
-								<g:InlineLabel ui:field="phone" />
-						</div>
-					</div>
-
-					<div class="{new2.form-line}">
-						<label class="{new2.label}">Email：</label>
-						<div class="{new2.element}">
-							<g:InlineLabel ui:field="email" />
-						</div>
-					</div>
-					<div class="{new2.form-line}">
-						<label class="{new2.label}">员工生日：</label>
-						<div class="{new2.element}">
-							<g:InlineLabel ui:field="dob" />
-						</div>
-					</div>
-					<div class="{new2.form-line}">
-						<label class="{new2.label}">员工状态：</label>
-						<div class="{new2.element}">
-							<g:InlineLabel ui:field="staffStatus" />
-						</div>
-					</div>
-
-
-
-					<span class="{new2.cutline}"></span>	
-					
 				</div>
 			</div>
-			
-					<h3>员工奖励信息
-			</h3>
-			<span class="{new2.cutline}"></span>
-			<div class="{new2.divtext}">共有 <g:InlineLabel ui:field="dataCount" styleName="{new2.divfont}"></g:InlineLabel> 次获奖</div><div  class="{new2.divend}"></div>
-			<div class="{new2.table}">
-				<g:FlowPanel ui:field="resultPanel" />
-			</div>
-
-
-			<!--分页 [[ -->
-			<div id="rewardlist_page" class="{new2.pager}">
-				<div class="{new2.pager-left}">
-					每页显示条数
-					<select class="{new2.select}">
-						<option>4</option>
-					</select>
-				</div>
-
-				<div class="{new2.pager-right}">
-					<g:FlowPanel ui:field="resultpage" />
-				</div>
-			</div>
-
 		</div>
-
 	</g:HTMLPanel>
 </ui:UiBinder> 

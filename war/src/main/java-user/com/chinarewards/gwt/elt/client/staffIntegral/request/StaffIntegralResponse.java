@@ -1,9 +1,5 @@
 package com.chinarewards.gwt.elt.client.staffIntegral.request;
 
-import java.util.Date;
-
-import com.chinarewards.gwt.elt.client.staffList.model.StaffListCriteria.StaffStatus;
-
 import net.customware.gwt.dispatch.shared.Result;
 
 /**
@@ -13,114 +9,13 @@ import net.customware.gwt.dispatch.shared.Result;
  */
 public class StaffIntegralResponse implements Result {
 
-	String staffId;
-	String staffNo;
-	String staffName;
-	String departmentId;
-	String departmentName;
-	String photo;
-	String jobPosition;
-	String leadership;
-	String phone;
-	String email;
-	Date dob;
-	StaffStatus status;
-	int leadTime;// 颁奖提前通知时间
+	private String staffId;
+	private String totalIntegral;
+	private String expenseIntegral;
+	private String balanceIntegral;
 
-	public int getLeadTime() {
-		return leadTime;
-	}
+	public StaffIntegralResponse() {
 
-	public void setLeadTime(int leadTime) {
-		this.leadTime = leadTime;
-	}
-
-	public String getDepartmentId() {
-		return departmentId;
-	}
-
-	public void setDepartmentId(String departmentId) {
-		this.departmentId = departmentId;
-	}
-
-	public String getStaffNo() {
-		return staffNo;
-	}
-
-	public void setStaffNo(String staffNo) {
-		this.staffNo = staffNo;
-	}
-
-	public String getStaffName() {
-		return staffName;
-	}
-
-	public void setStaffName(String staffName) {
-		this.staffName = staffName;
-	}
-
-	public String getDepartmentName() {
-		return departmentName;
-	}
-
-	public void setDepartmentName(String departmentName) {
-		this.departmentName = departmentName;
-	}
-
-	public String getPhoto() {
-		return photo;
-	}
-
-	public void setPhoto(String photo) {
-		this.photo = photo;
-	}
-
-	public String getJobPosition() {
-		return jobPosition;
-	}
-
-	public void setJobPosition(String jobPosition) {
-		this.jobPosition = jobPosition;
-	}
-
-	public String getLeadership() {
-		return leadership;
-	}
-
-	public void setLeadership(String leadership) {
-		this.leadership = leadership;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public Date getDob() {
-		return dob;
-	}
-
-	public void setDob(Date dob) {
-		this.dob = dob;
-	}
-
-	public StaffStatus getStatus() {
-		return status;
-	}
-
-	public void setStatus(StaffStatus status) {
-		this.status = status;
 	}
 
 	public String getStaffId() {
@@ -131,8 +26,28 @@ public class StaffIntegralResponse implements Result {
 		this.staffId = staffId;
 	}
 
-	public StaffIntegralResponse() {
+	public String getTotalIntegral() {
+		return totalIntegral;
+	}
 
+	public void setTotalIntegral(String totalIntegral) {
+		this.totalIntegral = totalIntegral;
+	}
+
+	public String getExpenseIntegral() {
+		return expenseIntegral;
+	}
+
+	public void setExpenseIntegral(String expenseIntegral) {
+		this.expenseIntegral = expenseIntegral;
+	}
+
+	public String getBalanceIntegral() {
+		return balanceIntegral;
+	}
+
+	public void setBalanceIntegral(String balanceIntegral) {
+		this.balanceIntegral = balanceIntegral;
 	}
 
 }

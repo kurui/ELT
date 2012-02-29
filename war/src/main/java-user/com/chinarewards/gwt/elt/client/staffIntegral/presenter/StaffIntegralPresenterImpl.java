@@ -10,7 +10,6 @@ import com.chinarewards.gwt.elt.client.staffIntegral.request.StaffIntegralReques
 import com.chinarewards.gwt.elt.client.staffIntegral.request.StaffIntegralResponse;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.win.Win;
-import com.chinarewards.gwt.elt.util.DateTool;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
@@ -57,26 +56,7 @@ public class StaffIntegralPresenterImpl extends
 
 					@Override
 					public void onSuccess(StaffIntegralResponse resp) {
-
-						display.setStaffNo(resp.getStaffNo());
-
-						display.setStaffName(resp.getStaffName());
-
-						if (resp.getDepartmentName().indexOf("ROOT") == -1)
-							display.setDepartmentName(resp.getDepartmentName());
-
-						display.setJobPosition(resp.getJobPosition());
-
-						display.setLeadership(resp.getLeadership());
-
-						display.setPhone(resp.getPhone());
-
-						display.setEmail(resp.getEmail());
-
-						display.setDob(DateTool.dateToString(resp.getDob()));
-
-						display.setStaffImage(resp.getPhoto());
-						display.setStaffStatus(resp.getStatus().toString());
+//						display.setStaffName(resp.getStaffName());
 
 					}
 				});
