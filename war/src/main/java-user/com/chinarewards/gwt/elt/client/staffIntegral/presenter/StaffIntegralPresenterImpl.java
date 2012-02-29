@@ -6,6 +6,7 @@ import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresente
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
+import com.chinarewards.gwt.elt.client.shopWindow.presenter.ShopWindowPresenter;
 import com.chinarewards.gwt.elt.client.staffIntegral.request.StaffIntegralRequest;
 import com.chinarewards.gwt.elt.client.staffIntegral.request.StaffIntegralResponse;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
@@ -22,19 +23,22 @@ public class StaffIntegralPresenterImpl extends
 	private final Win win;
 	final ErrorHandler errorHandler;
 
+	final ShopWindowPresenter shopWindowPresenter;
+	
 	private final BreadCrumbsPresenter breadCrumbs;
 
 	@Inject
 	public StaffIntegralPresenterImpl(EventBus eventBus,
 			StaffIntegralDisplay display, DispatchAsync dispatch,
 			SessionManager sessionManager, Win win,
-			BreadCrumbsPresenter breadCrumbs, ErrorHandler errorHandler) {
+			BreadCrumbsPresenter breadCrumbs, ErrorHandler errorHandler,ShopWindowPresenter shopWindowPresenter) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.sessionManager = sessionManager;
 		this.errorHandler = errorHandler;
 		this.win = win;
 		this.breadCrumbs = breadCrumbs;
+		this.shopWindowPresenter=shopWindowPresenter;
 	}
 
 	@Override
@@ -62,6 +66,10 @@ public class StaffIntegralPresenterImpl extends
 
 					}
 				});
+		
+		shopWindowPresenter.initShopWindow(1, 3);
+		shopWindowPresenter.bind();
+		display.setShopWindow(shopWindowPresenter.getDisplay().asWidget());
 	}
 
 }

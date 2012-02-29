@@ -18,5 +18,8 @@ public interface StaffIntegralPresenter extends
 		public Label getConsumptionIntegral();
 
 		public Label getBalanceIntegral();
+
+
+		public void setShopWindow(Widget asWidget);
 	}
 }

@@ -7,6 +7,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class StaffIntegralWidget extends Composite implements
@@ -21,6 +22,9 @@ public class StaffIntegralWidget extends Composite implements
 
 //	@UiField
 //	Panel breadCrumbs;
+	
+	@UiField
+	Panel shopWindow;
 
 	private static StaffIntegralWidgetUiBinder uiBinder = GWT
 			.create(StaffIntegralWidgetUiBinder.class);
@@ -54,6 +58,12 @@ public class StaffIntegralWidget extends Composite implements
 	@Override
 	public Label getBalanceIntegral() {
 		return balanceIntegral;
+	}
+
+	@Override
+	public void setShopWindow(Widget asWidget) {
+		this.shopWindow.clear();
+		this.shopWindow.add(asWidget);
 	}
 
 }

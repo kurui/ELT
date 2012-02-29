@@ -13,34 +13,43 @@
 						&gt;
 						<span>查看积分</span>
 					</div>
+				</div>
+				<div class="{new2.frame-wrap}">
+					<div class="{new2.query-wrap}">
+						<span>
+							<h3>我的积分</h3>
+						</span>
+						<div class="{new2.form}">
+							<div class="{new2.table}">
 
-
-					<div class="{new2.frame-wrap}">
-
-						<div class="{new2.query-wrap}">
-							<span>
-								<h3>我的积分</h3>
-							</span>
-							<div class="{new2.form}">
-								<div class="{new2.table}">
+								<div class="{new2.element}">
 									<label class="{new2.label}">获得的总积分：</label>
-									<div class="{new2.element}">
-										<g:InlineLabel ui:field="historyIntegral" />
-									</div>
+									<g:InlineLabel ui:field="historyIntegral" />
+									分
+									<span class="{new2.nbsp}"></span>
+									<span class="{new2.nbsp}"></span>
+									<span class="{new2.nbsp}"></span>
 									<label class="{new2.label}">剩余积分：</label>
-									<div class="{new2.element}">
-										<g:InlineLabel ui:field="balanceIntegral" />
-									</div>
-									<label class="{new2.label}">已消费积分：</label>
-									<div class="{new2.element}">
-										<g:InlineLabel ui:field="consumptionIntegral" />
-									</div>
+									<span class="{new2.nbsp}"></span>
+									<g:InlineLabel ui:field="balanceIntegral" />
+									分
 								</div>
+								<div class="{new2.element}">
+									<label class="{new2.label}">已消费积分：</label>
+									<span class="{new2.nbsp}"></span>
+									<span class="{new2.nbsp}"></span>
+									<g:InlineLabel ui:field="consumptionIntegral" />
+									分
+								</div>
+
+
 							</div>
 						</div>
+
 					</div>
 				</div>
 			</div>
 		</div>
+		<g:FlowPanel ui:field="shopWindow" />
 	</g:HTMLPanel>
 </ui:UiBinder> 
