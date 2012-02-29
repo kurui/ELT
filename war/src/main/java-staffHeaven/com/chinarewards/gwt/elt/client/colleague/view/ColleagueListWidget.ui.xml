@@ -21,58 +21,9 @@
 
         <div class="{new2.workmate-list}">
 
-          <div class="{new2.workmate}" ><!--IE6,鼠标滑过添加类workmate-on-->
-            <div class="{new2.workmate-show}">
-              <img src="img/workmate_template.png" width="72px" height="72px" />
-              <div class="{new2.workmate-info}">
-                <p class="{new2.workmate-name}">alax.mai</p>
-                <p>业务运营部</p>
-                <p>身体锻炼得越来越好了，就是肚子减不下去啊~~~</p>
-              </div>
-            </div>
-            <div class="{new2.workmate-comm}">
-              <a href="#">悄悄话</a>  <a href="#">调戏他</a>  <a href="#">发邮件</a>
-            </div>
-          </div>
-          <div class="{new2.workmate}" ><!--IE6,鼠标滑过添加类workmate-on-->
-            <div class="{new2.workmate-show}">
-              <img src="img/workmate_template.png" width="72px" height="72px" />
-              <div class="{new2.workmate-info}">
-                <p class="{new2.workmate-name}">alax.mai</p>
-                <p>业务运营部</p>
-                <p>身体锻炼得越来越好了，就是肚子减不下去啊~~~</p>
-              </div>
-            </div>
-            <div class="{new2.workmate-comm}">
-              <a href="#">悄悄话</a>  <a href="#">调戏他</a>  <a href="#">发邮件</a>
-            </div>
-          </div>
-                    <div class="{new2.workmate}" ><!--IE6,鼠标滑过添加类workmate-on-->
-            <div class="{new2.workmate-show}">
-              <img src="img/workmate_template.png" width="72px" height="72px" />
-              <div class="{new2.workmate-info}">
-                <p class="{new2.workmate-name}">alax.mai</p>
-                <p>业务运营部</p>
-                <p>身体锻炼得越来越好了，就是肚子减不下去啊~~~</p>
-              </div>
-            </div>
-            <div class="{new2.workmate-comm}">
-              <a href="#">悄悄话</a>  <a href="#">调戏他</a>  <a href="#">发邮件</a>
-            </div>
-          </div>
-                 <div class="{new2.workmate}" ><!--IE6,鼠标滑过添加类workmate-on-->
-            <div class="{new2.workmate-show}">
-              <img src="img/workmate_template.png" width="72px" height="72px" />
-              <div class="{new2.workmate-info}">
-                <p class="{new2.workmate-name}">alax.mai</p>
-                <p>业务运营部</p>
-                <p>身体锻炼得越来越好了，就是肚子减不下去啊~~~</p>
-              </div>
-            </div>
-            <div class="{new2.workmate-comm}">
-              <a href="#">悄悄话</a>  <a href="#">调戏他</a>  <a href="#">发邮件</a>
-            </div>
-          </div>
+  
+          
+
           
           
 <g:FlowPanel ui:field="resultPanel" styleName="{new2.panelClass}" />
@@ -83,9 +34,9 @@
         <!--分页 [[ -->
 			<div id="rewardlist_page2" class="{new2.pager}">
 				<div class="{new2.pager-left}">
-					每页显示广播条数
+					每页显示条数
 					<select class="{new2.select}">
-						<option>10</option>
+						<option>15</option>
 					</select>
 				</div>
 

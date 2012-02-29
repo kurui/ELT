@@ -50,8 +50,8 @@ public class ColleagueListPresenterImpl extends
 	
 	private void init() {	
 	
-//		buildTable();
-//		doSearch();
+		buildTable();
+		doSearch();
 	}
 
 	private void buildTable() {

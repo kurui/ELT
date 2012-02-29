@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:p1="urn:import:com.google.gwt.user.cellview.client"
+	xmlns:d='urn:import:com.google.gwt.user.datepicker.client'>
+	<ui:style src="new2.css" field="new2"></ui:style>
+	<g:HTMLPanel>
+	<div class="{new2.employee}">
+	     <div class="{new2.workmate-list}">
+	     <div class="{new2.workmate}" ><!--IE6,鼠标滑过添加类workmate-on-->
+            <div class="{new2.workmate-show}">
+              <img src="img/workmate_template.png" width="72px" height="72px" />
+              <div class="{new2.workmate-info}">
+                <p class="{new2.workmate-name}">alax.mai</p>
+                <p>业务运营部</p>
+                <p>身体锻炼得越来越好了，就是肚子减不下去啊~~~</p>
+              </div>
+            </div>
+            <div class="{new2.workmate-comm}">
+              <a href="#">悄悄话</a>  <a href="#">调戏他</a>  <a href="#">发邮件</a>
+            </div>
+          </div>
+          
+</div></div>
+	</g:HTMLPanel>
+</ui:UiBinder> 

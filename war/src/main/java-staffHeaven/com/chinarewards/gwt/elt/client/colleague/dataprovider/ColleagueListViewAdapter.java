@@ -1,8 +1,11 @@
 package com.chinarewards.gwt.elt.client.colleague.dataprovider;
 
+import java.util.List;
+
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.colleague.presenter.ColleagueListPresenter.ColleagueListDisplay;
+import com.chinarewards.gwt.elt.client.colleagueLattice.view.ColleagueLatticeWidget;
 import com.chinarewards.gwt.elt.client.dataprovider.BaseDataProvider;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.staffList.model.StaffListClient;
@@ -12,6 +15,7 @@ import com.chinarewards.gwt.elt.client.staffList.request.SearchStaffListResponse
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.model.PaginationDetailClient;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Grid;
 
 public class ColleagueListViewAdapter extends BaseDataProvider<StaffListClient> {
 
@@ -28,7 +32,7 @@ public class ColleagueListViewAdapter extends BaseDataProvider<StaffListClient> 
 		this.criteria = criteria;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
-		this.display=display;
+		this.display = display;
 	}
 
 	public void fetchData(final int start, final int length) {
@@ -52,24 +56,55 @@ public class ColleagueListViewAdapter extends BaseDataProvider<StaffListClient> 
 		if (getSorting() != null) {
 			getCriteria().setSorting(getSorting());
 		}
-		dispatch.execute(new SearchStaffListRequest(getCriteria(), sessionManager
-				.getSession()), new AsyncCallback<SearchStaffListResponse>() {
-			@Override
-			public void onFailure(Throwable e) {
-				errorHandler.alert(e.getMessage());
-			}
+		dispatch.execute(new SearchStaffListRequest(getCriteria(),
+				sessionManager.getSession()),
+				new AsyncCallback<SearchStaffListResponse>() {
+					@Override
+					public void onFailure(Throwable e) {
+						errorHandler.alert(e.getMessage());
+					}
 
-			@Override
-			public void onSuccess(SearchStaffListResponse response) {
-				updateRowData(start, response.getResult());
-				updateRowCount(response.getTotal(), true);
-				display.setDataCount(response.getTotal()+"");
-			}
+					@Override
+					public void onSuccess(SearchStaffListResponse response) {
+						updateRowData(start, response.getResult());
+						updateRowCount(response.getTotal(), true);
+						display.setDataCount(response.getTotal() + "");
 
-		});
+						List<StaffListClient> staffList = response.getResult();
+						int index = 0;
+
+						Grid grid = new Grid(5, 3);
+
+						// Add images to the grid
+						int numRows = grid.getRowCount();
+						int numColumns = grid.getColumnCount();
+						for (int row = 0; row < numRows; row++) {
+							for (int col = 0; col < numColumns; col++) {
+								if (index < staffList.size()) {
+									StaffListClient clint = staffList
+											.get(index);
+									grid.setWidget(row, col,
+											new ColleagueLatticeWidget());
+									index++;
+								} else {
+								//	break;
+									grid.setWidget(row, col,
+											new ColleagueLatticeWidget());
+								}
+							}
+						}
+
+						// Return the panel
+						grid.ensureDebugId("cwGrid");
+
+						display.getResultPanel().clear();
+						display.getResultPanel().add(grid);
+						display.setDataCount(response.getTotal() + "");
+					}
+
+				});
 		// }
 	}
-
 
 	public void setCriteria(StaffListCriteria criteria) {
 		this.criteria = criteria;
