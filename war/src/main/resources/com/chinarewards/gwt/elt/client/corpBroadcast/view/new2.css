@@ -261,6 +261,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .employee .workmate-wrap .workmate-title .workmate-num{font-size:12px;font-weight:normal;vertical-align:middle;display:inline-block;margin-top:-1px;\*margin-top:-2px;}
 .employee .workmate-wrap .workmate-select{float:right;width:200px;}
 .employee .workmate-wrap .text{width:100px;border:1px solid #BBBBBB;color:#999999;padding:3px;}
+.employee .workmate-wrap .button{color:#FFFFFF;background-color:#0D63B8;padding:2px 8px;border:1px solid #7CD2FD;border-bottom:1px solid #2E5F77;border-right:1px solid #3C7D9C;}
 
 .employee .workmate-list:after{content:".";display:block;clear:both;height:0;visibility:hidden;}
 .employee .workmate-list{\*zoom:1;overflow:hidden;}

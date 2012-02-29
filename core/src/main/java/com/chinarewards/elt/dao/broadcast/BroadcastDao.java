@@ -59,7 +59,11 @@ public class BroadcastDao  extends BaseDao<Broadcasting>{
 			hql.append(" AND broadcast.category = :category ");
 			param.put("category", searchVo.getCategory());
 		}
-		
+		if (!StringUtil.isEmptyString(searchVo.getQueryKey())) 
+		{
+			hql.append(" AND broadcast.content LIKE :queryKey ");
+			param.put("queryKey", "%"+searchVo.getQueryKey()+"%");
+		}
 		
 		if (!StringUtil.isEmptyString(searchVo.getCreatedByUserName())) {
 			hql.append(" AND broadcast.createdBy.staff.name LIKE :createdByUserName ");

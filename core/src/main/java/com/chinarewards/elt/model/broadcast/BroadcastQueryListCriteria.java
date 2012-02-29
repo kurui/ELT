@@ -76,7 +76,20 @@ public class BroadcastQueryListCriteria implements Serializable {
 	 * 创建人用户ID
 	 */
 	private String createUserId;
+	/**
+	 * 查询关键字
+	 */
+	private String queryKey;
 	
+	
+	
+	public String getQueryKey() {
+		return queryKey;
+	}
+
+	public void setQueryKey(String queryKey) {
+		this.queryKey = queryKey;
+	}
 	public String getCreateUserId() {
 		return createUserId;
 	}

@@ -6,9 +6,11 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
 public class CorpBroadcastWidget extends Composite implements
@@ -20,7 +22,11 @@ public class CorpBroadcastWidget extends Composite implements
 	Panel resultPanel;
 	@UiField
 	Panel resultpage;
-
+	@UiField
+	TextBox queryKey;
+	@UiField
+	Button queryBtn;
+	
 
 	DateTimeFormat dateFormat = DateTimeFormat
 			.getFormat(ViewConstants.date_format);
@@ -50,6 +56,16 @@ public class CorpBroadcastWidget extends Composite implements
 	@Override
 	public Panel getResultpage() {
 		return this.resultpage;
+	}
+
+	@Override
+	public TextBox getQueryKey() {
+		return queryKey;
+	}
+
+	@Override
+	public Button getQueryBtn() {
+		return queryBtn;
 	}
 
 
