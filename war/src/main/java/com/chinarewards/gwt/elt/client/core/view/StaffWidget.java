@@ -123,7 +123,7 @@ public class StaffWidget extends Composite implements StaffDisplay {
 	 
 		private void init() {
 			styleRewardOn=myWinReward.getElement().getParentElement().getAttribute("class");
-			
+
 			
 			effortRewardItem.addClickHandler(new ClickHandler() {
 				
@@ -172,7 +172,7 @@ public class StaffWidget extends Composite implements StaffDisplay {
 					corpBroadcastAnchor.setStyleName(anchorNo);
 					gloryAnchor.setStyleName(anchorNo);
 					settingAnchor.setStyleName(anchorNo);
-					
+					refLeftMenuStyle();
 				}
 			});
 			staffAnchor.addClickHandler(new ClickHandler() {
@@ -184,7 +184,7 @@ public class StaffWidget extends Composite implements StaffDisplay {
 					corpBroadcastAnchor.setStyleName(anchorNo);
 					gloryAnchor.setStyleName(anchorNo);
 					settingAnchor.setStyleName(anchorNo);
-					
+					refLeftMenuStyle();
 				}
 			});
 			corpBroadcastAnchor.addClickHandler(new ClickHandler() {
@@ -196,7 +196,7 @@ public class StaffWidget extends Composite implements StaffDisplay {
 					corpBroadcastAnchor.setStyleName(anchorOn);
 					gloryAnchor.setStyleName(anchorNo);
 					settingAnchor.setStyleName(anchorNo);
-					
+					refLeftMenuStyle();
 				}
 			});
 			gloryAnchor.addClickHandler(new ClickHandler() {
@@ -208,7 +208,7 @@ public class StaffWidget extends Composite implements StaffDisplay {
 					corpBroadcastAnchor.setStyleName(anchorNo);
 					gloryAnchor.setStyleName(anchorOn);
 					settingAnchor.setStyleName(anchorNo);
-					
+					refLeftMenuStyle();
 				}
 			});
 			settingAnchor.addClickHandler(new ClickHandler() {
@@ -220,12 +220,16 @@ public class StaffWidget extends Composite implements StaffDisplay {
 					corpBroadcastAnchor.setStyleName(anchorNo);
 					gloryAnchor.setStyleName(anchorNo);
 					settingAnchor.setStyleName(anchorOn);
-					
+					refLeftMenuStyle();
 				}
 			});
 			
 			
 			  styleOn=this.viewPoints.getElement().getParentElement().getAttribute("class");
+			  
+				//默认不选中左侧菜单
+			  viewPoints.getElement().getParentElement().setAttribute("class", styleRewardNo);
+			  
 			  viewPoints.addClickHandler(new ClickHandler() {
 
 				@Override
@@ -319,6 +323,17 @@ public class StaffWidget extends Composite implements StaffDisplay {
 				}
 			});
 		}
+		
+	private void refLeftMenuStyle()
+	{
+		viewPoints.getElement().getParentElement().setAttribute("class", styleNo);	
+		winninghistory.getElement().getParentElement().setAttribute("class", styleNo);	
+		participationAwards.getElement().getParentElement().setAttribute("class", styleNo);	
+		otherAwards.getElement().getParentElement().setAttribute("class", styleNo);	
+		exchangeHistory.getElement().getParentElement().setAttribute("class", styleNo);	
+		myMessage.getElement().getParentElement().setAttribute("class", styleNo);	
+		awardShop.getElement().getParentElement().setAttribute("class", styleNo);	
+	}
 	@Override
 	public Widget asWidget() {
 		return this;
