@@ -21,6 +21,7 @@ import com.chinarewards.gwt.elt.client.detailsOfAward.plugin.DetailsOfAwardConst
 import com.chinarewards.gwt.elt.client.enterprise.plugin.EnterpriseConstants;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftConstants;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftListConstants;
+import com.chinarewards.gwt.elt.client.hrbox.plugin.HrBoxConstants;
 import com.chinarewards.gwt.elt.client.integralManagement.plugin.IntegralManagementConstants;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.nominate.plugin.NominateConstants;
@@ -132,7 +133,11 @@ public class ButtonMenuProcessor implements MenuProcessor {
 					|| menuId.equals(GiftListConstants.MENU_GIFTLIST_SEARCH)
 					|| menuId.equals(EnterpriseConstants.MENU_ENTERPRISE_EDIT) 
 					|| menuId.equals(IntegralManagementConstants.MENU_INTEGRALMANAGEMENT_SEARCH)
-					|| menuId.equals(BroadcastingListConstants.MENU_BROADCASTINGLIST_SEARCH)) {
+					|| menuId.equals(BroadcastingListConstants.MENU_BROADCASTINGLIST_SEARCH)
+					|| menuId.equals(OrderViewConstants.MENU_ORDERBOX_SEARCH)
+					|| menuId.equals(UserBoxConstants.MENU_USERBOX_SEARCH)
+					|| menuId.equals(HrBoxConstants.MENU_HRBOX_SEARCH)) {
+
 				button.setStyleName("menu-link menu-selected");
 				breadCrumbsMenu.cleanBreadCrumbsItemTop();
 				if (menuId.equals(RewardsItemConstants.MENU_REWARDSITEM_List))
@@ -150,6 +155,12 @@ public class ButtonMenuProcessor implements MenuProcessor {
 					breadCrumbsMenu.addBreadCrumbsItemTop("积分管理", null);
 				else if (menuId.equals(BroadcastingListConstants.MENU_BROADCASTINGLIST_SEARCH))
 					breadCrumbsMenu.addBreadCrumbsItemTop("广播", null);
+				else if (menuId.equals(OrderViewConstants.MENU_ORDERBOX_SEARCH))
+					breadCrumbsMenu.addBreadCrumbsItemTop("收件箱", null);
+				else if (menuId.equals(UserBoxConstants.MENU_USERBOX_SEARCH))
+					breadCrumbsMenu.addBreadCrumbsItemTop("收件箱", null);
+				else if (menuId.equals(HrBoxConstants.MENU_HRBOX_SEARCH))
+					breadCrumbsMenu.addBreadCrumbsItemTop("收件箱", null);
 				breadCrumbsMenu.addBreadCrumbsItem(menuItem.getTitle(),
 						menuItem.getMenuId());
 			}
@@ -217,7 +228,7 @@ public class ButtonMenuProcessor implements MenuProcessor {
 		}else if ("Box".equals(keyname)) {
 			items.add(OrderViewConstants.MENU_ORDERBOX_SEARCH);
 			items.add(UserBoxConstants.MENU_USERBOX_SEARCH);
-
+			items.add(HrBoxConstants.MENU_HRBOX_SEARCH);  
 		}
 		return items;
 	}

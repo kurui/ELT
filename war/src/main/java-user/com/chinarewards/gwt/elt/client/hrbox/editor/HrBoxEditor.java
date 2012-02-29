@@ -1,7 +1,7 @@
-package com.chinarewards.gwt.elt.client.box.editor;
+package com.chinarewards.gwt.elt.client.hrbox.editor;
 
-import com.chinarewards.gwt.elt.client.box.presenter.UserBoxPresenter;
 import com.chinarewards.gwt.elt.client.core.ui.impl.AbstractEditor;
+import com.chinarewards.gwt.elt.client.hrbox.presenter.HrBoxPresenter;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
@@ -9,26 +9,26 @@ import com.google.inject.Inject;
  * @author lw
  * @since 2012年2月1日 13:35:29
  */
-public class UserBoxEditor extends AbstractEditor {
+public class HrBoxEditor extends AbstractEditor {
 
-	final UserBoxPresenter userBoxPresenter;
+	final HrBoxPresenter hrBoxPresenter;
 	Object model;
 
 	@Inject
-	protected UserBoxEditor(UserBoxEditorDescriptor editorDescriptor,
-			UserBoxPresenter userBoxPresenter) {
+	protected HrBoxEditor(HrBoxEditorDescriptor editorDescriptor,
+			HrBoxPresenter hrBoxPresenter) {
 		super(editorDescriptor);
-		this.userBoxPresenter = userBoxPresenter;
+		this.hrBoxPresenter = hrBoxPresenter;
 	}
 
 	@Override
 	public Widget asWidget() {
-		return userBoxPresenter.getDisplay().asWidget();
+		return hrBoxPresenter.getDisplay().asWidget();
 	}
 
 	@Override
 	public boolean beforeClose() {
-		userBoxPresenter.unbind();
+		hrBoxPresenter.unbind();
 		return true;
 	}
 	
@@ -43,7 +43,7 @@ public class UserBoxEditor extends AbstractEditor {
 	}
 
 	public void setModel(Object model) {
-		userBoxPresenter.initUserBox();
-		userBoxPresenter.bind();
+		hrBoxPresenter.initHrBox();
+		hrBoxPresenter.bind();
 	}
 }

@@ -159,7 +159,7 @@ public class RewardsListStaffPresenterImpl extends
 				new GetValue<RewardsClient, String>() {
 					@Override
 					public String getValue(RewardsClient rewards) {
-						return rewards.getStaff().getName();
+						return rewards.getCreatedBy();
 					}
 				}, ref, "createdBy");
 
