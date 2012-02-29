@@ -2,7 +2,6 @@ package com.chinarewards.gwt.elt.client.orderHistory.presenter;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
-import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
@@ -34,26 +33,24 @@ public class OrderHistoryViewPresenterImpl extends
 	final SessionManager sessionManager;
 	final Win win;
 
-	private final BreadCrumbsPresenter breadCrumbs;
+	
 
 	@Inject
 	public OrderHistoryViewPresenterImpl(EventBus eventBus,
 			DispatchAsync dispatcher, ErrorHandler errorHandler,
 			SessionManager sessionManager, OrderHistoryViewDisplay display,
-			Win win, BreadCrumbsPresenter breadCrumbs) {
+			Win win) {
 		super(eventBus, display);
 		this.dispatcher = dispatcher;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
 		this.win = win;
-		this.breadCrumbs = breadCrumbs;
+		
 	}
 
 	@Override
 	public void bind() {
-		breadCrumbs.loadChildPage("查看兑换详细");
-		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
-
+		
 		initWidget();
 	}
 

@@ -294,6 +294,9 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .employee .order-detail .order-section{border:1px solid #CCCDCC;background-color:#F4F5F4;margin-top:10px;padding:10px 15px;}
 .employee .order-detail .order-section p{line-height:25px;}
 .employee .order-detail .order-section .order-field{display:inline-block;text-align:right;width:60px;}
+.employee .order-detail .order-section .button{color:#FFFFFF;background-color:#0D63B8;padding:2px 8px;border:1px solid #7CD2FD;border-bottom:1px solid #2E5F77;border-right:1px solid #3C7D9C;}
+.employee .order-detail .button{color:#FFFFFF;background-color:#0D63B8;padding:2px 8px;border:1px solid #7CD2FD;border-bottom:1px solid #2E5F77;border-right:1px solid #3C7D9C;}
+
 .employee .order-detail .order-title{color:#356CA7;padding-top:15px}
 .employee .order-detail .order-gift-info{width:100%;margin-top:10px;}
 .employee .order-detail .order-gift-info,.employee .order-detail .order-gift-info td,.employee .order-detail .order-gift-info th{border:1px solid #CCCDCC;}

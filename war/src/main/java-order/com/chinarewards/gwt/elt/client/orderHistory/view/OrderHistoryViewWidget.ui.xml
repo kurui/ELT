@@ -6,10 +6,16 @@
 	<ui:style src="new1.css" field="new1"></ui:style>
 	<g:HTMLPanel>
 	 <div class="{new1.employee}">
-		  <!-- 内容区 [[-->
-		    <div class="{new1.content-wrap}">
-		      <div class="{new1.content-info}">
-		        <g:FlowPanel ui:field="breadCrumbs" />
+
+			<div class="{new1.content-wrap}">
+				<div class="{new1.content-info}">
+					<div class="{new1.breadcrumb}">
+						<a href="#">首页</a>
+						&gt;
+						<span>兑换历史</span>&gt;
+						<span>订单详情</span>
+					</div>
+			
 		
 		        <div class="{new1.order-detail}">
 		          <h3>订单详细</h3>
@@ -17,7 +23,7 @@
 		          <div class="{new1.order-section}">
 		            <p><span class="{new1.order-field}">订单编号：</span> <g:InlineLabel ui:field="orderCode" /></p>
 		            <p><span class="{new1.order-field}">下单时间：</span> <g:InlineLabel ui:field="exchangeDate" /></p>
-		            <p><span class="{new1.order-field}">订单状态：</span> <g:InlineLabel ui:field="statusText" /><g:Button ui:field="confirmbutton" text="确认定单"  /><g:Button ui:field="receivebutton" text="确认收货"  /></p>
+		            <p><span class="{new1.order-field}">订单状态：</span> <g:InlineLabel ui:field="statusText" />  <g:Button ui:field="confirmbutton" text="确认定单" styleName="{new1.button}"/> <g:Button ui:field="receivebutton" styleName="{new1.button}" text="确认收货"  /></p>
 		            
 		          </div>
 		
@@ -66,7 +72,7 @@
 		          <p class="{new1.link-manager}">收到礼品后如确认无误，请及时改变订单状态，如无处理，订单状态将在45天后自动改为“确认收货”状态。
 		                                    如收货后发现问题，请与系统礼品管理员或礼品公司联系调换，谢谢合作！</p>
 									
-		          <p class="{new1.back-btn-wrap}"> <span class="{new1.blue-btn}"><g:Button ui:field="returnbutton" text="返回" /></span></p>
+		          <p class="{new1.back-btn-wrap}"> <g:Button ui:field="returnbutton" text="返回" styleName="{new1.button}"/></p>
 		
 		        </div>
 		      </div>

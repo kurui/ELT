@@ -13,7 +13,6 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -63,8 +62,6 @@ public class OrderHistoryViewWidget extends Composite implements
 	InlineLabel business;
 	@UiField
 	InlineLabel servicetell;
-	@UiField
-	Panel breadCrumbs;
 	
 	private static OrderHistoryViewWidgetUiBinder uiBinder = GWT
 			.create(OrderHistoryViewWidgetUiBinder.class);
@@ -143,10 +140,6 @@ public class OrderHistoryViewWidget extends Composite implements
 		return receivebutton;
 	}
 
-	@Override
-	public void setBreadCrumbs(Widget breadCrumbs) {
-		this.breadCrumbs.clear();
-		this.breadCrumbs.add(breadCrumbs);
-	}
+	
 
 }
