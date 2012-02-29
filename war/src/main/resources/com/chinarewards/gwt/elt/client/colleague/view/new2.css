@@ -284,4 +284,31 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .taste-icon{background-position:-222px -236px;width:38px;height:55px;}
 
 .panelClass table{width:100%}
+.employee .employee-norightsidebar{background-image:none;margin-left:262px;}
+.employee .employee-norightsidebar .content-info{margin-right:218px;background-color:#F4F4F4;}
+/*----------------------------------------- 我的同事 -------------------------------------------------------*/
+.employee .workmate-wrap{padding-left:15px;}
+.employee .workmate-wrap .workmate-top{border-bottom:1px solid #DDDDDD;overflow:hidden;padding:15px 0 2px 0;}
+.employee .workmate-wrap .workmate-title{float:left;width:300px;color:#999999;}
+.employee .workmate-wrap .workmate-title h3{font-size:18px;color:#000000;font-weight:normal;height:27px;line-height:27px;}
+.employee .workmate-wrap .workmate-title .workmate-num{font-size:12px;font-weight:normal;vertical-align:middle;display:inline-block;margin-top:-1px;\*margin-top:-2px;}
+.employee .workmate-wrap .workmate-select{float:right;width:200px;}
+.employee .workmate-wrap .text{width:100px;border:1px solid #BBBBBB;color:#999999;padding:3px;}
+.employee .workmate-wrap .button{color:#FFFFFF;background-color:#0D63B8;padding:2px 8px;border:1px solid #7CD2FD;border-bottom:1px solid #2E5F77;border-right:1px solid #3C7D9C;}
+
+.employee .workmate-list:after{content:".";display:block;clear:both;height:0;visibility:hidden;}
+.employee .workmate-list{\*zoom:1;overflow:hidden;}
+.employee .workmate-list{padding:15px 0;border-bottom:1px solid #DDDDDD;}
+.employee .workmate-list .workmate{float:left;width:266px;padding:8px;margin:0 10px 10px 0;}
+.employee .workmate:hover,.employee .workmate-list .workmate-on{background-color:#DFEEF8;}
+.employee .workmate .workmate-show:after{content:".";display:block;clear:both;height:0;visibility:hidden;}
+.employee .workmate .workmate-show{\*zoom:1;overflow:hidden;}
+.employee .workmate .workmate-show img{float:left;width:72px;height:72px;overflow:hidden;border:1px solid #DBDBDB;padding:2px;margin-right:8px;}
+.employee .workmate .workmate-show .workmate-info{float:left;width:180px;height:76px;overflow:hidden;}
+
+.employee .workmate .workmate-name{color:#356CA6;}
+.employee .workmate p{line-height:20px;}
+.employee .workmate .workmate-comm{margin-top:7px;visibility:hidden;}
+.employee .workmate .workmate-comm a{border:1px solid #BEBEBE;background-color:#ffffff;color:#975A02;padding:2px 4px;text-decoration:none;}
+.employee .workmate:hover .workmate-comm,.employee .workmate-list .workmate-on .workmate-comm{visibility:visible;}
 
