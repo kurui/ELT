@@ -82,6 +82,7 @@ import com.chinarewards.gwt.elt.client.staff.request.HrRegisterRequest;
 import com.chinarewards.gwt.elt.client.staff.request.LeadTimeRequest;
 import com.chinarewards.gwt.elt.client.staffAdd.request.StaffAddRequest;
 import com.chinarewards.gwt.elt.client.staffHeavenIndex.request.StaffHeavenIndexRequest;
+import com.chinarewards.gwt.elt.client.staffIntegral.request.StaffIntegralRequest;
 import com.chinarewards.gwt.elt.client.staffList.request.SearchStaffListRequest;
 import com.chinarewards.gwt.elt.client.staffList.request.StaffGenerateUserRequest;
 import com.chinarewards.gwt.elt.client.staffList.request.UpdateUserPwdRequest;
@@ -171,6 +172,7 @@ import com.chinarewards.gwt.elt.server.rewards.SearchRewardsStaffHandler;
 import com.chinarewards.gwt.elt.server.shopWindow.SearchShopWindowHandler;
 import com.chinarewards.gwt.elt.server.staff.HrRegisterActionHandler;
 import com.chinarewards.gwt.elt.server.staff.LeadTimeActionHandler;
+import com.chinarewards.gwt.elt.server.staff.SearchStaffIntegralActionHandler;
 import com.chinarewards.gwt.elt.server.staff.SearchStaffListActionHandler;
 import com.chinarewards.gwt.elt.server.staff.SearchStaffViewActionHandler;
 import com.chinarewards.gwt.elt.server.staff.SearchStaffWinActionHandler;
@@ -357,6 +359,9 @@ public class ActionModule extends ActionHandlerModule {
 		bindHandler(StaffAddRequest.class,StaffAddActionHandler.class);
 		//员工详细信息
 		bindHandler(StaffViewRequest.class,SearchStaffViewActionHandler.class);
+		//查看员工积分
+		bindHandler(StaffIntegralRequest.class,SearchStaffIntegralActionHandler.class);
+		
 		//员工获奖情况
 		bindHandler(StaffWinRequest.class,SearchStaffWinActionHandler.class);
 		//员工生成用户

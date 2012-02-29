@@ -34,6 +34,7 @@ import com.chinarewards.gwt.elt.client.smallControl.view.SmallRewardItemWindowWi
 import com.chinarewards.gwt.elt.client.smallControl.view.SmallRewardWindowWidget;
 import com.chinarewards.gwt.elt.client.smallControl.view.SmallShopWindowWidget;
 import com.chinarewards.gwt.elt.client.staffHeavenIndex.plugin.StaffHeavenIndexConstants;
+import com.chinarewards.gwt.elt.client.staffIntegral.plugin.StaffIntegralConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.model.rewards.RewardsPageClient;
 import com.chinarewards.gwt.elt.model.user.UserRoleVo;
@@ -173,8 +174,8 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(
-										AwardShopListConstants.EDITOR_AWARDSHOPLIST_SEARCH,
-										"EDITOR_AWARDSHOPLIST_SEARCH_DO_ID",
+										StaffIntegralConstants.EDITOR_STAFFINTEGRAL_SEARCH,
+										"EDITOR_STAFFINTEGRAL_SEARCH_DO_ID",
 										null);
 					}
 				}));
