@@ -155,7 +155,7 @@
 			            <li><g:Anchor ui:field="allReward" text="全部奖项" /></li>
 			          </ul>
 			          <ul class="{new2.reward-list}">
-			          <g:FlowPanel ui:field="rewardPanel" />
+			          <g:FlowPanel ui:field="rewardPanel" styleName="{new2.panelClass}" />
 			          </ul>
 			        
 			          <p><a href="#">更多&gt;&gt;</a></p>
@@ -167,7 +167,7 @@
 			            <li><g:Anchor ui:field="allRewardItem" text="公司所有奖项" /></li>
 			          </ul>
 			          <ul class="{new2.reward-list} {new2.reward-pslist}">
-			             <g:FlowPanel ui:field="rewardItemPanel" />
+			             <g:FlowPanel ui:field="rewardItemPanel" styleName="{new2.panelClass}" />
 			          </ul>
 			          <p><a href="#">更多&gt;&gt;</a></p>
 			        </div>

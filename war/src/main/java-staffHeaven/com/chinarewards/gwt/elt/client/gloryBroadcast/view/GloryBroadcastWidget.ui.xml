@@ -13,27 +13,8 @@
  		<div class="{new2.news-content} {new2.glorylist-content}">
             <img src="elt/images/glorylist.png" width="441px" height="74px" class="{new2.glorylist-logo}" />
             <div class="{new2.news-list} {new2.remark-list}">
-              <div class="{new2.remark-list-info} {new2.clearfix}">
-                <span class="{new2.award-wrap}"><span class="{new2.award-icon} {new2.quarter-icon}"></span></span>
-                <div class="{new2.remark-info-wrap}">
-                  <p><span class="{new2.remark-content}">恭喜jol荣获2011年最佳员工奖，特此表扬，以资鼓励！</span></p>
-                  <p><span>9月14日 09:35</span>  来自<span>人事部</span>  <a href="#">回复(9)</a> | <a href="#">我来回复</a></p>
-                </div>
-             </div>
-                       <div class="{new2.remark-list-info} {new2.clearfix}">
-                <span class="{new2.award-wrap}"><span class="{new2.award-icon} {new2.quarter-icon}"></span></span>
-                <div class="{new2.remark-info-wrap}">
-                  <p><span class="{new2.remark-content}">恭喜jol荣获2011年最佳员工奖，特此表扬，以资鼓励！</span></p>
-                  <p><span>9月14日 09:35</span>  来自<span>人事部</span>  <a href="#">回复(9)</a> | <a href="#">我来回复</a></p>
-                </div>
-             </div>
-                           <div class="{new2.remark-list-info} {new2.clearfix}">
-                <span class="{new2.award-wrap}"><span class="{new2.award-icon} {new2.quarter-icon}"></span></span>
-                <div class="{new2.remark-info-wrap}">
-                  <p><span class="{new2.remark-content}">恭喜jol荣获2011年最佳员工奖，特此表扬，以资鼓励！</span></p>
-                  <p><span>9月14日 09:35</span>  来自<span>人事部</span>  <a href="#">回复(9)</a> | <a href="#">我来回复</a></p>
-                </div>
-             </div>
+    
+            
 
 			<g:FlowPanel ui:field="resultPanel" styleName="{new2.panelClass}" />
 

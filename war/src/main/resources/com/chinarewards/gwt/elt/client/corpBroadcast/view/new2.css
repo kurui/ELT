@@ -279,3 +279,4 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .employee .workmate .workmate-comm a{border:1px solid #BEBEBE;background-color:#ffffff;color:#975A02;padding:2px 4px;text-decoration:none;}
 .employee .workmate:hover .workmate-comm,.employee .workmate-list .workmate-on .workmate-comm{visibility:visible;}
 
+.panelClass table{width:100%}
