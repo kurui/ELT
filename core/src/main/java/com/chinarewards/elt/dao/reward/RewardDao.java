@@ -11,6 +11,7 @@ import javax.persistence.Query;
 
 import com.chinarewards.elt.common.BaseDao;
 import com.chinarewards.elt.dao.user.UserDao;
+import com.chinarewards.elt.domain.budget.CorpBudget;
 import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.org.Organization;
@@ -525,6 +526,21 @@ public class RewardDao extends BaseDao<Reward> {
 				.setParameter("staffId", staffId).getResultList();
 		
 		return judgeList.size();
+		
+	}
+		
+	@SuppressWarnings("unchecked")
+	public  List<Reward> hrBoxRewards(String corporationId,RewardSearchVo criteria) {
+		String sql = "FROM Reward rew  WHERE rew.corporation.id = :corporationId AND rew.status = :status  and rew.deleted = :deleted and rew.lastModifiedAt between :lastmonth and sysdate ";
+		
+		List<Reward> resultList = getEm().createQuery(sql)
+				.setParameter("corporationId", corporationId)
+				.setParameter("status", criteria.getStatus())
+				.setParameter("deleted", false)
+				.setParameter("lastmonth", criteria.getLastMonth())
+				.getResultList();
+		
+		return resultList;
 		
 	}
 }

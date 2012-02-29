@@ -105,9 +105,16 @@ public interface RewardService {
 	 * @param criteria
 	 * @return
 	 */
-	public PageStore<RewardVo> fetchRewards(UserContext context,
-			RewardSearchVo criteria);
+	public PageStore<RewardVo> fetchRewards(UserContext context,RewardSearchVo criteria);
 	
+	/**
+	 * HR收件箱查询一个月内完成的奖励
+	 * 
+	 * @param context
+	 * @param criteria
+	 * @return
+	 */
+	public List<RewardVo> getRewardsByHrBox(UserContext context,RewardSearchVo criteria);
 	/**
 	 * 查询我的获奖列表
 	 * 

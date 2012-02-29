@@ -3,6 +3,8 @@
  */
 package com.chinarewards.gwt.elt.client.rewards.model;
 
+import java.util.Date;
+
 import com.chinarewards.gwt.elt.model.PaginationDetailClient;
 import com.chinarewards.gwt.elt.model.SortingDetailClient;
 import com.google.gwt.user.client.rpc.IsSerializable;
@@ -94,6 +96,14 @@ public class RewardsCriteria implements IsSerializable {
 	 * 某员工id---查某员工的奖励记录
 	 */
 	private String staffId;
+	 private Date lastMonth;//上个月是
+	public Date getLastMonth() {
+		return lastMonth;
+	}
+
+	public void setLastMonth(Date lastMonth) {
+		this.lastMonth = lastMonth;
+	}
 
 	@Override
 	public String toString() {

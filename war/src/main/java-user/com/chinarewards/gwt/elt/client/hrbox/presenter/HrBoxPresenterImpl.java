@@ -1,6 +1,7 @@
 package com.chinarewards.gwt.elt.client.hrbox.presenter;
 
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,8 +9,6 @@ import java.util.Map;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.awardShop.plugin.AwardShopListConstants;
-import com.chinarewards.gwt.elt.client.awardShop.request.SearchAwardShopRequest;
-import com.chinarewards.gwt.elt.client.awardShop.request.SearchAwardShopResponse;
 import com.chinarewards.gwt.elt.client.box.request.UserBoxRequest;
 import com.chinarewards.gwt.elt.client.box.request.UserBoxResponse;
 import com.chinarewards.gwt.elt.client.budget.model.CorpBudgetVo;
@@ -21,9 +20,9 @@ import com.chinarewards.gwt.elt.client.core.presenter.DockPresenter;
 import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
-import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria;
-import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria.GiftStatus;
 import com.chinarewards.gwt.elt.client.hrbox.presenter.HrBoxPresenter.HrBoxDisplay;
+import com.chinarewards.gwt.elt.client.hrbox.request.HrBoxRewardsRequest;
+import com.chinarewards.gwt.elt.client.hrbox.request.HrBoxRewardsResponse;
 import com.chinarewards.gwt.elt.client.hrbox.view.RewardWindowWidget;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
@@ -31,6 +30,9 @@ import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.order.model.OrderStatus;
 import com.chinarewards.gwt.elt.client.order.request.OrderBoxRequest;
 import com.chinarewards.gwt.elt.client.order.request.OrderBoxResponse;
+import com.chinarewards.gwt.elt.client.rewards.model.RewardsClient;
+import com.chinarewards.gwt.elt.client.rewards.model.RewardsCriteria;
+import com.chinarewards.gwt.elt.client.rewards.model.RewardsCriteria.RewardsStatus;
 import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
@@ -42,6 +44,7 @@ import com.chinarewards.gwt.elt.client.widget.Sorting;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.model.rewards.RewardPageType;
 import com.chinarewards.gwt.elt.model.rewards.RewardsPageClient;
+import com.chinarewards.gwt.elt.util.DateTool;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -97,47 +100,42 @@ public class HrBoxPresenterImpl extends BasePresenter<HrBoxDisplay>
 				menuProcessor.changItemColor("待提名奖项");
 			}
 		}));
-		GiftCriteria criteria = new GiftCriteria();
-		criteria.setStatus(GiftStatus.SHELVES);
-		// 查询参数....待添加
-		dispatch.execute(new SearchAwardShopRequest(criteria, sessionManager
-				.getSession().getCorporationId(), sessionManager.getSession()
-				.getUserRoles(), sessionManager.getSession().getToken()),
-				new AsyncCallback<SearchAwardShopResponse>() {
+		RewardsCriteria criteria = new RewardsCriteria();
+		criteria.setStatus(RewardsStatus.REWARDED);//颁奖完
+		criteria.setLastMonth(DateTool.addSomeMonth(new Date(), -1));//上个月的时间
+		dispatch.execute(new HrBoxRewardsRequest( criteria,sessionManager.getSession()),
+				new AsyncCallback<HrBoxRewardsResponse>() {
 					@Override
 					public void onFailure(Throwable e) {
 						Window.alert(e.getMessage());
 					}
 
 					@Override
-					public void onSuccess(SearchAwardShopResponse response) {
+					public void onSuccess(HrBoxRewardsResponse response) {
 
-						List<GiftClient> giftList = response.getResult();
+						List<RewardsClient> rewardsList = response.getResult();
 						int index = 0;
-						Grid grid = new Grid(3, 3);
+						Grid grid = new Grid(2, 3);
 
 						// Add images to the grid
 						int numRows = grid.getRowCount();
 						int numColumns = grid.getColumnCount();
 						for (int row = 0; row < numRows; row++) {
 							for (int col = 0; col < numColumns; col++) {
-								if (index < giftList.size()) {
-									GiftClient clint = giftList.get(index);
-									grid.setWidget(
-											row,
-											col,
-											new RewardWindowWidget(clint.getId(),clint.getName()));
+								if (index < rewardsList.size()) {
+									RewardsClient clint = rewardsList.get(index);
+									grid.setWidget(row,	col,new RewardWindowWidget(clint.getId(),clint.getName()));
 									index++;
+									if(index == 5)
+										break;
 								} else {
-									grid.setWidget(row, col,
-											new RewardWindowWidget(null,null));
+									grid.setWidget(row, col,new RewardWindowWidget(null,"无数据"));
 								}
 							}
 						}
 
 						// Return the panel
 						grid.ensureDebugId("cwGrid");
-
 						display.getRewardWindow().clear();
 						display.getRewardWindow().add(grid);
 
@@ -147,18 +145,25 @@ public class HrBoxPresenterImpl extends BasePresenter<HrBoxDisplay>
 		  display.getView().addClickHandler(new ClickHandler() {//更多
 		   @Override
 			public void onClick(ClickEvent event) {
+			   dockPresenter.getDisplay().changeTopMenu("Reward");
+				dockPresenter.getDisplay().setMenuTitle("应用奖项");
+				menuProcessor.initrender(dockPresenter.getDisplay().getMenu(), "Reward");
+
+			//	eventBus.fireEvent(new MenuClickEvent(menuProcessor.getMenuItem(RewardsListConstants.MENU_REWARDSLIST_SEARCH)));
+				RewardsPageClient rpc=new RewardsPageClient();
+				rpc.setTitleName("已颁奖历史");
+				rpc.setPageType(RewardPageType.DETAILSOFAWARDPAGE);
 				Platform.getInstance()
-				.getEditorRegistry()
-				.openEditor(
-						AwardShopListConstants.EDITOR_AWARDSHOPLIST_SEARCH,
-						"EDITOR_AWARDSHOPLIST_SEARCH_DO_ID", null);
+						.getEditorRegistry()
+						.openEditor(
+								RewardsListConstants.EDITOR_REWARDSLIST_SEARCH,
+								"EDITOR_REWARDSLIST_SEARCH_DO_ID", rpc);
+				menuProcessor.changItemColor("已颁奖历史");
 				
 			}
 		});
 
 	}
-
-	
 
 	@Override
 	public void initHrBox() {
@@ -185,7 +190,6 @@ public class HrBoxPresenterImpl extends BasePresenter<HrBoxDisplay>
 						@Override
 						public void onFailure(Throwable arg0) {
 							errorHandler.alert("查询出错!");
-							
 						}
 						@Override
 						public void onSuccess(UserBoxResponse response) {
@@ -203,9 +207,7 @@ public class HrBoxPresenterImpl extends BasePresenter<HrBoxDisplay>
 			          	@Override
 						public void onFailure(Throwable arg0) {
 							errorHandler.alert("查询财年周期出错!");
-							
 						}
-
 						@Override
 						public void onSuccess(InitCorpBudgetResponse response) {
 							 List<CorpBudgetVo> list = response.getResult();
@@ -226,8 +228,7 @@ public class HrBoxPresenterImpl extends BasePresenter<HrBoxDisplay>
 
 							 }
 								
-							//	display.initYear(map);
-							
+													
 						}
 
 					});

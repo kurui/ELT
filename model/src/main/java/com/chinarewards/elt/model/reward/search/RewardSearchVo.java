@@ -3,6 +3,7 @@
  */
 package com.chinarewards.elt.model.reward.search;
 
+import java.util.Date;
 import java.util.List;
 
 import com.chinarewards.elt.model.common.PaginationDetail;
@@ -79,7 +80,7 @@ public class RewardSearchVo {
 	 * Unit to award
 	 */
 	private TransactionUnit awardUnit;
-
+    private Date lastMonth;//上个月是
 	public String getJudgeUserId() {
 		return judgeUserId;
 	}
@@ -94,6 +95,14 @@ public class RewardSearchVo {
 
 	public void setRewardId(String rewardId) {
 		this.rewardId = rewardId;
+	}
+
+	public Date getLastMonth() {
+		return lastMonth;
+	}
+
+	public void setLastMonth(Date lastMonth) {
+		this.lastMonth = lastMonth;
 	}
 
 	public PaginationDetail getPaginationDetail() {
