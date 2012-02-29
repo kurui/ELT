@@ -6,15 +6,17 @@
 	<g:HTMLPanel>
 	<div class="{new2.employee}">
 	  <!-- 内容区 [[-->
-    <div class="{new2.content-wrap}">
+    <div class="{new2.content-wrap} {new2.glorylist-wrap}">
       <div class="{new2.content-info}">
-			<h3>光荣榜
-			</h3>
+	
+ <div class="{new2.news-wrap}">
+ 		<div class="{new2.news-content} {new2.glorylist-content}">
+            <img src="elt/images/glorylist.png" width="441px" height="74px" class="{new2.glorylist-logo}" />
+            <div class="{new2.news-list} {new2.remark-list}">
+    
+            
 
-        <div class="{new2.news-list}">
-         
-
-			<g:FlowPanel ui:field="resultPanel" />
+			<g:FlowPanel ui:field="resultPanel" styleName="{new2.panelClass}" />
 
         <!--分页 [[ -->
 			<div id="rewardlist_page2" class="{new2.pager}">
@@ -32,9 +34,9 @@
 			</div>
 			<!--分页 ]] -->
       </div>
-    </div>
+    </div></div>
     <!-- 内容区 ]]-->
-		
+		</div>
 </div></div>
 	</g:HTMLPanel>
 </ui:UiBinder> 

@@ -10,6 +10,7 @@ import com.chinarewards.gwt.elt.client.awardShop.plugin.AwardShopListConstants;
 import com.chinarewards.gwt.elt.client.awardShop.request.SearchAwardShopRequest;
 import com.chinarewards.gwt.elt.client.awardShop.request.SearchAwardShopResponse;
 import com.chinarewards.gwt.elt.client.breadCrumbs.ui.BreadCrumbsMenu;
+import com.chinarewards.gwt.elt.client.colleague.plugin.ColleagueListConstants;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.PluginManager;
 import com.chinarewards.gwt.elt.client.core.presenter.StaffPresenter.StaffDisplay;
@@ -294,6 +295,18 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 						"EDITOR_MESSAGELIST_SEARCH_DO_ID", null);
 			}
 		}));
+		//我的同事
+		registerHandler(display.getStaffAnchor().addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				Platform.getInstance()
+				.getEditorRegistry()
+				.openEditor(
+						ColleagueListConstants.EDITOR_COLLEAGUELIST_SEARCH,
+						"EDITOR_COLLEAGUELIST_SEARCH_DO_ID", null);
+			}
+		}));
+		
 
 	}
 

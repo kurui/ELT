@@ -15,6 +15,11 @@ import com.chinarewards.gwt.elt.client.widget.EltNewPager;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager.TextLocation;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.win.Win;
+import com.chinarewards.gwt.elt.util.StringUtil;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.FocusEvent;
+import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.inject.Inject;
 
 public class CorpBroadcastPresenterImpl extends
@@ -50,10 +55,27 @@ public class CorpBroadcastPresenterImpl extends
 
 
 	private void init() {
-
 		
 		buildTable();
-		doSearch(null);
+		doSearch(BroadcastingCategory.COMPANYBROADCAST,null);
+		
+		display.getQueryKey().addFocusHandler(new FocusHandler() {
+			
+			@Override
+			public void onFocus(FocusEvent event) {
+				if("输入关键词".equals(display.getQueryKey().getValue()))
+					display.getQueryKey().setText("");
+				
+			}
+ 
+		});
+		display.getQueryBtn().addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				doSearch(BroadcastingCategory.COMPANYBROADCAST,display.getQueryKey().getValue());
+			}
+		});
 	}
 
 	private void buildTable() {
@@ -73,10 +95,12 @@ public class CorpBroadcastPresenterImpl extends
 
 	}
 
-	private void doSearch(BroadcastingCategory category) {
+	private void doSearch(BroadcastingCategory category,String key) {
 		StaffHeavenIndexCriteria criteria = new StaffHeavenIndexCriteria();
-		if (category != null)
+		if(category != null)
 			criteria.setCategory(category);
+		if(!StringUtil.isEmpty(key))
+			criteria.setQueryKey(key);
 		listViewAdapter = new CorpBroadcastViewAdapter(dispatch, criteria,
 				errorHandler, sessionManager, display, win);
 		listViewAdapter.addDataDisplay(cellTable);
