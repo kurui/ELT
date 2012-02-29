@@ -118,7 +118,7 @@ public class EnterprisePresenterImpl extends BasePresenter<EnterpriseDisplay> im
 		dispatchAsync.execute(req, new AsyncCallback<EnterpriseInitResponse>() {
 			public void onFailure(Throwable caught) {
 				
-				Window.alert("初始化失败");
+				win.alert("初始化失败");
 			}
 			@Override
 			public void onSuccess(EnterpriseInitResponse response) {

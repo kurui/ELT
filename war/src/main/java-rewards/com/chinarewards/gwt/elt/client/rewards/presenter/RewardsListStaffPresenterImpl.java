@@ -69,7 +69,7 @@ public class RewardsListStaffPresenterImpl extends
 		registerHandler(display.getSearchBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
-						// Window.alert(sessionManager.getSession().getLoginName());
+						// win.alert(sessionManager.getSession().getLoginName());
 						iniWidget();
 					}
 				}));

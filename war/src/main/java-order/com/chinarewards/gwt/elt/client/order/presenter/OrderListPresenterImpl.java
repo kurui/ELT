@@ -115,7 +115,7 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 
 	private void doSearch() {
 		OrderSearchVo criteria = new OrderSearchVo();
-		//Window.alert("dd");
+		
 		GiftClient giftVo = new GiftClient();
 		if (!StringUtil.isEmpty(display.getKeyName().getValue()))
 			criteria.setName(display.getKeyName().getValue());

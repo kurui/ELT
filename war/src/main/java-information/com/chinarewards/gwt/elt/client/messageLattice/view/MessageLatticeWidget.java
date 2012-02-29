@@ -98,7 +98,7 @@ public class MessageLatticeWidget extends Composite {
 				new AsyncCallback<SearchBroadcastReplyResponse>() {
 					@Override
 					public void onFailure(Throwable e) {
-						Window.alert(e.getMessage());
+						win.alert(e.getMessage());
 					}
 
 					@Override

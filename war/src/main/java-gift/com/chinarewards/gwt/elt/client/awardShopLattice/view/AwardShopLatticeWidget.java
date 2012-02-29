@@ -52,7 +52,7 @@ public class AwardShopLatticeWidget extends Composite implements
 			
 			@Override
 			public void onClick(ClickEvent event) {
-			//	Window.alert("礼品名称:"+awardName+"-----积分:"+integral+"ID:"+id);
+			//	win.alert("礼品名称:"+awardName+"-----积分:"+integral+"ID:"+id);
 				Platform.getInstance()
 				.getEditorRegistry()
 				.openEditor(
