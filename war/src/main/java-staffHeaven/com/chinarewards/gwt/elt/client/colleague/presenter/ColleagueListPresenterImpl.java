@@ -14,6 +14,11 @@ import com.chinarewards.gwt.elt.client.widget.EltNewPager;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager.TextLocation;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.win.Win;
+import com.chinarewards.gwt.elt.util.StringUtil;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.FocusEvent;
+import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.inject.Inject;
 
 public class ColleagueListPresenterImpl extends
@@ -22,7 +27,7 @@ public class ColleagueListPresenterImpl extends
 
 	private final DispatchAsync dispatch;
 	private final SessionManager sessionManager;
-	private final Win win;
+//	private final Win win;
 	final ErrorHandler errorHandler;
 	EltNewPager pager;
 	ListCellTable<StaffListClient> cellTable;
@@ -37,7 +42,7 @@ public class ColleagueListPresenterImpl extends
 		this.dispatch = dispatch;
 		this.sessionManager = sessionManager;
 		this.errorHandler=errorHandler;
-		this.win=win;
+	//	this.win=win;
 
 	}
 
@@ -45,13 +50,31 @@ public class ColleagueListPresenterImpl extends
 	public void bind() {
 
 		init();
-		
+		display.getQueryKey().addFocusHandler(new FocusHandler() {
+			
+			@Override
+			public void onFocus(FocusEvent event) {
+				if("输入关键词".equals(display.getQueryKey().getValue()))
+					display.getQueryKey().setText("");
+				
+			}
+ 
+		});
+		display.getQueryBtn().addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				doSearch(display.getQueryKey().getValue());
+			}
+		});
 	}
 	
 	private void init() {	
 	
 		buildTable();
-		doSearch();
+		doSearch(null);
+		
+		
 	}
 
 	private void buildTable() {
@@ -62,7 +85,7 @@ public class ColleagueListPresenterImpl extends
 		pager = new EltNewPager(TextLocation.CENTER);
 		pager.setDisplay(cellTable);
 		cellTable.setWidth(ViewConstants.page_width);
-		cellTable.setPageSize(ViewConstants.per_page_number_in_dialog);
+		cellTable.setPageSize(ViewConstants.per_page_number);
 	//	cellTable.getColumn(0).setCellStyleNames("divTextLeft");
 //		display.getResultPanel().clear();
 //		display.getResultPanel().add(cellTable);
@@ -71,9 +94,10 @@ public class ColleagueListPresenterImpl extends
 		
 	}
 
-	private void doSearch() {
+	private void doSearch(String key) {
 		StaffListCriteria criteria = new StaffListCriteria();
-
+		if(!StringUtil.isEmpty(key))
+			criteria.setStaffNameorNo(key);
 		listViewAdapter = new ColleagueListViewAdapter(dispatch, criteria,
 				errorHandler, sessionManager,display);
 		listViewAdapter.addDataDisplay(cellTable);
