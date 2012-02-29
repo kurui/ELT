@@ -258,17 +258,17 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .employee .workmate-wrap .workmate-top{border-bottom:1px solid #DDDDDD;overflow:hidden;padding:15px 0 2px 0;}
 .employee .workmate-wrap .workmate-title{float:left;width:300px;color:#999999;}
 .employee .workmate-wrap .workmate-title h3{font-size:18px;color:#000000;font-weight:normal;height:27px;line-height:27px;}
-.employee .workmate-wrap .workmate-title .workmate-num{font-size:12px;font-weight:normal;vertical-align:middle;display:inline-block;margin-top:-1px;*margin-top:-2px;}
+.employee .workmate-wrap .workmate-title .workmate-num{font-size:12px;font-weight:normal;vertical-align:middle;display:inline-block;margin-top:-1px;\*margin-top:-2px;}
 .employee .workmate-wrap .workmate-select{float:right;width:200px;}
 .employee .workmate-wrap .text{width:100px;border:1px solid #BBBBBB;color:#999999;padding:3px;}
 
 .employee .workmate-list:after{content:".";display:block;clear:both;height:0;visibility:hidden;}
-.employee .workmate-list{*zoom:1;overflow:hidden;}
+.employee .workmate-list{\*zoom:1;overflow:hidden;}
 .employee .workmate-list{padding:15px 0;border-bottom:1px solid #DDDDDD;}
 .employee .workmate-list .workmate{float:left;width:266px;padding:8px;margin:0 10px 10px 0;}
 .employee .workmate:hover,.employee .workmate-list .workmate-on{background-color:#DFEEF8;}
 .employee .workmate .workmate-show:after{content:".";display:block;clear:both;height:0;visibility:hidden;}
-.employee .workmate .workmate-show{*zoom:1;overflow:hidden;}
+.employee .workmate .workmate-show{\*zoom:1;overflow:hidden;}
 .employee .workmate .workmate-show img{float:left;width:72px;height:72px;overflow:hidden;border:1px solid #DBDBDB;padding:2px;margin-right:8px;}
 .employee .workmate .workmate-show .workmate-info{float:left;width:180px;height:76px;overflow:hidden;}
 
