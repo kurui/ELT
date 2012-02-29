@@ -3,8 +3,8 @@
  */
 package com.chinarewards.gwt.elt.client.box.plugin;
 
-import com.chinarewards.gwt.elt.client.order.editor.OrderBoxEditor;
-import com.chinarewards.gwt.elt.client.order.editor.OrderBoxEditorDescriptor;
+import com.chinarewards.gwt.elt.client.box.editor.UserBoxEditor;
+import com.chinarewards.gwt.elt.client.box.editor.UserBoxEditorDescriptor;
 import com.google.gwt.inject.client.AbstractGinModule;
 import com.google.inject.Singleton;
 
@@ -17,8 +17,8 @@ public class UserBoxPluginModule extends AbstractGinModule {
 	@Override
 	protected void configure() {
 		bind(UserBoxPluginDescriptor.class).in(Singleton.class);
-		bind(OrderBoxEditorDescriptor.class).in(Singleton.class);
-		bind(OrderBoxEditor.class);
+		bind(UserBoxEditorDescriptor.class).in(Singleton.class);
+		bind(UserBoxEditor.class);
 	}
 
 }
