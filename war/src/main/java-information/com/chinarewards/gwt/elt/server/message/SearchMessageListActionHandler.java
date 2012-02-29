@@ -104,6 +104,7 @@ public class SearchMessageListActionHandler extends
 			client.setCreatedByUserName(broadcast.getCreatedBy().getStaff().getName());
 			client.setReplyNumber(broadcast.getReplyNumber());
 			client.setStatus(com.chinarewards.gwt.elt.client.broadcasting.model.BroadcastingListCriteria.BroadcastingStatus.valueOf(broadcast.getStatus().toString()));
+			if(broadcast.getCategory()!=null)
 			client.setCategory(BroadcastingCategory.valueOf(broadcast.getCategory().toString()));
 			client.setStaffPhoto(broadcast.getCreatedBy().getStaff().getPhoto());
 			lt.add(client);
