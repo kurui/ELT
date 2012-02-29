@@ -11,24 +11,24 @@ import com.google.inject.Inject;
  */
 public class UserBoxEditor extends AbstractEditor {
 
-	final UserBoxPresenter orderBoxPresenter;
+	final UserBoxPresenter userBoxPresenter;
 	Object model;
 
 	@Inject
 	protected UserBoxEditor(UserBoxEditorDescriptor editorDescriptor,
-			UserBoxPresenter orderBoxPresenter) {
+			UserBoxPresenter userBoxPresenter) {
 		super(editorDescriptor);
-		this.orderBoxPresenter = orderBoxPresenter;
+		this.userBoxPresenter = userBoxPresenter;
 	}
 
 	@Override
 	public Widget asWidget() {
-		return orderBoxPresenter.getDisplay().asWidget();
+		return userBoxPresenter.getDisplay().asWidget();
 	}
 
 	@Override
 	public boolean beforeClose() {
-		orderBoxPresenter.unbind();
+		userBoxPresenter.unbind();
 		return true;
 	}
 	
@@ -43,7 +43,7 @@ public class UserBoxEditor extends AbstractEditor {
 	}
 
 	public void setModel(Object model) {
-		orderBoxPresenter.initUserBox();
-		orderBoxPresenter.bind();
+		userBoxPresenter.initUserBox();
+		userBoxPresenter.bind();
 	}
 }

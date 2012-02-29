@@ -92,7 +92,9 @@ public abstract class MenuConstants {
 	public static final int MENU_ORDER_PERIOD_EDIT = order++;
 	// 提前颁奖通知时间设置
 	public static final int MENU_ORDER_LEADTIME_EDIT = order++;
-	//HR和leader的收件箱
+	//Hr的收件箱
+	public static final int MENU_ORDER_HRBOX_EDIT = order++;
+	//leader的收件箱
 	public static final int MENU_ORDER_USERBOX_EDIT = order++;
 
 	// 新建预算

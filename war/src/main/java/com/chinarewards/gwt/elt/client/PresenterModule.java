@@ -25,6 +25,7 @@ import com.chinarewards.gwt.elt.client.enterprise.module.EnterprisesModule;
 import com.chinarewards.gwt.elt.client.gift.module.GiftListModule;
 import com.chinarewards.gwt.elt.client.gift.module.GiftModule;
 import com.chinarewards.gwt.elt.client.gloryBroadcast.module.GloryBroadcastModule;
+import com.chinarewards.gwt.elt.client.hrbox.module.HrBoxModule;
 import com.chinarewards.gwt.elt.client.integralManagement.module.IntegralManagementModule;
 import com.chinarewards.gwt.elt.client.message.module.MessageListModule;
 import com.chinarewards.gwt.elt.client.messageSave.module.MessageSaveModule;
@@ -105,7 +106,7 @@ public class PresenterModule extends AbstractGinModule {
 		install(new MessageListModule());
 		install(new UserBoxModule());
 		install(new MessageSaveModule());
-
+		install(new HrBoxModule());
 	}
 
 }

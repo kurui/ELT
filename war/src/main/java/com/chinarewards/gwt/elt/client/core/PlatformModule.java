@@ -33,6 +33,7 @@ import com.chinarewards.gwt.elt.client.gift.plugin.GiftListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftPluginDescriptor;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftViewPluginDescriptor;
 import com.chinarewards.gwt.elt.client.gloryBroadcast.plugin.GloryBroadcastPluginDescriptor;
+import com.chinarewards.gwt.elt.client.hrbox.plugin.HrBoxPluginDescriptor;
 import com.chinarewards.gwt.elt.client.integralManagement.plugin.IntegralManagementPluginDescriptor;
 import com.chinarewards.gwt.elt.client.message.plugin.MessageListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.messageSave.plugin.MessageSavePluginDescriptor;
@@ -137,7 +138,7 @@ public class PlatformModule extends AbstractGinModule {
 			BroadcastSavePluginDescriptor BroadcastSave,
 			DetailsOfBroadcastPluginDescriptor dtailsOfBroadcast,
 			BroadcastReplyPluginDescriptor BroadcastReply,
-			UserBoxPluginDescriptor hrBox,
+			HrBoxPluginDescriptor hrBox,
 			LeadTimePluginDescriptor leadTime) {
 
 
