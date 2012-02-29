@@ -8,6 +8,7 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 
 import org.slf4j.Logger;
 
+import com.chinarewards.elt.domain.reward.person.Judge;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.common.PaginationDetail;
 import com.chinarewards.elt.model.common.SortingDetail;
@@ -19,8 +20,11 @@ import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.reward.RewardItemService;
 import com.chinarewards.gwt.elt.client.rewardItem.request.SearchStaffRewardsItemRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.SearchStaffRewardsItemResponse;
+import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
+import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemStaffClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemStaffCriteria;
+import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient.SomeoneClient;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
 import com.chinarewards.gwt.elt.server.logger.InjectLogger;
 import com.chinarewards.gwt.elt.util.UserRoleTool;
@@ -119,10 +123,29 @@ public class SearchStaffRewardsItemHandler extends	BaseActionHandler<SearchStaff
 			client.setCreatedBy(item.getCreatedBy().getUserName());
 			client.setNextPublishTime(item.getExpectAwardDate());
 			client.setEnabled(item.isEnabled());
+			
+			client.setAwardAmt(item.getAwardAmt());
+//			client.setNominateName(item.getNominateName());
+			// 提名人员
+			List<Judge> judges = item.getJudgeList();
+			ParticipateInfoClient participate = null;
+			List<OrganicationClient> orgs = getOrgsFromJudges(judges);
+			participate = new SomeoneClient(orgs);
+			client.setTmInfo(participate);
+			
+			client.setNominateCount(item.getNominateCount());
 			resultList.add(client);
 		}
 
 		return resultList;
+	}
+	
+	private List<OrganicationClient> getOrgsFromJudges(List<Judge> judge) {
+		List<OrganicationClient> orgs = new ArrayList<OrganicationClient>();
+		for (Judge p : judge) {
+			orgs.add(new OrganicationClient(p.getStaff().getId(), p.getStaff().getName()));
+		}
+		return orgs;
 	}
 
 	@Override

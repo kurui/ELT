@@ -3,6 +3,8 @@ package com.chinarewards.gwt.elt.client.rewards.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient.SomeoneClient;
+
 public class RewardsItemStaffClient implements Serializable,
 		Comparable<RewardsItemStaffClient> {
 
@@ -61,7 +63,38 @@ public class RewardsItemStaffClient implements Serializable,
 	
 	// 预期时间
 	private Date expectAwardDate;
+	
+	private double awardAmt=Double.valueOf(0);//奖励积分
+	private String nominateName;//提名人
+	private String nominateCount;//提名次数
+	
 
+	
+
+	public String getNominateCount() {
+		return nominateCount;
+	}
+
+	public void setNominateCount(String nominateCount) {
+		this.nominateCount = nominateCount;
+	}
+
+	public String getNominateName() {		
+		ParticipateInfoClient participateInfo = getTmInfo();
+		 if (participateInfo instanceof SomeoneClient) {
+				for (OrganicationClient org : ((SomeoneClient) participateInfo)	.getOrganizations()) {
+					nominateName +=org.getName()+"   ";
+				}
+		}
+//		 InlineLabel nominatelab = new InlineLabel(judgeStr);
+//		 staffAreaPanel.add(nominatelab);
+		
+		return nominateName;
+	}
+
+	public void setNominateName(String nominateName) {
+		this.nominateName = nominateName;
+	}
 
 	public Date getExpectAwardDate() {
 		return expectAwardDate;
@@ -341,6 +374,15 @@ public class RewardsItemStaffClient implements Serializable,
 
 	public void setGeneratedRewards(boolean isGeneratedRewards) {
 		this.isGeneratedRewards = isGeneratedRewards;
+	}
+
+
+	public double getAwardAmt() {
+		return awardAmt;
+	}
+
+	public void setAwardAmt(double awardAmt) {
+		this.awardAmt=awardAmt;
 	}
 
 }

@@ -15,11 +15,13 @@ import com.chinarewards.elt.dao.org.StaffDao;
 import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.domain.reward.base.Reward;
 import com.chinarewards.elt.domain.reward.base.RewardItem;
+import com.chinarewards.elt.domain.reward.person.Candidate;
 import com.chinarewards.elt.domain.reward.person.Winner;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.reward.base.WinnerProcessFlag;
 import com.chinarewards.elt.model.reward.search.RewardItemSearchVo;
 import com.chinarewards.elt.model.reward.search.RewardSearchVo;
+import com.chinarewards.elt.model.reward.vo.WinerRewardItemVo;
 import com.chinarewards.elt.model.staff.StaffWinSearchCriteria;
 import com.chinarewards.elt.model.staff.StaffWinVo;
 import com.chinarewards.elt.util.DateUtil;
@@ -34,6 +36,7 @@ import com.google.inject.Inject;
  */
 public class WinnerDao extends BaseDao<Winner> {
 	StaffDao staffDao;
+	CandidateDao candidateDao;
 
 	@Inject
 	public WinnerDao(StaffDao staffDao) {
@@ -178,9 +181,9 @@ public class WinnerDao extends BaseDao<Winner> {
 	}
 	
 	//=============员工
-	public PageStore<Reward> searchRewards_staff(RewardSearchVo criteria) {
-		PageStore<Reward> res = new PageStore<Reward>();
-		List<Reward> list = queryCurrentStaffWinRewardData(criteria);
+	public PageStore<Winner> searchRewards_staff_winner(RewardSearchVo criteria) {
+		PageStore<Winner> res = new PageStore<Winner>();
+		List<Winner> list = queryCurrentStaffWinRewardData(criteria);
 		int count = searchCurrentStaffWinRewardsCount(criteria);
 		res.setResultList(list);
 		res.setResultCount(count);
@@ -188,7 +191,7 @@ public class WinnerDao extends BaseDao<Winner> {
 	}
 	
 	@SuppressWarnings("unchecked")
-	private List<Reward> queryCurrentStaffWinRewardData(RewardSearchVo searchVo) {
+	private List<Winner> queryCurrentStaffWinRewardData(RewardSearchVo searchVo) {
 		return getCurrentStaffQuery(searchVo, SEARCH).getResultList();
 	}
 
@@ -201,7 +204,7 @@ public class WinnerDao extends BaseDao<Winner> {
 		Map<String, Object> param = new HashMap<String, Object>();
 		StringBuffer hql = new StringBuffer();
 		if (SEARCH.equals(type)) {
-			hql.append(" SELECT win.reward FROM Winner win WHERE 1=1 ");
+			hql.append(" SELECT win FROM Winner win WHERE 1=1 ");
 		} else if (COUNT.equals(type)) {
 			hql.append(" SELECT COUNT(win) FROM Winner win WHERE 1=1 ");
 		}
@@ -267,11 +270,35 @@ public class WinnerDao extends BaseDao<Winner> {
 		return query;
 	}
 	
-	public PageStore<RewardItem> searchRewardItem_staff(RewardItemSearchVo criteria) {
-		PageStore<RewardItem> res = new PageStore<RewardItem>();
-		List<RewardItem> list = queryCurrentStaffWinRewardItemData(criteria);
+	public PageStore<WinerRewardItemVo> searchRewardItem_staff(RewardItemSearchVo criteria) {
+		PageStore<WinerRewardItemVo> res = new PageStore<WinerRewardItemVo>();
+		List<Winner> list = queryCurrentStaffWinRewardItemData(criteria);
 		int count = searchCurrentStaffWinRewardItemCount(criteria);
-		res.setResultList(list);
+		
+		List<WinerRewardItemVo> voList=new ArrayList<WinerRewardItemVo>();
+		for (int i = 0; i < list.size(); i++) {
+			Winner winner=list.get(i);
+			if(winner!=null){
+				Reward reward=winner.getReward();
+				WinerRewardItemVo vo=new WinerRewardItemVo();
+				vo.setReward(reward);
+				vo.setItem(reward.getRewardItem());
+				
+				Staff staff=winner.getStaff();
+				if(staff!=null){
+					Candidate candiate=candidateDao.findCandidateByStaffRewardId(reward.getId(),staff.getId());
+					if(candiate!=null){
+						String nominateCount=candiate.getNominatecount()+"";
+						vo.setNominateCount(nominateCount);
+					}
+				
+				}
+				
+			}
+			
+		}
+		
+		res.setResultList(voList);
 		res.setResultCount(count);
 		return res;
 	}
@@ -286,7 +313,7 @@ public class WinnerDao extends BaseDao<Winner> {
 	}
 	
 	@SuppressWarnings("unchecked")
-	private List<RewardItem> queryCurrentStaffWinRewardItemData(RewardItemSearchVo searchVo) {
+	private List<Winner> queryCurrentStaffWinRewardItemData(RewardItemSearchVo searchVo) {
 		return getCurrentStaffRewardItemQuery(searchVo, SEARCH).getResultList();
 	}
 
@@ -299,9 +326,9 @@ public class WinnerDao extends BaseDao<Winner> {
 		Map<String, Object> param = new HashMap<String, Object>();
 		StringBuffer hql = new StringBuffer();
 		if (SEARCH.equals(type)) {
-			hql.append(" SELECT win.reward.rewardItem FROM Winner win WHERE 1=1 ");
+			hql.append(" SELECT win FROM Winner win WHERE 1=1 ");
 		} else if (COUNT.equals(type)) {
-			hql.append(" SELECT COUNT(win.reward.rewardItem) FROM Winner win WHERE 1=1 ");
+			hql.append(" SELECT COUNT(win) FROM Winner win WHERE 1=1 ");
 		}
 		
 		if (!StringUtil.isEmptyString(searchVo.getStaffId())) {
