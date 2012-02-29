@@ -22,6 +22,7 @@ import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.widget.Sorting;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.model.rewards.RewardPageType;
+import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -46,8 +47,9 @@ public class RewardsItemListCompanyOtherPresenterImpl extends
 	@Inject
 	public RewardsItemListCompanyOtherPresenterImpl(EventBus eventBus,
 			DispatchAsync dispatch, ErrorHandler errorHandler,
-			SessionManager sessionManager, RewardsItemListCompanyOtherDisplay display,
-			Win win, BreadCrumbsPresenter breadCrumbs) {
+			SessionManager sessionManager,
+			RewardsItemListCompanyOtherDisplay display, Win win,
+			BreadCrumbsPresenter breadCrumbs) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.errorHandler = errorHandler;
@@ -74,9 +76,10 @@ public class RewardsItemListCompanyOtherPresenterImpl extends
 	}
 
 	private void iniWidget() {
-		display.getRewardsItemType().addItem("全部奖项","ALL");
-		display.getRewardsItemType().addItem("努力冲奖项","GO");	
-		
+		display.getRewardsItemType().clear();
+		display.getRewardsItemType().addItem("全部奖项", "ALL");
+		display.getRewardsItemType().addItem("努力冲奖项", "GO");
+
 		buildTable();
 		doSearch();
 	}
@@ -99,12 +102,13 @@ public class RewardsItemListCompanyOtherPresenterImpl extends
 
 	private void doSearch() {
 		RewardsItemCompanyOtherCriteria criteria = new RewardsItemCompanyOtherCriteria();
-//		criteria.setName(display.getName().getValue());
-//		criteria.setDefinition(display.getDefinition().getValue());
-		
+		// criteria.setName(display.getName().getValue());
+		// criteria.setDefinition(display.getDefinition().getValue());
+
 		int selectedIndex = display.getRewardsItemType().getSelectedIndex();
-		String rewardsItemType=display.getRewardsItemType().getValue(selectedIndex);
-		criteria.setRewardsItemType(rewardsItemType);		
+		String rewardsItemType = display.getRewardsItemType().getValue(
+				selectedIndex);
+		criteria.setRewardsItemType(rewardsItemType);
 
 		listViewAdapter = new RewardsItemListCompanyOtherViewAdapter(dispatch,
 				criteria, errorHandler, sessionManager, display);
@@ -126,13 +130,13 @@ public class RewardsItemListCompanyOtherPresenterImpl extends
 			}
 		};
 
-		cellTable.addColumn("奖项编号", new HyperLinkCell(),
-				new GetValue<RewardsItemCompanyOtherClient, String>() {
-					@Override
-					public String getValue(RewardsItemCompanyOtherClient rewards) {
-						return rewards.getName();
-					}
-				}, ref, "name");
+//		cellTable.addColumn("奖项编号", new HyperLinkCell(),
+//				new GetValue<RewardsItemCompanyOtherClient, String>() {
+//					@Override
+//					public String getValue(RewardsItemCompanyOtherClient rewards) {
+//						return rewards.getName();
+//					}
+//				}, ref, "itemNo");
 
 		cellTable.addColumn("奖项名称", new HyperLinkCell(),
 				new GetValue<RewardsItemCompanyOtherClient, String>() {
@@ -146,14 +150,9 @@ public class RewardsItemListCompanyOtherPresenterImpl extends
 				new GetValue<RewardsItemCompanyOtherClient, String>() {
 					@Override
 					public String getValue(RewardsItemCompanyOtherClient rewards) {
-						if (rewards.isEnabled() == true) {
-							return "已激活";
-						} else {
-							return "未激活";
-						}
-
+						return rewards.getMyRewardsStatus();
 					}
-				}, ref, "name");
+				}, ref, "status");
 
 		cellTable.addColumn("创建人", new TextCell(),
 				new GetValue<RewardsItemCompanyOtherClient, String>() {
@@ -163,13 +162,27 @@ public class RewardsItemListCompanyOtherPresenterImpl extends
 					}
 				}, ref, "createdBy");
 
-		cellTable.addColumn("获奖人", new TextCell(),
+		cellTable.addColumn("操作", new HyperLinkCell(),
 				new GetValue<RewardsItemCompanyOtherClient, String>() {
 					@Override
-					public String getValue(RewardsItemCompanyOtherClient rewards) {
-						return rewards.getCreatedBy();
+					public String getValue(RewardsItemCompanyOtherClient arg0) {
+						return "查看奖项详细";
 					}
-				}, ref, "createdBy");
+				}, new FieldUpdater<RewardsItemCompanyOtherClient, String>() {
+					@Override
+					public void update(int index,
+							final RewardsItemCompanyOtherClient object,
+							String value) {
+
+						// Platform.getInstance()
+						// .getEditorRegistry()
+						// .openEditor(
+						// RewardsItemConstants.EDITOR_REWARDSITEM_STAFF_VIEW,
+						// RewardsItemConstants.EDITOR_REWARDSITEM_STAFF_VIEW,
+						// object);
+
+					}
+				});
 
 	}
 

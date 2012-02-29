@@ -13,44 +13,44 @@
 						&gt;
 						<span>奖项列表</span>
 					</div>
+				</div>
 
+				<!--查询条件 [[ -->
+				<div class="{new2.frame-wrap}">
 
-					<!--查询条件 [[ -->
-					<div class="{new2.frame-wrap}">
-
-						<div class="{new2.query-wrap}">
-							<div class="{new2.form}">
-								<span>
-									<h3>我参与的奖项</h3>
-								</span>
-								<!--查询条件 ]] -->
-							</div>
+					<div class="{new2.query-wrap}">
+						<div class="{new2.form}">
+							<span>
+								<h3>我参与的奖项</h3>
+							</span>
+							<!--查询条件 ]] -->
 						</div>
-						<span class="{new2.cutline}"></span>
+					</div>
+					<span class="{new2.cutline}"></span>
 
-						<div class="{new2.table}">
-							一共有
-							<g:InlineLabel ui:field="dataCount" styleName="{new2.divfont}"></g:InlineLabel>
-							条订单
-							<g:FlowPanel ui:field="resultPanel" />
-						</div>
-
-						<!--分页 [[ -->
-						<div id="rewardlist_page2" class="{new2.pager}">
-							<div class="{new2.pager-left}">
-								每页显示条数
-								<select class="{new2.select}">
-									<option>10</option>
-								</select>
-							</div>
-							<div class="{new2.pager-right}">
-								<g:FlowPanel ui:field="resultpage" />
-							</div>
-						</div>
-						<!--分页 ]] -->
+					<div class="{new2.table}">
+						一共有
+						<g:InlineLabel ui:field="dataCount" styleName="{new2.divfont}"></g:InlineLabel>
+						条订单
+						<g:FlowPanel ui:field="resultPanel" />
 					</div>
 
+					<!--分页 [[ -->
+					<div id="rewardlist_page2" class="{new2.pager}">
+						<div class="{new2.pager-left}">
+							每页显示条数
+							<select class="{new2.select}">
+								<option>10</option>
+							</select>
+						</div>
+						<div class="{new2.pager-right}">
+							<g:FlowPanel ui:field="resultpage" />
+						</div>
+					</div>
+					<!--分页 ]] -->
 				</div>
+
+
 			</div>
 		</div>
 	</g:HTMLPanel>

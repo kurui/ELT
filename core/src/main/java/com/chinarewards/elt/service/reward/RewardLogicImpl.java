@@ -490,6 +490,7 @@ public class RewardLogicImpl implements RewardLogic {
 			rewardVo.setNomineeLots(nomineeLots);
 			rewardVo.setPreWinnerLots(preWinnerLots);
 			rewardVo.setWinners(winners);
+			rewardVo.setAwardDate(reward.getAwardDate());
 		}
 		rewardVo.setReward(reward);
 

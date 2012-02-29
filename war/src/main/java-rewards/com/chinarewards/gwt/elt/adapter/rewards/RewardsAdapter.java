@@ -47,6 +47,7 @@ public class RewardsAdapter {
 		}
 		result.setTotalAmtLimit(rewards.getTotalAmtLimit());
 		result.setExpectNominateDate(rewards.getExpectNominateDate());
+		
 		result.setHeadcountLimit(rewards.getHeadcountLimit());
 		if (rewards.getStatus() != null) {
 			result.setStatus(RewardsStatus.valueOf(rewards.getStatus()

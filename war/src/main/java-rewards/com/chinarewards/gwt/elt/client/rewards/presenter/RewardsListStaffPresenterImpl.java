@@ -2,16 +2,22 @@ package com.chinarewards.gwt.elt.client.rewards.presenter;
 
 import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
+
 import net.customware.gwt.dispatch.client.DispatchAsync;
+
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.dataprovider.RewardsListStaffViewAdapter;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
+import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsItemRequest;
+import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsItemResponse;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsCriteria;
-import com.chinarewards.gwt.elt.client.rewards.model.RewardsCriteria.RewardsStatus;
+import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemClient;
+import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemCriteria;
 import com.chinarewards.gwt.elt.client.rewards.presenter.RewardsListStaffPresenter.RewardsListStaffDisplay;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
@@ -27,6 +33,7 @@ import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
 public class RewardsListStaffPresenterImpl extends
@@ -64,18 +71,20 @@ public class RewardsListStaffPresenterImpl extends
 		breadCrumbs.loadListPage();
 		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
 
-		iniWidget();
+		initWidget();
 
 		registerHandler(display.getSearchBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
 						// win.alert(sessionManager.getSession().getLoginName());
-						iniWidget();
+						initWidget();
 					}
 				}));
 	}
 
-	private void iniWidget() {
+	private void initWidget() {
+		initRewardsItemSelect("");
+
 		buildTable();
 		doSearch();
 	}
@@ -98,22 +107,54 @@ public class RewardsListStaffPresenterImpl extends
 
 	private void doSearch() {
 		RewardsCriteria criteria = new RewardsCriteria();
-		criteria.setName(display.getName().getValue());
-		criteria.setDefinition(display.getDefinition().getValue());
+		criteria.setStaffName(display.getWinnerName().getValue());
+		int selectedIndex = display.getRewardsItem().getSelectedIndex();
+		if(selectedIndex>-1){
+			criteria.setRewardsItemId(display.getRewardsItem().getValue(
+					selectedIndex));
+		}
+		
+		criteria.setRewardsTime(display.getRewardsTime().getValue());
 
-		if (pageType == RewardPageType.NOMINATEPAGE) {
-			criteria.setStatus(RewardsStatus.PENDING_NOMINATE);
-		}
-		if (pageType == RewardPageType.AWARDREWARDPAGE) {
-			criteria.setStatus(RewardsStatus.NEW);
-		}
-		if (pageType == RewardPageType.DETAILSOFAWARDPAGE) {
-			criteria.setStatus(RewardsStatus.REWARDED);
-		}
+		// if (pageType == RewardPageType.NOMINATEPAGE) {
+		// criteria.setStatus(RewardsStatus.PENDING_NOMINATE);
+		// }
+		// if (pageType == RewardPageType.AWARDREWARDPAGE) {
+		// criteria.setStatus(RewardsStatus.NEW);
+		// }
+		// if (pageType == RewardPageType.DETAILSOFAWARDPAGE) {
+		// criteria.setStatus(RewardsStatus.REWARDED);
+		// }
 		listViewAdapter = new RewardsListStaffViewAdapter(dispatch, criteria,
 				errorHandler, sessionManager, display);
 		listViewAdapter.addDataDisplay(cellTable);
 
+	}
+
+	private void initRewardsItemSelect(String selectValue) {
+		dispatch.execute(new SearchRewardsItemRequest(new RewardsItemCriteria(),sessionManager.getSession()),
+				new AsyncCallback<SearchRewardsItemResponse>() {
+					@Override
+					public void onFailure(Throwable arg0) {
+						errorHandler.alert("加载奖项异常 !");
+					}
+
+					@Override
+					public void onSuccess(SearchRewardsItemResponse response) {
+						List<RewardsItemClient> itemList = response.getResult();
+						if (itemList != null) {
+							if (itemList.size() > 0) {
+								display.getRewardsItem().clear();
+								display.getRewardsItem().addItem("不限", "");
+								for (int i = 0; i < itemList.size(); i++) {
+									RewardsItemClient item = itemList.get(i);
+									display.getRewardsItem().addItem(
+											item.getName(), item.getId());
+								}
+							}
+						}
+					}
+				});
 	}
 
 	private void initTableColumns() {
@@ -151,9 +192,9 @@ public class RewardsListStaffPresenterImpl extends
 				new GetValue<RewardsClient, Date>() {
 					@Override
 					public Date getValue(RewardsClient rewards) {
-						return rewards.getExpectNominateDate();
+						return rewards.getRewardsDate();
 					}
-				}, ref, "expectNominateDate");
+				}, ref, "rewardsDate");
 
 		cellTable.addColumn("颁奖人", new TextCell(),
 				new GetValue<RewardsClient, String>() {

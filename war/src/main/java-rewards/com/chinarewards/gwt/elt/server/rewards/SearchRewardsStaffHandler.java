@@ -74,17 +74,23 @@ public class SearchRewardsStaffHandler extends
 		}
 		criteria.setRewardId(rewards.getId());
 		criteria.setBuilderDeptId(rewards.getBuilderDeptId());
-		// criteria.setSubDepartmentChoose(rewards.isSubDepartmentChoose());
 		criteria.setAccountDeptId(rewards.getAccountDeptId());
 		criteria.setRewardItemId(rewards.getRewardsItemId());
 		criteria.setName(rewards.getName());
 		criteria.setDefinition(rewards.getDefinition());
-		if (rewards.getJudgeUserId() != null)
+		if (rewards.getJudgeUserId() != null){
 			criteria.setJudgeUserId(rewards.getJudgeUserId());
-		if (rewards.getStatus() != null)
+		}
+		if (rewards.getStatus() != null){
 			criteria.setStatus(RewardStatus.valueOf(rewards.getStatus()
 					.toString()));
+		}
+		
 		 criteria.setWinnerStaffId(rewards.getStaffId());//获奖人
+		 criteria.setWinnerStaffName(rewards.getStaffName());
+		 criteria.setRewardItemId(rewards.getRewardsItemId());
+		 criteria.setRewardsTime(rewards.getRewardsTime());
+		 
 		if (rewards.getPagination() != null) {
 			PaginationDetail detail = new PaginationDetail();
 			detail.setLimit(rewards.getPagination().getLimit());

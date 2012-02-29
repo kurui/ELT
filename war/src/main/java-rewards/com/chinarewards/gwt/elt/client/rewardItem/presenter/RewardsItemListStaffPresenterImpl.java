@@ -23,6 +23,8 @@ import com.chinarewards.gwt.elt.client.widget.Sorting;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.model.rewards.RewardPageType;
 import com.google.gwt.cell.client.TextCell;
+//import com.google.gwt.event.dom.client.ClickEvent;
+//import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.inject.Inject;
 
 public class RewardsItemListStaffPresenterImpl extends
@@ -60,18 +62,17 @@ public class RewardsItemListStaffPresenterImpl extends
 		breadCrumbs.loadListPage();
 		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
 
-		iniWidget();
+		initWidget();
 
 //		registerHandler(display.getSearchBtnClickHandlers().addClickHandler(
 //				new ClickHandler() {
 //					public void onClick(ClickEvent paramClickEvent) {
-//						// win.alert(sessionManager.getSession().getLoginName());
-//						iniWidget();
+//						initWidget();
 //					}
 //				}));
 	}
 
-	private void iniWidget() {
+	private void initWidget() {
 		buildTable();
 		doSearch();
 	}

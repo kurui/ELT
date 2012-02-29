@@ -22,6 +22,7 @@ import com.chinarewards.elt.model.reward.search.RewardItemSearchVo;
 import com.chinarewards.elt.model.reward.search.RewardSearchVo;
 import com.chinarewards.elt.model.staff.StaffWinSearchCriteria;
 import com.chinarewards.elt.model.staff.StaffWinVo;
+import com.chinarewards.elt.util.DateUtil;
 import com.chinarewards.elt.util.StringUtil;
 import com.google.inject.Inject;
 
@@ -208,7 +209,29 @@ public class WinnerDao extends BaseDao<Winner> {
 		if (!StringUtil.isEmptyString(searchVo.getWinnerStaffId())) {
 			hql.append(" AND win.staff.id = :staffId ");
 			param.put("staffId", searchVo.getWinnerStaffId());
-		}			
+		}	
+		
+		if (!StringUtil.isEmptyString(searchVo.getWinnerStaffName())) {
+			hql.append(" AND win.staff.id like :staffName ");
+			param.put("staffName", searchVo.getWinnerStaffName());
+		}
+		
+		//奖项ID
+		if (!StringUtil.isEmptyString(searchVo.getWinnerStaffName())) {
+			hql.append(" AND win.reward.rewardItem.id = :rewardsItemId ");
+			param.put("rewardsItemId", searchVo.getRewardItemId());
+		}
+		
+		//获奖时间
+		if (null != searchVo.getRewardsTime()
+				&& !searchVo.getRewardsTime().equals("")) {
+			Date rewardsTimeBegin=DateUtil.getEarlierTimeOfThisDay(searchVo.getRewardsTime());
+			Date rewardsTimeEnd=DateUtil.getLastTimeOfThisDay(searchVo.getRewardsTime());
+			
+			hql.append(" and ( win.winTime  between :rewardsTimeBegin and :rewardsTimeEnd)");
+			param.put("rewardsTimeBegin", rewardsTimeBegin);
+			param.put("rewardsTimeEnd", rewardsTimeEnd);
+		}
 		
 		// ORDER BY
 		if (SEARCH.equals(type)) {
