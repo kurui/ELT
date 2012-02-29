@@ -83,6 +83,7 @@ public class SearchBroadcastingListActionHandler extends
 		context.setLoginName(request.getSession().getLoginName());
 		context.setUserRoles(UserRoleTool.adaptToRole(request.getSession().getUserRoles()));
 		
+
 		BroadcastQueryListVo result=broadcastService.queryBroadcastList(criteria);
 		
 		List<BroadcastingListClient> lt=new ArrayList<BroadcastingListClient>();

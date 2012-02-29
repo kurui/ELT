@@ -9,7 +9,6 @@ import com.chinarewards.gwt.elt.client.mvp.Presenter;
 import com.chinarewards.gwt.elt.client.rewards.model.FrequencyClient;
 import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
 import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient;
-import com.chinarewards.gwt.elt.client.rewards.model.RewardsBaseInfo;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemClient;
 import com.chinarewards.gwt.elt.client.widget.SpecialTextArea;
 import com.google.gwt.event.dom.client.HasClickHandlers;

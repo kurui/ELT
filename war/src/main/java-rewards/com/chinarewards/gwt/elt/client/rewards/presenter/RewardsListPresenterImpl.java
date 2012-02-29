@@ -77,7 +77,7 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 		registerHandler(display.getSearchBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
-						// Window.alert(sessionManager.getSession().getLoginName());
+						// win.alert(sessionManager.getSession().getLoginName());
 						init();
 					}
 				}));

@@ -92,8 +92,9 @@ public class StaffViewPresenterImpl extends
 
 						display.setStaffName(resp.getStaffName());
 
+						if(resp.getDepartmentName().indexOf("ROOT")==-1)
 						display.setDepartmentName(resp.getDepartmentName());
-
+			
 						display.setJobPosition(resp.getJobPosition());
 
 						display.setLeadership(resp.getLeadership());

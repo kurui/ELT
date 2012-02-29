@@ -11,6 +11,7 @@ import com.chinarewards.elt.common.BaseDao;
 import com.chinarewards.elt.domain.information.Broadcasting;
 import com.chinarewards.elt.model.broadcast.BroadcastQueryListCriteria;
 import com.chinarewards.elt.model.broadcast.BroadcastQueryListVo;
+import com.chinarewards.elt.model.information.BroadcastMessage;
 import com.chinarewards.elt.util.StringUtil;
 
 public class BroadcastDao  extends BaseDao<Broadcasting>{
@@ -70,13 +71,25 @@ public class BroadcastDao  extends BaseDao<Broadcasting>{
 			param.put("broadcastingTimeEnd", searchVo.getBroadcastingTimeEnd());
 
 		}
-		
+		if(searchVo.isNowDate())
+		{
+			hql.append(" and ( SYSDATE  between broadcast.broadcastingTimeStart and broadcast.broadcastingTimeEnd)");
+		}
+		if (!StringUtil.isEmptyString(searchVo.getCreateUserId())) {
+			hql.append(" AND broadcast.createdBy.id = :createUserId ");
+			param.put("createUserId", searchVo.getCreateUserId());
+		}
 		hql.append(" AND broadcast.broadcastMessagetype = :broadcastMessagetype ");
 		param.put("broadcastMessagetype", searchVo.getBroadcastMessagetype());
 		
 		hql.append(" AND broadcast.deleted = :deleted ");
 		param.put("deleted", false);
 	
+		if (searchVo.getBroadcastList()!=null && searchVo.getBroadcastList().size()>0) {
+			hql.append(" AND  broadcast.id  IN (:broadcastList) ");
+			param.put("broadcastList", searchVo.getBroadcastList());
+
+		}
 		// ORDER BY
 		if (SEARCH.equals(type)) {
 			if (searchVo.getSortingDetail() != null && searchVo.getSortingDetail().getSort() != null && searchVo.getSortingDetail().getDirection() != null) {
@@ -111,10 +124,10 @@ public class BroadcastDao  extends BaseDao<Broadcasting>{
 	}
 	
 
-	public String getMaxNumber() {
+	public String getMaxNumber(BroadcastMessage broadcastMessage) {
 		StringBuffer hql = new StringBuffer();
-		hql.append(" SELECT COUNT(broadcast) FROM Broadcasting broadcast WHERE 1=1 ");
-		Query query = getEm().createQuery(hql.toString());
+		hql.append(" SELECT COUNT(broadcast) FROM Broadcasting broadcast WHERE 1=1  AND broadcast.broadcastMessagetype = :broadcastMessagetype ");
+		Query query = getEm().createQuery(hql.toString()).setParameter("broadcastMessagetype", broadcastMessage);
 		return query.getSingleResult().toString();
 	}
 }

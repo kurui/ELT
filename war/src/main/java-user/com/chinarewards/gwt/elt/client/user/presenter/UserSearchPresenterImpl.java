@@ -88,7 +88,7 @@ public class UserSearchPresenterImpl extends BasePresenter<UserSearchDisplay>
 					@Override
 					public void onClick(ClickEvent event) {
 						GWT.log("running click handlers. Active");
-						Window.alert("激活-还未实现");
+						win.alert("激活-还未实现");
 					}
 				}));
 		// LogOff btn
@@ -97,7 +97,7 @@ public class UserSearchPresenterImpl extends BasePresenter<UserSearchDisplay>
 					@Override
 					public void onClick(ClickEvent event) {
 						GWT.log("running click handlers. LogOff");
-						Window.alert("注销-还未实现");
+						win.alert("注销-还未实现");
 					}
 				}));
 		// LogOff btn

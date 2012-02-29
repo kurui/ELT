@@ -8,6 +8,7 @@ import java.util.List;
 
 import net.customware.gwt.dispatch.shared.Action;
 
+import com.chinarewards.gwt.elt.client.broadcasting.model.BroadcastingListCriteria.BroadcastingCategory;
 import com.chinarewards.gwt.elt.client.support.UserSession;
 
 /**
@@ -23,9 +24,19 @@ public class BroadcastSaveRequest implements Action<BroadcastSaveResponse> {
 	List<String[]> organList;
 	Date broadcastingTimeStart;
 	Date broadcastingTimeEnd;
-	
+	BroadcastingCategory broadcastingCategory;
 	boolean allowreplies;
 	
+
+	public BroadcastingCategory getBroadcastingCategory() {
+		return broadcastingCategory;
+	}
+
+
+	public void setBroadcastingCategory(BroadcastingCategory broadcastingCategory) {
+		this.broadcastingCategory = broadcastingCategory;
+	}
+
 
 	public String getContent() {
 		return content;

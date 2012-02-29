@@ -3,6 +3,7 @@ package com.chinarewards.gwt.elt.client.message.presenter;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.core.Platform;
+import com.chinarewards.gwt.elt.client.core.ui.DialogCloseListener;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.message.dataprovider.MessageListViewAdapter;
 import com.chinarewards.gwt.elt.client.message.model.MessageListClient;
@@ -12,6 +13,7 @@ import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.chinarewards.gwt.elt.client.util.StringUtil;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager.TextLocation;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
@@ -58,7 +60,14 @@ String styleno="";
 					public void onClick(ClickEvent event) {
 						final MessageSaveDialog dialog = messageSaveDialog.get();
 
-						Platform.getInstance().getSiteManager().openDialog(dialog,null);
+						Platform.getInstance().getSiteManager().openDialog(dialog, new DialogCloseListener() {
+							public void onClose(String dialogId,
+									String instanceId) {
+								display.getReceivedMessage().getElement().getParentElement().setAttribute("class", styleno);
+								display.getSendMessage().getElement().getParentElement().setAttribute("class", styleon);
+								doSearch(sessionManager.getSession().getToken());
+							}
+						});
 						
 					}
 				}));
@@ -68,7 +77,7 @@ String styleno="";
 					public void onClick(ClickEvent event) {
 						display.getReceivedMessage().getElement().getParentElement().setAttribute("class", styleon);
 						display.getSendMessage().getElement().getParentElement().setAttribute("class", styleno);
-						doSearch();
+						doSearch(null);
 					}
 				}));
 		registerHandler(display.getSendMessage().addClickHandler(
@@ -77,7 +86,7 @@ String styleno="";
 					public void onClick(ClickEvent event) {
 						display.getReceivedMessage().getElement().getParentElement().setAttribute("class", styleno);
 						display.getSendMessage().getElement().getParentElement().setAttribute("class", styleon);
-						doSearch();
+						doSearch(sessionManager.getSession().getToken());
 					}
 				}));
 	}
@@ -85,7 +94,7 @@ String styleno="";
 	private void init() {	
 
 		buildTable();
-		doSearch();
+		doSearch(null);
 	}
 
 	private void buildTable() {
@@ -105,9 +114,10 @@ String styleno="";
 		
 	}
 
-	private void doSearch() {
+	private void doSearch(String createUserId) {
 		MessageListCriteria criteria = new MessageListCriteria();
-
+		if(!StringUtil.isEmpty(createUserId))
+			criteria.setCreateUserId(createUserId);
 		listViewAdapter = new MessageListViewAdapter(dispatch, criteria,
 				errorHandler, sessionManager,display,win);
 		listViewAdapter.addDataDisplay(cellTable);

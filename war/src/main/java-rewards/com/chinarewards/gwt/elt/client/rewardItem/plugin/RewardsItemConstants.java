@@ -20,6 +20,7 @@ public abstract class RewardsItemConstants {
 	public static final String EDITOR_REWARDSITEM_List = "EDITOR_REWARDSITEM_List";
 	
 	public static final String EDITOR_REWARDSITEM_STAFF_LIST = "EDITOR_REWARDSITEM_STAFF_LIST";
+	public static final String EDITOR_REWARDSITEM_COMPANYOTHER_LIST = "EDITOR_REWARDSITEM_COMPANYOTHER_LIST";
 	
 	// The menu and editor of finding user.
 	public static final String MENU_REWARDSITEM_View = "MENU_REWARDSITEM_View";

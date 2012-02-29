@@ -46,6 +46,7 @@ public class SearchRewardsStaffHandler extends
 		SearchRewardsStaffResponse resp = new SearchRewardsStaffResponse();
 
 		RewardsCriteria rewards = request.getRewards();
+		rewards.setStaffId(request.getSession().getStaffId());
 		RewardSearchVo criteria = adapter(rewards);
 		PageStore<RewardVo> rewardsPage = null;
 
@@ -83,7 +84,7 @@ public class SearchRewardsStaffHandler extends
 		if (rewards.getStatus() != null)
 			criteria.setStatus(RewardStatus.valueOf(rewards.getStatus()
 					.toString()));
-		// criteria.setStaffId(rewards.getStaffId());
+		 criteria.setWinnerStaffId(rewards.getStaffId());//获奖人
 		if (rewards.getPagination() != null) {
 			PaginationDetail detail = new PaginationDetail();
 			detail.setLimit(rewards.getPagination().getLimit());

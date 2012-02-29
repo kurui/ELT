@@ -48,7 +48,19 @@ public class StaffHeavenIndexCriteria implements IsSerializable {
 	 */
 	private BroadcastingCategory category;
 	
+	/**
+	 * 是否根据当前时间取广播
+	 */
+	private boolean nowDate;
 	
+	public boolean isNowDate() {
+		return nowDate;
+	}
+
+	public void setNowDate(boolean nowDate) {
+		this.nowDate = nowDate;
+	}
+
 	public BroadcastingCategory getCategory() {
 		return category;
 	}

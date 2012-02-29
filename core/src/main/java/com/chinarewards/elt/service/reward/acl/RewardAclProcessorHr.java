@@ -70,6 +70,7 @@ public class RewardAclProcessorHr extends AbstractRewardAclProcessor {
 		pageStore.setResultList(itemList);
 		return pageStore;
 	}
+	
 
 	@Override
 	public PageStore<Reward> fetchRewards(UserContext context,
@@ -83,17 +84,6 @@ public class RewardAclProcessorHr extends AbstractRewardAclProcessor {
 		return res;
 	}
 	
-	@Override
-	public PageStore<Reward> fetchRewardsStaff(UserContext context,
-			RewardSearchVo criteria) {
-		logger.debug(
-				" Process in fetchRewards method, CorporationId:{}, criteria:{}",
-				new Object[] { context.getCorporationId(), criteria.toString() });
-
-		PageStore<Reward> res = new PageStore<Reward>();
-		res = winnerDao.searchRewards_staff(criteria);
-		return res;
-	}
 
 	@Override
 	public PageStore<RewardItemStore> fetchRewardItemsStore(
@@ -129,5 +119,14 @@ public class RewardAclProcessorHr extends AbstractRewardAclProcessor {
 		pageStore.setResultList(itemList);
 		return pageStore;
 	}
+
+
+	@Override
+	public PageStore<RewardItem> fetchRewardItems_companyOther(
+			UserContext context, RewardItemSearchVo criteria) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

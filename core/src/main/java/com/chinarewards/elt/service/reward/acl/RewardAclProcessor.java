@@ -17,32 +17,14 @@ import com.chinarewards.elt.model.user.UserContext;
  */
 public interface RewardAclProcessor {
 
-	/**
-	 * Obtain the list of {@link Reward} managed by the login user.
-	 * 
-	 * @param context
-	 * @param criteria
-	 * @return
-	 */
 	public PageStore<Reward> fetchRewards(UserContext context,
 			RewardSearchVo criteria);
 	
-	/**
-	 * @param context
-	 * @param criteria
-	 * @return
-	 */
-	public PageStore<Reward> fetchRewardsStaff(UserContext context,
-			RewardSearchVo criteria);
-
-	/**
-	 * Obtain the list of {@link RewardItem} managed by the login user.
-	 * 
-	 * @param context
-	 * @param criteria
-	 * @return
-	 */
+	
 	public PageStore<RewardItem> fetchRewardItems(UserContext context,
+			RewardItemSearchVo criteria);
+	
+	public PageStore<RewardItem> fetchRewardItems_companyOther(UserContext context,
 			RewardItemSearchVo criteria);
 	
 	public PageStore<RewardItemStore> fetchRewardItemsStore(UserContext context,

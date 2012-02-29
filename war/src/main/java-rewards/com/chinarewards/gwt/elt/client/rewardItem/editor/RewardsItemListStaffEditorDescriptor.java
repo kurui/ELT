@@ -27,7 +27,7 @@ public class RewardsItemListStaffEditorDescriptor implements EditorDescriptor {
 	public Editor createEditor(String instanceId, Object model) {
 		RewardsItemListStaffEditor e = editProvider.get();
 		e.setInstanceId(instanceId);
-		e.setTitle("奖项列表");
+		e.setTitle("我参与的奖项");
 		e.setModel(model);
 		return e;
 	}

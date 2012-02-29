@@ -286,7 +286,7 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 
 					@Override
 					public void onFailure(Throwable t) {
-						Window.alert(t.getMessage());
+						win.alert(t.getMessage());
 					}
 
 					@Override
@@ -305,7 +305,7 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 
 					@Override
 					public void onFailure(Throwable t) {
-						Window.alert(t.getMessage());
+						win.alert(t.getMessage());
 					}
 
 					@Override

@@ -22,7 +22,6 @@ import com.chinarewards.gwt.elt.client.win.Win;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
@@ -122,7 +121,7 @@ public class PeriodPresenterImpl extends BasePresenter<PeriodDisplay> implements
 
 		dispatchAsync.execute(req, new AsyncCallback<EnterpriseInitResponse>() {
 			public void onFailure(Throwable caught) {
-				Window.alert("初始化失败");
+				win.alert("初始化失败");
 			}
 
 			@Override
@@ -140,7 +139,7 @@ public class PeriodPresenterImpl extends BasePresenter<PeriodDisplay> implements
 		dispatchAsync.execute(new SearchCorpBudgetByCorpIdRequest(
 				corporationId), new AsyncCallback<SearchCorpBudgetByCorpIdResponse>() {
 			public void onFailure(Throwable caught) {
-				Window.alert("初始化失败");
+				win.alert("初始化失败");
 			}
 
 			@Override

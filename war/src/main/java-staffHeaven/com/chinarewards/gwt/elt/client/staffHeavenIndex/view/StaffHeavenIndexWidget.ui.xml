@@ -9,15 +9,24 @@
     <div class="{new2.content-wrap}">
       <div class="{new2.content-info}">
         <div class="{new2.note}">
-          <span class="{new2.close}"></span>
-          恭喜您，您获得上月度全勤奖，获得奖金50积分！
+          <g:Anchor ui:field="closeMessageBtn" styleName="{new2.close}" />
+          <g:InlineLabel ui:field="topMessage" />
         </div>
 
         <div class="{new2.broadcast}">
           <h3>公司广播</h3>
           <p><g:InlineLabel ui:field="topBroadcast" /> </p>
         </div>
-
+		<div class="{new2.broadcast}">
+          <h2>我要广播</h2>
+			<g:TextArea styleName="{new2.textarea}" ui:field="broadcastContent" />
+			<g:CheckBox styleName="{new2.checkBox}" ui:field="moot" >  发表为讨论帖</g:CheckBox>
+						<div class="{new2.remark} {new2.remark-info}">		
+							<div class="{new2.remark-tool}" style="text-align:right;">
+				             <g:Button styleName="{new2.button}" text="发布" ui:field="addBroadcastBtn" />
+							</div>
+						</div>
+        </div>
         <div class="{new2.news-select}">
         <g:Anchor text="全部信息" ui:field="allInformation" styleName="{new2.onselecta}" />|
         <g:Anchor text="同事说" ui:field="staffInformation" />|

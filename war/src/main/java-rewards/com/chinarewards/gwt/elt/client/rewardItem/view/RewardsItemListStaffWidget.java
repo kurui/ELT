@@ -2,15 +2,11 @@ package com.chinarewards.gwt.elt.client.rewardItem.view;
 
 import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemListStaffPresenter.RewardsItemListStaffDisplay;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Panel;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
 public class RewardsItemListStaffWidget extends Composite implements
@@ -22,13 +18,6 @@ public class RewardsItemListStaffWidget extends Composite implements
 	// @UiField
 	// Panel breadCrumbs;
 
-	@UiField
-	Button searchBtn;
-
-	@UiField
-	TextBox rewardsName;
-	@UiField
-	TextBox definition;
 
 	@UiField
 	InlineLabel dataCount;
@@ -45,23 +34,8 @@ public class RewardsItemListStaffWidget extends Composite implements
 	}
 
 	@Override
-	public HasClickHandlers getSearchBtnClickHandlers() {
-		return searchBtn;
-	}
-
-	@Override
 	public Panel getResultPanel() {
 		return resultPanel;
-	}
-
-	@Override
-	public HasValue<String> getName() {
-		return rewardsName;
-	}
-
-	@Override
-	public HasValue<String> getDefinition() {
-		return definition;
 	}
 
 	@Override

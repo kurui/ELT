@@ -11,6 +11,7 @@ import com.chinarewards.elt.model.broadcast.BroadcastQueryListVo;
 import com.chinarewards.elt.model.broadcast.BroadcastingVo;
 import com.chinarewards.elt.model.broadcastReply.BroadcastReplyListCriteria;
 import com.chinarewards.elt.model.common.PageStore;
+import com.chinarewards.elt.model.information.BroadcastingCategory;
 import com.chinarewards.elt.model.user.UserContext;
 
 public interface BroadcastService {
@@ -36,7 +37,7 @@ public interface BroadcastService {
 	 * @param staffProcess
 	 * @return
 	 */
-	public String createOrUpdateBroadcast(BroadcastingVo broadcast,UserContext context);
+	public String createOrUpdateBroadcast(BroadcastingVo broadcast,UserContext context,BroadcastingCategory broadcastingCategory);
 	
 	/**
 	 * 创建 and 修改..信息

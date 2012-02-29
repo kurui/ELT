@@ -29,7 +29,6 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
@@ -175,7 +174,7 @@ public class CorpBudgetPresenterImpl extends
 								new AsyncCallback<EditCorpBudgetResponse>() {
 									@Override
 									public void onFailure(Throwable t) {
-										Window.alert("修改失败");
+										win.alert("修改失败");
 										Platform.getInstance()
 												.getEditorRegistry()
 												.closeEditor(
@@ -186,7 +185,7 @@ public class CorpBudgetPresenterImpl extends
 									@Override
 									public void onSuccess(
 											EditCorpBudgetResponse arg0) {
-										Window.alert("修改成功");
+										win.alert("修改成功");
 										Platform.getInstance()
 												.getEditorRegistry()
 												.openEditor(
@@ -261,7 +260,7 @@ public class CorpBudgetPresenterImpl extends
 				sessionManager.getSession());
 		dispatcher.execute(req, new AsyncCallback<EnterpriseInitResponse>() {
 			public void onFailure(Throwable caught) {
-				Window.alert("初始化失败");
+				win.alert("初始化失败");
 			}
 
 			@Override

@@ -9,11 +9,13 @@ import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.reward.person.Judge;
 import com.chinarewards.elt.domain.reward.person.Nominee;
 import com.chinarewards.elt.domain.reward.person.NomineeLot;
+import com.chinarewards.elt.domain.reward.person.Winner;
 import com.chinarewards.elt.model.reward.vo.RewardVo;
 import com.chinarewards.gwt.elt.client.rewards.model.DepartmentClient;
 import com.chinarewards.gwt.elt.client.rewards.model.JudgeModelClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsCriteria.RewardsStatus;
+import com.chinarewards.gwt.elt.client.rewards.model.WinnerModelClient;
 
 /**
  * This utility class use to adapter EJB entity to WAR domain.
@@ -40,8 +42,9 @@ public class RewardsAdapter {
 		result.setStandard(rewards.getStandard());
 		result.setRewardsDate(rewards.getAwardDate());
 		if (rewards.getCreatedBy() != null
-				&& rewards.getCreatedBy().getStaff() != null)
+				&& rewards.getCreatedBy().getStaff() != null){
 			result.setCreatedBy(rewards.getCreatedBy().getStaff().getName());
+		}
 		result.setTotalAmtLimit(rewards.getTotalAmtLimit());
 		result.setExpectNominateDate(rewards.getExpectNominateDate());
 		result.setHeadcountLimit(rewards.getHeadcountLimit());
@@ -72,6 +75,17 @@ public class RewardsAdapter {
 
 			}
 			result.setNomineeLot(map);
+		}
+
+		if (rewards.getWinners().size() > 0) {
+			List<WinnerModelClient> winnerList=new ArrayList<WinnerModelClient>();
+			for (Winner winner : rewards.getWinners()) {
+				WinnerModelClient param=new WinnerModelClient();
+				param.setStaffId(winner.getStaff().getId());
+				param.setName(winner.getStaff().getName());
+				winnerList.add(param);
+			}
+			result.setWinnerList(winnerList);		
 		}
 		
 

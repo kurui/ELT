@@ -133,11 +133,11 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .inbox-wrap .award-history{position:absolute;top:0;right:0px;width:300px;background-color:#ffffff;border:1px solid #DFDFDF;overflow:hidden;}
 .inbox-wrap .award-history h3{background-position:0 -167px;height:39px;line-height:39px;text-align:center;}
 .inbox-wrap .award-history .award-history-content:after{content:".";display:block;clear:both;height:0;visibility:hidden;}
-.inbox-wrap .award-history .award-history-content{*zoom:1;padding:10px 0 10px 16px;}
+.inbox-wrap .award-history .award-history-content{\*zoom:1;padding:10px 0 10px 16px;}
 .inbox-wrap .award-history p{text-align:right;padding-right:17px;padding-bottom:10px;}
 .inbox-wrap .award-history p a{text-decoration:underline;color:#000CFF;}
 .inbox-wrap .award-history-content .award{float:left;width:80px;margin:0 14px 15px 0;}
-.inbox-wrap .award-history-content .award .award-icon-wrap{border:1px solid #DDDDDD;text-align:center;height:76px;line-height:76px;*height:71px;*padding-top:5px;}
+.inbox-wrap .award-history-content .award .award-icon-wrap{border:1px solid #DDDDDD;text-align:center;height:76px;line-height:76px;\*height:71px;\*padding-top:5px;}
 .inbox-wrap .award-history-content .award p{text-align:center;background-color:#E7E7E7;padding:2px 0;}
 
 .award-icon{display:inline-block;vertical-align:middle;}

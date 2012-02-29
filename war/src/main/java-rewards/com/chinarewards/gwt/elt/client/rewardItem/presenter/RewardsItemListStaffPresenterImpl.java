@@ -11,8 +11,8 @@ import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemListStaffPresenter.RewardsItemListStaffDisplay;
-import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemClient;
-import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemCriteria;
+import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemStaffClient;
+import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemStaffCriteria;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager;
@@ -23,8 +23,6 @@ import com.chinarewards.gwt.elt.client.widget.Sorting;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.model.rewards.RewardPageType;
 import com.google.gwt.cell.client.TextCell;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.inject.Inject;
 
 public class RewardsItemListStaffPresenterImpl extends
@@ -38,7 +36,7 @@ public class RewardsItemListStaffPresenterImpl extends
 	RewardPageType pageType;
 
 	EltNewPager pager;
-	ListCellTable<RewardsItemClient> cellTable;
+	ListCellTable<RewardsItemStaffClient> cellTable;
 	RewardsItemListStaffViewAdapter listViewAdapter;
 
 	private final BreadCrumbsPresenter breadCrumbs;
@@ -64,13 +62,13 @@ public class RewardsItemListStaffPresenterImpl extends
 
 		iniWidget();
 
-		registerHandler(display.getSearchBtnClickHandlers().addClickHandler(
-				new ClickHandler() {
-					public void onClick(ClickEvent paramClickEvent) {
-						// Window.alert(sessionManager.getSession().getLoginName());
-						iniWidget();
-					}
-				}));
+//		registerHandler(display.getSearchBtnClickHandlers().addClickHandler(
+//				new ClickHandler() {
+//					public void onClick(ClickEvent paramClickEvent) {
+//						// win.alert(sessionManager.getSession().getLoginName());
+//						iniWidget();
+//					}
+//				}));
 	}
 
 	private void iniWidget() {
@@ -79,7 +77,7 @@ public class RewardsItemListStaffPresenterImpl extends
 	}
 
 	private void buildTable() {
-		cellTable = new ListCellTable<RewardsItemClient>();
+		cellTable = new ListCellTable<RewardsItemStaffClient>();
 
 		initTableColumns();
 		pager = new EltNewPager(TextLocation.CENTER);
@@ -95,9 +93,9 @@ public class RewardsItemListStaffPresenterImpl extends
 	}
 
 	private void doSearch() {
-		RewardsItemCriteria criteria = new RewardsItemCriteria();
-		criteria.setName(display.getName().getValue());
-		criteria.setDefinition(display.getDefinition().getValue());
+		RewardsItemStaffCriteria criteria = new RewardsItemStaffCriteria();
+//		criteria.setName(display.getName().getValue());
+//		criteria.setDefinition(display.getDefinition().getValue());
 
 		listViewAdapter = new RewardsItemListStaffViewAdapter(dispatch,
 				criteria, errorHandler, sessionManager, display);
@@ -106,10 +104,10 @@ public class RewardsItemListStaffPresenterImpl extends
 	}
 
 	private void initTableColumns() {
-		Sorting<RewardsItemClient> ref = new Sorting<RewardsItemClient>() {
+		Sorting<RewardsItemStaffClient> ref = new Sorting<RewardsItemStaffClient>() {
 			@Override
 			public void sortingCurrentPage(
-					Comparator<RewardsItemClient> comparator) {
+					Comparator<RewardsItemStaffClient> comparator) {
 				// listViewAdapter.sortCurrentPage(comparator);
 			}
 
@@ -119,47 +117,43 @@ public class RewardsItemListStaffPresenterImpl extends
 			}
 		};
 
-		cellTable.addColumn("奖项编号", new HyperLinkCell(),
-				new GetValue<RewardsItemClient, String>() {
-					@Override
-					public String getValue(RewardsItemClient rewards) {
-						return rewards.getName();
-					}
-				}, ref, "name");
-
 		cellTable.addColumn("奖项名称", new HyperLinkCell(),
-				new GetValue<RewardsItemClient, String>() {
+				new GetValue<RewardsItemStaffClient, String>() {
 					@Override
-					public String getValue(RewardsItemClient rewards) {
+					public String getValue(RewardsItemStaffClient rewards) {
 						return rewards.getName();
 					}
 				}, ref, "name");
-
-		cellTable.addColumn("奖励状态", new TextCell(),
-				new GetValue<RewardsItemClient, String>() {
+		
+		cellTable.addColumn("奖励积分", new HyperLinkCell(),
+				new GetValue<RewardsItemStaffClient, String>() {
 					@Override
-					public String getValue(RewardsItemClient rewards) {
-						if (rewards.isEnabled() == true) {
-							return "已激活";
-						} else {
-							return "未激活";
-						}
-
+					public String getValue(RewardsItemStaffClient rewards) {
+						return rewards.getRewardsFrom()+"";
 					}
-				}, ref, "name");
-
-		cellTable.addColumn("创建人", new TextCell(),
-				new GetValue<RewardsItemClient, String>() {
+				}, ref, "rewardsFrom");
+		
+		cellTable.addColumn("说明", new HyperLinkCell(),
+				new GetValue<RewardsItemStaffClient, String>() {
 					@Override
-					public String getValue(RewardsItemClient rewards) {
+					public String getValue(RewardsItemStaffClient rewards) {
+						return rewards.getDefinition();
+					}
+				}, ref, "definition");
+
+
+		cellTable.addColumn("提名人", new TextCell(),
+				new GetValue<RewardsItemStaffClient, String>() {
+					@Override
+					public String getValue(RewardsItemStaffClient rewards) {
 						return rewards.getCreatedBy();
 					}
 				}, ref, "createdBy");
 
-		cellTable.addColumn("获奖人", new TextCell(),
-				new GetValue<RewardsItemClient, String>() {
+		cellTable.addColumn("提名次数", new TextCell(),
+				new GetValue<RewardsItemStaffClient, String>() {
 					@Override
-					public String getValue(RewardsItemClient rewards) {
+					public String getValue(RewardsItemStaffClient rewards) {
 						return rewards.getCreatedBy();
 					}
 				}, ref, "createdBy");

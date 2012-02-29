@@ -144,7 +144,7 @@ public class DepartmentPresenterImpl extends
 									@Override
 									public void onSuccess(
 											EditDepartmentResponse response) {
-										Window.alert("添加成功");
+										win.alert("添加成功");
 										// if(instanceId!=null||!instanceId.equals(""))
 										openDepartmentManagePage();
 									}
@@ -159,14 +159,14 @@ public class DepartmentPresenterImpl extends
 									new AsyncCallback<EditDepartmentResponse>() {
 										@Override
 										public void onFailure(Throwable t) {
-											Window.alert("修改失败");
+											win.alert("修改失败");
 											closeEditPage();
 										}
 
 										@Override
 										public void onSuccess(
 												EditDepartmentResponse arg0) {
-											Window.alert("修改成功");
+											win.alert("修改成功");
 											openDepartmentManagePage();
 										}
 									});

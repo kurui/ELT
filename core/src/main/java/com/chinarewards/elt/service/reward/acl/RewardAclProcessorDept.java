@@ -133,6 +133,8 @@ public class RewardAclProcessorDept extends AbstractRewardAclProcessor {
 		pageStore.setResultList(itemList);
 		return pageStore;
 	}
+	
+
 
 	@Override
 	// 奖项库查询
@@ -241,21 +243,15 @@ public class RewardAclProcessorDept extends AbstractRewardAclProcessor {
 		return res;
 	}
 
+
 	@Override
-	public PageStore<Reward> fetchRewardsStaff(UserContext context,
-			RewardSearchVo criteria) {
-		logger.debug(" Process in StaffRoleProcessor fetchRewards method,UserId:"
-				+ context.getUserId());
-		PageStore<Reward> res = new PageStore<Reward>();
-
-		SysUser currentUser = userDao.findById(SysUser.class,
-				context.getUserId());
-		if (currentUser != null) {
-			String staffId = currentUser.getStaff().getId();
-			logger.debug(" staffId:" + staffId);
-			res = rewardsDao.searchRewards_staff(staffId, criteria);
-		}
-
-		return res;
+	public PageStore<RewardItem> fetchRewardItems_companyOther(
+			UserContext context, RewardItemSearchVo criteria) {
+		// TODO Auto-generated method stub
+		return null;
 	}
+
+
+
+
 }

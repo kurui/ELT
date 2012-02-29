@@ -111,7 +111,7 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 									@Override
 									public void onSuccess(
 											EditGiftResponse response) {
-										Window.alert("添加成功");
+										win.alert("添加成功");
 										// if(instanceId!=null||!instanceId.equals(""))
 										Platform.getInstance()
 												.getEditorRegistry()
@@ -130,7 +130,7 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 									new AsyncCallback<EditGiftResponse>() {
 										@Override
 										public void onFailure(Throwable t) {
-											Window.alert("修改失败");
+											win.alert("修改失败");
 											Platform.getInstance()
 													.getEditorRegistry()
 													.closeEditor(
@@ -141,7 +141,7 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 										@Override
 										public void onSuccess(
 												EditGiftResponse arg0) {
-											Window.alert("修改成功");
+											win.alert("修改成功");
 											Platform.getInstance()
 													.getEditorRegistry()
 													.openEditor(

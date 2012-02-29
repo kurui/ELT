@@ -34,6 +34,7 @@ import com.chinarewards.elt.model.reward.search.RewardItemSearchVo;
 import com.chinarewards.elt.model.reward.vo.RewardItemStoreVo;
 import com.chinarewards.elt.model.reward.vo.RewardItemVo;
 import com.chinarewards.elt.model.user.UserContext;
+import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.service.org.DepartmentLogic;
 import com.chinarewards.elt.service.reward.acl.RewardAclProcessorFactory;
 import com.chinarewards.elt.service.reward.frequency.FrequencyLogic;
@@ -424,6 +425,65 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 		PageStore<RewardItem> pageStore = rewardAclProcessorFactory
 				.generateRewardAclProcessor(context.getUserRoles())
 				.fetchRewardItems(context, criteria);
+
+		List<RewardItem> itemList = pageStore.getResultList();
+		// post-process and convert
+		List<RewardItemVo> itemVoList = new ArrayList<RewardItemVo>();
+		for (RewardItem item : itemList) {
+			itemVoList.add(convertFromRewardItemToVo(item, true));
+		}
+		logger.debug("The result size:{}, total:{}",
+				new Object[] { itemVoList.size(), pageStore.getResultCount() });
+
+		PageStore<RewardItemVo> storeVo = new PageStore<RewardItemVo>();
+		storeVo.setResultCount(pageStore.getResultCount());
+		storeVo.setResultList(itemVoList);
+
+		return storeVo;
+	}
+	
+	
+	@Override
+	public PageStore<RewardItemVo> fetchStaffRewardItems(UserContext context,
+			RewardItemSearchVo criteria) {
+		logger.debug("Process in fetchRewardItems method, parameter RewardItemSearchVo.toString:"
+				+ criteria);
+		
+		List<UserRole> userRoleList=new ArrayList<UserRole>();
+		userRoleList.add(UserRole.STAFF);
+		
+		PageStore<RewardItem> pageStore = rewardAclProcessorFactory
+				.generateRewardAclProcessor(userRoleList)
+				.fetchRewardItems(context, criteria);
+
+		List<RewardItem> itemList = pageStore.getResultList();
+		// post-process and convert
+		List<RewardItemVo> itemVoList = new ArrayList<RewardItemVo>();
+		for (RewardItem item : itemList) {
+			itemVoList.add(convertFromRewardItemToVo(item, true));
+		}
+		logger.debug("The result size:{}, total:{}",
+				new Object[] { itemVoList.size(), pageStore.getResultCount() });
+
+		PageStore<RewardItemVo> storeVo = new PageStore<RewardItemVo>();
+		storeVo.setResultCount(pageStore.getResultCount());
+		storeVo.setResultList(itemVoList);
+
+		return storeVo;
+	}
+	
+	@Override
+	public PageStore<RewardItemVo> fetchCompanyOtherRewardItems(UserContext context,
+			RewardItemSearchVo criteria) {
+		logger.debug("Process in fetchRewardItems method, parameter RewardItemSearchVo.toString:"
+				+ criteria);
+		
+		List<UserRole> userRoleList=new ArrayList<UserRole>();
+		userRoleList.add(UserRole.STAFF);
+		
+		PageStore<RewardItem> pageStore = rewardAclProcessorFactory
+				.generateRewardAclProcessor(userRoleList)
+				.fetchRewardItems_companyOther(context, criteria);
 
 		List<RewardItem> itemList = pageStore.getResultList();
 		// post-process and convert

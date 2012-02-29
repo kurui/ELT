@@ -119,7 +119,7 @@ public class IntegralPricePresenterImpl extends
 				sessionManager.getSession()), new AsyncCallback<EnterpriseInitResponse>() {
 			public void onFailure(Throwable caught) {
 
-				Window.alert("初始化失败");
+				win.alert("初始化失败");
 			}
 
 			@Override
@@ -136,7 +136,7 @@ public class IntegralPricePresenterImpl extends
 		dispatcher.execute(new SearchCorpBudgetByCorpIdRequest(
 				corporationId), new AsyncCallback<SearchCorpBudgetByCorpIdResponse>() {
 			public void onFailure(Throwable caught) {
-				Window.alert("初始化失败");
+				win.alert("初始化失败");
 			}
 
 			@Override

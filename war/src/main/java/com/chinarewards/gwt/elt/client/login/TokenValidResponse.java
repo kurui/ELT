@@ -13,7 +13,25 @@ public class TokenValidResponse implements Result {
 	UserRoleVo[] userRoles;
 	String staffId;
     UserRoleVo lastLoginRole;
+    String photo;
+    String corporationName;
     
+    
+	public String getCorporationName() {
+		return corporationName;
+	}
+
+	public void setCorporationName(String corporationName) {
+		this.corporationName = corporationName;
+	}
+
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
 	public UserRoleVo getLastLoginRole() {
 		return lastLoginRole;
 	}

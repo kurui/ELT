@@ -120,7 +120,7 @@ public class LeadTimePresenterImpl extends
 		dispatcher.execute(new StaffViewRequest(sessionManager.getSession().getStaffId()), new AsyncCallback<StaffViewResponse>() {
 			public void onFailure(Throwable caught) {
 
-				Window.alert("初始化失败");
+				win.alert("初始化失败");
 			}
 
 			@Override

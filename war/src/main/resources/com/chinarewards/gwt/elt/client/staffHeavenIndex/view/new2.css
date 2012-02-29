@@ -204,6 +204,10 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .employee .content-info .note .close{background-position:-32px -35px;width:8px;height:9px;position:absolute;right:8px;top:9px;cursor:pointer;}
 .employee .content-info .broadcast{background-color:#E6E7E6;padding:8px;margin-bottom:10px;}
 .employee .content-info .broadcast h3{text-align:center;color:#FE0100;margin-bottom:5px;}
+.employee .content-info .broadcast h2{text-align:left;color:#336CA4;margin-bottom:5px;}
+.employee .content-info .textarea{width:99%;height:80px;border:1px solid #CBCBCB;padding:5px;overflow:auto;}
+.employee .content-info .checkBox{float: left;}
+.employee .content-info .checkBox label{padding-left: 5px;}
 .employee .content-info .news-select{background-color:#F1F2F1;text-align:right;padding:5px 0;color:#7A9BBA;padding-right:10px;}
 .employee .content-info .news-select a{color:#7A9BBA;}
 .employee .content-info .news-select .onselecta{color:#565656;}
@@ -234,12 +238,12 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .employee .pager,.employee .pager a{color:#333333;}
 .employee .pager a:hover{background-color:#707070;}
 
-.remark{background-color:#F8F9FD;overflow:hidden;padding:15px;width:720px;}
+.remark{overflow:hidden;padding: 5px 0 0;margin-right: 30px}
 .remark img{border:1px solid #CACACA;padding:2px;width:54px;height:54px;overflow:hidden;float:left;margin-right:10px;}
 .remark .remark-info{float:left;width:650px;}
 .remark .remark-info .remark-tool{text-align:right;margin-top:5px;}
 .remark .textarea{width:638px;height:80px;border:1px solid #CBCBCB;padding:5px;overflow:auto;}
-.remark .button{color:#FFFFFF;background-color:#0D63B8;padding:2px 8px;border:1px solid #7CD2FD;border-bottom:1px solid #2E5F77;border-right:1px solid #3C7D9C;}
+.remark .button{width: 100px;color:#FFFFFF;background-color:#0D63B8;padding:2px 8px;border:1px solid #7CD2FD;border-bottom:1px solid #2E5F77;border-right:1px solid #3C7D9C;}
 
 .remark-list{background-color:#F8F9FD;overflow:hidden;padding:15px;width:720px;}
 .remark-list .remark-list-info img{border:1px solid #CACACA;padding:2px;width:34px;height:34px;overflow:hidden;float:left;margin-right:10px;}

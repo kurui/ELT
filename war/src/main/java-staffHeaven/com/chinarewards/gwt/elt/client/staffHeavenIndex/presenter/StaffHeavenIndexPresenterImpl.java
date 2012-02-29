@@ -1,11 +1,20 @@
 package com.chinarewards.gwt.elt.client.staffHeavenIndex.presenter;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import com.chinarewards.gwt.elt.client.broadcastSave.request.BroadcastSaveRequest;
+import com.chinarewards.gwt.elt.client.broadcastSave.request.BroadcastSaveResponse;
 import com.chinarewards.gwt.elt.client.broadcasting.model.BroadcastingListCriteria.BroadcastingCategory;
+import com.chinarewards.gwt.elt.client.chooseOrganization.model.OrganSearchCriteria.OrganType;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
+import com.chinarewards.gwt.elt.client.message.model.MessageListClient;
+import com.chinarewards.gwt.elt.client.message.model.MessageListCriteria;
+import com.chinarewards.gwt.elt.client.message.request.SearchMessageListRequest;
+import com.chinarewards.gwt.elt.client.message.request.SearchMessageListResponse;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
@@ -15,10 +24,13 @@ import com.chinarewards.gwt.elt.client.staffHeavenIndex.model.StaffHeavenIndexCr
 import com.chinarewards.gwt.elt.client.staffHeavenIndex.request.StaffHeavenIndexRequest;
 import com.chinarewards.gwt.elt.client.staffHeavenIndex.request.StaffHeavenIndexResponse;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.chinarewards.gwt.elt.client.util.StringUtil;
+import com.chinarewards.gwt.elt.client.view.constant.CssStyleConstants;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager.TextLocation;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.win.Win;
+import com.chinarewards.gwt.elt.model.PaginationDetailClient;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Timer;
@@ -55,8 +67,8 @@ public class StaffHeavenIndexPresenterImpl extends
 		init();
 
 	     StaffHeavenIndexCriteria  criteria = new StaffHeavenIndexCriteria();
-	     
-	     //条件未加
+	     criteria.setNowDate(true);
+	     //当前可以在顶级显示的广播
 	 	dispatch.execute(new StaffHeavenIndexRequest(criteria,
 				sessionManager.getSession()),
 				new AsyncCallback<StaffHeavenIndexResponse>() {
@@ -91,6 +103,99 @@ public class StaffHeavenIndexPresenterImpl extends
 					}
 
 				});
+	 	//当前可以在顶级显示的消息
+	 	MessageListCriteria crteria=new MessageListCriteria();
+		PaginationDetailClient pagination = new PaginationDetailClient();
+		pagination.setStart(0);
+		pagination.setLimit(1);
+		crteria.setPagination(pagination);
+
+		dispatch.execute(new SearchMessageListRequest(crteria,
+				sessionManager.getSession()),
+				new AsyncCallback<SearchMessageListResponse>() {
+					@Override
+					public void onFailure(Throwable e) {
+						errorHandler.alert(e.getMessage());
+					}
+
+					@Override
+					public void onSuccess(SearchMessageListResponse response) {
+						List<MessageListClient> giftList = response.getResult();
+						if(giftList.size()>0)
+						{
+							display.setTopMessage(giftList.get(0).getContent());
+							display.getCloseMessageBtn().addClickHandler(new ClickHandler() {
+
+								@Override
+								public void onClick(ClickEvent event) {
+									display.getCloseMessageBtn().getElement().getParentElement().addClassName(CssStyleConstants.hidden);
+								}
+							});
+						}
+						else
+						{
+							display.getCloseMessageBtn().getElement().getParentElement().addClassName(CssStyleConstants.hidden);
+						}
+
+					}
+
+				});
+		//员工主界面添加广播
+		display.getAddBroadcastBtn().addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+
+				
+				if(StringUtil.isEmpty(display.getBroadcastContent()))
+				{
+					win.alert("请填写广播内容!");
+					return;
+				}
+
+				BroadcastSaveRequest request = new BroadcastSaveRequest();
+
+				request.setSession(sessionManager.getSession());
+				request.setBroadcastingTimeStart(new Date());
+				request.setBroadcastingTimeEnd(new Date());
+				request.setContent(display.getBroadcastContent());
+				
+				request.setAllowreplies(true);
+
+				//接收对象为当前人机构
+				List<String[]> organList=new ArrayList<String[]>();
+				String[] nameAndId = new String[3];
+				nameAndId[0] = sessionManager.getSession().getCorporationId();
+				nameAndId[1] = sessionManager.getSession().getCorporationName();
+				nameAndId[2] = OrganType.ORG.toString();
+				organList.add(nameAndId);
+				
+				request.setOrganList(organList);
+				if(display.getMoot())
+					request.setBroadcastingCategory(BroadcastingCategory.THEMEBROADCAST);
+				else
+					request.setBroadcastingCategory(BroadcastingCategory.STAFFBROADCAST);
+				
+				dispatch.execute(request,
+						new AsyncCallback<BroadcastSaveResponse>() {
+
+							@Override
+							public void onFailure(Throwable t) {
+								win.alert(t.getMessage());
+							}
+
+							@Override
+							public void onSuccess(BroadcastSaveResponse resp) {
+								win.alert("保存成功");
+								display.successClean();
+								doSearch(null);
+							}
+						});
+			
+			
+		
+			}
+		});
 		
 	}
 

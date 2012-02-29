@@ -69,7 +69,7 @@ public class RewardsListStaffPresenterImpl extends
 		registerHandler(display.getSearchBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
-						// Window.alert(sessionManager.getSession().getLoginName());
+						// win.alert(sessionManager.getSession().getLoginName());
 						iniWidget();
 					}
 				}));
@@ -167,9 +167,9 @@ public class RewardsListStaffPresenterImpl extends
 				new GetValue<RewardsClient, String>() {
 					@Override
 					public String getValue(RewardsClient rewards) {
-						return rewards.getCreatedBy();
+						return rewards.getWinnersText();
 					}
-				}, ref, "createdBy");
+				}, ref, "winners");
 
 	}
 

@@ -201,7 +201,7 @@ public class DepartmentLeaderPresenterImpl extends
 
 					@Override
 					public void onFailure(Throwable t) {
-						Window.alert(t.getMessage());
+						win.alert(t.getMessage());
 					}
 
 					@Override

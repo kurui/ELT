@@ -79,12 +79,18 @@ public class StaffHeavenIndexActionHandler extends
 		if(request.getCriteria().getCategory()!=null)
 			criteria.setCategory(com.chinarewards.elt.model.information.BroadcastingCategory.valueOf(request.getCriteria().getCategory().toString()));
 		
+		if(request.getCriteria().isNowDate()==true)
+		{
+			criteria.setNowDate(true);
+		}
 		UserContext context=new UserContext();
 		context.setCorporationId(request.getSession().getCorporationId());
 		context.setUserId(request.getSession().getToken());
 		context.setLoginName(request.getSession().getLoginName());
 		context.setUserRoles(UserRoleTool.adaptToRole(request.getSession().getUserRoles()));
 		
+		//接收用户ID
+		criteria.setReceivingUserId(context.getUserId());
 		BroadcastQueryListVo result=broadcastService.queryBroadcastList(criteria);
 		
 		List<StaffHeavenIndexClient> lt=new ArrayList<StaffHeavenIndexClient>();

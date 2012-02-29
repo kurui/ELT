@@ -37,7 +37,6 @@ import com.chinarewards.gwt.elt.client.staffHeavenIndex.plugin.StaffHeavenIndexC
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.model.rewards.RewardsPageClient;
 import com.chinarewards.gwt.elt.model.user.UserRoleVo;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
@@ -129,11 +128,12 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 											LastLoginRoleResponse resp) {
 										// 成功
 										if ("success".equals(resp.getFal()))
-											GWT.log("success update last login role ");
+											Window.Location.reload();
+										else
+											Window.alert("系统切换出错");
 
 									}
 								});
-						Window.Location.reload();
 					}
 				}));
 		registerHandler(display.getGiftExchange().addClickHandler(
@@ -155,11 +155,12 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 											LastLoginRoleResponse resp) {
 										// 成功
 										if ("success".equals(resp.getFal()))
-											GWT.log("success update last login role ");
+											Window.Location.reload();
+										else
+											Window.alert("系统切换出错");
 
 									}
 								});
-						Window.Location.reload();
 					}
 				}));
 
@@ -216,8 +217,8 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(
-										RewardsItemConstants.EDITOR_REWARDSITEM_STAFF_LIST,
-										"EDITOR_REWARDSITEMLIST_STAFF_SEARCH_DO_ID",
+										RewardsItemConstants.EDITOR_REWARDSITEM_COMPANYOTHER_LIST,
+										"EDITOR_REWARDSITEMLIST_COMPANYOTHER_SEARCH_DO_ID",
 										client);
 					}
 				}));

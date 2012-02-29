@@ -112,7 +112,7 @@ public class BroadcastReplyLatticeWidget extends Composite {
 	void refMyreply()
 	{
 		replyPanel.clear();
-		replyPanel.add(new MyReplyLatticeWidget(win, dispatch,sessionManager, null, broadcastId,replyNumber,widget));
+		replyPanel.add(new MyReplyLatticeWidget(win, dispatch,sessionManager, sessionManager.getSession().getPhoto(), broadcastId,replyNumber,widget));
 	}
 	
 	void refWidget() {
@@ -123,7 +123,7 @@ public class BroadcastReplyLatticeWidget extends Composite {
 				new AsyncCallback<SearchBroadcastReplyResponse>() {
 					@Override
 					public void onFailure(Throwable e) {
-						Window.alert(e.getMessage());
+						win.alert(e.getMessage());
 					}
 
 					@Override

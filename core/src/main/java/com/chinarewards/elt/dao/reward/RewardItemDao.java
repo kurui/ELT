@@ -219,4 +219,144 @@ public class RewardItemDao extends BaseDao<RewardItem> {
 	public Date getLastRewardDate(String rewardItemId) {
 		return getEm().find(RewardItem.class, rewardItemId).getLastAwardDate();
 	}
+	
+	
+	
+	@SuppressWarnings("unchecked")
+	public List<RewardItem> fetchStaffRewardsItems(RewardItemSearchVo criteria) {
+
+		logger.debug("Process in fetchRewardsItems method, parameter : {}",
+				criteria.toString());
+		List<RewardItem> result = new ArrayList<RewardItem>();
+		PaginationDetail pageDetail = criteria.getPaginationDetail();
+		if (null != pageDetail) {
+			logger.debug(
+					" pagination detail - start:{}, limit:{}",
+					new Object[] { pageDetail.getStart(), pageDetail.getLimit() });
+		}
+
+		Query query = getFetchStaffRewardsItemsQuery(SEARCH, criteria);
+
+		result = query.getResultList();
+		logger.debug("finished by fetchRewardsItems method. result.size:{}",
+				result.size());
+		return result;
+	}
+
+	public int countStaffRewardsItems(RewardItemSearchVo criteria) {
+		logger.debug(" Process in countRewardsItems method, parameter : {}",
+				criteria.toString());
+		int count = 0;
+		Query query = getFetchStaffRewardsItemsQuery(COUNT, criteria);
+		count = Integer.parseInt(query.getSingleResult().toString());
+		logger.debug(" finshed by countRewardsItems method, result count : {}",
+				count);
+		return count;
+	}
+
+	
+	private Query getFetchStaffRewardsItemsQuery(String type,
+			RewardItemSearchVo criteria) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		StringBuffer eql = new StringBuffer();
+		System.out.println("RewardItemSearchVo : " + criteria);
+		if (SEARCH.equals(type)) {
+			eql.append(" SELECT item FROM RewardItem item WHERE 1 = 1 and  item.deleted= :deleted");
+		} else if (COUNT.equals(type)) {
+			eql.append(" SELECT COUNT(item) FROM RewardItem item WHERE 1 = 1 and  item.deleted= :deleted");
+		}
+
+		param.put("deleted", false);
+
+		// 根据部门id来查询
+		if (null != criteria.getDeptIds() && !criteria.getDeptIds().isEmpty()) {
+			eql.append(" AND item.builderDept.id IN (:deptIds)");
+			param.put("deptIds", criteria.getDeptIds());
+		}
+		// 根据企业id来查询
+		if (!StringUtil.isEmptyString(criteria.getCorporationId())) {
+			eql.append(" AND item.corporation.id = :corporationId");
+			param.put("corporationId", criteria.getCorporationId());
+		}
+		
+		if (!StringUtil.isEmptyString(criteria.getDefinition())) {
+			eql.append(" AND UPPER(item.definition) LIKE :definition ");
+			param.put("definition", "%"
+					+ criteria.getDefinition().trim().toUpperCase() + "%");
+		}
+		
+		// 根据创建时间来查询
+		if (null != criteria.getCreateTime()
+				&& !criteria.getCreateTime().equals("")
+				&& null != criteria.getCreateTimeEnd()
+				&& !criteria.getCreateTimeEnd().equals("")) {
+			eql.append(" and ( item.createdAt  between :createTime and :createdAtEnd)");
+			param.put("createTime", criteria.getCreateTime());
+			param.put("createdAtEnd", criteria.getCreateTimeEnd());
+
+		}
+		// 根据激活状态来查询
+		if("false".equals(criteria.isEnabled()))
+		{
+			eql.append(" and  item.enabled= :enabled ");
+			param.put("enabled", false);
+		}
+		if("true".equals(criteria.isEnabled()))
+		{
+			eql.append(" and  item.enabled= :enabled ");
+			param.put("enabled", true);
+		}
+		
+		if (!StringUtil.isEmptyString(criteria.getName())) {
+			eql.append(" AND UPPER(item.name) LIKE :name ");
+			param.put("name", "%" + criteria.getName().trim().toUpperCase()
+					+ "%");
+		}
+		if (!StringUtil.isEmptyString(criteria.getStandard())) {
+			eql.append(" AND UPPER(item.standard) LIKE :standard ");
+			param.put("standard", "%"
+					+ criteria.getStandard().trim().toUpperCase() + "%");
+		}
+		if (!StringUtil.isEmptyString(criteria.getTypeName())) {
+			eql.append(" AND item.type IN (FROM RewardType type WHERE UPPER(type.name) LIKE :typeName) ");
+			param.put("typeName", "%"
+					+ criteria.getTypeName().trim().toUpperCase() + "%");
+		}
+		/**
+		 * id来查询
+		 */
+		if (!StringUtil.isEmptyString(criteria.getId())) {
+			eql.append(" AND item.id = :Id");
+			param.put("typeId", criteria.getId());
+		}
+		if (SEARCH.equals(type)) {
+			if (null != criteria && null != criteria.getSortingDetail()) {
+				eql.append(" ORDER BY item."
+						+ criteria.getSortingDetail().getSort() + " "
+						+ criteria.getSortingDetail().getDirection());
+			}
+		}
+		// System.out.println("EQL : " + eql);
+		Query query = getEm().createQuery(eql.toString());
+		if (SEARCH.equals(type)) {
+			if (criteria.getPaginationDetail() != null) {
+				int start = criteria.getPaginationDetail().getStart();
+				int limit = criteria.getPaginationDetail().getLimit();
+				logger.debug(" paginationDetail - start:{}, limit:{}",
+						new Object[] { start, limit });
+
+				query.setFirstResult(start);
+				query.setMaxResults(limit);
+			}
+		}
+		if (param.size() > 0) {
+			Set<String> key = param.keySet();
+			for (String s : key) {
+				query.setParameter(s, param.get(s));
+			}
+		}
+
+		return query;
+	}
+
 }
