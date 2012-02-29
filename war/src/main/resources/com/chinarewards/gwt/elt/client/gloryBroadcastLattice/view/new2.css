@@ -196,8 +196,8 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .employee .reward-section .imglink p a{padding-left:0;font-size:12px;}
 .employee .reward-section .reward-pslist li{margin-top:3px;}
 
-.employee .content-wrap{background:url(elt/images/employee_repeaty.png) repeat-y right top;margin-left:277px;}
-.employee .content-wrap .content-info{margin-right:218px;position:relative;}
+.employee .content-wrap{background:url(elt/images/employee_repeaty.png) repeat-y right top;}
+.employee .content-wrap .content-info{position:relative;}
 
 /*----------------------------------------- 员工主页面 -------------------------------------------------------*/
 .employee .content-info .note{background-color:#FEFFF4;border:1px solid #D8D9D8;padding:6px 8px;color:#F03E59;position:relative;margin-bottom:10px;}
@@ -252,13 +252,13 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .employee .remark-text{border:1px solid #C3C3C3;color:#C3C3C3;padding:3px 5px;width:738px;margin-top:10px;}
 
 /*----------------------------------------- 我的消息 -------------------------------------------------------*/
-.employee .news-wrap{margin:22px 0;}
+.employee .news-wrap{}
 .employee .news-wrap .news-menu{background-color:#ECECEC;border-bottom:1px solid #CCCCCC;padding-bottom:32px;}
 .employee .news-wrap .news-menu li{float:left;margin-right:4px;padding:0;margin-top:2px;position:relative;z-index:100;}
 .employee .news-wrap .news-menu li a{display:inline-block;padding:0 8px;height:29px;line-height:29px;color:#3E3E3E;font-size:12px;text-decoration:none;outline:none;}
 .employee .news-wrap .news-menu .news-on{border:1px solid #CCCCCC;border-bottom:1px solid #ffffff;background-color:#ffffff;height:29px;line-height:29px;}
 .employee .news-wrap .news-menu .news-on a{font-weight:bold;height:29px;overflow:hidden;}
-.employee .news-wrap .news-content{border:1px solid #CCCCCC;border-top:none;}
+.employee .news-wrap .news-content{border-top:none;}
 
 .employee .news-wrap .send-news{padding:17px 0 12px 12px;border-bottom:1px solid #E0E0E0;}
 .employee .news-wrap .news-list{padding:0 12px;width:auto;background-color:#ffffff;}
@@ -268,10 +268,10 @@ a:hover{color:#010DFF;text-decoration:underline;}
 
 /*----------------------------------------- 光荣榜 -------------------------------------------------------*/
 .employee .glorylist-wrap{background-image:none;}
-.employee .glorylist-wrap .content-info{margin-right:218px;}
-.employee .glorylist-wrap .glorylist-content{text-align:center;padding:20px 12px;}
+.employee .glorylist-wrap .content-info{}
+.employee .glorylist-wrap .glorylist-content{text-align:center;}
 .employee .glorylist-wrap .glorylist-content .glorylist-logo{margin:0 auto 20px;width:441px;}
-.employee .glorylist-wrap .glorylist-content .news-list{text-align:left;padding:0;border-top:1px solid #E5E5E5;}
+.employee .glorylist-wrap .glorylist-content .news-list{text-align:left;padding:0;}
 .employee .glorylist-wrap .glorylist-content .award-wrap{float:left;border:1px solid #CACACA;padding:2px;margin-right:10px;width:60px;text-align:center;}
 .employee .glorylist-wrap .remark-info-wrap p{line-height:30px;}
 
@@ -282,6 +282,4 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .project-icon{background-position:-138px -236px;width:42px;height:65px;}
 .attendence-icon{background-position:-181px -236px;width:40px;height:60px;}
 .taste-icon{background-position:-222px -236px;width:38px;height:55px;}
-
-.panelClass table{width:100%}
 

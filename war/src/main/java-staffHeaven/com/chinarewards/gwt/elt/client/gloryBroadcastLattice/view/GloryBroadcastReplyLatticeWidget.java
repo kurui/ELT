@@ -1,4 +1,4 @@
-package com.chinarewards.gwt.elt.client.broadcastReplyLattice.view;
+package com.chinarewards.gwt.elt.client.gloryBroadcastLattice.view;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,12 +30,9 @@ import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
-public class BroadcastReplyLatticeWidget extends Composite {
+public class GloryBroadcastReplyLatticeWidget extends Composite {
 
-	@UiField
-	InlineLabel deptName;
-	@UiField
-	InlineLabel staffName;
+
 	@UiField
 	InlineLabel content;
 	@UiField
@@ -56,16 +53,16 @@ public class BroadcastReplyLatticeWidget extends Composite {
 	 DispatchAsync dispatch;
 	 SessionManager sessionManager;
 	 String broadcastId;
-	 BroadcastReplyLatticeWidget widget;
+	 GloryBroadcastReplyLatticeWidget widget;
 	 int replyNumber;
 	private static BroadcastReplyLatticeWidgetUiBinder uiBinder = GWT
 			.create(BroadcastReplyLatticeWidgetUiBinder.class);
 
 	interface BroadcastReplyLatticeWidgetUiBinder extends
-			UiBinder<Widget, BroadcastReplyLatticeWidget> {
+			UiBinder<Widget, GloryBroadcastReplyLatticeWidget> {
 	}
 
-	public BroadcastReplyLatticeWidget(final Win win, final DispatchAsync dispatch,
+	public GloryBroadcastReplyLatticeWidget(final Win win, final DispatchAsync dispatch,
 			final SessionManager sessionManager, final String broadcastId, String deptName,
 			String staffName, String content, String createDate,
 			String createDept, final int replyNumber) {
@@ -76,10 +73,7 @@ public class BroadcastReplyLatticeWidget extends Composite {
 		this.widget=this;
 		this.replyNumber=replyNumber;
 		initWidget(uiBinder.createAndBindUi(this));
-		if (!StringUtil.isEmpty(deptName))
-			this.deptName.setText(deptName);
-		if (!StringUtil.isEmpty(staffName))
-			this.staffName.setText(staffName);
+
 		if (!StringUtil.isEmpty(content))
 			this.content.setText(content);
 		if (!StringUtil.isEmpty(createDate))
@@ -111,7 +105,7 @@ public class BroadcastReplyLatticeWidget extends Composite {
 	void refMyreply()
 	{
 		replyPanel.clear();
-		replyPanel.add(new MyReplyLatticeWidget(win, dispatch,sessionManager, sessionManager.getSession().getPhoto(), broadcastId,replyNumber,widget));
+		replyPanel.add(new GloryReplyLatticeWidget(win, dispatch,sessionManager, sessionManager.getSession().getPhoto(), broadcastId,replyNumber,widget));
 	}
 	
 	void refWidget() {
@@ -127,7 +121,7 @@ public class BroadcastReplyLatticeWidget extends Composite {
 
 					@Override
 					public void onSuccess(SearchBroadcastReplyResponse response) {
-						MyReplyShortLatticeWidget myshort=new MyReplyShortLatticeWidget(win, dispatch, sessionManager, broadcastId, replyNumber, widget);
+						GloryReplyShortLatticeWidget myshort=new GloryReplyShortLatticeWidget(win, dispatch, sessionManager, broadcastId, replyNumber, widget);
 						List<ReplyListClient> giftList = response.getResult();
 						
 						
@@ -172,7 +166,7 @@ public class BroadcastReplyLatticeWidget extends Composite {
 										grid.setWidget(
 												row,
 												col,
-												new ReplyLatticeWidget(
+												new GloryLatticeWidget(
 														myshort,
 														clint.getId(),
 														clint.getReplyUserPhoto(),
