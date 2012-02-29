@@ -317,7 +317,7 @@ public class RewardLogicImpl implements RewardLogic {
 		organList.add(nameAndId);
 		
 		vo.setOrganList(organList);
-		broadcastService.createOrUpdateBroadcast(vo, context, BroadcastingCategory.SYSBROADCAST);
+		broadcastService.createOrUpdateBroadcast(vo, context, BroadcastingCategory.REWARDBROADCAST);
 		
 		return lotId;
 	}

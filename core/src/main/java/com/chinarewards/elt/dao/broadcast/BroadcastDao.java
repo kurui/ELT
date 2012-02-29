@@ -12,6 +12,7 @@ import com.chinarewards.elt.domain.information.Broadcasting;
 import com.chinarewards.elt.model.broadcast.BroadcastQueryListCriteria;
 import com.chinarewards.elt.model.broadcast.BroadcastQueryListVo;
 import com.chinarewards.elt.model.information.BroadcastMessage;
+import com.chinarewards.elt.model.information.BroadcastingCategory;
 import com.chinarewards.elt.util.StringUtil;
 
 public class BroadcastDao  extends BaseDao<Broadcasting>{
@@ -56,8 +57,17 @@ public class BroadcastDao  extends BaseDao<Broadcasting>{
 		}
 		if(searchVo.getCategory()!=null)
 		{
-			hql.append(" AND broadcast.category = :category ");
-			param.put("category", searchVo.getCategory());
+			if(searchVo.getCategory()==BroadcastingCategory.SYSBROADCAST)
+			{
+				hql.append(" AND (broadcast.category = :category1 OR broadcast.category = :category2)");
+				param.put("category1", searchVo.getCategory());
+				param.put("category2", BroadcastingCategory.REWARDBROADCAST);
+			}
+			else
+			{
+				hql.append(" AND broadcast.category = :category ");
+				param.put("category", searchVo.getCategory());
+			}
 		}
 		if (!StringUtil.isEmptyString(searchVo.getQueryKey())) 
 		{
