@@ -3,13 +3,15 @@ package com.chinarewards.elt.service.order.impl;
 import java.util.Arrays;
 import java.util.List;
 
+import com.chinarewards.elt.dao.org.StaffDao;
 import com.chinarewards.elt.domain.gift.Gift;
 import com.chinarewards.elt.domain.order.Orders;
+import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.gift.search.GiftListVo;
-import com.chinarewards.elt.model.order.search.OrderStatus;
 import com.chinarewards.elt.model.order.search.OrderListVo;
+import com.chinarewards.elt.model.order.search.OrderStatus;
 import com.chinarewards.elt.model.transaction.TransactionUnit;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.user.UserRole;
@@ -26,14 +28,16 @@ public class OrderServiceImpl implements OrderService {
 	private final OrderLogic orderLogic;
 	private final GiftLogic giftLogic;
 	private final UserLogic userLogic;
+	private final StaffDao staffDao;
     private final TransactionService tx;
 	@Inject
 	public OrderServiceImpl(OrderLogic orderLogic,UserLogic userLogic
-			,GiftLogic giftLogic,TransactionService tx) {
+			,GiftLogic giftLogic,TransactionService tx,StaffDao staffDao) {
 		this.userLogic = userLogic;
 		this.orderLogic = orderLogic;
 		this.giftLogic = giftLogic;
 		this.tx = tx;
+		this.staffDao=staffDao;
 		
 	}
 	@Override
@@ -90,12 +94,24 @@ public class OrderServiceImpl implements OrderService {
     	 SysUser caller = userLogic.findUserById(context.getUserId());
 		 String giftId = order.getGiftId();          //得到礼品的ID
 		 Gift gift = giftLogic.findGiftById(giftId);//查找礼品的信息
+			Staff staff=caller.getStaff();
+
 		  if(forward==true)
+		  {
 		     gift.setStock(gift.getStock()-order.getAmount());//减少库存量
+			 staff.setConsumptionIntegral(staff.getConsumptionIntegral()+order.getIntegral());
+
+		  }
 		 else
-			 gift.setStock(gift.getStock()+order.getAmount());//增加库存量	 
+		 {
+			 gift.setStock(gift.getStock()+order.getAmount());//增加库存量	
+			 staff.setConsumptionIntegral(staff.getConsumptionIntegral()-order.getIntegral());
+			
+		 }
+		  
 		 giftLogic.save(caller, gift);
 		 String returnValue = transaction( context,order.getIntegral(),order.getId(),forward);//交易积分
+		 staffDao.update(staff);
 		 return returnValue;
     }
     
