@@ -117,14 +117,6 @@ public class RewardsItemListStaffPresenterImpl extends
 			}
 		};
 
-		cellTable.addColumn("奖项编号", new HyperLinkCell(),
-				new GetValue<RewardsItemStaffClient, String>() {
-					@Override
-					public String getValue(RewardsItemStaffClient rewards) {
-						return rewards.getName();
-					}
-				}, ref, "name");
-
 		cellTable.addColumn("奖项名称", new HyperLinkCell(),
 				new GetValue<RewardsItemStaffClient, String>() {
 					@Override
@@ -132,21 +124,25 @@ public class RewardsItemListStaffPresenterImpl extends
 						return rewards.getName();
 					}
 				}, ref, "name");
-
-		cellTable.addColumn("奖励状态", new TextCell(),
+		
+		cellTable.addColumn("奖励积分", new HyperLinkCell(),
 				new GetValue<RewardsItemStaffClient, String>() {
 					@Override
 					public String getValue(RewardsItemStaffClient rewards) {
-						if (rewards.isEnabled() == true) {
-							return "已激活";
-						} else {
-							return "未激活";
-						}
-
+						return rewards.getRewardsFrom()+"";
 					}
-				}, ref, "name");
+				}, ref, "rewardsFrom");
+		
+		cellTable.addColumn("说明", new HyperLinkCell(),
+				new GetValue<RewardsItemStaffClient, String>() {
+					@Override
+					public String getValue(RewardsItemStaffClient rewards) {
+						return rewards.getDefinition();
+					}
+				}, ref, "definition");
 
-		cellTable.addColumn("创建人", new TextCell(),
+
+		cellTable.addColumn("提名人", new TextCell(),
 				new GetValue<RewardsItemStaffClient, String>() {
 					@Override
 					public String getValue(RewardsItemStaffClient rewards) {
@@ -154,7 +150,7 @@ public class RewardsItemListStaffPresenterImpl extends
 					}
 				}, ref, "createdBy");
 
-		cellTable.addColumn("获奖人", new TextCell(),
+		cellTable.addColumn("提名次数", new TextCell(),
 				new GetValue<RewardsItemStaffClient, String>() {
 					@Override
 					public String getValue(RewardsItemStaffClient rewards) {

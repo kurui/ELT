@@ -186,7 +186,7 @@ public class CorpBudgetPresenterImpl extends
 									@Override
 									public void onSuccess(
 											EditCorpBudgetResponse arg0) {
-										Window.alert("修改成功");
+										win.alert("修改成功");
 										Platform.getInstance()
 												.getEditorRegistry()
 												.openEditor(
