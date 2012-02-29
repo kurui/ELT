@@ -148,5 +148,8 @@ public class RewardServiceImpl implements RewardService {
 		// TODO Auto-generated method stub
 		return rewardLogic.getRewardsByStaffId(staffId);
 	}
-
+	@Override
+	public List<RewardVo> getRewardsByHrBox(UserContext context,RewardSearchVo criteria){
+		return rewardLogic.getRewardsByHrBox(context, criteria);
+	}
 }

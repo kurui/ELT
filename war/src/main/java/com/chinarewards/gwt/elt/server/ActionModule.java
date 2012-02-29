@@ -42,6 +42,7 @@ import com.chinarewards.gwt.elt.client.gift.request.EditGiftRequest;
 import com.chinarewards.gwt.elt.client.gift.request.SearchGiftByIdRequest;
 import com.chinarewards.gwt.elt.client.gift.request.SearchGiftRequest;
 import com.chinarewards.gwt.elt.client.gift.request.UpdateGiftStatusRequest;
+import com.chinarewards.gwt.elt.client.hrbox.request.HrBoxRewardsRequest;
 import com.chinarewards.gwt.elt.client.integralManagement.request.IntegralManagementRequest;
 import com.chinarewards.gwt.elt.client.login.LastLoginRoleRequest;
 import com.chinarewards.gwt.elt.client.login.LoginRequest;
@@ -82,6 +83,7 @@ import com.chinarewards.gwt.elt.client.staff.request.HrRegisterRequest;
 import com.chinarewards.gwt.elt.client.staff.request.LeadTimeRequest;
 import com.chinarewards.gwt.elt.client.staffAdd.request.StaffAddRequest;
 import com.chinarewards.gwt.elt.client.staffHeavenIndex.request.StaffHeavenIndexRequest;
+import com.chinarewards.gwt.elt.client.staffIntegral.request.StaffIntegralRequest;
 import com.chinarewards.gwt.elt.client.staffList.request.SearchStaffListRequest;
 import com.chinarewards.gwt.elt.client.staffList.request.StaffGenerateUserRequest;
 import com.chinarewards.gwt.elt.client.staffList.request.UpdateUserPwdRequest;
@@ -133,6 +135,7 @@ import com.chinarewards.gwt.elt.server.gift.EditGiftHandler;
 import com.chinarewards.gwt.elt.server.gift.SearchGiftByIdHandler;
 import com.chinarewards.gwt.elt.server.gift.SearchGiftHandler;
 import com.chinarewards.gwt.elt.server.gift.UpdateGiftStatusHandler;
+import com.chinarewards.gwt.elt.server.hrbox.HrBoxRewardsHandler;
 import com.chinarewards.gwt.elt.server.integralManagement.IntegralManagementHandler;
 import com.chinarewards.gwt.elt.server.login.LoginActionHandler;
 import com.chinarewards.gwt.elt.server.login.TokenValidActionHandler;
@@ -171,6 +174,7 @@ import com.chinarewards.gwt.elt.server.rewards.SearchRewardsStaffHandler;
 import com.chinarewards.gwt.elt.server.shopWindow.SearchShopWindowHandler;
 import com.chinarewards.gwt.elt.server.staff.HrRegisterActionHandler;
 import com.chinarewards.gwt.elt.server.staff.LeadTimeActionHandler;
+import com.chinarewards.gwt.elt.server.staff.SearchStaffIntegralActionHandler;
 import com.chinarewards.gwt.elt.server.staff.SearchStaffListActionHandler;
 import com.chinarewards.gwt.elt.server.staff.SearchStaffViewActionHandler;
 import com.chinarewards.gwt.elt.server.staff.SearchStaffWinActionHandler;
@@ -357,6 +361,9 @@ public class ActionModule extends ActionHandlerModule {
 		bindHandler(StaffAddRequest.class,StaffAddActionHandler.class);
 		//员工详细信息
 		bindHandler(StaffViewRequest.class,SearchStaffViewActionHandler.class);
+		//查看员工积分
+		bindHandler(StaffIntegralRequest.class,SearchStaffIntegralActionHandler.class);
+		
 		//员工获奖情况
 		bindHandler(StaffWinRequest.class,SearchStaffWinActionHandler.class);
 		//员工生成用户
@@ -398,8 +405,9 @@ public class ActionModule extends ActionHandlerModule {
 		bindHandler(UserBoxRequest.class,UserBoxHandler.class);
 		//信息添加
 		bindHandler(MessageSaveRequest.class,MessageSaveActionHandler.class);
-		
-
+		//leader收件箱奖励查询
+		bindHandler(HrBoxRewardsRequest.class,HrBoxRewardsHandler.class);
+        
 
 	}
 }

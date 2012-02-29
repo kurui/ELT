@@ -12,7 +12,7 @@
 			<!--面包屑 [[-->
 		      <div class="breadcrumb">
 		        <div class="{new2.breadcrumb-wrap}">
-		         <span class="{new2.nbspbig}"></span>
+		        
 		          <p class="{new2.breadcrumb-left}"><g:InlineLabel ui:field="message"  /></p>
 		        </div>
 		        <span class="{new2.cutline}"></span>

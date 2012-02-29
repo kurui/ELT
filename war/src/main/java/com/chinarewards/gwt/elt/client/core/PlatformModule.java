@@ -59,6 +59,7 @@ import com.chinarewards.gwt.elt.client.staff.plugin.HrRegisterPluginDescriptor;
 import com.chinarewards.gwt.elt.client.staff.plugin.LeadTimePluginDescriptor;
 import com.chinarewards.gwt.elt.client.staffAdd.plugin.StaffAddPluginDescriptor;
 import com.chinarewards.gwt.elt.client.staffHeavenIndex.plugin.StaffHeavenIndexPluginDescriptor;
+import com.chinarewards.gwt.elt.client.staffIntegral.plugin.StaffIntegralPluginDescriptor;
 import com.chinarewards.gwt.elt.client.staffList.plugin.StaffListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.staffView.plugin.StaffViewPluginDescriptor;
 import com.chinarewards.gwt.elt.client.team.plugin.TeamAddPluginDescriptor;
@@ -255,6 +256,7 @@ public class PlatformModule extends AbstractGinModule {
 	PluginSet providePluginSet(
 			// ---- PLUGINS DEFINE BELOW (2) ----
 			CorePluginDescriptor core, // core
+			StaffIntegralPluginDescriptor staffIntegral,
 			RewardsListStaffPluginDescriptor rewardsListStaff,
 			RewardsItemListStaffPluginDescriptor rewardsItemListStaff,	
 			RewardsItemListCompanyOtherPluginDescriptor rewardsItemListCompanyOther,	
@@ -280,6 +282,7 @@ public class PlatformModule extends AbstractGinModule {
 		if (pluginSet == null) {
 			pluginSet = new InMemoryPluginSet();
 			pluginSet.registerPlugin(core);
+			pluginSet.registerPlugin(staffIntegral);
 			pluginSet.registerPlugin(rewardsListStaff);
 			pluginSet.registerPlugin(rewardsItemListStaff);
 			pluginSet.registerPlugin(rewardsItemListCompanyOther);
