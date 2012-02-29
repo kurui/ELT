@@ -8,10 +8,10 @@
 	     <div class="{new2.workmate-list}">
 	     <div class="{new2.workmate}" ><!--IE6,鼠标滑过添加类workmate-on-->
             <div class="{new2.workmate-show}">
-              <img src="img/workmate_template.png" width="72px" height="72px" />
+              <g:Image ui:field="photo" pixelSize="72,72" />
               <div class="{new2.workmate-info}">
-                <p class="{new2.workmate-name}">alax.mai</p>
-                <p>业务运营部</p>
+                <p class="{new2.workmate-name}"><g:Anchor ui:field="staffName" /> </p>
+                <p><g:InlineLabel ui:field="deptName" /> </p>
                 <p>身体锻炼得越来越好了，就是肚子减不下去啊~~~</p>
               </div>
             </div>

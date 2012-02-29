@@ -308,6 +308,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 
 .employee .workmate .workmate-name{color:#356CA6;}
 .employee .workmate p{line-height:20px;}
+.employee .workmate a{color:#356CA6;line-height:20px;}
 .employee .workmate .workmate-comm{margin-top:7px;visibility:hidden;}
 .employee .workmate .workmate-comm a{border:1px solid #BEBEBE;background-color:#ffffff;color:#975A02;padding:2px 4px;text-decoration:none;}
 .employee .workmate:hover .workmate-comm,.employee .workmate-list .workmate-on .workmate-comm{visibility:visible;}

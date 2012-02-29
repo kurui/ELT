@@ -81,15 +81,16 @@ public class ColleagueListViewAdapter extends BaseDataProvider<StaffListClient> 
 						for (int row = 0; row < numRows; row++) {
 							for (int col = 0; col < numColumns; col++) {
 								if (index < staffList.size()) {
-									StaffListClient clint = staffList
-											.get(index);
+									StaffListClient clint = staffList.get(index);
+									if(clint.getDepartmentName().indexOf("ROOT")!=-1)
+										clint.setDepartmentName("");
 									grid.setWidget(row, col,
-											new ColleagueLatticeWidget());
+											new ColleagueLatticeWidget(clint.getStaffId(),clint.getStaffName(),clint.getDepartmentName(),clint.getPhoto()));
 									index++;
 								} else {
-								//	break;
-									grid.setWidget(row, col,
-											new ColleagueLatticeWidget());
+									break;
+//									grid.setWidget(row, col,
+//											new ColleagueLatticeWidget(null,null,null,null));
 								}
 							}
 						}
