@@ -6,16 +6,24 @@
 	<g:HTMLPanel>
 	<div class="{new2.employee}">
 	  <!-- 内容区 [[-->
+
+   
+	<div class="{new2.content-wrap} {new2.employee-norightsidebar}">
+      <div class="{new2.content-info} {new2.workmate-wrap}">
+        <div class="{new2.workmate-top} {new2.clearfix}">
+          <div class="{new2.workmate-title}">
+            <h3>公司广播  <span class="{new2.workmate-num}">共有 <span><g:InlineLabel ui:field="dataCount"  /> </span>条</span></h3>
+          </div>
+          <div class="{new2.workmate-select}">
+          	<g:TextBox styleName="{new2.text}" text="输入关键词" />
+          	<g:Button styleName="{new2.button}" text="查找" />
+          </div>
+        </div>
+       </div></div>
+       
     <div class="{new2.content-wrap}">
       <div class="{new2.content-info}">
-    
-			<h3>公司广播
-			</h3>
-
-
         <div class="{new2.news-list}">
-         
-
 			<g:FlowPanel ui:field="resultPanel" />
 
         <!--分页 [[ -->
@@ -25,7 +33,6 @@
 					<select class="{new2.select}">
 						<option>10</option>
 					</select>
-					共<g:InlineLabel ui:field="dataCount"  />条
 				</div>
 
 				<div class="{new2.pager-right}">

@@ -158,6 +158,31 @@ public class Staff extends Organization {
 	 */
 	private String photo;
 	
+	/**
+	 * 历史积分
+	 */
+	private double historyIntegral;
+	/**
+	 * 消费积分
+	 */
+	private double consumptionIntegral;
+	
+	public double getHistoryIntegral() {
+		return historyIntegral;
+	}
+
+	public void setHistoryIntegral(double historyIntegral) {
+		this.historyIntegral = historyIntegral;
+	}
+
+	public double getConsumptionIntegral() {
+		return consumptionIntegral;
+	}
+
+	public void setConsumptionIntegral(double consumptionIntegral) {
+		this.consumptionIntegral = consumptionIntegral;
+	}
+
 	public String getPhoto() {
 		return photo;
 	}

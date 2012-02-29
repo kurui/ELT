@@ -6,10 +6,12 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.chinarewards.elt.dao.org.StaffDao;
 import com.chinarewards.elt.dao.reward.PreWinnerDao;
 import com.chinarewards.elt.dao.reward.PreWinnerLotDao;
 import com.chinarewards.elt.dao.reward.RewardDao;
 import com.chinarewards.elt.dao.reward.WinnerDao;
+import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.domain.reward.person.PreWinner;
 import com.chinarewards.elt.domain.reward.person.PreWinnerLot;
 import com.chinarewards.elt.domain.reward.person.Winner;
@@ -33,6 +35,7 @@ public class WinnerLogicImpl implements WinnerLogic {
 	PreWinnerDao preWinnerDao;
 	WinnerDao winnerDao;
 	RewardDao rewardDao;
+	StaffDao staffDao;
 	TransactionService transactionService;
 
 	Logger logger = LoggerFactory.getLogger(getClass());
@@ -40,12 +43,13 @@ public class WinnerLogicImpl implements WinnerLogic {
 	@Inject
 	public WinnerLogicImpl(PreWinnerLotDao preWinnerLotDao,
 			PreWinnerDao preWinnerDao, WinnerDao winnerDao,
-			RewardDao rewardDao, TransactionService transactionService) {
+			RewardDao rewardDao, TransactionService transactionService,StaffDao staffDao) {
 		this.preWinnerLotDao = preWinnerLotDao;
 		this.preWinnerDao = preWinnerDao;
 		this.winnerDao = winnerDao;
 		this.rewardDao = rewardDao;
 		this.transactionService = transactionService;
+		this.staffDao=staffDao;
 	}
 
 	@Override
@@ -96,6 +100,10 @@ public class WinnerLogicImpl implements WinnerLogic {
 						toAccountId, unitCode, amt);
 				w.setProcessFlag(WinnerProcessFlag.PROCESS_SUCCESS);
 				w.setRefTransactionId(txId);
+				
+				Staff staff=w.getStaff();
+				staff.setHistoryIntegral(staff.getHistoryIntegral()+amt);
+				staffDao.update(staff);
 			} catch (BalanceLackException e) {
 				logger.warn("No enough balance!", e);
 				w.setProcessFlag(WinnerProcessFlag.PROCESS_FAIL);
