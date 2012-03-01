@@ -9,6 +9,7 @@ import com.chinarewards.gwt.elt.client.broadcasting.plugin.BroadcastingListPlugi
 import com.chinarewards.gwt.elt.client.budget.plugin.BudgetPluginDescriptor;
 import com.chinarewards.gwt.elt.client.budget.plugin.CorpBudgetPluginDescriptor;
 import com.chinarewards.gwt.elt.client.colleague.plugin.ColleagueListPluginDescriptor;
+import com.chinarewards.gwt.elt.client.colleagueParticular.plugin.ColleagueParticularPluginDescriptor;
 import com.chinarewards.gwt.elt.client.core.impl.CorePluginDescriptor;
 import com.chinarewards.gwt.elt.client.core.impl.GinPluginManager;
 import com.chinarewards.gwt.elt.client.core.impl.InMemoryMenuRoleStore;
@@ -277,7 +278,8 @@ public class PlatformModule extends AbstractGinModule {
 			GloryBroadcastPluginDescriptor gloryBroadcast,
 			MessageListPluginDescriptor message,
 			MessageSavePluginDescriptor messageSave,
-			ColleagueListPluginDescriptor colleague) {
+			ColleagueListPluginDescriptor colleague,
+			ColleagueParticularPluginDescriptor colleagueParticular) {
 
 		if (pluginSet == null) {
 			pluginSet = new InMemoryPluginSet();
@@ -305,6 +307,7 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(message);
 			pluginSet.registerPlugin(messageSave);
 			pluginSet.registerPlugin(colleague);
+			pluginSet.registerPlugin(colleagueParticular);
 
 		}
 
