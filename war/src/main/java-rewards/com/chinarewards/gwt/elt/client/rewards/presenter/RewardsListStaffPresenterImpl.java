@@ -34,6 +34,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.inject.Inject;
 
 public class RewardsListStaffPresenterImpl extends
@@ -82,8 +83,8 @@ public class RewardsListStaffPresenterImpl extends
 				}));
 	}
 
-	private void initWidget() {
-		initRewardsItemSelect("");
+	private void initWidget() {		
+		initRewardsItemSelect("");	
 
 		buildTable();
 		doSearch();
@@ -108,23 +109,16 @@ public class RewardsListStaffPresenterImpl extends
 	private void doSearch() {
 		RewardsCriteria criteria = new RewardsCriteria();
 		criteria.setStaffName(display.getWinnerName().getValue());
+
 		int selectedIndex = display.getRewardsItem().getSelectedIndex();
-		if(selectedIndex>-1){
-			criteria.setRewardsItemId(display.getRewardsItem().getValue(
-					selectedIndex));
+		if (selectedIndex > -1) {
+			String rewardsItemId = display.getRewardsItem().getValue(
+					selectedIndex);
+			criteria.setRewardsItemId(rewardsItemId);
 		}
-		
+
 		criteria.setRewardsTime(display.getRewardsTime().getValue());
 
-		// if (pageType == RewardPageType.NOMINATEPAGE) {
-		// criteria.setStatus(RewardsStatus.PENDING_NOMINATE);
-		// }
-		// if (pageType == RewardPageType.AWARDREWARDPAGE) {
-		// criteria.setStatus(RewardsStatus.NEW);
-		// }
-		// if (pageType == RewardPageType.DETAILSOFAWARDPAGE) {
-		// criteria.setStatus(RewardsStatus.REWARDED);
-		// }
 		listViewAdapter = new RewardsListStaffViewAdapter(dispatch, criteria,
 				errorHandler, sessionManager, display);
 		listViewAdapter.addDataDisplay(cellTable);
@@ -132,29 +126,39 @@ public class RewardsListStaffPresenterImpl extends
 	}
 
 	private void initRewardsItemSelect(String selectValue) {
-		dispatch.execute(new SearchRewardsItemRequest(new RewardsItemCriteria(),sessionManager.getSession()),
-				new AsyncCallback<SearchRewardsItemResponse>() {
-					@Override
-					public void onFailure(Throwable arg0) {
-						errorHandler.alert("加载奖项异常 !");
-					}
+		ListBox itemList= display.getRewardsItem();
+		
+		if (itemList!=null) {
+			if(itemList.getItemCount()<1){
+				dispatch.execute(new SearchRewardsItemRequest(
+						new RewardsItemCriteria(), sessionManager.getSession()),
+						new AsyncCallback<SearchRewardsItemResponse>() {
+							@Override
+							public void onFailure(Throwable arg0) {
+								errorHandler.alert("加载奖项异常 !");
+							}
 
-					@Override
-					public void onSuccess(SearchRewardsItemResponse response) {
-						List<RewardsItemClient> itemList = response.getResult();
-						if (itemList != null) {
-							if (itemList.size() > 0) {
-								display.getRewardsItem().clear();
-								display.getRewardsItem().addItem("不限", "");
-								for (int i = 0; i < itemList.size(); i++) {
-									RewardsItemClient item = itemList.get(i);
-									display.getRewardsItem().addItem(
-											item.getName(), item.getId());
+							@Override
+							public void onSuccess(SearchRewardsItemResponse response) {
+								List<RewardsItemClient> itemList = response.getResult();
+								if (itemList != null) {
+									if (itemList.size() > 0) {
+										display.getRewardsItem().clear();
+										display.getRewardsItem().addItem("不限", "");
+										for (int i = 0; i < itemList.size(); i++) {
+											RewardsItemClient item = itemList.get(i);
+											display.getRewardsItem().addItem(
+													item.getName(), item.getId());
+										}
+									}
 								}
 							}
-						}
-					}
-				});
+						});
+			}
+			
+		}
+		
+		
 	}
 
 	private void initTableColumns() {
