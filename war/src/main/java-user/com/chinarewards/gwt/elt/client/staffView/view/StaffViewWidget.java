@@ -34,6 +34,8 @@ public class StaffViewWidget extends Composite implements StaffViewDisplay {
 	InlineLabel dob;
 	@UiField
 	InlineLabel staffStatus;
+	@UiField
+	InlineLabel staffRoles;
 	
 	@UiField
 	Button updateBtn;
@@ -143,6 +145,11 @@ public class StaffViewWidget extends Composite implements StaffViewDisplay {
 			if(updateBtn.getElement().getParentElement()!=null)
 			updateBtn.getElement().getParentElement().setAttribute("style", "display: none;");
 		}
+	}
+
+	@Override
+	public InlineLabel getStaffRoles() {
+		return staffRoles;
 	}
 
 }

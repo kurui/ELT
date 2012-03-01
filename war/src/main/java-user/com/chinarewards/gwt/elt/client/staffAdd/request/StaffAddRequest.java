@@ -4,11 +4,13 @@
 package com.chinarewards.gwt.elt.client.staffAdd.request;
 
 import java.util.Date;
+import java.util.List;
 
 import net.customware.gwt.dispatch.shared.Action;
 
 import com.chinarewards.gwt.elt.client.staffList.model.StaffListCriteria.StaffStatus;
 import com.chinarewards.gwt.elt.client.support.UserSession;
+import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 
 /**
  * An action which perform request to search user.
@@ -29,7 +31,20 @@ public class StaffAddRequest implements Action<StaffAddResponse> {
 	String email;
 	Date dob;
 	StaffStatus status;
-	
+	private List<UserRoleVo> userRoleVos;
+
+
+
+
+	public List<UserRoleVo> getUserRoleVos() {
+		return userRoleVos;
+	}
+
+
+	public void setUserRoleVos(List<UserRoleVo> userRoleVos) {
+		this.userRoleVos = userRoleVos;
+	}
+
 
 	public UserSession getSession() {
 		return session;

@@ -396,6 +396,36 @@ public class StaffLogicImpl implements StaffLogic {
 				userDao.update(u);
 			}
 		}
+		
+		if(staff.getUserRoleVos()!=null && staff.getUserRoleVos().size()>0)
+		{
+			SysUser u= userDao.findUserByStaffId(ff.getId());
+			if(u!=null)
+			{
+				//清除角色(除开用户)
+				List<SysUserRole> lt=userRoleDao.findUserRoleByUserId(u.getId());
+				if(lt.size()>0)
+				{
+					for (SysUserRole r:lt) {
+						if(r.getRole().getName()!=UserRole.STAFF)
+							userRoleDao.delete(r);
+					}
+				}
+	
+				// 创建角色--
+				for (UserRole role:staff.getUserRoleVos()) {
+					SysUserRole userRole = new SysUserRole();
+					userRole.setRole(roleDao.findRoleByRoleName(role));
+					userRole.setCreatedBy(nowuser);
+					userRole.setCreatedAt(DateUtil.getTime());
+					userRole.setLastModifiedAt(DateUtil.getTime());
+					userRole.setLastModifiedBy(nowuser);
+					userRole.setUser(u);
+					userRoleDao.createUserRole(userRole);
+				}
+				
+			}
+		}
 		return ff.getId();
 	}
 
@@ -528,5 +558,23 @@ public class StaffLogicImpl implements StaffLogic {
 		    Staff staff = staffDao.findById(Staff.class, staffId);
 		    staff.setLeadTime(leadTime);
 		    return staffDao.update(staff);
+	}
+
+	@Override
+	public List<UserRole> findUserRoles(String staffId) {
+		SysUser u= userDao.findUserByStaffId(staffId);
+		if(u!=null)
+		{
+			List<SysUserRole> userRole=userRoleDao.findUserRoleByUserId(u.getId());
+			if(userRole!=null && userRole.size()>0)
+			{
+				List<UserRole> roles=new ArrayList<UserRole>();
+				for (SysUserRole r:userRole) {
+					roles.add(r.getRole().getName());
+				}
+				return roles;
+			}
+		}
+		return null;
 	}
 }
