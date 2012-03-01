@@ -29,25 +29,27 @@ public class BroadcastingReceivingDao  extends BaseDao<BroadcastingReceiving>{
 
 		hql.append(" SELECT d.broadcast.id FROM BroadcastingReceiving d WHERE ");
 		
-		hql.append(" d.broadcast.broadcastMessagetype = :broadcastMessagetype AND (");
+		hql.append(" d.broadcast.broadcastMessagetype = :broadcastMessagetype AND (  ");
 		param.put("broadcastMessagetype", broadcastMessage);
 			
+		String orString="";
 		if (!StringUtil.isEmptyString(corpId)) {
-			hql.append("  d.receiving.corporation.id =:corpId ");
+			orString+=" OR d.receiving.corporation.id =:corpId ";
 			param.put("corpId",corpId);
 		}	
 		if (!StringUtil.isEmptyString(deptId)) {
-			hql.append(" OR d.receiving.dept.id =:deptId ");
+			orString+=" OR d.receiving.dept.id =:deptId ";
 			param.put("deptId",deptId);
 		}	
 		if (!StringUtil.isEmptyString(staffId)) {
-			hql.append(" OR d.receiving.staff.id =:staffId ");
+			orString+=" OR d.receiving.staff.id =:staffId ";
 			param.put("staffId",staffId);
 		}	
 		if (teamIds!=null && teamIds.size()>0) {
-			hql.append(" OR d.receiving.team.id IN (:teamIds) ");
+			orString+=" OR d.receiving.team.id IN (:teamIds) ";
 			param.put("teamIds",teamIds);
 		}	
+		hql.append(orString.substring(3));
 		hql.append(" ) ");
 		Query query = getEm().createQuery(hql.toString());
 		if (param.size() > 0) {

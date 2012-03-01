@@ -46,6 +46,7 @@ public class ColleagueParticularPresenterImpl extends
 	@Override
 	public void bind() {
 		init();
+		gloryBroadcastPresenter.initGloryBroadcast(staffId);
 		gloryBroadcastPresenter.bind();
 		display.getResultPanel().clear();
 		display.getResultPanel().add(gloryBroadcastPresenter.getDisplay().asWidget());
@@ -97,6 +98,7 @@ public class ColleagueParticularPresenterImpl extends
 			@Override
 			public void onClick(ClickEvent event) {
 				unbindAll();
+				gloryBroadcastPresenter.initGloryBroadcast(staffId);
 				gloryBroadcastPresenter.bind();
 				display.getResultPanel().clear();
 				display.getResultPanel().add(gloryBroadcastPresenter.getDisplay().asWidget());

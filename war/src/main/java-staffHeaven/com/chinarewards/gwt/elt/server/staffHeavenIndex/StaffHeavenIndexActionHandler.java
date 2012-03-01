@@ -82,6 +82,8 @@ public class StaffHeavenIndexActionHandler extends
 			criteria.setQueryKey(request.getCriteria().getQueryKey());
 		if(!StringUtil.isEmpty(request.getCriteria().getStaffId()))
 			criteria.setStaffId(request.getCriteria().getStaffId());
+		if(!StringUtil.isEmpty(request.getCriteria().getRecevingStaffId()))
+			criteria.setRecevingStaffId(request.getCriteria().getRecevingStaffId());
 		
 		
 		if(request.getCriteria().isNowDate()==true)

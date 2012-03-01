@@ -65,6 +65,19 @@ public class StaffHeavenIndexCriteria implements IsSerializable {
 	 */
 	private String staffId;
 	
+	/**
+	 * 接收对象员工ID
+	 */
+	private String recevingStaffId;
+	
+
+	public String getRecevingStaffId() {
+		return recevingStaffId;
+	}
+
+	public void setRecevingStaffId(String recevingStaffId) {
+		this.recevingStaffId = recevingStaffId;
+	}
 
 	public String getStaffId() {
 		return staffId;

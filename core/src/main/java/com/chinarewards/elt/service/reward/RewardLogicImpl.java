@@ -289,13 +289,20 @@ public class RewardLogicImpl implements RewardLogic {
 		}
 		//获奖加入发送广播
 		
-	
+		List<String[]> organList=new ArrayList<String[]>();
+		
 		String staffNames="";
 		List <Staff> staffList=staffLogic.findStaffsByStaffIds(staffIds);
 		if(staffList.size()>0){
-		for (Staff f:staffList) {
-			staffNames+=f.getName()+",";
-		}
+			for (Staff f:staffList) {
+				staffNames+=f.getName()+",";
+				
+				String[] nameAndId = new String[3];
+				nameAndId[0] = f.getId();
+				nameAndId[1] = f.getName();
+				nameAndId[2] = OrganType.STAFF.toString();
+				organList.add(nameAndId);
+			}
 		}
 
 		UserContext context=new UserContext();
@@ -308,8 +315,8 @@ public class RewardLogicImpl implements RewardLogic {
 		vo.setAllowreplies(true);
 		vo.setContent("恭喜 "+staffNames.substring(0,staffNames.length()-1)+" 获得"+reward.getName()+"，获得"+((int)reward.getAwardAmt())+"积分。");
 		
-		//接收对象为当前人机构
-		List<String[]> organList=new ArrayList<String[]>();
+		//接收对象为当前人机构(接收人加入获奖人)
+		
 		String[] nameAndId = new String[3];
 		nameAndId[0] = reward.getCorporation().getId();
 		nameAndId[1] = reward.getCorporation().getName();
