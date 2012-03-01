@@ -2,6 +2,7 @@ package com.chinarewards.gwt.elt.client.colleagueLattice.view;
 
 import com.chinarewards.gwt.elt.client.colleagueParticular.plugin.ColleagueParticularConstants;
 import com.chinarewards.gwt.elt.client.core.Platform;
+import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -28,7 +29,7 @@ public class ColleagueLatticeWidget extends Composite {
 			UiBinder<Widget, ColleagueLatticeWidget> {
 	}
 
-	public ColleagueLatticeWidget(final String staffId,String staffName,String deptName,String photo) {
+	public ColleagueLatticeWidget(final String staffId,final String staffName,String deptName,String photo) {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.staffName.setText(staffName);
 		this.deptName.setText(deptName);
@@ -42,7 +43,7 @@ public class ColleagueLatticeWidget extends Composite {
 				.getEditorRegistry()
 				.openEditor(
 						ColleagueParticularConstants.EDITOR_COLLEAGUEPARTICULAR_SEARCH,
-						"EDITOR_COLLEAGUEPARTICULAR_SEARCH_DO_ID", staffId);
+						"EDITOR_COLLEAGUEPARTICULAR_SEARCH_DO_ID", new OrganicationClient(staffId,staffName));
 				
 			}
 		});

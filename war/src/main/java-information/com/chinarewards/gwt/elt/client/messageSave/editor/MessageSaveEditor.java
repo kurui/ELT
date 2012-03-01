@@ -44,8 +44,8 @@ public class MessageSaveEditor extends AbstractEditor {
 
 	public void setModel(Object model) {
 		this.model = model;
-		if(model!=null)
-			messageSavePresenter.initBroadcastUpdate((String)model);
+//		if(model!=null)
+//			messageSavePresenter.initBroadcastUpdate((String)model);
 		messageSavePresenter.bind();
 	}
 }

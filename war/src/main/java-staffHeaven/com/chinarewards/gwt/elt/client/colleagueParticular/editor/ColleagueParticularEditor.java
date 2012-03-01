@@ -2,6 +2,7 @@ package com.chinarewards.gwt.elt.client.colleagueParticular.editor;
 
 import com.chinarewards.gwt.elt.client.colleagueParticular.presenter.ColleagueParticularPresenter;
 import com.chinarewards.gwt.elt.client.core.ui.impl.AbstractEditor;
+import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
@@ -44,8 +45,8 @@ public class ColleagueParticularEditor extends AbstractEditor {
 
 	public void setModel(Object model) {
 		this.model = model;
-		if(model!=null)
-		colleagueParticularPresenter.initColleagueParticular((String)model);
+		if(model!=null && model instanceof OrganicationClient)
+		colleagueParticularPresenter.initColleagueParticular((OrganicationClient)model);
 		colleagueParticularPresenter.bind();
 	}
 }

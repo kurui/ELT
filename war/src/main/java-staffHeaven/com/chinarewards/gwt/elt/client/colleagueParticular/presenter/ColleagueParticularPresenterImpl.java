@@ -8,6 +8,7 @@ import com.chinarewards.gwt.elt.client.messageSave.presenter.MessageSavePresente
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
+import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
 import com.chinarewards.gwt.elt.client.staffView.presenter.StaffViewPresenter;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.win.Win;
@@ -24,6 +25,7 @@ public class ColleagueParticularPresenterImpl extends
 //	private final Win win;
 	final ErrorHandler errorHandler;
 	String staffId;
+	String staffName;
 	GloryBroadcastPresenter gloryBroadcastPresenter;
 	CorpBroadcastPresenter corpBroadcastPresenter;
 	MessageSavePresenter messageSavePresenter;
@@ -110,6 +112,7 @@ public class ColleagueParticularPresenterImpl extends
 			@Override
 			public void onClick(ClickEvent event) {
 				unbindAll();
+				messageSavePresenter.initBroadcastStaff(staffId,staffName);
 				messageSavePresenter.bind();
 				display.getResultPanel().clear();
 				display.getResultPanel().add(messageSavePresenter.getDisplay().asWidget());
@@ -124,8 +127,9 @@ public class ColleagueParticularPresenterImpl extends
 	}
 
 	@Override
-	public void initColleagueParticular(String staffId) {
-			this.staffId=staffId;
+	public void initColleagueParticular(OrganicationClient client) {
+			this.staffId=client.getId();
+			this.staffName=client.getName();
 	}
 	private void unbindAll()
 	{
