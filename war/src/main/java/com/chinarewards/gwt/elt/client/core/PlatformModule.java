@@ -46,6 +46,7 @@ import com.chinarewards.gwt.elt.client.orderConfirmation.plugin.OrderConfirmatio
 import com.chinarewards.gwt.elt.client.orderHistory.plugin.OrderHistoryPluginDescriptor;
 import com.chinarewards.gwt.elt.client.orderHistory.plugin.OrderHistoryViewPluginDescriptor;
 import com.chinarewards.gwt.elt.client.orderSubmit.plugin.OrderSubmitPluginDescriptor;
+import com.chinarewards.gwt.elt.client.password.plugin.PasswordPluginDescriptor;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemListCompanyOtherPluginDescriptor;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemListStaffPluginDescriptor;
@@ -277,6 +278,7 @@ public class PlatformModule extends AbstractGinModule {
 			GloryBroadcastPluginDescriptor gloryBroadcast,
 			MessageListPluginDescriptor message,
 			MessageSavePluginDescriptor messageSave,
+			PasswordPluginDescriptor password,
 			ColleagueListPluginDescriptor colleague) {
 
 		if (pluginSet == null) {
@@ -305,7 +307,7 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(message);
 			pluginSet.registerPlugin(messageSave);
 			pluginSet.registerPlugin(colleague);
-
+			pluginSet.registerPlugin(password);
 		}
 
 		return pluginSet;
