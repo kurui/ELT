@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.chinarewards.gwt.elt.server.rewardItem;
 
 import java.util.ArrayList;
@@ -22,8 +19,6 @@ import com.chinarewards.elt.model.reward.base.RequireAutoAward;
 import com.chinarewards.elt.model.reward.base.RequireAutoGenerate;
 import com.chinarewards.elt.model.reward.vo.RewardItemVo;
 import com.chinarewards.elt.service.reward.RewardItemService;
-import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsItemViewRequest;
-import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsItemViewResponse;
 import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsItemViewRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsItemViewResponse;
 import com.chinarewards.gwt.elt.client.rewards.model.FrequencyClient;

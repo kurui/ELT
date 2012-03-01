@@ -5,12 +5,15 @@ import java.util.Comparator;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
+import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.dataprovider.RewardsItemListCompanyOtherViewAdapter;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
+import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemConstants;
 import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemListCompanyOtherPresenter.RewardsItemListCompanyOtherDisplay;
+import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemCompanyOtherClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemCompanyOtherCriteria;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
@@ -174,13 +177,21 @@ public class RewardsItemListCompanyOtherPresenterImpl extends
 							final RewardsItemCompanyOtherClient object,
 							String value) {
 
-						// Platform.getInstance()
-						// .getEditorRegistry()
-						// .openEditor(
-						// RewardsItemConstants.EDITOR_REWARDSITEM_STAFF_VIEW,
-						// RewardsItemConstants.EDITOR_REWARDSITEM_STAFF_VIEW,
-						// object);
-
+//						Platform.getInstance()
+//								.getEditorRegistry()
+//								.openEditor(
+//										RewardsItemConstants.EDITOR_REWARDSITEM_STAFF_VIEW,
+//										RewardsItemConstants.EDITOR_REWARDSITEM_STAFF_VIEW,
+//										object);
+						RewardsItemClient client=new RewardsItemClient();
+						client.setId(object.getId());
+						Platform.getInstance()
+						.getEditorRegistry()
+						.openEditor(
+								RewardsItemConstants.EDITOR_REWARDSITEM_VIEW_STAFF,
+								RewardsItemConstants.EDITOR_REWARDSITEM_VIEW_STAFF,
+								client);
+						
 					}
 				});
 

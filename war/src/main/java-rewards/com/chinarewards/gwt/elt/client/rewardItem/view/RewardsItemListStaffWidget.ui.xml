@@ -29,7 +29,7 @@
 						<div class="{new2.divtext}">
 							一共有
 							<g:InlineLabel ui:field="dataCount" styleName="{new2.divfont}"></g:InlineLabel>
-							条订单
+							条奖项
 						</div>
 
 						<div class="{new2.table}">
@@ -51,6 +51,7 @@
 							</div>
 						</div>
 						<!--分页 ]] -->
+						
 					</div>
 				</div>
 			</div>

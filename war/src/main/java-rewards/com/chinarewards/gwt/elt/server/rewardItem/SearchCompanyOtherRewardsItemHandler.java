@@ -118,7 +118,7 @@ public class SearchCompanyOtherRewardsItemHandler extends	BaseActionHandler<Sear
 			client.setPeriodEnable(item.getAutoGenerate()==RequireAutoGenerate.requireCyclic);//周期性
 			client.setStartTime(item.getItem().getStartTime());
 			client.setCreateAt(item.getItem().getCreatedAt());
-			client.setCreatedBy(item.getItem().getCreatedBy().getUserName());
+			client.setCreatedBy(item.getItem().getCreatedBy().getStaff().getName());
 			client.setNextPublishTime(item.getExpectAwardDate());
 			client.setEnabled(item.isEnabled());
 			resultList.add(client);

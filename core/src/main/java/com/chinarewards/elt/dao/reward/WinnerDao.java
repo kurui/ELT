@@ -39,8 +39,9 @@ public class WinnerDao extends BaseDao<Winner> {
 	CandidateDao candidateDao;
 
 	@Inject
-	public WinnerDao(StaffDao staffDao) {
+	public WinnerDao(StaffDao staffDao,CandidateDao candidateDao) {
 		this.staffDao = staffDao;
+		this.candidateDao=candidateDao;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -290,10 +291,9 @@ public class WinnerDao extends BaseDao<Winner> {
 					if(candiate!=null){
 						String nominateCount=candiate.getNominatecount()+"";
 						vo.setNominateCount(nominateCount);
-					}
-				
+					}				
 				}
-				
+				voList.add(vo);
 			}
 			
 		}

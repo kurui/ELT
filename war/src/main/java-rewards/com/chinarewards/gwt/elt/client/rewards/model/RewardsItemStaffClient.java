@@ -7,14 +7,48 @@ import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient.Someo
 
 public class RewardsItemStaffClient implements Serializable,
 		Comparable<RewardsItemStaffClient> {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -7771222164734049059L;
 
 	/** 基本信息 **/
 	private RewardsBaseInfo baseInfo = new RewardsBaseInfo();
+
+	/** 频率规则 **/
+	private boolean periodEnable;	// 频率是否有效(周期性)	
+	private FrequencyClient frequency;// 频率	
+	private Date startTime;// 开始时间
+	private Date nextTime;	// 下次奖励时间	
+	private Date nextPublishTime;// 下次奖励公布时间
+	private Date lastRewardedDate;// 上一次颁奖时间--没有为Null	
+	private Date endTime;// 结束时间
+	private Date expectAwardDate;	// 预期时间
+	private double awardAmt = Double.valueOf(0);// 奖励积分
+	private String nominateName;// 提名人
+	private String nominateCount;// 提名次数
+	private boolean isAuto = false;	// 是否自动奖项
+	private boolean hasSpecialCondition;	// 是否有特殊条件(关于自动奖项。如生日)
+	private SpecialCondition condition;	// 特殊条件
+	private boolean isGeneratedRewards;	// 是否已经生成奖励
+	private int degree;	// 生成奖励的次数
+	private boolean enabled;// 是否激活	
+	private int totalJF;// 总积分
+	private int rewardsFrom;	// 每人得的积分
+	private Integer tmdays;	// 提前的天数
+
+	/** 提名人人信息 **/
+	private ParticipateInfoClient tmInfo;
+	
+	public String getNominateName() {
+		ParticipateInfoClient participateInfo = getTmInfo();
+		if (participateInfo instanceof SomeoneClient) {
+			for (OrganicationClient org : ((SomeoneClient) participateInfo)
+					.getOrganizations()) {
+				nominateName += org.getName() + "   ";
+			}
+		}
+		// InlineLabel nominatelab = new InlineLabel(judgeStr);
+		// staffAreaPanel.add(nominatelab);
+		return nominateName;
+	}
 
 	public boolean isPeriodEnable() {
 		return periodEnable;
@@ -40,56 +74,12 @@ public class RewardsItemStaffClient implements Serializable,
 		this.rewardsFrom = rewardsFrom;
 	}
 
-	/** 频率规则 **/
-	// 频率是否有效(周期性)
-	private boolean periodEnable;
-	// 频率
-	private FrequencyClient frequency;
-
-	// 开始时间
-	private Date startTime;
-
-	// 下次奖励时间
-	private Date nextTime;
-
-	// 下次奖励公布时间
-	private Date nextPublishTime;
-
-	// 上一次颁奖时间--没有为Null
-	private Date lastRewardedDate;
-
-	// 结束时间
-	private Date endTime;
-	
-	// 预期时间
-	private Date expectAwardDate;
-	
-	private double awardAmt=Double.valueOf(0);//奖励积分
-	private String nominateName;//提名人
-	private String nominateCount;//提名次数
-	
-
-	
-
 	public String getNominateCount() {
 		return nominateCount;
 	}
 
 	public void setNominateCount(String nominateCount) {
 		this.nominateCount = nominateCount;
-	}
-
-	public String getNominateName() {		
-		ParticipateInfoClient participateInfo = getTmInfo();
-		 if (participateInfo instanceof SomeoneClient) {
-				for (OrganicationClient org : ((SomeoneClient) participateInfo)	.getOrganizations()) {
-					nominateName +=org.getName()+"   ";
-				}
-		}
-//		 InlineLabel nominatelab = new InlineLabel(judgeStr);
-//		 staffAreaPanel.add(nominatelab);
-		
-		return nominateName;
 	}
 
 	public void setNominateName(String nominateName) {
@@ -104,21 +94,6 @@ public class RewardsItemStaffClient implements Serializable,
 		this.expectAwardDate = expectAwardDate;
 	}
 
-	// 是否自动奖项
-	private boolean isAuto = false;
-
-	// 是否有特殊条件(关于自动奖项。如生日)
-	private boolean hasSpecialCondition;
-
-	// 特殊条件
-	private SpecialCondition condition;
-
-	// 是否已经生成奖励
-	private boolean isGeneratedRewards;
-	// 生成奖励的次数
-	private int degree;
-	private boolean enabled;//是否激活
-	
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -135,17 +110,6 @@ public class RewardsItemStaffClient implements Serializable,
 		this.degree = degree;
 	}
 
-	//总积分
-	private int totalJF;
-	
-	//每人得的积分
-	private int rewardsFrom;
-	
-	//提前的天数
-	private Integer tmdays;
-   
-	/** 提名人人信息 **/
-	private ParticipateInfoClient tmInfo;
 	public ParticipateInfoClient getTmInfo() {
 		return tmInfo;
 	}
@@ -161,7 +125,7 @@ public class RewardsItemStaffClient implements Serializable,
 	public void setTmdays(Integer tmdays) {
 		this.tmdays = tmdays;
 	}
-	
+
 	@Override
 	public int compareTo(RewardsItemStaffClient o) {
 		return o == null ? -1 : o.getId().compareTo(this.getId());
@@ -169,9 +133,9 @@ public class RewardsItemStaffClient implements Serializable,
 
 	@Override
 	public String toString() {
-		return "RewardsItemClient [baseInfo=" + baseInfo + ", enable=" + periodEnable
-				+ ", frequency=" + frequency + ", startTime=" + startTime
-				+ ", nextTime=" + nextTime + ", nextPublishTime="
+		return "RewardsItemClient [baseInfo=" + baseInfo + ", enable="
+				+ periodEnable + ", frequency=" + frequency + ", startTime="
+				+ startTime + ", nextTime=" + nextTime + ", nextPublishTime="
 				+ nextPublishTime + ", lastRewardedDate=" + lastRewardedDate
 				+ ", endTime=" + endTime + ", isAuto=" + isAuto
 				+ ", hasSpecialCondition=" + hasSpecialCondition
@@ -186,8 +150,6 @@ public class RewardsItemStaffClient implements Serializable,
 	public void setBaseInfo(RewardsBaseInfo baseInfo) {
 		this.baseInfo = baseInfo;
 	}
-
-	
 
 	public FrequencyClient getFrequency() {
 		return frequency;
@@ -285,7 +247,6 @@ public class RewardsItemStaffClient implements Serializable,
 		baseInfo.setStandard(standard);
 	}
 
-
 	public String getName() {
 		return baseInfo.getName();
 	}
@@ -358,7 +319,6 @@ public class RewardsItemStaffClient implements Serializable,
 		baseInfo.setRewardsUnit(rewardsUnit);
 	}
 
-
 	public ParticipateInfoClient getParticipateInfo() {
 		return baseInfo.getParticipateInfo();
 	}
@@ -366,8 +326,7 @@ public class RewardsItemStaffClient implements Serializable,
 	public void setParticipateInfo(ParticipateInfoClient participateInfo) {
 		baseInfo.setParticipateInfo(participateInfo);
 	}
-   
-	
+
 	public boolean isGeneratedRewards() {
 		return isGeneratedRewards;
 	}
@@ -376,13 +335,12 @@ public class RewardsItemStaffClient implements Serializable,
 		this.isGeneratedRewards = isGeneratedRewards;
 	}
 
-
 	public double getAwardAmt() {
 		return awardAmt;
 	}
 
 	public void setAwardAmt(double awardAmt) {
-		this.awardAmt=awardAmt;
+		this.awardAmt = awardAmt;
 	}
 
 }

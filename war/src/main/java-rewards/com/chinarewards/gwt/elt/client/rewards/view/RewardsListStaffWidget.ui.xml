@@ -11,7 +11,7 @@
 					<div class="{new2.breadcrumb}">
 						<a href="#">首页</a>
 						&gt;
-						<span>兑换历史</span>
+						<span>获奖历史</span>
 					</div>
 
 					<!--查询条件 [[ -->
@@ -41,7 +41,7 @@
 						<div class="{new2.divtext}">
 							一共有
 							<g:InlineLabel ui:field="dataCount" styleName="{new2.divfont}"></g:InlineLabel>
-							条订单
+							条获奖
 						</div>
 
 						<div class="{new2.table}">
