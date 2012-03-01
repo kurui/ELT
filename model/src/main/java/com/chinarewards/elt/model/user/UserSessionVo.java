@@ -11,6 +11,15 @@ public class UserSessionVo {
 	private UserRole lastLoginRole;
 	private String photo;
 	private String corporationName;
+	private UserStatus userStatus;
+
+	public UserStatus getUserStatus() {
+		return userStatus;
+	}
+
+	public void setUserStatus(UserStatus userStatus) {
+		this.userStatus = userStatus;
+	}
 
 	public String getCorporationName() {
 		return corporationName;

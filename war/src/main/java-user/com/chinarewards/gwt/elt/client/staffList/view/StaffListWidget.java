@@ -2,6 +2,7 @@ package com.chinarewards.gwt.elt.client.staffList.view;
 
 
 import com.chinarewards.gwt.elt.client.staffList.presenter.StaffListPresenter.StaffListDisplay;
+import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -21,6 +22,9 @@ public class StaffListWidget extends Composite implements StaffListDisplay {
 	TextBox staffNameorNo;
 	@UiField
 	ListBox staffStatus;
+	@UiField
+	ListBox staffRole;
+	
 	@UiField
 	Button addStaffBtn;
 	@UiField
@@ -69,6 +73,14 @@ public class StaffListWidget extends Composite implements StaffListDisplay {
 		staffStatus.addItem("待入职", "ENTRY");
 		staffStatus.addItem("在职", "JOB");
 		staffStatus.addItem("已离职", "DEPARTURE");
+		
+		staffRole.addItem("不限", "ALL");
+		staffRole.addItem("HR管理员", UserRoleVo.CORP_ADMIN.toString());
+		staffRole.addItem("部门管理员", UserRoleVo.DEPT_MGR.toString());
+		staffRole.addItem("礼品管理员", UserRoleVo.GIFT.toString());
+		staffRole.addItem("普通员工", UserRoleVo.STAFF.toString());
+		
+		
 	}
 
 	@Override
@@ -103,7 +115,10 @@ public class StaffListWidget extends Composite implements StaffListDisplay {
 	public String getSttaffStatus() {
 		return staffStatus.getValue(staffStatus.getSelectedIndex());
 	}
-
+	@Override
+	public String getSttaffRole() {
+		return staffRole.getValue(staffRole.getSelectedIndex());
+	}
 
 
 }

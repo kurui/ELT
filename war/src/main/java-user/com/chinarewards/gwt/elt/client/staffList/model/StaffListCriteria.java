@@ -5,6 +5,7 @@ package com.chinarewards.gwt.elt.client.staffList.model;
 
 import com.chinarewards.gwt.elt.model.PaginationDetailClient;
 import com.chinarewards.gwt.elt.model.SortingDetailClient;
+import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 /**
@@ -42,8 +43,17 @@ public class StaffListCriteria implements IsSerializable {
 	private SortingDetailClient sorting;
 
 	private StaffStatus staffStatus;
+	private UserRoleVo staffRole;
 
 	private String staffNameorNo;
+
+	public UserRoleVo getStaffRole() {
+		return staffRole;
+	}
+
+	public void setStaffRole(UserRoleVo staffRole) {
+		this.staffRole = staffRole;
+	}
 
 	public PaginationDetailClient getPagination() {
 		return pagination;

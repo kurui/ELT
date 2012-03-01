@@ -29,6 +29,7 @@ import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.widget.Sorting;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.client.win.confirm.ConfirmHandler;
+import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -122,7 +123,8 @@ public class StaffListPresenterImpl extends
 		criteria.setStaffNameorNo(display.getStaffNameorNo().getValue());
 		if(!"ALL".equals(display.getSttaffStatus()))
 			criteria.setStaffStatus(StaffStatus.valueOf(display.getSttaffStatus()));
-		
+		if(!"ALL".equals(display.getSttaffRole()))
+			criteria.setStaffRole(UserRoleVo.valueOf(display.getSttaffRole()));
 
 		listViewAdapter = new StaffListViewAdapter(dispatch, criteria,
 				errorHandler, sessionManager,display);

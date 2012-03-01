@@ -284,6 +284,22 @@ public class StaffLogicImpl implements StaffLogic {
 			searchVo.setStatus(criteria.getStaffStatus());
 		if (context.getCorporationId() != null)
 			searchVo.setEnterpriseId(context.getCorporationId());
+		if (criteria.getStaffRole() != null)
+		{
+			List<String> qstaffIds=new ArrayList<String>();
+			List<String> staffIds=userRoleDao.findStaffIdsByRole(criteria.getStaffRole());
+			if(staffIds!=null && staffIds.size()>0)
+			{
+				qstaffIds=staffIds;
+			}
+			else
+			{
+				qstaffIds.add("notStaffId");
+			}
+			searchVo.setStaffids(qstaffIds);
+		}
+		
+		
 		searchVo.setPaginationDetail(criteria.getPaginationDetail());
 		searchVo.setSortingDetail(criteria.getSortingDetail());
 
