@@ -64,10 +64,11 @@ public class ColleagueParticularPresenterImpl extends
 				display.getResultPanel().clear();
 				display.getResultPanel().add(staffViewPresenter.getDisplay().asWidget());
 				
+				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().setAttribute("style", "padding-top: 0px;");
 				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().setAttribute("style", "display: none;");
 				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().setAttribute("style", "display: none;");
 				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().getNextSiblingElement().setAttribute("style", "display: none;");
-				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().setAttribute("style", "float: left;");
+				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().setAttribute("style", "float: left;width: 100%;");
 				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().setAttribute("style", "display: none;");
 				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().setAttribute("style", "display: none;");
 				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().setAttribute("style", "display: none;");

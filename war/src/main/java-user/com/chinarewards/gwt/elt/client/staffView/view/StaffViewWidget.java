@@ -140,6 +140,7 @@ public class StaffViewWidget extends Composite implements StaffViewDisplay {
 	public void displayUpdateBtn(boolean colleague) {
 		if(colleague==true)
 		{
+			if(updateBtn.getElement().getParentElement()!=null)
 			updateBtn.getElement().getParentElement().setAttribute("style", "display: none;");
 		}
 	}
