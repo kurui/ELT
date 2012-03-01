@@ -169,6 +169,10 @@ public class StaffDao extends BaseDao<Staff> {
 			hql.append(" AND staff.corporation.id =:corporationId");
 			param.put("corporationId", searchVo.getEnterpriseId());
 		}
+		if (searchVo.getStaffids() != null && searchVo.getStaffids().size()>0) {
+			hql.append(" AND staff.id IN (:staffids)");
+			param.put("staffids", searchVo.getStaffids());
+		}
 		// department
 		if (searchVo.getDeptParam() != null) {
 
