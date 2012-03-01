@@ -426,6 +426,22 @@ public class StaffLogicImpl implements StaffLogic {
 				
 			}
 		}
+		else
+		{
+			SysUser u= userDao.findUserByStaffId(ff.getId());
+			if(u!=null)
+			{
+				//清除角色(除开用户)
+				List<SysUserRole> lt=userRoleDao.findUserRoleByUserId(u.getId());
+				if(lt.size()>0)
+				{
+					for (SysUserRole r:lt) {
+						if(r.getRole().getName()!=UserRole.STAFF)
+							userRoleDao.delete(r);
+					}
+				}
+			}
+		}
 		return ff.getId();
 	}
 

@@ -113,6 +113,7 @@ public class StaffViewPresenterImpl extends
 						display.setDob(DateTool.dateToString(resp.getDob()));
 
 						display.setStaffImage(resp.getPhoto());
+						if(resp.getStatus()!=null)
 						display.setStaffStatus(resp.getStatus().toString());
 						if(resp.getUserRoleVos()!=null && resp.getUserRoleVos().size()>0)
 						{
