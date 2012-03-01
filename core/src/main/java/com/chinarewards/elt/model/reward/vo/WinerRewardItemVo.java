@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.org.Department;
+import com.chinarewards.elt.domain.reward.base.Reward;
 import com.chinarewards.elt.domain.reward.base.RewardItem;
 import com.chinarewards.elt.domain.reward.base.RewardItemType;
 import com.chinarewards.elt.domain.reward.frequency.Frequency;
@@ -19,12 +20,14 @@ import com.chinarewards.elt.model.transaction.TransactionUnit;
 /**
  * The data container about RewardItem
  * 
- * @author yanxin
- * @since 0.2.0 2011-01-14
+ * @author yanrui
+ * 
+ * 员工 我参与的奖项对象
  */
-public class RewardItemVo {
+public class WinerRewardItemVo {
 
 	private RewardItem item = new RewardItem();
+	private Reward reward=new Reward();
 	
 
 	private Frequency frequency;
@@ -35,6 +38,16 @@ public class RewardItemVo {
 	
 	private String nominateCount="";	
 	
+	
+	
+
+	public Reward getReward() {
+		return reward;
+	}
+
+	public void setReward(Reward reward) {
+		this.reward = reward;
+	}
 
 	public String getNominateCount() {
 		return nominateCount;

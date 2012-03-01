@@ -9,9 +9,11 @@ import com.chinarewards.elt.dao.user.UserDao;
 import com.chinarewards.elt.domain.reward.base.Reward;
 import com.chinarewards.elt.domain.reward.base.RewardItem;
 import com.chinarewards.elt.domain.reward.base.RewardItemStore;
+import com.chinarewards.elt.domain.reward.person.Winner;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.reward.search.RewardItemSearchVo;
 import com.chinarewards.elt.model.reward.search.RewardSearchVo;
+import com.chinarewards.elt.model.reward.vo.WinerRewardItemVo;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.org.DepartmentLogic;
 import com.google.inject.Inject;
@@ -40,13 +42,13 @@ public class RewardAclProcessorStaff extends AbstractRewardAclProcessor {
 	}
 
 	@Override
-	public PageStore<Reward> fetchRewards(UserContext context,
+	public PageStore<Winner> fetchWinRewards(UserContext context,
 			RewardSearchVo criteria) {
 		logger.debug(" Process in StaffRoleProcessor fetchRewards method,UserId:"
 				+ context.getUserId());
-		PageStore<Reward> pageStore = new PageStore<Reward>();
+		PageStore<Winner> pageStore = new PageStore<Winner>();
 
-		pageStore = winnerDao.searchRewards_staff(criteria);
+		pageStore = winnerDao.searchRewards_staff_winner(criteria);
 
 		return pageStore;
 	}
@@ -55,10 +57,10 @@ public class RewardAclProcessorStaff extends AbstractRewardAclProcessor {
 	 * 员工 我参与的奖项
 	 * */
 	@Override
-	public PageStore<RewardItem> fetchRewardItems(UserContext context,
+	public PageStore<WinerRewardItemVo> fetchWinRewardItems(UserContext context,
 			RewardItemSearchVo criteria) {
 
-		PageStore<RewardItem> pageStore = new PageStore<RewardItem>();
+		PageStore<WinerRewardItemVo> pageStore = new PageStore<WinerRewardItemVo>();
 		pageStore = winnerDao.searchRewardItem_staff(criteria);
 
 		return pageStore;
@@ -77,6 +79,20 @@ public class RewardAclProcessorStaff extends AbstractRewardAclProcessor {
 	@Override
 	public PageStore<RewardItemStore> fetchRewardItemsStore(
 			UserContext context, RewardItemSearchVo criteria) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public PageStore<Reward> fetchRewards(UserContext context,
+			RewardSearchVo criteria) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public PageStore<RewardItem> fetchRewardItems(UserContext context,
+			RewardItemSearchVo criteria) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -21,5 +21,7 @@ public interface RewardsItemListStaffPresenter extends
 
 		public void setBreadCrumbs(Widget breadCrumbs);
 
+//		public HasClickHandlers getSearchBtnClickHandlers();
+
 	}
 }

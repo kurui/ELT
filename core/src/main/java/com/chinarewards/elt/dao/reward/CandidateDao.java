@@ -25,6 +25,16 @@ public class CandidateDao extends BaseDao<Candidate> {
 				.createQuery("FROM Candidate c WHERE c.reward.id = :rewardId")
 				.setParameter("rewardId", rewardId).getResultList();
 	}
+	
+	public Candidate findCandidateByStaffRewardId(String rewardId,String staffId) {
+		Query query=getEm()
+				.createQuery("FROM Candidate c WHERE c.reward.id = :rewardId AND c.staff.id = :staffId")
+				.setParameter("rewardId", rewardId).setParameter("staffId", staffId);
+		if(query.getSingleResult()!=null){
+			return (Candidate)query.getSingleResult();
+		}
+		return null;
+	}
 
 	@SuppressWarnings("unchecked")
 	public List<Candidate> findCandidatesByRewardIdAndQueryVo(String rewardId,

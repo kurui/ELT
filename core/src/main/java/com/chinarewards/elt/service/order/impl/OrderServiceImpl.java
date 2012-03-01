@@ -70,7 +70,12 @@ public class OrderServiceImpl implements OrderService {
 			OrderVo.setUserId(caller.getId());//把登录人的用户ID传过去做为条件
 		return orderLogic.OrderList(caller, OrderVo);
 	}
-
+	@Override
+	public PageStore<OrderListVo> OrderHistoryList(UserContext context, OrderListVo OrderVo) {
+		SysUser caller = userLogic.findUserById(context.getUserId());
+		OrderVo.setUserId(caller.getId());//把登录人的用户ID传过去做为条件
+		return orderLogic.OrderList(caller, OrderVo);
+	}
 	@Override
 	public String updateStatus(UserContext context,String id,OrderStatus status) {
 		SysUser caller = userLogic.findUserById(context.getUserId());

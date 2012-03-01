@@ -5,9 +5,9 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 import com.chinarewards.gwt.elt.client.dataprovider.BaseDataProvider;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.order.model.OrderSearchVo;
-import com.chinarewards.gwt.elt.client.order.request.SearchOrderRequest;
-import com.chinarewards.gwt.elt.client.order.request.SearchOrderResponse;
 import com.chinarewards.gwt.elt.client.orderHistory.presenter.OrderHistoryPresenter.OrderHistoryDisplay;
+import com.chinarewards.gwt.elt.client.orderHistory.request.SearchOrderHistoryRequest;
+import com.chinarewards.gwt.elt.client.orderHistory.request.SearchOrderHistoryResponse;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.model.PaginationDetailClient;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -51,15 +51,15 @@ public class OrderHistoryDataAdapter extends BaseDataProvider<OrderSearchVo> {
 		if (getSorting() != null) {
 			criteria.setSorting(getSorting());
 		}
-		dispatch.execute(new SearchOrderRequest(criteria, sessionManager.getSession()),
-				new AsyncCallback<SearchOrderResponse>() {
+		dispatch.execute(new SearchOrderHistoryRequest(criteria, sessionManager.getSession()),
+				new AsyncCallback<SearchOrderHistoryResponse>() {
 					@Override
 					public void onFailure(Throwable e) {
 						errorHandler.alert(e.getMessage());
 					}
 
 					@Override
-					public void onSuccess(SearchOrderResponse response) {
+					public void onSuccess(SearchOrderHistoryResponse response) {
 						updateRowData(start, response.getResult());
 						updateRowCount(response.getTotal(), true);
 						display.setDataCount(response.getTotal()+"");

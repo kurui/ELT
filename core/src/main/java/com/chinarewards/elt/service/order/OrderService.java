@@ -43,7 +43,10 @@ public interface OrderService {
 	 * @return
 	 */
 	public PageStore<OrderListVo> OrderList(UserContext context,OrderListVo OrderVo);
-
+   /**
+    * 订单历史
+    */
+	PageStore<OrderListVo> OrderHistoryList(UserContext context, OrderListVo OrderVo);
 	/**
 	 * 执行状态改变
 	 * @param orderId 

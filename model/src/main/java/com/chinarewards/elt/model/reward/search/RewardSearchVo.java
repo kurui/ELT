@@ -31,6 +31,9 @@ public class RewardSearchVo {
 	 * The staff who win a reward
 	 */
 	private String winnerStaffId;
+	private String winnerStaffName;	
+	
+	private Date rewardsTime;
 
 	private String rewardId;
 
@@ -80,7 +83,19 @@ public class RewardSearchVo {
 	 * Unit to award
 	 */
 	private TransactionUnit awardUnit;
+	
+
+	public Date getRewardsTime() {
+		return rewardsTime;
+	}
+
+	public void setRewardsTime(Date rewardsTime) {
+		this.rewardsTime = rewardsTime;
+	}
+
+
     private Date lastMonth;//上个月是
+
 	public String getJudgeUserId() {
 		return judgeUserId;
 	}
@@ -127,6 +142,16 @@ public class RewardSearchVo {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	
+
+	public String getWinnerStaffName() {
+		return winnerStaffName;
+	}
+
+	public void setWinnerStaffName(String winnerStaffName) {
+		this.winnerStaffName = winnerStaffName;
 	}
 
 	public RewardStatus getStatus() {

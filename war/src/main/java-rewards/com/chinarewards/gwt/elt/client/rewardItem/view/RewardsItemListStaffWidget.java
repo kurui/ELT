@@ -11,16 +11,20 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class RewardsItemListStaffWidget extends Composite implements
 		RewardsItemListStaffDisplay {
+
+//	@UiField
+//	Button searchButton;
+	
 	@UiField
 	Panel resultPanel;
 	@UiField
 	Panel resultpage;
-	// @UiField
-	// Panel breadCrumbs;
-
 
 	@UiField
 	InlineLabel dataCount;
+
+	// @UiField
+	// Panel breadCrumbs;
 
 	private static RewardsItemListStaffWidgetUiBinder uiBinder = GWT
 			.create(RewardsItemListStaffWidgetUiBinder.class);
@@ -54,5 +58,10 @@ public class RewardsItemListStaffWidget extends Composite implements
 		// this.breadCrumbs.add(breadCrumbs);
 
 	}
+
+//	@Override
+//	public HasClickHandlers getSearchBtnClickHandlers() {		
+//		return searchButton;
+//	}
 
 }

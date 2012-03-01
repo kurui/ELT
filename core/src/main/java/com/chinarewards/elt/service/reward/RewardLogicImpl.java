@@ -497,6 +497,42 @@ public class RewardLogicImpl implements RewardLogic {
 			rewardVo.setNomineeLots(nomineeLots);
 			rewardVo.setPreWinnerLots(preWinnerLots);
 			rewardVo.setWinners(winners);
+			rewardVo.setAwardDate(reward.getAwardDate());
+		}
+		rewardVo.setReward(reward);
+
+		return rewardVo;
+	}
+	
+	private RewardVo convertFromWinnerRewardToVo(Winner win,Reward reward, boolean isEntire) {
+		RewardVo rewardVo = new RewardVo();
+		if (isEntire) {
+			String rewardId = reward.getId();
+			// candidate rule
+			CandidateRule candidateRule = candidateRuleLogic
+					.findCandidateRuleFromReward(rewardId);
+			// candidate list
+			List<Candidate> candidates = candidateLogic
+					.getCandidatesFromReward(rewardId);
+			// Judge list
+			List<Judge> judges = judgeLogic.findJudgesFromReward(rewardId);
+			// nominee lot
+			List<NomineeLot> nomineeLots = nomineeLogic
+					.getNomineeLotsFromReward(rewardId);
+			// pre-winner
+			List<PreWinnerLot> preWinnerLots = preWinnerLogic
+					.getPreWinnerLotsFromReward(rewardId);
+			// winner
+			List<Winner> winners = winnerLogic.getWinnersOfReward(rewardId);
+
+			rewardVo.setReward(reward);
+			rewardVo.setCandidateRule(candidateRule);
+			rewardVo.setCandidates(candidates);
+			rewardVo.setJudges(judges);
+			rewardVo.setNomineeLots(nomineeLots);
+			rewardVo.setPreWinnerLots(preWinnerLots);
+			rewardVo.setWinners(winners);
+			rewardVo.setAwardDate(win.getCreatedAt());
 		}
 		rewardVo.setReward(reward);
 
@@ -541,16 +577,17 @@ public class RewardLogicImpl implements RewardLogic {
 		List<UserRole> userRoleList=new ArrayList<UserRole>();
 		userRoleList.add(UserRole.STAFF);
 		
-		PageStore<Reward> pageStore = rewardAclProcessorFactory
-				.generateRewardAclProcessor(userRoleList).fetchRewards(context,
+		PageStore<Winner> pageStore = rewardAclProcessorFactory
+				.generateRewardAclProcessor(userRoleList).fetchWinRewards(context,
 						criteria);
 
-		List<Reward> list = pageStore.getResultList();
+		List<Winner> list = pageStore.getResultList();
 		// post-process and convert
 		List<RewardVo> rewardVoList = new ArrayList<RewardVo>();
 		if (list.size() > 0) {
-			for (Reward reward : list) {
-				rewardVoList.add(convertFromRewardToVo(reward, true));
+			for (Winner winner : list) {
+				Reward reward=winner.getReward();
+				rewardVoList.add(convertFromWinnerRewardToVo(winner,reward, true));
 			}
 
 			logger.debug("The result size:{}, total:{}", new Object[] {
