@@ -15,6 +15,7 @@ import com.chinarewards.gwt.elt.client.widget.EltNewPager;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager.TextLocation;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.win.Win;
+import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.inject.Inject;
 
 public class GloryBroadcastPresenterImpl extends
@@ -28,7 +29,7 @@ public class GloryBroadcastPresenterImpl extends
 	EltNewPager pager;
 	ListCellTable<StaffHeavenIndexClient> cellTable;
 	GloryBroadcastViewAdapter listViewAdapter;
-
+	String staffId;
 	@Inject
 	public GloryBroadcastPresenterImpl(EventBus eventBus,
 			GloryBroadcastDisplay display, DispatchAsync dispatch,
@@ -76,10 +77,17 @@ public class GloryBroadcastPresenterImpl extends
 		StaffHeavenIndexCriteria criteria = new StaffHeavenIndexCriteria();
 		if (category != null)
 			criteria.setCategory(category);
+		if(!StringUtil.isEmpty(staffId))
+			criteria.setRecevingStaffId(staffId);
 		listViewAdapter = new GloryBroadcastViewAdapter(dispatch, criteria,
 				errorHandler, sessionManager, display, win);
 		listViewAdapter.addDataDisplay(cellTable);
 
+	}
+
+	@Override
+	public void initGloryBroadcast(String staffId) {
+		this.staffId=staffId;
 	}
 
 }

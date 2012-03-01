@@ -136,4 +136,13 @@ public class StaffViewWidget extends Composite implements StaffViewDisplay {
 		this.staffStatus.setText(StaffStatus.valueOf(text).getDisplayName());
 	}
 
+	@Override
+	public void displayUpdateBtn(boolean colleague) {
+		if(colleague==true)
+		{
+			if(updateBtn.getElement().getParentElement()!=null)
+			updateBtn.getElement().getParentElement().setAttribute("style", "display: none;");
+		}
+	}
+
 }

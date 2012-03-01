@@ -10,7 +10,7 @@ public interface StaffViewPresenter extends
 		Presenter<StaffViewPresenter.StaffViewDisplay> {
 
 	public void initStaffView(String staffId);
-
+	public void initStaffView_Colleague(String staffId,boolean colleague);
 	public static interface StaffViewDisplay extends Display {
 
 		public HasClickHandlers getupadateBtnClickHandlers();
@@ -38,5 +38,6 @@ public interface StaffViewPresenter extends
 		void setDataCount(String text);
 		Panel getResultPanel();
 		Panel getResultpage();
+		void displayUpdateBtn(boolean colleague);
 	}
 }

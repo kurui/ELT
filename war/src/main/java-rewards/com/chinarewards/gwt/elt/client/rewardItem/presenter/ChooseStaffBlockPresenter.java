@@ -11,7 +11,6 @@ import com.chinarewards.gwt.elt.client.rewards.model.RewardsBaseInfo;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Panel;
-import com.google.gwt.user.client.ui.TextBox;
 
 public interface ChooseStaffBlockPresenter extends	Presenter<ChooseStaffBlockPresenter.ChooseStaffBlockDisplay> {
 

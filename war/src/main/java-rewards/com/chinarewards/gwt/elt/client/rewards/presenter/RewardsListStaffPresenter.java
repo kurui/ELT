@@ -5,8 +5,10 @@ import com.chinarewards.gwt.elt.client.mvp.Presenter;
 import com.chinarewards.gwt.elt.model.rewards.RewardPageType;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.datepicker.client.DateBox;
 
 public interface RewardsListStaffPresenter extends
 		Presenter<RewardsListStaffPresenter.RewardsListStaffDisplay> {
@@ -17,9 +19,11 @@ public interface RewardsListStaffPresenter extends
 
 		public HasClickHandlers getSearchBtnClickHandlers();
 
-		public HasValue<String> getName();
+		public HasValue<String> getWinnerName();
 
-		public HasValue<String> getDefinition();
+		public ListBox getRewardsItem();
+
+		public DateBox getRewardsTime();
 
 		public Panel getResultPanel();
 

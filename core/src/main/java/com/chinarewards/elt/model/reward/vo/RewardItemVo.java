@@ -7,7 +7,6 @@ import java.util.List;
 import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.reward.base.RewardItem;
-import com.chinarewards.elt.domain.reward.base.RewardItemStore;
 import com.chinarewards.elt.domain.reward.base.RewardItemType;
 import com.chinarewards.elt.domain.reward.frequency.Frequency;
 import com.chinarewards.elt.domain.reward.person.Judge;
@@ -33,6 +32,17 @@ public class RewardItemVo {
 	private CandidateRule candidateRule;
 
 	private List<Judge> judgeList = new ArrayList<Judge>();
+	
+	private String nominateCount="";	
+	
+
+	public String getNominateCount() {
+		return nominateCount;
+	}
+
+	public void setNominateCount(String nominateCount) {
+		this.nominateCount = nominateCount;
+	}
 
 	public RewardItem getItem() {
 		return item;

@@ -41,7 +41,7 @@ public class StaffViewPresenterImpl extends
 
 	private final BreadCrumbsPresenter breadCrumbs;
 	String staffId;
-
+	boolean colleague=false;
 	EltNewPager pager;
 	ListCellTable<StaffWinClient> cellTable;
 	StaffWinAdapter listViewAdapter;
@@ -77,6 +77,10 @@ public class StaffViewPresenterImpl extends
 	}
 
 	void init() {
+		if(colleague==true)
+		{
+			display.displayUpdateBtn(colleague);
+		}
 		dispatch.execute(new StaffViewRequest(staffId),
 				new AsyncCallback<StaffViewResponse>() {
 
@@ -186,5 +190,11 @@ public class StaffViewPresenterImpl extends
 					}
 				});
 		
+	}
+
+	@Override
+	public void initStaffView_Colleague(String staffId,boolean colleague) {
+		this.staffId = staffId;
+		this.colleague=colleague;
 	}
 }

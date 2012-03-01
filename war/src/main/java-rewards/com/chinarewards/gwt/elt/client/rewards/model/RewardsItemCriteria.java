@@ -39,11 +39,11 @@ public class RewardsItemCriteria implements Serializable {
 	private int headcountLimit;//得奖总人数
 	private Integer tmdays;//提前的天数
 	private int degree;// 生成奖励的次数
-	private String accountDeptName;
+	private String accountDeptName="";
     
-	private String buildDeptName;
+	private String buildDeptName="";
 	
-	private String departmentId;
+	private String departmentId="";
 	
 	private boolean subDepartmentChoose;
 

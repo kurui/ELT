@@ -7,6 +7,7 @@ import com.google.gwt.user.client.ui.Panel;
 public interface GloryBroadcastPresenter extends
 		Presenter<GloryBroadcastPresenter.GloryBroadcastDisplay> {
 
+	public void initGloryBroadcast(String staffId);
 	public static interface GloryBroadcastDisplay extends Display {
 
 		void setDataCount(String text);

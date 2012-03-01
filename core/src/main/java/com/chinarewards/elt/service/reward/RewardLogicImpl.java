@@ -289,13 +289,20 @@ public class RewardLogicImpl implements RewardLogic {
 		}
 		//获奖加入发送广播
 		
-	
+		List<String[]> organList=new ArrayList<String[]>();
+		
 		String staffNames="";
 		List <Staff> staffList=staffLogic.findStaffsByStaffIds(staffIds);
 		if(staffList.size()>0){
-		for (Staff f:staffList) {
-			staffNames+=f.getName()+",";
-		}
+			for (Staff f:staffList) {
+				staffNames+=f.getName()+",";
+				
+				String[] nameAndId = new String[3];
+				nameAndId[0] = f.getId();
+				nameAndId[1] = f.getName();
+				nameAndId[2] = OrganType.STAFF.toString();
+				organList.add(nameAndId);
+			}
 		}
 
 		UserContext context=new UserContext();
@@ -308,8 +315,8 @@ public class RewardLogicImpl implements RewardLogic {
 		vo.setAllowreplies(true);
 		vo.setContent("恭喜 "+staffNames.substring(0,staffNames.length()-1)+" 获得"+reward.getName()+"，获得"+((int)reward.getAwardAmt())+"积分。");
 		
-		//接收对象为当前人机构
-		List<String[]> organList=new ArrayList<String[]>();
+		//接收对象为当前人机构(接收人加入获奖人)
+		
 		String[] nameAndId = new String[3];
 		nameAndId[0] = reward.getCorporation().getId();
 		nameAndId[1] = reward.getCorporation().getName();
@@ -490,6 +497,42 @@ public class RewardLogicImpl implements RewardLogic {
 			rewardVo.setNomineeLots(nomineeLots);
 			rewardVo.setPreWinnerLots(preWinnerLots);
 			rewardVo.setWinners(winners);
+			rewardVo.setAwardDate(reward.getAwardDate());
+		}
+		rewardVo.setReward(reward);
+
+		return rewardVo;
+	}
+	
+	private RewardVo convertFromWinnerRewardToVo(Winner win,Reward reward, boolean isEntire) {
+		RewardVo rewardVo = new RewardVo();
+		if (isEntire) {
+			String rewardId = reward.getId();
+			// candidate rule
+			CandidateRule candidateRule = candidateRuleLogic
+					.findCandidateRuleFromReward(rewardId);
+			// candidate list
+			List<Candidate> candidates = candidateLogic
+					.getCandidatesFromReward(rewardId);
+			// Judge list
+			List<Judge> judges = judgeLogic.findJudgesFromReward(rewardId);
+			// nominee lot
+			List<NomineeLot> nomineeLots = nomineeLogic
+					.getNomineeLotsFromReward(rewardId);
+			// pre-winner
+			List<PreWinnerLot> preWinnerLots = preWinnerLogic
+					.getPreWinnerLotsFromReward(rewardId);
+			// winner
+			List<Winner> winners = winnerLogic.getWinnersOfReward(rewardId);
+
+			rewardVo.setReward(reward);
+			rewardVo.setCandidateRule(candidateRule);
+			rewardVo.setCandidates(candidates);
+			rewardVo.setJudges(judges);
+			rewardVo.setNomineeLots(nomineeLots);
+			rewardVo.setPreWinnerLots(preWinnerLots);
+			rewardVo.setWinners(winners);
+			rewardVo.setAwardDate(win.getCreatedAt());
 		}
 		rewardVo.setReward(reward);
 
@@ -534,16 +577,17 @@ public class RewardLogicImpl implements RewardLogic {
 		List<UserRole> userRoleList=new ArrayList<UserRole>();
 		userRoleList.add(UserRole.STAFF);
 		
-		PageStore<Reward> pageStore = rewardAclProcessorFactory
-				.generateRewardAclProcessor(userRoleList).fetchRewards(context,
+		PageStore<Winner> pageStore = rewardAclProcessorFactory
+				.generateRewardAclProcessor(userRoleList).fetchWinRewards(context,
 						criteria);
 
-		List<Reward> list = pageStore.getResultList();
+		List<Winner> list = pageStore.getResultList();
 		// post-process and convert
 		List<RewardVo> rewardVoList = new ArrayList<RewardVo>();
 		if (list.size() > 0) {
-			for (Reward reward : list) {
-				rewardVoList.add(convertFromRewardToVo(reward, true));
+			for (Winner winner : list) {
+				Reward reward=winner.getReward();
+				rewardVoList.add(convertFromWinnerRewardToVo(winner,reward, true));
 			}
 
 			logger.debug("The result size:{}, total:{}", new Object[] {

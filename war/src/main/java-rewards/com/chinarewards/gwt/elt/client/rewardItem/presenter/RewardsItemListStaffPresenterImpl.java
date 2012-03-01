@@ -60,18 +60,17 @@ public class RewardsItemListStaffPresenterImpl extends
 		breadCrumbs.loadListPage();
 		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
 
-		iniWidget();
+		initWidget();
 
 //		registerHandler(display.getSearchBtnClickHandlers().addClickHandler(
 //				new ClickHandler() {
 //					public void onClick(ClickEvent paramClickEvent) {
-//						// win.alert(sessionManager.getSession().getLoginName());
-//						iniWidget();
+//						initWidget();
 //					}
 //				}));
 	}
 
-	private void iniWidget() {
+	private void initWidget() {
 		buildTable();
 		doSearch();
 	}
@@ -129,7 +128,7 @@ public class RewardsItemListStaffPresenterImpl extends
 				new GetValue<RewardsItemStaffClient, String>() {
 					@Override
 					public String getValue(RewardsItemStaffClient rewards) {
-						return rewards.getRewardsFrom()+"";
+						return rewards.getAwardAmt()+"";
 					}
 				}, ref, "rewardsFrom");
 		
@@ -146,17 +145,17 @@ public class RewardsItemListStaffPresenterImpl extends
 				new GetValue<RewardsItemStaffClient, String>() {
 					@Override
 					public String getValue(RewardsItemStaffClient rewards) {
-						return rewards.getCreatedBy();
+						return rewards.getNominateName();
 					}
-				}, ref, "createdBy");
+				}, ref, "nominateName");
 
 		cellTable.addColumn("提名次数", new TextCell(),
 				new GetValue<RewardsItemStaffClient, String>() {
 					@Override
 					public String getValue(RewardsItemStaffClient rewards) {
-						return rewards.getCreatedBy();
+						return rewards.getNominateCount();
 					}
-				}, ref, "createdBy");
+				}, ref, "nominateCount");
 
 	}
 

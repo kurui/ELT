@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.chinarewards.gwt.elt.client.rewardItem.request;
 
 import net.customware.gwt.dispatch.shared.Action;

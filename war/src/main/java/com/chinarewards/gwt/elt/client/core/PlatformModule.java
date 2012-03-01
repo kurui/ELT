@@ -9,6 +9,7 @@ import com.chinarewards.gwt.elt.client.broadcasting.plugin.BroadcastingListPlugi
 import com.chinarewards.gwt.elt.client.budget.plugin.BudgetPluginDescriptor;
 import com.chinarewards.gwt.elt.client.budget.plugin.CorpBudgetPluginDescriptor;
 import com.chinarewards.gwt.elt.client.colleague.plugin.ColleagueListPluginDescriptor;
+import com.chinarewards.gwt.elt.client.colleagueParticular.plugin.ColleagueParticularPluginDescriptor;
 import com.chinarewards.gwt.elt.client.core.impl.CorePluginDescriptor;
 import com.chinarewards.gwt.elt.client.core.impl.GinPluginManager;
 import com.chinarewards.gwt.elt.client.core.impl.InMemoryMenuRoleStore;
@@ -53,6 +54,7 @@ import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemListStaffPlu
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemPluginDescriptor;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemStoreListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemViewPluginDescriptor;
+import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemViewStaffPluginDescriptor;
 import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListStaffPluginDescriptor;
 import com.chinarewards.gwt.elt.client.shopWindow.plugin.ShopWindowPluginDescriptor;
@@ -260,6 +262,7 @@ public class PlatformModule extends AbstractGinModule {
 			StaffIntegralPluginDescriptor staffIntegral,
 			RewardsListStaffPluginDescriptor rewardsListStaff,
 			RewardsItemListStaffPluginDescriptor rewardsItemListStaff,	
+			RewardsItemViewStaffPluginDescriptor rewardsItemViewStaff,	
 			RewardsItemListCompanyOtherPluginDescriptor rewardsItemListCompanyOther,	
 			GiftPluginDescriptor gift, GiftListPluginDescriptor giftList,
 			GiftViewPluginDescriptor giftView,
@@ -279,13 +282,16 @@ public class PlatformModule extends AbstractGinModule {
 			MessageListPluginDescriptor message,
 			MessageSavePluginDescriptor messageSave,
 			PasswordPluginDescriptor password,
-			ColleagueListPluginDescriptor colleague) {
+			ColleagueListPluginDescriptor colleague,
+			ColleagueParticularPluginDescriptor colleagueParticular) {
+
 
 		if (pluginSet == null) {
 			pluginSet = new InMemoryPluginSet();
 			pluginSet.registerPlugin(core);
 			pluginSet.registerPlugin(staffIntegral);
 			pluginSet.registerPlugin(rewardsListStaff);
+			pluginSet.registerPlugin(rewardsItemViewStaff);
 			pluginSet.registerPlugin(rewardsItemListStaff);
 			pluginSet.registerPlugin(rewardsItemListCompanyOther);
 			pluginSet.registerPlugin(giftList);
@@ -308,6 +314,9 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(messageSave);
 			pluginSet.registerPlugin(colleague);
 			pluginSet.registerPlugin(password);
+			pluginSet.registerPlugin(colleagueParticular);
+
+
 		}
 
 		return pluginSet;

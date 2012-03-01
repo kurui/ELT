@@ -58,20 +58,6 @@ public class RewardsCriteria implements IsSerializable {
 	 * 提名人-用户ID
 	 */
 	private String judgeUserId;
-	public String getJudgeUserId() {
-		return judgeUserId;
-	}
-
-	public void setJudgeUserId(String judgeUserId) {
-		this.judgeUserId = judgeUserId;
-	}
-	public String getDefinition() {
-		return definition;
-	}
-
-	public void setDefinition(String definition) {
-		this.definition = definition;
-	}
 
 	/**
 	 * 奖项设立之部门
@@ -96,6 +82,12 @@ public class RewardsCriteria implements IsSerializable {
 	 * 某员工id---查某员工的奖励记录
 	 */
 	private String staffId;
+
+	
+	private String staffName;
+	
+	private Date rewardsTime;//颁奖时间
+
 	 private Date lastMonth;//上个月是
 	public Date getLastMonth() {
 		return lastMonth;
@@ -114,6 +106,45 @@ public class RewardsCriteria implements IsSerializable {
 				+ subDepartmentChoose + ", accountDeptId=" + accountDeptId
 				+ ", rewardsUnit=" + rewardsUnit + ", status=" + status
 				+ ", staffId=" + staffId + "]";
+	}
+
+	
+	
+	public String getStaffName() {
+		return staffName;
+	}
+
+
+
+	public void setStaffName(String staffName) {
+		this.staffName = staffName;
+	}
+
+
+
+	public String getJudgeUserId() {
+		return judgeUserId;
+	}
+
+	public void setJudgeUserId(String judgeUserId) {
+		this.judgeUserId = judgeUserId;
+	}
+	public String getDefinition() {
+		return definition;
+	}
+
+	public void setDefinition(String definition) {
+		this.definition = definition;
+	}
+
+	
+	
+	public Date getRewardsTime() {
+		return rewardsTime;
+	}
+
+	public void setRewardsTime(Date rewardsTime) {
+		this.rewardsTime = rewardsTime;
 	}
 
 	public PaginationDetailClient getPagination() {
@@ -244,6 +275,11 @@ public class RewardsCriteria implements IsSerializable {
 
 	public void setSubDepartmentChoose(boolean subDepartmentChoose) {
 		this.subDepartmentChoose = subDepartmentChoose;
+	}
+
+
+	public void setWinnerStaffName(String value) {
+		
 	}
 
 }

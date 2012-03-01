@@ -6,39 +6,12 @@ import java.util.Date;
 public class RewardsItemCompanyOtherClient implements Serializable,
 		Comparable<RewardsItemCompanyOtherClient> {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -7771222164734049059L;
 
 	/** 基本信息 **/
 	private RewardsBaseInfo baseInfo = new RewardsBaseInfo();
 
-	public boolean isPeriodEnable() {
-		return periodEnable;
-	}
-
-	public void setPeriodEnable(boolean periodEnable) {
-		this.periodEnable = periodEnable;
-	}
-
-	public int getTotalJF() {
-		return totalJF;
-	}
-
-	public void setTotalJF(int totalJF) {
-		this.totalJF = totalJF;
-	}
-
-	public int getRewardsFrom() {
-		return rewardsFrom;
-	}
-
-	public void setRewardsFrom(int rewardsFrom) {
-		this.rewardsFrom = rewardsFrom;
-	}
-
-	/** 频率规则 **/
+    /** 频率规则 **/
 	// 频率是否有效(周期性)
 	private boolean periodEnable;
 	// 频率
@@ -62,15 +35,6 @@ public class RewardsItemCompanyOtherClient implements Serializable,
 	// 预期时间
 	private Date expectAwardDate;
 
-
-	public Date getExpectAwardDate() {
-		return expectAwardDate;
-	}
-
-	public void setExpectAwardDate(Date expectAwardDate) {
-		this.expectAwardDate = expectAwardDate;
-	}
-
 	// 是否自动奖项
 	private boolean isAuto = false;
 
@@ -85,6 +49,63 @@ public class RewardsItemCompanyOtherClient implements Serializable,
 	// 生成奖励的次数
 	private int degree;
 	private boolean enabled;//是否激活
+	
+	//总积分
+	private int totalJF;
+	
+	//每人得的积分
+	private int rewardsFrom;
+	
+	//提前的天数
+	private Integer tmdays;
+   
+	/** 提名人人信息 **/
+	private ParticipateInfoClient tmInfo;
+	
+	private String myRewardsStatus="";//已获得奖项/努力冲奖项
+	
+	
+	
+
+	public String getMyRewardsStatus() {
+		return myRewardsStatus;
+	}
+
+	public void setMyRewardsStatus(String myRewardsStatus) {
+		this.myRewardsStatus = myRewardsStatus;
+	}
+
+	public Date getExpectAwardDate() {
+		return expectAwardDate;
+	}
+
+	public void setExpectAwardDate(Date expectAwardDate) {
+		this.expectAwardDate = expectAwardDate;
+	}
+	
+	public boolean isPeriodEnable() {
+		return periodEnable;
+	}
+
+	public void setPeriodEnable(boolean periodEnable) {
+		this.periodEnable = periodEnable;
+	}
+
+	public int getTotalJF() {
+		return totalJF;
+	}
+
+	public void setTotalJF(int totalJF) {
+		this.totalJF = totalJF;
+	}
+
+	public int getRewardsFrom() {
+		return rewardsFrom;
+	}
+
+	public void setRewardsFrom(int rewardsFrom) {
+		this.rewardsFrom = rewardsFrom;
+	}
 	
 	public boolean isEnabled() {
 		return enabled;
@@ -101,18 +122,7 @@ public class RewardsItemCompanyOtherClient implements Serializable,
 	public void setDegree(int degree) {
 		this.degree = degree;
 	}
-
-	//总积分
-	private int totalJF;
 	
-	//每人得的积分
-	private int rewardsFrom;
-	
-	//提前的天数
-	private Integer tmdays;
-   
-	/** 提名人人信息 **/
-	private ParticipateInfoClient tmInfo;
 	public ParticipateInfoClient getTmInfo() {
 		return tmInfo;
 	}
