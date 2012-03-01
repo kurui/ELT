@@ -52,7 +52,8 @@ public class StaffWidget extends Composite implements StaffDisplay {
 	@UiField
 	Anchor awardShop;
 
-	
+	@UiField
+	Anchor password;
 	@UiField
 	Anchor viewPoints;
 	@UiField
@@ -403,7 +404,10 @@ public class StaffWidget extends Composite implements StaffDisplay {
 	public HasClickHandlers getAwardShop() {
 		return awardShop;
 	}
-
+	@Override
+	public HasClickHandlers getPassword() {
+		return password;
+	}
 
 	@Override
 	public HasClickHandlers getViewPoints() {

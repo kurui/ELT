@@ -109,6 +109,7 @@
 				                <a href="#">修改头像</a>
 				                <a href="#">个人资料</a>
 				                <a href="#">账户设置</a>
+				                <g:Anchor ui:field="password" >密码修改</g:Anchor>
 				              </div>
 				            </div>
 				            <div class="{new2.employee-detail}">

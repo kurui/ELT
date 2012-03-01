@@ -29,6 +29,7 @@ import com.chinarewards.gwt.elt.client.message.plugin.MessageListConstants;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.orderHistory.plugin.OrderHistoryConstants;
+import com.chinarewards.gwt.elt.client.password.plugin.PasswordConstants;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemConstants;
 import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListStaffConstants;
 import com.chinarewards.gwt.elt.client.smallControl.view.SmallRewardItemWindowWidget;
@@ -306,7 +307,19 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 						"EDITOR_COLLEAGUELIST_SEARCH_DO_ID", null);
 			}
 		}));
-		
+		// 密码修改
+		registerHandler(display.getPassword().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						RewardsPageClient client = new RewardsPageClient();
+						Platform.getInstance()
+								.getEditorRegistry()
+								.openEditor(
+										PasswordConstants.EDITOR_PASSWORD_SEARCH,
+										"EDITOR_PASSWORD_SEARCH",client);
+					}
+				}));
 
 	}
 
