@@ -30,7 +30,7 @@ public class RewardsItemViewStaffEditorDescriptor implements EditorDescriptor {
 		
 		e.setTitle("查看奖项");
 	
-		e.setModel(instanceId,model);
+		e.setModel(model);
 		return e;
 	}
 

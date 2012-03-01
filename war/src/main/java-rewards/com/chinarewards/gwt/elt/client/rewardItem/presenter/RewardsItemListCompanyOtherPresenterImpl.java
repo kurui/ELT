@@ -153,7 +153,8 @@ public class RewardsItemListCompanyOtherPresenterImpl extends
 				new GetValue<RewardsItemCompanyOtherClient, String>() {
 					@Override
 					public String getValue(RewardsItemCompanyOtherClient rewards) {
-						return rewards.getMyRewardsStatus();
+//						return rewards.getMyRewardsStatus();
+						return "努力冲奖项";
 					}
 				}, ref, "status");
 

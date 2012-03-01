@@ -216,12 +216,12 @@ public class WinnerDao extends BaseDao<Winner> {
 		}	
 		
 		if (!StringUtil.isEmptyString(searchVo.getWinnerStaffName())) {
-			hql.append(" AND win.staff.id like :staffName ");
+			hql.append(" AND win.staff.name like :staffName ");
 			param.put("staffName", searchVo.getWinnerStaffName());
 		}
 		
 		//奖项ID
-		if (!StringUtil.isEmptyString(searchVo.getWinnerStaffName())) {
+		if (!StringUtil.isEmptyString(searchVo.getRewardItemId())) {
 			hql.append(" AND win.reward.rewardItem.id = :rewardsItemId ");
 			param.put("rewardsItemId", searchVo.getRewardItemId());
 		}

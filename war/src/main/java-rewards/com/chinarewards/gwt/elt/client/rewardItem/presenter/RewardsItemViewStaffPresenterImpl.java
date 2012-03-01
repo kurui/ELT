@@ -21,9 +21,7 @@ public class RewardsItemViewStaffPresenterImpl
 		extends
 		BasePresenter<RewardsItemViewStaffPresenter.RewardsItemViewStaffDisplay>
 		implements RewardsItemViewStaffPresenter {
-	String instanceId;// 修改时传过来的ID
 
-	boolean isItemStore = false;// 是奖项的查找还是奖项库的
 	private final DispatchAsync dispatcher;
 	private final ErrorHandler errorHandler;
 	private final BreadCrumbsPresenter breadCrumbs;
@@ -43,17 +41,13 @@ public class RewardsItemViewStaffPresenterImpl
 
 	@Override
 	public void bind() {
+		breadCrumbs.loadChildPage("奖项详细");
+		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
+
 		registerHandler(display.getBackClick().addClickHandler(
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent arg0) {
-
-						Platform.getInstance()
-								.getEditorRegistry()
-								.openEditor(
-										RewardsItemConstants.EDITOR_REWARDSITEM_List,
-										"EDITOR_REWARDSITEM_List_DO_ID",
-										instanceId);
 
 					}
 
@@ -78,49 +72,28 @@ public class RewardsItemViewStaffPresenterImpl
 
 	// 查看时初始化数据
 	@Override
-	public void initInstanceId(String instanceId, RewardsItemClient item) {
-		this.instanceId = instanceId;
+	public void initWidget(RewardsItemClient item) {
 		param = item;// 把查看得到的VO保存下来给修改时做为参数用
-		initDataToEditRewardsItem(item, instanceId);
+		initDataToEditRewardsItem(item);
 	}
 
-	private void initDataToEditRewardsItem(final RewardsItemClient item,
-			final String instanceId) {
+	private void initDataToEditRewardsItem(final RewardsItemClient item) {
 		rewardId = item.getId();
 
-		if (instanceId.equals(RewardsItemConstants.EDITOR_REWARDSITEMSTORE))
-			isItemStore = true;
-		{
-			dispatcher.execute(new SearchRewardsItemByIdRequest(rewardId,
-					isItemStore),
-					new AsyncCallback<SearchRewardsItemByIdResponse>() {
-						@Override
-						public void onFailure(Throwable arg0) {
-							errorHandler.alert("查询奖项出错!");
-							Platform.getInstance()
-									.getEditorRegistry()
-									.closeEditor(
-											RewardsItemConstants.EDITOR_REWARDSITEM_ADD,
-											instanceId);
-						}
+		dispatcher.execute(new SearchRewardsItemByIdRequest(rewardId, false),
+				new AsyncCallback<SearchRewardsItemByIdResponse>() {
+					@Override
+					public void onFailure(Throwable arg0) {
+						errorHandler.alert("查询奖项出错!");
+					}
 
-						@Override
-						public void onSuccess(
-								SearchRewardsItemByIdResponse response) {
-							RewardsItemClient item = response.getRewardsItem();
-							if (isItemStore == false) {
-								breadCrumbs.loadChildPage("奖项详细");
+					@Override
+					public void onSuccess(SearchRewardsItemByIdResponse response) {
+						RewardsItemClient item = response.getRewardsItem();
 
-							} else {
-								breadCrumbs.loadChildPage("奖项模板详细");
+						display.showRewardsItem(item);
+					}
+				});
 
-							}
-							display.setBreadCrumbs(breadCrumbs.getDisplay()
-									.asWidget());
-							display.showRewardsItem(item, isItemStore);// 显示奖项还是奖项库
-						}
-
-					});
-		}
 	}
 }

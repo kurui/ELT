@@ -42,11 +42,10 @@ public class RewardsItemViewStaffEditor extends AbstractEditor {
 
 	}
 
-	public void setModel(String instanceId, Object model){
+	public void setModel(Object model){
 		rewardsItemViewStaffPresenter.bind();
 	 	if(model !=null){
-	 		rewardsItemViewStaffPresenter.initInstanceId(instanceId,(RewardsItemClient) model);
-	 
+	 		rewardsItemViewStaffPresenter.initWidget((RewardsItemClient) model);	 
 	 	}
 	}
 }
