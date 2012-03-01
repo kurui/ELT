@@ -361,7 +361,25 @@ public class StaffLogicImpl implements StaffLogic {
 
 			staffDao.update(ff);
 		}
-
+//判断用户离职..
+		if(staff.getStatus()==StaffStatus.DEPARTURE)
+		{
+			SysUser u= userDao.findUserByStaffId(ff.getId());
+			if(u!=null)
+			{
+				u.setStatus(UserStatus.Inactive);
+				userDao.update(u);
+			}
+		}
+		else if(staff.getStatus()==StaffStatus.JOB)
+		{
+			SysUser u= userDao.findUserByStaffId(ff.getId());
+			if(u!=null)
+			{
+				u.setStatus(UserStatus.Active);
+				userDao.update(u);
+			}
+		}
 		return ff.getId();
 	}
 
