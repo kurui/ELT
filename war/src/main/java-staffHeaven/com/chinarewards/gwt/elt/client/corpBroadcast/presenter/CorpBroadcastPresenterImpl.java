@@ -33,7 +33,8 @@ public class CorpBroadcastPresenterImpl extends
 	EltNewPager pager;
 	ListCellTable<StaffHeavenIndexClient> cellTable;
 	CorpBroadcastViewAdapter listViewAdapter;
-
+	String staffId;
+	BroadcastingCategory broadcastingCategory=BroadcastingCategory.COMPANYBROADCAST;
 	@Inject
 	public CorpBroadcastPresenterImpl(EventBus eventBus,
 			CorpBroadcastDisplay display, DispatchAsync dispatch,
@@ -57,7 +58,7 @@ public class CorpBroadcastPresenterImpl extends
 	private void init() {
 		
 		buildTable();
-		doSearch(BroadcastingCategory.COMPANYBROADCAST,null);
+		doSearch(broadcastingCategory,null);
 		
 		display.getQueryKey().addFocusHandler(new FocusHandler() {
 			
@@ -73,7 +74,7 @@ public class CorpBroadcastPresenterImpl extends
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				doSearch(BroadcastingCategory.COMPANYBROADCAST,display.getQueryKey().getValue());
+				doSearch(broadcastingCategory,display.getQueryKey().getValue());
 			}
 		});
 	}
@@ -101,10 +102,20 @@ public class CorpBroadcastPresenterImpl extends
 			criteria.setCategory(category);
 		if(!StringUtil.isEmpty(key))
 			criteria.setQueryKey(key);
+		if(!StringUtil.isEmpty(staffId))
+			criteria.setStaffId(staffId);
 		listViewAdapter = new CorpBroadcastViewAdapter(dispatch, criteria,
 				errorHandler, sessionManager, display, win);
 		listViewAdapter.addDataDisplay(cellTable);
 
+	}
+
+	@Override
+	public void initStaffBroadcast(String staffId) {
+		this.staffId=staffId;
+		this.broadcastingCategory=BroadcastingCategory.STAFFBROADCAST;
+		display.setTitleName("员工广播");
+		
 	}
 
 }

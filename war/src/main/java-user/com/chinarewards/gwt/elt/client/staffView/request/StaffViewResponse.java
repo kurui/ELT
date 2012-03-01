@@ -1,8 +1,10 @@
 package com.chinarewards.gwt.elt.client.staffView.request;
 
 import java.util.Date;
+import java.util.List;
 
 import com.chinarewards.gwt.elt.client.staffList.model.StaffListCriteria.StaffStatus;
+import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 
 import net.customware.gwt.dispatch.shared.Result;
 
@@ -28,6 +30,20 @@ public class StaffViewResponse implements Result {
 	Date dob;
 	StaffStatus status;
     int leadTime;//颁奖提前通知时间
+	private List<UserRoleVo> userRoleVos;
+
+
+
+	public List<UserRoleVo> getUserRoleVos() {
+		return userRoleVos;
+	}
+
+
+	public void setUserRoleVos(List<UserRoleVo> userRoleVos) {
+		this.userRoleVos = userRoleVos;
+	}
+
+
 	public int getLeadTime() {
 		return leadTime;
 	}

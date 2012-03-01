@@ -14,6 +14,7 @@ import com.chinarewards.gwt.elt.client.budget.module.DepBudgetModule;
 import com.chinarewards.gwt.elt.client.chooseOrganization.module.ChooseOrganizationModule;
 import com.chinarewards.gwt.elt.client.chooseStaff.module.ChooseStaffModule;
 import com.chinarewards.gwt.elt.client.colleague.module.ColleagueListModule;
+import com.chinarewards.gwt.elt.client.colleagueParticular.module.ColleagueParticularModule;
 import com.chinarewards.gwt.elt.client.core.presenter.DockModule;
 import com.chinarewards.gwt.elt.client.corpBroadcast.module.CorpBroadcastModule;
 import com.chinarewards.gwt.elt.client.department.module.DepartmentLeaderModule;
@@ -37,6 +38,7 @@ import com.chinarewards.gwt.elt.client.order.module.OrderViewModule;
 import com.chinarewards.gwt.elt.client.orderConfirmation.module.OrderConfirmationModule;
 import com.chinarewards.gwt.elt.client.orderHistory.module.OrderHistoryModule;
 import com.chinarewards.gwt.elt.client.orderSubmit.module.OrderSubmitModule;
+import com.chinarewards.gwt.elt.client.password.module.PasswordModule;
 import com.chinarewards.gwt.elt.client.rewardItem.module.RewardsItemModule;
 import com.chinarewards.gwt.elt.client.rewards.module.RewardsListModule;
 import com.chinarewards.gwt.elt.client.rewards.module.RewardsListStaffModule;
@@ -111,7 +113,10 @@ public class PresenterModule extends AbstractGinModule {
 		install(new UserBoxModule());
 		install(new MessageSaveModule());
 		install(new HrBoxModule());
+		install(new PasswordModule());
 		install(new ColleagueListModule());
+		install(new ColleagueParticularModule());
+
 	}
 
 }

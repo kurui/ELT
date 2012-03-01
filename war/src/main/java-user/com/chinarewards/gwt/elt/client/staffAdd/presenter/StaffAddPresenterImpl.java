@@ -1,5 +1,8 @@
 package com.chinarewards.gwt.elt.client.staffAdd.presenter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
@@ -18,7 +21,9 @@ import com.chinarewards.gwt.elt.client.staffView.request.StaffViewRequest;
 import com.chinarewards.gwt.elt.client.staffView.request.StaffViewResponse;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.util.StringUtil;
+import com.chinarewards.gwt.elt.client.view.constant.CssStyleConstants;
 import com.chinarewards.gwt.elt.client.win.Win;
+import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.chinarewards.gwt.elt.util.XmlUtil_GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -110,7 +115,16 @@ public class StaffAddPresenterImpl extends
 						} else {
 							request.setStatus(StaffStatus.ENTRY);
 						}
-
+						List<UserRoleVo> UserRoleVos=new ArrayList<UserRoleVo>();
+						if(display.getAdmin().getValue())
+						{
+							UserRoleVos.add(UserRoleVo.CORP_ADMIN);		
+						}
+						if(display.getGift().getValue())
+						{
+							UserRoleVos.add(UserRoleVo.GIFT);
+						}
+						request.setUserRoleVos(UserRoleVos);
 						dispatch.execute(request,
 								new AsyncCallback<StaffAddResponse>() {
 
@@ -163,6 +177,20 @@ public class StaffAddPresenterImpl extends
 							display.setStaffImage(resp.getPhoto());
 							display.setPhoto(resp.getPhoto());
 							display.setStatus(resp.getStatus().toString());
+							if(resp.getUserRoleVos()!=null && resp.getUserRoleVos().size()>0)
+							{
+								for (UserRoleVo role:resp.getUserRoleVos()) {
+									if(role==UserRoleVo.CORP_ADMIN)
+										display.getAdmin().setValue(true);
+									else if(role==UserRoleVo.GIFT)
+										display.getGift().setValue(true);
+								}
+							}
+							else
+							{
+								display.getAdmin().getElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
+							}
+							
 
 						}
 					});			
@@ -170,6 +198,7 @@ public class StaffAddPresenterImpl extends
 
 		}else{
 			initDepartmentList("");
+			display.getAdmin().getElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
 		}
 		
 		

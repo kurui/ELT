@@ -1,5 +1,8 @@
 package com.chinarewards.gwt.elt.server.staff;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.DispatchException;
 
@@ -7,6 +10,7 @@ import org.slf4j.Logger;
 
 import com.chinarewards.elt.model.staff.StaffProcess;
 import com.chinarewards.elt.model.user.UserContext;
+import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.service.staff.IStaffService;
 import com.chinarewards.gwt.elt.client.staffAdd.request.StaffAddRequest;
 import com.chinarewards.gwt.elt.client.staffAdd.request.StaffAddResponse;
@@ -58,6 +62,14 @@ public class StaffAddActionHandler extends
 		sp.setDob(request.getDob());
 		if(request.getStatus()!=null)
 		sp.setStatus(com.chinarewards.elt.model.staff.StaffStatus.valueOf(request.getStatus().toString()));
+		if(request.getUserRoleVos()!=null && request.getUserRoleVos().size()>0)
+		{
+			List<UserRole> roles=new ArrayList<UserRole>();
+			for (int i = 0; i < request.getUserRoleVos().size(); i++) {
+				roles.add(UserRole.valueOf(request.getUserRoleVos().get(i).toString()));
+			}
+			sp.setUserRoleVos(roles);
+		}
 		String staffId=staffService.createOrUpdateStaff(sp, context);
 		return  new StaffAddResponse(staffId);
 	}

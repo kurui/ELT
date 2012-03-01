@@ -9,6 +9,7 @@ import com.chinarewards.gwt.elt.client.broadcastSave.request.BroadcastUpdateRequ
 import com.chinarewards.gwt.elt.client.broadcastSave.request.BroadcastUpdateResponse;
 import com.chinarewards.gwt.elt.client.chooseOrganization.event.ChooseOrganizationEvent;
 import com.chinarewards.gwt.elt.client.chooseOrganization.handler.ChooseOrganizationHandler;
+import com.chinarewards.gwt.elt.client.chooseOrganization.model.OrganSearchCriteria.OrganType;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.ui.DialogCloseListener;
 import com.chinarewards.gwt.elt.client.messageSave.request.MessageSaveRequest;
@@ -36,6 +37,7 @@ public class MessageSavePresenterImpl extends
 	private final Win win;
 	final ErrorHandler errorHandler;
 	String broadcastId = null;
+	String staffId=null;
 
 	private final Provider<ChooseOrganizationListDialog> chooseOrganizationDialogProvider;
 
@@ -92,6 +94,7 @@ public class MessageSavePresenterImpl extends
 									public void onSuccess(
 											MessageSaveResponse resp) {
 										win.alert("保存成功");
+										display.setContent("");
 										closeDialog();
 									}
 								});
@@ -175,8 +178,15 @@ public class MessageSavePresenterImpl extends
 	}
 
 	@Override
-	public void initBroadcastUpdate(String broadcastId) {
-		this.broadcastId = broadcastId;
+	public void initBroadcastStaff(String staffId,String staffName) {
+		this.staffId=staffId;
+		OrganicationClient client=new OrganicationClient();
+		client.setId(staffId);
+		client.setName(staffName);
+		client.setType(OrganType.STAFF);
+		display.getSpecialTextArea().addItem(client);
 	}
+
+
 
 }

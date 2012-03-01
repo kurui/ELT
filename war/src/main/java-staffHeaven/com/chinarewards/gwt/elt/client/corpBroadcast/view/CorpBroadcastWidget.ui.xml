@@ -12,7 +12,7 @@
       <div class="{new2.content-info} {new2.workmate-wrap}">
         <div class="{new2.workmate-top} {new2.clearfix}">
           <div class="{new2.workmate-title}">
-            <h3>公司广播  <span class="{new2.workmate-num}">共有 <span><g:InlineLabel ui:field="dataCount"  /> </span>条</span></h3>
+            <h3><g:InlineLabel ui:field="titleName" text="公司广播" />  <span class="{new2.workmate-num}">共有 <span><g:InlineLabel ui:field="dataCount"  /> </span>条</span></h3>
           </div>
           <div class="{new2.workmate-select}">
           	<g:TextBox styleName="{new2.text}" text="输入关键词" ui:field="queryKey" />

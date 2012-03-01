@@ -5,6 +5,7 @@ import java.util.Date;
 import com.chinarewards.gwt.elt.client.mvp.Display;
 import com.chinarewards.gwt.elt.client.mvp.Presenter;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.FileUpload;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.Image;
@@ -77,5 +78,7 @@ public interface StaffAddPresenter extends
 
 		void setStaffImage(String text);
 		void setTitleText(String text);
+		CheckBox getAdmin();
+		CheckBox getGift();
 	}
 }

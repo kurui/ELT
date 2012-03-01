@@ -23,6 +23,7 @@ import com.chinarewards.elt.model.user.UserVo;
 import com.chinarewards.elt.service.staff.StaffLogic;
 import com.chinarewards.elt.service.user.UserLogic;
 import com.chinarewards.elt.util.DateUtil;
+import com.chinarewards.elt.util.MD5;
 import com.google.inject.Inject;
 
 /**
@@ -44,7 +45,7 @@ public class UserLogicImpl implements UserLogic {
 	RoleDao roleDao;
 	UserRoleDao userRoleDao;
 	StaffLogic staffLogic;
-
+    MD5 md5 =new  MD5();
 	@Inject
 	public UserLogicImpl(UserDao userDao, CorporationDao corporationDao,RoleDao roleDao,
 			UserRoleDao userRoleDao, StaffDao staffDao,StaffLogic staffLogic) {
@@ -101,11 +102,16 @@ public class UserLogicImpl implements UserLogic {
 	public SysUser createUser(SysUser caller, UserVo user) {
 		Date now = DateUtil.getTime();
 		SysUser u = new SysUser();
-		// FIXME here should check duplicate username.
+		String password ="";
+		try {
+			 password = md5.MD5(user.getPassword());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		u.setUserName(user.getUsername());
-		u.setPassword(user.getPassword());
-		Corporation corp = corporationDao.findById(Corporation.class,
-				user.getCorporationId());
+		u.setPassword(password);
+		Corporation corp = corporationDao.findById(Corporation.class,user.getCorporationId());
 		u.setCorporation(corp);
 		u.setCreatedAt(now);
 		u.setCreatedBy(caller);
@@ -128,7 +134,14 @@ public class UserLogicImpl implements UserLogic {
 
 	@Override
 	public UserSessionVo findUserByNameAndPwd(String userName, String pwd) {
-		SysUser user = userDao.findUserByNameAndPwd(userName, pwd);
+		 String password="";
+		 try {
+			password = md5.MD5(pwd);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		SysUser user = userDao.findUserByNameAndPwd(userName, password);
 		if (user != null)
 			return findUserRolebySysUser(user);
 		else
@@ -165,6 +178,7 @@ public class UserLogicImpl implements UserLogic {
 		vo.setDepartmentId(user.getStaff().getDepartment().getId());
 		vo.setStaffId(user.getStaff().getId());
 		vo.setLastLoginRole(user.getLastLoginRole());
+		vo.setUserStatus(user.getStatus());
 		
 		return vo;
 	}
@@ -209,11 +223,19 @@ public class UserLogicImpl implements UserLogic {
 
 	@Override
 	public String updateUserPwd(String staffId, String pwd,String byUserId) {
+		String password ="";
+		try {
+			 password = md5.MD5(pwd);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		SysUser user=userDao.findUserByStaffId(staffId);
 		SysUser nowUser=userDao.findUserById(byUserId);
 		user.setLastModifiedAt(DateUtil.getTime());
 		user.setLastModifiedBy(nowUser);
-		user.setPassword(pwd);
+		user.setPassword(password);
+		userDao.update(user);
 		return "success";
 	}
 	
