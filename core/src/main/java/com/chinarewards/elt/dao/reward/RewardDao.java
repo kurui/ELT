@@ -11,7 +11,6 @@ import javax.persistence.Query;
 
 import com.chinarewards.elt.common.BaseDao;
 import com.chinarewards.elt.dao.user.UserDao;
-import com.chinarewards.elt.domain.budget.CorpBudget;
 import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.org.Organization;
@@ -106,7 +105,7 @@ public class RewardDao extends BaseDao<Reward> {
 	}
 
 	@SuppressWarnings("unchecked")
-	private List<Reward> searchRewardsData_hrManager(String corporationId,
+	public List<Reward> searchRewardsData_hrManager(String corporationId,
 			RewardSearchVo criteria) {
 		return generatorSearchRewardsQuery(true, corporationId, null, SEARCH,
 				criteria).getResultList();

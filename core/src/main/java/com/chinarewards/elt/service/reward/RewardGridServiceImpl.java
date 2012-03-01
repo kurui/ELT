@@ -1,0 +1,50 @@
+package com.chinarewards.elt.service.reward;
+
+import com.chinarewards.elt.model.common.PageStore;
+import com.chinarewards.elt.model.reward.search.RewardGridSearchVo;
+import com.chinarewards.elt.model.reward.vo.RewarGridVo;
+import com.chinarewards.elt.model.user.UserContext;
+import com.google.inject.Inject;
+import com.google.inject.persist.Transactional;
+
+/**
+ * The implementation of {@link RewardService}
+ * 
+ * @author yanrui
+ * @since 1.5
+ */
+@Transactional
+public class RewardGridServiceImpl implements RewardGridService {
+	private final RewardGridLogic rewardGridLogic;
+
+	@Inject
+	public RewardGridServiceImpl(RewardGridLogic rewardGridLogic) {
+		this.rewardGridLogic = rewardGridLogic;
+
+	}
+
+	@Override
+	public PageStore<RewarGridVo> fetchRewards_STAFF(UserContext context,
+			RewardGridSearchVo criteria) {
+		return rewardGridLogic.fetchRewards_STAFF(context, criteria);
+	}
+
+	@Override
+	public PageStore<RewarGridVo> fetchRewards_ALL(UserContext context,
+			RewardGridSearchVo criteria) {
+		return rewardGridLogic.fetchRewards_ALL(context, criteria);
+	}
+
+	@Override
+	public PageStore<RewarGridVo> fetchRewardsItem_STAFF(UserContext context,
+			RewardGridSearchVo criteria) {
+		return rewardGridLogic.fetchRewardsItem_STAFF(context, criteria);
+	}
+
+	@Override
+	public PageStore<RewarGridVo> fetchRewardsItem_ALL(UserContext context,
+			RewardGridSearchVo criteria) {
+		return rewardGridLogic.fetchRewardsItem_ALL(context, criteria);
+	}
+
+}

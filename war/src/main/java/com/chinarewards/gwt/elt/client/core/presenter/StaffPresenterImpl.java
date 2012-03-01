@@ -224,7 +224,7 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 										client);
 					}
 				}));
-
+//兑换历史
 		registerHandler(display.getExchangeHistory().addClickHandler(
 				new ClickHandler() {
 					@Override
@@ -250,7 +250,7 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 										null);
 					}
 				}));
-
+		//奖品商城
 		registerHandler(display.getAwardShop().addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -431,7 +431,7 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 							col,
 							new SmallRewardItemWindowWidget("11","test","50",null));
 			
-				
+				 
 			}
 		}
 
