@@ -81,6 +81,7 @@ public class ColleagueParticularPresenterImpl extends
 			@Override
 			public void onClick(ClickEvent event) {
 				unbindAll();
+				corpBroadcastPresenter.initStaffBroadcast(staffId);
 				corpBroadcastPresenter.bind();
 				display.getResultPanel().clear();
 				display.getResultPanel().add(corpBroadcastPresenter.getDisplay().asWidget());

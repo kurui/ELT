@@ -7,6 +7,7 @@ import com.chinarewards.elt.dao.broadcast.BroadcastReplyDao;
 import com.chinarewards.elt.dao.broadcast.BroadcastingReceivingDao;
 import com.chinarewards.elt.dao.broadcast.ReceivingObjectDao;
 import com.chinarewards.elt.dao.org.MembersDao;
+import com.chinarewards.elt.dao.user.UserDao;
 import com.chinarewards.elt.domain.information.BroadcastReply;
 import com.chinarewards.elt.domain.information.Broadcasting;
 import com.chinarewards.elt.domain.information.BroadcastingReceiving;
@@ -30,17 +31,19 @@ public class BroadcastLogicImpl implements BroadcastLogic {
 	private final BroadcastReplyDao broadcastReplyDao;
 	private final UserLogic userLogic;
 	private final MembersDao membersDao;
+	private final UserDao userDao;
 
 	@Inject
 	public BroadcastLogicImpl(BroadcastDao broadcastDao,
 			BroadcastingReceivingDao broadcastingReceivingDao,
-			ReceivingObjectDao receivingObjectDao,BroadcastReplyDao broadcastReplyDao,UserLogic userLogic,MembersDao membersDao) {
+			ReceivingObjectDao receivingObjectDao,BroadcastReplyDao broadcastReplyDao,UserLogic userLogic,MembersDao membersDao,UserDao userDao) {
 		this.broadcastDao = broadcastDao;
 		this.broadcastingReceivingDao = broadcastingReceivingDao;
 		this.receivingObjectDao = receivingObjectDao;
 		this.broadcastReplyDao=broadcastReplyDao;
 		this.userLogic=userLogic;
 		this.membersDao=membersDao;
+		this.userDao=userDao;
 	}
 
 	@Override
@@ -55,6 +58,15 @@ public class BroadcastLogicImpl implements BroadcastLogic {
 	@Override
 	public BroadcastQueryListVo queryBroadcastList(
 			BroadcastQueryListCriteria criteria) {
+		//如果传入员工ID,查询userID
+		if(!StringUtil.isEmptyString(criteria.getStaffId()))
+		{
+			SysUser user=userDao.findUserByStaffId(criteria.getStaffId());
+			if(user!=null)
+				criteria.setCreateUserId(user.getId());
+			else
+				criteria.setCreateUserId("notUser");
+		}
 		if(!StringUtil.isEmptyString(criteria.getReceivingUserId()))
 	{
 		//查询接收对象的broadcastID LIST

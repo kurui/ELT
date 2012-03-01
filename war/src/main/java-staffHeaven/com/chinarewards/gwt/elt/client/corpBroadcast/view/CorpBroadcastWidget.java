@@ -27,7 +27,8 @@ public class CorpBroadcastWidget extends Composite implements
 	@UiField
 	Button queryBtn;
 	
-
+	@UiField
+	InlineLabel titleName;
 	DateTimeFormat dateFormat = DateTimeFormat
 			.getFormat(ViewConstants.date_format);
 	private static CorpBroadcastWidgetUiBinder uiBinder = GWT
@@ -66,6 +67,11 @@ public class CorpBroadcastWidget extends Composite implements
 	@Override
 	public Button getQueryBtn() {
 		return queryBtn;
+	}
+
+	@Override
+	public void setTitleName(String text) {
+		titleName.setText(text);		
 	}
 
 

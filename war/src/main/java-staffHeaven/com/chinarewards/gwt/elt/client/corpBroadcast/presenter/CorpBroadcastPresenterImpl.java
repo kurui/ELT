@@ -33,7 +33,7 @@ public class CorpBroadcastPresenterImpl extends
 	EltNewPager pager;
 	ListCellTable<StaffHeavenIndexClient> cellTable;
 	CorpBroadcastViewAdapter listViewAdapter;
-
+	String staffId;
 	@Inject
 	public CorpBroadcastPresenterImpl(EventBus eventBus,
 			CorpBroadcastDisplay display, DispatchAsync dispatch,
@@ -101,10 +101,18 @@ public class CorpBroadcastPresenterImpl extends
 			criteria.setCategory(category);
 		if(!StringUtil.isEmpty(key))
 			criteria.setQueryKey(key);
+		if(!StringUtil.isEmpty(staffId))
+			criteria.setStaffId(staffId);
 		listViewAdapter = new CorpBroadcastViewAdapter(dispatch, criteria,
 				errorHandler, sessionManager, display, win);
 		listViewAdapter.addDataDisplay(cellTable);
 
+	}
+
+	@Override
+	public void initStaffBroadcast(String staffId) {
+		this.staffId=staffId;
+		display.setTitleName("员工广播");
 	}
 
 }

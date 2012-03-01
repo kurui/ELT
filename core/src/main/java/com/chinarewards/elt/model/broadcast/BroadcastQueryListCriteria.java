@@ -81,7 +81,19 @@ public class BroadcastQueryListCriteria implements Serializable {
 	 */
 	private String queryKey;
 	
+	/**
+	 * 员工ID
+	 */
+	private String staffId;
 	
+
+	public String getStaffId() {
+		return staffId;
+	}
+
+	public void setStaffId(String staffId) {
+		this.staffId = staffId;
+	}
 	
 	public String getQueryKey() {
 		return queryKey;
