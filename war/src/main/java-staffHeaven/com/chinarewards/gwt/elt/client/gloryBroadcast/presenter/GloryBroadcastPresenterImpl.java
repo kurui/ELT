@@ -52,7 +52,7 @@ public class GloryBroadcastPresenterImpl extends
 	private void init() {
 
 		buildTable();
-		doSearch(null);
+		doSearch(BroadcastingCategory.REWARDBROADCAST);
 	}
 
 	private void buildTable() {

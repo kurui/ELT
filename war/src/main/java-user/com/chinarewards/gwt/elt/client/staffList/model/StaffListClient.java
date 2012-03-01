@@ -18,8 +18,15 @@ public class StaffListClient implements Serializable, Comparable<StaffListClient
 	String phone;
 	StaffStatus staffStatus;
 	String staffId;
+	String photo;
 
 	
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
 	public String getStaffNo() {
 		return staffNo;
 	}

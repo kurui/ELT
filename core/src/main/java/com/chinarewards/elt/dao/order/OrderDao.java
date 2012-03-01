@@ -47,11 +47,11 @@ public class OrderDao extends BaseDao<Orders> {
 			param.put("deleted", vo.getDeleted());
 		}
 		if (vo.getStatus()!=null) {
-			eql.append(" AND UPPER(o.status) = :status ");
+			eql.append(" AND o.status = :status ");
 			param.put("status", vo.getStatus());
 		}
 		if (!StringUtil.isEmptyString(vo.getUserId())) {
-			eql.append(" AND UPPER(o.userId) =:userId ");
+			eql.append(" AND o.userId =:userId ");
 			param.put("userId", vo.getUserId());
 		}
 		
@@ -62,7 +62,7 @@ public class OrderDao extends BaseDao<Orders> {
 		if (!StringUtil.isEmptyString(vo.getName())) {//查询姓名或编码时
 			eql.append(" AND o.name LIKE :name ");
 			param.put("name", "%" + vo.getName().trim().toUpperCase()+ "%");
-			eql.append(" or UPPER(o.orderCode) like:orderCode ");
+			eql.append(" or o.orderCode like:orderCode ");
 			param.put("orderCode","%" +  vo.getName().trim().toUpperCase()+ "%");
 		}
 		// 根据创建时间来查询

@@ -42,6 +42,7 @@ import com.chinarewards.gwt.elt.client.gift.request.EditGiftRequest;
 import com.chinarewards.gwt.elt.client.gift.request.SearchGiftByIdRequest;
 import com.chinarewards.gwt.elt.client.gift.request.SearchGiftRequest;
 import com.chinarewards.gwt.elt.client.gift.request.UpdateGiftStatusRequest;
+import com.chinarewards.gwt.elt.client.hrbox.request.HrBoxRewardsRequest;
 import com.chinarewards.gwt.elt.client.integralManagement.request.IntegralManagementRequest;
 import com.chinarewards.gwt.elt.client.login.LastLoginRoleRequest;
 import com.chinarewards.gwt.elt.client.login.LoginRequest;
@@ -58,6 +59,7 @@ import com.chinarewards.gwt.elt.client.order.request.SearchOrderRequest;
 import com.chinarewards.gwt.elt.client.orderConfirmation.request.OrderConfirmationAddRequest;
 import com.chinarewards.gwt.elt.client.orderConfirmation.request.OrderConfirmationRequest;
 import com.chinarewards.gwt.elt.client.orderHistory.request.OrderHistoryViewRequest;
+import com.chinarewards.gwt.elt.client.orderHistory.request.SearchOrderHistoryRequest;
 import com.chinarewards.gwt.elt.client.orderSubmit.request.OrderSubmitRequest;
 import com.chinarewards.gwt.elt.client.register.request.RegisterInitRequest;
 import com.chinarewards.gwt.elt.client.register.request.RegisterRequest;
@@ -134,6 +136,7 @@ import com.chinarewards.gwt.elt.server.gift.EditGiftHandler;
 import com.chinarewards.gwt.elt.server.gift.SearchGiftByIdHandler;
 import com.chinarewards.gwt.elt.server.gift.SearchGiftHandler;
 import com.chinarewards.gwt.elt.server.gift.UpdateGiftStatusHandler;
+import com.chinarewards.gwt.elt.server.hrbox.HrBoxRewardsHandler;
 import com.chinarewards.gwt.elt.server.integralManagement.IntegralManagementHandler;
 import com.chinarewards.gwt.elt.server.login.LoginActionHandler;
 import com.chinarewards.gwt.elt.server.login.TokenValidActionHandler;
@@ -150,6 +153,7 @@ import com.chinarewards.gwt.elt.server.order.SearchOrderHandler;
 import com.chinarewards.gwt.elt.server.orderConfirmation.AddOrderConfirmationHandler;
 import com.chinarewards.gwt.elt.server.orderConfirmation.SearchOrderConfirmationHandler;
 import com.chinarewards.gwt.elt.server.orderHistory.OrderHistoryViewHandler;
+import com.chinarewards.gwt.elt.server.orderHistory.SearchOrderHistoryHandler;
 import com.chinarewards.gwt.elt.server.orderSubmit.AddOrderSubmitHandler;
 import com.chinarewards.gwt.elt.server.register.RegisterActionHandler;
 import com.chinarewards.gwt.elt.server.register.RegisterHrActionHandler;
@@ -332,8 +336,9 @@ public class ActionModule extends ActionHandlerModule {
 		bindHandler(DeleteOrderRequest.class, DeleteOrderHandler.class);
 		//记录最后一次登录role
 		bindHandler(LastLoginRoleRequest.class, UpdatelastLoginRoleActionHandler.class);
-	
-		//兑换历史
+		//兑换历史列表
+		bindHandler(SearchOrderHistoryRequest.class, SearchOrderHistoryHandler.class);
+		//兑换历史查看
 		bindHandler(OrderHistoryViewRequest.class, OrderHistoryViewHandler.class);
 
 
@@ -403,8 +408,9 @@ public class ActionModule extends ActionHandlerModule {
 		bindHandler(UserBoxRequest.class,UserBoxHandler.class);
 		//信息添加
 		bindHandler(MessageSaveRequest.class,MessageSaveActionHandler.class);
-		
-
+		//leader收件箱奖励查询
+		bindHandler(HrBoxRewardsRequest.class,HrBoxRewardsHandler.class);
+        
 
 	}
 }

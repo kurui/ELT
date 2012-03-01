@@ -53,6 +53,21 @@ public class StaffHeavenIndexCriteria implements IsSerializable {
 	 */
 	private boolean nowDate;
 	
+	/**
+	 * 查询关键字
+	 */
+	private String queryKey;
+	
+	
+	
+	public String getQueryKey() {
+		return queryKey;
+	}
+
+	public void setQueryKey(String queryKey) {
+		this.queryKey = queryKey;
+	}
+
 	public boolean isNowDate() {
 		return nowDate;
 	}

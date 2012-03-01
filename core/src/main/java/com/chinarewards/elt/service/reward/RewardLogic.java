@@ -152,4 +152,13 @@ public interface RewardLogic {
 	 * @return
 	 */
 	public int getRewardsByStaffId(String staffId);
+	/**
+	 * HR收件箱查询一个月内完成的奖励
+	 * 
+	 * @param context
+	 * @param criteria
+	 * @return
+	 */
+	
+	public List<RewardVo> getRewardsByHrBox(UserContext context,RewardSearchVo criteria);
 }

@@ -82,10 +82,20 @@ public class RewardsCriteria implements IsSerializable {
 	 * 某员工id---查某员工的奖励记录
 	 */
 	private String staffId;
+
 	
 	private String staffName;
 	
 	private Date rewardsTime;//颁奖时间
+
+	 private Date lastMonth;//上个月是
+	public Date getLastMonth() {
+		return lastMonth;
+	}
+
+	public void setLastMonth(Date lastMonth) {
+		this.lastMonth = lastMonth;
+	}
 
 	@Override
 	public String toString() {

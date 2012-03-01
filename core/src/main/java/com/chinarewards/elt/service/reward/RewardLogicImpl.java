@@ -317,7 +317,7 @@ public class RewardLogicImpl implements RewardLogic {
 		organList.add(nameAndId);
 		
 		vo.setOrganList(organList);
-		broadcastService.createOrUpdateBroadcast(vo, context, BroadcastingCategory.SYSBROADCAST);
+		broadcastService.createOrUpdateBroadcast(vo, context, BroadcastingCategory.REWARDBROADCAST);
 		
 		return lotId;
 	}
@@ -622,5 +622,15 @@ public class RewardLogicImpl implements RewardLogic {
 		// TODO Auto-generated method stub
 		return rewardDao.getRewardsByStaffId(staffId);
 	}
-
+	@Override
+	public List<RewardVo> getRewardsByHrBox(UserContext context,RewardSearchVo criteria){
+		List<Reward> list =rewardDao.hrBoxRewards(context.getCorporationId(),criteria);
+		List<RewardVo> rewardVoList = new ArrayList<RewardVo>();
+		if (list.size() > 0) {
+			for (Reward reward : list) {
+				rewardVoList.add(convertFromRewardToVo(reward, false));
+			}
+		}
+		return rewardVoList;
+	}
 }

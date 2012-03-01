@@ -4,9 +4,9 @@ import java.util.List;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
-import com.chinarewards.gwt.elt.client.broadcastReplyLattice.view.BroadcastReplyLatticeWidget;
 import com.chinarewards.gwt.elt.client.dataprovider.BaseDataProvider;
 import com.chinarewards.gwt.elt.client.gloryBroadcast.presenter.GloryBroadcastPresenter.GloryBroadcastDisplay;
+import com.chinarewards.gwt.elt.client.gloryBroadcastLattice.view.GloryBroadcastReplyLatticeWidget;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.staffHeavenIndex.model.StaffHeavenIndexClient;
 import com.chinarewards.gwt.elt.client.staffHeavenIndex.model.StaffHeavenIndexCriteria;
@@ -96,7 +96,7 @@ public class GloryBroadcastViewAdapter extends
 									grid.setWidget(
 											row,
 											col,
-											new BroadcastReplyLatticeWidget(
+											new GloryBroadcastReplyLatticeWidget(
 													win,
 													dispatch,
 													sessionManager,
@@ -113,7 +113,7 @@ public class GloryBroadcastViewAdapter extends
 								} else {
 									break;
 									// grid.setWidget(row, col,new
-									// BroadcastReplyLatticeWidget().asWidget());
+									// GloryBroadcastReplyLatticeWidget().asWidget());
 								}
 							}
 						}

@@ -37,7 +37,7 @@
         <div class="{new2.news-list}">
          
 
-			<g:FlowPanel ui:field="resultPanel" />
+			<g:FlowPanel ui:field="resultPanel" styleName="{new2.panelClass}" />
 
         <!--分页 [[ -->
 			<div id="rewardlist_page2" class="{new2.pager}">
