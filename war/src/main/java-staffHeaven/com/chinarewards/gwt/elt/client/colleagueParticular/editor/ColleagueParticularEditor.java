@@ -44,6 +44,8 @@ public class ColleagueParticularEditor extends AbstractEditor {
 
 	public void setModel(Object model) {
 		this.model = model;
+		if(model!=null)
+		colleagueParticularPresenter.initColleagueParticular((String)model);
 		colleagueParticularPresenter.bind();
 	}
 }
