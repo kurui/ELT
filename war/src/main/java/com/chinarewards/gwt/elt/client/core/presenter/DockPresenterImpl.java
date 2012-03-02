@@ -6,11 +6,14 @@ import java.util.List;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.EltGinjector;
+import com.chinarewards.gwt.elt.client.box.plugin.UserBoxConstants;
 import com.chinarewards.gwt.elt.client.broadcasting.plugin.BroadcastingListConstants;
+import com.chinarewards.gwt.elt.client.budget.plugin.CreateBudgetConstants;
 import com.chinarewards.gwt.elt.client.core.PluginManager;
 import com.chinarewards.gwt.elt.client.core.presenter.DockPresenter.DockDisplay;
 import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
 import com.chinarewards.gwt.elt.client.core.ui.event.MenuClickEvent;
+import com.chinarewards.gwt.elt.client.department.plugin.DepartmentLeaderConstants;
 import com.chinarewards.gwt.elt.client.department.plugin.DepartmentListConstants;
 import com.chinarewards.gwt.elt.client.enterprise.plugin.EnterpriseConstants;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftListConstants;
@@ -94,9 +97,11 @@ public class DockPresenterImpl extends BasePresenter<DockDisplay> implements
 					public void onClick(ClickEvent event) {
 						display.setMenuTitle("收件箱");
 						menuProcessor.initrender(display.getMenu(), "Box");
-						eventBus.fireEvent(new MenuClickEvent(
-								menuProcessor
-										.getMenuItem(HrBoxConstants.MENU_HRBOX_SEARCH)));
+						if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.CORP_ADMIN)
+						eventBus.fireEvent(new MenuClickEvent(menuProcessor.getMenuItem(HrBoxConstants.MENU_HRBOX_SEARCH)));
+						else if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.DEPT_MGR)
+						eventBus.fireEvent(new MenuClickEvent(menuProcessor.getMenuItem(UserBoxConstants.MENU_USERBOX_SEARCH)));
+						
 					}
 				}));
 		registerHandler(display.getBtnGb().addClickHandler(new ClickHandler() {
@@ -139,9 +144,13 @@ public class DockPresenterImpl extends BasePresenter<DockDisplay> implements
 					public void onClick(ClickEvent event) {
 						display.setMenuTitle("员工数据");
 						menuProcessor.initrender(display.getMenu(), "Staff");
-						eventBus.fireEvent(new MenuClickEvent(
-								menuProcessor
-										.getMenuItem(DepartmentListConstants.MENU_DEPARTMENTLIST_SEARCH)));
+						if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.CORP_ADMIN)
+							eventBus.fireEvent(new MenuClickEvent(menuProcessor.getMenuItem(DepartmentListConstants.MENU_DEPARTMENTLIST_SEARCH)));
+						else if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.DEPT_MGR)	
+						{
+							eventBus.fireEvent(new MenuClickEvent(menuProcessor.getMenuItem(DepartmentLeaderConstants.MENU_DEPARTMENTLEADER_SEARCH)));
+							menuProcessor.changItemColor("部门组织结构");
+						}
 					}
 				}));
 		registerHandler(display.getBtnSetting().addClickHandler(
@@ -171,11 +180,15 @@ public class DockPresenterImpl extends BasePresenter<DockDisplay> implements
 					@Override
 					public void onClick(ClickEvent event) {
 						display.setMenuTitle("积分管理");
-						display.setMenu(null);
 						menuProcessor.initrender(display.getMenu(), "Integral");
-						eventBus.fireEvent(new MenuClickEvent(
-								menuProcessor
-										.getMenuItem(IntegralManagementConstants.MENU_INTEGRALMANAGEMENT_SEARCH)));
+						
+						if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.CORP_ADMIN)
+							eventBus.fireEvent(new MenuClickEvent(menuProcessor.getMenuItem(IntegralManagementConstants.MENU_INTEGRALMANAGEMENT_SEARCH)));
+						else if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.DEPT_MGR)	
+						{
+							eventBus.fireEvent(new MenuClickEvent(menuProcessor.getMenuItem(CreateBudgetConstants.MENU_CREATE_BUDGET)));
+							menuProcessor.changItemColor("部门预算");
+						}
 					}
 				}));
 
