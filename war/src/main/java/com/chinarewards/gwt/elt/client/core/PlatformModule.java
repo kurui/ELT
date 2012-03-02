@@ -62,6 +62,7 @@ import com.chinarewards.gwt.elt.client.staff.plugin.HrRegisterPluginDescriptor;
 import com.chinarewards.gwt.elt.client.staff.plugin.LeadTimePluginDescriptor;
 import com.chinarewards.gwt.elt.client.staffAdd.plugin.StaffAddPluginDescriptor;
 import com.chinarewards.gwt.elt.client.staffHeavenIndex.plugin.StaffHeavenIndexPluginDescriptor;
+import com.chinarewards.gwt.elt.client.staffInfo.plugin.StaffInfoPluginDescriptor;
 import com.chinarewards.gwt.elt.client.staffIntegral.plugin.StaffIntegralPluginDescriptor;
 import com.chinarewards.gwt.elt.client.staffList.plugin.StaffListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.staffView.plugin.StaffViewPluginDescriptor;
@@ -283,6 +284,7 @@ public class PlatformModule extends AbstractGinModule {
 			MessageSavePluginDescriptor messageSave,
 			PasswordPluginDescriptor password,
 			ColleagueListPluginDescriptor colleague,
+			StaffInfoPluginDescriptor StaffInfo,
 			ColleagueParticularPluginDescriptor colleagueParticular) {
 
 
@@ -315,6 +317,7 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(colleague);
 			pluginSet.registerPlugin(password);
 			pluginSet.registerPlugin(colleagueParticular);
+			pluginSet.registerPlugin(StaffInfo);
 
 
 		}
