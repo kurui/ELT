@@ -109,7 +109,7 @@ public class PlatformModule extends AbstractGinModule {
 			EnterprisePluginDescriptor enterprise,
 			IntegralPricePluginDescriptor integralPrice,
 			PeriodPluginDescriptor period, UserPluginDescriptor user,
-			DepartmentListPluginDescriptor departmentList,DepartmentLeaderPluginDescriptor departmentLeader,
+			DepartmentListPluginDescriptor departmentList,
 			DepartmentPluginDescriptor department,
 			HrRegisterPluginDescriptor hrregister,
 			NominatePluginDescriptor nominate,
@@ -157,7 +157,7 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(period);
 			pluginSet.registerPlugin(user);
 			pluginSet.registerPlugin(departmentList);
-			pluginSet.registerPlugin(departmentLeader);
+
 			pluginSet.registerPlugin(department);
 			pluginSet.registerPlugin(hrregister);
 			pluginSet.registerPlugin(rewardsItemList);
@@ -208,7 +208,7 @@ public class PlatformModule extends AbstractGinModule {
 			EnterprisePluginDescriptor enterprise,
 			IntegralPricePluginDescriptor integralPrice,
 			PeriodPluginDescriptor period, UserPluginDescriptor user,
-			DepartmentListPluginDescriptor departmentList,
+			DepartmentLeaderPluginDescriptor departmentLeader,
 			DepartmentPluginDescriptor department,
 			HrRegisterPluginDescriptor hrregister,
 			NominatePluginDescriptor nominate,
@@ -233,7 +233,7 @@ public class PlatformModule extends AbstractGinModule {
 		//	pluginSet.registerPlugin(integralPrice);
 		//	pluginSet.registerPlugin(period);
 			pluginSet.registerPlugin(user);
-			pluginSet.registerPlugin(departmentList);
+			pluginSet.registerPlugin(departmentLeader);
 			pluginSet.registerPlugin(department);
 			pluginSet.registerPlugin(hrregister);
 			pluginSet.registerPlugin(rewardsItemList);
