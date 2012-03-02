@@ -1,8 +1,11 @@
 package com.chinarewards.gwt.elt.client.staffInfo.presenter;
 
+import java.util.Date;
+
 import com.chinarewards.gwt.elt.client.mvp.Display;
 import com.chinarewards.gwt.elt.client.mvp.Presenter;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.user.client.ui.HasValue;
 
 public interface StaffInfoPresenter extends
 		Presenter<StaffInfoPresenter.StaffInfoDisplay> {
@@ -17,9 +20,11 @@ public interface StaffInfoPresenter extends
 		void setLeadership(String text);
 		void setPhone(String text);
 		void setEmail(String text);
-		void setDob(String text);
+		public void setDob(Date text);
+		public HasValue<Date> getDob() ;
 		void setStaffStatus(String text);
 		void setStaffImage(String url);
-		
+		public HasValue<String> getPhone();
+		public HasValue<String> getEmail();
 	}
 }

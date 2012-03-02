@@ -125,23 +125,23 @@ public class StaffWidget extends Composite implements StaffDisplay {
 	 String styleRewardNo="";
 	 
 		private void init() {
-			styleRewardOn=myWinReward.getElement().getParentElement().getAttribute("class");
+			styleRewardOn=myWinReward.getElement().getParentElement().getClassName();
 
 			
 			effortRewardItem.addClickHandler(new ClickHandler() {
 				
 				@Override
 				public void onClick(ClickEvent event) {
-					effortRewardItem.getElement().getParentElement().setAttribute("class", styleRewardOn);						
-					allRewardItem.getElement().getParentElement().setAttribute("class", styleRewardNo);						
+					effortRewardItem.getElement().getParentElement().setClassName(styleRewardOn);						
+					allRewardItem.getElement().getParentElement().setClassName(styleRewardNo);						
 				}
 			});
 			allRewardItem.addClickHandler(new ClickHandler() {
 				
 				@Override
 				public void onClick(ClickEvent event) {
-					effortRewardItem.getElement().getParentElement().setAttribute("class", styleRewardNo);						
-					allRewardItem.getElement().getParentElement().setAttribute("class", styleRewardOn);						
+					effortRewardItem.getElement().getParentElement().setClassName(styleRewardNo);						
+					allRewardItem.getElement().getParentElement().setClassName(styleRewardOn);						
 				}
 			});
 			
@@ -150,16 +150,16 @@ public class StaffWidget extends Composite implements StaffDisplay {
 				
 				@Override
 				public void onClick(ClickEvent event) {
-					myWinReward.getElement().getParentElement().setAttribute("class", styleRewardOn);						
-					allReward.getElement().getParentElement().setAttribute("class", styleRewardNo);						
+					myWinReward.getElement().getParentElement().setClassName(styleRewardOn);						
+					allReward.getElement().getParentElement().setClassName(styleRewardNo);						
 				}
 			});
 			allReward.addClickHandler(new ClickHandler() {
 				
 				@Override
 				public void onClick(ClickEvent event) {
-					myWinReward.getElement().getParentElement().setAttribute("class", styleRewardNo);						
-					allReward.getElement().getParentElement().setAttribute("class", styleRewardOn);						
+					myWinReward.getElement().getParentElement().setClassName(styleRewardNo);						
+					allReward.getElement().getParentElement().setClassName(styleRewardOn);						
 				}
 			});
 			
@@ -228,22 +228,22 @@ public class StaffWidget extends Composite implements StaffDisplay {
 			});
 			
 			
-			  styleOn=this.viewPoints.getElement().getParentElement().getAttribute("class");
+			  styleOn=this.viewPoints.getElement().getParentElement().getClassName();
 			  
 				//默认不选中左侧菜单
-			  viewPoints.getElement().getParentElement().setAttribute("class", styleRewardNo);
+			  viewPoints.getElement().getParentElement().setClassName(styleRewardNo);
 			  
 			  viewPoints.addClickHandler(new ClickHandler() {
 
 				@Override
 				public void onClick(ClickEvent event) {
-					viewPoints.getElement().getParentElement().setAttribute("class", styleOn);	
-					winninghistory.getElement().getParentElement().setAttribute("class", styleNo);	
-					participationAwards.getElement().getParentElement().setAttribute("class", styleNo);	
-					otherAwards.getElement().getParentElement().setAttribute("class", styleNo);	
-					exchangeHistory.getElement().getParentElement().setAttribute("class", styleNo);	
-					myMessage.getElement().getParentElement().setAttribute("class", styleNo);	
-					awardShop.getElement().getParentElement().setAttribute("class", styleNo);	
+					viewPoints.getElement().getParentElement().setClassName(styleOn);	
+					winninghistory.getElement().getParentElement().setClassName(styleNo);	
+					participationAwards.getElement().getParentElement().setClassName(styleNo);	
+					otherAwards.getElement().getParentElement().setClassName(styleNo);	
+					exchangeHistory.getElement().getParentElement().setClassName(styleNo);	
+					myMessage.getElement().getParentElement().setClassName(styleNo);	
+					awardShop.getElement().getParentElement().setClassName(styleNo);	
 
 				}
 			});
@@ -251,91 +251,91 @@ public class StaffWidget extends Composite implements StaffDisplay {
 
 				@Override
 				public void onClick(ClickEvent event) {
-					viewPoints.getElement().getParentElement().setAttribute("class", styleNo);	
-					winninghistory.getElement().getParentElement().setAttribute("class", styleOn);
-					participationAwards.getElement().getParentElement().setAttribute("class", styleNo);
-					otherAwards.getElement().getParentElement().setAttribute("class", styleNo);
-					exchangeHistory.getElement().getParentElement().setAttribute("class", styleNo);
-					myMessage.getElement().getParentElement().setAttribute("class", styleNo);
-					awardShop.getElement().getParentElement().setAttribute("class", styleNo);
+					viewPoints.getElement().getParentElement().setClassName(styleNo);	
+					winninghistory.getElement().getParentElement().setClassName(styleOn);
+					participationAwards.getElement().getParentElement().setClassName(styleNo);
+					otherAwards.getElement().getParentElement().setClassName(styleNo);
+					exchangeHistory.getElement().getParentElement().setClassName(styleNo);
+					myMessage.getElement().getParentElement().setClassName(styleNo);
+					awardShop.getElement().getParentElement().setClassName(styleNo);
 				}
 			});
 			  participationAwards.addClickHandler(new ClickHandler() {
 
 				@Override
 				public void onClick(ClickEvent event) {
-					viewPoints.getElement().getParentElement().setAttribute("class", styleNo);	
-					winninghistory.getElement().getParentElement().setAttribute("class", styleNo);
-					participationAwards.getElement().getParentElement().setAttribute("class", styleOn);
-					otherAwards.getElement().getParentElement().setAttribute("class", styleNo);
-					exchangeHistory.getElement().getParentElement().setAttribute("class", styleNo);
-					myMessage.getElement().getParentElement().setAttribute("class", styleNo);
-					awardShop.getElement().getParentElement().setAttribute("class", styleNo);
+					viewPoints.getElement().getParentElement().setClassName(styleNo);	
+					winninghistory.getElement().getParentElement().setClassName(styleNo);
+					participationAwards.getElement().getParentElement().setClassName(styleOn);
+					otherAwards.getElement().getParentElement().setClassName(styleNo);
+					exchangeHistory.getElement().getParentElement().setClassName(styleNo);
+					myMessage.getElement().getParentElement().setClassName(styleNo);
+					awardShop.getElement().getParentElement().setClassName(styleNo);
 				}
 			});
 			  otherAwards.addClickHandler(new ClickHandler() {
 
 				@Override
 				public void onClick(ClickEvent event) {
-					viewPoints.getElement().getParentElement().setAttribute("class", styleNo);	
-					winninghistory.getElement().getParentElement().setAttribute("class", styleNo);
-					participationAwards.getElement().getParentElement().setAttribute("class", styleNo);
-					otherAwards.getElement().getParentElement().setAttribute("class", styleOn);
-					exchangeHistory.getElement().getParentElement().setAttribute("class", styleNo);
-					myMessage.getElement().getParentElement().setAttribute("class", styleNo);
-					awardShop.getElement().getParentElement().setAttribute("class", styleNo);
+					viewPoints.getElement().getParentElement().setClassName(styleNo);	
+					winninghistory.getElement().getParentElement().setClassName(styleNo);
+					participationAwards.getElement().getParentElement().setClassName(styleNo);
+					otherAwards.getElement().getParentElement().setClassName(styleOn);
+					exchangeHistory.getElement().getParentElement().setClassName(styleNo);
+					myMessage.getElement().getParentElement().setClassName(styleNo);
+					awardShop.getElement().getParentElement().setClassName(styleNo);
 				}
 			});
 			  exchangeHistory.addClickHandler(new ClickHandler() {
 
 				@Override
 				public void onClick(ClickEvent event) {
-					viewPoints.getElement().getParentElement().setAttribute("class", styleNo);	
-					winninghistory.getElement().getParentElement().setAttribute("class", styleNo);
-					participationAwards.getElement().getParentElement().setAttribute("class", styleNo);
-					otherAwards.getElement().getParentElement().setAttribute("class", styleNo);
-					exchangeHistory.getElement().getParentElement().setAttribute("class", styleOn);
-					myMessage.getElement().getParentElement().setAttribute("class", styleNo);
-					awardShop.getElement().getParentElement().setAttribute("class", styleNo);
+					viewPoints.getElement().getParentElement().setClassName(styleNo);	
+					winninghistory.getElement().getParentElement().setClassName(styleNo);
+					participationAwards.getElement().getParentElement().setClassName(styleNo);
+					otherAwards.getElement().getParentElement().setClassName(styleNo);
+					exchangeHistory.getElement().getParentElement().setClassName(styleOn);
+					myMessage.getElement().getParentElement().setClassName(styleNo);
+					awardShop.getElement().getParentElement().setClassName(styleNo);
 				}
 			});
 			  myMessage.addClickHandler(new ClickHandler() {
 
 				@Override
 				public void onClick(ClickEvent event) {
-					viewPoints.getElement().getParentElement().setAttribute("class", styleNo);	
-					winninghistory.getElement().getParentElement().setAttribute("class", styleNo);
-					participationAwards.getElement().getParentElement().setAttribute("class", styleNo);
-					otherAwards.getElement().getParentElement().setAttribute("class", styleNo);
-					exchangeHistory.getElement().getParentElement().setAttribute("class", styleNo);
-					myMessage.getElement().getParentElement().setAttribute("class", styleOn);
-					awardShop.getElement().getParentElement().setAttribute("class", styleNo);
+					viewPoints.getElement().getParentElement().setClassName(styleNo);	
+					winninghistory.getElement().getParentElement().setClassName(styleNo);
+					participationAwards.getElement().getParentElement().setClassName(styleNo);
+					otherAwards.getElement().getParentElement().setClassName(styleNo);
+					exchangeHistory.getElement().getParentElement().setClassName(styleNo);
+					myMessage.getElement().getParentElement().setClassName(styleOn);
+					awardShop.getElement().getParentElement().setClassName(styleNo);
 				}
 			});
 			  awardShop.addClickHandler(new ClickHandler() {
 
 				@Override
 				public void onClick(ClickEvent event) {
-					viewPoints.getElement().getParentElement().setAttribute("class", styleNo);	
-					winninghistory.getElement().getParentElement().setAttribute("class", styleNo);
-					participationAwards.getElement().getParentElement().setAttribute("class", styleNo);
-					otherAwards.getElement().getParentElement().setAttribute("class", styleNo);
-					exchangeHistory.getElement().getParentElement().setAttribute("class", styleNo);
-					myMessage.getElement().getParentElement().setAttribute("class", styleNo);
-					awardShop.getElement().getParentElement().setAttribute("class", styleOn);
+					viewPoints.getElement().getParentElement().setClassName(styleNo);	
+					winninghistory.getElement().getParentElement().setClassName(styleNo);
+					participationAwards.getElement().getParentElement().setClassName(styleNo);
+					otherAwards.getElement().getParentElement().setClassName(styleNo);
+					exchangeHistory.getElement().getParentElement().setClassName(styleNo);
+					myMessage.getElement().getParentElement().setClassName(styleNo);
+					awardShop.getElement().getParentElement().setClassName(styleOn);
 				}
 			});
 		}
 		
 	private void refLeftMenuStyle()
 	{
-		viewPoints.getElement().getParentElement().setAttribute("class", styleNo);	
-		winninghistory.getElement().getParentElement().setAttribute("class", styleNo);	
-		participationAwards.getElement().getParentElement().setAttribute("class", styleNo);	
-		otherAwards.getElement().getParentElement().setAttribute("class", styleNo);	
-		exchangeHistory.getElement().getParentElement().setAttribute("class", styleNo);	
-		myMessage.getElement().getParentElement().setAttribute("class", styleNo);	
-		awardShop.getElement().getParentElement().setAttribute("class", styleNo);	
+		viewPoints.getElement().getParentElement().setClassName(styleNo);	
+		winninghistory.getElement().getParentElement().setClassName(styleNo);	
+		participationAwards.getElement().getParentElement().setClassName(styleNo);	
+		otherAwards.getElement().getParentElement().setClassName(styleNo);	
+		exchangeHistory.getElement().getParentElement().setClassName(styleNo);	
+		myMessage.getElement().getParentElement().setClassName(styleNo);	
+		awardShop.getElement().getParentElement().setClassName(styleNo);	
 	}
 	@Override
 	public Widget asWidget() {

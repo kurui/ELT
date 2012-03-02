@@ -84,6 +84,10 @@ public class StaffViewPresenterImpl extends
 		{
 			display.displayUpdateBtn(colleague);
 		}
+		if(sessionManager.getSession().getLastLoginRole()!=UserRoleVo.CORP_ADMIN)
+		{
+			display.displayUpdateBtn(true);
+		}
 		dispatch.execute(new StaffViewRequest(staffId),
 				new AsyncCallback<StaffViewResponse>() {
 

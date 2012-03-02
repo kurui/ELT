@@ -2,6 +2,7 @@ package com.chinarewards.gwt.elt.client.staffView.view;
 
 import com.chinarewards.gwt.elt.client.staffList.model.StaffListCriteria.StaffStatus;
 import com.chinarewards.gwt.elt.client.staffView.presenter.StaffViewPresenter.StaffViewDisplay;
+import com.chinarewards.gwt.elt.client.view.constant.CssStyleConstants;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -143,7 +144,7 @@ public class StaffViewWidget extends Composite implements StaffViewDisplay {
 		if(colleague==true)
 		{
 			if(updateBtn.getElement().getParentElement()!=null)
-			updateBtn.getElement().getParentElement().setAttribute("style", "display: none;");
+				updateBtn.getElement().getParentElement().setClassName(CssStyleConstants.hidden);
 		}
 	}
 

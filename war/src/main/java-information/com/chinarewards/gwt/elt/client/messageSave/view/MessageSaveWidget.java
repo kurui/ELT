@@ -50,7 +50,7 @@ public class MessageSaveWidget extends Composite implements MessageSaveDisplay {
 		initWidget(uiBinder.createAndBindUi(this));
 
 		staffTextArea = new OrganizationSpecialTextArea();
-		staffTextArea.getElement().getFirstChildElement().setAttribute("class", "token-input-list-facebook2");
+		staffTextArea.getElement().getFirstChildElement().setClassName("token-input-list-facebook2");
 		staffOrDeptTextAreaPanel.add(staffTextArea);
 	}
 

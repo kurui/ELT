@@ -51,7 +51,7 @@ String styleon="";
 String styleno="";
 	@Override
 	public void bind() {
-		styleon=display.getReceivedMessage().getElement().getParentElement().getAttribute("class");
+		styleon=display.getReceivedMessage().getElement().getParentElement().getClassName();
 		init();
 
 		registerHandler(display.getAddBtn().addClickHandler(
@@ -63,8 +63,8 @@ String styleno="";
 						Platform.getInstance().getSiteManager().openDialog(dialog, new DialogCloseListener() {
 							public void onClose(String dialogId,
 									String instanceId) {
-								display.getReceivedMessage().getElement().getParentElement().setAttribute("class", styleno);
-								display.getSendMessage().getElement().getParentElement().setAttribute("class", styleon);
+								display.getReceivedMessage().getElement().getParentElement().setClassName(styleno);
+								display.getSendMessage().getElement().getParentElement().setClassName(styleon);
 								doSearch(sessionManager.getSession().getToken());
 							}
 						});
@@ -75,8 +75,8 @@ String styleno="";
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						display.getReceivedMessage().getElement().getParentElement().setAttribute("class", styleon);
-						display.getSendMessage().getElement().getParentElement().setAttribute("class", styleno);
+						display.getReceivedMessage().getElement().getParentElement().setClassName(styleon);
+						display.getSendMessage().getElement().getParentElement().setClassName(styleno);
 						doSearch(null);
 					}
 				}));
@@ -84,8 +84,8 @@ String styleno="";
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						display.getReceivedMessage().getElement().getParentElement().setAttribute("class", styleno);
-						display.getSendMessage().getElement().getParentElement().setAttribute("class", styleon);
+						display.getReceivedMessage().getElement().getParentElement().setClassName(styleno);
+						display.getSendMessage().getElement().getParentElement().setClassName(styleon);
 						doSearch(sessionManager.getSession().getToken());
 					}
 				}));

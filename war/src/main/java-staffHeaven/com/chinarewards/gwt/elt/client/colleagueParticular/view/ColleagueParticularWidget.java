@@ -40,45 +40,45 @@ public class ColleagueParticularWidget extends Composite implements ColleaguePar
 	String styleNo="";
 	
 	private void init() {
-		styleOn=staffGlory.getElement().getParentElement().getAttribute("class");
+		styleOn=staffGlory.getElement().getParentElement().getClassName();
 		
 		staffView.addClickHandler(new ClickHandler() {	
 			@Override
 			public void onClick(ClickEvent event) {
-				staffView.getElement().getParentElement().setAttribute("class", styleOn);						
-				staffBroadcast.getElement().getParentElement().setAttribute("class", styleNo);						
-				staffGlory.getElement().getParentElement().setAttribute("class", styleNo);						
-				sendMessage.getElement().getParentElement().setAttribute("class", styleNo);						
+				staffView.getElement().getParentElement().setClassName(styleOn);						
+				staffBroadcast.getElement().getParentElement().setClassName(styleNo);						
+				staffGlory.getElement().getParentElement().setClassName(styleNo);						
+				sendMessage.getElement().getParentElement().setClassName(styleNo);						
 					
 			}
 		});
 		staffBroadcast.addClickHandler(new ClickHandler() {	
 			@Override
 			public void onClick(ClickEvent event) {
-				staffView.getElement().getParentElement().setAttribute("class", styleNo);						
-				staffBroadcast.getElement().getParentElement().setAttribute("class", styleOn);						
-				staffGlory.getElement().getParentElement().setAttribute("class", styleNo);						
-				sendMessage.getElement().getParentElement().setAttribute("class", styleNo);						
+				staffView.getElement().getParentElement().setClassName(styleNo);						
+				staffBroadcast.getElement().getParentElement().setClassName(styleOn);						
+				staffGlory.getElement().getParentElement().setClassName(styleNo);						
+				sendMessage.getElement().getParentElement().setClassName(styleNo);						
 					
 			}
 		});
 		staffGlory.addClickHandler(new ClickHandler() {	
 			@Override
 			public void onClick(ClickEvent event) {
-				staffView.getElement().getParentElement().setAttribute("class", styleNo);						
-				staffBroadcast.getElement().getParentElement().setAttribute("class", styleNo);						
-				staffGlory.getElement().getParentElement().setAttribute("class", styleOn);						
-				sendMessage.getElement().getParentElement().setAttribute("class", styleNo);						
+				staffView.getElement().getParentElement().setClassName(styleNo);						
+				staffBroadcast.getElement().getParentElement().setClassName(styleNo);						
+				staffGlory.getElement().getParentElement().setClassName(styleOn);						
+				sendMessage.getElement().getParentElement().setClassName(styleNo);						
 					
 			}
 		});
 		sendMessage.addClickHandler(new ClickHandler() {	
 			@Override
 			public void onClick(ClickEvent event) {
-				staffView.getElement().getParentElement().setAttribute("class", styleNo);						
-				staffBroadcast.getElement().getParentElement().setAttribute("class", styleNo);						
-				staffGlory.getElement().getParentElement().setAttribute("class", styleNo);						
-				sendMessage.getElement().getParentElement().setAttribute("class", styleOn);						
+				staffView.getElement().getParentElement().setClassName(styleNo);						
+				staffBroadcast.getElement().getParentElement().setClassName(styleNo);						
+				staffGlory.getElement().getParentElement().setClassName(styleNo);						
+				sendMessage.getElement().getParentElement().setClassName(styleOn);						
 					
 			}
 		});

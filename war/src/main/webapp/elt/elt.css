@@ -1790,6 +1790,36 @@ li.token-input-input-token-facebook {
 .hiddenMe {
 	display: none;
 }
+.margin-left0 {
+	margin-left: 0px;
+}
+.margin-left0text {
+	margin-left: 0px;
+	 text-align: center;
+}
+.margin-right0 {
+	margin-right: 0px;
+}
+.margin-right0padding {
+	margin-right: 0px;
+	padding-left: 15px;
+}
+
+.padding-top0 {
+	padding-top: 0px;
+}
+.floatleftwidth{
+	float: left;
+	width: 100%;
+}
+.border0{
+	border: 0 none;
+}
+.margin0{
+	overflow:hidden;width:400px;margin:0px;position:relative;
+}
+
+
 
 /** loading background **/
 .cr-loading {

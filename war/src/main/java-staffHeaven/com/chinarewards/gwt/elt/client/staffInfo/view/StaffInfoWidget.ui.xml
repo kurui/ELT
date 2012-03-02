@@ -19,9 +19,7 @@
 					<h3>员工详细信息
 					</h3>
 					<span class="{new2.cutline}"></span>
-				
-
-
+			
 				<div class="{new2.form}">
 					<div class="{new2.form-line}">
 						<label class="{new2.label}">员工编号：</label>
@@ -67,20 +65,20 @@
 					<div class="{new2.form-line}">
 						<label class="{new2.label}">电话：</label>
 						<div class="{new2.element}">
-							<g:InlineLabel ui:field="phone" />
+							<g:TextBox ui:field="phone" />
 						</div>
 					</div>
 
 					<div class="{new2.form-line}">
 						<label class="{new2.label}">Email：</label>
 						<div class="{new2.element}">
-							<g:InlineLabel ui:field="email" />
+							<g:TextBox ui:field="email" />
 						</div>
 					</div>
 					<div class="{new2.form-line}">
 						<label class="{new2.label}">员工生日：</label>
 						<div class="{new2.element}">
-							<g:InlineLabel ui:field="dob" />
+							<d:DateBox ui:field="dob" />
 						</div>
 					</div>
 					<div class="{new2.form-line}">

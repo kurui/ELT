@@ -214,6 +214,9 @@ public class StaffListPresenterImpl extends
 					}
 
 				});
+		if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.CORP_ADMIN)
+		{
+		
 		cellTable.addColumn("操作", new HyperLinkCell(),
 				new GetValue<StaffListClient, String>() {
 					@Override
@@ -307,6 +310,11 @@ public class StaffListPresenterImpl extends
 					}
 
 				});
+		}
+		else
+		{
+			display.displayBtn();
+		}
 	}
 
 }

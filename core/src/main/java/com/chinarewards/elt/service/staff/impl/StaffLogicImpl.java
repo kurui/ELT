@@ -47,6 +47,7 @@ import com.chinarewards.elt.service.staff.StaffLogic;
 import com.chinarewards.elt.tx.model.Unit;
 import com.chinarewards.elt.tx.service.TransactionService;
 import com.chinarewards.elt.util.DateUtil;
+import com.chinarewards.elt.util.MD5;
 import com.chinarewards.elt.util.StringUtil;
 import com.chinarewards.gwt.elt.model.staff.StaffUserProcess;
 import com.google.inject.Inject;
@@ -67,6 +68,7 @@ public class StaffLogicImpl implements StaffLogic {
 	private final RoleDao roleDao;
 	private final DepartmentManagerDao deptMgrDao;
 	private final DepartmentLogic departmentLogic;
+	MD5 md5 = new MD5();
 
 	@Inject
 	public StaffLogicImpl(StaffDao staffDao, DepartmentLogic deptLogic,
@@ -284,22 +286,18 @@ public class StaffLogicImpl implements StaffLogic {
 			searchVo.setStatus(criteria.getStaffStatus());
 		if (context.getCorporationId() != null)
 			searchVo.setEnterpriseId(context.getCorporationId());
-		if (criteria.getStaffRole() != null)
-		{
-			List<String> qstaffIds=new ArrayList<String>();
-			List<String> staffIds=userRoleDao.findStaffIdsByRole(criteria.getStaffRole());
-			if(staffIds!=null && staffIds.size()>0)
-			{
-				qstaffIds=staffIds;
-			}
-			else
-			{
+		if (criteria.getStaffRole() != null) {
+			List<String> qstaffIds = new ArrayList<String>();
+			List<String> staffIds = userRoleDao.findStaffIdsByRole(criteria
+					.getStaffRole());
+			if (staffIds != null && staffIds.size() > 0) {
+				qstaffIds = staffIds;
+			} else {
 				qstaffIds.add("notStaffId");
 			}
 			searchVo.setStaffids(qstaffIds);
 		}
-		
-		
+
 		searchVo.setPaginationDetail(criteria.getPaginationDetail());
 		searchVo.setSortingDetail(criteria.getSortingDetail());
 
@@ -324,8 +322,7 @@ public class StaffLogicImpl implements StaffLogic {
 					}
 					searchVo.setDeptParam(new MultipleIdParam(allDepartmentIds));
 				}
-				
-				
+
 			}
 
 		}
@@ -351,16 +348,25 @@ public class StaffLogicImpl implements StaffLogic {
 			ff.setDepartment(nowuser.getStaff().getDepartment());
 
 		}
+		if (staff.getStatus() != null)
+			ff.setStatus(staff.getStatus());
+		if (staff.getStaffNo() != null)
+			ff.setJobNo(staff.getStaffNo());
+		if (staff.getPhoto() != null)
+			ff.setPhoto(staff.getPhoto());
+		if (staff.getPhone() != null)
+			ff.setPhone(staff.getPhone());
+		if (staff.getJobPosition() != null)
+			ff.setJobPosition(staff.getJobPosition());
+		if (staff.getLeadership() != null)
+			ff.setLeadership(staff.getLeadership());
+		if (staff.getEmail() != null)
+			ff.setEmail(staff.getEmail());
+		if (staff.getDob() != null)
+			ff.setDob(staff.getDob());
+		if (staff.getStaffName() != null)
+			ff.setName(staff.getStaffName());
 
-		ff.setStatus(staff.getStatus());
-		ff.setJobNo(staff.getStaffNo());
-		ff.setPhoto(staff.getPhoto());
-		ff.setPhone(staff.getPhone());
-		ff.setJobPosition(staff.getJobPosition());
-		ff.setLeadership(staff.getLeadership());
-		ff.setEmail(staff.getEmail());
-		ff.setDob(staff.getDob());
-		ff.setName(staff.getStaffName());
 		// ff.setTxAccountId(staff.getTxAccountId());---放到激活账户在做
 
 		if (StringUtil.isEmptyString(staff.getStaffId())) {
@@ -377,43 +383,36 @@ public class StaffLogicImpl implements StaffLogic {
 
 			staffDao.update(ff);
 		}
-//判断用户离职..
-		if(staff.getStatus()==StaffStatus.DEPARTURE)
-		{
-			SysUser u= userDao.findUserByStaffId(ff.getId());
-			if(u!=null)
-			{
+		// 判断用户离职..
+		if (staff.getStatus() == StaffStatus.DEPARTURE) {
+			SysUser u = userDao.findUserByStaffId(ff.getId());
+			if (u != null) {
 				u.setStatus(UserStatus.Inactive);
 				userDao.update(u);
 			}
-		}
-		else if(staff.getStatus()==StaffStatus.JOB)
-		{
-			SysUser u= userDao.findUserByStaffId(ff.getId());
-			if(u!=null)
-			{
+		} else if (staff.getStatus() == StaffStatus.JOB) {
+			SysUser u = userDao.findUserByStaffId(ff.getId());
+			if (u != null) {
 				u.setStatus(UserStatus.Active);
 				userDao.update(u);
 			}
 		}
-		
-		if(staff.getUserRoleVos()!=null && staff.getUserRoleVos().size()>0)
-		{
-			SysUser u= userDao.findUserByStaffId(ff.getId());
-			if(u!=null)
-			{
-				//清除角色(除开用户)
-				List<SysUserRole> lt=userRoleDao.findUserRoleByUserId(u.getId());
-				if(lt.size()>0)
-				{
-					for (SysUserRole r:lt) {
-						if(r.getRole().getName()!=UserRole.STAFF)
+
+		if (staff.getUserRoleVos() != null && staff.getUserRoleVos().size() > 0) {
+			SysUser u = userDao.findUserByStaffId(ff.getId());
+			if (u != null) {
+				// 清除角色(除开用户)
+				List<SysUserRole> lt = userRoleDao.findUserRoleByUserId(u
+						.getId());
+				if (lt.size() > 0) {
+					for (SysUserRole r : lt) {
+						if (r.getRole().getName() != UserRole.STAFF)
 							userRoleDao.delete(r);
 					}
 				}
-	
+
 				// 创建角色--
-				for (UserRole role:staff.getUserRoleVos()) {
+				for (UserRole role : staff.getUserRoleVos()) {
 					SysUserRole userRole = new SysUserRole();
 					userRole.setRole(roleDao.findRoleByRoleName(role));
 					userRole.setCreatedBy(nowuser);
@@ -423,20 +422,17 @@ public class StaffLogicImpl implements StaffLogic {
 					userRole.setUser(u);
 					userRoleDao.createUserRole(userRole);
 				}
-				
+
 			}
-		}
-		else
-		{
-			SysUser u= userDao.findUserByStaffId(ff.getId());
-			if(u!=null)
-			{
-				//清除角色(除开用户)
-				List<SysUserRole> lt=userRoleDao.findUserRoleByUserId(u.getId());
-				if(lt.size()>0)
-				{
-					for (SysUserRole r:lt) {
-						if(r.getRole().getName()!=UserRole.STAFF)
+		} else {
+			SysUser u = userDao.findUserByStaffId(ff.getId());
+			if (u != null) {
+				// 清除角色(除开用户)
+				List<SysUserRole> lt = userRoleDao.findUserRoleByUserId(u
+						.getId());
+				if (lt.size() > 0) {
+					for (SysUserRole r : lt) {
+						if (r.getRole().getName() != UserRole.STAFF)
 							userRoleDao.delete(r);
 					}
 				}
@@ -461,7 +457,13 @@ public class StaffLogicImpl implements StaffLogic {
 		Staff staff = staffDao.findById(Staff.class, staffId);
 		SysUser user = userDao.findUserByStaffId(staff.getId());
 		SysUser nowuser = userDao.findUserById(context.getUserId());
-
+		String password = "";
+		try {
+			password = md5.MD5("123");// 初始密码123
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if (user != null) {
 			return GeneratedUserConstants.UsernamePresence;
 		} else {
@@ -481,7 +483,7 @@ public class StaffLogicImpl implements StaffLogic {
 
 				// 创建用户
 				u.setUserName(username);
-				u.setPassword("123");
+				u.setPassword(password);
 				u.setCorporation(staff.getCorporation());
 				u.setCreatedAt(now);
 				u.setCreatedBy(nowuser);
@@ -506,86 +508,88 @@ public class StaffLogicImpl implements StaffLogic {
 		}
 		return GeneratedUserConstants.Success;
 	}
-	public String createHrUser(StaffUserProcess staffProcess){
-		    Corporation corporation=corporationLogic.findCorporationById(staffProcess.getCorpId());
-		    //创建部门为顶级部门
-		    Department rootdepart =  depDao.addRootDepartment(corporation);
-		    Staff ff = new Staff();
-			// 默认当前用户部门为顶级部门Root_
-			ff.setDepartment(rootdepart);
-			ff.setStatus(StaffStatus.JOB);
-			ff.setPhone(staffProcess.getTell());
-			ff.setEmail(staffProcess.getEmail());
-			ff.setName(staffProcess.getName());
-			String accountId = transactionService.createNewAccount();
-			ff.setTxAccountId(accountId);
-			// Create a new staff
-			
-			ff.setCorporation(corporation);
-			//ff.setCreatedBy(nowuser);
-			ff.setCreatedAt(DateUtil.getTime());
-			ff.setDeleted(0);
-			Staff newstaff = staffDao.save(ff);
-		  		
-		//==================创建用户
 
-		   // create user
-		    Date now = DateUtil.getTime();
-		    SysUser user = new SysUser();
-		    user.setUserName(staffProcess.getUsername());
-		    user.setPassword(staffProcess.getPassword());
-		    user.setCorporation(corporation);
-		    user.setCreatedAt(now);
-			//u.setCreatedBy(nowuser);
-		    user.setLastModifiedAt(now);
-			//u.setLastModifiedBy(nowuser);
-		    user.setStatus(UserStatus.Active);
-		    user.setStaff(newstaff);
-		    user =userDao.save(user);
-		    //初始化增加角色表数据
-		    SysRole role1 = new SysRole();
-		    role1.setName(UserRole.CORP_ADMIN);
-		    roleDao.save(role1);
-		    SysRole role2 = new SysRole();
-		    role2.setName(UserRole.GIFT);
-		    roleDao.save(role2);
-		    SysRole role3 = new SysRole();
-		    role3.setName(UserRole.DEPT_MGR);
-		    roleDao.save(role3);
-		    SysRole role4 = new SysRole();
-		    role4.setName(UserRole.STAFF);
-		    roleDao.save(role4);
-            //创建用户角色
-			for (int i = 0; i < staffProcess.getRoles().size(); i++) {
-				SysUserRole userRole = new SysUserRole();
-				userRole.setRole(roleDao.findRoleByRoleName(staffProcess.getRoles().get(i)));
-				userRole.setCreatedBy(user);
-				userRole.setCreatedAt(DateUtil.getTime());
-				userRole.setLastModifiedAt(DateUtil.getTime());
-				userRole.setLastModifiedBy(user);
-				userRole.setUser(user);
-				userRoleDao.createUserRole(userRole);
-		
-			}
-           return user.getId();
+	public String createHrUser(StaffUserProcess staffProcess) {
+		Corporation corporation = corporationLogic
+				.findCorporationById(staffProcess.getCorpId());
+		// 创建部门为顶级部门
+		Department rootdepart = depDao.addRootDepartment(corporation);
+		Staff ff = new Staff();
+		// 默认当前用户部门为顶级部门Root_
+		ff.setDepartment(rootdepart);
+		ff.setStatus(StaffStatus.JOB);
+		ff.setPhone(staffProcess.getTell());
+		ff.setEmail(staffProcess.getEmail());
+		ff.setName(staffProcess.getName());
+		String accountId = transactionService.createNewAccount();
+		ff.setTxAccountId(accountId);
+		// Create a new staff
+
+		ff.setCorporation(corporation);
+		// ff.setCreatedBy(nowuser);
+		ff.setCreatedAt(DateUtil.getTime());
+		ff.setDeleted(0);
+		Staff newstaff = staffDao.save(ff);
+
+		// ==================创建用户
+
+		// create user
+		Date now = DateUtil.getTime();
+		SysUser user = new SysUser();
+		user.setUserName(staffProcess.getUsername());
+		user.setPassword(staffProcess.getPassword());
+		user.setCorporation(corporation);
+		user.setCreatedAt(now);
+		// u.setCreatedBy(nowuser);
+		user.setLastModifiedAt(now);
+		// u.setLastModifiedBy(nowuser);
+		user.setStatus(UserStatus.Active);
+		user.setStaff(newstaff);
+		user = userDao.save(user);
+		// 初始化增加角色表数据
+		SysRole role1 = new SysRole();
+		role1.setName(UserRole.CORP_ADMIN);
+		roleDao.save(role1);
+		SysRole role2 = new SysRole();
+		role2.setName(UserRole.GIFT);
+		roleDao.save(role2);
+		SysRole role3 = new SysRole();
+		role3.setName(UserRole.DEPT_MGR);
+		roleDao.save(role3);
+		SysRole role4 = new SysRole();
+		role4.setName(UserRole.STAFF);
+		roleDao.save(role4);
+		// 创建用户角色
+		for (int i = 0; i < staffProcess.getRoles().size(); i++) {
+			SysUserRole userRole = new SysUserRole();
+			userRole.setRole(roleDao.findRoleByRoleName(staffProcess.getRoles()
+					.get(i)));
+			userRole.setCreatedBy(user);
+			userRole.setCreatedAt(DateUtil.getTime());
+			userRole.setLastModifiedAt(DateUtil.getTime());
+			userRole.setLastModifiedBy(user);
+			userRole.setUser(user);
+			userRoleDao.createUserRole(userRole);
+
 		}
+		return user.getId();
+	}
 
-	public Staff updateLeadTime(String staffId,int leadTime){
-		    Staff staff = staffDao.findById(Staff.class, staffId);
-		    staff.setLeadTime(leadTime);
-		    return staffDao.update(staff);
+	public Staff updateLeadTime(String staffId, int leadTime) {
+		Staff staff = staffDao.findById(Staff.class, staffId);
+		staff.setLeadTime(leadTime);
+		return staffDao.update(staff);
 	}
 
 	@Override
 	public List<UserRole> findUserRoles(String staffId) {
-		SysUser u= userDao.findUserByStaffId(staffId);
-		if(u!=null)
-		{
-			List<SysUserRole> userRole=userRoleDao.findUserRoleByUserId(u.getId());
-			if(userRole!=null && userRole.size()>0)
-			{
-				List<UserRole> roles=new ArrayList<UserRole>();
-				for (SysUserRole r:userRole) {
+		SysUser u = userDao.findUserByStaffId(staffId);
+		if (u != null) {
+			List<SysUserRole> userRole = userRoleDao.findUserRoleByUserId(u
+					.getId());
+			if (userRole != null && userRole.size() > 0) {
+				List<UserRole> roles = new ArrayList<UserRole>();
+				for (SysUserRole r : userRole) {
 					roles.add(r.getRole().getName());
 				}
 				return roles;

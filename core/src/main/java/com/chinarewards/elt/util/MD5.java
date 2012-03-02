@@ -7,7 +7,7 @@ public class MD5 {
 	public MD5() {
 	}
 
-	public String MD5(String sInput) throws Exception {
+	public  String MD5(String sInput) throws Exception {
 
 		String algorithm = "";
 		// 输入不能为空
