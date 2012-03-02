@@ -41,6 +41,9 @@ public class RewardGridLogicImpl implements RewardGridLogic {
 	public PageStore<RewardGridVo> fetchRewards_STAFF(UserContext context,
 			RewardGridSearchVo criteria) {
 		PageStore<RewardGridVo> pageStore = new PageStore<RewardGridVo>();
+		
+//		winnerDao.
+		
 		return pageStore;
 	}
 
