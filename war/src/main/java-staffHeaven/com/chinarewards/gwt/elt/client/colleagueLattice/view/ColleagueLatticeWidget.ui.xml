@@ -12,7 +12,7 @@
               <div class="{new2.workmate-info}">
                 <p class="{new2.workmate-name}"><g:Anchor ui:field="staffName" /> </p>
                 <p><g:InlineLabel ui:field="deptName" /> </p>
-                <p>身体锻炼得越来越好了，就是肚子减不下去啊~~~</p>
+                <p></p>
               </div>
             </div>
             <div class="{new2.workmate-comm}">

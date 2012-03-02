@@ -17,7 +17,7 @@ textarea{word-wrap:break-word;resize:none;}
 .sidebar .title,.cutline,.footer-line,.employee .footer .footer-wrap,.employee .menu-nav{background:url(elt/images/elt_repeat.png) repeat-x;}
 
 body{background-color:#fff;color:#333333;font:12px/1.5 Tahoma, Arial, simsun;min-width:960px;}
-a{color:#565656;text-decoration:none;}
+a{color:#336CA4;text-decoration:none;}
 a:hover{color:#010DFF;text-decoration:underline;cursor:pointer;}
 .clearfix:after{content:".";display:block;clear:both;height:0;visibility:hidden;}
 .clearfix{\*zoom:1;}
@@ -211,7 +211,7 @@ a:hover{color:#010DFF;text-decoration:underline;cursor:pointer;}
 .employee .news-list .news{position:relative;padding:10px 0 5px 10px;border-bottom:1px solid #EDEEED;}
 .employee .news-list .news .news-icon{background-position:-41px -35px;float:left;width:16px;height:13px;position:absolute;left:9px;top:14px;\_left:0px;}
 .employee .news-list .news .news-info{margin:0 30px 0 20px;}
-.employee .news-list .news .news-info a{color:#336CA4}
+
 .employee .news-list .news .news-info strong{font-weight:normal;color:#346BA8;}
 .employee .news-list .news .news-info p{padding-bottom:5px;}
 
@@ -251,5 +251,6 @@ a:hover{color:#010DFF;text-decoration:underline;cursor:pointer;}
 .employee .remark-text{border:1px solid #C3C3C3;color:#C3C3C3;padding:3px 5px;width:738px;margin-top:10px;}
 
 
+.remarkdiv{display: none;}
 
-
+.remark-name{color:#356CA6;}

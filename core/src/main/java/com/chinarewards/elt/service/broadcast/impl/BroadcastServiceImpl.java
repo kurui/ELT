@@ -15,6 +15,7 @@ import com.chinarewards.elt.domain.information.OrgObject;
 import com.chinarewards.elt.domain.information.ReceivingObject;
 import com.chinarewards.elt.domain.information.StaffObject;
 import com.chinarewards.elt.domain.information.TeamObject;
+import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.broadcast.BroadcastAndReplyQueryListVo;
 import com.chinarewards.elt.model.broadcast.BroadcastQueryListCriteria;
@@ -149,6 +150,27 @@ public class BroadcastServiceImpl implements BroadcastService {
 					dept.setName(organ[1]);
 					dept.setDept(departmentLogic.findDepartmentById(organ[0]));
 					receivingObj = departmentObjectDao.save(dept);
+					//查询下级所有部门...全部发送
+					List<Department> treeDept=departmentLogic.getWholeChildren(organ[0], false);
+					if(treeDept!=null && treeDept.size()>0)
+					{
+						for(Department d:treeDept)
+						{
+							DepartmentObject treeDeptObj = new DepartmentObject();
+							treeDeptObj.setName(d.getName());
+							treeDeptObj.setDept(d);
+							ReceivingObject treereceivingObj = departmentObjectDao.save(treeDeptObj);
+							//单独保存-接收对象下级部门
+							BroadcastingReceiving broadcastReceiving = new BroadcastingReceiving();
+							broadcastReceiving.setBroadcast(broadcastNew);
+							broadcastReceiving.setReceiving(treereceivingObj);
+							broadcastReceiving.setCreatedAt(DateUtil.getTime());
+							broadcastReceiving.setCreatedBy(nowUser);
+							broadcastReceiving.setLastModifiedAt(DateUtil.getTime());
+							broadcastReceiving.setLastModifiedBy(nowUser);
+							broadcastingReceivingDao.save(broadcastReceiving);
+						}
+					}
 				} else if (OrganType.valueOf(organ[2].toString()) == OrganType.GROUP) {
 					TeamObject team = new TeamObject();
 					team.setName(organ[1]);

@@ -549,7 +549,7 @@ public class RewardLogicImpl implements RewardLogic {
 		List<Reward> list = pageStore.getResultList();
 		// post-process and convert
 		List<RewardVo> rewardVoList = new ArrayList<RewardVo>();
-		if (list.size() > 0) {
+		if (list!=null && list.size() > 0) {
 			for (Reward reward : list) {
 				rewardVoList.add(convertFromRewardToVo(reward, true));
 			}

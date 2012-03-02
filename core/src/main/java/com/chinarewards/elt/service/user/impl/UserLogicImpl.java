@@ -261,21 +261,24 @@ public class UserLogicImpl implements UserLogic {
 	
 	@Override
 	public void createUserRole(String roleName,String staffId){
-		List<SysUserRole> userRoleList=userRoleDao.findUserRoleByUserId(staffId);
+		SysUser user=userDao.findUserByStaffId(staffId);
+		if(user!=null)
+		{
+		List<SysUserRole> userRoleList=userRoleDao.findUserRoleByUserId(user.getId());
 		
 		SysUserRole existUserRole=null;
-		for (int j = 0; j < userRoleList.size(); j++) {
-			SysUserRole tempUserRole=userRoleList.get(j);
-			if(tempUserRole.getRole().getName().equals(UserRole.valueOf(roleName))){
-				existUserRole=tempUserRole;
-				break;
+		if(userRoleList!=null && userRoleList.size()>0)
+		{
+			for (int j = 0; j < userRoleList.size(); j++) {
+				SysUserRole tempUserRole=userRoleList.get(j);
+				if(tempUserRole.getRole().getName().equals(UserRole.valueOf(roleName))){
+					existUserRole=tempUserRole;
+					break;
+				}
 			}
 		}
+		if (existUserRole==null) {
 		
-		if (existUserRole!=null) {
-			
-		} else {
-			SysUser user=userDao.findUserByStaffId(staffId);
 			SysUserRole userRole = new SysUserRole();
 			userRole.setRole(roleDao.findRoleByRoleName(UserRole.valueOf(roleName)));
 			userRole.setCreatedBy(user);
@@ -284,6 +287,7 @@ public class UserLogicImpl implements UserLogic {
 			userRole.setLastModifiedBy(user);
 			userRole.setUser(user);
 			userRoleDao.createUserRole(userRole);	
+		}
 		}
 	}
 	

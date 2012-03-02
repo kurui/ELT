@@ -14,89 +14,101 @@
 						&gt;
 						<span>个人资料</span>
 					</div>
-
+	
 
 					<h3>员工详细信息
 					</h3>
 					<span class="{new2.cutline}"></span>
-			
-				<div class="{new2.form}">
-					<div class="{new2.form-line}">
-						<label class="{new2.label}">员工编号：</label>
-						<div class="{new2.element}">
-							<g:InlineLabel ui:field="staffNo" />
-						</div>
-					</div>
-					<div class="{new2.form-line}">
-						<label class="{new2.label2}">员工名称：</label>
-						<div class="{new2.element}">
-							<g:InlineLabel ui:field="staffName" />
 
+					<div class="{new2.form}">
+						<div class="{new2.form-line}">
+							<label class="{new2.label}">员工编号：</label>
+							<div class="{new2.element}">
+								<g:InlineLabel ui:field="staffNo" />
+							</div>
 						</div>
-					</div>
-					<div class="{new2.form-line}">
-						<label class="{new2.label60}">头像：</label>
-						<div class="{new2.element}">
-							<g:Image ui:field="staffImage" width="80px" height="60px" />
+						<div class="{new2.form-line}">
+							<label class="{new2.label}">员工名称：</label>
+							<div class="{new2.element}">
+								<g:InlineLabel ui:field="staffName" />
 
+							</div>
 						</div>
-					</div>
-
-					<div class="{new2.form-line}">
-						<label class="{new2.label}">所属部门：</label>
+						
+				 <div class="{new2.form-line}">
+						<label class="{new2.label2}">头像：</label>
 						<div class="{new2.element}">
-							<g:InlineLabel ui:field="departmentName" />
+							<g:FormPanel ui:field="photoForm" encoding="multipart/form-data"
+								method="post">
+								<g:FileUpload ui:field="photoUpload" name="uploadFormElement"></g:FileUpload>
+							</g:FormPanel>
+							<g:TextBox ui:field="photo" visible="false"></g:TextBox>
+							<g:Button ui:field="photoUploadBtn" visible="false">上传
+							</g:Button>
 						</div>
 					</div>
-					<div class="{new2.form-line}">
-						<label class="{new2.label}">所属职位：</label>
-						<div class="{new2.element}">
-							<g:InlineLabel ui:field="jobPosition" />
+						
+						<div class="{new2.form-line}">
+							<label class="{new2.labelphoto}"></label>
+							<div class="{new2.elementphoto}">
+								<g:Image ui:field="staffImage" pixelSize="80,60"/>
+							</div>
 						</div>
-					</div>
-					<div class="{new2.form-line}">
-						<label class="{new2.label}">直属领导：</label>
-						<div class="{new2.element}">
 
-							<g:InlineLabel ui:field="leadership" />
+						<div class="{new2.form-line}">
+							<label class="{new2.label}">所属部门：</label>
+							<div class="{new2.element}">
+								<g:InlineLabel ui:field="departmentName" />
+							</div>
 						</div>
-					</div>
-
-					<div class="{new2.form-line}">
-						<label class="{new2.label}">电话：</label>
-						<div class="{new2.element}">
-							<g:TextBox ui:field="phone" />
+						<div class="{new2.form-line}">
+							<label class="{new2.label}">所属职位：</label>
+							<div class="{new2.element}">
+								<g:InlineLabel ui:field="jobPosition" />
+							</div>
 						</div>
-					</div>
+						<div class="{new2.form-line}">
+							<label class="{new2.label}">直属领导：</label>
+							<div class="{new2.element}">
 
-					<div class="{new2.form-line}">
-						<label class="{new2.label}">Email：</label>
-						<div class="{new2.element}">
-							<g:TextBox ui:field="email" />
+								<g:InlineLabel ui:field="leadership" />
+							</div>
 						</div>
-					</div>
-					<div class="{new2.form-line}">
-						<label class="{new2.label}">员工生日：</label>
-						<div class="{new2.element}">
-							<d:DateBox ui:field="dob" />
+
+						<div class="{new2.form-line}">
+							<label class="{new2.label}">电话：</label>
+							<div class="{new2.element}">
+								<g:TextBox ui:field="phone" styleName="{new2.text}" />
+							</div>
 						</div>
-					</div>
-					<div class="{new2.form-line}">
-						<label class="{new2.label}">员工状态：</label>
-						<div class="{new2.element}">
-							<g:InlineLabel ui:field="staffStatus" />
+
+						<div class="{new2.form-line}">
+							<label class="{new2.label}">Email：</label>
+							<div class="{new2.element}">
+								<g:InlineLabel ui:field="email" />
+							</div>
 						</div>
+						<div class="{new2.form-line}">
+							<label class="{new2.label}">员工生日：</label>
+							<div class="{new2.element}">
+								<d:DateBox ui:field="dob" styleName="{new2.text}"/>
+							</div>
+						</div>
+
+					
+
+						<span class="{new2.cutline}"></span>
+
 					</div>
-
-					<g:Button ui:field="updateBtn" text="修改员工信息" />
-
-					<span class="{new2.cutline}"></span>
-
 				</div>
+
+	
 			</div>
-
-
 		</div>
-</div>
+					   <div class="{new2.remark} {new2.remark-info}">		
+							<div class="{new2.remark-tool}" style="text-align:center;">
+				             <g:Button styleName="{new2.button}" text="修改员工信息" ui:field="updateBtn" />
+							</div>
+						</div>
 	</g:HTMLPanel>
 </ui:UiBinder> 

@@ -301,30 +301,34 @@ public class StaffLogicImpl implements StaffLogic {
 		searchVo.setPaginationDetail(criteria.getPaginationDetail());
 		searchVo.setSortingDetail(criteria.getSortingDetail());
 
-		// 处理部门管理员..进入..只查询本部门数据
-		boolean fal = false;
-		for (UserRole role : context.getUserRoles()) {
-			if (role == UserRole.CORP_ADMIN) {
-				fal = true;
+		// 如果员工界面..不过滤
+		if (!criteria.isColleaguePage()) {
+			// 处理部门管理员..进入..只查询本部门数据
+			boolean fal = false;
+			for (UserRole role : context.getUserRoles()) {
+				if (role == UserRole.CORP_ADMIN) {
+					fal = true;
+				}
 			}
-		}
-		if (fal == false) {
-			SysUser user = userDao.findUserById(context.getUserId());
-			if (user != null && user.getStaff() != null) {
-				List<String> departmentIds = deptMgrDao
-						.findDepartmentIdsManagedByStaffId(user.getStaff()
-								.getId());
-				if (departmentIds.size() > 0) {
-					Set<String> allDepartmentIds = new HashSet<String>();
-					for (String id : departmentIds) {
-						allDepartmentIds.addAll(departmentLogic
-								.getWholeChildrenIds(id, true));
+			if (fal == false) {
+				SysUser user = userDao.findUserById(context.getUserId());
+				if (user != null && user.getStaff() != null) {
+					List<String> departmentIds = deptMgrDao
+							.findDepartmentIdsManagedByStaffId(user.getStaff()
+									.getId());
+					if (departmentIds.size() > 0) {
+						Set<String> allDepartmentIds = new HashSet<String>();
+						for (String id : departmentIds) {
+							allDepartmentIds.addAll(departmentLogic
+									.getWholeChildrenIds(id, true));
+						}
+						searchVo.setDeptParam(new MultipleIdParam(
+								allDepartmentIds));
 					}
-					searchVo.setDeptParam(new MultipleIdParam(allDepartmentIds));
+
 				}
 
 			}
-
 		}
 		return staffDao.queryStaffPageAction(searchVo);
 	}
@@ -401,12 +405,13 @@ public class StaffLogicImpl implements StaffLogic {
 		if (staff.getUserRoleVos() != null && staff.getUserRoleVos().size() > 0) {
 			SysUser u = userDao.findUserByStaffId(ff.getId());
 			if (u != null) {
-				// 清除角色(除开用户)
+				// 清除角色(除开用户,部门管理员)
 				List<SysUserRole> lt = userRoleDao.findUserRoleByUserId(u
 						.getId());
 				if (lt.size() > 0) {
 					for (SysUserRole r : lt) {
-						if (r.getRole().getName() != UserRole.STAFF)
+						if (r.getRole().getName() != UserRole.STAFF
+								|| r.getRole().getName() != UserRole.DEPT_MGR)
 							userRoleDao.delete(r);
 					}
 				}
@@ -424,15 +429,16 @@ public class StaffLogicImpl implements StaffLogic {
 				}
 
 			}
-		} else {
+		} else if (staff.getUserRoleVos() != null) {
 			SysUser u = userDao.findUserByStaffId(ff.getId());
 			if (u != null) {
-				// 清除角色(除开用户)
+				// 清除角色(除开用户,部门管理员)
 				List<SysUserRole> lt = userRoleDao.findUserRoleByUserId(u
 						.getId());
 				if (lt.size() > 0) {
 					for (SysUserRole r : lt) {
-						if (r.getRole().getName() != UserRole.STAFF)
+						if (r.getRole().getName() != UserRole.STAFF
+								|| r.getRole().getName() != UserRole.DEPT_MGR)
 							userRoleDao.delete(r);
 					}
 				}
@@ -538,7 +544,7 @@ public class StaffLogicImpl implements StaffLogic {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
+		}
 		// create user
 		Date now = DateUtil.getTime();
 		SysUser user = new SysUser();

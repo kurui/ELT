@@ -74,6 +74,8 @@ public class ReplyLatticeWidget extends Composite {
 				mywidget.myshort.replyContent.setFocus(true);
 				mywidget.myshort.replyContent.setValue("");
 				mywidget.myshort.replyParentId=mywidget.replyParentId;
+				mywidget.myshort.replyName.getElement().getParentElement().getParentElement().setClassName("remarkdiv");
+				mywidget.myshort.replyName.setText(staffName);
 			}
 		});
 		
