@@ -11,6 +11,7 @@ import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
 import com.chinarewards.gwt.elt.client.staffView.presenter.StaffViewPresenter;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.chinarewards.gwt.elt.client.view.constant.CssStyleConstants;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -52,8 +53,8 @@ public class ColleagueParticularPresenterImpl extends
 		gloryBroadcastPresenter.bind();
 		display.getResultPanel().clear();
 		display.getResultPanel().add(gloryBroadcastPresenter.getDisplay().asWidget());
-		display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().setAttribute("style", "margin-left: 0px;");
-		display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().setAttribute("style", "margin-right: 0px;");
+		display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().setClassName(CssStyleConstants.marginleft0text);
+		display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().setClassName(CssStyleConstants.marginright0);
 	}
 	
 	private void init()
@@ -67,17 +68,17 @@ public class ColleagueParticularPresenterImpl extends
 				display.getResultPanel().clear();
 				display.getResultPanel().add(staffViewPresenter.getDisplay().asWidget());
 				
-				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().setAttribute("style", "padding-top: 0px;");
-				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().setAttribute("style", "display: none;");
-				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().setAttribute("style", "display: none;");
-				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().getNextSiblingElement().setAttribute("style", "display: none;");
-				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().setAttribute("style", "float: left;width: 100%;");
-				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().setAttribute("style", "display: none;");
-				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().setAttribute("style", "display: none;");
-				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().setAttribute("style", "display: none;");
-				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().setAttribute("style", "display: none;");
-				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().setAttribute("style", "display: none;");
-				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().setAttribute("style", "display: none;");
+				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().addClassName(CssStyleConstants.paddingtop0);
+				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().setClassName(CssStyleConstants.hidden);
+				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().setClassName(CssStyleConstants.hidden);
+				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().getNextSiblingElement().setClassName(CssStyleConstants.hidden);
+				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().addClassName(CssStyleConstants.floatleftwidth);
+				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().setClassName(CssStyleConstants.hidden);
+				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().setClassName(CssStyleConstants.hidden);
+				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().setClassName(CssStyleConstants.hidden);
+				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().setClassName(CssStyleConstants.hidden);
+				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().setClassName(CssStyleConstants.hidden);
+				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().setClassName(CssStyleConstants.hidden);
 			}
 		});
 		display.getStaffBroadcast().addClickHandler(new ClickHandler() {	
@@ -88,11 +89,10 @@ public class ColleagueParticularPresenterImpl extends
 				corpBroadcastPresenter.bind();
 				display.getResultPanel().clear();
 				display.getResultPanel().add(corpBroadcastPresenter.getDisplay().asWidget());
-				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().setAttribute("style", "margin-left: 0px;");
-				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().setAttribute("style", "margin-right: 0px;");
-				
-				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().setAttribute("style", "margin-left: 0px;");
-				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().getFirstChildElement().setAttribute("style", "margin-right: 0px;");
+				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().setClassName(CssStyleConstants.marginleft0);
+				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().addClassName(CssStyleConstants.marginright0);				
+				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().setClassName(CssStyleConstants.marginleft0);
+				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().getFirstChildElement().setClassName(CssStyleConstants.marginright0padding);
 				
 			}
 		});
@@ -104,8 +104,8 @@ public class ColleagueParticularPresenterImpl extends
 				gloryBroadcastPresenter.bind();
 				display.getResultPanel().clear();
 				display.getResultPanel().add(gloryBroadcastPresenter.getDisplay().asWidget());
-				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().setAttribute("style", "margin-left: 0px;");
-				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().setAttribute("style", "margin-right: 0px;");
+				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().setClassName(CssStyleConstants.marginleft0text);
+				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().setClassName(CssStyleConstants.marginright0);
 			}
 		});
 		display.getSendMessage().addClickHandler(new ClickHandler() {	
@@ -116,11 +116,11 @@ public class ColleagueParticularPresenterImpl extends
 				messageSavePresenter.bind();
 				display.getResultPanel().clear();
 				display.getResultPanel().add(messageSavePresenter.getDisplay().asWidget());
-				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().setAttribute("style", "margin: 0px;");
-				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().setAttribute("style", "border: 0 none;");
-				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().setAttribute("style", "display: none;");
-				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().getNextSiblingElement().setAttribute("style", "display: none;");
-				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().setAttribute("style", "display: none;");
+				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().addClassName(CssStyleConstants.margin0);
+				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().setClassName(CssStyleConstants.border0);
+				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().setClassName(CssStyleConstants.hidden);
+				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().getNextSiblingElement().setClassName(CssStyleConstants.hidden);
+				display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().setClassName(CssStyleConstants.hidden);
 						
 			}
 		});
