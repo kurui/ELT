@@ -3,7 +3,6 @@ package com.chinarewards.gwt.elt.client.staffInfo.view;
 import java.util.Date;
 
 import com.chinarewards.gwt.elt.client.staffInfo.presenter.StaffInfoPresenter.StaffInfoDisplay;
-import com.chinarewards.gwt.elt.client.staffList.model.StaffListCriteria.StaffStatus;
 import com.chinarewards.gwt.elt.client.view.constant.ViewConstants;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -12,6 +11,8 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.FileUpload;
+import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.InlineLabel;
@@ -35,19 +36,25 @@ public class StaffInfoWidget extends Composite implements StaffInfoDisplay {
 	@UiField
 	TextBox phone;
 	@UiField
-	TextBox email;
+	InlineLabel email;
 	@UiField
 	DateBox dob;
-	@UiField
-	InlineLabel staffStatus;
+
 	
 	@UiField
 	Button updateBtn;
-
+	@UiField
+	TextBox photo;
 
 	@UiField
 	Image staffImage;
 	
+	@UiField
+	FormPanel photoForm;
+	@UiField
+	FileUpload photoUpload;
+	@UiField
+	Button photoUploadBtn;
 	DateTimeFormat dateFormat = DateTimeFormat	.getFormat(ViewConstants.date_format);
 	private static StaffInfoWidgetUiBinder uiBinder = GWT
 			.create(StaffInfoWidgetUiBinder.class);
@@ -104,10 +111,7 @@ public class StaffInfoWidget extends Composite implements StaffInfoDisplay {
 	public void setEmail(String text) {
 		this.email.setText(text);
 	}
-	@Override
-	public HasValue<String> getEmail() {
-		return email;
-	}
+
 	@Override
 	public void setDob(Date text) {
 		this.dob.setValue(text);
@@ -123,8 +127,31 @@ public class StaffInfoWidget extends Composite implements StaffInfoDisplay {
 
 	
 	@Override
-	public void setStaffStatus(String text) {
-		this.staffStatus.setText(StaffStatus.valueOf(text).getDisplayName());
+	public FormPanel getPhotoForm() {
+		return this.photoForm;
 	}
 
+	@Override
+	public FileUpload getPhotoUpload() {
+		return this.photoUpload;
+	}
+
+	@Override
+	public HasClickHandlers getUploadClick() {
+		return this.photoUploadBtn;
+	}
+
+
+
+	@Override
+	public Image getStaffImage() {
+		return staffImage;
+	}
+
+
+
+	@Override
+	public TextBox getPhoto() {
+		return photo;
+	}
 }
