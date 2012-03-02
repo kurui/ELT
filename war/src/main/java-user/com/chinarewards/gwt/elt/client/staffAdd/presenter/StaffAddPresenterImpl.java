@@ -176,6 +176,7 @@ public class StaffAddPresenterImpl extends
 							display.setDob(resp.getDob());
 							display.setStaffImage(resp.getPhoto());
 							display.setPhoto(resp.getPhoto());
+							if(resp.getStatus()!=null)
 							display.setStatus(resp.getStatus().toString());
 							if(resp.getUserRoleVos()!=null && resp.getUserRoleVos().size()>0)
 							{
