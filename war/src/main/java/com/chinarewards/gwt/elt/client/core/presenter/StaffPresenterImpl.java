@@ -469,8 +469,7 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 											new SmallRewardWindowWidget(client.getRewardsId(),client.getRewardsName()));
 									index++;
 								} else {
-									grid.setWidget(row, col,
-											new SmallRewardWindowWidget(null,""));
+									break;
 								}
 							}
 						}
@@ -503,7 +502,7 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 
 						List<RewardsGridClient> giftList = response.getResult();
 						int index = 0;
-						Grid grid = new Grid(3, 2);
+						Grid grid = new Grid(5, 1);
 
 						// Add images to the grid
 						int numRows = grid.getRowCount();
@@ -515,11 +514,10 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 									grid.setWidget(
 											row,
 											col,
-											new SmallRewardItemWindowWidget(client.getRewardsItemId(),client.getRewardsName(),client.getAwardAmt(),client.getRewadsItemPhoto()));
+											new SmallRewardItemWindowWidget(client.getRewardsItemId(),client.getRewardsItemName(),client.getAwardAmt(),client.getRewadsItemPhoto()));
 									index++;
 								} else {
-									grid.setWidget(row, col,
-											new SmallRewardItemWindowWidget(null,"","0",null));
+									break;
 								}
 							}
 						}

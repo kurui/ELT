@@ -10,7 +10,7 @@
 	<ul class="{new2.reward-list} {new2.reward-pslist}">
 		<li>
 			<div class="{new2.imglink} {new2.clearfix}">
-				<g:Image pixelSize="28,27" ui:field="rewardItemPhoto" />
+				 <img src="elt/images/reward_emplate.png" width="28px" height="27px" />
 				<div>
 					<p>
 						<g:Anchor ui:field="rewardItemName" />
