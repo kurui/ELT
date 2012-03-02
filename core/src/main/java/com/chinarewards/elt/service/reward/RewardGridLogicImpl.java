@@ -87,14 +87,45 @@ public class RewardGridLogicImpl implements RewardGridLogic {
 	}
 
 	private List<RewardGridVo> convertToGridVoListFromReward(
-			List<Reward> itemList) {
+			List<Reward> rewardList) {
 		List<RewardGridVo> gridVoList = new ArrayList<RewardGridVo>();
+		
+		if (rewardList!=null) {
+			for (int i = 0; i < rewardList.size(); i++) {
+				Reward reward=rewardList.get(i);
+				if (reward!=null) {
+					RewardGridVo rewardGridVo=new RewardGridVo();	
+					rewardGridVo.setRewardId(reward.getId());
+					rewardGridVo.setRewardName(reward.getName());
+					gridVoList.add(rewardGridVo);					
+				} 
+				
+			}
+		} 	
+		
 		return gridVoList;
 	}
 
 	private List<RewardGridVo> convertToGridVoListFromItem(
 			List<RewardItem> itemList) {
 		List<RewardGridVo> gridVoList = new ArrayList<RewardGridVo>();
+		
+		if (itemList!=null) {
+			for (int i = 0; i < itemList.size(); i++) {
+				RewardItem rewardItem=itemList.get(i);
+				if (rewardItem!=null) {
+					RewardGridVo rewardGridVo=new RewardGridVo();	
+					rewardGridVo.setRewardItemId(rewardItem.getId());
+					rewardGridVo.setRewardItemName(rewardItem.getName());
+					rewardGridVo.setAwardAmt(rewardItem.getAwardAmt());
+//					rewardGridVo.setRewardItemPhoto(rewardItem.get)
+					gridVoList.add(rewardGridVo);
+					
+				} 
+				
+			}
+		} 	
+		
 		return gridVoList;
 	}
 

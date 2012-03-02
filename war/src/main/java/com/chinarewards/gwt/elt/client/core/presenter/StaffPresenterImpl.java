@@ -31,7 +31,11 @@ import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.orderHistory.plugin.OrderHistoryConstants;
 import com.chinarewards.gwt.elt.client.password.plugin.PasswordConstants;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemConstants;
+import com.chinarewards.gwt.elt.client.rewards.model.RewardsGridClient;
+import com.chinarewards.gwt.elt.client.rewards.model.RewardsGridCriteria;
 import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListStaffConstants;
+import com.chinarewards.gwt.elt.client.rewards.request.SearchRewardsGridRequest;
+import com.chinarewards.gwt.elt.client.rewards.request.SearchRewardsGridResponse;
 import com.chinarewards.gwt.elt.client.smallControl.view.SmallRewardItemWindowWidget;
 import com.chinarewards.gwt.elt.client.smallControl.view.SmallRewardWindowWidget;
 import com.chinarewards.gwt.elt.client.smallControl.view.SmallShopWindowWidget;
@@ -420,55 +424,112 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 		});
 		
 		//奖励小控件加载
+		loadRewardPanel();
 		
-		Grid grid = new Grid(5, 1);
-
-		// Add images to the grid
-		int numRows = grid.getRowCount();
-		int numColumns = grid.getColumnCount();
-		for (int row = 0; row < numRows; row++) {
-			for (int col = 0; col < numColumns; col++) {
-				
-					grid.setWidget(
-							row,
-							col,
-							new SmallRewardWindowWidget("11","test"));
-			
-				
-			}
-		}
-
-		// Return the panel
-		grid.ensureDebugId("cwGridreward");
-
-		display.getRewardPanel().clear();
-		display.getRewardPanel().add(grid);
-		
-		//奖项小控件加载
-		Grid grid2 = new Grid(5, 1);
-
-		// Add images to the grid
-		int numRows2 = grid2.getRowCount();
-		int numColumns2 = grid2.getColumnCount();
-		for (int row = 0; row < numRows2; row++) {
-			for (int col = 0; col < numColumns2; col++) {
-				
-					grid2.setWidget(
-							row,
-							col,
-							new SmallRewardItemWindowWidget("11","test","50",null));
-			
-				 
-			}
-		}
-
-		// Return the panel
-		grid.ensureDebugId("cwGridreward");
-
-		display.getRewardItemPanel().clear();
-		display.getRewardItemPanel().add(grid2);
+		loadRewardItemPanel();
 		
 	}
+	
+	private void loadRewardPanel(){
+		RewardsGridCriteria criteria = new RewardsGridCriteria();
+		criteria.setThisAction("Rewards_ALL");
+		dispatchAsync.execute(new SearchRewardsGridRequest(criteria,sessionManager
+				.getSession()),
+				new AsyncCallback<SearchRewardsGridResponse>() {
+					@Override
+					public void onFailure(Throwable e) {
+						Window.alert(e.getMessage());
+					}
+
+					@Override
+					public void onSuccess(SearchRewardsGridResponse response) {
+
+						List<RewardsGridClient> giftList = response.getResult();
+						int index = 0;
+						Grid grid = new Grid(5, 1);
+
+						// Add images to the grid
+						int numRows = grid.getRowCount();
+						int numColumns = grid.getColumnCount();
+						for (int row = 0; row < numRows; row++) {
+							for (int col = 0; col < numColumns; col++) {
+								if (index < giftList.size()) {
+									RewardsGridClient client = giftList.get(index);
+									grid.setWidget(
+											row,
+											col,
+											new SmallRewardWindowWidget(client.getRewardsId(),client.getRewardsName()));
+									index++;
+								} else {
+									grid.setWidget(row, col,
+											new SmallRewardWindowWidget(null,""));
+								}
+							}
+						}
+
+						// Return the panel
+						grid.ensureDebugId("cwGridreward");
+
+						display.getRewardPanel().clear();
+						display.getRewardPanel().add(grid);
+
+					}
+
+				});
+	}
+	
+	private void loadRewardItemPanel(){
+		RewardsGridCriteria criteria = new RewardsGridCriteria();
+		criteria.setThisAction("RewardsItem_ALL");
+		// 查询参数....待添加
+		dispatchAsync.execute(new SearchRewardsGridRequest(criteria,sessionManager
+				.getSession()),
+				new AsyncCallback<SearchRewardsGridResponse>() {
+					@Override
+					public void onFailure(Throwable e) {
+						Window.alert(e.getMessage());
+					}
+
+					@Override
+					public void onSuccess(SearchRewardsGridResponse response) {
+
+						List<RewardsGridClient> giftList = response.getResult();
+						int index = 0;
+						Grid grid = new Grid(3, 2);
+
+						// Add images to the grid
+						int numRows = grid.getRowCount();
+						int numColumns = grid.getColumnCount();
+						for (int row = 0; row < numRows; row++) {
+							for (int col = 0; col < numColumns; col++) {
+								if (index < giftList.size()) {
+									RewardsGridClient client = giftList.get(index);
+									grid.setWidget(
+											row,
+											col,
+											new SmallRewardItemWindowWidget(client.getRewardsItemId(),client.getRewardsName(),client.getAwardAmt(),client.getRewadsItemPhoto()));
+									index++;
+								} else {
+									grid.setWidget(row, col,
+											new SmallRewardItemWindowWidget(null,"","0",null));
+								}
+							}
+						}
+
+						// Return the panel
+						grid.ensureDebugId("cwGridreward");
+
+						display.getRewardItemPanel().clear();
+						display.getRewardItemPanel().add(grid);
+
+					}
+
+				});
+	}
+	
+	
+
+	
 	public StaffDisplay getDisplay() {
 		return display;
 	}

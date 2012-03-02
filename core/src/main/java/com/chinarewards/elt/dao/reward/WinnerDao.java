@@ -210,10 +210,10 @@ public class WinnerDao extends BaseDao<Winner> {
 			hql.append(" SELECT COUNT(win) FROM Winner win WHERE 1=1 ");
 		}
 		
-		if (!StringUtil.isEmptyString(searchVo.getWinnerStaffId())) {
-			hql.append(" AND win.staff.id = :staffId ");
-			param.put("staffId", searchVo.getWinnerStaffId());
-		}	
+//		if (!StringUtil.isEmptyString(searchVo.getWinnerStaffId())) {
+//			hql.append(" AND win.staff.id = :staffId ");
+//			param.put("staffId", searchVo.getWinnerStaffId());
+//		}	
 		
 		if (!StringUtil.isEmptyString(searchVo.getWinnerStaffName())) {
 			hql.append(" AND win.staff.name like :staffName ");

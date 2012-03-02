@@ -57,7 +57,8 @@ public class SearchRewardsGridHandler extends
 
 		if (rewardsPage != null) {
 			resp.setTotal(rewardsPage.getResultCount());
-			resp.setResult(adapter(rewardsPage.getResultList()));
+			List<RewardsGridClient> clientList=adapter(rewardsPage.getResultList());
+			resp.setResult(clientList);
 		}
 
 		return resp;

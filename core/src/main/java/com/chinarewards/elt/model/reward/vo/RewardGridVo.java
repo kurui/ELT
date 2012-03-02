@@ -12,23 +12,28 @@ import com.chinarewards.elt.domain.reward.person.Winner;
  */
 public class RewardGridVo {
 
-	private Winner winner=new Winner();
+	private Winner winner = new Winner();
 	private Reward reward = new Reward();
 	private RewardItem rewardItem = new RewardItem();
 
-	
-	private String winnerId="";
-	//奖励
-	private String rewardId="";
-	private String rewardName="";
-	//奖项
-	private String rewardItemId="";
-	private String rewardItemName="";
-	private double awardAmt=Double.valueOf(0);//每人积分
-	
-	
-	
-	
+	private String winnerId = "";
+	// 奖励
+	private String rewardId = "";
+	private String rewardName = "";
+	// 奖项
+	private String rewardItemId = "";
+	private String rewardItemName = "";
+	private double awardAmt = Double.valueOf(0);// 每人积分
+
+	private String rewardItemPhoto = "";
+
+	public String getRewardItemPhoto() {
+		return rewardItemPhoto;
+	}
+
+	public void setRewardItemPhoto(String rewardItemPhoto) {
+		this.rewardItemPhoto = rewardItemPhoto;
+	}
 
 	public Winner getWinner() {
 		return winner;

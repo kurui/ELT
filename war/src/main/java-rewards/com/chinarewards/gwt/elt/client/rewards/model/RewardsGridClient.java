@@ -17,6 +17,7 @@ public class RewardsGridClient implements Serializable,
 	// 奖项
 	private String rewardsItemId;
 	private String rewardsItemName;
+	private String rewadsItemPhoto;
 
 	/** 奖项积分 **/
 	private double totalAmtLimit;
@@ -28,6 +29,26 @@ public class RewardsGridClient implements Serializable,
 	public RewardsGridClient() {
 
 	}
+	
+	
+	
+	
+
+	public String getRewadsItemPhoto() {
+		return rewadsItemPhoto;
+	}
+
+
+
+
+
+	public void setRewadsItemPhoto(String rewadsItemPhoto) {
+		this.rewadsItemPhoto = rewadsItemPhoto;
+	}
+
+
+
+
 
 	public String getRewardsId() {
 		return rewardsId;

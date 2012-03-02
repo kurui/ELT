@@ -77,6 +77,7 @@ import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsItemViewR
 import com.chinarewards.gwt.elt.client.rewardItem.request.SearchStaffRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.SearchStaffRewardsItemRequest;
 import com.chinarewards.gwt.elt.client.rewards.request.DeleteRewardsRequest;
+import com.chinarewards.gwt.elt.client.rewards.request.SearchRewardsGridRequest;
 import com.chinarewards.gwt.elt.client.rewards.request.SearchRewardsRequest;
 import com.chinarewards.gwt.elt.client.rewards.request.SearchRewardsStaffRequest;
 import com.chinarewards.gwt.elt.client.shopWindow.request.ShopWindowRequest;
@@ -162,15 +163,16 @@ import com.chinarewards.gwt.elt.server.rewardItem.ActivationRewardsItemHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.ActivationRewardsItemStroeHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.CreateRewardsItemHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.DeleteRewardsItemHandler;
-import com.chinarewards.gwt.elt.server.rewardItem.SearchRewardsItemCompanyOtherHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.SearchOrganizationHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.SearchRewardsItemByIdHandler;
+import com.chinarewards.gwt.elt.server.rewardItem.SearchRewardsItemCompanyOtherHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.SearchRewardsItemHandler;
+import com.chinarewards.gwt.elt.server.rewardItem.SearchRewardsItemStaffHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.SearchRewardsItemStoreHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.SearchRewardsItemViewHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.SearchStaffHandler;
-import com.chinarewards.gwt.elt.server.rewardItem.SearchRewardsItemStaffHandler;
 import com.chinarewards.gwt.elt.server.rewards.DeleteRewardsHandler;
+import com.chinarewards.gwt.elt.server.rewards.SearchRewardsGridHandler;
 import com.chinarewards.gwt.elt.server.rewards.SearchRewardsHandler;
 import com.chinarewards.gwt.elt.server.rewards.SearchRewardsStaffHandler;
 import com.chinarewards.gwt.elt.server.shopWindow.SearchShopWindowHandler;
@@ -272,7 +274,8 @@ public class ActionModule extends ActionHandlerModule {
 		bindHandler(SearchRewardsRequest.class, SearchRewardsHandler.class);
 		//我的获奖列表
 		bindHandler(SearchRewardsStaffRequest.class, SearchRewardsStaffHandler.class);
-				
+		//奖项小控件
+		bindHandler(SearchRewardsGridRequest.class, SearchRewardsGridHandler.class);
 						
 		bindHandler(SearchStaffChooseRequest.class, SearchStaffActionHandler.class);
 
