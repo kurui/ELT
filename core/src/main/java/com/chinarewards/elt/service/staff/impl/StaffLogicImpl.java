@@ -532,12 +532,18 @@ public class StaffLogicImpl implements StaffLogic {
 		Staff newstaff = staffDao.save(ff);
 
 		// ==================创建用户
-
+		String password = "";
+		try {
+			password = md5.MD5(staffProcess.getPassword());// 初始密码123
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 		// create user
 		Date now = DateUtil.getTime();
 		SysUser user = new SysUser();
 		user.setUserName(staffProcess.getUsername());
-		user.setPassword(staffProcess.getPassword());
+		user.setPassword(password);
 		user.setCorporation(corporation);
 		user.setCreatedAt(now);
 		// u.setCreatedBy(nowuser);
