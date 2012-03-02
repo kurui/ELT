@@ -1,30 +1,35 @@
-
 package com.chinarewards.gwt.elt.client.rewards.request;
 
 import net.customware.gwt.dispatch.shared.Action;
 
-import com.chinarewards.gwt.elt.client.rewards.model.RewardsCriteria;
+import com.chinarewards.gwt.elt.client.rewards.model.RewardsGridCriteria;
 import com.chinarewards.gwt.elt.client.support.UserSession;
 
 /**
  * @author yanrui
- * @since 
+ * @since
  */
-public class SearchRewardsGridRequest implements Action<SearchRewardsGridResponse> {
+public class SearchRewardsGridRequest implements
+		Action<SearchRewardsGridResponse> {
 
-	private RewardsCriteria rewards;
+	RewardsGridCriteria criteria;
 	private UserSession session;
-
-	public void setRewards(RewardsCriteria rewards) {
-		this.rewards = rewards;
-	}
 
 	public SearchRewardsGridRequest() {
 	}
 
-	public SearchRewardsGridRequest(RewardsCriteria criteria,UserSession session) {
-		this.rewards = criteria;
+	public SearchRewardsGridRequest(RewardsGridCriteria criteria,
+			UserSession session) {
+		this.criteria = criteria;
 		this.session = session;
+	}
+
+	public RewardsGridCriteria getCriteria() {
+		return criteria;
+	}
+
+	public void setCriteria(RewardsGridCriteria criteria) {
+		this.criteria = criteria;
 	}
 
 	public UserSession getSession() {
@@ -35,13 +40,9 @@ public class SearchRewardsGridRequest implements Action<SearchRewardsGridRespons
 		this.session = session;
 	}
 
-	public RewardsCriteria getRewards() {
-		return rewards;
-	}
-
 	@Override
 	public String toString() {
-		return "SearchRewardsGridRequest [rewards=" + rewards + "]";
+		return "SearchRewardsGridRequest [thisAction=" + criteria + "]";
 	}
 
 }

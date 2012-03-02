@@ -162,14 +162,14 @@ import com.chinarewards.gwt.elt.server.rewardItem.ActivationRewardsItemHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.ActivationRewardsItemStroeHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.CreateRewardsItemHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.DeleteRewardsItemHandler;
-import com.chinarewards.gwt.elt.server.rewardItem.SearchCompanyOtherRewardsItemHandler;
+import com.chinarewards.gwt.elt.server.rewardItem.SearchRewardsItemCompanyOtherHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.SearchOrganizationHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.SearchRewardsItemByIdHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.SearchRewardsItemHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.SearchRewardsItemStoreHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.SearchRewardsItemViewHandler;
 import com.chinarewards.gwt.elt.server.rewardItem.SearchStaffHandler;
-import com.chinarewards.gwt.elt.server.rewardItem.SearchStaffRewardsItemHandler;
+import com.chinarewards.gwt.elt.server.rewardItem.SearchRewardsItemStaffHandler;
 import com.chinarewards.gwt.elt.server.rewards.DeleteRewardsHandler;
 import com.chinarewards.gwt.elt.server.rewards.SearchRewardsHandler;
 import com.chinarewards.gwt.elt.server.rewards.SearchRewardsStaffHandler;
@@ -253,9 +253,9 @@ public class ActionModule extends ActionHandlerModule {
         //奖项列表
         bindHandler(SearchRewardsItemRequest.class,SearchRewardsItemHandler.class);
         //我的奖项列表
-        bindHandler(SearchStaffRewardsItemRequest.class,SearchStaffRewardsItemHandler.class);
+        bindHandler(SearchStaffRewardsItemRequest.class,SearchRewardsItemStaffHandler.class);
 		//公司其它奖项列表
-		bindHandler(SearchCompanyOtherRewardsItemRequest.class, SearchCompanyOtherRewardsItemHandler.class);
+		bindHandler(SearchCompanyOtherRewardsItemRequest.class, SearchRewardsItemCompanyOtherHandler.class);
 		
       //奖项库列表
         bindHandler(SearchRewardsItemStoreRequest.class,SearchRewardsItemStoreHandler.class);

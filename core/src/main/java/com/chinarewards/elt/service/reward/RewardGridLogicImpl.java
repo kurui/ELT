@@ -11,7 +11,7 @@ import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.reward.search.RewardGridSearchVo;
 import com.chinarewards.elt.model.reward.search.RewardItemSearchVo;
 import com.chinarewards.elt.model.reward.search.RewardSearchVo;
-import com.chinarewards.elt.model.reward.vo.RewarGridVo;
+import com.chinarewards.elt.model.reward.vo.RewardGridVo;
 import com.chinarewards.elt.model.user.UserContext;
 import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
@@ -38,16 +38,16 @@ public class RewardGridLogicImpl implements RewardGridLogic {
 	}
 
 	@Override
-	public PageStore<RewarGridVo> fetchRewards_STAFF(UserContext context,
+	public PageStore<RewardGridVo> fetchRewards_STAFF(UserContext context,
 			RewardGridSearchVo criteria) {
-		PageStore<RewarGridVo> pageStore = new PageStore<RewarGridVo>();
+		PageStore<RewardGridVo> pageStore = new PageStore<RewardGridVo>();
 		return pageStore;
 	}
 
 	@Override
-	public PageStore<RewarGridVo> fetchRewards_ALL(UserContext context,
+	public PageStore<RewardGridVo> fetchRewards_ALL(UserContext context,
 			RewardGridSearchVo criteria) {
-		PageStore<RewarGridVo> pageStore = new PageStore<RewarGridVo>();
+		PageStore<RewardGridVo> pageStore = new PageStore<RewardGridVo>();
 
 		RewardSearchVo rewardSearchVo = new RewardSearchVo();
 		String corporationId=context.getCorporationId();
@@ -62,17 +62,17 @@ public class RewardGridLogicImpl implements RewardGridLogic {
 	}
 
 	@Override
-	public PageStore<RewarGridVo> fetchRewardsItem_STAFF(UserContext context,
+	public PageStore<RewardGridVo> fetchRewardsItem_STAFF(UserContext context,
 			RewardGridSearchVo criteria) {
-		PageStore<RewarGridVo> pageStore = new PageStore<RewarGridVo>();
+		PageStore<RewardGridVo> pageStore = new PageStore<RewardGridVo>();
 		// pageStore = winnerDao.searchRewardItem_staff(criteria);
 		return pageStore;
 	}
 
 	@Override
-	public PageStore<RewarGridVo> fetchRewardsItem_ALL(UserContext context,
+	public PageStore<RewardGridVo> fetchRewardsItem_ALL(UserContext context,
 			RewardGridSearchVo criteria) {
-		PageStore<RewarGridVo> pageStore = new PageStore<RewarGridVo>();
+		PageStore<RewardGridVo> pageStore = new PageStore<RewardGridVo>();
 
 		RewardItemSearchVo itemSearchVo = new RewardItemSearchVo();
 		List<RewardItem> rewardItemList = rewardItemDao
@@ -86,15 +86,15 @@ public class RewardGridLogicImpl implements RewardGridLogic {
 		return pageStore;
 	}
 
-	private List<RewarGridVo> convertToGridVoListFromReward(
+	private List<RewardGridVo> convertToGridVoListFromReward(
 			List<Reward> itemList) {
-		List<RewarGridVo> gridVoList = new ArrayList<RewarGridVo>();
+		List<RewardGridVo> gridVoList = new ArrayList<RewardGridVo>();
 		return gridVoList;
 	}
 
-	private List<RewarGridVo> convertToGridVoListFromItem(
+	private List<RewardGridVo> convertToGridVoListFromItem(
 			List<RewardItem> itemList) {
-		List<RewarGridVo> gridVoList = new ArrayList<RewarGridVo>();
+		List<RewardGridVo> gridVoList = new ArrayList<RewardGridVo>();
 		return gridVoList;
 	}
 

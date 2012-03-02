@@ -1,7 +1,5 @@
 package com.chinarewards.elt.model.reward.search;
 
-import java.util.Date;
-
 import com.chinarewards.elt.model.common.PaginationDetail;
 import com.chinarewards.elt.model.common.SortingDetail;
 import com.chinarewards.elt.model.reward.base.RewardStatus;
@@ -10,19 +8,13 @@ import com.chinarewards.elt.model.reward.base.RewardStatus;
  * It is used to query for Reward Grid
  * 
  * @author yanrui
- * @since 1.0
+ * @since 1.5
  */
 public class RewardGridSearchVo {
 
-	private PaginationDetail paginationDetail;
-
-	private SortingDetail sortingDetail;
-
-	/**
-	 * The staff who win a reward
-	 */
-	private String winnerStaffId;
-	private String winnerStaffName;
+	private String thisAction;
+	private String staffId;
+	private String staffName;
 
 	private String rewardId;
 
@@ -32,7 +24,16 @@ public class RewardGridSearchVo {
 
 	private String corporationId;
 
-	private Date lastMonth;// 上个月是
+	private PaginationDetail paginationDetail;
+	private SortingDetail sortingDetail;
+
+	public String getThisAction() {
+		return thisAction;
+	}
+
+	public void setThisAction(String thisAction) {
+		this.thisAction = thisAction;
+	}
 
 	public String getRewardId() {
 		return rewardId;
@@ -40,14 +41,6 @@ public class RewardGridSearchVo {
 
 	public void setRewardId(String rewardId) {
 		this.rewardId = rewardId;
-	}
-
-	public Date getLastMonth() {
-		return lastMonth;
-	}
-
-	public void setLastMonth(Date lastMonth) {
-		this.lastMonth = lastMonth;
 	}
 
 	public PaginationDetail getPaginationDetail() {
@@ -64,14 +57,6 @@ public class RewardGridSearchVo {
 
 	public void setSortingDetail(SortingDetail sortingDetail) {
 		this.sortingDetail = sortingDetail;
-	}
-
-	public String getWinnerStaffName() {
-		return winnerStaffName;
-	}
-
-	public void setWinnerStaffName(String winnerStaffName) {
-		this.winnerStaffName = winnerStaffName;
 	}
 
 	public RewardStatus getStatus() {
@@ -98,11 +83,20 @@ public class RewardGridSearchVo {
 		this.corporationId = corporationId;
 	}
 
-	public String getWinnerStaffId() {
-		return winnerStaffId;
+	public String getStaffId() {
+		return staffId;
 	}
 
-	public void setWinnerStaffId(String winnerStaffId) {
-		this.winnerStaffId = winnerStaffId;
+	public void setStaffId(String staffId) {
+		this.staffId = staffId;
 	}
+
+	public String getStaffName() {
+		return staffName;
+	}
+
+	public void setStaffName(String staffName) {
+		this.staffName = staffName;
+	}
+
 }

@@ -10,7 +10,7 @@ import com.chinarewards.elt.domain.reward.person.Winner;
  * @author yanrui
  * @since 1.5
  */
-public class RewarGridVo {
+public class RewardGridVo {
 
 	private Winner winner=new Winner();
 	private Reward reward = new Reward();

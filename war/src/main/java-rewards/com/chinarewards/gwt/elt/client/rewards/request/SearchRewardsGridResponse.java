@@ -4,20 +4,20 @@ import java.util.List;
 
 import net.customware.gwt.dispatch.shared.Result;
 
-import com.chinarewards.gwt.elt.client.rewards.model.RewardsClient;
+import com.chinarewards.gwt.elt.client.rewards.model.RewardsGridClient;
 
 /**
  * @author yanrui
  */
 public class SearchRewardsGridResponse implements Result {
 
-	private List<RewardsClient> result;
+	private List<RewardsGridClient> result;
 	private int total;
 
 	/**
 	 * @return the result
 	 */
-	public List<RewardsClient> getResult() {
+	public List<RewardsGridClient> getResult() {
 		return result;
 	}
 
@@ -25,7 +25,7 @@ public class SearchRewardsGridResponse implements Result {
 	 * @param result
 	 *            the result to set
 	 */
-	public void setResult(List<RewardsClient> result) {
+	public void setResult(List<RewardsGridClient> result) {
 		this.result = result;
 	}
 

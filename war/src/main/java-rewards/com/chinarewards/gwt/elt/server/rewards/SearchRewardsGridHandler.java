@@ -1,20 +1,18 @@
 package com.chinarewards.gwt.elt.server.rewards;
 
+import java.util.ArrayList;
+import java.util.List;
 import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.DispatchException;
-
 import org.slf4j.Logger;
-
 import com.chinarewards.elt.model.common.PageStore;
-import com.chinarewards.elt.model.common.PaginationDetail;
-import com.chinarewards.elt.model.common.SortingDetail;
-import com.chinarewards.elt.model.reward.base.RewardStatus;
-import com.chinarewards.elt.model.reward.search.RewardSearchVo;
-import com.chinarewards.elt.model.reward.vo.RewardVo;
+import com.chinarewards.elt.model.reward.search.RewardGridSearchVo;
+import com.chinarewards.elt.model.reward.vo.RewardGridVo;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.reward.RewardGridService;
-import com.chinarewards.gwt.elt.adapter.rewards.RewardsAdapter;
-import com.chinarewards.gwt.elt.client.rewards.model.RewardsCriteria;
+import com.chinarewards.elt.util.StringUtil;
+import com.chinarewards.gwt.elt.client.rewards.model.RewardsGridClient;
+import com.chinarewards.gwt.elt.client.rewards.model.RewardsGridCriteria;
 import com.chinarewards.gwt.elt.client.rewards.request.SearchRewardsGridRequest;
 import com.chinarewards.gwt.elt.client.rewards.request.SearchRewardsGridResponse;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
@@ -38,7 +36,6 @@ public class SearchRewardsGridHandler extends
 	@Inject
 	public SearchRewardsGridHandler(RewardGridService rewardGridService) {
 		this.rewardGridService = rewardGridService;
-
 	}
 
 	@Override
@@ -47,10 +44,7 @@ public class SearchRewardsGridHandler extends
 
 		SearchRewardsGridResponse resp = new SearchRewardsGridResponse();
 
-//		RewardsCriteria rewards = request.getRewards();
-//		rewards.setGridId(request.getSession().getGridId());
-//		RewardSearchVo criteria = adapter(rewards);
-		PageStore<RewardVo> rewardsPage = null;
+		RewardsGridCriteria criteria = request.getCriteria();
 
 		UserContext uc = new UserContext();
 		uc.setCorporationId(request.getSession().getCorporationId());
@@ -59,55 +53,79 @@ public class SearchRewardsGridHandler extends
 		uc.setUserRoles(UserRoleTool.adaptToRole(request.getSession()
 				.getUserRoles()));
 
-//		rewardsPage = rewardGridService.fetchRewards_ALL(uc, criteria);
+		PageStore<RewardGridVo> rewardsPage = executeQuery(uc, criteria);
+
 		if (rewardsPage != null) {
 			resp.setTotal(rewardsPage.getResultCount());
-			resp.setResult(RewardsAdapter.adapter(rewardsPage.getResultList()));
+			resp.setResult(adapter(rewardsPage.getResultList()));
 		}
 
 		return resp;
 	}
 
-	private RewardSearchVo adapter(RewardsCriteria rewards) {
-		RewardSearchVo criteria = new RewardSearchVo();
+	private PageStore<RewardGridVo> executeQuery(UserContext uc,
+			RewardsGridCriteria criteria) {
+		PageStore<RewardGridVo> rewardsPage = null;
 
-		if (rewards == null) {
-			return criteria;
+		RewardGridSearchVo searchVo = adapterQuery(criteria);
+
+		String thisAction = searchVo.getThisAction();
+
+		if (StringUtil.isEmptyString(thisAction)) {
+			rewardsPage = new PageStore<RewardGridVo>();
+		} else {
+			if ("Rewards_STAFF".equals(thisAction)) {
+				rewardsPage = rewardGridService
+						.fetchRewards_STAFF(uc, searchVo);
+			} else if ("Rewards_ALL".equals(thisAction)) {
+				rewardsPage = rewardGridService.fetchRewards_ALL(uc, searchVo);
+			} else if ("RewardsItem_STAFF".equals(thisAction)) {
+				rewardsPage = rewardGridService.fetchRewardsItem_STAFF(uc,
+						searchVo);
+			} else if ("RewardsItem_ALL".equals(thisAction)) {
+				rewardsPage = rewardGridService.fetchRewardsItem_ALL(uc,
+						searchVo);
+			}
 		}
-		criteria.setRewardId(rewards.getId());
-		criteria.setBuilderDeptId(rewards.getBuilderDeptId());
-		criteria.setAccountDeptId(rewards.getAccountDeptId());
-		criteria.setRewardItemId(rewards.getRewardsItemId());
-		criteria.setName(rewards.getName());
-		criteria.setDefinition(rewards.getDefinition());
-		if (rewards.getJudgeUserId() != null){
-			criteria.setJudgeUserId(rewards.getJudgeUserId());
+
+		return rewardsPage;
+	}
+
+	public static List<RewardsGridClient> adapter(List<RewardGridVo> rewardsList) {
+		if (null == rewardsList) {
+			return null;
 		}
-		if (rewards.getStatus() != null){
-			criteria.setStatus(RewardStatus.valueOf(rewards.getStatus()
-					.toString()));
+
+		List<RewardsGridClient> clientList = new ArrayList<RewardsGridClient>();
+
+		for (int i = 0; i < rewardsList.size(); i++) {
+			RewardGridVo rewardGridVo = rewardsList.get(i);
+			if (rewardGridVo != null) {
+				RewardsGridClient client = new RewardsGridClient();
+				client.setRewardsId(rewardGridVo.getRewardId());
+				client.setRewardsName(rewardGridVo.getRewardName());
+				client.setRewardsItemId(rewardGridVo.getRewardItemId());
+				client.setRewardsItemName(rewardGridVo.getRewardItemName());
+				client.setAwardAmt(rewardGridVo.getAwardAmt() + "");
+
+				// client.setCorporationId(rewardGridVo.getCorporationId());
+
+				clientList.add(client);
+			}
 		}
+		return clientList;
+	}
+
+	public static RewardGridSearchVo adapterQuery(RewardsGridCriteria criteria) {
+		RewardGridSearchVo searchVo = new RewardGridSearchVo();
 		
-//		 criteria.setWinnerGridId(rewards.getGridId());//获奖人
-//		 criteria.setWinnerGridName(rewards.getGridName());
-		 criteria.setRewardItemId(rewards.getRewardsItemId());
-		 criteria.setRewardsTime(rewards.getRewardsTime());
-		 
-		if (rewards.getPagination() != null) {
-			PaginationDetail detail = new PaginationDetail();
-			detail.setLimit(rewards.getPagination().getLimit());
-			detail.setStart(rewards.getPagination().getStart());
+		searchVo.setThisAction(criteria.getThisAction());
+		
+		searchVo.setCorporationId(criteria.getCorporationId());
+		searchVo.setStaffId(criteria.getStaffId());
+		
 
-			criteria.setPaginationDetail(detail);
-		}
-
-		if (rewards.getSorting() != null) {
-			SortingDetail sortingDetail = new SortingDetail();
-			sortingDetail.setSort(rewards.getSorting().getSort());
-			sortingDetail.setDirection(rewards.getSorting().getDirection());
-			criteria.setSortingDetail(sortingDetail);
-		}
-		return criteria;
+		return searchVo;
 	}
 
 	@Override
@@ -116,8 +134,9 @@ public class SearchRewardsGridHandler extends
 	}
 
 	@Override
-	public void rollback(SearchRewardsGridRequest req, SearchRewardsGridResponse resp,
-			ExecutionContext cxt) throws DispatchException {
+	public void rollback(SearchRewardsGridRequest req,
+			SearchRewardsGridResponse resp, ExecutionContext cxt)
+			throws DispatchException {
 	}
 
 }
