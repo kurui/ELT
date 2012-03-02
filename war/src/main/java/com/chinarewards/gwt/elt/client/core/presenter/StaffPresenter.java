@@ -12,12 +12,12 @@ public interface StaffPresenter extends Presenter<StaffPresenter.StaffDisplay> {
 		HasClickHandlers getlogBtn();
 
 		HasClickHandlers getBtnCollection();
-		public HasClickHandlers getPassword();
+		HasClickHandlers getPassword();
 		HasClickHandlers getManagementCenter();
 		HasClickHandlers getGiftExchange();
 		HasClickHandlers getStaffCorner();
 		Panel getDock();
-		
+		HasClickHandlers getStaffInfo() ;
 
 		
 		void setMessage(String userName);
