@@ -47,6 +47,7 @@ import com.chinarewards.elt.service.staff.StaffLogic;
 import com.chinarewards.elt.tx.model.Unit;
 import com.chinarewards.elt.tx.service.TransactionService;
 import com.chinarewards.elt.util.DateUtil;
+import com.chinarewards.elt.util.MD5;
 import com.chinarewards.elt.util.StringUtil;
 import com.chinarewards.gwt.elt.model.staff.StaffUserProcess;
 import com.google.inject.Inject;
@@ -67,7 +68,7 @@ public class StaffLogicImpl implements StaffLogic {
 	private final RoleDao roleDao;
 	private final DepartmentManagerDao deptMgrDao;
 	private final DepartmentLogic departmentLogic;
-
+    MD5 md5 = new MD5();
 	@Inject
 	public StaffLogicImpl(StaffDao staffDao, DepartmentLogic deptLogic,
 			CorporationLogic corporationLogic, DepartmentDao depDao,
@@ -461,7 +462,13 @@ public class StaffLogicImpl implements StaffLogic {
 		Staff staff = staffDao.findById(Staff.class, staffId);
 		SysUser user = userDao.findUserByStaffId(staff.getId());
 		SysUser nowuser = userDao.findUserById(context.getUserId());
-
+		String password ="";
+        try {
+			 password = md5.MD5("123");//初始密码123
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if (user != null) {
 			return GeneratedUserConstants.UsernamePresence;
 		} else {
@@ -481,7 +488,7 @@ public class StaffLogicImpl implements StaffLogic {
 
 				// 创建用户
 				u.setUserName(username);
-				u.setPassword("123");
+				u.setPassword(password);
 				u.setCorporation(staff.getCorporation());
 				u.setCreatedAt(now);
 				u.setCreatedBy(nowuser);
