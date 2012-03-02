@@ -21,10 +21,9 @@ public class StaffListCriteria implements IsSerializable {
 
 		/* 在职 */
 		JOB("在职"),
-		
-		/*已离职 */
-		DEPARTURE("已离职");
 
+		/* 已离职 */
+		DEPARTURE("已离职");
 
 		private final String displayName;
 
@@ -46,6 +45,15 @@ public class StaffListCriteria implements IsSerializable {
 	private UserRoleVo staffRole;
 
 	private String staffNameorNo;
+	private boolean colleaguePage;
+
+	public boolean isColleaguePage() {
+		return colleaguePage;
+	}
+
+	public void setColleaguePage(boolean colleaguePage) {
+		this.colleaguePage = colleaguePage;
+	}
 
 	public UserRoleVo getStaffRole() {
 		return staffRole;
@@ -86,7 +94,5 @@ public class StaffListCriteria implements IsSerializable {
 	public void setStaffNameorNo(String staffNameorNo) {
 		this.staffNameorNo = staffNameorNo;
 	}
-
-
 
 }

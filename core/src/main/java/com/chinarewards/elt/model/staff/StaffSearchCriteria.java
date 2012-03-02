@@ -29,6 +29,16 @@ public class StaffSearchCriteria implements Serializable {
 	private String staffNameorNo;
 	private UserRole staffRole;
 	
+	private boolean colleaguePage;
+	
+	public boolean isColleaguePage() {
+		return colleaguePage;
+	}
+
+	public void setColleaguePage(boolean colleaguePage) {
+		this.colleaguePage = colleaguePage;
+	}
+
 	public UserRole getStaffRole() {
 		return staffRole;
 	}

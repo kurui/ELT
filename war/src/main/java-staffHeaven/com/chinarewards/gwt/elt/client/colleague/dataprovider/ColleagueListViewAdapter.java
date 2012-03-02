@@ -56,6 +56,7 @@ public class ColleagueListViewAdapter extends BaseDataProvider<StaffListClient> 
 		if (getSorting() != null) {
 			getCriteria().setSorting(getSorting());
 		}
+		getCriteria().setColleaguePage(true);
 		dispatch.execute(new SearchStaffListRequest(getCriteria(),
 				sessionManager.getSession()),
 				new AsyncCallback<SearchStaffListResponse>() {

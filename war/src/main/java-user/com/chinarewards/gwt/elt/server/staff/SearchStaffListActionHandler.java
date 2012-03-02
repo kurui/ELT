@@ -71,6 +71,8 @@ public class SearchStaffListActionHandler extends
 			criteria.setStaffStatus(com.chinarewards.elt.model.staff.StaffStatus.valueOf(request.getCriteria().getStaffStatus().toString()));
 		if(request.getCriteria().getStaffRole()!=null)
 			criteria.setStaffRole(UserRole.valueOf(request.getCriteria().getStaffRole().toString()));
+		if(request.getCriteria().isColleaguePage()==true)
+			criteria.setColleaguePage(request.getCriteria().isColleaguePage());
 		
 		UserContext context=new UserContext();
 		context.setCorporationId(request.getSession().getCorporationId());
