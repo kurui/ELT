@@ -424,7 +424,7 @@ public class StaffLogicImpl implements StaffLogic {
 				}
 
 			}
-		} else {
+		} else if(staff.getUserRoleVos() != null){
 			SysUser u = userDao.findUserByStaffId(ff.getId());
 			if (u != null) {
 				// 清除角色(除开用户)

@@ -70,6 +70,11 @@ public class StaffAddActionHandler extends
 			}
 			sp.setUserRoleVos(roles);
 		}
+		else if(request.getUserRoleVos()!=null)
+		{
+			List<UserRole> roles=new ArrayList<UserRole>();
+			sp.setUserRoleVos(roles);
+		}
 		String staffId=staffService.createOrUpdateStaff(sp, context);
 		return  new StaffAddResponse(staffId);
 	}
