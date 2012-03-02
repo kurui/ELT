@@ -33,7 +33,6 @@ import com.chinarewards.gwt.elt.client.staff.plugin.LeadTimeConstants;
 import com.chinarewards.gwt.elt.client.staffList.plugin.StaffListConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.team.plugin.TeamConstants;
-import com.chinarewards.gwt.elt.client.user.plugin.UserConstants;
 import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -203,7 +202,7 @@ public class ButtonMenuProcessor implements MenuProcessor {
 			items.add(DepartmentListConstants.MENU_DEPARTMENTLIST_SEARCH);
 			items.add(DepartmentLeaderConstants.MENU_DEPARTMENTLEADER_SEARCH);
 			
-			items.add(UserConstants.MENU_USER_SEARCH);
+			//items.add(UserConstants.MENU_USER_SEARCH);
 			items.add(StaffListConstants.MENU_STAFFLIST_SEARCH);
 			items.add(TeamConstants.MENU_TEAMLIST_SEARCH);
 		} else if ("Setting".equals(keyname)) {

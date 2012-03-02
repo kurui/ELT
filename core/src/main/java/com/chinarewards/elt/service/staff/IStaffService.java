@@ -1,5 +1,7 @@
 package com.chinarewards.elt.service.staff;
 
+import java.util.List;
+
 import com.chinarewards.elt.dao.org.StaffDao.QueryStaffPageActionResult;
 import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.model.common.PageStore;
@@ -9,6 +11,7 @@ import com.chinarewards.elt.model.staff.StaffWinSearchCriteria;
 import com.chinarewards.elt.model.staff.StaffWinVo;
 import com.chinarewards.elt.model.user.GeneratedUserConstants;
 import com.chinarewards.elt.model.user.UserContext;
+import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.model.vo.WinnersRecordQueryResult;
 import com.chinarewards.elt.model.vo.WinnersRecordQueryVo;
 import com.chinarewards.gwt.elt.model.staff.StaffUserProcess;
@@ -81,4 +84,11 @@ public interface IStaffService {
 	 * @return
 	 */
 	public Staff updateLeadTime(String staffId,int leadTime);
+	
+	/**
+	 * 查询员工角色
+	 * @param staffId
+	 * @return
+	 */
+	public List<UserRole> findUserRoles(String staffId);
 }

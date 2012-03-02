@@ -87,7 +87,12 @@
 							<g:InlineLabel ui:field="staffStatus" />
 						</div>
 					</div>
-
+					<div class="{new2.form-line}">
+						<label class="{new2.label}">员工角色：</label>
+						<div class="{new2.element}">
+							<g:InlineLabel ui:field="staffRoles" />
+						</div>
+					</div>
 
 
 					<span class="{new2.cutline}"></span>	

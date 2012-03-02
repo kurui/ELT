@@ -1,15 +1,20 @@
 package com.chinarewards.gwt.elt.server.staff;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.DispatchException;
 
 import org.slf4j.Logger;
 
 import com.chinarewards.elt.domain.org.Staff;
+import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.service.staff.IStaffService;
 import com.chinarewards.gwt.elt.client.staffList.model.StaffListCriteria.StaffStatus;
 import com.chinarewards.gwt.elt.client.staffView.request.StaffViewRequest;
 import com.chinarewards.gwt.elt.client.staffView.request.StaffViewResponse;
+import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
 import com.chinarewards.gwt.elt.server.logger.InjectLogger;
 import com.google.inject.Inject;
@@ -59,6 +64,18 @@ public class SearchStaffViewActionHandler extends
 		staffResponse.setDob(staff.getDob());
 		if(staff.getStatus()!=null)
 		staffResponse.setStatus(StaffStatus.valueOf(staff.getStatus().toString()));
+		
+		List<UserRoleVo> userRoleVos=new ArrayList<UserRoleVo>();
+		 
+		List<UserRole> userRoles=staffService.findUserRoles(staff.getId());
+		if(userRoles!=null && userRoles.size()>0)
+		{
+			for (UserRole r:userRoles) {
+				userRoleVos.add(UserRoleVo.valueOf(r.toString()));
+			}
+		}
+		staffResponse.setUserRoleVos(userRoleVos);
+		
 		return staffResponse;
 	}
 

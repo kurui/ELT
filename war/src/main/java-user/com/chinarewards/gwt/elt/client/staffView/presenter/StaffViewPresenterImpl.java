@@ -17,13 +17,16 @@ import com.chinarewards.gwt.elt.client.staffView.model.StaffWinCriteria;
 import com.chinarewards.gwt.elt.client.staffView.request.StaffViewRequest;
 import com.chinarewards.gwt.elt.client.staffView.request.StaffViewResponse;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.chinarewards.gwt.elt.client.view.constant.CssStyleConstants;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager.TextLocation;
 import com.chinarewards.gwt.elt.client.widget.GetValue;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.widget.Sorting;
 import com.chinarewards.gwt.elt.client.win.Win;
+import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.chinarewards.gwt.elt.util.DateTool;
+import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -110,8 +113,27 @@ public class StaffViewPresenterImpl extends
 						display.setDob(DateTool.dateToString(resp.getDob()));
 
 						display.setStaffImage(resp.getPhoto());
+						if(resp.getStatus()!=null)
 						display.setStaffStatus(resp.getStatus().toString());
-						
+						if(resp.getUserRoleVos()!=null && resp.getUserRoleVos().size()>0)
+						{
+							String roleString="";
+							for (UserRoleVo role:resp.getUserRoleVos()) {
+								if(role==UserRoleVo.CORP_ADMIN)
+									roleString+="HR管理员;";
+								else if(role==UserRoleVo.GIFT)
+									roleString+="礼品管理员;";
+							}
+							if(!StringUtil.isEmpty(roleString))
+								display.getStaffRoles().setText(roleString);
+							else
+								display.getStaffRoles().getElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
+							
+						}
+						else
+						{
+							display.getStaffRoles().getElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
+						}
 					}
 				});
 		buildTable();

@@ -11,6 +11,7 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FileUpload;
 import com.google.gwt.user.client.ui.FormPanel;
@@ -67,6 +68,12 @@ public class StaffAddWidget extends Composite implements StaffAddDisplay {
 	Button photoUploadBtn;
 	@UiField
 	TextBox photo;
+	
+	@UiField
+	CheckBox admin;
+	@UiField
+	CheckBox gift;
+	
 	DateTimeFormat dateFormat = DateTimeFormat
 			.getFormat(ViewConstants.date_format);
 	private static StaffAddWidgetUiBinder uiBinder = GWT
@@ -232,5 +239,15 @@ public class StaffAddWidget extends Composite implements StaffAddDisplay {
 	@Override
 	public ListBox getDepartment() {
 		return department;
+	}
+
+	@Override
+	public CheckBox getAdmin() {
+		return admin;
+	}
+
+	@Override
+	public CheckBox getGift() {
+		return gift;
 	}
 }

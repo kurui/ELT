@@ -1,6 +1,9 @@
 package com.chinarewards.elt.model.staff;
 
 import java.util.Date;
+import java.util.List;
+
+import com.chinarewards.elt.model.user.UserRole;
 
 public class StaffProcess {
 
@@ -18,6 +21,16 @@ public class StaffProcess {
 	String corpId;
 	String userName;
 	String password;
+	private List<UserRole> UserRoleVos;
+
+	public List<UserRole> getUserRoleVos() {
+		return UserRoleVos;
+	}
+
+
+	public void setUserRoleVos(List<UserRole> userRoleVos) {
+		UserRoleVos = userRoleVos;
+	}
 	public String getUserName() {
 		return userName;
 	}

@@ -19,6 +19,9 @@
 					<label for="">员工编号或姓名:</label>
 					<g:TextBox maxLength="30" ui:field="staffNameorNo" styleName="{new2.text2}" />
 					<span class="{new2.nbspbig}" ></span>
+					<label for="">员工角色:</label>
+					<g:ListBox ui:field="staffRole" styleName="{new2.select}" /> 
+					<span class="{new2.nbspbig}"></span> 
 					<span class="{new2.btn}">
 						<g:Button ui:field="searchBtn" text="查询" width="100px" />
 					</span>

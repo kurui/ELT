@@ -13,6 +13,7 @@ import com.chinarewards.elt.model.staff.StaffWinSearchCriteria;
 import com.chinarewards.elt.model.staff.StaffWinVo;
 import com.chinarewards.elt.model.user.GeneratedUserConstants;
 import com.chinarewards.elt.model.user.UserContext;
+import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.model.vo.WinnersRecordQueryResult;
 import com.chinarewards.elt.model.vo.WinnersRecordQueryVo;
 import com.chinarewards.gwt.elt.model.staff.StaffUserProcess;
@@ -107,4 +108,10 @@ public interface StaffLogic {
 	public String createHrUser(StaffUserProcess staff);
 	
 	public Staff updateLeadTime(String staffId,int leadTime);
+	/**
+	 * 查询员工角色
+	 * @param staffId
+	 * @return
+	 */
+	public List<UserRole> findUserRoles(String staffId);
 }

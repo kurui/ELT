@@ -1,5 +1,7 @@
 package com.chinarewards.elt.service.staff.impl;
 
+import java.util.List;
+
 import com.chinarewards.elt.dao.org.DepartmentManagerDao;
 import com.chinarewards.elt.dao.org.StaffDao;
 import com.chinarewards.elt.dao.org.StaffDao.QueryStaffPageActionResult;
@@ -148,5 +150,10 @@ public class StaffServiceImpl implements IStaffService {
 	@Override
 	public Staff updateLeadTime(String staffId,int leadTime){
 		return staffLogic.updateLeadTime(staffId, leadTime);
+	}
+
+	@Override
+	public List<UserRole> findUserRoles(String staffId) {
+		return staffLogic.findUserRoles(staffId);
 	}
 }

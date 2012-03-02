@@ -5,6 +5,7 @@ import java.io.Serializable;
 
 import com.chinarewards.elt.model.common.PaginationDetail;
 import com.chinarewards.elt.model.common.SortingDetail;
+import com.chinarewards.elt.model.user.UserRole;
 
 /**
  * This class is designed to wrap the parameter to search main-accounts using
@@ -26,6 +27,15 @@ public class StaffSearchCriteria implements Serializable {
 	private StaffStatus staffStatus;
 
 	private String staffNameorNo;
+	private UserRole staffRole;
+	
+	public UserRole getStaffRole() {
+		return staffRole;
+	}
+
+	public void setStaffRole(UserRole staffRole) {
+		this.staffRole = staffRole;
+	}
 
 	public PaginationDetail getPaginationDetail() {
 		return paginationDetail;

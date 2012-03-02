@@ -1,5 +1,6 @@
 package com.chinarewards.elt.model.vo;
 
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -116,6 +117,16 @@ public class StaffSearchVo {
 
 	public void setStatus(StaffStatus status) {
 		this.status = status;
+	}
+	private List<String> staffids;
+	
+	
+	public List<String> getStaffids() {
+		return staffids;
+	}
+
+	public void setStaffids(List<String> staffids) {
+		this.staffids = staffids;
 	}
 
 	@Override

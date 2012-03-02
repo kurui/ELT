@@ -7,6 +7,7 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 
 import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.model.user.UserSessionVo;
+import com.chinarewards.elt.model.user.UserStatus;
 import com.chinarewards.elt.service.user.UserService;
 import com.chinarewards.gwt.elt.client.login.LoginRequest;
 import com.chinarewards.gwt.elt.client.login.LoginResponse;
@@ -42,6 +43,10 @@ public class LoginActionHandler extends
 			if(u.getUserRoles().size()<=0)
 			{
 				throw new ClientException("用户无角色!");
+			}
+			if(u.getUserStatus()==UserStatus.Inactive)
+			{
+				throw new ClientException("您已离职,拒绝进入!");
 			}
 			resp.setCorporationId(u.getCorporationId());
 			resp.setCorporationName(u.getCorporationName());
