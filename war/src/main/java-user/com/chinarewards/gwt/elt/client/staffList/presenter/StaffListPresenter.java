@@ -27,7 +27,7 @@ public interface StaffListPresenter extends Presenter<StaffListPresenter.StaffLi
 		Panel getResultPanel();
 		Panel getResultpage();
 
-
+		void displayBtn();
 
 
 	}

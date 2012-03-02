@@ -120,5 +120,11 @@ public class StaffListWidget extends Composite implements StaffListDisplay {
 		return staffRole.getValue(staffRole.getSelectedIndex());
 	}
 
+	@Override
+	public void displayBtn() {
+		addStaffBtn.setVisible(false);
+		synchronousStaffBtn.setVisible(false);
+	}
+
 
 }
