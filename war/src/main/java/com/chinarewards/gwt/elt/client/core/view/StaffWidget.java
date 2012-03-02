@@ -55,6 +55,8 @@ public class StaffWidget extends Composite implements StaffDisplay {
 	@UiField
 	Anchor password;
 	@UiField
+	Anchor staffInfo;
+	@UiField
 	Anchor viewPoints;
 	@UiField
 	Anchor winninghistory;
@@ -407,6 +409,10 @@ public class StaffWidget extends Composite implements StaffDisplay {
 	@Override
 	public HasClickHandlers getPassword() {
 		return password;
+	}
+	@Override
+	public HasClickHandlers getStaffInfo() {
+		return staffInfo;
 	}
 
 	@Override
