@@ -4,7 +4,7 @@ import java.util.List;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
-import com.chinarewards.gwt.elt.client.broadcastSave.dialog.ChooseOrganizationListDialog;
+import com.chinarewards.gwt.elt.client.broadcastSave.dialog.StaffChooseOrganizationListDialog;
 import com.chinarewards.gwt.elt.client.broadcastSave.request.BroadcastUpdateRequest;
 import com.chinarewards.gwt.elt.client.broadcastSave.request.BroadcastUpdateResponse;
 import com.chinarewards.gwt.elt.client.chooseOrganization.event.ChooseOrganizationEvent;
@@ -39,7 +39,7 @@ public class MessageSavePresenterImpl extends
 	String broadcastId = null;
 	String staffId=null;
 
-	private final Provider<ChooseOrganizationListDialog> chooseOrganizationDialogProvider;
+	private final Provider<StaffChooseOrganizationListDialog> chooseOrganizationDialogProvider;
 
 	@Inject
 	public MessageSavePresenterImpl(
@@ -49,7 +49,7 @@ public class MessageSavePresenterImpl extends
 			SessionManager sessionManager,
 			Win win,
 			ErrorHandler errorHandler,
-			Provider<ChooseOrganizationListDialog> chooseOrganizationDialogProvider) {
+			Provider<StaffChooseOrganizationListDialog> chooseOrganizationDialogProvider) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.sessionManager = sessionManager;
@@ -105,7 +105,7 @@ public class MessageSavePresenterImpl extends
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent arg0) {
-						final ChooseOrganizationListDialog dialog = chooseOrganizationDialogProvider
+						final StaffChooseOrganizationListDialog dialog = chooseOrganizationDialogProvider
 								.get();
 						final HandlerRegistration registration = eventBus
 								.addHandler(ChooseOrganizationEvent.getType(),

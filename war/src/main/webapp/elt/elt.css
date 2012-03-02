@@ -1949,3 +1949,33 @@ li.token-input-token-facebook2 span {
 		color: red;
 }
 .remarkdiv{}
+
+
+ul.token-input-list-facebook3 {
+	border: 1px solid #ccc;
+	width: 518px;
+	color: #666;
+	overflow: hidden;
+	height: auto !important;
+	border: 1px solid #D7D7D7;
+	cursor: text;
+	font-size: 12px;
+	font-family: Verdana;
+	min-height: 1px;
+	z-index: 999;
+	margin: 0;
+	padding: 0;
+	background-color: #fff;
+}
+
+ul.token-input-list-facebook3 {
+	list-style-type: none;
+}
+
+ul.token-input-list-facebook3 li input {
+	border: 0;
+	width: 12px;
+	padding: 4px 0px;
+	background-color: white;
+	margin: 2px 0;
+}
