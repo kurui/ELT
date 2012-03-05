@@ -97,6 +97,7 @@ public class SearchBroadcastingListActionHandler extends
 			client.setReplyNumber(broadcast.getReplyNumber());
 			client.setStatus(com.chinarewards.gwt.elt.client.broadcasting.model.BroadcastingListCriteria.BroadcastingStatus.valueOf(broadcast.getStatus().toString()));
 			client.setCategory(BroadcastingCategory.valueOf(broadcast.getCategory().toString()));
+			client.setAllowreplies(broadcast.isAllowreplies());
 			lt.add(client);
 		}
 		staffResponse.setResult(lt);

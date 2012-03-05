@@ -44,7 +44,19 @@ public class BroadcastingListClient implements Serializable, Comparable<Broadcas
 	 * 回复数
 	 */
 	private int replyNumber;
+	/**
+	 * 是否运行回复
+	 */
+	private boolean isAllowreplies;
 	
+	public boolean isAllowreplies() {
+		return isAllowreplies;
+	}
+
+	public void setAllowreplies(boolean isAllowreplies) {
+		this.isAllowreplies = isAllowreplies;
+	}
+
 	public String getId() {
 		return id;
 	}

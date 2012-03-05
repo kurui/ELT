@@ -24,6 +24,7 @@ import com.chinarewards.gwt.elt.client.widget.EltNewPager.TextLocation;
 import com.chinarewards.gwt.elt.client.widget.GetValue;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.widget.Sorting;
+import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.util.DateTool;
 import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.cell.client.FieldUpdater;
@@ -38,7 +39,7 @@ public class BroadcastingListPresenterImpl extends
 
 	private final DispatchAsync dispatch;
 	private final SessionManager sessionManager;
-//	private final Win win;
+	private final Win win;
 	final ErrorHandler errorHandler;
 	EltNewPager pager;
 	ListCellTable<BroadcastingListClient> cellTable;
@@ -48,12 +49,12 @@ public class BroadcastingListPresenterImpl extends
 	@Inject
 	public BroadcastingListPresenterImpl(EventBus eventBus,
 			BroadcastingListDisplay display, DispatchAsync dispatch,
-			SessionManager sessionManager,BreadCrumbsPresenter breadCrumbs,ErrorHandler errorHandler) {
+			SessionManager sessionManager,BreadCrumbsPresenter breadCrumbs,ErrorHandler errorHandler,Win win) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.sessionManager = sessionManager;
 		this.errorHandler=errorHandler;
-		//this.win=win;
+		this.win=win;
 		this.breadCrumbs=breadCrumbs;
 	}
 
@@ -218,11 +219,18 @@ public class BroadcastingListPresenterImpl extends
 					@Override
 					public void update(int index, final BroadcastingListClient o,
 							String value) {
+						if(o.isAllowreplies())
+						{
 						Platform.getInstance()
 						.getEditorRegistry()
 						.openEditor(
 								BroadcastReplyConstants.EDITOR_BROADCASTREPLY_SEARCH,
 								"EDITOR_BROADCASTREPLY_SEARCH_DO_ID",  o.getId());
+						}
+						else
+						{
+							win.alert("不允许回复!");
+						}
 					}
 
 				});

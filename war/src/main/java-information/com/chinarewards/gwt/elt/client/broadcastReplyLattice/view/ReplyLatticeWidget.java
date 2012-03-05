@@ -64,6 +64,8 @@ public class ReplyLatticeWidget extends Composite {
 			this.createDate.setText(createDate);
 		if(myshort!=null)
 			this.myshort=myshort;
+		else
+			this.replyBtn.setVisible(false);
 		if(replyParentId!=null)
 			this.replyParentId=replyParentId;
 		if(this.myshort!=null)
