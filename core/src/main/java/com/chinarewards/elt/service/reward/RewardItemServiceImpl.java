@@ -185,7 +185,7 @@ public class RewardItemServiceImpl implements RewardItemService {
 			vo.setOrganList(organList);
 			
 			context.setCorporationId(rewardItem.getCorporation().getId());
-			broadcastService.createOrUpdateBroadcast(vo, context, BroadcastingCategory.REWARDBROADCAST);
+			broadcastService.createOrUpdateBroadcast(vo, context, BroadcastingCategory.SYSBROADCAST);
 		}
 		
 		Date startDate = rewardItem.getStartTime();
