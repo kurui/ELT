@@ -20,6 +20,7 @@ import com.chinarewards.gwt.elt.client.orderSubmit.plugin.OrderSubmitConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.util.StringUtil;
 import com.chinarewards.gwt.elt.client.win.Win;
+import com.chinarewards.gwt.elt.client.win.confirm.ConfirmHandler;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -199,11 +200,19 @@ double balance;
 		
 		@Override
 		public void onClick(ClickEvent event) {
-			Platform.getInstance()
-			.getEditorRegistry()
-			.openEditor(
-					AwardShopListConstants.EDITOR_AWARDSHOPLIST_SEARCH,
-					"EDITOR_AWARDSHOPLIST_SEARCH_DO_ID", null);
+			win.confirm("系统提示", "现在返回将直接取消本次兑换，确定要返回吗？", new ConfirmHandler() {
+				
+				@Override
+				public void confirm() {
+					Platform.getInstance()
+					.getEditorRegistry()
+					.openEditor(
+							AwardShopListConstants.EDITOR_AWARDSHOPLIST_SEARCH,
+							"EDITOR_AWARDSHOPLIST_SEARCH_DO_ID", null);
+					
+				}
+			});
+
 			
 		}
 	});
