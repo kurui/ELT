@@ -16,6 +16,7 @@ public interface StaffListPresenter extends Presenter<StaffListPresenter.StaffLi
 		public HasClickHandlers getSearchBtnClickHandlers();
 		public HasClickHandlers getSynchronousStaffBtnClickHandlers();
 		public HasClickHandlers getAddStaffBtnClickHandlers();
+		public HasClickHandlers getCreateSysUserBtnClickHandlers();
 		void initStaffStatus();
 		String getSttaffStatus();
 		String getSttaffRole();

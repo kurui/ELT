@@ -5,12 +5,14 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.EltGinjector;
 import com.chinarewards.gwt.elt.client.enterprise.model.EnterpriseVo;
+import com.chinarewards.gwt.elt.client.login.presenter.AlertErrorWidget;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.register.model.OrgInitVo;
 import com.chinarewards.gwt.elt.client.register.presenter.RegisterPresenter.RegisterDisplay;
 import com.chinarewards.gwt.elt.client.register.request.RegisterRequest;
 import com.chinarewards.gwt.elt.client.register.request.RegisterResponse;
+import com.chinarewards.gwt.elt.client.ui.DialogBox;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -79,12 +81,45 @@ public class RegisterPresenterImpl extends BasePresenter<RegisterDisplay> implem
     public void sendService(EnterpriseVo enterprise) {
 
 		if (null == enterprise.getName() || enterprise.getName() .trim().equals("")) {
-			Window.alert("企业名称不能为空!");
+			final AlertErrorWidget ae = new AlertErrorWidget();
+			final DialogBox dialogBoxae = new DialogBox();
+			ae.getOkBtn().addClickHandler(new ClickHandler() {
+				@Override
+				public void onClick(ClickEvent arg0) {
+					dialogBoxae.hide();
+				}
+			});
+			ae.setMessage("企业名称不能为空!");
+			dialogBoxae.setWidget(ae);
+			dialogBoxae.setGlassEnabled(true);
+			dialogBoxae.setAnimationEnabled(true);
+			dialogBoxae.setWidth("350px");
+			dialogBoxae.setText("提示");
+			dialogBoxae.center();
+			dialogBoxae.show();
+			injector.getMain().init(RootLayoutPanel.get());
+			
 			return;
 		}
 		if(display.isCheckSee()!=true)
 		{
-			Window.alert("请确定已阅读注册协议!");
+			final AlertErrorWidget ae = new AlertErrorWidget();
+			final DialogBox dialogBoxae = new DialogBox();
+			ae.getOkBtn().addClickHandler(new ClickHandler() {
+				@Override
+				public void onClick(ClickEvent arg0) {
+					dialogBoxae.hide();
+				}
+			});
+			ae.setMessage("请确定已阅读注册协议!");
+			dialogBoxae.setWidget(ae);
+			dialogBoxae.setGlassEnabled(true);
+			dialogBoxae.setAnimationEnabled(true);
+			dialogBoxae.setWidth("350px");
+			dialogBoxae.setText("提示");
+			dialogBoxae.center();
+			dialogBoxae.show();
+			injector.getMain().init(RootLayoutPanel.get());
 			return;
 		}
 		RegisterRequest req = new RegisterRequest(enterprise);
@@ -96,7 +131,23 @@ public class RegisterPresenterImpl extends BasePresenter<RegisterDisplay> implem
 					@Override
 					public void onSuccess(RegisterResponse arg) {
 						if(!arg.getCorpId().equals("")){
-						    Window.alert("创建成功");
+							final AlertErrorWidget ae = new AlertErrorWidget();
+							final DialogBox dialogBoxae = new DialogBox();
+							ae.getOkBtn().addClickHandler(new ClickHandler() {
+								@Override
+								public void onClick(ClickEvent arg0) {
+									dialogBoxae.hide();
+								}
+							});
+							ae.setMessage("创建成功!");
+							dialogBoxae.setWidget(ae);
+							dialogBoxae.setGlassEnabled(true);
+							dialogBoxae.setAnimationEnabled(true);
+							dialogBoxae.setWidth("350px");
+							dialogBoxae.setText("提示");
+							dialogBoxae.center();
+							dialogBoxae.show();
+							injector.getMain().init(RootLayoutPanel.get());
 						    injector.getRegisterPresenter().unbind();
 						    RootLayoutPanel.get().clear();
 						    injector.getRegisterHrPresenter().bind();

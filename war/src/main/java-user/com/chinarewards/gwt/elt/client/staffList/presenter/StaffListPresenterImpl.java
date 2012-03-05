@@ -18,7 +18,6 @@ import com.chinarewards.gwt.elt.client.staffList.dataprovider.StaffListViewAdapt
 import com.chinarewards.gwt.elt.client.staffList.model.StaffListClient;
 import com.chinarewards.gwt.elt.client.staffList.model.StaffListCriteria;
 import com.chinarewards.gwt.elt.client.staffList.model.StaffListCriteria.StaffStatus;
-import com.chinarewards.gwt.elt.client.staffList.plugin.StaffListConstants;
 import com.chinarewards.gwt.elt.client.staffList.request.StaffGenerateUserRequest;
 import com.chinarewards.gwt.elt.client.staffList.request.StaffGenerateUserResponse;
 import com.chinarewards.gwt.elt.client.staffList.request.UpdateUserPwdRequest;
@@ -97,6 +96,34 @@ public class StaffListPresenterImpl extends
 						win.alert("同步");
 					}
 				}));
+		registerHandler(display.getCreateSysUserBtnClickHandlers().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						win.confirm("提示", "确定批量生成帐号?",new ConfirmHandler() {
+							
+							@Override
+							public void confirm() {
+								dispatch.execute(new StaffGenerateUserRequest("ALL",sessionManager.getSession()),
+										new AsyncCallback<StaffGenerateUserResponse>() {
+
+											@Override
+											public void onFailure(Throwable t) {
+												win.alert(t.getMessage());
+											}
+
+											@Override
+											public void onSuccess(StaffGenerateUserResponse resp) {
+												win.alert(resp.getMessage());
+											
+											}
+										});
+								
+							}
+						});
+					}
+				}));
+		
 	}
 	
 	private void init() {	

@@ -75,4 +75,8 @@ public class UserServiceImpl implements UserService {
 	public void deleteUserRole(String roleName, String staffId) {
 		userLogic.deleteUserRole(roleName, staffId);
 	}
+	@Override
+	public String updateStaffPwd(String staffId,String oldpwd,String pwd,String byUserId) {
+		return userLogic.updateStaffPwd(staffId,oldpwd, pwd,byUserId);
+	}
 }

@@ -110,4 +110,6 @@ public interface UserLogic {
 	 * @param staffId
 	 */
 	public void deleteUserRole(String roleName, String staffId);
+	
+	public String updateStaffPwd(String staffId,String oldpwd,String pwd,String byUserId);
 }

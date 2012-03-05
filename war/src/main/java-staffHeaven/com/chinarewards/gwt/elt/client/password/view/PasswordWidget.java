@@ -21,7 +21,8 @@ public class PasswordWidget extends Composite implements PasswordDisplay {
 	TextBox username;
 	@UiField
 	PasswordTextBox newpassword;
-	
+	@UiField
+	PasswordTextBox oldpassword;
 	@UiField
 	PasswordTextBox validatePassword;
 	
@@ -51,7 +52,10 @@ public class PasswordWidget extends Composite implements PasswordDisplay {
 		return newpassword;
 	}
 
-	
+	@Override
+	public HasValue<String> getOldPassword() {
+		return oldpassword;
+	}
 
 	@Override
 	public HasValue<String> getValidatePassword() {

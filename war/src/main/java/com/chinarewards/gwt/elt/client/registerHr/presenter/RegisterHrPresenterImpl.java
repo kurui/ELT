@@ -6,11 +6,13 @@ import java.util.List;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.EltGinjector;
+import com.chinarewards.gwt.elt.client.login.presenter.AlertErrorWidget;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.registerHr.model.HrVo;
 import com.chinarewards.gwt.elt.client.registerHr.request.RegisterHrRequest;
 import com.chinarewards.gwt.elt.client.registerHr.request.RegisterHrResponse;
+import com.chinarewards.gwt.elt.client.ui.DialogBox;
 import com.chinarewards.gwt.elt.client.util.StringUtil;
 import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.google.gwt.core.client.GWT;
@@ -43,23 +45,102 @@ public class RegisterHrPresenterImpl extends
 					public void onClick(ClickEvent paramClickEvent) {
 						
 						if (StringUtil.isEmpty(display.getName().getValue())) {
-							Window.alert("名字不能为空!<br>");
+							final AlertErrorWidget ae = new AlertErrorWidget();
+							final DialogBox dialogBoxae = new DialogBox();
+							ae.getOkBtn().addClickHandler(new ClickHandler() {
+								@Override
+								public void onClick(ClickEvent arg0) {
+									dialogBoxae.hide();
+								}
+							});
+							ae.setMessage("名字不能为空!");
+							dialogBoxae.setWidget(ae);
+							dialogBoxae.setGlassEnabled(true);
+							dialogBoxae.setAnimationEnabled(true);
+							dialogBoxae.setWidth("350px");
+							dialogBoxae.setText("提示");
+							dialogBoxae.center();
+							dialogBoxae.show();
+							
 							return;
 						}
 						if (StringUtil.isEmpty(display.getPassword().getValue())) {
-							Window.alert("密码不能为空!<br>");
+							final AlertErrorWidget ae = new AlertErrorWidget();
+							final DialogBox dialogBoxae = new DialogBox();
+							ae.getOkBtn().addClickHandler(new ClickHandler() {
+								@Override
+								public void onClick(ClickEvent arg0) {
+									dialogBoxae.hide();
+								}
+							});
+							ae.setMessage("密码不能为空!");
+							dialogBoxae.setWidget(ae);
+							dialogBoxae.setGlassEnabled(true);
+							dialogBoxae.setAnimationEnabled(true);
+							dialogBoxae.setWidth("350px");
+							dialogBoxae.setText("提示");
+							dialogBoxae.center();
+							dialogBoxae.show();
+							
 							return;
 						}
 						if (StringUtil.isEmpty(display.getUsername().getValue())) {
-							Window.alert("用户名不能为空!<br>");
+							final AlertErrorWidget ae = new AlertErrorWidget();
+							final DialogBox dialogBoxae = new DialogBox();
+							ae.getOkBtn().addClickHandler(new ClickHandler() {
+								@Override
+								public void onClick(ClickEvent arg0) {
+									dialogBoxae.hide();
+								}
+							});
+							ae.setMessage("用户名不能为空!");
+							dialogBoxae.setWidget(ae);
+							dialogBoxae.setGlassEnabled(true);
+							dialogBoxae.setAnimationEnabled(true);
+							dialogBoxae.setWidth("350px");
+							dialogBoxae.setText("提示");
+							dialogBoxae.center();
+							dialogBoxae.show();
+							
 							return;
 						}
 						if (!display.getPassword().getValue().equals(display.getValidatePassword().getValue())) {
-							Window.alert("密码和确认密码不一致!<br>");
+							final AlertErrorWidget ae = new AlertErrorWidget();
+							final DialogBox dialogBoxae = new DialogBox();
+							ae.getOkBtn().addClickHandler(new ClickHandler() {
+								@Override
+								public void onClick(ClickEvent arg0) {
+									dialogBoxae.hide();
+								}
+							});
+							ae.setMessage("密码和确认密码不一致!");
+							dialogBoxae.setWidget(ae);
+							dialogBoxae.setGlassEnabled(true);
+							dialogBoxae.setAnimationEnabled(true);
+							dialogBoxae.setWidth("350px");
+							dialogBoxae.setText("提示");
+							dialogBoxae.center();
+							dialogBoxae.show();
+							
 							return;
 						}
 						if (StringUtil.isEmpty(display.getEmail().getValue())) {
-							Window.alert("电子邮件不能为空!<br>");
+							final AlertErrorWidget ae = new AlertErrorWidget();
+							final DialogBox dialogBoxae = new DialogBox();
+							ae.getOkBtn().addClickHandler(new ClickHandler() {
+								@Override
+								public void onClick(ClickEvent arg0) {
+									dialogBoxae.hide();
+								}
+							});
+							ae.setMessage("电子邮件不能为空!");
+							dialogBoxae.setWidget(ae);
+							dialogBoxae.setGlassEnabled(true);
+							dialogBoxae.setAnimationEnabled(true);
+							dialogBoxae.setWidth("350px");
+							dialogBoxae.setText("提示");
+							dialogBoxae.center();
+							dialogBoxae.show();
 							return;
 						}
 //						else if(!StringUtil.isValidEmail(display.getEmail()))
@@ -97,8 +178,22 @@ public class RegisterHrPresenterImpl extends
 
 					@Override
 					public void onSuccess(RegisterHrResponse response) {
-
-						Window.alert("添加成功!");
+						final AlertErrorWidget ae = new AlertErrorWidget();
+						final DialogBox dialogBoxae = new DialogBox();
+						ae.getOkBtn().addClickHandler(new ClickHandler() {
+							@Override
+							public void onClick(ClickEvent arg0) {
+								dialogBoxae.hide();
+							}
+						});
+						ae.setMessage("注册成功!");
+						dialogBoxae.setWidget(ae);
+						dialogBoxae.setGlassEnabled(true);
+						dialogBoxae.setAnimationEnabled(true);
+						dialogBoxae.setWidth("350px");
+						dialogBoxae.setText("提示");
+						dialogBoxae.center();
+						dialogBoxae.show();
 						injector.getMain().init(RootLayoutPanel.get());
 					}
 				});

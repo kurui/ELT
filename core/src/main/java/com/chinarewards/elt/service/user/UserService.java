@@ -49,4 +49,12 @@ public interface UserService {
 	 * @param staffId
 	 */
 	public void deleteUserRole(String roleName, String staffId);
+	
+	/**
+	 * 员工天地重置密码
+	 * @param staffId
+	 * @param pwd
+	 * @return
+	 */
+	public String updateStaffPwd(String staffId,String oldpwd,String pwd,String byUserId);
 }
