@@ -169,6 +169,8 @@ public class RewardsItemViewStaffWidget extends Composite implements
 //			staffPanel.getElement().getParentElement().getParentElement()
 //			.addClassName(CssStyleConstants.hidden);
 //		}
+		
+		update.setVisible(false);
 
 	}
 

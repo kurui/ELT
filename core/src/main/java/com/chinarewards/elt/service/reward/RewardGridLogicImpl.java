@@ -21,7 +21,6 @@ import com.chinarewards.elt.model.reward.search.RewardItemSearchVo;
 import com.chinarewards.elt.model.reward.search.RewardSearchVo;
 import com.chinarewards.elt.model.reward.vo.RewardGridVo;
 import com.chinarewards.elt.model.reward.vo.RewardVo;
-import com.chinarewards.elt.model.reward.vo.WinerRewardItemVo;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.reward.rule.CandidateLogic;
 import com.chinarewards.elt.service.reward.rule.CandidateRuleLogic;
@@ -114,37 +113,44 @@ public class RewardGridLogicImpl implements RewardGridLogic {
 	public PageStore<RewardGridVo> fetchRewardsItem_STAFF(UserContext context,
 			RewardGridSearchVo criteria) {
 		PageStore<RewardGridVo> pageStore = new PageStore<RewardGridVo>();
-		
-		PageStore<WinerRewardItemVo> res = new PageStore<WinerRewardItemVo>();
-		
+				
 		RewardItemSearchVo rewardItemSearchVo=new RewardItemSearchVo();
 		List<Winner> list = winnerDao.queryCurrentStaffWinRewardItemData(rewardItemSearchVo);
-		
-		
-		List<RewardGridVo> voList=new ArrayList<RewardGridVo>();
+				
+		List<RewardGridVo> rewardGridVoList=new ArrayList<RewardGridVo>();
 		for (int i = 0; i < list.size(); i++) {
 			Winner winner=list.get(i);
 			if(winner!=null){
+				
+				RewardGridVo rewardGridVo=new RewardGridVo();
 				Reward reward=winner.getReward();
-				RewardGridVo vo=new RewardGridVo();
-				vo.setReward(reward);
-				vo.setRewardItem(reward.getRewardItem());
+				rewardGridVo.setReward(reward);
+				rewardGridVo.setRewardId(reward.getId());
+				rewardGridVo.setRewardName(reward.getName());
+				rewardGridVo.setRewardsDate(reward.getAwardDate());
+				rewardGridVo.setAwardAmt(reward.getAwardAmt());
+				rewardGridVo.setAwardName(reward.getCreatedBy().getStaff().getName());// 颁奖人
+				
+				RewardItem rewardItem=reward.getRewardItem();
+				rewardGridVo.setRewardItem(rewardItem);
+				rewardGridVo.setRewardItemId(rewardItem.getId());
+				rewardGridVo.setRewardItemName(rewardItem.getName());		
 				
 				Staff staff=winner.getStaff();
 				if(staff!=null){
 					Candidate candiate=candidateDao.findCandidateByStaffRewardId(reward.getId(),staff.getId());
 					if(candiate!=null){
 						int nominateCount=candiate.getNominatecount();
-						vo.setNominateCount(nominateCount);
+						rewardGridVo.setNominateCount(nominateCount);
 					}				
 				}
-				voList.add(vo);
+				rewardGridVoList.add(rewardGridVo);
 			}
 			
 		}
 		
-		pageStore.setResultList(voList);
-		pageStore.setResultCount(voList.size());
+		pageStore.setResultList(rewardGridVoList);
+		pageStore.setResultCount(rewardGridVoList.size());
 		
 		return pageStore;
 	}
@@ -184,6 +190,12 @@ public class RewardGridLogicImpl implements RewardGridLogic {
 					rewardGridVo.setAwardName(winner.getCreatedBy().getStaff().getName());
 					
 					rewardGridVo.setAwardAmt(reward.getAwardAmt());
+					
+					RewardItem rewardItem=reward.getRewardItem();
+					rewardGridVo.setRewardItem(rewardItem);
+					rewardGridVo.setRewardItemId(rewardItem.getId());
+					rewardGridVo.setRewardItemName(rewardItem.getName());		
+					
 
 					// candidate rule
 					CandidateRule candidateRule = candidateRuleLogic
@@ -276,7 +288,8 @@ public class RewardGridLogicImpl implements RewardGridLogic {
 					rewardGridVo.setRewardItemId(rewardItem.getId());
 					rewardGridVo.setRewardItemName(rewardItem.getName());
 					rewardGridVo.setAwardAmt(rewardItem.getAwardAmt());
-					// rewardGridVo.setRewardItemPhoto(rewardItem.get)
+//					 rewardGridVo.setRewardItemPhoto(rewardItem.getPhoto());
+					
 					gridVoList.add(rewardGridVo);
 
 				}

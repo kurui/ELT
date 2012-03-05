@@ -65,9 +65,10 @@ public class SearchRewardsGridHandler extends
 		PageStore<RewardGridVo> rewardsPage = executeQuery(uc, criteria);
 
 		if (rewardsPage != null) {
-			resp.setTotal(rewardsPage.getResultCount());
+
 			List<RewardsGridClient> clientList = adapter(rewardsPage
 					.getResultList());
+			resp.setTotal(clientList.size());
 			resp.setResult(clientList);
 		}
 

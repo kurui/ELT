@@ -113,7 +113,7 @@ public class RewardsItemListCompanyPresenterImpl extends
 				selectedIndex);
 		criteria.setRewardsItemType(rewardsItemType);
 		
-		criteria.setThisAction("Rewards_");
+		criteria.setThisAction("RewardsItem_ALL");
 
 		listViewAdapter = new RewardsItemListCompanyViewAdapter(dispatch,
 				criteria, errorHandler, sessionManager, display);
@@ -164,8 +164,7 @@ public class RewardsItemListCompanyPresenterImpl extends
 				new GetValue<RewardsGridClient, String>() {
 					@Override
 					public String getValue(RewardsGridClient client) {
-//						return client.getCreatedBy();
-						return "";
+						return client.getAwardName();
 					}
 				}, ref, "createdBy");
 
@@ -179,13 +178,6 @@ public class RewardsItemListCompanyPresenterImpl extends
 					@Override
 					public void update(int index,
 							final RewardsGridClient object, String value) {
-
-						// Platform.getInstance()
-						// .getEditorRegistry()
-						// .openEditor(
-						// RewardsItemConstants.EDITOR_REWARDSITEM_STAFF_VIEW,
-						// RewardsItemConstants.EDITOR_REWARDSITEM_STAFF_VIEW,
-						// object);
 						RewardsItemClient client = new RewardsItemClient();
 						client.setId(object.getRewardsItemId());
 						Platform.getInstance()

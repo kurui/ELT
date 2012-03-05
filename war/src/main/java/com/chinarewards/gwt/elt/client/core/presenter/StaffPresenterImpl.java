@@ -432,13 +432,60 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 		});
 		
 		//奖励小控件加载
-		loadRewardPanel();
+		loadRewardSTAFFPanel();
 		
 		loadRewardItemPanel();
 		
 	}
 	
-	private void loadRewardPanel(){
+	private void loadRewardSTAFFPanel(){
+		RewardsGridCriteria criteria = new RewardsGridCriteria();
+		criteria.setThisAction("Rewards_STAFF");
+		dispatchAsync.execute(new SearchRewardsGridRequest(criteria,sessionManager
+				.getSession()),
+				new AsyncCallback<SearchRewardsGridResponse>() {
+					@Override
+					public void onFailure(Throwable e) {
+						Window.alert(e.getMessage());
+					}
+
+					@Override
+					public void onSuccess(SearchRewardsGridResponse response) {
+
+						List<RewardsGridClient> giftList = response.getResult();
+						int index = 0;
+						Grid grid = new Grid(5, 1);
+
+						// Add images to the grid
+						int numRows = grid.getRowCount();
+						int numColumns = grid.getColumnCount();
+						for (int row = 0; row < numRows; row++) {
+							for (int col = 0; col < numColumns; col++) {
+								if (index < giftList.size()) {
+									RewardsGridClient client = giftList.get(index);
+									grid.setWidget(
+											row,
+											col,
+											new SmallRewardWindowWidget(client.getRewardsId(),client.getRewardsName()));
+									index++;
+								} else {
+									break;
+								}
+							}
+						}
+
+						// Return the panel
+						grid.ensureDebugId("cwGridreward");
+
+						display.getRewardPanel().clear();
+						display.getRewardPanel().add(grid);
+						
+					}
+
+				});
+	}
+	
+	private void loadRewardALLPanel(){
 		RewardsGridCriteria criteria = new RewardsGridCriteria();
 		criteria.setThisAction("Rewards_ALL");
 		dispatchAsync.execute(new SearchRewardsGridRequest(criteria,sessionManager
@@ -479,7 +526,7 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 
 						display.getRewardPanel().clear();
 						display.getRewardPanel().add(grid);
-
+						
 					}
 
 				});
@@ -514,7 +561,7 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 									grid.setWidget(
 											row,
 											col,
-											new SmallRewardItemWindowWidget(client.getRewardsItemId(),client.getRewardsItemName(),client.getAwardAmt(),client.getRewadsItemPhoto()));
+											new SmallRewardItemWindowWidget(client.getRewardsItemId(),client.getRewardsItemName(),client.getAwardAmt(),client.getRewardsItemPhoto()));
 									index++;
 								} else {
 									break;
