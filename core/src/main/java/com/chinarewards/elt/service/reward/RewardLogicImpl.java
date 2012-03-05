@@ -41,7 +41,6 @@ import com.chinarewards.elt.model.reward.search.RewardQueryVo;
 import com.chinarewards.elt.model.reward.search.RewardSearchVo;
 import com.chinarewards.elt.model.reward.vo.RewardVo;
 import com.chinarewards.elt.model.user.UserContext;
-import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.service.broadcast.BroadcastService;
 import com.chinarewards.elt.service.reward.acl.RewardAclProcessorFactory;
 import com.chinarewards.elt.service.reward.frequency.FrequencyLogic;
@@ -504,40 +503,7 @@ public class RewardLogicImpl implements RewardLogic {
 		return rewardVo;
 	}
 	
-	private RewardVo convertFromWinnerRewardToVo(Winner win,Reward reward, boolean isEntire) {
-		RewardVo rewardVo = new RewardVo();
-		if (isEntire) {
-			String rewardId = reward.getId();
-			// candidate rule
-			CandidateRule candidateRule = candidateRuleLogic
-					.findCandidateRuleFromReward(rewardId);
-			// candidate list
-			List<Candidate> candidates = candidateLogic
-					.getCandidatesFromReward(rewardId);
-			// Judge list
-			List<Judge> judges = judgeLogic.findJudgesFromReward(rewardId);
-			// nominee lot
-			List<NomineeLot> nomineeLots = nomineeLogic
-					.getNomineeLotsFromReward(rewardId);
-			// pre-winner
-			List<PreWinnerLot> preWinnerLots = preWinnerLogic
-					.getPreWinnerLotsFromReward(rewardId);
-			// winner
-			List<Winner> winners = winnerLogic.getWinnersOfReward(rewardId);
 
-			rewardVo.setReward(reward);
-			rewardVo.setCandidateRule(candidateRule);
-			rewardVo.setCandidates(candidates);
-			rewardVo.setJudges(judges);
-			rewardVo.setNomineeLots(nomineeLots);
-			rewardVo.setPreWinnerLots(preWinnerLots);
-			rewardVo.setWinners(winners);
-			rewardVo.setAwardDate(win.getCreatedAt());
-		}
-		rewardVo.setReward(reward);
-
-		return rewardVo;
-	}
 
 	@Override
 	public PageStore<RewardVo> fetchRewards(UserContext context,
@@ -570,41 +536,6 @@ public class RewardLogicImpl implements RewardLogic {
 		}
 	}
 
-	@Override
-	public PageStore<RewardVo> fetchRewardsStaff(UserContext context,
-			RewardSearchVo criteria) {
-
-		List<UserRole> userRoleList=new ArrayList<UserRole>();
-		userRoleList.add(UserRole.STAFF);
-		
-		PageStore<Winner> pageStore = rewardAclProcessorFactory
-				.generateRewardAclProcessor(userRoleList).fetchWinRewards(context,
-						criteria);
-
-		List<Winner> list = pageStore.getResultList();
-		// post-process and convert
-		List<RewardVo> rewardVoList = new ArrayList<RewardVo>();
-		if (list.size() > 0) {
-			for (Winner winner : list) {
-				Reward reward=winner.getReward();
-				rewardVoList.add(convertFromWinnerRewardToVo(winner,reward, true));
-			}
-
-			logger.debug("The result size:{}, total:{}", new Object[] {
-					rewardVoList.size(), pageStore.getResultCount() });
-
-			PageStore<RewardVo> storeVo = new PageStore<RewardVo>();
-			storeVo.setResultCount(pageStore.getResultCount());
-			storeVo.setResultList(rewardVoList);
-
-			return storeVo;
-		} else {
-			PageStore<RewardVo> storeVo = new PageStore<RewardVo>();
-			storeVo.setResultCount(0);
-			storeVo.setResultList(rewardVoList);
-			return storeVo;
-		}
-	}
 
 	@Override
 	public String deleteReward(String rewardId, UserContext context) {

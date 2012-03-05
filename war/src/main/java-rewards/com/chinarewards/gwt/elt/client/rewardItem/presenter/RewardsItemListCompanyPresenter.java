@@ -8,8 +8,8 @@ import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
-public interface RewardsItemListCompanyOtherPresenter extends
-		Presenter<RewardsItemListCompanyOtherPresenter.RewardsItemListCompanyOtherDisplay> {
+public interface RewardsItemListCompanyPresenter extends
+		Presenter<RewardsItemListCompanyPresenter.RewardsItemListCompanyOtherDisplay> {
 
 	public void initRewardsItemList(RewardPageType pageType);
 

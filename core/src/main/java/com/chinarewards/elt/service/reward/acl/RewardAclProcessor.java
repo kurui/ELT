@@ -3,11 +3,9 @@ package com.chinarewards.elt.service.reward.acl;
 import com.chinarewards.elt.domain.reward.base.Reward;
 import com.chinarewards.elt.domain.reward.base.RewardItem;
 import com.chinarewards.elt.domain.reward.base.RewardItemStore;
-import com.chinarewards.elt.domain.reward.person.Winner;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.reward.search.RewardItemSearchVo;
 import com.chinarewards.elt.model.reward.search.RewardSearchVo;
-import com.chinarewards.elt.model.reward.vo.WinerRewardItemVo;
 import com.chinarewards.elt.model.user.UserContext;
 
 /**
@@ -22,18 +20,10 @@ public interface RewardAclProcessor {
 	public PageStore<Reward> fetchRewards(UserContext context,
 			RewardSearchVo criteria);
 	
-	public PageStore<Winner> fetchWinRewards(UserContext context,
-			RewardSearchVo criteria);
 	
 	public PageStore<RewardItem> fetchRewardItems(UserContext context,
-			RewardItemSearchVo criteria);
-	
-	
-	public PageStore<WinerRewardItemVo> fetchWinRewardItems(UserContext context,
-			RewardItemSearchVo criteria);
-	
-	public PageStore<RewardItem> fetchRewardItems_companyOther(UserContext context,
-			RewardItemSearchVo criteria);
+			RewardItemSearchVo criteria);	
+
 	
 	public PageStore<RewardItemStore> fetchRewardItemsStore(UserContext context,
 			RewardItemSearchVo criteria);

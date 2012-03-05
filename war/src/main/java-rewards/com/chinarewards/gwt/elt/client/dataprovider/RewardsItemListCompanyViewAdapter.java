@@ -3,11 +3,11 @@ package com.chinarewards.gwt.elt.client.dataprovider;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
-import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemListCompanyOtherPresenter.RewardsItemListCompanyOtherDisplay;
-import com.chinarewards.gwt.elt.client.rewardItem.request.SearchCompanyOtherRewardsItemRequest;
-import com.chinarewards.gwt.elt.client.rewardItem.request.SearchCompanyOtherRewardsItemResponse;
-import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemCompanyOtherClient;
-import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemCompanyOtherCriteria;
+import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemListCompanyPresenter.RewardsItemListCompanyOtherDisplay;
+import com.chinarewards.gwt.elt.client.rewards.model.RewardsGridClient;
+import com.chinarewards.gwt.elt.client.rewards.model.RewardsGridCriteria;
+import com.chinarewards.gwt.elt.client.rewards.request.SearchRewardsGridRequest;
+import com.chinarewards.gwt.elt.client.rewards.request.SearchRewardsGridResponse;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.model.PaginationDetailClient;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -16,16 +16,16 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  * 
  * @author yanrui
  */
-public class RewardsItemListCompanyOtherViewAdapter extends
-		BaseDataProvider<RewardsItemCompanyOtherClient> {
+public class RewardsItemListCompanyViewAdapter extends
+		BaseDataProvider<RewardsGridClient> {
 
 	final DispatchAsync dispatch;
-	RewardsItemCompanyOtherCriteria criteria;
+	RewardsGridCriteria criteria;
 	final ErrorHandler errorHandler;
 	final SessionManager sessionManager;
 	final RewardsItemListCompanyOtherDisplay display;
 
-	public RewardsItemListCompanyOtherViewAdapter(DispatchAsync dispatch,RewardsItemCompanyOtherCriteria criteria,
+	public RewardsItemListCompanyViewAdapter(DispatchAsync dispatch,RewardsGridCriteria criteria,
 			ErrorHandler errorHandler, SessionManager sessionManager,
 			RewardsItemListCompanyOtherDisplay display) {
 		this.dispatch = dispatch;
@@ -44,16 +44,16 @@ public class RewardsItemListCompanyOtherViewAdapter extends
 		if (getSorting() != null) {
 			getCriteria().setSorting(getSorting());
 		}
-		dispatch.execute(new SearchCompanyOtherRewardsItemRequest(getCriteria(),
+		dispatch.execute(new SearchRewardsGridRequest(getCriteria(),
 				sessionManager.getSession()),
-				new AsyncCallback<SearchCompanyOtherRewardsItemResponse>() {
+				new AsyncCallback<SearchRewardsGridResponse>() {
 					@Override
 					public void onFailure(Throwable e) {
 						errorHandler.alert(e.getMessage());
 					}
 
 					@Override
-					public void onSuccess(SearchCompanyOtherRewardsItemResponse response) {
+					public void onSuccess(SearchRewardsGridResponse response) {
 						updateRowData(start, response.getResult());
 						updateRowCount(response.getTotal(), true);
 						display.setDataCount(response.getTotal() + "");
@@ -61,13 +61,13 @@ public class RewardsItemListCompanyOtherViewAdapter extends
 				});
 	}
 
-	public void setCriteria(RewardsItemCompanyOtherCriteria criteria) {
+	public void setCriteria(RewardsGridCriteria criteria) {
 		this.criteria = criteria;
 	}
 
-	public RewardsItemCompanyOtherCriteria getCriteria() {
+	public RewardsGridCriteria getCriteria() {
 		if (criteria == null) {
-			criteria = new RewardsItemCompanyOtherCriteria();
+			criteria = new RewardsGridCriteria();
 		}
 		return criteria;
 	}

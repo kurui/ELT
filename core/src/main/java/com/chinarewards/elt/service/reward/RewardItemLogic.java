@@ -92,13 +92,6 @@ public interface RewardItemLogic {
 	public PageStore<RewardItemVo> fetchRewardItems(UserContext context,
 			RewardItemSearchVo criteria);
 	
-
-	public PageStore<RewardItemVo> fetchStaffRewardItems(UserContext context,
-			RewardItemSearchVo criteria);	
-
-	public PageStore<RewardItemVo> fetchCompanyOtherRewardItems(
-			UserContext context, RewardItemSearchVo criteria);
-	
 	
 	public PageStore<RewardItemStoreVo> fetchRewardItemsStore(UserContext context,
 			RewardItemSearchVo criteria);

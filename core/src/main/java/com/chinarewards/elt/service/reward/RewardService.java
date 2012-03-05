@@ -115,15 +115,6 @@ public interface RewardService {
 	 * @return
 	 */
 	public List<RewardVo> getRewardsByHrBox(UserContext context,RewardSearchVo criteria);
-	/**
-	 * 查询我的获奖列表
-	 * 
-	 * @param context
-	 * @param criteria
-	 * @return
-	 */
-	public PageStore<RewardVo> fetchRewardsStaff(UserContext context,
-			RewardSearchVo criteria);
 	
 
 	/**

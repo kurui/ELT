@@ -33,9 +33,7 @@ import com.chinarewards.elt.model.reward.base.RewardItemParam;
 import com.chinarewards.elt.model.reward.search.RewardItemSearchVo;
 import com.chinarewards.elt.model.reward.vo.RewardItemStoreVo;
 import com.chinarewards.elt.model.reward.vo.RewardItemVo;
-import com.chinarewards.elt.model.reward.vo.WinerRewardItemVo;
 import com.chinarewards.elt.model.user.UserContext;
-import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.service.org.DepartmentLogic;
 import com.chinarewards.elt.service.reward.acl.RewardAclProcessorFactory;
 import com.chinarewards.elt.service.reward.frequency.FrequencyLogic;
@@ -405,38 +403,7 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 		return itemVo;
 	}
 	
-	private RewardItemVo convertFromRewardItemToVo(WinerRewardItemVo winVo,
-			boolean isEntire) {
-		RewardItem item=winVo.getReward().getRewardItem();
-		RewardItemVo itemVo = new RewardItemVo();
-		
-		itemVo.setNominateCount(winVo.getNominateCount());
-		
-		if (isEntire) {
-			String rewardItemId = item.getId();
-			// Get frequency info,判断是否周期
-			if (item.getAutoGenerate() == RequireAutoGenerate.requireCyclic) {
-				Frequency frequencie = frequencyLogic
-						.getFrequencyOfRewardItem(rewardItemId);
-				itemVo.setFrequency(frequencie);
-			}
-			// Get candidate list rule
-			CandidateRule candidateRule = candidateRuleLogic
-					.findCandidateRuleFromRewardItem(rewardItemId);
-			// Get judge list
-			List<Judge> judges = judgeLogic
-					.findJudgesFromRewardItem(rewardItemId);
 
-			itemVo.setCandidateRule(candidateRule);
-			itemVo.setJudgeList(judges);
-			
-			itemVo.setAwardAmt(item.getAwardAmt());
-		
-		}
-		itemVo.setItem(item);
-
-		return itemVo;
-	}
 	
 	
 	@Override
@@ -479,64 +446,6 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 		return storeVo;
 	}
 	
-	
-	@Override
-	public PageStore<RewardItemVo> fetchStaffRewardItems(UserContext context,
-			RewardItemSearchVo criteria) {
-		logger.debug("Process in fetchRewardItems method, parameter RewardItemSearchVo.toString:"
-				+ criteria);
-		
-		List<UserRole> userRoleList=new ArrayList<UserRole>();
-		userRoleList.add(UserRole.STAFF);
-		
-		PageStore<WinerRewardItemVo> pageStore = rewardAclProcessorFactory
-				.generateRewardAclProcessor(userRoleList)
-				.fetchWinRewardItems(context, criteria);
-
-		List<WinerRewardItemVo> itemList = pageStore.getResultList();
-		// post-process and convert
-		List<RewardItemVo> itemVoList = new ArrayList<RewardItemVo>();
-		for (WinerRewardItemVo item : itemList) {
-			itemVoList.add(convertFromRewardItemToVo(item, true));
-		}
-		logger.debug("The result size:{}, total:{}",
-				new Object[] { itemVoList.size(), pageStore.getResultCount() });
-
-		PageStore<RewardItemVo> storeVo = new PageStore<RewardItemVo>();
-		storeVo.setResultCount(pageStore.getResultCount());
-		storeVo.setResultList(itemVoList);
-
-		return storeVo;
-	}
-	
-	@Override
-	public PageStore<RewardItemVo> fetchCompanyOtherRewardItems(UserContext context,
-			RewardItemSearchVo criteria) {
-		logger.debug("Process in fetchRewardItems method, parameter RewardItemSearchVo.toString:"
-				+ criteria);
-		
-		List<UserRole> userRoleList=new ArrayList<UserRole>();
-		userRoleList.add(UserRole.STAFF);
-		
-		PageStore<RewardItem> pageStore = rewardAclProcessorFactory
-				.generateRewardAclProcessor(userRoleList)
-				.fetchRewardItems_companyOther(context, criteria);
-
-		List<RewardItem> itemList = pageStore.getResultList();
-		// post-process and convert
-		List<RewardItemVo> itemVoList = new ArrayList<RewardItemVo>();
-		for (RewardItem item : itemList) {
-			itemVoList.add(convertFromRewardItemToVo(item, true));
-		}
-		logger.debug("The result size:{}, total:{}",
-				new Object[] { itemVoList.size(), pageStore.getResultCount() });
-
-		PageStore<RewardItemVo> storeVo = new PageStore<RewardItemVo>();
-		storeVo.setResultCount(pageStore.getResultCount());
-		storeVo.setResultList(itemVoList);
-
-		return storeVo;
-	}
 
 	@Override
 	// 奖项库的列表查询

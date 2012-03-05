@@ -2,15 +2,24 @@ package com.chinarewards.gwt.elt.server.rewards;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.DispatchException;
+
 import org.slf4j.Logger;
+
+import com.chinarewards.elt.domain.reward.person.Judge;
 import com.chinarewards.elt.model.common.PageStore;
+import com.chinarewards.elt.model.common.PaginationDetail;
+import com.chinarewards.elt.model.common.SortingDetail;
 import com.chinarewards.elt.model.reward.search.RewardGridSearchVo;
 import com.chinarewards.elt.model.reward.vo.RewardGridVo;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.reward.RewardGridService;
 import com.chinarewards.elt.util.StringUtil;
+import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
+import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient;
+import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient.SomeoneClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsGridClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsGridCriteria;
 import com.chinarewards.gwt.elt.client.rewards.request.SearchRewardsGridRequest;
@@ -57,7 +66,8 @@ public class SearchRewardsGridHandler extends
 
 		if (rewardsPage != null) {
 			resp.setTotal(rewardsPage.getResultCount());
-			List<RewardsGridClient> clientList=adapter(rewardsPage.getResultList());
+			List<RewardsGridClient> clientList = adapter(rewardsPage
+					.getResultList());
 			resp.setResult(clientList);
 		}
 
@@ -92,6 +102,7 @@ public class SearchRewardsGridHandler extends
 		return rewardsPage;
 	}
 
+	// 从服务端得到的数据到客户端在列表显示的数据
 	public static List<RewardsGridClient> adapter(List<RewardGridVo> rewardsList) {
 		if (null == rewardsList) {
 			return null;
@@ -105,11 +116,25 @@ public class SearchRewardsGridHandler extends
 				RewardsGridClient client = new RewardsGridClient();
 				client.setRewardsId(rewardGridVo.getRewardId());
 				client.setRewardsName(rewardGridVo.getRewardName());
+				client.setRewardsDate(rewardGridVo.getRewardsDate());
 				client.setRewardsItemId(rewardGridVo.getRewardItemId());
 				client.setRewardsItemName(rewardGridVo.getRewardItemName());
 				client.setAwardAmt(rewardGridVo.getAwardAmt() + "");
+				client.setAwardName(rewardGridVo.getAwardName());// 颁奖人
 
-				// client.setCorporationId(rewardGridVo.getCorporationId());
+				client.setCorporationId(rewardGridVo.getCorporationId());
+
+				client.setWinnersName(rewardGridVo.getWinnersName());// 获奖人
+
+				client.setNominateName(rewardGridVo.getNominateName());
+				// 提名人员
+				List<Judge> judges = rewardGridVo.getJudgeList();
+				ParticipateInfoClient participate = null;
+				List<OrganicationClient> orgs = getOrgsFromJudges(judges);
+				participate = new SomeoneClient(orgs);
+				client.setTmInfo(participate);
+
+				client.setNominateCount(rewardGridVo.getNominateCount());
 
 				clientList.add(client);
 			}
@@ -117,16 +142,45 @@ public class SearchRewardsGridHandler extends
 		return clientList;
 	}
 
+	// 从奖项查询的VO转为model的VO,主要是传查询的条件
 	public static RewardGridSearchVo adapterQuery(RewardsGridCriteria criteria) {
 		RewardGridSearchVo searchVo = new RewardGridSearchVo();
-		
+
 		searchVo.setThisAction(criteria.getThisAction());
-		
+
 		searchVo.setCorporationId(criteria.getCorporationId());
 		searchVo.setStaffId(criteria.getStaffId());
-		
+
+		if (criteria.getPagination() != null) {
+			PaginationDetail paginationDetail = new PaginationDetail();
+			paginationDetail.setStart(criteria.getPagination().getStart());
+			paginationDetail.setLimit(criteria.getPagination().getLimit());
+			searchVo.setPaginationDetail(paginationDetail);
+		}
+
+		if (criteria.getSorting() != null) {
+			SortingDetail sortingDetail = new SortingDetail();
+			sortingDetail.setSort(criteria.getSorting().getSort());
+			sortingDetail.setDirection(criteria.getSorting().getDirection());
+			searchVo.setSortingDetail(sortingDetail);
+		}
 
 		return searchVo;
+	}
+
+	private static List<OrganicationClient> getOrgsFromJudges(
+			List<Judge> judgeList) {
+		List<OrganicationClient> orgs = new ArrayList<OrganicationClient>();
+		if (judgeList != null) {
+			for (Judge judge : judgeList) {
+				if (judge != null) {
+					orgs.add(new OrganicationClient(judge.getStaff().getId(),
+							judge.getStaff().getName()));
+				}
+			}
+		}
+
+		return orgs;
 	}
 
 	@Override
@@ -139,5 +193,4 @@ public class SearchRewardsGridHandler extends
 			SearchRewardsGridResponse resp, ExecutionContext cxt)
 			throws DispatchException {
 	}
-
 }

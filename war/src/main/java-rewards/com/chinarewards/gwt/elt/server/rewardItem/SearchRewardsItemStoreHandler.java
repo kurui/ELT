@@ -18,7 +18,6 @@ import com.chinarewards.elt.model.reward.base.RequireAutoAward;
 import com.chinarewards.elt.model.reward.base.RequireAutoGenerate;
 import com.chinarewards.elt.model.reward.search.RewardItemSearchVo;
 import com.chinarewards.elt.model.reward.vo.RewardItemStoreVo;
-import com.chinarewards.elt.model.reward.vo.RewardItemVo;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.reward.RewardItemService;
 import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsItemStoreRequest;

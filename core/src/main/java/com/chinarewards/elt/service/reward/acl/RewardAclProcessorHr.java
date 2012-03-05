@@ -10,11 +10,9 @@ import com.chinarewards.elt.dao.reward.WinnerDao;
 import com.chinarewards.elt.domain.reward.base.Reward;
 import com.chinarewards.elt.domain.reward.base.RewardItem;
 import com.chinarewards.elt.domain.reward.base.RewardItemStore;
-import com.chinarewards.elt.domain.reward.person.Winner;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.reward.search.RewardItemSearchVo;
 import com.chinarewards.elt.model.reward.search.RewardSearchVo;
-import com.chinarewards.elt.model.reward.vo.WinerRewardItemVo;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.org.DepartmentLogic;
 import com.chinarewards.elt.util.StringUtil;
@@ -121,28 +119,5 @@ public class RewardAclProcessorHr extends AbstractRewardAclProcessor {
 		pageStore.setResultList(itemList);
 		return pageStore;
 	}
-
-
-	@Override
-	public PageStore<RewardItem> fetchRewardItems_companyOther(
-			UserContext context, RewardItemSearchVo criteria) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public PageStore<Winner> fetchWinRewards(UserContext context,
-			RewardSearchVo criteria) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public PageStore<WinerRewardItemVo> fetchWinRewardItems(UserContext context,
-			RewardItemSearchVo criteria) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 
 }

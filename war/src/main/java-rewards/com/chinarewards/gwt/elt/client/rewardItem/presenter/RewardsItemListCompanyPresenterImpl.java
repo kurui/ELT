@@ -7,15 +7,15 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
-import com.chinarewards.gwt.elt.client.dataprovider.RewardsItemListCompanyOtherViewAdapter;
+import com.chinarewards.gwt.elt.client.dataprovider.RewardsItemListCompanyViewAdapter;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemConstants;
-import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemListCompanyOtherPresenter.RewardsItemListCompanyOtherDisplay;
+import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemListCompanyPresenter.RewardsItemListCompanyOtherDisplay;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemClient;
-import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemCompanyOtherClient;
-import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemCompanyOtherCriteria;
+import com.chinarewards.gwt.elt.client.rewards.model.RewardsGridClient;
+import com.chinarewards.gwt.elt.client.rewards.model.RewardsGridCriteria;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager;
@@ -31,9 +31,9 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.inject.Inject;
 
-public class RewardsItemListCompanyOtherPresenterImpl extends
+public class RewardsItemListCompanyPresenterImpl extends
 		BasePresenter<RewardsItemListCompanyOtherDisplay> implements
-		RewardsItemListCompanyOtherPresenter {
+		RewardsItemListCompanyPresenter {
 	final DispatchAsync dispatch;
 	final ErrorHandler errorHandler;
 	final SessionManager sessionManager;
@@ -42,13 +42,13 @@ public class RewardsItemListCompanyOtherPresenterImpl extends
 	RewardPageType pageType;
 
 	EltNewPager pager;
-	ListCellTable<RewardsItemCompanyOtherClient> cellTable;
-	RewardsItemListCompanyOtherViewAdapter listViewAdapter;
+	ListCellTable<RewardsGridClient> cellTable;
+	RewardsItemListCompanyViewAdapter listViewAdapter;
 
 	private final BreadCrumbsPresenter breadCrumbs;
 
 	@Inject
-	public RewardsItemListCompanyOtherPresenterImpl(EventBus eventBus,
+	public RewardsItemListCompanyPresenterImpl(EventBus eventBus,
 			DispatchAsync dispatch, ErrorHandler errorHandler,
 			SessionManager sessionManager,
 			RewardsItemListCompanyOtherDisplay display, Win win,
@@ -88,7 +88,7 @@ public class RewardsItemListCompanyOtherPresenterImpl extends
 	}
 
 	private void buildTable() {
-		cellTable = new ListCellTable<RewardsItemCompanyOtherClient>();
+		cellTable = new ListCellTable<RewardsGridClient>();
 
 		initTableColumns();
 		pager = new EltNewPager(TextLocation.CENTER);
@@ -104,7 +104,7 @@ public class RewardsItemListCompanyOtherPresenterImpl extends
 	}
 
 	private void doSearch() {
-		RewardsItemCompanyOtherCriteria criteria = new RewardsItemCompanyOtherCriteria();
+		RewardsGridCriteria criteria = new RewardsGridCriteria();
 		// criteria.setName(display.getName().getValue());
 		// criteria.setDefinition(display.getDefinition().getValue());
 
@@ -112,18 +112,20 @@ public class RewardsItemListCompanyOtherPresenterImpl extends
 		String rewardsItemType = display.getRewardsItemType().getValue(
 				selectedIndex);
 		criteria.setRewardsItemType(rewardsItemType);
+		
+		criteria.setThisAction("Rewards_");
 
-		listViewAdapter = new RewardsItemListCompanyOtherViewAdapter(dispatch,
+		listViewAdapter = new RewardsItemListCompanyViewAdapter(dispatch,
 				criteria, errorHandler, sessionManager, display);
 		listViewAdapter.addDataDisplay(cellTable);
 
 	}
 
 	private void initTableColumns() {
-		Sorting<RewardsItemCompanyOtherClient> ref = new Sorting<RewardsItemCompanyOtherClient>() {
+		Sorting<RewardsGridClient> ref = new Sorting<RewardsGridClient>() {
 			@Override
 			public void sortingCurrentPage(
-					Comparator<RewardsItemCompanyOtherClient> comparator) {
+					Comparator<RewardsGridClient> comparator) {
 				// listViewAdapter.sortCurrentPage(comparator);
 			}
 
@@ -133,66 +135,66 @@ public class RewardsItemListCompanyOtherPresenterImpl extends
 			}
 		};
 
-//		cellTable.addColumn("奖项编号", new HyperLinkCell(),
-//				new GetValue<RewardsItemCompanyOtherClient, String>() {
-//					@Override
-//					public String getValue(RewardsItemCompanyOtherClient rewards) {
-//						return rewards.getName();
-//					}
-//				}, ref, "itemNo");
+		// cellTable.addColumn("奖项编号", new HyperLinkCell(),
+		// new GetValue<RewardsGridClient, String>() {
+		// @Override
+		// public String getValue(RewardsGridClient rewards) {
+		// return rewards.getName();
+		// }
+		// }, ref, "itemNo");
 
 		cellTable.addColumn("奖项名称", new HyperLinkCell(),
-				new GetValue<RewardsItemCompanyOtherClient, String>() {
+				new GetValue<RewardsGridClient, String>() {
 					@Override
-					public String getValue(RewardsItemCompanyOtherClient rewards) {
-						return rewards.getName();
+					public String getValue(RewardsGridClient client) {
+						return client.getRewardsItemName();
 					}
 				}, ref, "name");
 
 		cellTable.addColumn("奖励状态", new TextCell(),
-				new GetValue<RewardsItemCompanyOtherClient, String>() {
+				new GetValue<RewardsGridClient, String>() {
 					@Override
-					public String getValue(RewardsItemCompanyOtherClient rewards) {
-//						return rewards.getMyRewardsStatus();
+					public String getValue(RewardsGridClient rewards) {
+						// return rewards.getMyRewardsStatus();
 						return "努力冲奖项";
 					}
 				}, ref, "status");
 
 		cellTable.addColumn("创建人", new TextCell(),
-				new GetValue<RewardsItemCompanyOtherClient, String>() {
+				new GetValue<RewardsGridClient, String>() {
 					@Override
-					public String getValue(RewardsItemCompanyOtherClient rewards) {
-						return rewards.getCreatedBy();
+					public String getValue(RewardsGridClient client) {
+//						return client.getCreatedBy();
+						return "";
 					}
 				}, ref, "createdBy");
 
 		cellTable.addColumn("操作", new HyperLinkCell(),
-				new GetValue<RewardsItemCompanyOtherClient, String>() {
+				new GetValue<RewardsGridClient, String>() {
 					@Override
-					public String getValue(RewardsItemCompanyOtherClient arg0) {
+					public String getValue(RewardsGridClient client) {
 						return "查看奖项详细";
 					}
-				}, new FieldUpdater<RewardsItemCompanyOtherClient, String>() {
+				}, new FieldUpdater<RewardsGridClient, String>() {
 					@Override
 					public void update(int index,
-							final RewardsItemCompanyOtherClient object,
-							String value) {
+							final RewardsGridClient object, String value) {
 
-//						Platform.getInstance()
-//								.getEditorRegistry()
-//								.openEditor(
-//										RewardsItemConstants.EDITOR_REWARDSITEM_STAFF_VIEW,
-//										RewardsItemConstants.EDITOR_REWARDSITEM_STAFF_VIEW,
-//										object);
-						RewardsItemClient client=new RewardsItemClient();
-						client.setId(object.getId());
+						// Platform.getInstance()
+						// .getEditorRegistry()
+						// .openEditor(
+						// RewardsItemConstants.EDITOR_REWARDSITEM_STAFF_VIEW,
+						// RewardsItemConstants.EDITOR_REWARDSITEM_STAFF_VIEW,
+						// object);
+						RewardsItemClient client = new RewardsItemClient();
+						client.setId(object.getRewardsItemId());
 						Platform.getInstance()
-						.getEditorRegistry()
-						.openEditor(
-								RewardsItemConstants.EDITOR_REWARDSITEM_VIEW_STAFF,
-								RewardsItemConstants.EDITOR_REWARDSITEM_VIEW_STAFF,
-								client);
-						
+								.getEditorRegistry()
+								.openEditor(
+										RewardsItemConstants.EDITOR_REWARDSITEM_VIEW_STAFF,
+										RewardsItemConstants.EDITOR_REWARDSITEM_VIEW_STAFF,
+										client);
+
 					}
 				});
 
