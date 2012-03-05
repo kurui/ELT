@@ -43,7 +43,14 @@ public class RewardGridLogicImpl implements RewardGridLogic {
 			RewardGridSearchVo criteria) {
 		PageStore<RewardGridVo> pageStore = new PageStore<RewardGridVo>();
 		
-//		winnerDao.
+		RewardSearchVo rewardSearchVo = new RewardSearchVo();
+		String staffId=context.getCorporationId();
+		List<Reward> rewardList = rewardDao.searchRewardsData_staff(staffId, rewardSearchVo);
+
+		int resultCount = rewardList.size();
+
+		pageStore.setResultList(convertToGridVoListFromReward(rewardList));
+		pageStore.setResultCount(resultCount);
 		
 		return pageStore;
 	}

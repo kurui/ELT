@@ -132,13 +132,13 @@ public class RewardDao extends BaseDao<Reward> {
 	}
 
 	@SuppressWarnings("unchecked")
-	private List<Reward> searchRewardsData_staff(String staffId,
+	public List<Reward> searchRewardsData_staff(String staffId,
 			RewardSearchVo criteria) {
 		return generatorSearchRewardsQuery(staffId, SEARCH, criteria)
 				.getResultList();
 	}
 
-	private int searchRewardsCount_staff(String staffId, RewardSearchVo criteria) {
+	public int searchRewardsCount_staff(String staffId, RewardSearchVo criteria) {
 		return Integer.parseInt(generatorSearchRewardsQuery(staffId, COUNT,
 				criteria).getSingleResult().toString());
 	}

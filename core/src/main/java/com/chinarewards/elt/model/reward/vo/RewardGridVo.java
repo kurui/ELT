@@ -27,6 +27,16 @@ public class RewardGridVo {
 
 	private String rewardItemPhoto = "";
 
+	private String corporationId = "";
+
+	public String getCorporationId() {
+		return corporationId;
+	}
+
+	public void setCorporationId(String corporationId) {
+		this.corporationId = corporationId;
+	}
+
 	public String getRewardItemPhoto() {
 		return rewardItemPhoto;
 	}

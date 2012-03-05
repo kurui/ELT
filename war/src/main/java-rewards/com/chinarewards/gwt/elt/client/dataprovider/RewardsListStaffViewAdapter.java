@@ -51,6 +51,7 @@ public class RewardsListStaffViewAdapter extends
 
 					@Override
 					public void onSuccess(SearchRewardsGridResponse response) {
+						System.out.println("============response ============");
 						updateRowData(start, response.getResult());
 						updateRowCount(response.getTotal(), true);
 						display.setDataCount(response.getTotal()+"");

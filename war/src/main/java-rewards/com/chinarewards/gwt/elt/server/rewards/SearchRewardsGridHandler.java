@@ -8,12 +8,16 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 
 import org.slf4j.Logger;
 
+import com.chinarewards.elt.domain.reward.person.Judge;
 import com.chinarewards.elt.model.common.PageStore;
+import com.chinarewards.elt.model.common.PaginationDetail;
+import com.chinarewards.elt.model.common.SortingDetail;
 import com.chinarewards.elt.model.reward.search.RewardGridSearchVo;
 import com.chinarewards.elt.model.reward.vo.RewardGridVo;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.reward.RewardGridService;
 import com.chinarewards.elt.util.StringUtil;
+import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsGridClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsGridCriteria;
 import com.chinarewards.gwt.elt.client.rewards.request.SearchRewardsGridRequest;
@@ -60,7 +64,8 @@ public class SearchRewardsGridHandler extends
 
 		if (rewardsPage != null) {
 			resp.setTotal(rewardsPage.getResultCount());
-			List<RewardsGridClient> clientList=adapter(rewardsPage.getResultList());
+			List<RewardsGridClient> clientList = adapter(rewardsPage
+					.getResultList());
 			resp.setResult(clientList);
 		}
 
@@ -95,6 +100,7 @@ public class SearchRewardsGridHandler extends
 		return rewardsPage;
 	}
 
+	// 从服务端得到的数据到客户端在列表显示的数据
 	public static List<RewardsGridClient> adapter(List<RewardGridVo> rewardsList) {
 		if (null == rewardsList) {
 			return null;
@@ -112,105 +118,87 @@ public class SearchRewardsGridHandler extends
 				client.setRewardsItemName(rewardGridVo.getRewardItemName());
 				client.setAwardAmt(rewardGridVo.getAwardAmt() + "");
 
-				// client.setCorporationId(rewardGridVo.getCorporationId());
+				 client.setCorporationId(rewardGridVo.getCorporationId());
 
+				
+				// // client.setNominateName(item.getNominateName());
+				// // 提名人员
+				// List<Judge> judges = item.getJudgeList();
+				// ParticipateInfoClient participate = null;
+				// List<OrganicationClient> orgs = getOrgsFromJudges(judges);
+				// participate = new SomeoneClient(orgs);
+				// client.setTmInfo(participate);
+				//
+				// client.setNominateCount(item.getNominateCount());
+				// resultList.add(client);
+				// }
 				clientList.add(client);
 			}
 		}
 		return clientList;
 	}
+	
+	// private List<RewardsItemStaffClient> adapter(List<RewardItemVo>
+	// items,RewardItemService rewardsItemService) {
+	// List<RewardsItemStaffClient> resultList = new
+	// ArrayList<RewardsItemStaffClient>();
+	//
+	// for (RewardItemVo item : items) {
+	// RewardsItemStaffClient client = new RewardsItemStaffClient();
+	// client.setId(item.getId());
+	// client.setName(item.getName());
+	// client.setAuto(item.getAutoAward() ==
+	// RequireAutoAward.requireAutoAward);//自动奖
+	// client.setDegree(item.getItem().getDegree());
+	// client.setPeriodEnable(item.getAutoGenerate()==RequireAutoGenerate.requireCyclic);//周期性
+	// client.setStartTime(item.getItem().getStartTime());
+	// client.setCreateAt(item.getItem().getCreatedAt());
+	// client.setCreatedBy(item.getCreatedBy().getUserName());
+	// client.setNextPublishTime(item.getExpectAwardDate());
+	// client.setEnabled(item.isEnabled());
+	//
+	// client.setAwardAmt(item.getAwardAmt());
 
+	//
+	// return resultList;
+	// }
+	//
+
+	// 从奖项查询的VO转为model的VO,主要是传查询的条件
 	public static RewardGridSearchVo adapterQuery(RewardsGridCriteria criteria) {
 		RewardGridSearchVo searchVo = new RewardGridSearchVo();
-		
+
 		searchVo.setThisAction(criteria.getThisAction());
-		
+
 		searchVo.setCorporationId(criteria.getCorporationId());
 		searchVo.setStaffId(criteria.getStaffId());
-		
+
+		if (criteria.getPagination() != null) {
+			PaginationDetail paginationDetail = new PaginationDetail();
+			paginationDetail.setStart(criteria.getPagination().getStart());
+			paginationDetail.setLimit(criteria.getPagination().getLimit());
+			searchVo.setPaginationDetail(paginationDetail);
+		}
+
+		if (criteria.getSorting() != null) {
+			SortingDetail sortingDetail = new SortingDetail();
+			sortingDetail.setSort(criteria.getSorting().getSort());
+			sortingDetail.setDirection(criteria.getSorting().getDirection());
+			searchVo.setSortingDetail(sortingDetail);
+		}
 
 		return searchVo;
 	}
-	
-	
-	
-//	// Convert from RewardsItemSearchCriteria to GeneratorRewardsItemModel.
-//		//从奖项查询的VO转为model的VO,主要是传查询的条件
-//		private RewardItemSearchVo adapter(RewardsItemStaffCriteria criteria) {
-//			RewardItemSearchVo model = new RewardItemSearchVo();
-//			model.setAccountDeptName(criteria.getAccountDeptName());
-//			model.setBuildDeptName(criteria.getBuildDeptName());
-//			model.setCorporationId(criteria.getCorporationId());
-//			model.setDefinition(criteria.getDefinition());
-//			model.setDeptIds(criteria.getDeptIds());
-//			model.setId(criteria.getId());
-//			model.setName(criteria.getName());
-//			model.setDepartmentId(criteria.getDepartmentId());
-//	        model.setEnabled(criteria.isEnabled());
-//			model.setCreateTime(criteria.getCreateTime());
-//			model.setCreateTimeEnd(criteria.getCreateTimeEnd());
-//			model.setStandard(criteria.getStandard());
-//			model.setStartTime(criteria.getStartTime());
-//			model.setTypeId(criteria.getTypeId());
-//			model.setTypeName(criteria.getTypeName());
-//			
-//			model.setStaffId(criteria.getStaffId());
-//
-//			if (criteria.getPagination() != null) {
-//				PaginationDetail paginationDetail = new PaginationDetail();
-//				paginationDetail.setStart(criteria.getPagination().getStart());
-//				paginationDetail.setLimit(criteria.getPagination().getLimit());
-//				model.setPaginationDetail(paginationDetail);
-//			}
-//
-//			if (criteria.getSorting() != null) {
-//				SortingDetail sortingDetail = new SortingDetail();
-//				sortingDetail.setSort(criteria.getSorting().getSort());
-//				sortingDetail.setDirection(criteria.getSorting().getDirection());
-//				model.setSortingDetail(sortingDetail);
-//			}
-//			return model;
-//		}
-//	    //从服务端得到的数据到客户端在列表显示的数据
-//		private List<RewardsItemStaffClient> adapter(List<RewardItemVo> items,RewardItemService rewardsItemService) {
-//			List<RewardsItemStaffClient> resultList = new ArrayList<RewardsItemStaffClient>();
-//
-//			for (RewardItemVo item : items) {
-//				RewardsItemStaffClient client = new RewardsItemStaffClient();
-//				client.setId(item.getId());
-//				client.setName(item.getName());
-//				client.setAuto(item.getAutoAward() == RequireAutoAward.requireAutoAward);//自动奖
-//				client.setDegree(item.getItem().getDegree());
-//				client.setPeriodEnable(item.getAutoGenerate()==RequireAutoGenerate.requireCyclic);//周期性
-//				client.setStartTime(item.getItem().getStartTime());
-//				client.setCreateAt(item.getItem().getCreatedAt());
-//				client.setCreatedBy(item.getCreatedBy().getUserName());
-//				client.setNextPublishTime(item.getExpectAwardDate());
-//				client.setEnabled(item.isEnabled());
-//				
-//				client.setAwardAmt(item.getAwardAmt());
-////				client.setNominateName(item.getNominateName());
-//				// 提名人员
-//				List<Judge> judges = item.getJudgeList();
-//				ParticipateInfoClient participate = null;
-//				List<OrganicationClient> orgs = getOrgsFromJudges(judges);
-//				participate = new SomeoneClient(orgs);
-//				client.setTmInfo(participate);
-//				
-//				client.setNominateCount(item.getNominateCount());
-//				resultList.add(client);
-//			}
-//
-//			return resultList;
-//		}
-//		
-//		private List<OrganicationClient> getOrgsFromJudges(List<Judge> judge) {
-//			List<OrganicationClient> orgs = new ArrayList<OrganicationClient>();
-//			for (Judge p : judge) {
-//				orgs.add(new OrganicationClient(p.getStaff().getId(), p.getStaff().getName()));
-//			}
-//			return orgs;
-//		}
+
+
+	private List<OrganicationClient> getOrgsFromJudges(List<Judge> judge) {
+		List<OrganicationClient> orgs = new ArrayList<OrganicationClient>();
+		for (Judge p : judge) {
+			orgs.add(new OrganicationClient(p.getStaff().getId(), p.getStaff()
+					.getName()));
+		}
+		return orgs;
+	}
 
 	@Override
 	public Class<SearchRewardsGridRequest> getActionType() {
