@@ -353,4 +353,9 @@ public class StaffDao extends BaseDao<Staff> {
 				.createQuery("FROM Staff s WHERE s.corporation.id = :corporationId")
 				.setParameter("corporationId", corporationId).getResultList();
 	}
+	@SuppressWarnings("unchecked")
+	public List<Staff> findStaffsByNotUser() {
+		return getEm()
+				.createQuery("SELECT s FROM Staff s,SysUser u WHERE s.id != u.staff.id").getResultList();
+	}
 }
