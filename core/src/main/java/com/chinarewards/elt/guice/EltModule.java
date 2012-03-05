@@ -2,6 +2,7 @@ package com.chinarewards.elt.guice;
 
 import com.chinarewards.elt.guice.sub.BroadcastingModule;
 import com.chinarewards.elt.guice.sub.BudgetModule;
+import com.chinarewards.elt.guice.sub.EmailModule;
 import com.chinarewards.elt.guice.sub.GiftModule;
 import com.chinarewards.elt.guice.sub.OrderModule;
 import com.chinarewards.elt.guice.sub.OrgModule;
@@ -31,6 +32,7 @@ public class EltModule extends AbstractModule {
 		install(new OrderModule());
 		install(new TeamModule());
 		install(new BroadcastingModule());
+		install(new EmailModule());
 	}
 
 }

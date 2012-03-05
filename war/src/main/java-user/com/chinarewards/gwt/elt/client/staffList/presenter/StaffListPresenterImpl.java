@@ -7,6 +7,9 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
+import com.chinarewards.gwt.elt.client.mail.model.MailVo;
+import com.chinarewards.gwt.elt.client.mail.request.MailRequest;
+import com.chinarewards.gwt.elt.client.mail.request.MailResponse;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
@@ -15,6 +18,7 @@ import com.chinarewards.gwt.elt.client.staffList.dataprovider.StaffListViewAdapt
 import com.chinarewards.gwt.elt.client.staffList.model.StaffListClient;
 import com.chinarewards.gwt.elt.client.staffList.model.StaffListCriteria;
 import com.chinarewards.gwt.elt.client.staffList.model.StaffListCriteria.StaffStatus;
+import com.chinarewards.gwt.elt.client.staffList.plugin.StaffListConstants;
 import com.chinarewards.gwt.elt.client.staffList.request.StaffGenerateUserRequest;
 import com.chinarewards.gwt.elt.client.staffList.request.StaffGenerateUserResponse;
 import com.chinarewards.gwt.elt.client.staffList.request.UpdateUserPwdRequest;
@@ -244,7 +248,7 @@ public class StaffListPresenterImpl extends
 											@Override
 											public void onSuccess(StaffGenerateUserResponse resp) {
 												win.alert(resp.getMessage());
-												
+												sendMail(o.getEmail());
 											}
 										});
 								
@@ -283,12 +287,12 @@ public class StaffListPresenterImpl extends
 												if("success".equals(resp.getMessage()))
 												{
 													win.alert("密码重置成功!初始密码:123");
+													sendMail(o.getEmail());
 												}
 												
 											}
 										});
-								
-							}
+								}
 						});
 						
 						
@@ -316,5 +320,25 @@ public class StaffListPresenterImpl extends
 			display.displayBtn();
 		}
 	}
+	public void sendMail(String emailAddress)
+	   {
+		   MailVo mailvo = new MailVo();
+		   mailvo.setEmailAddress(emailAddress);
+		   mailvo.setContent("你的ELT账号是"+emailAddress.substring(0,emailAddress.indexOf("@"))+"初始密码是123");
+		   MailRequest request = new MailRequest();
+		   request.setMailvo(mailvo);
+		   dispatch.execute(request,new AsyncCallback<MailResponse>() {
+
+						@Override
+						public void onFailure(Throwable t) {
+							win.alert(t.getMessage());
+						}
+	    				@Override
+						public void onSuccess(MailResponse resp) {
+							win.alert(resp.getToken());
+							
+						}
+					});
+	   }
 
 }
