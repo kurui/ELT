@@ -460,6 +460,22 @@ public class StaffLogicImpl implements StaffLogic {
 	@Override
 	public GeneratedUserConstants generatedUserbyStaff(String staffId,
 			UserContext context) {
+		if ("ALL".equals(staffId)) {
+			List<Staff> list=staffDao.findStaffsByNotUser();
+			if(list!=null && list.size()>0)
+			{
+				for (Staff s:list) {
+					generatedUserbyStaffToo(s.getId(),context);
+				}
+			}
+		} else {
+			return generatedUserbyStaffToo(staffId, context);
+		}
+		return GeneratedUserConstants.Success;
+	}
+
+	private GeneratedUserConstants generatedUserbyStaffToo(String staffId,
+			UserContext context) {
 		Staff staff = staffDao.findById(Staff.class, staffId);
 		SysUser user = userDao.findUserByStaffId(staff.getId());
 		SysUser nowuser = userDao.findUserById(context.getUserId());

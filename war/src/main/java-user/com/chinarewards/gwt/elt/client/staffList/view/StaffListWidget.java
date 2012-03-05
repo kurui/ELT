@@ -126,6 +126,7 @@ public class StaffListWidget extends Composite implements StaffListDisplay {
 	public void displayBtn() {
 		addStaffBtn.setVisible(false);
 		synchronousStaffBtn.setVisible(false);
+		createSysUserBtn.setVisible(false);
 	}
 
 	@Override
