@@ -18,6 +18,8 @@ import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.reward.RewardGridService;
 import com.chinarewards.elt.util.StringUtil;
 import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
+import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient;
+import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient.SomeoneClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsGridClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsGridCriteria;
 import com.chinarewards.gwt.elt.client.rewards.request.SearchRewardsGridRequest;
@@ -114,55 +116,31 @@ public class SearchRewardsGridHandler extends
 				RewardsGridClient client = new RewardsGridClient();
 				client.setRewardsId(rewardGridVo.getRewardId());
 				client.setRewardsName(rewardGridVo.getRewardName());
+				client.setRewardsDate(rewardGridVo.getRewardsDate());
 				client.setRewardsItemId(rewardGridVo.getRewardItemId());
 				client.setRewardsItemName(rewardGridVo.getRewardItemName());
 				client.setAwardAmt(rewardGridVo.getAwardAmt() + "");
+				client.setAwardName(rewardGridVo.getAwardName());// 颁奖人
 
-				 client.setCorporationId(rewardGridVo.getCorporationId());
+				client.setCorporationId(rewardGridVo.getCorporationId());
 
-				
-				// // client.setNominateName(item.getNominateName());
-				// // 提名人员
-				// List<Judge> judges = item.getJudgeList();
-				// ParticipateInfoClient participate = null;
-				// List<OrganicationClient> orgs = getOrgsFromJudges(judges);
-				// participate = new SomeoneClient(orgs);
-				// client.setTmInfo(participate);
-				//
-				// client.setNominateCount(item.getNominateCount());
-				// resultList.add(client);
-				// }
+				client.setWinnersName(rewardGridVo.getWinnersName());// 获奖人
+
+				client.setNominateName(rewardGridVo.getNominateName());
+				// 提名人员
+				List<Judge> judges = rewardGridVo.getJudgeList();
+				ParticipateInfoClient participate = null;
+				List<OrganicationClient> orgs = getOrgsFromJudges(judges);
+				participate = new SomeoneClient(orgs);
+				client.setTmInfo(participate);
+
+				client.setNominateCount(rewardGridVo.getNominateCount());
+
 				clientList.add(client);
 			}
 		}
 		return clientList;
 	}
-	
-	// private List<RewardsItemStaffClient> adapter(List<RewardItemVo>
-	// items,RewardItemService rewardsItemService) {
-	// List<RewardsItemStaffClient> resultList = new
-	// ArrayList<RewardsItemStaffClient>();
-	//
-	// for (RewardItemVo item : items) {
-	// RewardsItemStaffClient client = new RewardsItemStaffClient();
-	// client.setId(item.getId());
-	// client.setName(item.getName());
-	// client.setAuto(item.getAutoAward() ==
-	// RequireAutoAward.requireAutoAward);//自动奖
-	// client.setDegree(item.getItem().getDegree());
-	// client.setPeriodEnable(item.getAutoGenerate()==RequireAutoGenerate.requireCyclic);//周期性
-	// client.setStartTime(item.getItem().getStartTime());
-	// client.setCreateAt(item.getItem().getCreatedAt());
-	// client.setCreatedBy(item.getCreatedBy().getUserName());
-	// client.setNextPublishTime(item.getExpectAwardDate());
-	// client.setEnabled(item.isEnabled());
-	//
-	// client.setAwardAmt(item.getAwardAmt());
-
-	//
-	// return resultList;
-	// }
-	//
 
 	// 从奖项查询的VO转为model的VO,主要是传查询的条件
 	public static RewardGridSearchVo adapterQuery(RewardsGridCriteria criteria) {
@@ -190,13 +168,18 @@ public class SearchRewardsGridHandler extends
 		return searchVo;
 	}
 
-
-	private List<OrganicationClient> getOrgsFromJudges(List<Judge> judge) {
+	private static List<OrganicationClient> getOrgsFromJudges(
+			List<Judge> judgeList) {
 		List<OrganicationClient> orgs = new ArrayList<OrganicationClient>();
-		for (Judge p : judge) {
-			orgs.add(new OrganicationClient(p.getStaff().getId(), p.getStaff()
-					.getName()));
+		if (judgeList != null) {
+			for (Judge judge : judgeList) {
+				if (judge != null) {
+					orgs.add(new OrganicationClient(judge.getStaff().getId(),
+							judge.getStaff().getName()));
+				}
+			}
 		}
+
 		return orgs;
 	}
 
@@ -210,5 +193,4 @@ public class SearchRewardsGridHandler extends
 			SearchRewardsGridResponse resp, ExecutionContext cxt)
 			throws DispatchException {
 	}
-
 }

@@ -192,7 +192,7 @@ public class WinnerDao extends BaseDao<Winner> {
 	}
 	
 	@SuppressWarnings("unchecked")
-	private List<Winner> queryCurrentStaffWinRewardData(RewardSearchVo searchVo) {
+	public List<Winner> queryCurrentStaffWinRewardData(RewardSearchVo searchVo) {
 		return getCurrentStaffQuery(searchVo, SEARCH).getResultList();
 	}
 
@@ -313,7 +313,7 @@ public class WinnerDao extends BaseDao<Winner> {
 	}
 	
 	@SuppressWarnings("unchecked")
-	private List<Winner> queryCurrentStaffWinRewardItemData(RewardItemSearchVo searchVo) {
+	public List<Winner> queryCurrentStaffWinRewardItemData(RewardItemSearchVo searchVo) {
 		return getCurrentStaffRewardItemQuery(searchVo, SEARCH).getResultList();
 	}
 

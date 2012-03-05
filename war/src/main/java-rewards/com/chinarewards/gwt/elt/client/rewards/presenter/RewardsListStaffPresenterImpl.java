@@ -182,7 +182,7 @@ public class RewardsListStaffPresenterImpl extends
 					public String getValue(RewardsGridClient client) {
 						return client.getRewardsName();
 					}
-				}, ref, "name");
+				}, ref, "rewardsName");
 
 		cellTable.addColumn("奖励积分", new TextCell(),
 				new GetValue<RewardsGridClient, String>() {
@@ -200,25 +200,23 @@ public class RewardsListStaffPresenterImpl extends
 					public Date getValue(RewardsGridClient client) {
 						return client.getRewardsDate();
 					}
-				}, ref, "clientDate");
+				}, ref, "rewardsDate");
 
 		cellTable.addColumn("颁奖人", new TextCell(),
 				new GetValue<RewardsGridClient, String>() {
 					@Override
 					public String getValue(RewardsGridClient client) {
-//						return client.getCreatedBy();
-						return "";
+						return client.getAwardName();
 					}
-				}, ref, "createdBy");
+				}, ref, "awardName");
 
 		cellTable.addColumn("获奖人", new TextCell(),
 				new GetValue<RewardsGridClient, String>() {
 					@Override
 					public String getValue(RewardsGridClient client) {
-//						return client.getWinnersText();
-						return "";
+						return client.getWinnersName();
 					}
-				}, ref, "winners");
+				}, ref, "winnersName");
 
 	}
 

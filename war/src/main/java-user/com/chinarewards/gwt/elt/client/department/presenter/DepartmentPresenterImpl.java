@@ -22,10 +22,10 @@ import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.rewards.model.StaffClient;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.win.Win;
+import com.chinarewards.gwt.elt.client.win.confirm.ConfirmHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -41,7 +41,7 @@ public class DepartmentPresenterImpl extends
 	private final DispatchAsync dispatcher;
 	private final ErrorHandler errorHandler;
 	private final SessionManager sessionManager;
-	
+
 	private final Provider<ChooseLeaderWinDialog> chooseLeaderDialogProvider;
 
 	private final Win win;
@@ -52,14 +52,15 @@ public class DepartmentPresenterImpl extends
 	public DepartmentPresenterImpl(EventBus eventBus,
 			DepartmentDisplay display, DispatchAsync dispatcher,
 			ErrorHandler errorHandler, SessionManager sessionManager, Win win,
-			BreadCrumbsPresenter breadCrumbs,Provider<ChooseLeaderWinDialog> chooseLeaderDialogProvider) {
+			BreadCrumbsPresenter breadCrumbs,
+			Provider<ChooseLeaderWinDialog> chooseLeaderDialogProvider) {
 		super(eventBus, display);
 		this.dispatcher = dispatcher;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
 		this.win = win;
 		this.breadCrumbs = breadCrumbs;
-		this.chooseLeaderDialogProvider=chooseLeaderDialogProvider;
+		this.chooseLeaderDialogProvider = chooseLeaderDialogProvider;
 	}
 
 	@Override
@@ -76,7 +77,7 @@ public class DepartmentPresenterImpl extends
 		} else if (DepartmentConstants.ACTION_DEPARTMENT_ADD_CHILD
 				.equals(thisAction)) {
 			breadCrumbs.loadChildPage("新建子部门");
-			 initSaveChild();
+			initSaveChild();
 		} else if (DepartmentConstants.ACTION_DEPARTMENT_EDIT_CORP
 				.equals(thisAction)) {
 			initEdit();
@@ -85,7 +86,7 @@ public class DepartmentPresenterImpl extends
 				.equals(thisAction)) {
 			initEdit();
 			breadCrumbs.loadChildPage("编辑部门");
-		}else {
+		} else {
 			win.alert("未定义的方法");
 		}
 
@@ -123,7 +124,7 @@ public class DepartmentPresenterImpl extends
 								.equals(thisAction)) {
 							departmentVo.setId(departmentId);
 							doEdit(departmentVo);
-						}else if (DepartmentConstants.ACTION_DEPARTMENT_EDIT_DEPT
+						} else if (DepartmentConstants.ACTION_DEPARTMENT_EDIT_DEPT
 								.equals(thisAction)) {
 							departmentVo.setId(departmentId);
 							doEdit(departmentVo);
@@ -151,28 +152,30 @@ public class DepartmentPresenterImpl extends
 								});
 					}
 
-					private void doEdit(DepartmentVo department) {
-						if (Window.confirm("确定修改?")) {
-							dispatcher.execute(
-									new EditDepartmentRequest(department,
-											sessionManager.getSession()),
-									new AsyncCallback<EditDepartmentResponse>() {
-										@Override
-										public void onFailure(Throwable t) {
-											win.alert("修改失败");
-											closeEditPage();
-										}
+					private void doEdit(final DepartmentVo department) {
 
-										@Override
-										public void onSuccess(
-												EditDepartmentResponse arg0) {
-											win.alert("修改成功");
-											openDepartmentManagePage();
-										}
-									});
-						}
+						win.confirm("确认", "确定修改？", new ConfirmHandler() {
+							@Override
+							public void confirm() {
+								dispatcher.execute(
+										new EditDepartmentRequest(department,sessionManager.getSession()),
+										new AsyncCallback<EditDepartmentResponse>() {
+											@Override
+											public void onFailure(Throwable t) {
+												win.alert("修改失败");
+												closeEditPage();
+											}
+
+											@Override
+											public void onSuccess(
+													EditDepartmentResponse arg0) {
+												win.alert("修改成功");
+												openDepartmentManagePage();
+											}
+										});
+							}
+						});	
 					}
-
 				}));
 
 		registerHandler(display.getBackClick().addClickHandler(
@@ -182,46 +185,55 @@ public class DepartmentPresenterImpl extends
 						openDepartmentManagePage();
 					}
 				}));
-		
+
 		registerChooseLeader();
 
 	}
-	
-	//选择Leader
-	private void registerChooseLeader(){	
+
+	// 选择Leader
+	private void registerChooseLeader() {
 		registerHandler(display.getChooseLeaderBtnClick().addClickHandler(
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent arg0) {
-						final HandlerRegistration registration = eventBus.addHandler(ChooseLeaderEvent.getType(),new ChooseLeaderHandler() {
+						final HandlerRegistration registration = eventBus
+								.addHandler(ChooseLeaderEvent.getType(),
+										new ChooseLeaderHandler() {
 											@Override
-											public void chosenLeader(List<StaffClient> list) {
+											public void chosenLeader(
+													List<StaffClient> list) {
 												for (StaffClient item : list) {
-													if(display.getLeaderArea()!=null&&item!=null){
-														if (!display.getLeaderArea().containsItem(item)) {
-//															display.getLeaderArea().clear();														
-															display.getLeaderArea().addItem(item);		
+													if (display.getLeaderArea() != null
+															&& item != null) {
+														if (!display
+																.getLeaderArea()
+																.containsItem(
+																		item)) {
+															// display.getLeaderArea().clear();
+															display.getLeaderArea()
+																	.addItem(
+																			item);
 														}
 													}
-													
+
 												}
 											}
 										});
-							//
+						//
 						final ChooseLeaderWinDialog dialog = chooseLeaderDialogProvider
 								.get();
 						dialog.setNominee(false, true, null);
-						//    
+						//
 						Platform.getInstance().getSiteManager()
 								.openDialog(dialog, new DialogCloseListener() {
-									public void onClose(String dialogId,String instanceId) {
+									public void onClose(String dialogId,
+											String instanceId) {
 										registration.removeHandler();
 									}
 								});
 					}
 				}));
 	}
-
 
 	// 验证方法
 	private boolean validateSubmit() {
@@ -292,7 +304,7 @@ public class DepartmentPresenterImpl extends
 			System.err.println("------------缺少departmentId----------");
 		}
 	}
-	
+
 	private void initSaveChild() {
 		if (departmentId != null) {
 			dispatcher.execute(new SearchDepartmentByIdRequest(departmentId),
@@ -328,10 +340,11 @@ public class DepartmentPresenterImpl extends
 
 	private void openEditPage(DepartmentClient client) {
 		Platform.getInstance()
-				.getEditorRegistry().openEditor(DepartmentConstants.EDITOR_DEPARTMENT_EDIT, "EDITOR_DEPARTMENT_EDIT", client);
+				.getEditorRegistry()
+				.openEditor(DepartmentConstants.EDITOR_DEPARTMENT_EDIT,
+						"EDITOR_DEPARTMENT_EDIT", client);
 	}
 
-	
 	private void closeEditPage() {
 		Platform.getInstance()
 				.getEditorRegistry()

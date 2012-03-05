@@ -1,8 +1,15 @@
 package com.chinarewards.elt.model.reward.vo;
 
+import java.util.Date;
+import java.util.List;
+
 import com.chinarewards.elt.domain.reward.base.Reward;
 import com.chinarewards.elt.domain.reward.base.RewardItem;
+import com.chinarewards.elt.domain.reward.person.Candidate;
+import com.chinarewards.elt.domain.reward.person.Judge;
+import com.chinarewards.elt.domain.reward.person.NomineeLot;
 import com.chinarewards.elt.domain.reward.person.Winner;
+import com.chinarewards.elt.domain.reward.rule.CandidateRule;
 
 /**
  * The data container about RewardGrid 员工 奖励小控件 对象
@@ -20,14 +27,123 @@ public class RewardGridVo {
 	// 奖励
 	private String rewardId = "";
 	private String rewardName = "";
+	private Date rewardsDate;
+	private String awardName="";//颁奖人
 	// 奖项
 	private String rewardItemId = "";
 	private String rewardItemName = "";
 	private double awardAmt = Double.valueOf(0);// 每人积分
+	
 
 	private String rewardItemPhoto = "";
 
 	private String corporationId = "";
+
+	private String nominateName = "";
+	private int nominateCount;
+
+	private CandidateRule candidateRule;
+	private List<Candidate> candidateList;
+	private List<Judge> judgeList;
+	private List<NomineeLot> nomineeLotList;
+	private List<Winner> winnerList;
+	
+	public String getWinnersName(){
+		String winnersName="";
+		if (winnerList!=null) {
+			for (int i = 0; i < winnerList.size(); i++) {
+				Winner winner=winnerList.get(i);
+				if (winner!=null) {
+					winnersName+=winner.getStaff().getName()+",";
+				}
+			}
+		}
+		
+		int subIndex=winnersName.lastIndexOf(",");
+		if (subIndex>-1) {
+			winnersName=winnersName.substring(0,subIndex);
+		}
+		
+		return winnersName;
+	}
+	
+	
+
+	public String getAwardName() {
+		return awardName;
+	}
+
+
+
+	public void setAwardName(String awardName) {
+		this.awardName = awardName;
+	}
+
+
+
+	public Date getRewardsDate() {
+		return rewardsDate;
+	}
+
+	public void setRewardsDate(Date rewardsDate) {
+		this.rewardsDate = rewardsDate;
+	}
+
+	public CandidateRule getCandidateRule() {
+		return candidateRule;
+	}
+
+	public void setCandidateRule(CandidateRule candidateRule) {
+		this.candidateRule = candidateRule;
+	}
+
+	public List<Candidate> getCandidateList() {
+		return candidateList;
+	}
+
+	public void setCandidateList(List<Candidate> candidateList) {
+		this.candidateList = candidateList;
+	}
+
+	public List<Judge> getJudgeList() {
+		return judgeList;
+	}
+
+	public void setJudgeList(List<Judge> judgeList) {
+		this.judgeList = judgeList;
+	}
+
+	public List<NomineeLot> getNomineeLotList() {
+		return nomineeLotList;
+	}
+
+	public void setNomineeLotList(List<NomineeLot> nomineeLotList) {
+		this.nomineeLotList = nomineeLotList;
+	}
+
+	public List<Winner> getWinnerList() {
+		return winnerList;
+	}
+
+	public void setWinnerList(List<Winner> winnerList) {
+		this.winnerList = winnerList;
+	}
+
+	public String getNominateName() {
+		return nominateName;
+	}
+
+	public void setNominateName(String nominateName) {
+		this.nominateName = nominateName;
+	}
+
+	public int getNominateCount() {
+		return nominateCount;
+	}
+
+	public void setNominateCount(int nominateCount) {
+		this.nominateCount = nominateCount;
+	}
 
 	public String getCorporationId() {
 		return corporationId;
