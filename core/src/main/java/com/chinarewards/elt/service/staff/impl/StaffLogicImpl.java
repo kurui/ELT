@@ -411,7 +411,7 @@ public class StaffLogicImpl implements StaffLogic {
 				if (lt.size() > 0) {
 					for (SysUserRole r : lt) {
 						if (r.getRole().getName() != UserRole.STAFF
-								|| r.getRole().getName() != UserRole.DEPT_MGR)
+								&& r.getRole().getName() != UserRole.DEPT_MGR)
 							userRoleDao.delete(r);
 					}
 				}
@@ -438,7 +438,7 @@ public class StaffLogicImpl implements StaffLogic {
 				if (lt.size() > 0) {
 					for (SysUserRole r : lt) {
 						if (r.getRole().getName() != UserRole.STAFF
-								|| r.getRole().getName() != UserRole.DEPT_MGR)
+								&& r.getRole().getName() != UserRole.DEPT_MGR)
 							userRoleDao.delete(r);
 					}
 				}
