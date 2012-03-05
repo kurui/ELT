@@ -79,8 +79,8 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public String updateStatus(UserContext context,String id,OrderStatus status) {
 		SysUser caller = userLogic.findUserById(context.getUserId());
-
 	    Orders order = orderLogic.findOrderById(id);//得到订单信息
+	   
     	String orderId = orderLogic.updateStatus(caller,id,status);//更新状态
 		String returnValue="ok";
 		if(orderId!=null&&orderId.equals(id)){//如果更新执行状态成功并是当前的订单ID
@@ -95,11 +95,11 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
     public String updateStock(UserContext context,String id,Orders order,boolean forward){
-    	 
     	 SysUser caller = userLogic.findUserById(context.getUserId());
+    	 SysUser orderUser = userLogic.findUserById(order.getUserId());//定单用户  
 		 String giftId = order.getGiftId();          //得到礼品的ID
 		 Gift gift = giftLogic.findGiftById(giftId);//查找礼品的信息
-			Staff staff=caller.getStaff();
+		 Staff staff=orderUser.getStaff();
 
 		  if(forward==true)
 		  {
@@ -115,16 +115,16 @@ public class OrderServiceImpl implements OrderService {
 		 }
 		  
 		 giftLogic.save(caller, gift);
-		 String returnValue = transaction( context,order.getIntegral(),order.getId(),forward);//交易积分
+		 String returnValue = transaction( orderUser,order.getIntegral(),order.getId(),forward);//交易积分
 		 staffDao.update(staff);
 		 return returnValue;
     }
     
-    public String transaction(UserContext context,double amount,String orderId,boolean forward){
-    	SysUser caller = userLogic.findUserById(context.getUserId());
-    	String  corpAccountId =caller.getCorporation().getTxAccountId();
-    	String  unitCode = caller.getCorporation().getDefaultUnitCode();
-    	String  staffAccountId = caller.getStaff().getTxAccountId();
+    public String transaction(SysUser orderUser,double amount,String orderId,boolean forward){
+    	
+    	String  corpAccountId =orderUser.getCorporation().getTxAccountId();
+    	String  unitCode = orderUser.getCorporation().getDefaultUnitCode();
+    	String  staffAccountId = orderUser.getStaff().getTxAccountId();
     	String returnValue= "ok";
     	try {
     		 if(forward==true)

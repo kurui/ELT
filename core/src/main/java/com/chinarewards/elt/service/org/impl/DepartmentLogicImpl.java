@@ -176,6 +176,8 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 		int index = department.getLft();
 		String corpId = department.getCorporation().getId();
 		departmentDao.delete(department);
+		
+		departmentManagerDao.deleteManager(deptId);
 
 		// maintain index
 		departmentDao.maintainIndexAfterDeleteNode(index, corpId);

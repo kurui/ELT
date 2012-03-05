@@ -1,7 +1,7 @@
 package com.chinarewards.gwt.elt.client.rewardItem.editor;
 
 import com.chinarewards.gwt.elt.client.core.ui.impl.AbstractEditor;
-import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemListCompanyOtherPresenter;
+import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemListCompanyPresenter;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
@@ -10,12 +10,12 @@ import com.google.inject.Inject;
  */
 public class RewardsItemListCompanyOtherEditor extends AbstractEditor {
 
-	final RewardsItemListCompanyOtherPresenter rewardsItemListPresenter;
+	final RewardsItemListCompanyPresenter rewardsItemListPresenter;
 	Object model;
 
 	@Inject
 	protected RewardsItemListCompanyOtherEditor(RewardsItemListCompanyOtherEditorDescriptor editorDescriptor,
-			RewardsItemListCompanyOtherPresenter rewardsItemListPresenter) {
+			RewardsItemListCompanyPresenter rewardsItemListPresenter) {
 		super(editorDescriptor);
 		this.rewardsItemListPresenter = rewardsItemListPresenter;
 	}

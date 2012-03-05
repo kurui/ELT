@@ -15,6 +15,7 @@ import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.rewards.model.StaffClient;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.chinarewards.gwt.elt.client.util.StringUtil;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager.TextLocation;
 import com.chinarewards.gwt.elt.client.widget.GetValue;
@@ -178,7 +179,14 @@ public class ChooseLeaderWinPresenterImpl extends
 				new GetValue<StaffClient, String>() {
 					@Override
 					public String getValue(StaffClient staff) {
-						return staff.getDeptName();
+						String deptName=staff.getDeptName();
+						if (!StringUtil.isEmpty(deptName)) {
+							int subIndex=deptName.indexOf("ROOT");
+							if (subIndex>-1) {
+								deptName="";
+							}
+						}
+						return deptName;
 					}
 				}, ref, "deptName");
 

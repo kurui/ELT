@@ -1,5 +1,7 @@
 package com.chinarewards.elt.model.reward.search;
 
+import java.util.Date;
+
 import com.chinarewards.elt.model.common.PaginationDetail;
 import com.chinarewards.elt.model.common.SortingDetail;
 import com.chinarewards.elt.model.reward.base.RewardStatus;
@@ -24,8 +26,28 @@ public class RewardGridSearchVo {
 
 	private String corporationId;
 
+	private Date rewardsDate;
+
+	private String rewardsType;
+
 	private PaginationDetail paginationDetail;
 	private SortingDetail sortingDetail;
+
+	public Date getRewardsDate() {
+		return rewardsDate;
+	}
+
+	public void setRewardsDate(Date rewardsDate) {
+		this.rewardsDate = rewardsDate;
+	}
+
+	public String getRewardsType() {
+		return rewardsType;
+	}
+
+	public void setRewardsType(String rewardsType) {
+		this.rewardsType = rewardsType;
+	}
 
 	public String getThisAction() {
 		return thisAction;

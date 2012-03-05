@@ -1,5 +1,7 @@
 package com.chinarewards.gwt.elt.client.rewards.model;
 
+import java.util.Date;
+
 import com.chinarewards.gwt.elt.model.PaginationDetailClient;
 import com.chinarewards.gwt.elt.model.SortingDetailClient;
 import com.google.gwt.user.client.rpc.IsSerializable;
@@ -17,6 +19,11 @@ public class RewardsGridCriteria implements IsSerializable {
 	private String corporationId;
 
 	private String staffId;
+	private String staffName;
+
+	private String rewardsItemId;
+	private Date rewardsDate;
+	private String rewardsItemType;
 
 	private String thisAction;
 
@@ -42,7 +49,37 @@ public class RewardsGridCriteria implements IsSerializable {
 		this.sorting = sorting;
 	}
 
+	public Date getRewardsDate() {
+		return rewardsDate;
+	}
 
+	public void setRewardsDate(Date rewardsDate) {
+		this.rewardsDate = rewardsDate;
+	}
+
+	public String getRewardsItemId() {
+		return rewardsItemId;
+	}
+
+	public void setRewardsItemId(String rewardsItemId) {
+		this.rewardsItemId = rewardsItemId;
+	}
+
+	public String getStaffName() {
+		return staffName;
+	}
+
+	public void setStaffName(String staffName) {
+		this.staffName = staffName;
+	}
+
+	public String getRewardsItemType() {
+		return rewardsItemType;
+	}
+
+	public void setRewardsItemType(String rewardsItemType) {
+		this.rewardsItemType = rewardsItemType;
+	}
 
 	public String getCorporationId() {
 		return corporationId;
@@ -68,5 +105,4 @@ public class RewardsGridCriteria implements IsSerializable {
 		this.staffId = staffId;
 	}
 
-	
 }

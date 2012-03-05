@@ -148,11 +148,13 @@ public class PeriodPresenterImpl extends BasePresenter<PeriodDisplay> implements
 					CorpBudgetVo corpBudgetVo = response.getCorpBudgetVo();
 				
 					if (corpBudgetVo!=null) {
-						if(corpBudgetVo.getId()!=null&&"".equals(corpBudgetVo.getCorporationId())==false){
-							display.setSaveUnVisible();
+						if(corpBudgetVo.getId()==null||"".equals(corpBudgetVo.getId())){						
+							display.setSaveVisible(true);
+						}else{
+							display.setSaveVisible(false);
 						}
 					} else {
-
+						display.setSaveVisible(true);
 					}
 				}
 			}

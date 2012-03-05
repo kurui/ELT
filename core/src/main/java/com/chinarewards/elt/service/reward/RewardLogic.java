@@ -123,14 +123,7 @@ public interface RewardLogic {
 	 */
 	public PageStore<RewardVo> fetchRewards(UserContext context,
 			RewardSearchVo criteria);
-	
-	/**
-	 * @param context
-	 * @param criteria
-	 * @return
-	 */
-	public PageStore<RewardVo> fetchRewardsStaff(UserContext context,
-			RewardSearchVo criteria);
+
 	
 	/**
 	 * 删除奖励...非物理删除
