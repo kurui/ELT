@@ -1,6 +1,7 @@
 package com.chinarewards.gwt.elt.client.rewards.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsCriteria.RewardsStatus;
 
@@ -24,31 +25,29 @@ public class RewardsGridClient implements Serializable,
 
 	private String corporationId;
 
+	private Date rewardsDate;
+
 	private RewardsStatus status;
 
 	public RewardsGridClient() {
 
 	}
-	
-	
-	
-	
+
+	public Date getRewardsDate() {
+		return rewardsDate;
+	}
+
+	public void setRewardsDate(Date rewardsDate) {
+		this.rewardsDate = rewardsDate;
+	}
 
 	public String getRewadsItemPhoto() {
 		return rewadsItemPhoto;
 	}
 
-
-
-
-
 	public void setRewadsItemPhoto(String rewadsItemPhoto) {
 		this.rewadsItemPhoto = rewadsItemPhoto;
 	}
-
-
-
-
 
 	public String getRewardsId() {
 		return rewardsId;

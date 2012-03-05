@@ -14,8 +14,8 @@ import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsItemRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsItemResponse;
-import com.chinarewards.gwt.elt.client.rewards.model.RewardsClient;
-import com.chinarewards.gwt.elt.client.rewards.model.RewardsCriteria;
+import com.chinarewards.gwt.elt.client.rewards.model.RewardsGridClient;
+import com.chinarewards.gwt.elt.client.rewards.model.RewardsGridCriteria;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemCriteria;
 import com.chinarewards.gwt.elt.client.rewards.presenter.RewardsListStaffPresenter.RewardsListStaffDisplay;
@@ -48,7 +48,7 @@ public class RewardsListStaffPresenterImpl extends
 	RewardPageType pageType;
 
 	EltNewPager pager;
-	ListCellTable<RewardsClient> cellTable;
+	ListCellTable<RewardsGridClient> cellTable;
 	RewardsListStaffViewAdapter listViewAdapter;
 
 	private final BreadCrumbsPresenter breadCrumbs;
@@ -91,7 +91,7 @@ public class RewardsListStaffPresenterImpl extends
 	}
 
 	private void buildTable() {
-		cellTable = new ListCellTable<RewardsClient>();
+		cellTable = new ListCellTable<RewardsGridClient>();
 
 		initTableColumns();
 		pager = new EltNewPager(TextLocation.CENTER);
@@ -107,7 +107,7 @@ public class RewardsListStaffPresenterImpl extends
 	}
 
 	private void doSearch() {
-		RewardsCriteria criteria = new RewardsCriteria();
+		RewardsGridCriteria criteria = new RewardsGridCriteria();
 		criteria.setStaffName(display.getWinnerName().getValue());
 
 		int selectedIndex = display.getRewardsItem().getSelectedIndex();
@@ -117,7 +117,7 @@ public class RewardsListStaffPresenterImpl extends
 			criteria.setRewardsItemId(rewardsItemId);
 		}
 
-		criteria.setRewardsTime(display.getRewardsTime().getValue());
+		criteria.setRewardsDate(display.getRewardsTime().getValue());
 
 		listViewAdapter = new RewardsListStaffViewAdapter(dispatch, criteria,
 				errorHandler, sessionManager, display);
@@ -162,9 +162,9 @@ public class RewardsListStaffPresenterImpl extends
 	}
 
 	private void initTableColumns() {
-		Sorting<RewardsClient> ref = new Sorting<RewardsClient>() {
+		Sorting<RewardsGridClient> ref = new Sorting<RewardsGridClient>() {
 			@Override
-			public void sortingCurrentPage(Comparator<RewardsClient> comparator) {
+			public void sortingCurrentPage(Comparator<RewardsGridClient> comparator) {
 				// listViewAdapter.sortCurrentPage(comparator);
 			}
 
@@ -175,44 +175,46 @@ public class RewardsListStaffPresenterImpl extends
 		};
 
 		cellTable.addColumn("奖项名称", new HyperLinkCell(),
-				new GetValue<RewardsClient, String>() {
+				new GetValue<RewardsGridClient, String>() {
 					@Override
-					public String getValue(RewardsClient rewards) {
-						return rewards.getName();
+					public String getValue(RewardsGridClient client) {
+						return client.getRewardsName();
 					}
 				}, ref, "name");
 
 		cellTable.addColumn("奖励积分", new TextCell(),
-				new GetValue<RewardsClient, String>() {
+				new GetValue<RewardsGridClient, String>() {
 					@Override
-					public String getValue(RewardsClient rewards) {
-						int total = (int) (rewards.getTotalAmtLimit());
+					public String getValue(RewardsGridClient client) {
+						int total = (int) (client.getTotalAmtLimit());
 						return total + "";
 					}
 				}, ref, "totalAmtLimit");
 
 		cellTable.addColumn("奖励时间",
 				new DateCell(DateTimeFormat.getFormat("yyyy-MM-dd")),
-				new GetValue<RewardsClient, Date>() {
+				new GetValue<RewardsGridClient, Date>() {
 					@Override
-					public Date getValue(RewardsClient rewards) {
-						return rewards.getRewardsDate();
+					public Date getValue(RewardsGridClient client) {
+						return client.getRewardsDate();
 					}
-				}, ref, "rewardsDate");
+				}, ref, "clientDate");
 
 		cellTable.addColumn("颁奖人", new TextCell(),
-				new GetValue<RewardsClient, String>() {
+				new GetValue<RewardsGridClient, String>() {
 					@Override
-					public String getValue(RewardsClient rewards) {
-						return rewards.getCreatedBy();
+					public String getValue(RewardsGridClient client) {
+//						return client.getCreatedBy();
+						return "";
 					}
 				}, ref, "createdBy");
 
 		cellTable.addColumn("获奖人", new TextCell(),
-				new GetValue<RewardsClient, String>() {
+				new GetValue<RewardsGridClient, String>() {
 					@Override
-					public String getValue(RewardsClient rewards) {
-						return rewards.getWinnersText();
+					public String getValue(RewardsGridClient client) {
+//						return client.getWinnersText();
+						return "";
 					}
 				}, ref, "winners");
 

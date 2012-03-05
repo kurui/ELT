@@ -15,9 +15,9 @@ import com.chinarewards.gwt.elt.client.rewardItem.presenter.FrequencySettingPres
 import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemCreatePresenter;
 import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemCreatePresenter.RewardsItemDisplay;
 import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemCreatePresenterImpl;
-import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemListCompanyOtherPresenter;
-import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemListCompanyOtherPresenter.RewardsItemListCompanyOtherDisplay;
-import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemListCompanyOtherPresenterImpl;
+import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemListCompanyPresenter;
+import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemListCompanyPresenter.RewardsItemListCompanyOtherDisplay;
+import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemListCompanyPresenterImpl;
 import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemListPresenter;
 import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemListPresenter.RewardsItemListDisplay;
 import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemListPresenterImpl;
@@ -73,7 +73,7 @@ public class RewardsItemModule extends AbstractGinModule {
 		bind(RewardsItemViewStaffPresenter.class).to(RewardsItemViewStaffPresenterImpl.class);
 		bind(RewardsItemViewStaffDisplay.class).to(RewardsItemViewStaffWidget.class);
 		
-		bind(RewardsItemListCompanyOtherPresenter.class).to(RewardsItemListCompanyOtherPresenterImpl.class);
+		bind(RewardsItemListCompanyPresenter.class).to(RewardsItemListCompanyPresenterImpl.class);
 		bind(RewardsItemListCompanyOtherDisplay.class).to(RewardsItemListCompanyOtherWidget.class);
 		
 		
