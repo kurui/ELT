@@ -39,6 +39,7 @@ public class RewardsListStaffViewAdapter extends
 		if (getSorting() != null) {
 			getCriteria().setSorting(getSorting());
 		}
+				
 		dispatch.execute(
 				new SearchRewardsGridRequest(getCriteria(), sessionManager
 						.getSession()),

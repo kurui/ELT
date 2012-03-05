@@ -118,6 +118,8 @@ public class RewardsListStaffPresenterImpl extends
 		}
 
 		criteria.setRewardsDate(display.getRewardsTime().getValue());
+		
+		criteria.setThisAction("Rewards_STAFF");
 
 		listViewAdapter = new RewardsListStaffViewAdapter(dispatch, criteria,
 				errorHandler, sessionManager, display);
@@ -135,7 +137,7 @@ public class RewardsListStaffPresenterImpl extends
 						new AsyncCallback<SearchRewardsItemResponse>() {
 							@Override
 							public void onFailure(Throwable arg0) {
-								errorHandler.alert("加载奖项异常 !");
+								errorHandler.alert("加载奖励异常 !");
 							}
 
 							@Override

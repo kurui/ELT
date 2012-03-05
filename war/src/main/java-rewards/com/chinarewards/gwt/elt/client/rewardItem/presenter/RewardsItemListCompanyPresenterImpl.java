@@ -112,6 +112,8 @@ public class RewardsItemListCompanyPresenterImpl extends
 		String rewardsItemType = display.getRewardsItemType().getValue(
 				selectedIndex);
 		criteria.setRewardsItemType(rewardsItemType);
+		
+		criteria.setThisAction("Rewards_");
 
 		listViewAdapter = new RewardsItemListCompanyViewAdapter(dispatch,
 				criteria, errorHandler, sessionManager, display);

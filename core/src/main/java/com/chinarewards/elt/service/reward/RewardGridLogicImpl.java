@@ -2,6 +2,7 @@ package com.chinarewards.elt.service.reward;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import com.chinarewards.elt.dao.reward.RewardDao;
 import com.chinarewards.elt.dao.reward.RewardItemDao;
 import com.chinarewards.elt.dao.reward.WinnerDao;
@@ -131,5 +132,74 @@ public class RewardGridLogicImpl implements RewardGridLogic {
 		
 		return gridVoList;
 	}
+	
+	
+//	private RewardItemVo convertFromRewardItemToVo(WinerRewardItemVo winVo,
+//			boolean isEntire) {
+//		RewardItem item=winVo.getReward().getRewardItem();
+//		RewardItemVo itemVo = new RewardItemVo();
+//		
+//		itemVo.setNominateCount(winVo.getNominateCount());
+//		
+//		if (isEntire) {
+//			String rewardItemId = item.getId();
+//			// Get frequency info,判断是否周期
+//			if (item.getAutoGenerate() == RequireAutoGenerate.requireCyclic) {
+//				Frequency frequencie = frequencyLogic
+//						.getFrequencyOfRewardItem(rewardItemId);
+//				itemVo.setFrequency(frequencie);
+//			}
+//			// Get candidate list rule
+//			CandidateRule candidateRule = candidateRuleLogic
+//					.findCandidateRuleFromRewardItem(rewardItemId);
+//			// Get judge list
+//			List<Judge> judges = judgeLogic
+//					.findJudgesFromRewardItem(rewardItemId);
+//
+//			itemVo.setCandidateRule(candidateRule);
+//			itemVo.setJudgeList(judges);
+//			
+//			itemVo.setAwardAmt(item.getAwardAmt());
+//		
+//		}
+//		itemVo.setItem(item);
+//
+//		return itemVo;
+//	}
 
+	
+//	private RewardVo convertFromWinnerRewardToVo(Winner win,Reward reward, boolean isEntire) {
+//		RewardVo rewardVo = new RewardVo();
+//		if (isEntire) {
+//			String rewardId = reward.getId();
+//			// candidate rule
+//			CandidateRule candidateRule = candidateRuleLogic
+//					.findCandidateRuleFromReward(rewardId);
+//			// candidate list
+//			List<Candidate> candidates = candidateLogic
+//					.getCandidatesFromReward(rewardId);
+//			// Judge list
+//			List<Judge> judges = judgeLogic.findJudgesFromReward(rewardId);
+//			// nominee lot
+//			List<NomineeLot> nomineeLots = nomineeLogic
+//					.getNomineeLotsFromReward(rewardId);
+//			// pre-winner
+//			List<PreWinnerLot> preWinnerLots = preWinnerLogic
+//					.getPreWinnerLotsFromReward(rewardId);
+//			// winner
+//			List<Winner> winners = winnerLogic.getWinnersOfReward(rewardId);
+//
+//			rewardVo.setReward(reward);
+//			rewardVo.setCandidateRule(candidateRule);
+//			rewardVo.setCandidates(candidates);
+//			rewardVo.setJudges(judges);
+//			rewardVo.setNomineeLots(nomineeLots);
+//			rewardVo.setPreWinnerLots(preWinnerLots);
+//			rewardVo.setWinners(winners);
+//			rewardVo.setAwardDate(win.getCreatedAt());
+//		}
+//		rewardVo.setReward(reward);
+//
+//		return rewardVo;
+//	}
 }

@@ -36,7 +36,6 @@ import com.chinarewards.elt.service.reward.acl.RewardAclProcessorDept;
 import com.chinarewards.elt.service.reward.acl.RewardAclProcessorFactory;
 import com.chinarewards.elt.service.reward.acl.RewardAclProcessorFactoryImpl;
 import com.chinarewards.elt.service.reward.acl.RewardAclProcessorHr;
-import com.chinarewards.elt.service.reward.acl.RewardAclProcessorStaff;
 import com.chinarewards.elt.service.reward.frequency.FrequencyFactory;
 import com.chinarewards.elt.service.reward.frequency.FrequencyFactoryImpl;
 import com.chinarewards.elt.service.reward.frequency.FrequencyLogic;
@@ -115,9 +114,6 @@ public class RewardModule extends AbstractModule {
 		bind(RewardAclProcessor.class).annotatedWith(
 				Names.named("RewardAclProcessorDept")).to(
 				RewardAclProcessorDept.class);
-		bind(RewardAclProcessor.class).annotatedWith(
-				Names.named("RewardAclProcessorStaff")).to(
-				RewardAclProcessorStaff.class);
 		
 		bind(RewardGridService.class).to(RewardGridServiceImpl.class).in(
 				Singleton.class);
