@@ -141,3 +141,12 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .enterprise-reg .form .long-text,.enterprise-reg .form .text,.enterprise-reg .form .textarea{padding:0 4px;color:#666666;}
 .enterprise-reg .form .textarea{padding:4px;width:542px;height:100px;}
 .enterprise-reg .form a{color:#001EFF;text-decoration:underline;}
+
+
+.remark{background-color:#F8F9FD;overflow:hidden;margin-right: 220px;float: left;margin-top: 10px;}
+.remark img{border:1px solid #CACACA;padding:2px;width:54px;height:54px;overflow:hidden;float:left;margin-right:10px;}
+.remark .remark-info{float:left;width:650px;}
+.remark .remark-info .remark-tool{text-align:right;margin-top:5px;}
+.remark .textarea{width:638px;height:80px;border:1px solid #CBCBCB;padding:5px;overflow:auto;}
+.remark .button{color:#FFFFFF;background-color:#0D63B8;padding:2px 8px;border:1px solid #7CD2FD;border-bottom:1px solid #2E5F77;border-right:1px solid #3C7D9C;}
+

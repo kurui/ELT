@@ -47,6 +47,7 @@ import com.chinarewards.gwt.elt.client.integralManagement.request.IntegralManage
 import com.chinarewards.gwt.elt.client.login.LastLoginRoleRequest;
 import com.chinarewards.gwt.elt.client.login.LoginRequest;
 import com.chinarewards.gwt.elt.client.login.TokenValidRequest;
+import com.chinarewards.gwt.elt.client.mail.request.MailRequest;
 import com.chinarewards.gwt.elt.client.message.request.SearchMessageListRequest;
 import com.chinarewards.gwt.elt.client.messageSave.request.MessageSaveRequest;
 import com.chinarewards.gwt.elt.client.nominate.NominateAddRequest;
@@ -139,6 +140,7 @@ import com.chinarewards.gwt.elt.server.integralManagement.IntegralManagementHand
 import com.chinarewards.gwt.elt.server.login.LoginActionHandler;
 import com.chinarewards.gwt.elt.server.login.TokenValidActionHandler;
 import com.chinarewards.gwt.elt.server.login.UpdatelastLoginRoleActionHandler;
+import com.chinarewards.gwt.elt.server.mail.MailSendActionHandler;
 import com.chinarewards.gwt.elt.server.message.MessageSaveActionHandler;
 import com.chinarewards.gwt.elt.server.message.SearchMessageListActionHandler;
 import com.chinarewards.gwt.elt.server.nominate.NominateActionHandler;
@@ -402,6 +404,8 @@ public class ActionModule extends ActionHandlerModule {
 		//leader收件箱奖励查询
 		bindHandler(HrBoxRewardsRequest.class,HrBoxRewardsHandler.class);
         
+		//发送邮件
+		bindHandler(MailRequest.class,MailSendActionHandler.class);
 
 	}
 }

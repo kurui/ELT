@@ -17,6 +17,7 @@ import com.chinarewards.gwt.elt.client.orderSubmit.request.OrderSubmitRequest;
 import com.chinarewards.gwt.elt.client.orderSubmit.request.OrderSubmitResponse;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.win.Win;
+import com.chinarewards.gwt.elt.client.win.confirm.ConfirmHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -122,11 +123,20 @@ public class OrderSubmitPresenterImpl extends BasePresenter<OrderSubmitDisplay>
 		
 		@Override
 		public void onClick(ClickEvent event) {
-			Platform.getInstance()
-			.getEditorRegistry()
-			.openEditor(
-					AwardShopListConstants.EDITOR_AWARDSHOPLIST_SEARCH,
-					"EDITOR_AWARDSHOPLIST_SEARCH_DO_ID", null);
+
+			
+			win.confirm("系统提示", "现在返回，订单会处于待付积分状态，在付款期限内可以到兑换历史中继续进行付积分操作，一旦过期将被置为问题订单，且不可再做任何操作。", new ConfirmHandler() {
+				
+				@Override
+				public void confirm() {
+					Platform.getInstance()
+					.getEditorRegistry()
+					.openEditor(
+							AwardShopListConstants.EDITOR_AWARDSHOPLIST_SEARCH,
+							"EDITOR_AWARDSHOPLIST_SEARCH_DO_ID", null);
+					
+				}
+			});
 			
 		}
 	});
@@ -134,11 +144,19 @@ public class OrderSubmitPresenterImpl extends BasePresenter<OrderSubmitDisplay>
 		
 		@Override
 		public void onClick(ClickEvent event) {
-			Platform.getInstance()
-			.getEditorRegistry()
-			.openEditor(
-					DetailsOfGiftConstants.EDITOR_DETAILSOFGIFT_SEARCH,
-					"EDITOR_DETAILSOFGIFT_SEARCH_DO_ID", new DetailsOfGiftClient(orderVo.getGiftId()));
+
+			win.confirm("系统提示", "现在返回，订单会处于待付积分状态，在付款期限内可以到兑换历史中继续进行付积分操作，一旦过期将被置为问题订单，且不可再做任何操作。", new ConfirmHandler() {
+				
+				@Override
+				public void confirm() {
+					Platform.getInstance()
+					.getEditorRegistry()
+					.openEditor(
+							DetailsOfGiftConstants.EDITOR_DETAILSOFGIFT_SEARCH,
+							"EDITOR_DETAILSOFGIFT_SEARCH_DO_ID", new DetailsOfGiftClient(orderVo.getGiftId()));
+					
+				}
+			});
 			
 		}
 	});
