@@ -68,7 +68,7 @@ public class BroadcastReplyLatticeWidget extends Composite {
 	public BroadcastReplyLatticeWidget(final Win win, final DispatchAsync dispatch,
 			final SessionManager sessionManager, final String broadcastId, String deptName,
 			String staffName, String content, String createDate,
-			String createDept, final int replyNumber) {
+			String createDept, final int replyNumber,boolean isAllowreplies) {
 		this.win=win;
 		this.dispatch=dispatch;
 		this.sessionManager=sessionManager;
@@ -88,7 +88,8 @@ public class BroadcastReplyLatticeWidget extends Composite {
 			this.createDept.setText(createDept);
 
 		this.replyNumberA.setText("回复(" + replyNumber + ")");
-
+if(isAllowreplies)
+{
 		myreply.addClickHandler(new ClickHandler() {
 
 			@Override
@@ -97,6 +98,12 @@ public class BroadcastReplyLatticeWidget extends Composite {
 				refMyreply();
 			}
 		});
+}
+else
+{
+	myreply.setVisible(false);
+	this.widget=null;
+}
 		if (replyNumber != 0) {
 			this.replyNumberA.addClickHandler(new ClickHandler() {
 
@@ -128,6 +135,8 @@ public class BroadcastReplyLatticeWidget extends Composite {
 					@Override
 					public void onSuccess(SearchBroadcastReplyResponse response) {
 						MyReplyShortLatticeWidget myshort=new MyReplyShortLatticeWidget(win, dispatch, sessionManager, broadcastId, replyNumber, widget);
+						if(widget==null)
+							myshort=null;
 						List<ReplyListClient> giftList = response.getResult();
 						
 						
@@ -195,6 +204,7 @@ public class BroadcastReplyLatticeWidget extends Composite {
 
 						replyPanel.clear();
 						replyPanel.add(grid);
+						if(myshort!=null)
 						replyPanel.add(myshort);
 						
 					}

@@ -107,7 +107,8 @@ public class StaffHeavenIndexViewAdapter extends
 													DateTool.dateToStringChina2(clint
 															.getBroadcastingTime()),
 													clint.getCreatedByUserName(),
-													clint.getReplyNumber())
+													clint.getReplyNumber(),
+													clint.isAllowreplies())
 													.asWidget());
 									index++;
 								} else {
