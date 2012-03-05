@@ -19,6 +19,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -29,6 +30,8 @@ public class MyReplyShortLatticeWidget extends Composite {
 	TextBox replyContent;
 	@UiField
 	Button replyBtn;
+	@UiField
+	InlineLabel replyName;
 
 	String replyParentId;
 	DateTimeFormat dateFormat = DateTimeFormat
@@ -45,6 +48,8 @@ public class MyReplyShortLatticeWidget extends Composite {
 			final String broadcastId,final int replyNumber,
 			final BroadcastReplyLatticeWidget widget) {
 		initWidget(uiBinder.createAndBindUi(this));
+		
+		
 		replyContent.addFocusHandler(new FocusHandler() {
 			
 			@Override

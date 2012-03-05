@@ -313,7 +313,7 @@ public class RewardLogicImpl implements RewardLogic {
 		vo.setBroadcastingTimeStart(DateUtil.getTime());
 		vo.setBroadcastingTimeEnd(DateUtil.getTime());
 		vo.setAllowreplies(true);
-		vo.setContent("恭喜 "+staffNames.substring(0,staffNames.length()-1)+" 获得"+reward.getName()+"，获得"+((int)reward.getAwardAmt())+"积分。");
+		vo.setContent("恭喜 "+staffNames.substring(0,staffNames.length()-1)+" 获得"+reward.getName()+"，获得"+((int)reward.getAwardAmt())+"积分。大家赶快去打劫他吧");
 		
 		//接收对象为当前人机构(接收人加入获奖人)
 		
@@ -549,7 +549,7 @@ public class RewardLogicImpl implements RewardLogic {
 		List<Reward> list = pageStore.getResultList();
 		// post-process and convert
 		List<RewardVo> rewardVoList = new ArrayList<RewardVo>();
-		if (list.size() > 0) {
+		if (list!=null && list.size() > 0) {
 			for (Reward reward : list) {
 				rewardVoList.add(convertFromRewardToVo(reward, true));
 			}

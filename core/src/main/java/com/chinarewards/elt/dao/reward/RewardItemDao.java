@@ -30,14 +30,11 @@ public class RewardItemDao extends BaseDao<RewardItem> {
 
 	@SuppressWarnings("unchecked")
 	public List<RewardItem> fetchRewardsItems(RewardItemSearchVo criteria) {
-
-		logger.debug("Process in fetchRewardsItems method, parameter : {}",
-				criteria.toString());
 		List<RewardItem> result = new ArrayList<RewardItem>();
 		PaginationDetail pageDetail = criteria.getPaginationDetail();
 		if (null != pageDetail) {
 			logger.debug(
-					" pagination detail - start:{}, limit:{}",
+					" pagination limit:{}",
 					new Object[] { pageDetail.getStart(), pageDetail.getLimit() });
 		}
 
@@ -110,17 +107,15 @@ public class RewardItemDao extends BaseDao<RewardItem> {
 
 		}
 		// 根据激活状态来查询
-		if("false".equals(criteria.isEnabled()))
-		{
+		if ("false".equals(criteria.isEnabled())) {
 			eql.append(" and  item.enabled= :enabled ");
 			param.put("enabled", false);
 		}
-		if("true".equals(criteria.isEnabled()))
-		{
+		if ("true".equals(criteria.isEnabled())) {
 			eql.append(" and  item.enabled= :enabled ");
 			param.put("enabled", true);
 		}
-		
+
 		if (!StringUtil.isEmptyString(criteria.getName())) {
 			eql.append(" AND UPPER(item.name) LIKE :name ");
 			param.put("name", "%" + criteria.getName().trim().toUpperCase()
@@ -219,9 +214,7 @@ public class RewardItemDao extends BaseDao<RewardItem> {
 	public Date getLastRewardDate(String rewardItemId) {
 		return getEm().find(RewardItem.class, rewardItemId).getLastAwardDate();
 	}
-	
-	
-	
+
 	@SuppressWarnings("unchecked")
 	public List<RewardItem> fetchStaffRewardsItems(RewardItemSearchVo criteria) {
 
@@ -254,7 +247,6 @@ public class RewardItemDao extends BaseDao<RewardItem> {
 		return count;
 	}
 
-	
 	private Query getFetchStaffRewardsItemsQuery(String type,
 			RewardItemSearchVo criteria) {
 		Map<String, Object> param = new HashMap<String, Object>();
@@ -278,13 +270,13 @@ public class RewardItemDao extends BaseDao<RewardItem> {
 			eql.append(" AND item.corporation.id = :corporationId");
 			param.put("corporationId", criteria.getCorporationId());
 		}
-		
+
 		if (!StringUtil.isEmptyString(criteria.getDefinition())) {
 			eql.append(" AND UPPER(item.definition) LIKE :definition ");
 			param.put("definition", "%"
 					+ criteria.getDefinition().trim().toUpperCase() + "%");
 		}
-		
+
 		// 根据创建时间来查询
 		if (null != criteria.getCreateTime()
 				&& !criteria.getCreateTime().equals("")
@@ -296,17 +288,15 @@ public class RewardItemDao extends BaseDao<RewardItem> {
 
 		}
 		// 根据激活状态来查询
-		if("false".equals(criteria.isEnabled()))
-		{
+		if ("false".equals(criteria.isEnabled())) {
 			eql.append(" and  item.enabled= :enabled ");
 			param.put("enabled", false);
 		}
-		if("true".equals(criteria.isEnabled()))
-		{
+		if ("true".equals(criteria.isEnabled())) {
 			eql.append(" and  item.enabled= :enabled ");
 			param.put("enabled", true);
 		}
-		
+
 		if (!StringUtil.isEmptyString(criteria.getName())) {
 			eql.append(" AND UPPER(item.name) LIKE :name ");
 			param.put("name", "%" + criteria.getName().trim().toUpperCase()

@@ -283,3 +283,6 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .attendence-icon{background-position:-181px -236px;width:40px;height:60px;}
 .taste-icon{background-position:-222px -236px;width:38px;height:55px;}
 
+.remarkdiv{display: none;}
+
+.remark-name{color:#356CA6;}

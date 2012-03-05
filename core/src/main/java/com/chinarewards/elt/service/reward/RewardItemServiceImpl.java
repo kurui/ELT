@@ -1,5 +1,6 @@
 package com.chinarewards.elt.service.reward;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -8,7 +9,10 @@ import com.chinarewards.elt.domain.reward.base.RewardItemStore;
 import com.chinarewards.elt.domain.reward.frequency.WeekFrequencyDays;
 import com.chinarewards.elt.domain.reward.rule.DirectCandidateData;
 import com.chinarewards.elt.domain.user.SysUser;
+import com.chinarewards.elt.model.broadcast.BroadcastingVo;
+import com.chinarewards.elt.model.broadcast.OrganType;
 import com.chinarewards.elt.model.common.PageStore;
+import com.chinarewards.elt.model.information.BroadcastingCategory;
 import com.chinarewards.elt.model.reward.base.RequireAutoGenerate;
 import com.chinarewards.elt.model.reward.base.RewardItemParam;
 import com.chinarewards.elt.model.reward.search.RewardItemSearchVo;
@@ -16,6 +20,7 @@ import com.chinarewards.elt.model.reward.vo.RewardItemStoreVo;
 import com.chinarewards.elt.model.reward.vo.RewardItemVo;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.vo.StaffAndDeptmentAutoCompile;
+import com.chinarewards.elt.service.broadcast.BroadcastService;
 import com.chinarewards.elt.service.org.OrganizationLogic;
 import com.chinarewards.elt.service.reward.rule.CandidateLogic;
 import com.chinarewards.elt.service.reward.rule.CandidateRuleLogic;
@@ -35,7 +40,7 @@ public class RewardItemServiceImpl implements RewardItemService {
 	private final RewardItemLogic rewardItemLogic;
 	private final RewardLogic rewardLogic;
 	private final UserLogic userLogic;
-
+	private final BroadcastService broadcastService;
 	private final CandidateRuleLogic candidateRuleLogic;
 	private final OrganizationLogic organizationLogic;
 
@@ -43,11 +48,11 @@ public class RewardItemServiceImpl implements RewardItemService {
 	public RewardItemServiceImpl(RewardItemLogic rewardItemLogic,
 			CandidateRuleLogic candidateRuleLogic, UserLogic userLogic,
 			CandidateLogic candidateLogic, OrganizationLogic organizationLogic,
-			RewardLogic rewardLogic) {
+			RewardLogic rewardLogic,BroadcastService broadcastService) {
 
 		this.rewardItemLogic = rewardItemLogic;
 		this.userLogic = userLogic;
-
+		this.broadcastService=broadcastService;
 		this.candidateRuleLogic = candidateRuleLogic;
 		this.organizationLogic = organizationLogic;
 		this.rewardLogic = rewardLogic;
@@ -154,8 +159,35 @@ public class RewardItemServiceImpl implements RewardItemService {
 		// if (em.getTransaction().isActive() != true) {
 		// em.getTransaction().begin();
 		// }
-		RewardItem rewardItem = rewardItemLogic.enableRewardItem(suser,
-				rewardItemId);
+		RewardItem rewardItem = rewardItemLogic.enableRewardItem(suser,rewardItemId);
+		
+		//第一次激活发送广播
+		if(rewardItem.getDegree()<1)
+		{
+			List<String[]> organList=new ArrayList<String[]>();
+			BroadcastingVo vo=new BroadcastingVo();
+			vo.setBroadcastingTimeStart(DateUtil.getTime());
+			vo.setBroadcastingTimeEnd(DateUtil.getTime());
+			vo.setAllowreplies(true);
+			if(rewardItem.getAutoGenerate()==RequireAutoGenerate.requireCyclic)	
+				vo.setContent(""+rewardItem.getCreatedBy().getStaff().getName()+" 创建了周期性奖项“"+rewardItem.getName()+"”，大家积极参与夺大奖啊!");
+			else
+				vo.setContent(""+rewardItem.getCreatedBy().getStaff().getName()+" 创建了奖项“"+rewardItem.getName()+"”，大家积极参与夺大奖啊!");
+			
+			//接收对象为当前人机构
+			
+			String[] nameAndId = new String[3];
+			nameAndId[0] = rewardItem.getCorporation().getId();
+			nameAndId[1] = rewardItem.getCorporation().getName();
+			nameAndId[2] = OrganType.ORG.toString();
+			organList.add(nameAndId);
+			
+			vo.setOrganList(organList);
+			
+			context.setCorporationId(rewardItem.getCorporation().getId());
+			broadcastService.createOrUpdateBroadcast(vo, context, BroadcastingCategory.SYSBROADCAST);
+		}
+		
 		Date startDate = rewardItem.getStartTime();
 		if (DateUtil.compareData(startDate, DateUtil.getTime())) {
 

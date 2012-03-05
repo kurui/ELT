@@ -47,6 +47,18 @@ public class ColleagueLatticeWidget extends Composite {
 				
 			}
 		});
+		this.photo.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				Platform.getInstance()
+				.getEditorRegistry()
+				.openEditor(
+						ColleagueParticularConstants.EDITOR_COLLEAGUEPARTICULAR_SEARCH,
+						"EDITOR_COLLEAGUEPARTICULAR_SEARCH_DO_ID", new OrganicationClient(staffId,staffName));
+				
+			}
+		});
 	}
 
 }

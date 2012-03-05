@@ -11,6 +11,7 @@ import com.chinarewards.gwt.elt.client.staffIntegral.request.StaffIntegralReques
 import com.chinarewards.gwt.elt.client.staffIntegral.request.StaffIntegralResponse;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.win.Win;
+import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
@@ -60,14 +61,14 @@ public class StaffIntegralPresenterImpl extends
 
 					@Override
 					public void onSuccess(StaffIntegralResponse resp) {
-						display.getHistoryIntegral().setText(resp.getHistoryIntegral());
-						display.getConsumptionIntegral().setText(resp.getConsumptionIntegral());
-						display.getBalanceIntegral().setText(resp.getBalanceIntegral());
+						display.getHistoryIntegral().setText(StringUtil.subZeroAndDot(resp.getHistoryIntegral()));
+						display.getConsumptionIntegral().setText(StringUtil.subZeroAndDot(resp.getConsumptionIntegral()));
+						display.getBalanceIntegral().setText(StringUtil.subZeroAndDot(resp.getBalanceIntegral()));
 
 					}
 				});
 		
-		shopWindowPresenter.initShopWindow(1, 3);
+		shopWindowPresenter.initShopWindow(1, 4);
 		shopWindowPresenter.bind();
 		display.setShopWindow(shopWindowPresenter.getDisplay().asWidget());
 	}

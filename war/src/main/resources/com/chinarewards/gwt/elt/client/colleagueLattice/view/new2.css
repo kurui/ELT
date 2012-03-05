@@ -24,6 +24,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .newa{color:#565656;text-decoration:none;padding-left: 6px;padding-right: 6px;}
 .newa:hover{color:#010DFF;text-decoration:none;cursor:pointer;}
 
+img:hover{cursor:pointer;}
 
 .staffa:hover{cursor:pointer;}
 

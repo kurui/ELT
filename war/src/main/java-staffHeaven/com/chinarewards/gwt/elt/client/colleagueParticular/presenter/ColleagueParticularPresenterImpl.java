@@ -49,12 +49,22 @@ public class ColleagueParticularPresenterImpl extends
 	@Override
 	public void bind() {
 		init();
-		gloryBroadcastPresenter.initGloryBroadcast(staffId);
-		gloryBroadcastPresenter.bind();
+		staffViewPresenter.initStaffView_Colleague(staffId,true);
+		staffViewPresenter.bind();
 		display.getResultPanel().clear();
-		display.getResultPanel().add(gloryBroadcastPresenter.getDisplay().asWidget());
-		display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().setClassName(CssStyleConstants.marginleft0text);
-		display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().setClassName(CssStyleConstants.marginright0);
+		display.getResultPanel().add(staffViewPresenter.getDisplay().asWidget());
+		
+		display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().addClassName(CssStyleConstants.paddingtop0);
+		display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().setClassName(CssStyleConstants.hidden);
+		display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().setClassName(CssStyleConstants.hidden);
+		display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().getNextSiblingElement().setClassName(CssStyleConstants.hidden);
+		display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().addClassName(CssStyleConstants.floatleftwidth);
+		display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().setClassName(CssStyleConstants.hidden);
+		display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().setClassName(CssStyleConstants.hidden);
+		display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().setClassName(CssStyleConstants.hidden);
+		display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().setClassName(CssStyleConstants.hidden);
+		display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().setClassName(CssStyleConstants.hidden);
+		display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().setClassName(CssStyleConstants.hidden);
 	}
 	
 	private void init()

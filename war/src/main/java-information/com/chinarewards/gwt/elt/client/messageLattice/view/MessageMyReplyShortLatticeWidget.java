@@ -19,6 +19,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -29,8 +30,11 @@ public class MessageMyReplyShortLatticeWidget extends Composite {
 	TextBox replyContent;
 	@UiField
 	Button replyBtn;
-
+	@UiField
+	InlineLabel replyName;
 	String replyParentId;
+
+	
 	DateTimeFormat dateFormat = DateTimeFormat
 			.getFormat(ViewConstants.date_format);
 	private static MyReplyShortLatticeWidgetWidgetUiBinder uiBinder = GWT

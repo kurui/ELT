@@ -106,7 +106,6 @@
 				              <g:Image ui:field="photo" pixelSize="70,70" />
 				              <div class="{new2.employee-ps}">
 				                <strong><g:InlineLabel ui:field="staffName" /> </strong>
-				                <a href="#">修改头像</a>
 				               <g:Anchor ui:field="staffInfo" >个人资料</g:Anchor>
 				                <a href="#">账户设置</a>
 				                <g:Anchor ui:field="password" >密码修改</g:Anchor>

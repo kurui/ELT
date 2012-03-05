@@ -40,7 +40,7 @@ public class ColleagueParticularWidget extends Composite implements ColleaguePar
 	String styleNo="";
 	
 	private void init() {
-		styleOn=staffGlory.getElement().getParentElement().getClassName();
+		styleOn=staffView.getElement().getParentElement().getClassName();
 		
 		staffView.addClickHandler(new ClickHandler() {	
 			@Override

@@ -45,7 +45,18 @@ public class StaffHeavenIndexClient implements Serializable, Comparable<StaffHea
 	 */
 	private int replyNumber;
 
+	/**
+	 * 是否允许回复
+	 */
+	private boolean isAllowreplies;
+	
+	public boolean isAllowreplies() {
+		return isAllowreplies;
+	}
 
+	public void setAllowreplies(boolean isAllowreplies) {
+		this.isAllowreplies = isAllowreplies;
+	}
 	public String getId() {
 		return id;
 	}
