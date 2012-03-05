@@ -111,6 +111,12 @@
 			<artifactId>log4j</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>    
+			  <groupId>javax.mail</groupId>    
+			   <artifactId>mail</artifactId>    
+			   <version>1.4 </version>    
+			 
+		   </dependency>  
 		<dependency>
 			<groupId>org.apache.openejb</groupId>
 			<artifactId>javaee-api</artifactId>
