@@ -62,6 +62,7 @@ import com.chinarewards.gwt.elt.client.orderConfirmation.request.OrderConfirmati
 import com.chinarewards.gwt.elt.client.orderHistory.request.OrderHistoryViewRequest;
 import com.chinarewards.gwt.elt.client.orderHistory.request.SearchOrderHistoryRequest;
 import com.chinarewards.gwt.elt.client.orderSubmit.request.OrderSubmitRequest;
+import com.chinarewards.gwt.elt.client.password.request.PasswordRequest;
 import com.chinarewards.gwt.elt.client.register.request.RegisterInitRequest;
 import com.chinarewards.gwt.elt.client.register.request.RegisterRequest;
 import com.chinarewards.gwt.elt.client.registerHr.request.RegisterHrRequest;
@@ -181,6 +182,7 @@ import com.chinarewards.gwt.elt.server.staff.SearchStaffWinActionHandler;
 import com.chinarewards.gwt.elt.server.staff.StaffAddActionHandler;
 import com.chinarewards.gwt.elt.server.staff.StaffGenerateUserActionHandler;
 import com.chinarewards.gwt.elt.server.staffHeavenIndex.StaffHeavenIndexActionHandler;
+import com.chinarewards.gwt.elt.server.staffPassword.UpdateStaffPwdActionHandler;
 import com.chinarewards.gwt.elt.server.team.SearchTeamByIdHandler;
 import com.chinarewards.gwt.elt.server.team.SearchTeamHandler;
 import com.chinarewards.gwt.elt.server.team.TeamHandler;
@@ -406,6 +408,8 @@ public class ActionModule extends ActionHandlerModule {
         
 		//发送邮件
 		bindHandler(MailRequest.class,MailSendActionHandler.class);
+		//员工天地修改密码
+		bindHandler(PasswordRequest.class,UpdateStaffPwdActionHandler.class);
 
 	}
 }

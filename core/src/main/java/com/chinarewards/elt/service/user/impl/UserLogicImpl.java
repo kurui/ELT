@@ -313,5 +313,29 @@ public class UserLogicImpl implements UserLogic {
 		
 		}
 	}
-	
+	@Override
+	public String updateStaffPwd(String staffId,String oldpwd, String pwd,String byUserId) {
+		String newpassword ="";
+		String oldpassword ="";
+		try {
+			newpassword = md5.MD5(pwd);
+			oldpassword = md5.MD5(oldpwd);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		SysUser user=userDao.findUserByStaffId(staffId);
+		
+		SysUser nowUser=userDao.findUserById(byUserId);
+		user.setLastModifiedAt(DateUtil.getTime());
+		user.setLastModifiedBy(nowUser);
+		user.setPassword(newpassword);
+		if(user.getPassword().trim().equals(oldpassword.trim())){
+		    userDao.update(user);
+		    return "success";
+		}else{
+			return "faile";
+		}
+			
+	}
 }

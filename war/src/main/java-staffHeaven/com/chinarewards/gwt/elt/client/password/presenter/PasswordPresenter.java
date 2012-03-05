@@ -13,6 +13,7 @@ public interface PasswordPresenter extends Presenter<PasswordPresenter.PasswordD
 		public void setUsername(String text);
 		public HasClickHandlers getPasswordClickHandlers();
 		public HasValue<String> getUsername();
+		public HasValue<String> getOldPassword();
 		public HasValue<String> getNewPassword();
 		public HasValue<String> getValidatePassword();
 		
