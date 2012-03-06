@@ -143,11 +143,27 @@ public class RegisterHrPresenterImpl extends
 							dialogBoxae.show();
 							return;
 						}
-//						else if(!StringUtil.isValidEmail(display.getEmail()))
-//						{
-//                           Window.alert("Email格式不正确,请重新填写Email!");
-//							return;
-//						}
+						else if(!StringUtil.isValidEmail(display.getEmail().getValue()))
+						{
+							final AlertErrorWidget ae = new AlertErrorWidget();
+							final DialogBox dialogBoxae = new DialogBox();
+							ae.getOkBtn().addClickHandler(new ClickHandler() {
+								@Override
+								public void onClick(ClickEvent arg0) {
+									dialogBoxae.hide();
+								}
+							});
+							ae.setMessage("Email格式不正确,请重新填写Email!!");
+							dialogBoxae.setWidget(ae);
+							dialogBoxae.setGlassEnabled(true);
+							dialogBoxae.setAnimationEnabled(true);
+							dialogBoxae.setWidth("350px");
+							dialogBoxae.setText("提示");
+							dialogBoxae.center();
+							dialogBoxae.show();
+							
+							return;
+						}
 						doRegisterHr();
 					}
 				}));
@@ -186,7 +202,7 @@ public class RegisterHrPresenterImpl extends
 								dialogBoxae.hide();
 							}
 						});
-						ae.setMessage("注册成功!");
+						ae.setMessage("HR注册成功!");
 						dialogBoxae.setWidget(ae);
 						dialogBoxae.setGlassEnabled(true);
 						dialogBoxae.setAnimationEnabled(true);

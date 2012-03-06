@@ -556,7 +556,7 @@ public class StaffLogicImpl implements StaffLogic {
 		// ==================创建用户
 		String password = "";
 		try {
-			password = md5.MD5(staffProcess.getPassword());// 初始密码123
+			password = md5.MD5(staffProcess.getPassword());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

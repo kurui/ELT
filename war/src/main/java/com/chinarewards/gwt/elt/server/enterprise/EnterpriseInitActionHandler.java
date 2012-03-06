@@ -36,7 +36,7 @@ public class EnterpriseInitActionHandler extends
 		 EnterpriseVo vo = new EnterpriseVo();
 		 vo.setAddress(corp.getAddress());
 		 vo.setCellphone(corp.getCellphone());
-		 vo.setCorporation(corp.getCorporation());//法人
+		 vo.setCorporation(corp.getCorporationer());//法人
 		 vo.setEmailAddress(corp.getEmailAddress());
 		 vo.setName(corp.getName());
 		 vo.setFax(corp.getFax());
@@ -48,7 +48,8 @@ public class EnterpriseInitActionHandler extends
 		 
 		 vo.setIntegralPrice(corp.getIntegralPrice());
 		 vo.setMoneyType(corp.getMoneyType());
-		
+		 vo.setMailpwd(corp.getMailpwd());
+		 vo.setSmtp(corp.getSmtp());
 		 vo.setPeriod(corp.getPeriod());
 		 vo.setFirstTime(corp.getFirstTime());
 		 

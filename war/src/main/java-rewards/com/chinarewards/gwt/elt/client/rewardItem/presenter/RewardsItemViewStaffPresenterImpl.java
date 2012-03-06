@@ -48,7 +48,7 @@ public class RewardsItemViewStaffPresenterImpl
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent arg0) {
-
+						breadCrumbs.getGoHistory();
 					}
 
 				}));

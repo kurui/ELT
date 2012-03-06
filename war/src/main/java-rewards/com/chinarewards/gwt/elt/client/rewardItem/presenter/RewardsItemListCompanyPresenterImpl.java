@@ -13,9 +13,9 @@ import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemConstants;
 import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemListCompanyPresenter.RewardsItemListCompanyOtherDisplay;
-import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsGridClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsGridCriteria;
+import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemClient;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager;
@@ -29,6 +29,7 @@ import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.inject.Inject;
 
 public class RewardsItemListCompanyPresenterImpl extends
@@ -79,12 +80,20 @@ public class RewardsItemListCompanyPresenterImpl extends
 	}
 
 	private void iniWidget() {
-		display.getRewardsItemType().clear();
-		display.getRewardsItemType().addItem("全部奖项", "ALL");
-		display.getRewardsItemType().addItem("努力冲奖项", "GO");
-
+		initRewardsTypeSelect("");
 		buildTable();
 		doSearch();
+	}
+
+	private void initRewardsTypeSelect(String selectValue) {
+		ListBox rewardsType = display.getRewardsType();
+		if (rewardsType != null) {
+			if (rewardsType.getItemCount() < 1) {
+				display.getRewardsType().clear();
+				display.getRewardsType().addItem("全部奖项", "ALL");
+				display.getRewardsType().addItem("努力冲奖项", "RUSH");
+			}
+		}
 	}
 
 	private void buildTable() {
@@ -108,12 +117,11 @@ public class RewardsItemListCompanyPresenterImpl extends
 		// criteria.setName(display.getName().getValue());
 		// criteria.setDefinition(display.getDefinition().getValue());
 
-		int selectedIndex = display.getRewardsItemType().getSelectedIndex();
-		String rewardsItemType = display.getRewardsItemType().getValue(
-				selectedIndex);
-		criteria.setRewardsItemType(rewardsItemType);
-		
-		criteria.setThisAction("RewardsItem_ALL");
+		int selectedIndex = display.getRewardsType().getSelectedIndex();
+		String rewardsType = display.getRewardsType().getValue(selectedIndex);
+		criteria.setRewardsType(rewardsType);
+
+		criteria.setThisAction("RewardsItem_COMPANY_OTHER");
 
 		listViewAdapter = new RewardsItemListCompanyViewAdapter(dispatch,
 				criteria, errorHandler, sessionManager, display);
@@ -154,9 +162,8 @@ public class RewardsItemListCompanyPresenterImpl extends
 		cellTable.addColumn("奖励状态", new TextCell(),
 				new GetValue<RewardsGridClient, String>() {
 					@Override
-					public String getValue(RewardsGridClient rewards) {
-						// return rewards.getMyRewardsStatus();
-						return "努力冲奖项";
+					public String getValue(RewardsGridClient client) {
+						return client.getRewardStatusName();
 					}
 				}, ref, "status");
 
@@ -164,7 +171,7 @@ public class RewardsItemListCompanyPresenterImpl extends
 				new GetValue<RewardsGridClient, String>() {
 					@Override
 					public String getValue(RewardsGridClient client) {
-						return client.getAwardName();
+						return client.getRewardsItemCreateBy();
 					}
 				}, ref, "createdBy");
 

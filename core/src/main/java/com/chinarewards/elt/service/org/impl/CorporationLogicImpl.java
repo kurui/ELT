@@ -67,7 +67,7 @@ public class CorporationLogicImpl implements CorporationLogic {
 			corp.setDefaultUnitCode(corporation.getUnitCode());
 			corp.setAddress(corporation.getAddress());
 			corp.setCellphone(corporation.getCellphone());
-			corp.setCorporation(corporation.getCorporation());
+			corp.setCorporationer(corporation.getCorporation());
 			corp.setEmailAddress(corporation.getEmailAddress());
 			corp.setFax(corporation.getFax());
 			corp.setLinkman(corporation.getLinkman());
@@ -94,13 +94,14 @@ public class CorporationLogicImpl implements CorporationLogic {
 			corp.setDefaultUnitCode(corporation.getUnitCode());
 			corp.setAddress(corporation.getAddress());
 			corp.setCellphone(corporation.getCellphone());
-			corp.setCorporation(corporation.getCorporation());
+			corp.setCorporationer(corporation.getCorporation());
 			corp.setEmailAddress(corporation.getEmailAddress());
 			corp.setFax(corporation.getFax());
 			corp.setLinkman(corporation.getLinkman());
 			corp.setTell(corporation.getTell());
 			corp.setWeb(corporation.getWeb());
-
+            corp.setMailpwd(corporation.getMailpwd());
+            corp.setSmtp(corporation.getSmtp());
 			corp.setCreatedAt(now);
 			corp.setCreatedBy(caller);
 			corp.setLastModifiedAt(now);

@@ -27,6 +27,25 @@ public class CorporationVo {
 	private String tell;//联系电话
 
 	private String web;//企业网站
+	
+	private  String  mailpwd;//发企业邮件的发送密码
+    private  String  smtp;  //发邮件所用的smtp协议
+	public String getMailpwd() {
+		return mailpwd;
+	}
+
+	public void setMailpwd(String mailpwd) {
+		this.mailpwd = mailpwd;
+	}
+
+	public String getSmtp() {
+		return smtp;
+	}
+
+	public void setSmtp(String smtp) {
+		this.smtp = smtp;
+	}
+
 	/**
 	 * This field may be null.
 	 */

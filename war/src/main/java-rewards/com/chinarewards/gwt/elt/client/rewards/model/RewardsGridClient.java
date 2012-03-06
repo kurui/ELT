@@ -15,12 +15,15 @@ public class RewardsGridClient implements Serializable,
 
 	private String awardAmt;// 奖励积分
 	private String awardName;// 颁奖人
+	
+	private String rewardStatusName;
 
 	// 奖项
 	private String rewardsItemId;
 	private String rewardsItemName;
 	private String rewardsItemPhoto;
 	private String rewardsItemDefinition;
+	private String rewardsItemCreateBy;// 奖项创建人
 
 	/** 奖项积分 **/
 	private double totalAmtLimit;
@@ -40,6 +43,28 @@ public class RewardsGridClient implements Serializable,
 
 	public RewardsGridClient() {
 
+	}
+	
+	
+
+	public String getRewardStatusName() {
+		return rewardStatusName;
+	}
+
+
+
+	public void setRewardStatusName(String rewardStatusName) {
+		this.rewardStatusName = rewardStatusName;
+	}
+
+
+
+	public String getRewardsItemCreateBy() {
+		return rewardsItemCreateBy;
+	}
+
+	public void setRewardsItemCreateBy(String rewardsItemCreateBy) {
+		this.rewardsItemCreateBy = rewardsItemCreateBy;
 	}
 
 	public String getAwardName() {
@@ -127,7 +152,7 @@ public class RewardsGridClient implements Serializable,
 	}
 
 	public void setAwardAmt(String awardAmt) {
-		awardAmt = awardAmt;
+		this.awardAmt = awardAmt;
 	}
 
 	public String getRewardsItemName() {

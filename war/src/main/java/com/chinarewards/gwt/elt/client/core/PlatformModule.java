@@ -30,6 +30,7 @@ import com.chinarewards.gwt.elt.client.detailsOfGift.plugin.DetailsOfGiftPluginD
 import com.chinarewards.gwt.elt.client.enterprise.plugin.EnterprisePluginDescriptor;
 import com.chinarewards.gwt.elt.client.enterprise.plugin.EnterprisePluginModule;
 import com.chinarewards.gwt.elt.client.enterprise.plugin.IntegralPricePluginDescriptor;
+import com.chinarewards.gwt.elt.client.enterprise.plugin.MailSetPluginDescriptor;
 import com.chinarewards.gwt.elt.client.enterprise.plugin.PeriodPluginDescriptor;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftPluginDescriptor;
@@ -146,6 +147,7 @@ public class PlatformModule extends AbstractGinModule {
 			DetailsOfBroadcastPluginDescriptor dtailsOfBroadcast,
 			BroadcastReplyPluginDescriptor BroadcastReply,
 			HrBoxPluginDescriptor hrBox,
+			MailSetPluginDescriptor mailset,
 			LeadTimePluginDescriptor leadTime) {
 
 
@@ -195,6 +197,7 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(dtailsOfBroadcast);
 			pluginSet.registerPlugin(BroadcastReply);
 			pluginSet.registerPlugin(leadTime);
+			pluginSet.registerPlugin(mailset);
 		}
 
 		return pluginSet;

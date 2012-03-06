@@ -31,10 +31,30 @@ public class EnterpriseVo implements Serializable {
 	
     private double integralPrice;//积分价值 
     private Double period;//财年周期
-	
 	private Date   firstTime;//首个财年开始日期
-	
 	private  String moneyType;//企业所用货币类型
+	private  String  mailpwd;//发企业邮件的发送密码
+    private  String  smtp;  //发邮件所用的smtp协议
+	public String getMailpwd() {
+		return mailpwd;
+	}
+
+	public void setMailpwd(String mailpwd) {
+		this.mailpwd = mailpwd;
+	}
+
+	public String getSmtp() {
+		return smtp;
+	}
+
+	public void setSmtp(String smtp) {
+		this.smtp = smtp;
+	}
+
+	public void setPeriod(Double period) {
+		this.period = period;
+	}
+
 	
 	public double getIntegralPrice() {
 		return integralPrice;

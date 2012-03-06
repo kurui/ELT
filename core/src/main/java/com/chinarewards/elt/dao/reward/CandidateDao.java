@@ -8,6 +8,7 @@ import javax.persistence.Query;
 
 import com.chinarewards.elt.common.BaseDao;
 import com.chinarewards.elt.domain.reward.person.Candidate;
+import com.chinarewards.elt.model.reward.base.RewardStatus;
 import com.chinarewards.elt.model.vo.WinnersRecordQueryVo;
 import com.chinarewards.elt.util.StringUtil;
 
@@ -25,13 +26,30 @@ public class CandidateDao extends BaseDao<Candidate> {
 				.createQuery("FROM Candidate c WHERE c.reward.id = :rewardId")
 				.setParameter("rewardId", rewardId).getResultList();
 	}
+
+	@SuppressWarnings("unchecked")
+	public List<Candidate> findCandidateByStaffId(String staffId) {
+		return getEm().createQuery(
+				"FROM Candidate c WHERE  c.staff.id = :staffId").setParameter(
+				"staffId", staffId).getResultList();
+	}
 	
-	public Candidate findCandidateByStaffRewardId(String rewardId,String staffId) {
-		Query query=getEm()
-				.createQuery("FROM Candidate c WHERE c.reward.id = :rewardId AND c.staff.id = :staffId")
-				.setParameter("rewardId", rewardId).setParameter("staffId", staffId);
-		if(query.getSingleResult()!=null){
-			return (Candidate)query.getSingleResult();
+	@SuppressWarnings("unchecked")
+	public List<Candidate> findCandidateByStaffIdAndStatus(String staffId,List<RewardStatus> status) {
+		return getEm().createQuery(
+				"FROM Candidate c WHERE  c.staff.id = :staffId  AND c.reward.status IN (:status)").setParameter(
+				"staffId", staffId).setParameter("status", status).getResultList();
+	}
+
+	public Candidate findCandidateByStaffRewardId(String rewardId,
+			String staffId) {
+		Query query = getEm()
+				.createQuery(
+						"FROM Candidate c WHERE c.reward.id = :rewardId AND c.staff.id = :staffId")
+				.setParameter("rewardId", rewardId)
+				.setParameter("staffId", staffId);
+		if (query.getSingleResult() != null) {
+			return (Candidate) query.getSingleResult();
 		}
 		return null;
 	}
@@ -48,9 +66,8 @@ public class CandidateDao extends BaseDao<Candidate> {
 			param.put("key", "%" + queryVo.getKey() + "%");
 		}
 		if (queryVo.getSortingDetail() != null) {
-			sql.append(" ORDER BY "
-					+ queryVo.getSortingDetail().getSort() + " "
-					+ queryVo.getSortingDetail().getDirection());
+			sql.append(" ORDER BY " + queryVo.getSortingDetail().getSort()
+					+ " " + queryVo.getSortingDetail().getDirection());
 		} else {
 			sql.append(" ORDER BY reward.createdAt DESC ");
 		}
