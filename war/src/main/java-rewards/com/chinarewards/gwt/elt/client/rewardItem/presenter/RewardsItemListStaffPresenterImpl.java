@@ -96,7 +96,7 @@ public class RewardsItemListStaffPresenterImpl extends
 //		criteria.setName(display.getName().getValue());
 //		criteria.setDefinition(display.getDefinition().getValue());
 		
-		criteria.setThisAction("RewardsItem_STAFF");
+		criteria.setThisAction("RewardsItem_STAFF_PARTAKE");
 
 		listViewAdapter = new RewardsItemListStaffViewAdapter(dispatch,
 				criteria, errorHandler, sessionManager, display);

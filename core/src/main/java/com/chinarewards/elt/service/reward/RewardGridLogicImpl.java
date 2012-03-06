@@ -16,11 +16,11 @@ import com.chinarewards.elt.domain.reward.person.NomineeLot;
 import com.chinarewards.elt.domain.reward.person.Winner;
 import com.chinarewards.elt.domain.reward.rule.CandidateRule;
 import com.chinarewards.elt.model.common.PageStore;
+import com.chinarewards.elt.model.reward.base.RewardStatus;
 import com.chinarewards.elt.model.reward.search.RewardGridSearchVo;
 import com.chinarewards.elt.model.reward.search.RewardItemSearchVo;
 import com.chinarewards.elt.model.reward.search.RewardSearchVo;
 import com.chinarewards.elt.model.reward.vo.RewardGridVo;
-import com.chinarewards.elt.model.reward.vo.RewardVo;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.reward.rule.CandidateLogic;
 import com.chinarewards.elt.service.reward.rule.CandidateRuleLogic;
@@ -203,7 +203,121 @@ public class RewardGridLogicImpl implements RewardGridLogic {
 		
 		return pageStore;
 	}
+	
+	@Override
+	public PageStore<RewardGridVo> fetchRewardsItem_STAFF_PARTAKE(UserContext context,
+			RewardGridSearchVo criteria) {
+		PageStore<RewardGridVo> pageStore = new PageStore<RewardGridVo>();
+				
+		RewardItemSearchVo rewardItemSearchVo=new RewardItemSearchVo();
+		
+		String staffId=criteria.getStaffId();
+		List<Candidate> list=candidateDao.findCandidateByStaffId(staffId);
+						
+		List<RewardGridVo> rewardGridVoList=new ArrayList<RewardGridVo>();
+		for (int i = 0; i < list.size(); i++) {
+			Candidate candidate=list.get(i);
+			if(candidate!=null){
+				
+				RewardGridVo rewardGridVo=new RewardGridVo();
+				Reward reward=candidate.getReward();
+				rewardGridVo.setReward(reward);
+				rewardGridVo.setRewardId(reward.getId());
+				rewardGridVo.setRewardName(reward.getName());
+				rewardGridVo.setRewardsDate(reward.getAwardDate());
+				rewardGridVo.setAwardAmt(reward.getAwardAmt());
+				rewardGridVo.setAwardName(reward.getCreatedBy().getStaff().getName());// 颁奖人
+				
+				// 提名人
+				List<NomineeLot> nomineeLots = nomineeLogic
+						.getNomineeLotsFromReward(reward.getId());
+				rewardGridVo.setNomineeLotList(nomineeLots);
+				
+				RewardItem rewardItem=reward.getRewardItem();
+				rewardGridVo.setRewardItem(rewardItem);
+				rewardGridVo.setRewardItemId(rewardItem.getId());
+				rewardGridVo.setRewardItemName(rewardItem.getName());		
+				rewardGridVo.setRewardsItemCreateBy(rewardItem.getCreatedBy().getStaff().getName());//奖项创建人
+				
+				Staff staff=candidate.getStaff();
+				if(staff!=null){
+					Candidate candiate=candidateDao.findCandidateByStaffRewardId(reward.getId(),staff.getId());
+					if(candiate!=null){
+						int nominateCount=candiate.getNominatecount();
+						rewardGridVo.setNominateCount(nominateCount);
+					}				
+				}
+				rewardGridVoList.add(rewardGridVo);
+			}
+			
+		}
+		
+		pageStore.setResultList(rewardGridVoList);
+		pageStore.setResultCount(rewardGridVoList.size());
+		
+		return pageStore;
+	}
 
+	
+	@Override
+	public PageStore<RewardGridVo> fetchRewardsItem_STAFF_RUSH(UserContext context,
+			RewardGridSearchVo criteria) {
+		PageStore<RewardGridVo> pageStore = new PageStore<RewardGridVo>();
+				
+		RewardItemSearchVo rewardItemSearchVo=new RewardItemSearchVo();
+		
+		String staffId=criteria.getStaffId();
+		List<RewardStatus> rstatus = new ArrayList<RewardStatus>();
+		rstatus.add(RewardStatus.NEW);
+		rstatus.add(RewardStatus.PENDING_NOMINATE);
+		rstatus.add(RewardStatus.PENDING_APPLICATION);
+		List<Candidate> list=candidateDao.findCandidateByStaffIdAndStatus(staffId,rstatus);
+						
+		List<RewardGridVo> rewardGridVoList=new ArrayList<RewardGridVo>();
+		for (int i = 0; i < list.size(); i++) {
+			Candidate candidate=list.get(i);
+			if(candidate!=null){
+				
+				RewardGridVo rewardGridVo=new RewardGridVo();
+				Reward reward=candidate.getReward();
+				rewardGridVo.setReward(reward);
+				rewardGridVo.setRewardId(reward.getId());
+				rewardGridVo.setRewardName(reward.getName());
+				rewardGridVo.setRewardsDate(reward.getAwardDate());
+				rewardGridVo.setAwardAmt(reward.getAwardAmt());
+				rewardGridVo.setAwardName(reward.getCreatedBy().getStaff().getName());// 颁奖人
+				
+				// 提名人
+				List<NomineeLot> nomineeLots = nomineeLogic
+						.getNomineeLotsFromReward(reward.getId());
+				rewardGridVo.setNomineeLotList(nomineeLots);
+				
+				RewardItem rewardItem=reward.getRewardItem();
+				rewardGridVo.setRewardItem(rewardItem);
+				rewardGridVo.setRewardItemId(rewardItem.getId());
+				rewardGridVo.setRewardItemName(rewardItem.getName());		
+				rewardGridVo.setRewardsItemCreateBy(rewardItem.getCreatedBy().getStaff().getName());//奖项创建人
+				
+				Staff staff=candidate.getStaff();
+				if(staff!=null){
+					Candidate candiate=candidateDao.findCandidateByStaffRewardId(reward.getId(),staff.getId());
+					if(candiate!=null){
+						int nominateCount=candiate.getNominatecount();
+						rewardGridVo.setNominateCount(nominateCount);
+					}				
+				}
+				rewardGridVoList.add(rewardGridVo);
+			}
+			
+		}
+		
+		pageStore.setResultList(rewardGridVoList);
+		pageStore.setResultCount(rewardGridVoList.size());
+		
+		return pageStore;
+	}
+
+	
 	@Override
 	public PageStore<RewardGridVo> fetchRewardsItem_ALL(UserContext context,
 			RewardGridSearchVo criteria) {

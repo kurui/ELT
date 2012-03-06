@@ -98,7 +98,13 @@ public class SearchRewardsGridHandler extends
 			} else if ("RewardsItem_STAFF".equals(thisAction)) {
 				rewardsPage = rewardGridService.fetchRewardsItem_STAFF(uc,
 						searchVo);
-			} else if ("RewardsItem_ALL".equals(thisAction)) {
+			}else if ("RewardsItem_STAFF_PARTAKE".equals(thisAction)) {
+				rewardsPage = rewardGridService.fetchRewardsItem_STAFF_PARTAKE(uc,
+						searchVo);
+			}else if ("RewardsItem_STAFF_RUSH".equals(thisAction)) {
+				rewardsPage = rewardGridService.fetchRewardsItem_STAFF_RUSH(uc,
+						searchVo);
+			}   else if ("RewardsItem_ALL".equals(thisAction)) {
 				rewardsPage = rewardGridService.fetchRewardsItem_ALL(uc,
 						searchVo);
 			}
