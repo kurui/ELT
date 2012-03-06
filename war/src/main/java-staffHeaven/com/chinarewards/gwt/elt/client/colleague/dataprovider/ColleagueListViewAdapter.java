@@ -7,6 +7,7 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 import com.chinarewards.gwt.elt.client.colleague.presenter.ColleagueListPresenter.ColleagueListDisplay;
 import com.chinarewards.gwt.elt.client.colleagueLattice.view.ColleagueLatticeWidget;
 import com.chinarewards.gwt.elt.client.dataprovider.BaseDataProvider;
+import com.chinarewards.gwt.elt.client.messageSave.dialog.MessageSaveDialog;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.staffList.model.StaffListClient;
 import com.chinarewards.gwt.elt.client.staffList.model.StaffListCriteria;
@@ -16,6 +17,7 @@ import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.model.PaginationDetailClient;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Grid;
+import com.google.inject.Provider;
 
 public class ColleagueListViewAdapter extends BaseDataProvider<StaffListClient> {
 
@@ -24,15 +26,16 @@ public class ColleagueListViewAdapter extends BaseDataProvider<StaffListClient> 
 	StaffListCriteria criteria;
 	final ErrorHandler errorHandler;
 	final SessionManager sessionManager;
-
+	 Provider<MessageSaveDialog> messageSaveDialog;
 	public ColleagueListViewAdapter(DispatchAsync dispatch,
 			StaffListCriteria criteria, ErrorHandler errorHandler,
-			SessionManager sessionManager, ColleagueListDisplay display) {
+			SessionManager sessionManager, ColleagueListDisplay display, Provider<MessageSaveDialog> messageSaveDialog) {
 		this.dispatch = dispatch;
 		this.criteria = criteria;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
 		this.display = display;
+		this.messageSaveDialog=messageSaveDialog;
 	}
 
 	public void fetchData(final int start, final int length) {
@@ -86,7 +89,7 @@ public class ColleagueListViewAdapter extends BaseDataProvider<StaffListClient> 
 									if(clint.getDepartmentName().indexOf("ROOT")!=-1)
 										clint.setDepartmentName("");
 									grid.setWidget(row, col,
-											new ColleagueLatticeWidget(clint.getStaffId(),clint.getStaffName(),clint.getDepartmentName(),clint.getPhoto()));
+											new ColleagueLatticeWidget(clint.getStaffId(),clint.getStaffName(),clint.getDepartmentName(),clint.getPhoto(),messageSaveDialog));
 									index++;
 								} else {
 									break;

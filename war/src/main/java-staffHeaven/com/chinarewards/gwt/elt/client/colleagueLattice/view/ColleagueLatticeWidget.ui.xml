@@ -16,7 +16,10 @@
               </div>
             </div>
             <div class="{new2.workmate-comm}">
-              <a href="#">悄悄话</a>  <a href="#">调戏他</a>  <a href="#">发邮件</a>
+            <g:Anchor ui:field="quietly" text="悄悄话" />
+            <g:Anchor ui:field="dalliance" text="调戏他" />
+            <g:Anchor ui:field="email" text="发邮件" />
+           
             </div>
           </div>
           

@@ -30,6 +30,7 @@
         <div class="{new2.news-select}">
         <g:Anchor text="全部信息" ui:field="allInformation" styleName="{new2.onselecta}" />|
         <g:Anchor text="同事说" ui:field="staffInformation" />|
+         <g:Anchor text="悄悄话" ui:field="quietlyInformation" />|
         <g:Anchor text="系统信息" ui:field="sysInformation" />|
         <g:Anchor text="主题讨论区" ui:field="themeInformation" />
         </div>

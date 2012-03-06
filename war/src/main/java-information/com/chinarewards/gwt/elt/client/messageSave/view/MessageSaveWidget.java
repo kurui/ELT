@@ -103,4 +103,10 @@ public class MessageSaveWidget extends Composite implements MessageSaveDisplay {
 		return staffTextArea;
 	}
 
+	@Override
+	public void displaySelectStaff() {
+		chooseBtn.setVisible(false);
+	
+	}
+
 }

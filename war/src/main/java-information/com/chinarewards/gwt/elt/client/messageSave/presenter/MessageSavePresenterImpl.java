@@ -187,6 +187,12 @@ public class MessageSavePresenterImpl extends
 		display.getSpecialTextArea().addItem(client);
 	}
 
+	@Override
+	public void displaySelectStaff() {
+		display.displaySelectStaff();
+		
+	}
+
 
 
 }
