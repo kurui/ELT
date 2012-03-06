@@ -109,7 +109,7 @@ public class RewardsListStaffPresenterImpl extends
 	private void doSearch() {
 		RewardsGridCriteria criteria = new RewardsGridCriteria();
 		criteria.setStaffName(display.getWinnerName().getValue());
-
+	
 		int selectedIndex = display.getRewardsItem().getSelectedIndex();
 		if (selectedIndex > -1) {
 			String rewardsItemId = display.getRewardsItem().getValue(

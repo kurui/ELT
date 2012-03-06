@@ -345,6 +345,36 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 						Window.alert("待实现");
 					}
 				}));
+		
+		 //
+				registerHandler(display.getAllReward().addClickHandler(
+						new ClickHandler() {
+							@Override
+							public void onClick(ClickEvent event) {
+								loadRewardALLPanel();
+							}
+						}));
+				registerHandler(display.getMyWinReward().addClickHandler(
+						new ClickHandler() {
+							@Override
+							public void onClick(ClickEvent event) {
+								loadRewardSTAFFPanel();
+							}
+						}));
+				registerHandler(display.getAllRewardItem().addClickHandler(
+						new ClickHandler() {
+							@Override
+							public void onClick(ClickEvent event) {
+								loadRewardItemALLPanel();
+							}
+						}));
+				registerHandler(display.getEffortRewardItem().addClickHandler(
+						new ClickHandler() {
+							@Override
+							public void onClick(ClickEvent event) {
+								loadRewardItemSTAFFPanel();
+							}
+						}));
 
 		
 	}
@@ -434,7 +464,7 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 		//奖励小控件加载
 		loadRewardSTAFFPanel();
 		
-		loadRewardItemPanel();
+		loadRewardItemSTAFFPanel();
 		
 	}
 	
@@ -532,9 +562,57 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 				});
 	}
 	
-	private void loadRewardItemPanel(){
+	private void loadRewardItemALLPanel(){
 		RewardsGridCriteria criteria = new RewardsGridCriteria();
 		criteria.setThisAction("RewardsItem_ALL");
+		// 查询参数....待添加
+		dispatchAsync.execute(new SearchRewardsGridRequest(criteria,sessionManager
+				.getSession()),
+				new AsyncCallback<SearchRewardsGridResponse>() {
+					@Override
+					public void onFailure(Throwable e) {
+						Window.alert(e.getMessage());
+					}
+
+					@Override
+					public void onSuccess(SearchRewardsGridResponse response) {
+
+						List<RewardsGridClient> giftList = response.getResult();
+						int index = 0;
+						Grid grid = new Grid(5, 1);
+
+						// Add images to the grid
+						int numRows = grid.getRowCount();
+						int numColumns = grid.getColumnCount();
+						for (int row = 0; row < numRows; row++) {
+							for (int col = 0; col < numColumns; col++) {
+								if (index < giftList.size()) {
+									RewardsGridClient client = giftList.get(index);
+									grid.setWidget(
+											row,
+											col,
+											new SmallRewardItemWindowWidget(client.getRewardsItemId(),client.getRewardsItemName(),client.getAwardAmt(),client.getRewardsItemPhoto()));
+									index++;
+								} else {
+									break;
+								}
+							}
+						}
+
+						// Return the panel
+						grid.ensureDebugId("cwGridreward");
+
+						display.getRewardItemPanel().clear();
+						display.getRewardItemPanel().add(grid);
+
+					}
+
+				});
+	}
+	
+	private void loadRewardItemSTAFFPanel(){
+		RewardsGridCriteria criteria = new RewardsGridCriteria();
+		criteria.setThisAction("RewardsItem_STAFF");
 		// 查询参数....待添加
 		dispatchAsync.execute(new SearchRewardsGridRequest(criteria,sessionManager
 				.getSession()),

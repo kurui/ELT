@@ -152,6 +152,9 @@ public class SearchRewardsGridHandler extends
 
 		searchVo.setCorporationId(criteria.getCorporationId());
 		searchVo.setStaffId(criteria.getStaffId());
+		searchVo.setStaffName(criteria.getStaffName());
+		searchVo.setRewardItemId(criteria.getRewardsItemId());
+		searchVo.setRewardsDate(criteria.getRewardsDate());
 
 		if (criteria.getPagination() != null) {
 			PaginationDetail paginationDetail = new PaginationDetail();

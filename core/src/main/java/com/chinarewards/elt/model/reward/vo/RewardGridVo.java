@@ -132,7 +132,22 @@ public class RewardGridVo {
 	}
 
 	public String getNominateName() {
+		if (nomineeLotList != null) {
+			for (int i = 0; i < nomineeLotList.size(); i++) {
+				NomineeLot nomineeLot = nomineeLotList.get(i);
+				if (nomineeLot != null) {
+					nominateName += nomineeLot.getCreatedBy().getStaff().getName() + ",";
+				}
+			}
+		}
+
+		int subIndex = nominateName.lastIndexOf(",");
+		if (subIndex > -1) {
+			nominateName = nominateName.substring(0, subIndex);
+		}
+
 		return nominateName;
+
 	}
 
 	public void setNominateName(String nominateName) {

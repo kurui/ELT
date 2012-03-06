@@ -71,7 +71,6 @@ public class RewardGridLogicImpl implements RewardGridLogic {
 		PageStore<RewardGridVo> pageStore = new PageStore<RewardGridVo>();
 
 		RewardSearchVo rewardSearchVo = new RewardSearchVo();
-		String staffId = context.getCorporationId();
 		rewardSearchVo.setWinnerStaffName(criteria.getStaffName());
 		rewardSearchVo.setRewardItemId(criteria.getRewardItemId());
 		rewardSearchVo.setRewardsTime(criteria.getRewardsDate());
@@ -130,6 +129,11 @@ public class RewardGridLogicImpl implements RewardGridLogic {
 				rewardGridVo.setRewardsDate(reward.getAwardDate());
 				rewardGridVo.setAwardAmt(reward.getAwardAmt());
 				rewardGridVo.setAwardName(reward.getCreatedBy().getStaff().getName());// 颁奖人
+				
+				// 提名人
+				List<NomineeLot> nomineeLots = nomineeLogic
+						.getNomineeLotsFromReward(reward.getId());
+				rewardGridVo.setNomineeLotList(nomineeLots);
 				
 				RewardItem rewardItem=reward.getRewardItem();
 				rewardGridVo.setRewardItem(rewardItem);
@@ -223,10 +227,8 @@ public class RewardGridLogicImpl implements RewardGridLogic {
 					
 					gridVoList.add(rewardGridVo);
 				}
-
 			}
 		}
-
 		return gridVoList;
 	}
 
@@ -266,14 +268,12 @@ public class RewardGridLogicImpl implements RewardGridLogic {
 					rewardGridVo.setJudgeList(judges);
 					rewardGridVo.setNomineeLotList(nomineeLots);
 					rewardGridVo.setWinnerList(winners);
-//					 rewardGridVo.setRewardsDate(win.getCreatedAt());
+//					rewardGridVo.setRewardsDate(win.getCreatedAt());
 
 					gridVoList.add(rewardGridVo);
 				}
-
 			}
 		}
-
 		return gridVoList;
 	}
 
@@ -294,55 +294,8 @@ public class RewardGridLogicImpl implements RewardGridLogic {
 					gridVoList.add(rewardGridVo);
 
 				}
-
 			}
 		}
-
 		return gridVoList;
-	}
-
-	// private RewardItemVo convertFromRewardItemToVo(WinerRewardItemVo winVo,
-	// boolean isEntire) {
-	// RewardItem item=winVo.getReward().getRewardItem();
-	// RewardItemVo itemVo = new RewardItemVo();
-	//
-	// itemVo.setNominateCount(winVo.getNominateCount());
-	//
-	// if (isEntire) {
-	// String rewardItemId = item.getId();
-	// // Get frequency info,判断是否周期
-	// if (item.getAutoGenerate() == RequireAutoGenerate.requireCyclic) {
-	// Frequency frequencie = frequencyLogic
-	// .getFrequencyOfRewardItem(rewardItemId);
-	// itemVo.setFrequency(frequencie);
-	// }
-	// // Get candidate list rule
-	// CandidateRule candidateRule = candidateRuleLogic
-	// .findCandidateRuleFromRewardItem(rewardItemId);
-	// // Get judge list
-	// List<Judge> judges = judgeLogic
-	// .findJudgesFromRewardItem(rewardItemId);
-	//
-	// itemVo.setCandidateRule(candidateRule);
-	// itemVo.setJudgeList(judges);
-	//
-	// itemVo.setAwardAmt(item.getAwardAmt());
-	//
-	// }
-	// itemVo.setItem(item);
-	//
-	// return itemVo;
-	// }
-
-	private RewardVo convertFromRewardToVo(Winner win, Reward reward,
-			boolean isEntire) {
-		RewardVo rewardVo = new RewardVo();
-		if (isEntire) {
-			String rewardId = reward.getId();
-
-		}
-		rewardVo.setReward(reward);
-
-		return rewardVo;
-	}
+	}	
 }
