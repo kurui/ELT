@@ -25,7 +25,7 @@ public class RewardsItemListCompanyOtherWidget extends Composite implements
 	Button searchBtn;
 
 	@UiField
-	ListBox rewardsItemType;
+	ListBox rewardsType;
 
 	@UiField
 	InlineLabel dataCount;
@@ -71,8 +71,8 @@ public class RewardsItemListCompanyOtherWidget extends Composite implements
 	}
 
 	@Override
-	public ListBox getRewardsItemType() {
-		return rewardsItemType;
+	public ListBox getRewardsType() {
+		return rewardsType;
 	}
 
 }

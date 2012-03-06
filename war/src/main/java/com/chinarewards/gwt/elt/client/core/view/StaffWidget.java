@@ -502,4 +502,24 @@ public class StaffWidget extends Composite implements StaffDisplay {
 	public Panel getRewardItemPanel() {
 		return rewardItemPanel;
 	}
+
+	@Override
+	public HasClickHandlers getMyWinReward() {
+		return myWinReward;
+	}
+
+	@Override
+	public HasClickHandlers getAllReward() {
+		return allReward;
+	}
+
+	@Override
+	public HasClickHandlers getEffortRewardItem() {
+		return effortRewardItem;
+	}
+
+	@Override
+	public HasClickHandlers getAllRewardItem() {
+		return allRewardItem;
+	}
 }

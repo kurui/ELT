@@ -39,6 +39,12 @@ public interface StaffPresenter extends Presenter<StaffPresenter.StaffDisplay> {
 		HasClickHandlers getGloryAnchor();
 		HasClickHandlers getSettingAnchor();
 		HasClickHandlers getMore();
+		
+		
+		HasClickHandlers getMyWinReward();
+		HasClickHandlers getAllReward();
+		HasClickHandlers getEffortRewardItem();
+		HasClickHandlers getAllRewardItem();		
 
 		
 		void setPhoto(String photo);

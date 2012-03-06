@@ -47,6 +47,8 @@ public class StaffHeavenIndexWidget extends Composite implements
 	CheckBox moot;
 	@UiField
 	Button addBroadcastBtn;
+	@UiField
+	Anchor quietlyInformation;
 	
 	DateTimeFormat dateFormat = DateTimeFormat
 			.getFormat(ViewConstants.date_format);
@@ -133,6 +135,11 @@ public class StaffHeavenIndexWidget extends Composite implements
 	public void successClean() {
 		broadcastContent.setValue("");
 		moot.setValue(false);
+	}
+
+	@Override
+	public Anchor getQuietlyInformation() {
+		return quietlyInformation;
 	}
 
 }

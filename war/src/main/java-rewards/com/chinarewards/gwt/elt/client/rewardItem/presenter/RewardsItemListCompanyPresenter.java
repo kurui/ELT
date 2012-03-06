@@ -17,7 +17,7 @@ public interface RewardsItemListCompanyPresenter extends
 
 		public HasClickHandlers getSearchBtnClickHandlers();
 
-		public ListBox getRewardsItemType();
+		public ListBox getRewardsType();
 
 		public Panel getResultPanel();
 

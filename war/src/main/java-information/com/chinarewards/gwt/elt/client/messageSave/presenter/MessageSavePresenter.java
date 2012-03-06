@@ -13,6 +13,7 @@ public interface MessageSavePresenter extends
 DialogPresenter<MessageSavePresenter.MessageSaveDisplay> {
 
 	public void initBroadcastStaff(String staffId,String staffName);
+	public void displaySelectStaff();
 
 	public static interface MessageSaveDisplay extends Display {
 
@@ -22,7 +23,7 @@ DialogPresenter<MessageSavePresenter.MessageSaveDisplay> {
 
 		public HasClickHandlers getChooseBtnClickHandlers();
 
-
+		void displaySelectStaff();
 		String getContent();
 
 		Panel getBroadcastOrDeptTextAreaPanel();

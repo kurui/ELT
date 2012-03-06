@@ -28,13 +28,14 @@ public class RewardGridVo {
 	private String rewardId = "";
 	private String rewardName = "";
 	private Date rewardsDate;
-	private String awardName="";//颁奖人
+	private String awardName = "";// 颁奖人
+	private double awardAmt = Double.valueOf(0);// 每人积分
+	private String rewardStatusName = "";
+
 	// 奖项
 	private String rewardItemId = "";
 	private String rewardItemName = "";
-	private double awardAmt = Double.valueOf(0);// 每人积分
-	
-
+	private String rewardsItemCreateBy;// 奖项创建人
 	private String rewardItemPhoto = "";
 
 	private String corporationId = "";
@@ -47,39 +48,49 @@ public class RewardGridVo {
 	private List<Judge> judgeList;
 	private List<NomineeLot> nomineeLotList;
 	private List<Winner> winnerList;
-	
-	public String getWinnersName(){
-		String winnersName="";
-		if (winnerList!=null) {
+
+	public String getWinnersName() {
+		String winnersName = "";
+		if (winnerList != null) {
 			for (int i = 0; i < winnerList.size(); i++) {
-				Winner winner=winnerList.get(i);
-				if (winner!=null) {
-					winnersName+=winner.getStaff().getName()+",";
+				Winner winner = winnerList.get(i);
+				if (winner != null) {
+					winnersName += winner.getStaff().getName() + ",";
 				}
 			}
 		}
-		
-		int subIndex=winnersName.lastIndexOf(",");
-		if (subIndex>-1) {
-			winnersName=winnersName.substring(0,subIndex);
+
+		int subIndex = winnersName.lastIndexOf(",");
+		if (subIndex > -1) {
+			winnersName = winnersName.substring(0, subIndex);
 		}
-		
+
 		return winnersName;
 	}
-	
-	
+
+	public String getRewardStatusName() {
+		return rewardStatusName;
+	}
+
+	public void setRewardStatusName(String rewardStatusName) {
+		this.rewardStatusName = rewardStatusName;
+	}
+
+	public String getRewardsItemCreateBy() {
+		return rewardsItemCreateBy;
+	}
+
+	public void setRewardsItemCreateBy(String rewardsItemCreateBy) {
+		this.rewardsItemCreateBy = rewardsItemCreateBy;
+	}
 
 	public String getAwardName() {
 		return awardName;
 	}
 
-
-
 	public void setAwardName(String awardName) {
 		this.awardName = awardName;
 	}
-
-
 
 	public Date getRewardsDate() {
 		return rewardsDate;
@@ -130,7 +141,24 @@ public class RewardGridVo {
 	}
 
 	public String getNominateName() {
+		if (nomineeLotList != null) {
+			for (int i = 0; i < nomineeLotList.size(); i++) {
+				NomineeLot nomineeLot = nomineeLotList.get(i);
+				if (nomineeLot != null) {
+					nominateName += nomineeLot.getCreatedBy().getStaff()
+							.getName()
+							+ ",";
+				}
+			}
+		}
+
+		int subIndex = nominateName.lastIndexOf(",");
+		if (subIndex > -1) {
+			nominateName = nominateName.substring(0, subIndex);
+		}
+
 		return nominateName;
+
 	}
 
 	public void setNominateName(String nominateName) {

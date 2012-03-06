@@ -44,6 +44,8 @@ public class BroadcastingListCriteria implements IsSerializable {
 		REWARDBROADCAST("奖励广播"),
 
 		THEMEBROADCAST("主题广播"),
+		QUIETLYINFORMATION("悄悄话"),
+		DALLIANCEINFORMATION("调戏信息"),
 		/* 其他广播 */
 		OTHERBROADCAST("其他广播");
 

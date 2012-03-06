@@ -14,7 +14,8 @@ public enum BroadcastingCategory {
 	SYSBROADCAST("系统广播"),
 
 	REWARDBROADCAST("奖励广播"),
-
+	QUIETLYINFORMATION("悄悄话"),
+	DALLIANCEINFORMATION("调戏信息"),
 	THEMEBROADCAST("主题广播"),
 	/* 其他广播 */
 	OTHERBROADCAST("其他广播");

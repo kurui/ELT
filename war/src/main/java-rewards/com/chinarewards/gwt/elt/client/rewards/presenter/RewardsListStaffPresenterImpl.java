@@ -109,7 +109,7 @@ public class RewardsListStaffPresenterImpl extends
 	private void doSearch() {
 		RewardsGridCriteria criteria = new RewardsGridCriteria();
 		criteria.setStaffName(display.getWinnerName().getValue());
-
+	
 		int selectedIndex = display.getRewardsItem().getSelectedIndex();
 		if (selectedIndex > -1) {
 			String rewardsItemId = display.getRewardsItem().getValue(
@@ -188,8 +188,7 @@ public class RewardsListStaffPresenterImpl extends
 				new GetValue<RewardsGridClient, String>() {
 					@Override
 					public String getValue(RewardsGridClient client) {
-						int total = (int) (client.getTotalAmtLimit());
-						return total + "";
+						return client.getAwardAmt();
 					}
 				}, ref, "totalAmtLimit");
 

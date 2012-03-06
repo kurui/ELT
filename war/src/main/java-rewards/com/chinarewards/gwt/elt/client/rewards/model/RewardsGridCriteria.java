@@ -23,7 +23,8 @@ public class RewardsGridCriteria implements IsSerializable {
 
 	private String rewardsItemId;
 	private Date rewardsDate;
-	private String rewardsItemType;
+	
+	private String rewardsType;
 
 	private String thisAction;
 
@@ -73,12 +74,14 @@ public class RewardsGridCriteria implements IsSerializable {
 		this.staffName = staffName;
 	}
 
-	public String getRewardsItemType() {
-		return rewardsItemType;
+
+
+	public String getRewardsType() {
+		return rewardsType;
 	}
 
-	public void setRewardsItemType(String rewardsItemType) {
-		this.rewardsItemType = rewardsItemType;
+	public void setRewardsType(String rewardsType) {
+		this.rewardsType = rewardsType;
 	}
 
 	public String getCorporationId() {

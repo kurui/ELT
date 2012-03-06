@@ -54,6 +54,7 @@ public class SearchRewardsGridHandler extends
 		SearchRewardsGridResponse resp = new SearchRewardsGridResponse();
 
 		RewardsGridCriteria criteria = request.getCriteria();
+		criteria.setStaffId(request.getSession().getStaffId());//
 
 		UserContext uc = new UserContext();
 		uc.setCorporationId(request.getSession().getCorporationId());
@@ -79,7 +80,7 @@ public class SearchRewardsGridHandler extends
 			RewardsGridCriteria criteria) {
 		PageStore<RewardGridVo> rewardsPage = null;
 
-		RewardGridSearchVo searchVo = adapterQuery(criteria);
+		RewardGridSearchVo searchVo = adapterQuery(criteria);//AdapterQuery
 
 		String thisAction = searchVo.getThisAction();
 
@@ -89,11 +90,23 @@ public class SearchRewardsGridHandler extends
 			if ("Rewards_STAFF".equals(thisAction)) {
 				rewardsPage = rewardGridService
 						.fetchRewards_STAFF(uc, searchVo);
+			} else if ("Rewards_STAFF_GETED".equals(thisAction)) {
+				rewardsPage = rewardGridService.fetchRewards_STAFF_GETED(uc,
+						searchVo);
 			} else if ("Rewards_ALL".equals(thisAction)) {
 				rewardsPage = rewardGridService.fetchRewards_ALL(uc, searchVo);
 			} else if ("RewardsItem_STAFF".equals(thisAction)) {
 				rewardsPage = rewardGridService.fetchRewardsItem_STAFF(uc,
 						searchVo);
+			} else if ("RewardsItem_STAFF_PARTAKE".equals(thisAction)) {
+				rewardsPage = rewardGridService.fetchRewardsItem_STAFF_PARTAKE(
+						uc, searchVo);
+			} else if ("RewardsItem_STAFF_RUSH".equals(thisAction)) {
+				rewardsPage = rewardGridService.fetchRewardsItem_STAFF_RUSH(uc,
+						searchVo);
+			} else if ("RewardsItem_COMPANY_OTHER".equals(thisAction)) {
+				rewardsPage = rewardGridService.fetchRewardsItem_COMPANY_OTHER(
+						uc, searchVo);
 			} else if ("RewardsItem_ALL".equals(thisAction)) {
 				rewardsPage = rewardGridService.fetchRewardsItem_ALL(uc,
 						searchVo);
@@ -120,8 +133,11 @@ public class SearchRewardsGridHandler extends
 				client.setRewardsDate(rewardGridVo.getRewardsDate());
 				client.setRewardsItemId(rewardGridVo.getRewardItemId());
 				client.setRewardsItemName(rewardGridVo.getRewardItemName());
+				client.setRewardsItemCreateBy(rewardGridVo
+						.getRewardsItemCreateBy());// 奖项创建人
 				client.setAwardAmt(rewardGridVo.getAwardAmt() + "");
 				client.setAwardName(rewardGridVo.getAwardName());// 颁奖人
+				client.setRewardStatusName(rewardGridVo.getRewardStatusName());
 
 				client.setCorporationId(rewardGridVo.getCorporationId());
 
@@ -151,7 +167,12 @@ public class SearchRewardsGridHandler extends
 
 		searchVo.setCorporationId(criteria.getCorporationId());
 		searchVo.setStaffId(criteria.getStaffId());
+		searchVo.setStaffName(criteria.getStaffName());
+		searchVo.setRewardItemId(criteria.getRewardsItemId());
+		searchVo.setRewardsDate(criteria.getRewardsDate());
 
+		searchVo.setRewardsType(criteria.getRewardsType());
+		
 		if (criteria.getPagination() != null) {
 			PaginationDetail paginationDetail = new PaginationDetail();
 			paginationDetail.setStart(criteria.getPagination().getStart());

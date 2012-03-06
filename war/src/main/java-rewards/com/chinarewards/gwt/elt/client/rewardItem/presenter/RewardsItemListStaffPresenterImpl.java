@@ -96,7 +96,7 @@ public class RewardsItemListStaffPresenterImpl extends
 //		criteria.setName(display.getName().getValue());
 //		criteria.setDefinition(display.getDefinition().getValue());
 		
-		criteria.setThisAction("RewardsItem_STAFF");
+		criteria.setThisAction("RewardsItem_STAFF_PARTAKE");
 
 		listViewAdapter = new RewardsItemListStaffViewAdapter(dispatch,
 				criteria, errorHandler, sessionManager, display);
@@ -130,9 +130,9 @@ public class RewardsItemListStaffPresenterImpl extends
 				new GetValue<RewardsGridClient, String>() {
 					@Override
 					public String getValue(RewardsGridClient client) {
-						return client.getAwardAmt()+"";
+						return client.getAwardAmt();
 					}
-				}, ref, "clientFrom");
+				}, ref, "awardAmt");
 		
 		cellTable.addColumn("说明", new HyperLinkCell(),
 				new GetValue<RewardsGridClient, String>() {

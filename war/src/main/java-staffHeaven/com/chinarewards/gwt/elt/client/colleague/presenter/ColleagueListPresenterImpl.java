@@ -4,6 +4,7 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.colleague.dataprovider.ColleagueListViewAdapter;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
+import com.chinarewards.gwt.elt.client.messageSave.dialog.MessageSaveDialog;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
@@ -20,6 +21,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 public class ColleagueListPresenterImpl extends
 		BasePresenter<ColleagueListPresenter.ColleagueListDisplay> implements
@@ -32,16 +34,17 @@ public class ColleagueListPresenterImpl extends
 	EltNewPager pager;
 	ListCellTable<StaffListClient> cellTable;
 	ColleagueListViewAdapter listViewAdapter;
-
+	Provider<MessageSaveDialog> messageSaveDialog;
 
 	@Inject
 	public ColleagueListPresenterImpl(EventBus eventBus,
 			ColleagueListDisplay display, DispatchAsync dispatch,
-			SessionManager sessionManager,Win win,ErrorHandler errorHandler) {
+			SessionManager sessionManager,Win win,ErrorHandler errorHandler,Provider<MessageSaveDialog> messageSaveDialog) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.sessionManager = sessionManager;
 		this.errorHandler=errorHandler;
+		this.messageSaveDialog=messageSaveDialog;
 	//	this.win=win;
 
 	}
@@ -99,7 +102,7 @@ public class ColleagueListPresenterImpl extends
 		if(!StringUtil.isEmpty(key))
 			criteria.setStaffNameorNo(key);
 		listViewAdapter = new ColleagueListViewAdapter(dispatch, criteria,
-				errorHandler, sessionManager,display);
+				errorHandler, sessionManager,display,messageSaveDialog);
 		listViewAdapter.addDataDisplay(cellTable);
 
 	}

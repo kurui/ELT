@@ -23,6 +23,7 @@ public interface StaffHeavenIndexPresenter extends
 		Anchor getSysInformation();
 		Anchor getThemeInformation();
 		Anchor getCloseMessageBtn();
+		Anchor getQuietlyInformation();
 		
 		void setTopMessage(String text);
 		

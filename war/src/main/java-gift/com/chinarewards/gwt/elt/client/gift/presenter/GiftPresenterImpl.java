@@ -219,12 +219,7 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent arg0) {
-						Platform.getInstance()
-								.getEditorRegistry()
-								.openEditor(
-										GiftConstants.EDITOR_GIFTLIST_SEARCH,
-										GiftConstants.ACTION_GIFT_LIST,
-										instanceId);
+						breadCrumbs.getGoHistory();
 					}
 				}));		
 	
