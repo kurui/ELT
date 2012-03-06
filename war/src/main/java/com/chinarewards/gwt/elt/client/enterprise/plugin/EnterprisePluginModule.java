@@ -4,6 +4,8 @@ import com.chinarewards.gwt.elt.client.enterprise.editor.EnterpriseEditor;
 import com.chinarewards.gwt.elt.client.enterprise.editor.EnterpriseEditorDescriptor;
 import com.chinarewards.gwt.elt.client.enterprise.editor.IntegralPriceEditor;
 import com.chinarewards.gwt.elt.client.enterprise.editor.IntegralPriceEditorDescriptor;
+import com.chinarewards.gwt.elt.client.enterprise.editor.MailSetEditor;
+import com.chinarewards.gwt.elt.client.enterprise.editor.MailSetEditorDescriptor;
 import com.chinarewards.gwt.elt.client.enterprise.editor.PeriodEditor;
 import com.chinarewards.gwt.elt.client.enterprise.editor.PeriodEditorDescriptor;
 import com.chinarewards.gwt.elt.client.sample2.Sample2Editor;
@@ -30,11 +32,9 @@ public class EnterprisePluginModule extends AbstractGinModule {
 		bind(Sample2EditorDescriptor.class).in(Singleton.class);
 		bind(Sample2Editor.class);
 
-		// // XXX testing only
-		// bind(SessionManager.class).to(CookieSessionManager.class).in(
-		// Singleton.class);
-		// bind(LoginPresenter.class).to(LoginPresenterImpl.class);
-		// bind(LoginDisplay.class).to(LoginWidget.class);
+		bind(MailSetPluginDescriptor.class).in(Singleton.class);
+		bind(MailSetEditorDescriptor.class).in(Singleton.class);
+		bind(MailSetEditor.class);
 	}
 
 }

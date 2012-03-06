@@ -58,9 +58,11 @@ public class MainImpl implements Main, PlatformInitHandler, LoginHandler {
 					public void onSuccess(RegisterInitResponse response) {
 						OrgInitVo vo = response.getOrgInitVo();
 						if (vo == null || vo.getCorpInit()==0) {// 初始化企业
+							RootLayoutPanel.get().clear();
 							injector.getRegisterPresenter().bind();
 							RootLayoutPanel.get().add(injector.getRegisterPresenter().getDisplay().asWidget());
 						} else if (vo != null && vo.getCorpInit() != 0	&& vo.getHrInit() == 0) {// 初始化HR账户
+							RootLayoutPanel.get().clear();
 							injector.getRegisterHrPresenter().bind();
 							RootLayoutPanel.get().add(injector.getRegisterHrPresenter().getDisplay().asWidget());
 						}

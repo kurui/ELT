@@ -10,17 +10,20 @@ public class MailVo implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private String emailAddress;
+	private String staffId;
 	private String content;
 	public MailVo(){
 		
 	}
-	public String getEmailAddress() {
-		return emailAddress;
+	
+	public String getStaffId() {
+		return staffId;
 	}
-	public void setEmailAddress(String emailAddress) {
-		this.emailAddress = emailAddress;
+
+	public void setStaffId(String staffId) {
+		this.staffId = staffId;
 	}
+
 	public String getContent() {
 		return content;
 	}

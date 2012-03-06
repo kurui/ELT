@@ -13,6 +13,7 @@ import com.chinarewards.gwt.elt.client.register.presenter.RegisterPresenter.Regi
 import com.chinarewards.gwt.elt.client.register.request.RegisterRequest;
 import com.chinarewards.gwt.elt.client.register.request.RegisterResponse;
 import com.chinarewards.gwt.elt.client.ui.DialogBox;
+import com.chinarewards.gwt.elt.client.util.StringUtil;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -101,6 +102,45 @@ public class RegisterPresenterImpl extends BasePresenter<RegisterDisplay> implem
 			
 			return;
 		}
+		if (StringUtil.isEmpty(display.getEmail().getValue())) {
+			final AlertErrorWidget ae = new AlertErrorWidget();
+			final DialogBox dialogBoxae = new DialogBox();
+			ae.getOkBtn().addClickHandler(new ClickHandler() {
+				@Override
+				public void onClick(ClickEvent arg0) {
+					dialogBoxae.hide();
+				}
+			});
+			ae.setMessage("电子邮箱不能为空!");
+			dialogBoxae.setWidget(ae);
+			dialogBoxae.setGlassEnabled(true);
+			dialogBoxae.setAnimationEnabled(true);
+			dialogBoxae.setWidth("350px");
+			dialogBoxae.setText("提示");
+			dialogBoxae.center();
+			dialogBoxae.show();
+			return;
+		}
+		else if(!StringUtil.isValidEmail(display.getEmail().getValue()))
+		{
+			final AlertErrorWidget ae = new AlertErrorWidget();
+			final DialogBox dialogBoxae = new DialogBox();
+			ae.getOkBtn().addClickHandler(new ClickHandler() {
+				@Override
+				public void onClick(ClickEvent arg0) {
+					dialogBoxae.hide();
+				}
+			});
+			ae.setMessage("电子邮箱格式不正确!");
+			dialogBoxae.setWidget(ae);
+			dialogBoxae.setGlassEnabled(true);
+			dialogBoxae.setAnimationEnabled(true);
+			dialogBoxae.setWidth("350px");
+			dialogBoxae.setText("提示");
+			dialogBoxae.center();
+			dialogBoxae.show();
+			return;
+		}
 		if(display.isCheckSee()!=true)
 		{
 			final AlertErrorWidget ae = new AlertErrorWidget();
@@ -149,9 +189,7 @@ public class RegisterPresenterImpl extends BasePresenter<RegisterDisplay> implem
 							dialogBoxae.show();
 							injector.getMain().init(RootLayoutPanel.get());
 						    injector.getRegisterPresenter().unbind();
-						    RootLayoutPanel.get().clear();
-						    injector.getRegisterHrPresenter().bind();
-							RootLayoutPanel.get().add(injector.getRegisterHrPresenter().getDisplay().asWidget());
+						   
 						}else
 							Window.alert("创建失败");
 					}

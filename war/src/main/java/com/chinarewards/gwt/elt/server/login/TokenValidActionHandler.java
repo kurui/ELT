@@ -35,6 +35,7 @@ public class TokenValidActionHandler extends
 			throws DispatchException {
 		TokenValidResponse tokenRep=new TokenValidResponse();
 		UserSessionVo userSessionVo=userService.tokenVaild(action.getToken());
+		if(userSessionVo !=null){
 		tokenRep.setCorporationId(userSessionVo.getCorporationId());
 		tokenRep.setLoginName(userSessionVo.getUsername());
 		tokenRep.setToken(userSessionVo.getId());
@@ -61,8 +62,8 @@ public class TokenValidActionHandler extends
 				else if(roles.contains(UserRole.STAFF))
 					tokenRep.setLastLoginRole(UserRoleVo.valueOf(UserRole.STAFF.toString()));
 			}
+		 }
 		}
-			
 		return tokenRep;
 	}
 
