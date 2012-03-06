@@ -135,7 +135,7 @@ public class SearchRewardsGridHandler extends
 				client.setRewardsItemName(rewardGridVo.getRewardItemName());
 				client.setRewardsItemCreateBy(rewardGridVo
 						.getRewardsItemCreateBy());// 奖项创建人
-				client.setAwardAmt(rewardGridVo.getAwardAmt() + "");
+				client.setAwardAmt(StringUtil.subZeroAndDot(rewardGridVo.getAwardAmt()+""));
 				client.setAwardName(rewardGridVo.getAwardName());// 颁奖人
 				client.setRewardStatusName(rewardGridVo.getRewardStatusName());
 
