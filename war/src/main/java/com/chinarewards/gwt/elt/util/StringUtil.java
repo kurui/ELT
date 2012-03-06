@@ -15,7 +15,7 @@ public class StringUtil {
 	 * @return true - when input string is {@code null} or equals to "".
 	 */
 	public static boolean isEmpty(String str) {
-		return null == str ? true : "".equals(str);
+		return str == null || "".equals(str) || "null".equals(str);
 	}
 
 	/**

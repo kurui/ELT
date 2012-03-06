@@ -33,6 +33,8 @@ public class StaffListWidget extends Composite implements StaffListDisplay {
 	Button searchBtn;
 	@UiField
 	Button createSysUserBtn;
+	@UiField
+	Button printBtn;
 	
 	@UiField
 	InlineLabel dataCount;
@@ -127,11 +129,17 @@ public class StaffListWidget extends Composite implements StaffListDisplay {
 		addStaffBtn.setVisible(false);
 		synchronousStaffBtn.setVisible(false);
 		createSysUserBtn.setVisible(false);
+		printBtn.setVisible(false);
 	}
 
 	@Override
 	public HasClickHandlers getCreateSysUserBtnClickHandlers() {
 		return createSysUserBtn;
+	}
+
+	@Override
+	public HasClickHandlers getPrintBtnClickHandlers() {
+		return printBtn;
 	}
 
 
