@@ -80,6 +80,13 @@ public interface RewardGridService {
 	public PageStore<RewardGridVo> fetchRewardsItem_STAFF_RUSH(UserContext context,
 			RewardGridSearchVo criteria);
 
-
+	/**
+	 * 公司其他奖项栏目
+	 * @param context
+	 * @param criteria
+	 * @return
+	 */
+	public PageStore<RewardGridVo> fetchRewardsItem_COMPANY_OTHER(UserContext context,
+			RewardGridSearchVo criteria);
 
 }

@@ -19,7 +19,7 @@
 						<div class="{new2.query-wrap}">
 							<div class="{new2.form}">
 								<label for="">奖项状态:</label>
-								<g:ListBox ui:field="rewardsItemType" styleName="{new2.text2}" />
+								<g:ListBox ui:field="rewardsType" styleName="{new2.text2}" />
 								<span class="{new2.nbspbig}"></span>
 								<div class="{new2.remark} {new2.remark-info}">
 									<div class="{new2.remark-tool}" style="text-align:right;">

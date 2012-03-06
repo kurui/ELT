@@ -30,6 +30,7 @@ public class RewardGridVo {
 	private Date rewardsDate;
 	private String awardName = "";// 颁奖人
 	private double awardAmt = Double.valueOf(0);// 每人积分
+	private String rewardStatusName = "";
 
 	// 奖项
 	private String rewardItemId = "";
@@ -65,6 +66,14 @@ public class RewardGridVo {
 		}
 
 		return winnersName;
+	}
+
+	public String getRewardStatusName() {
+		return rewardStatusName;
+	}
+
+	public void setRewardStatusName(String rewardStatusName) {
+		this.rewardStatusName = rewardStatusName;
 	}
 
 	public String getRewardsItemCreateBy() {
@@ -136,7 +145,9 @@ public class RewardGridVo {
 			for (int i = 0; i < nomineeLotList.size(); i++) {
 				NomineeLot nomineeLot = nomineeLotList.get(i);
 				if (nomineeLot != null) {
-					nominateName += nomineeLot.getCreatedBy().getStaff().getName() + ",";
+					nominateName += nomineeLot.getCreatedBy().getStaff()
+							.getName()
+							+ ",";
 				}
 			}
 		}
