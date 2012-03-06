@@ -88,6 +88,50 @@ public class RewardGridLogicImpl implements RewardGridLogic {
 
 		return pageStore;
 	}
+	
+	@Override
+	public PageStore<RewardGridVo> fetchRewards_STAFF_GETED(UserContext context,
+			RewardGridSearchVo criteria) {
+		PageStore<RewardGridVo> pageStore = new PageStore<RewardGridVo>();
+
+		RewardSearchVo rewardSearchVo = new RewardSearchVo();
+		rewardSearchVo.setWinnerStaffId(criteria.getStaffId());
+		rewardSearchVo.setWinnerStaffName(criteria.getStaffName());
+		rewardSearchVo.setRewardItemId(criteria.getRewardItemId());
+		rewardSearchVo.setRewardsTime(criteria.getRewardsDate());
+
+		List<Winner> winnerlist = winnerDao
+				.queryCurrentStaffWinRewardData(rewardSearchVo);
+
+		int resultCount = winnerlist.size();
+
+		pageStore.setResultList(convertToGridVoListFromWinner(winnerlist));
+		pageStore.setResultCount(resultCount);
+
+		return pageStore;
+	}
+	
+	@Override
+	public PageStore<RewardGridVo> fetchRewards_STAFF_HISTORY(UserContext context,
+			RewardGridSearchVo criteria) {
+		PageStore<RewardGridVo> pageStore = new PageStore<RewardGridVo>();
+
+		RewardSearchVo rewardSearchVo = new RewardSearchVo();
+		rewardSearchVo.setWinnerStaffId(null);
+		rewardSearchVo.setWinnerStaffName(criteria.getStaffName());
+		rewardSearchVo.setRewardItemId(criteria.getRewardItemId());
+		rewardSearchVo.setRewardsTime(criteria.getRewardsDate());
+
+		List<Winner> winnerlist = winnerDao
+				.queryCurrentStaffWinRewardData(rewardSearchVo);
+
+		int resultCount = winnerlist.size();
+
+		pageStore.setResultList(convertToGridVoListFromWinner(winnerlist));
+		pageStore.setResultCount(resultCount);
+
+		return pageStore;
+	}
 
 	@Override
 	public PageStore<RewardGridVo> fetchRewards_ALL(UserContext context,

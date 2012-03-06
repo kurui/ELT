@@ -22,6 +22,15 @@ public interface RewardGridService {
 	 */
 	public PageStore<RewardGridVo> fetchRewards_STAFF(UserContext context,
 			RewardGridSearchVo criteria);
+	
+	/**
+	 * 我获得的奖励
+	 * @param uc
+	 * @param searchVo
+	 * @return
+	 */
+	public PageStore<RewardGridVo> fetchRewards_STAFF_GETED(UserContext uc,
+			RewardGridSearchVo searchVo);
 
 	/**
 	 * 全部奖励列表
@@ -52,5 +61,7 @@ public interface RewardGridService {
 	 */
 	public PageStore<RewardGridVo> fetchRewardsItem_ALL(UserContext context,
 			RewardGridSearchVo criteria);
+
+
 
 }

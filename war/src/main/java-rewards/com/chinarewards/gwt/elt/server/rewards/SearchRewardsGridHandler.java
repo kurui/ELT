@@ -54,6 +54,7 @@ public class SearchRewardsGridHandler extends
 		SearchRewardsGridResponse resp = new SearchRewardsGridResponse();
 
 		RewardsGridCriteria criteria = request.getCriteria();
+		criteria.setStaffId(request.getSession().getStaffId());//
 
 		UserContext uc = new UserContext();
 		uc.setCorporationId(request.getSession().getCorporationId());
@@ -89,7 +90,10 @@ public class SearchRewardsGridHandler extends
 			if ("Rewards_STAFF".equals(thisAction)) {
 				rewardsPage = rewardGridService
 						.fetchRewards_STAFF(uc, searchVo);
-			} else if ("Rewards_ALL".equals(thisAction)) {
+			} if ("Rewards_STAFF_GETED".equals(thisAction)) {
+				rewardsPage = rewardGridService
+						.fetchRewards_STAFF_GETED(uc, searchVo);
+			}else if ("Rewards_ALL".equals(thisAction)) {
 				rewardsPage = rewardGridService.fetchRewards_ALL(uc, searchVo);
 			} else if ("RewardsItem_STAFF".equals(thisAction)) {
 				rewardsPage = rewardGridService.fetchRewardsItem_STAFF(uc,
