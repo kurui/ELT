@@ -34,7 +34,7 @@ public class SendMailServiceImpl implements SendMailService {
 	@Override
 	 public String sendMail(String content,String staffId) {
 		  Staff staff = staffDao.findById(Staff.class, staffId);
-		  String[] to = {staff.getDescription()};
+		  String[] to = {staff.getEmail()};
 		  String[] filenames = {};
 		  Corporation corporation =  staff.getCorporation();
 		  String smtp = corporation.getSmtp();
