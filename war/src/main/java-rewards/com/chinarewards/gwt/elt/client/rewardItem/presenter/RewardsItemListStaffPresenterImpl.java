@@ -130,9 +130,9 @@ public class RewardsItemListStaffPresenterImpl extends
 				new GetValue<RewardsGridClient, String>() {
 					@Override
 					public String getValue(RewardsGridClient client) {
-						return client.getAwardAmt()+"";
+						return client.getAwardAmt();
 					}
-				}, ref, "clientFrom");
+				}, ref, "awardAmt");
 		
 		cellTable.addColumn("说明", new HyperLinkCell(),
 				new GetValue<RewardsGridClient, String>() {

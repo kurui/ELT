@@ -120,7 +120,8 @@ public class SearchRewardsGridHandler extends
 				client.setRewardsDate(rewardGridVo.getRewardsDate());
 				client.setRewardsItemId(rewardGridVo.getRewardItemId());
 				client.setRewardsItemName(rewardGridVo.getRewardItemName());
-				client.setAwardAmt(rewardGridVo.getAwardAmt() + "");
+				client.setRewardsItemCreateBy(rewardGridVo.getRewardsItemCreateBy());//奖项创建人
+				client.setAwardAmt(rewardGridVo.getAwardAmt()+"");
 				client.setAwardName(rewardGridVo.getAwardName());// 颁奖人
 
 				client.setCorporationId(rewardGridVo.getCorporationId());

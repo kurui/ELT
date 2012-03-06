@@ -188,8 +188,7 @@ public class RewardsListStaffPresenterImpl extends
 				new GetValue<RewardsGridClient, String>() {
 					@Override
 					public String getValue(RewardsGridClient client) {
-						int total = (int) (client.getTotalAmtLimit());
-						return total + "";
+						return client.getAwardAmt();
 					}
 				}, ref, "totalAmtLimit");
 

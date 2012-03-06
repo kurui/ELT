@@ -164,7 +164,7 @@ public class RewardsItemListCompanyPresenterImpl extends
 				new GetValue<RewardsGridClient, String>() {
 					@Override
 					public String getValue(RewardsGridClient client) {
-						return client.getAwardName();
+						return client.getRewardsItemCreateBy();
 					}
 				}, ref, "createdBy");
 

@@ -135,6 +135,7 @@ public class RewardGridLogicImpl implements RewardGridLogic {
 				rewardGridVo.setRewardItem(rewardItem);
 				rewardGridVo.setRewardItemId(rewardItem.getId());
 				rewardGridVo.setRewardItemName(rewardItem.getName());		
+				rewardGridVo.setRewardsItemCreateBy(rewardItem.getCreatedBy().getStaff().getName());//奖项创建人
 				
 				Staff staff=winner.getStaff();
 				if(staff!=null){
@@ -195,7 +196,7 @@ public class RewardGridLogicImpl implements RewardGridLogic {
 					rewardGridVo.setRewardItem(rewardItem);
 					rewardGridVo.setRewardItemId(rewardItem.getId());
 					rewardGridVo.setRewardItemName(rewardItem.getName());		
-					
+					rewardGridVo.setRewardsItemCreateBy(rewardItem.getCreatedBy().getStaff().getName());//奖项创建人
 
 					// candidate rule
 					CandidateRule candidateRule = candidateRuleLogic
@@ -289,7 +290,7 @@ public class RewardGridLogicImpl implements RewardGridLogic {
 					rewardGridVo.setRewardItemName(rewardItem.getName());
 					rewardGridVo.setAwardAmt(rewardItem.getAwardAmt());
 //					 rewardGridVo.setRewardItemPhoto(rewardItem.getPhoto());
-					
+					rewardGridVo.setRewardsItemCreateBy(rewardItem.getCreatedBy().getStaff().getName());//奖项创建人
 					gridVoList.add(rewardGridVo);
 
 				}
