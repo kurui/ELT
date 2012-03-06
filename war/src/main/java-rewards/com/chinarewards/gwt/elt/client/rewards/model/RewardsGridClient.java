@@ -2,13 +2,7 @@ package com.chinarewards.gwt.elt.client.rewards.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
-import com.chinarewards.elt.domain.reward.person.Candidate;
-import com.chinarewards.elt.domain.reward.person.Judge;
-import com.chinarewards.elt.domain.reward.person.NomineeLot;
-import com.chinarewards.elt.domain.reward.person.Winner;
-import com.chinarewards.elt.domain.reward.rule.CandidateRule;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsCriteria.RewardsStatus;
 
 public class RewardsGridClient implements Serializable,
@@ -25,7 +19,8 @@ public class RewardsGridClient implements Serializable,
 	// 奖项
 	private String rewardsItemId;
 	private String rewardsItemName;
-	private String rewadsItemPhoto;
+	private String rewardsItemPhoto;
+	private String rewardsItemDefinition;
 
 	/** 奖项积分 **/
 	private double totalAmtLimit;
@@ -95,12 +90,20 @@ public class RewardsGridClient implements Serializable,
 		this.rewardsDate = rewardsDate;
 	}
 
-	public String getRewadsItemPhoto() {
-		return rewadsItemPhoto;
+	public String getRewardsItemPhoto() {
+		return rewardsItemPhoto;
 	}
 
-	public void setRewadsItemPhoto(String rewadsItemPhoto) {
-		this.rewadsItemPhoto = rewadsItemPhoto;
+	public void setRewardsItemPhoto(String rewardsItemPhoto) {
+		this.rewardsItemPhoto = rewardsItemPhoto;
+	}
+
+	public String getRewardsItemDefinition() {
+		return rewardsItemDefinition;
+	}
+
+	public void setRewardsItemDefinition(String rewardsItemDefinition) {
+		this.rewardsItemDefinition = rewardsItemDefinition;
 	}
 
 	public String getRewardsId() {

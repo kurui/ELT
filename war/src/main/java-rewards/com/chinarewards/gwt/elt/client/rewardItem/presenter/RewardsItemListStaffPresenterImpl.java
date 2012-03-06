@@ -138,8 +138,7 @@ public class RewardsItemListStaffPresenterImpl extends
 				new GetValue<RewardsGridClient, String>() {
 					@Override
 					public String getValue(RewardsGridClient client) {
-//						return client.getRewardsItemDefinition();
-						return "";
+						return client.getRewardsItemDefinition();
 					}
 				}, ref, "definition");
 
@@ -148,8 +147,7 @@ public class RewardsItemListStaffPresenterImpl extends
 				new GetValue<RewardsGridClient, String>() {
 					@Override
 					public String getValue(RewardsGridClient client) {
-//						return client.getNominateName();
-						return "";
+						return client.getNominateName();
 					}
 				}, ref, "nominateName");
 
@@ -157,8 +155,7 @@ public class RewardsItemListStaffPresenterImpl extends
 				new GetValue<RewardsGridClient, String>() {
 					@Override
 					public String getValue(RewardsGridClient client) {
-//						return client.getNominateCount();
-						return "";
+						return client.getNominateCount()+"";
 					}
 				}, ref, "nominateCount");
 

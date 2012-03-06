@@ -81,16 +81,14 @@ public class FileUploadServlet extends HttpServlet {
 
 						widthdist = 200;
 						heightdist = 200;
+						
+						 BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(new File(outputFilePath)));// 获得文件输出流
+						 Streams.copy(inputStream, outputStream, true); //开始把文件写到你指定的上传文件夹
+//						 stream.close();
 
 						reduceImg(inputStream, outputFilePath, outputFilePath, widthdist, heightdist, 0);
 
-						// BufferedOutputStream outputStream = new
-						// BufferedOutputStream(
-						// new FileOutputStream(new File(outputFilePath));//
-						// 获得文件输出流
-						// Streams.copy(inputStream, outputStream, true); //
-						// 开始把文件写到你指定的上传文件夹
-						// stream.close();
+						stream.close();
 
 						responseMessage.append("<result>").append("SUCCESS")
 								.append("</result>");
@@ -141,7 +139,7 @@ public class FileUploadServlet extends HttpServlet {
 	 * @param int benchmark 说明:0,长宽哪个长，以哪个为标准；1，以宽为基准；2，以高为基准
 	 * 
 	 */
-	public static void reduceImg(InputStream stream, String outputFilePath,
+	public  void reduceImg(InputStream inputStream, String outputFilePath,
 			String imgdist, int widthdist, int heightdist, int benchmark) {
 		try {
 			// File srcfile = new File(srcFile);
@@ -149,63 +147,73 @@ public class FileUploadServlet extends HttpServlet {
 			// return;
 			// }
 
-			Image src = javax.imageio.ImageIO.read(stream);
-			int width = src.getWidth(null);
-			int height = src.getHeight(null);
-			if (width <= widthdist && height <= heightdist) {// 像素更小，直接上传
-				BufferedOutputStream outputStream = new BufferedOutputStream(
-						new FileOutputStream(new File(outputFilePath)));
-				Streams.copy(stream, outputStream, true);
-				stream.close();
-				return;
-			}
-			// 宽度除以高度的比例
-			float wh = (float) width / (float) height;
-			if (benchmark == 0) {
-				if (wh > 1) {
+			boolean flag=true;
+			
+			Image srcImage = javax.imageio.ImageIO.read(inputStream);
+			if (srcImage!=null) {
+				int width = srcImage.getWidth(null);
+				int height = srcImage.getHeight(null);
+				if (width <= widthdist && height <= heightdist) {// 像素更小，直接上传
+					BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(new File(outputFilePath)));
+					Streams.copy(inputStream, outputStream, true);
+						
+					flag=false;
+				}
+				
+				if (flag) {
+					
+				
+				// 宽度除以高度的比例
+				float wh = (float) width / (float) height;
+				if (benchmark == 0) {
+					if (wh > 1) {
+						float tmp_heigth = (float) widthdist / wh;
+						BufferedImage tag = new BufferedImage(widthdist,
+								(int) tmp_heigth, BufferedImage.TYPE_INT_RGB);
+						tag.getGraphics().drawImage(srcImage, 0, 0, widthdist,
+								(int) tmp_heigth, null);
+						FileOutputStream out = new FileOutputStream(imgdist);
+						JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
+						encoder.encode(tag);
+						out.close();
+					} else {
+						float tmp_width = (float) heightdist * wh;
+						BufferedImage tag = new BufferedImage((int) tmp_width,
+								heightdist, BufferedImage.TYPE_INT_RGB);
+						tag.getGraphics().drawImage(srcImage, 0, 0, (int) tmp_width,
+								heightdist, null);
+						FileOutputStream out = new FileOutputStream(imgdist);
+						JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
+						encoder.encode(tag);
+						out.close();
+					}
+				}
+				if (benchmark == 1) {
 					float tmp_heigth = (float) widthdist / wh;
 					BufferedImage tag = new BufferedImage(widthdist,
 							(int) tmp_heigth, BufferedImage.TYPE_INT_RGB);
-					tag.getGraphics().drawImage(src, 0, 0, widthdist,
+					tag.getGraphics().drawImage(srcImage, 0, 0, widthdist,
 							(int) tmp_heigth, null);
 					FileOutputStream out = new FileOutputStream(imgdist);
 					JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
 					encoder.encode(tag);
 					out.close();
-				} else {
+				}
+				if (benchmark == 2) {
 					float tmp_width = (float) heightdist * wh;
 					BufferedImage tag = new BufferedImage((int) tmp_width,
 							heightdist, BufferedImage.TYPE_INT_RGB);
-					tag.getGraphics().drawImage(src, 0, 0, (int) tmp_width,
+					tag.getGraphics().drawImage(srcImage, 0, 0, (int) tmp_width,
 							heightdist, null);
 					FileOutputStream out = new FileOutputStream(imgdist);
 					JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
 					encoder.encode(tag);
 					out.close();
 				}
+				
+				}
 			}
-			if (benchmark == 1) {
-				float tmp_heigth = (float) widthdist / wh;
-				BufferedImage tag = new BufferedImage(widthdist,
-						(int) tmp_heigth, BufferedImage.TYPE_INT_RGB);
-				tag.getGraphics().drawImage(src, 0, 0, widthdist,
-						(int) tmp_heigth, null);
-				FileOutputStream out = new FileOutputStream(imgdist);
-				JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
-				encoder.encode(tag);
-				out.close();
-			}
-			if (benchmark == 2) {
-				float tmp_width = (float) heightdist * wh;
-				BufferedImage tag = new BufferedImage((int) tmp_width,
-						heightdist, BufferedImage.TYPE_INT_RGB);
-				tag.getGraphics().drawImage(src, 0, 0, (int) tmp_width,
-						heightdist, null);
-				FileOutputStream out = new FileOutputStream(imgdist);
-				JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
-				encoder.encode(tag);
-				out.close();
-			}
+			
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
