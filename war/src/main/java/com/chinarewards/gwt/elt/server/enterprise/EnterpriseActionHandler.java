@@ -48,6 +48,8 @@ public class EnterpriseActionHandler extends
 		 model.setTell(vo.getTell());
 		 model.setWeb(vo.getWeb());
 		 model.setId(vo.getId());
+		 model.setMailpwd(vo.getMailpwd());
+		 model.setSmtp(vo.getSmtp());
 		 SysUser caller = userService.findUserById(request.getUserSession().getToken());
 		 Corporation coporation = corporationService.saveCorporation(caller, model);
 		 if (coporation.getId() != null) {

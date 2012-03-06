@@ -41,7 +41,7 @@ public class Corporation extends Organization {
 	private String address;//企业地址
 	private String cellphone;//手机
 
-	private String corporation;//法人
+	private String corporationer;//法人
 	
 	private String emailAddress;//邮箱地址
 
@@ -61,7 +61,24 @@ public class Corporation extends Organization {
 	
 	private  String moneyType;//企业所用货币类型
 	
+    private  String  mailpwd;//发企业邮件的发送密码
+    private  String  smtp;  //发邮件所用的smtp协议
 
+	public String getMailpwd() {
+		return mailpwd;
+	}
+
+	public void setMailpwd(String mailpwd) {
+		this.mailpwd = mailpwd;
+	}
+
+	public String getSmtp() {
+		return smtp;
+	}
+
+	public void setSmtp(String smtp) {
+		this.smtp = smtp;
+	}
 
 	public Double getIntegralPrice() {
 		if(integralPrice==null){
@@ -117,12 +134,12 @@ public class Corporation extends Organization {
 		this.cellphone = cellphone;
 	}
 
-	public String getCorporation() {
-		return corporation;
+	public String getCorporationer() {
+		return corporationer;
 	}
 
-	public void setCorporation(String corporation) {
-		this.corporation = corporation;
+	public void setCorporationer(String corporationer) {
+		this.corporationer = corporationer;
 	}
 
 	public String getEmailAddress() {

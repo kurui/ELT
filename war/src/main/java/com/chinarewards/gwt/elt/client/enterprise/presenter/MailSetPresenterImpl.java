@@ -8,7 +8,7 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.enterprise.model.EnterpriseVo;
-import com.chinarewards.gwt.elt.client.enterprise.presenter.EnterprisePresenter.EnterpriseDisplay;
+import com.chinarewards.gwt.elt.client.enterprise.presenter.MailSetPresenter.MailSetDisplay;
 import com.chinarewards.gwt.elt.client.enterprise.request.EnterpriseInitRequest;
 import com.chinarewards.gwt.elt.client.enterprise.request.EnterpriseInitResponse;
 import com.chinarewards.gwt.elt.client.enterprise.request.EnterpriseRequest;
@@ -21,16 +21,15 @@ import com.chinarewards.gwt.elt.client.win.Win;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 /**
  * 
  * @author lw
- * 企业注册
+ * 企业邮箱设置
  */
-public class EnterprisePresenterImpl extends BasePresenter<EnterpriseDisplay> implements
-		EnterprisePresenter {
+public class MailSetPresenterImpl extends BasePresenter<MailSetDisplay> implements
+		MailSetPresenter {
 
 	
 	final DispatchAsync dispatchAsync;
@@ -41,7 +40,7 @@ public class EnterprisePresenterImpl extends BasePresenter<EnterpriseDisplay> im
 	EnterpriseVo enterpriseVo = new EnterpriseVo();
 	
 	@Inject
-	public EnterprisePresenterImpl(final EventBus eventBus, EnterpriseDisplay display,BreadCrumbsPresenter breadCrumbs,
+	public MailSetPresenterImpl(final EventBus eventBus, MailSetDisplay display,BreadCrumbsPresenter breadCrumbs,
 			DispatchAsync dispatchAsync,SessionManager sessionManager,Win  win) {
 		super(eventBus, display);
 		this.dispatchAsync = dispatchAsync;
@@ -52,20 +51,20 @@ public class EnterprisePresenterImpl extends BasePresenter<EnterpriseDisplay> im
 
 	@Override
 	public void bind() {
-		breadCrumbs.loadChildPage("企业信息注册");
+		breadCrumbs.loadChildPage("邮箱设置");
 		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
 		initialization();
 		registerHandler(display.getSaveClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
-						doSaveEnterprise();
+						doSaveMailSet();
 					}
 				}));
 		
 		
 	}
 
-	protected void doSaveEnterprise() {
+	protected void doSaveMailSet() {
 		EnterpriseVo enterprise = getEnterprise();
 	    sendService(enterprise);
 	}
@@ -75,31 +74,27 @@ public class EnterprisePresenterImpl extends BasePresenter<EnterpriseDisplay> im
 	 */
     public EnterpriseVo getEnterprise(){
     	
-    	enterpriseVo.setAddress(display.getAddress().getValue());
-    	enterpriseVo.setCellphone(display.getCellphone().getValue());
-    	enterpriseVo.setCorporation(display.getCorporation().getValue());
+    	enterpriseVo.setMailpwd(display.getPassword().getValue());
+    	enterpriseVo.setSmtp(display.getSMTP().getValue());
     	enterpriseVo.setEmailAddress(display.getEmail().getValue());
     	enterpriseVo.setName(display.getEnterpriseName().getValue());
-    	enterpriseVo.setFax(display.getFax().getValue());
-    	enterpriseVo.setLinkman(display.getLinkman().getValue());
-    	enterpriseVo.setDescription(display.getRemark().getValue());
-    	enterpriseVo.setTell(display.getTell().getValue());
-    	enterpriseVo.setWeb(display.getWeb().getValue());
     	enterpriseVo.setId(display.getEnterpriseId().trim());
     	return enterpriseVo;
     }
     
     public void sendService(EnterpriseVo enterprise) {
 
-		if (null == enterprise.getName() || enterprise.getName() .trim().equals("")) {
-			win.alert("企业名称不能为空!");
-			return;
-		}
+		
 		if (StringUtil.isEmpty(display.getEmail().getValue())) {
 			win.alert("邮箱不能为空");
 		}else if(!StringUtil.isValidEmail(display.getEmail().getValue())){
 			win.alert("邮箱格式不正确");
+		}else if (StringUtil.isEmpty(display.getPassword().getValue())) {
+			win.alert("邮箱密码不能为空，否则不能发邮件");
+		}else if (StringUtil.isEmpty(display.getSMTP().getValue())) {
+			win.alert("邮箱协议不能为空，否则不能发邮件");
 		}
+			
 		EnterpriseRequest req = new EnterpriseRequest(enterprise,sessionManager.getSession());
 		dispatchAsync.execute(req, new AsyncCallback<EnterpriseResponse>() {
 					public void onFailure(Throwable caught) {
@@ -130,16 +125,10 @@ public class EnterprisePresenterImpl extends BasePresenter<EnterpriseDisplay> im
 				
 			if(response !=null){
 				  enterpriseVo = response.getEnterprise();
-		          display.setAddress(enterpriseVo.getAddress());
-				  display.setCellphone(enterpriseVo.getCellphone());
-				  display.setCorporation(enterpriseVo.getCorporation());
+		          display.setPassword(enterpriseVo.getMailpwd());
+				  display.setSMTP(enterpriseVo.getSmtp());
 				  display.setEmail(enterpriseVo.getEmailAddress());
 				  display.setEnterpriseName(enterpriseVo.getName());
-				  display.setFax(enterpriseVo.getFax());
-				  display.setLinkman(enterpriseVo.getLinkman());
-				  display.setRemark(enterpriseVo.getDescription());
-				  display.setTell(enterpriseVo.getTell());
-				  display.setWeb(enterpriseVo.getWeb());
 				  display.setEnterpriseId(enterpriseVo.getId());
 				  
 				}

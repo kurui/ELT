@@ -275,7 +275,7 @@ public class StaffListPresenterImpl extends
 											@Override
 											public void onSuccess(StaffGenerateUserResponse resp) {
 												win.alert(resp.getMessage());
-												sendMail(o.getEmail());
+												sendMail(o.getEmail(),o.getStaffId());
 											}
 										});
 								
@@ -314,7 +314,7 @@ public class StaffListPresenterImpl extends
 												if("success".equals(resp.getMessage()))
 												{
 													win.alert("密码重置成功!初始密码:123");
-													sendMail(o.getEmail());
+													sendMail(o.getEmail(),o.getStaffId());
 												}
 												
 											}
@@ -347,13 +347,12 @@ public class StaffListPresenterImpl extends
 			display.displayBtn();
 		}
 	}
-	public void sendMail(String emailAddress)
+	public void sendMail(String emailAddress,String staffId)
 	   {
 		   MailVo mailvo = new MailVo();
-		   mailvo.setEmailAddress(emailAddress);
+		   mailvo.setStaffId(staffId);
 		   mailvo.setContent("你的ELT账号是"+emailAddress.substring(0,emailAddress.indexOf("@"))+"初始密码是123");
-		   MailRequest request = new MailRequest();
-		   request.setMailvo(mailvo);
+		   MailRequest request = new MailRequest(mailvo,sessionManager.getSession());
 		   dispatch.execute(request,new AsyncCallback<MailResponse>() {
 
 						@Override

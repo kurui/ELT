@@ -26,7 +26,7 @@ public class CorporationServiceImpl implements CorporationService {
 
 	public Corporation saveCorporation(SysUser caller,
 			CorporationVo corporationVo) {
-		
+	if(corporationVo.getId()==null||corporationVo.getId().equals("")){
 		String accountId = transactionService.createNewAccount();
 		String unitCode = TransactionUnit.BEANPOINTS.toString();
 		corporationVo.setTxAccountId(accountId);
@@ -39,9 +39,10 @@ public class CorporationServiceImpl implements CorporationService {
 		 // should not be here
 		 }
 		// 初始化企业积分给1亿-李伟
-		if(corporationVo.getId()==null||corporationVo.getId().equals(""))
+		
 		   transactionService.deposit(accountId, unitCode, initBalance);
 		// =======================================================================
+		}
 		Corporation corporation = corporationLogic.saveCorporation(caller,corporationVo);
 		
 		return corporation;
