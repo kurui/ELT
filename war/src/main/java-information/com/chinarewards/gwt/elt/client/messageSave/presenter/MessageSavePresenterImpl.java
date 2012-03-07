@@ -70,7 +70,7 @@ public class MessageSavePresenterImpl extends
 					@Override
 					public void onClick(ClickEvent event) {
 						if (StringUtil.isEmpty(display.getContent())) {
-							win.alert("请填写信息内容!");
+							win.alertStaff("请填写信息内容!");
 							return;
 						}
 
@@ -95,7 +95,7 @@ public class MessageSavePresenterImpl extends
 									@Override
 									public void onSuccess(
 											MessageSaveResponse resp) {
-										win.alert("发送成功");
+										win.alertStaff("发送成功");
 										display.setContent("");
 										closeDialog();
 									}
