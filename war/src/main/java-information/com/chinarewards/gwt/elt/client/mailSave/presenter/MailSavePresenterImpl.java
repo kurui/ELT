@@ -2,7 +2,6 @@ package com.chinarewards.gwt.elt.client.mailSave.presenter;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
-import com.chinarewards.gwt.elt.client.broadcastSave.dialog.StaffChooseOrganizationListDialog;
 import com.chinarewards.gwt.elt.client.mail.model.MailVo;
 import com.chinarewards.gwt.elt.client.mail.request.MailRequest;
 import com.chinarewards.gwt.elt.client.mail.request.MailResponse;
@@ -16,7 +15,6 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
-import com.google.inject.Provider;
 
 public class MailSavePresenterImpl extends
 		BaseDialogPresenter<MailSavePresenter.MailSaveDisplay> implements
@@ -29,7 +27,6 @@ public class MailSavePresenterImpl extends
 	String broadcastId = null;
 	String staffId=null;
 
-	private final Provider<StaffChooseOrganizationListDialog> chooseOrganizationDialogProvider;
 
 	@Inject
 	public MailSavePresenterImpl(
@@ -38,15 +35,14 @@ public class MailSavePresenterImpl extends
 			DispatchAsync dispatch,
 			SessionManager sessionManager,
 			Win win,
-			ErrorHandler errorHandler,
-			Provider<StaffChooseOrganizationListDialog> chooseOrganizationDialogProvider) {
+			ErrorHandler errorHandler) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.sessionManager = sessionManager;
 		this.errorHandler = errorHandler;
 		this.win = win;
 
-		this.chooseOrganizationDialogProvider = chooseOrganizationDialogProvider;
+	
 	}
 
 	@Override
@@ -59,11 +55,11 @@ public class MailSavePresenterImpl extends
 					@Override
 					public void onClick(ClickEvent event) {
 						if (StringUtil.isEmpty(display.getTitle())) {
-							win.alert("请填写邮件标题!");
+							win.alertStaff("请填写邮件标题!");
 							return;
 						}
 						if (StringUtil.isEmpty(display.getContent())) {
-							win.alert("请填写邮件内容!");
+							win.alertStaff("请填写邮件内容!");
 							return;
 						}
 
@@ -76,13 +72,13 @@ public class MailSavePresenterImpl extends
 
 									@Override
 									public void onFailure(Throwable t) {
-										win.alert(t.getMessage());
+										win.alertStaff(t.getMessage());
 									}
 
 									@Override
 									public void onSuccess(
 											MailResponse resp) {
-										win.alert("发送成功");
+										win.alertStaff("发送成功");
 										display.setContent("");
 										closeDialog();
 									}

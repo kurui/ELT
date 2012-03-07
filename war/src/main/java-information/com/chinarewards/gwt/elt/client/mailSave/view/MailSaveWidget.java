@@ -1,11 +1,7 @@
 package com.chinarewards.gwt.elt.client.mailSave.view;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.chinarewards.gwt.elt.client.mailSave.presenter.MailSavePresenter.MailSaveDisplay;
 import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
-import com.chinarewards.gwt.elt.client.view.OrganizationSpecialTextArea;
 import com.chinarewards.gwt.elt.client.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.widget.SpecialTextArea;
 import com.google.gwt.core.client.GWT;
@@ -17,7 +13,6 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Hidden;
-import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;

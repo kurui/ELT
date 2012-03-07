@@ -283,7 +283,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .box .box-br{float:right;background-position:-7px -123px;}
 .box .box-context .box-title{padding:4px 0 10px 10px;color:#000000;font-size:14px;background-color:#C9D2C6;font-weight:bold;\_zoom:1;}
 .box .box-context .box-info{background-color:#FFFFFF;padding:10px;}
-.box .box-context .box-tools{text-align:center;padding:10px 0 5px;background-color:#C9D2C6;\_zoom:1;}
+.box .box-context .box-tools{text-align:center;padding:10px 0 5px;background-color:#F4F4F4;\_zoom:1;}
 .box .box-context .box-tools span{display:inline-block;}
 .box .box-btn-ok{background-position:-32px -116px;width:63px;height:30px;line-height:30px;border:none;overflow:visible;}
 .box .box-btn-cannel{background-position:-96px -116px;width:63px;height:30px;line-height:30px;border:none;overflow:visible;}
@@ -294,7 +294,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 
 /*员工中心box样式重置*/
 .employee .box{width:560px;}
-.employee .box .box-context .box-title,.employee .box .box-context .box-tools,.employee .box .box-top{background-color:#D4DEE5;}
+.employee .box .box-context .box-title,.employee .box .box-context .box-tools,.employee .box .box-top{background-color:#F4F4F4;}
 .employee .box .box-bottom{background-color:#F4F4F4;}
 .employee .box .box-tl{background-position:0 -134px;}
 .employee .box .box-tr{background-position:-7px -134px;}
@@ -305,7 +305,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .employee .box .form .form-line{padding:10px 0;margin-bottom:0px;}
 .employee .box .form .form-line .label{width:70px;}
 .employee .box .form .form-line .element{width:450px;}
-.employee .box .news-receive{background-color:#F1F7FB;border:1px solid #D7D7D7;}
+.employee .box .news-receive{background-color:#D8ECC1;border:1px solid #B8DA8E;}
 .employee .box .textarea,.employee .box .text,.employee .box .long-text,.employee .box .select{border:1px solid #CCCCCC;}
 .employee .box .textarea{height:100px;padding:5px;overflow:auto;}
 .employee .box .long-text{height:20px;line-height:20px;width:421px;padding:0 5px;color:#999999;}
