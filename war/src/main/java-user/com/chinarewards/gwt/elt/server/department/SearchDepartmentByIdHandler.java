@@ -83,24 +83,26 @@ public class SearchDepartmentByIdHandler
 				departmentVo.setParentName("");
 			}
 
+		//下一级部门
 		List<String> childNames=departmentService.getWholeChildrenNames(departmentVo.getId(),false);
 		departmentVo.setChildNames(childNames);
-			
-			// private String childdeparmentNames;
-			// private String peopleNumber;
+	    
+		//部门人数
+		String peopleNumber=staffService.queryStaffCountByDepartmentId(departmentVo.getId())+"";
+		departmentVo.setPeopleNumber(peopleNumber);
 			
 			DepartmentBudget departmentBudget = budgetService
 					.findDepartmentBudgetByDepartmentId(departmentVo.getId(),
 							departmentVo.getCorporationId());
 			if (departmentBudget != null) {
 				departmentVo.setYearintegral(departmentBudget
-						.getBudgetIntegral() + "");
+						.getBudgetIntegral() + "");//年度积分
 				departmentVo.setIssueintegral(departmentBudget
-						.getUseIntegeral() + "");
-				// private String yearintegral;
-				// private String issueintegral;
+						.getUseIntegeral() + "");//已颁发积分
 			}
-
+			
+			//进行中奖项
+			
 		} else {
 			System.err
 					.println("SearchDepartmentById adapter()====department is null===");

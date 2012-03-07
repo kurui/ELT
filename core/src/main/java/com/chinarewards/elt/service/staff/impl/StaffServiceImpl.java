@@ -156,4 +156,8 @@ public class StaffServiceImpl implements IStaffService {
 	public List<UserRole> findUserRoles(String staffId) {
 		return staffLogic.findUserRoles(staffId);
 	}
+	
+	public int queryStaffCountByDepartmentId(String deptId){
+		return staffLogic.queryStaffCountByDepartmentId(deptId);
+	}
 }
