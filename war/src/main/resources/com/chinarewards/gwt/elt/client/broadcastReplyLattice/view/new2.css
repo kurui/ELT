@@ -17,11 +17,11 @@ textarea{word-wrap:break-word;resize:none;}
 .sidebar .title,.cutline,.footer-line,.employee .footer .footer-wrap,.employee .menu-nav{background:url(elt/images/elt_repeat.png) repeat-x;}
 
 body{background-color:#fff;color:#333333;font:12px/1.5 Tahoma, Arial, simsun;min-width:960px;}
-a{color:#565656;text-decoration:none;}
+a{color:#336CA4;text-decoration:none;}
 a:hover{color:#010DFF;text-decoration:underline;cursor:pointer;}
 .clearfix:after{content:".";display:block;clear:both;height:0;visibility:hidden;}
 .clearfix{\*zoom:1;}
-.newa{color:#565656;text-decoration:none;padding-left: 6px;padding-right: 6px;}
+.newa{color:#336CA4;text-decoration:none;padding-left: 6px;padding-right: 6px;}
 .newa:hover{color:#010DFF;text-decoration:none;cursor:pointer;}
 
 
@@ -84,7 +84,7 @@ a:hover{color:#010DFF;text-decoration:underline;cursor:pointer;}
 .head .top-nav{background-color:#F4F4F4;padding:1px 0;margin-left:260px;}
 .head .top-nav ul{float:left;}
 .head .top-nav ul li{float:left;margin-right:1px;height:24px;line-height:24px;}
-.head .top-nav ul li a{display:block;background-color:#E5E5E5;font-size:14px;padding:0 5px;color:#565656;text-decoration:none;}
+.head .top-nav ul li a{display:block;background-color:#E5E5E5;font-size:14px;padding:0 5px;color:#336CA4;text-decoration:none;}
 .head .top-nav ul .on a{background-color:#5DA801;color:#FFFFFF;}
 .head .top-nav .green{float:right;color:#975A03;height:24px;line-height:24px;padding-right:17px;}
 .head .logo{width:255px;height:75px;overflow:hidden;position:relative;top:-24px;}

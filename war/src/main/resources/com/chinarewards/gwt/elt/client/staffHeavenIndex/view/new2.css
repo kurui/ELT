@@ -17,11 +17,11 @@ textarea{word-wrap:break-word;resize:none;}
 .sidebar .title,.cutline,.footer-line,.employee .footer .footer-wrap,.employee .menu-nav{background:url(elt/images/elt_repeat.png) repeat-x;}
 
 body{background-color:#fff;color:#333333;font:12px/1.5 Tahoma, Arial, simsun;min-width:960px;}
-a{color:#565656;text-decoration:none;}
+a{color:#336CA4;text-decoration:none;}
 a:hover{color:#010DFF;text-decoration:underline;}
 .clearfix:after{content:".";display:block;clear:both;height:0;visibility:hidden;}
 .clearfix{\*zoom:1;}
-.newa{color:#565656;text-decoration:none;padding-left: 6px;padding-right: 6px;}
+.newa{color:#336CA4;text-decoration:none;padding-left: 6px;padding-right: 6px;}
 .newa:hover{color:#010DFF;text-decoration:none;cursor:pointer;}
 
 
