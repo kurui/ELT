@@ -128,7 +128,7 @@ public class ColleagueLatticeWidget extends Composite {
 							@Override
 							public void onSuccess(
 									MessageSaveResponse resp) {
-								win.alert("调戏成功!");
+								win.alertStaff("调戏成功!");
 
 							}
 						});

@@ -6,6 +6,11 @@ import com.chinarewards.gwt.elt.client.win.alert.AlertPresenter;
 import com.chinarewards.gwt.elt.client.win.alert.AlertPresenter.AlertDisplay;
 import com.chinarewards.gwt.elt.client.win.alert.AlertPresenterImpl;
 import com.chinarewards.gwt.elt.client.win.alert.AlertWidget;
+import com.chinarewards.gwt.elt.client.win.alert.StaffAlertDialog;
+import com.chinarewards.gwt.elt.client.win.alert.StaffAlertPresenter;
+import com.chinarewards.gwt.elt.client.win.alert.StaffAlertPresenter.StaffAlertDisplay;
+import com.chinarewards.gwt.elt.client.win.alert.StaffAlertPresenterImpl;
+import com.chinarewards.gwt.elt.client.win.alert.StaffAlertWidget;
 import com.chinarewards.gwt.elt.client.win.confirm.ConfirmDialog;
 import com.chinarewards.gwt.elt.client.win.confirm.ConfirmPresenter;
 import com.chinarewards.gwt.elt.client.win.confirm.ConfirmPresenter.ConfirmDisplay;
@@ -26,6 +31,10 @@ public class WinModule extends AbstractGinModule {
 		bind(AlertPresenter.class).to(AlertPresenterImpl.class);
 		bind(AlertDisplay.class).to(AlertWidget.class);
 		bind(AlertDialog.class);
+		
+		bind(StaffAlertPresenter.class).to(StaffAlertPresenterImpl.class);
+		bind(StaffAlertDisplay.class).to(StaffAlertWidget.class);
+		bind(StaffAlertDialog.class);
 	}
 
 }

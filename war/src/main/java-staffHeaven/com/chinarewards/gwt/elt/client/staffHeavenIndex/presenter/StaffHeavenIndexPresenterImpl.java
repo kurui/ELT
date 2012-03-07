@@ -149,7 +149,7 @@ public class StaffHeavenIndexPresenterImpl extends
 				
 				if(StringUtil.isEmpty(display.getBroadcastContent()))
 				{
-					win.alert("请填写广播内容!");
+					win.alertStaff("请填写广播内容!");
 					return;
 				}
 
@@ -186,7 +186,7 @@ public class StaffHeavenIndexPresenterImpl extends
 
 							@Override
 							public void onSuccess(BroadcastSaveResponse resp) {
-								win.alert("保存成功");
+								win.alertStaff("保存成功");
 								display.successClean();
 								doSearch(null);
 							}
