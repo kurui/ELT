@@ -17,7 +17,7 @@ textarea{word-wrap:break-word;resize:none;}
 .sidebar .title,.cutline,.footer-line,.employee .footer .footer-wrap,.employee .menu-nav{background:url(elt/images/elt_repeat.png) repeat-x;}
 
 body{background-color:#fff;color:#333333;font:12px/1.5 Tahoma, Arial, simsun;min-width:960px;}
-a{color:#336CA4;text-decoration:none;}
+a{color:#565656;text-decoration:none;}
 a:hover{color:#010DFF;text-decoration:underline;cursor:pointer;}
 .clearfix:after{content:".";display:block;clear:both;height:0;visibility:hidden;}
 .clearfix{\*zoom:1;}
