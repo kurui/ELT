@@ -7,6 +7,7 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 import com.chinarewards.gwt.elt.client.colleague.presenter.ColleagueListPresenter.ColleagueListDisplay;
 import com.chinarewards.gwt.elt.client.colleagueLattice.view.ColleagueLatticeWidget;
 import com.chinarewards.gwt.elt.client.dataprovider.BaseDataProvider;
+import com.chinarewards.gwt.elt.client.mailSave.dialog.MailSaveDialog;
 import com.chinarewards.gwt.elt.client.messageSave.dialog.MessageSaveDialog;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.staffList.model.StaffListClient;
@@ -27,15 +28,17 @@ public class ColleagueListViewAdapter extends BaseDataProvider<StaffListClient> 
 	final ErrorHandler errorHandler;
 	final SessionManager sessionManager;
 	 Provider<MessageSaveDialog> messageSaveDialog;
+	 Provider<MailSaveDialog> mailSaveDialog;
 	public ColleagueListViewAdapter(DispatchAsync dispatch,
 			StaffListCriteria criteria, ErrorHandler errorHandler,
-			SessionManager sessionManager, ColleagueListDisplay display, Provider<MessageSaveDialog> messageSaveDialog) {
+			SessionManager sessionManager, ColleagueListDisplay display, Provider<MessageSaveDialog> messageSaveDialog,Provider<MailSaveDialog> mailSaveDialog) {
 		this.dispatch = dispatch;
 		this.criteria = criteria;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
 		this.display = display;
 		this.messageSaveDialog=messageSaveDialog;
+		this.mailSaveDialog = mailSaveDialog;
 	}
 
 	public void fetchData(final int start, final int length) {
@@ -89,7 +92,7 @@ public class ColleagueListViewAdapter extends BaseDataProvider<StaffListClient> 
 									if(clint.getDepartmentName().indexOf("ROOT")!=-1)
 										clint.setDepartmentName("");
 									grid.setWidget(row, col,
-											new ColleagueLatticeWidget(clint.getStaffId(),clint.getStaffName(),clint.getDepartmentName(),clint.getPhoto(),messageSaveDialog));
+											new ColleagueLatticeWidget(clint.getStaffId(),clint.getStaffName(),clint.getDepartmentName(),clint.getPhoto(),messageSaveDialog,mailSaveDialog));
 									index++;
 								} else {
 									break;

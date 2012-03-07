@@ -35,7 +35,7 @@ public class MailSendActionHandler extends	BaseActionHandler<MailRequest, MailRe
 	public MailResponse execute(MailRequest request,
 			ExecutionContext context) throws DispatchException {
 		    MailVo vo = request.getMailvo();
-		    String message = sendMailService.sendMail(vo.getContent(), vo.getStaffId());
+		    String message = sendMailService.sendMail(vo.getTitle(),vo.getContent(), vo.getStaffId());
 		    MailResponse resp = new MailResponse();
 		    resp.setToken(message);
 		return resp;

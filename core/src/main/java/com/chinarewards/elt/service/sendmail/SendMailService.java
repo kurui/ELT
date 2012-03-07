@@ -1,6 +1,5 @@
 package com.chinarewards.elt.service.sendmail;
 
-import com.chinarewards.elt.model.user.UserContext;
 
 /**
  * Service of corporation.
@@ -17,6 +16,6 @@ public interface SendMailService {
 	 * @param 
 	 * @return
 	 */
-	public String sendMail(String info,String staffId);
+	public String sendMail(String title,String info,String staffId);
 	
 }

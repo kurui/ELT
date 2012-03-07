@@ -362,6 +362,7 @@ public class StaffListPresenterImpl extends
 	   {
 		   MailVo mailvo = new MailVo();
 		   mailvo.setStaffId(staffId);
+		   mailvo.setTitle("ELT账户注册信息");
 		   mailvo.setContent("你的ELT账号是"+emailAddress.substring(0,emailAddress.indexOf("@"))+"初始密码是123");
 		   MailRequest request = new MailRequest(mailvo,sessionManager.getSession());
 		   dispatch.execute(request,new AsyncCallback<MailResponse>() {

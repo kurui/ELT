@@ -29,7 +29,7 @@
 			</div>
 			<div class="{new2.form-line}">
 				<label class="{new2.label}">
-					<span style="color:red">*</span>
+					
 					法人：
 				</label>
 				<div class="{new2.element}">
@@ -71,6 +71,7 @@
 			</div>
 			<div class="{new2.form-line}">
 				<label class="{new2.label}">
+				<span style="color:red">*</span>
 				Email：
 				</label>
 				<div class="{new2.element}">
