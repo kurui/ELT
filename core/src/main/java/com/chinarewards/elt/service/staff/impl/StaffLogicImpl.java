@@ -43,6 +43,7 @@ import com.chinarewards.elt.model.vo.WinnersRecordQueryVo;
 import com.chinarewards.elt.service.org.CorporationLogic;
 import com.chinarewards.elt.service.org.DepartmentLogic;
 import com.chinarewards.elt.service.org.DepartmentManagerLogic;
+import com.chinarewards.elt.service.sendmail.SendMailService;
 import com.chinarewards.elt.service.staff.StaffLogic;
 import com.chinarewards.elt.tx.model.Unit;
 import com.chinarewards.elt.tx.service.TransactionService;
@@ -68,12 +69,13 @@ public class StaffLogicImpl implements StaffLogic {
 	private final RoleDao roleDao;
 	private final DepartmentManagerDao deptMgrDao;
 	private final DepartmentLogic departmentLogic;
+	private final SendMailService sendMailService;
 	MD5 md5 = new MD5();
 
 	@Inject
 	public StaffLogicImpl(StaffDao staffDao, DepartmentLogic deptLogic,
 			CorporationLogic corporationLogic, DepartmentDao depDao,
-			TransactionService transactionService,
+			TransactionService transactionService,SendMailService sendMailService,
 			DepartmentManagerLogic departmentManagerLogic, UserDao userDao,
 			WinnerDao winnerDao, UserRoleDao userRoleDao, RoleDao roleDao,
 			DepartmentManagerDao deptMgrDao, DepartmentLogic departmentLogic) {
@@ -89,6 +91,7 @@ public class StaffLogicImpl implements StaffLogic {
 		this.roleDao = roleDao;
 		this.deptMgrDao = deptMgrDao;
 		this.departmentLogic = departmentLogic;
+		this.sendMailService = sendMailService;
 	}
 
 	@Override
@@ -525,7 +528,10 @@ public class StaffLogicImpl implements StaffLogic {
 				userRole.setLastModifiedBy(nowuser);
 				userRole.setUser(u);
 				userRoleDao.createUserRole(userRole);
-
+				//发送邮件
+				String title = "ELT账户注册信息";
+				String content = "你的ELT账号是"+username+"，初始密码是123";
+				sendMailService.sendMail(title, content, staffId);
 			}
 		}
 		return GeneratedUserConstants.Success;
