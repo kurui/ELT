@@ -5,6 +5,9 @@ import java.util.List;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.broadcastReplyLattice.view.BroadcastReplyLatticeWidget;
+import com.chinarewards.gwt.elt.client.broadcastReplyLattice.view.DallianceReplyLatticeWidget;
+import com.chinarewards.gwt.elt.client.broadcastReplyLattice.view.QuietlyReplyLatticeWidget;
+import com.chinarewards.gwt.elt.client.broadcasting.model.BroadcastingListCriteria.BroadcastingCategory;
 import com.chinarewards.gwt.elt.client.dataprovider.BaseDataProvider;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.staffHeavenIndex.model.StaffHeavenIndexClient;
@@ -93,23 +96,57 @@ public class StaffHeavenIndexViewAdapter extends
 								if (index < giftList.size()) {
 									StaffHeavenIndexClient clint = giftList
 											.get(index);
-									grid.setWidget(
-											row,
-											col,
-											new BroadcastReplyLatticeWidget(
-													win,
-													dispatch,
-													sessionManager,
-													clint.getId(),
-													null,
-													null,
-													clint.getContent(),
-													DateTool.dateToStringChina2(clint
-															.getBroadcastingTime()),
-													clint.getCreatedByUserName(),
-													clint.getReplyNumber(),
-													clint.isAllowreplies())
-													.asWidget());
+									if (clint.getCategory() == BroadcastingCategory.QUIETLYINFORMATION)
+										grid.setWidget(
+												row,
+												col,
+												new QuietlyReplyLatticeWidget(
+														win,
+														dispatch,
+														sessionManager,
+														clint.getId(),
+														clint.getDeptName(),
+														clint.getCreatedByUserName(),
+														clint.getContent(),
+														DateTool.dateToStringChina2(clint
+																.getBroadcastingTime()),
+														clint.getCreatedByUserName(),
+														clint.getReplyNumber(),
+														clint.isAllowreplies())
+														.asWidget());
+
+									else if (clint.getCategory() == BroadcastingCategory.DALLIANCEINFORMATION)
+										grid.setWidget(
+												row,
+												col,
+												new DallianceReplyLatticeWidget(
+														win,
+														dispatch,
+														sessionManager,
+														clint.getDeptName(),
+														clint.getCreatedByUserName(),
+														DateTool.dateToStringChina2(clint
+																.getBroadcastingTime()),
+														clint.getStaffId()));
+
+									else
+										grid.setWidget(
+												row,
+												col,
+												new BroadcastReplyLatticeWidget(
+														win,
+														dispatch,
+														sessionManager,
+														clint.getId(),
+														null,
+														null,
+														clint.getContent(),
+														DateTool.dateToStringChina2(clint
+																.getBroadcastingTime()),
+														clint.getDeptName(),
+														clint.getReplyNumber(),
+														clint.isAllowreplies())
+														.asWidget());
 									index++;
 								} else {
 									break;

@@ -46,7 +46,7 @@ public class MyReplyShortLatticeWidget extends Composite {
 	public MyReplyShortLatticeWidget(final Win win, final DispatchAsync dispatch,
 			final SessionManager sessionManager,
 			final String broadcastId,final int replyNumber,
-			final BroadcastReplyLatticeWidget widget) {
+			final BroadcastReplyLatticeWidget widget,final QuietlyReplyLatticeWidget quietlywidget) {
 		initWidget(uiBinder.createAndBindUi(this));
 		
 		
@@ -84,9 +84,19 @@ public class MyReplyShortLatticeWidget extends Composite {
 
 							@Override
 							public void onSuccess(BroadcastReplyAddResponse resp) {
-								widget.refWidget();
-								widget.replyNumberA.setText("回复(" + (replyNumber+1) + ")");
-								widget.replyNumber=(replyNumber+1);
+								if(widget!=null)
+								{
+									widget.refWidget();
+									widget.replyNumberA.setText("回复(" + (replyNumber+1) + ")");
+									widget.replyNumber=(replyNumber+1);	
+								}
+								else if(quietlywidget!=null)
+								{
+									quietlywidget.refWidget();
+									quietlywidget.replyNumberA.setText("回复(" + (replyNumber+1) + ")");
+									quietlywidget.replyNumber=(replyNumber+1);
+								}
+
 							}
 						});
 

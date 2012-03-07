@@ -1,5 +1,7 @@
 package com.chinarewards.gwt.elt.server.message;
 
+import java.util.Date;
+
 import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.DispatchException;
 
@@ -30,7 +32,6 @@ public class MessageSaveActionHandler extends
 
 	BroadcastService broadcastService;
 
-
 	@Inject
 	public MessageSaveActionHandler(BroadcastService broadcastService) {
 		this.broadcastService = broadcastService;
@@ -41,21 +42,30 @@ public class MessageSaveActionHandler extends
 			ExecutionContext response) throws DispatchException {
 
 		MessageSaveResponse staffResponse = new MessageSaveResponse();
-		UserContext context=new UserContext();
+		UserContext context = new UserContext();
 		context.setCorporationId(request.getSession().getCorporationId());
 		context.setUserId(request.getSession().getToken());
 		context.setLoginName(request.getSession().getLoginName());
-		context.setUserRoles(UserRoleTool.adaptToRole(request.getSession().getUserRoles()));
-		
-		BroadcastingVo vo=new BroadcastingVo();
+		context.setUserRoles(UserRoleTool.adaptToRole(request.getSession()
+				.getUserRoles()));
+
+		BroadcastingVo vo = new BroadcastingVo();
 		vo.setBroadcastingId(request.getBroadcastId());
 		vo.setContent(request.getContent());
 		vo.setOrganList(request.getOrganList());
-		if("QUIETLY".equals(request.getQuietlyOrDalliance()))
-			broadcastService.createOrUpdateBroadcast(vo, context, BroadcastingCategory.QUIETLYINFORMATION);
-		else if("DALLIANCE".equals(request.getQuietlyOrDalliance()))
-			broadcastService.createOrUpdateBroadcast(vo, context, BroadcastingCategory.DALLIANCEINFORMATION);			
-		else
+		if ("QUIETLY".equals(request.getQuietlyOrDalliance())) {
+			vo.setAllowreplies(true);
+			vo.setBroadcastingTimeStart(new Date());
+			vo.setBroadcastingTimeEnd(new Date());
+			broadcastService.createOrUpdateBroadcast(vo, context,
+					BroadcastingCategory.QUIETLYINFORMATION);
+		} else if ("DALLIANCE".equals(request.getQuietlyOrDalliance())) {
+			vo.setAllowreplies(true);
+			vo.setBroadcastingTimeStart(new Date());
+			vo.setBroadcastingTimeEnd(new Date());
+			broadcastService.createOrUpdateBroadcast(vo, context,
+					BroadcastingCategory.DALLIANCEINFORMATION);
+		} else
 			broadcastService.createOrUpdateMessage(vo, context);
 		return staffResponse;
 	}
