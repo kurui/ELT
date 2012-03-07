@@ -496,7 +496,7 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 									grid.setWidget(
 											row,
 											col,
-											new SmallRewardWindowWidget(client.getRewardsId(),client.getRewardsName()));
+											new SmallRewardWindowWidget(client.getRewardsId(),client.getRewardsName(),"Rewards_STAFF_GETED"));
 									index++;
 								} else {
 									break;
@@ -543,7 +543,7 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 									grid.setWidget(
 											row,
 											col,
-											new SmallRewardWindowWidget(client.getRewardsId(),client.getRewardsName()));
+											new SmallRewardWindowWidget(client.getRewardsId(),client.getRewardsName(),"Rewards_ALL"));
 									index++;
 								} else {
 									break;
@@ -591,7 +591,7 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 									grid.setWidget(
 											row,
 											col,
-											new SmallRewardItemWindowWidget(client.getRewardsItemId(),client.getRewardsItemName(),client.getAwardAmt(),client.getRewardsItemPhoto()));
+											new SmallRewardItemWindowWidget(client.getRewardsItemId(),client.getRewardsItemName(),client.getAwardAmt(),client.getRewardsItemPhoto(),"RewardsItem_ALL"));
 									index++;
 								} else {
 									break;
@@ -639,7 +639,7 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 									grid.setWidget(
 											row,
 											col,
-											new SmallRewardItemWindowWidget(client.getRewardsItemId(),client.getRewardsItemName(),client.getAwardAmt(),client.getRewardsItemPhoto()));
+											new SmallRewardItemWindowWidget(client.getRewardsItemId(),client.getRewardsItemName(),client.getAwardAmt(),client.getRewardsItemPhoto(),"RewardsItem_STAFF_RUSH"));
 									index++;
 								} else {
 									break;
