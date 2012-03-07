@@ -15,7 +15,7 @@ public class RewardsGridClient implements Serializable,
 
 	private String awardAmt;// 奖励积分
 	private String awardName;// 颁奖人
-	
+
 	private String rewardStatusName;
 
 	// 奖项
@@ -41,23 +41,27 @@ public class RewardsGridClient implements Serializable,
 
 	private String winnersName;
 
+	private String thisAction = "";
+
 	public RewardsGridClient() {
 
 	}
-	
-	
+
+	public String getThisAction() {
+		return thisAction;
+	}
+
+	public void setThisAction(String thisAction) {
+		this.thisAction = thisAction;
+	}
 
 	public String getRewardStatusName() {
 		return rewardStatusName;
 	}
 
-
-
 	public void setRewardStatusName(String rewardStatusName) {
 		this.rewardStatusName = rewardStatusName;
 	}
-
-
 
 	public String getRewardsItemCreateBy() {
 		return rewardsItemCreateBy;

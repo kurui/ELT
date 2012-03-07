@@ -4,6 +4,7 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.colleague.dataprovider.ColleagueListViewAdapter;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
+import com.chinarewards.gwt.elt.client.mailSave.dialog.MailSaveDialog;
 import com.chinarewards.gwt.elt.client.messageSave.dialog.MessageSaveDialog;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
@@ -35,17 +36,23 @@ public class ColleagueListPresenterImpl extends
 	ListCellTable<StaffListClient> cellTable;
 	ColleagueListViewAdapter listViewAdapter;
 	Provider<MessageSaveDialog> messageSaveDialog;
+	Provider<MailSaveDialog> mailSaveDialog;
 
 	@Inject
 	public ColleagueListPresenterImpl(EventBus eventBus,
 			ColleagueListDisplay display, DispatchAsync dispatch,
-			SessionManager sessionManager,Win win,ErrorHandler errorHandler,Provider<MessageSaveDialog> messageSaveDialog) {
+			SessionManager sessionManager, Win win, ErrorHandler errorHandler,
+			Provider<MessageSaveDialog> messageSaveDialog,
+			Provider<MailSaveDialog> mailSaveDialog) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.sessionManager = sessionManager;
-		this.errorHandler=errorHandler;
-		this.messageSaveDialog=messageSaveDialog;
-		this.win=win;
+		this.errorHandler = errorHandler;
+		this.messageSaveDialog = messageSaveDialog;
+
+		this.win = win;
+
+		this.mailSaveDialog = mailSaveDialog;
 
 	}
 
@@ -54,47 +61,45 @@ public class ColleagueListPresenterImpl extends
 
 		init();
 		display.getQueryKey().addFocusHandler(new FocusHandler() {
-			
+
 			@Override
 			public void onFocus(FocusEvent event) {
-				if("输入关键词".equals(display.getQueryKey().getValue()))
+				if ("输入关键词".equals(display.getQueryKey().getValue()))
 					display.getQueryKey().setText("");
-				
+
 			}
- 
+
 		});
 		display.getQueryBtn().addClickHandler(new ClickHandler() {
-			
+
 			@Override
 			public void onClick(ClickEvent event) {
 				doSearch(display.getQueryKey().getValue());
 			}
 		});
 	}
-	
-	private void init() {	
-	
+
+	private void init() {
+
 		buildTable();
 		doSearch(null);
-		
-		
+
 	}
 
 	private void buildTable() {
 		// create a CellTable
 		cellTable = new ListCellTable<StaffListClient>();
 
-		
 		pager = new EltNewPager(TextLocation.CENTER);
 		pager.setDisplay(cellTable);
 		cellTable.setWidth(ViewConstants.page_width);
 		cellTable.setPageSize(ViewConstants.per_page_number);
-	//	cellTable.getColumn(0).setCellStyleNames("divTextLeft");
-//		display.getResultPanel().clear();
-//		display.getResultPanel().add(cellTable);
+		// cellTable.getColumn(0).setCellStyleNames("divTextLeft");
+		// display.getResultPanel().clear();
+		// display.getResultPanel().add(cellTable);
 		display.getResultpage().clear();
 		display.getResultpage().add(pager);
-		
+
 	}
 
 	private void doSearch(String key) {
@@ -102,10 +107,9 @@ public class ColleagueListPresenterImpl extends
 		if(!StringUtil.isEmpty(key))
 			criteria.setStaffNameorNo(key);
 		listViewAdapter = new ColleagueListViewAdapter(dispatch, criteria,
-				errorHandler, sessionManager,display,messageSaveDialog,win);
+				errorHandler, sessionManager,display,messageSaveDialog,win,mailSaveDialog);
 		listViewAdapter.addDataDisplay(cellTable);
 
 	}
-
 
 }

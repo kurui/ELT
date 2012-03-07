@@ -13,6 +13,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Hidden;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Panel;
@@ -28,6 +29,12 @@ public class StaffWidget extends Composite implements StaffDisplay {
 	Panel rewardPanel;
 	@UiField
 	Panel rewardItemPanel;
+	@UiField
+	Anchor rewardMore;
+	@UiField
+	Anchor rewardItemMore;
+	@UiField
+	Hidden rewardWidgetAction;
 	
 	@UiField
 	Anchor logBtn;
@@ -521,5 +528,20 @@ public class StaffWidget extends Composite implements StaffDisplay {
 	@Override
 	public HasClickHandlers getAllRewardItem() {
 		return allRewardItem;
+	}
+
+	@Override
+	public HasClickHandlers getRewardMore() {
+		return rewardMore;
+	}
+
+	@Override
+	public HasClickHandlers getRewardItemMore() {
+		return rewardItemMore;
+	}
+
+	@Override
+	public Hidden getRewardWidgetAction() {
+		return rewardWidgetAction;
 	}
 }

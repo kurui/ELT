@@ -28,8 +28,6 @@ public class RewardGridSearchVo {
 
 	private Date rewardsDate;
 
-	private String rewardsType;
-
 	private PaginationDetail paginationDetail;
 	private SortingDetail sortingDetail;
 
@@ -39,14 +37,6 @@ public class RewardGridSearchVo {
 
 	public void setRewardsDate(Date rewardsDate) {
 		this.rewardsDate = rewardsDate;
-	}
-
-	public String getRewardsType() {
-		return rewardsType;
-	}
-
-	public void setRewardsType(String rewardsType) {
-		this.rewardsType = rewardsType;
 	}
 
 	public String getThisAction() {

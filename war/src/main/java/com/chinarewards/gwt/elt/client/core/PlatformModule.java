@@ -38,6 +38,7 @@ import com.chinarewards.gwt.elt.client.gift.plugin.GiftViewPluginDescriptor;
 import com.chinarewards.gwt.elt.client.gloryBroadcast.plugin.GloryBroadcastPluginDescriptor;
 import com.chinarewards.gwt.elt.client.hrbox.plugin.HrBoxPluginDescriptor;
 import com.chinarewards.gwt.elt.client.integralManagement.plugin.IntegralManagementPluginDescriptor;
+import com.chinarewards.gwt.elt.client.mailSave.plugin.MailSavePluginDescriptor;
 import com.chinarewards.gwt.elt.client.message.plugin.MessageListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.messageSave.plugin.MessageSavePluginDescriptor;
 import com.chinarewards.gwt.elt.client.nominate.plugin.NominatePluginDescriptor;
@@ -285,6 +286,7 @@ public class PlatformModule extends AbstractGinModule {
 			GloryBroadcastPluginDescriptor gloryBroadcast,
 			MessageListPluginDescriptor message,
 			MessageSavePluginDescriptor messageSave,
+			MailSavePluginDescriptor mailSave,
 			PasswordPluginDescriptor password,
 			ColleagueListPluginDescriptor colleague,
 			StaffInfoPluginDescriptor StaffInfo,
@@ -321,7 +323,7 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(password);
 			pluginSet.registerPlugin(colleagueParticular);
 			pluginSet.registerPlugin(StaffInfo);
-
+			pluginSet.registerPlugin(mailSave);
 
 		}
 
