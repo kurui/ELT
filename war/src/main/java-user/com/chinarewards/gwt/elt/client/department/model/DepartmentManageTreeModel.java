@@ -8,6 +8,7 @@ import com.chinarewards.gwt.elt.client.department.plugin.DepartmentConstants;
 import com.chinarewards.gwt.elt.client.department.presenter.DepartmentListPresenter.DepartmentListDisplay;
 import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
 import com.chinarewards.gwt.elt.util.StringUtil;
+import com.gargoylesoftware.htmlunit.javascript.host.Window;
 import com.google.gwt.cell.client.Cell;
 import com.google.gwt.cell.client.CheckboxCell;
 import com.google.gwt.cell.client.CompositeCell;
@@ -89,10 +90,12 @@ public class DepartmentManageTreeModel implements TreeViewModel {
 					public void update(int index, DepartmentNode object,
 							Boolean checked) {
 						// Window.alert(object.getDepartmentId()+"--"+object.getDepartmentName());
-
+						
+						System.out.println("======treeMode check event:"+cell.handlesSelection());
+						
 						departmentIds=departmentListDisplay.getCurrentDepartmentId().getValue();
 						departmentIds = updateDepartmentIdsAsChecked(object,
-								departmentIds);
+								departmentIds,checked);
 			
 						departmentListDisplay.getCurrentDepartmentId().setValue(departmentIds);
 						
@@ -195,16 +198,16 @@ public class DepartmentManageTreeModel implements TreeViewModel {
 	}
 
 	// 如果 node.getId 在ids中存在，则返回true
-	private Boolean isChecked(DepartmentNode node, String departmentIds) {
-		if (node != null) {
-			String thisId = node.getDepartmentId();
-			boolean isExists = StringUtil.containsExistString(departmentIds,
-					thisId);
-
-			return isExists;
-		}
-		return false;
-	}
+//	private Boolean isChecked(DepartmentNode node, String departmentIds) {
+//		if (node != null) {
+//			String thisId = node.getDepartmentId();
+//			boolean isExists = StringUtil.containsExistString(departmentIds,
+//					thisId);
+//
+//			return isExists;
+//		}
+//		return false;
+//	}
 
 	// currentId存在 则删除， 无 则加入
 	private String updateDepartmentIdsAsChecked(DepartmentNode node,
@@ -220,6 +223,23 @@ public class DepartmentManageTreeModel implements TreeViewModel {
 			} else {
 				departmentIds = StringUtil.appendString(departmentIds, thisId,
 						",");
+			}
+		}
+		System.out.println("==========update selected Ids:"+departmentIds);
+		return departmentIds;
+	}
+	
+	private String updateDepartmentIdsAsChecked(DepartmentNode node,
+			String departmentIds,boolean isChecked) {
+		if (node != null) {
+			String thisId = node.getDepartmentId();
+
+			if (isChecked) {				
+				departmentIds = StringUtil.appendString(departmentIds, thisId,
+						",");
+			} else {
+				departmentIds = StringUtil.removeCellString(departmentIds,
+						thisId);
 			}
 		}
 		System.out.println("==========update selected Ids:"+departmentIds);
