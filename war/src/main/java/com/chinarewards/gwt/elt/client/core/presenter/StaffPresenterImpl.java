@@ -33,6 +33,7 @@ import com.chinarewards.gwt.elt.client.password.plugin.PasswordConstants;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemConstants;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsGridClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsGridCriteria;
+import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListConstants;
 import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListStaffConstants;
 import com.chinarewards.gwt.elt.client.rewards.request.SearchRewardsGridRequest;
 import com.chinarewards.gwt.elt.client.rewards.request.SearchRewardsGridResponse;
@@ -346,7 +347,7 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 					}
 				}));
 		
-		 //
+		 //奖励小控件
 				registerHandler(display.getAllReward().addClickHandler(
 						new ClickHandler() {
 							@Override
@@ -375,8 +376,57 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 								loadRewardItemSTAFFPanel();
 							}
 						}));
+				
+				registerHandler(display.getRewardMore().addClickHandler(
+						new ClickHandler() {
+							@Override
+							public void onClick(ClickEvent event) {
+								openRewardMoreWidget();
+							}
+						}));
+				
+				registerHandler(display.getRewardItemMore().addClickHandler(
+						new ClickHandler() {
+							@Override
+							public void onClick(ClickEvent event) {
+								openRewardMoreWidget();
+							}
+						}));
 
 		
+	}
+	
+	private void openRewardMoreWidget(){
+		String thisAction=display.getRewardWidgetAction().getValue();
+		if ("Rewards_STAFF_GETED".equals(thisAction)) {
+			Platform.getInstance()
+			.getEditorRegistry()
+			.openEditor(
+					RewardsListStaffConstants.EDITOR_REWARDSLIST_STAFF_SEARCH,
+					"EDITOR_REWARDSLIST_STAFF_SEARCH_DO_ID",
+					null);//
+		} else if ("Rewards_ALL".equals(thisAction)) {
+			Platform.getInstance()
+					.getEditorRegistry()
+					.openEditor(
+							GloryBroadcastConstants.EDITOR_GLORYBROADCAST_SEARCH,
+							"EDITOR_GLORYBROADCAST_SEARCH_DO_ID",
+							null);// 光荣榜
+		} else if ("RewardsItem_STAFF_RUSH".equals(thisAction)) {
+			Platform.getInstance()
+			.getEditorRegistry()
+			.openEditor(
+					RewardsItemConstants.EDITOR_REWARDSITEM_COMPANYOTHER_LIST,
+					"EDITOR_REWARDSITEM_COMPANYOTHER_LIST_DO_ID",
+					null);//
+		} else if ("RewardsItem_ALL".equals(thisAction)) {
+			Platform.getInstance()
+			.getEditorRegistry()
+			.openEditor(
+					RewardsItemConstants.EDITOR_REWARDSITEM_COMPANYOTHER_LIST,
+					"EDITOR_REWARDSITEM_COMPANYOTHER_LIST_DO_ID",
+					null);//
+		}
 	}
 
 	void init()
@@ -471,6 +521,8 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 	private void loadRewardSTAFFPanel(){
 		RewardsGridCriteria criteria = new RewardsGridCriteria();
 		criteria.setThisAction("Rewards_STAFF_GETED");
+		display.getRewardWidgetAction().setValue(criteria.getThisAction());
+		
 		dispatchAsync.execute(new SearchRewardsGridRequest(criteria,sessionManager
 				.getSession()),
 				new AsyncCallback<SearchRewardsGridResponse>() {
@@ -518,6 +570,7 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 	private void loadRewardALLPanel(){
 		RewardsGridCriteria criteria = new RewardsGridCriteria();
 		criteria.setThisAction("Rewards_ALL");
+		display.getRewardWidgetAction().setValue(criteria.getThisAction());
 		dispatchAsync.execute(new SearchRewardsGridRequest(criteria,sessionManager
 				.getSession()),
 				new AsyncCallback<SearchRewardsGridResponse>() {
@@ -565,6 +618,7 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 	private void loadRewardItemALLPanel(){
 		RewardsGridCriteria criteria = new RewardsGridCriteria();
 		criteria.setThisAction("RewardsItem_ALL");
+		display.getRewardWidgetAction().setValue(criteria.getThisAction());
 		// 查询参数....待添加
 		dispatchAsync.execute(new SearchRewardsGridRequest(criteria,sessionManager
 				.getSession()),
@@ -613,6 +667,7 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 	private void loadRewardItemSTAFFPanel(){
 		RewardsGridCriteria criteria = new RewardsGridCriteria();
 		criteria.setThisAction("RewardsItem_STAFF_RUSH");
+		display.getRewardWidgetAction().setValue(criteria.getThisAction());
 		// 查询参数....待添加
 		dispatchAsync.execute(new SearchRewardsGridRequest(criteria,sessionManager
 				.getSession()),
