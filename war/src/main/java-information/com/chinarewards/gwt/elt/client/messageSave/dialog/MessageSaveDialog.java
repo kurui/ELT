@@ -23,7 +23,7 @@ public class MessageSaveDialog extends AbstractDialog {
 		init();
 	}
 	public void initStaff(String staffId,String staffName) {
-		presenter.initBroadcastStaff(staffId, staffName);
+		presenter.initBroadcastStaff(staffId, staffName,"QUIETLY");
 		presenter.displaySelectStaff();
 		setTitle("发送悄悄话");
 	}

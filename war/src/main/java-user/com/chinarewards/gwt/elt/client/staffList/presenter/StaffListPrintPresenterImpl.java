@@ -110,14 +110,6 @@ public class StaffListPrintPresenterImpl extends
 			}
 		};
 
-
-		cellTable.addColumn("员工编号", new TextCell(),
-				new GetValue<StaffListClient, String>() {
-					@Override
-					public String getValue(StaffListClient staff) {
-						return staff.getStaffNo();
-					}
-				}, ref, "jobNo");
 		cellTable.addColumn("姓名", new TextCell(),
 				new GetValue<StaffListClient, String>() {
 					@Override
@@ -125,6 +117,14 @@ public class StaffListPrintPresenterImpl extends
 						return staff.getStaffName();
 					}
 				}, ref, "name");
+		cellTable.addColumn("帐号", new TextCell(),
+				new GetValue<StaffListClient, String>() {
+					@Override
+					public String getValue(StaffListClient staff) {
+						return staff.getEmail().substring(0,staff.getEmail().indexOf("@"));
+					}
+				}, ref, "jobNo");
+
 		cellTable.addColumn("密码", new TextCell(),
 				new GetValue<StaffListClient, String>() {
 					@Override
@@ -132,40 +132,7 @@ public class StaffListPrintPresenterImpl extends
 						return "123";
 					}
 				}, ref, "name");
-		cellTable.addColumn("所属部门", new TextCell(),
-				new GetValue<StaffListClient, String>() {
-					@Override
-					public String getValue(StaffListClient staff) {
-						if(staff.getDepartmentName().indexOf("ROOT")==-1)
-						return staff.getDepartmentName();
-						else
-						return "";
-					}
-				});
-		cellTable.addColumn("职位", new TextCell(),
-				new GetValue<StaffListClient, String>() {
-					@Override
-					public String getValue(StaffListClient staff) {
-						return staff.getJobPosition();
-					}
-				}, ref, "jobPosition");
-		cellTable.addColumn("电话", new TextCell(),
-				new GetValue<StaffListClient, String>() {
-					@Override
-					public String getValue(StaffListClient staff) {
-						return staff.getPhone();
-					}
-				}, ref, "phone");
-		cellTable.addColumn("员工状态", new TextCell(),
-				new GetValue<StaffListClient, String>() {
-					@Override
-					public String getValue(StaffListClient staff) {
-						if(staff.getStaffStatus()!=null)
-						return staff.getStaffStatus().getDisplayName();
-						else
-						return "未知";
-					}
-				});
+	
 
 	
 	}

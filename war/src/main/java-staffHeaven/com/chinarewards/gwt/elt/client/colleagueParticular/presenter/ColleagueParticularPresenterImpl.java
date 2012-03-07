@@ -122,7 +122,7 @@ public class ColleagueParticularPresenterImpl extends
 			@Override
 			public void onClick(ClickEvent event) {
 				unbindAll();
-				messageSavePresenter.initBroadcastStaff(staffId,staffName);
+				messageSavePresenter.initBroadcastStaff(staffId,staffName,"MESSAGE");
 				messageSavePresenter.bind();
 				display.getResultPanel().clear();
 				display.getResultPanel().add(messageSavePresenter.getDisplay().asWidget());

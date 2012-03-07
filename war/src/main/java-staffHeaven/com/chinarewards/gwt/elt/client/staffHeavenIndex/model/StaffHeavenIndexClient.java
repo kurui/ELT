@@ -31,6 +31,9 @@ public class StaffHeavenIndexClient implements Serializable, Comparable<StaffHea
 
 	
 	private String createdByUserName;	
+	private String deptName;	
+	private String staffId;	
+	
 	/**
 	 * 类别
 	 */
@@ -50,6 +53,22 @@ public class StaffHeavenIndexClient implements Serializable, Comparable<StaffHea
 	 */
 	private boolean isAllowreplies;
 	
+	public String getStaffId() {
+		return staffId;
+	}
+
+	public void setStaffId(String staffId) {
+		this.staffId = staffId;
+	}
+
+	public String getDeptName() {
+		return deptName;
+	}
+
+	public void setDeptName(String deptName) {
+		this.deptName = deptName;
+	}
+
 	public boolean isAllowreplies() {
 		return isAllowreplies;
 	}
