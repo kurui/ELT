@@ -33,11 +33,11 @@ import com.chinarewards.gwt.elt.client.widget.Sorting;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.client.win.confirm.ConfirmHandler;
 import com.chinarewards.gwt.elt.model.user.UserRoleVo;
+import com.chinarewards.gwt.elt.util.PrintOut;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
@@ -103,7 +103,7 @@ public class StaffListPresenterImpl extends
 					@Override
 					public void onClick(ClickEvent event) {
 //						win.alert("打印");
-						Window.print();
+						PrintOut.it("11111111111111111111");
 	
 					}
 				}));
