@@ -80,9 +80,8 @@ public class MailSavePresenterImpl extends
 									}
 
 									@Override
-									public void onSuccess(
-											MailResponse resp) {
-										win.alert("发送成功");
+									public void onSuccess(	MailResponse resp) {
+										win.alert(resp.getToken());
 										display.setContent("");
 										closeDialog();
 									}
