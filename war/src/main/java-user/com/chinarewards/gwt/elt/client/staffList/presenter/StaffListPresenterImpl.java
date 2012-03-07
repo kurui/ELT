@@ -15,6 +15,7 @@ import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.staffAdd.plugin.StaffAddConstants;
 import com.chinarewards.gwt.elt.client.staffList.dataprovider.StaffListViewAdapter;
+import com.chinarewards.gwt.elt.client.staffList.dialog.StaffListPrintDialog;
 import com.chinarewards.gwt.elt.client.staffList.model.StaffListClient;
 import com.chinarewards.gwt.elt.client.staffList.model.StaffListCriteria;
 import com.chinarewards.gwt.elt.client.staffList.model.StaffListCriteria.StaffStatus;
@@ -33,13 +34,13 @@ import com.chinarewards.gwt.elt.client.widget.Sorting;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.client.win.confirm.ConfirmHandler;
 import com.chinarewards.gwt.elt.model.user.UserRoleVo;
-import com.chinarewards.gwt.elt.util.PrintOut;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 public class StaffListPresenterImpl extends
 		BasePresenter<StaffListPresenter.StaffListDisplay> implements
@@ -52,18 +53,19 @@ public class StaffListPresenterImpl extends
 	EltNewPager pager;
 	ListCellTable<StaffListClient> cellTable;
 	StaffListViewAdapter listViewAdapter;
-
+	private final Provider<StaffListPrintDialog> staffListPrintDialogProvider;
 	private final BreadCrumbsPresenter breadCrumbs;
 	@Inject
 	public StaffListPresenterImpl(EventBus eventBus,
 			StaffListDisplay display, DispatchAsync dispatch,
-			SessionManager sessionManager,Win win,BreadCrumbsPresenter breadCrumbs,ErrorHandler errorHandler) {
+			SessionManager sessionManager,Win win,BreadCrumbsPresenter breadCrumbs,ErrorHandler errorHandler,Provider<StaffListPrintDialog> staffListPrintDialogProvider) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.sessionManager = sessionManager;
 		this.errorHandler=errorHandler;
 		this.win=win;
 		this.breadCrumbs=breadCrumbs;
+		this.staffListPrintDialogProvider=staffListPrintDialogProvider;
 	}
 
 	@Override
@@ -102,8 +104,10 @@ public class StaffListPresenterImpl extends
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-//						win.alert("打印");
-						PrintOut.it("11111111111111111111");
+						
+						StaffListPrintDialog dialog = staffListPrintDialogProvider.get();
+						Platform.getInstance().getSiteManager().openDialog(dialog,null);
+
 	
 					}
 				}));
