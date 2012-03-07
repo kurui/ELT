@@ -12,7 +12,7 @@ import com.google.gwt.user.client.ui.Panel;
 public interface MessageSavePresenter extends
 DialogPresenter<MessageSavePresenter.MessageSaveDisplay> {
 
-	public void initBroadcastStaff(String staffId,String staffName);
+	public void initBroadcastStaff(String staffId,String staffName,String quietlyOrDalliance);
 	public void displaySelectStaff();
 
 	public static interface MessageSaveDisplay extends Display {

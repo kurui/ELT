@@ -23,9 +23,22 @@ public class MessageSaveRequest implements Action<MessageSaveResponse> {
 	List<String[]> organList;
 	Date broadcastingTimeStart;
 	Date broadcastingTimeEnd;
-	
+	String quietlyOrDalliance;
 	boolean allowreplies;
 	
+
+
+
+
+	public String getQuietlyOrDalliance() {
+		return quietlyOrDalliance;
+	}
+
+
+	public void setQuietlyOrDalliance(String quietlyOrDalliance) {
+		this.quietlyOrDalliance = quietlyOrDalliance;
+	}
+
 
 	public String getContent() {
 		return content;

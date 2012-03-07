@@ -6,6 +6,7 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 import org.slf4j.Logger;
 
 import com.chinarewards.elt.model.broadcast.BroadcastingVo;
+import com.chinarewards.elt.model.information.BroadcastingCategory;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.broadcast.BroadcastService;
 import com.chinarewards.gwt.elt.client.messageSave.request.MessageSaveRequest;
@@ -50,8 +51,12 @@ public class MessageSaveActionHandler extends
 		vo.setBroadcastingId(request.getBroadcastId());
 		vo.setContent(request.getContent());
 		vo.setOrganList(request.getOrganList());
-		
-		broadcastService.createOrUpdateMessage(vo, context);
+		if("QUIETLY".equals(request.getQuietlyOrDalliance()))
+			broadcastService.createOrUpdateBroadcast(vo, context, BroadcastingCategory.QUIETLYINFORMATION);
+		else if("DALLIANCE".equals(request.getQuietlyOrDalliance()))
+			broadcastService.createOrUpdateBroadcast(vo, context, BroadcastingCategory.DALLIANCEINFORMATION);			
+		else
+			broadcastService.createOrUpdateMessage(vo, context);
 		return staffResponse;
 	}
 

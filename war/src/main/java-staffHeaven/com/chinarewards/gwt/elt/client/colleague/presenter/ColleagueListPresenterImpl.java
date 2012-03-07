@@ -29,7 +29,7 @@ public class ColleagueListPresenterImpl extends
 
 	private final DispatchAsync dispatch;
 	private final SessionManager sessionManager;
-//	private final Win win;
+	private final Win win;
 	final ErrorHandler errorHandler;
 	EltNewPager pager;
 	ListCellTable<StaffListClient> cellTable;
@@ -45,7 +45,7 @@ public class ColleagueListPresenterImpl extends
 		this.sessionManager = sessionManager;
 		this.errorHandler=errorHandler;
 		this.messageSaveDialog=messageSaveDialog;
-	//	this.win=win;
+		this.win=win;
 
 	}
 
@@ -102,7 +102,7 @@ public class ColleagueListPresenterImpl extends
 		if(!StringUtil.isEmpty(key))
 			criteria.setStaffNameorNo(key);
 		listViewAdapter = new ColleagueListViewAdapter(dispatch, criteria,
-				errorHandler, sessionManager,display,messageSaveDialog);
+				errorHandler, sessionManager,display,messageSaveDialog,win);
 		listViewAdapter.addDataDisplay(cellTable);
 
 	}

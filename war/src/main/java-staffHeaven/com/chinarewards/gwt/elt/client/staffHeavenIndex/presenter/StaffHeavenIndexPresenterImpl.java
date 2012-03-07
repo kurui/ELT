@@ -212,6 +212,7 @@ public class StaffHeavenIndexPresenterImpl extends
 				display.getStaffInformation().setStyleName(noStyle);
 				display.getSysInformation().setStyleName(noStyle);
 				display.getThemeInformation().setStyleName(noStyle);
+				display.getQuietlyInformation().setStyleName(noStyle);
 				doSearch(null);
 			}
 		});
@@ -223,6 +224,7 @@ public class StaffHeavenIndexPresenterImpl extends
 				display.getStaffInformation().setStyleName(onStyle);
 				display.getSysInformation().setStyleName(noStyle);
 				display.getThemeInformation().setStyleName(noStyle);
+				display.getQuietlyInformation().setStyleName(noStyle);
 				doSearch(BroadcastingCategory.STAFFBROADCAST);
 			}
 		});
@@ -234,6 +236,7 @@ public class StaffHeavenIndexPresenterImpl extends
 				display.getStaffInformation().setStyleName(noStyle);
 				display.getSysInformation().setStyleName(onStyle);
 				display.getThemeInformation().setStyleName(noStyle);
+				display.getQuietlyInformation().setStyleName(noStyle);
 				doSearch(BroadcastingCategory.SYSBROADCAST);
 			}
 		});
@@ -245,7 +248,20 @@ public class StaffHeavenIndexPresenterImpl extends
 				display.getStaffInformation().setStyleName(noStyle);
 				display.getSysInformation().setStyleName(noStyle);
 				display.getThemeInformation().setStyleName(onStyle);
+				display.getQuietlyInformation().setStyleName(noStyle);
 				doSearch(BroadcastingCategory.THEMEBROADCAST);
+			}
+		});
+		display.getQuietlyInformation().addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				display.getAllInformation().setStyleName(noStyle);
+				display.getStaffInformation().setStyleName(noStyle);
+				display.getSysInformation().setStyleName(noStyle);
+				display.getThemeInformation().setStyleName(noStyle);
+				display.getQuietlyInformation().setStyleName(onStyle);
+				doSearch(BroadcastingCategory.QUIETLYINFORMATION);
 			}
 		});
 		buildTable();

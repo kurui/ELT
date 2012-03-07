@@ -1,15 +1,26 @@
 package com.chinarewards.gwt.elt.client.colleagueLattice.view;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import net.customware.gwt.dispatch.client.DispatchAsync;
+
+import com.chinarewards.gwt.elt.client.chooseOrganization.model.OrganSearchCriteria.OrganType;
 import com.chinarewards.gwt.elt.client.colleagueParticular.plugin.ColleagueParticularConstants;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.ui.DialogCloseListener;
 import com.chinarewards.gwt.elt.client.messageSave.dialog.MessageSaveDialog;
+import com.chinarewards.gwt.elt.client.messageSave.request.MessageSaveRequest;
+import com.chinarewards.gwt.elt.client.messageSave.request.MessageSaveResponse;
 import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
+import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.chinarewards.gwt.elt.client.win.Win;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Image;
@@ -41,7 +52,7 @@ public class ColleagueLatticeWidget extends Composite {
 			UiBinder<Widget, ColleagueLatticeWidget> {
 	}
 
-	public ColleagueLatticeWidget(final String staffId,final String staffName,String deptName,String photo,final Provider<MessageSaveDialog> messageSaveDialog) {
+	public ColleagueLatticeWidget(final String staffId,final String staffName,String deptName,String photo,final Provider<MessageSaveDialog> messageSaveDialog, final Win win, final SessionManager sessionManager, final DispatchAsync dispatch) {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.staffName.setText(staffName);
 		this.deptName.setText(deptName);
@@ -84,6 +95,44 @@ public class ColleagueLatticeWidget extends Composite {
 					}
 				});
 				
+			}
+		});
+		this.dalliance.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				MessageSaveRequest request = new MessageSaveRequest();
+
+				request.setSession(sessionManager.getSession());
+
+//				request.setContent(display.getContent());
+				List<String[]> organList=new ArrayList<String[]>();
+
+						String[] nameAndId = new String[3];
+						nameAndId[0] = staffId;
+						nameAndId[1] = staffName;
+						nameAndId[2] = OrganType.STAFF.toString();
+						organList.add(nameAndId);
+			
+				request.setOrganList(organList);
+				request.setQuietlyOrDalliance("DALLIANCE");
+				
+				dispatch.execute(request,
+						new AsyncCallback<MessageSaveResponse>() {
+
+							@Override
+							public void onFailure(Throwable t) {
+								win.alert(t.getMessage());
+							}
+
+							@Override
+							public void onSuccess(
+									MessageSaveResponse resp) {
+								win.alert("调戏成功!");
+
+							}
+						});
+			
 			}
 		});
 	}
