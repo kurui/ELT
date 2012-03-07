@@ -25,6 +25,7 @@ import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.widget.Sorting;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.model.rewards.RewardPageType;
+import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -35,6 +36,9 @@ import com.google.inject.Inject;
 public class RewardsItemListCompanyPresenterImpl extends
 		BasePresenter<RewardsItemListCompanyOtherDisplay> implements
 		RewardsItemListCompanyPresenter {
+	
+	RewardsGridClient rewardsGridClient;
+	
 	final DispatchAsync dispatch;
 	final ErrorHandler errorHandler;
 	final SessionManager sessionManager;
@@ -80,18 +84,34 @@ public class RewardsItemListCompanyPresenterImpl extends
 	}
 
 	private void iniWidget() {
-		initRewardsTypeSelect("");
+		String selectedValue="";
+		if (rewardsGridClient!=null) {
+			selectedValue=rewardsGridClient.getThisAction();
+		} 
+		initRewardsTypeSelect(selectedValue);
 		buildTable();
 		doSearch();
 	}
 
-	private void initRewardsTypeSelect(String selectValue) {
+	private void initRewardsTypeSelect(String selectedValue) {
 		ListBox rewardsType = display.getRewardsType();
 		if (rewardsType != null) {
 			if (rewardsType.getItemCount() < 1) {
 				display.getRewardsType().clear();
-				display.getRewardsType().addItem("全部奖项", "ALL");
-				display.getRewardsType().addItem("努力冲奖项", "RUSH");
+				display.getRewardsType().addItem("全部奖项", "RewardsItem_ALL");
+				display.getRewardsType().addItem("努力冲奖项", "RewardsItem_STAFF_RUSH");
+			}
+			
+			int selectCount=rewardsType.getItemCount();
+			for (int i = 0; i < selectCount; i++) {
+				String keyValue=rewardsType.getValue(i);
+				if (selectedValue != null && StringUtil.trim(selectedValue) != ""
+						&& StringUtil.trim(keyValue) != "") {
+					if (selectedValue.equals(keyValue)) {
+						rewardsType.setSelectedIndex(i);
+					}
+				}
+				
 			}
 		}
 	}
@@ -119,9 +139,7 @@ public class RewardsItemListCompanyPresenterImpl extends
 
 		int selectedIndex = display.getRewardsType().getSelectedIndex();
 		String rewardsType = display.getRewardsType().getValue(selectedIndex);
-		criteria.setRewardsType(rewardsType);
-
-		criteria.setThisAction("RewardsItem_COMPANY_OTHER");
+		criteria.setThisAction(rewardsType);
 
 		listViewAdapter = new RewardsItemListCompanyViewAdapter(dispatch,
 				criteria, errorHandler, sessionManager, display);
@@ -202,5 +220,11 @@ public class RewardsItemListCompanyPresenterImpl extends
 	@Override
 	public void initRewardsItemList(RewardPageType pageType) {
 		this.pageType = pageType;
+	}
+
+	@Override
+	public void initEditor(RewardsGridClient rewardsGridClient) {
+		this.rewardsGridClient=rewardsGridClient;
+		
 	}
 }

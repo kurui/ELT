@@ -397,7 +397,9 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 	}
 	
 	private void openRewardMoreWidget(){
+		RewardsGridClient gridClient=new RewardsGridClient();
 		String thisAction=display.getRewardWidgetAction().getValue();
+		gridClient.setThisAction(thisAction);
 		if ("Rewards_STAFF_GETED".equals(thisAction)) {
 			Platform.getInstance()
 			.getEditorRegistry()
@@ -417,15 +419,14 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 			.getEditorRegistry()
 			.openEditor(
 					RewardsItemConstants.EDITOR_REWARDSITEM_COMPANYOTHER_LIST,
-					"EDITOR_REWARDSITEM_COMPANYOTHER_LIST_DO_ID",
-					null);//
+					"EDITOR_REWARDSITEM_COMPANYOTHER_LIST_DO_ID",gridClient);//
 		} else if ("RewardsItem_ALL".equals(thisAction)) {
 			Platform.getInstance()
 			.getEditorRegistry()
 			.openEditor(
 					RewardsItemConstants.EDITOR_REWARDSITEM_COMPANYOTHER_LIST,
 					"EDITOR_REWARDSITEM_COMPANYOTHER_LIST_DO_ID",
-					null);//
+					gridClient);//
 		}
 	}
 

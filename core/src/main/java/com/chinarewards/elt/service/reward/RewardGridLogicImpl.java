@@ -215,8 +215,6 @@ public class RewardGridLogicImpl implements RewardGridLogic {
 			UserContext context, RewardGridSearchVo criteria) {
 		PageStore<RewardGridVo> pageStore = new PageStore<RewardGridVo>();
 
-		RewardItemSearchVo rewardItemSearchVo = new RewardItemSearchVo();
-
 		String staffId = criteria.getStaffId();
 		List<Candidate> list = candidateDao.findCandidateByStaffId(staffId);
 
@@ -272,8 +270,6 @@ public class RewardGridLogicImpl implements RewardGridLogic {
 	public PageStore<RewardGridVo> fetchRewardsItem_STAFF_RUSH(
 			UserContext context, RewardGridSearchVo criteria) {
 		PageStore<RewardGridVo> pageStore = new PageStore<RewardGridVo>();
-
-		RewardItemSearchVo rewardItemSearchVo = new RewardItemSearchVo();
 
 		String staffId = criteria.getStaffId();
 		List<RewardStatus> rstatus = new ArrayList<RewardStatus>();
@@ -338,17 +334,17 @@ public class RewardGridLogicImpl implements RewardGridLogic {
 
 		String staffId = criteria.getStaffId();
 		List<RewardStatus> rstatus = new ArrayList<RewardStatus>();
-		String rewardsType = criteria.getRewardsType();
-		if (!StringUtil.isEmptyString(rewardsType)) {
-			if ("ALL".equals(rewardsType)) {// 全部
+		String thisAction = criteria.getThisAction();
+		if (!StringUtil.isEmptyString(thisAction)) {
+			if ("RewardsItem_ALL".equals(thisAction)||"RewardsItem_COMPANY_OTHER".equals(thisAction)) {// 全部
 				rstatus.add(RewardStatus.NEW);
 				rstatus.add(RewardStatus.PENDING_NOMINATE);
 				rstatus.add(RewardStatus.PENDING_APPLICATION);
 				rstatus.add(RewardStatus.REWARDED);
 				rstatus.add(RewardStatus.DENIED);
-			} else if ("GETED".equals(rewardsType)) {// 已获得
+			} else if ("RewardsItem_GETED".equals(thisAction)) {// 已获得
 				rstatus.add(RewardStatus.REWARDED);
-			} else if ("RUSH".equals(rewardsType)) {// 努力冲
+			} else if ("RewardsItem_RUSH".equals(thisAction)) {// 努力冲
 				rstatus.add(RewardStatus.NEW);
 				rstatus.add(RewardStatus.PENDING_NOMINATE);
 				rstatus.add(RewardStatus.PENDING_APPLICATION);
