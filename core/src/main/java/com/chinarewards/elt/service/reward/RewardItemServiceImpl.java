@@ -159,9 +159,9 @@ public class RewardItemServiceImpl implements RewardItemService {
 			vo.setBroadcastingTimeEnd(DateUtil.getTime());
 			vo.setAllowreplies(true);
 			if(rewardItem.getAutoGenerate()==RequireAutoGenerate.requireCyclic)	
-				vo.setContent(""+rewardItem.getCreatedBy().getStaff().getName()+" 创建了周期性奖项“"+rewardItem.getName()+"”，大家积极参与夺大奖啊!");
+				vo.setContent(" 创建了周期性奖项“"+rewardItem.getName()+"”，大家积极参与夺大奖啊!");
 			else
-				vo.setContent(""+rewardItem.getCreatedBy().getStaff().getName()+" 创建了奖项“"+rewardItem.getName()+"”，大家积极参与夺大奖啊!");
+				vo.setContent(" 创建了奖项“"+rewardItem.getName()+"”，大家积极参与夺大奖啊!");
 			
 			//接收对象为当前人机构
 			
