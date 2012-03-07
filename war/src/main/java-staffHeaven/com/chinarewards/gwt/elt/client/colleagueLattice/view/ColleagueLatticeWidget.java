@@ -3,6 +3,7 @@ package com.chinarewards.gwt.elt.client.colleagueLattice.view;
 import com.chinarewards.gwt.elt.client.colleagueParticular.plugin.ColleagueParticularConstants;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.ui.DialogCloseListener;
+import com.chinarewards.gwt.elt.client.mailSave.dialog.MailSaveDialog;
 import com.chinarewards.gwt.elt.client.messageSave.dialog.MessageSaveDialog;
 import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
 import com.google.gwt.core.client.GWT;
@@ -41,7 +42,7 @@ public class ColleagueLatticeWidget extends Composite {
 			UiBinder<Widget, ColleagueLatticeWidget> {
 	}
 
-	public ColleagueLatticeWidget(final String staffId,final String staffName,String deptName,String photo,final Provider<MessageSaveDialog> messageSaveDialog) {
+	public ColleagueLatticeWidget(final String staffId,final String staffName,String deptName,String photo,final Provider<MessageSaveDialog> messageSaveDialog,final Provider<MailSaveDialog> mailSaveDialog) {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.staffName.setText(staffName);
 		this.deptName.setText(deptName);
@@ -86,6 +87,21 @@ public class ColleagueLatticeWidget extends Composite {
 				
 			}
 		});
+			this.email.addClickHandler(new ClickHandler() {
+						
+						@Override
+						public void onClick(ClickEvent event) {
+							final MailSaveDialog dialog = mailSaveDialog.get();
+							dialog.initStaff(staffId, staffName);
+							Platform.getInstance().getSiteManager().openDialog(dialog, new DialogCloseListener() {
+								public void onClose(String dialogId,
+										String instanceId) {
+									
+								}
+							});
+							
+						}
+					});
 	}
 
 }

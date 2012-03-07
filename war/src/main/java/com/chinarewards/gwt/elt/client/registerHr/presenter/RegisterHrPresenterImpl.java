@@ -12,6 +12,7 @@ import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.registerHr.model.HrVo;
 import com.chinarewards.gwt.elt.client.registerHr.request.RegisterHrRequest;
 import com.chinarewards.gwt.elt.client.registerHr.request.RegisterHrResponse;
+import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.ui.DialogBox;
 import com.chinarewards.gwt.elt.client.util.StringUtil;
 import com.chinarewards.gwt.elt.model.user.UserRoleVo;
@@ -20,7 +21,6 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.inject.Inject;
 
 public class RegisterHrPresenterImpl extends
@@ -29,13 +29,13 @@ public class RegisterHrPresenterImpl extends
 
 	private final DispatchAsync dispatcher;
 	private final EltGinjector injector = GWT.create(EltGinjector.class);
-
+	final SessionManager sessionManager;
 	@Inject
-	public RegisterHrPresenterImpl(EventBus eventBus,
+	public RegisterHrPresenterImpl(EventBus eventBus,SessionManager sessionManager,
 			RegisterHrDisplay display, DispatchAsync dispatcher	) {
 		super(eventBus, display);
 		this.dispatcher = dispatcher;
-		
+		this.sessionManager = sessionManager;
 	}
 
 	@Override
@@ -210,7 +210,7 @@ public class RegisterHrPresenterImpl extends
 						dialogBoxae.setText("提示");
 						dialogBoxae.center();
 						dialogBoxae.show();
-						injector.getMain().init(RootLayoutPanel.get());
+						sessionManager.initialize();
 					}
 				});
 	}

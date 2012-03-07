@@ -17,6 +17,7 @@ import com.chinarewards.elt.dao.org.StaffDao;
 import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.util.JavaMailSend;
+import com.chinarewards.elt.util.StringUtil;
 import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
 @Transactional
@@ -32,7 +33,7 @@ public class SendMailServiceImpl implements SendMailService {
 
 	
 	@Override
-	 public String sendMail(String content,String staffId) {
+	 public String sendMail(String title,String content,String staffId) {
 		  Staff staff = staffDao.findById(Staff.class, staffId);
 		  String[] to = {staff.getEmail()};
 		  String[] filenames = {};
@@ -41,7 +42,10 @@ public class SendMailServiceImpl implements SendMailService {
 		  String emailAddress = corporation.getEmailAddress();
 		  String password = corporation.getMailpwd();
 		  String miniType="text/html;charset=UTF-8";
-		return sendmail( smtp, emailAddress,password,"注册账号通知",emailAddress,to,content,filenames,miniType);
+		  if(!StringUtil.isEmptyString(smtp)&&!StringUtil.isEmptyString(password))
+		      return sendmail( smtp, emailAddress,password,title,emailAddress,to,content,filenames,miniType);
+		  else
+			  return "没有进行企业邮箱设置,不能发邮件";
 	}
 
 	/**

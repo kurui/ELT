@@ -4,6 +4,7 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.colleague.dataprovider.ColleagueListViewAdapter;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
+import com.chinarewards.gwt.elt.client.mailSave.dialog.MailSaveDialog;
 import com.chinarewards.gwt.elt.client.messageSave.dialog.MessageSaveDialog;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
@@ -35,16 +36,17 @@ public class ColleagueListPresenterImpl extends
 	ListCellTable<StaffListClient> cellTable;
 	ColleagueListViewAdapter listViewAdapter;
 	Provider<MessageSaveDialog> messageSaveDialog;
-
+	 Provider<MailSaveDialog> mailSaveDialog;
 	@Inject
 	public ColleagueListPresenterImpl(EventBus eventBus,
 			ColleagueListDisplay display, DispatchAsync dispatch,
-			SessionManager sessionManager,Win win,ErrorHandler errorHandler,Provider<MessageSaveDialog> messageSaveDialog) {
+			SessionManager sessionManager,Win win,ErrorHandler errorHandler,Provider<MessageSaveDialog> messageSaveDialog, Provider<MailSaveDialog> mailSaveDialog) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.sessionManager = sessionManager;
 		this.errorHandler=errorHandler;
 		this.messageSaveDialog=messageSaveDialog;
+		this.mailSaveDialog = mailSaveDialog;
 	//	this.win=win;
 
 	}
@@ -102,7 +104,7 @@ public class ColleagueListPresenterImpl extends
 		if(!StringUtil.isEmpty(key))
 			criteria.setStaffNameorNo(key);
 		listViewAdapter = new ColleagueListViewAdapter(dispatch, criteria,
-				errorHandler, sessionManager,display,messageSaveDialog);
+				errorHandler, sessionManager,display,messageSaveDialog,mailSaveDialog);
 		listViewAdapter.addDataDisplay(cellTable);
 
 	}

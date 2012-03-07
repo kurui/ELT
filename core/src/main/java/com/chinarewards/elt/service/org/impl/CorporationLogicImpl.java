@@ -90,17 +90,25 @@ public class CorporationLogicImpl implements CorporationLogic {
 			Date now = DateUtil.getTime();
 			corp.setName(corporation.getName());
 			corp.setDescription(corporation.getDescription());
+			if(corporation.getTxAccountId()!=null)
 			corp.setTxAccountId(corporation.getTxAccountId());
+			if(corporation.getUnitCode()!=null)
 			corp.setDefaultUnitCode(corporation.getUnitCode());
+			if(corporation.getAddress()!=null)
 			corp.setAddress(corporation.getAddress());
 			corp.setCellphone(corporation.getCellphone());
+			if(corporation.getCorporation()!=null)
 			corp.setCorporationer(corporation.getCorporation());
+			if(corporation.getEmailAddress()!=null)
 			corp.setEmailAddress(corporation.getEmailAddress());
 			corp.setFax(corporation.getFax());
 			corp.setLinkman(corporation.getLinkman());
+			if(corporation.getTell()!=null)
 			corp.setTell(corporation.getTell());
 			corp.setWeb(corporation.getWeb());
+			if(corporation.getMailpwd()!=null)
             corp.setMailpwd(corporation.getMailpwd());
+			if(corporation.getSmtp()!=null)
             corp.setSmtp(corporation.getSmtp());
 			corp.setCreatedAt(now);
 			corp.setCreatedBy(caller);
