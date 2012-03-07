@@ -60,8 +60,8 @@ public class StaffListPrintPresenterImpl extends
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
+						display.getResultPanel().getElement().getFirstChildElement().setAttribute("style", "text-align: center;width:100%");
 						PrintOut.it(display.getResultPanel());
-	
 					}
 				}));
 	}
