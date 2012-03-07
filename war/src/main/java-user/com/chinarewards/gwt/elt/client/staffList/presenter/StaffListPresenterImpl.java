@@ -6,10 +6,13 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.core.Platform;
+import com.chinarewards.gwt.elt.client.core.ui.DialogCloseListener;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.mail.model.MailVo;
+import com.chinarewards.gwt.elt.client.mail.presenter.MailSendDialog;
 import com.chinarewards.gwt.elt.client.mail.request.MailRequest;
 import com.chinarewards.gwt.elt.client.mail.request.MailResponse;
+import com.chinarewards.gwt.elt.client.mailSave.dialog.MailSaveDialog;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
@@ -55,8 +58,9 @@ public class StaffListPresenterImpl extends
 	StaffListViewAdapter listViewAdapter;
 	private final Provider<StaffListPrintDialog> staffListPrintDialogProvider;
 	private final BreadCrumbsPresenter breadCrumbs;
+	final Provider<MailSendDialog> mailSendDialog;
 	@Inject
-	public StaffListPresenterImpl(EventBus eventBus,
+	public StaffListPresenterImpl(EventBus eventBus,Provider<MailSendDialog> mailSendDialog,
 			StaffListDisplay display, DispatchAsync dispatch,
 			SessionManager sessionManager,Win win,BreadCrumbsPresenter breadCrumbs,ErrorHandler errorHandler,Provider<StaffListPrintDialog> staffListPrintDialogProvider) {
 		super(eventBus, display);
@@ -66,6 +70,7 @@ public class StaffListPresenterImpl extends
 		this.win=win;
 		this.breadCrumbs=breadCrumbs;
 		this.staffListPrintDialogProvider=staffListPrintDialogProvider;
+		this.mailSendDialog = mailSendDialog;
 	}
 
 	@Override
@@ -290,7 +295,7 @@ public class StaffListPresenterImpl extends
 											@Override
 											public void onSuccess(StaffGenerateUserResponse resp) {
 												win.alert(resp.getMessage());
-												sendMail(o.getEmail(),o.getStaffId());
+												//sendMail(o.getEmail(),o.getStaffId());
 											}
 										});
 								
@@ -350,9 +355,15 @@ public class StaffListPresenterImpl extends
 				}, new FieldUpdater<StaffListClient, String>() {
 
 					@Override
-					public void update(int index, final StaffListClient o,
-							String value) {
-						win.alert("待实现");
+					public void update(int index, final StaffListClient o,String value) {
+						final MailSendDialog dialog = mailSendDialog.get();
+						dialog.initStaff(o.getStaffId(), o.getStaffName());
+						Platform.getInstance().getSiteManager().openDialog(dialog, new DialogCloseListener() {
+							public void onClose(String dialogId,
+									String instanceId) {
+								
+							}
+						});
 					}
 
 				});

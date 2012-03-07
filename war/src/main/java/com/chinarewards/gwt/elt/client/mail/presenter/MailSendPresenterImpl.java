@@ -1,7 +1,8 @@
-package com.chinarewards.gwt.elt.client.mailSave.presenter;
+package com.chinarewards.gwt.elt.client.mail.presenter;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import com.chinarewards.gwt.elt.client.broadcastSave.dialog.StaffChooseOrganizationListDialog;
 import com.chinarewards.gwt.elt.client.mail.model.MailVo;
 import com.chinarewards.gwt.elt.client.mail.request.MailRequest;
 import com.chinarewards.gwt.elt.client.mail.request.MailResponse;
@@ -15,34 +16,33 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
-public class MailSavePresenterImpl extends
-		BaseDialogPresenter<MailSavePresenter.MailSaveDisplay> implements
-		MailSavePresenter {
+public class MailSendPresenterImpl extends	BaseDialogPresenter<MailSendPresenter.MailSendDisplay> implements
+		MailSendPresenter {
 
 	private final DispatchAsync dispatch;
 	private final SessionManager sessionManager;
 	private final Win win;
 	final ErrorHandler errorHandler;
 	String broadcastId = null;
-	String staffId=null;
-
-
+	
+	
 	@Inject
-	public MailSavePresenterImpl(
+	public MailSendPresenterImpl(
 			EventBus eventBus,
-			MailSaveDisplay display,
+			MailSendDisplay display,
 			DispatchAsync dispatch,
 			SessionManager sessionManager,
 			Win win,
-			ErrorHandler errorHandler) {
+			ErrorHandler errorHandler		) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.sessionManager = sessionManager;
 		this.errorHandler = errorHandler;
 		this.win = win;
 
-	
+		
 	}
 
 	@Override
@@ -55,11 +55,11 @@ public class MailSavePresenterImpl extends
 					@Override
 					public void onClick(ClickEvent event) {
 						if (StringUtil.isEmpty(display.getTitle())) {
-							win.alertStaff("请填写邮件标题!");
+							win.alert("请填写邮件标题!");
 							return;
 						}
 						if (StringUtil.isEmpty(display.getContent())) {
-							win.alertStaff("请填写邮件内容!");
+							win.alert("请填写邮件内容!");
 							return;
 						}
 
@@ -72,15 +72,12 @@ public class MailSavePresenterImpl extends
 
 									@Override
 									public void onFailure(Throwable t) {
-										win.alertStaff(t.getMessage());
+										win.alert(t.getMessage());
 									}
 
 									@Override
-
-
-									public void onSuccess(	MailResponse resp) {
-										win.alertStaff(resp.getToken());
-
+									public void onSuccess(MailResponse resp) {
+										win.alert(resp.getToken());
 										display.setContent("");
 										closeDialog();
 									}
@@ -104,14 +101,8 @@ public class MailSavePresenterImpl extends
 
 	@Override
 	public void initBroadcastStaff(String staffId,String staffName) {
-		this.staffId=staffId;
 		display.setStaffId(staffId);
 		display.setStaffName(staffName);
-//		OrganicationClient client=new OrganicationClient();
-//		client.setId(staffId);
-//		client.setName(staffName);
-//		client.setType(OrganType.STAFF);
-//		display.getSpecialTextArea().addItem(client);
 	}
 
 	

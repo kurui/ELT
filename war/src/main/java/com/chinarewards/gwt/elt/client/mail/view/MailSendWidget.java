@@ -1,6 +1,6 @@
-package com.chinarewards.gwt.elt.client.mailSave.view;
+package com.chinarewards.gwt.elt.client.mail.view;
 
-import com.chinarewards.gwt.elt.client.mailSave.presenter.MailSavePresenter.MailSaveDisplay;
+import com.chinarewards.gwt.elt.client.mail.presenter.MailSendPresenter.MailSendDisplay;
 import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
 import com.chinarewards.gwt.elt.client.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.widget.SpecialTextArea;
@@ -17,7 +17,7 @@ import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
-public class MailSaveWidget extends Composite implements MailSaveDisplay {
+public class MailSendWidget extends Composite implements MailSendDisplay {
 
 	@UiField
 	TextArea content;
@@ -36,14 +36,14 @@ public class MailSaveWidget extends Composite implements MailSaveDisplay {
 	SpecialTextArea<OrganicationClient> staffTextArea;
 	DateTimeFormat dateFormat = DateTimeFormat
 			.getFormat(ViewConstants.date_format);
-	private static MailSaveWidgetUiBinder uiBinder = GWT
-			.create(MailSaveWidgetUiBinder.class);
+	private static MailSendWidgetUiBinder uiBinder = GWT
+			.create(MailSendWidgetUiBinder.class);
 
-	interface MailSaveWidgetUiBinder extends
-			UiBinder<Widget, MailSaveWidget> {
+	interface MailSendWidgetUiBinder extends
+			UiBinder<Widget, MailSendWidget> {
 	}
 
-	public MailSaveWidget() {
+	public MailSendWidget() {
 		initWidget(uiBinder.createAndBindUi(this));
 	}
 

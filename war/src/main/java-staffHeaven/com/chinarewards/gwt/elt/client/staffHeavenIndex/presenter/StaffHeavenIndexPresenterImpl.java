@@ -149,7 +149,7 @@ public class StaffHeavenIndexPresenterImpl extends
 				
 				if(StringUtil.isEmpty(display.getBroadcastContent()))
 				{
-					win.alert("请填写广播内容!");
+					win.alertStaff("请填写广播内容!");
 					return;
 				}
 
@@ -186,7 +186,7 @@ public class StaffHeavenIndexPresenterImpl extends
 
 							@Override
 							public void onSuccess(BroadcastSaveResponse resp) {
-								win.alert("保存成功");
+								win.alertStaff("保存成功");
 								display.successClean();
 								doSearch(null);
 							}
@@ -212,6 +212,7 @@ public class StaffHeavenIndexPresenterImpl extends
 				display.getStaffInformation().setStyleName(noStyle);
 				display.getSysInformation().setStyleName(noStyle);
 				display.getThemeInformation().setStyleName(noStyle);
+				display.getQuietlyInformation().setStyleName(noStyle);
 				doSearch(null);
 			}
 		});
@@ -223,6 +224,7 @@ public class StaffHeavenIndexPresenterImpl extends
 				display.getStaffInformation().setStyleName(onStyle);
 				display.getSysInformation().setStyleName(noStyle);
 				display.getThemeInformation().setStyleName(noStyle);
+				display.getQuietlyInformation().setStyleName(noStyle);
 				doSearch(BroadcastingCategory.STAFFBROADCAST);
 			}
 		});
@@ -234,6 +236,7 @@ public class StaffHeavenIndexPresenterImpl extends
 				display.getStaffInformation().setStyleName(noStyle);
 				display.getSysInformation().setStyleName(onStyle);
 				display.getThemeInformation().setStyleName(noStyle);
+				display.getQuietlyInformation().setStyleName(noStyle);
 				doSearch(BroadcastingCategory.SYSBROADCAST);
 			}
 		});
@@ -245,7 +248,20 @@ public class StaffHeavenIndexPresenterImpl extends
 				display.getStaffInformation().setStyleName(noStyle);
 				display.getSysInformation().setStyleName(noStyle);
 				display.getThemeInformation().setStyleName(onStyle);
+				display.getQuietlyInformation().setStyleName(noStyle);
 				doSearch(BroadcastingCategory.THEMEBROADCAST);
+			}
+		});
+		display.getQuietlyInformation().addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				display.getAllInformation().setStyleName(noStyle);
+				display.getStaffInformation().setStyleName(noStyle);
+				display.getSysInformation().setStyleName(noStyle);
+				display.getThemeInformation().setStyleName(noStyle);
+				display.getQuietlyInformation().setStyleName(onStyle);
+				doSearch(BroadcastingCategory.QUIETLYINFORMATION);
 			}
 		});
 		buildTable();
@@ -260,7 +276,7 @@ public class StaffHeavenIndexPresenterImpl extends
 		pager = new EltNewPager(TextLocation.CENTER);
 		pager.setDisplay(cellTable);
 		cellTable.setWidth(ViewConstants.page_width);
-		cellTable.setPageSize(ViewConstants.per_page_number_in_dialog);
+		cellTable.setPageSize(ViewConstants.per_page_number_in_staff);
 		// cellTable.getColumn(0).setCellStyleNames("divTextLeft");
 		// display.getResultPanel().clear();
 		// display.getResultPanel().add(cellTable);

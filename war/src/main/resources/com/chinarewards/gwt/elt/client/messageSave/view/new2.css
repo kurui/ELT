@@ -236,10 +236,10 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .employee .pager,.employee .pager a{color:#333333;}
 .employee .pager a:hover{background-color:#707070;}
 
-.remark{background-color:#F8F9FD;overflow:hidden;padding:0px;width:auto;}
+.remark{background-color:#F8F9FD;overflow:hidden;padding:0px;width:auto;text-align: center;}
 .remark img{border:1px solid #CACACA;padding:2px;width:54px;height:54px;overflow:hidden;float:left;margin-right:10px;}
 .remark .remark-info{float:right;}
-.remark .remark-info .remark-tool{text-align:right;margin-top:5px;margin-left:5px;}
+.remark .remark-info .remark-tool{margin-top:5px;margin-left:5px;text-align: center;}
 .remark .textarea{width:638px;height:80px;border:1px solid #CBCBCB;padding:5px;overflow:auto;}
 .remark .button{margin-left:10px;color:#FFFFFF;background-color:#0D63B8;padding:2px 8px;border:1px solid #7CD2FD;border-bottom:1px solid #2E5F77;border-right:1px solid #3C7D9C;}
 
@@ -303,10 +303,10 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .employee .box .box-info{background-color:#F4F4F4;}
 .employee .box .box-info{padding:5px;}
 .employee .box .form .form-line{padding:10px 0;margin-bottom:0px;}
-.employee .box .form .form-line .label{width:70px;}
-.employee .box .form .form-line .element{width:450px;}
+.employee .box .form .form-line .label{width:70px;padding-bottom:3px;}
+.employee .box .form .form-line .element{width:450px;padding-bottom:3px;}
 .employee .box .news-receive{background-color:#F1F7FB;border:1px solid #D7D7D7;}
-.employee .box .textarea,.employee .box .text,.employee .box .long-text,.employee .box .select{border:1px solid #CCCCCC;}
+.employee .box .textarea,.employee .box .text,.employee .box .long-text,.employee .box .select{border:1px solid #CCCCCC;padding-bottom:3px;}
 .employee .box .textarea{height:100px;padding:5px;overflow:auto;}
 .employee .box .long-text{height:20px;line-height:20px;width:421px;padding:0 5px;color:#999999;}
 .employee .box .long-text-area{margin-top:10px;}

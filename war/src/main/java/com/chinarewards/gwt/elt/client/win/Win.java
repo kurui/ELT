@@ -8,6 +8,7 @@ import com.chinarewards.gwt.elt.client.ui.DialogBox;
 import com.chinarewards.gwt.elt.client.ui.MyDialogBox;
 import com.chinarewards.gwt.elt.client.win.alert.AlertDialog;
 import com.chinarewards.gwt.elt.client.win.alert.AlertWidget;
+import com.chinarewards.gwt.elt.client.win.alert.StaffAlertDialog;
 import com.chinarewards.gwt.elt.client.win.confirm.ConfirmDialog;
 import com.chinarewards.gwt.elt.client.win.confirm.ConfirmHandler;
 import com.chinarewards.gwt.elt.client.win.confirm.WinEvent;
@@ -30,6 +31,7 @@ public class Win {
 
 	final Provider<ConfirmDialog> dialogProvider;
 	final Provider<AlertDialog> alertDialogProvider;
+	final Provider<StaffAlertDialog> alertStaffDialogProvider;
 	final EventBus eventBus;
 	AlertWidget alertWidget;
 
@@ -39,11 +41,12 @@ public class Win {
 	@Inject
 	public Win(Provider<ConfirmDialog> dialogProvider,
 			Provider<AlertDialog> alertDialogProvider, EventBus eventBus,
-			AlertWidget alertWidget) {
+			AlertWidget alertWidget,Provider<StaffAlertDialog> alertStaffDialogProvider) {
 		this.dialogProvider = dialogProvider;
 		this.alertDialogProvider = alertDialogProvider;
 		this.eventBus = eventBus;
 		this.alertWidget = alertWidget;
+		this.alertStaffDialogProvider=alertStaffDialogProvider;
 	}
 
 	public void confirm(String title, String msg, final ConfirmHandler handler) {
@@ -70,6 +73,11 @@ public class Win {
 
 	public void alert(String msg) {
 		final AlertDialog dialog = alertDialogProvider.get();
+		dialog.setMsg(msg);
+		Platform.getInstance().getSiteManager().openDialog(dialog, null);
+	}
+	public void alertStaff(String msg) {
+		final StaffAlertDialog dialog = alertStaffDialogProvider.get();
 		dialog.setMsg(msg);
 		Platform.getInstance().getSiteManager().openDialog(dialog, null);
 	}

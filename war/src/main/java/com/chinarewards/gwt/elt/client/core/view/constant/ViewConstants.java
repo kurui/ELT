@@ -15,6 +15,7 @@ public abstract class ViewConstants {
 	public static final int per_page_number = 15;
 
 	public static final int per_page_number_in_dialog = 10;
+	public static final int per_page_number_in_staff = 8;
 	public static final int per_page_number_in_12 = 12;
 
 	public static final int per_page_number_in_entry = 5;

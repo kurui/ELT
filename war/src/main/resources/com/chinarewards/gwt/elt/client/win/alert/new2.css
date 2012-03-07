@@ -13,8 +13,8 @@ button{cursor:pointer;}
 textarea{word-wrap:break-word;resize:none;}
 
 /*---------------------------------------全局模块----------------------------------------------*/
-.menu,.menu span,.menu-on,.menu-on span,.status-arrow,.list-top,.list-bottom,.btn,.btn button,.back-btn,.box .box-tl,.box .box-tr,.box .box-bl,.box .box-br,.box-btn-ok,.box-btn-cannel,.box-close{background:url(elt/images/elt.png) no-repeat;}
-.sidebar .title,.cutline,.footer-line{background:url(elt/images/elt_repeat.png) repeat-x;}
+.menu,.menu span,.menu-on,.menu-on span,.status-arrow,.list-top,.list-bottom,.btn,.btn button,.blue-btn,.blue-btn button,.back-btn,.box .box-tl,.box .box-tr,.box .box-bl,.box .box-br,.box-btn-ok,.box-btn-cannel,.box-close,.employee .menu,.employee .menu span,.employee .menu-on,.employee .menu-on span,.new-tips,.employee .menu-border-top,.employee .menu-border-bottom,.liimg,.note .close,.news-icon,.gift-duihuan,.jifen-btn{background:url(elt/images/elt.png) no-repeat;}
+.sidebar .title,.cutline,.footer-line,.employee .footer .footer-wrap,.employee .menu-nav{background:url(elt/images/elt_repeat.png) repeat-x;}
 
 body{background-color:#fff;color:#333333;font:12px/1.5 Tahoma, Arial, simsun;min-width:960px;}
 a{color:#565656;text-decoration:none;}
@@ -149,6 +149,13 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .box .box-title-sep{width:1px;height:40px;display:inline-block;background-color:#fff;vertical-align:middle;margin-right:15px;}
 
 
+.box .box-context .box-tools2{text-align:center;padding:10px 0 31px;background-color:#EEEEEE;\_zoom:1;}
+.box .box-context .box-tools2 span{display:inline-block;}
 
-
+.remark{background-color:#F8F9FD;overflow:hidden;margin-right: 180px;width:50px;float: right;}
+.remark img{border:1px solid #CACACA;padding:2px;width:54px;height:54px;overflow:hidden;float:left;margin-right:10px;}
+.remark .remark-info{float:left;width:650px;}
+.remark .remark-info .remark-tool{text-align:right;margin-top:5px;}
+.remark .textarea{width:638px;height:80px;border:1px solid #CBCBCB;padding:5px;overflow:auto;}
+.remark .button{color:#FFFFFF;background-color:#0D63B8;padding:2px 8px;border:1px solid #7CD2FD;border-bottom:1px solid #2E5F77;border-right:1px solid #3C7D9C;}
 

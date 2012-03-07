@@ -38,6 +38,7 @@ public class SendMailServiceImpl implements SendMailService {
 		  String[] to = {staff.getEmail()};
 		  String[] filenames = {};
 		  Corporation corporation =  staff.getCorporation();
+		  if(corporation !=null){
 		  String smtp = corporation.getSmtp();
 		  String emailAddress = corporation.getEmailAddress();
 		  String password = corporation.getMailpwd();
@@ -46,6 +47,8 @@ public class SendMailServiceImpl implements SendMailService {
 		      return sendmail( smtp, emailAddress,password,title,emailAddress,to,content,filenames,miniType);
 		  else
 			  return "没有进行企业邮箱设置,不能发邮件";
+		  }else
+			  return "不能发邮件";
 	}
 
 	/**
