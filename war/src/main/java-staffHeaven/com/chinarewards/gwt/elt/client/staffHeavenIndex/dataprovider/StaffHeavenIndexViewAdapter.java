@@ -138,8 +138,8 @@ public class StaffHeavenIndexViewAdapter extends
 														dispatch,
 														sessionManager,
 														clint.getId(),
-														null,
-														null,
+														clint.getDeptName(),
+														clint.getCreatedByUserName(),
 														clint.getContent(),
 														DateTool.dateToStringChina2(clint
 																.getBroadcastingTime()),
