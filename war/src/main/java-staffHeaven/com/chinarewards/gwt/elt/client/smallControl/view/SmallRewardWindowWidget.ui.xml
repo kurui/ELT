@@ -4,7 +4,6 @@
 	xmlns:d='urn:import:com.google.gwt.user.datepicker.client'>
 	<ui:style src="new2.css" field="new2"></ui:style>
 	<g:HTMLPanel>
-
 		<div class="{new2.employee}">
 			<div class="{new2.reward-section}">
 				<ul class="{new2.reward-list}">

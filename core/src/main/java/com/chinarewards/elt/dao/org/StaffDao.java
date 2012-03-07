@@ -64,8 +64,7 @@ public class StaffDao extends BaseDao<Staff> {
 		}
 
 	}
-	
-	
+
 	/**
 	 * Find list of staff by id of department.
 	 * 
@@ -76,6 +75,15 @@ public class StaffDao extends BaseDao<Staff> {
 		return getEm()
 				.createQuery("FROM Staff s WHERE s.department.id =:deptId")
 				.setParameter("deptId", deptId).getResultList();
+	}
+
+	public int queryStaffCountByDepartmentId(String deptId) {
+		return Integer
+				.parseInt(getEm()
+						.createQuery(
+								"	SELECT COUNT(s) FROM Staff s WHERE s.department.id =:deptId")
+						.setParameter("deptId", deptId).getSingleResult()
+						.toString());
 	}
 
 	/**
@@ -98,8 +106,9 @@ public class StaffDao extends BaseDao<Staff> {
 				.setParameter("corpId", corpId).setParameter("lft", lft)
 				.setParameter("rgt", rgt).getResultList();
 	}
-	
-	public QueryStaffPageActionResult queryStaffPageAction(	StaffSearchVo searchVo) {
+
+	public QueryStaffPageActionResult queryStaffPageAction(
+			StaffSearchVo searchVo) {
 
 		logger.debug(" Process in queryStaffPageAction, searchVo:{}", searchVo);
 
@@ -127,7 +136,7 @@ public class StaffDao extends BaseDao<Staff> {
 
 		return result;
 	}
-   
+
 	@SuppressWarnings("unchecked")
 	private List<Staff> queryStaffPageActionData(StaffSearchVo searchVo) {
 		return getStaffQuery(searchVo, SEARCH).getResultList();
@@ -149,11 +158,11 @@ public class StaffDao extends BaseDao<Staff> {
 		// 关键字 姓名/编号
 		if (!StringUtil.isEmptyString(searchVo.getKeywords())) {
 			hql.append(" AND (UPPER(staff.name) LIKE :keywords "
-					// + " OR UPPER(staff.department.name) LIKE :keywords "
-					//+ " OR UPPER(staff.email) LIKE :keywords "
+			// + " OR UPPER(staff.department.name) LIKE :keywords "
+			// + " OR UPPER(staff.email) LIKE :keywords "
 					+ " OR UPPER(staff.jobNo) LIKE :keywords "
-				//	+ " OR UPPER(staff.memberCardNumber) LIKE :keywords)"
-					+") ");
+					// + " OR UPPER(staff.memberCardNumber) LIKE :keywords)"
+					+ ") ");
 			param.put("keywords", "%"
 					+ searchVo.getKeywords().trim().toUpperCase() + "%");
 		}
@@ -161,15 +170,15 @@ public class StaffDao extends BaseDao<Staff> {
 			hql.append(" AND staff.department.id = :deptId ");
 			param.put("deptId", searchVo.getDeptId());
 		}
-		if (searchVo.getStatus()!=null) {
+		if (searchVo.getStatus() != null) {
 			hql.append(" AND staff.status = :status ");
 			param.put("status", searchVo.getStatus());
-		}	
+		}
 		if (searchVo.getEnterpriseId() != null) {
 			hql.append(" AND staff.corporation.id =:corporationId");
 			param.put("corporationId", searchVo.getEnterpriseId());
 		}
-		if (searchVo.getStaffids() != null && searchVo.getStaffids().size()>0) {
+		if (searchVo.getStaffids() != null && searchVo.getStaffids().size() > 0) {
 			hql.append(" AND staff.id IN (:staffids)");
 			param.put("staffids", searchVo.getStaffids());
 		}
@@ -190,10 +199,12 @@ public class StaffDao extends BaseDao<Staff> {
 		}
 		hql.append(" AND staff.deleted = :deleted ");
 		param.put("deleted", 0);
-	
+
 		// ORDER BY
 		if (SEARCH.equals(type)) {
-			if (searchVo.getSortingDetail() != null && searchVo.getSortingDetail().getSort() != null && searchVo.getSortingDetail().getDirection() != null) {
+			if (searchVo.getSortingDetail() != null
+					&& searchVo.getSortingDetail().getSort() != null
+					&& searchVo.getSortingDetail().getDirection() != null) {
 				hql.append(" ORDER BY staff."
 						+ searchVo.getSortingDetail().getSort() + " "
 						+ searchVo.getSortingDetail().getDirection());
@@ -204,7 +215,7 @@ public class StaffDao extends BaseDao<Staff> {
 		logger.debug(" HQL:{} ", hql);
 		Query query = getEm().createQuery(hql.toString());
 		if (SEARCH.equals(type)) {
-			if (searchVo.getPaginationDetail() != null) {
+			if (searchVo.getPaginationDetail() != null && searchVo.getPaginationDetail().getLimit()!=0 && searchVo.getPaginationDetail().getStart()!=0) {
 				int limit = searchVo.getPaginationDetail().getLimit();
 				int start = searchVo.getPaginationDetail().getStart();
 
@@ -223,16 +234,21 @@ public class StaffDao extends BaseDao<Staff> {
 		}
 		return query;
 	}
-	public int queryWinnerRewardsCount(WinnersRecordQueryVo queryVo,String corporationId) {
-		int total = Integer.parseInt(getWinnerRewardsQueryBySql(queryVo, COUNT,	corporationId).getSingleResult().toString());
+
+	public int queryWinnerRewardsCount(WinnersRecordQueryVo queryVo,
+			String corporationId) {
+		int total = Integer.parseInt(getWinnerRewardsQueryBySql(queryVo, COUNT,
+				corporationId).getSingleResult().toString());
 		logger.debug("total num:{}", total);
 		return total;
 	}
+
 	@SuppressWarnings("unchecked")
 	public List<WinnersRecordQueryResult> queryWinnerRewardsData(
 			WinnersRecordQueryVo queryVo, String corporationId) {
 		List<WinnersRecordQueryResult> res = new ArrayList<WinnersRecordQueryResult>();
-		List<Object[]> staffs = getWinnerRewardsQueryBySql(queryVo, SEARCH,	corporationId).getResultList();
+		List<Object[]> staffs = getWinnerRewardsQueryBySql(queryVo, SEARCH,
+				corporationId).getResultList();
 		logger.debug("staff size:{}", staffs.size());
 		for (Object[] o : staffs) {
 
@@ -242,65 +258,64 @@ public class StaffDao extends BaseDao<Staff> {
 			re.setStaffName((String) o[1]);
 			re.setDepName((String) o[2]);
 			re.setDepId((String) o[3]);
-			
+
 			res.add(re);
 		}
 		return res;
 	};
+
 	public Query getWinnerRewardsQueryBySql(WinnersRecordQueryVo queryVo,
 			String type, String corporationId) {
 
-				logger.debug(" Process in getWinnerRewardsQueryBySql method, type:{}, corpId:{}, queryVo:{}",new Object[] { type, corporationId, queryVo.toString() });
+		logger.debug(
+				" Process in getWinnerRewardsQueryBySql method, type:{}, corpId:{}, queryVo:{}",
+				new Object[] { type, corporationId, queryVo.toString() });
 
-				StringBuffer sql = new StringBuffer();
-				Map<String, Object> param = new HashMap<String, Object>();
-				if (SEARCH.equals(type)) {
-					sql.append(" select staff.id, staff.name as staffName,(select dept.name from organization dept where dept.id=staff.department_id)  as deptName,(select dept.id from organization dept where dept.id=staff.department_id) AS deptId");
-					sql.append(" from organization staff  where staff.org_type = 'staff' ");
-				} else if (COUNT.equals(type)) {
-					sql.append("select count(*) from organization staff where staff.org_type='staff' ");
-				}
-				sql.append(" AND staff.deleted = :deleted ");
-				param.put("deleted", 0);
-				sql.append(" AND staff.corporation_id=:corporationId ");
-				logger.debug("corporationId:{}", corporationId);
-				param.put("corporationId", corporationId);
-				if (!StringUtil.isEmptyString(queryVo.getKey())) {
-					sql.append(" AND ( Upper(staff.name) LIKE Upper(:key)");
-					sql.append(" OR Upper(staff.phone) LIKE Upper(:key)");
-					sql.append(" OR Upper(staff.email) LIKE Upper(:key))");
-					param.put("key", "%" + queryVo.getKey() + "%");
-				}
+		StringBuffer sql = new StringBuffer();
+		Map<String, Object> param = new HashMap<String, Object>();
+		if (SEARCH.equals(type)) {
+			sql.append(" select staff.id, staff.name as staffName,(select dept.name from organization dept where dept.id=staff.department_id)  as deptName,(select dept.id from organization dept where dept.id=staff.department_id) AS deptId");
+			sql.append(" from organization staff  where staff.org_type = 'staff' ");
+		} else if (COUNT.equals(type)) {
+			sql.append("select count(*) from organization staff where staff.org_type='staff' ");
+		}
+		sql.append(" AND staff.deleted = :deleted ");
+		param.put("deleted", 0);
+		sql.append(" AND staff.corporation_id=:corporationId ");
+		logger.debug("corporationId:{}", corporationId);
+		param.put("corporationId", corporationId);
+		if (!StringUtil.isEmptyString(queryVo.getKey())) {
+			sql.append(" AND ( Upper(staff.name) LIKE Upper(:key)");
+			sql.append(" OR Upper(staff.phone) LIKE Upper(:key)");
+			sql.append(" OR Upper(staff.email) LIKE Upper(:key))");
+			param.put("key", "%" + queryVo.getKey() + "%");
+		}
 
-				if (queryVo.getSubDeptIds() != null
-						&& !queryVo.getSubDeptIds().isEmpty()) {
-					sql.append(" AND staff.department_id in (:deptIds)");
-					param.put("deptIds", queryVo.getSubDeptIds());
-				}
+		if (queryVo.getSubDeptIds() != null
+				&& !queryVo.getSubDeptIds().isEmpty()) {
+			sql.append(" AND staff.department_id in (:deptIds)");
+			param.put("deptIds", queryVo.getSubDeptIds());
+		}
 
-				// if corporation id is missing, will return empty result.
-				
-				
-                
-				logger.debug("native sql:{}", sql);
+		// if corporation id is missing, will return empty result.
 
-				// XXX make this EQL instead of native query
-				Query q = getEm().createNativeQuery(sql.toString());
-				if (SEARCH.equals(type)) {
-					
-					if (queryVo.getPaginationDetail() != null) {
-						q.setMaxResults(queryVo.getPaginationDetail().getLimit());
-						q.setFirstResult(queryVo.getPaginationDetail().getStart());
-					}
-				}
-				for (String key : param.keySet()) {
-					q.setParameter(key, param.get(key));
-				}
-				return q;
+		logger.debug("native sql:{}", sql);
+
+		// XXX make this EQL instead of native query
+		Query q = getEm().createNativeQuery(sql.toString());
+		if (SEARCH.equals(type)) {
+
+			if (queryVo.getPaginationDetail() != null) {
+				q.setMaxResults(queryVo.getPaginationDetail().getLimit());
+				q.setFirstResult(queryVo.getPaginationDetail().getStart());
 			}
+		}
+		for (String key : param.keySet()) {
+			q.setParameter(key, param.get(key));
+		}
+		return q;
+	}
 
-	
-	
 	@SuppressWarnings("unchecked")
 	public Set<String> findSiblingIds(String rootId, boolean includeRoot) {
 
@@ -334,7 +349,7 @@ public class StaffDao extends BaseDao<Staff> {
 
 		return result;
 	}
-	
+
 	/**
 	 * Find list of staff by ids
 	 * 
@@ -342,20 +357,22 @@ public class StaffDao extends BaseDao<Staff> {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Staff> findStaffsByStaffIds(List<String> staffIds) {
-		return getEm()
-				.createQuery("FROM Staff s WHERE s.id IN (:staffIds)")
+		return getEm().createQuery("FROM Staff s WHERE s.id IN (:staffIds)")
 				.setParameter("staffIds", staffIds).getResultList();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Staff> findStaffsByCorporationId(String corporationId) {
 		return getEm()
-				.createQuery("FROM Staff s WHERE s.corporation.id = :corporationId")
+				.createQuery(
+						"FROM Staff s WHERE s.corporation.id = :corporationId")
 				.setParameter("corporationId", corporationId).getResultList();
 	}
+
 	@SuppressWarnings("unchecked")
 	public List<Staff> findStaffsByNotUser() {
-		return getEm()
-				.createQuery("SELECT s FROM Staff s,SysUser u WHERE s.id != u.staff.id").getResultList();
+		return getEm().createQuery(
+				"SELECT s FROM Staff s,SysUser u WHERE s.id != u.staff.id")
+				.getResultList();
 	}
 }

@@ -91,4 +91,6 @@ public interface IStaffService {
 	 * @return
 	 */
 	public List<UserRole> findUserRoles(String staffId);
+	
+	public int queryStaffCountByDepartmentId(String deptId);
 }

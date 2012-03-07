@@ -12,6 +12,7 @@ import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsItemByIdR
 import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsItemByIdResponse;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemClient;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.chinarewards.gwt.elt.model.rewards.RewardsPageClient;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -48,7 +49,14 @@ public class RewardsItemViewStaffPresenterImpl
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent arg0) {
-						breadCrumbs.getGoHistory();
+//						breadCrumbs.getGoHistory();
+						RewardsPageClient client = new RewardsPageClient();
+						Platform.getInstance()
+								.getEditorRegistry()
+								.openEditor(
+										RewardsItemConstants.EDITOR_REWARDSITEM_COMPANYOTHER_LIST,
+										"EDITOR_REWARDSITEMLIST_COMPANYOTHER_SEARCH_DO_ID",
+										client);
 					}
 
 				}));

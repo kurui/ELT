@@ -625,4 +625,8 @@ public class StaffLogicImpl implements StaffLogic {
 		}
 		return null;
 	}
+	
+	public int queryStaffCountByDepartmentId(String deptId){
+		return staffDao.queryStaffCountByDepartmentId(deptId);
+	}
 }

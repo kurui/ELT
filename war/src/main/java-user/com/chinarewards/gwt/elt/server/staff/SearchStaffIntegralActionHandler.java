@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 
 import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.service.staff.IStaffService;
+import com.chinarewards.elt.util.StringUtil;
 import com.chinarewards.gwt.elt.client.staffIntegral.request.StaffIntegralRequest;
 import com.chinarewards.gwt.elt.client.staffIntegral.request.StaffIntegralResponse;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
@@ -38,11 +39,11 @@ public class SearchStaffIntegralActionHandler extends
 		Staff staff = staffService.findStaffById(request.getStaffId());
 		if (staff != null) {
 			staffResponse.setStaffId(staff.getId());
-			staffResponse.setHistoryIntegral(staff.getHistoryIntegral() + "");
-			staffResponse.setConsumptionIntegral(staff.getConsumptionIntegral()
-					+ "");
-			staffResponse.setBalanceIntegral(staffService.getBalance(staff
-					.getId()) + "");
+			staffResponse.setHistoryIntegral(StringUtil.subZeroAndDot(staff.getHistoryIntegral() + ""));
+			staffResponse.setConsumptionIntegral(StringUtil.subZeroAndDot(staff.getConsumptionIntegral()
+					+ ""));
+			staffResponse.setBalanceIntegral(StringUtil.subZeroAndDot(staffService.getBalance(staff
+					.getId()) + ""));
 		}
 		return staffResponse;
 	}

@@ -49,6 +49,8 @@ public interface StaffLogic {
 	 */
 	public List<Staff> getStaffsFromDeptId(String deptId,
 			boolean includeChildren);
+	
+	public int queryStaffCountByDepartmentId(String deptId);
 /**
  * 根据机构ID.返回所有员工
  * @param corporationId
