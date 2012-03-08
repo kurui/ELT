@@ -191,7 +191,7 @@ public class DepartmentLeaderTreeModel implements TreeViewModel {
 						departmentIds = departmentListDisplay
 								.getCurrentDepartmentId().getValue();
 						departmentIds = updateDepartmentIdsAsChecked(object,
-								departmentIds);
+								departmentIds,checked);
 
 						departmentListDisplay.getCurrentDepartmentId()
 								.setValue(departmentIds);
@@ -293,35 +293,21 @@ public class DepartmentLeaderTreeModel implements TreeViewModel {
 		}
 	}
 
-	// 如果 node.getId 在ids中存在，则返回true
-	private Boolean isChecked(DepartmentNode node, String departmentIds) {
-		if (node != null) {
-			String thisId = node.getDepartmentId();
-			boolean isExists = StringUtil.containsExistString(departmentIds,
-					thisId);
-
-			return isExists;
-		}
-		return false;
-	}
-
-	// currentId存在 则删除， 无 则加入
+	
 	private String updateDepartmentIdsAsChecked(DepartmentNode node,
-			String departmentIds) {
+			String departmentIds,boolean isChecked) {
 		if (node != null) {
 			String thisId = node.getDepartmentId();
-			boolean isExists = StringUtil.containsExistString(departmentIds,
-					thisId);
 
-			if (isExists) {
-				departmentIds = StringUtil.removeCellString(departmentIds,
-						thisId);
-			} else {
+			if (isChecked) {				
 				departmentIds = StringUtil.appendString(departmentIds, thisId,
 						",");
+			} else {
+				departmentIds = StringUtil.removeCellString(departmentIds,
+						thisId);
 			}
 		}
-		System.out.println("==========update selected Ids:" + departmentIds);
+		System.out.println("==========update selected Ids:"+departmentIds);
 		return departmentIds;
 	}
 

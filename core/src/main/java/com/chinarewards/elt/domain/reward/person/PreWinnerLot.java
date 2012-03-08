@@ -24,6 +24,7 @@ import com.chinarewards.elt.model.reward.base.PreWinnerLotStatus;
  * a rewards maybe has several PreWinnerLot. But only exist one whose status is
  * {@link PreWinnerLotStatus.PASS}.
  * 
+ * 获奖历史
  * @author yanxin
  * @since 1.0
  */

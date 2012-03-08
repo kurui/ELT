@@ -38,4 +38,21 @@ public class PreWinnerDao extends BaseDao<PreWinner> {
 						" FROM PreWinner winner WHERE winner.preWinnerLot.id=:preWinnerLotId ")
 				.setParameter("preWinnerLotId", preWinnerLotId).getResultList();
 	}
+	
+	
+	@SuppressWarnings("unchecked")
+	public List<PreWinner> findPreWinnerByStaffId(String staffId) {
+		return getEm()
+				.createQuery(
+						" FROM PreWinner winner WHERE winner.staff.id=:staffId ")
+				.setParameter("staffId", staffId).getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<PreWinner> findPreWinnerByStaffName(String staffName) {
+		return getEm()
+				.createQuery(
+						" FROM PreWinner winner WHERE winner.staff.name like :staffName ")
+				.setParameter("staffName", staffName).getResultList();
+	}
 }

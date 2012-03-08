@@ -9,7 +9,6 @@ import com.chinarewards.gwt.elt.client.rewardItem.request.SearchOrganizationRequ
 import com.chinarewards.gwt.elt.client.rewardItem.request.SearchOrganizationResponse;
 import com.chinarewards.gwt.elt.client.rewards.model.StaffOrDepartmentAC;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.IsSerializable;

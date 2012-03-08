@@ -27,7 +27,7 @@ public class RewardGridSearchVo {
 	private String corporationId;
 
 	private Date rewardsDate;
-
+	
 	private PaginationDetail paginationDetail;
 	private SortingDetail sortingDetail;
 
