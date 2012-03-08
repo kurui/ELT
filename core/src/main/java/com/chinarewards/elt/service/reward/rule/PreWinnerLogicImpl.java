@@ -116,7 +116,7 @@ public class PreWinnerLogicImpl implements PreWinnerLogic {
 			throws NoEffectivePreWinnerException {
 		List<PreWinnerLotStatus> statusList = new ArrayList<PreWinnerLotStatus>();
 		statusList.add(PreWinnerLotStatus.NEW);
-		List<PreWinnerLot> lotList = preWinnerLotDao
+		List<PreWinnerLot> lotList = preWinnerDao
 				.getPreWinnerLotsByRewardIdAndStatusList(rewardId, statusList);
 		if (lotList == null || lotList.isEmpty() || lotList.size() > 1) {
 			throw new NoEffectivePreWinnerException();
@@ -130,7 +130,7 @@ public class PreWinnerLogicImpl implements PreWinnerLogic {
 			throws NoEffectivePreWinnerException {
 		List<PreWinnerLotStatus> statusList = new ArrayList<PreWinnerLotStatus>();
 		statusList.add(PreWinnerLotStatus.PASS);
-		List<PreWinnerLot> lotList = preWinnerLotDao
+		List<PreWinnerLot> lotList = preWinnerDao
 				.getPreWinnerLotsByRewardIdAndStatusList(rewardId, statusList);
 		if (lotList == null || lotList.isEmpty() || lotList.size() > 1) {
 			throw new NoEffectivePreWinnerException();

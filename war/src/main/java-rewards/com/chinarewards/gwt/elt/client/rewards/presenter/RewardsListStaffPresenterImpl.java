@@ -83,8 +83,8 @@ public class RewardsListStaffPresenterImpl extends
 				}));
 	}
 
-	private void initWidget() {		
-		initRewardsItemSelect("");	
+	private void initWidget() {
+		initRewardsItemSelect("");
 
 		buildTable();
 		doSearch();
@@ -109,7 +109,7 @@ public class RewardsListStaffPresenterImpl extends
 	private void doSearch() {
 		RewardsGridCriteria criteria = new RewardsGridCriteria();
 		criteria.setStaffName(display.getWinnerName().getValue());
-	
+
 		int selectedIndex = display.getRewardsItem().getSelectedIndex();
 		if (selectedIndex > -1) {
 			String rewardsItemId = display.getRewardsItem().getValue(
@@ -118,7 +118,7 @@ public class RewardsListStaffPresenterImpl extends
 		}
 
 		criteria.setRewardsDate(display.getRewardsTime().getValue());
-		
+
 		criteria.setThisAction("Rewards_STAFF_HISTORY");
 
 		listViewAdapter = new RewardsListStaffViewAdapter(dispatch, criteria,
@@ -128,12 +128,13 @@ public class RewardsListStaffPresenterImpl extends
 	}
 
 	private void initRewardsItemSelect(String selectValue) {
-		ListBox itemList= display.getRewardsItem();
-		
-		if (itemList!=null) {
-			if(itemList.getItemCount()<1){
-				dispatch.execute(new SearchRewardsItemRequest(
-						new RewardsItemCriteria(), sessionManager.getSession()),
+		ListBox itemList = display.getRewardsItem();
+
+		if (itemList != null) {
+			if (itemList.getItemCount() < 1) {
+				dispatch.execute(
+						new SearchRewardsItemRequest(new RewardsItemCriteria(),
+								sessionManager.getSession()),
 						new AsyncCallback<SearchRewardsItemResponse>() {
 							@Override
 							public void onFailure(Throwable arg0) {
@@ -141,32 +142,37 @@ public class RewardsListStaffPresenterImpl extends
 							}
 
 							@Override
-							public void onSuccess(SearchRewardsItemResponse response) {
-								List<RewardsItemClient> itemList = response.getResult();
+							public void onSuccess(
+									SearchRewardsItemResponse response) {
+								List<RewardsItemClient> itemList = response
+										.getResult();
 								if (itemList != null) {
 									if (itemList.size() > 0) {
 										display.getRewardsItem().clear();
-										display.getRewardsItem().addItem("不限", "");
+										display.getRewardsItem().addItem("不限",
+												"");
 										for (int i = 0; i < itemList.size(); i++) {
-											RewardsItemClient item = itemList.get(i);
+											RewardsItemClient item = itemList
+													.get(i);
 											display.getRewardsItem().addItem(
-													item.getName(), item.getId());
+													item.getName(),
+													item.getId());
 										}
 									}
 								}
 							}
 						});
 			}
-			
+
 		}
-		
-		
+
 	}
 
 	private void initTableColumns() {
 		Sorting<RewardsGridClient> ref = new Sorting<RewardsGridClient>() {
 			@Override
-			public void sortingCurrentPage(Comparator<RewardsGridClient> comparator) {
+			public void sortingCurrentPage(
+					Comparator<RewardsGridClient> comparator) {
 				// listViewAdapter.sortCurrentPage(comparator);
 			}
 
