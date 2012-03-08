@@ -109,7 +109,7 @@ public class DepartmentListPresenterImpl extends
 				.addClickHandler(new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
 						String departmentIds = getDepartmentIds();
-						if (!StringUtil.isEmpty(departmentIds)) {
+						if (departmentIds != null) {
 							String[] ids = StringUtil.getSplitString(
 									departmentIds, ",");
 							if (ids != null) {

@@ -119,7 +119,7 @@ public class RewardsListStaffPresenterImpl extends
 
 		criteria.setRewardsDate(display.getRewardsTime().getValue());
 		
-		criteria.setThisAction("Rewards_STAFF");
+		criteria.setThisAction("Rewards_STAFF_HISTORY");
 
 		listViewAdapter = new RewardsListStaffViewAdapter(dispatch, criteria,
 				errorHandler, sessionManager, display);

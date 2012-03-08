@@ -8,6 +8,7 @@ import com.chinarewards.elt.domain.reward.base.RewardItem;
 import com.chinarewards.elt.domain.reward.person.Candidate;
 import com.chinarewards.elt.domain.reward.person.Judge;
 import com.chinarewards.elt.domain.reward.person.NomineeLot;
+import com.chinarewards.elt.domain.reward.person.PreWinner;
 import com.chinarewards.elt.domain.reward.person.Winner;
 import com.chinarewards.elt.domain.reward.rule.CandidateRule;
 
@@ -35,7 +36,7 @@ public class RewardGridVo {
 	// 奖项
 	private String rewardItemId = "";
 	private String rewardItemName = "";
-	private String rewardsItemCreateBy;// 奖项创建人
+	private String rewardsItemCreateBy = "";// 奖项创建人
 	private String rewardItemPhoto = "";
 
 	private String corporationId = "";
@@ -48,6 +49,8 @@ public class RewardGridVo {
 	private List<Judge> judgeList;
 	private List<NomineeLot> nomineeLotList;
 	private List<Winner> winnerList;
+
+	private List<PreWinner> preWinnerList;
 
 	public String getWinnersName() {
 		String winnersName = "";
@@ -138,6 +141,14 @@ public class RewardGridVo {
 
 	public void setWinnerList(List<Winner> winnerList) {
 		this.winnerList = winnerList;
+	}
+
+	public List<PreWinner> getPreWinnerList() {
+		return preWinnerList;
+	}
+
+	public void setPreWinnerList(List<PreWinner> preWinnerList) {
+		this.preWinnerList = preWinnerList;
 	}
 
 	public String getNominateName() {

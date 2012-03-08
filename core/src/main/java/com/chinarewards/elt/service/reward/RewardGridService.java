@@ -24,6 +24,16 @@ public interface RewardGridService {
 			RewardGridSearchVo criteria);
 	
 	/**
+	 * Staff 获奖历史 
+	 * @param uc
+	 * @param criteria
+	 * @return
+	 */
+	public PageStore<RewardGridVo> fetchRewards_STAFF_HISTORY(UserContext uc,
+			RewardGridSearchVo criteria);
+	
+	
+	/**
 	 * 我获得的奖励
 	 * @param context
 	 * @param criteria
@@ -88,5 +98,7 @@ public interface RewardGridService {
 	 */
 	public PageStore<RewardGridVo> fetchRewardsItem_COMPANY_OTHER(UserContext context,
 			RewardGridSearchVo criteria);
+
+
 
 }

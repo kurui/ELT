@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.chinarewards.elt.dao.reward.CandidateDao;
-import com.chinarewards.elt.dao.reward.RewardDao;
+import com.chinarewards.elt.dao.reward.PreWinnerLotDao;
 import com.chinarewards.elt.dao.reward.RewardItemDao;
 import com.chinarewards.elt.dao.reward.WinnerDao;
 import com.chinarewards.elt.domain.org.Staff;
@@ -13,6 +13,7 @@ import com.chinarewards.elt.domain.reward.base.RewardItem;
 import com.chinarewards.elt.domain.reward.person.Candidate;
 import com.chinarewards.elt.domain.reward.person.Judge;
 import com.chinarewards.elt.domain.reward.person.NomineeLot;
+import com.chinarewards.elt.domain.reward.person.PreWinnerLot;
 import com.chinarewards.elt.domain.reward.person.Winner;
 import com.chinarewards.elt.domain.reward.rule.CandidateRule;
 import com.chinarewards.elt.model.common.PageStore;
@@ -41,7 +42,7 @@ import com.google.inject.persist.Transactional;
 public class RewardGridLogicImpl implements RewardGridLogic {
 
 	private WinnerDao winnerDao;
-	private RewardDao rewardDao;
+	private PreWinnerLotDao preWinnerLotDao;
 	private RewardItemDao rewardItemDao;
 	private CandidateDao candidateDao;
 	private CandidateRuleLogic candidateRuleLogic;
@@ -51,13 +52,13 @@ public class RewardGridLogicImpl implements RewardGridLogic {
 	private WinnerLogic winnerLogic;
 
 	@Inject
-	public RewardGridLogicImpl(WinnerDao winnerDao, RewardDao rewardDao,
-			RewardItemDao rewardItemDao, CandidateDao candidateDao,
-			CandidateRuleLogic candidateRuleLogic,
+	public RewardGridLogicImpl(WinnerDao winnerDao,
+			PreWinnerLotDao preWinnerLotDao, RewardItemDao rewardItemDao,
+			CandidateDao candidateDao, CandidateRuleLogic candidateRuleLogic,
 			CandidateLogic candidateLogic, JudgeLogic judgeLogic,
 			NomineeLogic nomineeLogic, WinnerLogic winnerLogic) {
 		this.winnerDao = winnerDao;
-		this.rewardDao = rewardDao;
+		this.preWinnerLotDao = preWinnerLotDao;
 		this.rewardItemDao = rewardItemDao;
 		this.candidateDao = candidateDao;
 		this.candidateRuleLogic = candidateRuleLogic;
@@ -117,19 +118,15 @@ public class RewardGridLogicImpl implements RewardGridLogic {
 	public PageStore<RewardGridVo> fetchRewards_STAFF_HISTORY(
 			UserContext context, RewardGridSearchVo criteria) {
 		PageStore<RewardGridVo> pageStore = new PageStore<RewardGridVo>();
+		
+		
 
-		RewardSearchVo rewardSearchVo = new RewardSearchVo();
-		rewardSearchVo.setWinnerStaffId(null);
-		rewardSearchVo.setWinnerStaffName(criteria.getStaffName());
-		rewardSearchVo.setRewardItemId(criteria.getRewardItemId());
-		rewardSearchVo.setRewardsTime(criteria.getRewardsDate());
-
-		List<Winner> winnerlist = winnerDao
-				.queryCurrentStaffWinRewardData(rewardSearchVo);
+		List<PreWinnerLot> winnerlist = preWinnerLotDao
+				.queryRewardHistoryData(criteria);
 
 		int resultCount = winnerlist.size();
 
-		pageStore.setResultList(convertToGridVoListFromWinner(winnerlist));
+		pageStore.setResultList(convertToGridVoListFromPreWinner(winnerlist));
 		pageStore.setResultCount(resultCount);
 
 		return pageStore;
@@ -336,7 +333,8 @@ public class RewardGridLogicImpl implements RewardGridLogic {
 		List<RewardStatus> rstatus = new ArrayList<RewardStatus>();
 		String thisAction = criteria.getThisAction();
 		if (!StringUtil.isEmptyString(thisAction)) {
-			if ("RewardsItem_ALL".equals(thisAction)||"RewardsItem_COMPANY_OTHER".equals(thisAction)) {// 全部
+			if ("RewardsItem_ALL".equals(thisAction)
+					|| "RewardsItem_COMPANY_OTHER".equals(thisAction)) {// 全部
 				rstatus.add(RewardStatus.NEW);
 				rstatus.add(RewardStatus.PENDING_NOMINATE);
 				rstatus.add(RewardStatus.PENDING_APPLICATION);
@@ -374,12 +372,14 @@ public class RewardGridLogicImpl implements RewardGridLogic {
 						.getName());// 颁奖人
 
 				if (RewardStatus.NEW.equals(reward.getStatus())
-						|| RewardStatus.PENDING_NOMINATE.equals(reward.getStatus())
-						|| RewardStatus.PENDING_APPLICATION.equals(reward.getStatus())) {
+						|| RewardStatus.PENDING_NOMINATE.equals(reward
+								.getStatus())
+						|| RewardStatus.PENDING_APPLICATION.equals(reward
+								.getStatus())) {
 					rewardGridVo.setRewardStatusName("努力冲奖项");
-				}else if (RewardStatus.REWARDED.equals(reward.getStatus())) {
+				} else if (RewardStatus.REWARDED.equals(reward.getStatus())) {
 					rewardGridVo.setRewardStatusName("已获得奖项");
-				}else{
+				} else {
 					rewardGridVo.setRewardStatusName(reward.getStatus().name());
 				}
 
@@ -431,6 +431,63 @@ public class RewardGridLogicImpl implements RewardGridLogic {
 		pageStore.setResultCount(resultCount);
 
 		return pageStore;
+	}
+
+	private List<RewardGridVo> convertToGridVoListFromPreWinner(
+			List<PreWinnerLot> preWinnerLotList) {
+		List<RewardGridVo> gridVoList = new ArrayList<RewardGridVo>();
+
+		if (preWinnerLotList != null) {
+			for (int i = 0; i < preWinnerLotList.size(); i++) {
+				PreWinnerLot preWinnerLot = preWinnerLotList.get(i);
+				Reward reward = preWinnerLot.getReward();
+				if (reward != null) {
+					String rewardId = reward.getId();
+
+					RewardGridVo rewardGridVo = new RewardGridVo();
+					rewardGridVo.setRewardId(rewardId);
+					rewardGridVo.setRewardName(reward.getName());
+					rewardGridVo.setRewardsDate(preWinnerLot.getCreatedAt());
+					rewardGridVo.setAwardName(preWinnerLot.getCreatedBy()
+							.getStaff().getName());
+
+					rewardGridVo.setAwardAmt(reward.getAwardAmt());
+
+					RewardItem rewardItem = reward.getRewardItem();
+					rewardGridVo.setRewardItem(rewardItem);
+					rewardGridVo.setRewardItemId(rewardItem.getId());
+					rewardGridVo.setRewardItemName(rewardItem.getName());
+					rewardGridVo.setRewardsItemCreateBy(rewardItem
+							.getCreatedBy().getStaff().getName());// 奖项创建人
+
+					// candidate rule
+					CandidateRule candidateRule = candidateRuleLogic
+							.findCandidateRuleFromReward(rewardId);
+					// candidate list
+					List<Candidate> candidates = candidateLogic
+							.getCandidatesFromReward(rewardId);
+					// Judge list
+					List<Judge> judges = judgeLogic
+							.findJudgesFromReward(rewardId);
+					// nominee lot
+					List<NomineeLot> nomineeLots = nomineeLogic
+							.getNomineeLotsFromReward(rewardId);
+					// winner
+					List<Winner> winners = winnerLogic
+							.getWinnersOfReward(rewardId);
+
+					rewardGridVo.setReward(reward);
+					rewardGridVo.setCandidateRule(candidateRule);
+					rewardGridVo.setCandidateList(candidates);
+					rewardGridVo.setJudgeList(judges);
+					rewardGridVo.setNomineeLotList(nomineeLots);
+					rewardGridVo.setWinnerList(winners);
+
+					gridVoList.add(rewardGridVo);
+				}
+			}
+		}
+		return gridVoList;
 	}
 
 	private List<RewardGridVo> convertToGridVoListFromWinner(
