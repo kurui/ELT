@@ -287,6 +287,9 @@ public class RewardLogicImpl implements RewardLogic {
 			rewardDao.update(reward);
 		}
 		//获奖加入发送广播
+		UserContext context=new UserContext();
+		context.setCorporationId(reward.getCorporation().getId());
+		context.setUserId(caller.getId());
 		
 		List<String[]> organList=new ArrayList<String[]>();
 		
@@ -303,10 +306,14 @@ public class RewardLogicImpl implements RewardLogic {
 				organList.add(nameAndId);
 			}
 		}
+		//对获奖人.发送消息
+		BroadcastingVo messagevo=new BroadcastingVo();
+		messagevo.setOrganList(organList);
+		messagevo.setContent("恭喜您,您获得"+reward.getName()+"，获得奖金"+((int)reward.getAwardAmt())+"积分！");
+		broadcastService.createOrUpdateMessage(messagevo, context);
+		
+		
 
-		UserContext context=new UserContext();
-		context.setCorporationId(reward.getCorporation().getId());
-		context.setUserId(caller.getId());
 		
 		BroadcastingVo vo=new BroadcastingVo();
 		vo.setBroadcastingTimeStart(DateUtil.getTime());
