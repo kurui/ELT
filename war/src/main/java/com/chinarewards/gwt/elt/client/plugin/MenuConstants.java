@@ -98,8 +98,9 @@ public abstract class MenuConstants {
 	public static final int MENU_ORDER_HRBOX_EDIT = order++;
 	//leader的收件箱
 	public static final int MENU_ORDER_USERBOX_EDIT = order++;
-
-	// 新建预算
+	// 整体预算
+	public static final int MENU_ORDER_CORPBUDGET_EDIT = order++;
+	// 新建部门预算
 	public static final int MENU_ORDER_CREATE_BUDGET = order++;
 
 	// 奖项列表查询
@@ -153,8 +154,7 @@ public abstract class MenuConstants {
 	// 礼品详细
 	public static final int MENU_ORDER_DETAILSOFGIFT_SEARCH = order++;
 
-	// 整体预算
-	public static final int MENU_ORDER_CORPBUDGET_EDIT = order++;
+	
 	
 	//员工列表
 	public static final int MENU_ORDER_STAFFLIST_EDIT = order++;

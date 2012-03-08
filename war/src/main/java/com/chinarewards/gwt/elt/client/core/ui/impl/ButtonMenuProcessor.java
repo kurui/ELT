@@ -207,8 +207,8 @@ public class ButtonMenuProcessor implements MenuProcessor {
 			items.add(TeamConstants.MENU_TEAMLIST_SEARCH);
 		} else if ("Setting".equals(keyname)) {
 			items.add(EnterpriseConstants.MENU_ENTERPRISE_EDIT);
-			items.add(EnterpriseConstants.MENU_INTEGRAL_PRICE_EDIT);
-			items.add(EnterpriseConstants.MENU_PERIOD_EDIT);
+			//items.add(EnterpriseConstants.MENU_INTEGRAL_PRICE_EDIT);
+			//items.add(EnterpriseConstants.MENU_PERIOD_EDIT);
 			items.add(LeadTimeConstants.MENU_LEADTIME_SEARCH);
 			items.add(EnterpriseConstants.MENU_MAILSET_EDIT);
 		} else if ("Gift".equals(keyname)) {
