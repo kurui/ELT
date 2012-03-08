@@ -447,6 +447,14 @@ public class StaffLogicImpl implements StaffLogic {
 				}
 			}
 		}
+		
+		//通过邮箱修改登录账户名称
+		SysUser u = userDao.findUserByStaffId(ff.getId());
+		if(u!=null)
+		{
+			u.setUserName(ff.getEmail().substring(0,ff.getEmail().indexOf("@")));
+			userDao.update(u);
+		}
 		return ff.getId();
 	}
 

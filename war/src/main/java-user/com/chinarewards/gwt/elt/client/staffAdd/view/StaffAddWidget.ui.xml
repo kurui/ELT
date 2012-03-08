@@ -82,6 +82,7 @@
 						<label class="{new2.label}"><span style="color:red">*</span>Email：</label>
 						<div class="{new2.element}">
 							<g:TextBox maxLength="30" ui:field="email" styleName="{new2.text}" />
+							<font color='#75B528'>(温馨提示:邮箱会同步登录名)</font>
 						</div>
 					</div>
 					<div class="{new2.form-line}">
