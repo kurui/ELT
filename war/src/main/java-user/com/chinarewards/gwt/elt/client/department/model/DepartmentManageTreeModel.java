@@ -136,31 +136,7 @@ public class DepartmentManageTreeModel implements TreeViewModel {
 			}
 		});
 
-		// 操作
-		nodeRow.add(new HasCell<DepartmentNode, String>() {
-			private HyperLinkCell cell = new HyperLinkCell();
-
-			public Cell<String> getCell() {
-				return cell;
-			}
-
-			public FieldUpdater<DepartmentNode, String> getFieldUpdater() {
-				return new FieldUpdater<DepartmentNode, String>() {
-					@Override
-					public void update(int index, DepartmentNode object,
-							String value) {
-						DepartmentClient client = new DepartmentClient();
-						client.setId(object.getDepartmentId());
-						client.setThisAction(DepartmentConstants.ACTION_DEPARTMENT_EDIT_CORP);
-						openEditPage(client);
-					}
-				};
-			}
-
-			public String getValue(DepartmentNode object) {
-				return "操作";
-			}
-		});
+		
 
 		return nodeRow;
 	}
