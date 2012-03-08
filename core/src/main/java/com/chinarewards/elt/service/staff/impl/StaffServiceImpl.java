@@ -160,4 +160,9 @@ public class StaffServiceImpl implements IStaffService {
 	public int queryStaffCountByDepartmentId(String deptId){
 		return staffLogic.queryStaffCountByDepartmentId(deptId);
 	}
+
+	@Override
+	public String queryUserIdByStaffId(String staffId) {
+		return staffLogic.queryUserIdByStaffId(staffId);
+	}
 }

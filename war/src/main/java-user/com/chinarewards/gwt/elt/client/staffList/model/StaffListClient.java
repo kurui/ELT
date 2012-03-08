@@ -20,7 +20,14 @@ public class StaffListClient implements Serializable, Comparable<StaffListClient
 	String staffId;
 	String photo;
     String email;
+    String userId;
 	
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 	public String getEmail() {
 		return email;
 	}
