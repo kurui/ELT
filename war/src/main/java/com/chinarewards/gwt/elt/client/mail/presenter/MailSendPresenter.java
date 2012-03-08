@@ -3,6 +3,7 @@ package com.chinarewards.gwt.elt.client.mail.presenter;
 import com.chinarewards.gwt.elt.client.mvp.DialogPresenter;
 import com.chinarewards.gwt.elt.client.mvp.Display;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.dom.client.HasKeyUpHandlers;
 import com.google.gwt.user.client.ui.HasValue;
 
 public interface MailSendPresenter extends DialogPresenter<MailSendPresenter.MailSendDisplay> {
@@ -14,7 +15,9 @@ public interface MailSendPresenter extends DialogPresenter<MailSendPresenter.Mai
 		public HasClickHandlers getSaveBtnClickHandlers();
 
 		public HasClickHandlers getReturnBtnClickHandlers();
-			
+		public HasKeyUpHandlers getContentKeyUpHandlers();
+		void setMessage(String text);
+	
 		String getContent();
 		void setContent(String text);
 		void setStaffName(String name);

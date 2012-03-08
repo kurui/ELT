@@ -14,6 +14,8 @@ import com.chinarewards.gwt.elt.client.util.StringUtil;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.KeyUpEvent;
+import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -95,6 +97,18 @@ public class MailSendPresenterImpl extends	BaseDialogPresenter<MailSendPresenter
 
 					}
 				}));
+		registerHandler(display.getContentKeyUpHandlers().addKeyUpHandler(
+				new KeyUpHandler() {
+
+					@Override
+					public void onKeyUp(KeyUpEvent event) {
+						int sum = display.getContent().length();
+						if(sum>150)
+							display.setContent(display.getContent().substring(0,150));
+						display.setMessage((150-display.getContent().length())+"");
+					    }
+									
+		  }));
 
 	}
 
