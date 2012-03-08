@@ -206,7 +206,7 @@ public class RewardLogicImpl implements RewardLogic {
 		reward.setAccountDept(item.getAccountDept());
 		reward.setRewardUnit(item.getAwardUnit());
 		reward.setExpectAwardDate(item.getExpectAwardDate());
-		reward.setExpectNominateDate(item.getExpectAwardDate());
+		reward.setExpectNominateDate(item.getNominateDate());
 		reward.setCreatedAt(now);
 		reward.setCreatedBy(caller);
 		reward.setLastModifiedAt(now);
