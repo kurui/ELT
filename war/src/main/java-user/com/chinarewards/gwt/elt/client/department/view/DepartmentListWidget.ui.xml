@@ -50,7 +50,7 @@
 							<table>
 								<tr>
 									<td>
-										<g:AbsolutePanel ui:field="cellTree" height="250px" />
+										<g:AbsolutePanel ui:field="cellTree" height="350px" />
 									</td>
 								</tr>
 							</table>

@@ -93,8 +93,11 @@ public class DepartmentListPresenterImpl extends
 						// display.setUseIntegeral((int)response.getBudgetIntegral()+"");
 						List<DepartmentNode> nodeList = response.getResult();
 						display.loadTreeData(nodeList, corporationId);
+
 					}
 				});
+
+//			History.fireCurrentHistoryState();	
 	}
 
 	private String getDepartmentIds() {
@@ -264,12 +267,12 @@ public class DepartmentListPresenterImpl extends
 						// departmentIds);
 						Element element = display.getCellTree().getElement();
 						win.alert(element.getInnerHTML());
-//						win.alert(element.get);
-//						element.get
-						
+						// win.alert(element.get);
+						// element.get
+
 						System.out.println(element.getChildNodes());
-//						element.
-//						display.loadTreeData(nodeList, corporationId);
+						// element.
+						// display.loadTreeData(nodeList, corporationId);
 					}
 				}));
 
@@ -280,9 +283,9 @@ public class DepartmentListPresenterImpl extends
 		final MergeDepartmentWinDialog dialog = mergeDialogProvider.get();
 		dialog.initDialog(departmentIds);
 		//
-		
-		final HandlerRegistration registration=registerMergeEvent();
-		
+
+		final HandlerRegistration registration = registerMergeEvent();
+
 		Platform.getInstance().getSiteManager()
 				.openDialog(dialog, new DialogCloseListener() {
 					public void onClose(String dialogId, String instanceId) {
@@ -290,19 +293,16 @@ public class DepartmentListPresenterImpl extends
 					}
 				});
 	}
-	
-	//合并部门窗口处理事件
-	private HandlerRegistration registerMergeEvent(){
+
+	// 合并部门窗口处理事件
+	private HandlerRegistration registerMergeEvent() {
 		final HandlerRegistration registration = eventBus.addHandler(
 				MergeDepartmentEvent.getType(), new MergeDepartmentHandler() {
 					@Override
 					public void mergeDepartment(String departmentIds,
 							String departmentName, String leaderId) {
-						win.alert(" mergeDepartment ===="+departmentIds);
-						
-						
-						
-						
+						win.alert(" mergeDepartment ====" + departmentIds);
+
 					}
 				});
 		return registration;
