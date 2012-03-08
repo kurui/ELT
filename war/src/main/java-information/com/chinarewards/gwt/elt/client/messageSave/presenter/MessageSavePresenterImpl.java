@@ -23,6 +23,8 @@ import com.chinarewards.gwt.elt.client.util.StringUtil;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.KeyUpEvent;
+import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
@@ -73,7 +75,7 @@ public class MessageSavePresenterImpl extends
 							win.alertStaff("请填写信息内容!");
 							return;
 						}
-
+						
 						MessageSaveRequest request = new MessageSaveRequest();
 						if (broadcastId != null)
 							request.setBroadcastId(broadcastId);
@@ -146,6 +148,18 @@ public class MessageSavePresenterImpl extends
 
 					}
 				}));
+		registerHandler(display.getContentKeyUpHandlers().addKeyUpHandler(
+				new KeyUpHandler() {
+
+					@Override
+					public void onKeyUp(KeyUpEvent event) {
+						int sum = display.getContent().length();
+						if(sum>150)
+							display.setContent(display.getContent().substring(0,150));
+						    display.setMessage((150-display.getContent().length())+"");
+					    }
+									
+		  }));
 
 	}
 
