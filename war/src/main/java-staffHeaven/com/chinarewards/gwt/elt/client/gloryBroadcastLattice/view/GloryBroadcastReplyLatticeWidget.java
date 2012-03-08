@@ -91,7 +91,7 @@ public class GloryBroadcastReplyLatticeWidget extends Composite {
 				refMyreply();
 			}
 		});
-		if (replyNumber != 0) {
+		
 			this.replyNumberA.addClickHandler(new ClickHandler() {
 
 				@Override
@@ -99,7 +99,7 @@ public class GloryBroadcastReplyLatticeWidget extends Composite {
 					refWidget();
 				}
 			});
-		}
+		
 	}
 
 	void refMyreply()
