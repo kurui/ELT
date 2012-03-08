@@ -33,7 +33,6 @@ import com.chinarewards.gwt.elt.client.password.plugin.PasswordConstants;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemConstants;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsGridClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsGridCriteria;
-import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListConstants;
 import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListStaffConstants;
 import com.chinarewards.gwt.elt.client.rewards.request.SearchRewardsGridRequest;
 import com.chinarewards.gwt.elt.client.rewards.request.SearchRewardsGridResponse;
@@ -44,6 +43,7 @@ import com.chinarewards.gwt.elt.client.staffHeavenIndex.plugin.StaffHeavenIndexC
 import com.chinarewards.gwt.elt.client.staffInfo.plugin.StaffInfoConstants;
 import com.chinarewards.gwt.elt.client.staffIntegral.plugin.StaffIntegralConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.model.rewards.RewardsPageClient;
 import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -61,12 +61,14 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 	final MenuProcessor menuProcessor;
 	final DispatchAsync dispatchAsync;
 	final BreadCrumbsMenu breadCrumbsMenu;
+	final Win win;
+	
 
 	@Inject
 	public StaffPresenterImpl(EventBus eventBus, StaffDisplay display,
 			SessionManager sessionManager, PluginManager pluginManager,
 			EltGinjector injector, MenuProcessor menuProcessor,
-			DispatchAsync dispatchAsync, BreadCrumbsMenu breadCrumbsMenu) {
+			DispatchAsync dispatchAsync, BreadCrumbsMenu breadCrumbsMenu,Win win) {
 		super(eventBus, display);
 		this.sessionManager = sessionManager;
 		this.pluginManager = pluginManager;
@@ -74,6 +76,7 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 		this.menuProcessor = menuProcessor;
 		this.dispatchAsync = dispatchAsync;
 		this.breadCrumbsMenu = breadCrumbsMenu;
+		this.win=win;
 	}
 
 	public void bind() {
@@ -106,7 +109,7 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						Window.alert("收藏");
+						win.alertStaff("收藏");
 					}
 				}));
 
@@ -343,7 +346,7 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						Window.alert("待实现");
+						win.alertStaff("待实现");
 					}
 				}));
 		
