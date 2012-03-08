@@ -78,7 +78,7 @@ public class DetailsOfGiftPresenterImpl extends
 							
 							@Override
 							public void onClick(ClickEvent event) {
-								win.alertImage(response.getGiftPhoto());
+								win.alertImageStaff(response.getGiftPhoto());
 								
 							}
 						});
