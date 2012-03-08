@@ -103,6 +103,7 @@ public class HrBoxPresenterImpl extends BasePresenter<HrBoxDisplay>
 		RewardsCriteria criteria = new RewardsCriteria();
 		criteria.setStatus(RewardsStatus.REWARDED);//颁奖完
 		criteria.setLastMonth(DateTool.addSomeMonth(new Date(), -1));//上个月的时间
+		
 		dispatch.execute(new HrBoxRewardsRequest( criteria,sessionManager.getSession()),
 				new AsyncCallback<HrBoxRewardsResponse>() {
 					@Override
@@ -124,12 +125,12 @@ public class HrBoxPresenterImpl extends BasePresenter<HrBoxDisplay>
 							for (int col = 0; col < numColumns; col++) {
 								if (index < rewardsList.size()) {
 									RewardsClient clint = rewardsList.get(index);
-									grid.setWidget(row,	col,new RewardWindowWidget(clint.getId(),clint.getName()));
+									grid.setWidget(row,	col,new RewardWindowWidget(clint.getId(),clint.getName().substring(0,5)));
 									index++;
 									if(index == 5)
 										break;
 								} else {
-									grid.setWidget(row, col,new RewardWindowWidget(null,"无数据"));
+									//grid.setWidget(row, col,new RewardWindowWidget(null,"无数据"));
 								}
 							}
 						}

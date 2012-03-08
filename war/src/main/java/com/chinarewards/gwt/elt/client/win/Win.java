@@ -87,7 +87,12 @@ public class Win {
 		Platform.getInstance().getSiteManager().openDialog(dialog, null);
 		
 	}
-
+	public void alertImageStaff(String url) {
+		final StaffAlertDialog dialog = alertStaffDialogProvider.get();
+		dialog.setImage(url);
+		Platform.getInstance().getSiteManager().openDialog(dialog, null);
+		
+	}
 	public void beginWait(String msg) {
 		if (msg == null) {
 			msg = " 正在操作中，请稍候...";

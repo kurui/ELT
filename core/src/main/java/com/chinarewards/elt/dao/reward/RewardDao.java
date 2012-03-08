@@ -530,7 +530,7 @@ public class RewardDao extends BaseDao<Reward> {
 		
 	@SuppressWarnings("unchecked")
 	public  List<Reward> hrBoxRewards(String corporationId,RewardSearchVo criteria) {
-		String sql = "FROM Reward rew  WHERE rew.corporation.id = :corporationId AND rew.status = :status  and rew.deleted = :deleted and rew.lastModifiedAt between :lastmonth and sysdate ";
+		String sql = "FROM Reward rew  WHERE rew.corporation.id = :corporationId AND rew.status = :status  and rew.deleted = :deleted and rew.lastModifiedAt >= :lastmonth  ";
 		
 		List<Reward> resultList = getEm().createQuery(sql)
 				.setParameter("corporationId", corporationId)

@@ -96,6 +96,8 @@ public class StaffHeavenIndexViewAdapter extends
 								if (index < giftList.size()) {
 									StaffHeavenIndexClient clint = giftList
 											.get(index);
+									if(clint.getDeptName()!=null && clint.getDeptName().indexOf("ROOT")!=-1)
+										clint.setDeptName("");
 									if (clint.getCategory() == BroadcastingCategory.QUIETLYINFORMATION)
 										grid.setWidget(
 												row,

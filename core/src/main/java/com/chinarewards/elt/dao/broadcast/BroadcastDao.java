@@ -111,7 +111,10 @@ public class BroadcastDao  extends BaseDao<Broadcasting>{
 						+ searchVo.getSortingDetail().getSort() + " "
 						+ searchVo.getSortingDetail().getDirection());
 			} else {
-				hql.append(" ORDER BY broadcast.broadcastingTimeStart DESC ");
+				if(searchVo.getBroadcastMessagetype()==BroadcastMessage.BROADCASTING)
+					hql.append(" ORDER BY broadcast.broadcastingTimeStart DESC ");
+				else 
+					hql.append(" ORDER BY broadcast.createdAt DESC ");
 			}
 		}
 		logger.debug(" HQL:{} ", hql);
