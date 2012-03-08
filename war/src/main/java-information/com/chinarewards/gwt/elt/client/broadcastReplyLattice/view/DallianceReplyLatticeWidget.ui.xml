@@ -23,7 +23,7 @@
 								<g:InlineLabel ui:field="createDate" />
 							</span>
 							<span>
-								<g:Anchor text="我要调戏TA" ui:field="dallianceBtn" />
+								<g:Anchor text="我要调戏TA" ui:field="dallianceBtn" styleName="{new2.aa}"  />
 							</span>
 
 

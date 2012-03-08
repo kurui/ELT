@@ -29,9 +29,9 @@
 								<g:InlineLabel ui:field="createDept" />
 							</span>
 
-							<g:Anchor text="回复()" ui:field="replyNumberA" />
+							<g:Anchor text="回复()" ui:field="replyNumberA" styleName="{new2.aa}" />
 							|
-							<g:Anchor text="我来回复" ui:field="myreply" />
+							<g:Anchor text="我来回复" ui:field="myreply" styleName="{new2.aa}"  />
 						</p>
 						<g:FlowPanel ui:field="replyPanel" />
 					</div>
