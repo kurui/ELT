@@ -65,7 +65,7 @@ public class InitServlet extends HttpServlet {
 			calendar.set(Calendar.HOUR_OF_DAY, 01);
 			calendar.set(Calendar.MINUTE, 00);
 			calendar.set(Calendar.SECOND, 00);
-			long period = 10 * 24 * 60 * 60 * 1000;
+			long period = 24 * 60 * 60 * 1000;
 			// long period = 10 * 1000;
 			batchTimer.schedule(instance, calendar.getTime(),
 					period);
