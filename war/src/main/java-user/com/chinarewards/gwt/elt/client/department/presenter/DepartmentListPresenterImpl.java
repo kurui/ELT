@@ -29,7 +29,6 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Element;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -110,7 +109,7 @@ public class DepartmentListPresenterImpl extends
 				.addClickHandler(new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
 						String departmentIds = getDepartmentIds();
-						if (departmentIds != null) {
+						if (!StringUtil.isEmpty(departmentIds)) {
 							String[] ids = StringUtil.getSplitString(
 									departmentIds, ",");
 							if (ids != null) {
@@ -182,8 +181,7 @@ public class DepartmentListPresenterImpl extends
 					public void onClick(ClickEvent paramClickEvent) {
 						// win.alert("功能建设中");
 						String departmentIds = getDepartmentIds();
-						if (departmentIds != null
-								&& "".equals(departmentIds) == false) {
+						if (!StringUtil.isEmpty(departmentIds)) {
 							String[] ids = StringUtil.getSplitString(
 									departmentIds, ",");
 							if (ids != null) {
@@ -208,8 +206,7 @@ public class DepartmentListPresenterImpl extends
 					public void onClick(ClickEvent paramClickEvent) {
 						// win.alert("功能建设中");
 						String departmentIds = getDepartmentIds();
-						if (departmentIds != null
-								&& "".equals(departmentIds) == false) {
+						if (!StringUtil.isEmpty(departmentIds)) {
 							String[] ids = StringUtil.getSplitString(
 									departmentIds, ",");
 							if (ids != null) {
@@ -237,8 +234,7 @@ public class DepartmentListPresenterImpl extends
 					public void onClick(ClickEvent paramClickEvent) {
 						// win.alert("功能建设中");
 						String departmentIds = getDepartmentIds();
-						if (departmentIds != null
-								&& "".equals(departmentIds) == false) {
+						if (!StringUtil.isEmpty(departmentIds)) {
 							String[] ids = StringUtil.getSplitString(
 									departmentIds, ",");
 							if (ids != null) {

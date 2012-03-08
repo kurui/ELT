@@ -94,20 +94,24 @@ public class StringUtil {
 	 *            连接符
 	 * 
 	 * */
-	public static String appendString(String fullString, String cellStrng,
+	public static String appendString(String fullString, String cellString,
 			String appString) {
-		if (fullString == null || "".equals(fullString)) {
-			fullString = cellStrng + appString;
+		if (!isEmpty(fullString)) {
+			if (containsExistString(fullString, cellString)) {
+				// 如已存在，则不追加
+			} else {
+				fullString =fullString+appString+cellString;
+			}
 		} else {
-			fullString = fullString + appString + cellStrng;
+			fullString = cellString;
 		}
-
+		
 		return fullString;
 	}
 
 	public static boolean containsExistString(String fullString,
 			String cellString) {
-		if (fullString != null && cellString != null) {
+		if (!isEmpty(fullString) && !isEmpty(cellString)) {
 			int flag = fullString.indexOf(cellString);
 
 			if (flag >= 0) { // 大于0 则表示存在 为-1 则表示不存在
@@ -186,6 +190,7 @@ public class StringUtil {
 	}
 
 	public static void main(String[] args) {
+		System.out.println("=======test");
 		String str = "";
 		str = appendString(str, "123", ",");
 		System.out.println(str);
@@ -195,19 +200,20 @@ public class StringUtil {
 		System.out.println(str);
 		str = removeCellString(str, "456");
 		System.out.println(str);
-		
-		
+
 	}
-    /** 
-     * 使用java正则表达式去掉多余的.与0 
-     * @param s 
-     * @return  
-     */  
-    public static String subZeroAndDot(String s){  
-        if(s.indexOf(".") > 0){  
-            s = s.replaceAll("0+?$", "");//去掉多余的0  
-            s = s.replaceAll("[.]$", "");//如最后一位是.则去掉  
-        }  
-        return s;  
-    }  
+
+	/**
+	 * 使用java正则表达式去掉多余的.与0
+	 * 
+	 * @param s
+	 * @return
+	 */
+	public static String subZeroAndDot(String s) {
+		if (s.indexOf(".") > 0) {
+			s = s.replaceAll("0+?$", "");// 去掉多余的0
+			s = s.replaceAll("[.]$", "");// 如最后一位是.则去掉
+		}
+		return s;
+	}
 }
