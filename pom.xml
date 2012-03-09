@@ -254,6 +254,18 @@
 		<pluginManagement>
 			<plugins>
 				<plugin>
+					<groupId>com.chinarewards.maven.plugins</groupId>
+					<artifactId>maven-appinfo-plugin</artifactId>
+					<version>0.1.0</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>appinfo</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
 					<version>2.7.1</version>
@@ -271,10 +283,10 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-site-plugin</artifactId>
-					<configuration> 
-					 <argLine>-Xmx3048m</argLine> 
-					 <disableXmlReport>true</disableXmlReport> 
-					</configuration> 
+					<configuration>
+						<argLine>-Xmx3048m</argLine>
+						<disableXmlReport>true</disableXmlReport>
+					</configuration>
 				</plugin>
 
 				<!-- maven-eclipse-plugin -->

@@ -25,7 +25,7 @@
 				      <div class="{newitem.form-line}">
 				        <label class="{newitem.label2}">奖项说明：</label>
 				        <div class="{newitem.element}">
-				          <g:TextArea  ui:field="rewardsDefinition" visibleLines="3"  styleName="{newitem.textarea}" />
+				          <g:TextArea  ui:field="rewardsDefinition" visibleLines="3" styleName="{newitem.textarea}" />
 				        </div>
 				      </div>
 				      

@@ -72,4 +72,10 @@
 		<servlet-name>imageshow</servlet-name>
 		<url-pattern>/imageshow</url-pattern>
 	</servlet-mapping>
+	  <!-- AppInfoServer for displaying application version, name... -->
+  <servlet>
+    <servlet-name>appinfo</servlet-name>
+    <servlet-class>com.chinarewards.common.web.appinfo.AppInfoServlet</servlet-class>
+    <load-on-startup>99</load-on-startup>
+  </servlet>
 </web-app>

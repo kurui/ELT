@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.chinarewards</groupId>
@@ -12,6 +13,11 @@
 	<name>Web Interface</name>
 	<description>GWT web user interface</description>
 	<dependencies>
+		<dependency>
+			<groupId>com.chinarewards</groupId>
+			<artifactId>common-web</artifactId>
+			<version>2.2.0</version>
+		</dependency>
 		<!-- Hibernate STARTS -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -32,7 +38,7 @@
 		<!-- China Rewards Stuff STARTS -->
 
 		<!-- China Rewards Stuff ENDS -->
-	
+
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-servlet</artifactId>
@@ -127,50 +133,50 @@
 			<artifactId>log4j</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<!-- Logging ENDS -->
-				
+
 		<!-- gchart start -->
-		<dependency>	
+		<dependency>
 			<groupId>com.googlecode.gchart</groupId>
 			<artifactId>gchart</artifactId>
 		</dependency>
 		<!-- gchart end -->
-		
+
 		<!-- jexcel start -->
-		<dependency>	
+		<dependency>
 			<groupId>net.sourceforge.jexcelapi</groupId>
 			<artifactId>jxl</artifactId>
 		</dependency>
 		<!-- jexcel end -->
 		<!-- gwt upload start -->
 		<dependency>
-        	<groupId>com.googlecode.gwtupload</groupId>
-        	<artifactId>gwtupload</artifactId>
+			<groupId>com.googlecode.gwtupload</groupId>
+			<artifactId>gwtupload</artifactId>
 		</dependency>
 		<!-- gwt upload end -->
 		<!-- gwt incubator start -->
 		<dependency>
-		    <groupId>com.google.gwt</groupId>
-		    <artifactId>gwt-incubator</artifactId>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-incubator</artifactId>
 		</dependency>
 		<!-- gwt incubator end -->
-		
+
 		<dependency>
 			<groupId>jfree</groupId>
 			<artifactId>jfreechart</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.kfuntak.gwt.json</groupId>
 			<artifactId>gwtprojsonserializer</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 		</dependency>
-		
+
 	</dependencies>
 	<organization>
 		<name>China Rewards</name>
@@ -223,7 +229,7 @@
 				<configuration>
 					<jvmArgs>-Xmx3048m</jvmArgs>
 					<modules>
-						<module>com.chinarewards.gwt.elt.elt</module>	
+						<module>com.chinarewards.gwt.elt.elt</module>
 					</modules>
 					<runTarget>index.html</runTarget>
 					<webappDirectory>war</webappDirectory>
@@ -236,11 +242,9 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!--
-				If you want to use the target/web.xml file mergewebxml produces,
-				tell the war plugin to use it. Also, exclude what you want from the
-				final artifact here.
-			-->
+			<!-- If you want to use the target/web.xml file mergewebxml produces, 
+				tell the war plugin to use it. Also, exclude what you want from the final 
+				artifact here. -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
