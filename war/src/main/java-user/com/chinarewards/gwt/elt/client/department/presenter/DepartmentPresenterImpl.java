@@ -7,7 +7,6 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.ui.DialogCloseListener;
-import com.chinarewards.gwt.elt.client.department.model.DepartmentClient;
 import com.chinarewards.gwt.elt.client.department.model.DepartmentVo;
 import com.chinarewards.gwt.elt.client.department.plugin.DepartmentConstants;
 import com.chinarewards.gwt.elt.client.department.plugin.DepartmentListConstants;
@@ -339,12 +338,6 @@ public class DepartmentPresenterImpl extends
 						null);
 	}
 
-	private void openEditPage(DepartmentClient client) {
-		Platform.getInstance()
-				.getEditorRegistry()
-				.openEditor(DepartmentConstants.EDITOR_DEPARTMENT_EDIT,
-						"EDITOR_DEPARTMENT_EDIT", client);
-	}
 
 	private void closeEditPage() {
 		Platform.getInstance()
