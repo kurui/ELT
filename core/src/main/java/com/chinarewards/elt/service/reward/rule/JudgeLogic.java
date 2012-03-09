@@ -85,4 +85,7 @@ public interface JudgeLogic {
  * @param id2
  */
 	public void copyJudgeToRewardItem(SysUser caller,String rewardItemStoreId, String rewardItemId);
+	
+	//查到要提名的人短信通知
+	public void getNominatorToMessage();
 }

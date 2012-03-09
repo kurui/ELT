@@ -171,4 +171,17 @@ public class DateUtil {
 	public static int rand(int max){
 		return random.nextInt(max+1);
 	}
+	/**
+	 * 加上N天后是哪一天
+	 * 
+	 * @param date
+	 * @param day
+	 * @return
+	 */
+	public static Date addSomeDay(Date date, long day) {
+		long s1 = date.getTime();
+		long s = day * (1000 * 60 * 60 * 24);
+		long s2 = s + s1;
+		return new Date(s2);
+	}
 }

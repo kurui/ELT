@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.chinarewards.elt.common.BaseDao;
 import com.chinarewards.elt.domain.reward.person.Judge;
+import com.chinarewards.elt.model.reward.base.JudgeStatus;
+import com.chinarewards.elt.model.reward.base.RewardStatus;
 
 public class JudgeDao extends BaseDao<Judge> {
 
@@ -64,5 +66,13 @@ public class JudgeDao extends BaseDao<Judge> {
 			return judgeList.get(0);
 		else
 			return null;
+	}
+	@SuppressWarnings("unchecked")
+	public List<Judge> getNominatorToMessage(){
+	 	List<Judge> judgeList=getEm().createQuery("select j FROM Judge j,Reward r WHERE j.reward.id =r.id and j.status =:jstatus and r.status =:rstatus and r.expectNominateDate=sysdate")
+		.setParameter("jstatus", JudgeStatus.NONE)
+		.setParameter("rstatus", RewardStatus.PENDING_NOMINATE)
+		.getResultList();
+	 	return judgeList;
 	}
 }

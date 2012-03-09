@@ -9,8 +9,9 @@ import javax.servlet.http.HttpServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 import com.chinarewards.elt.service.reward.RewardItemService;
+import com.chinarewards.elt.service.reward.RewardService;
+import com.chinarewards.elt.service.reward.rule.JudgeLogic;
 import com.google.inject.Inject;
 
 
@@ -34,7 +35,10 @@ public class InitServlet extends HttpServlet {
 
 	@Inject
 	RewardItemService rewardItemService;
-
+	@Inject
+	JudgeLogic judgeLogic;
+	@Inject
+	RewardService rewardService;
 	public void init() throws ServletException {
 		// this must be invoked.
 		super.init();
@@ -43,7 +47,7 @@ public class InitServlet extends HttpServlet {
 
 		try {
 			autoGenerateRewardTask();
-			// synEnterpriserRecordTask();
+			autoSendMessage();//自动发送通知提名或颁奖的消息
 			logger.info("System initialization completed successfully");
 
 		} catch (Throwable t) {
@@ -56,8 +60,7 @@ public class InitServlet extends HttpServlet {
 
 	private void autoGenerateRewardTask() {
 		logger.debug(" begin to autoRewardsTask ");
-		AutoGenerateRewardTask autoGenerateRewardTask = AutoGenerateRewardTask
-				.getInstance();
+		AutoGenerateRewardTask autoGenerateRewardTask = AutoGenerateRewardTask.getInstance();
 		autoGenerateRewardTask.setRewardItemService(rewardItemService);
 		try {
 			AutoGenerateRewardTask instance = AutoGenerateRewardTask.getInstance();
@@ -71,6 +74,24 @@ public class InitServlet extends HttpServlet {
 					period);
 		} catch (Exception e) {
 			logger.error("Auto run generate reward,", e);
+		}
+	}
+	private void autoSendMessage() {
+		logger.debug(" begin to SendNominatorToMessage ");
+		AutoSendMessageToNominatorTask autoSendMessageToNominatorTask = AutoSendMessageToNominatorTask.getInstance();
+		autoSendMessageToNominatorTask.setJudgeLogic(judgeLogic);
+		autoSendMessageToNominatorTask.setRewardService(rewardService);
+		try {
+			AutoSendMessageToNominatorTask instance = AutoSendMessageToNominatorTask.getInstance();
+			Calendar calendar = Calendar.getInstance();
+			calendar.set(Calendar.HOUR_OF_DAY, 01);
+			calendar.set(Calendar.MINUTE, 00);
+			calendar.set(Calendar.SECOND, 00);
+			long period = 24 * 60 * 60 * 1000;
+			// long period = 10 * 1000;
+			batchTimer.schedule(instance, calendar.getTime(),period);
+		} catch (Exception e) {
+			logger.error("Auto run SendNominatorToMessage,", e);
 		}
 	}
 }

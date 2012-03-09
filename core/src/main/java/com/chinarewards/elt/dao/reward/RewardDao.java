@@ -542,4 +542,11 @@ public class RewardDao extends BaseDao<Reward> {
 		return resultList;
 		
 	}
+	//得到待颁奖的奖励
+	@SuppressWarnings("unchecked")
+	public List<Reward> getRewardsForReward() {
+		return getEm()
+				.createQuery(" FROM Reward r WHERE r.status = :status")
+				.setParameter("status", RewardStatus.NEW).getResultList();
+	}
 }

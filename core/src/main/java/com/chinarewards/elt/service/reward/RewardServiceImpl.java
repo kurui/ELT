@@ -147,4 +147,10 @@ public class RewardServiceImpl implements RewardService {
 	public List<RewardVo> getRewardsByHrBox(UserContext context,RewardSearchVo criteria){
 		return rewardLogic.getRewardsByHrBox(context, criteria);
 	}
+
+	@Override
+	public void toMessageForReward() {
+		rewardLogic.toMessageForReward();
+		
+	}
 }

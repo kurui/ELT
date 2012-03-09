@@ -94,7 +94,9 @@ public class BroadcastServiceImpl implements BroadcastService {
 			UserContext context,BroadcastMessage broadcastMessage,BroadcastingCategory broadcastingCategory)
 	{
 		Broadcasting broadcastBo = null;
-		SysUser nowUser = userLogic.findUserById(context.getUserId());
+		SysUser nowUser=null;
+		if(!StringUtil.isEmptyString(context.getUserId()))
+			nowUser = userLogic.findUserById(context.getUserId());
 		if (StringUtil.isEmptyString(broadcast.getBroadcastingId())) {
 			broadcastBo = new Broadcasting();
 			broadcastBo.setContent(broadcast.getContent());

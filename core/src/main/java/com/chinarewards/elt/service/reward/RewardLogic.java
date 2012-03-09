@@ -154,4 +154,6 @@ public interface RewardLogic {
 	 */
 	
 	public List<RewardVo> getRewardsByHrBox(UserContext context,RewardSearchVo criteria);
+	
+	public void toMessageForReward();
 }

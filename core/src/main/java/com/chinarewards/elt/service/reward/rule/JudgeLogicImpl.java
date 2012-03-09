@@ -1,5 +1,6 @@
 package com.chinarewards.elt.service.reward.rule;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,7 +15,11 @@ import com.chinarewards.elt.domain.reward.base.RewardItem;
 import com.chinarewards.elt.domain.reward.base.RewardItemStore;
 import com.chinarewards.elt.domain.reward.person.Judge;
 import com.chinarewards.elt.domain.user.SysUser;
+import com.chinarewards.elt.model.broadcast.BroadcastingVo;
+import com.chinarewards.elt.model.broadcast.OrganType;
 import com.chinarewards.elt.model.reward.base.JudgeStatus;
+import com.chinarewards.elt.model.user.UserContext;
+import com.chinarewards.elt.service.broadcast.BroadcastService;
 import com.chinarewards.elt.util.DateUtil;
 import com.google.inject.Inject;
 
@@ -31,14 +36,19 @@ public class JudgeLogicImpl implements JudgeLogic {
 	private final RewardDao rewardDao;
 	private final StaffDao staffDao;
 	private final RewardItemStoreDao rewardItemStoreDao;
+	private final BroadcastService broadcastService;
+
 	@Inject
 	public JudgeLogicImpl(JudgeDao judgeDao, RewardItemDao rewardItemDao,
-			RewardDao rewardDao, StaffDao staffDao,RewardItemStoreDao rewardItemStoreDao) {
+			RewardDao rewardDao, StaffDao staffDao,
+			RewardItemStoreDao rewardItemStoreDao,
+			BroadcastService broadcastService) {
 		this.judgeDao = judgeDao;
 		this.rewardItemDao = rewardItemDao;
 		this.rewardDao = rewardDao;
 		this.staffDao = staffDao;
 		this.rewardItemStoreDao = rewardItemStoreDao;
+		this.broadcastService = broadcastService;
 	}
 
 	@Override
@@ -59,11 +69,12 @@ public class JudgeLogicImpl implements JudgeLogic {
 			judgeDao.save(judge);
 		}
 	}
-	
+
 	@Override
-	public void bindJudgesToRewardItemStore(SysUser caller, String rewardItemStoreId,
-			List<String> staffIds) {
-		RewardItemStore rewardItemStore = rewardItemStoreDao.findById(RewardItemStore.class,rewardItemStoreId);
+	public void bindJudgesToRewardItemStore(SysUser caller,
+			String rewardItemStoreId, List<String> staffIds) {
+		RewardItemStore rewardItemStore = rewardItemStoreDao.findById(
+				RewardItemStore.class, rewardItemStoreId);
 		Date now = DateUtil.getTime();
 		for (String id : staffIds) {
 			Judge judge = new Judge();
@@ -85,19 +96,21 @@ public class JudgeLogicImpl implements JudgeLogic {
 			judgeDao.delete(judge);
 		}
 	}
-   
+
 	@Override
 	public void removeJudgesFromRewardItemStore(String rewardItemIdStore) {
-		List<Judge> judgeList = judgeDao.findJudgesFromRewardItemStore(rewardItemIdStore);
+		List<Judge> judgeList = judgeDao
+				.findJudgesFromRewardItemStore(rewardItemIdStore);
 		for (Judge judge : judgeList) {
 			judgeDao.delete(judge);
 		}
 	}
+
 	@Override
 	public List<Judge> findJudgesFromRewardItem(String rewardItemId) {
 		return judgeDao.findJudgesFromRewardItem(rewardItemId);
 	}
-	
+
 	@Override
 	public List<Judge> findJudgesFromRewardItemStore(String rewardItemStoreId) {
 		return judgeDao.findJudgesFromRewardItemStore(rewardItemStoreId);
@@ -129,10 +142,13 @@ public class JudgeLogicImpl implements JudgeLogic {
 	}
 
 	@Override
-	public void copyJudgeToRewardItem(SysUser caller,String rewardItemStoreId, String rewardItemId) {
+	public void copyJudgeToRewardItem(SysUser caller, String rewardItemStoreId,
+			String rewardItemId) {
 		Date now = DateUtil.getTime();
-		RewardItem rewardItem = rewardItemDao.findById(RewardItem.class, rewardItemId);
-		List<Judge> judges = judgeDao.findJudgesFromRewardItemStore(rewardItemStoreId);
+		RewardItem rewardItem = rewardItemDao.findById(RewardItem.class,
+				rewardItemId);
+		List<Judge> judges = judgeDao
+				.findJudgesFromRewardItemStore(rewardItemStoreId);
 		for (Judge j : judges) {
 			Judge newJudge = new Judge();
 			newJudge.setRewardItem(rewardItem);
@@ -144,6 +160,36 @@ public class JudgeLogicImpl implements JudgeLogic {
 			newJudge.setStatus(JudgeStatus.NONE);
 			judgeDao.save(newJudge);
 		}
+
+	}
+
+	@Override
+	public void getNominatorToMessage() {
 		
+		List<Judge> judges = judgeDao.getNominatorToMessage();
+
+		if (judges != null && judges.size() > 0) {
+			for (Judge j : judges) {
+				List<String[]> organList = new ArrayList<String[]>();
+				String[] nameAndId = new String[3];
+				nameAndId[0] = j.getStaff().getId();
+				nameAndId[1] = j.getStaff().getName();
+				nameAndId[2] = OrganType.STAFF.toString();
+				organList.add(nameAndId);
+				Reward r = j.getReward();
+				sendMessage(organList,j.getStaff().getCorporation().getId(),r.getCreatedBy().getId(),r.getName());
+			}
+			
+		}
+	}
+	private void sendMessage(List<String[]> organList,String corpId,String userId,String rewardname){
+		UserContext context = new UserContext();
+		context.setCorporationId(corpId);
+		context.setUserId(userId);
+		// 对提名人.发送消息
+		BroadcastingVo messagevo = new BroadcastingVo();
+		messagevo.setOrganList(organList);
+		messagevo.setContent("系统提示："+rewardname+"提名期限将至，请参加提名");
+		broadcastService.createOrUpdateMessage(messagevo, context);
 	}
 }

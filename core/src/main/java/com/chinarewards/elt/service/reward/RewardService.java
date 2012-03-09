@@ -144,4 +144,9 @@ public interface RewardService {
 	 * @return
 	 */
 	public int getRewardsByStaffId(String staffId);
+	
+	/**
+	 * 系统短信通知颁奖人进行颁奖
+	 */
+	public void toMessageForReward();
 }
