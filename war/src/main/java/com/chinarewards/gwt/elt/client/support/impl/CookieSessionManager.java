@@ -214,7 +214,13 @@ public class CookieSessionManager implements SessionManager {
 	}
 
 	public UserSession getSession() {
-		return session;
+		if(session!=null && session.getToken()!=null)
+			return session;
+		else
+		{
+			eventBus.fireEvent(new PlatformInitEvent(false));
+			return null;
+		}
 	}
 
 	public void registerLoginEventHandler(LoginHandler handler) {
