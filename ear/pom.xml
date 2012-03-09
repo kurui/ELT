@@ -34,7 +34,11 @@
 		</site>
 	</distributionManagement>
 	<dependencies>
-
+			<dependency>
+				<groupId>com.chinarewards</groupId>
+				<artifactId>common-web</artifactId>
+				<version>2.2.0</version>
+			</dependency>
 		<!-- China Rewards Stuff STARTS -->
 		<dependency>
 			<groupId>com.chinarewards</groupId>
