@@ -172,6 +172,7 @@ public class SearchRewardsGridHandler extends
 		searchVo.setStaffId(criteria.getStaffId());
 		searchVo.setStaffName(criteria.getStaffName());
 		searchVo.setRewardItemId(criteria.getRewardsItemId());
+		searchVo.setRewardItemName(criteria.getRewardsItemName());
 		searchVo.setRewardsDate(criteria.getRewardsDate());
 		
 		if (criteria.getPagination() != null) {

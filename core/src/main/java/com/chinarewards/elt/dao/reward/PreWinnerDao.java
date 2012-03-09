@@ -94,20 +94,26 @@ public class PreWinnerDao extends BaseDao<PreWinner> {
 			hql.append(" SELECT COUNT(win) FROM PreWinner win WHERE 1=1 ");
 		}
 
-//		if (!StringUtil.isEmptyString(searchVo.getStaffId())) {
-//				hql.append(" AND win.staff.id = :staffId ");
-//				param.put("staffId", searchVo.getStaffId());
-//		}
+		if (!StringUtil.isEmptyString(searchVo.getStaffId())) {
+				hql.append(" AND win.staff.id = :staffId ");
+				param.put("staffId", searchVo.getStaffId());
+		}
 
 		if (!StringUtil.isEmptyString(searchVo.getStaffName())) {
-				hql.append(" AND win.staff.name = :staffName ");
-				param.put("staffName", searchVo.getStaffName());			
+				hql.append(" AND win.staff.name like :staffName ");
+				param.put("staffName", "%"+searchVo.getStaffName()+"%");			
 		}
 
 		// 奖项ID
 		if (!StringUtil.isEmptyString(searchVo.getRewardItemId())) {
 			hql.append(" AND win.preWinnerLot.reward.rewardItem.id = :rewardsItemId ");
 			param.put("rewardsItemId", searchVo.getRewardItemId());
+		}
+		
+		// 奖项Name
+		if (!StringUtil.isEmptyString(searchVo.getRewardItemName())) {
+			hql.append(" AND win.preWinnerLot.reward.rewardItem.name like :rewardsItemName ");
+			param.put("rewardsItemName", "%"+searchVo.getRewardItemName()+"%");
 		}
 
 		// 获奖时间

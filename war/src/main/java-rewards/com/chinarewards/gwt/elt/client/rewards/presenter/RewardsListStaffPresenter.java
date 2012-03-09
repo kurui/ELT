@@ -22,6 +22,8 @@ public interface RewardsListStaffPresenter extends
 		public HasValue<String> getWinnerName();
 
 		public ListBox getRewardsItem();
+		
+		public HasValue<String> getRewardsItemName();
 
 		public DateBox getRewardsTime();
 

@@ -22,6 +22,8 @@ public class RewardsGridCriteria implements IsSerializable {
 	private String staffName;
 
 	private String rewardsItemId;
+	private String rewardsItemName;
+	
 	private Date rewardsDate;
 	
 	private String thisAction;
@@ -62,6 +64,16 @@ public class RewardsGridCriteria implements IsSerializable {
 
 	public void setRewardsItemId(String rewardsItemId) {
 		this.rewardsItemId = rewardsItemId;
+	}
+	
+	
+
+	public String getRewardsItemName() {
+		return rewardsItemName;
+	}
+
+	public void setRewardsItemName(String rewardsItemName) {
+		this.rewardsItemName = rewardsItemName;
 	}
 
 	public String getStaffName() {
