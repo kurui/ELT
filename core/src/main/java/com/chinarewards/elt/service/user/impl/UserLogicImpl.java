@@ -338,4 +338,13 @@ public class UserLogicImpl implements UserLogic {
 		}
 			
 	}
+	
+	@Override 
+	public SysUser findUserByStaffId(String staffId){
+		
+		SysUser user = userDao.findUserByStaffId(staffId);
+		
+		return user;
+	}
+
 }

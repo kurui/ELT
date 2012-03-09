@@ -37,7 +37,7 @@
 						<g:FlowPanel ui:field="preLeaderPanel" width="200px" visible="false"/>
 						
 					<span class="{new2.btn}">	<g:Button ui:field="chooseLeaderBtn">选择</g:Button></span>
-						
+					
 					</div>
 				</div>			
 				
@@ -82,6 +82,7 @@
 				<div class="{new2.form-line} {new2.form-line-btn}">
 					<div class="{new2.element}">
 						<span class="{new2.btn}">
+								<g:Hidden ui:field="formValidate"></g:Hidden>
 							<g:Button ui:field="save">保存</g:Button>
 						</span>
 						<span class="{new2.nbsp}"></span>

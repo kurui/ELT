@@ -112,4 +112,10 @@ public interface UserLogic {
 	public void deleteUserRole(String roleName, String staffId);
 	
 	public String updateStaffPwd(String staffId,String oldpwd,String pwd,String byUserId);
+
+	/**
+	 * @param staffId
+	 * @return
+	 */
+	public SysUser findUserByStaffId(String staffId);
 }

@@ -81,6 +81,7 @@ import com.chinarewards.gwt.elt.client.rewards.request.SearchRewardsGridRequest;
 import com.chinarewards.gwt.elt.client.rewards.request.SearchRewardsRequest;
 import com.chinarewards.gwt.elt.client.shopWindow.request.ShopWindowRequest;
 import com.chinarewards.gwt.elt.client.staff.request.HrRegisterRequest;
+import com.chinarewards.gwt.elt.client.staff.request.JudgeStaffAccountRequest;
 import com.chinarewards.gwt.elt.client.staff.request.LeadTimeRequest;
 import com.chinarewards.gwt.elt.client.staffAdd.request.StaffAddRequest;
 import com.chinarewards.gwt.elt.client.staffHeavenIndex.request.StaffHeavenIndexRequest;
@@ -174,6 +175,7 @@ import com.chinarewards.gwt.elt.server.rewards.SearchRewardsGridHandler;
 import com.chinarewards.gwt.elt.server.rewards.SearchRewardsHandler;
 import com.chinarewards.gwt.elt.server.shopWindow.SearchShopWindowHandler;
 import com.chinarewards.gwt.elt.server.staff.HrRegisterActionHandler;
+import com.chinarewards.gwt.elt.server.staff.JudgeStaffAccountHandler;
 import com.chinarewards.gwt.elt.server.staff.LeadTimeActionHandler;
 import com.chinarewards.gwt.elt.server.staff.SearchStaffIntegralActionHandler;
 import com.chinarewards.gwt.elt.server.staff.SearchStaffListActionHandler;
@@ -205,6 +207,7 @@ public class ActionModule extends ActionHandlerModule {
 
 		// user module
 		bindHandler(UserSearchRequest.class, UserSearchActionHandler.class);
+		bindHandler(JudgeStaffAccountRequest.class,JudgeStaffAccountHandler.class);
 		
 		//部门列表
 		bindHandler(DepartmentManageRequest.class,DepartmentManageHandler.class);

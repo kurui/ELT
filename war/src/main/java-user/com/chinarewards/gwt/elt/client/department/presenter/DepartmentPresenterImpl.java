@@ -139,7 +139,7 @@ public class DepartmentPresenterImpl extends
 								new AsyncCallback<EditDepartmentResponse>() {
 									@Override
 									public void onFailure(Throwable t) {
-										errorHandler.alert(t.toString());
+										win.alert(t.getMessage());
 									}
 
 									@Override
@@ -158,12 +158,12 @@ public class DepartmentPresenterImpl extends
 							@Override
 							public void confirm() {
 								dispatcher.execute(
-										new EditDepartmentRequest(department,sessionManager.getSession()),
+										new EditDepartmentRequest(department,
+												sessionManager.getSession()),
 										new AsyncCallback<EditDepartmentResponse>() {
 											@Override
 											public void onFailure(Throwable t) {
-												win.alert("修改失败");
-												closeEditPage();
+												win.alert(t.getMessage());
 											}
 
 											@Override
@@ -174,7 +174,7 @@ public class DepartmentPresenterImpl extends
 											}
 										});
 							}
-						});	
+						});
 					}
 				}));
 
@@ -245,6 +245,7 @@ public class DepartmentPresenterImpl extends
 		// flag = false;
 		// }
 
+		
 		if (!flag) {
 			win.alert(errorMsg.toString());
 		}

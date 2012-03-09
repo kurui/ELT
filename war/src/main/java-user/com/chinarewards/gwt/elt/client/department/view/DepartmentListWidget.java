@@ -54,9 +54,6 @@ public class DepartmentListWidget extends Composite implements
 	@Override
 	public void loadTreeData(List<DepartmentNode> nodeList,
 			String corporationId) {
-		
-		
-		
 		DepartmentManageTreeModel treeModel = new DepartmentManageTreeModel(
 				nodeList, corporationId,this);
 

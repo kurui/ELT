@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.chinarewards.elt.dao.reward.CandidateDao;
-import com.chinarewards.elt.dao.reward.PreWinnerLotDao;
+import com.chinarewards.elt.dao.reward.PreWinnerDao;
 import com.chinarewards.elt.dao.reward.RewardItemDao;
 import com.chinarewards.elt.dao.reward.WinnerDao;
 import com.chinarewards.elt.domain.org.Staff;
@@ -42,7 +42,7 @@ import com.google.inject.persist.Transactional;
 public class RewardGridLogicImpl implements RewardGridLogic {
 
 	private WinnerDao winnerDao;
-	private PreWinnerLotDao preWinnerLotDao;
+	private PreWinnerDao preWinnerDao;
 	private RewardItemDao rewardItemDao;
 	private CandidateDao candidateDao;
 	private CandidateRuleLogic candidateRuleLogic;
@@ -52,13 +52,13 @@ public class RewardGridLogicImpl implements RewardGridLogic {
 	private WinnerLogic winnerLogic;
 
 	@Inject
-	public RewardGridLogicImpl(WinnerDao winnerDao,
-			PreWinnerLotDao preWinnerLotDao, RewardItemDao rewardItemDao,
-			CandidateDao candidateDao, CandidateRuleLogic candidateRuleLogic,
+	public RewardGridLogicImpl(WinnerDao winnerDao, PreWinnerDao preWinnerDao,
+			RewardItemDao rewardItemDao, CandidateDao candidateDao,
+			CandidateRuleLogic candidateRuleLogic,
 			CandidateLogic candidateLogic, JudgeLogic judgeLogic,
 			NomineeLogic nomineeLogic, WinnerLogic winnerLogic) {
 		this.winnerDao = winnerDao;
-		this.preWinnerLotDao = preWinnerLotDao;
+		this.preWinnerDao = preWinnerDao;
 		this.rewardItemDao = rewardItemDao;
 		this.candidateDao = candidateDao;
 		this.candidateRuleLogic = candidateRuleLogic;
@@ -118,11 +118,8 @@ public class RewardGridLogicImpl implements RewardGridLogic {
 	public PageStore<RewardGridVo> fetchRewards_STAFF_HISTORY(
 			UserContext context, RewardGridSearchVo criteria) {
 		PageStore<RewardGridVo> pageStore = new PageStore<RewardGridVo>();
-		
-		
 
-		List<PreWinnerLot> winnerlist = preWinnerLotDao
-				.queryRewardHistoryData(criteria);
+		List<PreWinnerLot> winnerlist = preWinnerDao.queryRewardHistoryData(criteria);
 
 		int resultCount = winnerlist.size();
 
