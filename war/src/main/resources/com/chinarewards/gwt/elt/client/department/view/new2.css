@@ -68,9 +68,9 @@ a:hover{color:#010DFF;text-decoration:underline;}
 
 /*table*/
 .table caption{display:none;}
-.table table{width:100%;}
+.table table{}
 .table table,.table td,.table th{border:0px solid #DDDDDD;text-align:center;}
-.table td,.table th{padding:5px 0;}
+.table td,.table th{padding: 5px 215px 5px 8px;}
 .table th{background-color:#CCCCCC;font-size:12px;font-weight:bolder;color:#666666;}}
 
 /*pager*/

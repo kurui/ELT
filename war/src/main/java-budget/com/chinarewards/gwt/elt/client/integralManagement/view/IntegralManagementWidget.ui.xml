@@ -16,7 +16,7 @@
 
 			<div class="{new2.table}">
 
-				<table>
+				<table style="border-bottom: 1px solid #DDDDDD;border-left: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD; margin-bottom: 12px;">
 					<tr>
 						<th class="{new2.th2}" style="width: 10%;">部门</th>
 						<th class="{new2.th2}" style="width: 5%;">今年预算积分</th>
@@ -32,7 +32,7 @@
 				</table>
 			</div>
 			
-			今年财年预算剩余积分 : <g:InlineLabel ui:field="useIntegeral" />积分
+			今年财年预算剩余积分 : <g:InlineLabel ui:field="useIntegeral" /> 积分
 			<span class="{new2.cutline}"></span>
 			<div class="{new2.form-line} {new2.form-line-btn}">
 			        <div class="{new2.element}">

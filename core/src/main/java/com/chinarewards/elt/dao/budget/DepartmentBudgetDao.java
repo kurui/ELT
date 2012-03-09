@@ -55,6 +55,11 @@ public class DepartmentBudgetDao extends BaseDao<DepartmentBudget> {
 			eql.append(" AND d.departmentId in ( :deptIds )");
 			param.put("deptIds", vo.getDeptIds());
 		}
+		//按部门查询
+		if (vo.getDepartmentId()!=null && ! vo.getDepartmentId().isEmpty()) {
+			eql.append(" AND d.departmentId = :departmentId");
+			param.put("departmentId", vo.getDepartmentId());
+		}
 		if (!StringUtil.isEmptyString(vo.getCorpBudgetId())) {
 			eql.append(" AND d.corpBudgetId = :corpBudgetId ");
 			param.put("corpBudgetId", vo.getCorpBudgetId());

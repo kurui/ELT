@@ -169,10 +169,10 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 			throws DepartmentDeleteException {
 		Department department = departmentDao
 				.findById(Department.class, deptId);
-		if (!isLeaf(department)) {
-			throw new DepartmentDeleteException(
-					"It is not a leaf node, can not delete!");
-		}
+//		if (!isLeaf(department)) {
+//			throw new DepartmentDeleteException(
+//					"It is not a leaf node, can not delete!");
+//		}
 		int index = department.getLft();
 		String corpId = department.getCorporation().getId();
 		departmentDao.delete(department);

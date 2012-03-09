@@ -48,7 +48,7 @@ public class InitDepartmentHandler extends	BaseActionHandler<InitDepartmentReque
 		    listVo = departmentLogic.getImmediacyDepartmentsOfCorporation(action.getUserSession().getCorporationId());
 		    resp.setResult(adapterToClient(listVo));//从服务端转为客户端
 		 } else if (roleList.contains(UserRoleVo.DEPT_MGR)) {//得到子部门
-			 listVo = departmentLogic.getWholeChildren(action.getUserSession().getDepartmentId(),false);
+			 listVo = departmentLogic.getImmediacyChildren(action.getUserSession().getDepartmentId());
 			 resp.setResult(adapterToClient(listVo));//从服务端转为客户端
 		 }
 		return resp;

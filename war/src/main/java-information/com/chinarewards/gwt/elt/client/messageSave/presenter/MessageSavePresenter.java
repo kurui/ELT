@@ -7,6 +7,7 @@ import com.chinarewards.gwt.elt.client.mvp.Display;
 import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
 import com.chinarewards.gwt.elt.client.widget.SpecialTextArea;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.dom.client.HasKeyUpHandlers;
 import com.google.gwt.user.client.ui.Panel;
 
 public interface MessageSavePresenter extends
@@ -34,6 +35,7 @@ DialogPresenter<MessageSavePresenter.MessageSaveDisplay> {
 		List<String[]> getRealOrginzationIds();
 
 		SpecialTextArea<OrganicationClient> getSpecialTextArea();
-
+		public HasKeyUpHandlers getContentKeyUpHandlers();
+		void setMessage(String text);
 	}
 }

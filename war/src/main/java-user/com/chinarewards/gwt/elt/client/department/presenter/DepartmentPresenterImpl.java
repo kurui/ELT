@@ -158,7 +158,8 @@ public class DepartmentPresenterImpl extends
 							@Override
 							public void confirm() {
 								dispatcher.execute(
-										new EditDepartmentRequest(department,sessionManager.getSession()),
+										new EditDepartmentRequest(department,
+												sessionManager.getSession()),
 										new AsyncCallback<EditDepartmentResponse>() {
 											@Override
 											public void onFailure(Throwable t) {
@@ -174,7 +175,7 @@ public class DepartmentPresenterImpl extends
 											}
 										});
 							}
-						});	
+						});
 					}
 				}));
 
@@ -245,6 +246,7 @@ public class DepartmentPresenterImpl extends
 		// flag = false;
 		// }
 
+		
 		if (!flag) {
 			win.alert(errorMsg.toString());
 		}

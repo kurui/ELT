@@ -93,4 +93,10 @@ public interface IStaffService {
 	public List<UserRole> findUserRoles(String staffId);
 	
 	public int queryStaffCountByDepartmentId(String deptId);
+	/**
+	 * 根据员工ID..查询用户ID
+	 * @param staffId
+	 * @return
+	 */
+	public String queryUserIdByStaffId(String staffId);
 }

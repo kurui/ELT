@@ -36,7 +36,7 @@
 									<g:TextArea ui:field="content" styleName="{new2.textarea}" />
 									<p class="{new2.tishi}">
 										还能输入
-										<span>150</span>
+										<span><g:InlineLabel ui:field="message"/></span>
 										个字
 									</p>
 								</div>

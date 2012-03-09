@@ -92,6 +92,7 @@ public class SearchStaffListActionHandler extends
 			client.setPhone(staff.getPhone());
 			client.setEmail(staff.getEmail());
 			client.setJobPosition(staff.getJobPosition());
+			client.setUserId(staffService.queryUserIdByStaffId(staff.getId()));
 			if(staff.getDepartment()!=null)
 			client.setDepartmentName(staff.getDepartment().getName());
 			if(staff.getStatus()!=null)

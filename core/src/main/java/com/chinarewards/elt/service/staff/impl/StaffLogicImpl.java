@@ -75,7 +75,8 @@ public class StaffLogicImpl implements StaffLogic {
 	@Inject
 	public StaffLogicImpl(StaffDao staffDao, DepartmentLogic deptLogic,
 			CorporationLogic corporationLogic, DepartmentDao depDao,
-			TransactionService transactionService,SendMailService sendMailService,
+			TransactionService transactionService,
+			SendMailService sendMailService,
 			DepartmentManagerLogic departmentManagerLogic, UserDao userDao,
 			WinnerDao winnerDao, UserRoleDao userRoleDao, RoleDao roleDao,
 			DepartmentManagerDao deptMgrDao, DepartmentLogic departmentLogic) {
@@ -447,12 +448,12 @@ public class StaffLogicImpl implements StaffLogic {
 				}
 			}
 		}
-		
-		//通过邮箱修改登录账户名称
+
+		// 通过邮箱修改登录账户名称
 		SysUser u = userDao.findUserByStaffId(ff.getId());
-		if(u!=null)
-		{
-			u.setUserName(ff.getEmail().substring(0,ff.getEmail().indexOf("@")));
+		if (u != null) {
+			u.setUserName(ff.getEmail()
+					.substring(0, ff.getEmail().indexOf("@")));
 			userDao.update(u);
 		}
 		return ff.getId();
@@ -472,11 +473,10 @@ public class StaffLogicImpl implements StaffLogic {
 	public GeneratedUserConstants generatedUserbyStaff(String staffId,
 			UserContext context) {
 		if ("ALL".equals(staffId)) {
-			List<Staff> list=staffDao.findStaffsByNotUser();
-			if(list!=null && list.size()>0)
-			{
-				for (Staff s:list) {
-					generatedUserbyStaffToo(s.getId(),context);
+			List<Staff> list = staffDao.findStaffsByNotUser();
+			if (list != null && list.size() > 0) {
+				for (Staff s : list) {
+					generatedUserbyStaffToo(s.getId(), context);
 				}
 			}
 		} else {
@@ -536,9 +536,9 @@ public class StaffLogicImpl implements StaffLogic {
 				userRole.setLastModifiedBy(nowuser);
 				userRole.setUser(u);
 				userRoleDao.createUserRole(userRole);
-				//发送邮件
+				// 发送邮件
 				String title = "ELT账户注册信息";
-				String content = "你的ELT账号是"+username+"，初始密码是123";
+				String content = "你的ELT账号是" + username + "，初始密码是123";
 				sendMailService.sendMail(title, content, staffId);
 			}
 		}
@@ -639,8 +639,17 @@ public class StaffLogicImpl implements StaffLogic {
 		}
 		return null;
 	}
-	
-	public int queryStaffCountByDepartmentId(String deptId){
+
+	public int queryStaffCountByDepartmentId(String deptId) {
 		return staffDao.queryStaffCountByDepartmentId(deptId);
+	}
+
+	@Override
+	public String queryUserIdByStaffId(String staffId) {
+		SysUser user = userDao.findUserByStaffId(staffId);
+		if (user != null)
+			return user.getId();
+		else
+			return null;
 	}
 }

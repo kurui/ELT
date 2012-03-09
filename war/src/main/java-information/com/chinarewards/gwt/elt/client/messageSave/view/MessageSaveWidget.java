@@ -10,11 +10,13 @@ import com.chinarewards.gwt.elt.client.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.widget.SpecialTextArea;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.dom.client.HasKeyUpHandlers;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.Widget;
@@ -33,7 +35,8 @@ public class MessageSaveWidget extends Composite implements MessageSaveDisplay {
 
 	@UiField
 	Panel staffOrDeptTextAreaPanel;
-
+	@UiField
+	InlineLabel message;
 
 	
 	SpecialTextArea<OrganicationClient> staffTextArea;
@@ -48,7 +51,7 @@ public class MessageSaveWidget extends Composite implements MessageSaveDisplay {
 
 	public MessageSaveWidget() {
 		initWidget(uiBinder.createAndBindUi(this));
-
+		message.setText("150");
 		staffTextArea = new OrganizationSpecialTextArea();
 		staffTextArea.getElement().getFirstChildElement().setClassName("token-input-list-facebook2");
 		staffOrDeptTextAreaPanel.add(staffTextArea);
@@ -108,5 +111,15 @@ public class MessageSaveWidget extends Composite implements MessageSaveDisplay {
 		chooseBtn.setVisible(false);
 	
 	}
+	@Override
+	public void setMessage(String text) {
+		this.message.setText(text);
+		
+	}
 
+	@Override
+	public HasKeyUpHandlers getContentKeyUpHandlers() {
+		// TODO Auto-generated method stub
+		return content;
+	}
 }

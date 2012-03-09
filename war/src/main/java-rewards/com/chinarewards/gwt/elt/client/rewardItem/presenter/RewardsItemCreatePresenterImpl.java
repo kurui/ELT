@@ -682,8 +682,14 @@ public class RewardsItemCreatePresenterImpl extends
 
 						flag = false;
 					}
-					
-				
+					if (display.getDefinition().getValue().length()>200) {
+						errorMsg.append("奖项说明不能大于200个字!<br>");
+						flag = false;
+					}
+					if (display.getStandard().getValue().length()>200) {
+						errorMsg.append("奖项条件不能大于200个字!<br>");
+						flag = false;
+					}
 					// 员工选择
 					if (staffBlock.getDisplay().isSomeone().getValue() == true) {
 						if (staffBlock.getDisplay().getRealOrginzationIds() == null) {

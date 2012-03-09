@@ -13,6 +13,8 @@ import com.chinarewards.gwt.elt.client.util.StringUtil;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.KeyUpEvent;
+import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
@@ -62,7 +64,7 @@ public class MailSavePresenterImpl extends
 							win.alertStaff("请填写邮件内容!");
 							return;
 						}
-
+						
 						MailVo mailvo = new MailVo();
 						mailvo.setContent(display.getContent());
 						mailvo.setStaffId(display.getStaffId());
@@ -98,6 +100,19 @@ public class MailSavePresenterImpl extends
 
 					}
 				}));
+		
+		registerHandler(display.getContentKeyUpHandlers().addKeyUpHandler(
+				new KeyUpHandler() {
+
+					@Override
+					public void onKeyUp(KeyUpEvent event) {
+						int sum = display.getContent().length();
+						if(sum>150)
+							display.setContent(display.getContent().substring(0,150));
+						display.setMessage((150-display.getContent().length())+"");
+					    }
+									
+		  }));
 
 	}
 

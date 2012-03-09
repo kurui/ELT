@@ -30,22 +30,8 @@
 
 
 			<div class="{new2.divend}"></div>
-			<div class="{new2.table}">
-				<table>
-					<tr>
-						<td style="width:15%"></td>
-						<td style="width:25%">
-							<table>
-								<tr>
-									<td>
-										<g:AbsolutePanel ui:field="cellTree" height="250px" />
-									</td>
-								</tr>
-							</table>
-						</td>
-						<td style="width:70%"></td>
-					</tr>
-				</table>
+			<div class="{new2.table}" style="border-color: #DDDDDD; border-style: solid; border-width: 1px; margin-top: 10px;">
+				<g:FlowPanel ui:field="cellTree"  />
 			</div>
 		</div>
 	</g:HTMLPanel>

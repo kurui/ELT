@@ -101,6 +101,7 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 				return;
 			}
 		   DepBudgetVo depBudgetVo = new DepBudgetVo();
+		   if(!display.getJF().getValue().equals(""))
 		   depBudgetVo.setBudgetIntegral(Double.parseDouble(display.getJF().getValue()));
 		   depBudgetVo.setCorpBudgetId(display.getYear());
 		   depBudgetVo.setDepartmentId(display.getDepart());

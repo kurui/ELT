@@ -26,6 +26,7 @@ import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemConstants;
 import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListConstants;
+import com.chinarewards.gwt.elt.client.staff.plugin.LeadTimeConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -159,9 +160,14 @@ public class DockPresenterImpl extends BasePresenter<DockDisplay> implements
 					public void onClick(ClickEvent event) {
 						display.setMenuTitle("设置");
 						menuProcessor.initrender(display.getMenu(), "Setting");
-						eventBus.fireEvent(new MenuClickEvent(
-								menuProcessor
-										.getMenuItem(EnterpriseConstants.MENU_ENTERPRISE_EDIT)));
+
+						if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.CORP_ADMIN)
+							eventBus.fireEvent(new MenuClickEvent(menuProcessor.getMenuItem(EnterpriseConstants.MENU_ENTERPRISE_EDIT)));
+						else if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.DEPT_MGR)	
+						{
+							eventBus.fireEvent(new MenuClickEvent(menuProcessor.getMenuItem(LeadTimeConstants.MENU_LEADTIME_SEARCH)));
+							menuProcessor.changItemColor("接收颁奖通知");
+						}
 					}
 				}));
 		registerHandler(display.getBtnGift().addClickHandler(

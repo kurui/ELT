@@ -6,6 +6,7 @@ import com.chinarewards.gwt.elt.client.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.widget.SpecialTextArea;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.dom.client.HasKeyUpHandlers;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -13,6 +14,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Hidden;
+import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
@@ -32,7 +34,8 @@ public class MailSaveWidget extends Composite implements MailSaveDisplay {
 	TextBox staffName;
 	@UiField
     Hidden staffId;
-	
+	@UiField
+	InlineLabel message;
 	SpecialTextArea<OrganicationClient> staffTextArea;
 	DateTimeFormat dateFormat = DateTimeFormat
 			.getFormat(ViewConstants.date_format);
@@ -45,6 +48,7 @@ public class MailSaveWidget extends Composite implements MailSaveDisplay {
 
 	public MailSaveWidget() {
 		initWidget(uiBinder.createAndBindUi(this));
+		message.setText("150");
 	}
 
 	@Override
@@ -98,4 +102,18 @@ public class MailSaveWidget extends Composite implements MailSaveDisplay {
 		return this.title.getValue();
 	}
 
+	
+
+	@Override
+	public void setMessage(String text) {
+		this.message.setText(text);
+		
+	}
+
+	@Override
+	public HasKeyUpHandlers getContentKeyUpHandlers() {
+		// TODO Auto-generated method stub
+		return content;
+	}
+   
 }

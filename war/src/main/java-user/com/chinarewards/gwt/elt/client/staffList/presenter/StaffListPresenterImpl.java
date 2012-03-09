@@ -12,7 +12,6 @@ import com.chinarewards.gwt.elt.client.mail.model.MailVo;
 import com.chinarewards.gwt.elt.client.mail.presenter.MailSendDialog;
 import com.chinarewards.gwt.elt.client.mail.request.MailRequest;
 import com.chinarewards.gwt.elt.client.mail.request.MailResponse;
-import com.chinarewards.gwt.elt.client.mailSave.dialog.MailSaveDialog;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
@@ -37,6 +36,7 @@ import com.chinarewards.gwt.elt.client.widget.Sorting;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.client.win.confirm.ConfirmHandler;
 import com.chinarewards.gwt.elt.model.user.UserRoleVo;
+import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -272,14 +272,18 @@ public class StaffListPresenterImpl extends
 				new GetValue<StaffListClient, String>() {
 					@Override
 					public String getValue(StaffListClient rewards) {
+						if(StringUtil.isEmpty(rewards.getUserId()))
 						return "生成账户";
+						else
+						return "";
 					}
 				}, new FieldUpdater<StaffListClient, String>() {
 
 					@Override
 					public void update(int index, final StaffListClient o,
 							String value) {
-						
+						if(StringUtil.isEmpty(o.getUserId()))
+						{
 						win.confirm("提示", "确定生成 <font color='blue'>"+o.getStaffName()+"</font> 的账户",new ConfirmHandler() {
 							
 							@Override
@@ -302,7 +306,7 @@ public class StaffListPresenterImpl extends
 							}
 						});
 
-					}
+					}}
 
 				});
 		cellTable.addColumn("操作", new HyperLinkCell(),
