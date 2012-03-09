@@ -64,6 +64,9 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 
 	@UiField
 	Button chooseLeaderBtn;
+	
+	@UiField
+	Hidden formValidate;
 
 	@UiField
 	Button save;
@@ -269,6 +272,11 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 	@Override
 	public SpecialTextArea<OrganicationClient> getPreLeaderArea() {
 		return preLeaderArea;
+	}
+
+	@Override
+	public Hidden getFormValidate() {
+		return formValidate;
 	}
 
 }

@@ -13,7 +13,9 @@ import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.org.DepartmentLogic;
 import com.chinarewards.elt.service.org.DepartmentManagerLogic;
 import com.chinarewards.elt.service.org.DepartmentService;
+import com.chinarewards.elt.service.staff.StaffLogic;
 import com.chinarewards.elt.service.user.UserLogic;
+import com.chinarewards.elt.util.StringUtil;
 import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
 
@@ -22,11 +24,13 @@ public class DepartmentServiceImpl implements DepartmentService {
 	private final DepartmentLogic departmentLogic;
 	private final DepartmentManagerLogic departmentManagerLogic;
 	private final UserLogic userLogic;
+	private final StaffLogic staffLogic;
 
 	@Inject
 	public DepartmentServiceImpl(DepartmentLogic departmentLogic,DepartmentManagerLogic departmentManagerLogic,
-			UserLogic userLogic) {
+			UserLogic userLogic,StaffLogic staffLogic) {
 		this.userLogic = userLogic;
+		this.staffLogic=staffLogic;
 		this.departmentLogic = departmentLogic;
 		this.departmentManagerLogic=departmentManagerLogic;
 
@@ -68,7 +72,25 @@ public class DepartmentServiceImpl implements DepartmentService {
 		
 		
 		departmentManagerLogic.deleteManager(department.getId(), preLeaderIds);
-		departmentManagerLogic.createManager(department.getId(), staffIds);
+		
+		if (staffIds!=null) {
+			for (int i = 0; i < staffIds.size(); i++) {
+				String staffId=staffIds.get(i);
+				if (!StringUtil.isEmptyString(staffId)) {
+					SysUser sysUser=userLogic.findUserByStaffId(staffId);
+					if (sysUser==null) {
+						Staff staff =staffLogic.findStaffById(staffId);
+						
+						throw new IllegalStateException(staff.getName()+" 没有生成账户，不能指定为部门经理");
+					}
+				}
+				
+			}
+		
+			
+			departmentManagerLogic.createManager(department.getId(), staffIds);
+		}
+	
 		
 		
 		

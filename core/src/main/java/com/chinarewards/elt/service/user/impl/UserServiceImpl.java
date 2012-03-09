@@ -79,4 +79,9 @@ public class UserServiceImpl implements UserService {
 	public String updateStaffPwd(String staffId,String oldpwd,String pwd,String byUserId) {
 		return userLogic.updateStaffPwd(staffId,oldpwd, pwd,byUserId);
 	}
+	
+	@Override
+	public SysUser findUserByStaffId(String staffId){
+		return userLogic.findUserByStaffId(staffId);
+	}
 }

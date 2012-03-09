@@ -1,11 +1,8 @@
 package com.chinarewards.gwt.elt.server.login;
 
-import java.util.List;
-
 import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.DispatchException;
 
-import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.model.user.UserSessionVo;
 import com.chinarewards.elt.service.user.UserService;
 import com.chinarewards.gwt.elt.client.login.TokenValidRequest;
@@ -48,21 +45,7 @@ public class TokenValidActionHandler extends
 		{
 			tokenRep.setLastLoginRole(UserRoleVo.valueOf(userSessionVo.getLastLoginRole().toString()));
 		}
-		else
-		{
-			List<UserRole> roles=userSessionVo.getUserRoles();
-			if(roles.size()>0)
-			{
-				if(roles.contains(UserRole.CORP_ADMIN))
-					tokenRep.setLastLoginRole(UserRoleVo.valueOf(UserRole.CORP_ADMIN.toString()));
-				else if(roles.contains(UserRole.DEPT_MGR))
-					tokenRep.setLastLoginRole(UserRoleVo.valueOf(UserRole.DEPT_MGR.toString()));
-				else if(roles.contains(UserRole.GIFT))
-					tokenRep.setLastLoginRole(UserRoleVo.valueOf(UserRole.GIFT.toString()));
-				else if(roles.contains(UserRole.STAFF))
-					tokenRep.setLastLoginRole(UserRoleVo.valueOf(UserRole.STAFF.toString()));
-			}
-		 }
+
 		}
 		return tokenRep;
 	}

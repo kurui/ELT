@@ -130,56 +130,56 @@ public class CookieSessionManager implements SessionManager {
 				tokenObtained(resp);
 
 				UserRoleVo role = resp.getLastLoginRole();
-				if(role!=null)
-				{
-					if (role == UserRoleVo.CORP_ADMIN)
-						 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK));
-					else if (role == UserRoleVo.DEPT_MGR)
-						 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_DEPT));
-					else if (role == UserRoleVo.STAFF)
-						 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_STAFF));
-					else if (role == UserRoleVo.GIFT)
-						eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_GIFT));	
-
-				}
-				else
-				{
+				//判断最后一次登录的权限是否被删除
 				List <UserRoleVo> roleslt = new ArrayList<UserRoleVo>();
 				UserRoleVo [] roles=resp.getUserRoles();
-				
-					if(roles.length>0)
+				if(roles.length>0)
+				{
+					for (UserRoleVo r:roles) {
+						roleslt.add(r);
+					}
+					
+					if(role!=null && roleslt.contains(role))
 					{
-						for (UserRoleVo r:roles) {
-							roleslt.add(r);
-						}
-						
-						if(roleslt.size()>0)
-						{
+						if (role == UserRoleVo.CORP_ADMIN)
+							 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK));
+						else if (role == UserRoleVo.DEPT_MGR)
+							 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_DEPT));
+						else if (role == UserRoleVo.STAFF)
+							 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_STAFF));
+						else if (role == UserRoleVo.GIFT)
+							eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_GIFT));	
+					}
+					else
+					{
 							if(roleslt.contains(UserRoleVo.CORP_ADMIN))
-							{
+							{		
 								 role=UserRoleVo.CORP_ADMIN;
+								 session.setLastLoginRole(role);
 								 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK));
 							}
 							else if(roleslt.contains(UserRoleVo.DEPT_MGR))
 							{
 								 role=UserRoleVo.DEPT_MGR;
+								 session.setLastLoginRole(role);
 								 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_DEPT));
 							}
 							else if(roleslt.contains(UserRoleVo.GIFT))
 							{
 								 role=UserRoleVo.GIFT;
+								 session.setLastLoginRole(role);
 								 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_GIFT));							 
 							}
 							else if(roleslt.contains(UserRoleVo.STAFF))
 							{
 								 role=UserRoleVo.STAFF;
+								 session.setLastLoginRole(role);
 								 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_STAFF));
 							}
 							else 
 								Window.alert("没有角色");
-						}
 					}
-				}
+					
 					if(role!=null)
 					{
 						dispatchAsync.execute(new LastLoginRoleRequest(resp.getToken(),role),
@@ -199,10 +199,12 @@ public class CookieSessionManager implements SessionManager {
 										
 									}
 								});
+						
 					}
 				
-
-			}
+				}
+			
+				}
 		});
 	}
 
@@ -313,7 +315,81 @@ public class CookieSessionManager implements SessionManager {
 						@Override
 						public void onSuccess(TokenValidResponse resp) {
 							tokenObtainedToo(resp);
-							eventBus.fireEvent(new PlatformInitEvent(true));
+
+							UserRoleVo role = resp.getLastLoginRole();
+							//判断最后一次登录的权限是否被删除
+							List <UserRoleVo> roleslt = new ArrayList<UserRoleVo>();
+							UserRoleVo [] roles=resp.getUserRoles();
+							if(roles.length>0)
+							{
+								for (UserRoleVo r:roles) {
+									roleslt.add(r);
+								}
+								
+								if(role!=null && roleslt.contains(role))
+								{
+									if (role == UserRoleVo.CORP_ADMIN)
+										 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK));
+									else if (role == UserRoleVo.DEPT_MGR)
+										 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_DEPT));
+									else if (role == UserRoleVo.STAFF)
+										 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_STAFF));
+									else if (role == UserRoleVo.GIFT)
+										eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_GIFT));	
+								}
+								else
+								{
+										if(roleslt.contains(UserRoleVo.CORP_ADMIN))
+										{		
+											 role=UserRoleVo.CORP_ADMIN;
+											 session.setLastLoginRole(role);
+											 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK));
+										}
+										else if(roleslt.contains(UserRoleVo.DEPT_MGR))
+										{
+											 role=UserRoleVo.DEPT_MGR;
+											 session.setLastLoginRole(role);
+											 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_DEPT));
+										}
+										else if(roleslt.contains(UserRoleVo.GIFT))
+										{
+											 role=UserRoleVo.GIFT;
+											 session.setLastLoginRole(role);
+											 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_GIFT));							 
+										}
+										else if(roleslt.contains(UserRoleVo.STAFF))
+										{
+											 role=UserRoleVo.STAFF;
+											 session.setLastLoginRole(role);
+											 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_STAFF));
+										}
+										else 
+											Window.alert("没有角色");
+								}
+								
+								if(role!=null)
+								{
+									dispatchAsync.execute(new LastLoginRoleRequest(resp.getToken(),role),
+											new AsyncCallback<LastLoginRoleResponse>() {
+				
+												@Override
+												public void onFailure(Throwable e) {
+													tokenObtained(null);
+													eventBus.fireEvent(new PlatformInitEvent(false));
+												}
+				
+												@Override
+												public void onSuccess(LastLoginRoleResponse resp) {
+													//成功
+													if("success".equals(resp.getFal()))
+														GWT.log("success update last login role ");
+													
+												}
+											});
+									
+								}
+							
+							}
 						}
 					});
 

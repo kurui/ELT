@@ -150,12 +150,6 @@ public class UserLogicImpl implements UserLogic {
 
 	@Override
 	public UserSessionVo tokenVaild(String token) {
-		try {
-			userDao.getEm().refresh(SysUser.class);
-		} catch (Exception e) {
-			System.out.println("not refresh");
-		}
-		
 		SysUser user = userDao.findById(SysUser.class, token);
 		if (user != null)
 			return findUserRolebySysUser(user);
@@ -344,4 +338,13 @@ public class UserLogicImpl implements UserLogic {
 		}
 			
 	}
+	
+	@Override 
+	public SysUser findUserByStaffId(String staffId){
+		
+		SysUser user = userDao.findUserByStaffId(staffId);
+		
+		return user;
+	}
+
 }

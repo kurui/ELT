@@ -59,6 +59,7 @@ public interface DepartmentService {
 	 * @param uc
 	 * @param department
 	 * @return
+	 * @throws DepartmentException 
 	 */
 	public Department saveDepartment(UserContext uc, Department department,List<String> staffIds,List<String> preLeaderIds);
 

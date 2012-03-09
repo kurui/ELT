@@ -38,6 +38,8 @@ public interface DepartmentPresenter extends
 
 		public void clear();
 
+		public Hidden getFormValidate();
+		
 		public HasClickHandlers getBackClick();
 
 		void setBreadCrumbs(Widget breadCrumbs);
