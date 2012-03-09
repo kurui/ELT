@@ -78,4 +78,8 @@
     <servlet-class>com.chinarewards.common.web.appinfo.AppInfoServlet</servlet-class>
     <load-on-startup>99</load-on-startup>
   </servlet>
+  	<servlet-mapping>
+		<servlet-name>appinfo</servlet-name>
+		<url-pattern>/appinfo</url-pattern>
+	</servlet-mapping>
 </web-app>
