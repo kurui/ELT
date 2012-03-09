@@ -130,6 +130,7 @@ public class StaffLogicImpl implements StaffLogic {
 			ff.setCreatedBy(caller);
 			ff.setCreatedAt(DateUtil.getTime());
 			ff.setDeleted(0);
+			ff.setLeadTime(0);
 			staffDao.save(ff);
 			return ff;
 		} else {
