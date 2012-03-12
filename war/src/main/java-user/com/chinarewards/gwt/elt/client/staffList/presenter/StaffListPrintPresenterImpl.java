@@ -22,6 +22,7 @@ import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.widget.Sorting;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.util.PrintOut;
+import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -121,7 +122,10 @@ public class StaffListPrintPresenterImpl extends
 				new GetValue<StaffListClient, String>() {
 					@Override
 					public String getValue(StaffListClient staff) {
-						return staff.getEmail().substring(0,staff.getEmail().indexOf("@"));
+						if(!StringUtil.isEmpty(staff.getEmail()))
+							return staff.getEmail().substring(0,staff.getEmail().indexOf("@"));
+						else
+							return "";
 					}
 				}, ref, "jobNo");
 

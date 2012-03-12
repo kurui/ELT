@@ -34,7 +34,11 @@
 		</site>
 	</distributionManagement>
 	<dependencies>
-
+			<dependency>
+				<groupId>com.chinarewards</groupId>
+				<artifactId>common-web</artifactId>
+				<version>2.2.0</version>
+			</dependency>
 		<!-- China Rewards Stuff STARTS -->
 		<dependency>
 			<groupId>com.chinarewards</groupId>
@@ -142,6 +146,18 @@
 	</organization>
 	<build>
 		<plugins>
+				<plugin>
+					<groupId>com.chinarewards.maven.plugins</groupId>
+					<artifactId>maven-appinfo-plugin</artifactId>
+					<version>0.1.0</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>appinfo</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-ear-plugin</artifactId>

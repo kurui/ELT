@@ -29,6 +29,11 @@
 
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>com.chinarewards</groupId>
+				<artifactId>common-web</artifactId>
+				<version>2.2.0</version>
+			</dependency>
 			<!-- Hibernate STARTS -->
 			<dependency>
 				<groupId>org.hibernate</groupId>
@@ -251,20 +256,22 @@
 		</dependencies>
 	</dependencyManagement>
 	<build>
+				<plugins>
+					<plugin>
+						<groupId>com.chinarewards.maven.plugins</groupId>
+						<artifactId>maven-appinfo-plugin</artifactId>
+						<version>0.1.0</version>
+						<executions>
+							<execution>
+								<goals>
+									<goal>appinfo</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
 		<pluginManagement>
 			<plugins>
-				<plugin>
-					<groupId>com.chinarewards.maven.plugins</groupId>
-					<artifactId>maven-appinfo-plugin</artifactId>
-					<version>0.1.0</version>
-					<executions>
-						<execution>
-							<goals>
-								<goal>appinfo</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
