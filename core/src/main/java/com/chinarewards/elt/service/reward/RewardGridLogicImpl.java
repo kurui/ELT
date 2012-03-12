@@ -136,12 +136,14 @@ public class RewardGridLogicImpl implements RewardGridLogic {
 
 		RewardSearchVo rewardSearchVo = new RewardSearchVo();
 
-		List<Winner> winnerlist = winnerDao
-				.queryCurrentStaffWinRewardData(rewardSearchVo);
+//		List<Winner> winnerlist = winnerDao
+//				.queryCurrentStaffWinRewardData(rewardSearchVo);
+		List<PreWinnerLot> winnerlist = preWinnerDao.queryRewardHistoryData(criteria);
 
 		int resultCount = winnerlist.size();
 
-		pageStore.setResultList(convertToGridVoListFromWinner(winnerlist));
+//		pageStore.setResultList(convertToGridVoListFromWinner(winnerlist));
+		pageStore.setResultList(convertToGridVoListFromPreWinner(winnerlist));
 		pageStore.setResultCount(resultCount);
 
 		return pageStore;

@@ -22,8 +22,13 @@ public class RewardsListStaffWidget extends Composite implements
 
 	@UiField
 	TextBox winnerName;
+	
+	@UiField
+	TextBox rewardsItemName;
+	
 	@UiField
 	ListBox rewardsItem;
+	
 	@UiField
 	DateBox rewardsTime;	
 
@@ -69,6 +74,11 @@ public class RewardsListStaffWidget extends Composite implements
 	@Override
 	public HasValue<String> getWinnerName() {
 		return winnerName;
+	}
+	
+	@Override
+	public HasValue<String> getRewardsItemName() {
+		return rewardsItemName;
 	}
 
 	@Override

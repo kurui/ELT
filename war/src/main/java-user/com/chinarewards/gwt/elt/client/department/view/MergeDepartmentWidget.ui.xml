@@ -4,7 +4,7 @@
 	xmlns:c="urn:import:com.google.gwt.user.cellview.client">
 	<ui:style src="myMain.css"></ui:style>
 	<ui:style src="elt_min.css" field="new2"></ui:style>
-	<g:HTMLPanel styleName="{new2.frame-wrap}">
+	<g:HTMLPanel styleName="{new2.frame-wrapmerge}">
 		<!--面包屑 [[ -->
 		<g:FlowPanel ui:field="breadCrumbs" />
 		<!--面包屑 ]] -->
@@ -14,22 +14,22 @@
 		<div class="{new2.content-wrap}">
 			<div class="{new2.form}">
 				<div class="{new2.form-line}">
-					<label class="{new2.label}">
+					<label class="{new2.labelmerge}">
 						<span style="color:red">*</span>
 						新部门名称：
 					</label>
-					<div class="{new2.element}">
+					<div class="{new2.elementmerge}">
 						<g:Hidden ui:field="departmentIds"></g:Hidden>
 						<g:TextBox maxLength="20" ui:field="departmentName"
 							styleName="{new2.text}" />
 					</div>
 				</div>
 				<div class="{new2.form-line}">
-					<label class="{new2.label}">
+					<label class="{new2.labelmerge}">
 						<span style="color:red">*</span>
 						部门经理(总监)：
 					</label>
-					<div class="{new2.element}">
+					<div class="{new2.elementmerge}">
 						<g:Hidden ui:field="leaderId"></g:Hidden>
 						<g:TextBox maxLength="20" ui:field="leaderName"
 							styleName="{new2.text}" />

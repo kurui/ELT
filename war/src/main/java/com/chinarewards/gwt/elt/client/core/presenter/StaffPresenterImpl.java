@@ -574,6 +574,7 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 	private void loadRewardALLPanel(){
 		RewardsGridCriteria criteria = new RewardsGridCriteria();
 		criteria.setThisAction("Rewards_ALL");
+		criteria.setStaffId(null);
 		display.getRewardWidgetAction().setValue(criteria.getThisAction());
 		dispatchAsync.execute(new SearchRewardsGridRequest(criteria,sessionManager
 				.getSession()),

@@ -23,11 +23,12 @@ public class RewardGridSearchVo {
 	private RewardStatus status;
 
 	private String rewardItemId;
+	private String rewardItemName;
 
 	private String corporationId;
 
 	private Date rewardsDate;
-	
+
 	private PaginationDetail paginationDetail;
 	private SortingDetail sortingDetail;
 
@@ -85,6 +86,14 @@ public class RewardGridSearchVo {
 
 	public void setRewardItemId(String rewardItemId) {
 		this.rewardItemId = rewardItemId;
+	}
+
+	public String getRewardItemName() {
+		return rewardItemName;
+	}
+
+	public void setRewardItemName(String rewardItemName) {
+		this.rewardItemName = rewardItemName;
 	}
 
 	public String getCorporationId() {

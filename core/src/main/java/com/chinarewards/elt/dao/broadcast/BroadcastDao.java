@@ -106,10 +106,17 @@ public class BroadcastDao  extends BaseDao<Broadcasting>{
 		}
 		else
 		{
-			//过滤,悄悄话,和调戏
-			hql.append(" AND broadcast.category != :categoryQ AND broadcast.category != :categoryD");
-			param.put("categoryQ", BroadcastingCategory.QUIETLYINFORMATION);
-			param.put("categoryD", BroadcastingCategory.DALLIANCEINFORMATION);
+			if(searchVo.getBroadcastMessagetype()!=BroadcastMessage.MESSAGE)
+			{
+				//过滤,悄悄话,和调戏
+				hql.append(" AND broadcast.category != :categoryQ AND broadcast.category != :categoryD");
+				param.put("categoryQ", BroadcastingCategory.QUIETLYINFORMATION);
+				param.put("categoryD", BroadcastingCategory.DALLIANCEINFORMATION);
+			}
+			else
+			{
+				hql.append(" AND broadcast.category is  null ");
+			}
 		}
 		// ORDER BY
 		if (SEARCH.equals(type)) {
