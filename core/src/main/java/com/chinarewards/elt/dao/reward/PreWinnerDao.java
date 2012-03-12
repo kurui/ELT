@@ -88,11 +88,19 @@ public class PreWinnerDao extends BaseDao<PreWinner> {
 	private Query getRewardHistoryQuery(RewardGridSearchVo searchVo, String type) {
 		Map<String, Object> param = new HashMap<String, Object>();
 		StringBuffer hql = new StringBuffer();
+//		if (SEARCH.equals(type)) {
+//			hql.append(" SELECT lot FROM  ( SELECT DISTINCT win.preWinnerLot lot FROM PreWinner win WHERE 1=1 ");
+//		} else if (COUNT.equals(type)) {
+//			hql.append(" SELECT COUNT(win.preWinnerLot) FROM  (SELECT DISTINCT win.preWinnerLot FROM PreWinner win WHERE 1=1 ");
+//		}
+		
 		if (SEARCH.equals(type)) {
-			hql.append(" SELECT distinct win.preWinnerLot FROM PreWinner win WHERE 1=1 ");
-		} else if (COUNT.equals(type)) {
-			hql.append(" SELECT COUNT(win) FROM PreWinner win WHERE 1=1 ");
-		}
+			hql.append(" SELECT  distinct win.preWinnerLot FROM PreWinner win WHERE 1=1 ");
+	} else if (COUNT.equals(type)) {
+		hql.append(" SELECT count(distinct win.preWinnerLot) FROM PreWinner win WHERE 1=1 ");
+	}
+		
+	
 
 		if (!StringUtil.isEmptyString(searchVo.getStaffId())) {
 				hql.append(" AND win.staff.id = :staffId ");
@@ -128,13 +136,15 @@ public class PreWinnerDao extends BaseDao<PreWinner> {
 			param.put("rewardsTimeBegin", rewardsTimeBegin);
 			param.put("rewardsTimeEnd", rewardsTimeEnd);
 		}
+		
+//		hql.append(" )  ");
 
 		// ORDER BY
 		if (SEARCH.equals(type)) {
 			if (searchVo.getSortingDetail() != null
 					&& searchVo.getSortingDetail().getSort() != null
 					&& searchVo.getSortingDetail().getDirection() != null) {
-				hql.append(" ORDER BY win."
+				hql.append(" ORDER BY win.preWinnerLot."
 						+ searchVo.getSortingDetail().getSort() + " "
 						+ searchVo.getSortingDetail().getDirection());
 			} else {
