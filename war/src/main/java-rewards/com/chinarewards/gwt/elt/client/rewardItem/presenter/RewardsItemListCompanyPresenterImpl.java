@@ -98,7 +98,7 @@ public class RewardsItemListCompanyPresenterImpl extends
 		if (rewardsType != null) {
 			if (rewardsType.getItemCount() < 1) {
 				display.getRewardsType().clear();
-				display.getRewardsType().addItem("全部奖项", "RewardsItem_ALL");
+				display.getRewardsType().addItem("全部奖项", "RewardsItem_COMPANY_OTHER");
 				display.getRewardsType().addItem("努力冲奖项", "RewardsItem_STAFF_RUSH");
 			}
 			
