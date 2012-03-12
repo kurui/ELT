@@ -19,11 +19,12 @@
 						<div class="{new2.query-wrap}">
 							<div class="{new2.form}">
 								<label for="">获奖人:</label>
-								<g:TextBox maxLength="20" ui:field="winnerName"
-									styleName="{new2.text2}" />
+								<g:TextBox maxLength="20" ui:field="winnerName" styleName="{new2.text2}" />
 								<span class="{new2.nbspbig}"></span>
 								<label for="">奖项名称:</label>
-								<g:ListBox ui:field="rewardsItem" styleName="{new2.select}" />
+								<g:ListBox ui:field="rewardsItem" styleName="{new2.select}"
+									visible="false" />
+								<g:TextBox maxLength="20" ui:field="rewardsItemName" styleName="{new2.text2}" />
 								<span class="{new2.nbspbig}"></span>
 								<label for="">获奖时间:</label>
 								<d:DateBox ui:field="rewardsTime" styleName="{new2.text}" />

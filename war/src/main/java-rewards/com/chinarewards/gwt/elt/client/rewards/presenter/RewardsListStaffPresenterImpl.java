@@ -108,14 +108,17 @@ public class RewardsListStaffPresenterImpl extends
 
 	private void doSearch() {
 		RewardsGridCriteria criteria = new RewardsGridCriteria();
+		
+		criteria.setStaffId(null);//查询的时候不限于当前用户
 		criteria.setStaffName(display.getWinnerName().getValue());
+		criteria.setRewardsItemName(display.getRewardsItemName().getValue());
 
-		int selectedIndex = display.getRewardsItem().getSelectedIndex();
-		if (selectedIndex > -1) {
-			String rewardsItemId = display.getRewardsItem().getValue(
-					selectedIndex);
-			criteria.setRewardsItemId(rewardsItemId);
-		}
+//		int selectedIndex = display.getRewardsItem().getSelectedIndex();
+//		if (selectedIndex > -1) {
+//			String rewardsItemId = display.getRewardsItem().getValue(
+//					selectedIndex);
+//			criteria.setRewardsItemId(rewardsItemId);
+//		}
 
 		criteria.setRewardsDate(display.getRewardsTime().getValue());
 
@@ -188,7 +191,7 @@ public class RewardsListStaffPresenterImpl extends
 					public String getValue(RewardsGridClient client) {
 						return client.getRewardsName();
 					}
-				}, ref, "rewardsName");
+				}, ref, "reward.rewardItem.name");
 
 		cellTable.addColumn("奖励积分", new TextCell(),
 				new GetValue<RewardsGridClient, String>() {
@@ -196,7 +199,7 @@ public class RewardsListStaffPresenterImpl extends
 					public String getValue(RewardsGridClient client) {
 						return client.getAwardAmt();
 					}
-				}, ref, "totalAmtLimit");
+				}, ref, "reward.awardAmt");
 
 		cellTable.addColumn("奖励时间",
 				new DateCell(DateTimeFormat.getFormat("yyyy-MM-dd")),
@@ -205,7 +208,7 @@ public class RewardsListStaffPresenterImpl extends
 					public Date getValue(RewardsGridClient client) {
 						return client.getRewardsDate();
 					}
-				}, ref, "rewardsDate");
+				}, ref, "createdAt");
 
 		cellTable.addColumn("颁奖人", new TextCell(),
 				new GetValue<RewardsGridClient, String>() {
@@ -213,7 +216,7 @@ public class RewardsListStaffPresenterImpl extends
 					public String getValue(RewardsGridClient client) {
 						return client.getAwardName();
 					}
-				}, ref, "awardName");
+				}, ref, "reward.name");
 
 		cellTable.addColumn("获奖人", new TextCell(),
 				new GetValue<RewardsGridClient, String>() {
@@ -221,7 +224,7 @@ public class RewardsListStaffPresenterImpl extends
 					public String getValue(RewardsGridClient client) {
 						return client.getWinnersName();
 					}
-				}, ref, "winnersName");
+				}, ref, "");
 
 	}
 

@@ -88,26 +88,40 @@ public class PreWinnerDao extends BaseDao<PreWinner> {
 	private Query getRewardHistoryQuery(RewardGridSearchVo searchVo, String type) {
 		Map<String, Object> param = new HashMap<String, Object>();
 		StringBuffer hql = new StringBuffer();
+//		if (SEARCH.equals(type)) {
+//			hql.append(" SELECT lot FROM  ( SELECT DISTINCT win.preWinnerLot lot FROM PreWinner win WHERE 1=1 ");
+//		} else if (COUNT.equals(type)) {
+//			hql.append(" SELECT COUNT(win.preWinnerLot) FROM  (SELECT DISTINCT win.preWinnerLot FROM PreWinner win WHERE 1=1 ");
+//		}
+		
 		if (SEARCH.equals(type)) {
-			hql.append(" SELECT distinct win.preWinnerLot FROM PreWinner win WHERE 1=1 ");
-		} else if (COUNT.equals(type)) {
-			hql.append(" SELECT COUNT(win) FROM PreWinner win WHERE 1=1 ");
+			hql.append(" SELECT   win.preWinnerLot FROM PreWinner win WHERE 1=1 ");
+	} else if (COUNT.equals(type)) {
+		hql.append(" SELECT count(win.preWinnerLot) FROM PreWinner win WHERE 1=1 ");
+	}
+		
+	
+
+		if (!StringUtil.isEmptyString(searchVo.getStaffId())) {
+				hql.append(" AND win.staff.id = :staffId ");
+				param.put("staffId", searchVo.getStaffId());
 		}
 
-//		if (!StringUtil.isEmptyString(searchVo.getStaffId())) {
-//				hql.append(" AND win.staff.id = :staffId ");
-//				param.put("staffId", searchVo.getStaffId());
-//		}
-
 		if (!StringUtil.isEmptyString(searchVo.getStaffName())) {
-				hql.append(" AND win.staff.name = :staffName ");
-				param.put("staffName", searchVo.getStaffName());			
+				hql.append(" AND win.staff.name like :staffName ");
+				param.put("staffName", "%"+searchVo.getStaffName()+"%");			
 		}
 
 		// 奖项ID
 		if (!StringUtil.isEmptyString(searchVo.getRewardItemId())) {
 			hql.append(" AND win.preWinnerLot.reward.rewardItem.id = :rewardsItemId ");
 			param.put("rewardsItemId", searchVo.getRewardItemId());
+		}
+		
+		// 奖项Name
+		if (!StringUtil.isEmptyString(searchVo.getRewardItemName())) {
+			hql.append(" AND win.preWinnerLot.reward.rewardItem.name like :rewardsItemName ");
+			param.put("rewardsItemName", "%"+searchVo.getRewardItemName()+"%");
 		}
 
 		// 获奖时间
@@ -122,13 +136,15 @@ public class PreWinnerDao extends BaseDao<PreWinner> {
 			param.put("rewardsTimeBegin", rewardsTimeBegin);
 			param.put("rewardsTimeEnd", rewardsTimeEnd);
 		}
+		
+//		hql.append(" )  ");
 
 		// ORDER BY
 		if (SEARCH.equals(type)) {
 			if (searchVo.getSortingDetail() != null
 					&& searchVo.getSortingDetail().getSort() != null
 					&& searchVo.getSortingDetail().getDirection() != null) {
-				hql.append(" ORDER BY win."
+				hql.append(" ORDER BY win.preWinnerLot."
 						+ searchVo.getSortingDetail().getSort() + " "
 						+ searchVo.getSortingDetail().getDirection());
 			} else {
