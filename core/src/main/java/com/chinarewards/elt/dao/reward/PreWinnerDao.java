@@ -95,9 +95,9 @@ public class PreWinnerDao extends BaseDao<PreWinner> {
 //		}
 		
 		if (SEARCH.equals(type)) {
-			hql.append(" SELECT  distinct win.preWinnerLot FROM PreWinner win WHERE 1=1 ");
+			hql.append(" SELECT   win.preWinnerLot FROM PreWinner win WHERE 1=1 ");
 	} else if (COUNT.equals(type)) {
-		hql.append(" SELECT count(distinct win.preWinnerLot) FROM PreWinner win WHERE 1=1 ");
+		hql.append(" SELECT count(win.preWinnerLot) FROM PreWinner win WHERE 1=1 ");
 	}
 		
 	
