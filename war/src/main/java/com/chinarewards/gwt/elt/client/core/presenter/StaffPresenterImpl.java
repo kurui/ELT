@@ -441,7 +441,7 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 
 					@Override
 					public void onFailure(Throwable e) {
-				
+						
 					}
 
 					@Override
@@ -451,13 +451,41 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 						display.setIntegral(resp.getIntegral());
 						display.setPhoto(resp.getPhoto());
 						display.setStation(resp.getStation());
+						
+						//加载小橱窗控件(根据用户积分)
+						loadSmallShopWindowWidget(resp.getIntegral());
 					}
 				});
-		//加载小橱窗控件
+		
 	
+		display.getMore().addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				Platform.getInstance()
+				.getEditorRegistry()
+				.openEditor(
+						AwardShopListConstants.EDITOR_AWARDSHOPLIST_SEARCH,
+						"EDITOR_AWARDSHOPLIST_SEARCH_DO_ID", null);
+				
+			}
+		});
+		
+		//奖励小控件加载
+		loadRewardSTAFFPanel();
+		
+		loadRewardItemSTAFFPanel();
+		
+	}
+	
+	private void loadSmallShopWindowWidget(int integral)
+	{
+
 		GiftCriteria criteria = new GiftCriteria();
 		criteria.setStatus(GiftStatus.SHELVES);
-		// 查询参数....待添加
+		if(integral!=0)
+		criteria.setIntegral(integral);
+		// 查询参数....加入价格过滤
 		dispatchAsync.execute(new SearchAwardShopRequest(criteria, sessionManager
 				.getSession().getCorporationId(), sessionManager.getSession()
 				.getUserRoles(), sessionManager.getSession().getToken()),
@@ -502,26 +530,7 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 					}
 
 				});
-		display.getMore().addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				Platform.getInstance()
-				.getEditorRegistry()
-				.openEditor(
-						AwardShopListConstants.EDITOR_AWARDSHOPLIST_SEARCH,
-						"EDITOR_AWARDSHOPLIST_SEARCH_DO_ID", null);
-				
-			}
-		});
-		
-		//奖励小控件加载
-		loadRewardSTAFFPanel();
-		
-		loadRewardItemSTAFFPanel();
-		
 	}
-	
 	private void loadRewardSTAFFPanel(){
 		RewardsGridCriteria criteria = new RewardsGridCriteria();
 		criteria.setThisAction("Rewards_STAFF_GETED");

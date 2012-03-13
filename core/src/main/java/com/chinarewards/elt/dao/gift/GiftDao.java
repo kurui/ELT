@@ -52,6 +52,10 @@ public class GiftDao extends BaseDao<Gift> {
 			eql.append(" AND UPPER(g.status) = :status ");
 			param.put("status", criteria.getStatus());
 		}
+		if (criteria.getIntegral()!=0) {
+			eql.append(" AND g.integral <= :integral ");
+			param.put("integral", criteria.getIntegral());
+		}
 		if (!StringUtil.isEmptyString(criteria.getType())) {
 			eql.append(" AND UPPER(g.type) LIKE :type ");
 			param.put("type", "%" + criteria.getType().trim().toUpperCase()

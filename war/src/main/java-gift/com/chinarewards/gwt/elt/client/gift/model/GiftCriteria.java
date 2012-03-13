@@ -42,6 +42,15 @@ public class GiftCriteria implements IsSerializable {
 	private String id;
 
 	private String name;
+	private  int integral;
+
+	public int getIntegral() {
+		return integral;
+	}
+
+	public void setIntegral(int integral) {
+		this.integral = integral;
+	}
 
 	public GiftStatus getStatus() {
 		return status;
