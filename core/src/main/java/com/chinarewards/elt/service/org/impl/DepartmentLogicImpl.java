@@ -335,7 +335,7 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 		}
 		
 		//Root顶级部门
-//		departmentList.add(getRootDepartmentOfCorporation(corporcationId));
+		departmentList.add(getRootDepartmentOfCorporation(corporcationId));
 		
 		for (Department dep : departmentList) {
 			DepartmentManageVo vo = new DepartmentManageVo();
