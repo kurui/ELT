@@ -43,7 +43,6 @@
     <div class="{new2.nav} {new2.clearfix}">
       <ul>
         <li><g:Anchor styleName="{new2.menu}" ui:field="btnEmail"><span>收件箱</span></g:Anchor></li>
-        <li><g:Anchor styleName="{new2.menu}" ui:field="btnGb"><span>广 播</span></g:Anchor></li>
         <li><g:Anchor styleName="{new2.menu} {new2.menu-on}" ui:field="btnGift"><span>兑换管理</span></g:Anchor></li>
 
       </ul>

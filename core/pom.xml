@@ -49,6 +49,8 @@
 					<encoding>${encoding}</encoding>
 				</configuration>
 			</plugin>
+			
+
 		</plugins>
 	</build>
 	<dependencies>

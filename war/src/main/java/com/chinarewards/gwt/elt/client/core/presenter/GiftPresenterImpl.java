@@ -89,13 +89,7 @@ public class GiftPresenterImpl extends BasePresenter<GiftDisplay> implements
 										.getMenuItem(OrderViewConstants.MENU_ORDERBOX_SEARCH)));
 					}
 				}));
-		registerHandler(display.getBtnGb().addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				display.setMenuTitle("广播");
-				display.setMenu(null);
-			}
-		}));
+
 		
 		registerHandler(display.getBtnGift().addClickHandler(
 				new ClickHandler() {
