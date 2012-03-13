@@ -497,6 +497,9 @@ public class RewardsItemCreatePresenterImpl extends
 									   display.setTitle(vo.getBudgetTitle());
 									   remainCount = vo.getBudgetIntegral()-vo.getUseIntegeral();
 										
+								 }else{
+									 display.setRemainCount("0");
+									 remainCount = 0;
 								 }
 									
 									

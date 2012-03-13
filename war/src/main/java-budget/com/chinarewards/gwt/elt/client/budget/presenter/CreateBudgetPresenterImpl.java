@@ -103,7 +103,9 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 		   DepBudgetVo depBudgetVo = new DepBudgetVo();
 		   if(!display.getJF().getValue().equals(""))
 		   depBudgetVo.setBudgetIntegral(Double.parseDouble(display.getJF().getValue()));
+		   if(display.getYear() != null)
 		   depBudgetVo.setCorpBudgetId(display.getYear());
+		   if(display.getDepart() != null)
 		   depBudgetVo.setDepartmentId(display.getDepart());
 		   dispatch.execute(new AddDepartmentBudgetRequest(sessionManager.getSession(),depBudgetVo,operate),
 					new AsyncCallback<AddDepartmentBudgetResponse>() {
@@ -259,14 +261,19 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 							   display.setTotalCount(vo.getBudgetIntegral()+"");
 							   display.setRemainCount((vo.getBudgetIntegral()-vo.getUseIntegeral())+"");
 							   remainCount = vo.getBudgetIntegral()-vo.getUseIntegeral();
-								DepBudgetVo criteria = new DepBudgetVo();
-								criteria.setCorpBudgetId(corpBudgetId);
-								listViewAdapter = new DepBudgetListAdapter(dispatch, criteria,errorHandler, sessionManager, display);
-								listViewAdapter.addDataDisplay(cellTable);
-
-						 }
+								
+								
+						 }else{
+							 display.setTotalCount("0");
+							 display.setRemainCount("0");
+							 map.put(vo.getId(), "");
 							
-							display.initYear(map);
+						 }
+						    DepBudgetVo criteria = new DepBudgetVo();
+							criteria.setCorpBudgetId(corpBudgetId);
+							listViewAdapter = new DepBudgetListAdapter(dispatch, criteria,errorHandler, sessionManager, display);
+							listViewAdapter.addDataDisplay(cellTable);	
+						 display.initYear(map);	
 						
 					}
 
@@ -346,9 +353,13 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 								listViewAdapter = new DepBudgetListAdapter(dispatch, criteria,errorHandler, sessionManager, display);
 								listViewAdapter.addDataDisplay(cellTable);
 
+						 }else{
+							 display.setTotalCount("0");
+							 display.setRemainCount("0");
+							
 						 }
 							
-							//display.initYear(map);
+							
 						
 					}
 
