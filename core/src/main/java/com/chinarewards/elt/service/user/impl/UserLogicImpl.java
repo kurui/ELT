@@ -254,7 +254,7 @@ public class UserLogicImpl implements UserLogic {
 		if(staffIds!=null){
 			for (int i = 0; i < staffIds.size(); i++) {
 				String staffId=staffIds.get(i);
-				createUserRole(roleName, staffId);
+				deleteUserRole(roleName, staffId);
 			}
 		}		
 	}
@@ -296,22 +296,21 @@ public class UserLogicImpl implements UserLogic {
 	
 	@Override
 	public void deleteUserRole(String roleName,String staffId){
-		List<SysUserRole> userRoleList=userRoleDao.findUserRoleByUserId(staffId);
-		
-		SysUserRole existUserRole=null;
+		SysUser user=userDao.findUserByStaffId(staffId);
+		if(user!=null)
+		{
+		List<SysUserRole> userRoleList=userRoleDao.findUserRoleByUserId(user.getId());
+
 		for (int j = 0; j < userRoleList.size(); j++) {
 			SysUserRole tempUserRole=userRoleList.get(j);
 			if(tempUserRole.getRole().getName().equals(UserRole.valueOf(roleName))){
-				existUserRole=tempUserRole;
-				break;
+				if (tempUserRole!=null) {
+					userRoleDao.delete(tempUserRole);
+				}
 			}
 		}
-		
-		if (existUserRole!=null) {
-			userRoleDao.delete(existUserRole);
-		} else {
-		
 		}
+		
 	}
 	@Override
 	public String updateStaffPwd(String staffId,String oldpwd, String pwd,String byUserId) {

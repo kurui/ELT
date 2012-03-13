@@ -59,7 +59,6 @@ public class DepartmentLeaderWidget extends Composite implements
 		cellTree.clear();
 		cellTree.add(tree);
 	
-//		cellTree.getElement().getFirstChild().insertFirst(testNode);
 	}
 
 
