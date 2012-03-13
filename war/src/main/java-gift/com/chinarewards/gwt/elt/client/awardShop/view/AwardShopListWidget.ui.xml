@@ -59,7 +59,7 @@
 					<div class="{new2.pager-left}">
 						每页显示条数
 						<select class="{new2.select}">
-							<option>12</option>
+							<option>9</option>
 						</select>
 					</div>
 

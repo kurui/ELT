@@ -20,7 +20,6 @@ public interface GiftPresenter extends Presenter<GiftPresenter.GiftDisplay> {
 		DockLayoutPanel getDock();
 		
 		HasClickHandlers getBtnEmail();
-		HasClickHandlers getBtnGb();
 		HasClickHandlers getBtnGift();
 		Panel getMenu();
 		void setMenu(Panel panel);

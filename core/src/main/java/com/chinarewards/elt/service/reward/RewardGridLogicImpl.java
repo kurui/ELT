@@ -35,6 +35,8 @@ import com.google.inject.persist.Transactional;
 /**
  * The implementation of {@link RewardLogic}
  * 
+ * 员工天地 奖励控件 获奖历史
+ * 
  * @author yanrui
  * @since 1.5
  */
@@ -121,6 +123,8 @@ public class RewardGridLogicImpl implements RewardGridLogic {
 
 		List<PreWinnerLot> winnerlist = preWinnerDao.queryRewardHistoryData(criteria);
 
+		System.out.println("==================fetchRewards_STAFF_HISTORY=============");
+		
 		int resultCount = winnerlist.size();
 
 		pageStore.setResultList(convertToGridVoListFromPreWinner(winnerlist));
@@ -134,15 +138,11 @@ public class RewardGridLogicImpl implements RewardGridLogic {
 			RewardGridSearchVo criteria) {
 		PageStore<RewardGridVo> pageStore = new PageStore<RewardGridVo>();
 
-		RewardSearchVo rewardSearchVo = new RewardSearchVo();
 
-//		List<Winner> winnerlist = winnerDao
-//				.queryCurrentStaffWinRewardData(rewardSearchVo);
 		List<PreWinnerLot> winnerlist = preWinnerDao.queryRewardHistoryData(criteria);
 
 		int resultCount = winnerlist.size();
 
-//		pageStore.setResultList(convertToGridVoListFromWinner(winnerlist));
 		pageStore.setResultList(convertToGridVoListFromPreWinner(winnerlist));
 		pageStore.setResultCount(resultCount);
 

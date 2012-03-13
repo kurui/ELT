@@ -53,6 +53,9 @@ public class Staff extends Organization {
 	
 
 	public Integer getLeadTime() {
+		if (leadTime==null) {
+			return 0;
+		}
 		return leadTime;
 	}
 
