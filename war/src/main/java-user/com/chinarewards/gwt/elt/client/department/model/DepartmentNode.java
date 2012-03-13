@@ -7,15 +7,18 @@ public class DepartmentNode implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String departmentId;
-	private String departmentName;
+	private String departmentId="";
+	private String departmentName="";
 
 	private boolean isLeaf; // 是否子节点
 //	private boolean isChecked;// 是否选中
 
-	private String parentId; // 上级部门ID
+	private String parentId=""; // 上级部门ID
 
 	public String getParentId() {
+		if (parentId==null) {
+			return "";
+		}
 		return parentId;
 	}
 
@@ -53,6 +56,9 @@ public class DepartmentNode implements Serializable {
 	}
 
 	public String getDepartmentId() {
+		if (departmentId==null) {
+			return "";
+		}
 		return departmentId;
 	}
 

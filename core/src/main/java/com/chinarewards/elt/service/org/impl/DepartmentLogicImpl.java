@@ -312,13 +312,6 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 
 			vo.setLeaf(isLeaf(dep));
 
-			// DepartmentBudget budget = departmentBudgetDao
-			// .findDepartmentBudgetByDepartmentId(dep.getId());
-			// if (budget != null) {
-			// vo.setCorpBudgetId(budget.getCorpBudgetId());
-			// vo.setBudgetIntegral(budget.getBudgetIntegral());
-			// vo.setUseIntegeral(budget.getUseIntegeral());
-			// }
 			volist.add(vo);
 		}
 
@@ -342,8 +335,7 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 		}
 		
 		//Root顶级部门
-		departmentList.add(getRootDepartmentOfCorporation(corporcationId));
-
+//		departmentList.add(getRootDepartmentOfCorporation(corporcationId));
 		
 		for (Department dep : departmentList) {
 			DepartmentManageVo vo = new DepartmentManageVo();
@@ -355,13 +347,6 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 
 			vo.setLeaf(isLeaf(dep));
 
-			// DepartmentBudget budget = departmentBudgetDao
-			// .findDepartmentBudgetByDepartmentId(dep.getId());
-			// if (budget != null) {
-			// vo.setCorpBudgetId(budget.getCorpBudgetId());
-			// vo.setBudgetIntegral(budget.getBudgetIntegral());
-			// vo.setUseIntegeral(budget.getUseIntegeral());
-			// }
 			volist.add(vo);
 		}
 
