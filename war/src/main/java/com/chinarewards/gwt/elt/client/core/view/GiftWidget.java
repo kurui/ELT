@@ -47,8 +47,7 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	@UiField
 	Anchor btnEmail;
 
-	@UiField
-	Anchor btnGb;
+
 	@UiField
 	Anchor btnGift;
 	@UiField
@@ -78,26 +77,16 @@ public class GiftWidget extends Composite implements GiftDisplay {
 				@Override
 				public void onClick(ClickEvent event) {
 					btnEmail.setStyleName(styleOn);
-					btnGb.setStyleName(styleNo);
 					btnGift.setStyleName(styleNo);
 				}
 			});
-			btnGb.addClickHandler(new ClickHandler() {
 
-				@Override
-				public void onClick(ClickEvent event) {
-					btnEmail.setStyleName(styleNo);
-					btnGb.setStyleName(styleOn);
-					btnGift.setStyleName(styleNo);
-				}
-			});
 
 			btnGift.addClickHandler(new ClickHandler() {
 
 				@Override
 				public void onClick(ClickEvent event) {
 					btnEmail.setStyleName(styleNo);
-					btnGb.setStyleName(styleNo);
 					btnGift.setStyleName(styleOn);
 				}
 			});
@@ -169,10 +158,7 @@ public class GiftWidget extends Composite implements GiftDisplay {
 		return this.btnEmail;
 	}
 
-	@Override
-	public HasClickHandlers getBtnGb() {
-		return this.btnGb;
-	}
+
 
 	@Override
 	public HasClickHandlers getBtnGift() {
