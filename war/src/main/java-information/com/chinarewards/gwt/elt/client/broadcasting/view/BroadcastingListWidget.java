@@ -44,19 +44,29 @@ public class BroadcastingListWidget extends Composite implements BroadcastingLis
 	DateBox broadcastingTime;
 	@UiField
 	DateBox broadcastingTimeEnd;
+	@UiField
+	ListBox pageNumber;
+	
 	DateTimeFormat dateFormat = DateTimeFormat
 			.getFormat(ViewConstants.date_format);
+	
+
 	private static BroadcastingListWidgetUiBinder uiBinder = GWT
 			.create(BroadcastingListWidgetUiBinder.class);
 
 	interface BroadcastingListWidgetUiBinder extends
 			UiBinder<Widget, BroadcastingListWidget> {
+
 	}
 
 	public BroadcastingListWidget() {
 		initWidget(uiBinder.createAndBindUi(this));
 		broadcastingTime.setFormat(new DateBox.DefaultFormat(dateFormat));
 		broadcastingTimeEnd.setFormat(new DateBox.DefaultFormat(dateFormat));
+		pageNumber.clear();
+		pageNumber.addItem("10","10");
+		pageNumber.addItem("20","20");
+		pageNumber.addItem("50","50");
 	}
 
 	@Override
@@ -120,6 +130,10 @@ public class BroadcastingListWidget extends Composite implements BroadcastingLis
 	@Override
 	public Date getBroadcastingTimeEnd() {
 		return broadcastingTimeEnd.getValue();
+	}
+	@Override
+	public ListBox getPageNumber() {
+		return pageNumber;
 	}
 
 	
