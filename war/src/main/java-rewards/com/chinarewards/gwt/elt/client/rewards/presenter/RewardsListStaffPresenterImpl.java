@@ -101,6 +101,7 @@ public class RewardsListStaffPresenterImpl extends
 		buildTable();
 		doSearch();
 		
+		display.getPageNumber().clear();
 		display.getPageNumber().addItem("10", "10");
 		display.getPageNumber().addItem("20", "20");
 		display.getPageNumber().addItem("50", "50");

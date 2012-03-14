@@ -86,6 +86,7 @@ public class GiftListWidget extends Composite implements GiftListDisplay {
 
 		initGiftStatus();
 
+		pageNumber.clear();
 		pageNumber.addItem("10", "10");
 		pageNumber.addItem("20", "20");
 		pageNumber.addItem("50", "50");
