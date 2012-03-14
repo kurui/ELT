@@ -151,8 +151,12 @@ public class UserLogicImpl implements UserLogic {
 	@Override
 	public UserSessionVo tokenVaild(String token) {
 		SysUser user = userDao.findById(SysUser.class, token);
+		
 		if (user != null)
+		{
+			user.setLastLoginRole(userDao.findUserLastRoleById(token));
 			return findUserRolebySysUser(user);
+		}
 		else
 			return null;
 	}

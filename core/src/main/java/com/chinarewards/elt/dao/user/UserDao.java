@@ -9,6 +9,7 @@ import javax.persistence.Query;
 
 import com.chinarewards.elt.common.BaseDao;
 import com.chinarewards.elt.domain.user.SysUser;
+import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.model.user.UserSearchCriteria;
 import com.chinarewards.elt.model.user.UserStatus;
 import com.chinarewards.elt.util.StringUtil;
@@ -27,7 +28,10 @@ public class UserDao extends BaseDao<SysUser> {
 		return user.getId();
 	}
 
-	
+	public UserRole findUserLastRoleById(String id) {
+		UserRole user = (UserRole) getEm().createQuery("SELECT u.lastLoginRole FROM SysUser u WHERE u.id = :id").setParameter("id", id).getSingleResult();
+		return user;
+	}
 	public SysUser findUserById(String id) {
 		SysUser user = (SysUser) getEm().createQuery("FROM SysUser u WHERE u.id = :id").setParameter("id", id).getSingleResult();
 		return user;
