@@ -39,19 +39,15 @@ public class DepartmentLeaderHandler extends
 				.getDepartmentLeaderList(action.getLeaderId(),
 						action.getCorporcationId());
 
-//		System.out
-//				.println(action.getLeaderId()
-//						+ "=====after====departmentService.getDepartmentLeaderList======="
-//						+ departmentManageVoList.size());
-
 		for (DepartmentManageVo vo : departmentManageVoList) {
-			DepartmentNode c = new DepartmentNode(vo.getDepartmentName(),
-					(int) vo.getBudgetIntegral() + "",
-					(int) vo.getBudgetIntegral() + "", vo.getDepartmentId(),
-					vo.isLeaf(), vo.getParentId());
-			nodeList.add(c);
+			if (vo!=null) {
+				DepartmentNode c = new DepartmentNode(vo.getDepartmentName(),
+						(int) vo.getBudgetIntegral() + "",
+						(int) vo.getBudgetIntegral() + "", vo.getDepartmentId(),
+						vo.isLeaf(), vo.getParentId());
+				nodeList.add(c);
+			}			
 		}
-
 		return new DepartmentLeaderResponse(nodeList);
 
 	}
