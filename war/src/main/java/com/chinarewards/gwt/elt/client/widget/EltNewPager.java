@@ -418,11 +418,21 @@ public class EltNewPager extends AbstractPager {
 		threePage.setStyleName("pagedisable");
 		fourPage.setStyleName("pagedisable");
 		fivePage.setStyleName("pagedisable");
+		firstPage.setStyleName("pagedisable");
+		nextPage.setStyleName("pagedisable");
+		prevPage.setStyleName("pagedisable");
+		lastPage.setStyleName("pagedisable");
+		
+		
 		if (totalPage >= 1) {
 			onePage.setStyleName("");
 		}
 		if (totalPage >= 2) {
 			twoPage.setStyleName("");
+			firstPage.setStyleName("");
+			nextPage.setStyleName("");
+			prevPage.setStyleName("");
+			lastPage.setStyleName("");
 		}
 		if (totalPage >= 3) {
 			threePage.setStyleName("");
