@@ -5,6 +5,7 @@ import com.chinarewards.gwt.elt.client.mvp.Display;
 import com.chinarewards.gwt.elt.client.mvp.Presenter;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -19,9 +20,11 @@ public interface StaffListPresenter extends Presenter<StaffListPresenter.StaffLi
 		public HasClickHandlers getCreateSysUserBtnClickHandlers();
 		public HasClickHandlers getPrintBtnClickHandlers();
 		
+
 		void initStaffStatus();
 		String getSttaffStatus();
 		String getSttaffRole();
+	
 		HasValue<String> getStaffNameorNo();
 
 		void setDataCount(String text);
@@ -32,6 +35,6 @@ public interface StaffListPresenter extends Presenter<StaffListPresenter.StaffLi
 
 		void displayBtn();
 
-
+		ListBox getPageNumber();
 	}
 }

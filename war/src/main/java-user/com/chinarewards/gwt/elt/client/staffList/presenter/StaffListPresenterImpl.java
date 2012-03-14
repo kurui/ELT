@@ -39,6 +39,8 @@ import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -59,6 +61,7 @@ public class StaffListPresenterImpl extends
 	private final Provider<StaffListPrintDialog> staffListPrintDialogProvider;
 	private final BreadCrumbsPresenter breadCrumbs;
 	final Provider<MailSendDialog> mailSendDialog;
+	int pageSize=ViewConstants.per_page_number_in_dialog;
 	@Inject
 	public StaffListPresenterImpl(EventBus eventBus,Provider<MailSendDialog> mailSendDialog,
 			StaffListDisplay display, DispatchAsync dispatch,
@@ -78,6 +81,16 @@ public class StaffListPresenterImpl extends
 		breadCrumbs.loadListPage();
 		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
 		init();
+		
+		registerHandler(display.getPageNumber().addChangeHandler(new ChangeHandler() {
+			
+			@Override
+			public void onChange(ChangeEvent event) {
+				pageSize=Integer.parseInt(display.getPageNumber().getValue(display.getPageNumber().getSelectedIndex()));
+				buildTable();
+				doSearch();
+			}
+		}));
 		registerHandler(display.getSearchBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
 					@Override
@@ -160,7 +173,7 @@ public class StaffListPresenterImpl extends
 		pager = new EltNewPager(TextLocation.CENTER);
 		pager.setDisplay(cellTable);
 		cellTable.setWidth(ViewConstants.page_width);
-		cellTable.setPageSize(ViewConstants.per_page_number_in_dialog);
+		cellTable.setPageSize(pageSize);
 	//	cellTable.getColumn(0).setCellStyleNames("divTextLeft");
 		display.getResultPanel().clear();
 		display.getResultPanel().add(cellTable);

@@ -44,6 +44,8 @@ public class StaffListWidget extends Composite implements StaffListDisplay {
 	Panel resultpage;
 	@UiField
 	Panel breadCrumbs;
+	@UiField
+	ListBox pageNumber;
 	
 	private static StaffListWidgetUiBinder uiBinder = GWT
 			.create(StaffListWidgetUiBinder.class);
@@ -84,7 +86,9 @@ public class StaffListWidget extends Composite implements StaffListDisplay {
 		staffRole.addItem("礼品管理员", UserRoleVo.GIFT.toString());
 		staffRole.addItem("普通员工", UserRoleVo.STAFF.toString());
 		
-		
+		pageNumber.addItem("10","10");
+		pageNumber.addItem("20","20");
+		pageNumber.addItem("50","50");
 	}
 
 	@Override
@@ -140,6 +144,11 @@ public class StaffListWidget extends Composite implements StaffListDisplay {
 	@Override
 	public HasClickHandlers getPrintBtnClickHandlers() {
 		return printBtn;
+	}
+
+	@Override
+	public ListBox getPageNumber() {
+		return pageNumber;
 	}
 
 
