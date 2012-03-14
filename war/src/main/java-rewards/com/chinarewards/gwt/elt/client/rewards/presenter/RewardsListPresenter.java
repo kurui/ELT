@@ -6,6 +6,7 @@ import com.chinarewards.gwt.elt.client.mvp.Presenter;
 import com.chinarewards.gwt.elt.model.rewards.RewardPageType;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -24,6 +25,6 @@ public interface RewardsListPresenter extends Presenter<RewardsListPresenter.Rew
 		HasValue<Boolean> getNowJudge();
 		
 		void setBreadCrumbs(Widget breadCrumbs);
-
+		ListBox getPageNumber();
 	}
 }

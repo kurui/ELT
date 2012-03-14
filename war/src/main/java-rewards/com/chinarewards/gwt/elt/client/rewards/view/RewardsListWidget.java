@@ -10,6 +10,7 @@ import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.InlineLabel;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
@@ -33,6 +34,9 @@ public class RewardsListWidget extends Composite implements RewardsListDisplay {
 	CheckBox nowJudge;
 	@UiField
 	InlineLabel dataCount;
+	
+	@UiField
+	ListBox pageNumber;
 	private static RewardsListWidgetUiBinder uiBinder = GWT
 			.create(RewardsListWidgetUiBinder.class);
 
@@ -41,6 +45,10 @@ public class RewardsListWidget extends Composite implements RewardsListDisplay {
 
 	public RewardsListWidget() {
 		initWidget(uiBinder.createAndBindUi(this));
+		pageNumber.clear();
+		pageNumber.addItem("10","10");
+		pageNumber.addItem("20","20");
+		pageNumber.addItem("50","50");
 	}
 
 	@Override
@@ -84,7 +92,10 @@ public class RewardsListWidget extends Composite implements RewardsListDisplay {
 		
 	}
 
-
+	@Override
+	public ListBox getPageNumber() {
+		return pageNumber;
+	}
 
 
 }

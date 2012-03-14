@@ -86,6 +86,7 @@ public class StaffListWidget extends Composite implements StaffListDisplay {
 		staffRole.addItem("礼品管理员", UserRoleVo.GIFT.toString());
 		staffRole.addItem("普通员工", UserRoleVo.STAFF.toString());
 		
+		pageNumber.clear();
 		pageNumber.addItem("10","10");
 		pageNumber.addItem("20","20");
 		pageNumber.addItem("50","50");
