@@ -161,7 +161,7 @@ public class ButtonMenuProcessor implements MenuProcessor {
 				else if (menuId.equals(HrBoxConstants.MENU_HRBOX_SEARCH))
 					breadCrumbsMenu.addBreadCrumbsItemTop("收件箱", null);
 				breadCrumbsMenu.addBreadCrumbsItem(menuItem.getTitle(),
-						menuItem.getMenuId());
+						menuItem);
 			}
 
 			button.addClickHandler(new ClickHandler() {
@@ -169,7 +169,7 @@ public class ButtonMenuProcessor implements MenuProcessor {
 					button.setStyleName("menu-link menu-selected");
 					breadCrumbsMenu.cleanBreadCrumbsItem();
 					breadCrumbsMenu.addBreadCrumbsItem(menuItem.getTitle(),
-							menuItem.getMenuId());
+							menuItem);
 					eventBus.fireEvent(new MenuClickEvent(menuItem));
 					for (int i = 0; i < grid.getWidgetCount(); i++) {
 						if (grid.getWidget(i) instanceof Anchor) {

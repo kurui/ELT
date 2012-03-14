@@ -163,7 +163,7 @@ public class ContactTreeViewModel implements TreeViewModel {
 					public void update(int index, Category object, String value) {
 
 						menuProcessor.changItemColor("部门预算");
-						breadCrumbspresenter.addBreadCrumbsItem("部门预算",CreateBudgetConstants.MENU_CREATE_BUDGET);
+						breadCrumbspresenter.addBreadCrumbsItem("部门预算",menuProcessor.getMenuItem(CreateBudgetConstants.MENU_CREATE_BUDGET));
 						Platform.getInstance()
 						.getEditorRegistry()
 						.openEditor(

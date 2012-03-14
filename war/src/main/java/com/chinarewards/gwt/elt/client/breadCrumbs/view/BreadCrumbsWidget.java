@@ -6,6 +6,8 @@ import com.chinarewards.gwt.elt.client.breadCrumbs.model.MenuBreadVo;
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter.BreadCrumbsDisplay;
 import com.chinarewards.gwt.elt.client.widget.Span;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -43,12 +45,20 @@ public class BreadCrumbsWidget extends Composite implements BreadCrumbsDisplay {
 	public void setTitleText(List<MenuBreadVo> menuBreadVo) {
 		titleText.clear();
 		for (int i = 0; i < menuBreadVo.size(); i++) {
-			MenuBreadVo menu=menuBreadVo.get(i);
+			final MenuBreadVo menu=menuBreadVo.get(i);
 			if(menu.getMenuUrl()!=null)
 			{
 				Anchor a=new Anchor();
 				a.setText(menu.getMenuName());
 				a.setStyleName("breadcrumbsAnchor");
+				a.addClickHandler(new ClickHandler() {
+					
+					@Override
+					public void onClick(ClickEvent event) {
+						menu.getMenuUrl().execute();
+						
+					}
+				});
 				titleText.add(a);
 			}
 			else

@@ -3,12 +3,13 @@ package com.chinarewards.gwt.elt.client.breadCrumbs.ui;
 import java.util.List;
 
 import com.chinarewards.gwt.elt.client.breadCrumbs.model.MenuBreadVo;
+import com.chinarewards.gwt.elt.client.core.ui.MenuItem;
 
 
 public interface BreadCrumbsMenu {
 
-	void addBreadCrumbsItem(String name,String url);
-	void addBreadCrumbsItemTop(String name,String url);
+	void addBreadCrumbsItem(String name,MenuItem menuItem);
+	void addBreadCrumbsItemTop(String name,MenuItem menuItem);
 	void cleanBreadCrumbsItem();
 	void cleanBreadCrumbsItemTop();
 	void cleanBreadCrumbsItemAll();

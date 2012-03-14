@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.chinarewards.gwt.elt.client.breadCrumbs.model.MenuBreadVo;
 import com.chinarewards.gwt.elt.client.breadCrumbs.ui.BreadCrumbsMenu;
+import com.chinarewards.gwt.elt.client.core.ui.MenuItem;
 
 public class BreadCrumbsMenuImpl implements BreadCrumbsMenu {
 
@@ -14,19 +15,19 @@ public class BreadCrumbsMenuImpl implements BreadCrumbsMenu {
 	List<MenuBreadVo> childlist = new ArrayList<MenuBreadVo>();
 
 	@Override
-	public void addBreadCrumbsItem(String name, String url) {
+	public void addBreadCrumbsItem(String name, MenuItem menuItem) {
 		MenuBreadVo menuBreadVo = new MenuBreadVo();
 		menuBreadVo.setMenuName(name);
-		menuBreadVo.setMenuUrl(url);
+		menuBreadVo.setMenuUrl(menuItem);
 		list.add(menuBreadVo);
 
 	}
 
 	@Override
-	public void addBreadCrumbsItemTop(String name, String url) {
+	public void addBreadCrumbsItemTop(String name, MenuItem menuItem) {
 		MenuBreadVo menuBreadVo = new MenuBreadVo();
 		menuBreadVo.setMenuName(name);
-		menuBreadVo.setMenuUrl(url);
+		menuBreadVo.setMenuUrl(menuItem);
 		toplist.add(menuBreadVo);
 
 	}

@@ -41,8 +41,8 @@ public class BreadCrumbsPresenterImpl extends
 						{
 							isHistory=true;
 							display.setTitleText(listvo);
-							menuProcessor.changItemColor(menuProcessor.getMenuItem(listvo.get(listvo.size()-1).getMenuUrl()).getTitle());
-							eventBus.fireEvent(new MenuClickEvent(menuProcessor.getMenuItem(listvo.get(listvo.size()-1).getMenuUrl())));
+							menuProcessor.changItemColor(menuProcessor.getMenuItem(listvo.get(listvo.size()-1).getMenuUrl().getMenuId()).getTitle());
+							eventBus.fireEvent(new MenuClickEvent(menuProcessor.getMenuItem(listvo.get(listvo.size()-1).getMenuUrl().getMenuId())));
 						}
 						else
 						{
@@ -93,8 +93,8 @@ public class BreadCrumbsPresenterImpl extends
 		{
 			isHistory=true;
 			display.setTitleText(listvo);
-			menuProcessor.changItemColor(menuProcessor.getMenuItem(listvo.get(listvo.size()-1).getMenuUrl()).getTitle());
-			eventBus.fireEvent(new MenuClickEvent(menuProcessor.getMenuItem(listvo.get(listvo.size()-1).getMenuUrl())));
+			menuProcessor.changItemColor(menuProcessor.getMenuItem(listvo.get(listvo.size()-1).getMenuUrl().getMenuId()).getTitle());
+			eventBus.fireEvent(new MenuClickEvent(menuProcessor.getMenuItem(listvo.get(listvo.size()-1).getMenuUrl().getMenuId())));
 		}
 		else
 		{
