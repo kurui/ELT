@@ -279,6 +279,7 @@
 					<encoding>${encoding}</encoding>
 				</configuration>
 			</plugin>
+			
 		</plugins>
 	</build>
 </project>
