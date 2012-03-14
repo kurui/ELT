@@ -44,7 +44,7 @@ public class StaffAddPresenterImpl extends
 	final ErrorHandler errorHandler;
 	String staffId = null;
 	private final BreadCrumbsPresenter breadCrumbs;
-
+	String imageCss=display.getDob().getElement().getParentElement().getParentElement().getClassName();
 	@Inject
 	public StaffAddPresenterImpl(EventBus eventBus, StaffAddDisplay display,
 			DispatchAsync dispatch, SessionManager sessionManager, Win win,
@@ -59,6 +59,7 @@ public class StaffAddPresenterImpl extends
 
 	@Override
 	public void bind() {
+
 		if(staffId!=null)
 		{
 			breadCrumbs.loadChildPage("修改员工");
@@ -66,6 +67,7 @@ public class StaffAddPresenterImpl extends
 		}
 		else
 		{
+			display.getStaffImage().getElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
 			breadCrumbs.loadChildPage("添加员工");
 			display.setTitleText("添加员工");
 		}
@@ -191,7 +193,10 @@ public class StaffAddPresenterImpl extends
 							{
 								display.getAdmin().getElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
 							}
-							
+							if(resp.getPhoto()==null || resp.getPhoto()=="" || "".equals(resp.getPhoto()))
+							{
+								display.getStaffImage().getElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
+							}
 
 						}
 					});			
@@ -211,7 +216,7 @@ public class StaffAddPresenterImpl extends
 					public void onChange(ChangeEvent arg0) {
 						System.out.println("==========="
 								+ display.getPhotoUpload());
-
+						display.getStaffImage().getElement().getParentElement().getParentElement().setClassName(imageCss);
 						display.getStaffImage().setVisible(true);
 						display.getPhotoForm().setAction("fileupload");
 						display.getPhotoForm().submit();
