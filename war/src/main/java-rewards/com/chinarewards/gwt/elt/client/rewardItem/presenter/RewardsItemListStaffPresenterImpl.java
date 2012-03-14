@@ -23,6 +23,8 @@ import com.chinarewards.gwt.elt.client.widget.Sorting;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.model.rewards.RewardPageType;
 import com.google.gwt.cell.client.TextCell;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.inject.Inject;
 
 public class RewardsItemListStaffPresenterImpl extends
@@ -40,6 +42,7 @@ public class RewardsItemListStaffPresenterImpl extends
 	RewardsItemListStaffViewAdapter listViewAdapter;
 
 	private final BreadCrumbsPresenter breadCrumbs;
+	int pageSize=ViewConstants.per_page_number_in_dialog;
 
 	@Inject
 	public RewardsItemListStaffPresenterImpl(EventBus eventBus,
@@ -68,11 +71,24 @@ public class RewardsItemListStaffPresenterImpl extends
 //						initWidget();
 //					}
 //				}));
+	
+		registerHandler(display.getPageNumber().addChangeHandler(new ChangeHandler() {			
+			@Override
+			public void onChange(ChangeEvent event) {
+				pageSize=Integer.parseInt(display.getPageNumber().getValue(display.getPageNumber().getSelectedIndex()));
+				buildTable();
+				doSearch();
+			}
+		}));
 	}
 
 	private void initWidget() {
 		buildTable();
 		doSearch();
+		
+		display.getPageNumber().addItem("10", "10");
+		display.getPageNumber().addItem("20", "20");
+		display.getPageNumber().addItem("50", "50");
 	}
 
 	private void buildTable() {

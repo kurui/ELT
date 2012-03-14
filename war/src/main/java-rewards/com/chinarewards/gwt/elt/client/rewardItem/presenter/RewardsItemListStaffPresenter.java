@@ -3,6 +3,7 @@ package com.chinarewards.gwt.elt.client.rewardItem.presenter;
 import com.chinarewards.gwt.elt.client.mvp.Display;
 import com.chinarewards.gwt.elt.client.mvp.Presenter;
 import com.chinarewards.gwt.elt.model.rewards.RewardPageType;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -19,9 +20,11 @@ public interface RewardsItemListStaffPresenter extends
 
 		public void setDataCount(String text);
 
+		public ListBox getPageNumber();
+
 		public void setBreadCrumbs(Widget breadCrumbs);
 
-//		public HasClickHandlers getSearchBtnClickHandlers();
+		// public HasClickHandlers getSearchBtnClickHandlers();
 
 	}
 }

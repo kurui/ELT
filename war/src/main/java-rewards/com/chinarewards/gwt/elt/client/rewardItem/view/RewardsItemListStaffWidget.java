@@ -6,6 +6,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.InlineLabel;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -22,7 +23,8 @@ public class RewardsItemListStaffWidget extends Composite implements
 
 	@UiField
 	InlineLabel dataCount;
-
+	@UiField
+	ListBox pageNumber;
 	// @UiField
 	// Panel breadCrumbs;
 
@@ -57,6 +59,11 @@ public class RewardsItemListStaffWidget extends Composite implements
 		// this.breadCrumbs.clear();
 		// this.breadCrumbs.add(breadCrumbs);
 
+	}
+
+	@Override
+	public ListBox getPageNumber() {
+		return pageNumber;
 	}
 
 //	@Override

@@ -41,6 +41,9 @@ public class RewardsListStaffWidget extends Composite implements
 
 	@UiField
 	InlineLabel dataCount;
+	
+	@UiField
+	ListBox pageNumber;
 
 	// @UiField
 	// Panel breadCrumbs;
@@ -105,5 +108,10 @@ public class RewardsListStaffWidget extends Composite implements
 	@Override
 	public DateBox getRewardsTime() {
 		return rewardsTime;
+	}
+
+	@Override
+	public ListBox getPageNumber() {
+		return pageNumber;
 	}
 }

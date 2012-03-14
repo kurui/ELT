@@ -29,6 +29,9 @@ public class RewardsItemListCompanyOtherWidget extends Composite implements
 
 	@UiField
 	InlineLabel dataCount;
+	
+	@UiField
+	ListBox pageNumber;
 
 	private static RewardsItemListCompanyOtherWidgetUiBinder uiBinder = GWT
 			.create(RewardsItemListCompanyOtherWidgetUiBinder.class);
@@ -73,6 +76,11 @@ public class RewardsItemListCompanyOtherWidget extends Composite implements
 	@Override
 	public ListBox getRewardsType() {
 		return rewardsType;
+	}
+
+	@Override
+	public ListBox getPageNumber() {
+		return pageNumber;
 	}
 
 }

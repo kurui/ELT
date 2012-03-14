@@ -1,5 +1,6 @@
 package com.chinarewards.gwt.elt.client.gift.view;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -24,26 +25,26 @@ public class GiftListWidget extends Composite implements GiftListDisplay {
 	Panel resultPanel;
 	@UiField
 	Panel resultpage;
-	
+
 	@UiField
 	Button searchBtn;
 	@UiField
 	Button addBtn;
 	@UiField
 	Button importingBtn;
-	
+
 	@UiField
 	TextBox keyName;
 	@UiField
 	ListBox status;
 	@UiField
 	InlineLabel dataCount;
-
-	
-	@UiField
-	Panel breadCrumbs;
 	@UiField
 	ListBox pageNumber;
+
+	@UiField
+	Panel breadCrumbs;
+
 
 	private static GiftWidgetUiBinder uiBinder = GWT
 			.create(GiftWidgetUiBinder.class);
@@ -70,7 +71,6 @@ public class GiftListWidget extends Composite implements GiftListDisplay {
 		return resultPanel;
 	}
 
-
 	@Override
 	public HasValue<String> getKeyName() {
 		return keyName;
@@ -87,7 +87,20 @@ public class GiftListWidget extends Composite implements GiftListDisplay {
 	}
 
 	@Override
-	public void initGiftStatus(Map<String, String> map) {
+	public void initWidget() {
+
+		initGiftStatus();
+
+		pageNumber.addItem("10", "10");
+		pageNumber.addItem("20", "20");
+		pageNumber.addItem("50", "50");
+
+	}
+
+	public void initGiftStatus() {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("SHELF", "未上架");
+		map.put("SHELVES", "上架");
 
 		status.addItem("不限", "");
 		Iterator<Entry<String, String>> it = map.entrySet().iterator();
@@ -111,20 +124,21 @@ public class GiftListWidget extends Composite implements GiftListDisplay {
 
 	@Override
 	public void setDataCount(String text) {
-		dataCount.setText(text);		
+		dataCount.setText(text);
 	}
-
 
 	@Override
 	public void setBreadCrumbs(Widget breadCrumbs) {
 		this.breadCrumbs.clear();
-		this.breadCrumbs.add(breadCrumbs);		
+		this.breadCrumbs.add(breadCrumbs);
 
 	}
-	
+
 	@Override
 	public ListBox getPageNumber() {
 		return pageNumber;
 	}
+	
+
 
 }

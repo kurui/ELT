@@ -1,8 +1,6 @@
 package com.chinarewards.gwt.elt.client.gift.presenter;
 
 import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
@@ -55,7 +53,9 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 	GiftListViewAdapter listViewAdapter;
 
 	private final BreadCrumbsPresenter breadCrumbs;
+
 	int pageSize=ViewConstants.per_page_number_in_dialog;
+
 	@Inject
 	public GiftListPresenterImpl(EventBus eventBus, DispatchAsync dispatch,
 			ErrorHandler errorHandler, SessionManager sessionManager,
@@ -99,8 +99,11 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 						win.alert("导入礼品...待实现~");
 					}
 				}));
-		registerHandler(display.getPageNumber().addChangeHandler(new ChangeHandler() {
-			
+
+		
+
+	registerHandler(display.getPageNumber().addChangeHandler(new ChangeHandler() {			
+
 			@Override
 			public void onChange(ChangeEvent event) {
 				pageSize=Integer.parseInt(display.getPageNumber().getValue(display.getPageNumber().getSelectedIndex()));
@@ -111,10 +114,10 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 	}
 
 	private void init() {
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("SHELF", "未上架");
-		map.put("SHELVES", "上架");
-		display.initGiftStatus(map);
+		display.initWidget();
+		
+		
+		
 		buildTable();
 		doSearch();
 	}

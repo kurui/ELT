@@ -30,6 +30,8 @@ import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.model.rewards.RewardPageType;
 import com.google.gwt.cell.client.DateCell;
 import com.google.gwt.cell.client.TextCell;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
@@ -52,7 +54,8 @@ public class RewardsListStaffPresenterImpl extends
 	RewardsListStaffViewAdapter listViewAdapter;
 
 	private final BreadCrumbsPresenter breadCrumbs;
-
+	int pageSize=ViewConstants.per_page_number_in_dialog;
+	
 	@Inject
 	public RewardsListStaffPresenterImpl(EventBus eventBus,
 			DispatchAsync dispatch, ErrorHandler errorHandler,
@@ -81,6 +84,15 @@ public class RewardsListStaffPresenterImpl extends
 						initWidget();
 					}
 				}));
+		
+		registerHandler(display.getPageNumber().addChangeHandler(new ChangeHandler() {			
+			@Override
+			public void onChange(ChangeEvent event) {
+				pageSize=Integer.parseInt(display.getPageNumber().getValue(display.getPageNumber().getSelectedIndex()));
+				buildTable();
+				doSearch();
+			}
+		}));
 	}
 
 	private void initWidget() {
@@ -88,6 +100,10 @@ public class RewardsListStaffPresenterImpl extends
 
 		buildTable();
 		doSearch();
+		
+		display.getPageNumber().addItem("10", "10");
+		display.getPageNumber().addItem("20", "20");
+		display.getPageNumber().addItem("50", "50");
 	}
 
 	private void buildTable() {
