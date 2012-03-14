@@ -69,6 +69,10 @@ public class SearchAwardShopHandler extends
 		if (criteria.getStatus() != null) {
 			vo.setStatus(GiftStatus.valueOf(criteria.getStatus().toString()));
 		}
+		if(criteria.getIntegral()!=0)
+		{
+			vo.setIntegral(criteria.getIntegral());
+		}
 		if (criteria.getPagination() != null) {
 			PaginationDetail detail = new PaginationDetail();
 			detail.setLimit(criteria.getPagination().getLimit());
