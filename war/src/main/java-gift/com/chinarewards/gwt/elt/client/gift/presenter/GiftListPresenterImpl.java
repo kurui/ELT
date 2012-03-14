@@ -1,8 +1,6 @@
 package com.chinarewards.gwt.elt.client.gift.presenter;
 
 import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
@@ -34,6 +32,8 @@ import com.chinarewards.gwt.elt.client.win.confirm.ConfirmHandler;
 import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
@@ -53,6 +53,7 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 	GiftListViewAdapter listViewAdapter;
 
 	private final BreadCrumbsPresenter breadCrumbs;
+	int pageSize=ViewConstants.per_page_number_in_dialog;
 
 	@Inject
 	public GiftListPresenterImpl(EventBus eventBus, DispatchAsync dispatch,
@@ -97,13 +98,23 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 						win.alert("导入礼品...待实现~");
 					}
 				}));
+		
+		
+	registerHandler(display.getPageNumber().addChangeHandler(new ChangeHandler() {			
+			@Override
+			public void onChange(ChangeEvent event) {
+				pageSize=Integer.parseInt(display.getPageNumber().getValue(display.getPageNumber().getSelectedIndex()));
+				buildTable();
+				doSearch();
+			}
+		}));
 	}
 
 	private void init() {
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("SHELF", "未上架");
-		map.put("SHELVES", "上架");
-		display.initGiftStatus(map);
+		display.initWidget();
+		
+		
+		
 		buildTable();
 		doSearch();
 	}

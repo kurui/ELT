@@ -26,6 +26,8 @@ public interface RewardsItemListCompanyPresenter extends
 
 		public void setDataCount(String text);
 
+		public ListBox getPageNumber();
+		
 		public void setBreadCrumbs(Widget breadCrumbs);
 
 	}
