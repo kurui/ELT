@@ -53,6 +53,7 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 	GiftListViewAdapter listViewAdapter;
 
 	private final BreadCrumbsPresenter breadCrumbs;
+
 	int pageSize=ViewConstants.per_page_number_in_dialog;
 
 	@Inject
@@ -98,9 +99,11 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 						win.alert("导入礼品...待实现~");
 					}
 				}));
+
 		
-		
+
 	registerHandler(display.getPageNumber().addChangeHandler(new ChangeHandler() {			
+
 			@Override
 			public void onChange(ChangeEvent event) {
 				pageSize=Integer.parseInt(display.getPageNumber().getValue(display.getPageNumber().getSelectedIndex()));
@@ -127,7 +130,7 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 		pager = new EltNewPager(TextLocation.CENTER);
 		pager.setDisplay(cellTable);
 		cellTable.setWidth(ViewConstants.page_width);
-		cellTable.setPageSize(ViewConstants.per_page_number_in_dialog);
+		cellTable.setPageSize(pageSize);
 
 		display.getResultPanel().clear();
 		display.getResultPanel().add(cellTable);
