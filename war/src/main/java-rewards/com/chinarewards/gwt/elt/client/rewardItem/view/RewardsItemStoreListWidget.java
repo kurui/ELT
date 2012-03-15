@@ -66,7 +66,8 @@ public class RewardsItemStoreListWidget extends Composite implements
 	Panel breadCrumbs;
 	@UiField
 	ListBox depart;
-
+	@UiField
+	ListBox pageNumber;
 	// is inject
 	//final DepartmentComboTree DeptCombTree;
 	DateTimeFormat dateFormat = DateTimeFormat.getFormat(ViewConstants.date_format);
@@ -85,7 +86,10 @@ public class RewardsItemStoreListWidget extends Composite implements
 		initWidget(uiBinder.createAndBindUi(this));
 		createTime.setFormat(new DateBox.DefaultFormat(dateFormat));
 		createTimeEnd.setFormat(new DateBox.DefaultFormat(dateFormat));
-		
+		pageNumber.clear();
+		pageNumber.addItem("10","10");
+		pageNumber.addItem("20","20");
+		pageNumber.addItem("50","50");
 	}
 	
 	@Override
@@ -167,5 +171,9 @@ public class RewardsItemStoreListWidget extends Composite implements
 		dataCount.setText(text);
 	}
 	
+	@Override
+	public ListBox getPageNumber() {
+		return pageNumber;
+	}
 
 }

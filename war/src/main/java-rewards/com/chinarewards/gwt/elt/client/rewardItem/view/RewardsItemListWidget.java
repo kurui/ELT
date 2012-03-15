@@ -65,6 +65,8 @@ public class RewardsItemListWidget extends Composite implements
 	InlineLabel dataCount;
 	@UiField
 	Panel breadCrumbs;
+	@UiField
+	ListBox pageNumber;
 	@Override
 	public String getStatus() {
 		return status.getValue(status.getSelectedIndex());
@@ -93,6 +95,10 @@ public class RewardsItemListWidget extends Composite implements
 		status.addItem("全部", "All");
 		status.addItem("未激活", "false");
 		status.addItem("已激活", "true");
+		pageNumber.clear();
+		pageNumber.addItem("10","10");
+		pageNumber.addItem("20","20");
+		pageNumber.addItem("50","50");
 			
 	}
 	@Override
@@ -185,6 +191,10 @@ public class RewardsItemListWidget extends Composite implements
 		dataCount.setText(text);
 	}
 	
-	
+	@Override
+	public ListBox getPageNumber() {
+		return pageNumber;
+	}
+
 
 }

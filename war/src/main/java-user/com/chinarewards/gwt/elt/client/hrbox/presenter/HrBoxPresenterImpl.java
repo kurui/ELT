@@ -222,14 +222,14 @@ public class HrBoxPresenterImpl extends BasePresenter<HrBoxDisplay>
 								 }
 								   vo = list.get(0);
 								    corpBudgetId = vo.getId();
-								  	DepBudgetVo criteria = new DepBudgetVo();
-									criteria.setCorpBudgetId(corpBudgetId);
-									listViewAdapter = new DepBudgetListAdapter(dispatch, criteria,errorHandler, sessionManager, display);
-									listViewAdapter.addDataDisplay(cellTable);
+								  	
 
 							 }
 								
-													
+							    DepBudgetVo criteria = new DepBudgetVo();
+								criteria.setCorpBudgetId(corpBudgetId);
+								listViewAdapter = new DepBudgetListAdapter(dispatch, criteria,errorHandler, sessionManager, display);
+								listViewAdapter.addDataDisplay(cellTable);						
 						}
 
 					});

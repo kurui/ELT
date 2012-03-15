@@ -6,7 +6,6 @@ import java.util.List;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
-
 import com.chinarewards.gwt.elt.client.core.ui.event.PlatformInitEvent;
 import com.chinarewards.gwt.elt.client.login.LastLoginRoleRequest;
 import com.chinarewards.gwt.elt.client.login.LastLoginRoleResponse;
@@ -18,6 +17,7 @@ import com.chinarewards.gwt.elt.client.login.event.LoginEvent;
 import com.chinarewards.gwt.elt.client.login.event.LoginHandler;
 import com.chinarewards.gwt.elt.client.login.presenter.AlertErrorWidget;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
+import com.chinarewards.gwt.elt.client.remote.login.LoginServiceAsync;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.support.UserSession;
 import com.chinarewards.gwt.elt.client.ui.DialogBox;
@@ -42,17 +42,18 @@ public class CookieSessionManager implements SessionManager {
 	final UserSession session;
 	final EventBus eventBus;
 	final DispatchAsync dispatchAsync;
+	private final LoginServiceAsync loginService;
 
 	private static final int COOKIE_TIMEOUT = 1000 * 60 * 60;
 	List<HandlerRegistration> handlerRegistrations = new ArrayList<HandlerRegistration>();
 
 	@Inject
 	public CookieSessionManager(UserSession session, final EventBus eventBus,
-			DispatchAsync dispatchAsync) {
+			DispatchAsync dispatchAsync,LoginServiceAsync loginService) {
 		this.session = session;
 		this.eventBus = eventBus;
 		this.dispatchAsync = dispatchAsync;
-
+		this.loginService=loginService;
 
 	}
 
@@ -97,36 +98,31 @@ public class CookieSessionManager implements SessionManager {
 			dialogBoxae.show();
 			return;
 		}
-
-		LoginRequest req = new LoginRequest(username, password, verifyCode);
-		dispatchAsync.execute(req, new AsyncCallback<LoginResponse>() {
-
-			@Override
-			public void onFailure(Throwable e) {
-				tokenObtained(null);
+		if (null == verifyCode || verifyCode.trim().equals("")) {
+			//Window.alert("密码不能为空!");
+			final AlertErrorWidget ae = new AlertErrorWidget();
+			final DialogBox dialogBoxae = new DialogBox();
+			ae.getOkBtn().addClickHandler(new ClickHandler() {
+				@Override
+				public void onClick(ClickEvent arg0) {
+					dialogBoxae.hide();
+				}
+			});
+			ae.setMessage("验证码不能为空!");
+			dialogBoxae.setWidget(ae);
+			dialogBoxae.setGlassEnabled(true);
+			dialogBoxae.setAnimationEnabled(true);
+			dialogBoxae.setWidth("350px");
+			dialogBoxae.setText("提示");
+			dialogBoxae.center();
+			dialogBoxae.show();
+			return;
+		}
+		loginService.authLogin(username, password, verifyCode,new AsyncCallback<UserSession>() {
 			
-				final AlertErrorWidget ae = new AlertErrorWidget();
-				final DialogBox dialogBoxae = new DialogBox();
-				ae.getOkBtn().addClickHandler(new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent arg0) {
-						dialogBoxae.hide();
-					}
-				});
-				ae.setMessage(e.getMessage());
-				dialogBoxae.setWidget(ae);
-				dialogBoxae.setGlassEnabled(true);
-				dialogBoxae.setAnimationEnabled(true);
-				dialogBoxae.setWidth("350px");
-				dialogBoxae.setText("提示");
-				dialogBoxae.center();
-				dialogBoxae.show();
-				eventBus.fireEvent(new LoginEvent(
-						LoginEvent.LoginStatus.LOGIN_FAILED, e));
-			}
-
 			@Override
-			public void onSuccess(LoginResponse resp) {
+			public void onSuccess(UserSession resp) {
+				// TODO Auto-generated method stub
 				tokenObtained(resp);
 
 				UserRoleVo role = resp.getLastLoginRole();
@@ -203,6 +199,45 @@ public class CookieSessionManager implements SessionManager {
 					}
 				
 				}
+			}
+			
+			@Override
+			public void onFailure(Throwable e) {
+				tokenObtained(null);
+				
+				final AlertErrorWidget ae = new AlertErrorWidget();
+				final DialogBox dialogBoxae = new DialogBox();
+				ae.getOkBtn().addClickHandler(new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent arg0) {
+						dialogBoxae.hide();
+					}
+				});
+				ae.setMessage(e.getMessage());
+				dialogBoxae.setWidget(ae);
+				dialogBoxae.setGlassEnabled(true);
+				dialogBoxae.setAnimationEnabled(true);
+				dialogBoxae.setWidth("350px");
+				dialogBoxae.setText("提示");
+				dialogBoxae.center();
+				dialogBoxae.show();
+				eventBus.fireEvent(new LoginEvent(
+						LoginEvent.LoginStatus.LOGIN_FAILED, e));
+				
+			}
+		});
+		
+		LoginRequest req = new LoginRequest(username, password, verifyCode);
+		dispatchAsync.execute(req, new AsyncCallback<LoginResponse>() {
+
+			@Override
+			public void onFailure(Throwable e) {
+				
+			}
+
+			@Override
+			public void onSuccess(LoginResponse resp) {
+				
 			
 				}
 		});
@@ -255,8 +290,26 @@ public class CookieSessionManager implements SessionManager {
 			eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGOUT));
 		}
 	}
+	protected void tokenObtained(UserSession rep) {
+		if (rep != null && rep.getToken() != null) {
+			session.setToken(rep.getToken());
+			session.setLoginName(rep.getLoginName());
+			session.setCorporationId(rep.getCorporationId());
+			session.setUserRoles(rep.getUserRoles());
+			session.setDepartmentId(rep.getDepartmentId());
+			session.setStaffId(rep.getStaffId());
+			session.setLastLoginRole(rep.getLastLoginRole());
+			session.setCorporationName(rep.getCorporationName());
+			session.setPhoto(rep.getPhoto());
+			Date expires = new Date((new Date()).getTime() + COOKIE_TIMEOUT);
+			Cookies.setCookie("token", rep.getToken(), expires);
 
-	protected void tokenObtained(LoginResponse rep) {
+		} else {
+			session.setToken(null);
+			Cookies.removeCookie("token");
+		}
+	}
+	protected void tokenObtaineds(LoginResponse rep) {
 		if (rep != null && rep.getToken() != null) {
 			session.setToken(rep.getToken());
 			session.setLoginName(rep.getLoginName());
