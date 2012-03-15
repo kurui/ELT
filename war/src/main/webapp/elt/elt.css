@@ -1870,7 +1870,10 @@ li.token-input-input-token-facebook {
 	border: 1px solid #C7C7C7;
 	color: #999999;
 }
-
+#rewardlist_page2 .pagedisable,#rewardlist_page .pagedisable:hover {
+	border: 1px solid #C7C7C7;
+	color: #999999;
+}
 .searchStaff {
 	float: left;
 	height: 22px;
