@@ -40,7 +40,8 @@ public class OrderHistoryWidget extends Composite implements OrderHistoryDisplay
 	
 	@UiField
 	InlineLabel dataCount;
-	
+	@UiField
+	ListBox pageNumber;
 	DateTimeFormat dateFormat = DateTimeFormat.getFormat(ViewConstants.date_format);
 	private static OrderWidgetUiBinder uiBinder = GWT
 			.create(OrderWidgetUiBinder.class);
@@ -87,7 +88,10 @@ public class OrderHistoryWidget extends Composite implements OrderHistoryDisplay
 	
 	@Override
 	public void initOrderStatus(Map<String, String> map) {
-
+		pageNumber.clear();
+		pageNumber.addItem("10","10");
+		pageNumber.addItem("20","20");
+		pageNumber.addItem("50","50");
 		status.addItem("不限", "");
 		Iterator<Entry<String, String>> it = map.entrySet().iterator();
 		while (it.hasNext()) {
@@ -107,5 +111,8 @@ public class OrderHistoryWidget extends Composite implements OrderHistoryDisplay
 		
 	}
 	
-	
+	@Override
+	public ListBox getPageNumber() {
+		return pageNumber;
+	}
 }

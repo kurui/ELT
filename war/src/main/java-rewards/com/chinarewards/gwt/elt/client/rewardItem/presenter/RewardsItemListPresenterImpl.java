@@ -37,6 +37,8 @@ import com.chinarewards.gwt.elt.client.win.confirm.ConfirmHandler;
 import com.google.gwt.cell.client.DateCell;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
@@ -64,7 +66,7 @@ public class RewardsItemListPresenterImpl extends
 	DateTimeFormat dateFormatAll = DateTimeFormat.getFormat(ViewConstants.date_format_all);
 	DateTimeFormat dateFormat = DateTimeFormat.getFormat(ViewConstants.date_format);
 	private final BreadCrumbsPresenter breadCrumbs;
-
+	int pageSize=ViewConstants.per_page_number_in_dialog;
 	// 是否部门管理员
 	boolean isHr = false;
 	boolean isDepartmentManager = false;
@@ -88,7 +90,14 @@ public class RewardsItemListPresenterImpl extends
 		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
 		init();
 		buildTable();
-        
+        registerHandler(display.getPageNumber().addChangeHandler(new ChangeHandler() {
+		@Override
+			public void onChange(ChangeEvent event) {
+				pageSize=Integer.parseInt(display.getPageNumber().getValue(display.getPageNumber().getSelectedIndex()));
+				buildTable();
+				doSearch();
+			}
+		}));
 		registerHandler(display.getSearchClick().addClickHandler(
 				new ClickHandler() {
 					@Override
@@ -120,6 +129,7 @@ public class RewardsItemListPresenterImpl extends
 		resultTable.getColumn(0).setCellStyleNames("divTextLeft");
 		display.getDataContainer().clear();
 		display.getDataContainer().add(resultTable);
+		display.getDataPager().clear();
 		display.getDataPager().add(pager);
 	}
 

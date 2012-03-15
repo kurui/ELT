@@ -39,7 +39,8 @@ public class OrderListWidget extends Composite implements OrderListDisplay {
 	InlineLabel dataCount;
 	@UiField
 	Panel breadCrumbs;
-	
+	@UiField
+	ListBox pageNumber;
 	private static OrderWidgetUiBinder uiBinder = GWT
 			.create(OrderWidgetUiBinder.class);
 
@@ -93,7 +94,10 @@ public class OrderListWidget extends Composite implements OrderListDisplay {
 	
 	@Override
 	public void initOrderSource(Map<String, String> map) {
-
+		pageNumber.clear();
+		pageNumber.addItem("10","10");
+		pageNumber.addItem("20","20");
+		pageNumber.addItem("50","50");
 		source.addItem("不限", "");
 		Iterator<Entry<String, String>> it = map.entrySet().iterator();
 		while (it.hasNext()) {
@@ -126,5 +130,9 @@ public class OrderListWidget extends Composite implements OrderListDisplay {
 		  status.setSelectedIndex(4);	
 //		else
 //			 status.setSelectedIndex(0);
+	}
+	@Override
+	public ListBox getPageNumber() {
+		return pageNumber;
 	}
 }

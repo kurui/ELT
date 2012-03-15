@@ -8,6 +8,7 @@ import com.chinarewards.gwt.elt.client.mvp.Display;
 import com.chinarewards.gwt.elt.client.mvp.Presenter;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
 
 public interface OrderHistoryPresenter extends Presenter<OrderHistoryPresenter.OrderHistoryDisplay> {
@@ -23,7 +24,7 @@ public interface OrderHistoryPresenter extends Presenter<OrderHistoryPresenter.O
 		Panel getResultPanel();
 		Panel getResultpage();
 		public void initOrderStatus(Map<String, String> map);
-		
+		ListBox getPageNumber();
 		
 	}
 }

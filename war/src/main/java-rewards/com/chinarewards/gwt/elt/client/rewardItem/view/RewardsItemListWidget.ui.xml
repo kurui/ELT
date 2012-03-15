@@ -70,10 +70,7 @@
 			<div class="{newitem.pager}">
 				<div class="{newitem.pager-left}">
 					每页显示条数
-					<select class="{newitem.select}">
-						<option>10</option>
-						<option>15</option>
-					</select>
+					<g:ListBox ui:field="pageNumber" styleName="{newitem.select}" /> 
 				</div>
 
 				<div id="rewardlist_page" class="{newitem.pager-right}">
