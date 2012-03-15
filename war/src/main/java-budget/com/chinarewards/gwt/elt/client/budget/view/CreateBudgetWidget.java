@@ -41,7 +41,8 @@ public class CreateBudgetWidget extends Composite implements CreateBudgetDisplay
 	InlineLabel remainCount;
 	@UiField
 	Panel breadCrumbs;
-	
+	@UiField
+	ListBox pageNumber;
 	private static OrderWidgetUiBinder uiBinder = GWT
 			.create(OrderWidgetUiBinder.class);
 
@@ -50,6 +51,10 @@ public class CreateBudgetWidget extends Composite implements CreateBudgetDisplay
 
 	public CreateBudgetWidget() {
 		initWidget(uiBinder.createAndBindUi(this));
+		pageNumber.clear();
+		pageNumber.addItem("10","10");
+		pageNumber.addItem("20","20");
+		pageNumber.addItem("50","50");
 	}
 
 	@Override
@@ -132,6 +137,9 @@ public class CreateBudgetWidget extends Composite implements CreateBudgetDisplay
 
 	}
 
-	
+	@Override
+	public ListBox getPageNumber() {
+		return pageNumber;
+	}
 	
 }

@@ -35,6 +35,8 @@ import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.cell.client.DateCell;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
@@ -48,7 +50,7 @@ public class OrderHistoryPresenterImpl extends
 	final ErrorHandler errorHandler;
 	final SessionManager sessionManager;
 	final Win win;
-
+	int pageSize=ViewConstants.per_page_number_in_dialog;
 	EltNewPager pager;
 	ListCellTable<OrderSearchVo> cellTable;
 	OrderHistoryDataAdapter listViewAdapter;
@@ -80,7 +82,15 @@ public class OrderHistoryPresenterImpl extends
 						doSearch();
 					}
 				}));
-
+          registerHandler(display.getPageNumber().addChangeHandler(new ChangeHandler() {
+			
+			@Override
+			public void onChange(ChangeEvent event) {
+				pageSize=Integer.parseInt(display.getPageNumber().getValue(display.getPageNumber().getSelectedIndex()));
+				buildTable();
+				doSearch();
+			}
+		}));
 	}
 
 	private void init() {
