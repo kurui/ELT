@@ -1,0 +1,5 @@
+Error #14
+com.chinarewards.gwt.elt.util.SWLicenseManager$BadInputException: Bad product ID: null
+	at com.chinarewards.gwt.elt.util.SWLicenseManager.generateLicense(SWLicenseManager.java:251)
+	at com.chinarewards.gwt.elt.util.SWLicenseManager.KeyMain(SWLicenseManager.java:380)
+	at com.chinarewards.gwt.elt.util.SWLicenseManager.main(SWLicenseManager.java:34)
