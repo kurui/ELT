@@ -46,6 +46,7 @@ public class RewardsAdapter {
 		if (rewards.getCreatedBy() != null
 				&& rewards.getCreatedBy().getStaff() != null){
 			result.setCreatedBy(rewards.getCreatedBy().getStaff().getName());
+			result.setCreatedByStaffId(rewards.getCreatedBy().getStaff().getId());
 		}
 		result.setTotalAmtLimit(rewards.getTotalAmtLimit());
 		result.setExpectNominateDate(rewards.getExpectNominateDate());
