@@ -445,12 +445,15 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 
 					});
 		}
-
+		if (pageType != RewardPageType.DETAILSOFAWARDPAGE) {
 		cellTable.addColumn("操作", new HyperLinkCell(),
 				new GetValue<RewardsClient, String>() {
 					@Override
 					public String getValue(RewardsClient rewards) {
+						if(sessionManager.getSession().getStaffId().equals(rewards.getCreatedByStaffId()))
 						return "删除";
+						else 
+						return "";
 					}
 				}, new FieldUpdater<RewardsClient, String>() {
 
@@ -468,6 +471,7 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 					}
 
 				});
+		}
 	}
 
 	public void delteReward(String rewardsId) {
