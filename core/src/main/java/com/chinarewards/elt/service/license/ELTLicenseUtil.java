@@ -1,7 +1,8 @@
-package com.chinarewards.gwt.elt.util;
+package com.chinarewards.elt.service.license;
 
-import java.io.File;
 import java.util.prefs.Preferences;
+
+import com.chinarewards.elt.util.StringUtil;
 
 import de.schlichtherle.license.DefaultCipherParam;
 import de.schlichtherle.license.DefaultKeyStoreParam;
@@ -10,10 +11,10 @@ import de.schlichtherle.license.LicenseContent;
 import de.schlichtherle.license.LicenseManager;
 
 /**
- * 客户端
+ * 客户端 验证授权证书
  */
-public class ELTLicenseClient {
-	public ELTLicenseClient() {
+public class ELTLicenseUtil {
+	public ELTLicenseUtil() {
 		// ELTLicenseClient.class.getResourceAsStream(arg0)
 	}
 
@@ -42,9 +43,9 @@ public class ELTLicenseClient {
 
 	protected static final LicenseManager manager = new LicenseManager(
 			new DefaultLicenseParam(PRIVATEKEY_SUBJECT,
-					Preferences.userNodeForPackage(ELTLicenseClient.class),
+					Preferences.userNodeForPackage(ELTLicenseUtil.class),
 					new DefaultKeyStoreParam(
-							ELTLicenseClient.class, // CUSTOMIZE
+							ELTLicenseUtil.class, // CUSTOMIZE
 							KEYSTORE_RESOURCE, PUBSTORE_SUBJECT,
 							KEYSTORE_STORE_PWD, null),// 这里一定要是null
 					new DefaultCipherParam(CIPHER_KEY_PWD)));
@@ -76,11 +77,11 @@ public class ELTLicenseClient {
 
 	public static String getCertPath() {
 		String realPath = "";
-		realPath = ELTLicenseClient.class.getResource("").getPath();
+		realPath = ELTLicenseUtil.class.getResource("").getPath();
 
 		System.out.println(realPath);
 
-		if (!StringUtil.isEmpty(realPath)) {
+		if (!StringUtil.isEmptyString(realPath)) {
 			int rootIndex = realPath.indexOf("jboss-5.1.0.GA");
 			if (rootIndex < 0) {
 				rootIndex = realPath.indexOf("war");

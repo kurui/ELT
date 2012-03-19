@@ -44,10 +44,6 @@ import com.chinarewards.gwt.elt.client.gift.request.SearchGiftRequest;
 import com.chinarewards.gwt.elt.client.gift.request.UpdateGiftStatusRequest;
 import com.chinarewards.gwt.elt.client.hrbox.request.HrBoxRewardsRequest;
 import com.chinarewards.gwt.elt.client.integralManagement.request.IntegralManagementRequest;
-import com.chinarewards.gwt.elt.client.license.request.DeleteLicenseRequest;
-import com.chinarewards.gwt.elt.client.license.request.EditLicenseRequest;
-import com.chinarewards.gwt.elt.client.license.request.SearchLicenseByIdRequest;
-import com.chinarewards.gwt.elt.client.license.request.SearchLicenseRequest;
 import com.chinarewards.gwt.elt.client.login.LastLoginRoleRequest;
 import com.chinarewards.gwt.elt.client.login.LoginRequest;
 import com.chinarewards.gwt.elt.client.login.TokenValidRequest;
@@ -143,10 +139,6 @@ import com.chinarewards.gwt.elt.server.gift.SearchGiftHandler;
 import com.chinarewards.gwt.elt.server.gift.UpdateGiftStatusHandler;
 import com.chinarewards.gwt.elt.server.hrbox.HrBoxRewardsHandler;
 import com.chinarewards.gwt.elt.server.integralManagement.IntegralManagementHandler;
-import com.chinarewards.gwt.elt.server.license.DeleteLicenseHandler;
-import com.chinarewards.gwt.elt.server.license.EditLicenseHandler;
-import com.chinarewards.gwt.elt.server.license.SearchLicenseByIdHandler;
-import com.chinarewards.gwt.elt.server.license.SearchLicenseHandler;
 import com.chinarewards.gwt.elt.server.login.LoginActionHandler;
 import com.chinarewards.gwt.elt.server.login.TokenValidActionHandler;
 import com.chinarewards.gwt.elt.server.login.UpdatelastLoginRoleActionHandler;
@@ -422,13 +414,6 @@ public class ActionModule extends ActionHandlerModule {
 		//员工天地修改密码
 		bindHandler(PasswordRequest.class,UpdateStaffPwdActionHandler.class);
 
-		
-		//授权证书列表
-//		bindHandler(SearchLicenseRequest.class, SearchLicenseHandler.class);	   
-//		bindHandler(SearchLicenseByIdRequest.class,SearchLicenseByIdHandler.class);		
-//		//授权证书编辑
-//		bindHandler(EditLicenseRequest.class, EditLicenseHandler.class); 		
-//		//授权证书删除
-//		bindHandler(DeleteLicenseRequest.class, DeleteLicenseHandler.class); 
+
 	}
 }
