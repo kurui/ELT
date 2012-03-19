@@ -38,6 +38,7 @@ import com.chinarewards.gwt.elt.client.gift.plugin.GiftViewPluginDescriptor;
 import com.chinarewards.gwt.elt.client.gloryBroadcast.plugin.GloryBroadcastPluginDescriptor;
 import com.chinarewards.gwt.elt.client.hrbox.plugin.HrBoxPluginDescriptor;
 import com.chinarewards.gwt.elt.client.integralManagement.plugin.IntegralManagementPluginDescriptor;
+import com.chinarewards.gwt.elt.client.license.plugin.LicensePluginDescriptor;
 import com.chinarewards.gwt.elt.client.mailSave.plugin.MailSavePluginDescriptor;
 import com.chinarewards.gwt.elt.client.message.plugin.MessageListPluginDescriptor;
 import com.chinarewards.gwt.elt.client.messageSave.plugin.MessageSavePluginDescriptor;
@@ -149,7 +150,7 @@ public class PlatformModule extends AbstractGinModule {
 			BroadcastReplyPluginDescriptor BroadcastReply,
 			HrBoxPluginDescriptor hrBox,
 			MailSetPluginDescriptor mailset,
-			LeadTimePluginDescriptor leadTime) {
+			LeadTimePluginDescriptor leadTime,LicensePluginDescriptor license) {
 
 
 		if (pluginSet == null) {
@@ -199,6 +200,8 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(BroadcastReply);
 			pluginSet.registerPlugin(leadTime);
 			pluginSet.registerPlugin(mailset);
+		
+			pluginSet.registerPlugin(license);
 		}
 
 		return pluginSet;
