@@ -16,7 +16,8 @@ import java.util.logging.Logger;
 	try {
 		ProcessBuilder pb = new ProcessBuilder("ipconfig", "/all");
 		Process p = pb.start();
-		BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+		BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream(),"UTF-8"));
+	
 		String line;
 		while ((line = br.readLine()) != null) {
 		  if (line.indexOf("Physical Address") != -1) {
@@ -39,7 +40,9 @@ import java.util.logging.Logger;
 	try {
 		ProcessBuilder pb = new ProcessBuilder("ifconfig");
 		Process p = pb.start();
-		BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream(),"UTF-8"));
+		
 		String line;
 			while((line=br.readLine())!=null){
 			  int index=line.indexOf("硬件地址");//中文的
