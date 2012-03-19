@@ -46,6 +46,7 @@ public class RewardsBaseInfo implements Serializable {
 
 	// 设立者的名字
 	private String createdBy;
+	private String createdByStaffId;
 
 	// 奖励单位:BINFEN,RMB
 	private String rewardsUnit;
@@ -57,6 +58,14 @@ public class RewardsBaseInfo implements Serializable {
 	private ParticipateInfoClient participateInfo;
 	
 	
+
+	public String getCreatedByStaffId() {
+		return createdByStaffId;
+	}
+
+	public void setCreatedByStaffId(String createdByStaffId) {
+		this.createdByStaffId = createdByStaffId;
+	}
 
 	// 从welcome页面传过来需要给其颁奖。
 	private StaffClient staff;

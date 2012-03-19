@@ -74,7 +74,13 @@ public class RewardsClient implements Serializable, Comparable<RewardsClient> {
 		return text;
 	}
 	
-	
+	public String getCreatedByStaffId() {
+		return baseInfo.getCreatedByStaffId();
+	}
+
+	public void setCreatedByStaffId(String createdByStaffId) {
+		baseInfo.setCreatedByStaffId(createdByStaffId);
+	}
 	public List<WinnerModelClient> getWinnerList() {
 		return winnerList;
 	}
