@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 	
 		String line;
 		while ((line = br.readLine()) != null) {
-		  if (line.indexOf("Physical Address") != -1) {
+		  if (line.toLowerCase().indexOf("Physical Address") != -1) {
 			int index = line.indexOf(":");
 			address = line.substring(index + 1);
 			break;
@@ -52,7 +52,7 @@ import java.util.logging.Logger;
 			   }
 			 index = line.toLowerCase().indexOf("hwaddr");//英文
 			 if (index >= 0) {// 找到了   
-				 address = line.substring(index +"hwaddr".length()+ 1).trim();//  取出mac地址并去除2边空格   
+				 address = line.substring(index + 6).trim();//  取出mac地址并去除2边空格   
                  break;    
              } 
 		}
