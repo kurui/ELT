@@ -24,23 +24,18 @@ import de.schlichtherle.license.LicenseParam;
 /**
  * Server
  */
-public class SWLicenseManager {
+public class ELTLicenseManager {
 
 	/**
 	 * NOTE: This main() method is never called by the actual key server. It is
 	 * just useful for debugging the key generator.
 	 */
 	public static final void main(String args[]) {
-		KeyMain(args);
-		/*
-		 * try{ manager.install(new java.io.File("swutil.log"));
-		 * System.out.println("subject=" + manager.verify().getSubject());
-		 * System.exit(0); }catch(Exception ex){ ex.printStackTrace(); }
-		 */
+//		KeyMain(args);
 
 		LicenseParam parameter = new DefaultLicenseParam(SUBJECT,
 				Preferences.userRoot(), new DefaultKeyStoreParam(
-						SWLicenseManager.class, // CUSTOMIZE
+						ELTLicenseManager.class, // CUSTOMIZE
 						KEYSTORE_RESOURCE, SUBJECT, KEYSTORE_STORE_PWD,
 						KEYSTORE_KEY_PWD), new DefaultCipherParam(
 						CIPHER_KEY_PWD));
@@ -55,15 +50,15 @@ public class SWLicenseManager {
 		cal.set(2012, 10, 10);//截止有效期
 		content.setNotAfter(cal.getTime());
 
-		SWLicenseManager manager = new SWLicenseManager();
+		ELTLicenseManager manager = new ELTLicenseManager();
 		manager.createLicenseKey(parameter, content);//创建License
 		
-		manager.verifyLicenseKey(parameter);
+//		manager.verifyLicenseKey(parameter);
 
 		
 	}
 
-	public SWLicenseManager() {
+	public ELTLicenseManager() {
 	}
 
 	LicenseContent verifyLicenseKey(LicenseParam parameter) {
@@ -98,7 +93,7 @@ public class SWLicenseManager {
 		try {
 			// Create the license key from the license content and save it to a
 			// file.
-			manager.store(content, new File("D:\\cert\\"+"license.lic"));
+			manager.store(content, new File(getCertPath()+"license.lic"));
 		} catch (Exception exc) {
 			System.err.println("Could not save license key");
 			exc.printStackTrace();
@@ -109,51 +104,48 @@ public class SWLicenseManager {
 	// Customizable global properties.
 	//
 
-	/** The product id of your software */
+
 	public static final String PRODUCT_ID = "cmvp20"; // PRODUCT_ID
-
-	/**
-	 * The subject for the license manager and also the alias of the private key
-	 * entry in the keystore.
-	 */
 	public static final String SUBJECT = "privatekey"; // CUSTOMIZE
-
-	/** The resource name of your private keystore file. */
 	public static final String KEYSTORE_RESOURCE = "privateKeys.store"; // 私匙库文件名
-
-	/** The password for the keystore. */
 	public static final String KEYSTORE_STORE_PWD = "store123"; // 私匙库密码
-
-	/* The password for the private key entry in the keystore. */
 	public static final String KEYSTORE_KEY_PWD = "key123"; // 私匙库主键密码
-
-	/** The password to encrypt the generated license key file. */
 	public static final String CIPHER_KEY_PWD = "a8a8a8"; // 即将生成的license密码
-
-	/**
-	 * The filename to be displayed for the generated binary key file when
-	 * delivered. Please note that this is not used to write to a file of this
-	 * name.
-	 */
 	public static final String DISPLAY_FILENAME = "license.lic"; // license.lic
+	
+	public static String getCertPath() {
+		String realPath = "";
+		realPath = ELTLicenseClient.class.getResource("").getPath();
 
-	//
-	// The rest of this key generator does not need to get customized.
-	//
+		System.out.println(realPath);
+
+		if (!StringUtil.isEmpty(realPath)) {
+			int rootIndex = realPath.indexOf("jboss-5.1.0.GA");
+			if (rootIndex < 0) {
+				rootIndex = realPath.indexOf("war");
+			}
+
+			if (rootIndex < 0) {
+				return null;
+			} else {
+				realPath = realPath.substring(0, rootIndex);
+			}
+
+			int firstIndex = realPath.indexOf("/");
+			if (firstIndex == 0) {
+				realPath = realPath.substring(1, realPath.length());
+			}
+
+			System.out.println(realPath);
+
+			realPath = realPath + "cert";
+		}
+		return realPath;
+	}
 
 	/** The MIME type of the generated binary key file. */
 	public static final String MIME_TYPE = "application/octet-stream";
 
-	//
-	// Possible key generator exit codes
-	//
-
-	/**
-	 * Return <code>ERC_SUCCESS</code> on succesful creation of a textual key.
-	 * Note that this example creates a binary key and thus this constant is not
-	 * used here
-	 */
-	// public static final int ERC_SUCCESS = 00;
 
 	/**
 	 * Return <code>ERC_SUCCESS_BIN</code> on succesful creation of a binary
@@ -235,7 +227,7 @@ public class SWLicenseManager {
 	protected static final LicenseManager manager = new LicenseManager(
 			new DefaultLicenseParam(SUBJECT, Preferences.userRoot(),
 					new DefaultKeyStoreParam(
-							SWLicenseManager.class, // CUSTOMIZE
+							ELTLicenseManager.class, // CUSTOMIZE
 							KEYSTORE_RESOURCE, SUBJECT, KEYSTORE_STORE_PWD,
 							KEYSTORE_KEY_PWD), new DefaultCipherParam(
 							CIPHER_KEY_PWD)));

@@ -169,5 +169,8 @@ public abstract class MenuConstants {
 	public static final int MENU_ORDER_TEAMADD_EDIT = order++;
 	//密码修改
 	public static final int MENU_ORDER_PASSWORD_SEARCH = order++;
+	
+	//授权证书
+	public static final int MENU_ORDER_LICENSELIST_SEARCH=order++;
 
 }
