@@ -134,8 +134,12 @@
 			<groupId>hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
 		</dependency>
-	
-		
+	<!-- license -->
+		<!--	<dependency>
+				<groupId>de.schlichtherle.truelicense</groupId>
+				<artifactId>truelicense</artifactId>
+				   <version>1.31-SNAPSHOT</version>
+			</dependency>-->
 		<!-- Test Scope ENDS -->
 		<dependency>
 			<groupId>concurrent</groupId>

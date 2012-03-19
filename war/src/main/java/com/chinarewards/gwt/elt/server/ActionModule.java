@@ -414,5 +414,6 @@ public class ActionModule extends ActionHandlerModule {
 		//员工天地修改密码
 		bindHandler(PasswordRequest.class,UpdateStaffPwdActionHandler.class);
 
+
 	}
 }

@@ -199,6 +199,8 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(BroadcastReply);
 			pluginSet.registerPlugin(leadTime);
 			pluginSet.registerPlugin(mailset);
+		
+			
 		}
 
 		return pluginSet;

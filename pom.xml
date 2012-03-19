@@ -253,23 +253,30 @@
 				<artifactId>gwtprojsonserializer</artifactId>
 				<version>1.0.3</version>
 			</dependency>
+
+			<!-- license -->
+		<!--	<dependency>
+				<groupId>de.schlichtherle.truelicense</groupId>
+				<artifactId>truelicense</artifactId>
+				   <version>1.31-SNAPSHOT</version>
+			</dependency>-->
 		</dependencies>
 	</dependencyManagement>
 	<build>
-				<plugins>
-					<plugin>
-						<groupId>com.chinarewards.maven.plugins</groupId>
-						<artifactId>maven-appinfo-plugin</artifactId>
-						<version>0.1.0</version>
-						<executions>
-							<execution>
-								<goals>
-									<goal>appinfo</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
+		<plugins>
+			<plugin>
+				<groupId>com.chinarewards.maven.plugins</groupId>
+				<artifactId>maven-appinfo-plugin</artifactId>
+				<version>0.1.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>appinfo</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
 		<pluginManagement>
 			<plugins>
 				<plugin>
