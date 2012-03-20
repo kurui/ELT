@@ -139,7 +139,22 @@
 				<groupId>de.schlichtherle.truelicense</groupId>
 				<artifactId>truelicense</artifactId>
 				   <version>1.31-SNAPSHOT</version>
-			</dependency>-->
+			</dependency>
+			<dependency>
+				<groupId>de.schlichtherle.truelicense.core</groupId>
+				<artifactId>truelicense-core</artifactId>
+				   <version>1.31-SNAPSHOT</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>de.schlichtherle.truelicense.xml</groupId>
+				<artifactId>truelicense-xml</artifactId>
+				   <version>1.31-SNAPSHOT</version>
+			</dependency>
+			
+			-->
+			
+		
 		<!-- Test Scope ENDS -->
 		<dependency>
 			<groupId>concurrent</groupId>

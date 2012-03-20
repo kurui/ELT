@@ -30,7 +30,7 @@ public class ELTLicenseUtil {
 	// \\com\\chinarewards\\gwt\\elt\\util\\
 	// /publicCerts.store 需要放于WEB-INF/classes目录
 	public static final String KEYSTORE_RESOURCE = "/publicCerts.store"; // CUSTOMIZE
-																			// 公匙库文件名
+				 															// 公匙库文件名
 	// ELTLicenseClient.class.getResourceAsStream(arg0)
 
 	/** The password for the keystore. */
