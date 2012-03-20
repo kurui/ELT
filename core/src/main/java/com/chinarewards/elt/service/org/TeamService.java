@@ -1,6 +1,5 @@
 package com.chinarewards.elt.service.org;
 
-import com.chinarewards.elt.domain.org.Members;
 import com.chinarewards.elt.domain.org.Team;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.org.search.TeamParam;

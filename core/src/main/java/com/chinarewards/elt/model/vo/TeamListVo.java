@@ -3,10 +3,9 @@ package com.chinarewards.elt.model.vo;
 import java.io.Serializable;
 import java.util.List;
 
+import com.chinarewards.elt.domain.org.Members;
 import com.chinarewards.elt.model.common.PaginationDetail;
 import com.chinarewards.elt.model.common.SortingDetail;
-import com.chinarewards.elt.domain.org.Corporation;
-import com.chinarewards.elt.domain.org.Members;
 public class TeamListVo implements Serializable {
 	/**
 	 * 

@@ -59,7 +59,6 @@ public class ELTLicenseUtil {
 			String licensePath = getCertPath();
 
 			manager.install(new java.io.File(licensePath + "license.lic"));
-			// manager.install(new java.io.File("D:\\cert\\license2.lic"));
 			LicenseContent content = manager.verify();
 
 			String subject = content.getSubject();
@@ -84,7 +83,7 @@ public class ELTLicenseUtil {
 		if (!StringUtil.isEmptyString(realPath)) {
 			int rootIndex = realPath.indexOf("jboss-5.1.0.GA");
 			if (rootIndex < 0) {
-				rootIndex = realPath.indexOf("war");
+				rootIndex = realPath.indexOf("core"); 
 			}
 
 			if (rootIndex < 0) {
@@ -98,7 +97,7 @@ public class ELTLicenseUtil {
 				realPath = realPath.substring(1, realPath.length());
 			}
 
-			System.out.println(realPath);
+			System.out.println("realPath:"+realPath);
 
 			realPath = realPath + "cert";
 		}
