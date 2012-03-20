@@ -16,10 +16,11 @@ import java.util.logging.Logger;
 	try {
 		ProcessBuilder pb = new ProcessBuilder("ipconfig", "/all");
 		Process p = pb.start();
-		BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream(),"UTF-8"));
+		BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream(),"GBK"));
 	
 		String line;
 		while ((line = br.readLine()) != null) {
+			System.out.println(line);
 		  if (line.toLowerCase().indexOf("Physical Address") != -1) {
 			int index = line.indexOf(":");
 			address = line.substring(index + 1);
@@ -45,6 +46,7 @@ import java.util.logging.Logger;
 		
 		String line;
 			while((line=br.readLine())!=null){
+				
 			  int index=line.indexOf("硬件地址");//中文的
 				if(index!=-1){
 				address=line.substring(index+4);
