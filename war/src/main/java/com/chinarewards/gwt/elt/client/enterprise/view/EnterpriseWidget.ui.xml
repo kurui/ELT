@@ -75,7 +75,7 @@
 				Email：
 				</label>
 				<div class="{new2.element}">
-					<g:TextBox maxLength="20" ui:field="email" styleName="{new2.text}" />
+					<g:TextBox maxLength="50" ui:field="email" styleName="{new2.text}" />
 				</div>
 			</div>
 			<div class="{new2.form-line}">
