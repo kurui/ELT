@@ -57,7 +57,7 @@
 	          <g:TextBox maxLength="20" ui:field="cellphone" styleName="{new2.text}" />
 	          <span class="{new2.field-wrap}">
 	           <label class="{new2.label}"><span style="color:red">*</span>Email:</label>
-	           <g:TextBox maxLength="20" ui:field="email" styleName="{new2.text}" />
+	           <g:TextBox maxLength="50" ui:field="email" styleName="{new2.text}" />
 	          </span>
 	        </div>
 	      </div>

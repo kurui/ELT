@@ -56,7 +56,7 @@
 					<div class="{new2.form-line}">
 						<label class="{new2.label}">邮箱：</label>
 						<div class="{new2.element}">
-							<g:TextBox maxLength="30" ui:field="email" styleName="{new2.text}" />
+							<g:TextBox maxLength="50" ui:field="email" styleName="{new2.text}" />
 						</div>
 					</div>
 					<span class="{new2.cutline}"></span>
