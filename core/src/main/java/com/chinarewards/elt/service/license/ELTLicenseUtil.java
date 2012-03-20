@@ -1,5 +1,6 @@
 package com.chinarewards.elt.service.license;
 
+import java.io.File;
 import java.util.prefs.Preferences;
 
 import com.chinarewards.elt.util.StringUtil;
@@ -99,7 +100,7 @@ public class ELTLicenseUtil {
 
 			System.out.println("realPath:"+realPath);
 
-			realPath = realPath + "cert";
+			realPath = realPath + "cert"+File.separator;
 		}
 		return realPath;
 	}
