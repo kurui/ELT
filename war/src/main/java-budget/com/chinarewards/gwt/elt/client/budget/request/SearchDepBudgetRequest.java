@@ -16,17 +16,26 @@ public class SearchDepBudgetRequest implements Action<SearchDepBudgetResponse> {
 
 	public DepBudgetVo budgetVo;
 	private UserSession userSession;
-	
+	private String type;
 
 	public SearchDepBudgetRequest() {
 	}
 
-	public SearchDepBudgetRequest(DepBudgetVo budgetVo,UserSession userSession) {
+	public SearchDepBudgetRequest(DepBudgetVo budgetVo,UserSession userSession,String type) {
 		this.budgetVo = budgetVo;
 		this.userSession = userSession;
+		this.type =  type;
 	}
 
 	
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	public DepBudgetVo getBudgetVo() {
 		return budgetVo;
 	}
