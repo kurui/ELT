@@ -68,7 +68,7 @@ public class StaffIntegralPresenterImpl extends
 					}
 				});
 		
-		shopWindowPresenter.initShopWindow(1, 4);
+		shopWindowPresenter.initShopWindow(1, 3);
 		shopWindowPresenter.bind();
 		display.setShopWindow(shopWindowPresenter.getDisplay().asWidget());
 	}
