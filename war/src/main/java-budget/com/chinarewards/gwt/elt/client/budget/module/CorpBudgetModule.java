@@ -12,7 +12,5 @@ public class CorpBudgetModule extends AbstractGinModule {
 	protected void configure() {
 		bind(CorpBudgetPresenter.class).to(CorpBudgetPresenterImpl.class);
 		bind(CorpBudgetDisplay.class).to(CorpBudgetWidget.class);
-
-		
 	}
 }
