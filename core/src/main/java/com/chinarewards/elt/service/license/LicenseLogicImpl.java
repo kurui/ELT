@@ -23,16 +23,21 @@ public class LicenseLogicImpl implements LicenseLogic {
 
 	@Override
 	public LicenseContent queryLicenseContent() {
-		LicenseContent content=null;
+		LicenseContent content = null;
 		try {
-System.out.println(LicenseLogicImpl.class.getResource(""));
+			System.out.println(LicenseLogicImpl.class.getResource(""));
 			String licensePath = ELTLicenseUtil.getCertPath();
 
 			final String PRIVATEKEY_SUBJECT = "privatekey"; //
 			final String PUBSTORE_SUBJECT = "publiccert"; //
-			final String KEYSTORE_RESOURCE = "/publicCerts.store"; //
-			///F:/project/elt/core/target/classes/com/chinarewards/elt/service/license/ 
-			// publicCerts.store 放于src/license下，打包时如何
+
+			// /F:/project/elt/core/target/classes/com/chinarewards/elt/service/license/
+			final String KEYSTORE_RESOURCE = "publicCerts.store"; //
+
+			// F:/project/elt/core/target/classes/
+			// final String KEYSTORE_RESOURCE = "/publicCerts.store"; //
+
+			//
 			final String KEYSTORE_STORE_PWD = "store123"; // CUSTOMIZE
 			final String CIPHER_KEY_PWD = "a8a8a8"; //
 
@@ -56,9 +61,14 @@ System.out.println(LicenseLogicImpl.class.getResource(""));
 					+ "--" + content.getNotAfter());
 		} catch (Exception e) {
 			e.printStackTrace();
-			content=null;
+			content = null;
 		}
-		
+
 		return content;
+	}
+
+	public static void main(String[] args) {
+		LicenseLogicImpl imp = new LicenseLogicImpl();
+		imp.queryLicenseContent();
 	}
 }
