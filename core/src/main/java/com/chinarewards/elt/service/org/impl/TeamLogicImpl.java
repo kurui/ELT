@@ -80,6 +80,8 @@ public  class TeamLogicImpl implements TeamLogic {
 		} else {
 			// Update
 			itemObj = teamDao.findById(Team.class, itemObj.getId());
+			itemObj.setName(param.getName());
+			itemObj.setDescription(param.getDescription());
 			itemObj.setCreatedBy(caller);
 			itemObj.setCreatedAt(currTime);
 			itemObj=teamDao.update(itemObj);

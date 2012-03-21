@@ -70,6 +70,12 @@ public class IntegralManagementPresenterImpl extends
 						display.setBudgetIntegral((int)response.getBudgetIntegral()+"");
 						display.setUseIntegeral((int)response.getUseIntegeral()+"");
 						display.refresh(response.getResult(),sessionManager.getSession().getCorporationId());
+						
+//						GWTClient c=new GWTClient();
+//						TreeTable fileTreeTable = c.createIntegralTreeTable(response.getResult());
+//						display.getTreeTablePanel().add(fileTreeTable);
+//						
+						
 					}
 				});
 		registerHandler(display.getNominateClickHandlers().addClickHandler(

@@ -93,6 +93,12 @@ public class DepartmentListPresenterImpl extends
 						// display.setUseIntegeral((int)response.getBudgetIntegral()+"");
 						List<DepartmentNode> nodeList = response.getResult();
 						display.loadTreeData(nodeList, corporationId);
+						
+//						GWTClient c=new GWTClient();
+//						TreeTable fileTreeTable = c.createDepartmentTreeTable(nodeList);
+//						display.getTreeTablePanel().add(fileTreeTable);
+//						
+//						display.getTreeTablePanel().add(c.onModuleLoad());
 
 					}
 				});

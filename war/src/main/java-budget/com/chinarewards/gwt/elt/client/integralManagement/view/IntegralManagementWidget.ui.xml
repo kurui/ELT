@@ -40,6 +40,8 @@
 			        </div>
 			</div>
 		</div>
+		<g:FlowPanel ui:field="treeTablePanel" />
+		
 	</g:HTMLPanel>
 
 </ui:UiBinder>

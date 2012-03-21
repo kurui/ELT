@@ -46,6 +46,11 @@
 			<div class="{new2.table}" style="border-color: #DDDDDD; border-style: solid; border-width: 1px; margin-top: 10px;">
 				<g:FlowPanel ui:field="cellTree"  />
 			</div>
+			
+			
+			<g:FlowPanel ui:field="testPanel" />
+			
+			<g:FlowPanel ui:field="treeTablePanel" />
 		</div>
 	</g:HTMLPanel>
 </ui:UiBinder>
