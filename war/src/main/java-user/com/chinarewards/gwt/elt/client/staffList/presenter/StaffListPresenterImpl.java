@@ -148,7 +148,8 @@ public class StaffListPresenterImpl extends
 											@Override
 											public void onSuccess(StaffGenerateUserResponse resp) {
 												win.alert(resp.getMessage());
-											
+												buildTable();
+												doSearch();
 											}
 										});
 								

@@ -116,7 +116,7 @@
 							<span class="{new2.btn}">
 								<g:Button ui:field="addBtn" text="保存" />
 							</span>
-							<span class="{new2.btn}">
+							<span class="{new2.btn}" style="display:none">
 								<g:Button ui:field="importBtn" text="外部导入" />
 							</span>
 						</div>
