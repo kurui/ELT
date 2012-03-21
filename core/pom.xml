@@ -15,14 +15,14 @@
 	<build>
 		<plugins>
 			<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<configuration>
-						<source>${source.version}</source>
-						<target>${source.version}</target>
-						<encoding>${encoding}</encoding>
-					</configuration>
-				</plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${source.version}</source>
+					<target>${source.version}</target>
+					<encoding>${encoding}</encoding>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.zeroturnaround</groupId>
 				<artifactId>javarebel-maven-plugin</artifactId>
@@ -49,7 +49,7 @@
 					<encoding>${encoding}</encoding>
 				</configuration>
 			</plugin>
-			
+
 
 		</plugins>
 	</build>
@@ -112,12 +112,12 @@
 			<artifactId>log4j</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>    
-			  <groupId>javax.mail</groupId>    
-			   <artifactId>mail</artifactId>    
-			   <version>1.4 </version>    
-			 
-		   </dependency>  
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4 </version>
+
+		</dependency>
 		<dependency>
 			<groupId>org.apache.openejb</groupId>
 			<artifactId>javaee-api</artifactId>
@@ -134,8 +134,24 @@
 			<groupId>hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
 		</dependency>
-	
-		
+		<!-- license -->
+		<dependency>
+			<groupId>de.schlichtherle.truelicense</groupId>
+			<artifactId>truelicense-core</artifactId>
+			<version>1.31</version>
+		</dependency>
+		<dependency>
+			<groupId>de.schlichtherle.truelicense</groupId>
+			<artifactId>truelicense-xml</artifactId>
+			<version>1.31</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.3</version>
+		</dependency>
+
+
 		<!-- Test Scope ENDS -->
 		<dependency>
 			<groupId>concurrent</groupId>

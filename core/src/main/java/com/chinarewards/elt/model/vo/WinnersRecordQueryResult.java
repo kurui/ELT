@@ -2,9 +2,6 @@ package com.chinarewards.elt.model.vo;
 
 import java.util.Date;
 
-import com.chinarewards.elt.domain.org.Department;
-import com.chinarewards.elt.domain.org.Staff;
-
 public class WinnersRecordQueryResult {
 
 	private String staffName;

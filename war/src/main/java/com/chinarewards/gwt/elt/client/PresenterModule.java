@@ -122,6 +122,7 @@ public class PresenterModule extends AbstractGinModule {
 		install(new StaffInfoModule());
 		install(new MailSaveModule());
 		install(new MailSendModule());
+		
 	}
 
 }

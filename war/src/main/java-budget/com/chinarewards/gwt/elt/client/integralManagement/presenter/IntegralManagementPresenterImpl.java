@@ -68,7 +68,7 @@ public class IntegralManagementPresenterImpl extends
 					@Override
 					public void onSuccess(IntegralManagementResponse response) {
 						display.setBudgetIntegral((int)response.getBudgetIntegral()+"");
-						display.setUseIntegeral((int)response.getBudgetIntegral()+"");
+						display.setUseIntegeral((int)response.getUseIntegeral()+"");
 						display.refresh(response.getResult(),sessionManager.getSession().getCorporationId());
 						
 //						GWTClient c=new GWTClient();

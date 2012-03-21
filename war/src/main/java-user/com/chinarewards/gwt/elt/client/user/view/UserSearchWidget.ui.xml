@@ -41,7 +41,7 @@
 					<span class="{new2.nbspbig}"></span>
 					
 										<label for="">电子邮箱：</label><span class="{new2.nbsp}"></span>
-					<g:TextBox maxLength="30" ui:field="email" styleName="{new2.text}" />
+					<g:TextBox maxLength="50" ui:field="email" styleName="{new2.text}" />
 					<span class="{new2.nbspbig}"></span>
 					<br></br><br></br>
 										<label for="">关联企业名称：</label><span class="{new2.nbsp}"></span>

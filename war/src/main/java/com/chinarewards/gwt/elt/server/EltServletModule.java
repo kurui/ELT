@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 
 import com.chinarewards.elt.guice.EltModule;
 import com.chinarewards.gwt.elt.client.Elt;
-import com.chinarewards.gwt.elt.client.remote.login.LoginService;
 import com.chinarewards.gwt.elt.server.login.LoginServiceImpl;
 import com.google.inject.Singleton;
 import com.google.inject.servlet.ServletModule;

@@ -1,0 +1,4 @@
+mvn install:install-file -DgroupId=de.schlichtherle.truelicense -DartifactId=truelicense-core -DgeneratePom=true -Dversion=1.31 -Dpackaging=jar -Dfile=D:\truelicense-core-1.31.jar
+
+mvn install:install-file -DgroupId=de.schlichtherle.truelicense -DartifactId=truelicense-xml -DgeneratePom=true -Dversion=1.31 -Dpackaging=jar -Dfile=D:\truelicense-xml-1.31.jar
+

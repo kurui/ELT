@@ -5,10 +5,7 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 
 import org.slf4j.Logger;
 
-import com.chinarewards.elt.domain.org.Corporation;
-import com.chinarewards.elt.service.org.CorporationService;
 import com.chinarewards.elt.service.sendmail.SendMailService;
-import com.chinarewards.elt.util.JavaMailSend;
 import com.chinarewards.gwt.elt.client.mail.model.MailVo;
 import com.chinarewards.gwt.elt.client.mail.request.MailRequest;
 import com.chinarewards.gwt.elt.client.mail.request.MailResponse;

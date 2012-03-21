@@ -125,7 +125,10 @@ public class HrBoxPresenterImpl extends BasePresenter<HrBoxDisplay>
 							for (int col = 0; col < numColumns; col++) {
 								if (index < rewardsList.size()) {
 									RewardsClient clint = rewardsList.get(index);
-									grid.setWidget(row,	col,new RewardWindowWidget(clint.getId(),clint.getName().substring(0,5)));
+									String name = clint.getName();
+									if(name.length()>5)
+										name = name.substring(0,5);
+									grid.setWidget(row,	col,new RewardWindowWidget(clint.getId(),name));
 									index++;
 									if(index == 5)
 										break;

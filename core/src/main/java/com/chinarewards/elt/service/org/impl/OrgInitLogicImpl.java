@@ -1,18 +1,11 @@
 package com.chinarewards.elt.service.org.impl;
 
-import java.util.Date;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.chinarewards.elt.dao.org.OrgInitDao;
-import com.chinarewards.elt.domain.gift.Gift;
 import com.chinarewards.elt.domain.org.OrgInit;
-import com.chinarewards.elt.domain.org.Team;
-import com.chinarewards.elt.domain.user.SysUser;
-import com.chinarewards.elt.model.gift.search.GiftStatus;
 import com.chinarewards.elt.service.org.OrgInitLogic;
-import com.chinarewards.elt.util.DateUtil;
 import com.chinarewards.elt.util.StringUtil;
 import com.google.inject.Inject;
 
