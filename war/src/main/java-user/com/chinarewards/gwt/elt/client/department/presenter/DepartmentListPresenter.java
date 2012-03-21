@@ -30,6 +30,7 @@ public interface DepartmentListPresenter extends
 		public HasClickHandlers getSynchBtnClickHandlers();
 
 		Panel getCellTree();
+		Panel getTreeTablePanel();
 
 		void setBreadCrumbs(Widget breadCrumbs);
 

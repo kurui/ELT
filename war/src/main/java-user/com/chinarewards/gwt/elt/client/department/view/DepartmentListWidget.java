@@ -39,7 +39,11 @@ public class DepartmentListWidget extends Composite implements
 
 	@UiField
 	Panel breadCrumbs;
-
+	@UiField
+	Panel testPanel;
+	@UiField
+	Panel treeTablePanel;
+	
 	private static DepartmentWidgetUiBinder uiBinder = GWT
 			.create(DepartmentWidgetUiBinder.class);
 
@@ -49,6 +53,7 @@ public class DepartmentListWidget extends Composite implements
 
 	public DepartmentListWidget() {
 		initWidget(uiBinder.createAndBindUi(this));
+
 	}
 
 	@Override
@@ -62,6 +67,7 @@ public class DepartmentListWidget extends Composite implements
 		tree.setAnimationEnabled(true);
 		cellTree.clear();
 		cellTree.add(tree);
+		
 	}
 
 	@Override
@@ -108,5 +114,10 @@ public class DepartmentListWidget extends Composite implements
 	@Override
 	public Hidden getCurrentDepartmentId() {
 		return currentDepartmentId;
+	}
+
+	@Override
+	public Panel getTreeTablePanel() {
+		return treeTablePanel;
 	}
 }

@@ -19,6 +19,7 @@ public interface IntegralManagementPresenter extends Presenter<IntegralManagemen
 	public static interface IntegralManagementDisplay extends Display {
 
 		Panel getCellTree();
+		Panel getTreeTablePanel();
 		void refresh(List<Category> result,String corporationId);
 		void setBreadCrumbs(Widget breadCrumbs);
 		public HasClickHandlers getNominateClickHandlers();

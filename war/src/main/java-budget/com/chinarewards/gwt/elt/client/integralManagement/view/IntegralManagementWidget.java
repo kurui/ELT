@@ -25,6 +25,8 @@ public class IntegralManagementWidget extends Composite implements
 	@UiField
 	Panel cellTree;
 	@UiField
+	Panel treeTablePanel;
+	@UiField
 	Panel breadCrumbs;
 	@UiField
 	Button nominatebutton;
@@ -100,6 +102,11 @@ public class IntegralManagementWidget extends Composite implements
 	@Override
 	public void setBreadCrumbsMenu(BreadCrumbsMenu breadCrumbspresenter) {
 		this.breadCrumbspresenter=breadCrumbspresenter;
+	}
+
+	@Override
+	public Panel getTreeTablePanel() {
+		return treeTablePanel;
 	}
 
 }
