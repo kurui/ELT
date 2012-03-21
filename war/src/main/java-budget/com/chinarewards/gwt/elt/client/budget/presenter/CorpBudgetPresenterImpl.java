@@ -158,6 +158,7 @@ public class CorpBudgetPresenterImpl extends
 
 	// 保存事件
 	private void registerSaveEvent() {
+	
 		registerHandler(display.getSaveClick().addClickHandler(
 				new ClickHandler() {
 					@Override
@@ -168,7 +169,7 @@ public class CorpBudgetPresenterImpl extends
 
 						CorpBudgetVo corpBudgetVo = CorpBudgetAdapterClient
 								.adapterDisplay(display);
-
+						
 						dispatcher.execute(new EditCorpBudgetRequest(
 								corpBudgetVo, sessionManager.getSession()),
 								new AsyncCallback<EditCorpBudgetResponse>() {
