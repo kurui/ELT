@@ -149,4 +149,6 @@ public interface RewardService {
 	 * 系统短信通知颁奖人进行颁奖
 	 */
 	public void toMessageForReward();
+	//查到要提名的人短信通知
+	public void getNominatorToMessage();
 }

@@ -36,6 +36,7 @@ public class RewardServiceImpl implements RewardService {
 	private final UserLogic userLogic;
 	private final WinnerLogic winnerLogic;
 	private final StaffLogic staffLogic;
+	private final JudgeLogic judgeLogic;
 
 	@Inject
 	public RewardServiceImpl(RewardLogic rewardLogic, UserLogic userLogic,
@@ -45,6 +46,7 @@ public class RewardServiceImpl implements RewardService {
 		this.userLogic = userLogic;
 		this.winnerLogic = winnerLogic;
 		this.staffLogic = staffLogic;
+		this.judgeLogic=judgeLogic;
 
 	}
 
@@ -151,6 +153,12 @@ public class RewardServiceImpl implements RewardService {
 	@Override
 	public void toMessageForReward() {
 		rewardLogic.toMessageForReward();
+		
+	}
+
+	@Override
+	public void getNominatorToMessage() {
+		judgeLogic.getNominatorToMessage();
 		
 	}
 }
