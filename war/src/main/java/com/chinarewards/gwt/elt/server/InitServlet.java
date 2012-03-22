@@ -79,7 +79,6 @@ public class InitServlet extends HttpServlet {
 	private void autoSendMessage() {
 		logger.debug(" begin to SendNominatorToMessage ");
 		AutoSendMessageToNominatorTask autoSendMessageToNominatorTask = AutoSendMessageToNominatorTask.getInstance();
-		autoSendMessageToNominatorTask.setJudgeLogic(judgeLogic);
 		autoSendMessageToNominatorTask.setRewardService(rewardService);
 		try {
 			AutoSendMessageToNominatorTask instance = AutoSendMessageToNominatorTask.getInstance();

@@ -109,5 +109,8 @@ public interface DepartmentService {
 	 * @return
 	 */
 	public List<Department> getWholeDepartmentsOfCorporation(String corporationId);
-
+   
+	public List<Department> getImmediacyDepartmentsOfCorporation(String corporationId);
+	
+	public List<Department> getImmediacyChildren(String deptId);
 }
