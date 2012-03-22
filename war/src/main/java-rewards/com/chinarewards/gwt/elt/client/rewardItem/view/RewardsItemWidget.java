@@ -364,7 +364,7 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 				if (event.getValue() != null&& !event.getValue().equals("")) {
 					try 
 					{ 
-					    int   val=Integer.parseInt(event.getValue()); 
+					    Integer.parseInt(event.getValue()); 
 					} 
 					catch(Exception   e) 
 					{ 
@@ -379,7 +379,7 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 				if (event.getValue() != null&& !event.getValue().equals("")) {
 					try 
 					{ 
-					    int   val=Integer.parseInt(event.getValue()); 
+					   Integer.parseInt(event.getValue()); 
 					} 
 					catch(Exception   e) 
 					{ 
@@ -394,7 +394,7 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 				if (event.getValue() != null&& !event.getValue().equals("")) {
 					try 
 					{ 
-					    int   val=Integer.parseInt(event.getValue()); 
+					    Integer.parseInt(event.getValue()); 
 					} 
 					catch(Exception   e) 
 					{ 
@@ -409,7 +409,7 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 				if (event.getValue() != null&& !event.getValue().equals("")) {
 					try 
 					{ 
-					    int   val=Integer.parseInt(event.getValue()); 
+					    Integer.parseInt(event.getValue()); 
 					} 
 					catch(Exception   e) 
 					{ 
@@ -424,7 +424,7 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 				if (event.getValue() != null&& !event.getValue().equals("")) {
 					try 
 					{ 
-					    int   val=Integer.parseInt(event.getValue()); 
+					    Integer.parseInt(event.getValue()); 
 					} 
 					catch(Exception   e) 
 					{ 
