@@ -26,6 +26,11 @@
 						<g:TextBox maxLength="30" ui:field="integralPrice"
 							styleName="{new2.text}" />
 						<g:ListBox ui:field="moneyType" styleName="{new2.text}" />
+				
+						<g:Label ui:field="integralPriceLabel" styleName="{new2.lineLabel}"></g:Label>
+						<g:Label styleName="nbsp"></g:Label>
+						<g:Label ui:field="moneyTypeLabel"  styleName="{new2.lineLabel}"></g:Label>
+						
 					</div>
 				</div>
 				<span class="{new2.cutline}"></span>

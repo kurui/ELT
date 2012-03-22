@@ -12,8 +12,8 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Hidden;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TextBox;
@@ -26,6 +26,9 @@ public class IntegralPriceWidget extends Composite implements
 			.create(IntegralPriceWidgetUiBinder.class);
 	@UiField
 	TextBox integralPrice;
+	@UiField
+	Label integralPriceLabel;
+	
 
 	@UiField
 	Button saveButton;
@@ -34,6 +37,8 @@ public class IntegralPriceWidget extends Composite implements
 
 	@UiField
 	ListBox moneyType;
+	@UiField
+	Label moneyTypeLabel;
 
 	@UiField
 	Panel breadCrumbs;
@@ -55,7 +60,8 @@ public class IntegralPriceWidget extends Composite implements
 		enterpriseId.setValue(enterpriseVo.getId());
 
 		integralPrice.setText(enterpriseVo.getIntegralPrice() + "");
-
+		integralPriceLabel.setText(enterpriseVo.getIntegralPrice()+"");
+		
 		initMoneyTypeSelect(enterpriseVo.getMoneyType());
 	}
 
@@ -71,6 +77,7 @@ public class IntegralPriceWidget extends Composite implements
 					&& StringUtil.trim(keyValue) != "") {
 				if (selectedValue.equals(keyValue)) {
 					selectIndex = i;
+					moneyTypeLabel.setText(entry.getValue());
 				}
 			}
 			i++;
@@ -94,7 +101,7 @@ public class IntegralPriceWidget extends Composite implements
 	}
 
 	@Override
-	public HasValue<String> getIntegralPrice() {
+	public TextBox getIntegralPrice() {
 		return integralPrice;
 	}
 
@@ -112,5 +119,15 @@ public class IntegralPriceWidget extends Composite implements
 	@Override
 	public void setSaveVisible(boolean flag) {
 		saveButton.setVisible(flag);
+	}
+
+	@Override
+	public Label getIntegralPriceLabel() {
+		return integralPriceLabel;
+	}
+	
+	@Override
+	public Label getMoneyTypeLabel() {
+		return moneyTypeLabel;
 	}
 }

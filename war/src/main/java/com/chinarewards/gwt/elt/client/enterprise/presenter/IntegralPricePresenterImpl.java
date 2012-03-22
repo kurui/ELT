@@ -145,12 +145,30 @@ public class IntegralPricePresenterImpl extends
 				
 					if (corpBudgetVo!=null) {
 						if(corpBudgetVo.getId()==null||"".equals(corpBudgetVo.getId())){						
-							display.setSaveVisible(true);
+							display.setSaveVisible(true);//新增
+							
+							display.getIntegralPriceLabel().setVisible(false);//Label
+							display.getMoneyTypeLabel().setVisible(false);
+
+							display.getIntegralPrice().setVisible(true);
+							display.getMoneyType().setVisible(true);
 						}else{
 							display.setSaveVisible(false);
+							
+							display.getIntegralPriceLabel().setVisible(true);//Label
+							display.getMoneyTypeLabel().setVisible(true);
+
+							display.getIntegralPrice().setVisible(false);
+							display.getMoneyType().setVisible(false);
 						}
 					} else {
-						display.setSaveVisible(true);
+						display.setSaveVisible(true);//新增
+						
+						display.getIntegralPriceLabel().setVisible(false);//Label
+						display.getMoneyTypeLabel().setVisible(false);
+
+						display.getIntegralPrice().setVisible(true);
+						display.getMoneyType().setVisible(true);
 					}
 				}
 			}
