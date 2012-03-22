@@ -16,6 +16,7 @@ import com.chinarewards.gwt.elt.client.messageSave.request.MessageSaveResponse;
 import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.win.Win;
+import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -60,6 +61,7 @@ public class ColleagueLatticeWidget extends Composite {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.staffName.setText(staffName);
 		this.deptName.setText(deptName);
+		if(!StringUtil.isEmpty(photo))
 		this.photo.setUrl("imageshow?imageName="+photo);
 	
 		this.staffName.addClickHandler(new ClickHandler() {

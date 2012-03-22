@@ -55,10 +55,10 @@ public class SearchDepBudgetHandler extends
 		uc.setLoginName(request.getUserSession().getLoginName());
 		uc.setUserRoles(UserRoleTool.adaptToRole(request.getUserSession().getUserRoles()));
 		uc.setUserId(request.getUserSession().getToken());
-		
+		String type = request.getType();//all是显示全部的，pass显示超支的部门
 		budgetPage = budgetService.deptBudgetList(uc, serviceVo);
 		resp.setTotal(budgetPage.getResultCount());
-		resp.setResult(adapterToClient(budgetPage.getResultList()));//从服务端转为客户端
+		resp.setResult(adapterToClient(budgetPage.getResultList(),type));//从服务端转为客户端
 
 		return resp;
 	}
@@ -90,7 +90,7 @@ public class SearchDepBudgetHandler extends
 		return vo;
 	}
 	//从服务端得到的数据到客户端在列表显示的数据
-		public static List<DepBudgetVo> adapterToClient(List<DepartmentBudgetVo> service) {
+		public static List<DepBudgetVo> adapterToClient(List<DepartmentBudgetVo> service,String type) {
 			List<DepBudgetVo> resultList = new ArrayList<DepBudgetVo>();
 
 			for (DepartmentBudgetVo item : service) {
@@ -101,7 +101,13 @@ public class SearchDepBudgetHandler extends
 				client.setDepartmentName(item.getDepartmentName());
 				client.setUseIntegeral(item.getUseIntegeral());
 				client.setPeople(item.getPeople());
-				resultList.add(client);
+				if(type.equals("pass")){
+					if(client.getUseIntegeral()>client.getBudgetIntegral()){
+						resultList.add(client);//超支的
+					}
+				}else{
+				    resultList.add(client);//全部的
+				}
 			}
 
 			return resultList;

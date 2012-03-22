@@ -3,6 +3,7 @@ package com.chinarewards.gwt.elt.client.smallControl.view;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.detailsOfGift.model.DetailsOfGiftClient;
 import com.chinarewards.gwt.elt.client.detailsOfGift.plugin.DetailsOfGiftConstants;
+import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -37,6 +38,7 @@ public class SmallShopWindowWidget extends Composite {
 		this.shopId = shopId;
 		this.shopName.setText(shopName);
 		this.integral.setText(integral);
+		if(!StringUtil.isEmpty(shopPhoto))
 		this.shopPhoto.setUrl("imageshow?imageName=" + shopPhoto);
 
 		if (shopId != null) {

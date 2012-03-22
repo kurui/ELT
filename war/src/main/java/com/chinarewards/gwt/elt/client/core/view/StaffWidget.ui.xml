@@ -103,7 +103,7 @@
 				        <div class="{new2.menu-content}">
 				          <div class="{new2.employee-info}">
 				            <div class="{new2.employee-ps-wrap} {new2.clearfix}">
-				              <g:Image ui:field="photo" pixelSize="70,70" />
+				              <g:Image ui:field="photo" pixelSize="70,70" url="elt/images/staff.png" />
 				              <div class="{new2.employee-ps}">
 				                <strong><g:InlineLabel ui:field="staffName" /> </strong>
 				               <g:Anchor ui:field="staffInfo" >个人资料</g:Anchor>

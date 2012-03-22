@@ -24,6 +24,7 @@ public class BaseDao<T> {
 	 * @return
 	 */
 	public EntityManager getEm() {
+		entityManager.get().flush();
 		return entityManager.get();
 	}
 
@@ -35,7 +36,6 @@ public class BaseDao<T> {
 	 */
 	public T save(T t) {
 		getEm().persist(t);
-
 		return t;
 	}
 
@@ -47,7 +47,6 @@ public class BaseDao<T> {
 	 */
 	public T update(T t) {
 		getEm().merge(t);
-
 		return t;
 	}
 

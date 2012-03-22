@@ -51,7 +51,7 @@ public class DepBudgetListAdapter extends BaseDataProvider<DepBudgetVo> {
 		if (getSorting() != null) {
 			criteria.setSorting(getSorting());
 		}
-		dispatch.execute(new SearchDepBudgetRequest(criteria, sessionManager.getSession()),
+		dispatch.execute(new SearchDepBudgetRequest(criteria, sessionManager.getSession(),"all"),
 				new AsyncCallback<SearchDepBudgetResponse>() {
 					@Override
 					public void onFailure(Throwable e) {

@@ -47,7 +47,7 @@
 			
 			<div class="{new2.form-line}">
 				<label class="{new2.label}">
-				<span style="color:red">*</span>STMP协议：
+				<span style="color:red">*</span>SMTP协议：
 				</label>
 				<div class="{new2.element}">
 					<g:TextBox maxLength="20" ui:field="smtp" styleName="{new2.text}" />(如:smtp.qq.com;stmp.163.com)

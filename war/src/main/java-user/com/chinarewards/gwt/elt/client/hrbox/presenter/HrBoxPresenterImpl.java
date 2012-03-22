@@ -8,18 +8,17 @@ import java.util.Map;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
-import com.chinarewards.gwt.elt.client.awardShop.plugin.AwardShopListConstants;
 import com.chinarewards.gwt.elt.client.box.request.UserBoxRequest;
 import com.chinarewards.gwt.elt.client.box.request.UserBoxResponse;
 import com.chinarewards.gwt.elt.client.budget.model.CorpBudgetVo;
 import com.chinarewards.gwt.elt.client.budget.model.DepBudgetVo;
+import com.chinarewards.gwt.elt.client.budget.plugin.CreateBudgetConstants;
 import com.chinarewards.gwt.elt.client.budget.request.InitCorpBudgetRequest;
 import com.chinarewards.gwt.elt.client.budget.request.InitCorpBudgetResponse;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.presenter.DockPresenter;
 import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
-import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
 import com.chinarewards.gwt.elt.client.hrbox.presenter.HrBoxPresenter.HrBoxDisplay;
 import com.chinarewards.gwt.elt.client.hrbox.request.HrBoxRewardsRequest;
 import com.chinarewards.gwt.elt.client.hrbox.request.HrBoxRewardsResponse;
@@ -166,7 +165,26 @@ public class HrBoxPresenterImpl extends BasePresenter<HrBoxDisplay>
 				
 			}
 		});
+		  display.getViewBudget().addClickHandler(new ClickHandler() {//更多
+			   @Override
+				public void onClick(ClickEvent event) {
+				    dockPresenter.getDisplay().changeTopMenu("Integral");
+					dockPresenter.getDisplay().setMenuTitle("积分管理");
+					menuProcessor.initrender(dockPresenter.getDisplay().getMenu(), "Integral");
 
+				//	eventBus.fireEvent(new MenuClickEvent(menuProcessor.getMenuItem(RewardsListConstants.MENU_REWARDSLIST_SEARCH)));
+					RewardsPageClient rpc=new RewardsPageClient();
+					rpc.setTitleName("部门预算");
+					
+					Platform.getInstance()
+							.getEditorRegistry()
+							.openEditor(
+									CreateBudgetConstants.EDITOR_CREATE_BUDGET,
+									"EDITOR_CREATE_BUDGET", rpc);
+					menuProcessor.changItemColor("部门预算");
+					
+				}
+			});
 	}
 
 	@Override

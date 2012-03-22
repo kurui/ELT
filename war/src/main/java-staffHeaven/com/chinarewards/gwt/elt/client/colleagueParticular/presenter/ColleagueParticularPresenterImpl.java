@@ -2,6 +2,8 @@ package com.chinarewards.gwt.elt.client.colleagueParticular.presenter;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import com.chinarewards.gwt.elt.client.colleague.plugin.ColleagueListConstants;
+import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.corpBroadcast.presenter.CorpBroadcastPresenter;
 import com.chinarewards.gwt.elt.client.gloryBroadcast.presenter.GloryBroadcastPresenter;
 import com.chinarewards.gwt.elt.client.messageSave.presenter.MessageSavePresenter;
@@ -65,6 +67,19 @@ public class ColleagueParticularPresenterImpl extends
 		display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().setClassName(CssStyleConstants.hidden);
 		display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().setClassName(CssStyleConstants.hidden);
 		display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().setClassName(CssStyleConstants.hidden);
+	
+		display.getColleagueList().addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				Platform.getInstance()
+				.getEditorRegistry()
+				.openEditor(
+						ColleagueListConstants.EDITOR_COLLEAGUELIST_SEARCH,
+						"EDITOR_COLLEAGUELIST_SEARCH_DO_ID", null);
+				
+			}
+		});
 	}
 	
 	private void init()

@@ -29,7 +29,8 @@ public class HrBoxWidget extends Composite implements	HrBoxDisplay {
 	
 	@UiField
 	Anchor view;	
-	
+	@UiField
+	Anchor viewBudget;
 	@UiField
 	InlineLabel message;
 	// Set the format of datepicker.
@@ -68,7 +69,10 @@ public class HrBoxWidget extends Composite implements	HrBoxDisplay {
 	public HasClickHandlers getView() {
 		return view;
 	}
-	
+	@Override
+	public HasClickHandlers getViewBudget() {
+		return viewBudget;
+	}
 	@Override
 	public Panel getResultpage() {
 		return resultpage;

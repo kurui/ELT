@@ -8,7 +8,7 @@
 			<div class="{new2.encash}">
 				<div class="{new2.gift-list} {new2.clearfix}">
 					<div class="{new2.gift}">
-						<g:Image ui:field="shopPhoto" pixelSize="80,60" />
+						<g:Image ui:field="shopPhoto" pixelSize="80,60" url="elt/images/gift.png"/>
 						<p><g:Anchor ui:field="shopName" /> </p>
 						<p>
 							<span class="{new2.color-orange}"><g:InlineLabel ui:field="integral" /></span>
