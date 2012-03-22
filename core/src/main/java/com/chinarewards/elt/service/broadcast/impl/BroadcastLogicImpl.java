@@ -1,6 +1,7 @@
 package com.chinarewards.elt.service.broadcast.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.chinarewards.elt.dao.broadcast.BroadcastDao;
@@ -122,6 +123,7 @@ public class BroadcastLogicImpl implements BroadcastLogic {
 	@Override
 	public void addReplyNumber(Broadcasting broadcasting) {
 		broadcasting.setReplyNumber(broadcasting.getReplyNumber() + 1);
+		broadcasting.setLastModifiedAt(new Date());
 		broadcastDao.update(broadcasting);
 
 	}
