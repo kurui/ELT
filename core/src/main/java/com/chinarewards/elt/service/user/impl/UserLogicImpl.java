@@ -332,8 +332,8 @@ public class UserLogicImpl implements UserLogic {
 		SysUser nowUser=userDao.findUserById(byUserId);
 		user.setLastModifiedAt(DateUtil.getTime());
 		user.setLastModifiedBy(nowUser);
-		user.setPassword(newpassword);
 		if(user.getPassword().trim().equals(oldpassword.trim())){
+			user.setPassword(newpassword);
 		    userDao.update(user);
 		    return "success";
 		}else{
