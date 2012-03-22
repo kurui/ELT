@@ -148,7 +148,8 @@ public class StaffListPresenterImpl extends
 											@Override
 											public void onSuccess(StaffGenerateUserResponse resp) {
 												win.alert(resp.getMessage());
-											
+												buildTable();
+												doSearch();
 											}
 										});
 								
@@ -288,7 +289,7 @@ public class StaffListPresenterImpl extends
 						if(StringUtil.isEmpty(rewards.getUserId()))
 						return "生成账户";
 						else
-						return "";
+						return "<a href='javascript:void(0);' style='color: rgb(221, 221, 221);'>生成账户</a>";
 					}
 				}, new FieldUpdater<StaffListClient, String>() {
 
