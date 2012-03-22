@@ -47,7 +47,7 @@ public class BaseDao<T> {
 	 */
 	public T update(T t) {
 		getEm().merge(t);
-
+		getEm().flush();
 		return t;
 	}
 

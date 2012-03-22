@@ -19,6 +19,7 @@ public interface ColleagueParticularPresenter extends
 		Anchor getStaffGlory();
 
 		Anchor getSendMessage();
+		Anchor getColleagueList();
 
 		Panel getResultPanel();
 

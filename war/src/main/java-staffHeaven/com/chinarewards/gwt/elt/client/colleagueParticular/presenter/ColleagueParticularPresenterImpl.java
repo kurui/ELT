@@ -65,6 +65,15 @@ public class ColleagueParticularPresenterImpl extends
 		display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().setClassName(CssStyleConstants.hidden);
 		display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().setClassName(CssStyleConstants.hidden);
 		display.getResultPanel().getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().getNextSiblingElement().setClassName(CssStyleConstants.hidden);
+	
+		display.getColleagueList().addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 	}
 	
 	private void init()

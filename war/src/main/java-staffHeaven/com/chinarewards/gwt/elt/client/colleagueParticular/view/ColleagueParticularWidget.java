@@ -24,6 +24,8 @@ public class ColleagueParticularWidget extends Composite implements ColleaguePar
 	Anchor sendMessage;
 	@UiField
 	Panel resultPanel;
+	@UiField
+	Anchor colleagueList;
 	
 	private static ColleagueParticularWidgetUiBinder uiBinder = GWT
 			.create(ColleagueParticularWidgetUiBinder.class);
@@ -107,6 +109,11 @@ public class ColleagueParticularWidget extends Composite implements ColleaguePar
 	@Override
 	public Panel getResultPanel() {
 		return resultPanel;
+	}
+
+	@Override
+	public Anchor getColleagueList() {
+		return colleagueList;
 	}
 
 
