@@ -2,6 +2,8 @@ package com.chinarewards.gwt.elt.client.colleagueParticular.presenter;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import com.chinarewards.gwt.elt.client.colleague.plugin.ColleagueListConstants;
+import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.corpBroadcast.presenter.CorpBroadcastPresenter;
 import com.chinarewards.gwt.elt.client.gloryBroadcast.presenter.GloryBroadcastPresenter;
 import com.chinarewards.gwt.elt.client.messageSave.presenter.MessageSavePresenter;
@@ -70,7 +72,11 @@ public class ColleagueParticularPresenterImpl extends
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				// TODO Auto-generated method stub
+				Platform.getInstance()
+				.getEditorRegistry()
+				.openEditor(
+						ColleagueListConstants.EDITOR_COLLEAGUELIST_SEARCH,
+						"EDITOR_COLLEAGUELIST_SEARCH_DO_ID", null);
 				
 			}
 		});
