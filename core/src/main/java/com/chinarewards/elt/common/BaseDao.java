@@ -24,7 +24,7 @@ public class BaseDao<T> {
 	 * @return
 	 */
 	public EntityManager getEm() {
-		entityManager.get().flush();
+			entityManager.get().flush();
 		return entityManager.get();
 	}
 
