@@ -10,7 +10,7 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 import org.slf4j.Logger;
 
 import com.chinarewards.elt.domain.org.Department;
-import com.chinarewards.elt.service.org.DepartmentLogic;
+import com.chinarewards.elt.service.org.DepartmentService;
 import com.chinarewards.gwt.elt.client.budget.model.DepartmentVo;
 import com.chinarewards.gwt.elt.client.budget.request.InitDepartmentRequest;
 import com.chinarewards.gwt.elt.client.budget.request.InitDepartmentResponse;
@@ -26,11 +26,11 @@ public class InitDepartmentHandler extends	BaseActionHandler<InitDepartmentReque
 
 	@InjectLogger
 	Logger logger;
-	DepartmentLogic departmentLogic;
+	DepartmentService departmentService;
 
 	@Inject
-	public InitDepartmentHandler(DepartmentLogic departmentLogic) {
-		this.departmentLogic = departmentLogic;
+	public InitDepartmentHandler(DepartmentService departmentService) {
+		this.departmentService = departmentService;
 	}
 
 	@Override
@@ -45,10 +45,10 @@ public class InitDepartmentHandler extends	BaseActionHandler<InitDepartmentReque
 		InitDepartmentResponse resp = new InitDepartmentResponse();
 		List<Department> listVo;
 		if (roleList.contains(UserRoleVo.CORP_ADMIN)) {	//得到一级部门
-		    listVo = departmentLogic.getImmediacyDepartmentsOfCorporation(action.getUserSession().getCorporationId());
+		    listVo = departmentService.getImmediacyDepartmentsOfCorporation(action.getUserSession().getCorporationId());
 		    resp.setResult(adapterToClient(listVo));//从服务端转为客户端
 		 } else if (roleList.contains(UserRoleVo.DEPT_MGR)) {//得到子部门
-			 listVo = departmentLogic.getImmediacyChildren(action.getUserSession().getDepartmentId());
+			 listVo = departmentService.getImmediacyChildren(action.getUserSession().getDepartmentId());
 			 resp.setResult(adapterToClient(listVo));//从服务端转为客户端
 		 }
 		return resp;
