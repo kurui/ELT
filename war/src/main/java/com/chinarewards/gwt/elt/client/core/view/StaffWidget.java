@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.chinarewards.gwt.elt.client.core.presenter.StaffPresenter.StaffDisplay;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
+import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -474,6 +475,7 @@ public class StaffWidget extends Composite implements StaffDisplay {
 	}
 	@Override
 	public void setPhoto(String photo) {
+		if(!StringUtil.isEmpty(photo))
 		this.photo.setUrl("imageshow?imageName="+photo);
 	}
 	@Override

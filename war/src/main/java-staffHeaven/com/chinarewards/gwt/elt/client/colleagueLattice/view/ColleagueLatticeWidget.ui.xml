@@ -8,7 +8,7 @@
 	     <div class="{new2.workmate-list}">
 	     <div class="{new2.workmate}" ><!--IE6,鼠标滑过添加类workmate-on-->
             <div class="{new2.workmate-show}">
-              <g:Image ui:field="photo" pixelSize="72,72" />
+              <g:Image ui:field="photo" pixelSize="72,72" url="elt/images/staff.png"/>
               <div class="{new2.workmate-info}">
                 <p class="{new2.workmate-name}"><g:Anchor ui:field="staffName" /> </p>
                 <p><g:InlineLabel ui:field="deptName" /> </p>

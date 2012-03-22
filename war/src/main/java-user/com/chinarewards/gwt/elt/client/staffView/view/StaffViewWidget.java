@@ -3,6 +3,7 @@ package com.chinarewards.gwt.elt.client.staffView.view;
 import com.chinarewards.gwt.elt.client.staffList.model.StaffListCriteria.StaffStatus;
 import com.chinarewards.gwt.elt.client.staffView.presenter.StaffViewPresenter.StaffViewDisplay;
 import com.chinarewards.gwt.elt.client.view.constant.CssStyleConstants;
+import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -115,6 +116,7 @@ public class StaffViewWidget extends Composite implements StaffViewDisplay {
 
 	@Override
 	public void setStaffImage(String url) {
+		if(!StringUtil.isEmpty(url))
 		this.staffImage.setUrl("imageshow?imageName=" + url);
 	}
 

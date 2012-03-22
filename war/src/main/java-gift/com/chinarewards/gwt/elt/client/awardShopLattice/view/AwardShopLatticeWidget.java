@@ -6,6 +6,7 @@ import com.chinarewards.gwt.elt.client.detailsOfGift.model.DetailsOfGiftClient;
 import com.chinarewards.gwt.elt.client.detailsOfGift.plugin.DetailsOfGiftConstants;
 import com.chinarewards.gwt.elt.client.orderConfirmation.model.OrderConfirmationClient;
 import com.chinarewards.gwt.elt.client.orderConfirmation.plugin.OrderConfirmationConstants;
+import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -45,6 +46,7 @@ public class AwardShopLatticeWidget extends Composite implements
 		this.awardName.setText(awardName);
 		this.integral.setText(integral);
 		this.indate.setText(indate);
+		if(!StringUtil.isEmpty(photo))
 		this.photo.setUrl("imageshow?imageName="+photo);
 		if(id!=null)
 		{

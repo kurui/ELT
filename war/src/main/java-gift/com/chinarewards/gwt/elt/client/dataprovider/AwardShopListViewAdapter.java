@@ -87,7 +87,7 @@ public class AwardShopListViewAdapter extends BaseDataProvider<GiftClient> {
 						    	  }
 						    	  else
 						    	  {
-						    		  grid.setWidget(row, col,new AwardShopLatticeWidget("无数据","无数据","无数据","无数据",null).asWidget());
+						    		  grid.setWidget(row, col,new AwardShopLatticeWidget("","0","",null,null).asWidget());
 						    	  }
 						      }
 						    }
