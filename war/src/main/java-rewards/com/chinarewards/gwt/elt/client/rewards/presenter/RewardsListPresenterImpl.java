@@ -243,21 +243,21 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 					new GetValue<RewardsClient, String>() {
 						@Override
 						public String getValue(RewardsClient rewards) {
-//							for (JudgeModelClient judge:rewards.getJudgeList()) {
-//								if(judge.getStaffId().equals(sessionManager.getSession().getStaffId()))
-//								{
-//									if("NOMINATED".equals(judge.getStatus()))
-//									{
-//										return "已提名";
-//									}
-//									else
-//									{
-//										return "提名";
-//									}
-//								}
-//							}
-//							return "不是提名人";
-							return "提名";
+							for (JudgeModelClient judge:rewards.getJudgeList()) {
+								if(judge.getStaffId().equals(sessionManager.getSession().getStaffId()))
+								{
+									if("NOMINATED".equals(judge.getStatus()))
+									{
+										return "<span style='color: rgb(221, 221, 221);'>提名</span>";
+									}
+									else
+									{
+										return "提名";
+									}
+								}
+							}
+							return "<span style='color: rgb(221, 221, 221);'>提名</span>";
+
 												
 						}
 					}, new FieldUpdater<RewardsClient, String>() {
@@ -362,21 +362,20 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 								return "颁奖";
 							else if (rewards.getStatus() == RewardsStatus.PENDING_NOMINATE)
 								{
-//								for (JudgeModelClient judge:rewards.getJudgeList()) {
-//									if(judge.getStaffId().equals(sessionManager.getSession().getStaffId()))
-//									{
-//										if("NOMINATED".equals(judge.getStatus()))
-//										{
-//											return "已提名";
-//										}
-//										else
-//										{
-//											return "提名";
-//										}
-//									}
-//								}
-//								return "不是提名人";
-								return "提名";
+								for (JudgeModelClient judge:rewards.getJudgeList()) {
+									if(judge.getStaffId().equals(sessionManager.getSession().getStaffId()))
+									{
+										if("NOMINATED".equals(judge.getStatus()))
+										{
+											return "<span style='color: rgb(221, 221, 221);'>提名</span>";
+										}
+										else
+										{
+											return "提名";
+										}
+									}
+								}
+								return "<span style='color: rgb(221, 221, 221);'>提名</span>";
 								}
 							else
 								return "";
@@ -423,6 +422,10 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 						}
 
 					});
+			
+		}
+
+		if (pageType != RewardPageType.DETAILSOFAWARDPAGE) {
 			cellTable.addColumn("操作", new HyperLinkCell(),
 					new GetValue<RewardsClient, String>() {
 						@Override
@@ -444,8 +447,6 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 						}
 
 					});
-		}
-		if (pageType != RewardPageType.DETAILSOFAWARDPAGE) {
 		cellTable.addColumn("操作", new HyperLinkCell(),
 				new GetValue<RewardsClient, String>() {
 					@Override
