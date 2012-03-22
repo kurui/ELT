@@ -454,13 +454,15 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 						if(sessionManager.getSession().getStaffId().equals(rewards.getCreatedByStaffId()))
 						return "删除";
 						else 
-						return "";
+						return "<span style='color: rgb(221, 221, 221);'>删除</span>";
 					}
 				}, new FieldUpdater<RewardsClient, String>() {
 
 					@Override
 					public void update(int index, final RewardsClient o,
 							String value) {
+						if(sessionManager.getSession().getStaffId().equals(o.getCreatedByStaffId()))
+							
 						win.confirm("提示", "确定删除?", new ConfirmHandler() {
 
 							@Override
