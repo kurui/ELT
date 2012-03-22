@@ -145,4 +145,17 @@ public class DepartmentServiceImpl implements DepartmentService {
 	public List<Department> findDepartmentsManagedByStaffId(String staffId) {
 		return departmentManagerLogic.findDepartmentsManagedByStaffId(staffId);
 	}
+
+	@Override
+	public List<Department> getImmediacyDepartmentsOfCorporation(
+			String corporationId) {
+		// TODO Auto-generated method stub
+		return departmentLogic.getImmediacyDepartmentsOfCorporation(corporationId);
+	}
+
+	@Override
+	public List<Department> getImmediacyChildren(String deptId) {
+		// TODO Auto-generated method stub
+		return departmentLogic.getImmediacyChildren(deptId);
+	}
 }
