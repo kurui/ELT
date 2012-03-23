@@ -83,7 +83,7 @@ public class SendMailServiceImpl implements SendMailService {
 				}
 			}
 		}
-		System.out.println(revalue);
+		
 		if(revalue.indexOf("不能发邮件")!=-1)
 			return "不能发邮件或没有进行企业邮箱设置";
 		else
