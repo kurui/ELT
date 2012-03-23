@@ -274,7 +274,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .box .box-top{border-top:0px solid #333333;height:0px;margin:0 6px;background-color:#C9D2C6;overflow:hidden;}
 .box .box-context{border-left:2px solid #333333;border-right:2px solid #333333;}
 .box .box-bottom{border-bottom:2px solid #333333;height:4px;overflow:hidden;margin:0 6px;background-color:#C9D2C6;}
-.box span{display:block;}
+
 .box .box-tl,.box .box-tr{width:6px;height:6px;font-size:0%;margin-top:-6px;}
 .box .box-tl{float:left;background-position:0 -116px;}
 .box .box-tr{float:right;background-position:-7px -116px;}
@@ -316,3 +316,4 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .employee .box .form .form-line-btn .element{text-align:center;}
 .employee .box .cannel-button{background-color:#D0D0D0;border-top:0px solid #C3C3C3;border-left:1px solid #B0B0B0;border-bottom:1px solid #4B4B4B;border-right:1px solid #636363;color:#777777;}
 
+.floatleft{float:left;padding-right:12px;}

@@ -17,9 +17,11 @@
 							<div class="{new2.form-line} {new2.news-receive}">
 								<label class="{new2.label}" style="padding-bottom: 3px;">接收人：</label>
 								<div class="{new2.element}" style="padding-bottom: 3px;">
-                                    <g:FlowPanel ui:field="staffOrDeptTextAreaPanel" />
+                                    <g:FlowPanel ui:field="staffOrDeptTextAreaPanel" styleName="{new2.floatleft}"/>
 									
-									 <g:Button styleName="{new2.button}" ui:field="chooseBtn" text="选择"></g:Button>
+									 <span class="{new2.btn}" >
+										<g:Button ui:field="chooseBtn" text="选择"></g:Button>
+								     </span>
 								</div>
 
 
@@ -48,6 +50,7 @@
 
 						<div class="{new2.box-tools}">
 							<g:Button ui:field="saveBtn" text="发送" styleName="{new2.box-btn-ok}" />
+							 
 							<g:Button ui:field="returnBtn" text="取消"
 								styleName="{new2.box-btn-cannel}" />
 						</div>
