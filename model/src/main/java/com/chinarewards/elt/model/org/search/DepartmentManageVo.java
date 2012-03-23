@@ -8,6 +8,8 @@ public class DepartmentManageVo {
     private double useIntegeral;  //已用积分
     private String parentId;  //上级部门ID
     private boolean isLeaf;  //是否子节点
+    private int lft;
+    private int rgt;
     
 	public boolean isLeaf() {
 		return isLeaf;
@@ -51,4 +53,18 @@ public class DepartmentManageVo {
 	public void setParentId(String parentId) {
 		this.parentId = parentId;
 	}
+	public int getLft() {
+		return lft;
+	}
+	public void setLft(int lft) {
+		this.lft = lft;
+	}
+	public int getRgt() {
+		return rgt;
+	}
+	public void setRgt(int rgt) {
+		this.rgt = rgt;
+	}
+	
+	
 }
