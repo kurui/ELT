@@ -35,7 +35,7 @@
 						<g:Button ui:field="mergeBtn" text="合并部门" />
 					</span>
 					<span class="{new2.nbsp}"></span>
-					<span class="{new2.btn}">
+					<span class="{new2.btn}" style="display:none">
 						<g:Button ui:field="synchBtn" text="同步公司组织结构" />
 					</span>
 				</div>
