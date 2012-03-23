@@ -4,8 +4,9 @@ import com.chinarewards.gwt.elt.client.enterprise.model.EnterpriseVo;
 import com.chinarewards.gwt.elt.client.mvp.Display;
 import com.chinarewards.gwt.elt.client.mvp.Presenter;
 import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
 public interface IntegralPricePresenter extends
@@ -15,10 +16,12 @@ public interface IntegralPricePresenter extends
 
 		public HasClickHandlers getSaveClickHandlers();
 
-		public HasValue<String> getIntegralPrice();
+		public TextBox getIntegralPrice();
+
+		public Label getIntegralPriceLabel();
 
 		public String getEnterpriseId();
-		
+
 		public ListBox getMoneyType();
 
 		void setBreadCrumbs(Widget breadCrumbs);
@@ -28,10 +31,14 @@ public interface IntegralPricePresenter extends
 		public void clear();
 
 		public void setSaveVisible(boolean flag);
-	
+
+		/**
+		 * @return
+		 */
+		Label getMoneyTypeLabel();
+
 	}
 
-	
 	void initEditor(String id);
 
 }
