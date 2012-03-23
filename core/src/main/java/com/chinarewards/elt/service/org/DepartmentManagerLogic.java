@@ -41,4 +41,9 @@ public interface DepartmentManagerLogic {
 	 * @return
 	 */
 	public List<Department> findDepartmentsManagedByStaffId(String staffId);
+
+	/**
+	 * @param deptId
+	 */
+	public void deleteManager(String deptId);
 }

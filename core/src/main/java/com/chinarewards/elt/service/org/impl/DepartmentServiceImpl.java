@@ -49,7 +49,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 	}
 
 	@Override
-	public String deleteDepartment(String id) throws DepartmentDeleteException {
+	public String deleteDepartment(String id) throws DepartmentDeleteException {		
 		return departmentLogic.deleteDepartment(id);
 	}
 

@@ -68,6 +68,12 @@ public class DepartmentManagerLogicImpl implements DepartmentManagerLogic {
 	}
 
 	@Override
+	public void deleteManager(String deptId) {
+		deptMgrDao.deleteManager(deptId);
+	}
+	
+	
+	@Override
 	public void deleteManager(String deptId, List<String> staffIds) {
 		deptMgrDao.deleteManager(deptId, staffIds);
 	}

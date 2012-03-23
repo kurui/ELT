@@ -17,14 +17,16 @@ public class RewardAclProcessorFactoryImpl implements RewardAclProcessorFactory 
 
 	private final RewardAclProcessor hrRewardProcessor;
 	private final RewardAclProcessor deptRewardProcessor;
-	
+	private final RewardAclProcessor staffRewardProcessor;
 
 	@Inject
 	public RewardAclProcessorFactoryImpl(
 			@Named("RewardAclProcessorHr") RewardAclProcessor hrRewardProcessor,
-			@Named("RewardAclProcessorDept") RewardAclProcessor deptRewardProcessor) {
+			@Named("RewardAclProcessorDept") RewardAclProcessor deptRewardProcessor,
+			@Named("RewardAclProcessorStaff") RewardAclProcessor staffRewardProcessor) {
 		this.hrRewardProcessor = hrRewardProcessor;
 		this.deptRewardProcessor = deptRewardProcessor;
+		this.staffRewardProcessor=staffRewardProcessor;
 	}
 
 	public RewardAclProcessor generateRewardAclProcessor(List<UserRole> roles) {
@@ -34,6 +36,8 @@ public class RewardAclProcessorFactoryImpl implements RewardAclProcessorFactory 
 			res = hrRewardProcessor;
 		} else if (roles.contains(UserRole.DEPT_MGR)) {
 			res = deptRewardProcessor;
+		} else if (roles.contains(UserRole.STAFF)) {
+			res = staffRewardProcessor;
 		} else {
 			throw new UnsupportedOperationException();
 		}
