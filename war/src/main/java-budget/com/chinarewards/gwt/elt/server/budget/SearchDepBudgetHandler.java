@@ -33,7 +33,7 @@ public class SearchDepBudgetHandler extends
 	Logger logger;
 
 	BudgetService budgetService;
-
+   
 	@Inject
 	public SearchDepBudgetHandler(BudgetService budgetService) {
 		this.budgetService = budgetService;
@@ -57,8 +57,9 @@ public class SearchDepBudgetHandler extends
 		uc.setUserId(request.getUserSession().getToken());
 		String type = request.getType();//all是显示全部的，pass显示超支的部门
 		budgetPage = budgetService.deptBudgetList(uc, serviceVo);
-		resp.setTotal(budgetPage.getResultCount());
-		resp.setResult(adapterToClient(budgetPage.getResultList(),type));//从服务端转为客户端
+		List<DepBudgetVo> listVo = adapterToClient(budgetPage.getResultList(),type);//从服务端转为客户端
+		resp.setTotal(listVo.size());
+		resp.setResult(listVo);
 
 		return resp;
 	}
@@ -109,7 +110,7 @@ public class SearchDepBudgetHandler extends
 				    resultList.add(client);//全部的
 				}
 			}
-
+           
 			return resultList;
 		}
 	@Override
