@@ -13,8 +13,8 @@
 			<!--面包屑 ]] -->
            
 			  <div class="{new2.inbox-info}">
-               <p><span class="{new2.tishi-wrap}">  新增加兑换单： <span class="{new2.color-red}"><g:InlineLabel ui:field="news"  /></span> 个</span><g:Anchor text="马上查看" styleName="" ui:field="view" />&gt;&gt;</p>
-               <p><span class="{new2.tishi-wrap}"> 待发货订单共: <span class="{new2.color-red}"><g:InlineLabel ui:field="send"  /></span> 个</span><g:Anchor text="马上操作" styleName="" ui:field="operate" />&gt;&gt;</p>
+               <p><span class="{new2.tishi-wrap}">  新增加兑换单： <span class="{new2.color-red}"><g:InlineLabel ui:field="news"  /></span> 个</span><g:Anchor text="马上查看"  ui:field="view" />&gt;&gt;</p>
+               <p><span class="{new2.tishi-wrap}"> 待发货订单共: <span class="{new2.color-red}"><g:InlineLabel ui:field="send"  /></span> 个</span><g:Anchor text="马上操作"  ui:field="operate" />&gt;&gt;</p>
               </div>		
 					  
 			</div>
