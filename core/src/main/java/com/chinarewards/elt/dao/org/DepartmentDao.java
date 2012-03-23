@@ -71,12 +71,12 @@ public class DepartmentDao extends BaseDao<Department> {
 				"Invoking method maintainIndexAfterAddNode, param[index={}, corpId={}]",
 				new Object[] { index, corpId });
 		getEm().createQuery(
-				"UPDATE Department d SET d.lft = (d.lft+2) WHERE d.lft >= :index AND d.corporation.id =:corpId")
-				.setParameter("index", index).setParameter("corpId", corpId)
+				"UPDATE Department d SET d.lft = (d.lft+2) WHERE d.lft >= :index AND d.corporation.id =:corpId AND d.deleted =:deleted")
+				.setParameter("index", index).setParameter("corpId", corpId).setParameter("deleted",false)
 				.executeUpdate();
 		getEm().createQuery(
-				"UPDATE Department d SET d.rgt = (d.rgt+2) WHERE d.rgt >= :index AND d.corporation.id =:corpId")
-				.setParameter("index", index).setParameter("corpId", corpId)
+				"UPDATE Department d SET d.rgt = (d.rgt+2) WHERE d.rgt >= :index AND d.corporation.id =:corpId AND d.deleted =:deleted")
+				.setParameter("index", index).setParameter("corpId", corpId).setParameter("deleted",false)
 				.executeUpdate();
 	}
 
@@ -88,12 +88,12 @@ public class DepartmentDao extends BaseDao<Department> {
 	 */
 	public void maintainIndexAfterDeleteNode(int index, String corpId) {
 		getEm().createQuery(
-				"UPDATE Department d SET d.lft = (d.lft-2) WHERE d.lft >= :index AND d.corporation.id =:corpId")
-				.setParameter("index", index).setParameter("corpId", corpId)
+				"UPDATE Department d SET d.lft = (d.lft-2) WHERE d.lft >= :index AND d.corporation.id =:corpId AND d.deleted =:deleted")
+				.setParameter("index", index).setParameter("corpId", corpId).setParameter("deleted",false)
 				.executeUpdate();
 		getEm().createQuery(
-				"UPDATE Department d SET d.rgt = (d.rgt-2) WHERE d.rgt >= :index AND d.corporation.id =:corpId")
-				.setParameter("index", index).setParameter("corpId", corpId)
+				"UPDATE Department d SET d.rgt = (d.rgt-2) WHERE d.rgt >= :index AND d.corporation.id =:corpId AND d.deleted =:deleted")
+				.setParameter("index", index).setParameter("corpId", corpId).setParameter("deleted",false)
 				.executeUpdate();
 	}
 

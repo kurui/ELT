@@ -89,18 +89,18 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 
 		if (parent == null) {
 			throw new IllegalArgumentException("Can not find the root parent...");
-		}		
-		
-		int index = parent.getRgt();		
-		departmentDao.maintainIndexAfterAddNode(index, corporation.getId());// maintain index
+		}			
 
-		if (StringUtil.isEmptyString(department.getId())) {	
+		if (StringUtil.isEmptyString(department.getId())) {			
 			department.setLft(parent.getRgt());
 			department.setRgt(parent.getRgt() + 1);
 			
 			department.setCreatedAt(DateUtil.getTime());
 			department.setCreatedBy(caller);
 			departmentDao.save(department);
+			
+			int index = parent.getRgt();		
+			departmentDao.maintainIndexAfterAddNode(index, corporation.getId());// maintain index
 		} else {
 			Department tempDepartment = departmentDao.findById(Department.class,department.getId());
 			
@@ -175,7 +175,10 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 //		}
 		int index = department.getLft();
 		String corpId = department.getCorporation().getId();
-		departmentDao.delete(department);
+//		departmentDao.delete(department);
+		
+		department.setDeleted(true);
+		departmentDao.update(department);//逻辑删除
 		
 		departmentManagerDao.deleteManager(deptId);
 
