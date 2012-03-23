@@ -9,6 +9,7 @@ import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.ui.DialogCloseListener;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.mail.model.MailVo;
+import com.chinarewards.gwt.elt.client.mail.presenter.MailSendAllDialog;
 import com.chinarewards.gwt.elt.client.mail.presenter.MailSendDialog;
 import com.chinarewards.gwt.elt.client.mail.request.MailRequest;
 import com.chinarewards.gwt.elt.client.mail.request.MailResponse;
@@ -61,11 +62,12 @@ public class StaffListPresenterImpl extends
 	private final Provider<StaffListPrintDialog> staffListPrintDialogProvider;
 	private final BreadCrumbsPresenter breadCrumbs;
 	final Provider<MailSendDialog> mailSendDialog;
+	final Provider<MailSendAllDialog> mailSendAllDialog;
 	int pageSize=ViewConstants.per_page_number_in_dialog;
 	@Inject
-	public StaffListPresenterImpl(EventBus eventBus,Provider<MailSendDialog> mailSendDialog,
-			StaffListDisplay display, DispatchAsync dispatch,
-			SessionManager sessionManager,Win win,BreadCrumbsPresenter breadCrumbs,ErrorHandler errorHandler,Provider<StaffListPrintDialog> staffListPrintDialogProvider) {
+	public StaffListPresenterImpl(EventBus eventBus,Provider<MailSendDialog> mailSendDialog,Provider<MailSendAllDialog> mailSendAllDialog,
+			StaffListDisplay display, DispatchAsync dispatch,SessionManager sessionManager,Win win,BreadCrumbsPresenter breadCrumbs,
+			ErrorHandler errorHandler,Provider<StaffListPrintDialog> staffListPrintDialogProvider) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.sessionManager = sessionManager;
@@ -74,6 +76,7 @@ public class StaffListPresenterImpl extends
 		this.breadCrumbs=breadCrumbs;
 		this.staffListPrintDialogProvider=staffListPrintDialogProvider;
 		this.mailSendDialog = mailSendDialog;
+		this.mailSendAllDialog = mailSendAllDialog;
 	}
 
 	@Override
@@ -157,7 +160,17 @@ public class StaffListPresenterImpl extends
 						});
 					}
 				}));
-		
+		  registerHandler(display.getSendMailAllBtnClickHandlers().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						
+						MailSendAllDialog dialog = mailSendAllDialog.get();
+						Platform.getInstance().getSiteManager().openDialog(dialog,null);
+
+	
+					}
+				}));
 	}
 	
 	private void init() {	
