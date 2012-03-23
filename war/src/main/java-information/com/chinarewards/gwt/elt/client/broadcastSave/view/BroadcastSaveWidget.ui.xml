@@ -27,7 +27,7 @@
 					<div class="{new2.form-line}">
 						<label class="{new2.label2}"><span style="color:red">*</span>接收对象：</label>
 						<div class="{new2.element}">
-								<g:FlowPanel ui:field="staffOrDeptTextAreaPanel" />	
+								<g:FlowPanel ui:field="staffOrDeptTextAreaPanel" styleName="{new2.floatleft}"/>	
 								<span class="{new2.nbsp}"></span>
 								<span class="{new2.btn}" >
 									<g:Button ui:field="chooseBtn" text="选择"></g:Button>
