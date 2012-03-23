@@ -1,6 +1,7 @@
 package com.chinarewards.elt.service.sendmail;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 
 import javax.activation.DataHandler;
@@ -13,9 +14,13 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.internet.MimeUtility;
 
+import com.chinarewards.elt.dao.org.MembersDao;
 import com.chinarewards.elt.dao.org.StaffDao;
 import com.chinarewards.elt.domain.org.Corporation;
+import com.chinarewards.elt.domain.org.Members;
 import com.chinarewards.elt.domain.org.Staff;
+import com.chinarewards.elt.model.broadcast.OrganType;
+import com.chinarewards.elt.service.staff.StaffLogic;
 import com.chinarewards.elt.util.JavaMailSend;
 import com.chinarewards.elt.util.StringUtil;
 import com.google.inject.Inject;
@@ -24,13 +29,14 @@ import com.google.inject.persist.Transactional;
 public class SendMailServiceImpl implements SendMailService {
 	
 	private final StaffDao staffDao;
-  
+	private final StaffLogic staffLogic;
+	private final MembersDao membersDao;
 	@Inject
-	public SendMailServiceImpl(StaffDao staffDao) {
+	public SendMailServiceImpl(StaffDao staffDao,StaffLogic staffLogic,MembersDao membersDao) {
 		this.staffDao=staffDao;
+		this.staffLogic = staffLogic;
+		this.membersDao = membersDao;
 	}
-
-
 	
 	@Override
 	 public String sendMail(String title,String content,String staffId) {
@@ -50,7 +56,39 @@ public class SendMailServiceImpl implements SendMailService {
 		  }else
 			  return "不能发邮件";
 	}
-
+	public String sendMailAll(String title,String info,List<String[]> organList){
+		String revalue = "";
+		if (organList.size() > 0) {
+			for (int i = 0; i < organList.size(); i++) {
+				String[] organ = organList.get(i);
+				if (OrganType.valueOf(organ[2].toString()) == OrganType.STAFF) {
+					 revalue=revalue+ sendMail( title, info,organ[0]);
+				} else if (OrganType.valueOf(organ[2].toString()) == OrganType.DEPT) {
+					List<Staff> list= staffLogic.getStaffsFromDeptId(organ[0], true);
+					for(Staff staff:list){
+						 revalue=revalue+ sendMail( title, info,staff.getId());
+					}
+					
+				} else if (OrganType.valueOf(organ[2].toString()) == OrganType.GROUP) {//小组
+					List<Members> stafflist = membersDao.findMemberByTeam(organ[0]);//查所有人 
+					for(Members members:stafflist){
+						revalue=revalue+ sendMail( title, info,members.getStaff().getId());
+					}
+					
+				} else if (OrganType.valueOf(organ[2].toString()) == OrganType.ORG) {
+					List<Staff> list= staffLogic.getStaffsFromCorporationId(organ[0]);
+					for(Staff staff:list){
+						revalue=revalue+ sendMail( title, info,staff.getId());
+					}
+				}
+			}
+		}
+		
+		if(revalue.indexOf("不能发邮件")!=-1)
+			return "不能发邮件或没有进行企业邮箱设置";
+		else
+		  return "发送成功";
+	}
 	/**
      * send mail
      * @param smtp 设置发送邮件所用到的smtp
@@ -69,19 +107,15 @@ public class SendMailServiceImpl implements SendMailService {
     	 String m="";
     	try {
             Properties props = new Properties();
-
             javax.mail.Session mailSession = null; // 邮件会话对象
             javax.mail.internet.MimeMessage mimeMsg = null; // MIME邮件对象
-
             props = java.lang.System.getProperties(); // 获得系统属性对象
             props.put("mail.smtp.host", smtp); // 设置SMTP主机
             props.put("mail.smtp.auth", "true"); // 是否到服务器用户名和密码验证
             // 到服务器验证发送的用户名和密码是否正确
-            SmtpAuthenticator myEmailAuther = new SmtpAuthenticator(servername,
-                    serverpaswd);
+            SmtpAuthenticator myEmailAuther = new SmtpAuthenticator(servername, serverpaswd);
             // 设置邮件会话 注意这里将认证信息放进了Session的创建参数里
-            mailSession = javax.mail.Session.getInstance(props,
-                    (Authenticator) myEmailAuther);
+            mailSession = javax.mail.Session.getInstance(props, (Authenticator) myEmailAuther);
             // 设置传输协议
             javax.mail.Transport transport = mailSession.getTransport("smtp");
             // 设置from、to等信息
@@ -92,13 +126,13 @@ public class SendMailServiceImpl implements SendMailService {
             }
 
             InternetAddress[] sendTo = new InternetAddress[to.length];
+            if(to.length>0)
             for (int i = 0; i < to.length; i++) {
                 System.out.println("发送到:" + to[i]);
                 sendTo[i] = new InternetAddress(to[i]);
             }
 
-            mimeMsg.setRecipients(
-                    javax.mail.internet.MimeMessage.RecipientType.TO, sendTo);
+            mimeMsg.setRecipients(javax.mail.internet.MimeMessage.RecipientType.TO, sendTo);
             mimeMsg.setSubject(subject, "gb2312");
 
             MimeBodyPart messageBodyPart1 = new MimeBodyPart();
@@ -132,7 +166,7 @@ public class SendMailServiceImpl implements SendMailService {
             transport.close();
            m="发送成功,请到邮箱中查看";
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             m="出现异常，请检查自己的邮箱输入是否合法\n或者直接联系管理员";
         }
         return m;

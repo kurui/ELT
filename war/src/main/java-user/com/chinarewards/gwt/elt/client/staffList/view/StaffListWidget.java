@@ -35,7 +35,8 @@ public class StaffListWidget extends Composite implements StaffListDisplay {
 	Button createSysUserBtn;
 	@UiField
 	Button printBtn;
-	
+	@UiField
+	Button sendMailAll;
 	@UiField
 	InlineLabel dataCount;
 	@UiField
@@ -146,7 +147,10 @@ public class StaffListWidget extends Composite implements StaffListDisplay {
 	public HasClickHandlers getPrintBtnClickHandlers() {
 		return printBtn;
 	}
-
+	@Override
+	public HasClickHandlers getSendMailAllBtnClickHandlers() {
+		return sendMailAll;
+	}
 	@Override
 	public ListBox getPageNumber() {
 		return pageNumber;

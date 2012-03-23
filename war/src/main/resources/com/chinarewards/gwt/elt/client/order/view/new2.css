@@ -12,13 +12,13 @@ q:after{content:"";}
 button{cursor:pointer;}
 textarea{word-wrap:break-word;resize:none;}
 
-/*---------------------------------------全局模块----------------------------------------------*/
+/*---------------------------------------鍏ㄥ眬妯″潡----------------------------------------------*/
 .menu,.menu span,.menu-on,.menu-on span,.status-arrow,.list-top,.list-bottom,.btn,.btn button,.back-btn,.box .box-tl,.box .box-tr,.box .box-bl,.box .box-br,.box-btn-ok,.box-btn-cannel,.box-close{background:url(elt/images/elt.png) no-repeat;}
 .sidebar .title,.cutline,.footer-line{background:url(elt/images/elt_repeat.png) repeat-x;}
 
 body{background-color:#fff;color:#333333;font:12px/1.5 Tahoma, Arial, simsun;min-width:960px;}
 a{color:#565656;text-decoration:none;}
-a:hover{color:#010DFF;text-decoration:underline;}
+a:hover{color:#010DFF;text-decoration:underline;cursor:pointer;}
 .clearfix:after{content:".";display:block;clear:both;height:0;visibility:hidden;}
 .clearfix{\*zoom:1;}
 
@@ -78,7 +78,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .pager .pager-right a:hover,.pager .pager-right .on{text-decoration:none;background-color:#569B01;color:#FFFFFF;}
 .pager .pager-right .edge{background-color:#E8E8E8}
 
-/*-------------------------------------- 框架布局 --------------------------------------------------*/
+/*-------------------------------------- 妗嗘灦甯冨眬 --------------------------------------------------*/
 .index{background-color:#E6E6E6;}
 .head{position:relative;height:83px;overflow:hidden;background-color:#FFFFFF;}
 .head .top-nav{background-color:#F4F4F4;padding:1px 0;margin-left:260px;}
@@ -109,7 +109,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .footer .footer-wrap{text-align:center;background-color:#E6E6E6;}
 .footer .copyright{padding:10px 0;width:400px;text-align:left;margin:0 auto;color:#9E9E9E;}
 .footer .copyright p{line-height:20px;}
-/*-------------------------------------iframe页面------------------------------------------------------*/
+/*-------------------------------------iframe椤甸潰------------------------------------------------------*/
 .frame-wrap{background-color:#F4F4F4;width:99%;padding-top:15px; min-width: 1010px;}
 .frame-wrap .breadcrumb-wrap:after{content:".";display:block;clear:both;height:0;visibility:hidden;}
 .frame-wrap .breadcrumb-wrap{\*zoom:1;}
@@ -120,7 +120,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .frame-wrap .send-news{margin:10px 0;}
 .frame-wrap .content-wrap{padding-top:0px;}
 
-/*----------------------------------------- HR收件箱 -------------------------------------------------------*/
+/*----------------------------------------- HR鏀朵欢绠�-------------------------------------------------------*/
 .inbox{position:relative;}
 .inbox-wrap .inbox-content{margin-right:300px;}
 .inbox-wrap .inbox-content .inbox-info{background-color:#ffffff;padding:15px;}
@@ -154,7 +154,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .inbox-leader .inbox-info a{color:#579C02;font-size:14px;font-weight:bold;}
 
 
-/*-nicho自定义-*/
+/*-nicho鑷畾涔�*/
 .nbsp{padding-left:12px;}
 .nbspbig{padding-left:32px;}
 
