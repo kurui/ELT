@@ -12,7 +12,7 @@ import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.model.PaginationDetailClient;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-public class DepBudgetListAdapter extends BaseDataProvider<DepBudgetVo> {
+public class HrBoxDepBudgetListAdapter extends BaseDataProvider<DepBudgetVo> {
 
 	final DispatchAsync dispatch;
 	final DepBudgetVo criteria;
@@ -20,7 +20,7 @@ public class DepBudgetListAdapter extends BaseDataProvider<DepBudgetVo> {
 	final SessionManager sessionManager;
 	final HrBoxDisplay display;
 
-	public DepBudgetListAdapter(DispatchAsync dispatch, DepBudgetVo criteria,
+	public HrBoxDepBudgetListAdapter(DispatchAsync dispatch, DepBudgetVo criteria,
 			ErrorHandler errorHandler, SessionManager sessionManager, HrBoxDisplay display) {
 		this.dispatch = dispatch;
 		this.criteria = criteria;
