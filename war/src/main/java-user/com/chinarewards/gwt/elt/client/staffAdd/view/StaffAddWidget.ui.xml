@@ -88,8 +88,10 @@
 					<div class="{new2.form-line}">
 						<label class="{new2.label}">员工生日：</label>
 						<div class="{new2.element}">
-							<g:FlowPanel ui:field="dobpanel" />
+							<g:FlowPanel ui:field="dobpanel" styleName="{new2.floatleft}"/> 
+							 <font color='red'>(格式:1990-02-1)</font>
 							<g:Label ui:field="dobError"></g:Label>
+							
 						</div>
 					</div>
 					<div class="{new2.form-line}">
