@@ -12,7 +12,7 @@ q:after{content:"";}
 button{cursor:pointer;}
 textarea{word-wrap:break-word;resize:none;}
 
-/*---------------------------------------全局模块----------------------------------------------*/
+/*---------------------------------------鍏ㄥ眬妯″潡----------------------------------------------*/
 .menu,.menu span,.menu-on,.menu-on span,.status-arrow,.list-top,.list-bottom,.btn,.btn button,.blue-btn,.blue-btn button,.back-btn,.box .box-tl,.box .box-tr,.box .box-bl,.box .box-br,.box-btn-ok,.box-btn-cannel,.box-close,.employee .menu,.employee .menu span,.employee .menu-on,.employee .menu-on span,.new-tips,.employee .menu-border-top,.employee .menu-border-bottom,.liimg,.note .close,.news-icon,.gift-duihuan,.jifen-btn,.award-icon{background:url(elt/images/elt.png) no-repeat;}
 .sidebar .title,.cutline,.footer-line,.employee .footer .footer-wrap,.employee .menu-nav,.news-menu .news-on a,.award-history h3{background:url(elt/images/elt_repeat.png) repeat-x;}
 
@@ -30,7 +30,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 /*menu*/
 .menu{background-position:-194px -29px;padding-left:5px;display:inline-block;}
 .menu:hover{text-decoration:none;}
-.menu span{background-position:right -29px;padding:0 15px;display:inline-block;height:28px;line-height:28px;color:#555555;font-size:14px;cursor:pointer;white-space:nowrap;}
+.menu span{background-position:right -29px;padding:0 15px;height:28px;line-height:28px;color:#555555;font-size:14px;cursor:pointer;white-space:nowrap;}
 .menu-on,.menu:hover{background-position:-194px 0;}
 .menu-on span,.menu:hover span{background-position:right 0;color:#FFFFFF;}
  
@@ -80,7 +80,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .pager .pager-right a:hover{text-decoration:none;background-color:#569B01;color:#FFFFFF;}
 .pager .pager-right .edge{background-color:#E8E8E8}
 
-/*-------------------------------------- 框架布局 --------------------------------------------------*/
+/*-------------------------------------- 妗嗘灦甯冨眬 --------------------------------------------------*/
 .index{background-color:#E6E6E6;}
 .head{position:relative;height:83px;overflow:hidden;background-color:#FFFFFF;}
 .head .top-nav{background-color:#F4F4F4;padding:1px 0;margin-left:260px;}
@@ -111,7 +111,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .footer .footer-wrap{text-align:center;background-color:#E6E6E6;}
 .footer .copyright{padding:10px 0;width:400px;text-align:left;margin:0 auto;color:#9E9E9E;}
 .footer .copyright p{line-height:20px;}
-/*-------------------------------------iframe页面------------------------------------------------------*/
+/*-------------------------------------iframe椤甸潰------------------------------------------------------*/
 .frame-wrap{background-color:#F4F4F4;width:99%;padding-top:15px; min-width: 1010px;}
 .frame-wrap .breadcrumb-wrap:after{content:".";display:block;clear:both;height:0;visibility:hidden;}
 .frame-wrap .breadcrumb-wrap{\*zoom:1;}
@@ -121,7 +121,6 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .frame-wrap .query-wrap{background-color:#D8ECC1;border:1px solid #B8DA8E;padding:10px 15px;}
 .frame-wrap .send-news{margin:10px 0;}
 .frame-wrap .content-wrap{padding-top:0px;}
-
 .dockbody{background-color:#fff;color:#333333;font:12px/1.5 Tahoma, Arial, simsun;min-width:1024px;}
 .dockbody2{background-color:#fff;color:#333333;font:12px/1.5 Tahoma, Arial, simsun;min-width:1024px;overflow: auto;}
 
@@ -132,9 +131,9 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .reward-list{}
 .reward-pslist{}
 .imglink{}
-/*-------------------------------------------- 员工天地 -----------------------------------------------------------------------------------------------------------*/
+/*-------------------------------------------- 鍛樺伐澶╁湴 -----------------------------------------------------------------------------------------------------------*/
 
-/*框架重置*/
+/*妗嗘灦閲嶇疆*/
 .employee .head .nav{border-bottom:4px solid #055AB4;}
 .employee .head .top-nav .green{color:#336699;}
 .employee .head .top-nav ul .on a{background-color:#53A8DE;color:#ffffff;}
@@ -146,7 +145,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .employee .footer .footer-wrap{background-position:0 -41px;}
 .employee .footer .footer-line{background-position:0 -37px;height:3px;}
 
-/*具体样式*/
+/*鍏蜂綋鏍峰紡*/
 .employee .menu-nav{background-position:0 -107px;width:259px;overflow:hidden;border:1px solid #AEAEAE;border-left:1px solid #ABCEE5;border-bottom:none;}
 .employee .menu-nav h3{border-bottom:1px solid #055AB4;height:29px;line-height:29px;text-align:center;font-size:14px;}
 .employee .menu-nav .menu-border-top{background-position:0 -174px;display:block;width:259px;height:12px;overflow:hidden;}
@@ -177,7 +176,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .employee .encash .gift-list{padding-top:10px;}
 .employee .encash .gift-list p .more{color:#336699;text-align:right;display:block;padding-right:10px;text-decoration:underline;}
 
-/*内容区布局*/
+/*鍐呭鍖哄竷灞�/
 .employee .content{position:relative;}
 .employee .menu-nav{float:left;}
 .employee .reward-area{width:200px;overflow:hidden;background-color:#F7F7F7;vertical-align:top;position:absolute;right:0;top:0;}
@@ -201,7 +200,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .employee .content-wrap{background:url(elt/images/employee_repeaty.png) repeat-y right top;margin-left:277px;}
 .employee .content-wrap .content-info{margin-right:218px;position:relative;}
 
-/*----------------------------------------- 员工主页面 -------------------------------------------------------*/
+/*----------------------------------------- 鍛樺伐涓婚〉闈�-------------------------------------------------------*/
 .employee .content-info .note{background-color:#FEFFF4;border:1px solid #D8D9D8;padding:6px 8px;color:#F03E59;position:relative;margin-bottom:10px;}
 .employee .content-info .note .close{background-position:-32px -35px;width:8px;height:9px;position:absolute;right:8px;top:9px;cursor:pointer;}
 .employee .content-info .broadcast{background-color:#E6E7E6;padding:8px;margin-bottom:10px;}
@@ -218,7 +217,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .employee .news-list .news .news-info strong{font-weight:normal;color:#346BA8;}
 .employee .news-list .news .news-info p{padding-bottom:5px;}
 
-/*----------------------------------------- 奖品商城 -------------------------------------------------------*/
+/*----------------------------------------- 濂栧搧鍟嗗煄 -------------------------------------------------------*/
 .employee .content-info .breadcrumb{background-color:#ECECEC;color:#666666;padding:8px 10px;}
 .employee .content-info .breadcrumb a{color:#666666;}
 .employee .content-info .breadcrumb span{color:#FF6102;}
@@ -253,7 +252,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 
 .employee .remark-text{border:1px solid #C3C3C3;color:#C3C3C3;padding:3px 5px;width:738px;margin-top:10px;}
 
-/*----------------------------------------- 我的消息 -------------------------------------------------------*/
+/*----------------------------------------- 鎴戠殑娑堟伅 -------------------------------------------------------*/
 .employee .news-wrap{margin:22px 0;border-left:1px solid #CCCCCC;}
 .employee .news-wrap .news-menu:after{content:".";display:block;clear:both;height:0;visibility:hidden;}
 .employee .news-wrap .news-menu{\*zoom:1;overflow:hidden;z-index:20px;\_margin-left:-3px;}
@@ -292,7 +291,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .box .box-title-sep{width:1px;height:40px;display:inline-block;background-color:#fff;vertical-align:middle;margin-right:15px;}
 
 
-/*员工中心box样式重置*/
+/*鍛樺伐涓績box鏍峰紡閲嶇疆*/
 .employee .box{width:560px;}
 .employee .box .box-context .box-title,.employee .box .box-context .box-tools,.employee .box .box-top{background-color:#F4F4F4;}
 .employee .box .box-bottom{background-color:#F4F4F4;}
@@ -315,4 +314,4 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .employee .box .form .form-line-btn{margin-top:0px;}
 .employee .box .form .form-line-btn .element{text-align:center;}
 .employee .box .cannel-button{background-color:#D0D0D0;border-top:0px solid #C3C3C3;border-left:1px solid #B0B0B0;border-bottom:1px solid #4B4B4B;border-right:1px solid #636363;color:#777777;}
-
+.nbsp{padding-left:12px;}

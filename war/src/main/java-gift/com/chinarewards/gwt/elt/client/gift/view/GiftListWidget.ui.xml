@@ -38,7 +38,7 @@
 					</span>
 					<span class="{new2.nbsp}"></span>
 					<span class="{new2.btn}">
-						<g:Button ui:field="importingBtn" text="导入" />
+						<g:Button ui:field="importingBtn" text="导入" visible="false"/>
 					</span>
 				</div>
 			</p>
