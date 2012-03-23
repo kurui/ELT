@@ -161,4 +161,4 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .box .box-close{background-position:-14px -116px;width:18px;height:18px;display:inline-block;cursor:pointer;vertical-align:middle;margin-right:15px;}
 .box .box-title-sep{width:1px;height:40px;display:inline-block;background-color:#fff;vertical-align:middle;margin-right:15px;}
 
-
+.floatleft{float:left;}
