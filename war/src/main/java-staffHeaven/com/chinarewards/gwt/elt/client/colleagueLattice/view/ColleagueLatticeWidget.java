@@ -92,6 +92,11 @@ public class ColleagueLatticeWidget extends Composite {
 			
 			@Override
 			public void onClick(ClickEvent event) {
+				if(staffId.equals(sessionManager.getSession().getStaffId()))
+				{
+					win.alertStaff("不能给自己发悄悄话!");
+					return ;
+				}
 				final MessageSaveDialog dialog = messageSaveDialog.get();
 				dialog.initStaff(staffId, staffName);
 				Platform.getInstance().getSiteManager().openDialog(dialog, new DialogCloseListener() {
@@ -108,6 +113,11 @@ public class ColleagueLatticeWidget extends Composite {
 			
 			@Override
 			public void onClick(ClickEvent event) {
+				if(staffId.equals(sessionManager.getSession().getStaffId()))
+				{
+					win.alertStaff("不能调戏自己!");
+					return ;
+				}
 				MessageSaveRequest request = new MessageSaveRequest();
 
 				request.setSession(sessionManager.getSession());
@@ -147,6 +157,11 @@ public class ColleagueLatticeWidget extends Composite {
 						
 						@Override
 						public void onClick(ClickEvent event) {
+							if(staffId.equals(sessionManager.getSession().getStaffId()))
+							{
+								win.alertStaff("不能给自己发邮寄!");
+								return ;
+							}
 							final MailSaveDialog dialog = mailSaveDialog.get();
 							dialog.initStaff(staffId, staffName);
 							Platform.getInstance().getSiteManager().openDialog(dialog, new DialogCloseListener() {
