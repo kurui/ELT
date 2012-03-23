@@ -45,7 +45,7 @@ public class GloryBroadcastReplyLatticeWidget extends Composite {
 	Anchor myreply;
 	@UiField
 	Panel replyPanel;
-
+	int falReply=0;
 	DateTimeFormat dateFormat = DateTimeFormat
 			.getFormat(ViewConstants.date_format);
 
@@ -88,7 +88,16 @@ public class GloryBroadcastReplyLatticeWidget extends Composite {
 			@Override
 			public void onClick(ClickEvent event) {
 				
-				refMyreply();
+				if(falReply==0 || falReply==2)
+				{
+					falReply=1;
+					refMyreply();
+				}
+				else
+				{
+					falReply=0;
+					replyPanel.clear();
+				}
 			}
 		});
 		
@@ -96,7 +105,16 @@ public class GloryBroadcastReplyLatticeWidget extends Composite {
 
 				@Override
 				public void onClick(ClickEvent event) {
-					refWidget();
+					if(falReply==0 || falReply==1)
+					{
+						falReply=2;
+						refWidget();
+					}
+					else
+					{
+						falReply=0;
+						replyPanel.clear();
+					}
 				}
 			});
 		

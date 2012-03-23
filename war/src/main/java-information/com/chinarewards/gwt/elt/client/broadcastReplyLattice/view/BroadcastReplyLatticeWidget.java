@@ -58,6 +58,8 @@ public class BroadcastReplyLatticeWidget extends Composite {
 	String broadcastId;
 	BroadcastReplyLatticeWidget widget;
 	int replyNumber;
+	int falReply=0;
+
 	private static BroadcastReplyLatticeWidgetUiBinder uiBinder = GWT
 			.create(BroadcastReplyLatticeWidgetUiBinder.class);
 
@@ -94,8 +96,16 @@ public class BroadcastReplyLatticeWidget extends Composite {
 
 				@Override
 				public void onClick(ClickEvent event) {
-
-					refMyreply();
+					if(falReply==0 || falReply==2)
+					{
+						falReply=1;
+						refMyreply();
+					}
+					else
+					{
+						falReply=0;
+						replyPanel.clear();
+					}
 				}
 			});
 		} else {
@@ -107,12 +117,26 @@ public class BroadcastReplyLatticeWidget extends Composite {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				refWidget();
+				
+				if(falReply==0 || falReply==1)
+				{
+					falReply=2;
+					refWidget();
+				}
+				else
+				{
+					falReply=0;
+					replyPanel.clear();
+				}
 			}
 		});
 
 	}
 
+	void cleanReplyPanel()
+	{
+		replyPanel.clear();
+	}
 	void refMyreply() {
 		replyPanel.clear();
 		replyPanel.add(new MyReplyLatticeWidget(win, dispatch, sessionManager,

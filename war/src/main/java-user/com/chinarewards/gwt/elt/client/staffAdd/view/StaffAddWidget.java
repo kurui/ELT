@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.chinarewards.gwt.elt.client.staffAdd.presenter.StaffAddPresenter.StaffAddDisplay;
 import com.chinarewards.gwt.elt.client.staffList.model.StaffListCriteria.StaffStatus;
+import com.chinarewards.gwt.elt.client.util.DatePickerWithYearSelector;
 import com.chinarewards.gwt.elt.client.view.constant.ViewConstants;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -42,8 +43,10 @@ public class StaffAddWidget extends Composite implements StaffAddDisplay {
 	TextBox phone;
 	@UiField
 	TextBox email;
-	@UiField
+	
 	DateBox dob;
+	@UiField
+	Panel dobpanel;
 	@UiField
 	Label dobError;
 	@UiField
@@ -83,8 +86,11 @@ public class StaffAddWidget extends Composite implements StaffAddDisplay {
 	}
 
 	public StaffAddWidget() {
+
 		initWidget(uiBinder.createAndBindUi(this));
-		dob.setFormat(new DateBox.DefaultFormat(dateFormat));
+		dob=new DateBox(new DatePickerWithYearSelector(), null,new DateBox.DefaultFormat(dateFormat));
+		dob.setStyleName("fromtext");
+		dobpanel.add(dob);
 	}
 
 	@Override

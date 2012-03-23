@@ -272,7 +272,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 /*box*/
 .box{overflow:hidden;width:400px;margin:0px;position:relative;}
 .box .box-top{border-top:0px solid #333333;height:0px;margin:0 6px;background-color:#C9D2C6;overflow:hidden;}
-.box .box-context{border-left:2px solid #333333;border-right:2px solid #333333;}
+.box .box-context{border-left:2px solid #333333;border-right:2px solid #333333;border-bottom: 2px solid #333333;}
 .box .box-bottom{border-bottom:2px solid #333333;height:4px;overflow:hidden;margin:0 6px;background-color:#C9D2C6;}
 .box span{display:block;}
 .box .box-tl,.box .box-tr{width:6px;height:6px;font-size:0%;margin-top:-6px;}
