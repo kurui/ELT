@@ -127,7 +127,10 @@ public abstract class DateTool {
 		if (d == null) {
 			return null;
 		}
-		return  (d.getMonth() + 1) + "月"+d.getDate()+"日 "+d.getHours()+":"+d.getMinutes();
+		String minute=d.getMinutes()+"";
+		if(d.getMinutes()<10)
+			minute="0"+minute;
+		return  (d.getMonth() + 1) + "月"+d.getDate()+"日 "+d.getHours()+":"+minute;
 	}
 	/**
 	 * 精确到半年
