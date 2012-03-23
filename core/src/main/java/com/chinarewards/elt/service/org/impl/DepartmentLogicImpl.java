@@ -97,6 +97,7 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 			
 			department.setCreatedAt(DateUtil.getTime());
 			department.setCreatedBy(caller);
+			department.setDeleted(false);
 			departmentDao.save(department);
 			
 			int index = parent.getRgt();		
@@ -159,6 +160,7 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 		dept.setCreatedBy(caller);
 		dept.setLastModifiedAt(now);
 		dept.setLastModifiedBy(caller);
+		dept.setDeleted(false);
 		departmentDao.save(dept);
 
 		return dept;
@@ -278,7 +280,7 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 
 		if (StringUtil.isEmptyString(department.getId())) {
 			// Create
-			// department.setDeleted(false);
+			 department.setDeleted(false);
 			// department.setRecorddate(currTime);
 			// department.setStatus(GiftStatus.SHELVES);//新增的是上架的商品
 			departmentDao.save(department);
