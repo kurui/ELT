@@ -144,7 +144,7 @@ public class ButtonMenuProcessor implements MenuProcessor {
 				else if (menuId
 						.equals(RewardsListConstants.MENU_REWARDSLIST_SEARCH))
 					breadCrumbsMenu.addBreadCrumbsItemTop("奖项应用", null);
-				else if (menuId.equals(DepartmentListConstants.MENU_DEPARTMENTLIST_SEARCH))
+				else if (menuId.equals(StaffListConstants.MENU_STAFFLIST_SEARCH))
 					breadCrumbsMenu.addBreadCrumbsItemTop("员工数据", null);
 				else if (menuId.equals(GiftListConstants.MENU_GIFTLIST_SEARCH))
 					breadCrumbsMenu.addBreadCrumbsItemTop("兑换管理", null);
@@ -199,11 +199,11 @@ public class ButtonMenuProcessor implements MenuProcessor {
 			items.add(DetailsOfAwardConstants.MENU_DETAILSOFAWARD_SEARCH);
 			items.add(RewardsListConstants.MENU_REWARDSLIST_SEARCH);
 		} else if ("Staff".equals(keyname)) {
-			items.add(DepartmentListConstants.MENU_DEPARTMENTLIST_SEARCH);
-			items.add(DepartmentLeaderConstants.MENU_DEPARTMENTLEADER_SEARCH);
-			
-			//items.add(UserConstants.MENU_USER_SEARCH);
 			items.add(StaffListConstants.MENU_STAFFLIST_SEARCH);
+			items.add(DepartmentListConstants.MENU_DEPARTMENTLIST_SEARCH);
+			items.add(DepartmentLeaderConstants.MENU_DEPARTMENTLEADER_SEARCH);			
+			//items.add(UserConstants.MENU_USER_SEARCH);
+			
 			items.add(TeamConstants.MENU_TEAMLIST_SEARCH);
 		} else if ("Setting".equals(keyname)) {
 			items.add(EnterpriseConstants.MENU_ENTERPRISE_EDIT);

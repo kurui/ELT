@@ -37,9 +37,9 @@ public class DepartmentDao extends BaseDao<Department> {
 		try {
 			Department dept = (Department) getEm()
 					.createQuery(
-							"FROM Department dept WHERE dept.name = :name AND dept.corporation.id = :corpId")
+							"FROM Department d WHERE d.name = :name AND d.corporation.id = :corpId AND d.deleted =:deleted")
 					.setParameter("name", name)
-					.setParameter("corpId", corporationId).getSingleResult();
+					.setParameter("corpId", corporationId).setParameter("deleted", false).getSingleResult();
 			return dept;
 		} catch (NoResultException e) {
 			return null;
@@ -55,6 +55,7 @@ public class DepartmentDao extends BaseDao<Department> {
 		dept.setLft(1);
 		dept.setRgt(2);
 		dept.setCreatedAt(now);
+		dept.setDeleted(false);
 		getEm().persist(dept);
 
 		return dept;
@@ -71,12 +72,12 @@ public class DepartmentDao extends BaseDao<Department> {
 				"Invoking method maintainIndexAfterAddNode, param[index={}, corpId={}]",
 				new Object[] { index, corpId });
 		getEm().createQuery(
-				"UPDATE Department d SET d.lft = (d.lft+2) WHERE d.lft >= :index AND d.corporation.id =:corpId")
-				.setParameter("index", index).setParameter("corpId", corpId)
+				"UPDATE Department d SET d.lft = (d.lft+2) WHERE d.lft >= :index AND d.corporation.id =:corpId AND d.deleted =:deleted")
+				.setParameter("index", index).setParameter("corpId", corpId).setParameter("deleted",false)
 				.executeUpdate();
 		getEm().createQuery(
-				"UPDATE Department d SET d.rgt = (d.rgt+2) WHERE d.rgt >= :index AND d.corporation.id =:corpId")
-				.setParameter("index", index).setParameter("corpId", corpId)
+				"UPDATE Department d SET d.rgt = (d.rgt+2) WHERE d.rgt >= :index AND d.corporation.id =:corpId AND d.deleted =:deleted")
+				.setParameter("index", index).setParameter("corpId", corpId).setParameter("deleted",false)
 				.executeUpdate();
 	}
 
@@ -88,12 +89,12 @@ public class DepartmentDao extends BaseDao<Department> {
 	 */
 	public void maintainIndexAfterDeleteNode(int index, String corpId) {
 		getEm().createQuery(
-				"UPDATE Department d SET d.lft = (d.lft-2) WHERE d.lft >= :index AND d.corporation.id =:corpId")
-				.setParameter("index", index).setParameter("corpId", corpId)
+				"UPDATE Department d SET d.lft = (d.lft-2) WHERE d.lft >= :index AND d.corporation.id =:corpId AND d.deleted =:deleted")
+				.setParameter("index", index).setParameter("corpId", corpId).setParameter("deleted",false)
 				.executeUpdate();
 		getEm().createQuery(
-				"UPDATE Department d SET d.rgt = (d.rgt-2) WHERE d.rgt >= :index AND d.corporation.id =:corpId")
-				.setParameter("index", index).setParameter("corpId", corpId)
+				"UPDATE Department d SET d.rgt = (d.rgt-2) WHERE d.rgt >= :index AND d.corporation.id =:corpId AND d.deleted =:deleted")
+				.setParameter("index", index).setParameter("corpId", corpId).setParameter("deleted",false)
 				.executeUpdate();
 	}
 
@@ -106,8 +107,8 @@ public class DepartmentDao extends BaseDao<Department> {
 	@SuppressWarnings("unchecked")
 	public List<Department> findDepartmentsByParentId(String deptId) {
 		return getEm()
-				.createQuery("FROM Department d WHERE d.parent.id =:deptId")
-				.setParameter("deptId", deptId).getResultList();
+				.createQuery("FROM Department d WHERE d.parent.id =:deptId AND d.deleted =:deleted")
+				.setParameter("deptId", deptId).setParameter("deleted", false).getResultList();
 	}
 
 	/**
@@ -121,8 +122,8 @@ public class DepartmentDao extends BaseDao<Department> {
 	public List<Department> findDepartmentsByCoporationId(String corporationId) {
 		return getEm()
 				.createQuery(
-						"FROM Department d WHERE d.corporation.id =:corpId ")
-				.setParameter("corpId", corporationId).getResultList();
+						"FROM Department d WHERE d.corporation.id =:corpId  AND d.deleted =:deleted")
+				.setParameter("corpId", corporationId).setParameter("deleted", false).getResultList();
 	}
 
 	/**
@@ -136,9 +137,9 @@ public class DepartmentDao extends BaseDao<Department> {
 			String deptId, String corporationId) {
 		return getEm()
 				.createQuery(
-						"FROM Department d WHERE d.parent.id =:deptId AND d.corporation.id =:corpId")
+						"FROM Department d WHERE d.parent.id =:deptId AND d.corporation.id =:corpId AND d.deleted =:deleted")
 				.setParameter("deptId", deptId)
-				.setParameter("corpId", corporationId).getResultList();
+				.setParameter("corpId", corporationId).setParameter("deleted", false).getResultList();
 	}
 
 
@@ -154,8 +155,8 @@ public class DepartmentDao extends BaseDao<Department> {
 	public List<Department> findDepartmentsByLefRgt(int lft, int rgt) {
 		return getEm()
 				.createQuery(
-						"FROM Department d WHERE d.lft > :lft AND d.rgt < :rgt")
-				.setParameter("lft", lft).setParameter("rgt", rgt)
+						"FROM Department d WHERE d.lft > :lft AND d.rgt < :rgt AND d.deleted =:deleted")
+				.setParameter("lft", lft).setParameter("rgt", rgt).setParameter("deleted", false)
 				.getResultList();
 	}
 
@@ -171,12 +172,12 @@ public class DepartmentDao extends BaseDao<Department> {
 		currectList.add(rootId);
 
 		StringBuffer eql = new StringBuffer();
-		eql.append(" SELECT dept.id FROM Department dept WHERE dept.parent.id IN (:parentIds) ");
+		eql.append(" SELECT d.id FROM Department d WHERE d.parent.id IN (:parentIds)  AND d.deleted =:deleted");
 		logger.debug(" EQL:{}", eql.toString());
 
 		while (true) {
 			Query query = getEm().createQuery(eql.toString());
-			currectList = query.setParameter("parentIds", currectList)
+			currectList = query.setParameter("parentIds", currectList).setParameter("deleted", false)
 					.getResultList();
 			logger.trace("currectList:{}", currectList);
 			if (currectList == null || currectList.size() == 0) {
@@ -210,7 +211,7 @@ public class DepartmentDao extends BaseDao<Department> {
 			String corporationId, String name) {
 		Map<String, Object> param = new HashMap<String, Object>();
 		StringBuffer hql = new StringBuffer();
-		hql.append(" SELECT d FROM Department d WHERE d.parent is not null");
+		hql.append(" SELECT d FROM Department d WHERE d.parent is not null AND d.deleted =:deleted");
 		if (!StringUtil.isEmptyString(corporationId)) {
 			hql.append(" AND d.corporation.id =:corpId  ");
 			param.put("corpId", corporationId);
@@ -219,6 +220,7 @@ public class DepartmentDao extends BaseDao<Department> {
 			hql.append(" AND d.name LIKE :name  ");
 			param.put("name", "%" + name + "%");
 		}
+		param.put("deleted",false);
 		Query query = getEm().createQuery(hql.toString());
 		for (String key : param.keySet()) {
 			query.setParameter(key, param.get(key));

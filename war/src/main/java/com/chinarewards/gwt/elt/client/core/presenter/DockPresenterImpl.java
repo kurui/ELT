@@ -13,7 +13,6 @@ import com.chinarewards.gwt.elt.client.core.PluginManager;
 import com.chinarewards.gwt.elt.client.core.presenter.DockPresenter.DockDisplay;
 import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
 import com.chinarewards.gwt.elt.client.core.ui.event.MenuClickEvent;
-import com.chinarewards.gwt.elt.client.department.plugin.DepartmentLeaderConstants;
 import com.chinarewards.gwt.elt.client.department.plugin.DepartmentListConstants;
 import com.chinarewards.gwt.elt.client.enterprise.plugin.EnterpriseConstants;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftListConstants;
@@ -27,6 +26,7 @@ import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemConstants;
 import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListConstants;
 import com.chinarewards.gwt.elt.client.staff.plugin.LeadTimeConstants;
+import com.chinarewards.gwt.elt.client.staffList.plugin.StaffListConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -149,8 +149,12 @@ public class DockPresenterImpl extends BasePresenter<DockDisplay> implements
 							eventBus.fireEvent(new MenuClickEvent(menuProcessor.getMenuItem(DepartmentListConstants.MENU_DEPARTMENTLIST_SEARCH)));
 						else if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.DEPT_MGR)	
 						{
-							eventBus.fireEvent(new MenuClickEvent(menuProcessor.getMenuItem(DepartmentLeaderConstants.MENU_DEPARTMENTLEADER_SEARCH)));
-							menuProcessor.changItemColor("部门组织结构");
+//							eventBus.fireEvent(new MenuClickEvent(menuProcessor.getMenuItem(DepartmentLeaderConstants.MENU_DEPARTMENTLEADER_SEARCH)));
+//							menuProcessor.changItemColor("部门组织结构");
+							
+							eventBus.fireEvent(new MenuClickEvent(menuProcessor.getMenuItem(StaffListConstants.MENU_STAFFLIST_SEARCH)));
+							menuProcessor.changItemColor("员工列表");
+							
 						}
 					}
 				}));

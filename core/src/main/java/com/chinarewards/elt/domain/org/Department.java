@@ -43,6 +43,17 @@ public class Department extends Organization {
 
 	private int rgt;
 	
+	private boolean deleted=false;
+	
+	
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
 
 	public Corporation getCorporation() {
 		return corporation;
