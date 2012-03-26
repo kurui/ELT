@@ -64,4 +64,6 @@ public interface OrderService {
 	 * 查找定单根据状态
 	 */
 	public int  getOrderByStatus(UserContext context,OrderStatus status);
+	
+	public void AutoUpdateStatusForOrder(int day,String status);
 }

@@ -12,7 +12,7 @@ import com.chinarewards.elt.common.BaseDao;
 import com.chinarewards.elt.domain.order.Orders;
 import com.chinarewards.elt.model.order.search.OrderListVo;
 import com.chinarewards.elt.util.StringUtil;
-
+import com.chinarewards.elt.model.order.search.OrderStatus;
 public class OrderDao extends BaseDao<Orders> {
 	@SuppressWarnings("unchecked")
 	public List<Orders> OrderList(OrderListVo OrderVo) {
@@ -101,5 +101,16 @@ public class OrderDao extends BaseDao<Orders> {
 		return query;
 	}
 	
-	
+	@SuppressWarnings("unchecked")
+	public List<Orders> getOrderForINITIAL() {
+		return getEm()
+				.createQuery(" FROM Orders r WHERE r.status = :status")
+				.setParameter("status", OrderStatus.INITIAL).getResultList();
+	}
+	@SuppressWarnings("unchecked")
+	public List<Orders> getOrderForSHIPMENTS() {
+		return getEm()
+				.createQuery(" FROM Orders r WHERE r.status = :status")
+				.setParameter("status", OrderStatus.SHIPMENTS).getResultList();
+	}
 }

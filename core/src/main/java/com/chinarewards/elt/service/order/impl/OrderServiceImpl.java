@@ -162,4 +162,9 @@ public class OrderServiceImpl implements OrderService {
 			orderVo.setUserId(caller.getId()) ;//把登录人的用户ID传过去做为条件
 		return orderLogic.getOrderByStatus( orderVo);
 	}
+	@Override
+	public void AutoUpdateStatusForOrder(int day, String status) {
+		orderLogic.AutoUpdateStatusForOrder(day, status);
+		
+	}
 }
