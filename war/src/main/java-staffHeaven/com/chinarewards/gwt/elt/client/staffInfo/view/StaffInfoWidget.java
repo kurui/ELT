@@ -3,6 +3,7 @@ package com.chinarewards.gwt.elt.client.staffInfo.view;
 import java.util.Date;
 
 import com.chinarewards.gwt.elt.client.staffInfo.presenter.StaffInfoPresenter.StaffInfoDisplay;
+import com.chinarewards.gwt.elt.client.util.DatePickerWithYearSelector;
 import com.chinarewards.gwt.elt.client.view.constant.ViewConstants;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -16,6 +17,7 @@ import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.InlineLabel;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.datepicker.client.DateBox;
@@ -37,8 +39,9 @@ public class StaffInfoWidget extends Composite implements StaffInfoDisplay {
 	TextBox phone;
 	@UiField
 	InlineLabel email;
-	@UiField
 	DateBox dob;
+	@UiField
+	Panel dobpanel;
 
 	
 	@UiField
@@ -64,7 +67,9 @@ public class StaffInfoWidget extends Composite implements StaffInfoDisplay {
 
 	public StaffInfoWidget() {
 		initWidget(uiBinder.createAndBindUi(this));
-		dob.setFormat(new DateBox.DefaultFormat(dateFormat));
+		dob=new DateBox(new DatePickerWithYearSelector(), null,new DateBox.DefaultFormat(dateFormat));
+		dob.setStyleName("fromtext2");
+		dobpanel.add(dob);
 	}
 
 
@@ -153,5 +158,12 @@ public class StaffInfoWidget extends Composite implements StaffInfoDisplay {
 	@Override
 	public TextBox getPhoto() {
 		return photo;
+	}
+
+
+
+	@Override
+	public void setPhoto(String text) {
+		photo.setText(text);
 	}
 }

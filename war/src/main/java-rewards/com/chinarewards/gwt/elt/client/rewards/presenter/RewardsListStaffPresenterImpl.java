@@ -116,6 +116,7 @@ public class RewardsListStaffPresenterImpl extends
 		cellTable.setWidth(ViewConstants.page_width);
 		cellTable.setPageSize(ViewConstants.per_page_number_in_dialog);
 		cellTable.getColumn(0).setCellStyleNames("divTextLeft");
+		cellTable.getColumn(4).setCellStyleNames("width60");
 		display.getResultPanel().clear();
 		display.getResultPanel().add(cellTable);
 		display.getResultpage().clear();

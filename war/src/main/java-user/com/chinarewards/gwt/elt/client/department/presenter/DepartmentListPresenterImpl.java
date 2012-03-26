@@ -74,7 +74,7 @@ public class DepartmentListPresenterImpl extends
 		registerEvent();
 
 		initTreeTable();
-
+	
 	}
 
 	private void initTreeTable() {
@@ -264,23 +264,29 @@ public class DepartmentListPresenterImpl extends
 					}
 				}));
 
-		// 同步公司组织机构
-		registerHandler(display.getSynchBtnClickHandlers().addClickHandler(
-				new ClickHandler() {
-					public void onClick(ClickEvent paramClickEvent) {
-						// win.alert("功能建设中");
-						// win.alert("currentDepartmentId()----" +
-						// departmentIds);
-						Element element = display.getCellTree().getElement();
-						win.alert(element.getInnerHTML());
-						// win.alert(element.get);
-						// element.get
-
-						System.out.println(element.getChildNodes());
-						// element.
-						// display.loadTreeData(nodeList, corporationId);
-					}
-				}));
+//		// 同步公司组织机构
+//		registerHandler(display.getSynchBtnClickHandlers().addClickHandler(
+//				new ClickHandler() {
+//					public void onClick(ClickEvent paramClickEvent) {
+//						// win.alert("功能建设中");
+//						// win.alert("currentDepartmentId()----" +
+//						// departmentIds);
+//						Element element = display.getCellTree().getElement();
+//						win.alert(element.getInnerHTML());
+//						// win.alert(element.get);
+//						// element.get
+//
+//						System.out.println(element.getChildNodes());
+//						// element.
+//						// display.loadTreeData(nodeList, corporationId);
+//					}
+//				}));
+		
+//		<!-- 
+//		<span class="{new2.btn}" style="display:none">
+//			<g:Button ui:field="synchBtn" text="同步公司组织结构" visible="false" />
+//		</span>
+//		 -->
 
 	}
 

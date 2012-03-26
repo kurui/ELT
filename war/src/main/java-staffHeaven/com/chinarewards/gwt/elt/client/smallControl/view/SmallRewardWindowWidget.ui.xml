@@ -8,7 +8,7 @@
 			<div class="{new2.reward-section}">
 				<ul class="{new2.reward-list}">
 					<li>
-						<g:Anchor ui:field="rewardName" width="100%" />
+						<g:Anchor ui:field="rewardName" styleName="{new2.anchorcss}" />
 					</li>
 				</ul>
 			</div>

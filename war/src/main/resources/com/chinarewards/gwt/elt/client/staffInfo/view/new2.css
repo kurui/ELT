@@ -160,3 +160,4 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .remark .remark-info .remark-tool{text-align:right;margin-top:5px;}
 .remark .textarea{width:638px;height:80px;border:1px solid #CBCBCB;padding:5px;overflow:auto;}
 .remark .button{color:#FFFFFF;background-color:#0D63B8;padding:2px 8px;border:1px solid #7CD2FD;border-bottom:1px solid #2E5F77;border-right:1px solid #3C7D9C;}
+.floatleft{float: left;padding-right: 4px;}

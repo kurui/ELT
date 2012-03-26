@@ -122,7 +122,7 @@ public class DepartmentDao extends BaseDao<Department> {
 	public List<Department> findDepartmentsByCoporationId(String corporationId) {
 		return getEm()
 				.createQuery(
-						"FROM Department d WHERE d.corporation.id =:corpId  AND d.deleted =:deleted")
+						"FROM Department d WHERE d.corporation.id =:corpId  AND d.deleted =:deleted ")
 				.setParameter("corpId", corporationId).setParameter("deleted", false).getResultList();
 	}
 

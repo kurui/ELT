@@ -128,7 +128,7 @@ public class ButtonMenuProcessor implements MenuProcessor {
 			if (menuId.equals(RewardsItemConstants.MENU_REWARDSITEM_List)
 					|| menuId
 							.equals(RewardsListConstants.MENU_REWARDSLIST_SEARCH)
-					|| menuId.equals(DepartmentListConstants.MENU_DEPARTMENTLIST_SEARCH)
+					|| menuId.equals(StaffListConstants.MENU_STAFFLIST_SEARCH)
 					|| menuId.equals(GiftListConstants.MENU_GIFTLIST_SEARCH)
 					|| menuId.equals(EnterpriseConstants.MENU_ENTERPRISE_EDIT) 
 					|| menuId.equals(IntegralManagementConstants.MENU_INTEGRALMANAGEMENT_SEARCH)

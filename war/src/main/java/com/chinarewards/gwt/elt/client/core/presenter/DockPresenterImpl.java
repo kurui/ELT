@@ -13,7 +13,6 @@ import com.chinarewards.gwt.elt.client.core.PluginManager;
 import com.chinarewards.gwt.elt.client.core.presenter.DockPresenter.DockDisplay;
 import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
 import com.chinarewards.gwt.elt.client.core.ui.event.MenuClickEvent;
-import com.chinarewards.gwt.elt.client.department.plugin.DepartmentListConstants;
 import com.chinarewards.gwt.elt.client.enterprise.plugin.EnterpriseConstants;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftListConstants;
 import com.chinarewards.gwt.elt.client.hrbox.plugin.HrBoxConstants;
@@ -146,7 +145,7 @@ public class DockPresenterImpl extends BasePresenter<DockDisplay> implements
 						display.setMenuTitle("员工数据");
 						menuProcessor.initrender(display.getMenu(), "Staff");
 						if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.CORP_ADMIN)
-							eventBus.fireEvent(new MenuClickEvent(menuProcessor.getMenuItem(DepartmentListConstants.MENU_DEPARTMENTLIST_SEARCH)));
+							eventBus.fireEvent(new MenuClickEvent(menuProcessor.getMenuItem(StaffListConstants.MENU_STAFFLIST_SEARCH)));
 						else if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.DEPT_MGR)	
 						{
 //							eventBus.fireEvent(new MenuClickEvent(menuProcessor.getMenuItem(DepartmentLeaderConstants.MENU_DEPARTMENTLEADER_SEARCH)));

@@ -73,7 +73,7 @@ public class StaffInfoPresenterImpl extends
 
 									@Override
 									public void onSuccess(StaffAddResponse resp) {
-										win.alert("保存成功");
+										win.alertStaff("保存成功");
 									}
 								});
 					}
@@ -100,6 +100,7 @@ public class StaffInfoPresenterImpl extends
 						display.setJobPosition(resp.getJobPosition());
 						display.setLeadership(resp.getLeadership());
 						display.setPhone(resp.getPhone());
+						display.setPhoto(resp.getPhoto());
 						display.setEmail(resp.getEmail());
 						display.setDob(resp.getDob());
 						display.setStaffImage(resp.getPhoto());

@@ -11,6 +11,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -20,6 +21,9 @@ public class SmallRewardItemWindowWidget extends Composite {
 	Anchor rewardItemName;
 	@UiField
 	InlineLabel integral;
+	@UiField
+	Image rewardItemPhoto;
+	
 
 	private static GloryBroadcastWidgetUiBinder uiBinder = GWT
 			.create(GloryBroadcastWidgetUiBinder.class);
@@ -33,10 +37,27 @@ public class SmallRewardItemWindowWidget extends Composite {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.rewardItemName.setText(rewardItemName);
 		this.integral.setText(integral);
-	//	this.rewardItemPhoto.setUrl("imageshow?imageName=" + rewardItemPhoto);
+		this.rewardItemPhoto.setUrl("elt/images/reward_emplate.png");
+		
 		if (rewardItemId != null) {
 
 			this.rewardItemName.addClickHandler(new ClickHandler() {
+
+				@Override
+				public void onClick(ClickEvent event) {
+
+					if (!StringUtil.isEmpty(thisAction)) {
+						if ("RewardsItem_STAFF_RUSH".equals(thisAction)) {
+							openRewardsItemView(rewardItemId);
+						} else if ("RewardsItem_ALL".equals(thisAction)) {
+							openRewardsItemView(rewardItemId);
+						}
+					}
+
+				}
+			});
+			
+			this.rewardItemPhoto.addClickHandler(new ClickHandler() {
 
 				@Override
 				public void onClick(ClickEvent event) {
