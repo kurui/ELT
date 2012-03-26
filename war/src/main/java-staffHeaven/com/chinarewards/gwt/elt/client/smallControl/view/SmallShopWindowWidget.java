@@ -56,6 +56,7 @@ public class SmallShopWindowWidget extends Composite {
 
 				}
 			});
+		
 		}
 	}
 

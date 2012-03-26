@@ -12,6 +12,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Widget;
 
 public class SmallRewardWindowWidget extends Composite {
@@ -19,6 +20,9 @@ public class SmallRewardWindowWidget extends Composite {
 	@UiField
 	Anchor rewardName;
 
+//	@UiField
+//	Image rewardPhoto;
+	
 	private static GloryBroadcastWidgetUiBinder uiBinder = GWT
 			.create(GloryBroadcastWidgetUiBinder.class);
 

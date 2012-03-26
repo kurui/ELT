@@ -68,6 +68,8 @@ public class DepartmentListWidget extends Composite implements
 		cellTree.clear();
 		cellTree.add(tree);
 		
+	
+		
 	}
 
 	@Override

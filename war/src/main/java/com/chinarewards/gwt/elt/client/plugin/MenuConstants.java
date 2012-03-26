@@ -28,12 +28,12 @@ public abstract class MenuConstants {
 
 	// 账号管理
 	public static final int MENU_ORDER_USER_SEARCH = order++;
-
-	// 组织机构
-	public static final int MENU_ORDER_DEPARTMENTLIST_SEARCH = order++;
+	
 
 	// 员工信息维护
 	public static final int MENU_ORDER_STAFF_SEARCH = order++;
+	//员工列表
+	public static final int MENU_ORDER_STAFFLIST_EDIT = order++;
 
 	// 员工等级
 	public static final int MENU_ORDER_STAFF_LEVEL = order++;
@@ -43,6 +43,9 @@ public abstract class MenuConstants {
 
 	// 员工信息更新
 	public static final int MENU_ORDER_STAFF_UPDATE = order++;
+	
+	// 组织机构
+	public static final int MENU_ORDER_DEPARTMENTLIST_SEARCH = order++;
 
 	// 奖励类型维护
 	public static final int MENU_ORDER_TRANSACTION_TYPE_SEARCH = order++;
@@ -154,10 +157,6 @@ public abstract class MenuConstants {
 	// 礼品详细
 	public static final int MENU_ORDER_DETAILSOFGIFT_SEARCH = order++;
 
-	
-	
-	//员工列表
-	public static final int MENU_ORDER_STAFFLIST_EDIT = order++;
 
 	//广播list
 	public static final int MENU_ORDER_BROADCASTINGLIST_EDIT = order++;
