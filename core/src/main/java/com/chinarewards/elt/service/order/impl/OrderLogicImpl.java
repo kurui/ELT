@@ -11,7 +11,10 @@ import com.chinarewards.elt.dao.gift.GiftDao;
 import com.chinarewards.elt.dao.order.OrderDao;
 import com.chinarewards.elt.domain.gift.Gift;
 import com.chinarewards.elt.domain.order.Orders;
+import com.chinarewards.elt.domain.org.Staff;
+import com.chinarewards.elt.domain.reward.base.Reward;
 import com.chinarewards.elt.domain.user.SysUser;
+import com.chinarewards.elt.model.broadcast.OrganType;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.gift.search.GiftListVo;
 import com.chinarewards.elt.model.order.search.OrderStatus;
@@ -144,5 +147,41 @@ public class OrderLogicImpl implements OrderLogic{
 	@Override
 	public int getOrderByStatus(OrderListVo orderVo){
 		return orderDao.countOrder( orderVo);
+	}
+
+	@Override
+	public void AutoUpdateStatusForOrder(int day, String status) {
+		if(status.equals("INITIAL")){//过期没有付积分改为问题定单
+		List<Orders> list =orderDao.getOrderForINITIAL();
+		if (list.size() > 0) {
+			for (Orders order : list) {
+					if(DateUtil.formatData("yyyy-MM-dd", DateUtil.addSomeDay(order.getExchangeDate(), day)).equals(DateUtil.formatData("yyyy-MM-dd", DateUtil.getTime()))){
+					System.out.println("定单已过期了");
+					Date currTime = DateUtil.getTime();
+					order.setStatus(OrderStatus.ERRORORDER);
+					order.setRecorddate(currTime);
+					order.setRecorduser("系统处理");
+					order.setRemarks(order.getRemarks()+"（退回备注：被系统自动处理"+DateUtil.formatData("", currTime)+"退回）");
+					order= orderDao.update(order);
+				}
+			}
+		}
+	  }
+		if(status.equals("SHIPMENTS")){//已发货的过期45天后变为确定收货
+			List<Orders> list =orderDao.getOrderForSHIPMENTS();
+			if (list.size() > 0) {
+				for (Orders order : list) {
+						if(DateUtil.formatData("yyyy-MM-dd", DateUtil.addSomeDay(order.getExchangeDate(), day)).equals(DateUtil.formatData("yyyy-MM-dd", DateUtil.getTime()))){
+						System.out.println("定单已过确定时间，要改为已发货");
+						Date currTime = DateUtil.getTime();
+						order.setStatus(OrderStatus.AFFIRM);
+						order.setRecorddate(currTime);
+						order.setRecorduser("系统处理");
+						order.setRemarks(order.getRemarks()+"（备注：已发货45天被系统自动处理"+DateUtil.formatData("", currTime)+"为确定收货）");
+						order= orderDao.update(order);
+					}
+				}
+			}
+		  }	
 	}
 }

@@ -46,6 +46,10 @@ public interface OrderLogic {
 	
 	
 	public int getOrderByStatus(OrderListVo orderVo);
+	/**
+	 * 系统自动更新定单状态
+	 */
+	public void AutoUpdateStatusForOrder(int day,String status);
 }
 
 

@@ -243,7 +243,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 
 .remark-list{background-color:#F8F9FD;overflow:hidden;padding:15px;}
 .remark-list .remark-list-info img{border:1px solid #CACACA;padding:2px;width:34px;height:34px;overflow:hidden;float:left;margin-right:10px;}
-.remark-list .remark-list-info .remark-info-wrap{float:left;color:#999999;overflow:hidden;}
+.remark-list .remark-list-info .remark-info-wrap{float:left;color:#999999;overflow:hidden; width: 90%;}
 .remark-list .remark-list-info .remark-info-wrap .remark-name{color:#356CA6;}
 .remark-list .remark-list-info .remark-info-wrap .remark-content{color:#333333;}
 .remark-list .remark-list-info .remark-info-wrap .remark-reply{margin-top:5px;}

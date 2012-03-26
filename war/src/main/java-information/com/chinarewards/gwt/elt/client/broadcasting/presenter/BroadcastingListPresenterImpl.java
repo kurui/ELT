@@ -162,8 +162,8 @@ public class BroadcastingListPresenterImpl extends
 				new GetValue<BroadcastingListClient, String>() {
 					@Override
 					public String getValue(BroadcastingListClient staff) {
-						if(staff.getContent()!=null && staff.getContent().length()>30)
-							return staff.getContent().substring(0,30)+"...";
+						if(staff.getContent()!=null && staff.getContent().length()>45)
+							return staff.getContent().substring(0,45)+"...";
 						else
 							return staff.getContent();
 					}

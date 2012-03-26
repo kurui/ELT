@@ -48,6 +48,7 @@ public interface StaffPresenter extends Presenter<StaffPresenter.StaffDisplay> {
 		HasClickHandlers getAllRewardItem();		
 
 		
+		void setIntegralMessage(String message);
 		void setPhoto(String photo);
 		void setStaffName(String staffName);
 		void setStation(String station);

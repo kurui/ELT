@@ -23,6 +23,7 @@ public interface StaffInfoPresenter extends
 		void setJobPosition(String text);
 		void setLeadership(String text);
 		void setPhone(String text);
+		void setPhoto(String text);
 		void setEmail(String text);
 		public void setDob(Date text);
 		public HasValue<Date> getDob() ;
