@@ -10,9 +10,14 @@ import org.slf4j.LoggerFactory;
 import com.chinarewards.elt.dao.gift.GiftDao;
 import com.chinarewards.elt.domain.gift.Gift;
 import com.chinarewards.elt.domain.user.SysUser;
+import com.chinarewards.elt.model.broadcast.BroadcastingVo;
+import com.chinarewards.elt.model.broadcast.OrganType;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.gift.search.GiftListVo;
 import com.chinarewards.elt.model.gift.search.GiftStatus;
+import com.chinarewards.elt.model.information.BroadcastingCategory;
+import com.chinarewards.elt.model.user.UserContext;
+import com.chinarewards.elt.service.broadcast.BroadcastService;
 import com.chinarewards.elt.service.gift.GiftLogic;
 import com.chinarewards.elt.util.DateUtil;
 import com.chinarewards.elt.util.StringUtil;
@@ -20,10 +25,12 @@ import com.google.inject.Inject;
 
 public class GiftLogicImpl implements GiftLogic{
 	private GiftDao giftDao;
+	private BroadcastService broadcastService;
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Inject
-	protected GiftLogicImpl(GiftDao giftDao){
+	protected GiftLogicImpl(GiftDao giftDao,BroadcastService broadcastService){
 		this.giftDao = giftDao;
+		this.broadcastService=broadcastService;
 	}
 	
 	@Override
@@ -37,6 +44,30 @@ public class GiftLogicImpl implements GiftLogic{
 			gift.setRecorddate(currTime);
 			gift.setStatus(GiftStatus.SHELVES);//新增的是上架的商品
 			giftDao.save(gift);
+			//礼品添加发送广播
+			UserContext context=new UserContext();
+			context.setCorporationId(caller.getCorporation().getId());
+			context.setUserId(caller.getId());
+			
+			List<String[]> organList=new ArrayList<String[]>();
+			
+			BroadcastingVo vo=new BroadcastingVo();
+			vo.setBroadcastingTimeStart(DateUtil.getTime());
+			vo.setBroadcastingTimeEnd(DateUtil.getTime());
+			vo.setAllowreplies(true);
+			vo.setContent("新礼品:"+gift.getName()+" ,上架啦~快快拿出你的积分来兑换吧!");
+			
+			//接收对象为当前人机构(接收人加入获奖人)
+			
+			String[] nameAndId = new String[3];
+			nameAndId[0] = caller.getCorporation().getId();
+			nameAndId[1] = caller.getCorporation().getName();
+			nameAndId[2] = OrganType.ORG.toString();
+			organList.add(nameAndId);
+			
+			vo.setOrganList(organList);
+			broadcastService.createOrUpdateBroadcast(vo, context, BroadcastingCategory.SYSBROADCAST);
+			
 		} else {
 			// Update
 			Gift tempGift = giftDao.findById(Gift.class, gift.getId());
