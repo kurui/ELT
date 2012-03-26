@@ -108,6 +108,8 @@ public class StaffWidget extends Composite implements StaffDisplay {
 	Anchor effortRewardItem;
 	@UiField
 	Anchor allRewardItem;
+	@UiField
+	InlineLabel integralMessage;
 	
 	// Set the format of datepicker.
 	DateTimeFormat dateFormat = DateTimeFormat
@@ -494,6 +496,7 @@ public class StaffWidget extends Composite implements StaffDisplay {
 	public void setIntegral(int integral) {
 		this.integral.setText(integral+"");
 		this.integral2.setText(integral+"");
+
 	}
 	@Override
 	public Panel getSmaillShopWindow() {
@@ -545,5 +548,10 @@ public class StaffWidget extends Composite implements StaffDisplay {
 	@Override
 	public Hidden getRewardWidgetAction() {
 		return rewardWidgetAction;
+	}
+
+	@Override
+	public void setIntegralMessage(String message) {
+			this.integralMessage.setText(message);
 	}
 }

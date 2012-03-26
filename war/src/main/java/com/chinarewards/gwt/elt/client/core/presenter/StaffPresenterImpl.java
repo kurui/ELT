@@ -451,7 +451,8 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 						display.setIntegral(resp.getIntegral());
 						display.setPhoto(resp.getPhoto());
 						display.setStation(resp.getStation());
-						
+						if(resp.getIntegral()==0)
+							display.setIntegralMessage("不能换任何礼品");
 						//加载小橱窗控件(根据用户积分)
 						loadSmallShopWindowWidget(resp.getIntegral());
 					}
@@ -499,6 +500,9 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 					public void onSuccess(SearchAwardShopResponse response) {
 
 						List<GiftClient> giftList = response.getResult();
+						if(giftList.size()<1)
+							display.setIntegralMessage("不能换任何礼品");
+						
 						int index = 0;
 						Grid grid = new Grid(3, 2);
 
