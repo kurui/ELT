@@ -302,7 +302,9 @@ public class StaffLogicImpl implements StaffLogic {
 			}
 			searchVo.setStaffids(qstaffIds);
 		}
-
+		if (!StringUtil.isEmptyString(criteria.getDepartmentId()))
+			searchVo.setDeptId(criteria.getDepartmentId());
+		
 		searchVo.setPaginationDetail(criteria.getPaginationDetail());
 		searchVo.setSortingDetail(criteria.getSortingDetail());
 

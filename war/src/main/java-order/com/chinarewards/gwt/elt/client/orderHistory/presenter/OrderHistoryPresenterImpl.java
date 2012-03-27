@@ -102,11 +102,12 @@ public class OrderHistoryPresenterImpl extends
 
 	private void initStatus() {
 		Map<String, String> map = new HashMap<String, String>();
+		map.clear();
 		map.put("INITIAL", "未付积分");
 		map.put("NUSHIPMENTS", " 待发货");
 		map.put("SHIPMENTS", "已发货");
 		map.put("AFFIRM", "确认发货");
-		map.put("ERRORORDER", "问题定单");
+		map.put("ERRORORDER", "问题订单");
 		display.initOrderStatus(map);
 	}
 

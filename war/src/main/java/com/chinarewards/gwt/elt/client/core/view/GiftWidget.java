@@ -32,12 +32,9 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	@UiField
 	InlineLabel message;
 
-
 	@UiField
 	Anchor collectionBtn;
-	
 
-	
 	@UiField
 	Anchor managementCenter;
 	@UiField
@@ -46,7 +43,6 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	Anchor staffCorner;
 	@UiField
 	Anchor btnEmail;
-
 
 	@UiField
 	Anchor btnGift;
@@ -66,34 +62,33 @@ public class GiftWidget extends Composite implements GiftDisplay {
 		initWidget(uiBinder.createAndBindUi(this));
 		init();
 	}
-	String styleOn="";
-	 String styleNo="";
-		private void init() {
-			  styleOn=btnGift.getStyleName();
-			  styleNo=btnEmail.getStyleName();
 
-			btnEmail.addClickHandler(new ClickHandler() {
+	String styleOn = "";
+	String styleNo = "";
 
-				@Override
-				public void onClick(ClickEvent event) {
-					btnEmail.setStyleName(styleOn);
-					btnGift.setStyleName(styleNo);
-				}
-			});
+	private void init() {
+		styleOn = btnGift.getStyleName();
+		styleNo = btnEmail.getStyleName();
 
+		btnEmail.addClickHandler(new ClickHandler() {
 
-			btnGift.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				btnEmail.setStyleName(styleOn);
+				btnGift.setStyleName(styleNo);
+			}
+		});
 
-				@Override
-				public void onClick(ClickEvent event) {
-					btnEmail.setStyleName(styleNo);
-					btnGift.setStyleName(styleOn);
-				}
-			});
-		}
+		btnGift.addClickHandler(new ClickHandler() {
 
-	
-	
+			@Override
+			public void onClick(ClickEvent event) {
+				btnEmail.setStyleName(styleNo);
+				btnGift.setStyleName(styleOn);
+			}
+		});
+	}
+
 	@Override
 	public Widget asWidget() {
 		return this;
@@ -104,16 +99,10 @@ public class GiftWidget extends Composite implements GiftDisplay {
 		return logBtn;
 	}
 
-
 	@Override
 	public DockLayoutPanel getDock() {
 		return dock;
 	}
-
-
-
-
-
 
 	@Override
 	public HasClickHandlers getBtnCollection() {
@@ -135,22 +124,23 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	public HasClickHandlers getStaffCorner() {
 		return staffCorner;
 	}
+
 	@Override
 	public void disableManagementCenter() {
 		managementCenter.setVisible(false);
-		
+
 	}
 
 	@Override
 	public void disableGiftExchange() {
 		giftExchange.setVisible(false);
-		
+
 	}
 
 	@Override
 	public void disableStaffCorner() {
 		staffCorner.setVisible(false);
-		
+
 	}
 
 	@Override
@@ -158,13 +148,10 @@ public class GiftWidget extends Composite implements GiftDisplay {
 		return this.btnEmail;
 	}
 
-
-
 	@Override
 	public HasClickHandlers getBtnGift() {
 		return this.btnGift;
 	}
-
 
 	@Override
 	public void setMessage(String userName) {
@@ -172,6 +159,7 @@ public class GiftWidget extends Composite implements GiftDisplay {
 		String msg = "欢迎你，" + userName + "！今天是:" + time;
 		message.setText(msg);
 	}
+
 	@Override
 	public void setMenu(Panel panel) {
 		menu.clear();
@@ -187,22 +175,17 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	public Panel getMenu() {
 		return menu;
 	}
+
 	@Override
 	public void changeTopMenu(String key) {
-		
-		
-		
-		
-		
-	
+
 		if ("Gift".equals(key)) {
-			
+
 			btnEmail.setStyleName(styleNo);
-			
+
 			btnGift.setStyleName(styleOn);
-			
+
 		}
-		
 
 	}
 }

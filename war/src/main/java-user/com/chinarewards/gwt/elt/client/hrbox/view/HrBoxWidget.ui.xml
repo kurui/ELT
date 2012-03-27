@@ -21,7 +21,7 @@
               <div class="{new2.inbox-info}">
 		        <h3>预算超支部门列表</h3>
 		        <p class="{new2.send-news}">
-				<div style="float:right;text-align:right;padding-top: 5px;">
+				<div style="text-align:right;padding-top: 5px;">
 					<span >
 					<g:Anchor text="部门预算详细"  ui:field="viewBudget" />
 					</span>
@@ -34,9 +34,7 @@
 				<div id="rewardlist_page" class="{new2.pager}">
 					<div class="{new2.pager-left}">
 						每页显示条数
-						<select class="{new2.select}">
-							<option>10</option>
-						</select>
+						<g:ListBox ui:field="pageNumber" styleName="{new2.select}" /> 
 					</div>
 	
 					<div class="{new2.pager-right}">
@@ -45,9 +43,12 @@
 				</div> 
 		        <div class="{new2.inbox-section}">
 		          <h3>待颁奖信息</h3>
-		          <p>本月待颁奖项数共 <span class="{new2.color-red}"><g:InlineLabel ui:field="send"  /></span> 个</p>
+		          <p>本月待颁奖奖项数共 <span class="{new2.color-red}"><g:InlineLabel ui:field="send"  /></span> 个</p>
 		        </div>
-		
+		        <div class="{new2.inbox-section}">
+		          <h3>待提名信息</h3>
+		          <p>本月待提名奖项数共 <span class="{new2.color-red}"><g:InlineLabel ui:field="tm"  /></span> 个</p>
+		        </div>
 		        <div class="{new2.inbox-section}">
 		          <h3>待处理订单</h3>
 		          <p>当前待处理订单数共 <span class="{new2.color-red}"><g:InlineLabel ui:field="order"  /></span> 个</p>
@@ -60,7 +61,7 @@
 		      <div class="{new2.award-history-content}">
 		        <g:FlowPanel ui:field="rewardWindow" />
 		      </div>
-		      <p ><g:Anchor text="更多" styleName="" ui:field="view" />&gt;&gt;</p>
+		      <p ><g:Anchor text="更多>>" styleName="" ui:field="view" /></p>
 		    </div>
 	</div>
 	</div>		 

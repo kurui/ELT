@@ -231,7 +231,7 @@ public class TeamAddPresenterImpl extends BasePresenter<TeamAddPresenter.TeamAdd
 		StringBuilder errorMsg = new StringBuilder();
 		if (display.getName().getValue() == null
 				|| "".equals(display.getName().getValue().trim())) {
-			errorMsg.append("请填写礼品名称!<br>");
+			errorMsg.append("请填小组名称!<br>");
 			flag = false;
 		}
 
