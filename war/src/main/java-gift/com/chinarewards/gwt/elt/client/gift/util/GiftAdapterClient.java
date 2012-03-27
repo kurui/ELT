@@ -24,6 +24,11 @@ public class GiftAdapterClient {
 
 		int selectedIndex = display.getType().getSelectedIndex();
 		giftVo.setType(display.getType().getValue(selectedIndex));
+		
+		int selectedStatusIndex = display.getStatus().getSelectedIndex();
+		giftVo.setStatusValue(display.getStatus().getValue(selectedStatusIndex));
+		
+		
 		giftVo.setBrand(display.getBrand().getValue().trim());
 
 		giftVo.setPhoto(display.getPhoto().getValue());

@@ -42,7 +42,7 @@
 					</span>
 				</div>
 			</p>
-			<div class="{new2.divtext}">共有 <g:InlineLabel ui:field="dataCount" styleName="{new2.divfont}"></g:InlineLabel> 位在职员工</div><div  class="{new2.divend}"></div>
+			<div class="{new2.divtext}">共有 <g:InlineLabel ui:field="dataCount" styleName="{new2.divfont}"></g:InlineLabel> 件礼品</div><div  class="{new2.divend}"></div>
 			<div class="{new2.table}">
 				<g:FlowPanel ui:field="resultPanel" />
 			</div>
