@@ -140,7 +140,10 @@ public class StaffListPrintPresenterImpl extends
 				new GetValue<StaffListClient, String>() {
 					@Override
 					public String getValue(StaffListClient staff) {
-						return staff.getDepartmentName();
+						if(staff.getDepartmentName().indexOf("ROOT")==-1)
+							return staff.getDepartmentName();
+						else
+							return "";
 					}
 				}, ref, "department.name");
 	
@@ -148,7 +151,8 @@ public class StaffListPrintPresenterImpl extends
 				new GetValue<StaffListClient, String>() {
 					@Override
 					public String getValue(StaffListClient staff) {
-						return staff.getJobPosition();
+							return staff.getJobPosition();
+
 					}
 				},ref,"jobPosition");
 	
