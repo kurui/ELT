@@ -62,8 +62,8 @@ public class GiftViewWidget extends Composite implements GiftViewDisplay {
 	Label indate;
 	// @UiField
 	// DateBox recorddate;
-	// @UiField
-	// Label recorduser;
+	@UiField
+	Label recorduser;
 	// @UiField
 	// DateBox updatetime;
 	// ---end vo
@@ -127,14 +127,14 @@ public class GiftViewWidget extends Composite implements GiftViewDisplay {
 
 		integral.setText(giftVo.getIntegral() + "");
 		stock.setText(giftVo.getStock() + "");
-		
+
 		source.setText(giftVo.getSourceText());
 
 		business.setText(giftVo.getBusiness());
 		address.setText(giftVo.getAddress());
 		tell.setText(giftVo.getTell());
 		servicetell.setText(giftVo.getServicetell());
-		
+
 		indate.setText(DateTool.dateToString(giftVo.getIndate()));
 
 		// @UiField
@@ -143,8 +143,7 @@ public class GiftViewWidget extends Composite implements GiftViewDisplay {
 		// Label deleted;// boolean
 		// @UiField
 		// DateBox recorddate;
-		// @UiField
-		// Label recorduser;
+		recorduser.setText(giftVo.getRecorduser());
 		// @UiField
 		// DateBox updatetime;
 		// ---end vo

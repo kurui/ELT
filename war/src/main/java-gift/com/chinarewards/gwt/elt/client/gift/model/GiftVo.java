@@ -32,6 +32,7 @@ public class GiftVo implements Serializable {
 	private String statusValue;
 	private boolean deleted; // 删除状态
 	private Date indate; // 有效截止期
+	private String recorduser;//录入人
 
 	public static String TYPE_1 = "1";// 实物
 	public static String TYPE_2 = "2";// 虚拟
@@ -73,6 +74,14 @@ public class GiftVo implements Serializable {
 	}
 	
 	
+
+	public String getRecorduser() {
+		return recorduser;
+	}
+
+	public void setRecorduser(String recorduser) {
+		this.recorduser = recorduser;
+	}
 
 	public String getStatusValue() {
 		return statusValue;
