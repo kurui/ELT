@@ -21,7 +21,7 @@ public interface DepartmentPresenter extends
 		public HasValue<String> getDepartmentName();
 
 		public Hidden getParentId();
-
+//------显示内容
 		public Label getChilddepartment();
 
 		public Label getPeopleNumber();
@@ -31,7 +31,8 @@ public interface DepartmentPresenter extends
 		public Label getIssueintegral();
 		
 		public Label getProcesRewarditemCount();
-
+		
+//--------end -----
 		public HasClickHandlers getSaveClick();
 
 		public HasClickHandlers getChooseLeaderBtnClick();

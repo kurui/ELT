@@ -74,7 +74,7 @@ public class DepartmentListPresenterImpl extends
 
 		initTreeTable();
 		
-//		display.getAddSameLevelBtn()..setEnabled(false);
+		display.getAddSameLevelBtn().setEnabled(false);
 		display.getAddChildBtn().setEnabled(false);
 		display.getDeleteBtn().setEnabled(false);
 		display.getEditBtn().setEnabled(false);
