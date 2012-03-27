@@ -38,6 +38,7 @@ public class AwardShopListEditorDescriptor implements EditorDescriptor {
 			if (model != null)
 				e.setTitle(((RewardsPageClient) model).getTitleName());
 		}
+
 		e.setModel(model);
 		return e;
 	}

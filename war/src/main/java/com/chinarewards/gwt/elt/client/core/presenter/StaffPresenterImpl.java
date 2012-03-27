@@ -51,6 +51,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Grid;
+import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.inject.Inject;
 
 public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
@@ -452,13 +453,33 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 						display.setPhoto(resp.getPhoto());
 						display.setStation(resp.getStation());
 						if(resp.getIntegral()==0)
+						{
 							display.setIntegralMessage("不能换任何礼品");
-						//加载小橱窗控件(根据用户积分)
-						loadSmallShopWindowWidget(resp.getIntegral());
+							display.getSmaillShopWindow().clear();
+							display.getSmaillShopWindow().add(new InlineLabel("您的积分还不能换商城中的任何礼品"));
+							display.setMore("去商城逛逛>>");
+						}
+						else
+						{
+							//加载小橱窗控件(根据用户积分)
+							loadSmallShopWindowWidget(resp.getIntegral());
+							
+						}
+						loadMoreShop(resp.getIntegral());
 					}
 				});
 		
 	
+
+		
+		//奖励小控件加载
+		loadRewardSTAFFPanel();
+		
+		loadRewardItemSTAFFPanel();
+		
+	}
+	private void loadMoreShop(final int integral)
+	{
 		display.getMore().addClickHandler(new ClickHandler() {
 			
 			@Override
@@ -467,16 +488,10 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 				.getEditorRegistry()
 				.openEditor(
 						AwardShopListConstants.EDITOR_AWARDSHOPLIST_SEARCH,
-						"EDITOR_AWARDSHOPLIST_SEARCH_DO_ID", null);
+						"EDITOR_AWARDSHOPLIST_SEARCH_DO_ID", integral);
 				
 			}
 		});
-		
-		//奖励小控件加载
-		loadRewardSTAFFPanel();
-		
-		loadRewardItemSTAFFPanel();
-		
 	}
 	
 	private void loadSmallShopWindowWidget(int integral)
@@ -501,7 +516,13 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 
 						List<GiftClient> giftList = response.getResult();
 						if(giftList.size()<1)
+						{
 							display.setIntegralMessage("不能换任何礼品");
+							display.getSmaillShopWindow().clear();
+							display.getSmaillShopWindow().add(new InlineLabel("您的积分还不能换商城中的任何礼品"));
+						}
+						else
+						{
 						
 						int index = 0;
 						Grid grid = new Grid(3, 2);
@@ -530,7 +551,7 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 
 						display.getSmaillShopWindow().clear();
 						display.getSmaillShopWindow().add(grid);
-
+						}
 					}
 
 				});
