@@ -5,6 +5,7 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 import org.slf4j.Logger;
 import com.chinarewards.elt.domain.gift.Gift;
 import com.chinarewards.elt.service.gift.GiftService;
+import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria.GiftStatus;
 import com.chinarewards.gwt.elt.client.gift.model.GiftVo;
 import com.chinarewards.gwt.elt.client.gift.request.SearchGiftByIdRequest;
 import com.chinarewards.gwt.elt.client.gift.request.SearchGiftByIdResponse;
@@ -44,7 +45,7 @@ public class SearchGiftByIdHandler extends
 		giftVo.setExplains(gift.getExplains());
 		giftVo.setNotes(gift.getNotes());
 		giftVo.setType(gift.getType());
-		giftVo.setStatusValue(gift.getStatus().toString());
+		giftVo.setStatus(GiftStatus.valueOf(gift.getStatus().toString()));
 		giftVo.setBrand(gift.getBrand());
 		giftVo.setSource(gift.getSource());
 		giftVo.setBusiness(gift.getBusiness());

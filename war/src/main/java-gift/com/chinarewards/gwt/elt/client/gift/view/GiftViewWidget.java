@@ -54,8 +54,8 @@ public class GiftViewWidget extends Composite implements GiftViewDisplay {
 	@UiField
 	Label servicetell;
 
-	// @UiField
-	// Label status;// boolean
+	@UiField
+	Label status;
 	// @UiField
 	// Label deleted;// boolean
 	@UiField
@@ -137,8 +137,7 @@ public class GiftViewWidget extends Composite implements GiftViewDisplay {
 
 		indate.setText(DateTool.dateToString(giftVo.getIndate()));
 
-		// @UiField
-		// Label status;// boolean
+		status.setText(giftVo.getStatus().getDisplayName());
 		// @UiField
 		// Label deleted;// boolean
 		// @UiField

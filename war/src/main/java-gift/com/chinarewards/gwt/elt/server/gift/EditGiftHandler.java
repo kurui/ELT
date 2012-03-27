@@ -86,9 +86,9 @@ public class EditGiftHandler extends
 		gift.setIndate(giftVo.getIndate());
 
 		GiftStatus updateStatus=null;
-		if(GiftStatus.valueOf(giftVo.getStatusValue())==GiftStatus.SHELF){
+		if(GiftStatus.valueOf(giftVo.getStatusValue())==GiftStatus.SHELVES){
 			updateStatus=GiftStatus.SHELVES;
-		}else if(GiftStatus.valueOf(giftVo.getStatusValue())==GiftStatus.SHELVES){
+		}else if(GiftStatus.valueOf(giftVo.getStatusValue())==GiftStatus.SHELF){
 			updateStatus=GiftStatus.SHELF;
 	    }
 		

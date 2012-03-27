@@ -147,7 +147,7 @@ public class GiftWidget extends Composite implements GiftDisplay {
 		explains.setText(giftVo.getExplains());
 		notes.setText(giftVo.getNotes());
 		initTypeSelect(giftVo.getType());
-		initStatusSelect(giftVo.getStatusValue());
+		initStatusSelect(giftVo.getStatus().toString());
 
 		brand.setText(giftVo.getBrand());
 		photo.setText(giftVo.getPhoto());
