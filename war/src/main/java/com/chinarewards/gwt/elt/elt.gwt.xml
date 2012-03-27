@@ -2,7 +2,6 @@
 <module rename-to="elt">
 	<inherits name="com.google.gwt.user.User" />
 	<inherits name="com.google.gwt.i18n.I18N" />
-	<inherits name='com.google.gwt.user.theme.standard.Standard' />
 	<inherits name="com.google.gwt.inject.Inject" />
 	<inherits name="com.google.gwt.xml.XML" />
 
