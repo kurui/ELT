@@ -46,19 +46,24 @@ a:hover{color:#010DFF;text-decoration:underline;}
 /*form*/
 .form .form-line:after{content:".";display:block;clear:both;height:0;visibility:hidden;}
 .form .form-line{margin-bottom:0px;\*zoom:1;}
-.form .form-line .label{float:left;width:15%;text-align:right;vertical-align:middle;padding:6px 0;background-color:#e5e5e5;}
+.form .form-line .label{float:left;width:15%;text-align:right;vertical-align:middle;padding:7px 0;background-color:#e5e5e5;}
 .form .form-line .label2{float:left;width:15%;text-align:right;vertical-align:middle;padding:9px 0;background-color:#e5e5e5;}
 .form .form-line .label3{float:left;width:15%;text-align:right;vertical-align:middle;padding:12px 0;background-color:#e5e5e5;}
 .form .form-line .label4{float:left;width:15%;text-align:right;vertical-align:middle;padding:15px 0;background-color:#e5e5e5;}
 .form .form-line .label5{float:left;width:15%;text-align:right;vertical-align:middle;padding:18px 0;background-color:#e5e5e5;}
-.form .form-line .label6{float:left;width:15%;text-align:right;vertical-align:middle;padding:21px 0;background-color:#e5e5e5;}
+.form .form-line .label22{float:left;width:15%;text-align:right;vertical-align:middle;padding:22px 0;background-color:#e5e5e5;}
+.form .form-line .label40{float:left;width:15%;text-align:right;vertical-align:middle;padding:40px 0;background-color:#e5e5e5;}
 .form .form-line .label60{float:left;width:15%;text-align:right;vertical-align:middle;padding:60px 0;background-color:#e5e5e5;}
-.form .form-line .element{float:right;width:84%;text-align:left;padding:3px 0;}
+
+
+.form .form-line .element{float:right;width:84%;text-align:left;padding:5px 0;}
 .form .select{border:1px solid #569A01;width:120px;height:22px;}
 .form .short-text{height:18px;width:30px;border:1px solid #569A01;}
-.form .text{height:22px;width:200px;border:1px solid #569A01;}
+.form .text{height:22px;width:200px;color:#999999;border:1px solid #569A01;}
+.form .text2{height:22px;width:150px;border:1px solid #569A01;}
+
 .form .long-text{width:371px;}
-.form .textarea{width:420px;height:50px;border:1px solid #569A01;}
+.form .textarea{width:420px;height:50px;border:1px solid #CCCCCC;}
 .form .form-line-btn{margin-top:0px;}
 .form .eline{margin-bottom:10px;}
 .form .line-info{color:#999999;}
@@ -66,12 +71,14 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .form .err-info{padding-left:10px;color:#FF6666;}
 .form .gray{color:#999999;}
 
+
 /*table*/
 .table caption{display:none;}
 .table table{width:100%;}
-.table table,.table td,.table th{border:1px solid #DDDDDD;text-align:center;}
-.table td,.table th{padding:5px 0;}
-.table th{background-color:#CCCCCC;font-size:12px;font-weight:bolder;color:#666666;}}
+.table table,.table th{border:1px solid #DDDDDD;text-align:center;}
+.table td{border:1px solid #DDDDDD;}
+.table td,.table th{padding:3px 0;}
+.table th{background-color:#CCCCCC;font-size:12px;font-weight:normal;color:#666666;}
 
 /*pager*/
 .pager:after{content:".";display:block;clear:both;height:0;visibility:hidden;}
@@ -79,7 +86,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .pager .pager-left{float:left;width:20%;color:green;}
 .pager .pager-right{float:right;text-align:right;}
 .pager .pager-right a{border:1px solid #C7C7C7;padding:2px 8px;color:#569B01;display:inline-block;vertical-align:middle;text-decoration:none;margin-right:5px;}
-.pager .pager-right a:hover{text-decoration:none;background-color:#569B01;color:#FFFFFF;}
+.pager .pager-right a:hover,.pager .pager-right .on{text-decoration:none;background-color:#569B01;color:#FFFFFF;}
 .pager .pager-right .edge{background-color:#E8E8E8}
 
 /*-------------------------------------- 框架布局 --------------------------------------------------*/
@@ -114,6 +121,9 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .footer .copyright{padding:10px 0;width:400px;text-align:left;margin:0 auto;color:#9E9E9E;}
 .footer .copyright p{line-height:20px;}
 /*-------------------------------------iframe页面------------------------------------------------------*/
+
+.frame-wrapdialog{background-color:#F4F4F4;width:99%;padding-top:15px; min-width: 700px;  padding-bottom: 25px;  border-bottom: 2px solid #333333;   border-left: 2px solid #333333;  border-right: 2px solid #333333;}
+
 .frame-wrap{background-color:#F4F4F4;width:99%;padding-top:15px; min-width: 1010px;}
 .frame-wrap .breadcrumb-wrap:after{content:".";display:block;clear:both;height:0;visibility:hidden;}
 .frame-wrap .breadcrumb-wrap{\*zoom:1;}
@@ -126,6 +136,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 /*-nicho自定义-*/
 .nbsp{padding-left:12px;}
 .nbspbig{padding-left:32px;}
+
 .divtext{float:left;color:#999999;padding-bottom:3px;}
 .divfont{color:red;}
 .divend{clear:both}

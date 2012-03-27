@@ -4,6 +4,7 @@ import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.DispatchException;
 import org.slf4j.Logger;
 import com.chinarewards.elt.domain.gift.Gift;
+import com.chinarewards.elt.model.gift.search.GiftStatus;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.gift.GiftService;
 import com.chinarewards.gwt.elt.client.gift.model.GiftVo;
@@ -84,9 +85,17 @@ public class EditGiftHandler extends
 		
 		gift.setIndate(giftVo.getIndate());
 
-		// gift.setGiftStatus();
+		GiftStatus updateStatus=null;
+		if(GiftStatus.valueOf(giftVo.getStatusValue())==GiftStatus.SHELF){
+			updateStatus=GiftStatus.SHELVES;
+		}else if(GiftStatus.valueOf(giftVo.getStatusValue())==GiftStatus.SHELVES){
+			updateStatus=GiftStatus.SHELF;
+	    }
+		
+		if(updateStatus!=null){
+			gift.setStatus(updateStatus);	
+		}
 		// gift.setIndate(getIndate());
-		// private GiftStatus status; //状态（上下架）
 		// private boolean deleted; //删除状态
 		// private Date indate ; //有效截止期
 

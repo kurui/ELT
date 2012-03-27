@@ -554,4 +554,9 @@ public class StaffWidget extends Composite implements StaffDisplay {
 	public void setIntegralMessage(String message) {
 			this.integralMessage.setText(message);
 	}
+
+	@Override
+	public void setMore(String text) {
+		more.setText(text);
+	}
 }

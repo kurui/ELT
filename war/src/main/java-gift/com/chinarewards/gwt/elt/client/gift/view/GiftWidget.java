@@ -1,10 +1,13 @@
 package com.chinarewards.gwt.elt.client.gift.view;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria.GiftStatus;
 import com.chinarewards.gwt.elt.client.gift.model.GiftType;
 import com.chinarewards.gwt.elt.client.gift.model.GiftVo;
 import com.chinarewards.gwt.elt.client.gift.presenter.GiftPresenter.GiftDisplay;
@@ -52,6 +55,9 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	@UiField
 	ListBox type;
 	@UiField
+	ListBox status;
+	
+	@UiField
 	TextBox brand;
 	@UiField
 	TextBox photo;
@@ -74,8 +80,7 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	@UiField
 	DateBox indate;
 
-	// @UiField
-	// TextBox status;// boolean
+
 	// @UiField
 	// TextBox deleted;// boolean
 	// @UiField
@@ -145,6 +150,8 @@ public class GiftWidget extends Composite implements GiftDisplay {
 		explains.setText(giftVo.getExplains());
 		notes.setText(giftVo.getNotes());
 		initTypeSelect(giftVo.getType());
+		initStatusSelect(giftVo.getStatusValue());
+
 		brand.setText(giftVo.getBrand());
 		photo.setText(giftVo.getPhoto());
 		if (giftVo.getPhoto().indexOf(".") > 0) {
@@ -178,6 +185,7 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	@Override
 	public void initAddGift(GiftVo giftVo) {
 		initTypeSelect("");
+		initStatusSelect("SHELVES");
 		supplyinner.setValue(false);
 		supplyoutter.setValue(true);
 
@@ -201,6 +209,30 @@ public class GiftWidget extends Composite implements GiftDisplay {
 			i++;
 		}
 		type.setSelectedIndex(selectIndex);
+	}
+	
+	private void initStatusSelect(String selectedValue) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("SHELF", "未上架");
+		map.put("SHELVES", "上架");
+		map.put("","不限");
+		
+		status.clear();
+		int selectIndex = 0;
+		int i = 0;
+		for (Entry<String, String> entry :map.entrySet()) {
+			String keyValue = entry.getKey();
+			// System.out.println(entry.getKey() + ": " + entry.getValue());
+			status.addItem(entry.getValue(), entry.getKey());
+			if (selectedValue != null && StringUtil.trim(selectedValue) != ""
+					&& StringUtil.trim(keyValue) != "") {
+				if (selectedValue.equals(keyValue)) {
+					selectIndex = i;
+				}
+			}
+			i++;
+		}
+		status.setSelectedIndex(selectIndex);
 	}
 
 	private void registerSource() {
@@ -304,9 +336,8 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	}
 
 	@Override
-	public HasValue<Boolean> getStatus() {
-		return null;
-		// return status;
+	public ListBox getStatus() {
+		 return status;
 	}
 
 	@Override

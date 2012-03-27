@@ -10,7 +10,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 public interface AwardShopListPresenter extends Presenter<AwardShopListPresenter.AwardShopListDisplay> {
 
-
+	public void initAwardShopByIntegral(int integral);
 	public static interface AwardShopListDisplay extends Display {
 
 		public HasClickHandlers getSearchBtnClickHandlers();
