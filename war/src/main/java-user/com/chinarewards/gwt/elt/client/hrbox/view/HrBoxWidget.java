@@ -12,6 +12,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.InlineLabel;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -26,13 +27,16 @@ public class HrBoxWidget extends Composite implements	HrBoxDisplay {
 	InlineLabel order;
 	@UiField
 	InlineLabel send;
-	
+	@UiField
+	InlineLabel tm;
 	@UiField
 	Anchor view;	
 	@UiField
 	Anchor viewBudget;
 	@UiField
 	InlineLabel message;
+	@UiField
+	ListBox pageNumber;
 	// Set the format of datepicker.
 	DateTimeFormat dateFormat = DateTimeFormat.getFormat(ViewConstants.date_format_chinese);
 
@@ -45,7 +49,9 @@ public class HrBoxWidget extends Composite implements	HrBoxDisplay {
 
 	public HrBoxWidget() {
 		initWidget(uiBinder.createAndBindUi(this));
-		
+		pageNumber.clear();
+		pageNumber.addItem("10","10");
+		pageNumber.addItem("20","20");
 	}
    
 	
@@ -64,7 +70,11 @@ public class HrBoxWidget extends Composite implements	HrBoxDisplay {
 		send.setText(text);
 		
 	}
-
+	@Override
+	public void setTm(String text) {
+		tm.setText(text);
+		
+	}
 	@Override
 	public HasClickHandlers getView() {
 		return view;
@@ -91,5 +101,8 @@ public class HrBoxWidget extends Composite implements	HrBoxDisplay {
 		return resultPanel;
 	}
 
-
+	@Override
+	public ListBox getPageNumber() {
+		return pageNumber;
+	}
 }
