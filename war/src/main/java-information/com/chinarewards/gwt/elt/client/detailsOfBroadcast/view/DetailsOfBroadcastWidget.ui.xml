@@ -50,7 +50,8 @@
 						</div>
 					</div>
 
-
+		<span class="{new2.cutline}"></span>
+		<div class="{new2.divtext}">共有 <g:InlineLabel ui:field="dataCount" styleName="{new2.divfont}"></g:InlineLabel> 条回复</div><div  class="{new2.divend}"></div>
 			
 
 				<g:FlowPanel ui:field="resultPanel" />
@@ -61,11 +62,8 @@
 			<div id="rewardlist_page" class="{new2.pager}">
 				<div class="{new2.pager-left}">
 					每页显示条数
-					<select class="{new2.select}">
-						<option>5</option>
-					</select>
-					<div class="{new2.divtext}">共有 <g:InlineLabel ui:field="dataCount" styleName="{new2.divfont}"></g:InlineLabel> 条回复</div><div  class="{new2.divend}"></div>
-				</div>
+						<g:ListBox ui:field="pageNumber" styleName="{new2.select}" /> 
+							</div>
 
 				<div class="{new2.pager-right}">
 					<g:FlowPanel ui:field="resultpage" />

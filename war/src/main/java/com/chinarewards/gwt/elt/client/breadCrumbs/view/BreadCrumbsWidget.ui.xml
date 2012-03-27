@@ -12,7 +12,7 @@
 					<p class="{new2.breadcrumb-left}">
 						<g:FlowPanel ui:field="titleText" />
 					</p>
-					<g:Anchor ui:field="goHistory" styleName="{new2.breadcrumb-right} {new2.back-btn}" text="返回上一页" />
+					<g:Anchor ui:field="goHistory" styleName="{new2.breadcrumb-right} {new2.back-btn}" text="返回上一层" />
 				</div>
 				<span class="{new2.cutline}"></span>
 			</div>

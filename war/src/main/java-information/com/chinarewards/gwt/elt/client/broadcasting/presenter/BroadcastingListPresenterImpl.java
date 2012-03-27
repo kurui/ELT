@@ -10,6 +10,7 @@ import com.chinarewards.gwt.elt.client.broadcastSave.plugin.BroadcastSaveConstan
 import com.chinarewards.gwt.elt.client.broadcasting.dataprovider.BroadcastingListViewAdapter;
 import com.chinarewards.gwt.elt.client.broadcasting.model.BroadcastingListClient;
 import com.chinarewards.gwt.elt.client.broadcasting.model.BroadcastingListCriteria;
+import com.chinarewards.gwt.elt.client.broadcasting.model.BroadcastingListCriteria.BroadcastingCategory;
 import com.chinarewards.gwt.elt.client.broadcasting.model.BroadcastingListCriteria.BroadcastingStatus;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
@@ -70,6 +71,7 @@ public class BroadcastingListPresenterImpl extends
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
+						buildTable();
 						doSearch();
 					}
 				}));
@@ -98,6 +100,7 @@ public class BroadcastingListPresenterImpl extends
 	
 	private void init() {	
 		display.initStatus();
+		display.initBroadcastType();
 		buildTable();
 		doSearch();
 	}
@@ -129,7 +132,8 @@ public class BroadcastingListPresenterImpl extends
 			criteria.setBroadcastingTimeStart(display.getBroadcastingTime());
 		if(display.getBroadcastingTimeEnd()!=null)
 			criteria.setBroadcastingTimeEnd(display.getBroadcastingTimeEnd());
-		
+		if(!"ALL".equals(display.getBroadcastType()))
+			criteria.setBroadcastType(BroadcastingCategory.valueOf(display.getBroadcastType()));
 		listViewAdapter = new BroadcastingListViewAdapter(dispatch, criteria,
 				errorHandler, sessionManager,display);
 		listViewAdapter.addDataDisplay(cellTable);

@@ -294,6 +294,7 @@ public class RewardsItemStoreListPresenterImpl extends
 												@Override
 												public void onSuccess(DeleteRewardsItemResponse resp) {
 													win.alert(resp.getName() + "已删除!");
+													buildTable();
 													doSearch();
 												}
 											});
@@ -344,6 +345,7 @@ public class RewardsItemStoreListPresenterImpl extends
 					@Override
 					public void onSuccess(ActivationRewardsItemStroeResponse resp) {
 						win.alert(resp.getName() + "--应用成功!");
+						buildTable();
 						doSearch();
 					}
 				});
@@ -363,6 +365,7 @@ public class RewardsItemStoreListPresenterImpl extends
 					@Override
 					public void onSuccess(DeleteRewardsItemResponse resp) {
 						win.alert(resp.getName() + "已删除!");
+						buildTable();
 						doSearch();
 					}
 				});

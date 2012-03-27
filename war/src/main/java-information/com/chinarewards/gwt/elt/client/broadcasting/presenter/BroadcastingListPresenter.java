@@ -27,8 +27,10 @@ public interface BroadcastingListPresenter extends Presenter<BroadcastingListPre
 		Panel getResultpage();
 		
 		void initStatus();
+		void initBroadcastType();
 		
 		String getStatus();
+		String getBroadcastType();
 		String getCreateUser();
 		Date getBroadcastingTime();
 		Date getBroadcastingTimeEnd();

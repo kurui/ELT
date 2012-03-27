@@ -16,6 +16,9 @@
 					<label for="">状态:</label>
 					<g:ListBox ui:field="status" styleName="{new2.select}" /> 
 					<span class="{new2.nbspbig}"></span> 
+					<label for="">广播类别:</label>
+					<g:ListBox ui:field="broadcastType" styleName="{new2.select}" /> 
+					<span class="{new2.nbspbig}"></span> 
 					<label for="">创建人:</label>
 					<g:TextBox maxLength="30" ui:field="createUser" styleName="{new2.text2}" />
 					<span class="{new2.nbspbig}" ></span>
@@ -24,7 +27,7 @@
 					<d:DateBox ui:field="broadcastingTimeEnd" styleName="{new2.middle-text}" />
 					
 					<span class="{new2.btn}">
-						<g:Button ui:field="searchBtn" text="查询" width="100px" />
+						<g:Button ui:field="searchBtn" text="查询"  />
 					</span>
 				</div>
 			</div>

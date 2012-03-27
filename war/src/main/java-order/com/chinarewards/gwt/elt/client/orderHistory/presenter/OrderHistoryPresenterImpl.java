@@ -217,12 +217,12 @@ public class OrderHistoryPresenterImpl extends
 						if(order.getStatus()==OrderStatus.SHIPMENTS)
 						    return "确认收货";
 						else
-							return "";
+							return "<span style='color: rgb(221, 221, 221);'>确认收货</span>";
 					}
 				}, new FieldUpdater<OrderSearchVo, String>() {
 					@Override
 					public void update(int index, final OrderSearchVo object,	String value) {
-						
+						if(object.getStatus()==OrderStatus.SHIPMENTS)
 							win.confirm("操作提示", "确认收货吗？", new ConfirmHandler() {
 								
 								@Override
@@ -238,6 +238,7 @@ public class OrderHistoryPresenterImpl extends
 													@Override
 													public void onSuccess(OrderHistoryViewResponse resp) {
 														win.alert("操作成功!");
+														buildTable();
 														doSearch();
 													}
 												});
@@ -253,12 +254,12 @@ public class OrderHistoryPresenterImpl extends
 						if(order.getStatus()==OrderStatus.INITIAL)
 						    return "付积分";
 						else
-							return "";
+							return "<span style='color: rgb(221, 221, 221);'>付积分</span>";
 					}
 				}, new FieldUpdater<OrderSearchVo, String>() {
 					@Override
 					public void update(int index, final OrderSearchVo object,	String value) {
-						
+						if(object.getStatus()==OrderStatus.INITIAL)
 							win.confirm("操作提示", "确认付积分吗？", new ConfirmHandler() {
 								
 								@Override
@@ -274,6 +275,7 @@ public class OrderHistoryPresenterImpl extends
 												@Override
 												public void onSuccess(OrderHistoryViewResponse resp) {
 													win.alert("操作成功!");
+													buildTable();
 													doSearch();
 												}
 											});
@@ -286,20 +288,17 @@ public class OrderHistoryPresenterImpl extends
 				new GetValue<OrderSearchVo, String>() {
 					@Override
 					public String getValue(OrderSearchVo gift) {
-						if (gift.getStatus() != null
-								&& gift.getStatus() == OrderStatus.INITIAL)
+						if (gift.getStatus() != null&& gift.getStatus() == OrderStatus.INITIAL)
 							return "取消定单";
 
 						else
-							return "";
+							return "<span style='color: rgb(221, 221, 221);'>取消定单</span>";
 					}
 				}, new FieldUpdater<OrderSearchVo, String>() {
 					@Override
-					public void update(int index, final OrderSearchVo o,
-							String value) {
+					public void update(int index, final OrderSearchVo o,String value) {
 						String msgStr = "";
-						if (o.getStatus() != null
-								&& o.getStatus() == OrderStatus.INITIAL)
+						if (o.getStatus() != null && o.getStatus() == OrderStatus.INITIAL){
 							msgStr = "确定取消定单?";
 						win.confirm("提示", msgStr, new ConfirmHandler() {
 							@Override
@@ -307,6 +306,7 @@ public class OrderHistoryPresenterImpl extends
 								deleteOrder(o.getId());
 							}
 						});
+						}
 					}
 				});
 
@@ -330,7 +330,7 @@ public class OrderHistoryPresenterImpl extends
 							win.alert("订单取消成功!");
 						else
 							win.alert("订单取消失败!");
-
+						buildTable();
 						doSearch();
 					}
 				});
