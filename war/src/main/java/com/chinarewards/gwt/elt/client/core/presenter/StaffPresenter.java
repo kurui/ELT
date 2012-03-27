@@ -40,6 +40,7 @@ public interface StaffPresenter extends Presenter<StaffPresenter.StaffDisplay> {
 		HasClickHandlers getGloryAnchor();
 		HasClickHandlers getSettingAnchor();
 		HasClickHandlers getMore();
+		void setMore(String text);
 		
 		
 		HasClickHandlers getMyWinReward();

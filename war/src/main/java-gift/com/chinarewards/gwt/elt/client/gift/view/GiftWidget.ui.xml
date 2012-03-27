@@ -152,6 +152,7 @@
 								styleName="{new2.text}" />
 						</div>
 					</div>
+
 					<div class="{new2.form-line}">
 						<label class="{new2.label2}">供应商电话：</label>
 						<div class="{new2.element}">

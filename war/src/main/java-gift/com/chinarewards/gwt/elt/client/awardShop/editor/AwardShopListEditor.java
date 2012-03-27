@@ -44,6 +44,10 @@ public class AwardShopListEditor extends AbstractEditor {
 
 	public void setModel(Object model) {
 		this.model = model;
+		if (model instanceof Integer) {
+			if (model != null)
+				awardShopListPresenter.initAwardShopByIntegral((Integer)model);
+		}
 		awardShopListPresenter.bind();
 	}
 }

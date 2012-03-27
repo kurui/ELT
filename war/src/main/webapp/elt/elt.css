@@ -1619,7 +1619,7 @@ ul.token-input-list-facebook {
 	color: #666;
 	overflow: hidden;
 	height: auto !important;
-	border: 1px solid #569A01;
+	border:1px solid #CCCCCC;
 	cursor: text;
 	font-size: 12px;
 	font-family: Verdana;
@@ -1879,7 +1879,7 @@ li.token-input-input-token-facebook {
 	height: 22px;
 	width: 200px;
 	color: #999999;
-	border: 1px solid #569A01;
+	border:1px solid #CCCCCC;
 }
 
 .divTextLeft {
@@ -1888,7 +1888,7 @@ li.token-input-input-token-facebook {
 
 #rewardlist_page .pageon{text-decoration:none;background-color:#569B01;color:#FFFFFF;}
 #rewardlist_page .pagedisable,#rewardlist_page .pagedisable:hover{border:1px solid #C7C7C7;color:#999999;}
-.searchStaff{float:left;height:22px;width:150px;border:1px solid #569A01;}
+.searchStaff{float:left;height:22px;width:150px;border:1px solid #CCCCCC;}
 .divTextLeft{text-align: left;}
 
 .close-wrap{position:absolute;height:50px;right:0;top:1px;*top:2px;height:40px;line-height:40px;overflow:hidden;}
@@ -1992,5 +1992,5 @@ ul.token-input-list-facebook3 li input {
 .gwt-TreeItem{
 	padding-left: 5px;
 }
-.fromtext{height:22px;width:200px;border:1px solid #569A01;}
+.fromtext{height:22px;width:200px;border:1px solid #CCCCCC;}
 .width60{width:60%;}

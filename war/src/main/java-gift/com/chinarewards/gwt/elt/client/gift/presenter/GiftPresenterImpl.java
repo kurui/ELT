@@ -15,6 +15,7 @@ import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.chinarewards.gwt.elt.client.view.constant.CssStyleConstants;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.util.StringUtil;
 import com.chinarewards.gwt.elt.util.XmlUtil_GWT;
@@ -42,7 +43,7 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 	private final Win win;
 
 	private final BreadCrumbsPresenter breadCrumbs;
-
+	String imageCss=display.getIndate().getElement().getParentElement().getParentElement().getClassName();
 	@Inject
 	public GiftPresenterImpl(EventBus eventBus, GiftDisplay display,
 			DispatchAsync dispatcher, ErrorHandler errorHandler,
@@ -63,6 +64,7 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 
 		if (GiftConstants.ACTION_GIFT_ADD.equals(thisAction)) {
 			breadCrumbs.loadChildPage("新建礼品");
+			display.getGiftImage().getElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
 			initSave();
 		} else if (GiftConstants.ACTION_GIFT_EDIT.equals(thisAction)) {
 			initEdit();
@@ -161,7 +163,7 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 					@Override
 					public void onChange(ChangeEvent arg0) {						
 						System.out.println("==========="+display.getPhotoUpload());
-						
+						display.getGiftImage().getElement().getParentElement().getParentElement().setClassName(imageCss);
 						display.getGiftImage().setVisible(true);
 						display.getPhotoForm().setAction("fileupload");
 						display.getPhotoForm().submit();

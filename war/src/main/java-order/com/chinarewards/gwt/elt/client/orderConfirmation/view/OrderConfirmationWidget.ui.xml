@@ -19,9 +19,9 @@
 
           <p class="{new2.order-title}">订单收货人信息</p>
           <div class="{new2.order-section}">
-            <p><span class="{new2.order-field}">收货人：</span> <g:TextBox maxLength="9" ui:field="name" styleName="{new2.text}"/></p>
+            <p><span class="{new2.order-field}">收货人：</span> <g:TextBox maxLength="20" ui:field="name" styleName="{new2.text}"/></p>
             <p><span class="{new2.order-field}">电话：</span> <g:TextBox maxLength="12" ui:field="phone" styleName="{new2.text}"/></p>
-            <p><span class="{new2.order-field}">收货地址：</span> <g:TextBox maxLength="100" ui:field="address" styleName="{new2.text} {new2.long-text}"/></p>
+            <p><span class="{new2.order-field}">收货地址：</span> <g:TextBox maxLength="100" ui:field="address" styleName="{new2.text}"/></p>
             <p><span class="{new2.order-field}">邮编：</span> <g:TextBox maxLength="9" ui:field="zipCode" styleName="{new2.text}"/></p>
           </div>
 

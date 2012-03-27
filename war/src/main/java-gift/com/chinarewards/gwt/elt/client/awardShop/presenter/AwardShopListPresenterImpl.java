@@ -38,6 +38,7 @@ public class AwardShopListPresenterImpl extends BasePresenter<AwardShopListDispl
 	ListImageTable<GiftClient> cellTable;
 	AwardShopListViewAdapter listViewAdapter;
 	private final BreadCrumbsPresenter breadCrumbs;
+	int integral=-1;
 	@Inject
 	public AwardShopListPresenterImpl(EventBus eventBus, DispatchAsync dispatch,
 			ErrorHandler errorHandler, SessionManager sessionManager,
@@ -92,7 +93,8 @@ public class AwardShopListPresenterImpl extends BasePresenter<AwardShopListDispl
 		criteria.setStatus(GiftStatus.SHELVES);
 		if (!StringUtil.isEmpty(display.getKeyName().getValue()))
 			criteria.setName(display.getKeyName().getValue());
-
+		if(integral!=-1)
+			criteria.setIntegral(integral);
 
 		listViewAdapter = new AwardShopListViewAdapter(dispatch, criteria,
 				errorHandler, sessionManager, display);
@@ -123,6 +125,12 @@ public class AwardShopListPresenterImpl extends BasePresenter<AwardShopListDispl
 				}, ref, "name");
 
 	
+	}
+
+	@Override
+	public void initAwardShopByIntegral(int integral) {
+		this.integral=integral;
+		
 	}
 
 
