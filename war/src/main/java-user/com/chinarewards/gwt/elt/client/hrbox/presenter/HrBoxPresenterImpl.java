@@ -46,6 +46,8 @@ import com.chinarewards.gwt.elt.model.rewards.RewardsPageClient;
 import com.chinarewards.gwt.elt.util.DateTool;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
@@ -65,6 +67,7 @@ public class HrBoxPresenterImpl extends BasePresenter<HrBoxDisplay>
 	final DockPresenter dockPresenter;
 	ListCellTable<DepBudgetVo> cellTable;
 	HrBoxDepBudgetListAdapter listViewAdapter;
+	int pageSize=ViewConstants.per_page_number_in_dialog;
 	EltNewPager pager;
 	@Inject
 	public HrBoxPresenterImpl(EventBus eventBus, DispatchAsync dispatch,MenuProcessor menuProcessor, DockPresenter dockPresenter,
@@ -81,7 +84,15 @@ public class HrBoxPresenterImpl extends BasePresenter<HrBoxDisplay>
 	@Override
 	public void bind() {
 		 buildTable();
-		 initYear();	
+		 initYear();
+		 registerHandler(display.getPageNumber().addChangeHandler(new ChangeHandler() {
+				@Override
+				public void onChange(ChangeEvent event) {
+					pageSize=Integer.parseInt(display.getPageNumber().getValue(display.getPageNumber().getSelectedIndex()));
+					buildTable();
+					initYear();
+				}
+			})); 
 		registerHandler(display.getView().addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -127,7 +138,7 @@ public class HrBoxPresenterImpl extends BasePresenter<HrBoxDisplay>
 									String name = clint.getName();
 									if(name.length()>5)
 										name = name.substring(0,5);
-									grid.setWidget(row,	col,new RewardWindowWidget(clint.getId(),name));
+									grid.setWidget(row,	col,new RewardWindowWidget(clint.getId(),name, menuProcessor, dockPresenter));
 									index++;
 									if(index == 5)
 										break;
@@ -220,6 +231,20 @@ public class HrBoxPresenterImpl extends BasePresenter<HrBoxDisplay>
 						}
 
 					});
+			//待提名
+			 dispatch.execute(new UserBoxRequest(sessionManager.getSession(),"PENDING_NOMINATE"),
+					new AsyncCallback<UserBoxResponse>() {
+						@Override
+						public void onFailure(Throwable arg0) {
+							errorHandler.alert("查询出错!");
+						}
+						@Override
+						public void onSuccess(UserBoxResponse response) {
+							
+							display.setTm(response.getTotal()+"");
+						}
+
+					});
 		    }		
 	}
 	 private void initYear(){
@@ -241,15 +266,15 @@ public class HrBoxPresenterImpl extends BasePresenter<HrBoxDisplay>
 									   vo = list.get(i);
 									   map.put(vo.getId(), vo.getBudgetTitle());
 								 }
-								   vo = list.get(0);
-								    corpBudgetId = vo.getId();
-								    DepBudgetVo criteria = new DepBudgetVo();
-									criteria.setCorpBudgetId(corpBudgetId);
-									listViewAdapter = new HrBoxDepBudgetListAdapter(dispatch, criteria,errorHandler, sessionManager, display);
-									listViewAdapter.addDataDisplay(cellTable);	
-
+								 vo = list.get(0);
+								 corpBudgetId = vo.getId();
 							 }
-								
+							    
+							    DepBudgetVo criteria = new DepBudgetVo();
+								criteria.setCorpBudgetId(corpBudgetId);
+								listViewAdapter = new HrBoxDepBudgetListAdapter(dispatch, criteria,errorHandler, sessionManager, display);
+								listViewAdapter.addDataDisplay(cellTable);	
+	
 							    
 								
 						}
@@ -340,8 +365,7 @@ public class HrBoxPresenterImpl extends BasePresenter<HrBoxDisplay>
 						rpc.setPageType(RewardPageType.DETAILSOFAWARDPAGE);
 						Platform.getInstance()
 								.getEditorRegistry()
-								.openEditor(
-										RewardsListConstants.EDITOR_REWARDSLIST_SEARCH,
+								.openEditor(RewardsListConstants.EDITOR_REWARDSLIST_SEARCH,
 										"EDITOR_REWARDSLIST_SEARCH_DO_ID", rpc);
 						menuProcessor.changItemColor("已颁奖历史");
 					}
