@@ -279,6 +279,7 @@ public class DepartmentPresenterImpl extends
 
 	private void initSave() {
 		display.initAddDepartment(new DepartmentVo());
+		
 	}
 
 	private void initSaveSameLevel() {

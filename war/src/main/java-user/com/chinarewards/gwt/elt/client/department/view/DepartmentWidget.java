@@ -11,6 +11,7 @@ import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.view.OrganizationSpecialTextArea;
+import com.chinarewards.gwt.elt.client.view.constant.CssStyleConstants;
 import com.chinarewards.gwt.elt.client.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.widget.SpecialTextArea;
 import com.google.gwt.core.client.GWT;
@@ -167,6 +168,13 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 
 		leaderArea = new OrganizationSpecialTextArea();
 		leaderPanel.add(leaderArea);//
+		
+		childdepartment.getElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
+		peopleNumber.getElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
+		yearintegral.getElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
+		issueintegral.getElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
+		procesRewarditemCount.getElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
+		
 	}
 
 	@Override
@@ -177,6 +185,15 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 
 		leaderArea = new OrganizationSpecialTextArea();
 		leaderPanel.add(leaderArea);//
+		
+		
+		childdepartment.getElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
+		peopleNumber.getElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
+		yearintegral.getElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
+		issueintegral.getElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
+		procesRewarditemCount.getElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
+		
+		
 	}
 
 	@Override
@@ -186,6 +203,13 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 
 		leaderArea = new OrganizationSpecialTextArea();
 		leaderPanel.add(leaderArea);//
+		
+		childdepartment.getElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
+		peopleNumber.getElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
+		yearintegral.getElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
+		issueintegral.getElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
+		procesRewarditemCount.getElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
+		
 
 	}
 
