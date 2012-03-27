@@ -261,7 +261,13 @@ public class RewardsItemListPresenterImpl extends
 					}
 				},ref,"createdAt");
 
-
+		resultTable.addColumn("创建人", new TextCell(),
+				new GetValue<RewardsItemClient, String>() {
+					@Override
+					public String getValue(RewardsItemClient object) {
+						return object.getCreatedBy();
+					}
+				});
 
 		resultTable.addColumn("应用次数", new TextCell(),
 				new GetValue<RewardsItemClient, String>() {
