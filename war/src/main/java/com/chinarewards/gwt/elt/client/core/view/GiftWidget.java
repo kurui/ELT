@@ -187,4 +187,22 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	public Panel getMenu() {
 		return menu;
 	}
+	@Override
+	public void changeTopMenu(String key) {
+		
+		
+		
+		
+		
+	
+		if ("Gift".equals(key)) {
+			
+			btnEmail.setStyleName(styleNo);
+			
+			btnGift.setStyleName(styleOn);
+			
+		}
+		
+
+	}
 }
