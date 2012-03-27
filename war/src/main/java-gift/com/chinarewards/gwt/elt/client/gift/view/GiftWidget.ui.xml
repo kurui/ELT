@@ -141,13 +141,13 @@
 				<div class="{new2.form-line}">
 					<label class="{new2.label}">供应商电话：</label>
 					<div class="{new2.element}">
-						<g:TextBox maxLength="11" ui:field="tell" styleName="{new2.text}" />
+						<g:TextBox maxLength="20" ui:field="tell" styleName="{new2.text}" />
 					</div>
 				</div>
 				<div class="{new2.form-line}">
 					<label class="{new2.label}">服务电话：</label>
 					<div class="{new2.element}">
-						<g:TextBox maxLength="11" ui:field="servicetell"
+						<g:TextBox maxLength="20" ui:field="servicetell"
 							styleName="{new2.text}" />
 					</div>
 				</div>
