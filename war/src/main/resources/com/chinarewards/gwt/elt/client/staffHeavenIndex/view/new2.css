@@ -80,8 +80,8 @@ a:hover{color:#010DFF;text-decoration:underline;}
 
 /*-------------------------------------- 框架布局 --------------------------------------------------*/
 .index{background-color:#E6E6E6;}
-.head{position:relative;height:83px;overflow:hidden;background-color:#FFFFFF;}
-.head .top-nav{background-color:#F4F4F4;padding:1px 0;margin-left:260px;}
+.head{position:relative;overflow:hidden;background-color:#FFFFFF;}
+.head .top-nav{background-color:#F4F4F4;padding:1px 0;}
 .head .top-nav ul{float:left;}
 .head .top-nav ul li{float:left;margin-right:1px;height:24px;line-height:24px;}
 .head .top-nav ul li a{display:block;background-color:#E5E5E5;font-size:14px;padding:0 5px;color:#565656;text-decoration:none;}

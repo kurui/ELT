@@ -50,6 +50,13 @@ public class StaffHeavenIndexWidget extends Composite implements
 	@UiField
 	Anchor quietlyInformation;
 	
+	@UiField
+	Anchor receiveQuietly;
+	
+	@UiField
+	Anchor myquietly;
+	
+	
 	DateTimeFormat dateFormat = DateTimeFormat
 			.getFormat(ViewConstants.date_format);
 	private static StaffHeavenIndexWidgetUiBinder uiBinder = GWT
