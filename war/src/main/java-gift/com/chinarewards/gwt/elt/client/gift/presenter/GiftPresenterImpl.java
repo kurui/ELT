@@ -4,6 +4,7 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.core.Platform;
+import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
 import com.chinarewards.gwt.elt.client.gift.model.GiftVo;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftConstants;
 import com.chinarewards.gwt.elt.client.gift.request.EditGiftRequest;
@@ -39,7 +40,7 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 	private final DispatchAsync dispatcher;
 	private final ErrorHandler errorHandler;
 	private final SessionManager sessionManager;
-
+	private final MenuProcessor menuProcessor;
 	private final Win win;
 
 	private final BreadCrumbsPresenter breadCrumbs;
@@ -47,12 +48,13 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 	@Inject
 	public GiftPresenterImpl(EventBus eventBus, GiftDisplay display,
 			DispatchAsync dispatcher, ErrorHandler errorHandler,
-			SessionManager sessionManager, Win win,
+			SessionManager sessionManager,MenuProcessor menuProcessor, Win win,
 			BreadCrumbsPresenter breadCrumbs) {
 		super(eventBus, display);
 		this.dispatcher = dispatcher;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
+		this.menuProcessor=menuProcessor;
 		this.win = win;
 		this.breadCrumbs = breadCrumbs;
 	}
@@ -121,6 +123,7 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 														GiftConstants.EDITOR_GIFTLIST_SEARCH,
 														GiftConstants.ACTION_GIFT_LIST,
 														instanceId);
+										menuProcessor.changItemColor("礼品列表");
 									}
 								});
 					}
@@ -150,6 +153,7 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 															GiftConstants.EDITOR_GIFTLIST_SEARCH,
 															GiftConstants.ACTION_GIFT_LIST,
 															instanceId);
+											menuProcessor.changItemColor("礼品列表");
 										}
 									});
 						}

@@ -67,15 +67,15 @@ public class DepartmentPresenterImpl extends
 		registerEvent();
 
 		if (DepartmentConstants.ACTION_DEPARTMENT_ADD.equals(thisAction)) {
-			breadCrumbs.loadChildPage("新建部门");
+			breadCrumbs.loadChildPage("增加部门");
 			initSave();
 		} else if (DepartmentConstants.ACTION_DEPARTMENT_ADD_SAMELEVEL
 				.equals(thisAction)) {
-			breadCrumbs.loadChildPage("新建同级部门");
+			breadCrumbs.loadChildPage("增加同级部门");
 			initSaveSameLevel();
 		} else if (DepartmentConstants.ACTION_DEPARTMENT_ADD_CHILD
 				.equals(thisAction)) {
-			breadCrumbs.loadChildPage("新建子部门");
+			breadCrumbs.loadChildPage("增加子部门");
 			initSaveChild();
 		} else if (DepartmentConstants.ACTION_DEPARTMENT_EDIT_CORP
 				.equals(thisAction)) {

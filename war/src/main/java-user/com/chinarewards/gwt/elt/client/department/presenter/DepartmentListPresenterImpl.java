@@ -28,7 +28,6 @@ import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -74,6 +73,11 @@ public class DepartmentListPresenterImpl extends
 		registerEvent();
 
 		initTreeTable();
+		
+//		display.getAddSameLevelBtn()..setEnabled(false);
+		display.getAddChildBtn().setEnabled(false);
+		display.getDeleteBtn().setEnabled(false);
+		display.getEditBtn().setEnabled(false);
 	
 	}
 
@@ -114,7 +118,7 @@ public class DepartmentListPresenterImpl extends
 
 	private void registerEvent() {
 		// 增加同级部门
-		registerHandler(display.getAddSameLevelBtnClickHandlers()
+		registerHandler(display.getAddSameLevelBtn()
 				.addClickHandler(new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
 						String departmentIds = getDepartmentIds();
@@ -150,7 +154,7 @@ public class DepartmentListPresenterImpl extends
 				}));
 
 		// 增加子部门
-		registerHandler(display.getAddChildBtnClickHandlers().addClickHandler(
+		registerHandler(display.getAddChildBtn().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
 						String departmentIds = getDepartmentIds();
@@ -185,7 +189,7 @@ public class DepartmentListPresenterImpl extends
 					}
 				}));
 		// 删除部门
-		registerHandler(display.getDeleteBtnClickHandlers().addClickHandler(
+		registerHandler(display.getDeleteBtn().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
 						// win.alert("功能建设中");
@@ -210,7 +214,7 @@ public class DepartmentListPresenterImpl extends
 					}
 				}));
 		// 编辑部门
-		registerHandler(display.getEditBtnClickHandlers().addClickHandler(
+		registerHandler(display.getEditBtn().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
 						// win.alert("功能建设中");
@@ -238,7 +242,7 @@ public class DepartmentListPresenterImpl extends
 					}
 				}));
 		// 合并部门
-		registerHandler(display.getMergeBtnClickHandlers().addClickHandler(
+		registerHandler(display.getMergeBtn().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
 						// win.alert("功能建设中");

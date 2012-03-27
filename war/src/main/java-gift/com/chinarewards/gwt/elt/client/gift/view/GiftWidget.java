@@ -7,7 +7,6 @@ import java.util.Map.Entry;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
-import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria.GiftStatus;
 import com.chinarewards.gwt.elt.client.gift.model.GiftType;
 import com.chinarewards.gwt.elt.client.gift.model.GiftVo;
 import com.chinarewards.gwt.elt.client.gift.presenter.GiftPresenter.GiftDisplay;
@@ -88,8 +87,6 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	// @UiField
 	// DateBox recorddate;
 	// @UiField
-	// TextBox recorduser;
-	// @UiField
 	// DateBox updatetime;
 	// ---end vo
 
@@ -150,7 +147,7 @@ public class GiftWidget extends Composite implements GiftDisplay {
 		explains.setText(giftVo.getExplains());
 		notes.setText(giftVo.getNotes());
 		initTypeSelect(giftVo.getType());
-		initStatusSelect(giftVo.getStatusValue());
+		initStatusSelect(giftVo.getStatus().toString());
 
 		brand.setText(giftVo.getBrand());
 		photo.setText(giftVo.getPhoto());
@@ -185,6 +182,7 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	@Override
 	public void initAddGift(GiftVo giftVo) {
 		initTypeSelect("");
+		status.setEnabled(false);
 		initStatusSelect("SHELVES");
 		supplyinner.setValue(false);
 		supplyoutter.setValue(true);
@@ -359,8 +357,8 @@ public class GiftWidget extends Composite implements GiftDisplay {
 
 	@Override
 	public HasValue<String> getRecoduser() {
+//		 return recoduser;
 		return null;
-		// return recoduser;
 	}
 
 	@Override

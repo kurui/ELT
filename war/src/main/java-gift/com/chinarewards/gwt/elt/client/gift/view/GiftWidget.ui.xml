@@ -87,7 +87,7 @@
 						</div>
 					</div>
 					<div class="{new2.form-line}">
-						<label class="{new2.label60}"></label>
+						<label class="{new2.label40}"></label>
 						<div class="{new2.element}">
 							<g:Image ui:field="giftImage" width="80px" height="60px"
 								visible="false" />

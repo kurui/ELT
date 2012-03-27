@@ -98,6 +98,17 @@ public class DepartmentManageTreeModel implements TreeViewModel {
 			
 						departmentListDisplay.getCurrentDepartmentId().setValue(departmentIds);
 						
+						if(!StringUtil.isEmpty(departmentIds)){
+							departmentListDisplay.getAddSameLevelBtn().setEnabled(true);
+							departmentListDisplay.getAddChildBtn().setEnabled(true);
+							departmentListDisplay.getDeleteBtn().setEnabled(true);
+							departmentListDisplay.getEditBtn().setEnabled(true);
+						}else{
+							departmentListDisplay.getAddSameLevelBtn().setEnabled(false);
+							departmentListDisplay.getAddChildBtn().setEnabled(false);
+							departmentListDisplay.getDeleteBtn().setEnabled(false);
+							departmentListDisplay.getEditBtn().setEnabled(false);
+						}
 						
 					}
 				};
