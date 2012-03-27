@@ -67,7 +67,10 @@ public class DepartmentLeaderPresenterImpl extends
 		registerEvent();
 
 		initTreeTable();
-
+		
+		display.getAddChildBtn().setEnabled(false);
+		display.getDeleteBtn().setEnabled(false);
+		display.getEditBtn().setEnabled(false);
 	}
 
 	private void initTreeTable() {
@@ -103,7 +106,7 @@ public class DepartmentLeaderPresenterImpl extends
 
 	private void registerEvent() {
 		// 增加子部门
-		registerHandler(display.getAddChildBtnClickHandlers().addClickHandler(
+		registerHandler(display.getAddChildBtn().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
 						String departmentIds = getDepartmentIds();
@@ -138,7 +141,7 @@ public class DepartmentLeaderPresenterImpl extends
 					}
 				}));
 		// 删除部门
-		registerHandler(display.getDeleteBtnClickHandlers().addClickHandler(
+		registerHandler(display.getDeleteBtn().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
 						// win.alert("功能建设中");
@@ -163,7 +166,7 @@ public class DepartmentLeaderPresenterImpl extends
 					}
 				}));
 		// 编辑部门
-		registerHandler(display.getEditBtnClickHandlers().addClickHandler(
+		registerHandler(display.getEditBtn().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
 						// win.alert("功能建设中");

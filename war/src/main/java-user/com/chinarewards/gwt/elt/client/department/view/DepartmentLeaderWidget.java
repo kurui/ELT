@@ -6,7 +6,6 @@ import com.chinarewards.gwt.elt.client.department.model.DepartmentLeaderTreeMode
 import com.chinarewards.gwt.elt.client.department.model.DepartmentNode;
 import com.chinarewards.gwt.elt.client.department.presenter.DepartmentLeaderPresenter.DepartmentLeaderDisplay;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.cellview.client.CellTree;
@@ -69,17 +68,17 @@ public class DepartmentLeaderWidget extends Composite implements
 	}
 
 	@Override
-	public HasClickHandlers getAddChildBtnClickHandlers() {
+	public Button getAddChildBtn() {
 		return addChildBtn;
 	}
 
 	@Override
-	public HasClickHandlers getDeleteBtnClickHandlers() {
+	public Button getDeleteBtn() {
 		return deleteBtn;
 	}
 
 	@Override
-	public HasClickHandlers getEditBtnClickHandlers() {
+	public Button getEditBtn() {
 		return editBtn;
 	}
 

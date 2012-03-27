@@ -98,6 +98,7 @@ public class StaffListPresenterImpl extends
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
+						buildTable();
 						doSearch();
 					}
 				}));

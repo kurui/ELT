@@ -15,10 +15,11 @@ import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
-import com.chinarewards.gwt.elt.client.view.constant.CssStyleConstants;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager.TextLocation;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -34,7 +35,7 @@ public class DetailsOfBroadcastPresenterImpl extends
 	final ErrorHandler errorHandler;
 	String broadcastId = null;
 	private final BreadCrumbsPresenter breadCrumbs;
-
+	int pageSize=ViewConstants.per_page_number_in_dialog;
 	EltNewPager pager;
 	ListCellTable<ReplyListClient> cellTable;
 	ReplyListViewAdapter listViewAdapter;
@@ -73,7 +74,15 @@ public class DetailsOfBroadcastPresenterImpl extends
 
 					}
 				}));
-
+		registerHandler(display.getPageNumber().addChangeHandler(new ChangeHandler() {
+			
+			@Override
+			public void onChange(ChangeEvent event) {
+				pageSize=Integer.parseInt(display.getPageNumber().getValue(display.getPageNumber().getSelectedIndex()));
+				buildTable();
+				doSearch();
+			}
+		}));
 	}
 
 	private void init() {
@@ -93,16 +102,16 @@ public class DetailsOfBroadcastPresenterImpl extends
 						display.setReceivingObject(response
 								.getReceivingObject());
 						display.setCreateUser(response.getCreateUser());
-						if("允许回复".equals(response.getAllowreplies()))
-						{
+//						if("允许回复".equals(response.getAllowreplies()))
+//						{
 							buildTable();
 							doSearch();
-						}
-						else
-						{
-							display.getResultpage().getElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
-							display.getDataCount().getElement().getParentElement().addClassName(CssStyleConstants.hidden);
-						}
+//						}
+//						else
+//						{
+//							display.getResultpage().getElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
+//							display.getDataCount().getElement().getParentElement().addClassName(CssStyleConstants.hidden);
+//						}
 					}
 
 				});
@@ -122,7 +131,7 @@ public class DetailsOfBroadcastPresenterImpl extends
 		pager = new EltNewPager(TextLocation.CENTER);
 		pager.setDisplay(cellTable);
 		cellTable.setWidth(ViewConstants.page_width);
-		cellTable.setPageSize(ViewConstants.per_page_number_in_entry);
+		cellTable.setPageSize(pageSize);
 		// cellTable.getColumn(0).setCellStyleNames("divTextLeft");
 //		display.getResultPanel().clear();
 //		display.getResultPanel().add(cellTable);

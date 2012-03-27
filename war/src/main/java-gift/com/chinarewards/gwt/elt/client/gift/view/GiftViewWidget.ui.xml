@@ -64,6 +64,14 @@
 				</div>
 				<div class="{new2.form-line}">
 					<label class="{new2.label}">
+						状态：
+					</label>
+					<div class="{new2.element}">
+						<g:Label text="等待数据加载..." ui:field="status" />
+					</div>
+				</div>
+				<div class="{new2.form-line}">
+					<label class="{new2.label}">
 						品牌：
 					</label>
 					<div class="{new2.element}">
@@ -72,7 +80,7 @@
 				</div>
 
 				<div class="{new2.form-line}">
-					<label class="{new2.label40}">
+					<label class="{new2.label30}">
 						礼品图片：
 					</label>
 					<div class="{new2.element}">
@@ -83,7 +91,6 @@
 
 				<div class="{new2.form-line}">
 					<label class="{new2.label}">
-						<span>*</span>
 						兑换积分：
 					</label>
 					<div class="{new2.element}">
@@ -93,7 +100,6 @@
 
 				<div class="{new2.form-line}">
 					<label class="{new2.label}">
-						<span>*</span>
 						库存：
 					</label>
 					<div class="{new2.element}">
@@ -146,6 +152,14 @@
 					</label>
 					<div class="{new2.element}">
 						<g:Label text="等待数据加载..." ui:field="indate" />
+					</div>
+				</div>
+				<div class="{new2.form-line}">
+					<label class="{new2.label}">
+						创建人：
+					</label>
+					<div class="{new2.element}">
+						<g:Label text="等待数据加载..." ui:field="recorduser" />
 					</div>
 				</div>
 				<span class="{new2.cutline}"></span>

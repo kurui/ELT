@@ -115,7 +115,8 @@ public class SearchRewardsItemHandler extends	BaseActionHandler<SearchRewardsIte
 			client.setPeriodEnable(item.getAutoGenerate()==RequireAutoGenerate.requireCyclic);//周期性
 			client.setStartTime(item.getItem().getStartTime());
 			client.setCreateAt(item.getItem().getCreatedAt());
-			
+			if(item.getItem().getCreatedBy()!=null && item.getItem().getCreatedBy().getStaff()!=null)
+			client.setCreatedBy(item.getItem().getCreatedBy().getStaff().getName());
 			client.setNextPublishTime(item.getExpectAwardDate());
 			client.setEnabled(item.isEnabled());
 			resultList.add(client);

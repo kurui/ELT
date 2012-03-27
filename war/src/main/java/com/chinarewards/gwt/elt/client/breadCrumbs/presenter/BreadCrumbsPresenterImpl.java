@@ -46,7 +46,7 @@ public class BreadCrumbsPresenterImpl extends
 						}
 						else
 						{
-							win.alert("无上一页");
+							win.alert("无上一层");
 						}
 					
 					}
@@ -98,7 +98,7 @@ public class BreadCrumbsPresenterImpl extends
 		}
 		else
 		{
-			win.alert("无上一页");
+			win.alert("无上一层");
 		}
 		
 	}
