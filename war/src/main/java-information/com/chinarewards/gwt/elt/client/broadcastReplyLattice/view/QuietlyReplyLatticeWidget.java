@@ -57,6 +57,8 @@ public class QuietlyReplyLatticeWidget extends Composite {
 	String broadcastId;
 	QuietlyReplyLatticeWidget widget;
 	int replyNumber;
+	int falReply=0;
+	
 	private static BroadcastReplyLatticeWidgetUiBinder uiBinder = GWT
 			.create(BroadcastReplyLatticeWidgetUiBinder.class);
 
@@ -91,8 +93,16 @@ public class QuietlyReplyLatticeWidget extends Composite {
 
 				@Override
 				public void onClick(ClickEvent event) {
-
-					refMyreply();
+					if(falReply==0 || falReply==2)
+					{
+						falReply=1;
+						refMyreply();
+					}
+					else
+					{
+						falReply=0;
+						replyPanel.clear();
+					}
 				}
 			});
 		} else {
@@ -104,7 +114,16 @@ public class QuietlyReplyLatticeWidget extends Composite {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				refWidget();
+				if(falReply==0 || falReply==1)
+				{
+					falReply=2;
+					refWidget();
+				}
+				else
+				{
+					falReply=0;
+					replyPanel.clear();
+				}
 			}
 		});
 
