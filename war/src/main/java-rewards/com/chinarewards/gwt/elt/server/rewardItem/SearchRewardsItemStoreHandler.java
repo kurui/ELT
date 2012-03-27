@@ -83,7 +83,8 @@ public class SearchRewardsItemStoreHandler extends	BaseActionHandler<SearchRewar
 		model.setCreateTime(criteria.getCreateTime());
 		model.setCreateTimeEnd(criteria.getCreateTimeEnd());
      //   model.setEnabled(criteria.isEnabled());
-//		model.setSubDepartmentChoose(criteria.isSubDepartmentChoose());
+		model.setSubDepartmentChosen(criteria.isSubDepartmentChoose());
+		
 //		model.setRewardFrom(criteria.getRewardFrom());
 		model.setStandard(criteria.getStandard());
 		model.setStartTime(criteria.getStartTime());
