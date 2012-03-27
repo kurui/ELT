@@ -5,7 +5,7 @@ import java.util.List;
 import com.chinarewards.gwt.elt.client.department.model.DepartmentNode;
 import com.chinarewards.gwt.elt.client.mvp.Display;
 import com.chinarewards.gwt.elt.client.mvp.Presenter;
-import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Hidden;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
@@ -17,17 +17,17 @@ public interface DepartmentListPresenter extends
 
 		public Hidden getCurrentDepartmentId();
 		
-		public HasClickHandlers getAddSameLevelBtnClickHandlers();
+		public Button getAddSameLevelBtn();
 
-		public HasClickHandlers getAddChildBtnClickHandlers();
+		public Button getAddChildBtn();
 
-		public HasClickHandlers getDeleteBtnClickHandlers();
+		public Button getDeleteBtn();
 
-		public HasClickHandlers getEditBtnClickHandlers();
+		public Button getEditBtn();
 
-		public HasClickHandlers getMergeBtnClickHandlers();
+		public Button getMergeBtn();
 
-		public HasClickHandlers getSynchBtnClickHandlers();
+		public Button getSynchBtn();
 
 		Panel getCellTree();
 		Panel getTreeTablePanel();

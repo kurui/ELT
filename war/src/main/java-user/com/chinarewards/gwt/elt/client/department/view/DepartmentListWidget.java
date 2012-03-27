@@ -6,7 +6,6 @@ import com.chinarewards.gwt.elt.client.department.model.DepartmentManageTreeMode
 import com.chinarewards.gwt.elt.client.department.model.DepartmentNode;
 import com.chinarewards.gwt.elt.client.department.presenter.DepartmentListPresenter.DepartmentListDisplay;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.cellview.client.CellTree;
@@ -73,7 +72,7 @@ public class DepartmentListWidget extends Composite implements
 	}
 
 	@Override
-	public HasClickHandlers getAddSameLevelBtnClickHandlers() {
+	public Button getAddSameLevelBtn() {
 		return addSameLevelBtn;
 	}
 
@@ -84,27 +83,27 @@ public class DepartmentListWidget extends Composite implements
 	}
 
 	@Override
-	public HasClickHandlers getAddChildBtnClickHandlers() {
+	public Button getAddChildBtn() {
 		return addChildBtn;
 	}
 
 	@Override
-	public HasClickHandlers getDeleteBtnClickHandlers() {
+	public Button getDeleteBtn() {
 		return deleteBtn;
 	}
 
 	@Override
-	public HasClickHandlers getEditBtnClickHandlers() {
+	public Button getEditBtn() {
 		return editBtn;
 	}
 
 	@Override
-	public HasClickHandlers getMergeBtnClickHandlers() {
+	public Button getMergeBtn() {
 		return mergeBtn;
 	}
 
 	@Override
-	public HasClickHandlers getSynchBtnClickHandlers() {
+	public Button getSynchBtn() {
 		return synchBtn;
 	}
 
