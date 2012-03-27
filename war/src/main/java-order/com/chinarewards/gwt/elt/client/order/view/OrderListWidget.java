@@ -49,6 +49,17 @@ public class OrderListWidget extends Composite implements OrderListDisplay {
 
 	public OrderListWidget() {
 		initWidget(uiBinder.createAndBindUi(this));
+		//status.clear();
+		status.addItem("不限", "");
+		status.addItem("未付积分","INITIAL" );
+		status.addItem( "待发货","NUSHIPMENTS");
+		status.addItem("已发货","SHIPMENTS" );
+		status.addItem("确认收货","AFFIRM");
+		status.addItem( "问题定单","ERRORORDER");
+		pageNumber.clear();
+		pageNumber.addItem("10","10");
+		pageNumber.addItem("20","20");
+		pageNumber.addItem("50","50");
 	}
 
 	@Override
@@ -81,23 +92,12 @@ public class OrderListWidget extends Composite implements OrderListDisplay {
 		return source.getValue(source.getSelectedIndex());
 	}
 
-	@Override
-	public void initOrderStatus(Map<String, String> map) {
-
-		status.addItem("不限", "");
-		Iterator<Entry<String, String>> it = map.entrySet().iterator();
-		while (it.hasNext()) {
-			Entry<String, String> entry = it.next();
-			status.addItem(entry.getValue(), entry.getKey());
-		}
-	}
+	
 	
 	@Override
 	public void initOrderSource(Map<String, String> map) {
-		pageNumber.clear();
-		pageNumber.addItem("10","10");
-		pageNumber.addItem("20","20");
-		pageNumber.addItem("50","50");
+		
+		source.clear();
 		source.addItem("不限", "");
 		Iterator<Entry<String, String>> it = map.entrySet().iterator();
 		while (it.hasNext()) {
@@ -125,11 +125,10 @@ public class OrderListWidget extends Composite implements OrderListDisplay {
 	@Override
 	public void setStatus(String statu) {
 		if(statu.equals(OrderStatus.INITIAL.toString()))
-		  status.setSelectedIndex(5);
+		  status.setSelectedIndex(1);
 		else if(statu.equals(OrderStatus.NUSHIPMENTS.toString()))
-		  status.setSelectedIndex(4);	
-//		else
-//			 status.setSelectedIndex(0);
+		  status.setSelectedIndex(2);	
+
 	}
 	@Override
 	public ListBox getPageNumber() {

@@ -86,23 +86,15 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 	}
 
 	private void init() {
-		initStatus();
+		
 		initSource();
 		buildTable();
 		doSearch();
 	}
-   private void initStatus(){
-	   Map<String, String> map = new HashMap<String, String>();
-		map.put("INITIAL", "未付积分");
-		map.put("NUSHIPMENTS", " 待发货");
-		map.put("SHIPMENTS", "已发货");
-		map.put("AFFIRM", "确认发货");
-		map.put("ERRORORDER", "问题定单");
-		display.initOrderStatus(map);
-   }
+  
    private void initSource(){
 	   Map<String, String> map = new HashMap<String, String>();
-		map.put("inner", "内部直接提供");
+	   	map.put("inner", "内部直接提供");
 		map.put("outter", "外部货品公司提供");
 		
 		display.initOrderSource(map);
@@ -240,12 +232,12 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 						if(order.getStatus()==OrderStatus.NUSHIPMENTS)
 						    return "发货";
 						else
-							return "";
+							return "<span style='color: rgb(221, 221, 221);'>发货</span>";
 					}
 				}, new FieldUpdater<OrderSearchVo, String>() {
 					@Override
 					public void update(int index, final OrderSearchVo object,	String value) {
-						
+						if(object.getStatus()==OrderStatus.NUSHIPMENTS)
 							win.confirm("操作提示", "确认发货吗？", new ConfirmHandler() {
 								
 								@Override
@@ -276,12 +268,12 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 						if(order.getStatus()==OrderStatus.NUSHIPMENTS)
 						    return "退回";
 						else
-							return "";
+							return "<span style='color: rgb(221, 221, 221);'>退回</span>";
 					}
 				}, new FieldUpdater<OrderSearchVo, String>() {
 					@Override
 					public void update(int index, final OrderSearchVo object,	String value) {
-						
+						if(object.getStatus()==OrderStatus.NUSHIPMENTS)
 							win.confirm("操作提示", "确认退回吗？", new ConfirmHandler() {
 								
 								@Override
@@ -297,6 +289,7 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 												@Override
 												public void onSuccess(OrderViewResponse resp) {
 													win.alert("操作成功!");
+													buildTable();
 													doSearch();
 												}
 											});
@@ -310,9 +303,10 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 
 	@Override
 	public void getBoxOrder(String status) {//收件箱查看和操作时传的参数
-		init();
-		display.setStatus(status);
 		
+		initSource();
+		display.setStatus(status);
+		buildTable();
 		doSearch();
 		
 	}

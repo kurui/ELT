@@ -22,7 +22,7 @@ public class OrderBoxWidget extends Composite implements	OrderBoxDisplay {
 	InlineLabel news;
 	@UiField
 	InlineLabel send;
-		@UiField
+	@UiField
 	Panel breadCrumbs;
 	@UiField
 	Anchor view;	
