@@ -26,6 +26,9 @@ public class BroadcastingListWidget extends Composite implements BroadcastingLis
 	@UiField
 	ListBox status;
 	@UiField
+	ListBox broadcastType;
+	
+	@UiField
 	Button addBtn;
 
 	@UiField
@@ -134,6 +137,22 @@ public class BroadcastingListWidget extends Composite implements BroadcastingLis
 	@Override
 	public ListBox getPageNumber() {
 		return pageNumber;
+	}
+
+	@Override
+	public void initBroadcastType() {
+		broadcastType.addItem("不限", "ALL");
+		broadcastType.addItem("公司广播", "COMPANYBROADCAST");
+		broadcastType.addItem("员工广播", "STAFFBROADCAST");
+		broadcastType.addItem("系统广播", "SYSBROADCAST");
+		broadcastType.addItem("奖励广播", "REWARDBROADCAST");
+		broadcastType.addItem("主题广播", "THEMEBROADCAST");
+		broadcastType.addItem("其他广播", "OTHERBROADCAST");
+	}
+
+	@Override
+	public String getBroadcastType() {
+		return broadcastType.getValue(broadcastType.getSelectedIndex());
 	}
 
 	

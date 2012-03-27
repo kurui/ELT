@@ -76,6 +76,9 @@ public class SearchBroadcastingListActionHandler extends
 			criteria.setBroadcastingTimeEnd(request.getCriteria().getBroadcastingTimeEnd());
 		if(request.getCriteria().getStatus()!=null)
 			criteria.setStatus(BroadcastingStatus.valueOf(request.getCriteria().getStatus().toString()));
+		if(request.getCriteria().getBroadcastType()!=null)
+			criteria.setCategory(com.chinarewards.elt.model.information.BroadcastingCategory.valueOf(request.getCriteria().getBroadcastType().toString()));
+		
 		
 		UserContext context=new UserContext();
 		context.setCorporationId(request.getSession().getCorporationId());

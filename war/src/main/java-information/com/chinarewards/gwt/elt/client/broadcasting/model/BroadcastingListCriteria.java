@@ -85,6 +85,16 @@ public class BroadcastingListCriteria implements IsSerializable {
 	 */
 	private Date broadcastingTimeEnd;
 
+	private BroadcastingCategory broadcastType;
+	
+	public BroadcastingCategory getBroadcastType() {
+		return broadcastType;
+	}
+
+	public void setBroadcastType(BroadcastingCategory broadcastType) {
+		this.broadcastType = broadcastType;
+	}
+
 	public String getCorporationId() {
 		return corporationId;
 	}
