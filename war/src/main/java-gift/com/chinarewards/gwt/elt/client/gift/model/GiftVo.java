@@ -29,6 +29,7 @@ public class GiftVo implements Serializable {
 	private String tell; // 供应商电话
 	private String servicetell;// 服务电话
 	private GiftStatus status; // 状态（上下架）
+	private String statusValue;
 	private boolean deleted; // 删除状态
 	private Date indate; // 有效截止期
 
@@ -69,6 +70,16 @@ public class GiftVo implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	
+
+	public String getStatusValue() {
+		return statusValue;
+	}
+
+	public void setStatusValue(String statusValue) {
+		this.statusValue = statusValue;
 	}
 
 	public String getExplains() {

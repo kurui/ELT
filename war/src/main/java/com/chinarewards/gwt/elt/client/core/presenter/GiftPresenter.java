@@ -28,6 +28,7 @@ public interface GiftPresenter extends Presenter<GiftPresenter.GiftDisplay> {
 		void disableManagementCenter();
 		void disableGiftExchange();
 		void disableStaffCorner();
+		void changeTopMenu(String key);
 	}
 	
 	

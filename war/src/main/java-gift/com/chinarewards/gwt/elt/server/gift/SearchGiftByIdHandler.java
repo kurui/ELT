@@ -44,6 +44,7 @@ public class SearchGiftByIdHandler extends
 		giftVo.setExplains(gift.getExplains());
 		giftVo.setNotes(gift.getNotes());
 		giftVo.setType(gift.getType());
+		giftVo.setStatusValue(gift.getStatus().toString());
 		giftVo.setBrand(gift.getBrand());
 		giftVo.setSource(gift.getSource());
 		giftVo.setBusiness(gift.getBusiness());

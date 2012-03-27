@@ -135,45 +135,7 @@ public class RewardsItemListPresenterImpl extends
 
 	// init department name
 	private void init() {
-		// if (!GWT.isScript()) {
-		// isDepartmentManager = false;
-		// } else {
-		// List<UserRoleVo> roleList =
-		// Arrays.asList(sessionManager.getSession().getUserRoles());
-		// if (roleList.contains(UserRoleVo.CORP_ADMIN)) { isHr = true;
-		// } else if (roleList.contains(UserRoleVo.DEPT_MGR)) {
-		// isDepartmentManager = true;
-		// }
-		// if (isHr) {
-		// //display.showDept(null);
-		// } else if (isDepartmentManager) {
-		// dispatch.execute(new DepartmentIdRequest(),
-		// new AsyncCallback<DepartmentIdResponse>() {
-		//
-		// @Override
-		// public void onFailure(Throwable t) {
-		// errorHandler.alert(t);
-		// }
-		//
-		// @Override
-		// public void onSuccess(DepartmentIdResponse resp) {
-		// display.showDept(resp.getDeptIds());
-		// }
-		// });
-		// } else {
-		// // local test
-		// display.showDept(null);
-		// }
-		// }
-
-		// comboTree = new DepartmentComboTree(dispatch, errorHandler,
-		// sessionManager);
-		// display.getDepartmentPanel().add(comboTree);
-		// deptId = comboTree.getSelectedItem().getId();
-		// setRewardsTypeList();
-//		Map<String, String> map = new HashMap<String, String>();
-//		map.put("false", "未激活");
-//		map.put("true", "已激活");
+		
 		display.initStatus();
 		initDeparts();
 		
@@ -354,6 +316,7 @@ public class RewardsItemListPresenterImpl extends
 												@Override
 												public void onSuccess(DeleteRewardsItemResponse resp) {
 													win.alert(resp.getName() + "已删除!");
+													buildTable();
 													doSearch();
 												}
 											});
@@ -445,6 +408,7 @@ public class RewardsItemListPresenterImpl extends
 					@Override
 					public void onSuccess(ActivationRewardsItemResponse resp) {
 						win.alert(resp.getName() + "--已激活!");
+						buildTable();
 						doSearch();
 					}
 				});
@@ -463,6 +427,7 @@ public class RewardsItemListPresenterImpl extends
 					@Override
 					public void onSuccess(ActivationRewardsItemResponse resp) {
 						win.alert(resp.getName() + "--已冻结!");
+						buildTable();
 						doSearch();
 					}
 				});
@@ -481,6 +446,7 @@ public class RewardsItemListPresenterImpl extends
 					@Override
 					public void onSuccess(DeleteRewardsItemResponse resp) {
 						win.alert(resp.getName() + "已删除!");
+						buildTable();
 						doSearch();
 					}
 				});

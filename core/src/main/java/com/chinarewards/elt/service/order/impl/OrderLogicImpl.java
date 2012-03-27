@@ -171,7 +171,7 @@ public class OrderLogicImpl implements OrderLogic{
 			List<Orders> list =orderDao.getOrderForSHIPMENTS();
 			if (list.size() > 0) {
 				for (Orders order : list) {
-						if(DateUtil.formatData("yyyy-MM-dd", DateUtil.addSomeDay(order.getExchangeDate(), day)).equals(DateUtil.formatData("yyyy-MM-dd", DateUtil.getTime()))){
+						if(DateUtil.formatData("yyyy-MM-dd", DateUtil.addSomeDay(order.getRecorddate(), day)).equals(DateUtil.formatData("yyyy-MM-dd", DateUtil.getTime()))){
 						System.out.println("定单已过确定时间，要改为已发货");
 						Date currTime = DateUtil.getTime();
 						order.setStatus(OrderStatus.AFFIRM);

@@ -32,7 +32,8 @@ public interface GiftPresenter extends Presenter<GiftPresenter.GiftDisplay> {
 		public HasValue<String> getNotes();
 
 		public ListBox getType();
-
+		public ListBox getStatus();
+		
 		public HasValue<String> getBrand();
 
 		public HasValue<String> getSource();
@@ -57,8 +58,6 @@ public interface GiftPresenter extends Presenter<GiftPresenter.GiftDisplay> {
 		public HasValue<String> getIntegral();
 
 		public HasValue<String> getPhone();
-
-		public HasValue<Boolean> getStatus();
 
 		public HasValue<Boolean> getDeleted();
 
