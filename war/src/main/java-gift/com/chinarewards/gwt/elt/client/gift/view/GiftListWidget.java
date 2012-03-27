@@ -59,7 +59,6 @@ public class GiftListWidget extends Composite implements GiftListDisplay {
 
 	@Override
 	public HasClickHandlers getSearchBtnClickHandlers() {
-		searchBtn.setWidth("99px");
 		return searchBtn;
 	}
 
