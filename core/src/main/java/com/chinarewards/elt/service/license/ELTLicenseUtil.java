@@ -30,7 +30,7 @@ public class ELTLicenseUtil {
 	// com/chinarewards/gwt/elt/util/
 	// \\com\\chinarewards\\gwt\\elt\\util\\
 	// /publicCerts.store 需要放于WEB-INF/classes目录
-	public static final String KEYSTORE_RESOURCE = "/publicCerts.store"; // CUSTOMIZE
+	public static final String KEYSTORE_RESOURCE = "publicCerts.store"; // CUSTOMIZE
 				 															// 公匙库文件名
 	// ELTLicenseClient.class.getResourceAsStream(arg0)
 
@@ -57,9 +57,10 @@ public class ELTLicenseUtil {
 	 */
 	public static final void main(String args[]) {
 		try {
-			String licensePath = getCertPath();
-
-			manager.install(new java.io.File(licensePath + "license.lic"));
+			String licensePath = getCertPath()+ "license.lic";
+			licensePath = getCertPath()+ "license201203271710188146.lic";			
+			
+			manager.install(new java.io.File(licensePath));
 			LicenseContent content = manager.verify();
 
 			String subject = content.getSubject();
@@ -98,9 +99,11 @@ public class ELTLicenseUtil {
 				realPath = realPath.substring(1, realPath.length());
 			}
 
-			System.out.println("realPath:"+realPath);
+			
 
-			realPath = realPath + "cert"+File.separator;
+			realPath = realPath + "cert"+  File.separator;
+			
+			System.out.println("realPath:"+realPath);
 		}
 		return realPath;
 	}

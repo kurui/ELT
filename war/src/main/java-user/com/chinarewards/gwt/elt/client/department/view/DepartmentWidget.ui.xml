@@ -49,13 +49,13 @@
 						<g:Label  ui:field="parentName" />
 					</div>
 				</div>
-				<div class="{new2.form-line}">
+				<div class="{new2.form-line}" ui:field="childDiv">
 					<label class="{new2.label}">下一级子部门：</label>
 					<div class="{new2.element}">
 						<g:Label ui:field="childdepartment"  />
 					</div>
 				</div>
-				<div class="{new2.form-line}">
+				<div class="{new2.form-line}" ui:field="peopleNumDiv">
 					<label class="{new2.label}">部门人数：</label>
 					<div class="{new2.element}">
 						<g:Label ui:field="peopleNumber" />
@@ -84,7 +84,7 @@
 					<div class="{new2.element}">
 						<span class="{new2.btn}">
 								<g:Hidden ui:field="formValidate"></g:Hidden>
-							<g:Button ui:field="save">保存</g:Button>
+							<g:Button ui:field="save"  styleName="button-ok">保存</g:Button>
 						</span>
 						<span class="{new2.nbsp}"></span>
 						<span class="{new2.btn}">

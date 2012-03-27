@@ -188,6 +188,7 @@ public class StaffHeavenIndexPresenterImpl extends
 							public void onSuccess(BroadcastSaveResponse resp) {
 								win.alertStaff("保存成功");
 								display.successClean();
+								buildTable();
 								doSearch(null);
 							}
 						});
@@ -213,6 +214,7 @@ public class StaffHeavenIndexPresenterImpl extends
 				display.getSysInformation().setStyleName(noStyle);
 				display.getThemeInformation().setStyleName(noStyle);
 				display.getQuietlyInformation().setStyleName(noStyle);
+				buildTable();
 				doSearch(null);
 			}
 		});
@@ -225,6 +227,7 @@ public class StaffHeavenIndexPresenterImpl extends
 				display.getSysInformation().setStyleName(noStyle);
 				display.getThemeInformation().setStyleName(noStyle);
 				display.getQuietlyInformation().setStyleName(noStyle);
+				buildTable();
 				doSearch(BroadcastingCategory.STAFFBROADCAST);
 			}
 		});
@@ -237,6 +240,7 @@ public class StaffHeavenIndexPresenterImpl extends
 				display.getSysInformation().setStyleName(onStyle);
 				display.getThemeInformation().setStyleName(noStyle);
 				display.getQuietlyInformation().setStyleName(noStyle);
+				buildTable();
 				doSearch(BroadcastingCategory.SYSBROADCAST);
 			}
 		});
@@ -249,6 +253,7 @@ public class StaffHeavenIndexPresenterImpl extends
 				display.getSysInformation().setStyleName(noStyle);
 				display.getThemeInformation().setStyleName(onStyle);
 				display.getQuietlyInformation().setStyleName(noStyle);
+				buildTable();
 				doSearch(BroadcastingCategory.THEMEBROADCAST);
 			}
 		});
@@ -261,6 +266,7 @@ public class StaffHeavenIndexPresenterImpl extends
 				display.getSysInformation().setStyleName(noStyle);
 				display.getThemeInformation().setStyleName(noStyle);
 				display.getQuietlyInformation().setStyleName(onStyle);
+				buildTable();
 				doSearch(BroadcastingCategory.QUIETLYINFORMATION);
 			}
 		});

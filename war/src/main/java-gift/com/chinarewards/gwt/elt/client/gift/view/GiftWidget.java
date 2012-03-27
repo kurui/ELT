@@ -182,7 +182,7 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	@Override
 	public void initAddGift(GiftVo giftVo) {
 		initTypeSelect("");
-		status.setEnabled(false);
+//		status.setEnabled(false);
 		initStatusSelect("SHELVES");
 		supplyinner.setValue(false);
 		supplyoutter.setValue(true);

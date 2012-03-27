@@ -16,10 +16,10 @@ public class DockModule extends AbstractGinModule {
 		bind(DockPresenter.class).to(DockPresenterImpl.class).in(Singleton.class);
 		bind(DockDisplay.class).to(DockWidget.class);
 		
-		bind(StaffPresenter.class).to(StaffPresenterImpl.class);
+		bind(StaffPresenter.class).to(StaffPresenterImpl.class).in(Singleton.class);
 		bind(StaffDisplay.class).to(StaffWidget.class);
 		
-		bind(GiftPresenter.class).to(GiftPresenterImpl.class);
+		bind(GiftPresenter.class).to(GiftPresenterImpl.class).in(Singleton.class);
 		bind(GiftDisplay.class).to(GiftWidget.class);
 	}
 

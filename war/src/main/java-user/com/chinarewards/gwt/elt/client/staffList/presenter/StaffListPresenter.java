@@ -36,5 +36,6 @@ public interface StaffListPresenter extends Presenter<StaffListPresenter.StaffLi
 		void displayBtn();
 
 		ListBox getPageNumber();
+		ListBox getDepartment();
 	}
 }

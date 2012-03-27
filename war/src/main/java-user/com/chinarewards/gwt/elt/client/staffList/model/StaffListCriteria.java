@@ -43,9 +43,18 @@ public class StaffListCriteria implements IsSerializable {
 
 	private StaffStatus staffStatus;
 	private UserRoleVo staffRole;
+	private String departmentId;
 
 	private String staffNameorNo;
 	private boolean colleaguePage;
+
+	public String getDepartmentId() {
+		return departmentId;
+	}
+
+	public void setDepartmentId(String departmentId) {
+		this.departmentId = departmentId;
+	}
 
 	public boolean isColleaguePage() {
 		return colleaguePage;

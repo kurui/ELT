@@ -20,6 +20,7 @@ import com.chinarewards.gwt.elt.client.staffList.model.StaffListClient;
 import com.chinarewards.gwt.elt.client.staffList.model.StaffListCriteria.StaffStatus;
 import com.chinarewards.gwt.elt.client.staffList.request.SearchStaffListRequest;
 import com.chinarewards.gwt.elt.client.staffList.request.SearchStaffListResponse;
+import com.chinarewards.gwt.elt.client.util.StringUtil;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
 import com.chinarewards.gwt.elt.server.logger.InjectLogger;
 import com.chinarewards.gwt.elt.util.UserRoleTool;
@@ -73,6 +74,8 @@ public class SearchStaffListActionHandler extends
 			criteria.setStaffRole(UserRole.valueOf(request.getCriteria().getStaffRole().toString()));
 		if(request.getCriteria().isColleaguePage()==true)
 			criteria.setColleaguePage(request.getCriteria().isColleaguePage());
+		if(!StringUtil.isEmpty(request.getCriteria().getDepartmentId()))
+			criteria.setDepartmentId(request.getCriteria().getDepartmentId());
 		
 		UserContext context=new UserContext();
 		context.setCorporationId(request.getSession().getCorporationId());

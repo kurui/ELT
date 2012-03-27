@@ -127,7 +127,7 @@ public class StaffListPrintPresenterImpl extends
 						else
 							return "";
 					}
-				}, ref, "jobNo");
+				});
 
 		cellTable.addColumn("密码", new TextCell(),
 				new GetValue<StaffListClient, String>() {
@@ -135,9 +135,38 @@ public class StaffListPrintPresenterImpl extends
 					public String getValue(StaffListClient staff) {
 						return "123";
 					}
-				}, ref, "name");
+				});
+		cellTable.addColumn("部门", new TextCell(),
+				new GetValue<StaffListClient, String>() {
+					@Override
+					public String getValue(StaffListClient staff) {
+						if(staff.getDepartmentName().indexOf("ROOT")==-1)
+							return staff.getDepartmentName();
+						else
+							return "";
+					}
+				}, ref, "department.name");
 	
+		cellTable.addColumn("职位", new TextCell(),
+				new GetValue<StaffListClient, String>() {
+					@Override
+					public String getValue(StaffListClient staff) {
+							return staff.getJobPosition();
 
+					}
+				},ref,"jobPosition");
+	
+		cellTable.addColumn("在职状态", new TextCell(),
+				new GetValue<StaffListClient, String>() {
+					@Override
+					public String getValue(StaffListClient staff) {
+						if(staff.getStaffStatus()!=null)
+						return staff.getStaffStatus().getDisplayName();
+						else
+						return "";
+					}
+				}, ref, "status");
+	
 	
 	}
 	public void sendMail(String emailAddress,String staffId)
