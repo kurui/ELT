@@ -8,6 +8,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.InlineLabel;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.Widget;
@@ -37,6 +38,8 @@ public class DetailsOfBroadcastWidget extends Composite implements
 	Panel resultPanel;
 	@UiField
 	Panel resultpage;
+	@UiField
+	ListBox pageNumber;
 	private static DetailsOfBroadcastWidgetUiBinder uiBinder = GWT
 			.create(DetailsOfBroadcastWidgetUiBinder.class);
 
@@ -46,6 +49,10 @@ public class DetailsOfBroadcastWidget extends Composite implements
 
 	public DetailsOfBroadcastWidget() {
 		initWidget(uiBinder.createAndBindUi(this));
+		pageNumber.clear();
+		pageNumber.addItem("10","10");
+		pageNumber.addItem("20","20");
+		pageNumber.addItem("50","50");
 	}
 
 	@Override
@@ -102,5 +109,10 @@ public class DetailsOfBroadcastWidget extends Composite implements
 	@Override
 	public InlineLabel getDataCount() {
 		return dataCount;
+	}
+
+	@Override
+	public ListBox getPageNumber() {
+		return pageNumber;
 	}
 }
