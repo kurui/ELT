@@ -24,6 +24,8 @@ public class StaffListWidget extends Composite implements StaffListDisplay {
 	ListBox staffStatus;
 	@UiField
 	ListBox staffRole;
+	@UiField
+	ListBox department;
 	
 	@UiField
 	Button addStaffBtn;
@@ -154,6 +156,11 @@ public class StaffListWidget extends Composite implements StaffListDisplay {
 	@Override
 	public ListBox getPageNumber() {
 		return pageNumber;
+	}
+
+	@Override
+	public ListBox getDepartment() {
+		return department;
 	}
 
 

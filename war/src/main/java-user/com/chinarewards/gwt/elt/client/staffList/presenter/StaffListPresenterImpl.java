@@ -8,6 +8,9 @@ import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresente
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.ui.DialogCloseListener;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
+import com.chinarewards.gwt.elt.client.department.model.DepartmentVo;
+import com.chinarewards.gwt.elt.client.department.request.SearchDepartmentByCorpIdRequest;
+import com.chinarewards.gwt.elt.client.department.request.SearchDepartmentByCorpIdResponse;
 import com.chinarewards.gwt.elt.client.mail.model.MailVo;
 import com.chinarewards.gwt.elt.client.mail.presenter.MailSendAllDialog;
 import com.chinarewards.gwt.elt.client.mail.presenter.MailSendDialog;
@@ -176,10 +179,53 @@ public class StaffListPresenterImpl extends
 	
 	private void init() {	
 		display.initStaffStatus();
-		buildTable();
-		doSearch();
+		initDepartmentList(null);
+		
+		
 	}
 
+	private void initDepartmentList(final String selectedValue){
+		String corporationId=sessionManager.getSession().getCorporationId();
+		dispatch.execute(new SearchDepartmentByCorpIdRequest(corporationId),
+				new AsyncCallback<SearchDepartmentByCorpIdResponse>() {
+
+					@Override
+					public void onFailure(Throwable t) {
+						win.alert("查询部门列表异常："+t.getMessage());
+					}
+		
+					@Override
+					public void onSuccess(SearchDepartmentByCorpIdResponse resp) {
+						
+						display.getDepartment().clear();
+						int selectIndex = 0;
+						int i = 0;
+						for (DepartmentVo entry : resp.getDepartmentList()) {
+							String keyValue = entry.getId();
+							// System.out.println(entry.getId() + ": " + entry.getName());
+							if(entry.getName().indexOf("ROOT")>-1){
+								display.getDepartment().addItem("不限", "ALL");
+							}else{
+								display.getDepartment().addItem(entry.getName(), entry.getId());
+							}
+							
+							
+							if (selectedValue != null && StringUtil.trim(selectedValue) != ""
+									&& StringUtil.trim(keyValue) != "") {
+								if (selectedValue.equals(keyValue)) {
+									
+									selectIndex = i;
+								}
+							}
+							i++;
+						}
+						display.getDepartment().setSelectedIndex(selectIndex);
+						
+						buildTable();
+						doSearch();
+					}					
+		});
+	}
 	private void buildTable() {
 		// create a CellTable
 		cellTable = new ListCellTable<StaffListClient>();
@@ -204,7 +250,8 @@ public class StaffListPresenterImpl extends
 			criteria.setStaffStatus(StaffStatus.valueOf(display.getSttaffStatus()));
 		if(!"ALL".equals(display.getSttaffRole()))
 			criteria.setStaffRole(UserRoleVo.valueOf(display.getSttaffRole()));
-
+		if(!"ALL".equals(display.getDepartment().getValue(display.getDepartment().getSelectedIndex())))
+			criteria.setDepartmentId(display.getDepartment().getValue(display.getDepartment().getSelectedIndex()));
 		listViewAdapter = new StaffListViewAdapter(dispatch, criteria,
 				errorHandler, sessionManager,display);
 		listViewAdapter.addDataDisplay(cellTable);
