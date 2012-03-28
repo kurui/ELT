@@ -54,7 +54,7 @@
 		    </div>
 		
 		    <div class="{new2.award-history}">
-		      <h3>公司近一个月颁发奖章</h3>
+		      <h3>最近颁发的奖章(一个月内)</h3>
 		      <div class="{new2.award-history-content}">
 		        <g:FlowPanel ui:field="rewardWindow" />
 		      </div>
