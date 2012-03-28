@@ -13,6 +13,7 @@ import com.chinarewards.elt.service.order.OrderService;
 import com.chinarewards.elt.service.reward.RewardItemService;
 import com.chinarewards.elt.service.reward.RewardService;
 import com.chinarewards.elt.service.reward.rule.JudgeLogic;
+import com.chinarewards.elt.util.DateUtil;
 import com.google.inject.Inject;
 
 
@@ -64,17 +65,21 @@ public class InitServlet extends HttpServlet {
 
 	private void autoGenerateRewardTask() {
 		logger.debug(" begin to autoRewardsTask ");
-		AutoGenerateRewardTask autoGenerateRewardTask = AutoGenerateRewardTask.getInstance();
+		AutoGenerateRewardTask autoGenerateRewardTask = AutoGenerateRewardTask.getInstance();	
 		autoGenerateRewardTask.setRewardItemService(rewardItemService);
 		try {
+			autoGenerateRewardTask.run();//第一次运行
+			
 			AutoGenerateRewardTask instance = AutoGenerateRewardTask.getInstance();
 			Calendar calendar = Calendar.getInstance();
+			calendar.set(Calendar.DATE, calendar.get(Calendar.DATE)+1);
 			calendar.set(Calendar.HOUR_OF_DAY, 01);
 			calendar.set(Calendar.MINUTE, 00);
 			calendar.set(Calendar.SECOND, 00);
 			long period = 24 * 60 * 60 * 1000;
 			// long period = 10 * 1000;
-			batchTimer.schedule(instance, calendar.getTime(),
+			System.out.println(DateUtil.formatData(null, calendar.getTime()));
+ 			batchTimer.schedule(instance, calendar.getTime(),
 					period);
 		} catch (Exception e) {
 			logger.error("Auto run generate reward,", e);
@@ -85,8 +90,11 @@ public class InitServlet extends HttpServlet {
 		AutoSendMessageToNominatorTask autoSendMessageToNominatorTask = AutoSendMessageToNominatorTask.getInstance();
 		autoSendMessageToNominatorTask.setRewardService(rewardService);
 		try {
+			autoSendMessageToNominatorTask.run();//第一次运行
+			
 			AutoSendMessageToNominatorTask instance = AutoSendMessageToNominatorTask.getInstance();
 			Calendar calendar = Calendar.getInstance();
+			calendar.set(Calendar.DATE, calendar.get(Calendar.DATE)+1);
 			calendar.set(Calendar.HOUR_OF_DAY, 01);
 			calendar.set(Calendar.MINUTE, 00);
 			calendar.set(Calendar.SECOND, 00);
@@ -102,8 +110,11 @@ public class InitServlet extends HttpServlet {
 		AutoUpdateOrderTask autoUpdateOrderTask = AutoUpdateOrderTask.getInstance();
 		autoUpdateOrderTask.setOrderService(orderService);
 		try {
+			autoUpdateOrderTask.run();//第一次运行
+			
 			AutoUpdateOrderTask instance = AutoUpdateOrderTask.getInstance();
 			Calendar calendar = Calendar.getInstance();
+			calendar.set(Calendar.DATE, calendar.get(Calendar.DATE)+1);
 			calendar.set(Calendar.HOUR_OF_DAY, 01);
 			calendar.set(Calendar.MINUTE, 00);
 			calendar.set(Calendar.SECOND, 00);
