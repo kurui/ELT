@@ -93,7 +93,7 @@ public class RewardsItemListWidget extends Composite implements
 	}
 	public void initStatus() {
 		status.clear();
-		status.addItem("全部", "All");
+		status.addItem("不限", "All");
 		status.addItem("未激活", "false");
 		status.addItem("已激活", "true");
 		pageNumber.clear();

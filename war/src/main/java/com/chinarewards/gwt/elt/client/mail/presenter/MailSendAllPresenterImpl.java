@@ -153,9 +153,9 @@ public class MailSendAllPresenterImpl extends	BaseDialogPresenter<MailSendAllPre
 					@Override
 					public void onKeyUp(KeyUpEvent event) {
 						int sum = display.getContent().length();
-						if(sum>150)
-							display.setContent(display.getContent().substring(0,150));
-						display.setMessage((150-display.getContent().length())+"");
+						if(sum>250)
+							display.setContent(display.getContent().substring(0,250));
+						display.setMessage((250-display.getContent().length())+"");
 					    }
 									
 		  }));

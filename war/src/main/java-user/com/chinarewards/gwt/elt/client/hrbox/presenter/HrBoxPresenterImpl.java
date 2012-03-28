@@ -196,27 +196,69 @@ public class HrBoxPresenterImpl extends BasePresenter<HrBoxDisplay>
 					
 				}
 			});
-	}
+		  display.getSends().addClickHandler(new ClickHandler() {//待颁奖
+			   @Override
+				public void onClick(ClickEvent event) {
+				   dockPresenter.getDisplay().changeTopMenu("Reward");
+					dockPresenter.getDisplay().setMenuTitle("应用奖项");
+					menuProcessor.initrender(dockPresenter.getDisplay().getMenu(), "Reward");
 
+				//	eventBus.fireEvent(new MenuClickEvent(menuProcessor.getMenuItem(RewardsListConstants.MENU_REWARDSLIST_SEARCH)));
+					RewardsPageClient rpc=new RewardsPageClient();
+					rpc.setTitleName("待颁奖奖项");
+					rpc.setPageType(RewardPageType.AWARDREWARDPAGE);
+					Platform.getInstance()
+							.getEditorRegistry()
+							.openEditor(
+									RewardsListConstants.EDITOR_REWARDSLIST_SEARCH,
+									"EDITOR_REWARDSLIST_SEARCH_DO_ID", rpc);
+					menuProcessor.changItemColor("待颁奖奖项");
+					
+				}
+			});
+		  display.getTms().addClickHandler(new ClickHandler() {//待提名
+			   @Override
+				public void onClick(ClickEvent event) {
+				   dockPresenter.getDisplay().changeTopMenu("Reward");
+					dockPresenter.getDisplay().setMenuTitle("应用奖项");
+					menuProcessor.initrender(dockPresenter.getDisplay().getMenu(), "Reward");
+
+				//	eventBus.fireEvent(new MenuClickEvent(menuProcessor.getMenuItem(RewardsListConstants.MENU_REWARDSLIST_SEARCH)));
+					RewardsPageClient rpc=new RewardsPageClient();
+					rpc.setTitleName("待提名奖项");
+					rpc.setPageType(RewardPageType.NOMINATEPAGE);
+					Platform.getInstance()
+							.getEditorRegistry()
+							.openEditor(
+									RewardsListConstants.EDITOR_REWARDSLIST_SEARCH,
+									"EDITOR_REWARDSLIST_SEARCH_DO_ID", rpc);
+					menuProcessor.changItemColor("待提名奖项");
+					
+				}
+			});
+		 
+	}
 	@Override
 	public void initHrBox() {
 		
 		{
-			//要发货的
-			 dispatch.execute(new OrderBoxRequest(sessionManager.getSession(),OrderStatus.NUSHIPMENTS+""),
-					new AsyncCallback<OrderBoxResponse>() {
-						@Override
-						public void onFailure(Throwable arg0) {
-							errorHandler.alert("查询出错!");
-							
-						}
-						@Override
-						public void onSuccess(OrderBoxResponse response) {
-							
-							display.setOrder(response.getTotal()+"");
-						}
-
-					});
+//			//要发货的
+//			 dispatch.execute(new OrderBoxRequest(sessionManager.getSession(),OrderStatus.NUSHIPMENTS+""),
+//					new AsyncCallback<OrderBoxResponse>() {
+//						@Override
+//						public void onFailure(Throwable arg0) {
+//							errorHandler.alert("查询出错!");
+//							
+//						}
+//						@Override
+//						public void onSuccess(OrderBoxResponse response) {
+//							if(response.getTotal()==0)
+//							    display.setOrder(response.getTotal()+"");
+//							else
+//								display.setOrders(response.getTotal()+"");
+//						}
+//
+//					});
 			//待颁奖
 			 dispatch.execute(new UserBoxRequest(sessionManager.getSession(),"NEW"),
 					new AsyncCallback<UserBoxResponse>() {
@@ -227,7 +269,10 @@ public class HrBoxPresenterImpl extends BasePresenter<HrBoxDisplay>
 						@Override
 						public void onSuccess(UserBoxResponse response) {
 							display.setMessage( response.getWeek());
-							display.setHrSend(response.getTotal()+"");
+							if(response.getTotal()==0)
+							    display.setHrSend(response.getTotal()+"");
+							else
+								display.setHrSends(response.getTotal()+"");
 						}
 
 					});
@@ -240,8 +285,10 @@ public class HrBoxPresenterImpl extends BasePresenter<HrBoxDisplay>
 						}
 						@Override
 						public void onSuccess(UserBoxResponse response) {
-							
-							display.setTm(response.getTotal()+"");
+							if(response.getTotal()==0)
+							     display.setTm(response.getTotal()+"");
+							else
+								 display.setTms(response.getTotal()+"");	
 						}
 
 					});

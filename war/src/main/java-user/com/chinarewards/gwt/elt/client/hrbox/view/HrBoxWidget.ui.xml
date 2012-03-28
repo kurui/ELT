@@ -43,21 +43,18 @@
 				</div> 
 		        <div class="{new2.inbox-section}">
 		          <h3>待颁奖信息</h3>
-		          <p>本月待颁奖奖项数共 <span class="{new2.color-red}"><g:InlineLabel ui:field="send"  /></span> 个</p>
+		          <p>本月待颁奖奖项数共 <g:InlineLabel ui:field="send" styleName="{new2.color-red}"  /><g:Anchor styleName="{new2.color-red}" ui:field="sends" /> 个</p>
 		        </div>
 		        <div class="{new2.inbox-section}">
 		          <h3>待提名信息</h3>
-		          <p>本月待提名奖项数共 <span class="{new2.color-red}"><g:InlineLabel ui:field="tm"  /></span> 个</p>
+		          <p>本月待提名奖项数共 <g:InlineLabel styleName="{new2.color-red}" ui:field="tm"  /><g:Anchor styleName="{new2.color-red}"  ui:field="tms" /> 个</p>
 		        </div>
-		        <div class="{new2.inbox-section}">
-		          <h3>待处理订单</h3>
-		          <p>当前待处理订单数共 <span class="{new2.color-red}"><g:InlineLabel ui:field="order"  /></span> 个</p>
-		        </div>
+		        
 		      </div>
 		    </div>
 		
 		    <div class="{new2.award-history}">
-		      <h3>公司近一个月颁发奖章</h3>
+		      <h3>最近颁发的奖章(一个月内)</h3>
 		      <div class="{new2.award-history-content}">
 		        <g:FlowPanel ui:field="rewardWindow" />
 		      </div>
