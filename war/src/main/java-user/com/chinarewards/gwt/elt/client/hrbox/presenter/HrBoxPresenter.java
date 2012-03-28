@@ -17,6 +17,7 @@ public interface HrBoxPresenter extends Presenter<HrBoxPresenter.HrBoxDisplay> {
 		void setTm(String text);	
 		
 		public void setMessage(String week);
+		public void setMess(String text);
 		public HasClickHandlers getView() ;
 		public HasClickHandlers getViewBudget() ;
 		public Panel getRewardWindow();

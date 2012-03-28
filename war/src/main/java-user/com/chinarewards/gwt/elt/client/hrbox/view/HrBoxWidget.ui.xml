@@ -29,6 +29,7 @@
 			</p>
 		        <div class="{new2.table}">
 				   <g:FlowPanel ui:field="resultPanel" />
+				   <p><g:InlineLabel styleName="{new2.color-red}" ui:field="mess"></g:InlineLabel></p>
 			    </div>
 		         <!--分页 [[ -->
 				<div id="rewardlist_page" class="{new2.pager}">

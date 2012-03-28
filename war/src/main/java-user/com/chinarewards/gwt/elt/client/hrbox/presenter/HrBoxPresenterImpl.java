@@ -315,6 +315,8 @@ public class HrBoxPresenterImpl extends BasePresenter<HrBoxDisplay>
 								 }
 								 vo = list.get(0);
 								 corpBudgetId = vo.getId();
+							 }else{
+								 display.setMessage("没有超预算部门");
 							 }
 							    
 							    DepBudgetVo criteria = new DepBudgetVo();
