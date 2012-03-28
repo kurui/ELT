@@ -184,7 +184,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .employee .reward-section .reward-select li a{background-color:#F7F7F7;text-align:center;padding:7px 0;display:block;font-size:13px;overflow:hidden;}
 .employee .reward-section .reward-select li.on a{background-color:#E4ECF1;font-weight:bold;}
 .employee .reward-section .reward-list{background-color:#E4ECF1;padding:10px 5px 5px;clear:both;\*zoom:1;}
-.employee .reward-section .reward-list li a{display:block;background-color:#F7F7F7;margin-bottom:1px;padding:7px 0 7px 60px;font-size:13px;color:#356CA6;text-decoration:none;\_overflow:hidden;\_zoom:1;}
+.employee .reward-section .reward-list li a{display:block;background-color:#F7F7F7;margin-bottom:1px;padding:7px 0 7px 7px;font-size:13px;color:#356CA6;text-decoration:none;\_overflow:hidden;\_zoom:1;}
 .employee .reward-section .reward-list li.on a,.employee .reward-section .reward-list li a:hover{background-color:#E6E6E6;color:#000000;font-weight:bold;}
 .employee .reward-section p{text-align:right;padding:0 5px 5px 0;background-color:#E4ECF1;}
 .employee .reward-section p a{color:#8DB9FB}
