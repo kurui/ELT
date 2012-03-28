@@ -40,6 +40,8 @@ public class HrBoxWidget extends Composite implements	HrBoxDisplay {
 	@UiField
 	InlineLabel message;
 	@UiField
+	InlineLabel mess;
+	@UiField
 	ListBox pageNumber;
 	// Set the format of datepicker.
 	DateTimeFormat dateFormat = DateTimeFormat.getFormat(ViewConstants.date_format_chinese);
@@ -114,7 +116,10 @@ public class HrBoxWidget extends Composite implements	HrBoxDisplay {
 		String msg =  "今天是:" + time+" "+week;
 		message.setText(msg);
 	}
-
+	@Override
+	public void setMess(String text){
+		mess.setText(text);
+	}
 	@Override
 	public Panel getResultPanel() {
 		return resultPanel;
