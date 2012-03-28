@@ -171,15 +171,36 @@ public class DepartmentLeaderTreeModel implements TreeViewModel {
 								.setValue(departmentIds);
 						
 						if(!StringUtil.isEmpty(departmentIds)){
-//							departmentListDisplay.getAddSameLevelBtn().setEnabled(true);
+							String defaultBtnClassName=departmentListDisplay.getDefaultBtnClassName();
+							
+							
 							departmentListDisplay.getAddChildBtn().setEnabled(true);
+							departmentListDisplay.getAddChildBtn().getElement().setClassName("gwt-Button");
+							departmentListDisplay.getAddChildBtn().getElement().getParentElement().setClassName(defaultBtnClassName);							
+							
 							departmentListDisplay.getDeleteBtn().setEnabled(true);
+							departmentListDisplay.getDeleteBtn().getElement().setClassName("gwt-Button");
+							departmentListDisplay.getDeleteBtn().getElement().getParentElement().setClassName(defaultBtnClassName);	
+							
 							departmentListDisplay.getEditBtn().setEnabled(true);
+							departmentListDisplay.getEditBtn().getElement().setClassName("gwt-Button");
+							departmentListDisplay.getEditBtn().getElement().getParentElement().setClassName(defaultBtnClassName);	
+						
 						}else{
 //							departmentListDisplay.getAddSameLevelBtn().setEnabled(false);
+							
 							departmentListDisplay.getAddChildBtn().setEnabled(false);
+							departmentListDisplay.getAddChildBtn().getElement().setClassName("gwt-Button[disabled]");		
+							departmentListDisplay.getAddChildBtn().getElement().getParentElement().setClassName("gwt-Button[disabled]");
+							
 							departmentListDisplay.getDeleteBtn().setEnabled(false);
+							departmentListDisplay.getDeleteBtn().getElement().setClassName("gwt-Button[disabled]");		
+							departmentListDisplay.getDeleteBtn().getElement().getParentElement().setClassName("gwt-Button[disabled]");
+							
 							departmentListDisplay.getEditBtn().setEnabled(false);
+							departmentListDisplay.getEditBtn().getElement().setClassName("gwt-Button[disabled]");		
+							departmentListDisplay.getEditBtn().getElement().getParentElement().setClassName("gwt-Button[disabled]");
+						
 						}
 
 					}

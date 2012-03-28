@@ -77,10 +77,9 @@ public class DepartmentListPresenterImpl extends
 //		display.getAddSameLevelBtn().setEnabled(false);
 //		display.getAddSameLevelBtn().getElement().setClassName("gwt-Button[disabled]");		
 //		display.getAddSameLevelBtn().getElement().getParentElement().setClassName("gwt-Button[disabled]");
-		display.getAddSameLevelBtn().setText("增加一级部门");
 		
-		display.setDefaultBtnClassName(display.getAddSameLevelBtn().getElement().getClassName());
-		
+		String defaultBtnClassName=display.getAddSameLevelBtn().getElement().getParentElement().getClassName();
+		display.setDefaultBtnClassName(defaultBtnClassName);		
 		
 		display.getAddChildBtn().setEnabled(false);
 		display.getAddChildBtn().getElement().setClassName("gwt-Button[disabled]");		

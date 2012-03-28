@@ -72,17 +72,17 @@ public class DepartmentListWidget extends Composite implements
 	
 		
 	}
-
-	@Override
-	public Button getAddSameLevelBtn() {
-		return addSameLevelBtn;
-	}
-
+	
 	@Override
 	public void setBreadCrumbs(Widget breadCrumbs) {
 		this.breadCrumbs.clear();
 		this.breadCrumbs.add(breadCrumbs);
 	}
+
+	@Override
+	public Button getAddSameLevelBtn() {
+		return addSameLevelBtn;
+	}	
 
 	@Override
 	public Button getAddChildBtn() {

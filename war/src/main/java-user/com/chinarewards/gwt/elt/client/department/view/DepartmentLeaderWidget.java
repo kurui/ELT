@@ -29,6 +29,8 @@ public class DepartmentLeaderWidget extends Composite implements
 	Button deleteBtn;
 	@UiField
 	Button editBtn;
+	
+	String defaultBtnClassName;
 
 	@UiField
 	Panel breadCrumbs;
@@ -91,4 +93,15 @@ public class DepartmentLeaderWidget extends Composite implements
 	public Hidden getCurrentDepartmentId() {
 		return currentDepartmentId;
 	}
+	
+	@Override
+	public String getDefaultBtnClassName() {
+		return defaultBtnClassName;
+	}
+	
+	@Override
+	public void setDefaultBtnClassName(String defaultBtnClassName) {
+		this.defaultBtnClassName=defaultBtnClassName;
+	}
+
 }
