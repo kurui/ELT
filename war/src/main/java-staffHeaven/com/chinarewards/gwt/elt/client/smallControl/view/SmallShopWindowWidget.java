@@ -36,7 +36,19 @@ public class SmallShopWindowWidget extends Composite {
 			String integral, String shopPhoto) {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.shopId = shopId;
-		this.shopName.setText(shopName);
+		if(!StringUtil.isEmpty(shopName))
+		{
+		if(shopName.length()>10)
+			this.shopName.setText(shopName.substring(0,10)+"...");
+		else
+			this.shopName.setText(shopName);
+		}
+		else
+		{
+			this.shopName.setText("　");
+		}
+		
+		
 		this.integral.setText(integral);
 		if(!StringUtil.isEmpty(shopPhoto))
 		this.shopPhoto.setUrl("imageshow?imageName=" + shopPhoto);
