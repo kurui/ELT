@@ -24,10 +24,11 @@ public class BreadCrumbsMenuImpl implements BreadCrumbsMenu {
 	}
 
 	@Override
-	public void addBreadCrumbsItemTop(String name, MenuItem menuItem) {
+	public void addBreadCrumbsItemTop(String name, MenuItem menuItem,String leftmenuName) {
 		MenuBreadVo menuBreadVo = new MenuBreadVo();
 		menuBreadVo.setMenuName(name);
 		menuBreadVo.setMenuUrl(menuItem);
+		menuBreadVo.setLeftmenuName(leftmenuName);
 		toplist.add(menuBreadVo);
 
 	}
