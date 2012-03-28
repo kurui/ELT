@@ -211,6 +211,7 @@ public class ButtonMenuProcessor implements MenuProcessor {
 			//items.add(EnterpriseConstants.MENU_PERIOD_EDIT);
 			items.add(LeadTimeConstants.MENU_LEADTIME_SEARCH);
 			items.add(EnterpriseConstants.MENU_MAILSET_EDIT);
+			items.add(EnterpriseConstants.MENU_LICENSE_EDIT);
 		} else if ("Gift".equals(keyname)) {
 			items.add(GiftListConstants.MENU_GIFTLIST_SEARCH);
 			items.add(GiftConstants.MENU_GIFT_ADD);

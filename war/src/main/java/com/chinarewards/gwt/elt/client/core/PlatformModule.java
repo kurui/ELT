@@ -30,6 +30,7 @@ import com.chinarewards.gwt.elt.client.detailsOfGift.plugin.DetailsOfGiftPluginD
 import com.chinarewards.gwt.elt.client.enterprise.plugin.EnterprisePluginDescriptor;
 import com.chinarewards.gwt.elt.client.enterprise.plugin.EnterprisePluginModule;
 import com.chinarewards.gwt.elt.client.enterprise.plugin.IntegralPricePluginDescriptor;
+import com.chinarewards.gwt.elt.client.enterprise.plugin.LicensePluginDescriptor;
 import com.chinarewards.gwt.elt.client.enterprise.plugin.MailSetPluginDescriptor;
 import com.chinarewards.gwt.elt.client.enterprise.plugin.PeriodPluginDescriptor;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftListPluginDescriptor;
@@ -109,6 +110,7 @@ public class PlatformModule extends AbstractGinModule {
 			CorePluginDescriptor core, // core
 
 			EnterprisePluginDescriptor enterprise,
+			LicensePluginDescriptor license,
 			IntegralPricePluginDescriptor integralPrice,
 			PeriodPluginDescriptor period, UserPluginDescriptor user,
 			DepartmentListPluginDescriptor departmentList,
@@ -156,6 +158,7 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet = new InMemoryPluginSet();
 			pluginSet.registerPlugin(core);
 			pluginSet.registerPlugin(enterprise);
+			pluginSet.registerPlugin(license);
 			pluginSet.registerPlugin(integralPrice);
 			pluginSet.registerPlugin(period);
 			pluginSet.registerPlugin(user);

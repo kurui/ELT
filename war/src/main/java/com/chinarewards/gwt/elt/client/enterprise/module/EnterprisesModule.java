@@ -6,6 +6,9 @@ import com.chinarewards.gwt.elt.client.enterprise.presenter.EnterprisePresenterI
 import com.chinarewards.gwt.elt.client.enterprise.presenter.IntegralPricePresenter;
 import com.chinarewards.gwt.elt.client.enterprise.presenter.IntegralPricePresenter.IntegralPriceDisplay;
 import com.chinarewards.gwt.elt.client.enterprise.presenter.IntegralPricePresenterImpl;
+import com.chinarewards.gwt.elt.client.enterprise.presenter.LicensePresenter;
+import com.chinarewards.gwt.elt.client.enterprise.presenter.LicensePresenter.LicenseDisplay;
+import com.chinarewards.gwt.elt.client.enterprise.presenter.LicensePresenterImpl;
 import com.chinarewards.gwt.elt.client.enterprise.presenter.MailSetPresenter;
 import com.chinarewards.gwt.elt.client.enterprise.presenter.MailSetPresenter.MailSetDisplay;
 import com.chinarewards.gwt.elt.client.enterprise.presenter.MailSetPresenterImpl;
@@ -14,6 +17,7 @@ import com.chinarewards.gwt.elt.client.enterprise.presenter.PeriodPresenter.Peri
 import com.chinarewards.gwt.elt.client.enterprise.presenter.PeriodPresenterImpl;
 import com.chinarewards.gwt.elt.client.enterprise.view.EnterpriseWidget;
 import com.chinarewards.gwt.elt.client.enterprise.view.IntegralPriceWidget;
+import com.chinarewards.gwt.elt.client.enterprise.view.LicenseWidget;
 import com.chinarewards.gwt.elt.client.enterprise.view.MailSetWidget;
 import com.chinarewards.gwt.elt.client.enterprise.view.PeriodWidget;
 import com.google.gwt.inject.client.AbstractGinModule;
@@ -34,6 +38,10 @@ public class EnterprisesModule extends AbstractGinModule {
 		
 		bind(MailSetPresenter.class).to(MailSetPresenterImpl.class);
 		bind(MailSetDisplay.class).to(MailSetWidget.class);
+		
+		bind(LicensePresenter.class).to(LicensePresenterImpl.class);
+		bind(LicenseDisplay.class).to(LicenseWidget.class);
+		
 	}
 
 }

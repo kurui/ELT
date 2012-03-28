@@ -171,5 +171,7 @@ public abstract class MenuConstants {
 	
 	//授权证书
 	public static final int MENU_ORDER_LICENSELIST_SEARCH=order++;
+	
+	public static final int MENU_ORDER_LICENSE_EDIT=order++;
 
 }
