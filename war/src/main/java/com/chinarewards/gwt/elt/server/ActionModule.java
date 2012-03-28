@@ -10,6 +10,7 @@ import com.chinarewards.gwt.elt.client.broadcastReply.request.BroadcastReplyAddR
 import com.chinarewards.gwt.elt.client.broadcastReply.request.SearchBroadcastReplyRequest;
 import com.chinarewards.gwt.elt.client.broadcastSave.request.BroadcastSaveRequest;
 import com.chinarewards.gwt.elt.client.broadcastSave.request.BroadcastUpdateRequest;
+import com.chinarewards.gwt.elt.client.broadcasting.request.DeleteBroadcastingRequest;
 import com.chinarewards.gwt.elt.client.broadcasting.request.SearchBroadcastingListRequest;
 import com.chinarewards.gwt.elt.client.budget.request.AddDepartmentBudgetRequest;
 import com.chinarewards.gwt.elt.client.budget.request.EditCorpBudgetRequest;
@@ -106,6 +107,7 @@ import com.chinarewards.gwt.elt.server.broadcastReply.BroadcastReplyAddActionHan
 import com.chinarewards.gwt.elt.server.broadcastReply.SearchBroadcastReplyActionHandler;
 import com.chinarewards.gwt.elt.server.broadcastSave.BroadcastUpdateActionHandler;
 import com.chinarewards.gwt.elt.server.broadcastSave.BroadcastingSaveActionHandler;
+import com.chinarewards.gwt.elt.server.broadcasting.DeleteBroadcastingActionHandler;
 import com.chinarewards.gwt.elt.server.broadcasting.SearchBroadcastingListActionHandler;
 import com.chinarewards.gwt.elt.server.budget.AddDepBudgetHandler;
 import com.chinarewards.gwt.elt.server.budget.EditCorpBudgetHandler;
@@ -417,6 +419,8 @@ public class ActionModule extends ActionHandlerModule {
 		bindHandler(MailSendAllRequest.class,MailSendAllActionHandler.class);
 		//员工天地修改密码
 		bindHandler(PasswordRequest.class,UpdateStaffPwdActionHandler.class);
+		//广播删除
+		bindHandler(DeleteBroadcastingRequest.class,DeleteBroadcastingActionHandler.class);
 
 
 	}
