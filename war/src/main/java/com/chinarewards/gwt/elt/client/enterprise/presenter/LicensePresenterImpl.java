@@ -51,24 +51,7 @@ public class LicensePresenterImpl extends BasePresenter<LicenseDisplay>
 
 	}
 
-	/**
-	 * 得到客户端传来的信息放在VO
-	 * 
-	 * @return
-	 */
-	public EnterpriseVo getEnterprise() {
-		EnterpriseVo enterpriseVo = new EnterpriseVo();
-		enterpriseVo.setId(display.getEnterpriseId().trim());
-		// enterpriseVo.setLicense(Double.valueOf(display.getLicense()
-		// .getValue()));
 
-		// int selectedIndex = display.getMoneyType().getSelectedIndex();
-		// enterpriseVo.setMoneyType(display.getMoneyType().getValue(selectedIndex));
-		// enterpriseVo.setMoneyType(display.getMoneyType().getItemText(selectedIndex));
-
-		return enterpriseVo;
-
-	}
 
 	/**
 	 * 加载初始化数据

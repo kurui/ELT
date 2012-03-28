@@ -98,16 +98,28 @@ public class DepartmentManageTreeModel implements TreeViewModel {
 			
 						departmentListDisplay.getCurrentDepartmentId().setValue(departmentIds);
 						
-						if(!StringUtil.isEmpty(departmentIds)){
-							departmentListDisplay.getAddSameLevelBtn().setEnabled(true);
+						if(!StringUtil.isEmpty(departmentIds)){							
 							departmentListDisplay.getAddChildBtn().setEnabled(true);
+							departmentListDisplay.getAddChildBtn().getElement().setClassName(departmentListDisplay.getDefaultBtnClassName());
+							
 							departmentListDisplay.getDeleteBtn().setEnabled(true);
 							departmentListDisplay.getEditBtn().setEnabled(true);
 						}else{
 							departmentListDisplay.getAddSameLevelBtn().setEnabled(false);
+							departmentListDisplay.getAddSameLevelBtn().getElement().setClassName("gwt-Button[disabled]");		
+							departmentListDisplay.getAddSameLevelBtn().getElement().getParentElement().setClassName("gwt-Button[disabled]");
+							
 							departmentListDisplay.getAddChildBtn().setEnabled(false);
+							departmentListDisplay.getAddChildBtn().getElement().setClassName("gwt-Button[disabled]");		
+							departmentListDisplay.getAddChildBtn().getElement().getParentElement().setClassName("gwt-Button[disabled]");
+							
 							departmentListDisplay.getDeleteBtn().setEnabled(false);
-							departmentListDisplay.getEditBtn().setEnabled(false);
+							departmentListDisplay.getDeleteBtn().getElement().setClassName("gwt-Button[disabled]");		
+							departmentListDisplay.getDeleteBtn().getElement().getParentElement().setClassName("gwt-Button[disabled]");
+							
+							//departmentListDisplay.getEditBtn().setEnabled(false);
+							//departmentListDisplay.getEditBtn().getElement().setClassName("gwt-Button[disabled]");		
+//							departmentListDisplay.getEditBtn().getElement().getParentElement().setClassName("gwt-Button[disabled]");
 						}
 						
 					}

@@ -272,6 +272,13 @@ a:active {
 	zoom: 1;
 }
 
+/*---------------------------------------全局模块----------------------------------------------*/
+.elt-btn,.elt-btn button{background:url(images/elt_repeat.png) repeat-x;}
+/*button*/
+.elt-btn{background-position:-194px -58px;padding-left:5px;display:inline-block;}
+.elt-btn button{background-position:right -58px;border:none;overflow:visible;padding:0 10px 0 5px;display:inline-block;height:25px;line-height:25px;color:#FFFFFF;}
+
+
 .gwt-DialogBox .dialogTopRightInner {
 	width: 2px;
 	zoom: 1;

@@ -74,10 +74,25 @@ public class DepartmentListPresenterImpl extends
 
 		initTreeTable();
 		
-		display.getAddSameLevelBtn().setEnabled(false);
+//		display.getAddSameLevelBtn().setEnabled(false);
+//		display.getAddSameLevelBtn().getElement().setClassName("gwt-Button[disabled]");		
+//		display.getAddSameLevelBtn().getElement().getParentElement().setClassName("gwt-Button[disabled]");
+		display.getAddSameLevelBtn().setText("增加一级部门");
+		
+		display.setDefaultBtnClassName(display.getAddSameLevelBtn().getElement().getClassName());
+		
+		
 		display.getAddChildBtn().setEnabled(false);
+		display.getAddChildBtn().getElement().setClassName("gwt-Button[disabled]");		
+		display.getAddChildBtn().getElement().getParentElement().setClassName("gwt-Button[disabled]");
+		
 		display.getDeleteBtn().setEnabled(false);
+		display.getDeleteBtn().getElement().setClassName("gwt-Button[disabled]");		
+		display.getDeleteBtn().getElement().getParentElement().setClassName("gwt-Button[disabled]");
+		
 		display.getEditBtn().setEnabled(false);
+		display.getEditBtn().getElement().setClassName("gwt-Button[disabled]");		
+		display.getEditBtn().getElement().getParentElement().setClassName("gwt-Button[disabled]");
 	
 	}
 
