@@ -24,6 +24,7 @@ import com.chinarewards.gwt.elt.client.orderHistory.request.OrderHistoryViewRequ
 import com.chinarewards.gwt.elt.client.orderHistory.request.OrderHistoryViewResponse;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
+import com.chinarewards.gwt.elt.client.ui.UniversalCell;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager.TextLocation;
 import com.chinarewards.gwt.elt.client.widget.GetValue;
@@ -211,12 +212,12 @@ public class OrderHistoryPresenterImpl extends
 												+ order.getId(), order);
 					}
 				});
-		cellTable.addColumn("操作", new HyperLinkCell(),
+		cellTable.addColumn("操作", new UniversalCell(),
 				new GetValue<OrderSearchVo, String>() {
 					@Override
 					public String getValue(OrderSearchVo order) {
 						if(order.getStatus()==OrderStatus.SHIPMENTS)
-						    return "确认收货";
+						    return "<a style=\"color:bule;\" href=\"javascript:void(0);\">确认收货</a>";
 						else
 							return "<span style='color: rgb(221, 221, 221);'>确认收货</span>";
 					}
@@ -248,12 +249,12 @@ public class OrderHistoryPresenterImpl extends
 											
 					}
 				});
-		cellTable.addColumn("操作", new HyperLinkCell(),
+		cellTable.addColumn("操作", new UniversalCell(),
 				new GetValue<OrderSearchVo, String>() {
 					@Override
 					public String getValue(OrderSearchVo order) {
 						if(order.getStatus()==OrderStatus.INITIAL)
-						    return "付积分";
+						    return "<a style=\"color:bule;\" href=\"javascript:void(0);\">付积分</a>";
 						else
 							return "<span style='color: rgb(221, 221, 221);'>付积分</span>";
 					}
@@ -285,12 +286,12 @@ public class OrderHistoryPresenterImpl extends
 											
 					}
 				});
-		cellTable.addColumn("操作", new HyperLinkCell(),
+		cellTable.addColumn("操作", new UniversalCell(),
 				new GetValue<OrderSearchVo, String>() {
 					@Override
 					public String getValue(OrderSearchVo gift) {
 						if (gift.getStatus() != null&& gift.getStatus() == OrderStatus.INITIAL)
-							return "取消定单";
+							return "<a style=\"color:bule;\" href=\"javascript:void(0);\">取消定单</a>";
 
 						else
 							return "<span style='color: rgb(221, 221, 221);'>取消定单</span>";
