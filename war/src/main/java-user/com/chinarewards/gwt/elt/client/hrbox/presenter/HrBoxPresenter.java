@@ -15,11 +15,18 @@ public interface HrBoxPresenter extends Presenter<HrBoxPresenter.HrBoxDisplay> {
 		public Panel getResultpage();
 		void setHrSend(String text);
 		void setTm(String text);	
-		void setOrder(String text);
+		
 		public void setMessage(String week);
 		public HasClickHandlers getView() ;
 		public HasClickHandlers getViewBudget() ;
 		public Panel getRewardWindow();
 		ListBox getPageNumber();
+		
+		void setHrSends(String text);
+		void setTms(String text);	
+		
+		public HasClickHandlers getSends() ;
+		
+		public HasClickHandlers getTms() ;
 	}
 }

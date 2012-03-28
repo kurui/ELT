@@ -23,12 +23,16 @@ public class HrBoxWidget extends Composite implements	HrBoxDisplay {
 	Panel resultPanel;
 	@UiField
 	Panel resultpage;	
-	@UiField
-	InlineLabel order;
+	
 	@UiField
 	InlineLabel send;
 	@UiField
 	InlineLabel tm;
+	
+	@UiField
+	Anchor sends;
+	@UiField
+	Anchor tms;
 	@UiField
 	Anchor view;	
 	@UiField
@@ -55,11 +59,7 @@ public class HrBoxWidget extends Composite implements	HrBoxDisplay {
 	}
    
 	
-	@Override
-	public void setOrder(String text) {
-		order.setText(text);
-		
-	}
+	
 	@Override
 	public Panel getRewardWindow() {
 		return rewardWindow;
@@ -71,6 +71,16 @@ public class HrBoxWidget extends Composite implements	HrBoxDisplay {
 		
 	}
 	@Override
+	public void setTms(String text) {
+		tms.setText(text);
+		
+	}
+	@Override
+	public void setHrSends(String text) {
+		sends.setText(text);
+		
+	}
+	@Override
 	public void setTm(String text) {
 		tm.setText(text);
 		
@@ -78,6 +88,15 @@ public class HrBoxWidget extends Composite implements	HrBoxDisplay {
 	@Override
 	public HasClickHandlers getView() {
 		return view;
+	}
+	
+	@Override
+	public HasClickHandlers getSends() {
+		return sends;
+	}
+	@Override
+	public HasClickHandlers getTms() {
+		return tms;
 	}
 	@Override
 	public HasClickHandlers getViewBudget() {
