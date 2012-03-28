@@ -240,6 +240,11 @@ public class BroadcastServiceImpl implements BroadcastService {
 		return broadcastLogic.saveBroadcastReply(broadcastId,replyContent, context,replyParentId);
 	}
 
+	@Override
+	public int deleteBroadcast(String broadcastId) {
+		return broadcastLogic.deleteBroadcast(broadcastId);
+	}
+
 
 
 }

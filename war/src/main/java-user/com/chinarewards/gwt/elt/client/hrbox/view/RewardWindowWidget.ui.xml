@@ -7,7 +7,7 @@
 		            
 					<div class="{new2.reward}">
 			          <div class="{new2.award-icon-wrap}">
-			            <span class="{new2.award-icon} {new2.quarter-icon}"></span>
+			            <g:Anchor ui:field="image" ><span class="{new2.award-icon} {new2.quarter-icon}"></span></g:Anchor>
 			          </div>
 			          <p><g:Anchor ui:field="rewardName"  /></p>
 			        </div>

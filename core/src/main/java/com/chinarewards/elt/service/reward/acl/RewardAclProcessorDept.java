@@ -106,8 +106,7 @@ public class RewardAclProcessorDept extends AbstractRewardAclProcessor {
 
 		// Strip out any invisible departments
 
-		List<String> expectedDeptIds = getSupportedDeptIds(sysUser.getStaff()
-				.getId());
+		List<String> expectedDeptIds = getSupportedDeptIds(sysUser.getStaff().getId());
 
 		if (criteria.getDeptIds() != null && !criteria.getDeptIds().isEmpty()) {
 			List<String> ids = new ArrayList<String>();

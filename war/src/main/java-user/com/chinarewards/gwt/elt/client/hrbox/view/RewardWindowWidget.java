@@ -21,7 +21,8 @@ public class RewardWindowWidget extends Composite {
 	
 	@UiField
 	Anchor rewardName;
-	
+	@UiField
+	Anchor image;
 	 final MenuProcessor menuProcessor;
 	final DockPresenter dockPresenter;
 	String shopId;
@@ -42,6 +43,28 @@ public class RewardWindowWidget extends Composite {
 		if (shopId != null) {
 
 			this.rewardName.addClickHandler(new ClickHandler() {
+				
+				@Override
+				public void onClick(ClickEvent event) {
+					dockPresenter.getDisplay().changeTopMenu("Reward");
+					dockPresenter.getDisplay().setMenuTitle("应用奖项");
+					menuProcessor.initrender(dockPresenter.getDisplay().getMenu(), "Reward");
+					RewardsPageClient rpc=new RewardsPageClient();
+					rpc.setTitleName("已颁奖历史");
+					rpc.setPageType(RewardPageType.DETAILSOFAWARDPAGE);
+					RewardsClient o = new RewardsClient();
+					o.setId(shopId);
+					Platform.getInstance()
+					.getEditorRegistry()
+					.openEditor(
+							DetailsOfAwardConstants.EDITOR_DETAILSOFAWARD_SEARCH,
+							DetailsOfAwardConstants.EDITOR_DETAILSOFAWARD_SEARCH
+									+ shopId, o);
+					menuProcessor.changItemColor("已颁奖历史");
+
+				}
+			});
+        this.image.addClickHandler(new ClickHandler() {
 				
 				@Override
 				public void onClick(ClickEvent event) {

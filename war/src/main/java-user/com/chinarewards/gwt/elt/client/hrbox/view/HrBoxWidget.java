@@ -23,18 +23,24 @@ public class HrBoxWidget extends Composite implements	HrBoxDisplay {
 	Panel resultPanel;
 	@UiField
 	Panel resultpage;	
-	@UiField
-	InlineLabel order;
+	
 	@UiField
 	InlineLabel send;
 	@UiField
 	InlineLabel tm;
+	
+	@UiField
+	Anchor sends;
+	@UiField
+	Anchor tms;
 	@UiField
 	Anchor view;	
 	@UiField
 	Anchor viewBudget;
 	@UiField
 	InlineLabel message;
+	@UiField
+	InlineLabel mess;
 	@UiField
 	ListBox pageNumber;
 	// Set the format of datepicker.
@@ -55,11 +61,7 @@ public class HrBoxWidget extends Composite implements	HrBoxDisplay {
 	}
    
 	
-	@Override
-	public void setOrder(String text) {
-		order.setText(text);
-		
-	}
+	
 	@Override
 	public Panel getRewardWindow() {
 		return rewardWindow;
@@ -71,6 +73,16 @@ public class HrBoxWidget extends Composite implements	HrBoxDisplay {
 		
 	}
 	@Override
+	public void setTms(String text) {
+		tms.setText(text);
+		
+	}
+	@Override
+	public void setHrSends(String text) {
+		sends.setText(text);
+		
+	}
+	@Override
 	public void setTm(String text) {
 		tm.setText(text);
 		
@@ -78,6 +90,15 @@ public class HrBoxWidget extends Composite implements	HrBoxDisplay {
 	@Override
 	public HasClickHandlers getView() {
 		return view;
+	}
+	
+	@Override
+	public HasClickHandlers getSends() {
+		return sends;
+	}
+	@Override
+	public HasClickHandlers getTms() {
+		return tms;
 	}
 	@Override
 	public HasClickHandlers getViewBudget() {
@@ -95,7 +116,10 @@ public class HrBoxWidget extends Composite implements	HrBoxDisplay {
 		String msg =  "今天是:" + time+" "+week;
 		message.setText(msg);
 	}
-
+	@Override
+	public void setMess(String text){
+		mess.setText(text);
+	}
 	@Override
 	public Panel getResultPanel() {
 		return resultPanel;

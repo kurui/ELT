@@ -129,7 +129,7 @@ public class ButtonMenuProcessor implements MenuProcessor {
 					|| menuId
 							.equals(RewardsListConstants.MENU_REWARDSLIST_SEARCH)
 					|| menuId.equals(StaffListConstants.MENU_STAFFLIST_SEARCH)
-					|| menuId.equals(GiftListConstants.MENU_GIFTLIST_SEARCH)
+					|| menuId.equals(OrderListConstants.MENU_ORDERLIST_SEARCH)
 					|| menuId.equals(EnterpriseConstants.MENU_ENTERPRISE_EDIT) 
 					|| menuId.equals(IntegralManagementConstants.MENU_INTEGRALMANAGEMENT_SEARCH)
 					|| menuId.equals(BroadcastingListConstants.MENU_BROADCASTINGLIST_SEARCH)
@@ -140,26 +140,26 @@ public class ButtonMenuProcessor implements MenuProcessor {
 				button.setStyleName("menu-link menu-selected");
 				breadCrumbsMenu.cleanBreadCrumbsItemTop();
 				if (menuId.equals(RewardsItemConstants.MENU_REWARDSITEM_List))
-					breadCrumbsMenu.addBreadCrumbsItemTop("奖项", null);
+					breadCrumbsMenu.addBreadCrumbsItemTop("奖项", menuItem,"我的奖项");
 				else if (menuId
 						.equals(RewardsListConstants.MENU_REWARDSLIST_SEARCH))
-					breadCrumbsMenu.addBreadCrumbsItemTop("奖项应用", null);
+					breadCrumbsMenu.addBreadCrumbsItemTop("应用奖项", menuItem,"应用奖项列表");
 				else if (menuId.equals(StaffListConstants.MENU_STAFFLIST_SEARCH))
-					breadCrumbsMenu.addBreadCrumbsItemTop("员工数据", null);
-				else if (menuId.equals(GiftListConstants.MENU_GIFTLIST_SEARCH))
-					breadCrumbsMenu.addBreadCrumbsItemTop("兑换管理", null);
+					breadCrumbsMenu.addBreadCrumbsItemTop("员工数据", menuItem,"员工列表");
+				else if (menuId.equals(OrderListConstants.MENU_ORDERLIST_SEARCH))
+					breadCrumbsMenu.addBreadCrumbsItemTop("兑换管理", menuItem,"兑换订单");
 				else if (menuId.equals(EnterpriseConstants.MENU_ENTERPRISE_EDIT))
-					breadCrumbsMenu.addBreadCrumbsItemTop("设置", null);
+					breadCrumbsMenu.addBreadCrumbsItemTop("设置", menuItem,"公司资料");
 				else if (menuId.equals(IntegralManagementConstants.MENU_INTEGRALMANAGEMENT_SEARCH))
-					breadCrumbsMenu.addBreadCrumbsItemTop("积分管理", null);
+					breadCrumbsMenu.addBreadCrumbsItemTop("积分管理", menuItem,"今年财年预算");
 				else if (menuId.equals(BroadcastingListConstants.MENU_BROADCASTINGLIST_SEARCH))
-					breadCrumbsMenu.addBreadCrumbsItemTop("广播", null);
+					breadCrumbsMenu.addBreadCrumbsItemTop("广播", menuItem,"广播列表");
 				else if (menuId.equals(OrderViewConstants.MENU_ORDERBOX_SEARCH))
-					breadCrumbsMenu.addBreadCrumbsItemTop("收件箱", null);
+					breadCrumbsMenu.addBreadCrumbsItemTop("收件箱", menuItem,"收件箱");
 				else if (menuId.equals(UserBoxConstants.MENU_USERBOX_SEARCH))
-					breadCrumbsMenu.addBreadCrumbsItemTop("收件箱", null);
+					breadCrumbsMenu.addBreadCrumbsItemTop("收件箱", menuItem,"收件箱");
 				else if (menuId.equals(HrBoxConstants.MENU_HRBOX_SEARCH))
-					breadCrumbsMenu.addBreadCrumbsItemTop("收件箱", null);
+					breadCrumbsMenu.addBreadCrumbsItemTop("收件箱", menuItem,"收件箱");
 				breadCrumbsMenu.addBreadCrumbsItem(menuItem.getTitle(),
 						menuItem);
 			}

@@ -86,4 +86,9 @@ public interface BroadcastLogic {
 	 * @return
 	 */
 	public BroadcastReply saveBroadcastReply(String broadcastId,String replyContent,UserContext context,String replyParentId);
+	/**
+	 * 删除广播
+	 * @return
+	 */
+	public int deleteBroadcast(String broadcastId);
 }

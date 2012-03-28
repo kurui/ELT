@@ -36,10 +36,13 @@ public abstract class SpecialTextArea<T> extends Composite {
 
 		final TextBox itemBox = new TextBox();
 		itemBox.getElement().setId("suggestion_box");
-		itemBox.getElement()
-				.setAttribute(
-						"style",
-						"outline-color: -moz-use-text-color; outline-style: none; outline-width: medium;");
+		itemBox.setReadOnly(true);
+		itemBox.setTitle("请点击后面的选择铵钮");
+		itemBox.setWidth("400px");
+//		itemBox.getElement()
+//				.setAttribute(
+//						"style",
+//						"outline-color: -moz-use-text-color; outline-style: none; outline-width: medium;");
 		final ListItem item = new ListItem();
 		item.setStyleName("token-input-input-token-facebook");
 		item.add(itemBox);

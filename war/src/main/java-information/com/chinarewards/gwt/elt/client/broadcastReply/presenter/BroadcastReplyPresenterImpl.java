@@ -49,7 +49,7 @@ public class BroadcastReplyPresenterImpl extends
 
 	@Override
 	public void bind() {
-
+		breadCrumbs.loadChildPage("回复");
 		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
 
 		registerHandler(display.getSaveBtnClickHandlers().addClickHandler(
