@@ -54,7 +54,7 @@ public class MailSendAllWidget extends Composite implements MailSendAllDisplay {
 
 	public MailSendAllWidget() {
 		initWidget(uiBinder.createAndBindUi(this));
-		message.setText("150");
+		message.setText("250");
 		staffTextArea = new OrganizationSpecialTextArea();
 		staffTextArea.getElement().getFirstChildElement().setClassName("token-input-list-facebook2");
 		staffOrDeptTextAreaPanel.add(staffTextArea);
