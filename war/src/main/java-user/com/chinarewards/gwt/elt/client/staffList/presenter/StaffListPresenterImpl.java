@@ -32,6 +32,7 @@ import com.chinarewards.gwt.elt.client.staffList.request.UpdateUserPwdResponse;
 import com.chinarewards.gwt.elt.client.staffView.plugin.StaffViewConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
+import com.chinarewards.gwt.elt.client.ui.UniversalCell;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager.TextLocation;
 import com.chinarewards.gwt.elt.client.widget.GetValue;
@@ -343,14 +344,14 @@ public class StaffListPresenterImpl extends
 		if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.CORP_ADMIN)
 		{
 		
-		cellTable.addColumn("操作", new HyperLinkCell(),
+		cellTable.addColumn("操作", new UniversalCell(),
 				new GetValue<StaffListClient, String>() {
 					@Override
 					public String getValue(StaffListClient rewards) {
 						if(StringUtil.isEmpty(rewards.getUserId()))
-						return "生成账户";
+						return "<a style=\"color:bule;\" href=\"javascript:void(0);\">生成账户</a>";
 						else
-						return "<a href='javascript:void(0);' style='color: rgb(221, 221, 221);'>生成账户</a>";
+						return "<span  style='color: rgb(221, 221, 221);'>生成账户</span>";
 					}
 				}, new FieldUpdater<StaffListClient, String>() {
 
