@@ -129,7 +129,7 @@ public class ButtonMenuProcessor implements MenuProcessor {
 					|| menuId
 							.equals(RewardsListConstants.MENU_REWARDSLIST_SEARCH)
 					|| menuId.equals(StaffListConstants.MENU_STAFFLIST_SEARCH)
-					|| menuId.equals(GiftListConstants.MENU_GIFTLIST_SEARCH)
+					|| menuId.equals(OrderListConstants.MENU_ORDERLIST_SEARCH)
 					|| menuId.equals(EnterpriseConstants.MENU_ENTERPRISE_EDIT) 
 					|| menuId.equals(IntegralManagementConstants.MENU_INTEGRALMANAGEMENT_SEARCH)
 					|| menuId.equals(BroadcastingListConstants.MENU_BROADCASTINGLIST_SEARCH)
@@ -146,7 +146,7 @@ public class ButtonMenuProcessor implements MenuProcessor {
 					breadCrumbsMenu.addBreadCrumbsItemTop("奖项应用", null);
 				else if (menuId.equals(StaffListConstants.MENU_STAFFLIST_SEARCH))
 					breadCrumbsMenu.addBreadCrumbsItemTop("员工数据", null);
-				else if (menuId.equals(GiftListConstants.MENU_GIFTLIST_SEARCH))
+				else if (menuId.equals(OrderListConstants.MENU_ORDERLIST_SEARCH))
 					breadCrumbsMenu.addBreadCrumbsItemTop("兑换管理", null);
 				else if (menuId.equals(EnterpriseConstants.MENU_ENTERPRISE_EDIT))
 					breadCrumbsMenu.addBreadCrumbsItemTop("设置", null);
