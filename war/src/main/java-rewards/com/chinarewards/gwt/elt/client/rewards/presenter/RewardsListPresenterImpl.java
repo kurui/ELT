@@ -24,6 +24,7 @@ import com.chinarewards.gwt.elt.client.rewards.request.DeleteRewardsRequest;
 import com.chinarewards.gwt.elt.client.rewards.request.DeleteRewardsResponse;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
+import com.chinarewards.gwt.elt.client.ui.UniversalCell;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager.TextLocation;
 import com.chinarewards.gwt.elt.client.widget.GetValue;
@@ -239,7 +240,7 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 					}
 				}, ref, "name");
 		if (pageType == RewardPageType.NOMINATEPAGE) {
-			cellTable.addColumn("操作", new HyperLinkCell(),
+			cellTable.addColumn("操作", new UniversalCell(),
 					new GetValue<RewardsClient, String>() {
 						@Override
 						public String getValue(RewardsClient rewards) {
@@ -252,7 +253,7 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 									}
 									else
 									{
-										return "提名";
+										return "<a style=\"color:bule;\" href=\"javascript:void(0);\">提名</a>";
 									}
 								}
 							}
@@ -265,16 +266,16 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 						@Override
 						public void update(int index, RewardsClient o,
 								String value) {
-							boolean fal=false;
+						//	boolean fal=false;
 							if(o.getJudgeList()!=null)
 							{
 								for (JudgeModelClient judge:o.getJudgeList()) {
 									if(judge.getStaffId().equals(sessionManager.getSession().getStaffId()))
 									{
-										fal=true;
+									//	fal=true;
 										if("NOMINATED".equals(judge.getStatus()))
 										{
-											win.alert("您已经提名过了!"+"<br><br>您提名了:"+o.getNomineeLot().get(judge.getStaffId()));
+											//win.alert("您已经提名过了!"+"<br><br>您提名了:"+o.getNomineeLot().get(judge.getStaffId()));
 										}
 										else
 										{
@@ -288,8 +289,8 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 										break;
 									}
 								}
-								if(fal==false)
-									win.alert("您不是提名人!");
+							//	if(fal==false)
+									//win.alert("您不是提名人!");
 							}
 							else
 							{
@@ -354,12 +355,12 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 					});
 		}
 		if (pageType == RewardPageType.APPLYREWARDLIST) {
-			cellTable.addColumn("操作", new HyperLinkCell(),
+			cellTable.addColumn("操作", new UniversalCell(),
 					new GetValue<RewardsClient, String>() {
 						@Override
 						public String getValue(RewardsClient rewards) {
 							if (rewards.getStatus() == RewardsStatus.NEW)
-								return "颁奖";
+								return  "<a style=\"color:bule;\" href=\"javascript:void(0);\">颁奖</a>";
 							else if (rewards.getStatus() == RewardsStatus.PENDING_NOMINATE)
 								{
 								for (JudgeModelClient judge:rewards.getJudgeList()) {
@@ -371,7 +372,7 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 										}
 										else
 										{
-											return "提名";
+											return "<a style=\"color:bule;\" href=\"javascript:void(0);\">提名</a>";
 										}
 									}
 								}
@@ -396,14 +397,14 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 							else if (o.getStatus() == RewardsStatus.PENDING_NOMINATE)
 							{
 								pageUrl = NominateConstants.EDITOR_NOMINATE_SEARCH;
-								boolean fal=false;
+								//boolean fal=false;
 								for (JudgeModelClient judge:o.getJudgeList()) {
 									if(judge.getStaffId().equals(sessionManager.getSession().getStaffId()))
 									{
-										fal=true;
+									//	fal=true;
 										if("NOMINATED".equals(judge.getStatus()))
 										{
-											win.alert("您已经提名过了!"+"<br><br>您提名了:"+o.getNomineeLot().get(judge.getStaffId()));
+											//win.alert("您已经提名过了!"+"<br><br>您提名了:"+o.getNomineeLot().get(judge.getStaffId()));
 										}
 										else
 										{
@@ -415,8 +416,8 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 										break;
 									}
 								}
-								if(fal==false)
-									win.alert("您不是提名人!");
+//								if(fal==false)
+//									win.alert("您不是提名人!");
 							}
 
 						}
@@ -447,12 +448,12 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 						}
 
 					});
-		cellTable.addColumn("操作", new HyperLinkCell(),
+		cellTable.addColumn("操作", new UniversalCell(),
 				new GetValue<RewardsClient, String>() {
 					@Override
 					public String getValue(RewardsClient rewards) {
 						if(sessionManager.getSession().getStaffId().equals(rewards.getCreatedByStaffId()))
-						return "删除";
+							return "<a style=\"color:bule;\" href=\"javascript:void(0);\">删除</a>";
 						else 
 						return "<span style='color: rgb(221, 221, 221);'>删除</span>";
 					}
