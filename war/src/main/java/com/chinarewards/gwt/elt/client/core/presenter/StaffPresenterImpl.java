@@ -540,8 +540,8 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 											new SmallShopWindowWidget(clint.getId(),clint.getName(),clint.getIntegral()+"",clint.getPhoto()));
 									index++;
 								} else {
-									grid.setWidget(row, col,
-											new SmallShopWindowWidget(null,"","0",null));
+									//grid.setWidget(row, col,new SmallShopWindowWidget(null,"","0",null));
+									break;
 								}
 							}
 						}
