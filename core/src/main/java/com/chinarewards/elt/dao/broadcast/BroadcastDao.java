@@ -89,10 +89,16 @@ public class BroadcastDao  extends BaseDao<Broadcasting>{
 		{
 			hql.append(" and ( SYSDATE  between broadcast.broadcastingTimeStart and broadcast.broadcastingTimeEnd)");
 		}
+		
 		if (!StringUtil.isEmptyString(searchVo.getCreateUserId())) {
 			hql.append(" AND broadcast.createdBy.id = :createUserId ");
 			param.put("createUserId", searchVo.getCreateUserId());
+		}	
+		else if (!StringUtil.isEmptyString(searchVo.getUserId())) {
+			hql.append(" AND broadcast.createdBy.id = :userId ");
+			param.put("userId", searchVo.getUserId());
 		}
+		
 		hql.append(" AND broadcast.broadcastMessagetype = :broadcastMessagetype ");
 		param.put("broadcastMessagetype", searchVo.getBroadcastMessagetype());
 		
@@ -104,7 +110,7 @@ public class BroadcastDao  extends BaseDao<Broadcasting>{
 			param.put("broadcastList", searchVo.getBroadcastList());
 
 		}
-		else
+		else if(StringUtil.isEmptyString(searchVo.getUserId()))
 		{
 			if(searchVo.getBroadcastMessagetype()!=BroadcastMessage.MESSAGE)
 			{

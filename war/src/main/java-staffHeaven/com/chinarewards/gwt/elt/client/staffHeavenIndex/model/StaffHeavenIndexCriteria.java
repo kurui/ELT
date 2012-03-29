@@ -71,6 +71,20 @@ public class StaffHeavenIndexCriteria implements IsSerializable {
 	private String recevingStaffId;
 	
 
+	/**
+	 * 用户ID--(用于:我发送的悄悄话)
+	 */
+	private String userId;
+	
+	
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
 	public String getRecevingStaffId() {
 		return recevingStaffId;
 	}

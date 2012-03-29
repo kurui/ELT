@@ -77,43 +77,45 @@ public class BroadcastLogicImpl implements BroadcastLogic {
 			else
 				criteria.setReceivingUserId("notUser");
 		}
-		if (!StringUtil.isEmptyString(criteria.getReceivingUserId())) {
-			if (!StringUtil.isEmptyString(criteria.getRecevingStaffId())) {
-				List<String> broadcastList = broadcastingReceivingDao
-						.findBroadcastingReceivingIdList(null, null,
-								criteria.getRecevingStaffId(), null,
-								criteria.getBroadcastMessagetype());
-				if (broadcastList.size() > 0) {
-					criteria.setBroadcastList(broadcastList);
+		if (StringUtil.isEmptyString(criteria.getUserId())) {
+			if (!StringUtil.isEmptyString(criteria.getReceivingUserId())) {
+				if (!StringUtil.isEmptyString(criteria.getRecevingStaffId())) {
+					List<String> broadcastList = broadcastingReceivingDao
+							.findBroadcastingReceivingIdList(null, null,
+									criteria.getRecevingStaffId(), null,
+									criteria.getBroadcastMessagetype());
+					if (broadcastList.size() > 0) {
+						criteria.setBroadcastList(broadcastList);
+					} else {
+						List<String> broadcastListnew = new ArrayList<String>();
+						broadcastListnew.add("notbroadcast");
+						// 没有广播..加入空
+						criteria.setBroadcastList(broadcastListnew);
+					}
 				} else {
-					List<String> broadcastListnew = new ArrayList<String>();
-					broadcastListnew.add("notbroadcast");
-					// 没有广播..加入空
-					criteria.setBroadcastList(broadcastListnew);
-				}
-			} else {
-				// 查询接收对象的broadcastID LIST
-				SysUser user = userLogic.findUserById(criteria
-						.getReceivingUserId());
-				String deptId = null;
-				List<String> teamIds = null;
-				if (user.getStaff().getDepartment() != null)
-					deptId = user.getStaff().getDepartment().getId();
-				List<String> tList = membersDao.findTeamIdsListByStaffId(user
-						.getStaff().getId());
-				if (tList.size() > 0)
-					teamIds = tList;
-				List<String> broadcastList = broadcastingReceivingDao
-						.findBroadcastingReceivingIdList(user.getCorporation()
-								.getId(), deptId, user.getStaff().getId(),
-								teamIds, criteria.getBroadcastMessagetype());
-				if (broadcastList.size() > 0) {
-					criteria.setBroadcastList(broadcastList);
-				} else {
-					List<String> broadcastListnew = new ArrayList<String>();
-					broadcastListnew.add("notbroadcast");
-					// 没有广播..加入空
-					criteria.setBroadcastList(broadcastListnew);
+					// 查询接收对象的broadcastID LIST
+					SysUser user = userLogic.findUserById(criteria
+							.getReceivingUserId());
+					String deptId = null;
+					List<String> teamIds = null;
+					if (user.getStaff().getDepartment() != null)
+						deptId = user.getStaff().getDepartment().getId();
+					List<String> tList = membersDao.findTeamIdsListByStaffId(user
+							.getStaff().getId());
+					if (tList.size() > 0)
+						teamIds = tList;
+					List<String> broadcastList = broadcastingReceivingDao
+							.findBroadcastingReceivingIdList(user.getCorporation()
+									.getId(), deptId, user.getStaff().getId(),
+									teamIds, criteria.getBroadcastMessagetype());
+					if (broadcastList.size() > 0) {
+						criteria.setBroadcastList(broadcastList);
+					} else {
+						List<String> broadcastListnew = new ArrayList<String>();
+						broadcastListnew.add("notbroadcast");
+						// 没有广播..加入空
+						criteria.setBroadcastList(broadcastListnew);
+					}
 				}
 			}
 		}

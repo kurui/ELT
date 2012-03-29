@@ -47,22 +47,22 @@ public class BroadcastQueryListCriteria implements Serializable {
 	 * 结束时间
 	 */
 	private Date broadcastingTimeEnd;
-	
+
 	/**
 	 * 广播类型
 	 */
 	private BroadcastingCategory category;
-	
+
 	/**
 	 * 广播 or 消息
 	 */
 	private BroadcastMessage broadcastMessagetype;
-	
+
 	/**
 	 * 接收用户ID
 	 */
 	private String receivingUserId;
-	
+
 	/**
 	 * 广播ID list
 	 */
@@ -71,7 +71,7 @@ public class BroadcastQueryListCriteria implements Serializable {
 	 * 是否根据当前时间取广播
 	 */
 	private boolean nowDate;
-	
+
 	/**
 	 * 创建人用户ID
 	 */
@@ -80,17 +80,29 @@ public class BroadcastQueryListCriteria implements Serializable {
 	 * 查询关键字
 	 */
 	private String queryKey;
-	
+
 	/**
 	 * 员工ID
 	 */
 	private String staffId;
-	
+
 	/**
 	 * 接收对象员工ID
 	 */
 	private String recevingStaffId;
-	
+
+	/**
+	 * 创建用户ID
+	 */
+	private String userId;
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
 	public String getRecevingStaffId() {
 		return recevingStaffId;
@@ -99,6 +111,7 @@ public class BroadcastQueryListCriteria implements Serializable {
 	public void setRecevingStaffId(String recevingStaffId) {
 		this.recevingStaffId = recevingStaffId;
 	}
+
 	public String getStaffId() {
 		return staffId;
 	}
@@ -106,7 +119,7 @@ public class BroadcastQueryListCriteria implements Serializable {
 	public void setStaffId(String staffId) {
 		this.staffId = staffId;
 	}
-	
+
 	public String getQueryKey() {
 		return queryKey;
 	}
@@ -114,6 +127,7 @@ public class BroadcastQueryListCriteria implements Serializable {
 	public void setQueryKey(String queryKey) {
 		this.queryKey = queryKey;
 	}
+
 	public String getCreateUserId() {
 		return createUserId;
 	}
@@ -121,6 +135,7 @@ public class BroadcastQueryListCriteria implements Serializable {
 	public void setCreateUserId(String createUserId) {
 		this.createUserId = createUserId;
 	}
+
 	public boolean isNowDate() {
 		return nowDate;
 	}
@@ -128,6 +143,7 @@ public class BroadcastQueryListCriteria implements Serializable {
 	public void setNowDate(boolean nowDate) {
 		this.nowDate = nowDate;
 	}
+
 	public List<String> getBroadcastList() {
 		return broadcastList;
 	}
@@ -175,8 +191,6 @@ public class BroadcastQueryListCriteria implements Serializable {
 	public void setStatus(BroadcastingStatus status) {
 		this.status = status;
 	}
-
-
 
 	public String getCreatedByUserName() {
 		return createdByUserName;

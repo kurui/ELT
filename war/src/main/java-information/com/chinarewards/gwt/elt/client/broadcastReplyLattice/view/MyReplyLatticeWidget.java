@@ -42,7 +42,7 @@ public class MyReplyLatticeWidget extends Composite {
 	public MyReplyLatticeWidget(final Win win, final DispatchAsync dispatch,
 			final SessionManager sessionManager, String photo,
 			final String broadcastId,final int replyNumber,
-			final BroadcastReplyLatticeWidget widget,final QuietlyReplyLatticeWidget quietlywidget) {
+			final BroadcastReplyLatticeWidget widget,final QuietlyReplyLatticeWidget quietlywidget,final MyQuietlyReplyLatticeWidget mywidget) {
 		initWidget(uiBinder.createAndBindUi(this));
 		if (!StringUtil.isEmpty(photo))
 			this.photo.setUrl("imageshow?imageName=" + photo);
@@ -79,6 +79,13 @@ public class MyReplyLatticeWidget extends Composite {
 									quietlywidget.replyNumberA.setText("回复(" + (replyNumber+1) + ")");
 									quietlywidget.replyNumber=(replyNumber+1);
 								}
+								else if(mywidget!=null)
+								{
+									mywidget.refWidget();
+									mywidget.replyNumberA.setText("回复(" + (replyNumber+1) + ")");
+									mywidget.replyNumber=(replyNumber+1);
+								}
+								
 							}
 						});
 

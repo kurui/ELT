@@ -53,6 +53,26 @@ public class StaffHeavenIndexClient implements Serializable, Comparable<StaffHea
 	 */
 	private boolean isAllowreplies;
 	
+	
+	private String receivingDept;
+	private String receivingUserName;
+	
+	public String getReceivingDept() {
+		return receivingDept;
+	}
+
+	public void setReceivingDept(String receivingDept) {
+		this.receivingDept = receivingDept;
+	}
+
+	public String getReceivingUserName() {
+		return receivingUserName;
+	}
+
+	public void setReceivingUserName(String receivingUserName) {
+		this.receivingUserName = receivingUserName;
+	}
+
 	public String getStaffId() {
 		return staffId;
 	}
