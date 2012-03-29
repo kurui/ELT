@@ -149,4 +149,14 @@ public class StaffHeavenIndexWidget extends Composite implements
 		return quietlyInformation;
 	}
 
+	@Override
+	public Anchor getReceiveQuietly() {
+		return receiveQuietly;
+	}
+
+	@Override
+	public Anchor getMyquietly() {
+		return myquietly;
+	}
+
 }

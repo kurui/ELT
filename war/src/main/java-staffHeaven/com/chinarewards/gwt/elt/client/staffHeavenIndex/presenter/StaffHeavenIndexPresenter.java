@@ -32,5 +32,8 @@ public interface StaffHeavenIndexPresenter extends
 		HasClickHandlers getAddBroadcastBtn();
 		
 		void successClean();
+		
+		Anchor getReceiveQuietly();
+		Anchor getMyquietly();
 	}
 }

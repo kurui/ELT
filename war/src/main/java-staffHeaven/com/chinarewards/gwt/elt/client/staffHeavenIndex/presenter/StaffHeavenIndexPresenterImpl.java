@@ -48,7 +48,7 @@ public class StaffHeavenIndexPresenterImpl extends
 	EltNewPager pager;
 	ListCellTable<StaffHeavenIndexClient> cellTable;
 	StaffHeavenIndexViewAdapter listViewAdapter;
-
+	String ruietlyCss=display.getReceiveQuietly().getElement().getParentElement().getParentElement().getParentElement().getClassName();
 	@Inject
 	public StaffHeavenIndexPresenterImpl(EventBus eventBus,
 			StaffHeavenIndexDisplay display, DispatchAsync dispatch,
@@ -63,7 +63,7 @@ public class StaffHeavenIndexPresenterImpl extends
 
 	@Override
 	public void bind() {
-
+		display.getReceiveQuietly().getElement().getParentElement().getParentElement().getParentElement().setClassName(CssStyleConstants.hidden);
 		init();
 
 	     StaffHeavenIndexCriteria  criteria = new StaffHeavenIndexCriteria();
@@ -209,6 +209,7 @@ public class StaffHeavenIndexPresenterImpl extends
 
 			@Override
 			public void onClick(ClickEvent event) {
+				display.getReceiveQuietly().getElement().getParentElement().getParentElement().getParentElement().setClassName(CssStyleConstants.hidden);
 				display.getAllInformation().setStyleName(onStyle);
 				display.getStaffInformation().setStyleName(noStyle);
 				display.getSysInformation().setStyleName(noStyle);
@@ -222,6 +223,7 @@ public class StaffHeavenIndexPresenterImpl extends
 
 			@Override
 			public void onClick(ClickEvent event) {
+				display.getReceiveQuietly().getElement().getParentElement().getParentElement().getParentElement().setClassName(CssStyleConstants.hidden);
 				display.getAllInformation().setStyleName(noStyle);
 				display.getStaffInformation().setStyleName(onStyle);
 				display.getSysInformation().setStyleName(noStyle);
@@ -235,6 +237,7 @@ public class StaffHeavenIndexPresenterImpl extends
 
 			@Override
 			public void onClick(ClickEvent event) {
+				display.getReceiveQuietly().getElement().getParentElement().getParentElement().getParentElement().setClassName(CssStyleConstants.hidden);
 				display.getAllInformation().setStyleName(noStyle);
 				display.getStaffInformation().setStyleName(noStyle);
 				display.getSysInformation().setStyleName(onStyle);
@@ -248,6 +251,7 @@ public class StaffHeavenIndexPresenterImpl extends
 
 			@Override
 			public void onClick(ClickEvent event) {
+				display.getReceiveQuietly().getElement().getParentElement().getParentElement().getParentElement().setClassName(CssStyleConstants.hidden);
 				display.getAllInformation().setStyleName(noStyle);
 				display.getStaffInformation().setStyleName(noStyle);
 				display.getSysInformation().setStyleName(noStyle);
@@ -261,6 +265,8 @@ public class StaffHeavenIndexPresenterImpl extends
 
 			@Override
 			public void onClick(ClickEvent event) {
+				
+				display.getReceiveQuietly().getElement().getParentElement().getParentElement().getParentElement().setClassName(ruietlyCss);
 				display.getAllInformation().setStyleName(noStyle);
 				display.getStaffInformation().setStyleName(noStyle);
 				display.getSysInformation().setStyleName(noStyle);
