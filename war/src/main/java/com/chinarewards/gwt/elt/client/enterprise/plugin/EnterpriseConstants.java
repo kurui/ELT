@@ -17,6 +17,7 @@ public abstract class EnterpriseConstants {
 		public static final String MENU_INTEGRAL_PRICE_EDIT = "MENU_INTEGRAL_PRICE_EDIT";//积分价值
 		public static final String MENU_PERIOD_EDIT = "MENU_PERIOD_EDIT";//财年		
 		public static final String MENU_MAILSET_EDIT = "MENU_MAILSET_EDIT";
+		public static final String MENU_LICENSE_EDIT="MENU_LICENSE_EDIT";//授权信息		
 
 		// Editor/页面模块
 		public static final String EDITOR_ENTERPRISE_EDIT = "EDITOR_ENTERPRISE_EDIT";
@@ -26,6 +27,8 @@ public abstract class EnterpriseConstants {
 		public static final String EDITOR_PERIOD_EDIT = "EDITOR_PERIOD_EDIT";
 		
 		public static final String EDITOR_MAILSET_EDIT = "EDITOR_MAILSET_EDIT";
+		
+		public static final String EDITOR_LICENSE_EDIT="EDITOR_LICENSE_EDIT";
 
 	
 }

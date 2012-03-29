@@ -207,4 +207,12 @@ public class BroadcastLogicImpl implements BroadcastLogic {
 		return broadcastReplyDao.save(reply);
 	}
 
+	@Override
+	public int deleteBroadcast(String broadcastId) {
+		Broadcasting broad=broadcastDao.findById(Broadcasting.class, broadcastId);
+		broad.setDeleted(true);
+		broadcastDao.update(broad);
+		return 0;
+	}
+
 }

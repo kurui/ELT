@@ -12,6 +12,8 @@ import com.chinarewards.gwt.elt.client.broadcasting.model.BroadcastingListClient
 import com.chinarewards.gwt.elt.client.broadcasting.model.BroadcastingListCriteria;
 import com.chinarewards.gwt.elt.client.broadcasting.model.BroadcastingListCriteria.BroadcastingCategory;
 import com.chinarewards.gwt.elt.client.broadcasting.model.BroadcastingListCriteria.BroadcastingStatus;
+import com.chinarewards.gwt.elt.client.broadcasting.request.DeleteBroadcastingRequest;
+import com.chinarewards.gwt.elt.client.broadcasting.request.DeleteBroadcastingResponse;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.detailsOfBroadcast.plugin.DetailsOfBroadcastConstants;
@@ -26,6 +28,7 @@ import com.chinarewards.gwt.elt.client.widget.GetValue;
 import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.widget.Sorting;
 import com.chinarewards.gwt.elt.client.win.Win;
+import com.chinarewards.gwt.elt.client.win.confirm.ConfirmHandler;
 import com.chinarewards.gwt.elt.util.DateTool;
 import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.cell.client.FieldUpdater;
@@ -34,6 +37,7 @@ import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
 public class BroadcastingListPresenterImpl extends
@@ -249,6 +253,41 @@ public class BroadcastingListPresenterImpl extends
 						{
 							win.alert("不允许回复!");
 						}
+					}
+
+				});
+		cellTable.addColumn("操作", new HyperLinkCell(),
+				new GetValue<BroadcastingListClient, String>() {
+					@Override
+					public String getValue(BroadcastingListClient rewards) {
+						return "删除";
+					}
+				}, new FieldUpdater<BroadcastingListClient, String>() {
+
+					@Override
+					public void update(int index, final BroadcastingListClient o,
+							String value) {
+						win.confirm("提示", "是否确认删除?", new ConfirmHandler() {
+							
+							@Override
+							public void confirm() {
+								
+								dispatch.execute(new DeleteBroadcastingRequest(o.getId(),sessionManager.getSession()),
+										new AsyncCallback<DeleteBroadcastingResponse>() {
+
+											@Override
+											public void onFailure(Throwable t) {
+												win.alert(t.getMessage());
+											}
+
+											@Override
+											public void onSuccess(DeleteBroadcastingResponse resp) {
+												buildTable();
+												doSearch();
+											}
+										});
+							}
+						});
 					}
 
 				});

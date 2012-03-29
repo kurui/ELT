@@ -9,7 +9,7 @@ import com.chinarewards.gwt.elt.client.core.ui.MenuItem;
 public interface BreadCrumbsMenu {
 
 	void addBreadCrumbsItem(String name,MenuItem menuItem);
-	void addBreadCrumbsItemTop(String name,MenuItem menuItem);
+	void addBreadCrumbsItemTop(String name,MenuItem menuItem,String leftmenuName);
 	void cleanBreadCrumbsItem();
 	void cleanBreadCrumbsItemTop();
 	void cleanBreadCrumbsItemAll();

@@ -9,7 +9,7 @@ sup,sub{vertical-align:baseline;}
 table{border-collapse:collapse;border-spacing:0;}
 q:before{content:"";}
 q:after{content:"";}
-button{cursor:pointer;}
+button{cursor:default;}
 textarea{word-wrap:break-word;resize:none;}
 
 /*---------------------------------------全局模块----------------------------------------------*/

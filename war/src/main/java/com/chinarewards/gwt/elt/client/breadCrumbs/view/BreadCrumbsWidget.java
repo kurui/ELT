@@ -4,7 +4,9 @@ import java.util.List;
 
 import com.chinarewards.gwt.elt.client.breadCrumbs.model.MenuBreadVo;
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter.BreadCrumbsDisplay;
+import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
 import com.chinarewards.gwt.elt.client.widget.Span;
+import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -42,11 +44,11 @@ public class BreadCrumbsWidget extends Composite implements BreadCrumbsDisplay {
 	}
 
 	@Override
-	public void setTitleText(List<MenuBreadVo> menuBreadVo) {
+	public void setTitleText(List<MenuBreadVo> menuBreadVo,final MenuProcessor menuProcessor) {
 		titleText.clear();
 		for (int i = 0; i < menuBreadVo.size(); i++) {
 			final MenuBreadVo menu=menuBreadVo.get(i);
-			if(menu.getMenuUrl()!=null)
+			if(menu.getMenuUrl()!=null && i!=menuBreadVo.size()-1)
 			{
 				Anchor a=new Anchor();
 				a.setText(menu.getMenuName());
@@ -56,6 +58,8 @@ public class BreadCrumbsWidget extends Composite implements BreadCrumbsDisplay {
 					@Override
 					public void onClick(ClickEvent event) {
 						menu.getMenuUrl().execute();
+						if(!StringUtil.isEmpty(menu.getLeftmenuName()))
+						menuProcessor.changItemColor(menu.getLeftmenuName());
 						
 					}
 				});

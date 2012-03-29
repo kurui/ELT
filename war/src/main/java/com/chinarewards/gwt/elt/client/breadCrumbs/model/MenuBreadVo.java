@@ -12,7 +12,15 @@ public class MenuBreadVo implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	String menuName;
+	String leftmenuName;
 	MenuItem menuUrl;
+	
+	public String getLeftmenuName() {
+		return leftmenuName;
+	}
+	public void setLeftmenuName(String leftmenuName) {
+		this.leftmenuName = leftmenuName;
+	}
 	public String getMenuName() {
 		return menuName;
 	}
