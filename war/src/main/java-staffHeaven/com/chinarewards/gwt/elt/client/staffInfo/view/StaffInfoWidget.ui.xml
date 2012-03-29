@@ -105,12 +105,14 @@
 				</div>
 
 	
-			</div>
-		</div>
+			
+		
 					   <div class="{new2.remark} {new2.remark-info}">		
 							<div class="{new2.remark-tool}" style="text-align:center;">
 				             <g:Button styleName="{new2.button}" text="修改员工信息" ui:field="updateBtn" />
 							</div>
 						</div>
+		</div>
+		</div>
 	</g:HTMLPanel>
 </ui:UiBinder> 

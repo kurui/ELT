@@ -25,7 +25,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Widget;
 
-public class DallianceReplyLatticeWidget extends Composite {
+public class MyDallianceReplyLatticeWidget extends Composite {
 
 	@UiField
 	InlineLabel deptName;
@@ -45,22 +45,22 @@ public class DallianceReplyLatticeWidget extends Composite {
 	DispatchAsync dispatch;
 	SessionManager sessionManager;
 	String broadcastId;
-	DallianceReplyLatticeWidget widget;
+	MyDallianceReplyLatticeWidget widget;
 	int replyNumber;
 	private static BroadcastReplyLatticeWidgetUiBinder uiBinder = GWT
 			.create(BroadcastReplyLatticeWidgetUiBinder.class);
 
 	interface BroadcastReplyLatticeWidgetUiBinder extends
-			UiBinder<Widget, DallianceReplyLatticeWidget> {
+			UiBinder<Widget, MyDallianceReplyLatticeWidget> {
 	}
 
-	public DallianceReplyLatticeWidget(final Win win,
+	public MyDallianceReplyLatticeWidget(final Win win,
 			final DispatchAsync dispatch, final SessionManager sessionManager,
 			String deptName, final String staffName, String createDate, final String staffId,final StaffHeavenIndexPresenter presenter) {
 		this.win = win;
 		this.dispatch = dispatch;
 		this.sessionManager = sessionManager;
-		
+
 		this.widget = this;
 
 		initWidget(uiBinder.createAndBindUi(this));

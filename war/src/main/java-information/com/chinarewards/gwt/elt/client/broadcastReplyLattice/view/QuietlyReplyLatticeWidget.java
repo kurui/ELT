@@ -133,7 +133,7 @@ public class QuietlyReplyLatticeWidget extends Composite {
 		replyPanel.clear();
 		replyPanel.add(new MyReplyLatticeWidget(win, dispatch, sessionManager,
 				sessionManager.getSession().getPhoto(), broadcastId,
-				replyNumber, null, widget));
+				replyNumber, null, widget,null));
 	}
 
 	void refWidget() {
@@ -151,7 +151,7 @@ public class QuietlyReplyLatticeWidget extends Composite {
 					public void onSuccess(SearchBroadcastReplyResponse response) {
 						MyReplyShortLatticeWidget myshort = new MyReplyShortLatticeWidget(
 								win, dispatch, sessionManager, broadcastId,
-								replyNumber, null, widget);
+								replyNumber, null, widget,null);
 						if (widget == null)
 							myshort = null;
 						List<ReplyListClient> giftList = response.getResult();

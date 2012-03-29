@@ -17,14 +17,26 @@ public class CandidateRuleDao extends BaseDao<CandidateRule> {
 						"SELECT ri.candidateRule FROM RewardItem ri WHERE ri.id=:rewardItemId ")
 				.setParameter("rewardItemId", rewardItemId).getSingleResult();
 	}
+	public CandidateRule findCandidateRuleByRIIDForDel(String rewardItemId) {
+		return (CandidateRule) getEmNoFlush()
+				.createQuery(
+						"SELECT ri.candidateRule FROM RewardItem ri WHERE ri.id=:rewardItemId ")
+				.setParameter("rewardItemId", rewardItemId).getSingleResult();
+	}
 	public CandidateRule findCandidateRuleByRIStoreID(String rewardItemStoreId) {
 		return (CandidateRule) getEm()
 				.createQuery(
 						"SELECT ri.candidateRule FROM RewardItemStore ri WHERE ri.id=:rewardItemStoreId ")
 				.setParameter("rewardItemStoreId", rewardItemStoreId).getSingleResult();
 	}
+	public CandidateRule findCandidateRuleByRIStoreIDForDel(String rewardItemStoreId) {//删除时查找
+		return (CandidateRule) getEmNoFlush()
+				.createQuery(
+						"SELECT ri.candidateRule FROM RewardItemStore ri WHERE ri.id=:rewardItemStoreId ")
+				.setParameter("rewardItemStoreId", rewardItemStoreId).getSingleResult();
+	}
 	public CandidateRule findCandidateRuleByRewardId(String rewardId) {
-		return (CandidateRule) getEm()
+		return (CandidateRule) getEmNoFlush()
 				.createQuery(
 						"SELECT r.candidateRule FROM Reward r WHERE r.id=:rewardId ")
 				.setParameter("rewardId", rewardId).getSingleResult();

@@ -102,6 +102,17 @@ public class RewardItemParam {
 	 * The list of id who would have the power to judge.
 	 */
 	private List<String> judgeIds;
+	private List<String> oldjudgeIds;
+	public List<String> getOldjudgeIds() {
+		return oldjudgeIds;
+	}
+
+	public void setOldjudgeIds(List<String> oldjudgeIds) {
+		this.oldjudgeIds = oldjudgeIds;
+	}
+
+
+
 
 	/**
 	 * How many days about the nominate date ahead of award date.
@@ -113,6 +124,17 @@ public class RewardItemParam {
 	 * given the id of Organization.
 	 */
 	private List<String> candidateList;
+	private List<String> oldcandidateList;
+	public List<String> getOldcandidateList() {
+		return oldcandidateList;
+	}
+
+	public void setOldcandidateList(List<String> oldcandidateList) {
+		this.oldcandidateList = oldcandidateList;
+	}
+
+
+
 
 	/**
 	 * Whether a birthday reward.

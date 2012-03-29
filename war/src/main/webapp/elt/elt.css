@@ -272,13 +272,6 @@ a:active {
 	zoom: 1;
 }
 
-/*---------------------------------------全局模块----------------------------------------------*/
-.elt-btn,.elt-btn button{background:url(images/elt_repeat.png) repeat-x;}
-/*button*/
-.elt-btn{background-position:-194px -58px;padding-left:5px;display:inline-block;}
-.elt-btn button{background-position:right -58px;border:none;overflow:visible;padding:0 10px 0 5px;display:inline-block;height:25px;line-height:25px;color:#FFFFFF;}
-
-
 .gwt-DialogBox .dialogTopRightInner {
 	width: 2px;
 	zoom: 1;
@@ -1873,13 +1866,21 @@ li.token-input-input-token-facebook {
 	background-color: #707070;
 	color: #FFFFFF;
 }
-#rewardlist_page .pagedisable,#rewardlist_page .pagedisable:hover {
+#rewardlist_page .pagedisable{
 	border: 1px solid #C7C7C7;
 	color: #999999;
 }
-#rewardlist_page2 .pagedisable,#rewardlist_page .pagedisable:hover {
+#rewardlist_page .pagedisable:hover,#a:hover  {
+	background-color:SeaShell;
+	cursor: default;
+}
+#rewardlist_page2 .pagedisable{
 	border: 1px solid #C7C7C7;
 	color: #999999;
+}
+#rewardlist_page2 .pagedisable:hover,#a:hover {
+	background-color:SeaShell;
+	cursor: default;
 }
 .searchStaff {
 	float: left;
@@ -1894,7 +1895,8 @@ li.token-input-input-token-facebook {
 }
 
 #rewardlist_page .pageon{text-decoration:none;background-color:#569B01;color:#FFFFFF;}
-#rewardlist_page .pagedisable,#rewardlist_page .pagedisable:hover{border:1px solid #C7C7C7;color:#999999;}
+#rewardlist_page .pagedisable{border:1px solid #C7C7C7;color:#999999;}
+#rewardlist_page .pagedisable:hover{}
 .searchStaff{float:left;height:22px;width:150px;border:1px solid #CCCCCC;}
 .divTextLeft{text-align: left;}
 

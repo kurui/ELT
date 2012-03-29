@@ -9,6 +9,9 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 import org.slf4j.Logger;
 
 import com.chinarewards.elt.domain.information.Broadcasting;
+import com.chinarewards.elt.domain.information.BroadcastingReceiving;
+import com.chinarewards.elt.domain.information.ReceivingObject;
+import com.chinarewards.elt.domain.information.StaffObject;
 import com.chinarewards.elt.model.broadcast.BroadcastQueryListCriteria;
 import com.chinarewards.elt.model.broadcast.BroadcastQueryListVo;
 import com.chinarewards.elt.model.common.PaginationDetail;
@@ -84,7 +87,10 @@ public class StaffHeavenIndexActionHandler extends
 			criteria.setStaffId(request.getCriteria().getStaffId());
 		if(!StringUtil.isEmpty(request.getCriteria().getRecevingStaffId()))
 			criteria.setRecevingStaffId(request.getCriteria().getRecevingStaffId());
-		
+		if(!StringUtil.isEmpty(request.getCriteria().getUserId()))
+			criteria.setUserId(request.getCriteria().getUserId());
+		if(request.getCriteria().isOnlyMyself())
+			criteria.setOnlyMyself(true);
 		
 		if(request.getCriteria().isNowDate()==true)
 		{
@@ -114,6 +120,25 @@ public class StaffHeavenIndexActionHandler extends
 			client.setAllowreplies(broadcast.isAllowreplies());
 			client.setDeptName(broadcast.getCreatedBy().getStaff().getDepartment().getName());
 			client.setStaffId(broadcast.getCreatedBy().getStaff().getId());
+			if(!StringUtil.isEmpty(request.getCriteria().getUserId()))
+			{
+				List<BroadcastingReceiving>  receivinglist=broadcastService.findBroadcastReceiving(broadcast.getId());
+				if(receivinglist!=null && receivinglist.size()>0)
+				{
+					BroadcastingReceiving re=receivinglist.get(0);
+					ReceivingObject obj=re.getReceiving();
+					if(obj instanceof StaffObject)
+					{
+						if(((StaffObject) obj).getStaff().getDepartment()!=null)
+						{
+							client.setReceivingStaffId(((StaffObject) obj).getStaff().getId());
+							client.setReceivingDept(((StaffObject) obj).getStaff().getDepartment().getName());
+							client.setReceivingUserName(((StaffObject) obj).getStaff().getName());
+						}
+						
+					}
+				}
+			}
 			lt.add(client);
 		}
 		staffResponse.setResult(lt);

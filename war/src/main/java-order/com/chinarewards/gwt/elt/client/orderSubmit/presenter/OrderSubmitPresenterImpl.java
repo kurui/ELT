@@ -4,6 +4,7 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.awardShop.plugin.AwardShopListConstants;
 import com.chinarewards.gwt.elt.client.core.Platform;
+import com.chinarewards.gwt.elt.client.core.presenter.StaffPresenter;
 import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
 import com.chinarewards.gwt.elt.client.detailsOfGift.model.DetailsOfGiftClient;
 import com.chinarewards.gwt.elt.client.detailsOfGift.plugin.DetailsOfGiftConstants;
@@ -32,16 +33,18 @@ public class OrderSubmitPresenterImpl extends BasePresenter<OrderSubmitDisplay>
 	final Win win;
 	OrderSubmitClient orderVo;
 	final MenuProcessor menuProcessor;
+	private final StaffPresenter staffPresenter;
 	@Inject
 	public OrderSubmitPresenterImpl(EventBus eventBus, DispatchAsync dispatch,
 			ErrorHandler errorHandler, SessionManager sessionManager,
-			OrderSubmitDisplay display, Win win,MenuProcessor menuProcessor) {
+			OrderSubmitDisplay display, Win win,MenuProcessor menuProcessor,StaffPresenter staffPresenter) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
 		this.win = win;
 		this.menuProcessor=menuProcessor;
+		this.staffPresenter=staffPresenter;
 	}
 
 	@Override
@@ -96,6 +99,7 @@ public class OrderSubmitPresenterImpl extends BasePresenter<OrderSubmitDisplay>
 								String rs=response.getResult();
 								if("ok".equals(rs))
 								{
+									staffPresenter.reOnloadStaffInfo();
 									Platform.getInstance()
 									.getEditorRegistry()
 									.openEditor(

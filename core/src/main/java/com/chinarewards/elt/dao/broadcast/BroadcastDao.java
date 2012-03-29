@@ -89,10 +89,13 @@ public class BroadcastDao  extends BaseDao<Broadcasting>{
 		{
 			hql.append(" and ( SYSDATE  between broadcast.broadcastingTimeStart and broadcast.broadcastingTimeEnd)");
 		}
+		
 		if (!StringUtil.isEmptyString(searchVo.getCreateUserId())) {
 			hql.append(" AND broadcast.createdBy.id = :createUserId ");
 			param.put("createUserId", searchVo.getCreateUserId());
-		}
+		}	
+
+		
 		hql.append(" AND broadcast.broadcastMessagetype = :broadcastMessagetype ");
 		param.put("broadcastMessagetype", searchVo.getBroadcastMessagetype());
 		
@@ -100,11 +103,25 @@ public class BroadcastDao  extends BaseDao<Broadcasting>{
 		param.put("deleted", false);
 	
 		if (searchVo.getBroadcastList()!=null && searchVo.getBroadcastList().size()>0) {
-			hql.append(" AND  broadcast.id  IN (:broadcastList) ");
-			param.put("broadcastList", searchVo.getBroadcastList());
 
+			if (!StringUtil.isEmptyString(searchVo.getUserId())) {
+				hql.append("  AND ( broadcast.id  IN (:broadcastList) or broadcast.createdBy.id = :userId ) ");
+				param.put("broadcastList", searchVo.getBroadcastList());
+				param.put("userId", searchVo.getUserId());
+			}
+			else
+			{
+				hql.append(" AND  broadcast.id  IN (:broadcastList) ");
+				param.put("broadcastList", searchVo.getBroadcastList());
+				
+			}
 		}
-		else
+		else if (!StringUtil.isEmptyString(searchVo.getUserId())) {
+			hql.append(" AND broadcast.createdBy.id = :userId ");
+			param.put("userId", searchVo.getUserId());
+		}
+		
+		else if(StringUtil.isEmptyString(searchVo.getUserId()))
 		{
 			if(searchVo.getBroadcastMessagetype()!=BroadcastMessage.MESSAGE)
 			{

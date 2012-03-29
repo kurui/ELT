@@ -6,12 +6,15 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.broadcastReplyLattice.view.BroadcastReplyLatticeWidget;
 import com.chinarewards.gwt.elt.client.broadcastReplyLattice.view.DallianceReplyLatticeWidget;
+import com.chinarewards.gwt.elt.client.broadcastReplyLattice.view.MyDallianceReplyLatticeWidget;
+import com.chinarewards.gwt.elt.client.broadcastReplyLattice.view.MyQuietlyReplyLatticeWidget;
 import com.chinarewards.gwt.elt.client.broadcastReplyLattice.view.QuietlyReplyLatticeWidget;
 import com.chinarewards.gwt.elt.client.broadcasting.model.BroadcastingListCriteria.BroadcastingCategory;
 import com.chinarewards.gwt.elt.client.dataprovider.BaseDataProvider;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.staffHeavenIndex.model.StaffHeavenIndexClient;
 import com.chinarewards.gwt.elt.client.staffHeavenIndex.model.StaffHeavenIndexCriteria;
+import com.chinarewards.gwt.elt.client.staffHeavenIndex.presenter.StaffHeavenIndexPresenter;
 import com.chinarewards.gwt.elt.client.staffHeavenIndex.presenter.StaffHeavenIndexPresenter.StaffHeavenIndexDisplay;
 import com.chinarewards.gwt.elt.client.staffHeavenIndex.request.StaffHeavenIndexRequest;
 import com.chinarewards.gwt.elt.client.staffHeavenIndex.request.StaffHeavenIndexResponse;
@@ -31,17 +34,18 @@ public class StaffHeavenIndexViewAdapter extends
 	final ErrorHandler errorHandler;
 	final SessionManager sessionManager;
 	final Win win;
-
+	StaffHeavenIndexPresenter presenter;
 	public StaffHeavenIndexViewAdapter(DispatchAsync dispatch,
 			StaffHeavenIndexCriteria criteria, ErrorHandler errorHandler,
 			SessionManager sessionManager, StaffHeavenIndexDisplay display,
-			Win win) {
+			Win win,StaffHeavenIndexPresenter presenter) {
 		this.dispatch = dispatch;
 		this.criteria = criteria;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
 		this.display = display;
 		this.win = win;
+		this.presenter=presenter;
 	}
 
 	public void fetchData(final int start, final int length) {
@@ -99,25 +103,67 @@ public class StaffHeavenIndexViewAdapter extends
 									if(clint.getDeptName()!=null && clint.getDeptName().indexOf("ROOT")!=-1)
 										clint.setDeptName("");
 									if (clint.getCategory() == BroadcastingCategory.QUIETLYINFORMATION)
-										grid.setWidget(
-												row,
-												col,
-												new QuietlyReplyLatticeWidget(
-														win,
-														dispatch,
-														sessionManager,
-														clint.getId(),
-														clint.getDeptName(),
-														clint.getCreatedByUserName(),
-														clint.getContent(),
-														DateTool.dateToStringChina2(clint
-																.getBroadcastingTime()),
-														clint.getCreatedByUserName(),
-														clint.getReplyNumber(),
-														clint.isAllowreplies())
-														.asWidget());
-
+									{
+										if(sessionManager.getSession().getStaffId().equals(clint.getStaffId()))
+										{
+											grid.setWidget(
+													row,
+													col,
+													new MyQuietlyReplyLatticeWidget(
+															win,
+															dispatch,
+															sessionManager,
+															clint.getId(),
+															clint.getReceivingDept(),
+															clint.getReceivingUserName(),
+															clint.getContent(),
+															DateTool.dateToStringChina2(clint
+																	.getBroadcastingTime()),
+															clint.getCreatedByUserName(),
+															clint.getReplyNumber(),
+															clint.isAllowreplies())
+															.asWidget());
+										}
+										else
+										{
+											grid.setWidget(
+													row,
+													col,
+													new QuietlyReplyLatticeWidget(
+															win,
+															dispatch,
+															sessionManager,
+															clint.getId(),
+															clint.getDeptName(),
+															clint.getCreatedByUserName(),
+															clint.getContent(),
+															DateTool.dateToStringChina2(clint
+																	.getBroadcastingTime()),
+															clint.getCreatedByUserName(),
+															clint.getReplyNumber(),
+															clint.isAllowreplies())
+															.asWidget());
+										}
+									}
 									else if (clint.getCategory() == BroadcastingCategory.DALLIANCEINFORMATION)
+									{
+										if(sessionManager.getSession().getStaffId().equals(clint.getStaffId()))
+										{
+											grid.setWidget(
+													row,
+													col,
+													new MyDallianceReplyLatticeWidget(
+															win,
+															dispatch,
+															sessionManager,
+															clint.getReceivingDept(),
+															clint.getReceivingUserName(),
+															DateTool.dateToStringChina2(clint
+																	.getBroadcastingTime()),
+															clint.getReceivingStaffId(),presenter));
+										}
+										else
+										{
 										grid.setWidget(
 												row,
 												col,
@@ -129,7 +175,9 @@ public class StaffHeavenIndexViewAdapter extends
 														clint.getCreatedByUserName(),
 														DateTool.dateToStringChina2(clint
 																.getBroadcastingTime()),
-														clint.getStaffId()));
+														clint.getStaffId(),presenter));
+										}
+									}
 
 									else
 										grid.setWidget(

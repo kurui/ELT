@@ -9,6 +9,7 @@ import com.google.gwt.user.client.ui.Panel;
 public interface StaffHeavenIndexPresenter extends
 		Presenter<StaffHeavenIndexPresenter.StaffHeavenIndexDisplay> {
 
+	public void reonload();
 	public static interface StaffHeavenIndexDisplay extends Display {
 
 		void setDataCount(String text);
@@ -32,5 +33,8 @@ public interface StaffHeavenIndexPresenter extends
 		HasClickHandlers getAddBroadcastBtn();
 		
 		void successClean();
+		
+		Anchor getReceiveQuietly();
+		Anchor getMyquietly();
 	}
 }

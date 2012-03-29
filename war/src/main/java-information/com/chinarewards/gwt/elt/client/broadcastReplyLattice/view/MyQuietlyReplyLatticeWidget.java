@@ -30,7 +30,7 @@ import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
-public class BroadcastReplyLatticeWidget extends Composite {
+public class MyQuietlyReplyLatticeWidget extends Composite {
 
 	@UiField
 	InlineLabel deptName;
@@ -40,8 +40,7 @@ public class BroadcastReplyLatticeWidget extends Composite {
 	InlineLabel content;
 	@UiField
 	InlineLabel createDate;
-	@UiField
-	InlineLabel createDept;
+
 	@UiField
 	Anchor replyNumberA;
 	@UiField
@@ -56,22 +55,22 @@ public class BroadcastReplyLatticeWidget extends Composite {
 	DispatchAsync dispatch;
 	SessionManager sessionManager;
 	String broadcastId;
-	BroadcastReplyLatticeWidget widget;
+	MyQuietlyReplyLatticeWidget widget;
 	int replyNumber;
 	int falReply=0;
-
+	
 	private static BroadcastReplyLatticeWidgetUiBinder uiBinder = GWT
 			.create(BroadcastReplyLatticeWidgetUiBinder.class);
 
 	interface BroadcastReplyLatticeWidgetUiBinder extends
-			UiBinder<Widget, BroadcastReplyLatticeWidget> {
+			UiBinder<Widget, MyQuietlyReplyLatticeWidget> {
 	}
 
-	public BroadcastReplyLatticeWidget(final Win win,
+	public MyQuietlyReplyLatticeWidget(final Win win,
 			final DispatchAsync dispatch, final SessionManager sessionManager,
 			final String broadcastId, String deptName, String staffName,
 			String content, String createDate, String createDept,
-			int replyNumber, boolean isAllowreplies) {
+			final int replyNumber, boolean isAllowreplies) {
 		this.win = win;
 		this.dispatch = dispatch;
 		this.sessionManager = sessionManager;
@@ -87,8 +86,6 @@ public class BroadcastReplyLatticeWidget extends Composite {
 			this.content.setText(content);
 		if (!StringUtil.isEmpty(createDate))
 			this.createDate.setText(createDate);
-		if (!StringUtil.isEmpty(createDept))
-			this.createDept.setText(createDept);
 
 		this.replyNumberA.setText("回复(" + replyNumber + ")");
 		if (isAllowreplies) {
@@ -117,7 +114,6 @@ public class BroadcastReplyLatticeWidget extends Composite {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				
 				if(falReply==0 || falReply==1)
 				{
 					falReply=2;
@@ -133,15 +129,11 @@ public class BroadcastReplyLatticeWidget extends Composite {
 
 	}
 
-	void cleanReplyPanel()
-	{
-		replyPanel.clear();
-	}
 	void refMyreply() {
 		replyPanel.clear();
 		replyPanel.add(new MyReplyLatticeWidget(win, dispatch, sessionManager,
 				sessionManager.getSession().getPhoto(), broadcastId,
-				replyNumber, widget, null,null));
+				replyNumber, null,null, widget));
 	}
 
 	void refWidget() {
@@ -159,7 +151,7 @@ public class BroadcastReplyLatticeWidget extends Composite {
 					public void onSuccess(SearchBroadcastReplyResponse response) {
 						MyReplyShortLatticeWidget myshort = new MyReplyShortLatticeWidget(
 								win, dispatch, sessionManager, broadcastId,
-								replyNumber, widget, null,null);
+								replyNumber, null, null,widget);
 						if (widget == null)
 							myshort = null;
 						List<ReplyListClient> giftList = response.getResult();

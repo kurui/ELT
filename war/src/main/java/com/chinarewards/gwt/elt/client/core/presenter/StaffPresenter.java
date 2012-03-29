@@ -8,6 +8,7 @@ import com.google.gwt.user.client.ui.Panel;
 
 public interface StaffPresenter extends Presenter<StaffPresenter.StaffDisplay> {
 
+	public void reOnloadStaffInfo();
 	public static interface StaffDisplay extends Display {
 		
 		HasClickHandlers getlogBtn();

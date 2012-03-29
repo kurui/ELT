@@ -38,7 +38,7 @@ public abstract class SpecialTextArea<T> extends Composite {
 		itemBox.getElement().setId("suggestion_box");
 		itemBox.setReadOnly(true);
 		itemBox.setTitle("请点击后面的选择铵钮");
-		itemBox.setWidth("400px");
+		itemBox.setWidth("150px");
 //		itemBox.getElement()
 //				.setAttribute(
 //						"style",
