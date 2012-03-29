@@ -333,9 +333,16 @@ public class StaffHeavenIndexPresenterImpl extends
 		if(onlyMyself==true)
 			criteria.setOnlyMyself(onlyMyself);
 		listViewAdapter = new StaffHeavenIndexViewAdapter(dispatch, criteria,
-				errorHandler, sessionManager, display, win);
+				errorHandler, sessionManager, display, win,this);
 		listViewAdapter.addDataDisplay(cellTable);
 
+	}
+
+	@Override
+	public void reonload() {
+		buildTable();
+		doSearch(null,sessionManager.getSession().getToken(),false);
+		
 	}
 
 }

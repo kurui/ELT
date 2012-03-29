@@ -14,6 +14,7 @@ import com.chinarewards.gwt.elt.client.dataprovider.BaseDataProvider;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.staffHeavenIndex.model.StaffHeavenIndexClient;
 import com.chinarewards.gwt.elt.client.staffHeavenIndex.model.StaffHeavenIndexCriteria;
+import com.chinarewards.gwt.elt.client.staffHeavenIndex.presenter.StaffHeavenIndexPresenter;
 import com.chinarewards.gwt.elt.client.staffHeavenIndex.presenter.StaffHeavenIndexPresenter.StaffHeavenIndexDisplay;
 import com.chinarewards.gwt.elt.client.staffHeavenIndex.request.StaffHeavenIndexRequest;
 import com.chinarewards.gwt.elt.client.staffHeavenIndex.request.StaffHeavenIndexResponse;
@@ -33,17 +34,18 @@ public class StaffHeavenIndexViewAdapter extends
 	final ErrorHandler errorHandler;
 	final SessionManager sessionManager;
 	final Win win;
-
+	StaffHeavenIndexPresenter presenter;
 	public StaffHeavenIndexViewAdapter(DispatchAsync dispatch,
 			StaffHeavenIndexCriteria criteria, ErrorHandler errorHandler,
 			SessionManager sessionManager, StaffHeavenIndexDisplay display,
-			Win win) {
+			Win win,StaffHeavenIndexPresenter presenter) {
 		this.dispatch = dispatch;
 		this.criteria = criteria;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
 		this.display = display;
 		this.win = win;
+		this.presenter=presenter;
 	}
 
 	public void fetchData(final int start, final int length) {
@@ -158,7 +160,7 @@ public class StaffHeavenIndexViewAdapter extends
 															clint.getReceivingUserName(),
 															DateTool.dateToStringChina2(clint
 																	.getBroadcastingTime()),
-															clint.getReceivingStaffId()));
+															clint.getReceivingStaffId(),presenter));
 										}
 										else
 										{
@@ -173,7 +175,7 @@ public class StaffHeavenIndexViewAdapter extends
 														clint.getCreatedByUserName(),
 														DateTool.dateToStringChina2(clint
 																.getBroadcastingTime()),
-														clint.getStaffId()));
+														clint.getStaffId(),presenter));
 										}
 									}
 

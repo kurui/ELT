@@ -8,6 +8,7 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 import com.chinarewards.gwt.elt.client.chooseOrganization.model.OrganSearchCriteria.OrganType;
 import com.chinarewards.gwt.elt.client.messageSave.request.MessageSaveRequest;
 import com.chinarewards.gwt.elt.client.messageSave.request.MessageSaveResponse;
+import com.chinarewards.gwt.elt.client.staffHeavenIndex.presenter.StaffHeavenIndexPresenter;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.win.Win;
@@ -55,7 +56,7 @@ public class MyDallianceReplyLatticeWidget extends Composite {
 
 	public MyDallianceReplyLatticeWidget(final Win win,
 			final DispatchAsync dispatch, final SessionManager sessionManager,
-			String deptName, final String staffName, String createDate, final String staffId) {
+			String deptName, final String staffName, String createDate, final String staffId,final StaffHeavenIndexPresenter presenter) {
 		this.win = win;
 		this.dispatch = dispatch;
 		this.sessionManager = sessionManager;
@@ -102,7 +103,7 @@ public class MyDallianceReplyLatticeWidget extends Composite {
 							public void onSuccess(
 									MessageSaveResponse resp) {
 								win.alertStaff("调戏成功!");
-
+								presenter.reonload();
 							}
 						});
 			}
