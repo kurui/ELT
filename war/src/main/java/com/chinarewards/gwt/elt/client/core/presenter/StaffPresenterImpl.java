@@ -759,4 +759,10 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 		return display;
 	}
 
+	@Override
+	public void reOnloadStaffInfo() {
+		this.init();
+		
+	}
+
 }

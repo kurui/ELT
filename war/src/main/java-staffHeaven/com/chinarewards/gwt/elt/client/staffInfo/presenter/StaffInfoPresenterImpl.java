@@ -2,6 +2,7 @@ package com.chinarewards.gwt.elt.client.staffInfo.presenter;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import com.chinarewards.gwt.elt.client.core.presenter.StaffPresenter;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
@@ -28,6 +29,7 @@ public class StaffInfoPresenterImpl extends
 
 	private final DispatchAsync dispatch;
 	private final SessionManager sessionManager;
+	private final StaffPresenter staffPresenter;
 	private final Win win;
 	final ErrorHandler errorHandler;
 
@@ -39,12 +41,13 @@ public class StaffInfoPresenterImpl extends
 	@Inject
 	public StaffInfoPresenterImpl(EventBus eventBus, StaffInfoDisplay display,
 			DispatchAsync dispatch, SessionManager sessionManager, Win win,
- ErrorHandler errorHandler) {
+			ErrorHandler errorHandler,StaffPresenter staffPresenter) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.sessionManager = sessionManager;
 		this.errorHandler = errorHandler;
 		this.win = win;
+		this.staffPresenter=staffPresenter;
 		
 	}
 
@@ -74,6 +77,7 @@ public class StaffInfoPresenterImpl extends
 									@Override
 									public void onSuccess(StaffAddResponse resp) {
 										win.alertStaff("保存成功");
+										staffPresenter.reOnloadStaffInfo();
 									}
 								});
 					}
