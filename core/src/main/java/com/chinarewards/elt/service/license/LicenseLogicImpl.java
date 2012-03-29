@@ -30,7 +30,6 @@ public class LicenseLogicImpl implements LicenseLogic {
 		LicenseBo licenseBo=new  LicenseBo();
 		LicenseContent content = null;
 		try {
-			System.out.println(LicenseLogicImpl.class.getResource(""));
 			String licensePath = ELTLicenseUtil.getCertPath();
 
 			final String PRIVATEKEY_SUBJECT = "privatekey"; //
@@ -79,29 +78,32 @@ public class LicenseLogicImpl implements LicenseLogic {
 	public LicenseBo adapter(LicenseContent content){
 		LicenseBo licenseBo=new LicenseBo();
 		
-		licenseBo.setNotafter(content.getNotAfter());
-		licenseBo.setIssued(content.getIssued());
-		
-		String contentInfo=content.getInfo();
-		if (!StringUtil.isEmptyString(contentInfo)) {
-			Document doc=XmlUtil_dom4j.readResult(new StringBuffer(contentInfo));
-			if(doc!=null){
-				String licenseId=XmlUtil_dom4j.getTextByNode(doc,"//root/licenseId");
-				String corporationId=XmlUtil_dom4j.getTextByNode(doc,"//root/corporationId");
-				String corporationName=XmlUtil_dom4j.getTextByNode(doc,"//root/corporationName");		
-				String licenseType=XmlUtil_dom4j.getTextByNode(doc,"//root/license-type");
-				String macaddress=XmlUtil_dom4j.getTextByNode(doc,"//root/macaddress");
-				String description=XmlUtil_dom4j.getTextByNode(doc,"//root/description");
-				
-				
-				licenseBo.setLicenseId(licenseId);
-				licenseBo.setCorporationId(corporationId);
-				licenseBo.setCorporationName(corporationName);
-				licenseBo.setLicenseType(licenseType);
-				licenseBo.setMacaddress(macaddress);
-				licenseBo.setDescription(description);
+		if (content!=null) {
+			licenseBo.setNotafter(content.getNotAfter());
+			licenseBo.setIssued(content.getIssued());
+			
+			String contentInfo=content.getInfo();
+			if (!StringUtil.isEmptyString(contentInfo)) {
+				Document doc=XmlUtil_dom4j.readResult(new StringBuffer(contentInfo));
+				if(doc!=null){
+					String licenseId=XmlUtil_dom4j.getTextByNode(doc,"//root/licenseId");
+					String corporationId=XmlUtil_dom4j.getTextByNode(doc,"//root/corporationId");
+					String corporationName=XmlUtil_dom4j.getTextByNode(doc,"//root/corporationName");		
+					String licenseType=XmlUtil_dom4j.getTextByNode(doc,"//root/license-type");
+					String macaddress=XmlUtil_dom4j.getTextByNode(doc,"//root/macaddress");
+					String description=XmlUtil_dom4j.getTextByNode(doc,"//root/description");
+					
+					
+					licenseBo.setLicenseId(licenseId);
+					licenseBo.setCorporationId(corporationId);
+					licenseBo.setCorporationName(corporationName);
+					licenseBo.setLicenseType(licenseType);
+					licenseBo.setMacaddress(macaddress);
+					licenseBo.setDescription(description);
+				}
 			}
 		}
+		
 		return licenseBo;
 	}
 
