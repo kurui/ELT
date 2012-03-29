@@ -36,6 +36,8 @@ public class DepartmentListWidget extends Composite implements
 	@UiField
 	Button synchBtn;
 
+	String defaultBtnClassName;
+	
 	@UiField
 	Panel breadCrumbs;
 	@UiField
@@ -70,17 +72,17 @@ public class DepartmentListWidget extends Composite implements
 	
 		
 	}
-
-	@Override
-	public Button getAddSameLevelBtn() {
-		return addSameLevelBtn;
-	}
-
+	
 	@Override
 	public void setBreadCrumbs(Widget breadCrumbs) {
 		this.breadCrumbs.clear();
 		this.breadCrumbs.add(breadCrumbs);
 	}
+
+	@Override
+	public Button getAddSameLevelBtn() {
+		return addSameLevelBtn;
+	}	
 
 	@Override
 	public Button getAddChildBtn() {
@@ -120,5 +122,15 @@ public class DepartmentListWidget extends Composite implements
 	@Override
 	public Panel getTreeTablePanel() {
 		return treeTablePanel;
+	}
+
+	@Override
+	public String getDefaultBtnClassName() {
+		return defaultBtnClassName;
+	}
+	
+	@Override
+	public void setDefaultBtnClassName(String defaultBtnClassName) {
+		this.defaultBtnClassName=defaultBtnClassName;
 	}
 }

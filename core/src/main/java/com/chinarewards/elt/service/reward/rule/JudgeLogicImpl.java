@@ -22,6 +22,7 @@ import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.broadcast.BroadcastService;
 import com.chinarewards.elt.util.DateUtil;
 import com.google.inject.Inject;
+import com.google.inject.persist.Transactional;
 
 /**
  * The implementation of {@link JudgeLogic}
@@ -29,6 +30,7 @@ import com.google.inject.Inject;
  * @author yanxin
  * @since 1.0
  */
+@Transactional
 public class JudgeLogicImpl implements JudgeLogic {
 
 	private final JudgeDao judgeDao;
@@ -54,56 +56,56 @@ public class JudgeLogicImpl implements JudgeLogic {
 	@Override
 	public void bindJudgesToRewardItem(SysUser caller, String rewardItemId,
 			List<String> staffIds) {
-		RewardItem rewardItem = rewardItemDao.findById(RewardItem.class,
+		RewardItem rewardItem = rewardItemDao.findByIdNoFlush(RewardItem.class,
 				rewardItemId);
 		Date now = DateUtil.getTime();
 		for (String id : staffIds) {
 			Judge judge = new Judge();
-			Staff staff = staffDao.findById(Staff.class, id);
+			Staff staff = staffDao.findByIdNoFlush(Staff.class, id);
 			judge.setStaff(staff);
 			judge.setRewardItem(rewardItem);
 			judge.setCreatedAt(now);
 			judge.setCreatedBy(caller);
 			judge.setLastModifiedAt(now);
 			judge.setLastModifiedBy(caller);
-			judgeDao.save(judge);
+			judgeDao.saveNoFlush(judge);
 		}
 	}
 
 	@Override
 	public void bindJudgesToRewardItemStore(SysUser caller,
 			String rewardItemStoreId, List<String> staffIds) {
-		RewardItemStore rewardItemStore = rewardItemStoreDao.findById(
+		RewardItemStore rewardItemStore = rewardItemStoreDao.findByIdNoFlush(
 				RewardItemStore.class, rewardItemStoreId);
 		Date now = DateUtil.getTime();
 		for (String id : staffIds) {
 			Judge judge = new Judge();
-			Staff staff = staffDao.findById(Staff.class, id);
+			Staff staff = staffDao.findByIdNoFlush(Staff.class, id);
 			judge.setStaff(staff);
 			judge.setRewardItemStore(rewardItemStore);
 			judge.setCreatedAt(now);
 			judge.setCreatedBy(caller);
 			judge.setLastModifiedAt(now);
 			judge.setLastModifiedBy(caller);
-			judgeDao.save(judge);
+			judgeDao.saveNoFlush(judge);
 		}
 	}
 
 	@Override
 	public void removeJudgesFromRewardItem(String rewardItemId) {
-		List<Judge> judgeList = judgeDao.findJudgesFromRewardItem(rewardItemId);
+		List<Judge> judgeList = judgeDao.findJudgesFromRewardItemForDel(rewardItemId);
 		for (Judge judge : judgeList) {
-			judgeDao.delete(judge);
+			judgeDao.deleteNoFlush(judge);
 		}
 	}
 
 	@Override
 	public void removeJudgesFromRewardItemStore(String rewardItemIdStore) {
-		List<Judge> judgeList = judgeDao
-				.findJudgesFromRewardItemStore(rewardItemIdStore);
+		List<Judge> judgeList = judgeDao.findJudgesFromRewardItemStoreForDel(rewardItemIdStore);
 		for (Judge judge : judgeList) {
-			judgeDao.delete(judge);
+			judgeDao.deleteNoFlush(judge);
 		}
+		
 	}
 
 	@Override

@@ -24,7 +24,16 @@ public class BaseDao<T> {
 	 * @return
 	 */
 	public EntityManager getEm() {
+		try {
 			entityManager.get().flush();
+		} catch (Exception e) {
+			System.out.println("flush="+e.getMessage());
+		}
+			
+		return entityManager.get();
+	}
+	public EntityManager getEmNoFlush() {
+				
 		return entityManager.get();
 	}
 
@@ -38,6 +47,10 @@ public class BaseDao<T> {
 		getEm().persist(t);
 		return t;
 	}
+	public T saveNoFlush(T t) {
+		getEmNoFlush().persist(t);
+		return t;
+	}
 
 	/**
 	 * meger modification to DB.
@@ -49,6 +62,10 @@ public class BaseDao<T> {
 		getEm().merge(t);
 		return t;
 	}
+	public T updateNoFlush(T t) {
+		getEmNoFlush().merge(t);
+		return t;
+	}
 
 	/**
 	 * 
@@ -58,6 +75,9 @@ public class BaseDao<T> {
 	 */
 	public void delete(T t) {
 		getEm().remove(t);
+	}
+	public void deleteNoFlush(T t) {
+		getEmNoFlush().remove(t);
 	}
 
 	/**
@@ -73,5 +93,8 @@ public class BaseDao<T> {
 	 */
 	public T findById(Class<T> entityClass, Object id) {
 		return (T) getEm().find(entityClass, id);
+	}
+	public T findByIdNoFlush(Class<T> entityClass, Object id) {
+		return (T) getEmNoFlush().find(entityClass, id);
 	}
 }

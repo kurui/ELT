@@ -79,9 +79,9 @@ public class FrequencyProcessorMonth implements FrequencyProcessor {
 		monthFrequency.setLastModifiedAt(now);
 		monthFrequency.setCreatedBy(caller);
 		monthFrequency.setLastModifiedBy(caller);
-		monthFrequencyDao.save(monthFrequency);
+		monthFrequencyDao.saveNoFlush(monthFrequency);
 
-		RewardItemStore rewardItemStore = rewardItemStoreDao.findById(RewardItemStore.class,
+		RewardItemStore rewardItemStore = rewardItemStoreDao.findByIdNoFlush(RewardItemStore.class,
 				rewardItemStoreId);
 
 		rewardItemStore.setFrequency(monthFrequency);

@@ -22,7 +22,13 @@ public class JudgeDao extends BaseDao<Judge> {
 						"FROM Judge j WHERE j.rewardItem.id =:rewardItemId")
 				.setParameter("rewardItemId", rewardItemId).getResultList();
 	}
-   
+	@SuppressWarnings("unchecked")
+	public List<Judge> findJudgesFromRewardItemForDel(String rewardItemId) {
+		return getEmNoFlush()
+				.createQuery(
+						"FROM Judge j WHERE j.rewardItem.id =:rewardItemId")
+				.setParameter("rewardItemId", rewardItemId).getResultList();
+	}
 	/**
 	 * Find list of judge by id of a RewardItemStore.
 	 * 
@@ -32,6 +38,13 @@ public class JudgeDao extends BaseDao<Judge> {
 	@SuppressWarnings("unchecked")
 	public List<Judge> findJudgesFromRewardItemStore(String rewardItemStoreId) {
 		return getEm()
+				.createQuery(
+						"FROM Judge j WHERE j.rewardItemStore.id =:rewardItemStoreId")
+				.setParameter("rewardItemStoreId", rewardItemStoreId).getResultList();
+	}
+	@SuppressWarnings("unchecked")
+	public List<Judge> findJudgesFromRewardItemStoreForDel(String rewardItemStoreId) {
+		return getEmNoFlush()
 				.createQuery(
 						"FROM Judge j WHERE j.rewardItemStore.id =:rewardItemStoreId")
 				.setParameter("rewardItemStoreId", rewardItemStoreId).getResultList();

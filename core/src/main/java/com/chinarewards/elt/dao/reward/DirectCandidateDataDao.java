@@ -31,5 +31,13 @@ public class DirectCandidateDataDao extends BaseDao<DirectCandidateData> {
 						"  FROM DirectCandidateData drs WHERE drs.directCandidateRule.id=:directRuleId ")
 				.setParameter("directRuleId", directRuleId).getResultList();
 	}
+	@SuppressWarnings("unchecked")
+	public List<DirectCandidateData> findDirectCandidateDataListByDirectRuleIdForDel(
+			String directRuleId) {
+		return getEmNoFlush()
+				.createQuery(
+						"  FROM DirectCandidateData drs WHERE drs.directCandidateRule.id=:directRuleId ")
+				.setParameter("directRuleId", directRuleId).getResultList();
+	}
 
 }

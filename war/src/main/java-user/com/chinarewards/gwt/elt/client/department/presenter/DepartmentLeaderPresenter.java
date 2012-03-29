@@ -29,6 +29,10 @@ public interface DepartmentLeaderPresenter extends
 
 		void loadTreeData(List<DepartmentNode> result, String corporationId);
 
+	
+		public String getDefaultBtnClassName();
+		public void setDefaultBtnClassName(String defaultBtnClassName);
+
 	}
 	public void initEditor();
 }

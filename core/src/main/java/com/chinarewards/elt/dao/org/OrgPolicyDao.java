@@ -19,7 +19,7 @@ public class OrgPolicyDao extends BaseDao<OrgPolicy> {
 	public OrgPolicy findByOrganizationIdPolicyKey(String orgId,
 			String policyKey) {
 
-		Query q = getEm().createQuery(
+		Query q = getEmNoFlush().createQuery(
 				"FROM OrgPolicy WHERE owner.id = :orgId"
 						+ " AND key2 = :policyKey");
 		q.setParameter("orgId", orgId);

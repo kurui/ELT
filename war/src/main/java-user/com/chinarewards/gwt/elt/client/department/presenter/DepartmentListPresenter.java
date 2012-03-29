@@ -28,6 +28,9 @@ public interface DepartmentListPresenter extends
 		public Button getMergeBtn();
 
 		public Button getSynchBtn();
+		
+		public String getDefaultBtnClassName();
+		public void setDefaultBtnClassName(String defaultBtnClassName);
 
 		Panel getCellTree();
 		Panel getTreeTablePanel();
