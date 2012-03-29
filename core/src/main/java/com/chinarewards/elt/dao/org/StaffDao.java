@@ -370,9 +370,9 @@ public class StaffDao extends BaseDao<Staff> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Staff> findStaffsByNotUser() {
+	public List<Staff> findStaffsByNotUser(List<String> staffIds) {
 		return getEm().createQuery(
-				"SELECT s FROM Staff s,SysUser u WHERE s.id != u.staff.id")
+				"SELECT s FROM Staff s WHERE s.id  not IN (:staffIds)").setParameter("staffIds",staffIds)
 				.getResultList();
 	}
 }
