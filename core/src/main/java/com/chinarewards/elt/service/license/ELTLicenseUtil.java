@@ -58,7 +58,7 @@ public class ELTLicenseUtil {
 	public static final void main(String args[]) {
 		try {
 			String licensePath = getCertPath()+ "license.lic";
-			licensePath = getCertPath()+ "license201203271710188146.lic";			
+			licensePath = getCertPath()+ "license20120329133738853.lic";			
 			
 			manager.install(new java.io.File(licensePath));
 			LicenseContent content = manager.verify();
@@ -85,6 +85,9 @@ public class ELTLicenseUtil {
 		if (!StringUtil.isEmptyString(realPath)) {
 			int rootIndex = realPath.indexOf("jboss-5.1.0.GA");
 			if (rootIndex < 0) {
+				rootIndex = realPath.indexOf("elt/war")+4; 
+			}
+			if (rootIndex < 0) {
 				rootIndex = realPath.indexOf("core"); 
 			}
 
@@ -99,7 +102,7 @@ public class ELTLicenseUtil {
 				realPath = realPath.substring(1, realPath.length());
 			}
 
-			
+			realPath=realPath.replace("file:/", "");
 
 			realPath = realPath + "cert"+  File.separator;
 			

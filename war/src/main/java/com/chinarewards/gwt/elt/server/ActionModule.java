@@ -38,6 +38,7 @@ import com.chinarewards.gwt.elt.client.enterprise.request.EditIntegralPriceReque
 import com.chinarewards.gwt.elt.client.enterprise.request.EditPeriodRequest;
 import com.chinarewards.gwt.elt.client.enterprise.request.EnterpriseInitRequest;
 import com.chinarewards.gwt.elt.client.enterprise.request.EnterpriseRequest;
+import com.chinarewards.gwt.elt.client.enterprise.request.SearchLicenseRequest;
 import com.chinarewards.gwt.elt.client.gift.request.DeleteGiftRequest;
 import com.chinarewards.gwt.elt.client.gift.request.EditGiftRequest;
 import com.chinarewards.gwt.elt.client.gift.request.SearchGiftByIdRequest;
@@ -135,6 +136,7 @@ import com.chinarewards.gwt.elt.server.enterprise.EditIntegralPriceHandler;
 import com.chinarewards.gwt.elt.server.enterprise.EditPeriodHandler;
 import com.chinarewards.gwt.elt.server.enterprise.EnterpriseActionHandler;
 import com.chinarewards.gwt.elt.server.enterprise.EnterpriseInitActionHandler;
+import com.chinarewards.gwt.elt.server.enterprise.SearchLicenseHandler;
 import com.chinarewards.gwt.elt.server.gift.DeleteGiftHandler;
 import com.chinarewards.gwt.elt.server.gift.EditGiftHandler;
 import com.chinarewards.gwt.elt.server.gift.SearchGiftByIdHandler;
@@ -252,6 +254,8 @@ public class ActionModule extends ActionHandlerModule {
 		bindHandler(EditIntegralPriceRequest.class,EditIntegralPriceHandler.class);
 		bindHandler(EditPeriodRequest.class, EditPeriodHandler.class);
 		
+		//授权
+		bindHandler(SearchLicenseRequest.class,SearchLicenseHandler.class);
 		
 		//奖 项
         bindHandler(CreateRewardsItemRequest.class,CreateRewardsItemHandler.class);

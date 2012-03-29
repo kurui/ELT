@@ -4,7 +4,6 @@ import java.util.List;
 
 import net.customware.gwt.dispatch.shared.Action;
 
-import com.chinarewards.gwt.elt.client.enterprise.model.EnterpriseVo;
 import com.chinarewards.gwt.elt.client.support.UserSession;
 
 /**
@@ -12,19 +11,15 @@ import com.chinarewards.gwt.elt.client.support.UserSession;
  * 
  * @author yanrui
  */
-public class SearchLicenseRequest implements
-		Action<SearchLicenseResponse> {
+public class SearchLicenseRequest implements Action<SearchLicenseResponse> {
 
 	String enterpriseId;
 	String nowUserId;
-	private EnterpriseVo enterpriseVo;
 	private UserSession userSession;
 
 	List<String> staffIds;
 
-	public SearchLicenseRequest(EnterpriseVo enterpriseVo,
-			UserSession userSession) {
-		this.enterpriseVo = enterpriseVo;
+	public SearchLicenseRequest(UserSession userSession) {
 		this.userSession = userSession;
 	}
 
@@ -50,13 +45,7 @@ public class SearchLicenseRequest implements
 		this.nowUserId = nowUserId;
 	}
 
-	public EnterpriseVo getEnterpriseVo() {
-		return enterpriseVo;
-	}
 
-	public void setEnterpriseVo(EnterpriseVo enterpriseVo) {
-		this.enterpriseVo = enterpriseVo;
-	}
 
 	public UserSession getUserSession() {
 		return userSession;

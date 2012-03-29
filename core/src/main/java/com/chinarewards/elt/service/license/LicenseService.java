@@ -1,6 +1,6 @@
 package com.chinarewards.elt.service.license;
 
-import de.schlichtherle.license.LicenseContent;
+import com.chinarewards.elt.model.vo.LicenseBo;
 
 /**
  * Service of corporation.
@@ -13,6 +13,6 @@ public interface LicenseService {
 	/**
 	 * 获取客户端授权证书信息
 	 */
-	public LicenseContent queryLicenseContent();
+	public LicenseBo queryLicenseContent();
 
 }

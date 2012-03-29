@@ -1,42 +1,38 @@
 package com.chinarewards.gwt.elt.client.enterprise.view;
 
-import com.chinarewards.gwt.elt.client.enterprise.model.EnterpriseVo;
+import com.chinarewards.gwt.elt.client.enterprise.model.LicenseVo;
 import com.chinarewards.gwt.elt.client.enterprise.presenter.LicensePresenter.LicenseDisplay;
+import com.chinarewards.gwt.elt.util.DateTool;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.Hidden;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
-public class LicenseWidget extends Composite implements
-		LicenseDisplay {
+public class LicenseWidget extends Composite implements LicenseDisplay {
 
 	private static LicenseWidgetUiBinder uiBinder = GWT
 			.create(LicenseWidgetUiBinder.class);
 
-	
-
 	@UiField
-	Button saveButton;
+	Label corporationName;// 企业名称
 	@UiField
-	Hidden enterpriseId;
-
+	Label licenseType;// 授权类型 TRIAL试用 OFFICIAL正式
 	@UiField
-	ListBox moneyType;
+	Label macaddress;// 网卡地址
 	@UiField
-	Label moneyTypeLabel;
+	Label notafter;// 截止时间
+	@UiField
+	Label issued;// 授权时间
+	@UiField
+	Label description;// 备注说明
 
 	@UiField
 	Panel breadCrumbs;
 
-	interface LicenseWidgetUiBinder extends
-			UiBinder<Widget, LicenseWidget> {
+	interface LicenseWidgetUiBinder extends UiBinder<Widget, LicenseWidget> {
 	}
 
 	public LicenseWidget() {
@@ -48,14 +44,16 @@ public class LicenseWidget extends Composite implements
 	}
 
 	@Override
-	public void initEditLicense(EnterpriseVo enterpriseVo) {
-		enterpriseId.setValue(enterpriseVo.getId());
+	public void initEditLicense(LicenseVo licenseVo) {
 
-//		licenseLabel.setText(enterpriseVo.getLicense()+"");
-		
-		
+		corporationName.setText(licenseVo.getCorporationName());
+		licenseType.setText(licenseVo.getLicenseTypeName());
+		macaddress.setText(licenseVo.getMacaddress());
+		notafter.setText(DateTool.dateToString(licenseVo.getNotafter()));
+		issued.setText(DateTool.dateToString(licenseVo.getIssued()));
+		description.setText(licenseVo.getDescription());
+
 	}
-
 
 	@Override
 	public void setBreadCrumbs(Widget breadCrumbs) {
@@ -63,30 +61,9 @@ public class LicenseWidget extends Composite implements
 		this.breadCrumbs.add(breadCrumbs);
 	}
 
-	public HasClickHandlers getSaveClickHandlers() {
-		return saveButton;
-	}
-
-	@Override
-	public String getEnterpriseId() {
-		return this.enterpriseId.getValue();
-	}
-
-
 	@Override
 	public void clear() {
 
 	}
 
-
-	@Override
-	public void setSaveVisible(boolean flag) {
-		saveButton.setVisible(flag);
-	}
-
-	
-	@Override
-	public Label getMoneyTypeLabel() {
-		return moneyTypeLabel;
-	}
 }
