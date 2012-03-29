@@ -76,9 +76,12 @@ public class DepartmentLeaderPresenterImpl extends
 //		display.getDeleteBtn().getElement().setClassName("gwt-Button[disabled]");		
 //		display.getDeleteBtn().getElement().getParentElement().setClassName("gwt-Button[disabled]");
 		
-//		display.getEditBtn().setEnabled(false);
-//		display.getEditBtn().getElement().setClassName("gwt-Button[disabled]");		
-//		display.getEditBtn().getElement().getParentElement().setClassName("gwt-Button[disabled]");
+		display.setDefaultBtnClassName(display.getEditBtn().getElement().getParentElement().getClassName());
+		
+		display.getEditBtn().setEnabled(false);
+		display.getEditBtn().getElement().setClassName("gwt-Button[disabled]");		
+		display.getEditBtn().getElement().getParentElement().setClassName("gwt-Button[disabled]");
+
 	}
 
 	private void initTreeTable() {
