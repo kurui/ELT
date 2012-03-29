@@ -181,7 +181,7 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 			judgeLogic.removeJudgesFromRewardItem(itemObj.getId());
 			if (param.getFrequency() == null)
 				itemObj.setFrequency(null);
-			rewardItemDao.update(itemObj);
+			rewardItemDao.updateNoFlush(itemObj);
 		}
 
 		// Add frequency
@@ -230,7 +230,7 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 			judgeLogic.removeJudgesFromRewardItemStore(itemObj.getId());
 			if (param.getFrequency() == null)
 				itemObj.setFrequency(null);
-			rewardItemStoreDao.update(itemObj);
+			rewardItemStoreDao.updateNoFlush(itemObj);
 		}
 
 		// Add frequency

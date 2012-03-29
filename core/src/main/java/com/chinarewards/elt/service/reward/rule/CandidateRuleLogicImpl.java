@@ -34,6 +34,7 @@ import com.chinarewards.elt.service.reward.frequency.FrequencyLogic;
 import com.chinarewards.elt.service.staff.StaffLogic;
 import com.chinarewards.elt.util.DateUtil;
 import com.google.inject.Inject;
+import com.google.inject.persist.Transactional;
 
 /**
  * The implementation of {@link CandidateRuleLogic}
@@ -41,6 +42,7 @@ import com.google.inject.Inject;
  * @author yanxin
  * @since 1.0
  */
+@Transactional
 public class CandidateRuleLogicImpl implements CandidateRuleLogic {
 
 	private final CandidateRuleDao candidateRuleDao;
@@ -84,22 +86,22 @@ public class CandidateRuleLogicImpl implements CandidateRuleLogic {
 		directCandidateRule.setCreatedBy(caller);
 		directCandidateRule.setLastModifiedBy(caller);
 
-		directCandidateRuleDao.save(directCandidateRule);
+		directCandidateRuleDao.saveNoFlush(directCandidateRule);
 
 		// Add ShortList
 		for (String id : candidateList) {
 			DirectCandidateData dsl = new DirectCandidateData();
 			dsl.setDirectCandidateRule(directCandidateRule);
-			Organization org = organizationDao.findById(Organization.class, id);
+			Organization org = organizationDao.findByIdNoFlush(Organization.class, id);
 			dsl.setOrg(org);
 			dsl.setCreatedAt(now);
 			dsl.setCreatedBy(caller);
 			dsl.setLastModifiedAt(now);
 			dsl.setLastModifiedBy(caller);
-			directCandidateDataDao.save(dsl);
+			directCandidateDataDao.saveNoFlush(dsl);
 		}
 
-		RewardItem rewardItem = rewardItemDao.findById(RewardItem.class,
+		RewardItem rewardItem = rewardItemDao.findByIdNoFlush(RewardItem.class,
 				rewardItemId);
 		rewardItem.setCandidateRule(directCandidateRule);
 
@@ -116,22 +118,22 @@ public class CandidateRuleLogicImpl implements CandidateRuleLogic {
 		directCandidateRule.setCreatedBy(caller);
 		directCandidateRule.setLastModifiedBy(caller);
 
-		directCandidateRuleDao.save(directCandidateRule);
+		directCandidateRuleDao.saveNoFlush(directCandidateRule);
 
 		// Add ShortList
 		for (String id : candidateList) {
 			DirectCandidateData dsl = new DirectCandidateData();
 			dsl.setDirectCandidateRule(directCandidateRule);
-			Organization org = organizationDao.findById(Organization.class, id);
+			Organization org = organizationDao.findByIdNoFlush(Organization.class, id);
 			dsl.setOrg(org);
 			dsl.setCreatedAt(now);
 			dsl.setCreatedBy(caller);
 			dsl.setLastModifiedAt(now);
 			dsl.setLastModifiedBy(caller);
-			directCandidateDataDao.save(dsl);
+			directCandidateDataDao.saveNoFlush(dsl);
 		}
 
-		RewardItemStore rewardItemStore = rewardItemStoreDao.findById(RewardItemStore.class,
+		RewardItemStore rewardItemStore = rewardItemStoreDao.findByIdNoFlush(RewardItemStore.class,
 				rewardItemStoreId);
 		rewardItemStore.setCandidateRule(directCandidateRule);
 
@@ -175,11 +177,10 @@ public class CandidateRuleLogicImpl implements CandidateRuleLogic {
 
 	@Override
 	public void removeCandidateRuleFromRewardItem(String rewardItemId) {
-		CandidateRule rule = candidateRuleDao
-				.findCandidateRuleByRIID(rewardItemId);
+		CandidateRule rule = candidateRuleDao.findCandidateRuleByRIIDForDel(rewardItemId);
 		if (rule instanceof DirectCandidateRule) {
 			List<DirectCandidateData> shortLists = directCandidateDataDao
-					.findDirectCandidateDataListByDirectRuleId(rule.getId());
+					.findDirectCandidateDataListByDirectRuleIdForDel(rule.getId());
 			for (DirectCandidateData sl : shortLists) {
 				directCandidateDataDao.delete(sl);
 			}
@@ -189,21 +190,20 @@ public class CandidateRuleLogicImpl implements CandidateRuleLogic {
   
 	@Override
 	public void removeCandidateRuleFromRewardItemStore(String rewardItemStoreId) {
-		CandidateRule rule = candidateRuleDao.findCandidateRuleByRIStoreID(rewardItemStoreId);
+		CandidateRule rule = candidateRuleDao.findCandidateRuleByRIStoreIDForDel(rewardItemStoreId);
 		if (rule instanceof DirectCandidateRule) {
 			List<DirectCandidateData> shortLists = directCandidateDataDao
-					.findDirectCandidateDataListByDirectRuleId(rule.getId());
+					.findDirectCandidateDataListByDirectRuleIdForDel(rule.getId());
 			for (DirectCandidateData sl : shortLists) {
-				directCandidateDataDao.delete(sl);
+				directCandidateDataDao.deleteNoFlush(sl);
 			}
 		}
-		candidateRuleDao.delete(rule);
+		candidateRuleDao.deleteNoFlush(rule);
 	}
 
 	@Override
 	public CandidateRule findCandidateRuleFromRewardItem(String rewardItemId) {
-		CandidateRule rule = candidateRuleDao
-				.findCandidateRuleByRIID(rewardItemId);
+		CandidateRule rule = candidateRuleDao.findCandidateRuleByRIID(rewardItemId);
 		if (rule instanceof DirectCandidateRule) {
 			List<DirectCandidateData> CandidateList = directCandidateDataDao
 					.findDirectCandidateDataListByDirectRuleId(rule.getId());

@@ -23,8 +23,8 @@
 										<g:Button ui:field="chooseBtn" text="选择"></g:Button>
 								     </span>
 								</div>
-
-
+                             </div>
+                              <div class="{new2.form-line}">
 								<label class="{new2.label}" style="padding-bottom: 3px;">标题：</label>
 								<div class="{new2.element}" style="padding-bottom: 3px;">
 
