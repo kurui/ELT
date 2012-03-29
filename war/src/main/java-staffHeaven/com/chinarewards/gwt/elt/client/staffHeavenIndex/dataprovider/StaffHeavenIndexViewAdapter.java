@@ -6,6 +6,7 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.broadcastReplyLattice.view.BroadcastReplyLatticeWidget;
 import com.chinarewards.gwt.elt.client.broadcastReplyLattice.view.DallianceReplyLatticeWidget;
+import com.chinarewards.gwt.elt.client.broadcastReplyLattice.view.MyDallianceReplyLatticeWidget;
 import com.chinarewards.gwt.elt.client.broadcastReplyLattice.view.MyQuietlyReplyLatticeWidget;
 import com.chinarewards.gwt.elt.client.broadcastReplyLattice.view.QuietlyReplyLatticeWidget;
 import com.chinarewards.gwt.elt.client.broadcasting.model.BroadcastingListCriteria.BroadcastingCategory;
@@ -143,6 +144,24 @@ public class StaffHeavenIndexViewAdapter extends
 										}
 									}
 									else if (clint.getCategory() == BroadcastingCategory.DALLIANCEINFORMATION)
+									{
+										if(sessionManager.getSession().getStaffId().equals(clint.getStaffId()))
+										{
+											grid.setWidget(
+													row,
+													col,
+													new MyDallianceReplyLatticeWidget(
+															win,
+															dispatch,
+															sessionManager,
+															clint.getReceivingDept(),
+															clint.getReceivingUserName(),
+															DateTool.dateToStringChina2(clint
+																	.getBroadcastingTime()),
+															clint.getReceivingStaffId()));
+										}
+										else
+										{
 										grid.setWidget(
 												row,
 												col,
@@ -155,6 +174,8 @@ public class StaffHeavenIndexViewAdapter extends
 														DateTool.dateToStringChina2(clint
 																.getBroadcastingTime()),
 														clint.getStaffId()));
+										}
+									}
 
 									else
 										grid.setWidget(

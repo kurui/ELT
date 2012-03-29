@@ -77,8 +77,8 @@ public class BroadcastLogicImpl implements BroadcastLogic {
 			else
 				criteria.setReceivingUserId("notUser");
 		}
-		if (StringUtil.isEmptyString(criteria.getUserId())) {
-			if (!StringUtil.isEmptyString(criteria.getReceivingUserId())) {
+
+			if (criteria.isOnlyMyself()==false && !StringUtil.isEmptyString(criteria.getReceivingUserId())) {
 				if (!StringUtil.isEmptyString(criteria.getRecevingStaffId())) {
 					List<String> broadcastList = broadcastingReceivingDao
 							.findBroadcastingReceivingIdList(null, null,
@@ -118,7 +118,7 @@ public class BroadcastLogicImpl implements BroadcastLogic {
 					}
 				}
 			}
-		}
+		
 		return broadcastDao.queryBroadcastPageAction(criteria);
 	}
 

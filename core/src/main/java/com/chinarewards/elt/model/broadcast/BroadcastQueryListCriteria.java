@@ -96,6 +96,16 @@ public class BroadcastQueryListCriteria implements Serializable {
 	 */
 	private String userId;
 
+	private boolean onlyMyself;
+	
+	public boolean isOnlyMyself() {
+		return onlyMyself;
+	}
+
+	public void setOnlyMyself(boolean onlyMyself) {
+		this.onlyMyself = onlyMyself;
+	}
+
 	public String getUserId() {
 		return userId;
 	}

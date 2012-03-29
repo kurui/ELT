@@ -55,8 +55,17 @@ public class StaffHeavenIndexClient implements Serializable, Comparable<StaffHea
 	
 	
 	private String receivingDept;
+	private String receivingStaffId;
 	private String receivingUserName;
 	
+	public String getReceivingStaffId() {
+		return receivingStaffId;
+	}
+
+	public void setReceivingStaffId(String receivingStaffId) {
+		this.receivingStaffId = receivingStaffId;
+	}
+
 	public String getReceivingDept() {
 		return receivingDept;
 	}

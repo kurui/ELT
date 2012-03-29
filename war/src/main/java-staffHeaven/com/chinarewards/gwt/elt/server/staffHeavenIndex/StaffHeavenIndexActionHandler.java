@@ -89,7 +89,8 @@ public class StaffHeavenIndexActionHandler extends
 			criteria.setRecevingStaffId(request.getCriteria().getRecevingStaffId());
 		if(!StringUtil.isEmpty(request.getCriteria().getUserId()))
 			criteria.setUserId(request.getCriteria().getUserId());
-		
+		if(request.getCriteria().isOnlyMyself())
+			criteria.setOnlyMyself(true);
 		
 		if(request.getCriteria().isNowDate()==true)
 		{
@@ -130,6 +131,7 @@ public class StaffHeavenIndexActionHandler extends
 					{
 						if(((StaffObject) obj).getStaff().getDepartment()!=null)
 						{
+							client.setReceivingStaffId(((StaffObject) obj).getStaff().getId());
 							client.setReceivingDept(((StaffObject) obj).getStaff().getDepartment().getName());
 							client.setReceivingUserName(((StaffObject) obj).getStaff().getName());
 						}

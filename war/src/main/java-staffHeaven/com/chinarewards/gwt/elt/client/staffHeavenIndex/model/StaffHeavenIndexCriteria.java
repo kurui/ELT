@@ -75,7 +75,15 @@ public class StaffHeavenIndexCriteria implements IsSerializable {
 	 * 用户ID--(用于:我发送的悄悄话)
 	 */
 	private String userId;
+	private boolean onlyMyself;
 	
+	public boolean isOnlyMyself() {
+		return onlyMyself;
+	}
+
+	public void setOnlyMyself(boolean onlyMyself) {
+		this.onlyMyself = onlyMyself;
+	}
 	
 	public String getUserId() {
 		return userId;
