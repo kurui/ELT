@@ -4,13 +4,13 @@
 	<parent>
 		<groupId>com.chinarewards</groupId>
 		<artifactId>elt</artifactId>
-		<version>1.0-SNAPSHOT</version>
+		<version>1.5.1</version>
 	</parent>
 	<groupId>com.chinarewards</groupId>
 	<artifactId>elt-core</artifactId>
 	<packaging>jar</packaging>
 	<name>Core Logic and EJB Layer</name>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.5.1</version>
 	<description>Core logic and EJB layer</description>
 	<build>
 		<plugins>

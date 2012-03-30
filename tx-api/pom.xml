@@ -3,12 +3,12 @@
 	<parent>
 		<groupId>com.chinarewards</groupId>
 		<artifactId>elt</artifactId>
-		<version>1.0-SNAPSHOT</version>
+		<version>1.5.1</version>
 	</parent>
 	<groupId>com.chinarewards</groupId>
 	<artifactId>elt-tx-api</artifactId>
 	<name>ELT Bean Model</name>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.5.1</version>
 	<description>Contains natural object.</description>
 	<organization>
 		<name>China Rewards</name>
