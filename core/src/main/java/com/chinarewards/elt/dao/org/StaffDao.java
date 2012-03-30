@@ -375,4 +375,10 @@ public class StaffDao extends BaseDao<Staff> {
 				"SELECT s FROM Staff s WHERE s.id  not IN (:staffIds)").setParameter("staffIds",staffIds)
 				.getResultList();
 	}
+	public int findNotDeleteStaffsNumberBycorporationId(String corporationId) {
+		return (Integer) getEm()
+				.createQuery(
+						"SELECT COUNT(s.id) FROM Staff s WHERE s.corporation.id = :corporationId and s.deleted=0")
+				.setParameter("corporationId", corporationId).getSingleResult();
+	}
 }

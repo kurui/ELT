@@ -165,4 +165,9 @@ public class StaffServiceImpl implements IStaffService {
 	public String queryUserIdByStaffId(String staffId) {
 		return staffLogic.queryUserIdByStaffId(staffId);
 	}
+
+	@Override
+	public int findNotDeleteStaffNumber(UserContext context) {
+		return staffLogic.findNotDeleteStaffNumber(context);
+	}
 }

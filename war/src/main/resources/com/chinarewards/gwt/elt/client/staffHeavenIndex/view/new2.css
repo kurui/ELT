@@ -81,10 +81,10 @@ a:hover{color:#010DFF;text-decoration:underline;}
 /*-------------------------------------- 框架布局 --------------------------------------------------*/
 .index{background-color:#E6E6E6;}
 .head{position:relative;overflow:hidden;background-color:#FFFFFF;}
-.head .top-nav{background-color:#F4F4F4;padding:1px 0;}
+.head .top-nav{padding:1px 0;}
 .head .top-nav ul{float:left;}
-.head .top-nav ul li{float:left;margin-right:1px;height:24px;line-height:24px;}
-.head .top-nav ul li a{display:block;background-color:#E5E5E5;font-size:14px;padding:0 5px;color:#565656;text-decoration:none;}
+.head .top-nav ul li{float:left;margin-right:7px;height:24px;line-height:24px;}
+.head .top-nav ul li a{display:block;background-color:#E5E5E5;font-size:12px;padding:0 5px;color:#565656;text-decoration:none;}
 .head .top-nav ul .on a{background-color:#5DA801;color:#FFFFFF;}
 .head .top-nav .green{float:right;color:#975A03;height:24px;line-height:24px;padding-right:17px;}
 .head .logo{width:255px;height:75px;overflow:hidden;position:relative;top:-24px;}
@@ -200,7 +200,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .employee .content-wrap .content-info{margin-right:218px;position:relative;}
 
 /*----------------------------------------- 员工主页面 -------------------------------------------------------*/
-.employee .content-info .note{background-color:#FEFFF4;border:1px solid #D8D9D8;padding:6px 8px;color:#F03E59;position:relative;margin-bottom:10px;}
+.employee .content-info .note{background-color:#FFF3CD;border:1px solid #FDCA79;padding:6px 8px;color:#FF0000;position:relative;margin-bottom:10px;}
 .employee .content-info .note .close{background-position:-32px -35px;width:8px;height:9px;position:absolute;right:8px;top:9px;cursor:pointer;}
 .employee .content-info .broadcast{background-color:#E6E7E6;padding:8px;margin-bottom:10px;}
 .employee .content-info .broadcast h3{text-align:center;color:#FE0100;margin-bottom:5px;}

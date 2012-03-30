@@ -1,13 +1,16 @@
 package com.chinarewards.gwt.elt.server.login;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.servlet.http.HttpSession;
 
+import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.user.UserSessionVo;
 import com.chinarewards.elt.model.user.UserStatus;
 import com.chinarewards.elt.model.vo.LicenseBo;
 import com.chinarewards.elt.service.license.LicenseService;
+import com.chinarewards.elt.service.staff.IStaffService;
 import com.chinarewards.elt.service.user.UserService;
 import com.chinarewards.gwt.elt.client.remote.login.LoginService;
 import com.chinarewards.gwt.elt.client.support.UserSession;
@@ -31,14 +34,16 @@ public class LoginServiceImpl extends RemoteServiceServlet implements
 	private static final long serialVersionUID = 1L;
 	UserService userService;
 	LicenseService licenseService;
+	IStaffService staffService;
 	/**
 	 * 校验码 KEY
 	 */
 	protected static final String CODE_SESSION_KEY = com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY;
 
 	@Inject
-	public LoginServiceImpl(UserService userService) {
+	public LoginServiceImpl(UserService userService,IStaffService staffService) {
 		this.userService = userService;
+		this.staffService=staffService;
 	}
 	public LoginServiceImpl() {
 		
@@ -52,25 +57,8 @@ public class LoginServiceImpl extends RemoteServiceServlet implements
 		if (!verifyCode.equalsIgnoreCase(code)) {
 			throw new ClientException("验证码错误");
 		}
-		LicenseBo licensebo=null;
-		try {
-			 licensebo=licenseService.queryLicenseContent();
-//			licensebo=new LicenseBo();
-//			Calendar calendar = Calendar.getInstance();
-//			calendar.set(Calendar.MARCH, calendar.get(Calendar.MARCH)+1);
-//			licensebo.setNotafter(calendar.getTime());
-		} catch (Exception e) {
-			throw new ClientException("获取key异常,请联系管理员!");
-		}
-		if(licensebo==null)
-		{
-			throw new ClientException("获取key为空,请联系管理员!");
-		}
-		if(licensebo.getNotafter().getTime()<=new Date().getTime())
-		{
-			throw new ClientException("软件Key已过期!请重新申请!");
-		}
 		
+	
 		UserSession resp = new UserSession();
 		UserSessionVo u = userService.authenticate(username,password);
 		
@@ -94,6 +82,35 @@ public class LoginServiceImpl extends RemoteServiceServlet implements
 			if(u.getLastLoginRole()!=null)
 			{
 				resp.setLastLoginRole(UserRoleVo.valueOf(u.getLastLoginRole().toString()));
+			}
+			
+			
+			UserContext context=new UserContext();
+			context.setCorporationId(u.getCorporationId());
+
+			LicenseBo licensebo=null;
+			try {
+//				 licensebo=licenseService.queryLicenseContent();
+				licensebo=new LicenseBo();
+				Calendar calendar = Calendar.getInstance();
+				calendar.set(Calendar.MARCH, calendar.get(Calendar.MARCH)+1);
+				licensebo.setNotafter(calendar.getTime());
+				licensebo.setStaffNumber(50);
+			} catch (Exception e) {
+				throw new ClientException("获取License异常,请联系管理员!");
+			}
+			if(licensebo==null)
+			{
+				throw new ClientException("获取License为空,请联系管理员!");
+			}
+			if(licensebo.getNotafter().getTime()<=new Date().getTime())
+			{
+				throw new ClientException("软件License已过期!请重新申请!");
+			}
+			int number=staffService.findNotDeleteStaffNumber(context);
+			if(number>licensebo.getStaffNumber())
+			{
+				throw new ClientException("当前用户数"+number+",已经超过软件License最大用户数!已非法!请重新申请!");
 			}
 
 		} else {

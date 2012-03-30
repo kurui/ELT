@@ -122,4 +122,11 @@ public interface StaffLogic {
 	 * @return
 	 */
 	public String queryUserIdByStaffId(String staffId);
+	
+	/**
+	 * 查询所有(未删除)员工数
+	 * @param staffId
+	 * @return
+	 */
+	public int findNotDeleteStaffNumber(UserContext context);
 }

@@ -13,7 +13,7 @@ public class LicenseBo implements Serializable {
 	private String corporationId;// 客户企业ID
 	private String corporationName;// 企业名称
 	private String licenseType;//授权类型 TRIAL试用  OFFICIAL正式
-	
+	private int staffNumber;//员工数
 	private String macaddress;//网卡地址
 	private Date notafter;//截止时间
 	
@@ -22,6 +22,14 @@ public class LicenseBo implements Serializable {
 	private String description;// 备注说明
 	
 	
+
+	public int getStaffNumber() {
+		return staffNumber;
+	}
+
+	public void setStaffNumber(int staffNumber) {
+		this.staffNumber = staffNumber;
+	}
 
 	public String getCorporationId() {
 		return corporationId;
