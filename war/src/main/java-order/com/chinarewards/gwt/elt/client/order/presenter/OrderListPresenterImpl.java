@@ -107,7 +107,7 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 		pager = new EltNewPager(TextLocation.CENTER);
 		pager.setDisplay(cellTable);
 		cellTable.setWidth(ViewConstants.page_width);
-		cellTable.setPageSize(ViewConstants.per_page_number_in_dialog);
+		cellTable.setPageSize(pageSize);
 
 		display.getResultPanel().clear();
 		display.getResultPanel().add(cellTable);

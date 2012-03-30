@@ -124,7 +124,7 @@ public class RewardsItemStoreListPresenterImpl extends
 		pager = new EltNewPager(TextLocation.CENTER);
 		pager.setDisplay(resultTable);
 		resultTable.setWidth(ViewConstants.page_width);
-		resultTable.setPageSize(ViewConstants.per_page_number_in_dialog);
+		resultTable.setPageSize(pageSize);
 		listViewAdapter = new RewardsItemStoreListViewAdapter(dispatch,errorHandler, sessionManager,display);
 		listViewAdapter.addDataDisplay(resultTable);
 		resultTable.getColumn(0).setCellStyleNames("divTextLeft");
