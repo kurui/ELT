@@ -13,6 +13,7 @@ import org.apache.commons.beanutils.BeanUtils;
 
 import com.chinarewards.elt.common.BaseDao;
 import com.chinarewards.elt.domain.org.Staff;
+import com.chinarewards.elt.model.staff.StaffStatus;
 import com.chinarewards.elt.model.vo.StaffSearchVo;
 import com.chinarewards.elt.model.vo.StaffSearchVo.MultipleIdParam;
 import com.chinarewards.elt.model.vo.StaffSearchVo.OneIdParam;
@@ -374,5 +375,11 @@ public class StaffDao extends BaseDao<Staff> {
 		return getEm().createQuery(
 				"SELECT s FROM Staff s WHERE s.id  not IN (:staffIds)").setParameter("staffIds",staffIds)
 				.getResultList();
+	}
+	public Integer findNotDeleteStaffsNumberBycorporationId(String corporationId) {
+		return Integer.parseInt(getEm()
+				.createQuery(
+						"SELECT count(*) FROM Staff s WHERE s.corporation.id = :corporationId and s.status= :status  and s.deleted=0 ")
+				.setParameter("corporationId", corporationId).setParameter("status", StaffStatus.JOB).getSingleResult().toString());
 	}
 }

@@ -30,6 +30,7 @@ public class GiftClient implements Serializable, Comparable<GiftClient> {
 	private String inventory;
 
 	protected String thisAction;
+	protected boolean fromMenu;
 
 	/**
 	 * 积分
@@ -44,6 +45,17 @@ public class GiftClient implements Serializable, Comparable<GiftClient> {
 	 * 图片
 	 */
 	private String photo;
+	
+	
+	
+
+	public boolean isFromMenu() {
+		return fromMenu;
+	}
+
+	public void setFromMenu(boolean fromMenu) {
+		this.fromMenu = fromMenu;
+	}
 
 	public int getIntegral() {
 		return integral;

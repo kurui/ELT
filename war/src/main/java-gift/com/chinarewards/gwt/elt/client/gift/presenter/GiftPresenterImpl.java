@@ -5,6 +5,7 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
+import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
 import com.chinarewards.gwt.elt.client.gift.model.GiftVo;
 import com.chinarewards.gwt.elt.client.gift.plugin.GiftConstants;
 import com.chinarewards.gwt.elt.client.gift.request.EditGiftRequest;
@@ -35,6 +36,7 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 	String instanceId;// 修改时传过来的ID
 
 	private String thisAction;
+	private boolean fromMenu = false;
 	private String giftId;
 	//
 	private final DispatchAsync dispatcher;
@@ -44,17 +46,19 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 	private final Win win;
 
 	private final BreadCrumbsPresenter breadCrumbs;
-	String imageCss=display.getIndate().getElement().getParentElement().getParentElement().getClassName();
+	String imageCss = display.getIndate().getElement().getParentElement()
+			.getParentElement().getClassName();
+
 	@Inject
 	public GiftPresenterImpl(EventBus eventBus, GiftDisplay display,
 			DispatchAsync dispatcher, ErrorHandler errorHandler,
-			SessionManager sessionManager,MenuProcessor menuProcessor, Win win,
-			BreadCrumbsPresenter breadCrumbs) {
+			SessionManager sessionManager, MenuProcessor menuProcessor,
+			Win win, BreadCrumbsPresenter breadCrumbs) {
 		super(eventBus, display);
 		this.dispatcher = dispatcher;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
-		this.menuProcessor=menuProcessor;
+		this.menuProcessor = menuProcessor;
 		this.win = win;
 		this.breadCrumbs = breadCrumbs;
 	}
@@ -65,8 +69,14 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 		init();
 
 		if (GiftConstants.ACTION_GIFT_ADD.equals(thisAction)) {
-			breadCrumbs.loadChildPage("新建礼品");
-			display.getGiftImage().getElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
+			if (fromMenu) {
+				breadCrumbs.loadListPage();
+			} else {
+				breadCrumbs.loadChildPage("增加新礼品");
+			}
+
+			display.getGiftImage().getElement().getParentElement()
+					.getParentElement().addClassName(CssStyleConstants.hidden);
 			initSave();
 		} else if (GiftConstants.ACTION_GIFT_EDIT.equals(thisAction)) {
 			initEdit();
@@ -123,7 +133,8 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 														GiftConstants.EDITOR_GIFTLIST_SEARCH,
 														GiftConstants.ACTION_GIFT_LIST,
 														instanceId);
-										menuProcessor.changItemColor("礼品列表");
+										menuProcessor.changItemColor("礼品列表");// 菜单
+										breadCrumbs.loadChildPage("礼品列表");// 导航
 									}
 								});
 					}
@@ -153,7 +164,9 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 															GiftConstants.EDITOR_GIFTLIST_SEARCH,
 															GiftConstants.ACTION_GIFT_LIST,
 															instanceId);
-											menuProcessor.changItemColor("礼品列表");
+											menuProcessor
+													.changItemColor("礼品列表");
+											breadCrumbs.loadChildPage("礼品列表");// 导航
 										}
 									});
 						}
@@ -165,9 +178,11 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 		registerHandler(display.getPhotoUpload().addChangeHandler(
 				new ChangeHandler() {
 					@Override
-					public void onChange(ChangeEvent arg0) {						
-						System.out.println("==========="+display.getPhotoUpload());
-						display.getGiftImage().getElement().getParentElement().getParentElement().setClassName(imageCss);
+					public void onChange(ChangeEvent arg0) {
+						System.out.println("==========="
+								+ display.getPhotoUpload());
+						display.getGiftImage().getElement().getParentElement()
+								.getParentElement().setClassName(imageCss);
 						display.getGiftImage().setVisible(true);
 						display.getPhotoForm().setAction("fileupload");
 						display.getPhotoForm().submit();
@@ -192,18 +207,24 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 						String eventResults = event.getResults();
 						System.out.println("submitComplete event.getResults:"
 								+ eventResults);
-//						win.alert(eventResults);
+						// win.alert(eventResults);
 
 						if (eventResults != null) {
-							eventResults=XmlUtil_GWT.replaceSpecialStr(eventResults);
-							
+							eventResults = XmlUtil_GWT
+									.replaceSpecialStr(eventResults);
+
 							try {
-//								Document doc = XmlUtil_GWT.parseXml(eventResults);
-//								String result = XmlUtil_GWT.getSingleNodeText(doc, "result");
-//								String info = XmlUtil_GWT.getSingleNodeText(doc, "info");
-								String result=XmlUtil_GWT.getNormalNodeText(eventResults, "<result>","</result>");
-								String info=XmlUtil_GWT.getNormalNodeText(eventResults, "<info>", "</info>");
-										
+								// Document doc =
+								// XmlUtil_GWT.parseXml(eventResults);
+								// String result =
+								// XmlUtil_GWT.getSingleNodeText(doc, "result");
+								// String info =
+								// XmlUtil_GWT.getSingleNodeText(doc, "info");
+								String result = XmlUtil_GWT.getNormalNodeText(
+										eventResults, "<result>", "</result>");
+								String info = XmlUtil_GWT.getNormalNodeText(
+										eventResults, "<info>", "</info>");
+
 								if ("SUCCESS".equals(result)) {
 									display.getPhoto().setValue(info);
 									String giftImageUrl = "imageshow?imageName="
@@ -227,8 +248,8 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 					public void onClick(ClickEvent arg0) {
 						breadCrumbs.getGoHistory();
 					}
-				}));		
-	
+				}));
+
 	}
 
 	// 验证方法
@@ -247,7 +268,8 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 			errorMsg.append("请正确填写礼品库存!<br>");
 			flag = false;
 		}
-		if (display.getIndate().getValue() == null|| "".equals(display.getIndate().getValue())) {
+		if (display.getIndate().getValue() == null
+				|| "".equals(display.getIndate().getValue())) {
 			errorMsg.append("有效期不能为空<br>");
 			flag = false;
 		}
@@ -306,9 +328,13 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 	}
 
 	@Override
-	public void initEditor(String giftId, String thisAction) {
-		this.giftId = giftId;
-		this.thisAction = thisAction;
+	public void initEditor(GiftClient client) {
+		if (client != null) {
+			this.giftId = client.getId();
+			this.thisAction = client.getThisAction();
+			this.fromMenu=client.isFromMenu();
+		}
+
 	}
 
 }

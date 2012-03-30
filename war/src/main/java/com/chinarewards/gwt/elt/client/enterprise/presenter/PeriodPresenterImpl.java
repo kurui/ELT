@@ -9,6 +9,7 @@ import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresente
 import com.chinarewards.gwt.elt.client.budget.model.CorpBudgetVo;
 import com.chinarewards.gwt.elt.client.budget.request.SearchCorpBudgetByCorpIdRequest;
 import com.chinarewards.gwt.elt.client.budget.request.SearchCorpBudgetByCorpIdResponse;
+import com.chinarewards.gwt.elt.client.enterprise.model.EnterpriseClient;
 import com.chinarewards.gwt.elt.client.enterprise.model.EnterpriseVo;
 import com.chinarewards.gwt.elt.client.enterprise.presenter.PeriodPresenter.PeriodDisplay;
 import com.chinarewards.gwt.elt.client.enterprise.request.EditPeriodRequest;
@@ -37,6 +38,9 @@ public class PeriodPresenterImpl extends BasePresenter<PeriodDisplay> implements
 	private final SessionManager sessionManager;
 	List<HandlerRegistration> handlerRegistrations = new ArrayList<HandlerRegistration>();
 	private final BreadCrumbsPresenter breadCrumbs;
+	
+	private String thisAction;
+	private boolean fromMenu;
 
 	@Inject
 	public PeriodPresenterImpl(final EventBus eventBus, PeriodDisplay display,
@@ -51,7 +55,12 @@ public class PeriodPresenterImpl extends BasePresenter<PeriodDisplay> implements
 
 	@Override
 	public void bind() {
-		breadCrumbs.loadChildPage("财年周期设置");
+		if(fromMenu){
+			breadCrumbs.loadListPage();
+		}else{
+			breadCrumbs.loadChildPage("财年周期设置");
+		}
+
 		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
 
 		initialization();
@@ -160,5 +169,13 @@ public class PeriodPresenterImpl extends BasePresenter<PeriodDisplay> implements
 			}
 		});
 
+	}
+
+	@Override
+	public void initEditor(EnterpriseClient client) {
+		if (client != null) {
+			this.thisAction = client.getThisAction();
+			this.fromMenu=client.isFromMenu();
+		}
 	}
 }

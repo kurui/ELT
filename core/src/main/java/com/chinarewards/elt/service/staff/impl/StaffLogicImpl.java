@@ -659,4 +659,9 @@ public class StaffLogicImpl implements StaffLogic {
 		else
 			return null;
 	}
+
+	@Override
+	public Integer findNotDeleteStaffNumber(UserContext context) {
+		return staffDao.findNotDeleteStaffsNumberBycorporationId(context.getCorporationId());
+	}
 }

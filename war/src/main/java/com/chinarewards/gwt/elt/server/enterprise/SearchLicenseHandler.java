@@ -61,6 +61,7 @@ public class SearchLicenseHandler extends
 		licenseVo.setCorporationName(licenseBo.getCorporationName());
 		licenseVo.setLicenseType(licenseBo.getLicenseType());
 		licenseVo.setMacaddress(licenseBo.getMacaddress());
+		licenseVo.setLocalmacaddress(licenseBo.getLocalMACAddress());
 		licenseVo.setNotafter(licenseBo.getNotafter());
 		licenseVo.setIssued(licenseBo.getIssued());
 		licenseVo.setDescription(licenseBo.getDescription());
