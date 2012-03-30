@@ -1,6 +1,5 @@
 package com.chinarewards.gwt.elt.server.login;
 
-import java.util.Calendar;
 import java.util.Date;
 
 import javax.servlet.http.HttpSession;
@@ -90,12 +89,12 @@ public class LoginServiceImpl extends RemoteServiceServlet implements
 
 			LicenseBo licensebo=null;
 			try {
-//				 licensebo=licenseService.queryLicenseContent();
-				licensebo=new LicenseBo();
-				Calendar calendar = Calendar.getInstance();
-				calendar.set(Calendar.MARCH, calendar.get(Calendar.MARCH)+1);
-				licensebo.setNotafter(calendar.getTime());
-				licensebo.setStaffNumber(10);
+				 licensebo=licenseService.queryLicenseContent();
+//				licensebo=new LicenseBo();
+//				Calendar calendar = Calendar.getInstance();
+//				calendar.set(Calendar.MARCH, calendar.get(Calendar.MARCH)+1);
+//				licensebo.setNotafter(calendar.getTime());
+//				licensebo.setStaffNumber(10);
 			} catch (Exception e) {
 				throw new ClientException("获取License异常,请联系管理员!");
 			}
@@ -110,7 +109,7 @@ public class LoginServiceImpl extends RemoteServiceServlet implements
 			Integer number=staffService.findNotDeleteStaffNumber(context);
 			if(number!=null && number.intValue()>licensebo.getStaffNumber())
 			{
-				throw new ClientException("当前在职用户数: "+number+" 人,已经超过软件License最大用户数!已非法!请重新申请!");
+				throw new ClientException("当前在职用户数: "+number+" 人,已经超过软件License最大用户数 "+licensebo.getStaffNumber()+" !已非法!请重新申请!");
 			}
 
 		} else {
