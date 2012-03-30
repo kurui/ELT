@@ -27,6 +27,8 @@ import com.chinarewards.gwt.elt.client.win.confirm.ConfirmHandler;
 import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -39,7 +41,7 @@ public class TeamListPresenterImpl extends BasePresenter<TeamListDisplay>
 	final ErrorHandler errorHandler;
 	final SessionManager sessionManager;
 	final Win win;
-
+	int pageSize=ViewConstants.per_page_number_in_dialog;
 	EltNewPager pager;
 	ListCellTable<TeamSearchVo> cellTable;
 	TeamListViewAdapter listViewAdapter;
@@ -67,7 +69,14 @@ public class TeamListPresenterImpl extends BasePresenter<TeamListDisplay>
 						doSearch();
 					}
 		 }));
-		
+		registerHandler(display.getPageNumber().addChangeHandler(new ChangeHandler() {
+			@Override
+				public void onChange(ChangeEvent event) {
+					pageSize=Integer.parseInt(display.getPageNumber().getValue(display.getPageNumber().getSelectedIndex()));
+					buildTable();
+					doSearch();
+				}
+			}));
 		registerHandler(display.getAddBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
@@ -95,7 +104,7 @@ public class TeamListPresenterImpl extends BasePresenter<TeamListDisplay>
 		pager = new EltNewPager(TextLocation.CENTER);
 		pager.setDisplay(cellTable);
 		cellTable.setWidth(ViewConstants.page_width);
-		cellTable.setPageSize(ViewConstants.per_page_number_in_dialog);
+		cellTable.setPageSize(pageSize);;
 
 		display.getResultPanel().clear();
 		display.getResultPanel().add(cellTable);
