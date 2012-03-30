@@ -114,6 +114,14 @@ public class LicenseLogicImpl implements LicenseLogic {
 		
 	   String localMACAddress=	MachineUtil.getMACAddress();
 	   licenseBo.setLocalMACAddress(localMACAddress);
+	   
+	   if (!StringUtil.isEmptyString(licenseBo.getMacaddress())) {
+		
+		   if (localMACAddress.equals(licenseBo.getMacaddress())==false) {
+			
+		}
+	}
+	   
 		
 		return licenseBo;
 	}
