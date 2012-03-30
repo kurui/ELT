@@ -4,13 +4,13 @@
 	<parent>
 		<groupId>com.chinarewards</groupId>
 		<artifactId>elt</artifactId>
-		<version>1.0-SNAPSHOT</version>
+		<version>1.5.1</version>
 	</parent>
 	<groupId>com.chinarewards</groupId>
 	<artifactId>elt-war</artifactId>
 	<packaging>war</packaging>
-	<version>1.0-SNAPSHOT</version>
-	<name>Web Interface</name>
+	<version>1.5.1</version>
+	<name>ELT</name>
 	<description>GWT web user interface</description>
 	<dependencies>
 			<dependency>

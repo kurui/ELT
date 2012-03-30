@@ -475,20 +475,23 @@ public class StaffLogicImpl implements StaffLogic {
 	@Override
 	public GeneratedUserConstants generatedUserbyStaff(String staffId,
 			UserContext context) {
+		String message="";
 		if ("ALL".equals(staffId)) {
-			List<Staff> list = staffDao.findStaffsByNotUser();
+			List<Staff> list = staffDao.findStaffsByNotUser(userDao.findStaffUser());
 			if (list != null && list.size() > 0) {
 				for (Staff s : list) {
-					generatedUserbyStaffToo(s.getId(), context);
+					message+=generatedUserbyStaffToo(s.getId(), context)+";";
 				}
 			}
 		} else {
-			return generatedUserbyStaffToo(staffId, context);
+			return new GeneratedUserConstants(generatedUserbyStaffToo(staffId, context));
 		}
-		return GeneratedUserConstants.Success;
+		if(StringUtil.isEmptyString(message))
+			message="无帐号生成!";
+		return  new GeneratedUserConstants(message);
 	}
 
-	private GeneratedUserConstants generatedUserbyStaffToo(String staffId,
+	private String generatedUserbyStaffToo(String staffId,
 			UserContext context) {
 		Staff staff = staffDao.findById(Staff.class, staffId);
 		SysUser user = userDao.findUserByStaffId(staff.getId());
@@ -501,7 +504,7 @@ public class StaffLogicImpl implements StaffLogic {
 			e.printStackTrace();
 		}
 		if (user != null) {
-			return GeneratedUserConstants.UsernamePresence;
+			return "用户"+user.getUserName()+",已经存在!";
 		} else {
 			// create user
 			Date now = DateUtil.getTime();
@@ -510,7 +513,7 @@ public class StaffLogicImpl implements StaffLogic {
 			String username = staff.getEmail().substring(0,
 					staff.getEmail().indexOf("@"));
 			if (userDao.findUserByUserName(username).size() > 0) {
-				return GeneratedUserConstants.UsernameRepeat;
+				return "用户"+username+",名字重复!";
 			} else {
 				// 创建交易系统ID
 				String accountId = transactionService.createNewAccount();
@@ -544,8 +547,9 @@ public class StaffLogicImpl implements StaffLogic {
 				String content = "你的ELT账号是" + username + "，初始密码是123";
 				sendMailService.sendMail(title, content, staffId);
 			}
+			return "用户"+username+",成功创建!";
 		}
-		return GeneratedUserConstants.Success;
+		
 	}
 
 	public String createHrUser(StaffUserProcess staffProcess) {

@@ -22,7 +22,11 @@ public class UserDao extends BaseDao<SysUser> {
 				.createQuery("FROM SysUser u WHERE u.userName = :userName")
 				.setParameter("userName", userName).getResultList();
 	}
-	
+	@SuppressWarnings("unchecked")
+	public List<String> findStaffUser() {
+		return getEm()
+				.createQuery("SELECT u.staff.id FROM SysUser u WHERE u.staff is not null").getResultList();
+	}
 	public String createUser(SysUser user) {
 		this.save(user);	
 		return user.getId();

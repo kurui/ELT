@@ -62,7 +62,7 @@ public class IntegralPricePresenterImpl extends
 						doSaveEnterprise();
 					}
 				}));
-
+		
 	}
 
 	protected void doSaveEnterprise() {

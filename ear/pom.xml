@@ -3,11 +3,11 @@
 	<parent>
 		<groupId>com.chinarewards</groupId>
 		<artifactId>elt</artifactId>
-		<version>1.0-SNAPSHOT</version>
+		<version>1.5.1</version>
 	</parent>
 	<groupId>com.chinarewards</groupId>
 	<artifactId>elt-ear</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.5.1</version>
 	<packaging>ear</packaging>
 	<name>ELT Application EAR</name>
 	<description>ELT Application EAR</description>

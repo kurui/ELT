@@ -4,7 +4,6 @@ import java.util.Date;
 
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.staff.StaffProcess;
-import com.chinarewards.elt.model.user.GeneratedUserConstants;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.service.common.JPATestCase;
@@ -71,11 +70,11 @@ public class StaffServiceTest extends JPATestCase {
 		
 		String staffId=staffService.createOrUpdateStaff(sp, context);
 		
-		GeneratedUserConstants con=staffService.generatedUserbyStaff(staffId, context);
+		staffService.generatedUserbyStaff(staffId, context);
 
 		// check staff
 		assertNotNull(staffId);
-		assertEquals(con, GeneratedUserConstants.Success);
+		
 
 	}
 	

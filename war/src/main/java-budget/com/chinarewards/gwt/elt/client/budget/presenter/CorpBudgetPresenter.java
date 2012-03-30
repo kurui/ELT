@@ -35,8 +35,7 @@ public interface CorpBudgetPresenter extends
 
 		public HasClickHandlers getSaveClick();
 
-		public HasClickHandlers getBackClick();
-
+		
 		public HasClickHandlers getPeriodBtnClick();
 
 		public void clear();
