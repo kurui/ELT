@@ -35,7 +35,7 @@ public class ELTLicenseUtil {
 	// ELTLicenseClient.class.getResourceAsStream(arg0)
 
 	/** The password for the keystore. */
-	public static final String KEYSTORE_STORE_PWD = "store123"; // CUSTOMIZE
+	public static final String KEYSTORE_STORE_PWD = "publicstore123"; // CUSTOMIZE
 																// 公匙库密码
 
 	/** The password to encrypt the generated license key file. */
@@ -58,7 +58,7 @@ public class ELTLicenseUtil {
 	public static final void main(String args[]) {
 		try {
 			String licensePath = getCertPath()+ "license.lic";
-//			licensePath = getCertPath()+ "license20120329133738853.lic";			
+			licensePath = getCertPath()+ "license201203301001193147.lic";			
 			
 			manager.install(new java.io.File(licensePath));
 			LicenseContent content = manager.verify();
@@ -117,7 +117,7 @@ public class ELTLicenseUtil {
 			System.out.println("realPath:"+realPath);
 		}
 		
-		realPath="F:/project/elt/cert/";
+//		realPath="F:/project/elt/cert/"; 
 		
 		return realPath;
 	}

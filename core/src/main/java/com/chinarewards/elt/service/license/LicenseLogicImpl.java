@@ -42,7 +42,7 @@ public class LicenseLogicImpl implements LicenseLogic {
 			// final String KEYSTORE_RESOURCE = "/publicCerts.store"; //
 
 			//
-			final String KEYSTORE_STORE_PWD = "store123"; // CUSTOMIZE
+			final String KEYSTORE_STORE_PWD = "publicstore123"; // CUSTOMIZE
 			final String CIPHER_KEY_PWD = "a8a8a8"; //
 
 			LicenseManager manager = new LicenseManager(
@@ -56,6 +56,8 @@ public class LicenseLogicImpl implements LicenseLogic {
 							new DefaultCipherParam(CIPHER_KEY_PWD)));
 
 			manager.install(new java.io.File(licensePath + "license.lic"));
+//			manager.install(new java.io.File(licensePath + "license201203301001193147.lic"));
+			
 			content = manager.verify();
 
 			String subject = content.getSubject();
