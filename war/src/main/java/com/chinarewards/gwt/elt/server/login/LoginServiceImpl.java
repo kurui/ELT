@@ -1,9 +1,13 @@
 package com.chinarewards.gwt.elt.server.login;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpSession;
 
 import com.chinarewards.elt.model.user.UserSessionVo;
 import com.chinarewards.elt.model.user.UserStatus;
+import com.chinarewards.elt.model.vo.LicenseBo;
+import com.chinarewards.elt.service.license.LicenseService;
 import com.chinarewards.elt.service.user.UserService;
 import com.chinarewards.gwt.elt.client.remote.login.LoginService;
 import com.chinarewards.gwt.elt.client.support.UserSession;
@@ -26,6 +30,7 @@ public class LoginServiceImpl extends RemoteServiceServlet implements
 	 */
 	private static final long serialVersionUID = 1L;
 	UserService userService;
+	LicenseService licenseService;
 	/**
 	 * 校验码 KEY
 	 */
@@ -46,6 +51,24 @@ public class LoginServiceImpl extends RemoteServiceServlet implements
 		String code = (String) session.getAttribute(CODE_SESSION_KEY);
 		if (!verifyCode.equalsIgnoreCase(code)) {
 			throw new ClientException("验证码错误");
+		}
+		LicenseBo licensebo=null;
+		try {
+			 licensebo=licenseService.queryLicenseContent();
+//			licensebo=new LicenseBo();
+//			Calendar calendar = Calendar.getInstance();
+//			calendar.set(Calendar.MARCH, calendar.get(Calendar.MARCH)+1);
+//			licensebo.setNotafter(calendar.getTime());
+		} catch (Exception e) {
+			throw new ClientException("获取key异常,请联系管理员!");
+		}
+		if(licensebo==null)
+		{
+			throw new ClientException("获取key为空,请联系管理员!");
+		}
+		if(licensebo.getNotafter().getTime()<=new Date().getTime())
+		{
+			throw new ClientException("软件Key已过期!请重新申请!");
 		}
 		
 		UserSession resp = new UserSession();
