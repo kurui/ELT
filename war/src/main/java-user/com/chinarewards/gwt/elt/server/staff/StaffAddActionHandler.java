@@ -61,7 +61,7 @@ public class StaffAddActionHandler extends
 			Calendar calendar = Calendar.getInstance();
 			calendar.set(Calendar.MARCH, calendar.get(Calendar.MARCH)+1);
 			licensebo.setNotafter(calendar.getTime());
-			 licensebo.setStaffNumber(50);
+			 licensebo.setStaffNumber(10);
 		} catch (Exception e) {
 			throw new ClientException("获取License异常,请联系管理员!");
 		}
@@ -78,7 +78,7 @@ public class StaffAddActionHandler extends
 		int number=staffService.findNotDeleteStaffNumber(context);
 		if(number>=licensebo.getStaffNumber())
 		{
-			throw new ClientException("当前用户数"+number+",已经到达软件License最大用户数!请重新申请!");
+			throw new ClientException("当前在职用户数"+number+",已经到达软件License最大用户数!请重新申请!");
 		}
 		
 		

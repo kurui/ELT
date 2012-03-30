@@ -128,5 +128,5 @@ public interface StaffLogic {
 	 * @param staffId
 	 * @return
 	 */
-	public int findNotDeleteStaffNumber(UserContext context);
+	public Integer findNotDeleteStaffNumber(UserContext context);
 }

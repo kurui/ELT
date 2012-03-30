@@ -95,7 +95,7 @@ public class LoginServiceImpl extends RemoteServiceServlet implements
 				Calendar calendar = Calendar.getInstance();
 				calendar.set(Calendar.MARCH, calendar.get(Calendar.MARCH)+1);
 				licensebo.setNotafter(calendar.getTime());
-				licensebo.setStaffNumber(50);
+				licensebo.setStaffNumber(10);
 			} catch (Exception e) {
 				throw new ClientException("获取License异常,请联系管理员!");
 			}
@@ -107,10 +107,10 @@ public class LoginServiceImpl extends RemoteServiceServlet implements
 			{
 				throw new ClientException("软件License已过期!请重新申请!");
 			}
-			int number=staffService.findNotDeleteStaffNumber(context);
-			if(number>licensebo.getStaffNumber())
+			Integer number=staffService.findNotDeleteStaffNumber(context);
+			if(number!=null && number.intValue()>licensebo.getStaffNumber())
 			{
-				throw new ClientException("当前用户数"+number+",已经超过软件License最大用户数!已非法!请重新申请!");
+				throw new ClientException("当前在职用户数: "+number+" 人,已经超过软件License最大用户数!已非法!请重新申请!");
 			}
 
 		} else {

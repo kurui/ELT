@@ -105,6 +105,6 @@ public interface IStaffService {
 	 * @param staffId
 	 * @return
 	 */
-	public int findNotDeleteStaffNumber(UserContext context);
+	public Integer findNotDeleteStaffNumber(UserContext context);
 	
 }
