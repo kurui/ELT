@@ -170,10 +170,7 @@ public class BroadcastingListPresenterImpl extends
 				new GetValue<BroadcastingListClient, String>() {
 					@Override
 					public String getValue(BroadcastingListClient staff) {
-						if(staff.getContent()!=null && staff.getContent().length()>45)
-							return staff.getContent().substring(0,45)+"...";
-						else
-							return staff.getContent();
+							return StringUtil.subStr(staff.getContent(), 100);
 					}
 				}, ref, "content");
 		cellTable.addColumn("状态", new TextCell(),

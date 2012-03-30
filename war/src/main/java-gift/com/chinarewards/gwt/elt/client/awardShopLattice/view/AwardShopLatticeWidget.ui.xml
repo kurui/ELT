@@ -10,7 +10,7 @@
 			<div class="{new2.gift-wrap}">
 				<div class="{new2.shop-gift-list} {new2.clearfix}">
 					<div class="{new2.shop-gift}">
-						<g:Image width="200" height="140" pixelSize="180,135"
+						<g:Image width="180" height="140" pixelSize="180,135"
 							ui:field="photo" url="elt/images/gift.png"/>
 						<p class="{new2.gift-name}">
 							<g:Anchor ui:field="awardName" styleName="{new2.shopa}" />
