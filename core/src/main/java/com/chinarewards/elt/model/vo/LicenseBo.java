@@ -12,6 +12,7 @@ public class LicenseBo implements Serializable {
 	private String licenseId;
 	private String corporationId;// 客户企业ID
 	private String corporationName;// 企业名称
+
 	private String licenseType;// 授权类型 TRIAL试用 OFFICIAL正式
 
 	private int staffNumber = 0;// 最大员工数
@@ -20,17 +21,29 @@ public class LicenseBo implements Serializable {
 	private Date notafter;// 截止时间
 
 	private Date issued;// 授权时间
+
 	private String description;// 备注说明
 
 	// ================
+	private String errorCode;//SUCESS FAILED
+	private String errorInfo;//...
 	private String localMACAddress;// 本地MAC
 
-	public int getStaffNumber() {
-		return staffNumber;
+
+	public String getErrorCode() {
+		return errorCode;
 	}
 
-	public void setStaffNumber(int staffNumber) {
-		this.staffNumber = staffNumber;
+	public void setErrorCode(String errorCode) {
+		this.errorCode = errorCode;
+	}
+
+	public String getErrorInfo() {
+		return errorInfo;
+	}
+
+	public void setErrorInfo(String errorInfo) {
+		this.errorInfo = errorInfo;
 	}
 
 	public String getLocalMACAddress() {
@@ -39,6 +52,14 @@ public class LicenseBo implements Serializable {
 
 	public void setLocalMACAddress(String localMACAddress) {
 		this.localMACAddress = localMACAddress;
+	}
+
+	public int getStaffNumber() {
+		return staffNumber;
+	}
+
+	public void setStaffNumber(int staffNumber) {
+		this.staffNumber = staffNumber;
 	}
 
 	public String getCorporationId() {

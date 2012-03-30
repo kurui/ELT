@@ -123,7 +123,7 @@ a:hover{color:#010DFF;text-decoration:underline;cursor:pointer;}
 /*----------------------------------------- HR鏀朵欢绠�-------------------------------------------------------*/
 .inbox{position:relative;}
 .inbox-wrap .inbox-content{margin-right:300px;}
-.inbox-wrap .inbox-content .inbox-info{background-color:#ffffff;padding:15px;}
+.inbox-wrap .inbox-content .inbox-info{background-color:#F4F4F4;padding:15px;}
 .inbox-wrap .inbox-info h3{font-size:14px;color:#569B01;margin-bottom:12px;}
 .inbox-wrap .inbox-info .table{width:100%;margin-bottom:20px;}
 .inbox-wrap .inbox-info .table a{color:#000CFF;text-decoration:underline;}

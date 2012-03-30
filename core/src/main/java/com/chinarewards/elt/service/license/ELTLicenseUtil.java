@@ -91,6 +91,12 @@ public class ELTLicenseUtil {
 				}
 			}
 			if (rootIndex <0) {
+				rootIndex = realPath.indexOf("war/war");
+//				if (rootIndex>-1) {
+//					rootIndex+=4;
+//				}
+			}
+			if (rootIndex <0) {
 				rootIndex = realPath.indexOf("elt/core");
 				if (rootIndex>-1) {
 					rootIndex+=4;
