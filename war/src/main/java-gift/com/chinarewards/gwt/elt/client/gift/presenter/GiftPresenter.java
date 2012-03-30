@@ -2,6 +2,7 @@ package com.chinarewards.gwt.elt.client.gift.presenter;
 
 import java.util.Date;
 
+import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
 import com.chinarewards.gwt.elt.client.gift.model.GiftVo;
 import com.chinarewards.gwt.elt.client.mvp.Display;
 import com.chinarewards.gwt.elt.client.mvp.Presenter;
@@ -90,5 +91,5 @@ public interface GiftPresenter extends Presenter<GiftPresenter.GiftDisplay> {
 
 	}
 
-	public void initEditor(String giftId, String thisAction);
+	public void initEditor(GiftClient client);
 }

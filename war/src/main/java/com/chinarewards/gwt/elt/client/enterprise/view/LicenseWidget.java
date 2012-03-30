@@ -23,11 +23,16 @@ public class LicenseWidget extends Composite implements LicenseDisplay {
 	@UiField
 	Label macaddress;// 网卡地址
 	@UiField
+	Label localmacaddress;// 本地网卡地址
+	@UiField
 	Label notafter;// 截止时间
 	@UiField
 	Label issued;// 授权时间
 	@UiField
 	Label description;// 备注说明
+	@UiField
+	Label staffNumber;// 最大授权用户
+	
 
 	@UiField
 	Panel breadCrumbs;
@@ -49,10 +54,11 @@ public class LicenseWidget extends Composite implements LicenseDisplay {
 		corporationName.setText(licenseVo.getCorporationName());
 		licenseType.setText(licenseVo.getLicenseTypeName());
 		macaddress.setText(licenseVo.getMacaddress());
+		localmacaddress.setText(licenseVo.getLocalmacaddress());
 		notafter.setText(DateTool.dateToString(licenseVo.getNotafter()));
 		issued.setText(DateTool.dateToString(licenseVo.getIssued()));
 		description.setText(licenseVo.getDescription());
-
+		staffNumber.setText(licenseVo.getStaffNumber()+"");
 	}
 
 	@Override

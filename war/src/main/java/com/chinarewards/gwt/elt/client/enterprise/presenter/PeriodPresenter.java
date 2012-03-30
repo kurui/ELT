@@ -1,5 +1,6 @@
 package com.chinarewards.gwt.elt.client.enterprise.presenter;
 
+import com.chinarewards.gwt.elt.client.enterprise.model.EnterpriseClient;
 import com.chinarewards.gwt.elt.client.enterprise.model.EnterpriseVo;
 import com.chinarewards.gwt.elt.client.mvp.Display;
 import com.chinarewards.gwt.elt.client.mvp.Presenter;
@@ -31,5 +32,9 @@ public interface PeriodPresenter extends
 		public void setSaveVisible(boolean flag);
 
 	}
+
+
+	public void initEditor(EnterpriseClient client);
+
 
 }

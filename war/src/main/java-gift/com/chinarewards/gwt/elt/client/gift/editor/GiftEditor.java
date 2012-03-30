@@ -47,8 +47,7 @@ public class GiftEditor extends AbstractEditor {
 	public void setModel(Object model) {
 		this.model = model;
 		GiftClient giftClient = (GiftClient) model;
-		giftPresenter
-				.initEditor(giftClient.getId(), giftClient.getThisAction());
+		giftPresenter.initEditor(giftClient);
 		giftPresenter.bind();
 	}
 }

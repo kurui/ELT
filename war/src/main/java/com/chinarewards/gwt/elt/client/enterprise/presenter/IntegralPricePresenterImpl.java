@@ -51,7 +51,8 @@ public class IntegralPricePresenterImpl extends
 
 	@Override
 	public void bind() {
-		breadCrumbs.loadChildPage("积分价值设置");
+//		breadCrumbs.loadChildPage("积分价值设置");
+		breadCrumbs.loadListPage();
 		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
 
 		initialization();

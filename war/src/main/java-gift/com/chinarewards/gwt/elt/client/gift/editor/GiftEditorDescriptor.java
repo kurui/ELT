@@ -32,7 +32,7 @@ public class GiftEditorDescriptor implements EditorDescriptor {
 	public Editor createEditor(String instanceId, Object model) {
 		GiftEditor e = editProvider.get();
 		e.setInstanceId(instanceId);
-		e.setTitle("新建礼品");
+//		e.setTitle("礼品");
 		if (model instanceof RewardsPageClient) {
 			if (model != null)
 				e.setTitle(((RewardsPageClient) model).getTitleName());

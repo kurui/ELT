@@ -10,6 +10,7 @@ import com.chinarewards.gwt.elt.client.core.Plugin;
 import com.chinarewards.gwt.elt.client.core.PluginDescriptor;
 import com.chinarewards.gwt.elt.client.core.ui.MenuItem;
 import com.chinarewards.gwt.elt.client.enterprise.editor.PeriodEditorDescriptor;
+import com.chinarewards.gwt.elt.client.enterprise.model.EnterpriseClient;
 import com.chinarewards.gwt.elt.client.plugin.MenuConstants;
 import com.chinarewards.gwt.elt.client.plugin.PluginConstants;
 import com.google.gwt.user.client.ui.Image;
@@ -33,11 +34,14 @@ public class PeriodPluginDescriptor implements PluginDescriptor {
 			public Object getInstance() {
 				return new MenuItem() {
 					public void execute() {
+						EnterpriseClient client =new EnterpriseClient();
+//						client.setThisAction(thisAction)
+						client.setFromMenu(true);
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(
 										EnterpriseConstants.EDITOR_PERIOD_EDIT,
-										"PeriodInstanceID", null);
+										"PeriodInstanceID", client);
 					}
 
 					public Image getIcon() {

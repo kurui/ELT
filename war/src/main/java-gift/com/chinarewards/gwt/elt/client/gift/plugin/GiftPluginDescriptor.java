@@ -66,18 +66,20 @@ public class GiftPluginDescriptor implements PluginDescriptor {
 
 					@Override
 					public String getTitle() {
-						return "新建礼品";
+						return "增加新礼品";
 					}
 
 					@Override
 					public void execute() {
-						GiftClient giftClient = new GiftClient();
-						giftClient.setThisAction(GiftConstants.ACTION_GIFT_ADD);
+						GiftClient client = new GiftClient();
+						client.setThisAction(GiftConstants.ACTION_GIFT_ADD);
+						client.setFromMenu(true);
+						
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(GiftConstants.EDITOR_GIFT_EDIT,
 										GiftConstants.ACTION_GIFT_ADD,
-										giftClient);
+										client);
 					}
 
 					@Override

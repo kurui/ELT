@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.chinarewards.elt.model.vo.LicenseBo;
+import com.chinarewards.elt.util.MachineUtil;
 import com.chinarewards.elt.util.StringUtil;
 import com.chinarewards.elt.util.XmlUtil_dom4j;
 import com.google.inject.Inject;
@@ -36,7 +37,7 @@ public class LicenseLogicImpl implements LicenseLogic {
 			final String PUBSTORE_SUBJECT = "publiccert"; //
 
 			// /F:/project/elt/core/target/classes/com/chinarewards/elt/service/license/
-			final String KEYSTORE_RESOURCE = "publicCerts.store"; //
+			final String KEYSTORE_RESOURCE = "publicCerts"; //
 
 			// F:/project/elt/core/target/classes/
 			// final String KEYSTORE_RESOURCE = "/publicCerts.store"; //
@@ -94,7 +95,7 @@ public class LicenseLogicImpl implements LicenseLogic {
 					String licenseType=XmlUtil_dom4j.getTextByNode(doc,"//root/license-type");
 					String macaddress=XmlUtil_dom4j.getTextByNode(doc,"//root/macaddress");
 					String description=XmlUtil_dom4j.getTextByNode(doc,"//root/description");
-					
+					String staffNumber=XmlUtil_dom4j.getTextByNode(doc,"//root/staffNumber");							
 					
 					licenseBo.setLicenseId(licenseId);
 					licenseBo.setCorporationId(corporationId);
@@ -102,9 +103,17 @@ public class LicenseLogicImpl implements LicenseLogic {
 					licenseBo.setLicenseType(licenseType);
 					licenseBo.setMacaddress(macaddress);
 					licenseBo.setDescription(description);
+					if (!StringUtil.isEmptyString(staffNumber)) {
+						int staffNumberValue=Integer.valueOf(staffNumber);
+						licenseBo.setStaffNumber(staffNumberValue);
+					}
+					
 				}
 			}
 		}
+		
+	   String localMACAddress=	MachineUtil.getMACAddress();
+	   licenseBo.setLocalMACAddress(localMACAddress);
 		
 		return licenseBo;
 	}
