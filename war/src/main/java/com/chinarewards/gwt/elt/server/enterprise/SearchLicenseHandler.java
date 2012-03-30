@@ -65,6 +65,7 @@ public class SearchLicenseHandler extends
 		licenseVo.setNotafter(licenseBo.getNotafter());
 		licenseVo.setIssued(licenseBo.getIssued());
 		licenseVo.setDescription(licenseBo.getDescription());
+		licenseVo.setStaffNumber(licenseBo.getStaffNumber());
 		
 		return licenseVo;
 	}

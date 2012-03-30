@@ -71,6 +71,15 @@ public class LicenseLogicImpl implements LicenseLogic {
 		} catch (Exception e) {
 			e.printStackTrace();
 			content = null;
+			
+//			String msg=e.getCause().getMessage();
+//			if("License Certificate has expired!".equals(msg)){
+//				licenseBo=new LicenseBo();
+//				licenseBo.setErrorCode("FAILED");
+//				licenseBo.setErrorInfo("授权过期");
+//				return licenseBo;
+//			}
+			
 		}
 
 		licenseBo=adapter(content);
@@ -115,14 +124,14 @@ public class LicenseLogicImpl implements LicenseLogic {
 	   String localMACAddress=	MachineUtil.getMACAddress();
 	   licenseBo.setLocalMACAddress(localMACAddress);
 	   
-	   if (!StringUtil.isEmptyString(licenseBo.getMacaddress())) {
-		
-		   if (localMACAddress.equals(licenseBo.getMacaddress())==false) {
-			
-		}
-	}
+//	   if (!StringUtil.isEmptyString(licenseBo.getMacaddress())) {
+//		
+//		   if (localMACAddress.equals(licenseBo.getMacaddress())==false) {
+//			
+//		}
+//	   }
 	   
-		
+		licenseBo.setErrorCode("SUCESS");
 		return licenseBo;
 	}
 

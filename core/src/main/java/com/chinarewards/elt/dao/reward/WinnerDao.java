@@ -271,6 +271,65 @@ public class WinnerDao extends BaseDao<Winner> {
 		return query;
 	}
 	
+	//公司所有获奖的奖项 Staff控件调用
+	@SuppressWarnings("unchecked")
+	public List<Winner> queryCurrentCompanyWinRewardItemData(RewardItemSearchVo searchVo) {
+		return getCurrentCompanyItemQuery(searchVo, SEARCH).getResultList();
+	}
+
+	public int searchCurrentCompanyWinRewardItemsCount(RewardItemSearchVo searchVo) {
+		return Integer.parseInt(getCurrentCompanyItemQuery(searchVo, COUNT)
+				.getSingleResult().toString());
+	}
+
+	private Query getCurrentCompanyItemQuery(RewardItemSearchVo searchVo, String type) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		StringBuffer hql = new StringBuffer();
+		if (SEARCH.equals(type)) {
+			hql.append(" SELECT win FROM Winner win WHERE 1=1 ");
+		} else if (COUNT.equals(type)) {
+			hql.append(" SELECT COUNT(win) FROM Winner win WHERE 1=1 ");
+		}
+		
+//		if (!StringUtil.isEmptyString(searchVo.getStaffId())) {
+//			hql.append(" AND win.staff.id = :staffId ");
+//			param.put("staffId", searchVo.getStaffId());
+//		}			
+		
+		// ORDER BY
+		if (SEARCH.equals(type)) {
+			if (searchVo.getSortingDetail() != null && searchVo.getSortingDetail().getSort()!=null && searchVo.getSortingDetail().getDirection()!=null) {
+				hql.append(" ORDER BY win."
+						+ searchVo.getSortingDetail().getSort() + " "
+						+ searchVo.getSortingDetail().getDirection());
+			} else {
+				hql.append(" ORDER BY win.winTime DESC ");
+			}
+		}
+		
+		logger.debug(" HQL:{} ", hql);
+		Query query = getEm().createQuery(hql.toString());
+		if (SEARCH.equals(type)) {
+			if (searchVo.getPaginationDetail() != null) {
+				int limit = searchVo.getPaginationDetail().getLimit();
+				int start = searchVo.getPaginationDetail().getStart();
+
+				logger.debug("pagination - start{}, limit:{}", new Object[] {
+						start, limit });
+
+				query.setMaxResults(limit);
+				query.setFirstResult(start);
+			}
+		}
+		if (param.size() > 0) {
+			Set<String> key = param.keySet();
+			for (String s : key) {
+				query.setParameter(s, param.get(s));
+			}
+		}
+		return query;
+	}
+	
 	public PageStore<WinerRewardItemVo> searchRewardItem_staff(RewardItemSearchVo criteria) {
 		PageStore<WinerRewardItemVo> res = new PageStore<WinerRewardItemVo>();
 		List<Winner> list = queryCurrentStaffWinRewardItemData(criteria);

@@ -102,4 +102,13 @@ public interface RewardGridLogic {
 	public PageStore<RewardGridVo> fetchRewardsItem_COMPANY_OTHER(UserContext context,
 			RewardGridSearchVo criteria);
 
+	/**
+	 * 公司已颁发奖项栏目
+	 * @param context
+	 * @param criteria
+	 * @return
+	 */
+	public PageStore<RewardGridVo> fetchRewardsItem_COMPANY_GETED(UserContext context,
+			RewardGridSearchVo criteria);
+
 }

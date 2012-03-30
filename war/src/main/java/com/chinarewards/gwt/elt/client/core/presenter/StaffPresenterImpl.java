@@ -607,7 +607,9 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 	
 	private void loadRewardALLPanel(){
 		RewardsGridCriteria criteria = new RewardsGridCriteria();
-		criteria.setThisAction("Rewards_ALL");
+//		criteria.setThisAction("Rewards_ALL");
+		criteria.setThisAction("RewardsItem_COMPANY_GETED");
+		
 		criteria.setStaffId(null);
 		display.getRewardWidgetAction().setValue(criteria.getThisAction());
 		dispatchAsync.execute(new SearchRewardsGridRequest(criteria,sessionManager
@@ -635,7 +637,7 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 									grid.setWidget(
 											row,
 											col,
-											new SmallRewardWindowWidget(client.getRewardsId(),client.getRewardsName(),"Rewards_ALL"));
+											new SmallRewardWindowWidget(client.getRewardsItemId(),client.getRewardsItemName(),"Rewards_ALL"));
 									index++;
 								} else {
 									break;

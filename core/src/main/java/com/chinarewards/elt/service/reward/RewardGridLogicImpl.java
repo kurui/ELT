@@ -1,7 +1,11 @@
 package com.chinarewards.elt.service.reward;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import com.chinarewards.elt.dao.reward.CandidateDao;
 import com.chinarewards.elt.dao.reward.PreWinnerDao;
@@ -17,6 +21,7 @@ import com.chinarewards.elt.domain.reward.person.PreWinnerLot;
 import com.chinarewards.elt.domain.reward.person.Winner;
 import com.chinarewards.elt.domain.reward.rule.CandidateRule;
 import com.chinarewards.elt.model.common.PageStore;
+import com.chinarewards.elt.model.common.PaginationDetail;
 import com.chinarewards.elt.model.reward.base.RewardStatus;
 import com.chinarewards.elt.model.reward.search.RewardGridSearchVo;
 import com.chinarewards.elt.model.reward.search.RewardItemSearchVo;
@@ -112,6 +117,95 @@ public class RewardGridLogicImpl implements RewardGridLogic {
 
 		pageStore.setResultList(convertToGridVoListFromWinner(winnerlist));
 		pageStore.setResultCount(resultCount);
+
+		return pageStore;
+	}
+	
+	@Override
+	public PageStore<RewardGridVo> fetchRewardsItem_COMPANY_GETED(
+			UserContext context, RewardGridSearchVo criteria) {
+		PageStore<RewardGridVo> pageStore = new PageStore<RewardGridVo>();
+
+		RewardItemSearchVo rewardItemSearchVo = new RewardItemSearchVo();
+		PaginationDetail pagination = new PaginationDetail();
+		pagination.setStart(0);
+		pagination.setLimit(50);
+		rewardItemSearchVo.setPaginationDetail(pagination);
+		List<Winner> list = winnerDao.queryCurrentCompanyWinRewardItemData(rewardItemSearchVo);
+
+		List<RewardGridVo> rewardGridVoList = new ArrayList<RewardGridVo>();
+		
+
+		Map<String,RewardGridVo> map=(Map<String, RewardGridVo>) new HashMap();
+		
+		for (int i = 0; i < list.size(); i++) {
+			Winner winner = list.get(i);
+			if (winner != null) {
+
+				RewardGridVo rewardGridVo = new RewardGridVo();
+				Reward reward = winner.getReward();
+				rewardGridVo.setReward(reward);
+				RewardItem rewardItem = reward.getRewardItem();
+				rewardGridVo.setRewardItem(rewardItem);
+				rewardGridVo.setRewardItemId(rewardItem.getId());
+				rewardGridVo.setRewardItemName(rewardItem.getName());
+				
+				map.put(rewardItem.getId(),rewardGridVo);
+			}
+		}
+		
+	    Iterator it = map.entrySet().iterator();
+	       while (it.hasNext()) {
+	    	   Entry entry = (Entry) it.next();
+
+	    	   rewardGridVoList.add((RewardGridVo) entry.getValue());
+	       }
+		
+		
+		
+//		for (int i = 0; i < list.size(); i++) {
+//			Winner winner = list.get(i);
+//			if (winner != null) {
+//
+//				RewardGridVo rewardGridVo = new RewardGridVo();
+//				Reward reward = winner.getReward();
+//				rewardGridVo.setReward(reward);
+//				rewardGridVo.setRewardId(reward.getId());
+//				rewardGridVo.setRewardName(reward.getName());
+//				rewardGridVo.setRewardsDate(reward.getAwardDate());
+//				rewardGridVo.setAwardAmt(reward.getAwardAmt());
+//				rewardGridVo.setAwardName(reward.getCreatedBy().getStaff()
+//						.getName());// 颁奖人
+
+//				// 提名人
+//				List<NomineeLot> nomineeLots = nomineeLogic
+//						.getNomineeLotsFromReward(reward.getId());
+//				rewardGridVo.setNomineeLotList(nomineeLots);
+////
+//				RewardItem rewardItem = reward.getRewardItem();
+//				rewardGridVo.setRewardItem(rewardItem);
+//				rewardGridVo.setRewardItemId(rewardItem.getId());
+//				rewardGridVo.setRewardItemName(rewardItem.getName());
+//				rewardGridVo.setRewardsItemCreateBy(rewardItem.getCreatedBy()
+//						.getStaff().getName());// 奖项创建人
+//
+//				Staff staff = winner.getStaff();
+//				if (staff != null) {
+//					Candidate candiate = candidateDao
+//							.findCandidateByStaffRewardId(reward.getId(),
+//									staff.getId());
+//					if (candiate != null) {
+//						int nominateCount = candiate.getNominatecount();
+//						rewardGridVo.setNominateCount(nominateCount);
+//					}
+//				}
+//				rewardGridVoList.add(rewardGridVo);
+//			}
+//
+//		}
+//
+		pageStore.setResultList(rewardGridVoList);
+		pageStore.setResultCount(rewardGridVoList.size());
 
 		return pageStore;
 	}
