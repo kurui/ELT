@@ -42,7 +42,22 @@
 						<g:Label ui:field="macaddress" styleName="{new2.lineLabel}"></g:Label>
 					</div>
 				</div>
-
+				<div class="{new2.form-line}">
+					<label class="{new2.label}">
+						当前使用网卡：
+					</label>
+					<div class="{new2.element}">
+						<g:Label ui:field="localmacaddress" styleName="{new2.lineLabel}"></g:Label>
+					</div>
+				</div>
+				<div class="{new2.form-line}">
+					<label class="{new2.label}">
+						最大授权用户数：
+					</label>
+					<div class="{new2.element}">
+						<g:Label ui:field="staffNumber" styleName="{new2.lineLabel}"></g:Label>
+					</div>
+				</div>
 				<div class="{new2.form-line}">
 					<label class="{new2.label}">
 						截止时间：

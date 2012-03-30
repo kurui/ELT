@@ -21,7 +21,9 @@ public class LicenseVo implements Serializable {
 	
 	private Date issued;//授权时间
 	private String description;// 备注说明
-	
+	private int staffNumber;//授权最大用户数
+	//============
+	private String localmacaddress;//本地当前网卡
 	
 	public String getLicenseTypeName(){
 		String name="";
@@ -35,6 +37,31 @@ public class LicenseVo implements Serializable {
 		return name;
 	}
 	
+	
+
+	public int getStaffNumber() {
+		return staffNumber;
+	}
+
+
+
+	public void setStaffNumber(int staffNumber) {
+		this.staffNumber = staffNumber;
+	}
+
+
+
+	public String getLocalmacaddress() {
+		return localmacaddress;
+	}
+
+
+
+	public void setLocalmacaddress(String localmacaddress) {
+		this.localmacaddress = localmacaddress;
+	}
+
+
 
 	public String getCorporationId() {
 		return corporationId;

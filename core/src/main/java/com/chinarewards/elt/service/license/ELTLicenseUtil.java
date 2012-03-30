@@ -112,7 +112,7 @@ public class ELTLicenseUtil {
 
 			realPath=realPath.replace("file:/", "");
 
-			realPath = realPath + "cert"+  File.separator;
+			realPath = realPath + "license"+  File.separator;
 			
 			System.out.println("realPath:"+realPath);
 		}
