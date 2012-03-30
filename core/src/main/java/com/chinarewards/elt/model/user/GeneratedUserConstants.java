@@ -7,19 +7,21 @@ package com.chinarewards.elt.model.user;
  * @author nicho	
  * @since 2012年2月15日 17:38:10
  */
-public enum  GeneratedUserConstants {
+public class GeneratedUserConstants {
 
+	private String displayName;
 
-	Success("成功"), Failure("失败"),UsernamePresence("用户存在"),UsernameRepeat("用户名重复");
-
-	private GeneratedUserConstants(String displayName) {
+	public GeneratedUserConstants() {
+	}
+	public GeneratedUserConstants(String displayName) {
 		this.displayName = displayName;
 	}
 
-	String displayName;
-
 	public String getDisplayName() {
 		return this.displayName;
+	}
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
 	}
 	
 }
