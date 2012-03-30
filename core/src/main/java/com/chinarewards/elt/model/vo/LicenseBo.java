@@ -25,8 +25,26 @@ public class LicenseBo implements Serializable {
 	private String description;// 备注说明
 
 	// ================
+	private String errorCode;//SUCESS FAILED
+	private String errorInfo;//...
 	private String localMACAddress;// 本地MAC
 
+
+	public String getErrorCode() {
+		return errorCode;
+	}
+
+	public void setErrorCode(String errorCode) {
+		this.errorCode = errorCode;
+	}
+
+	public String getErrorInfo() {
+		return errorInfo;
+	}
+
+	public void setErrorInfo(String errorInfo) {
+		this.errorInfo = errorInfo;
+	}
 
 	public String getLocalMACAddress() {
 		return localMACAddress;
