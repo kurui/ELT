@@ -64,11 +64,15 @@ public class StaffAddActionHandler extends
 		} catch (Exception e) {
 			throw new ClientException("获取License异常,请联系管理员!");
 		}
+
 		if(licensebo==null)
 		{
 			throw new ClientException("获取License为空,请联系管理员!");
 		}
-		
+		if("FAILED".equals(licensebo))
+		{
+			throw new ClientException(licensebo.getErrorInfo()+",请联系管理员!");
+		}
 		if(licensebo.getNotafter().getTime()<=new Date().getTime())
 		{
 			throw new ClientException("软件License已过期!请重新申请!");

@@ -89,17 +89,24 @@ public class LoginServiceImpl extends RemoteServiceServlet implements
 			context.setCorporationId(u.getCorporationId());
 
 			LicenseBo licensebo=null;
-		
+			try {
 				 licensebo=licenseService.queryLicenseContent();
 //				licensebo=new LicenseBo();
 //				Calendar calendar = Calendar.getInstance();
 //				calendar.set(Calendar.MARCH, calendar.get(Calendar.MARCH)+1);
 //				licensebo.setNotafter(calendar.getTime());
-//				licensebo.setStaffNumber(10);
+//				 licensebo.setStaffNumber(10);
+			} catch (Exception e) {
+				throw new ClientException("获取License异常,请联系管理员!");
+			}
 		
 			if(licensebo==null)
 			{
 				throw new ClientException("获取License为空,请联系管理员!");
+			}
+			if("FAILED".equals(licensebo))
+			{
+				throw new ClientException(licensebo.getErrorInfo()+",请联系管理员!");
 			}
 			if(licensebo.getNotafter().getTime()<=new Date().getTime())
 			{
