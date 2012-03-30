@@ -40,9 +40,10 @@ public class LoginServiceImpl extends RemoteServiceServlet implements
 	protected static final String CODE_SESSION_KEY = com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY;
 
 	@Inject
-	public LoginServiceImpl(UserService userService,IStaffService staffService) {
+	public LoginServiceImpl(UserService userService,IStaffService staffService,LicenseService licenseService) {
 		this.userService = userService;
 		this.staffService=staffService;
+		this.licenseService=licenseService;
 	}
 	public LoginServiceImpl() {
 		
@@ -88,16 +89,14 @@ public class LoginServiceImpl extends RemoteServiceServlet implements
 			context.setCorporationId(u.getCorporationId());
 
 			LicenseBo licensebo=null;
-			try {
+		
 				 licensebo=licenseService.queryLicenseContent();
 //				licensebo=new LicenseBo();
 //				Calendar calendar = Calendar.getInstance();
 //				calendar.set(Calendar.MARCH, calendar.get(Calendar.MARCH)+1);
 //				licensebo.setNotafter(calendar.getTime());
 //				licensebo.setStaffNumber(10);
-			} catch (Exception e) {
-				throw new ClientException("获取License异常,请联系管理员!");
-			}
+		
 			if(licensebo==null)
 			{
 				throw new ClientException("获取License为空,请联系管理员!");
