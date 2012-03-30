@@ -6,10 +6,10 @@ import java.util.List;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
-import com.chinarewards.gwt.elt.client.enterprise.model.EnterpriseVo;
+import com.chinarewards.gwt.elt.client.enterprise.model.LicenseVo;
 import com.chinarewards.gwt.elt.client.enterprise.presenter.LicensePresenter.LicenseDisplay;
-import com.chinarewards.gwt.elt.client.enterprise.request.EnterpriseInitRequest;
-import com.chinarewards.gwt.elt.client.enterprise.request.EnterpriseInitResponse;
+import com.chinarewards.gwt.elt.client.enterprise.request.SearchLicenseRequest;
+import com.chinarewards.gwt.elt.client.enterprise.request.SearchLicenseResponse;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
@@ -44,36 +44,32 @@ public class LicensePresenterImpl extends BasePresenter<LicenseDisplay>
 
 	@Override
 	public void bind() {
-		breadCrumbs.loadChildPage("授权信息");
+		breadCrumbs.loadChildPage("查看授权信息");
 		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
 
-		initialization();
+		initWidget();
 
 	}
-
-
 
 	/**
 	 * 加载初始化数据
 	 */
-	private void initialization() {
-		String corporationId = sessionManager.getSession().getCorporationId();
+	private void initWidget() {
 
 		dispatcher.execute(
-				new EnterpriseInitRequest(sessionManager.getSession()),
-				new AsyncCallback<EnterpriseInitResponse>() {
+				new SearchLicenseRequest(sessionManager.getSession()),
+				new AsyncCallback<SearchLicenseResponse>() {
 					public void onFailure(Throwable caught) {
 
 						win.alert("初始化失败");
 					}
 
 					@Override
-					public void onSuccess(EnterpriseInitResponse response) {
+					public void onSuccess(SearchLicenseResponse response) {
 						if (response != null) {
-							EnterpriseVo enterpriseVo = response
-									.getEnterprise();
+							LicenseVo licenseVo = response.getLicenseVo();
 							clear();
-							display.initEditLicense(enterpriseVo);
+							display.initEditLicense(licenseVo);
 						}
 					}
 				});

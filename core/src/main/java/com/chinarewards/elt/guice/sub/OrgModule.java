@@ -8,6 +8,10 @@ import com.chinarewards.elt.dao.org.DepartmentDao;
 import com.chinarewards.elt.dao.org.DepartmentManagerDao;
 import com.chinarewards.elt.dao.org.IndustryDao;
 import com.chinarewards.elt.dao.org.OrganizationDao;
+import com.chinarewards.elt.service.license.LicenseLogic;
+import com.chinarewards.elt.service.license.LicenseLogicImpl;
+import com.chinarewards.elt.service.license.LicenseService;
+import com.chinarewards.elt.service.license.LicenseServiceImpl;
 import com.chinarewards.elt.service.org.CorporationLogic;
 import com.chinarewards.elt.service.org.CorporationService;
 import com.chinarewards.elt.service.org.DepartmentLogic;
@@ -71,6 +75,9 @@ public class OrgModule extends AbstractModule {
 		bind(OrganizationProcessor.class).annotatedWith(Names.named("CorporationProcessor")).to(CorporationProcessor.class);
 		bind(OrganizationProcessor.class).annotatedWith(Names.named("TeamProcessor")).to(TeamProcessor.class);
 		bind(DepartmentManagerLogic.class).to(DepartmentManagerLogicImpl.class).in(Singleton.class);
+		
+		bind(LicenseLogic.class).to(LicenseLogicImpl.class).in(Singleton.class);
+		bind(LicenseService.class).to(LicenseServiceImpl.class).in(Singleton.class);
 		
 	
 	}

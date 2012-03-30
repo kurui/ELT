@@ -32,6 +32,7 @@ public class IntegralPriceWidget extends Composite implements
 
 	@UiField
 	Button saveButton;
+	
 	@UiField
 	Hidden enterpriseId;
 
@@ -130,4 +131,5 @@ public class IntegralPriceWidget extends Composite implements
 	public Label getMoneyTypeLabel() {
 		return moneyTypeLabel;
 	}
+	
 }

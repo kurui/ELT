@@ -1,7 +1,8 @@
 package com.chinarewards.gwt.elt.client.enterprise.request;
 
 import net.customware.gwt.dispatch.shared.Result;
-import de.schlichtherle.license.LicenseContent;
+
+import com.chinarewards.gwt.elt.client.enterprise.model.LicenseVo;
 
 /**
  * Models the response after user process request.
@@ -10,23 +11,23 @@ import de.schlichtherle.license.LicenseContent;
  */
 public class SearchLicenseResponse implements Result {
 
-	private LicenseContent licenseContent;
+	private LicenseVo licenseVo;
 
 
 	public SearchLicenseResponse() {
 
 	}
 
-	public SearchLicenseResponse(LicenseContent licenseContent) {
-		this.licenseContent=licenseContent;
+	public SearchLicenseResponse(LicenseVo licenseVo) {
+		this.licenseVo=licenseVo;
 	}
 
-	public LicenseContent getLicenseContent() {
-		return licenseContent;
+	public LicenseVo getLicenseVo() {
+		return licenseVo;
 	}
 
-	public void setLicenseContent(LicenseContent licenseContent) {
-		this.licenseContent = licenseContent;
+	public void setLicenseVo(LicenseVo licenseVo) {
+		this.licenseVo = licenseVo;
 	}
 
 

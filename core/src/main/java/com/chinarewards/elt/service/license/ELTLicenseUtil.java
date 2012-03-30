@@ -35,7 +35,7 @@ public class ELTLicenseUtil {
 	// ELTLicenseClient.class.getResourceAsStream(arg0)
 
 	/** The password for the keystore. */
-	public static final String KEYSTORE_STORE_PWD = "store123"; // CUSTOMIZE
+	public static final String KEYSTORE_STORE_PWD = "publicstore123"; // CUSTOMIZE
 																// 公匙库密码
 
 	/** The password to encrypt the generated license key file. */
@@ -58,7 +58,7 @@ public class ELTLicenseUtil {
 	public static final void main(String args[]) {
 		try {
 			String licensePath = getCertPath()+ "license.lic";
-			licensePath = getCertPath()+ "license201203271710188146.lic";			
+			licensePath = getCertPath()+ "license201203301001193147.lic";			
 			
 			manager.install(new java.io.File(licensePath));
 			LicenseContent content = manager.verify();
@@ -84,8 +84,17 @@ public class ELTLicenseUtil {
 
 		if (!StringUtil.isEmptyString(realPath)) {
 			int rootIndex = realPath.indexOf("jboss-5.1.0.GA");
-			if (rootIndex < 0) {
-				rootIndex = realPath.indexOf("core"); 
+			if (rootIndex <0) {
+				rootIndex = realPath.indexOf("elt/war");
+				if (rootIndex>-1) {
+					rootIndex+=4;
+				}
+			}
+			if (rootIndex <0) {
+				rootIndex = realPath.indexOf("elt/core");
+				if (rootIndex>-1) {
+					rootIndex+=4;
+				}
 			}
 
 			if (rootIndex < 0) {
@@ -94,17 +103,22 @@ public class ELTLicenseUtil {
 				realPath = realPath.substring(0, rootIndex);
 			}
 
+			System.out.println(realPath);
+			
 			int firstIndex = realPath.indexOf("/");
 			if (firstIndex == 0) {
 				realPath = realPath.substring(1, realPath.length());
 			}
 
-			
+			realPath=realPath.replace("file:/", "");
 
 			realPath = realPath + "cert"+  File.separator;
 			
 			System.out.println("realPath:"+realPath);
 		}
+		
+//		realPath="F:/project/elt/cert/"; 
+		
 		return realPath;
 	}
 

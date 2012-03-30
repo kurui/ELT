@@ -20,17 +20,51 @@
 			<div class="{new2.form}">
 				<div class="{new2.form-line}">
 					<label class="{new2.label}">
-						1积分=
+						企业名称：
 					</label>
 					<div class="{new2.element}">
-						<g:TextBox maxLength="30" ui:field="integralPrice"
-							styleName="{new2.text}" />
-						<g:ListBox ui:field="moneyType" styleName="{new2.text}" />
-				
-						<g:Label ui:field="integralPriceLabel" styleName="{new2.lineLabel}"></g:Label>
-						<g:Label styleName="nbsp"></g:Label>
-						<g:Label ui:field="moneyTypeLabel"  styleName="{new2.lineLabel}"></g:Label>
-						
+						<g:Label ui:field="corporationName" styleName="{new2.lineLabel}"></g:Label>
+					</div>
+				</div>
+				<div class="{new2.form-line}">
+					<label class="{new2.label}">
+						授权类型：
+					</label>
+					<div class="{new2.element}">
+						<g:Label ui:field="licenseType" styleName="{new2.lineLabel}"></g:Label>
+					</div>
+				</div>
+				<div class="{new2.form-line}">
+					<label class="{new2.label}">
+						网卡：
+					</label>
+					<div class="{new2.element}">
+						<g:Label ui:field="macaddress" styleName="{new2.lineLabel}"></g:Label>
+					</div>
+				</div>
+
+				<div class="{new2.form-line}">
+					<label class="{new2.label}">
+						截止时间：
+					</label>
+					<div class="{new2.element}">
+						<g:Label ui:field="notafter" styleName="{new2.lineLabel}"></g:Label>
+					</div>
+				</div>
+				<div class="{new2.form-line}">
+					<label class="{new2.label}">
+						颁发授权时间：
+					</label>
+					<div class="{new2.element}">
+						<g:Label ui:field="issued" styleName="{new2.lineLabel}"></g:Label>
+					</div>
+				</div>
+				<div class="{new2.form-line}">
+					<label class="{new2.label}">
+						备注说明：
+					</label>
+					<div class="{new2.element}">
+						<g:Label ui:field="description" styleName="{new2.lineLabel}"></g:Label>
 					</div>
 				</div>
 				<span class="{new2.cutline}"></span>

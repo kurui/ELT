@@ -1,9 +1,8 @@
 package com.chinarewards.elt.service.license;
 
+import com.chinarewards.elt.model.vo.LicenseBo;
 import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
-
-import de.schlichtherle.license.LicenseContent;
 
 @Transactional
 public class LicenseServiceImpl implements LicenseService {
@@ -16,7 +15,7 @@ public class LicenseServiceImpl implements LicenseService {
 	}
 
 	@Override
-	public LicenseContent queryLicenseContent() {
+	public LicenseBo queryLicenseContent() {
 		return licenseLogic.queryLicenseContent();
 	}
 

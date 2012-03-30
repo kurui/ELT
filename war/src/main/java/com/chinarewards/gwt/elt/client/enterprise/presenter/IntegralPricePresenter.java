@@ -31,7 +31,8 @@ public interface IntegralPricePresenter extends
 		public void clear();
 
 		public void setSaveVisible(boolean flag);
-
+       
+	
 		/**
 		 * @return
 		 */

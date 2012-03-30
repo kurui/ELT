@@ -57,8 +57,7 @@ public class CorpBudgetWidget extends Composite implements CorpBudgetDisplay {
 	@UiField
 	Button periodBtn;
 
-	@UiField
-	Button back;
+	
 	@UiField
 	Panel breadCrumbs;
 
@@ -141,10 +140,7 @@ public class CorpBudgetWidget extends Composite implements CorpBudgetDisplay {
 		return save;
 	}
 
-	@Override
-	public HasClickHandlers getBackClick() {
-		return back;
-	}
+
 
 	@Override
 	public ListBox getMoneyType() {

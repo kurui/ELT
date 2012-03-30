@@ -35,6 +35,7 @@ public class EnterpriseVo implements Serializable {
 	private  String moneyType;//企业所用货币类型
 	private  String  mailpwd;//发企业邮件的发送密码
     private  String  smtp;  //发邮件所用的smtp协议
+    
 	public String getMailpwd() {
 		return mailpwd;
 	}

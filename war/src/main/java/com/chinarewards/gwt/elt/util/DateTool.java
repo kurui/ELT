@@ -269,5 +269,7 @@ public abstract class DateTool {
 		Date tempEndDate = DateTool.addSomeMonth(beginDate, months);
 		return tempEndDate;
 	}
+	
+
 
 }

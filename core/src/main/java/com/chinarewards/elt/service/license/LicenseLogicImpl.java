@@ -2,9 +2,13 @@ package com.chinarewards.elt.service.license;
 
 import java.util.prefs.Preferences;
 
+import org.dom4j.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.chinarewards.elt.model.vo.LicenseBo;
+import com.chinarewards.elt.util.StringUtil;
+import com.chinarewards.elt.util.XmlUtil_dom4j;
 import com.google.inject.Inject;
 
 import de.schlichtherle.license.DefaultCipherParam;
@@ -22,10 +26,10 @@ public class LicenseLogicImpl implements LicenseLogic {
 	}
 
 	@Override
-	public LicenseContent queryLicenseContent() {
+	public LicenseBo queryLicenseContent() {
+		LicenseBo licenseBo=new  LicenseBo();
 		LicenseContent content = null;
 		try {
-			System.out.println(LicenseLogicImpl.class.getResource(""));
 			String licensePath = ELTLicenseUtil.getCertPath();
 
 			final String PRIVATEKEY_SUBJECT = "privatekey"; //
@@ -38,7 +42,7 @@ public class LicenseLogicImpl implements LicenseLogic {
 			// final String KEYSTORE_RESOURCE = "/publicCerts.store"; //
 
 			//
-			final String KEYSTORE_STORE_PWD = "store123"; // CUSTOMIZE
+			final String KEYSTORE_STORE_PWD = "publicstore123"; // CUSTOMIZE
 			final String CIPHER_KEY_PWD = "a8a8a8"; //
 
 			LicenseManager manager = new LicenseManager(
@@ -52,19 +56,57 @@ public class LicenseLogicImpl implements LicenseLogic {
 							new DefaultCipherParam(CIPHER_KEY_PWD)));
 
 			manager.install(new java.io.File(licensePath + "license.lic"));
+//			manager.install(new java.io.File(licensePath + "license201203301001193147.lic"));
+			
 			content = manager.verify();
 
 			String subject = content.getSubject();
 			System.out.println("subject========" + subject);
 			System.out.println(content.getInfo() + "--"
 					+ content.getConsumerType() + "--" + content.getIssued()
-					+ "--" + content.getNotAfter());
+					+ "--" + content.getNotAfter()+"=="+content.getIssuer().getName());
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			content = null;
 		}
 
-		return content;
+		licenseBo=adapter(content);
+		
+		return licenseBo;
+	}
+	
+	public LicenseBo adapter(LicenseContent content){
+		LicenseBo licenseBo=new LicenseBo();
+		
+		if (content!=null) {
+			licenseBo.setNotafter(content.getNotAfter());
+			licenseBo.setIssued(content.getIssued());
+			
+			String contentInfo=content.getInfo();
+			if (!StringUtil.isEmptyString(contentInfo)) {
+				Document doc=XmlUtil_dom4j.readResult(new StringBuffer(contentInfo));
+				if(doc!=null){
+					String licenseId=XmlUtil_dom4j.getTextByNode(doc,"//root/licenseId");
+					String corporationId=XmlUtil_dom4j.getTextByNode(doc,"//root/corporationId");
+					String corporationName=XmlUtil_dom4j.getTextByNode(doc,"//root/corporationName");		
+					String licenseType=XmlUtil_dom4j.getTextByNode(doc,"//root/license-type");
+					String macaddress=XmlUtil_dom4j.getTextByNode(doc,"//root/macaddress");
+					String description=XmlUtil_dom4j.getTextByNode(doc,"//root/description");
+					
+					
+					licenseBo.setLicenseId(licenseId);
+					licenseBo.setCorporationId(corporationId);
+					licenseBo.setCorporationName(corporationName);
+					licenseBo.setLicenseType(licenseType);
+					licenseBo.setMacaddress(macaddress);
+					licenseBo.setDescription(description);
+				}
+			}
+		}
+		
+		return licenseBo;
 	}
 
 	public static void main(String[] args) {
