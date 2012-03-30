@@ -3,6 +3,8 @@
  */
 package com.chinarewards.gwt.elt.util;
 
+import java.io.UnsupportedEncodingException;
+
 /**
  * @author Cream
  * @since 0.2.0 2011-01-07
@@ -216,4 +218,46 @@ public class StringUtil {
 		}
 		return s;
 	}
+    public static String subStr(String str, int num) {  
+        int max = num;  
+        try {  
+            max = trimGBK(str.getBytes("GBK"),num);  
+        } catch (UnsupportedEncodingException e) {  
+            e.printStackTrace();  
+        }    
+        int sum = 0;  
+        if (str != null && str.length() > max) {  
+            StringBuilder sb = new StringBuilder(max);  
+            for (int i = 0; i < str.length(); i++) {  
+                int c = str.charAt(i);  
+//              if ((c & 0xff00) != 0)  
+//                  sum += 2;  
+//              else  
+                    sum += 1;  
+                if (sum <= max)  
+                    sb.append((char) c);  
+                else  
+                    break;  
+            }  
+            return sb.append("...").toString();  
+        } else  
+            return str != null ? str : "";  
+    }  
+      
+    public static int  trimGBK(byte[] buf,int n){    
+        int num = 0;    
+        boolean bChineseFirstHalf = false;  
+        if(buf.length < n )return buf.length;  
+        for(int i=0;i<n;i++)    
+        {    
+            if(buf[i]<0 && !bChineseFirstHalf){    
+                bChineseFirstHalf = true;    
+            }else{    
+                num++;    
+                bChineseFirstHalf = false;                  
+            }    
+        }    
+          
+        return num;    
+    }       
 }
