@@ -91,19 +91,6 @@ public class CorpBudgetPresenterImpl extends
 					}
 				}));
 
-		registerHandler(display.getBackClick().addClickHandler(
-				new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent arg0) {
-						Platform.getInstance()
-								.getEditorRegistry()
-								.openEditor(
-										CorpBudgetConstants.EDITOR_CORPBUDGET_EDIT,
-										CorpBudgetConstants.ACTION_CORPBUDGET_EDIT,
-										instanceId);
-					}
-				}));
-
 	}
 
 	/**
