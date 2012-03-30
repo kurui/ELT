@@ -86,6 +86,7 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 
 						GiftClient client=new GiftClient();
 						client.setThisAction(GiftConstants.ACTION_GIFT_ADD);
+						client.setFromMenu(false);
 
 						Platform.getInstance()
 								.getEditorRegistry()

@@ -13,6 +13,7 @@ import com.chinarewards.gwt.elt.client.budget.request.InitCorpBudgetByCorpIdRequ
 import com.chinarewards.gwt.elt.client.budget.request.InitCorpBudgetByCorpIdResponse;
 import com.chinarewards.gwt.elt.client.budget.util.CorpBudgetAdapterClient;
 import com.chinarewards.gwt.elt.client.core.Platform;
+import com.chinarewards.gwt.elt.client.enterprise.model.EnterpriseClient;
 import com.chinarewards.gwt.elt.client.enterprise.model.EnterpriseVo;
 import com.chinarewards.gwt.elt.client.enterprise.plugin.EnterpriseConstants;
 import com.chinarewards.gwt.elt.client.enterprise.request.EnterpriseInitRequest;
@@ -63,7 +64,8 @@ public class CorpBudgetPresenterImpl extends
 
 	@Override
 	public void bind() {
-		breadCrumbs.loadChildPage("今年财年预算");
+//		breadCrumbs.loadChildPage("今年财年预算");
+		breadCrumbs.loadListPage();
 		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
 
 		registerEvent();
@@ -82,12 +84,15 @@ public class CorpBudgetPresenterImpl extends
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent arg0) {
+						EnterpriseClient client = new EnterpriseClient();
+						client.setFromMenu(false);
+						
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(
 										EnterpriseConstants.EDITOR_PERIOD_EDIT,
 										"EnterpriseConstants.ACTION_PERIOD_EDIT",
-										instanceId);
+										client);
 					}
 				}));
 

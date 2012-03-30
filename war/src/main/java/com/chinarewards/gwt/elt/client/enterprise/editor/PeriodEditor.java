@@ -1,6 +1,7 @@
 package com.chinarewards.gwt.elt.client.enterprise.editor;
 
 import com.chinarewards.gwt.elt.client.core.ui.impl.AbstractEditor;
+import com.chinarewards.gwt.elt.client.enterprise.model.EnterpriseClient;
 import com.chinarewards.gwt.elt.client.enterprise.presenter.PeriodPresenter;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
@@ -37,6 +38,8 @@ public class PeriodEditor extends AbstractEditor {
 
 	public void setModel(Object model) {
 		this.model = model;
+		EnterpriseClient client = (EnterpriseClient) model;
+		enterprisePresenter.initEditor(client);
 		enterprisePresenter.bind();
 	}
 

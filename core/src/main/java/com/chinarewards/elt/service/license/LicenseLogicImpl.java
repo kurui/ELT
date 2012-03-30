@@ -36,7 +36,7 @@ public class LicenseLogicImpl implements LicenseLogic {
 			final String PUBSTORE_SUBJECT = "publiccert"; //
 
 			// /F:/project/elt/core/target/classes/com/chinarewards/elt/service/license/
-			final String KEYSTORE_RESOURCE = "publicCerts.store"; //
+			final String KEYSTORE_RESOURCE = "publicCerts"; //
 
 			// F:/project/elt/core/target/classes/
 			// final String KEYSTORE_RESOURCE = "/publicCerts.store"; //
