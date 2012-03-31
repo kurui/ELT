@@ -17,7 +17,7 @@
             </div>
             <div class="{new2.workmate-comm}">
             <g:Anchor ui:field="quietly" text="悄悄话" />
-            <g:Anchor ui:field="dalliance" text="调戏他" />
+            <g:Anchor ui:field="dalliance" text="调戏TA" />
             <g:Anchor ui:field="email" text="发邮件" />
            
             </div>
