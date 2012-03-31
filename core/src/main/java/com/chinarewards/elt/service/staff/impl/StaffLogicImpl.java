@@ -664,4 +664,25 @@ public class StaffLogicImpl implements StaffLogic {
 	public Integer findNotDeleteStaffNumber(UserContext context) {
 		return staffDao.findNotDeleteStaffsNumberBycorporationId(context.getCorporationId());
 	}
+
+	@Override
+	public String deleteStaff(String staffId, UserContext context) {
+		
+		SysUser nowuser=userDao.findUserById(context.getUserId());
+		Staff staff=staffDao.findById(Staff.class, staffId);
+		staff.setDeleted(1);
+		staff.setLastModifiedAt(new Date());
+		staff.setLastModifiedBy(nowuser);
+	
+		staffDao.update(staff);
+		SysUser user=userDao.findUserByStaffId(staff.getId());	
+		if(user!=null)
+		{
+			user.setStatus(UserStatus.Inactive);
+			user.setLastModifiedAt(new Date());
+			user.setLastModifiedBy(nowuser);
+			userDao.update(user);
+		}
+		return "success";
+	}
 }

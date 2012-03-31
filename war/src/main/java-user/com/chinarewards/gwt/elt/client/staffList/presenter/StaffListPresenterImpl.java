@@ -25,6 +25,8 @@ import com.chinarewards.gwt.elt.client.staffList.dialog.StaffListPrintDialog;
 import com.chinarewards.gwt.elt.client.staffList.model.StaffListClient;
 import com.chinarewards.gwt.elt.client.staffList.model.StaffListCriteria;
 import com.chinarewards.gwt.elt.client.staffList.model.StaffListCriteria.StaffStatus;
+import com.chinarewards.gwt.elt.client.staffList.request.DeleteStaffRequest;
+import com.chinarewards.gwt.elt.client.staffList.request.DeleteStaffResponse;
 import com.chinarewards.gwt.elt.client.staffList.request.StaffGenerateUserRequest;
 import com.chinarewards.gwt.elt.client.staffList.request.StaffGenerateUserResponse;
 import com.chinarewards.gwt.elt.client.staffList.request.UpdateUserPwdRequest;
@@ -444,6 +446,45 @@ public class StaffListPresenterImpl extends
 								
 							}
 						});
+					}
+
+				});
+		cellTable.addColumn("操作", new HyperLinkCell(),
+				new GetValue<StaffListClient, String>() {
+					@Override
+					public String getValue(StaffListClient rewards) {
+						return "删除";
+					}
+				}, new FieldUpdater<StaffListClient, String>() {
+
+					@Override
+					public void update(int index, final StaffListClient o,String value) {
+							win.confirm("提示", "确定删除员工:"+o.getStaffName(),new ConfirmHandler() {
+								
+								@Override
+								public void confirm() {
+									dispatch.execute(new DeleteStaffRequest(o.getStaffId(),sessionManager.getSession()),
+											new AsyncCallback<DeleteStaffResponse>() {
+
+												@Override
+												public void onFailure(Throwable t) {
+													win.alert(t.getMessage());
+												}
+
+												@Override
+												public void onSuccess(DeleteStaffResponse resp) {
+													if("success".equals(resp.getMessage()))
+													{
+														win.alert("删除成功!");
+														buildTable();
+														doSearch();
+													}
+													
+												}
+											});
+									
+								}
+							});
 					}
 
 				});
