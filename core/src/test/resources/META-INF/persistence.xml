@@ -76,7 +76,7 @@
 			<property name="hibernate.connection.password" value="" />
 			<property name="hibernate.connection.url" value="jdbc:hsqldb:." />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />
-			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.show_sql" value="false" />
 		</properties>
 	</persistence-unit>
 
