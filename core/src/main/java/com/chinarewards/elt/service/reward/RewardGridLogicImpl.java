@@ -85,6 +85,11 @@ public class RewardGridLogicImpl implements RewardGridLogic {
 		rewardSearchVo.setRewardItemId(criteria.getRewardItemId());
 		rewardSearchVo.setRewardsTime(criteria.getRewardsDate());
 
+		PaginationDetail pagination = new PaginationDetail();
+		pagination.setStart(0);
+		pagination.setLimit(10);
+		rewardSearchVo.setPaginationDetail(pagination);
+		
 		// List<Reward> rewardList = rewardDao.searchRewardsData_staff(staffId,
 		// rewardSearchVo);
 
