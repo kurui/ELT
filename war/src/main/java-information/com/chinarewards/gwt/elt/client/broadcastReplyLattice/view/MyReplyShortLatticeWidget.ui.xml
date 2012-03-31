@@ -6,7 +6,7 @@
 	<g:HTMLPanel>
 	   
         <div class="{new2.employee}">		
-        	<div class="{new2.remarkdiv}">对<span class="{new2.remark-name}"><g:InlineLabel ui:field="replyName" /></span>说:</div>
+        	<div class="{new2.remarkdiv}">对<span class="{new2.remark-name}"><g:InlineLabel ui:field="replyName" /></span>回复:</div>
  			<g:TextBox styleName="{new2.remark-text}" text="输入你的评论…" ui:field="replyContent" />
 			<div class="{new2.remark} {new2.remark-info}">		
 			<div class="{new2.remark-tool}" style="text-align:right;">
