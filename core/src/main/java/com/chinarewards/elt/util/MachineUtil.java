@@ -30,7 +30,8 @@ public class MachineUtil {
 					String line;
 					while ((line = br.readLine()) != null) {
 						System.out.println(line);
-						if (line.toLowerCase().indexOf("Physical Address") != -1) {
+						if (line.toLowerCase().indexOf(("Physical Address").toLowerCase()) != -1) {
+							System.out.println(" ====================================find Physical Address flag");
 							int index = line.indexOf(":");
 							address = line.substring(index + 1);
 							break;
@@ -44,7 +45,7 @@ public class MachineUtil {
 					br.close();
 					return address.trim();
 				} catch (IOException e) {
-
+					e.printStackTrace();
 				}
 			} else if (os.startsWith("Linux")) {
 				try {
