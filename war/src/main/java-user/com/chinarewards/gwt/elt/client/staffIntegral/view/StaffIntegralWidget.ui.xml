@@ -23,22 +23,21 @@
 							<div class="{new2.table}">
 
 								<div class="{new2.element}">
-									<label class="{new2.label}">获得的总积分：</label>
-									<g:InlineLabel ui:field="historyIntegral" />
+									<span class="{new2.label}">获得的总积分：</span>
+									<g:InlineLabel ui:field="historyIntegral" styleName="{new2.fontRed}" />
 									分
 									<span class="{new2.nbsp}"></span>
 									<span class="{new2.nbsp}"></span>
 									<span class="{new2.nbsp}"></span>
-									<label class="{new2.label}">剩余积分：</label>
+									<span class="{new2.label}">剩余积分：</span>
 									<span class="{new2.nbsp}"></span>
-									<g:InlineLabel ui:field="balanceIntegral" />
+									<g:InlineLabel ui:field="balanceIntegral" styleName="{new2.fontRed}" />
 									分
 								</div>
-								<div class="{new2.element}">
-									<label class="{new2.label}">已消费积分：</label>
+								<div class="{new2.element}" style="padding-top: 10px;">
+									<span class="{new2.label}">已消费积分：</span>
 									<span class="{new2.nbsp}"></span>
-									<span class="{new2.nbsp}"></span>
-									<g:InlineLabel ui:field="consumptionIntegral" />
+									<g:InlineLabel ui:field="consumptionIntegral" styleName="{new2.fontBlond}"  />
 									分
 								</div>
 
