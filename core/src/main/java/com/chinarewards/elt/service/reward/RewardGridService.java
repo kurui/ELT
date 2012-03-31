@@ -108,6 +108,15 @@ public interface RewardGridService {
 	public PageStore<RewardGridVo> fetchRewardsItem_COMPANY_GETED(
 			UserContext uc, RewardGridSearchVo searchVo);
 
+	/**
+	 * 控件 我获得的奖项
+	 * @param context
+	 * @param criteria
+	 * @return
+	 */
+	public PageStore<RewardGridVo> fetchRewardsItem_STAFF_GETED(UserContext uc,
+			RewardGridSearchVo searchVo);
+
 
 
 }

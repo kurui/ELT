@@ -41,10 +41,10 @@ public class SmallRewardWindowWidget extends Composite {
 				public void onClick(ClickEvent event) {
 
 					if (!StringUtil.isEmpty(thisAction)) {
-						if ("Rewards_STAFF_GETED".equals(thisAction)) {
+						if ("RewardsItem_STAFF_GETED".equals(thisAction)) {
 							// rewardsPage = rewardGridService
 							// .fetchRewards_STAFF_GETED(uc, searchVo);
-						} else if ("Rewards_ALL".equals(thisAction)) {
+						} else if ("RewardsItem_COMPANY_GETED".equals(thisAction)) {
 							Platform.getInstance()
 									.getEditorRegistry()
 									.openEditor(

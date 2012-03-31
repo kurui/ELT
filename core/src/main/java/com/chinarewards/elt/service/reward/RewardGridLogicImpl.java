@@ -85,10 +85,6 @@ public class RewardGridLogicImpl implements RewardGridLogic {
 		rewardSearchVo.setRewardItemId(criteria.getRewardItemId());
 		rewardSearchVo.setRewardsTime(criteria.getRewardsDate());
 
-		PaginationDetail pagination = new PaginationDetail();
-		pagination.setStart(0);
-		pagination.setLimit(10);
-		rewardSearchVo.setPaginationDetail(pagination);
 		
 		// List<Reward> rewardList = rewardDao.searchRewardsData_staff(staffId,
 		// rewardSearchVo);
@@ -109,23 +105,58 @@ public class RewardGridLogicImpl implements RewardGridLogic {
 			UserContext context, RewardGridSearchVo criteria) {
 		PageStore<RewardGridVo> pageStore = new PageStore<RewardGridVo>();
 
-		RewardSearchVo rewardSearchVo = new RewardSearchVo();
-		rewardSearchVo.setWinnerStaffId(criteria.getStaffId());
-		rewardSearchVo.setWinnerStaffName(criteria.getStaffName());
-		rewardSearchVo.setRewardItemId(criteria.getRewardItemId());
-		rewardSearchVo.setRewardsTime(criteria.getRewardsDate());
+		RewardSearchVo searchVo = new RewardSearchVo();
+		searchVo.setWinnerStaffId(criteria.getStaffId());
+		searchVo.setWinnerStaffName(criteria.getStaffName());		
 
 		List<Winner> winnerlist = winnerDao
-				.queryCurrentStaffWinRewardData(rewardSearchVo);
-
+				.queryCurrentStaffWinRewardData(searchVo);
 		int resultCount = winnerlist.size();
-
 		pageStore.setResultList(convertToGridVoListFromWinner(winnerlist));
+		
+		
 		pageStore.setResultCount(resultCount);
 
 		return pageStore;
 	}
 	
+	@Override
+	public PageStore<RewardGridVo> fetchRewardsItem_STAFF_GETED(
+			UserContext context, RewardGridSearchVo criteria) {
+		PageStore<RewardGridVo> pageStore = new PageStore<RewardGridVo>();
+
+		RewardSearchVo searchVo = new RewardSearchVo();
+		searchVo.setWinnerStaffId(criteria.getStaffId());
+		searchVo.setWinnerStaffName(criteria.getStaffName());
+		
+		PaginationDetail detail=new PaginationDetail();
+		detail.setStart(0);
+		detail.setLimit(10);
+		searchVo.setPaginationDetail(detail);
+		
+		
+		List<RewardItem> list=winnerDao.queryCurrentStaffWinRewardItemData(searchVo);
+		
+		
+		List<RewardGridVo> rewardGridVoList = new ArrayList<RewardGridVo>();
+		for (int i = 0; i < list.size(); i++) {
+			RewardItem rewardItem = list.get(i);
+			if (rewardItem != null) {
+				RewardGridVo rewardGridVo = new RewardGridVo();
+				rewardGridVo.setRewardItem(rewardItem);
+				rewardGridVo.setRewardItemId(rewardItem.getId());
+				rewardGridVo.setRewardItemName(rewardItem.getName());	
+				rewardGridVoList.add(rewardGridVo);
+			}
+		}
+		int resultCount = rewardGridVoList.size();
+		pageStore.setResultCount(resultCount);
+		pageStore.setResultList(rewardGridVoList);
+
+		return pageStore;
+	}
+	
+	//小控件 全部奖项
 	@Override
 	public PageStore<RewardGridVo> fetchRewardsItem_COMPANY_GETED(
 			UserContext context, RewardGridSearchVo criteria) {
@@ -136,85 +167,27 @@ public class RewardGridLogicImpl implements RewardGridLogic {
 		pagination.setStart(0);
 		pagination.setLimit(50);
 		rewardItemSearchVo.setPaginationDetail(pagination);
-		List<Winner> list = winnerDao.queryCurrentCompanyWinRewardItemData(rewardItemSearchVo);
-
+		List<RewardItem> list = winnerDao.queryCurrentCompanyWinRewardItemData(rewardItemSearchVo);
 		List<RewardGridVo> rewardGridVoList = new ArrayList<RewardGridVo>();
-		
-
-		Map<String,RewardGridVo> map=(Map<String, RewardGridVo>) new HashMap();
-		
 		for (int i = 0; i < list.size(); i++) {
-			Winner winner = list.get(i);
-			if (winner != null) {
-
+			RewardItem rewardItem = list.get(i);
+			if (rewardItem != null) {
 				RewardGridVo rewardGridVo = new RewardGridVo();
-				Reward reward = winner.getReward();
-				rewardGridVo.setReward(reward);
-				RewardItem rewardItem = reward.getRewardItem();
 				rewardGridVo.setRewardItem(rewardItem);
 				rewardGridVo.setRewardItemId(rewardItem.getId());
-				rewardGridVo.setRewardItemName(rewardItem.getName());
-				
-				map.put(rewardItem.getId(),rewardGridVo);
+				rewardGridVo.setRewardItemName(rewardItem.getName());	
+				rewardGridVoList.add(rewardGridVo);
 			}
 		}
-		
-	    Iterator it = map.entrySet().iterator();
-	       while (it.hasNext()) {
-	    	   Entry entry = (Entry) it.next();
 
-	    	   rewardGridVoList.add((RewardGridVo) entry.getValue());
-	       }
-		
-		
-		
-//		for (int i = 0; i < list.size(); i++) {
-//			Winner winner = list.get(i);
-//			if (winner != null) {
-//
-//				RewardGridVo rewardGridVo = new RewardGridVo();
-//				Reward reward = winner.getReward();
-//				rewardGridVo.setReward(reward);
-//				rewardGridVo.setRewardId(reward.getId());
-//				rewardGridVo.setRewardName(reward.getName());
-//				rewardGridVo.setRewardsDate(reward.getAwardDate());
-//				rewardGridVo.setAwardAmt(reward.getAwardAmt());
-//				rewardGridVo.setAwardName(reward.getCreatedBy().getStaff()
-//						.getName());// 颁奖人
-
-//				// 提名人
-//				List<NomineeLot> nomineeLots = nomineeLogic
-//						.getNomineeLotsFromReward(reward.getId());
-//				rewardGridVo.setNomineeLotList(nomineeLots);
-////
-//				RewardItem rewardItem = reward.getRewardItem();
-//				rewardGridVo.setRewardItem(rewardItem);
-//				rewardGridVo.setRewardItemId(rewardItem.getId());
-//				rewardGridVo.setRewardItemName(rewardItem.getName());
-//				rewardGridVo.setRewardsItemCreateBy(rewardItem.getCreatedBy()
-//						.getStaff().getName());// 奖项创建人
-//
-//				Staff staff = winner.getStaff();
-//				if (staff != null) {
-//					Candidate candiate = candidateDao
-//							.findCandidateByStaffRewardId(reward.getId(),
-//									staff.getId());
-//					if (candiate != null) {
-//						int nominateCount = candiate.getNominatecount();
-//						rewardGridVo.setNominateCount(nominateCount);
-//					}
-//				}
-//				rewardGridVoList.add(rewardGridVo);
-//			}
-//
-//		}
-//
 		pageStore.setResultList(rewardGridVoList);
 		pageStore.setResultCount(rewardGridVoList.size());
 
 		return pageStore;
 	}
 
+	
+	//菜单 获奖历史Rewards_STAFF_HISTORY
 	@Override
 	public PageStore<RewardGridVo> fetchRewards_STAFF_HISTORY(
 			UserContext context, RewardGridSearchVo criteria) {
@@ -306,6 +279,8 @@ public class RewardGridLogicImpl implements RewardGridLogic {
 		return pageStore;
 	}
 
+	
+	//菜单 我参与的 RewardsItem_STAFF_PARTAKE
 	@Override
 	public PageStore<RewardGridVo> fetchRewardsItem_STAFF_PARTAKE(
 			UserContext context, RewardGridSearchVo criteria) {

@@ -558,7 +558,7 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 	}
 	private void loadRewardSTAFFPanel(){
 		RewardsGridCriteria criteria = new RewardsGridCriteria();
-		criteria.setThisAction("Rewards_STAFF_GETED");
+		criteria.setThisAction("RewardsItem_STAFF_GETED");
 		display.getRewardWidgetAction().setValue(criteria.getThisAction());
 		
 		dispatchAsync.execute(new SearchRewardsGridRequest(criteria,sessionManager
@@ -586,7 +586,7 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 									grid.setWidget(
 											row,
 											col,
-											new SmallRewardWindowWidget(client.getRewardsId(),client.getRewardsName(),"Rewards_STAFF_GETED"));
+											new SmallRewardWindowWidget(client.getRewardsItemId(),client.getRewardsItemName(),"RewardsItem_STAFF_GETED"));
 									index++;
 								} else {
 									break;
@@ -637,7 +637,7 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 									grid.setWidget(
 											row,
 											col,
-											new SmallRewardWindowWidget(client.getRewardsItemId(),client.getRewardsItemName(),"Rewards_ALL"));
+											new SmallRewardWindowWidget(client.getRewardsItemId(),client.getRewardsItemName(),"RewardsItem_COMPANY_GETED"));
 									index++;
 								} else {
 									break;

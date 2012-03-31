@@ -83,4 +83,10 @@ public class RewardGridServiceImpl implements RewardGridService {
 		return rewardGridLogic.fetchRewardsItem_COMPANY_GETED(context, criteria);
 	}
 
+	@Override
+	public PageStore<RewardGridVo> fetchRewardsItem_STAFF_GETED(UserContext context,
+			RewardGridSearchVo criteria) {
+		return rewardGridLogic.fetchRewardsItem_STAFF_GETED(context, criteria);
+	}
+
 }
