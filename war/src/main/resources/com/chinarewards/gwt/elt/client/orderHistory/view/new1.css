@@ -254,6 +254,14 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .remark .textarea{width:638px;height:80px;border:1px solid #CBCBCB;padding:5px;overflow:auto;}
 .remark .button{color:#FFFFFF;background-color:#0D63B8;padding:2px 8px;border:1px solid #7CD2FD;border-bottom:1px solid #2E5F77;border-right:1px solid #3C7D9C;}
 
+.remark2{background-color:#F8F9FD;overflow:hidden;margin-right: 10px;width:50px;}
+.remark2 img{border:1px solid #CACACA;padding:2px;width:54px;height:54px;overflow:hidden;float:left;margin-right:10px;}
+.remark2 .remark-info{float:left;width:650px;}
+.remark2 .remark-info .remark-tool{margin-top:5px;}
+.remark2 .textarea{width:638px;height:80px;border:1px solid #CBCBCB;padding:5px;overflow:auto;}
+.remark2 .button{color:#FFFFFF;background-color:#0D63B8;padding:2px 8px;border:1px solid #7CD2FD;border-bottom:1px solid #2E5F77;border-right:1px solid #3C7D9C;}
+
+
 .remark-list{background-color:#F8F9FD;overflow:hidden;padding:15px;width:720px;}
 .remark-list .remark-list-info img{border:1px solid #CACACA;padding:2px;width:34px;height:34px;overflow:hidden;float:left;margin-right:10px;}
 .remark-list .remark-list-info .remark-info-wrap{float:left;width:670px;color:#999999;overflow:hidden;}
