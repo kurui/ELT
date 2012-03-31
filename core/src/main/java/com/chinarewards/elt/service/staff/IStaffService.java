@@ -107,4 +107,12 @@ public interface IStaffService {
 	 */
 	public Integer findNotDeleteStaffNumber(UserContext context);
 	
+	
+	/**
+	 *	删除员工
+	 * @param staffId
+	 * @return
+	 */
+	public String deleteStaff(String staffId,UserContext context);
+	
 }

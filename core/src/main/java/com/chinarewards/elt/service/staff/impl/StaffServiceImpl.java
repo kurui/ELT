@@ -170,4 +170,9 @@ public class StaffServiceImpl implements IStaffService {
 	public Integer findNotDeleteStaffNumber(UserContext context) {
 		return staffLogic.findNotDeleteStaffNumber(context);
 	}
+
+	@Override
+	public String deleteStaff(String staffId, UserContext context) {
+		return staffLogic.deleteStaff(staffId, context);
+	}
 }
