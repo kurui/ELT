@@ -1,5 +1,6 @@
 package com.chinarewards.gwt.elt.server.login;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.servlet.http.HttpSession;
@@ -90,20 +91,20 @@ public class LoginServiceImpl extends RemoteServiceServlet implements
 
 			LicenseBo licensebo=null;
 			try {
-				 licensebo=licenseService.queryLicenseContent();
-//				licensebo=new LicenseBo();
-//				Calendar calendar = Calendar.getInstance();
-//				calendar.set(Calendar.MARCH, calendar.get(Calendar.YEAR)+1);
-//				licensebo.setNotafter(calendar.getTime());
-//				 licensebo.setStaffNumber(50);
+//				 licensebo=licenseService.queryLicenseContent();
+				licensebo=new LicenseBo();
+				Calendar calendar = Calendar.getInstance();
+				calendar.set(Calendar.MARCH, calendar.get(Calendar.YEAR)+1);
+				licensebo.setNotafter(calendar.getTime());
+				 licensebo.setStaffNumber(50);
 			} catch (Exception e) {
 				throw new ClientException("获取License异常,请联系管理员!");
 			}
 		
-			if(licensebo==null)
-			{
-				throw new ClientException("获取License为空,请联系管理员!");
-			}
+//			if(licensebo==null)
+//			{
+//				throw new ClientException("获取License为空,请联系管理员!");
+//			}
 			if(licensebo.getNotafter()==null)
 			{
 				throw new ClientException("获取License过期时间为空,请联系管理员!");
