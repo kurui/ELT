@@ -93,9 +93,9 @@ public class LoginServiceImpl extends RemoteServiceServlet implements
 				 licensebo=licenseService.queryLicenseContent();
 //				licensebo=new LicenseBo();
 //				Calendar calendar = Calendar.getInstance();
-//				calendar.set(Calendar.MARCH, calendar.get(Calendar.MARCH)+1);
+//				calendar.set(Calendar.MARCH, calendar.get(Calendar.YEAR)+1);
 //				licensebo.setNotafter(calendar.getTime());
-//				 licensebo.setStaffNumber(10);
+//				 licensebo.setStaffNumber(50);
 			} catch (Exception e) {
 				throw new ClientException("获取License异常,请联系管理员!");
 			}

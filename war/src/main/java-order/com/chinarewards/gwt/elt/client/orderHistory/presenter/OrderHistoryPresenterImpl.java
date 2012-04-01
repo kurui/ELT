@@ -80,6 +80,7 @@ public class OrderHistoryPresenterImpl extends
 		registerHandler(display.getSearchBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
+						buildTable();
 						doSearch();
 					}
 				}));

@@ -247,10 +247,10 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .employee .pager,.employee .pager a{color:#333333;}
 .employee .pager a:hover{background-color:#707070;}
 
-.remark{background-color:#F8F9FD;overflow:hidden;margin-right: 10px;width:50px;float: right;}
+.remark{background-color:#F8F9FD;overflow:hidden;margin-right: 10px;width:50px;}
 .remark img{border:1px solid #CACACA;padding:2px;width:54px;height:54px;overflow:hidden;float:left;margin-right:10px;}
 .remark .remark-info{float:left;width:650px;}
-.remark .remark-info .remark-tool{text-align:right;margin-top:5px;}
+.remark .remark-info .remark-tool{margin-top:5px;}
 .remark .textarea{width:638px;height:80px;border:1px solid #CBCBCB;padding:5px;overflow:auto;}
 .remark .button{color:#FFFFFF;background-color:#0D63B8;padding:2px 8px;border:1px solid #7CD2FD;border-bottom:1px solid #2E5F77;border-right:1px solid #3C7D9C;}
 

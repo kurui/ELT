@@ -54,7 +54,7 @@ public class BudgetServiceImpl implements BudgetService {
 		SysUser caller = userLogic.findUserById(context.getUserId());
 		List<UserRole> roles =Arrays.asList(context.getUserRoles());
 		//如果是部门管理员，在查看全部时只可以查看本部门及下级部门记录，
-		if (roles.contains(UserRole.DEPT_MGR)&& (deptBudgetVo.getDepartmentId()==null||deptBudgetVo.getDepartmentId().equals(""))){
+		if (roles.contains(UserRole.DEPT_MGR)&& !roles.contains(UserRole.CORP_ADMIN)&& (deptBudgetVo.getDepartmentId()==null||deptBudgetVo.getDepartmentId().equals(""))){
 			List<String> deptIds = null;
 			deptIds = departmentLogic.getWholeChildrenIds(caller.getStaff().getDepartment().getId(), true);
 			deptBudgetVo.setDeptIds(new ArrayList<String>(deptIds));

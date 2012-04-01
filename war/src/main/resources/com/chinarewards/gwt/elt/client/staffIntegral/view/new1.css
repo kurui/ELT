@@ -306,5 +306,5 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .employee .order-detail .link-manager{color:#999999;padding:4px 0;}
 .employee .order-detail .back-btn-wrap{border-top:1px dashed #CCCCCC;margin-top:15px;padding:15px 0;}
 
-
-
+.fontRed{  color: red;   font-weight: bold;}
+.fontBlond{    font-weight: bold;}
