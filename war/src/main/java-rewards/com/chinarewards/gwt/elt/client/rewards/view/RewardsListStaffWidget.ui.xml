@@ -17,7 +17,7 @@
 					<!--查询条件 [[ -->
 					<div class="{new2.frame-wrap}">
 						<div class="{new2.query-wrap}">
-							<div class="{new2.form}">
+							<div class="{new2.form}"  style="float: left;">
 								<label for="">获奖人:</label>
 								<g:TextBox maxLength="20" ui:field="winnerName" styleName="{new2.text2}" />
 								<span class="{new2.nbspbig}"></span>
@@ -29,12 +29,13 @@
 								<label for="">获奖时间:</label>
 								<d:DateBox ui:field="rewardsTime" styleName="{new2.textdate}" />
 								<span class="{new2.nbspbig}"></span>
-								<div class="{new2.remark} {new2.remark-info}">
+								
+							</div>
+							<div class="{new2.remark} {new2.remark-info}">
 									<div class="{new2.remark-tool}" style="text-align:right;">
 										<g:Button ui:field="searchBtn" text="查询" styleName="{new2.button}" />
 									</div>
 								</div>
-							</div>
 						</div>
 
 						<!--查询条件 ]] -->

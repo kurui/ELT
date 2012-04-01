@@ -17,7 +17,7 @@
 				<!--查询条件 [[ -->
 				<div class="{new2.frame-wrap}">
 				<div class="{new2.query-wrap}">
-					<div class="{new2.form}">
+					<div class="{new2.form}" style="float: left;">
 						<label for="">订单状态:</label>
 						<span class="{new2.nbsp}"></span>
 						<g:ListBox ui:field="status" styleName="{new2.select}" />
@@ -29,13 +29,12 @@
 						<d:DateBox ui:field="createTimeEnd" styleName="{new2.textdate}" />
 						<span class="{new2.nbspbig}"></span>
 
-
-						<div class="{new2.remark} {new2.remark-info}">		
+					</div>
+						<div class="{new2.remark2} {new2.remark-info}">		
 							<div class="{new2.remark-tool}" style="text-align:right;">
 				             <g:Button styleName="{new2.button}" text="查询" ui:field="searchBtn" />
 							</div>
 						</div>
-					</div>
 				</div>
 				
 				<!--查询条件 ]] -->
