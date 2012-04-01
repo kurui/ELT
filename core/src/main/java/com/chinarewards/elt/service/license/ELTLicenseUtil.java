@@ -3,6 +3,7 @@ package com.chinarewards.elt.service.license;
 import java.io.File;
 import java.util.prefs.Preferences;
 
+import com.chinarewards.elt.util.MachineUtil;
 import com.chinarewards.elt.util.StringUtil;
 
 import de.schlichtherle.license.DefaultCipherParam;
@@ -113,7 +114,9 @@ public class ELTLicenseUtil {
 			
 			int firstIndex = realPath.indexOf("/");
 			if (firstIndex == 0) {
-				realPath = realPath.substring(1, realPath.length());
+				if (MachineUtil.getIsWindowsOS()) {
+					realPath = realPath.substring(1, realPath.length());
+				}				
 			}
 
 			realPath=realPath.replace("file:/", "");

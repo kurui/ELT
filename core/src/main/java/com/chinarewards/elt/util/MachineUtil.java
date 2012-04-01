@@ -7,6 +7,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MachineUtil {
+
+	public static boolean getIsWindowsOS() {
+		String osName = getOSName();
+		System.out.println(osName);
+		if (osName != null) {
+			if (osName.toLowerCase().startsWith(("Windows").toLowerCase())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	/**
 	 * 获取当前操作系统名称. return 操作系统名称 例如:windows xp,linux 等.
 	 */
@@ -30,8 +42,10 @@ public class MachineUtil {
 					String line;
 					while ((line = br.readLine()) != null) {
 						System.out.println(line);
-						if (line.toLowerCase().indexOf(("Physical Address").toLowerCase()) != -1) {
-							System.out.println(" ====================================find Physical Address flag");
+						if (line.toLowerCase().indexOf(
+								("Physical Address").toLowerCase()) != -1) {
+							System.out
+									.println(" ====================================find Physical Address flag");
 							int index = line.indexOf(":");
 							address = line.substring(index + 1);
 							break;
@@ -82,6 +96,7 @@ public class MachineUtil {
 	}
 
 	public static void main(String[] args) {
-		System.out.println("" + getMACAddress());
+//		System.out.println("" + getMACAddress());
+		System.out.println(getIsWindowsOS());
 	}
 }
