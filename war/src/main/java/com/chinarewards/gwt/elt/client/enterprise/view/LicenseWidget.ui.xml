@@ -91,6 +91,12 @@
 								ui:field="enterpriseId" />
 							<g:Button ui:field="saveButton">确定</g:Button>
 						</span>
+						<span class="{new2.btn}">
+							<g:FormPanel ui:field="photoForm" encoding="multipart/form-data"
+								method="post">
+								<g:FileUpload ui:field="photoUpload" name="uploadFormElement"  ></g:FileUpload>
+							</g:FormPanel>
+						</span>
 						<span class="{new2.nbsp}"></span>
 						<span class="{new2.btn}">
 							<g:Button ui:field="back" styleName="button-ok">返回 </g:Button>
