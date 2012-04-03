@@ -7,6 +7,8 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.FileUpload;
+import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
@@ -32,6 +34,11 @@ public class LicenseWidget extends Composite implements LicenseDisplay {
 	Label description;// 备注说明
 	@UiField
 	Label staffNumber;// 最大授权用户
+	
+	@UiField
+	FormPanel licenseForm;
+	@UiField
+	FileUpload licenseUpload;
 	
 
 	@UiField
@@ -70,6 +77,16 @@ public class LicenseWidget extends Composite implements LicenseDisplay {
 	@Override
 	public void clear() {
 
+	}
+
+	@Override
+	public FormPanel getLicenseForm() {
+		return licenseForm;
+	}
+
+	@Override
+	public FileUpload getLicenseUpload() {
+		return licenseUpload;
 	}
 
 }
