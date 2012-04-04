@@ -24,6 +24,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Hidden;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
@@ -39,10 +40,12 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 	@UiField
 	Hidden departmentId;
 
+//	@UiField
+//	Hidden parentId;
+//	@UiField
+//	Label parentName;
 	@UiField
-	Hidden parentId;
-	@UiField
-	Label parentName;
+	ListBox parentList;
 	@UiField
 	Label childdepartment;
 	@UiField
@@ -136,10 +139,10 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 		// System.out.println("-------initDepartmentWidget===:"+departmentVo.getLeaderId());
 	}
 
+
 	private void initStatsInfo(DepartmentVo departmentVo) {
-		parentId.setValue(departmentVo.getParentId());
-		parentName
-				.setText(getDepartmentParentName(departmentVo.getParentName()));
+//		parentId.setValue(departmentVo.getParentId());
+//		parentName.setText(getDepartmentParentName(departmentVo.getParentName()));
 
 		// private String childdeparmentNames;
 
@@ -179,9 +182,8 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 
 	@Override
 	public void initSaveSameLevelDepartment(DepartmentVo departmentVo) {
-		parentId.setValue(departmentVo.getParentId());
-		parentName
-				.setText(getDepartmentParentName(departmentVo.getParentName()));
+//		parentId.setValue(departmentVo.getParentId());
+//		parentName.setText(getDepartmentParentName(departmentVo.getParentName()));
 
 		leaderArea = new OrganizationSpecialTextArea();
 		leaderPanel.add(leaderArea);//
@@ -198,8 +200,8 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 
 	@Override
 	public void initSaveChildDepartment(DepartmentVo departmentVo) {
-		parentId.setValue(departmentVo.getId());
-		parentName.setText(departmentVo.getName());
+//		parentId.setValue(departmentVo.getId());
+//		parentName.setText(departmentVo.getName());
 
 		leaderArea = new OrganizationSpecialTextArea();
 		leaderPanel.add(leaderArea);//
@@ -270,7 +272,8 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 
 	@Override
 	public Hidden getParentId() {
-		return parentId;
+//		return parentId;
+		return null;
 	}
 
 	@Override
@@ -301,6 +304,11 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 	@Override
 	public Hidden getFormValidate() {
 		return formValidate;
+	}
+
+	@Override
+	public ListBox getParentList() {
+		return parentList;
 	}
 
 }
