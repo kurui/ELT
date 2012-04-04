@@ -2,6 +2,7 @@
 /target
 /bin
 /war
+/sql
 .classpath
 .project
 /pom.xml
