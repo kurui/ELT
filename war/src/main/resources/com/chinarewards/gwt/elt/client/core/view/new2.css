@@ -131,7 +131,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .reward-pslist{}
 .imglink{}
 /*-------------------------------------------- 员工天地 -----------------------------------------------------------------------------------------------------------*/
-
+.employee{min-width: 1024px;}
 /*框架重置*/
 .employee .head .nav{border-bottom:4px solid #055AB4;}
 .employee .head .top-nav .green{color:#336699;}

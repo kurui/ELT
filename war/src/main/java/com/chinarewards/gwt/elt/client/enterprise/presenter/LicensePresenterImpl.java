@@ -14,8 +14,13 @@ import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.win.Win;
+import com.chinarewards.gwt.elt.util.XmlUtil_GWT;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteEvent;
+import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteHandler;
 import com.google.inject.Inject;
 
 /**
@@ -48,6 +53,50 @@ public class LicensePresenterImpl extends BasePresenter<LicenseDisplay>
 		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
 
 		initWidget();
+		
+		// 浏览即上传事件
+		registerHandler(display.getLicenseUpload().addChangeHandler(
+				new ChangeHandler() {
+					@Override
+					public void onChange(ChangeEvent arg0) {
+						display.getLicenseForm().setAction("licenseupload");
+						display.getLicenseForm().submit();
+					}
+				}));
+		
+		// 文件上传后回调
+		display.getLicenseForm().addSubmitCompleteHandler(
+				new SubmitCompleteHandler() {
+					@Override
+					public void onSubmitComplete(SubmitCompleteEvent event) {
+						String eventResults = event.getResults();
+						System.out.println("submitComplete event.getResults:"
+								+ eventResults);
+						// win.alert(eventResults);
+
+						if (eventResults != null) {
+							eventResults = XmlUtil_GWT
+									.replaceSpecialStr(eventResults);
+							try {
+								String result = XmlUtil_GWT.getNormalNodeText(
+										eventResults, "<result>", "</result>");
+								String info = XmlUtil_GWT.getNormalNodeText(
+										eventResults, "<info>", "</info>");
+
+								if ("SUCCESS".equals(result)) {
+									initWidget();
+									win.alert("更新授权成功");
+								} else {
+									win.alert("上传授权文件异常<br>" + info);
+								}
+							} catch (Exception e) {
+								e.printStackTrace();
+								win.alert("上传授权文件异常，请重试" + e.getMessage());
+								return;
+							}
+						}
+					}
+				});
 
 	}
 

@@ -12,6 +12,8 @@ import com.chinarewards.gwt.elt.client.department.plugin.DepartmentConstants;
 import com.chinarewards.gwt.elt.client.department.plugin.DepartmentListConstants;
 import com.chinarewards.gwt.elt.client.department.request.EditDepartmentRequest;
 import com.chinarewards.gwt.elt.client.department.request.EditDepartmentResponse;
+import com.chinarewards.gwt.elt.client.department.request.SearchDepartmentByCorpIdRequest;
+import com.chinarewards.gwt.elt.client.department.request.SearchDepartmentByCorpIdResponse;
 import com.chinarewards.gwt.elt.client.department.request.SearchDepartmentByIdRequest;
 import com.chinarewards.gwt.elt.client.department.request.SearchDepartmentByIdResponse;
 import com.chinarewards.gwt.elt.client.department.util.DepartmentAdapterClient;
@@ -20,6 +22,7 @@ import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.rewards.model.StaffClient;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.chinarewards.gwt.elt.client.util.StringUtil;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.client.win.confirm.ConfirmHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -270,16 +273,59 @@ public class DepartmentPresenterImpl extends
 							departmentVo.setThisAction(thisAction);
 							clear();
 							display.initEditDepartment(departmentVo);
+							initDepartmentList(departmentVo.getParentId());
 						}
 					});
 		} else {
 			System.err.println("------------缺少departmentId----------");
 		}
 	}
+	
+	
+	private void initDepartmentList(final String selectedValue){
+		String corporationId=sessionManager.getSession().getCorporationId();
+		dispatcher.execute(new SearchDepartmentByCorpIdRequest(corporationId),
+				new AsyncCallback<SearchDepartmentByCorpIdResponse>() {
+
+					@Override
+					public void onFailure(Throwable t) {
+						win.alert("查询部门列表异常："+t.getMessage());
+					}
+		
+					@Override
+					public void onSuccess(SearchDepartmentByCorpIdResponse resp) {
+						
+						display.getParentList().clear();
+						int selectIndex = 0;
+						int i = 0;
+						for (DepartmentVo entry : resp.getDepartmentList()) {
+							String keyValue = entry.getId();
+							// System.out.println(entry.getId() + ": " + entry.getName());
+							if(entry.getName().indexOf("ROOT")>-1){
+								display.getParentList().addItem("", entry.getId());
+							}else{
+								display.getParentList().addItem(entry.getName(), entry.getId());
+							}
+							
+							
+							if (selectedValue != null && StringUtil.trim(selectedValue) != ""
+									&& StringUtil.trim(keyValue) != "") {
+								if (selectedValue.equals(keyValue)) {
+									
+									selectIndex = i;
+								}
+							}
+							i++;
+						}
+						display.getParentList().setSelectedIndex(selectIndex);
+						
+					}					
+		});
+	}
 
 	private void initSave() {
 		display.initAddDepartment(new DepartmentVo());
-		
+		initDepartmentList("");
 	}
 
 	private void initSaveSameLevel() {
@@ -299,6 +345,7 @@ public class DepartmentPresenterImpl extends
 									.getDepartment();
 							clear();
 							display.initSaveSameLevelDepartment(departmentVo);
+							initDepartmentList(departmentVo.getParentId());
 						}
 					});
 		} else {
@@ -323,6 +370,7 @@ public class DepartmentPresenterImpl extends
 									.getDepartment();
 							clear();
 							display.initSaveChildDepartment(departmentVo);
+							initDepartmentList(departmentVo.getId());
 						}
 					});
 		} else {

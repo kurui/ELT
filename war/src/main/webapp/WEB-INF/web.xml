@@ -49,11 +49,16 @@
 		</init-param>
 	</servlet>
 	
-		<servlet>
+	<servlet>
 		<servlet-name>fileupload</servlet-name>
 		<servlet-class>com.chinarewards.gwt.elt.util.FileUploadServlet</servlet-class>
 	</servlet>
-		<servlet>
+		
+	<servlet>
+		<servlet-name>licenseupload</servlet-name>
+		<servlet-class>com.chinarewards.gwt.elt.util.LicenseUploadServlet</servlet-class>
+	</servlet>
+	<servlet>
 		<servlet-name>imageshow</servlet-name>
 		<servlet-class>com.chinarewards.gwt.elt.util.ImageShowServlet</servlet-class>
 	</servlet>
@@ -68,8 +73,11 @@
 		<servlet-name>fileupload</servlet-name>
 		<url-pattern>/fileupload</url-pattern>
 	</servlet-mapping>
-	
-		<servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>licenseupload</servlet-name>
+		<url-pattern>/licenseupload</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
 		<servlet-name>imageshow</servlet-name>
 		<url-pattern>/imageshow</url-pattern>
 	</servlet-mapping>
