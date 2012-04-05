@@ -28,7 +28,7 @@
 					</tr>
 					<tr>
 						<td colspan='4'>
-							<g:AbsolutePanel ui:field="cellTree"  height="250px"/>
+							<g:AbsolutePanel ui:field="cellTree" />
 						</td>
 
 					</tr>
