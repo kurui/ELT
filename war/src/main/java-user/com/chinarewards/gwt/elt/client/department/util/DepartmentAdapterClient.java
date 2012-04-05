@@ -21,7 +21,9 @@ public class DepartmentAdapterClient {
 		departmentVo.setId(display.getDepartmentId().getValue());
 		departmentVo.setName(display.getDepartmentName().getValue());
 
-		departmentVo.setParentId(display.getParentId().getValue());
+//		departmentVo.setParentId(display.getParentId().getValue());
+		int selectedIndex = display.getParentList().getSelectedIndex();
+		departmentVo.setParentId(display.getParentList().getValue(selectedIndex));
 
 		SpecialTextArea<OrganicationClient> leaderArea = display
 				.getLeaderArea();
