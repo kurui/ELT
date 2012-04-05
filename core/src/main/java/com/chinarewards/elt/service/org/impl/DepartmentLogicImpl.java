@@ -114,7 +114,7 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 
 			tempDepartment.setName(department.getName());
 			
-//			changeParent(tempDepartment, department.getParent(), corporation);
+			changeParent(tempDepartment, department, corporation);
 
 			tempDepartment.setLastModifiedAt(DateUtil.getTime());
 			tempDepartment.setLastModifiedBy(caller);
@@ -129,7 +129,7 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 	 * 
 	 * */
 	private Department changeParent(Department oldDepartment,
-			Department targetParent,Corporation corporation) {
+			Department thisDepartment,Corporation corporation) {
 		Department oldParent = oldDepartment.getParent();
 		String oldParentId = "";
 		if (oldParent != null) {
@@ -137,6 +137,7 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 		}
 		
 		String targetParentId="";
+		Department targetParent=thisDepartment.getParent();
 		if (targetParent != null) {
 			targetParentId = targetParent.getId();
 		}
@@ -144,6 +145,11 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 
 		if (!StringUtil.isEmptyString(targetParentId)) {
 			if (oldParentId.equals(targetParentId) == false) {
+				oldDepartment.setParent(targetParent);//parent
+				
+				int oldindex = oldParent.getLft();
+				departmentDao.maintainIndexAfterDeleteNode(oldindex, corporation.getId());//原节点删除
+
 				
 				oldDepartment.setLft(targetParent.getRgt());
 				oldDepartment.setRgt(targetParent.getRgt() + 1);
@@ -151,9 +157,7 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 				departmentDao.maintainIndexAfterAddNode(index, corporation.getId());// maintain 目标上级新增节点
 				
 				//-------------------------------
-//				
-//				int oldindex = oldParent.getLft();
-//				departmentDao.maintainIndexAfterDeleteNode(oldindex, corporation.getId());//原节点删除
+
 				
 			}
 
