@@ -47,7 +47,7 @@
 
 				<table style="border-bottom: 1px solid #DDDDDD;border-left: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD; margin-bottom: 12px;">
 					<tr>
-						<th class="{new2.th2}" style="width:50px">选择</th>
+						<th class="{new2.th2}" style="width:80px">选择</th>
 						<th class="{new2.th3}">部门名称</th>
 					</tr>
 					<tr>
