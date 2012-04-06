@@ -68,10 +68,13 @@ a:hover{color:#010DFF;text-decoration:underline;}
 
 /*table*/
 .table caption{display:none;}
-.table table{}
-.table table,.table td,.table th{border:0px solid #DDDDDD;text-align:center;}
-.table td,.table th{padding: 5px 215px 5px 8px;}
-.table th{background-color:#CCCCCC;font-size:12px;font-weight:bolder;color:#666666;}}
+.table table{width:99%;}
+.table table,.table .th2{border:1px solid #DDDDDD;text-align:center;}
+.table table,.table .th3{border:1px solid #DDDDDD;text-align:left;padding-left: 23%;}
+.table table,.table th{border:0px solid #DDDDDD;text-align:left;}
+.table td{border:0px solid #DDDDDD;}
+.table td,.table th{padding:3px 0;}
+.table th{background-color:#CCCCCC;font-size:12px;font-weight:normal;color:#666666;}
 
 /*pager*/
 .pager:after{content:".";display:block;clear:both;height:0;visibility:hidden;}

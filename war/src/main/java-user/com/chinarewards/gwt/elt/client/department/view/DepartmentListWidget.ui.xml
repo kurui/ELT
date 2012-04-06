@@ -43,10 +43,21 @@
 
 			<div class="{new2.divend}"></div>
 
-			<div class="{new2.table}" style="border-color: #DDDDDD; border-style: solid; border-width: 1px; margin-top: 10px;">
-				<g:FlowPanel ui:field="cellTree"  />
+			<div class="{new2.table}">
+
+				<table style="border-bottom: 1px solid #DDDDDD;border-left: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD; margin-bottom: 12px;">
+					<tr>
+						<th class="{new2.th2}" style="width:50px">选择</th>
+						<th class="{new2.th3}">部门名称</th>
+					</tr>
+					<tr>
+						<td colspan='2'>
+							<g:FlowPanel ui:field="cellTree"  />
+						</td>
+
+					</tr>
+				</table>
 			</div>
-			
 			
 			<g:FlowPanel ui:field="testPanel" />
 			
