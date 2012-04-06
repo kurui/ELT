@@ -7,6 +7,8 @@ import com.chinarewards.gwt.elt.client.breadCrumbs.ui.BreadCrumbsMenu;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.presenter.DockPresenter;
 import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
+import com.chinarewards.gwt.elt.client.department.Treetable.TreeTable;
+import com.chinarewards.gwt.elt.client.department.model.GWTClient;
 import com.chinarewards.gwt.elt.client.integralManagement.presenter.IntegralManagementPresenter.IntegralManagementDisplay;
 import com.chinarewards.gwt.elt.client.integralManagement.request.IntegralManagementRequest;
 import com.chinarewards.gwt.elt.client.integralManagement.request.IntegralManagementResponse;
@@ -69,12 +71,11 @@ public class IntegralManagementPresenterImpl extends
 					public void onSuccess(IntegralManagementResponse response) {
 						display.setBudgetIntegral((int)response.getBudgetIntegral()+"");
 						display.setUseIntegeral((int)response.getUseIntegeral()+"");
-						display.refresh(response.getResult(),sessionManager.getSession().getCorporationId());
+				//		display.refresh(response.getResult(),sessionManager.getSession().getCorporationId());
 						
-//						GWTClient c=new GWTClient();
-//						TreeTable fileTreeTable = c.createIntegralTreeTable(response.getResult());
-//						display.getTreeTablePanel().add(fileTreeTable);
-//						
+						GWTClient c=new GWTClient(menuProcessor,dockPresenter,breadCrumbsMenu);
+						TreeTable fileTreeTable = c.createIntegralTreeTable(response.getResult());
+						display.getCellTree().add(fileTreeTable);			
 						
 					}
 				});

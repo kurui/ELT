@@ -5,20 +5,39 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.chinarewards.gwt.elt.client.breadCrumbs.ui.BreadCrumbsMenu;
+import com.chinarewards.gwt.elt.client.budget.plugin.CreateBudgetConstants;
+import com.chinarewards.gwt.elt.client.core.Platform;
+import com.chinarewards.gwt.elt.client.core.presenter.DockPresenter;
+import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
 import com.chinarewards.gwt.elt.client.department.Treetable.TreeItem;
 import com.chinarewards.gwt.elt.client.department.Treetable.TreeTable;
 import com.chinarewards.gwt.elt.client.department.Treetable.TreeTableRenderer;
 import com.chinarewards.gwt.elt.client.integralManagement.model.Category;
+import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListConstants;
+import com.chinarewards.gwt.elt.model.rewards.RewardPageType;
+import com.chinarewards.gwt.elt.model.rewards.RewardsPageClient;
 import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Panel;
 
 public class GWTClient {
-
+	 MenuProcessor menuProcessor;
+	 DockPresenter dockPresenter;
+	 BreadCrumbsMenu breadCrumbspresenter;
+	
+	public GWTClient( MenuProcessor menuProcessor, DockPresenter dockPresenter, BreadCrumbsMenu breadCrumbspresenter)
+	{
+		this.menuProcessor=menuProcessor;
+		this.dockPresenter=dockPresenter;
+		this.breadCrumbspresenter=breadCrumbspresenter;
+		
+	}
 	public Panel onModuleLoad() {
 		HorizontalPanel p = new HorizontalPanel();
 		TreeTable fileTreeTable = createFileTreeTable();
@@ -175,6 +194,55 @@ public class GWTClient {
 				item.setText(f.name);
 				table.setText(row, 1, f.size);
 				table.setText(row, 2, f.date);
+				item.getElement().getParentElement().setClassName("width29");
+				item.getElement().getParentElement().getNextSiblingElement().setClassName("width12");
+				item.getElement().getParentElement().getNextSiblingElement().getNextSiblingElement().setClassName("width12");
+
+				Anchor ac1=new Anchor("追加");
+				ac1.addClickHandler(new ClickHandler() {
+					
+					@Override
+					public void onClick(ClickEvent event) {
+						menuProcessor.changItemColor("部门预算");
+						breadCrumbspresenter.addBreadCrumbsItem("部门预算",menuProcessor.getMenuItem(CreateBudgetConstants.MENU_CREATE_BUDGET));
+						Platform.getInstance()
+						.getEditorRegistry()
+						.openEditor(
+								CreateBudgetConstants.EDITOR_CREATE_BUDGET,
+								"EDITOR_CREATE_BUDGET_ID", null);
+						
+					}
+				});
+				Anchor ac2=new Anchor("颁奖历史");
+				ac2.addClickHandler(new ClickHandler() {
+					
+					@Override
+					public void onClick(ClickEvent event) {
+						dockPresenter.getDisplay().setMenuTitle("应用奖项");
+						menuProcessor.initrender(dockPresenter.getDisplay().getMenu(), "Reward");
+
+						RewardsPageClient rpc=new RewardsPageClient();
+						rpc.setTitleName("已颁奖历史");
+						rpc.setPageType(RewardPageType.DETAILSOFAWARDPAGE);
+						Platform.getInstance()
+								.getEditorRegistry()
+								.openEditor(
+										RewardsListConstants.EDITOR_REWARDSLIST_SEARCH,
+										"EDITOR_REWARDSLIST_SEARCH_DO_ID", rpc);
+						menuProcessor.changItemColor("已颁奖历史");
+						
+					}
+				});
+				table.setWidget(row, 3, ac1);
+				table.setWidget(row, 4, ac2);
+			} else if (obj instanceof File2) {
+				File2 f = (File2) obj;
+				item.setText(f.name);
+				table.setText(row, 1, f.size);
+				table.setText(row, 2, f.date);
+				table.setText(row, 3, "");
+				table.setText(row, 4, "");
+
 			}else if (obj instanceof Filex) {
 				Filex f = (Filex) obj;
 				CheckBox cb=new CheckBox();
@@ -202,6 +270,21 @@ public class GWTClient {
 		public String date;
 
 		public File(String n, String s, String d) {
+			name = n;
+			size = s;
+			date = d;
+		}
+
+		public String toString() {
+			return name;
+		}
+	}
+	public class File2 {
+		public String name;
+		public String size;
+		public String date;
+
+		public File2(String n, String s, String d) {
 			name = n;
 			size = s;
 			date = d;
@@ -285,7 +368,7 @@ public class GWTClient {
 					 initIntegralTree(mapx.get(i).getDepartmentId(), map, treeTable, treeTable.addItem(new File(""+mapx.get(i).getDepartmentName(),mapx.get(i).getBudgetpoints(),mapx.get(i).getHasawardedpoints())));
 				
 				 else
-					 item.addItem(new File(""+mapx.get(i).getDepartmentName(),mapx.get(i).getBudgetpoints(),mapx.get(i).getHasawardedpoints()));
+					 item.addItem(new File2(""+mapx.get(i).getDepartmentName(),mapx.get(i).getBudgetpoints(),mapx.get(i).getHasawardedpoints()));
 				 
 				 
 			}
