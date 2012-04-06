@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.chinarewards.gwt.elt.client.department.model.DepartmentLeaderTreeModel;
 import com.chinarewards.gwt.elt.client.department.model.DepartmentNode;
+import com.chinarewards.gwt.elt.client.department.model.MyTreeResources;
 import com.chinarewards.gwt.elt.client.department.presenter.DepartmentLeaderPresenter.DepartmentLeaderDisplay;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -52,7 +53,7 @@ public class DepartmentLeaderWidget extends Composite implements
 		DepartmentLeaderTreeModel treeModel = new DepartmentLeaderTreeModel(
 				nodeList, corporationId,this);
 
-		CellTree.Resources res = GWT.create(CellTree.BasicResources.class);
+		CellTree.Resources res = GWT.create(MyTreeResources.class);
 		CellTree tree = new CellTree(treeModel, null, res);
 		tree.setAnimationEnabled(true);
 		

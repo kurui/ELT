@@ -229,7 +229,7 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 					specialCbx.setValue(null);
 					birthRadio.setValue(null);
 					settingText.setText("");
-					
+					frequency = null;
 				} else {
 					//settingText.getElement().getParentElement().getParentElement().getParentElement().removeClassName(CssStyleConstants.hidden);
 					//expectTime.getElement().getParentElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
