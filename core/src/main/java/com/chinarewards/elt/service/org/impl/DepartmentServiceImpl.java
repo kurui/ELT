@@ -70,7 +70,6 @@ public class DepartmentServiceImpl implements DepartmentService {
 		SysUser caller = userLogic.findUserById(uc.getUserId());
 		department= departmentLogic.saveDepartment(caller, department);
 		
-		
 		departmentManagerLogic.deleteManager(department.getId(), preLeaderIds);
 		
 		if (staffIds!=null) {
