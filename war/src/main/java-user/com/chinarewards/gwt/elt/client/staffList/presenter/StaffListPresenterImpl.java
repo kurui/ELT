@@ -201,14 +201,16 @@ public class StaffListPresenterImpl extends
 					public void onSuccess(SearchDepartmentByCorpIdResponse resp) {
 						
 						display.getDepartment().clear();
+						display.getDepartment().addItem("不限", "ALL");
+						
 						int selectIndex = 0;
 						int i = 0;
 						for (DepartmentVo entry : resp.getDepartmentList()) {
 							String keyValue = entry.getId();
 							// System.out.println(entry.getId() + ": " + entry.getName());
-							if(entry.getName().indexOf("ROOT")>-1){
-								display.getDepartment().addItem("不限", "ALL");
-							}else{
+						
+								
+							if(entry.getName().indexOf("ROOT")==-1){
 								display.getDepartment().addItem(entry.getName(), entry.getId());
 							}
 							
