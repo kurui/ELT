@@ -113,6 +113,8 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 					Department.class, department.getId());
 
 			tempDepartment.setName(department.getName());
+			
+			changeParent(tempDepartment, department, corporation);
 
 			tempDepartment.setLastModifiedAt(DateUtil.getTime());
 			tempDepartment.setLastModifiedBy(caller);
@@ -120,6 +122,48 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 		}
 
 		return department;
+	}
+
+	/**
+	 * 更改上级部门
+	 * 
+	 * */
+	private Department changeParent(Department oldDepartment,
+			Department thisDepartment,Corporation corporation) {
+		Department oldParent = oldDepartment.getParent();
+		String oldParentId = "";
+		if (oldParent != null) {
+			oldParentId = oldParent.getId();
+		}
+		
+		String targetParentId="";
+		Department targetParent=thisDepartment.getParent();
+		if (targetParent != null) {
+			targetParentId = targetParent.getId();
+		}
+		
+
+		if (!StringUtil.isEmptyString(targetParentId)) {
+			if (oldParentId.equals(targetParentId) == false) {
+				oldDepartment.setParent(targetParent);//parent
+				
+				int oldindex = oldParent.getLft();
+				departmentDao.maintainIndexAfterDeleteNode(oldindex, corporation.getId());//原节点删除
+
+				
+				oldDepartment.setLft(targetParent.getRgt());
+				oldDepartment.setRgt(targetParent.getRgt() + 1);
+				int index = targetParent.getRgt();
+				departmentDao.maintainIndexAfterAddNode(index, corporation.getId());// maintain 目标上级新增节点
+				
+				//-------------------------------
+
+				
+			}
+
+		}
+
+		return oldDepartment;
 	}
 
 	@Override
@@ -317,7 +361,7 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 		for (Department dep : department) {
 			DepartmentManageVo vo = new DepartmentManageVo();
 			vo.setDepartmentId(dep.getId());
-			
+
 			vo.setDepartmentName(dep.getName());
 			if (dep.getParent() != null) {
 				vo.setParentId(dep.getParent().getId());

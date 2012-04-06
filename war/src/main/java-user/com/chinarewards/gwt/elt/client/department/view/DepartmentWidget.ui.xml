@@ -34,27 +34,38 @@
 					</label>
 					<div class="{new2.element}">
 						<g:FlowPanel ui:field="leaderPanel" styleName="{new2.floatleft}" />
-						
+
 						<span class="{new2.nbsp} "></span>
-					    <span class="{new2.btn}"><g:Button ui:field="chooseLeaderBtn">选择</g:Button></span>
-					    
-					    <g:FlowPanel ui:field="preLeaderPanel" width="200px" visible="false" />
+						<span class="{new2.btn}">
+							<g:Button ui:field="chooseLeaderBtn">选择</g:Button>
+						</span>
+
+						<g:FlowPanel ui:field="preLeaderPanel" width="200px"
+							visible="false" />
 					</div>
-				</div>			
-				
+				</div>
+	<!-- 
 				<div class="{new2.form-line}">
 					<label class="{new2.label}">上级部门：</label>
 					<div class="{new2.element}">
 						<g:Hidden ui:field="parentId" />
-						<g:Label  ui:field="parentName" />
+						<g:Label ui:field="parentName" />
 					</div>
 				</div>
+		 -->
+				<div class="{new2.form-line}">
+						<label class="{new2.label}">上级部门：</label>
+						<div class="{new2.element}">
+							<g:ListBox ui:field="parentList" styleName="{new2.text}" />
+						</div>
+					</div>
 				<div class="{new2.form-line}" ui:field="childDiv">
 					<label class="{new2.label}">下一级子部门：</label>
 					<div class="{new2.element}">
-						<g:Label ui:field="childdepartment"  />
-					</div>
+						<g:Label ui:field="childdepartment" />
+					</div>			
 				</div>
+				
 				<div class="{new2.form-line}" ui:field="peopleNumDiv">
 					<label class="{new2.label}">部门人数：</label>
 					<div class="{new2.element}">
@@ -64,28 +75,28 @@
 				<div class="{new2.form-line}">
 					<label class="{new2.label}">财年积分度：</label>
 					<div class="{new2.element}">
-						<g:Label ui:field="yearintegral"  />
+						<g:Label ui:field="yearintegral" />
 					</div>
 				</div>
 				<div class="{new2.form-line}">
 					<label class="{new2.label}">已颁发积分：</label>
 					<div class="{new2.element}">
-						<g:Label ui:field="issueintegral"  />
+						<g:Label ui:field="issueintegral" />
 					</div>
 				</div>
 				<div class="{new2.form-line}">
 					<label class="{new2.label}">进行中奖项：</label>
 					<div class="{new2.element}">
-						<g:Label ui:field="procesRewarditemCount"  />
+						<g:Label ui:field="procesRewarditemCount" />
 					</div>
 				</div>
 				<span class="{new2.cutline}"></span>
 				<div class="{new2.form-line} {new2.form-line-btn}">
 					<div class="{new2.element}">
 						<span class="{new2.btn}">
-								<g:Hidden ui:field="formValidate"></g:Hidden>
-							<g:Button ui:field="save"  styleName="button-ok">保存</g:Button>
-						</span>
+							<g:Hidden ui:field="formValidate"></g:Hidden>
+							<g:Button ui:field="save" styleName="button-ok">保存</g:Button>
+						</span>					
 						<span class="{new2.nbsp}"></span>
 						<span class="{new2.btn}">
 							<g:Button ui:field="back" styleName="button-ok">返回 </g:Button>

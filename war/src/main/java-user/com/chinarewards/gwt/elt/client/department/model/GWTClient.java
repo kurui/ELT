@@ -10,6 +10,9 @@ import com.chinarewards.gwt.elt.client.department.Treetable.TreeTable;
 import com.chinarewards.gwt.elt.client.department.Treetable.TreeTableRenderer;
 import com.chinarewards.gwt.elt.client.integralManagement.model.Category;
 import com.chinarewards.gwt.elt.util.StringUtil;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Panel;
@@ -174,7 +177,18 @@ public class GWTClient {
 				table.setText(row, 2, f.date);
 			}else if (obj instanceof Filex) {
 				Filex f = (Filex) obj;
-				item.setWidget(new CheckBox(f.name));
+				CheckBox cb=new CheckBox();
+				cb.addClickHandler(new ClickHandler() {
+					
+					@Override
+					public void onClick(ClickEvent event) {
+						Window.alert("!!");
+						
+					}
+				});
+				item.setText(f.name);
+				
+				table.setWidget(row, 1, cb);
 			}
 			else if (obj != null) {
 				item.setText(obj.toString());
