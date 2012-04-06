@@ -368,7 +368,14 @@ public class GWTClient {
 					 initIntegralTree(mapx.get(i).getDepartmentId(), map, treeTable, treeTable.addItem(new File(""+mapx.get(i).getDepartmentName(),mapx.get(i).getBudgetpoints(),mapx.get(i).getHasawardedpoints())));
 				
 				 else
-					 item.addItem(new File2(""+mapx.get(i).getDepartmentName(),mapx.get(i).getBudgetpoints(),mapx.get(i).getHasawardedpoints()));
+				 {
+					 TreeItem it= item.addItem(new File2(""+mapx.get(i).getDepartmentName(),mapx.get(i).getBudgetpoints(),mapx.get(i).getHasawardedpoints()));
+					if(mapx.get(i).isLeaf()==false)
+					{
+						 initIntegralTree(mapx.get(i).getDepartmentId(), map, treeTable, it);
+							
+					}
+				 }
 				 
 				 
 			}
