@@ -5,6 +5,7 @@ import java.util.List;
 import com.chinarewards.gwt.elt.client.breadCrumbs.ui.BreadCrumbsMenu;
 import com.chinarewards.gwt.elt.client.core.presenter.DockPresenter;
 import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
+import com.chinarewards.gwt.elt.client.department.model.MyTreeResources;
 import com.chinarewards.gwt.elt.client.integralManagement.model.Category;
 import com.chinarewards.gwt.elt.client.integralManagement.model.ContactTreeViewModel;
 import com.chinarewards.gwt.elt.client.integralManagement.presenter.IntegralManagementPresenter.IntegralManagementDisplay;
@@ -57,7 +58,7 @@ public class IntegralManagementWidget extends Composite implements
 	@Override
 	public void refresh(List<Category> result,String corporationId) {
 
-		CellTree.Resources res = GWT.create(CellTree.BasicResources.class);
+		CellTree.Resources res = GWT.create(MyTreeResources.class);
 
 		CellTree tree = new CellTree(new ContactTreeViewModel(result,corporationId,menuProcessor,dockPresenter,breadCrumbspresenter), null, res);
 		tree.setAnimationEnabled(true);
