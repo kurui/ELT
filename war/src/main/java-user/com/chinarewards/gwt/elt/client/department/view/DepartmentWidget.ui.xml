@@ -24,6 +24,7 @@
 					</label>
 					<div class="{new2.element}">
 						<g:Hidden ui:field="departmentId"></g:Hidden>
+						
 						<g:TextBox maxLength="20" ui:field="departmentName"
 							styleName="{new2.text}" />
 					</div>
@@ -48,11 +49,12 @@
 				<div class="{new2.form-line}">
 					<label class="{new2.label}">上级部门：</label>
 					<div class="{new2.element}">
-						<g:Hidden ui:field="parentId" />
+						
 						<g:Label ui:field="parentName" />
 					</div>
 				</div>
 		 -->
+		 <g:Hidden ui:field="parentId" />
 				<div class="{new2.form-line}">
 						<label class="{new2.label}">上级部门：</label>
 						<div class="{new2.element}">
