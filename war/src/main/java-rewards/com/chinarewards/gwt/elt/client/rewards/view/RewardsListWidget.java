@@ -1,6 +1,7 @@
 package com.chinarewards.gwt.elt.client.rewards.view;
 
 import com.chinarewards.gwt.elt.client.rewards.presenter.RewardsListPresenter.RewardsListDisplay;
+import com.chinarewards.gwt.elt.client.view.constant.CssStyleConstants;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -9,6 +10,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.Hidden;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
@@ -37,6 +39,16 @@ public class RewardsListWidget extends Composite implements RewardsListDisplay {
 	
 	@UiField
 	ListBox pageNumber;
+	@UiField
+	Hidden class1;
+	@UiField
+	Hidden class2;
+	@UiField
+	Hidden class3;
+	@UiField
+	Hidden class4;
+	@UiField
+	Hidden class5;
 	private static RewardsListWidgetUiBinder uiBinder = GWT
 			.create(RewardsListWidgetUiBinder.class);
 
@@ -95,6 +107,22 @@ public class RewardsListWidget extends Composite implements RewardsListDisplay {
 	@Override
 	public ListBox getPageNumber() {
 		return pageNumber;
+	}
+
+	@Override
+	public void changeClassNumber(int number) {
+		if(number==1)
+			this.class1.getElement().getParentElement().setClassName(class1.getStyleName());
+		else if(number==2)
+			this.class1.getElement().getParentElement().setClassName(class2.getStyleName());
+		else if(number==3)
+			this.class1.getElement().getParentElement().setClassName(class3.getStyleName());
+		else if(number==4)
+			this.class1.getElement().getParentElement().setClassName(class4.getStyleName());
+		else if(number==5)
+			this.class1.getElement().getParentElement().setClassName(class5.getStyleName());
+		else
+			this.class1.getElement().getParentElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
 	}
 
 

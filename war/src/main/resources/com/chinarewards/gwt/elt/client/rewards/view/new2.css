@@ -13,7 +13,7 @@ button{cursor:pointer;}
 textarea{word-wrap:break-word;resize:none;}
 
 /*---------------------------------------全局模块----------------------------------------------*/
-.menu,.menu span,.menu-on,.menu-on span,.status-arrow,.list-top,.list-bottom,.btn,.btn button,.back-btn,.box .box-tl,.box .box-tr,.box .box-bl,.box .box-br,.box-btn-ok,.box-btn-cannel,.box-close{background:url(elt/images/elt.png) no-repeat;}
+.menu,.menu span,.menu-on,.menu-on span,.status-arrow,.list-top,.list-bottom,.btn,.btn button,.back-btn,.box .box-tl,.box .box-tr,.box .box-bl,.box .box-br,.box-btn-ok,.box-btn-cannel,.box-close,.award-icon{background:url(elt/images/elt.png) no-repeat;}
 .sidebar .title,.cutline,.footer-line{background:url(elt/images/elt_repeat.png) repeat-x;}
 
 body{background-color:#fff;color:#333333;font:12px/1.5 Tahoma, Arial, simsun;min-width:960px;}
@@ -126,3 +126,20 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .divtext{float:left;color:#999999;padding-bottom:3px;}
 .divfont{color:red;}
 .divend{clear:both}
+
+
+
+/*奖项颁发流程*/
+.reward-flow .reward-flow-wrap h3,.reward-flow .reward-flow-wrap .flow{background:url(elt/images/elt_flow.png) no-repeat;}
+.reward-flow{width:755px;margin:0 auto;padding:10px 0;}
+.reward-flow .reward-flow-wrap:after{content:".";display:block;clear:both;height:0;visibility:hidden;}
+.reward-flow .reward-flow-wrap{*zoom:1;}
+.reward-flow .reward-flow-wrap h3{float:left;background-position:0 -150px;width:112px;height:17px;margin-top:6px;vertical-align:middle;margin-right:10px;text-indent:-1000px;overflow:hidden;}
+.reward-flow .reward-flow-wrap .flow-wrap{float:left;width:630px;}
+.reward-flow .reward-flow-wrap .flow{width:630px;height:29px;text-indent:-1000px;overflow:hidden;display:none;}
+.reward-flow .reward-flow-wrap .flow1{background-position:0 0;}
+.reward-flow .reward-flow-wrap .flow2{background-position:0 -30px;}
+.reward-flow .reward-flow-wrap .flow3{background-position:0 -60px;}
+.reward-flow .reward-flow-wrap .flow4{background-position:0 -90px;}
+.reward-flow .reward-flow-wrap .flow5{background-position:0 -120px;}
+.reward-flow .flow-one .flow1,.reward-flow .flow-two .flow2,.reward-flow .flow-three .flow3,.reward-flow .flow-four .flow4,.reward-flow .flow-five .flow5{display:block;}

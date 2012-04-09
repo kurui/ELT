@@ -97,6 +97,19 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 	}
 
 	private void init() {	
+		if (pageType == RewardPageType.APPLYREWARDLIST) {
+			display.changeClassNumber(2);
+		}
+		else if (pageType == RewardPageType.NOMINATEPAGE) {
+			display.changeClassNumber(3);
+		}
+		else if (pageType == RewardPageType.AWARDREWARDPAGE) {
+			display.changeClassNumber(5);
+		}
+		else
+		{
+			display.changeClassNumber(6);
+		}
 		buildTable();
 		doSearch();
 	}
