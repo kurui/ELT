@@ -113,58 +113,53 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 					Department.class, department.getId());
 
 			tempDepartment.setName(department.getName());
-			
-			changeParent(tempDepartment, department, corporation);
-
 			tempDepartment.setLastModifiedAt(DateUtil.getTime());
-			tempDepartment.setLastModifiedBy(caller);
-			departmentDao.update(tempDepartment);
+			tempDepartment.setLastModifiedBy(caller);			
+			tempDepartment=departmentDao.update(tempDepartment);
+			
+			List<Department> childDepts = departmentDao.findDepartmentsByLefRgt(
+					tempDepartment.getLft(), tempDepartment.getRgt());
+			
+			tempDepartment=updateTreeAschangeParent(tempDepartment,department);
+			
+			for (int i = 0; i < childDepts.size(); i++) {
+				Department child=childDepts.get(i);
+				updateTreeAschangeParent(child, tempDepartment);
+			}			
 		}
 
+		departmentDao.checkNoChildNode();
+		
 		return department;
 	}
+	
 
 	/**
 	 * 更改上级部门
 	 * 
 	 * */
-	private Department changeParent(Department oldDepartment,
-			Department thisDepartment,Corporation corporation) {
-		Department oldParent = oldDepartment.getParent();
-		String oldParentId = "";
-		if (oldParent != null) {
-			oldParentId = oldParent.getId();
-		}
+	private Department updateTreeAschangeParent(Department oldDepartment,
+			Department thisDepartment) {
+		Department thisParent=oldDepartment.getParent();
 		
-		String targetParentId="";
 		Department targetParent=thisDepartment.getParent();
-		if (targetParent != null) {
-			targetParentId = targetParent.getId();
-		}
 		
-
-		if (!StringUtil.isEmptyString(targetParentId)) {
-			if (oldParentId.equals(targetParentId) == false) {
-				oldDepartment.setParent(targetParent);//parent
-				
-				int oldindex = oldParent.getLft();
-				departmentDao.maintainIndexAfterDeleteNode(oldindex, corporation.getId());//原节点删除
-
-				
-				oldDepartment.setLft(targetParent.getRgt());
-				oldDepartment.setRgt(targetParent.getRgt() + 1);
-				int index = targetParent.getRgt();
-				departmentDao.maintainIndexAfterAddNode(index, corporation.getId());// maintain 目标上级新增节点
-				
-				//-------------------------------
-
-				
-			}
-
-		}
-
+		oldDepartment.setParent(targetParent);
+		oldDepartment.setLft(targetParent.getRgt()+1);
+		oldDepartment.setRgt(targetParent.getRgt()+3);
+		
+		thisParent.setRgt(thisParent.getRgt()-1);
+		
+		targetParent.setRgt(targetParent.getRgt()+3);
+		
+		departmentDao.update(oldDepartment);
+		departmentDao.update(thisParent);
+		departmentDao.update(targetParent);
+		
 		return oldDepartment;
 	}
+	
+	
 
 	@Override
 	public String mergeDepartment(UserContext uc, String departmentIds,

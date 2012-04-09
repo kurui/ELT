@@ -301,12 +301,13 @@ public class DepartmentPresenterImpl extends
 						for (DepartmentVo entry : resp.getDepartmentList()) {
 							String keyValue = entry.getId();
 							// System.out.println(entry.getId() + ": " + entry.getName());
-							if(entry.getName().indexOf("ROOT")>-1){
+							if(keyValue.equals(display.getDepartmentId().getValue())){
+								//===================
+							}else if(entry.getName().indexOf("ROOT")>-1){
 								display.getParentList().addItem("", entry.getId());
 							}else{
 								display.getParentList().addItem(entry.getName(), entry.getId());
-							}
-							
+							}							
 							
 							if (selectedValue != null && StringUtil.trim(selectedValue) != ""
 									&& StringUtil.trim(keyValue) != "") {

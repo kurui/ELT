@@ -40,8 +40,8 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 	@UiField
 	Hidden departmentId;
 
-//	@UiField
-//	Hidden parentId;
+	@UiField
+	Hidden parentId;
 //	@UiField
 //	Label parentName;
 	@UiField
@@ -141,7 +141,7 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 
 
 	private void initStatsInfo(DepartmentVo departmentVo) {
-//		parentId.setValue(departmentVo.getParentId());
+		parentId.setValue(departmentVo.getParentId());
 //		parentName.setText(getDepartmentParentName(departmentVo.getParentName()));
 
 		// private String childdeparmentNames;
@@ -168,6 +168,7 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 	@Override
 	public void initAddDepartment(DepartmentVo departmentVo) {
 		departmentId.setValue(departmentVo.getId());
+		parentId.setValue(departmentVo.getParentId());
 
 		leaderArea = new OrganizationSpecialTextArea();
 		leaderPanel.add(leaderArea);//
@@ -182,7 +183,7 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 
 	@Override
 	public void initSaveSameLevelDepartment(DepartmentVo departmentVo) {
-//		parentId.setValue(departmentVo.getParentId());
+		parentId.setValue(departmentVo.getParentId());
 //		parentName.setText(getDepartmentParentName(departmentVo.getParentName()));
 
 		leaderArea = new OrganizationSpecialTextArea();
@@ -200,7 +201,7 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 
 	@Override
 	public void initSaveChildDepartment(DepartmentVo departmentVo) {
-//		parentId.setValue(departmentVo.getId());
+		parentId.setValue(departmentVo.getId());
 //		parentName.setText(departmentVo.getName());
 
 		leaderArea = new OrganizationSpecialTextArea();
@@ -272,8 +273,7 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 
 	@Override
 	public Hidden getParentId() {
-//		return parentId;
-		return null;
+		return parentId;
 	}
 
 	@Override
