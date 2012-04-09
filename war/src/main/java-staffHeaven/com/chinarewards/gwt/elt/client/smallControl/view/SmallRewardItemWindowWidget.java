@@ -3,6 +3,8 @@ package com.chinarewards.gwt.elt.client.smallControl.view;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemConstants;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemClient;
+import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListStaffConstants;
+import com.chinarewards.gwt.elt.model.rewards.RewardsPageClient;
 import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -16,7 +18,7 @@ import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class SmallRewardItemWindowWidget extends Composite {
-;
+
 	@UiField
 	Anchor rewardItemName;
 	@UiField
@@ -49,6 +51,8 @@ public class SmallRewardItemWindowWidget extends Composite {
 					if (!StringUtil.isEmpty(thisAction)) {
 						if ("RewardsItem_STAFF_RUSH".equals(thisAction)) {
 							openRewardsItemView(rewardItemId);
+						}else if("RewardsItem_STAFF_GETED".equals(thisAction)){
+							openRewardHistoryStaff();
 						} else if ("RewardsItem_ALL".equals(thisAction)) {
 							openRewardsItemView(rewardItemId);
 						}
@@ -65,7 +69,9 @@ public class SmallRewardItemWindowWidget extends Composite {
 					if (!StringUtil.isEmpty(thisAction)) {
 						if ("RewardsItem_STAFF_RUSH".equals(thisAction)) {
 							openRewardsItemView(rewardItemId);
-						} else if ("RewardsItem_ALL".equals(thisAction)) {
+						} else if("RewardsItem_STAFF_GETED".equals(thisAction)){
+							openRewardHistoryStaff();
+						}else if ("RewardsItem_ALL".equals(thisAction)) {
 							openRewardsItemView(rewardItemId);
 						}
 					}
@@ -82,6 +88,16 @@ public class SmallRewardItemWindowWidget extends Composite {
 				.getEditorRegistry()
 				.openEditor(RewardsItemConstants.EDITOR_REWARDSITEM_VIEW_STAFF,
 						RewardsItemConstants.EDITOR_REWARDSITEM_VIEW_STAFF,
+						client);
+	}
+	
+	private void openRewardHistoryStaff(){
+		RewardsPageClient client = new RewardsPageClient();
+		Platform.getInstance()
+				.getEditorRegistry()
+				.openEditor(
+						RewardsListStaffConstants.EDITOR_REWARDSLIST_STAFF_SEARCH,
+						"EDITOR_REWARDSLIST_STAFF_SEARCH_DO_ID",
 						client);
 	}
 

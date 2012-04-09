@@ -4,6 +4,8 @@ import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.gloryBroadcast.plugin.GloryBroadcastConstants;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemConstants;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemClient;
+import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListStaffConstants;
+import com.chinarewards.gwt.elt.model.rewards.RewardsPageClient;
 import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -42,8 +44,7 @@ public class SmallRewardWindowWidget extends Composite {
 
 					if (!StringUtil.isEmpty(thisAction)) {
 						if ("RewardsItem_STAFF_GETED".equals(thisAction)) {
-							// rewardsPage = rewardGridService
-							// .fetchRewards_STAFF_GETED(uc, searchVo);
+							openRewardHistoryStaff();
 						} else if ("RewardsItem_COMPANY_GETED".equals(thisAction)) {
 							Platform.getInstance()
 									.getEditorRegistry()
@@ -70,6 +71,16 @@ public class SmallRewardWindowWidget extends Composite {
 				.getEditorRegistry()
 				.openEditor(RewardsItemConstants.EDITOR_REWARDSITEM_VIEW_STAFF,
 						RewardsItemConstants.EDITOR_REWARDSITEM_VIEW_STAFF,
+						client);
+	}
+	
+	private void openRewardHistoryStaff(){
+		RewardsPageClient client = new RewardsPageClient();
+		Platform.getInstance()
+				.getEditorRegistry()
+				.openEditor(
+						RewardsListStaffConstants.EDITOR_REWARDSLIST_STAFF_SEARCH,
+						"EDITOR_REWARDSLIST_STAFF_SEARCH_DO_ID",
 						client);
 	}
 
