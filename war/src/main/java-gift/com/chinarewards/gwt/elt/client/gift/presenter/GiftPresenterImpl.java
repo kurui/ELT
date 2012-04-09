@@ -72,7 +72,7 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 			if (fromMenu) {
 				breadCrumbs.loadListPage();
 			} else {
-				breadCrumbs.loadChildPage("增加新礼品");
+				breadCrumbs.loadChildPage("新建礼品");
 			}
 
 			display.getGiftImage().getElement().getParentElement()

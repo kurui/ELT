@@ -66,7 +66,7 @@ public class GiftPluginDescriptor implements PluginDescriptor {
 
 					@Override
 					public String getTitle() {
-						return "增加新礼品";
+						return "新建礼品";
 					}
 
 					@Override
