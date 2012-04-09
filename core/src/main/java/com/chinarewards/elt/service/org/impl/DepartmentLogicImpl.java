@@ -120,9 +120,12 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 			List<Department> childDepts = departmentDao.findDepartmentsByLefRgt(
 					tempDepartment.getLft(), tempDepartment.getRgt());
 			
-			updateTreeAschangeParent(tempDepartment,department);
+			tempDepartment=updateTreeAschangeParent(tempDepartment,department);
 			
-						
+			for (int i = 0; i < childDepts.size(); i++) {
+				Department child=childDepts.get(i);
+				updateTreeAschangeParent(child, tempDepartment);
+			}			
 		}
 
 		departmentDao.checkNoChildNode();
@@ -135,12 +138,13 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 	 * 更改上级部门
 	 * 
 	 * */
-	private void updateTreeAschangeParent(Department oldDepartment,
+	private Department updateTreeAschangeParent(Department oldDepartment,
 			Department thisDepartment) {
 		Department thisParent=oldDepartment.getParent();
 		
 		Department targetParent=thisDepartment.getParent();
 		
+		oldDepartment.setParent(targetParent);
 		oldDepartment.setLft(targetParent.getRgt()+1);
 		oldDepartment.setRgt(targetParent.getRgt()+3);
 		
@@ -148,12 +152,11 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 		
 		targetParent.setRgt(targetParent.getRgt()+3);
 		
-		
-		departmentDao.update(thisDepartment);
+		departmentDao.update(oldDepartment);
 		departmentDao.update(thisParent);
 		departmentDao.update(targetParent);
 		
-		
+		return oldDepartment;
 	}
 	
 	
