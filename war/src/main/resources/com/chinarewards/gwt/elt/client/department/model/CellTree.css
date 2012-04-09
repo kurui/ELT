@@ -51,13 +51,15 @@
 .cellTreeTopItem {
   color: #4b4a4a;
 }
+.cellTreeTopItem img {
+   margin-top: 4px;
+}
 
 .cellTreeTopItemImage {
  
 }
 
 .cellTreeTopItemImageValue {
- 
   padding-bottom: 1px;
 }
 
