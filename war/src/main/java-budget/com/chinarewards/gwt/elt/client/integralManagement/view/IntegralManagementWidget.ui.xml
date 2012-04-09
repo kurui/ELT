@@ -27,7 +27,7 @@
 						<th class="{new2.th2}" style="width: 23%;">操作</th>
 					</tr>
 					<tr>
-						<td colspan='5'>
+						<td colspan='4'>
 							<g:AbsolutePanel ui:field="cellTree" />
 						</td>
 
