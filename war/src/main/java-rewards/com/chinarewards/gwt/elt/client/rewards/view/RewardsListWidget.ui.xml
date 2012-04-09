@@ -15,6 +15,12 @@
 			    <div class="{new2.reward-flow-wrap}">
 			      <h3>奖项颁发流程：</h3>
 			      <div class="{new2.flow-wrap} {new2.flow-two}"><!--依次对应folw-one,flow-two,flow-three,flow-four,flow-five-->
+			      	<g:Hidden styleName="{new2.flow-wrap} {new2.flow-one}" ui:field="class1"  visible="false" />
+			      	<g:Hidden styleName="{new2.flow-wrap} {new2.flow-two}" ui:field="class2"  visible="false" />
+			      	<g:Hidden styleName="{new2.flow-wrap} {new2.flow-three}" ui:field="class3" visible="false" />
+			      	<g:Hidden styleName="{new2.flow-wrap} {new2.flow-four}" ui:field="class4" visible="false" />
+			      	<g:Hidden styleName="{new2.flow-wrap} {new2.flow-five}" ui:field="class5" visible="false" />
+			      	
 			        <p class="{new2.flow} {new2.flow1}">创建奖项</p>
 			        <p class="{new2.flow} {new2.flow2}">应用奖项</p>
 			        <p class="{new2.flow} {new2.flow3}">提名候选人</p>
