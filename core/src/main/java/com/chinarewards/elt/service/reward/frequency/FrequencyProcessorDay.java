@@ -54,9 +54,9 @@ public class FrequencyProcessorDay implements FrequencyProcessor {
 		dayFrequency.setLastModifiedAt(now);
 		dayFrequency.setCreatedBy(caller);
 		dayFrequency.setLastModifiedBy(caller);
-		dayFrequencyDao.save(dayFrequency);
+		dayFrequencyDao.saveNoFlush(dayFrequency);
 
-		RewardItem rewardItem = rewardItemDao.findById(RewardItem.class,
+		RewardItem rewardItem = rewardItemDao.findByIdNoFlush(RewardItem.class,
 				rewardItemId);
 		rewardItem.setFrequency(dayFrequency);
 
@@ -73,9 +73,9 @@ public class FrequencyProcessorDay implements FrequencyProcessor {
 		dayFrequency.setLastModifiedAt(now);
 		dayFrequency.setCreatedBy(caller);
 		dayFrequency.setLastModifiedBy(caller);
-		dayFrequencyDao.save(dayFrequency);
+		dayFrequencyDao.saveNoFlush(dayFrequency);
 
-		RewardItemStore rewardItemStore = rewardItemStoreDao.findById(RewardItemStore.class,
+		RewardItemStore rewardItemStore = rewardItemStoreDao.findByIdNoFlush(RewardItemStore.class,
 				rewardItemStoreId);
 		rewardItemStore.setFrequency(dayFrequency);
 

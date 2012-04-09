@@ -58,9 +58,9 @@ public class FrequencyProcessorYear implements FrequencyProcessor {
 		yearFrequency.setLastModifiedAt(now);
 		yearFrequency.setCreatedBy(caller);
 		yearFrequency.setLastModifiedBy(caller);
-		yearFrequencyDao.save(yearFrequency);
+		yearFrequencyDao.saveNoFlush(yearFrequency);
 
-		RewardItem rewardItem = rewardItemDao.findById(RewardItem.class,
+		RewardItem rewardItem = rewardItemDao.findByIdNoFlush(RewardItem.class,
 				rewardItemId);
 		rewardItem.setFrequency(yearFrequency);
 
@@ -80,9 +80,9 @@ public class FrequencyProcessorYear implements FrequencyProcessor {
 		yearFrequency.setLastModifiedAt(now);
 		yearFrequency.setCreatedBy(caller);
 		yearFrequency.setLastModifiedBy(caller);
-		yearFrequencyDao.save(yearFrequency);
+		yearFrequencyDao.saveNoFlush(yearFrequency);
 
-		RewardItemStore rewardItemStore = rewardItemStoreDao.findById(RewardItemStore.class,
+		RewardItemStore rewardItemStore = rewardItemStoreDao.findByIdNoFlush(RewardItemStore.class,
 				rewardItemStoreId);
 		rewardItemStore.setFrequency(yearFrequency);
 
