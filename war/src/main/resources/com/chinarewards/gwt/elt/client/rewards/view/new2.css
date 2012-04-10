@@ -130,8 +130,9 @@ a:hover{color:#010DFF;text-decoration:underline;}
 
 
 /*奖项颁发流程*/
+.reward-flowBj{background-color: #FFFFFF;}
 .reward-flow .reward-flow-wrap h3,.reward-flow .reward-flow-wrap .flow{background:url(elt/images/elt_flow.png) no-repeat;}
-.reward-flow{width:755px;margin:0 auto;padding:10px 0;}
+.reward-flow{width:755px;margin: 0 auto;padding: 10px 0 ;}
 .reward-flow .reward-flow-wrap:after{content:".";display:block;clear:both;height:0;visibility:hidden;}
 .reward-flow .reward-flow-wrap{*zoom:1;}
 .reward-flow .reward-flow-wrap h3{float:left;background-position:0 -150px;width:112px;height:17px;margin-top:6px;vertical-align:middle;margin-right:10px;text-indent:-1000px;overflow:hidden;}
