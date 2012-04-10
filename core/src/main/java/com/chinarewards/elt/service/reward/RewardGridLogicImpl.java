@@ -191,7 +191,7 @@ public class RewardGridLogicImpl implements RewardGridLogic {
 		List<PreWinnerLot> winnerlist = preWinnerDao.queryRewardHistoryData(criteria);
 		int resultCount = preWinnerDao.queryRewardHistoryCount(criteria);
 
-		System.out.println("==================fetchRewards_STAFF_HISTORY=============");
+		System.out.println("==================fetchRewards_STAFF_HISTORY=============resultCount:"+resultCount);
 		
 	
 		List<RewardGridVo> gridVoList=convertToGridVoListFromPreWinner(winnerlist);

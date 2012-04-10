@@ -69,10 +69,10 @@ public class SearchRewardsGridHandler extends
 
 			List<RewardsGridClient> clientList = adapter(rewardsPage
 					.getResultList());
-			resp.setTotal(clientList.size());
+			resp.setTotal(rewardsPage.getResultCount());
 			resp.setResult(clientList);
 		}
-
+//		System.out.println("=======searchRewardGridhandler====response.total:"+resp.getTotal());
 		return resp;
 	}
 

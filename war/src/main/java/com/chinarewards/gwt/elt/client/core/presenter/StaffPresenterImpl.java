@@ -560,7 +560,7 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 		RewardsGridCriteria criteria = new RewardsGridCriteria();
 		criteria.setThisAction("RewardsItem_STAFF_GETED");
 		display.getRewardWidgetAction().setValue(criteria.getThisAction());
-		
+		criteria.setStaffId(sessionManager.getSession().getStaffId());
 		dispatchAsync.execute(new SearchRewardsGridRequest(criteria,sessionManager
 				.getSession()),
 				new AsyncCallback<SearchRewardsGridResponse>() {
