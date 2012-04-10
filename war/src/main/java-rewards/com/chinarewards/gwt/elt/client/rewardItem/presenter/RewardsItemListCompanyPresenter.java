@@ -29,6 +29,8 @@ public interface RewardsItemListCompanyPresenter extends
 		public ListBox getPageNumber();
 		
 		public void setBreadCrumbs(Widget breadCrumbs);
+		
+		HasClickHandlers getFirst();
 
 	}
 

@@ -7,6 +7,7 @@ import java.util.List;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
+import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.dataprovider.RewardsListStaffViewAdapter;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
@@ -19,6 +20,7 @@ import com.chinarewards.gwt.elt.client.rewards.model.RewardsGridCriteria;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemCriteria;
 import com.chinarewards.gwt.elt.client.rewards.presenter.RewardsListStaffPresenter.RewardsListStaffDisplay;
+import com.chinarewards.gwt.elt.client.staffHeavenIndex.plugin.StaffHeavenIndexConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager;
@@ -93,6 +95,19 @@ public class RewardsListStaffPresenterImpl extends
 				doSearch();
 			}
 		}));
+		
+		registerHandler(display.getFirst().addClickHandler(new ClickHandler() {
+	  			@Override
+	  			public void onClick(ClickEvent event) {
+	  				Platform.getInstance()
+	  				.getEditorRegistry()
+	  				.openEditor(
+	  						StaffHeavenIndexConstants.EDITOR_STAFFHEAVENINDEX_SEARCH,
+	  						"EDITOR_STAFFHEAVENINDEX_SEARCH_DO_ID",
+	  						null);
+
+	  			}
+	  		}));
 	}
 
 	private void initWidget() {

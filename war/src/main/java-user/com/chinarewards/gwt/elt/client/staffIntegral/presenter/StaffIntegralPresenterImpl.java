@@ -3,15 +3,19 @@ package com.chinarewards.gwt.elt.client.staffIntegral.presenter;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
+import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.shopWindow.presenter.ShopWindowPresenter;
+import com.chinarewards.gwt.elt.client.staffHeavenIndex.plugin.StaffHeavenIndexConstants;
 import com.chinarewards.gwt.elt.client.staffIntegral.request.StaffIntegralRequest;
 import com.chinarewards.gwt.elt.client.staffIntegral.request.StaffIntegralResponse;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.util.StringUtil;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
@@ -47,6 +51,19 @@ public class StaffIntegralPresenterImpl extends
 		breadCrumbs.loadChildPage("查看积分");
 		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
 		init();
+		
+		registerHandler(display.getFirst().addClickHandler(new ClickHandler() {
+  			@Override
+  			public void onClick(ClickEvent event) {
+  				Platform.getInstance()
+  				.getEditorRegistry()
+  				.openEditor(
+  						StaffHeavenIndexConstants.EDITOR_STAFFHEAVENINDEX_SEARCH,
+  						"EDITOR_STAFFHEAVENINDEX_SEARCH_DO_ID",
+  						null);
+
+  			}
+  		}));
 	}
 
 	void init() {
