@@ -14,6 +14,7 @@ import com.chinarewards.gwt.elt.client.enterprise.request.SearchLicenseResponse;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.chinarewards.gwt.elt.util.StringUtil;
 import com.chinarewards.gwt.elt.util.XmlUtil_GWT;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
@@ -66,8 +67,18 @@ public class LicensePresenterImpl extends BasePresenter<LicenseDisplay>
 				new ChangeHandler() {
 					@Override
 					public void onChange(ChangeEvent arg0) {
-						display.getLicenseForm().setAction("licenseupload");
-						display.getLicenseForm().submit();
+						String thisFileName=display.getLicenseUpload().getFilename();
+//						Window.alert(thisFileName);
+						if (!StringUtil.isEmpty(thisFileName)) {
+							if (thisFileName.indexOf(".lic")>0) {
+								display.getLicenseForm().setAction("licenseupload");
+								display.getLicenseForm().submit();
+							}else{
+								Window.alert("授权文件后缀为.lic,请重新选择");
+							}
+						}else{
+							Window.alert("请选择需要更新的授权文件");
+						}
 					}
 				}));
 		
