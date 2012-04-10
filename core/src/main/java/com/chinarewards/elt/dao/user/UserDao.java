@@ -101,12 +101,12 @@ public class UserDao extends BaseDao<SysUser> {
 		if (!StringUtil.isEmptyString(criteria.getAccountName())) {
 			eql.append(" AND UPPER(u.userName) like :accountName");
 			param.put("accountName", "%"
-					+ criteria.getAccountName().toUpperCase() + "%");
+					+ criteria.getAccountName() + "%");
 		}
 
 		if (!StringUtil.isEmptyString(criteria.getEmail())) {
 			eql.append(" AND UPPER(u.staff.email) like :email");
-			param.put("email", "%" + criteria.getEmail().toUpperCase() + "%");
+			param.put("email", "%" + criteria.getEmail() + "%");
 		}
 
 		if (!StringUtil.isEmptyString(criteria.getEnterpriseId())) {
@@ -121,7 +121,7 @@ public class UserDao extends BaseDao<SysUser> {
 
 		if (!StringUtil.isEmptyString(criteria.getMobile())) {
 			eql.append(" AND UPPER(u.staff.phone) like :mobile");
-			param.put("mobile", "%" + criteria.getMobile().toUpperCase() + "%");
+			param.put("mobile", "%" + criteria.getMobile() + "%");
 		}
 
 		if (!StringUtil.isEmptyString(criteria.getStatus())) {

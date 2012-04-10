@@ -22,6 +22,7 @@ import com.chinarewards.gwt.elt.client.orderHistory.plugin.OrderHistoryConstants
 import com.chinarewards.gwt.elt.client.orderHistory.presenter.OrderHistoryPresenter.OrderHistoryDisplay;
 import com.chinarewards.gwt.elt.client.orderHistory.request.OrderHistoryViewRequest;
 import com.chinarewards.gwt.elt.client.orderHistory.request.OrderHistoryViewResponse;
+import com.chinarewards.gwt.elt.client.staffHeavenIndex.plugin.StaffHeavenIndexConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
 import com.chinarewards.gwt.elt.client.ui.UniversalCell;
@@ -93,6 +94,18 @@ public class OrderHistoryPresenterImpl extends
 				doSearch();
 			}
 		}));
+          display.getFirst().addClickHandler(new ClickHandler() {
+  			@Override
+  			public void onClick(ClickEvent event) {
+  				Platform.getInstance()
+  				.getEditorRegistry()
+  				.openEditor(
+  						StaffHeavenIndexConstants.EDITOR_STAFFHEAVENINDEX_SEARCH,
+  						"EDITOR_STAFFHEAVENINDEX_SEARCH_DO_ID",
+  						null);
+
+  			}
+  		});
 	}
 
 	private void init() {
