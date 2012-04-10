@@ -2,8 +2,10 @@ package com.chinarewards.gwt.elt.client.rewardItem.view;
 
 import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemListStaffPresenter.RewardsItemListStaffDisplay;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.ListBox;
@@ -27,6 +29,9 @@ public class RewardsItemListStaffWidget extends Composite implements
 	ListBox pageNumber;
 	// @UiField
 	// Panel breadCrumbs;
+	
+	@UiField
+	Anchor first;
 
 	private static RewardsItemListStaffWidgetUiBinder uiBinder = GWT
 			.create(RewardsItemListStaffWidgetUiBinder.class);
@@ -70,5 +75,10 @@ public class RewardsItemListStaffWidget extends Composite implements
 //	public HasClickHandlers getSearchBtnClickHandlers() {		
 //		return searchButton;
 //	}
+	
+	@Override
+	public HasClickHandlers getFirst() {
+		return first;
+	}
 
 }

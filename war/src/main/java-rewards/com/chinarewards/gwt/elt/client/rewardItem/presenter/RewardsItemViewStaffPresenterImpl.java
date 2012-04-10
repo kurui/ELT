@@ -11,6 +11,7 @@ import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemConstants;
 import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsItemByIdRequest;
 import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsItemByIdResponse;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemClient;
+import com.chinarewards.gwt.elt.client.staffHeavenIndex.plugin.StaffHeavenIndexConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.model.rewards.RewardsPageClient;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -75,6 +76,19 @@ public class RewardsItemViewStaffPresenterImpl
 					}
 
 				}));
+		
+		registerHandler(display.getFirst().addClickHandler(new ClickHandler() {
+  			@Override
+  			public void onClick(ClickEvent event) {
+  				Platform.getInstance()
+  				.getEditorRegistry()
+  				.openEditor(
+  						StaffHeavenIndexConstants.EDITOR_STAFFHEAVENINDEX_SEARCH,
+  						"EDITOR_STAFFHEAVENINDEX_SEARCH_DO_ID",
+  						null);
+
+  			}
+  		}));
 
 	}
 
