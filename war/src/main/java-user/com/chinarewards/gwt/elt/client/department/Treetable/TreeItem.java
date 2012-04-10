@@ -511,10 +511,10 @@ public class TreeItem extends Widget implements HasHTML {
 	    // or the children will always take up space.
 	    if (open) {
 	      // UIObject.setVisible(childSpanElem, true);
-	      DOM.setAttribute(imgElem, "src", imgSrc("images/tree_open.png"));
+	      DOM.setAttribute(imgElem, "src", imgSrc("images/tree_open.gif"));
 	    } else {
 	      // UIObject.setVisible(childSpanElem, false);
-	      DOM.setAttribute(imgElem, "src", imgSrc("images/tree_closed.png"));
+	      DOM.setAttribute(imgElem, "src", imgSrc("images/tree_closed.gif"));
 	    }
 	    
 //	    if (getParentItem() != null) {

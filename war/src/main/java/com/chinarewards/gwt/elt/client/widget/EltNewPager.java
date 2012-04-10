@@ -430,7 +430,7 @@ public class EltNewPager extends AbstractPager {
 		nextPage.setStyleName("pagedisable");
 		prevPage.setStyleName("pagedisable");
 		lastPage.setStyleName("pagedisable");
-		
+
 		
 		if (totalPage >= 1) {
 			onePage.setStyleName("");
@@ -443,6 +443,7 @@ public class EltNewPager extends AbstractPager {
 			prevPage.setStyleName("");
 			lastPage.setStyleName("");
 			twoPage.setVisible(true);
+
 		}
 		if (totalPage >= 3) {
 			threePage.setStyleName("");
@@ -487,17 +488,17 @@ public class EltNewPager extends AbstractPager {
 
 	@Override
 	protected void onRangeOrRowCountChanged() {
-		HasRows display = getDisplay();
+	//	HasRows display = getDisplay();
 		label.setText(createText());
 
-		// Update the prev and first buttons.
-		setPrevPageButtonsDisabled(!hasPreviousPage());
-
-		// Update the next and last buttons.
-		if (isRangeLimited() || !display.isRowCountExact()) {
-			setNextPageButtonsDisabled(!hasNextPage());
-			setFastForwardDisabled(!hasNextPages(getFastForwardPages()));
-		}
+//		// Update the prev and first buttons.
+//		setPrevPageButtonsDisabled(!hasPreviousPage());
+//
+//		// Update the next and last buttons.
+//		if (isRangeLimited() || !display.isRowCountExact()) {
+//			setNextPageButtonsDisabled(!hasNextPage());
+//			setFastForwardDisabled(!hasNextPages(getFastForwardPages()));
+//		}
 	}
 
 	/**
@@ -532,42 +533,42 @@ public class EltNewPager extends AbstractPager {
 	 * @param disabled
 	 *            true to disable, false to enable
 	 */
-	private void setFastForwardDisabled(boolean disabled) {
-		if (fastForward == null) {
-			return;
-		}
-		if (disabled) {
-			// fastForward.setResource(resources.simplePagerFastForwardDisabled());
-			// fastForward.getElement().getParentElement().addClassName(
-			// style.disabledButton());
-		} else {
-			// fastForward.setResource(resources.simplePagerFastForward());
-			// fastForward.getElement().getParentElement().removeClassName(
-			// style.disabledButton());
-		}
-	}
-
-	/**
-	 * Enable or disable the next page buttons.
-	 * 
-	 * @param disabled
-	 *            true to disable, false to enable
-	 */
-	private void setNextPageButtonsDisabled(boolean disabled) {
-		nextPage.setEnabled(disabled);
-		if (lastPage != null) {
-			lastPage.setEnabled(disabled);
-		}
-	}
-
-	/**
-	 * Enable or disable the previous page buttons.
-	 * 
-	 * @param disabled
-	 *            true to disable, false to enable
-	 */
-	private void setPrevPageButtonsDisabled(boolean disabled) {
-		firstPage.setEnabled(disabled);
-		prevPage.setEnabled(disabled);
-	}
+//	private void setFastForwardDisabled(boolean disabled) {
+//		if (fastForward == null) {
+//			return;
+//		}
+//		if (disabled) {
+//			// fastForward.setResource(resources.simplePagerFastForwardDisabled());
+//			// fastForward.getElement().getParentElement().addClassName(
+//			// style.disabledButton());
+//		} else {
+//			// fastForward.setResource(resources.simplePagerFastForward());
+//			// fastForward.getElement().getParentElement().removeClassName(
+//			// style.disabledButton());
+//		}
+//	}
+//
+//	/**
+//	 * Enable or disable the next page buttons.
+//	 * 
+//	 * @param disabled
+//	 *            true to disable, false to enable
+//	 */
+//	private void setNextPageButtonsDisabled(boolean disabled) {
+//		nextPage.setEnabled(disabled);
+//		if (lastPage != null) {
+//			lastPage.setEnabled(disabled);
+//		}
+//	}
+//
+//	/**
+//	 * Enable or disable the previous page buttons.
+//	 * 
+//	 * @param disabled
+//	 *            true to disable, false to enable
+//	 */
+//	private void setPrevPageButtonsDisabled(boolean disabled) {
+//		firstPage.setEnabled(disabled);
+//		prevPage.setEnabled(disabled);
+//	}
 }

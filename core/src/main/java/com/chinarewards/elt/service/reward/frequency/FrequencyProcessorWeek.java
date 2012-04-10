@@ -64,7 +64,7 @@ public class FrequencyProcessorWeek implements FrequencyProcessor {
 		weekFrequency.setLastModifiedAt(now);
 		weekFrequency.setCreatedBy(caller);
 		weekFrequency.setLastModifiedBy(caller);
-		weekFrequencyDao.save(weekFrequency);
+		weekFrequencyDao.saveNoFlush(weekFrequency);
 
 		// Add weekFrquencyDays
 		for (WeekDays days : weekly.getWeekdays()) {
@@ -73,10 +73,10 @@ public class FrequencyProcessorWeek implements FrequencyProcessor {
 			weekDays.setSort(days.getFlag());
 			weekDays.setWeekDays(days);
 
-			weekFrequencyDaysDao.save(weekDays);
+			weekFrequencyDaysDao.saveNoFlush(weekDays);
 		}
 
-		RewardItem rewardItem = rewardItemDao.findById(RewardItem.class,
+		RewardItem rewardItem = rewardItemDao.findByIdNoFlush(RewardItem.class,
 				rewardItemId);
 		rewardItem.setFrequency(weekFrequency);
 

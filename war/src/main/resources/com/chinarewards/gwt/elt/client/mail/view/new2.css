@@ -53,7 +53,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .form .form-line .label{float:left;width:30%;text-align:right;vertical-align:middle;}
 .form .form-line .element{float:right;width:69%;text-align:left;}
 .form .select{border:1px solid #CCCCCC;width:120px;height:22px;}
-.form .short-text{height:18px;width:30px;border:1px solid #CCCCCC;}
+.form .short-text{height:18px;width:30px;border:1px solid #CCCCCC;line-height:18px}
 .form .text{height:22px;width:200px;color:#999999;border:1px solid #CCCCCC;}
 .form .long-text{width:371px;}
 .form .textarea{width:420px;height:50px;border:1px solid #CCCCCC;overflow:auto;}

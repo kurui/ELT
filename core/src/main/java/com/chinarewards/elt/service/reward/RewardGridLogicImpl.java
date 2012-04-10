@@ -1,12 +1,7 @@
 package com.chinarewards.elt.service.reward;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import com.chinarewards.elt.dao.reward.CandidateDao;
 import com.chinarewards.elt.dao.reward.PreWinnerDao;
 import com.chinarewards.elt.dao.reward.RewardItemDao;
@@ -194,12 +189,13 @@ public class RewardGridLogicImpl implements RewardGridLogic {
 		PageStore<RewardGridVo> pageStore = new PageStore<RewardGridVo>();
 
 		List<PreWinnerLot> winnerlist = preWinnerDao.queryRewardHistoryData(criteria);
+		int resultCount = preWinnerDao.queryRewardHistoryCount(criteria);
 
-		System.out.println("==================fetchRewards_STAFF_HISTORY=============");
+		System.out.println("==================fetchRewards_STAFF_HISTORY=============resultCount:"+resultCount);
 		
-		int resultCount = winnerlist.size();
-
-		pageStore.setResultList(convertToGridVoListFromPreWinner(winnerlist));
+	
+		List<RewardGridVo> gridVoList=convertToGridVoListFromPreWinner(winnerlist);
+		pageStore.setResultList(gridVoList);
 		pageStore.setResultCount(resultCount);
 
 		return pageStore;
@@ -364,6 +360,7 @@ public class RewardGridLogicImpl implements RewardGridLogic {
 				rewardGridVo.setAwardAmt(reward.getAwardAmt());
 				rewardGridVo.setAwardName(reward.getCreatedBy().getStaff()
 						.getName());// 颁奖人
+				rewardGridVo.setRewardStatusName(reward.getStatus().getDisplayName());
 
 				// 提名人
 				List<NomineeLot> nomineeLots = nomineeLogic

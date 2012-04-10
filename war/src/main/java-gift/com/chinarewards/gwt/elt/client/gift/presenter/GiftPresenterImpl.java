@@ -72,7 +72,7 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 			if (fromMenu) {
 				breadCrumbs.loadListPage();
 			} else {
-				breadCrumbs.loadChildPage("增加新礼品");
+				breadCrumbs.loadChildPage("新建礼品");
 			}
 
 			display.getGiftImage().getElement().getParentElement()
@@ -282,11 +282,30 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 				errorMsg.append("请确认图片格式,仅支持JPG和GIF!<br>");
 				flag = false;
 			}
-		} else {// 浏览
+		}else {// 浏览
 			// errorMsg.append("请选择图片文件!<br>");
 			// flag = false;
 		}
-
+		
+	
+		if ( display.getSource()!= null) {
+			String sourceValue=display.getSource().getValue();
+			if (StringUtil.trim(sourceValue).equals("outter")) {
+				if (StringUtil.isEmpty(display.getBusiness().getValue())) {
+					errorMsg.append("请填写供应商名称!<br>");
+					flag = false;
+				} 
+				if (StringUtil.isEmpty(display.getAddress().getValue())) {
+					errorMsg.append("请填写供应商地址!<br>");
+					flag = false;
+				} 
+				if (StringUtil.isEmpty(display.getTell().getValue())) {
+					errorMsg.append("请填写供应商电话!<br>");
+					flag = false;
+				}  
+			}
+		}
+		
 		if (!flag) {
 			win.alert(errorMsg.toString());
 		}

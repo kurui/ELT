@@ -112,7 +112,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .footer .copyright{padding:10px 0;width:400px;text-align:left;margin:0 auto;color:#9E9E9E;}
 .footer .copyright p{line-height:20px;}
 /*-------------------------------------iframe页面------------------------------------------------------*/
-.frame-wrap{background-color:#F4F4F4;width:100%;margin-top:15px; min-width: 1010px;}
+.frame-wrap{width:100%;margin-top:15px; min-width: 1010px;}
 .frame-wrap .breadcrumb-wrap:after{content:".";display:block;clear:both;height:0;visibility:hidden;}
 .frame-wrap .breadcrumb-wrap{\*zoom:1;}
 .frame-wrap .breadcrumb-left{float:left;width:50%;}
@@ -140,7 +140,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .otherDiv{padding-top: 3px;padding-bottom: 3px;color: orange;}
 
 
-.short-text{height:18px;width:30px;border:1px solid #356CA7;text-align:center;}
+.short-text{height:18px;width:30px;border:1px solid #356CA7;text-align:center;line-height:18px;}
 .text{height:22px;width:200px;border:1px solid #356CA7;}
 .textarea{width:420px;height:50px;border:1px solid #356CA7;}
 /*-------------------------------------------- 员工天地 -----------------------------------------------------------------------------------------------------------*/

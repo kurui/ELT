@@ -26,5 +26,7 @@ public interface RewardsListPresenter extends Presenter<RewardsListPresenter.Rew
 		
 		void setBreadCrumbs(Widget breadCrumbs);
 		ListBox getPageNumber();
+		
+		void changeClassNumber(int number);
 	}
 }

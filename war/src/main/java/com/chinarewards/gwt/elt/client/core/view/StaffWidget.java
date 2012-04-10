@@ -559,4 +559,10 @@ public class StaffWidget extends Composite implements StaffDisplay {
 	public void setMore(String text) {
 		more.setText(text);
 	}
+
+	@Override
+	public void displayMore() {
+		more.setVisible(false);
+		
+	}
 }

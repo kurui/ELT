@@ -13,6 +13,23 @@
 			<g:FlowPanel ui:field="breadCrumbs" />
 			<!--面包屑 ]] -->
 			
+						  <!--奖项颁发流程 [[-->
+			<div class="{newitem.reward-flowBj}">
+			  <div class="{newitem.reward-flow}">
+			    <div class="{newitem.reward-flow-wrap}">
+			      <h3>奖项颁发流程：</h3>
+			      <div class="{newitem.flow-wrap} {newitem.flow-one}"><!--依次对应folw-one,flow-two,flow-three,flow-four,flow-five-->
+			        <p class="{newitem.flow} {newitem.flow1}">创建奖项</p>
+			        <p class="{newitem.flow} {newitem.flow2}">应用奖项</p>
+			        <p class="{newitem.flow} {newitem.flow3}">提名候选人</p>
+			        <p class="{newitem.flow} {newitem.flow4}">确认获奖人</p>
+			        <p class="{newitem.flow} {newitem.flow5}">颁发奖项</p>
+			      </div>
+			    </div>
+			  </div>
+			  </div>
+			  <!--奖项颁发流程 ]]-->
+			
 			<!--查询条件 [[ -->
 			<div class="{newitem.query-wrap}" >
 				<div class="{newitem.formx}">

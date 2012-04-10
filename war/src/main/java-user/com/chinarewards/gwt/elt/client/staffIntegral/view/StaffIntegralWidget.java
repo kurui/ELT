@@ -2,8 +2,10 @@ package com.chinarewards.gwt.elt.client.staffIntegral.view;
 
 import com.chinarewards.gwt.elt.client.staffIntegral.presenter.StaffIntegralPresenter.StaffIntegralDisplay;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Label;
@@ -19,6 +21,9 @@ public class StaffIntegralWidget extends Composite implements
 	InlineLabel consumptionIntegral;
 	@UiField
 	InlineLabel balanceIntegral;
+	
+	@UiField
+	Anchor first;
 
 //	@UiField
 //	Panel breadCrumbs;
@@ -64,6 +69,11 @@ public class StaffIntegralWidget extends Composite implements
 	public void setShopWindow(Widget asWidget) {
 		this.shopWindow.clear();
 		this.shopWindow.add(asWidget);
+	}
+
+	@Override
+	public HasClickHandlers getFirst() {
+		return first;
 	}
 
 }

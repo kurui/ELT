@@ -21,6 +21,7 @@ import com.chinarewards.gwt.elt.client.order.request.OrderViewRequest;
 import com.chinarewards.gwt.elt.client.order.request.OrderViewResponse;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
+import com.chinarewards.gwt.elt.client.ui.UniversalCell;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager.TextLocation;
 import com.chinarewards.gwt.elt.client.widget.GetValue;
@@ -35,7 +36,6 @@ import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
@@ -225,12 +225,12 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 					}
 				});
 		
-		cellTable.addColumn("操作", new HyperLinkCell(),
+		cellTable.addColumn("操作", new UniversalCell(),
 				new GetValue<OrderSearchVo, String>() {
 					@Override
 					public String getValue(OrderSearchVo order) {
 						if(order.getStatus()==OrderStatus.NUSHIPMENTS)
-						    return "发货";
+						    return  "<a style=\"color:bule;\" href=\"javascript:void(0);\">发货</a>";
 						else
 							return "<span style='color: rgb(221, 221, 221);'>发货</span>";
 					}
@@ -261,12 +261,12 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 											
 					}
 				});
-		cellTable.addColumn("操作", new HyperLinkCell(),
+		cellTable.addColumn("操作", new UniversalCell(),
 				new GetValue<OrderSearchVo, String>() {
 					@Override
 					public String getValue(OrderSearchVo order) {
 						if(order.getStatus()==OrderStatus.NUSHIPMENTS)
-						    return "退回";
+						    return  "<a style=\"color:bule;\" href=\"javascript:void(0);\">退回</a>";
 						else
 							return "<span style='color: rgb(221, 221, 221);'>退回</span>";
 					}

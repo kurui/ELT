@@ -42,7 +42,9 @@ public class LoginWidget extends Composite implements LoginDisplay {
 
 	@UiField
 	Anchor prompt;
-
+	@UiField
+	Anchor license;
+	
 	interface LoginWidgetBinder extends UiBinder<Widget, LoginWidget> {
 	}
 
@@ -123,6 +125,11 @@ public class LoginWidget extends Composite implements LoginDisplay {
 		int rand = Random.nextInt();
 		String url = "kaptcha.jpg?dt=" + rand;
 		verifyImage.setUrl(url);
+	}
+
+	@Override
+	public HasClickHandlers getLicenseClickHandlers() {
+		return license;
 	}
 
 }

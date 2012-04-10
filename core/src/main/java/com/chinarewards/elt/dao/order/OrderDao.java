@@ -60,10 +60,10 @@ public class OrderDao extends BaseDao<Orders> {
 			param.put("source", vo.getGiftvo().getSource());
 		}
 		if (!StringUtil.isEmptyString(vo.getName())) {//查询姓名或编码时
-			eql.append(" AND o.name LIKE :name ");
-			param.put("name", "%" + vo.getName().trim().toUpperCase()+ "%");
-			eql.append(" or o.orderCode like:orderCode ");
-			param.put("orderCode","%" +  vo.getName().trim().toUpperCase()+ "%");
+			eql.append(" AND ( o.name = :name ");
+			param.put("name",  vo.getName().trim());
+			eql.append(" or o.orderCode =:orderCode )");
+			param.put("orderCode",  vo.getName().trim());
 		}
 		// 根据创建时间来查询
 			if (null != vo.getExchangeDate()&& !vo.getExchangeDate().equals("")

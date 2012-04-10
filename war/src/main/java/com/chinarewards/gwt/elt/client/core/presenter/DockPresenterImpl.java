@@ -14,7 +14,6 @@ import com.chinarewards.gwt.elt.client.core.presenter.DockPresenter.DockDisplay;
 import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
 import com.chinarewards.gwt.elt.client.core.ui.event.MenuClickEvent;
 import com.chinarewards.gwt.elt.client.enterprise.plugin.EnterpriseConstants;
-import com.chinarewards.gwt.elt.client.gift.plugin.GiftListConstants;
 import com.chinarewards.gwt.elt.client.hrbox.plugin.HrBoxConstants;
 import com.chinarewards.gwt.elt.client.integralManagement.plugin.IntegralManagementConstants;
 import com.chinarewards.gwt.elt.client.login.LastLoginRoleRequest;
@@ -22,6 +21,7 @@ import com.chinarewards.gwt.elt.client.login.LastLoginRoleResponse;
 import com.chinarewards.gwt.elt.client.login.event.LoginEvent;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
+import com.chinarewards.gwt.elt.client.order.plugin.OrderListConstants;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemConstants;
 import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListConstants;
 import com.chinarewards.gwt.elt.client.staff.plugin.LeadTimeConstants;
@@ -181,7 +181,7 @@ public class DockPresenterImpl extends BasePresenter<DockDisplay> implements
 						menuProcessor.initrender(display.getMenu(), "Gift");
 						eventBus.fireEvent(new MenuClickEvent(
 								menuProcessor
-										.getMenuItem(GiftListConstants.MENU_GIFTLIST_SEARCH)));
+										.getMenuItem(OrderListConstants.MENU_ORDERLIST_SEARCH)));
 					}
 				}));
 		registerHandler(display.getBtnIntegral().addClickHandler(

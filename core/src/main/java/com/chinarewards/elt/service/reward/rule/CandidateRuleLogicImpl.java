@@ -149,9 +149,9 @@ public class CandidateRuleLogicImpl implements CandidateRuleLogic {
 		dobRule.setLastModifiedAt(now);
 		dobRule.setCreatedBy(caller);
 		dobRule.setLastModifiedBy(caller);
-		dobRuleDao.save(dobRule);
+		dobRuleDao.saveNoFlush(dobRule);
 
-		RewardItem rewardItem = rewardItemDao.findById(RewardItem.class,
+		RewardItem rewardItem = rewardItemDao.findByIdNoFlush(RewardItem.class,
 				rewardItemId);
 
 		rewardItem.setCandidateRule(dobRule);
@@ -182,10 +182,10 @@ public class CandidateRuleLogicImpl implements CandidateRuleLogic {
 			List<DirectCandidateData> shortLists = directCandidateDataDao
 					.findDirectCandidateDataListByDirectRuleIdForDel(rule.getId());
 			for (DirectCandidateData sl : shortLists) {
-				directCandidateDataDao.delete(sl);
+				directCandidateDataDao.deleteNoFlush(sl);
 			}
 		}
-		candidateRuleDao.delete(rule);
+		candidateRuleDao.deleteNoFlush(rule);
 	}
   
 	@Override

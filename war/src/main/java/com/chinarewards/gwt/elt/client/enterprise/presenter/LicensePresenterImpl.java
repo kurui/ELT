@@ -5,20 +5,28 @@ import java.util.List;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import com.chinarewards.gwt.elt.client.EltGinjector;
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.enterprise.model.LicenseVo;
 import com.chinarewards.gwt.elt.client.enterprise.presenter.LicensePresenter.LicenseDisplay;
 import com.chinarewards.gwt.elt.client.enterprise.request.SearchLicenseRequest;
 import com.chinarewards.gwt.elt.client.enterprise.request.SearchLicenseResponse;
+import com.chinarewards.gwt.elt.client.login.presenter.AlertErrorWidget;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
-import com.chinarewards.gwt.elt.client.win.Win;
+import com.chinarewards.gwt.elt.client.ui.DialogBox;
+import com.chinarewards.gwt.elt.util.StringUtil;
 import com.chinarewards.gwt.elt.util.XmlUtil_GWT;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteEvent;
 import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteHandler;
 import com.google.inject.Inject;
@@ -31,19 +39,21 @@ public class LicensePresenterImpl extends BasePresenter<LicenseDisplay>
 		implements LicensePresenter {
 
 	final DispatchAsync dispatcher;
-	final Win win;
+	//final Win Window;
 	private final SessionManager sessionManager;
 	List<HandlerRegistration> handlerRegistrations = new ArrayList<HandlerRegistration>();
 	private final BreadCrumbsPresenter breadCrumbs;
+	
+	private final EltGinjector injector = GWT.create(EltGinjector.class);
 
 	@Inject
 	public LicensePresenterImpl(final EventBus eventBus,
 			LicenseDisplay display, BreadCrumbsPresenter breadCrumbs,
-			DispatchAsync dispatcher, SessionManager sessionManager, Win win) {
+			DispatchAsync dispatcher,SessionManager sessionManager) {
 		super(eventBus, display);
 		this.dispatcher = dispatcher;
 		this.sessionManager = sessionManager;
-		this.win = win;
+	//	this.Window = Window;
 		this.breadCrumbs = breadCrumbs;
 	}
 
@@ -59,8 +69,18 @@ public class LicensePresenterImpl extends BasePresenter<LicenseDisplay>
 				new ChangeHandler() {
 					@Override
 					public void onChange(ChangeEvent arg0) {
-						display.getLicenseForm().setAction("licenseupload");
-						display.getLicenseForm().submit();
+						String thisFileName=display.getLicenseUpload().getFilename();
+//						Window.alert(thisFileName);
+						if (!StringUtil.isEmpty(thisFileName)) {
+							if (thisFileName.indexOf(".lic")>0) {
+								display.getLicenseForm().setAction("licenseupload");
+								display.getLicenseForm().submit();
+							}else{
+								openNoSessionWin("授权文件后缀为.lic,请重新选择","350","提示");
+							}
+						}else{
+							Window.alert("请选择需要更新的授权文件");
+						}
 					}
 				}));
 		
@@ -72,7 +92,7 @@ public class LicensePresenterImpl extends BasePresenter<LicenseDisplay>
 						String eventResults = event.getResults();
 						System.out.println("submitComplete event.getResults:"
 								+ eventResults);
-						// win.alert(eventResults);
+						// Window.alert(eventResults);
 
 						if (eventResults != null) {
 							eventResults = XmlUtil_GWT
@@ -85,18 +105,35 @@ public class LicensePresenterImpl extends BasePresenter<LicenseDisplay>
 
 								if ("SUCCESS".equals(result)) {
 									initWidget();
-									win.alert("更新授权成功");
+									openNoSessionWin("更新授权成功","350","提示");
 								} else {
-									win.alert("上传授权文件异常<br>" + info);
+									openNoSessionWin("上传授权文件异常<br>" + info,"350","提示");
 								}
 							} catch (Exception e) {
 								e.printStackTrace();
-								win.alert("上传授权文件异常，请重试" + e.getMessage());
+//								Window.alert("上传授权文件异常，请重试" + e.getMessage());
+								openNoSessionWin("上传授权文件异常，请重试" + e.getMessage(),"350","提示");
 								return;
 							}
 						}
 					}
 				});
+		
+		registerHandler(display.getBackHandlers().addClickHandler(
+				new ClickHandler() {
+					public void onClick(ClickEvent paramClickEvent) {
+						if (sessionManager!=null) {
+							if(sessionManager.getSession()!=null){
+								breadCrumbs.getGoHistory();
+							}else{
+								injector.getMain().init(RootLayoutPanel.get());//登录页
+							}							
+						}else{
+							injector.getMain().init(RootLayoutPanel.get());//登录页
+						}
+						
+					}
+				}));
 
 	}
 
@@ -106,11 +143,10 @@ public class LicensePresenterImpl extends BasePresenter<LicenseDisplay>
 	private void initWidget() {
 
 		dispatcher.execute(
-				new SearchLicenseRequest(sessionManager.getSession()),
+				new SearchLicenseRequest(),
 				new AsyncCallback<SearchLicenseResponse>() {
 					public void onFailure(Throwable caught) {
-
-						win.alert("初始化失败");
+						openNoSessionWin("初始化失败","350","提示");
 					}
 
 					@Override
@@ -123,6 +159,26 @@ public class LicensePresenterImpl extends BasePresenter<LicenseDisplay>
 					}
 				});
 
+	}
+	
+	
+	private void openNoSessionWin(String message,String width,String title){
+		final AlertErrorWidget ae = new AlertErrorWidget();
+		final DialogBox dialogBoxae = new DialogBox();
+		ae.getOkBtn().addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent arg0) {
+				dialogBoxae.hide();
+			}
+		});
+		ae.setMessage(message);
+		dialogBoxae.setWidget(ae);
+		dialogBoxae.setGlassEnabled(true);
+		dialogBoxae.setAnimationEnabled(true);
+		dialogBoxae.setWidth(width+"px");
+		dialogBoxae.setText(title);
+		dialogBoxae.center();
+		dialogBoxae.show();
 	}
 
 	private void clear() {

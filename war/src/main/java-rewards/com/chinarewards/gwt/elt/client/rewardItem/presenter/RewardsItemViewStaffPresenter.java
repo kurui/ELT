@@ -30,5 +30,7 @@ public interface RewardsItemViewStaffPresenter extends
 		public void showJudgeInfo(RewardsItemClient info); // 显示提名人
 
 		public void showParticipateInfo(RewardsBaseInfo info); // 显示候选人
+		
+		HasClickHandlers getFirst();
 	}
 }

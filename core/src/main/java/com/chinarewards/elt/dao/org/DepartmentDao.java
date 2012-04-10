@@ -97,6 +97,13 @@ public class DepartmentDao extends BaseDao<Department> {
 				.setParameter("index", index).setParameter("corpId", corpId).setParameter("deleted",false)
 				.executeUpdate();
 	}
+	
+	public  void  checkNoChildNode(){
+		List<String> deptIdList= getEm().createQuery("select parent.id from Department  ").getResultList();
+		getEm()
+				.createQuery("UPDATE  Department  set rgt=(lft+1) WHERE id not in(:deptIdList) ").setParameter("deptIdList", deptIdList).executeUpdate();
+	}
+	
 
 	/**
 	 * Find list of department by parent id.

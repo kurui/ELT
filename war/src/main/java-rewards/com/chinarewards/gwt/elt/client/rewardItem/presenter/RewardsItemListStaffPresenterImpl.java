@@ -5,6 +5,7 @@ import java.util.Comparator;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
+import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.dataprovider.RewardsItemListStaffViewAdapter;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
@@ -13,6 +14,7 @@ import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemListStaffPresenter.RewardsItemListStaffDisplay;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsGridClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsGridCriteria;
+import com.chinarewards.gwt.elt.client.staffHeavenIndex.plugin.StaffHeavenIndexConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager;
@@ -25,6 +27,8 @@ import com.chinarewards.gwt.elt.model.rewards.RewardPageType;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.inject.Inject;
 
 public class RewardsItemListStaffPresenterImpl extends
@@ -80,6 +84,19 @@ public class RewardsItemListStaffPresenterImpl extends
 				doSearch();
 			}
 		}));
+		
+		registerHandler(display.getFirst().addClickHandler(new ClickHandler() {
+  			@Override
+  			public void onClick(ClickEvent event) {
+  				Platform.getInstance()
+  				.getEditorRegistry()
+  				.openEditor(
+  						StaffHeavenIndexConstants.EDITOR_STAFFHEAVENINDEX_SEARCH,
+  						"EDITOR_STAFFHEAVENINDEX_SEARCH_DO_ID",
+  						null);
+
+  			}
+  		}));
 	}
 
 	private void initWidget() {

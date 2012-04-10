@@ -93,8 +93,10 @@ public class WinnerLogicImpl implements WinnerLogic {
 		for (Winner w : untreatedWinners) {
 			String toAccountId = w.getStaff().getTxAccountId();
 			if(toAccountId==null)
-				throw new IllegalStateException(w.getStaff().getName()+" 没有生成账户!");
-			
+			{
+				logger.warn("No toAccountId!"+w.getStaff().getName()+"没有生成账户!","No toAccountId!");
+				continue;
+			}
 			logger.debug("toAccountId={}", w.getStaff().getTxAccountId());
 			String unitCode = w.getUnit().toString();
 			double amt = w.getAmt();

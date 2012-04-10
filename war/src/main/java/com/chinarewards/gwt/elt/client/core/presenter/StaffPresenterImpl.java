@@ -523,7 +523,6 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 						}
 						else
 						{
-						
 						int index = 0;
 						Grid grid = new Grid(3, 2);
 
@@ -545,13 +544,18 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 								}
 							}
 						}
-
+						
 						// Return the panel
 						grid.ensureDebugId("cwGrid");
 
 						display.getSmaillShopWindow().clear();
 						display.getSmaillShopWindow().add(grid);
+							if(giftList.size()<=6)
+							{
+								display.displayMore();
+							}
 						}
+						
 					}
 
 				});
@@ -560,7 +564,7 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 		RewardsGridCriteria criteria = new RewardsGridCriteria();
 		criteria.setThisAction("RewardsItem_STAFF_GETED");
 		display.getRewardWidgetAction().setValue(criteria.getThisAction());
-		
+		criteria.setStaffId(sessionManager.getSession().getStaffId());
 		dispatchAsync.execute(new SearchRewardsGridRequest(criteria,sessionManager
 				.getSession()),
 				new AsyncCallback<SearchRewardsGridResponse>() {
