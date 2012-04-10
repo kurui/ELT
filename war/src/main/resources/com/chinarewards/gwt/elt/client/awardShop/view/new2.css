@@ -223,7 +223,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .employee .content-info .breadcrumb a{color:#666666;}
 .employee .content-info .breadcrumb span{color:#FF6102;}
 
-.employee .gift-wrap{background-color:#F6F6F6;padding:10px 17px;margin-top:10px;}
+.employee .gift-wrap{background-color:#F6F6F6;padding:10px 17px;margin-top:10px; margin-right: 218px;}
 .employee .gift-wrap .shop-gift-list{margin-top:12px;overflow:hidden;margin-bottom:-26px;\*margin-bottom:0;\*padding-bottom:10px;\_zoom:1;\_position:relative;}
 .employee .gift-wrap .shop-gift{border:1px solid #CCCCCC;padding:10px;width:180px;overflow:hidden;position:relative;background-color:#FFFFFF;float:left;margin:0 35px 35px 0;}
 .employee .gift-wrap .shop-gift p{line-height:23px;}

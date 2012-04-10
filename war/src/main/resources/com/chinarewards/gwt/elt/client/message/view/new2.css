@@ -236,7 +236,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .employee .pager,.employee .pager a{color:#333333;}
 .employee .pager a:hover{background-color:#707070;}
 
-.remark{background-color:#F8F9FD;overflow:hidden;padding:0px;width:720px;}
+.remark{overflow:hidden;padding:0px;width:100%;}
 .remark img{border:1px solid #CACACA;padding:2px;width:54px;height:54px;overflow:hidden;float:left;margin-right:10px;}
 .remark .remark-info{float:left;width:650px;}
 .remark .remark-info .remark-tool{text-align:right;margin-top:5px;}
