@@ -12,6 +12,7 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasValue;
@@ -29,7 +30,8 @@ public class OrderHistoryWidget extends Composite implements OrderHistoryDisplay
 	
 	@UiField
 	Button searchBtn;
-	
+	@UiField
+	Anchor first;
 	@UiField
 	DateBox createTime;
 	@UiField
@@ -101,7 +103,10 @@ public class OrderHistoryWidget extends Composite implements OrderHistoryDisplay
 	}
 	
 	
-
+	@Override
+	public HasClickHandlers getFirst() {
+		return first;
+	}
 
 	
 

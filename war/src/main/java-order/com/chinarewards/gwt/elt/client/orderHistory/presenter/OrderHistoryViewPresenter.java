@@ -16,7 +16,8 @@ public interface OrderHistoryViewPresenter extends
 
 		HasClickHandlers getReturnbutton();
 		HasClickHandlers getReceivebutton();
-
+	    HasClickHandlers getFirst();
+	    HasClickHandlers getSecond();
 	
 
 	}
