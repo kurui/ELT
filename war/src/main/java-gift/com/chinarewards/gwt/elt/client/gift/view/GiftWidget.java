@@ -169,9 +169,17 @@ public class GiftWidget extends Composite implements GiftDisplay {
 				business.setEnabled(false);
 				address.setEnabled(false);
 				tell.setEnabled(false);
+				
+				supplyinner.setStyleName("text-disable");
+				business.setStyleName("text-disable");
+				address.setStyleName("text-disable");
+				tell.setStyleName("text-disable");
+				
 			}
 			if (StringUtil.trim(giftVo.getSource()).equals("outter")) {
 				supplyoutter.setValue(true);
+				
+				supplyoutter.setStyleName("text");
 			}
 		}
 
