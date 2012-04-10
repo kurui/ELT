@@ -23,6 +23,7 @@ public interface LoginPresenter extends Presenter<LoginPresenter.LoginDisplay> {
 	public static interface LoginDisplay extends Display {
 
 		HasClickHandlers getLoginClickHandlers();
+		HasClickHandlers getLicenseClickHandlers();
 
 		HasValue<String> getUsername();
 

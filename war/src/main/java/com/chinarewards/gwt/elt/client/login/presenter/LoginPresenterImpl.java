@@ -1,5 +1,6 @@
 package com.chinarewards.gwt.elt.client.login.presenter;
 
+import com.chinarewards.gwt.elt.client.EltGinjector;
 import com.chinarewards.gwt.elt.client.login.event.LoginEvent;
 import com.chinarewards.gwt.elt.client.login.event.LoginEvent.LoginStatus;
 import com.chinarewards.gwt.elt.client.login.event.LoginHandler;
@@ -7,18 +8,20 @@ import com.chinarewards.gwt.elt.client.login.presenter.LoginPresenter.LoginDispl
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.inject.Inject;
 
 public class LoginPresenterImpl extends BasePresenter<LoginDisplay> implements
 		LoginPresenter {
 
 	final SessionManager sessionManager;
-
+	private final EltGinjector injector = GWT.create(EltGinjector.class);
 	@Inject
 	public LoginPresenterImpl(EventBus eventBus, LoginDisplay display,
 			SessionManager sessionManager) {
@@ -50,6 +53,15 @@ public class LoginPresenterImpl extends BasePresenter<LoginDisplay> implements
 						if (e.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
 							doLogin();
 						}
+					}
+				}));
+		registerHandler(display.getLicenseClickHandlers().addClickHandler(
+				new ClickHandler() {
+					public void onClick(ClickEvent paramClickEvent) {
+						
+						RootLayoutPanel.get().clear();
+						injector.getLicensePresenter().bind();
+						RootLayoutPanel.get().add(injector.getLicensePresenter().getDisplay().asWidget());
 					}
 				}));
 	}
