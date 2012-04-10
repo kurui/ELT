@@ -80,7 +80,7 @@ public class StaffListPrintPresenterImpl extends
 		pager = new EltNewPager(TextLocation.CENTER);
 		pager.setDisplay(cellTable);
 		cellTable.setWidth(ViewConstants.page_width);
-//		cellTable.setPageSize(ViewConstants.per_page_number_in_dialog);
+		cellTable.setPageSize(500);
 	//	cellTable.getColumn(0).setCellStyleNames("divTextLeft");
 		display.getResultPanel().clear();
 		display.getResultPanel().add(cellTable);

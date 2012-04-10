@@ -60,6 +60,7 @@ public class LoginPresenterImpl extends BasePresenter<LoginDisplay> implements
 					public void onClick(ClickEvent paramClickEvent) {
 						
 						RootLayoutPanel.get().clear();
+						injector.getLicensePresenter().unbind();
 						injector.getLicensePresenter().bind();
 						RootLayoutPanel.get().add(injector.getLicensePresenter().getDisplay().asWidget());
 					}
