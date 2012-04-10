@@ -5,6 +5,7 @@ import java.util.List;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import com.chinarewards.gwt.elt.client.EltGinjector;
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.enterprise.model.LicenseVo;
 import com.chinarewards.gwt.elt.client.enterprise.presenter.LicensePresenter.LicenseDisplay;
@@ -12,12 +13,17 @@ import com.chinarewards.gwt.elt.client.enterprise.request.SearchLicenseRequest;
 import com.chinarewards.gwt.elt.client.enterprise.request.SearchLicenseResponse;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
+import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.util.XmlUtil_GWT;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteEvent;
 import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteHandler;
 import com.google.inject.Inject;
@@ -31,17 +37,19 @@ public class LicensePresenterImpl extends BasePresenter<LicenseDisplay>
 
 	final DispatchAsync dispatcher;
 	//final Win Window;
-//	private final SessionManager sessionManager;
+	private final SessionManager sessionManager;
 	List<HandlerRegistration> handlerRegistrations = new ArrayList<HandlerRegistration>();
 	private final BreadCrumbsPresenter breadCrumbs;
+	
+	private final EltGinjector injector = GWT.create(EltGinjector.class);
 
 	@Inject
 	public LicensePresenterImpl(final EventBus eventBus,
 			LicenseDisplay display, BreadCrumbsPresenter breadCrumbs,
-			DispatchAsync dispatcher) {
+			DispatchAsync dispatcher,SessionManager sessionManager) {
 		super(eventBus, display);
 		this.dispatcher = dispatcher;
-	//	this.sessionManager = sessionManager;
+		this.sessionManager = sessionManager;
 	//	this.Window = Window;
 		this.breadCrumbs = breadCrumbs;
 	}
@@ -96,6 +104,22 @@ public class LicensePresenterImpl extends BasePresenter<LicenseDisplay>
 						}
 					}
 				});
+		
+		registerHandler(display.getBackHandlers().addClickHandler(
+				new ClickHandler() {
+					public void onClick(ClickEvent paramClickEvent) {
+						if (sessionManager!=null) {
+							if(sessionManager.getSession()!=null){
+								breadCrumbs.getGoHistory();
+							}else{
+								injector.getMain().init(RootLayoutPanel.get());//登录页
+							}							
+						}else{
+							injector.getMain().init(RootLayoutPanel.get());//登录页
+						}
+						
+					}
+				}));
 
 	}
 
