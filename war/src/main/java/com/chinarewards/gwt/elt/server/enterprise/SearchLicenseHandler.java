@@ -40,12 +40,12 @@ public class SearchLicenseHandler extends
 	public SearchLicenseResponse execute(SearchLicenseRequest action,
 			ExecutionContext context) throws DispatchException {
 
-		UserContext uc = new UserContext();
-		uc.setCorporationId(action.getUserSession().getCorporationId());
-		uc.setLoginName(action.getUserSession().getLoginName());
-		uc.setUserId(action.getUserSession().getToken());
-		uc.setUserRoles(UserRoleTool.adaptToRole(action.getUserSession()
-				.getUserRoles()));
+//		UserContext uc = new UserContext();
+//		uc.setCorporationId(action.getUserSession().getCorporationId());
+//		uc.setLoginName(action.getUserSession().getLoginName());
+//		uc.setUserId(action.getUserSession().getToken());
+//		uc.setUserRoles(UserRoleTool.adaptToRole(action.getUserSession()
+//				.getUserRoles()));
 
 		LicenseBo licenseBo = licenseService.queryLicenseContent();
 
