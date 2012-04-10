@@ -15,6 +15,7 @@
 		
 		
 								  <!--奖项颁发流程 [[-->
+								  <div class="{newitem.reward-flowBj}">
 			  <div class="{newitem.reward-flow}">
 			    <div class="{newitem.reward-flow-wrap}">
 			      <h3>奖项颁发流程：</h3>
@@ -26,7 +27,7 @@
 			        <p class="{newitem.flow} {newitem.flow5}">颁发奖项</p>
 			      </div>
 			    </div>
-			  </div>
+			  </div></div>
 			  <!--奖项颁发流程 ]]-->
 				<!-- 1内容 -->
                 <div class="{newitem.content-wrap}">    
