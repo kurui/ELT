@@ -56,7 +56,7 @@ public class TeamDao extends BaseDao<Team> {
 		
 		if (!StringUtil.isEmptyString(vo.getName())) {//查询姓名或编码时
 			eql.append(" AND o.name LIKE :name ");
-			param.put("name", "%" + vo.getName().trim().toUpperCase()+ "%");
+			param.put("name", "%" + vo.getName().trim()+ "%");
 		}
 		if (!StringUtil.isEmptyString(vo.getCorpid())) {//
 			eql.append(" AND o.corporation.id = :corpId ");
