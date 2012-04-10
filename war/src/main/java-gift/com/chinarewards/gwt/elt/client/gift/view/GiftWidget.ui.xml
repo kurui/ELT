@@ -139,14 +139,14 @@
 					</div>
 
 					<div class="{new2.form-line}">
-						<label class="{new2.label2}">供应商名称：</label>
+						<label class="{new2.label2}">	<span style="color:red">*</span>供应商名称：</label>
 						<div class="{new2.element}">
 							<g:TextBox maxLength="20" ui:field="business"
 								styleName="{new2.text}" />
 						</div>
 					</div>
 					<div class="{new2.form-line}">
-						<label class="{new2.label2}">供应商地址：</label>
+						<label class="{new2.label2}">	<span style="color:red">*</span>供应商地址：</label>
 						<div class="{new2.element}">
 							<g:TextBox maxLength="200" ui:field="address"
 								styleName="{new2.text}" />
@@ -154,7 +154,7 @@
 					</div>
 
 					<div class="{new2.form-line}">
-						<label class="{new2.label2}">供应商电话：</label>
+						<label class="{new2.label2}">	<span style="color:red">*</span>供应商电话：</label>
 						<div class="{new2.element}">
 							<g:TextBox maxLength="11" ui:field="tell" styleName="{new2.text}" />
 						</div>

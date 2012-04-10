@@ -15,6 +15,7 @@ import com.chinarewards.gwt.elt.client.orderHistory.plugin.OrderHistoryConstants
 import com.chinarewards.gwt.elt.client.orderHistory.presenter.OrderHistoryViewPresenter.OrderHistoryViewDisplay;
 import com.chinarewards.gwt.elt.client.orderHistory.request.OrderHistoryViewRequest;
 import com.chinarewards.gwt.elt.client.orderHistory.request.OrderHistoryViewResponse;
+import com.chinarewards.gwt.elt.client.staffHeavenIndex.plugin.StaffHeavenIndexConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -140,7 +141,29 @@ public class OrderHistoryViewPresenterImpl extends
 
 			}
 		});
+		display.getSecond().addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				Platform.getInstance()
+						.getEditorRegistry()
+						.openEditor(
+								OrderHistoryConstants.EDITOR_ORDERHISTORY_SEARCH,
+								"EDITOR_ORDERHISTORY_SEARCH", null);
 
+			}
+		});
+		display.getFirst().addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				Platform.getInstance()
+				.getEditorRegistry()
+				.openEditor(
+						StaffHeavenIndexConstants.EDITOR_STAFFHEAVENINDEX_SEARCH,
+						"EDITOR_STAFFHEAVENINDEX_SEARCH_DO_ID",
+						null);
+
+			}
+		});
 	}
 
 	// 查看时初始化数据

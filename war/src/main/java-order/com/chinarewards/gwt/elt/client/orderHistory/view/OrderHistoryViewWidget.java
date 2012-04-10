@@ -62,7 +62,10 @@ public class OrderHistoryViewWidget extends Composite implements
 	InlineLabel business;
 	@UiField
 	InlineLabel servicetell;
-	
+	@UiField
+	Anchor first;
+	@UiField
+	Anchor second;
 	private static OrderHistoryViewWidgetUiBinder uiBinder = GWT
 			.create(OrderHistoryViewWidgetUiBinder.class);
 
@@ -140,6 +143,17 @@ public class OrderHistoryViewWidget extends Composite implements
 		return receivebutton;
 	}
 
+	@Override
+	public HasClickHandlers getFirst() {
+		return first;
+	}
+
+	@Override
+	public HasClickHandlers getSecond() {
+		// TODO Auto-generated method stub
+		return second;
+	}
+  
 	
 
 }
