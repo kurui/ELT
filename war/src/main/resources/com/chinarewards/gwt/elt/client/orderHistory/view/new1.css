@@ -140,7 +140,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .otherDiv{padding-top: 3px;padding-bottom: 3px;color: orange;}
 
 
-.short-text{height:18px;width:30px;border:1px solid #356CA7;text-align:center;}
+.short-text{height:18px;width:30px;border:1px solid #356CA7;text-align:center;line-height:18px;}
 .text{height:22px;width:200px;border:1px solid #356CA7;}
 .textdate{height:22px;width:100px;border:1px solid #ABCEE5;}
 .textarea{width:420px;height:50px;border:1px solid #356CA7;}

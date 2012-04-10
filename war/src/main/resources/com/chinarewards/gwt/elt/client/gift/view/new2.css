@@ -59,9 +59,9 @@ a:hover{color:#010DFF;text-decoration:underline;}
 
 .form .form-line .element{float:right;width:84%;text-align:left;padding:5px 0;}
 .form .select{border:1px solid #CCCCCC;width:120px;height:22px;}
-.form .short-text{height:18px;width:30px;border:1px solid #CCCCCC;}
-.form .text{height:22px;width:200px;border:1px solid #CCCCCC;}
-.form .text2{height:22px;width:150px;border:1px solid #CCCCCC;}
+.form .short-text{height:18px;width:30px;border:1px solid #CCCCCC;line-height:18px}
+.form .text{height:22px;width:200px;border:1px solid #CCCCCC;line-height:22px}
+.form .text2{height:22px;width:150px;border:1px solid #CCCCCC;line-height:22px;}
 
 .form .text-disable{height:22px;width:200px;border:1px solid #CCCCCC;border-color: #CCCCCC;background: #E9E9E9 }
 

@@ -51,9 +51,9 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .form .form-line .label{float:left;width:15%;text-align:right;vertical-align:middle;padding:8px 0;background-color:#e5e5e5;}
 .form .form-line .element{float:right;width:84%;text-align:left;padding:5px 0;}
 .form .select{border:1px solid #CCCCCC;width:120px;height:22px;}
-.form .short-text{height:18px;width:30px;border:1px solid #CCCCCC;text-align:center;}
-.form .text{height:22px;width:200px;border:1px solid #CCCCCC;}
-.form .text2{height:22px;width:150px;border:1px solid #CCCCCC;}
+.form .short-text{height:18px;width:30px;border:1px solid #CCCCCC;text-align:center;line-height:18px;}
+.form .text{height:22px;width:200px;border:1px solid #CCCCCC;line-height:22px}
+.form .text2{height:22px;width:150px;border:1px solid #CCCCCC;line-height:22px;}
 .form .long-text{width:371px;}
 .form .textarea{width:420px;height:50px;border:1px solid #CCCCCC;}
 .form .form-line-btn{margin-top:0px;text-align:center;}
@@ -139,7 +139,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .otherDiv{padding-top: 3px;padding-bottom: 3px;color: orange;}
 
 
-.short-text{height:18px;width:30px;border:1px solid #356CA7;text-align:center;}
+.short-text{height:18px;width:30px;border:1px solid #356CA7;text-align:center;line-height:18px;}
 .text{height:22px;width:200px;border:1px solid #356CA7;}
 .textarea{width:420px;height:50px;border:1px solid #356CA7;}
 /*-------------------------------------------- 员工天地 -----------------------------------------------------------------------------------------------------------*/
