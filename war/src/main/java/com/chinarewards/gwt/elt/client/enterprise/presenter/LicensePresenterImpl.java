@@ -12,12 +12,11 @@ import com.chinarewards.gwt.elt.client.enterprise.request.SearchLicenseRequest;
 import com.chinarewards.gwt.elt.client.enterprise.request.SearchLicenseResponse;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
-import com.chinarewards.gwt.elt.client.support.SessionManager;
-import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.util.XmlUtil_GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteEvent;
 import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteHandler;
@@ -31,19 +30,19 @@ public class LicensePresenterImpl extends BasePresenter<LicenseDisplay>
 		implements LicensePresenter {
 
 	final DispatchAsync dispatcher;
-	final Win win;
-	private final SessionManager sessionManager;
+	//final Win Window;
+//	private final SessionManager sessionManager;
 	List<HandlerRegistration> handlerRegistrations = new ArrayList<HandlerRegistration>();
 	private final BreadCrumbsPresenter breadCrumbs;
 
 	@Inject
 	public LicensePresenterImpl(final EventBus eventBus,
 			LicenseDisplay display, BreadCrumbsPresenter breadCrumbs,
-			DispatchAsync dispatcher, SessionManager sessionManager, Win win) {
+			DispatchAsync dispatcher) {
 		super(eventBus, display);
 		this.dispatcher = dispatcher;
-		this.sessionManager = sessionManager;
-		this.win = win;
+	//	this.sessionManager = sessionManager;
+	//	this.Window = Window;
 		this.breadCrumbs = breadCrumbs;
 	}
 
@@ -72,7 +71,7 @@ public class LicensePresenterImpl extends BasePresenter<LicenseDisplay>
 						String eventResults = event.getResults();
 						System.out.println("submitComplete event.getResults:"
 								+ eventResults);
-						// win.alert(eventResults);
+						// Window.alert(eventResults);
 
 						if (eventResults != null) {
 							eventResults = XmlUtil_GWT
@@ -85,13 +84,13 @@ public class LicensePresenterImpl extends BasePresenter<LicenseDisplay>
 
 								if ("SUCCESS".equals(result)) {
 									initWidget();
-									win.alert("更新授权成功");
+									Window.alert("更新授权成功");
 								} else {
-									win.alert("上传授权文件异常<br>" + info);
+									Window.alert("上传授权文件异常<br>" + info);
 								}
 							} catch (Exception e) {
 								e.printStackTrace();
-								win.alert("上传授权文件异常，请重试" + e.getMessage());
+								Window.alert("上传授权文件异常，请重试" + e.getMessage());
 								return;
 							}
 						}
@@ -106,11 +105,11 @@ public class LicensePresenterImpl extends BasePresenter<LicenseDisplay>
 	private void initWidget() {
 
 		dispatcher.execute(
-				new SearchLicenseRequest(sessionManager.getSession()),
+				new SearchLicenseRequest(),
 				new AsyncCallback<SearchLicenseResponse>() {
 					public void onFailure(Throwable caught) {
 
-						win.alert("初始化失败");
+						Window.alert("初始化失败");
 					}
 
 					@Override

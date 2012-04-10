@@ -21,6 +21,7 @@ import com.chinarewards.gwt.elt.client.enterprise.view.LicenseWidget;
 import com.chinarewards.gwt.elt.client.enterprise.view.MailSetWidget;
 import com.chinarewards.gwt.elt.client.enterprise.view.PeriodWidget;
 import com.google.gwt.inject.client.AbstractGinModule;
+import com.google.inject.Singleton;
 
 public class EnterprisesModule extends AbstractGinModule {
 
@@ -38,8 +39,8 @@ public class EnterprisesModule extends AbstractGinModule {
 		bind(MailSetPresenter.class).to(MailSetPresenterImpl.class);
 		bind(MailSetDisplay.class).to(MailSetWidget.class);
 		
-		bind(LicensePresenter.class).to(LicensePresenterImpl.class);
-		bind(LicenseDisplay.class).to(LicenseWidget.class);
+		bind(LicensePresenter.class).to(LicensePresenterImpl.class).in(Singleton.class);
+		bind(LicenseDisplay.class).to(LicenseWidget.class).in(Singleton.class);
 		
 	}
 
