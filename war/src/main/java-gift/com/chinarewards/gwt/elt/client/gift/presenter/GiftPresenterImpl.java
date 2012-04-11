@@ -241,6 +241,38 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 						}
 					}
 				});
+		
+		//内部
+		registerHandler(display.getSupplyinner().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent arg0) {
+						display.getSupplyinner().setValue(true);
+						display.getBusinessText().setEnabled(false);
+						display.getAddressText().setEnabled(false);
+						display.getTellText().setEnabled(false);
+						
+						display.getBusinessText().setStyleName("formtextdisable");
+						display.getAddressText().setStyleName("formtextdisable");
+						display.getTellText().setStyleName("formtextdisable");
+					}
+				}));
+		
+		//外部
+				registerHandler(display.getSupplyoutter().addClickHandler(
+						new ClickHandler() {
+							@Override
+							public void onClick(ClickEvent arg0) {
+								display.getSupplyoutter().setValue(true);
+								display.getBusinessText().setEnabled(true);
+								display.getAddressText().setEnabled(true);
+								display.getTellText().setEnabled(true);
+								
+								display.getBusinessText().setStyleName("formtext");
+								display.getAddressText().setStyleName("formtext");
+								display.getTellText().setStyleName("formtext");
+							}
+						}));
 
 		registerHandler(display.getBackClick().addClickHandler(
 				new ClickHandler() {
