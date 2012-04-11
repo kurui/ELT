@@ -350,4 +350,31 @@ public class UserLogicImpl implements UserLogic {
 		return user;
 	}
 
+	@Override
+	public boolean vaildStaffNo(String staffNo) {
+		List<Staff> list=staffDao.findStaffsByStaffNo(staffNo);
+		if(list!=null && list.size()>0)
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+		
+	}
+
+	@Override
+	public boolean vaildStaffEmail(String staffEmail) {
+		List<Staff> list=staffDao.findStaffsByEmail(staffEmail);
+		if(list!=null && list.size()>0)
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+
 }

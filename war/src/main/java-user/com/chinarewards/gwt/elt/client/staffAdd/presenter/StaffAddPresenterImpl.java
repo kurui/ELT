@@ -15,6 +15,8 @@ import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.staffAdd.request.StaffAddRequest;
 import com.chinarewards.gwt.elt.client.staffAdd.request.StaffAddResponse;
+import com.chinarewards.gwt.elt.client.staffAdd.request.StaffVaildRequest;
+import com.chinarewards.gwt.elt.client.staffAdd.request.StaffVaildResponse;
 import com.chinarewards.gwt.elt.client.staffList.model.StaffListCriteria.StaffStatus;
 import com.chinarewards.gwt.elt.client.staffList.plugin.StaffListConstants;
 import com.chinarewards.gwt.elt.client.staffView.request.StaffViewRequest;
@@ -25,6 +27,8 @@ import com.chinarewards.gwt.elt.client.view.constant.CssStyleConstants;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.chinarewards.gwt.elt.util.XmlUtil_GWT;
+import com.google.gwt.event.dom.client.BlurEvent;
+import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -208,7 +212,79 @@ public class StaffAddPresenterImpl extends
 		}
 		
 		
-
+		// 验证员工编号
+		registerHandler(display.getStaffNoTextBox().addBlurHandler(new BlurHandler() {
+			
+			@Override
+			public void onBlur(BlurEvent event) {
+				if(!StringUtil.isEmpty(display.getStaffNoTextBox().getValue()))
+				{
+					StaffVaildRequest request=new StaffVaildRequest();
+					request.setStaffNo(display.getStaffNoTextBox().getValue());
+					dispatch.execute(request,
+							new AsyncCallback<StaffVaildResponse>() {
+	
+								@Override
+								public void onFailure(Throwable t) {
+									win.alert(t.getMessage());
+								}
+	
+								@Override
+								public void onSuccess(StaffVaildResponse resp) {
+									if(!resp.isFal())
+									{
+									     display.setStaffNoMessage("员工编号重复!");
+									     display.getAddBtn().setEnabled(false);
+									}
+									else
+									{
+										  display.setStaffNoMessage("");
+										 display.getAddBtn().setEnabled(true);
+									}
+									
+								}
+							});
+				}
+				
+			}
+		}));
+		// 验证员工邮箱
+		registerHandler(display.getStaffEmailTextBox().addBlurHandler(new BlurHandler() {
+			
+			@Override
+			public void onBlur(BlurEvent event) {
+				if(!StringUtil.isEmpty(display.getStaffEmailTextBox().getValue()))
+				{
+					StaffVaildRequest request=new StaffVaildRequest();
+					request.setStaffEmail(display.getStaffEmailTextBox().getValue().substring(0,display.getStaffEmailTextBox().getValue().indexOf("@")+1));
+					dispatch.execute(request,
+							new AsyncCallback<StaffVaildResponse>() {
+	
+								@Override
+								public void onFailure(Throwable t) {
+									win.alert(t.getMessage());
+								}
+	
+								@Override
+								public void onSuccess(StaffVaildResponse resp) {
+									if(!resp.isFal())
+									{
+									     display.setStaffEmailMessage("员工邮箱重复!");
+									     display.getAddBtn().setEnabled(false);
+									}
+									else
+									{
+										display.setStaffEmailMessage("");
+										 display.getAddBtn().setEnabled(true);
+									}
+									
+								}
+							});
+				}
+				
+			}
+		}));
+		
 		// 浏览即上传事件
 		registerHandler(display.getPhotoUpload().addChangeHandler(
 				new ChangeHandler() {

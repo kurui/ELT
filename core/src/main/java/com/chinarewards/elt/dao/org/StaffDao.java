@@ -382,4 +382,15 @@ public class StaffDao extends BaseDao<Staff> {
 						"SELECT count(*) FROM Staff s WHERE s.corporation.id = :corporationId and s.status= :status  and s.deleted=0 ")
 				.setParameter("corporationId", corporationId).setParameter("status", StaffStatus.JOB).getSingleResult().toString());
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Staff> findStaffsByStaffNo(String staffNo) {
+		return getEm().createQuery("FROM Staff s WHERE s.jobNo = :staffNo ")
+				.setParameter("staffNo", staffNo).getResultList();
+	}
+	@SuppressWarnings("unchecked")
+	public List<Staff> findStaffsByEmail(String staffEmail) {
+		return getEm().createQuery("FROM Staff s WHERE upper(s.email) like upper(:staffEmail) ")
+				.setParameter("staffEmail", staffEmail+"%").getResultList();
+	}
 }

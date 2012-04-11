@@ -5,6 +5,7 @@ import java.util.Date;
 import com.chinarewards.gwt.elt.client.mvp.Display;
 import com.chinarewards.gwt.elt.client.mvp.Presenter;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.FileUpload;
 import com.google.gwt.user.client.ui.FormPanel;
@@ -31,7 +32,7 @@ public interface StaffAddPresenter extends
 		String getStaffNo();
 
 		String getStaffName();
-		
+
 		public ListBox getDepartment();
 
 		String getJobPosition();
@@ -77,8 +78,21 @@ public interface StaffAddPresenter extends
 		void setStatus(String text);
 
 		void setStaffImage(String text);
+
 		void setTitleText(String text);
+
 		CheckBox getAdmin();
+
 		CheckBox getGift();
+
+		TextBox getStaffNoTextBox();
+
+		TextBox getStaffEmailTextBox();
+
+		void setStaffEmailMessage(String text);
+
+		void setStaffNoMessage(String text);
+		
+		Button getAddBtn();
 	}
 }

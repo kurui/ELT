@@ -21,6 +21,7 @@
 						<label class="{new2.label}">员工编号：</label>
 						<div class="{new2.element}">
 							<g:TextBox maxLength="10" ui:field="staffNo" styleName="{new2.text}" />
+							<g:InlineLabel ui:field="staffNoMessage" styleName="{new2.textRed}" />
 						</div>
 					</div>
 					<div class="{new2.form-line}">
@@ -83,6 +84,7 @@
 						<div class="{new2.element}">
 							<g:TextBox maxLength="50" ui:field="email" styleName="{new2.text}" />
 							<font color='red'>(温馨提示:邮箱会同步登录名)</font>
+							<g:InlineLabel ui:field="staffEmailMessage" styleName="{new2.textRed}" />
 						</div>
 					</div>
 					<div class="{new2.form-line}">
