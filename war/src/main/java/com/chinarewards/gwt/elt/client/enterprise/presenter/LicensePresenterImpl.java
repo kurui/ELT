@@ -11,9 +11,12 @@ import com.chinarewards.gwt.elt.client.enterprise.model.LicenseVo;
 import com.chinarewards.gwt.elt.client.enterprise.presenter.LicensePresenter.LicenseDisplay;
 import com.chinarewards.gwt.elt.client.enterprise.request.SearchLicenseRequest;
 import com.chinarewards.gwt.elt.client.enterprise.request.SearchLicenseResponse;
+import com.chinarewards.gwt.elt.client.login.presenter.AlertErrorWidget;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.chinarewards.gwt.elt.client.ui.DialogBox;
+import com.chinarewards.gwt.elt.util.StringUtil;
 import com.chinarewards.gwt.elt.util.XmlUtil_GWT;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
@@ -66,8 +69,18 @@ public class LicensePresenterImpl extends BasePresenter<LicenseDisplay>
 				new ChangeHandler() {
 					@Override
 					public void onChange(ChangeEvent arg0) {
-						display.getLicenseForm().setAction("licenseupload");
-						display.getLicenseForm().submit();
+						String thisFileName=display.getLicenseUpload().getFilename();
+//						Window.alert(thisFileName);
+						if (!StringUtil.isEmpty(thisFileName)) {
+							if (thisFileName.indexOf(".lic")>0) {
+								display.getLicenseForm().setAction("licenseupload");
+								display.getLicenseForm().submit();
+							}else{
+								openNoSessionWin("授权文件后缀为.lic,请重新选择","350","提示");
+							}
+						}else{
+							Window.alert("请选择需要更新的授权文件");
+						}
 					}
 				}));
 		
@@ -92,13 +105,14 @@ public class LicensePresenterImpl extends BasePresenter<LicenseDisplay>
 
 								if ("SUCCESS".equals(result)) {
 									initWidget();
-									Window.alert("更新授权成功");
+									openNoSessionWin("更新授权成功","350","提示");
 								} else {
-									Window.alert("上传授权文件异常<br>" + info);
+									openNoSessionWin("上传授权文件异常<br>" + info,"350","提示");
 								}
 							} catch (Exception e) {
 								e.printStackTrace();
-								Window.alert("上传授权文件异常，请重试" + e.getMessage());
+//								Window.alert("上传授权文件异常，请重试" + e.getMessage());
+								openNoSessionWin("上传授权文件异常，请重试" + e.getMessage(),"350","提示");
 								return;
 							}
 						}
@@ -132,8 +146,7 @@ public class LicensePresenterImpl extends BasePresenter<LicenseDisplay>
 				new SearchLicenseRequest(),
 				new AsyncCallback<SearchLicenseResponse>() {
 					public void onFailure(Throwable caught) {
-
-						Window.alert("初始化失败");
+						openNoSessionWin("初始化失败","350","提示");
 					}
 
 					@Override
@@ -146,6 +159,26 @@ public class LicensePresenterImpl extends BasePresenter<LicenseDisplay>
 					}
 				});
 
+	}
+	
+	
+	private void openNoSessionWin(String message,String width,String title){
+		final AlertErrorWidget ae = new AlertErrorWidget();
+		final DialogBox dialogBoxae = new DialogBox();
+		ae.getOkBtn().addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent arg0) {
+				dialogBoxae.hide();
+			}
+		});
+		ae.setMessage(message);
+		dialogBoxae.setWidget(ae);
+		dialogBoxae.setGlassEnabled(true);
+		dialogBoxae.setAnimationEnabled(true);
+		dialogBoxae.setWidth(width+"px");
+		dialogBoxae.setText(title);
+		dialogBoxae.center();
+		dialogBoxae.show();
 	}
 
 	private void clear() {
