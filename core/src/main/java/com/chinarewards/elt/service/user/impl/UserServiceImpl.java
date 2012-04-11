@@ -84,4 +84,14 @@ public class UserServiceImpl implements UserService {
 	public SysUser findUserByStaffId(String staffId){
 		return userLogic.findUserByStaffId(staffId);
 	}
+
+	@Override
+	public boolean vaildStaffNo(String staffNo) {
+		return userLogic.vaildStaffNo(staffNo);
+	}
+
+	@Override
+	public boolean vaildStaffEmail(String staffEmail) {
+		return userLogic.vaildStaffEmail(staffEmail);
+	}
 }
