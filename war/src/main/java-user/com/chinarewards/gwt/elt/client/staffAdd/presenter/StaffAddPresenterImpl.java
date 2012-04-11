@@ -48,6 +48,8 @@ public class StaffAddPresenterImpl extends
 	final ErrorHandler errorHandler;
 	String staffId = null;
 	private final BreadCrumbsPresenter breadCrumbs;
+	private boolean falNo;
+	private boolean falEmail;
 	String imageCss=display.getDob().getElement().getParentElement().getParentElement().getClassName();
 	@Inject
 	public StaffAddPresenterImpl(EventBus eventBus, StaffAddDisplay display,
@@ -82,7 +84,12 @@ public class StaffAddPresenterImpl extends
 
 					@Override
 					public void onClick(ClickEvent event) {
-						if(StringUtil.isEmpty(display.getStaffName()))
+						 if(StringUtil.isEmpty(display.getStaffNo()))
+						{
+							win.alert("请填写员工编号!");
+							return;
+						}
+						else if(StringUtil.isEmpty(display.getStaffName()))
 						{
 							win.alert("请填写员工姓名!");
 							return;
@@ -97,7 +104,16 @@ public class StaffAddPresenterImpl extends
 							win.alert("Email格式不正确,请重新填写Email!");
 							return;
 						}
-						
+						else if(!falNo)
+						{
+							win.alert("员工编号重复,请重新填写编号!");
+							return;
+						}
+						else if(!falEmail)
+						{
+							win.alert("员工邮箱重复,请重新填写邮箱!");
+							return;
+						}
 						StaffAddRequest request = new StaffAddRequest();
 						if (staffId != null)
 							request.setStaffId(staffId);
@@ -234,12 +250,12 @@ public class StaffAddPresenterImpl extends
 									if(!resp.isFal())
 									{
 									     display.setStaffNoMessage("员工编号重复!");
-									     display.getAddBtn().setEnabled(false);
+									     falNo=false;
 									}
 									else
 									{
 										  display.setStaffNoMessage("");
-										 display.getAddBtn().setEnabled(true);
+										  falNo=true;
 									}
 									
 								}
@@ -253,7 +269,7 @@ public class StaffAddPresenterImpl extends
 			
 			@Override
 			public void onBlur(BlurEvent event) {
-				if(!StringUtil.isEmpty(display.getStaffEmailTextBox().getValue()))
+				if(!StringUtil.isEmpty(display.getStaffEmailTextBox().getValue()) && StringUtil.isValidEmail(display.getEmail()))
 				{
 					StaffVaildRequest request=new StaffVaildRequest();
 					request.setStaffEmail(display.getStaffEmailTextBox().getValue().substring(0,display.getStaffEmailTextBox().getValue().indexOf("@")+1));
@@ -270,12 +286,12 @@ public class StaffAddPresenterImpl extends
 									if(!resp.isFal())
 									{
 									     display.setStaffEmailMessage("员工邮箱重复!");
-									     display.getAddBtn().setEnabled(false);
+									    falEmail=false;
 									}
 									else
 									{
-										display.setStaffEmailMessage("");
-										 display.getAddBtn().setEnabled(true);
+										 display.setStaffEmailMessage("");
+										 falEmail=true;
 									}
 									
 								}

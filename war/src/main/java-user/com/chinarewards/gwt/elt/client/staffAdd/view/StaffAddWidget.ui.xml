@@ -18,7 +18,7 @@
 			<div class="{new2.content-wrap}">
 				<div class="{new2.form}">
 					<div class="{new2.form-line}">
-						<label class="{new2.label}">员工编号：</label>
+						<label class="{new2.label}"><span style="color:red">*</span>员工编号：</label>
 						<div class="{new2.element}">
 							<g:TextBox maxLength="10" ui:field="staffNo" styleName="{new2.text}" />
 							<g:InlineLabel ui:field="staffNoMessage" styleName="{new2.textRed}" />
