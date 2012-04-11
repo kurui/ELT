@@ -177,36 +177,36 @@ public class EltNewPager extends AbstractPager {
 
 		onePage.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				setPage(0);
-				setButtonStyle(1, getPageCount());
+				setPage(Integer.parseInt(onePage.getText())-1);
+				setButtonStyle(Integer.parseInt(onePage.getText()), getPageCount());
 			}
 		});
 
 		twoPage.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				setPage(1);
-				setButtonStyle(2, getPageCount());
+				setPage(Integer.parseInt(twoPage.getText())-1);
+				setButtonStyle(Integer.parseInt(twoPage.getText()), getPageCount());
 			}
 		});
 
 		threePage.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				setPage(2);
-				setButtonStyle(3, getPageCount());
+				setPage(Integer.parseInt(threePage.getText())-1);
+				setButtonStyle(Integer.parseInt(threePage.getText()), getPageCount());
 			}
 		});
 
 		fourPage.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				setPage(3);
-				setButtonStyle(4, getPageCount());
+				setPage(Integer.parseInt(fourPage.getText())-1);
+				setButtonStyle(Integer.parseInt(fourPage.getText()), getPageCount());
 			}
 		});
 
 		fivePage.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				setPage(4);
-				setButtonStyle(5, getPageCount());
+				setPage(Integer.parseInt(fivePage.getText())-1);
+				setButtonStyle(Integer.parseInt(fivePage.getText()), getPageCount());
 			}
 		});
 
@@ -406,12 +406,32 @@ public class EltNewPager extends AbstractPager {
 				}
 			});
 		}
-
+		
+		
+		if(currentPage>(5*indexpage))
+		{
+			indexpage=indexpage+1;
+			onePage.setText((((indexpage-1)*5)+1)+"");
+			twoPage.setText((((indexpage-1)*5)+2)+"");
+			threePage.setText((((indexpage-1)*5)+3)+"");
+			fourPage.setText((((indexpage-1)*5)+4)+"");
+			fivePage.setText((((indexpage-1)*5)+5)+"");
+		}
+		else if(currentPage<=((5*indexpage)-5))
+		{
+			indexpage=indexpage-1;
+			onePage.setText((((indexpage-1)*5)+1)+"");
+			twoPage.setText((((indexpage-1)*5)+2)+"");
+			threePage.setText((((indexpage-1)*5)+3)+"");
+			fourPage.setText((((indexpage-1)*5)+4)+"");
+			fivePage.setText((((indexpage-1)*5)+5)+"");
+		}
 		setButtonStyle(currentPage, totalPage);
+		
 		return "";
 		// return "当前第 " + currentPage + " 页,"+"共"+totalPage+"页,共"+dataSize+"条";
 	}
-
+int indexpage=1;
 	public void setButtonStyle(int currentPage, int totalPage) {
 		onePage.setStyleName("pagedisable");
 		twoPage.setStyleName("pagedisable");
@@ -432,11 +452,11 @@ public class EltNewPager extends AbstractPager {
 		lastPage.setStyleName("pagedisable");
 
 		
-		if (totalPage >= 1) {
+		if (totalPage >= ((indexpage-1)*5)+1) {
 			onePage.setStyleName("");
 			onePage.setVisible(true);
 		}
-		if (totalPage >= 2) {
+		if (totalPage >= ((indexpage-1)*5)+2) {
 			twoPage.setStyleName("");
 			firstPage.setStyleName("");
 			nextPage.setStyleName("");
@@ -445,32 +465,32 @@ public class EltNewPager extends AbstractPager {
 			twoPage.setVisible(true);
 
 		}
-		if (totalPage >= 3) {
+		if (totalPage >= ((indexpage-1)*5)+3) {
 			threePage.setStyleName("");
 			threePage.setVisible(true);
 		}
-		if (totalPage >= 4) {
+		if (totalPage >= ((indexpage-1)*5)+4) {
 			fourPage.setStyleName("");
 			fourPage.setVisible(true);
 		}
-		if (totalPage >= 5) {
+		if (totalPage >= ((indexpage-1)*5)+5) {
 			fivePage.setStyleName("");
 			fivePage.setVisible(true);
 		}
 
-		if (currentPage == 1 && totalPage>=1) {
+		if (currentPage == ((indexpage-1)*5)+1 && totalPage>=((indexpage-1)*5)+1) {
 			onePage.setStyleName("pageon");
 		}
-		if (currentPage == 2 && totalPage>=2) {
+		if (currentPage == ((indexpage-1)*5)+2 && totalPage>=((indexpage-1)*5)+2) {
 			twoPage.setStyleName("pageon");
 		}
-		if (currentPage == 3 && totalPage>=3) {
+		if (currentPage == ((indexpage-1)*5)+3 && totalPage>=((indexpage-1)*5)+3) {
 			threePage.setStyleName("pageon");
 		}
-		if (currentPage == 4 && totalPage>=4) {
+		if (currentPage == ((indexpage-1)*5)+4 && totalPage>=((indexpage-1)*5)+4) {
 			fourPage.setStyleName("pageon");
 		}
-		if (currentPage == 5 && totalPage>=5) {
+		if (currentPage == ((indexpage-1)*5)+5 && totalPage>=((indexpage-1)*5)+5) {
 			fivePage.setStyleName("pageon");
 		}
 
@@ -478,6 +498,11 @@ public class EltNewPager extends AbstractPager {
 		{
 			firstPage.setStyleName("pagedisable");
 			prevPage.setStyleName("pagedisable");
+		}
+		else
+		{
+			firstPage.setStyleName("");
+			prevPage.setStyleName("");
 		}
 		if(currentPage==totalPage)
 		{
