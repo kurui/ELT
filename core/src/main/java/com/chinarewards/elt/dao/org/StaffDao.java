@@ -385,7 +385,7 @@ public class StaffDao extends BaseDao<Staff> {
 	
 	@SuppressWarnings("unchecked")
 	public List<Staff> findStaffsByStaffNo(String staffNo) {
-		return getEm().createQuery("FROM Staff s WHERE s.jobNo = :staffNo ")
+		return getEm().createQuery("FROM Staff s WHERE upper(s.jobNo) = upper(:staffNo) ")
 				.setParameter("staffNo", staffNo).getResultList();
 	}
 	@SuppressWarnings("unchecked")
