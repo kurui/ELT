@@ -309,13 +309,13 @@ public class StaffListPresenterImpl extends
 						return staff.getJobPosition();
 					}
 				}, ref, "jobPosition");
-		cellTable.addColumn("电话", new TextCell(),
+		cellTable.addColumn("邮箱", new TextCell(),
 				new GetValue<StaffListClient, String>() {
 					@Override
 					public String getValue(StaffListClient staff) {
-						return staff.getPhone();
+						return staff.getEmail();
 					}
-				}, ref, "phone");
+				}, ref, "email");
 		cellTable.addColumn("员工状态", new TextCell(),
 				new GetValue<StaffListClient, String>() {
 					@Override
