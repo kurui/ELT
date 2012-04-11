@@ -17,8 +17,6 @@ import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
-import com.google.gwt.event.logical.shared.ValueChangeEvent;
-import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -170,16 +168,18 @@ public class GiftWidget extends Composite implements GiftDisplay {
 				address.setEnabled(false);
 				tell.setEnabled(false);
 				
-				supplyinner.addStyleName("text-disable");
-				business.addStyleName("text-disable");
-				address.addStyleName("text-disable");
-				tell.addStyleName("text-disable");
+				business.setStyleName("formtextdisable");
+				address.setStyleName("formtextdisable");
+				tell.setStyleName("formtextdisable");
 				
 			}
 			if (StringUtil.trim(giftVo.getSource()).equals("outter")) {
 				supplyoutter.setValue(true);
 				
-				supplyoutter.addStyleName("text");
+
+				business.setStyleName("formtext");
+				address.setStyleName("formtext");
+				tell.setStyleName("formtext");
 			}
 		}
 
@@ -195,7 +195,6 @@ public class GiftWidget extends Composite implements GiftDisplay {
 		supplyinner.setValue(false);
 		supplyoutter.setValue(true);
 
-		registerSource();
 	}
 
 	private void initTypeSelect(String selectedValue) {
@@ -241,45 +240,6 @@ public class GiftWidget extends Composite implements GiftDisplay {
 		status.setSelectedIndex(selectIndex);
 	}
 
-	private void registerSource() {
-		supplyinner.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
-			@Override
-			public void onValueChange(ValueChangeEvent<Boolean> event) {
-				if (event.getValue()) {
-					business.setEnabled(false);
-					address.setEnabled(false);
-					tell.setEnabled(false);
-
-					business.setValue("");
-					address.setValue("");
-					tell.setValue("");
-				}
-			}
-		});
-
-		supplyoutter.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
-			@Override
-			public void onValueChange(ValueChangeEvent<Boolean> event) {
-				if (event.getValue()) {
-					business.setEnabled(true);
-					address.setEnabled(true);
-					tell.setEnabled(true);
-				}
-			}
-		});
-
-		// name.addValueChangeHandler(new ValueChangeHandler<String>() {
-		// @Override
-		// public void onValueChange(ValueChangeEvent<String> arg0) {
-		// if (name.getValue() == null
-		// || "".equals(name.getValue().trim())) {
-		// nameError.setText("请填写礼品名称!<br>");
-		// // win.alert("222");
-		// }
-		//
-		// }
-		// });
-	}
 
 	@Override
 	public void setBreadCrumbs(Widget breadCrumbs) {
@@ -448,6 +408,21 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	@Override
 	public RadioButton getSupplyoutter() {
 		return supplyoutter;
+	}
+
+	@Override
+	public TextBox getBusinessText() {
+		return business;
+	}
+
+	@Override
+	public TextBox getAddressText() {
+		return address;
+	}
+
+	@Override
+	public TextBox getTellText() {
+		return tell;
 	}
 
 	// @Override

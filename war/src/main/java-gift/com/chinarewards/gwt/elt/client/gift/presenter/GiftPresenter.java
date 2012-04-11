@@ -14,6 +14,7 @@ import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RadioButton;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.datepicker.client.DateBox;
 
@@ -43,10 +44,12 @@ public interface GiftPresenter extends Presenter<GiftPresenter.GiftDisplay> {
 		public RadioButton getSupplyoutter();		
 
 		public HasValue<String> getBusiness();
-
 		public HasValue<String> getAddress();
-
 		public HasValue<String> getTell();
+		
+		public TextBox getBusinessText();
+		public TextBox getAddressText();
+		public TextBox getTellText();
 
 		public HasValue<String> getServicetell();
 

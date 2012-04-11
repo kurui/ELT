@@ -93,9 +93,9 @@ public class StaffAddWidget extends Composite implements StaffAddDisplay {
 	public StaffAddWidget() {
 
 		initWidget(uiBinder.createAndBindUi(this));
-		dob = new DateBox(new DatePickerWithYearSelector(), null,
-				new DateBox.DefaultFormat(dateFormat));
-		dob.setStyleName("fromtext");
+		dob=new DateBox(new DatePickerWithYearSelector(), null,new DateBox.DefaultFormat(dateFormat));
+		dob.setStyleName("formtext");
+
 		dobpanel.add(dob);
 	}
 
