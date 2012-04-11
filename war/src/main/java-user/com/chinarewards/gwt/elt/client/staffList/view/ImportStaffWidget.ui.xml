@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+
+	<ui:style src="new2.css" field="new2"></ui:style>
+
+	<g:HTMLPanel>
+<g:VerticalPanel ui:field="panelV" >
+			<g:DecoratorPanel ui:field="panelStep1">
+				<g:HTMLPanel>
+					<div class="{new2.fmdiv}">
+						<div id="zhudiv">
+						  <div class="">
+						  <table border="0">
+							  <tr>
+							   <td>导入步骤：</td>
+							   <td><g:Label styleName="importStepone"/></td>
+							   </tr>
+							</table>
+					       </div>
+					        <hr color="#D4D4FF" size="0.05"/>
+							  <div>
+								<g:Hyperlink ui:field="downloadTemplete" >　提示：上传的文件只支持Microsoft Excel (95, 97, 2000, 2003)，没有正确格式，请下载模板再上传档案</g:Hyperlink>
+									<g:VerticalPanel ui:field="panelUpload"></g:VerticalPanel>
+									<g:Label ui:field="resultMsg" />
+		  				  </div>	
+		  			</div>
+						<div id="post">
+							<g:Button ui:field="goStep2Button" styleName="button-next">下一步</g:Button>
+							 <g:Button ui:field="cancelImport" styleName="button-back">取消</g:Button>
+						</div>
+					</div>
+				</g:HTMLPanel>
+			</g:DecoratorPanel>
+			</g:VerticalPanel>
+	</g:HTMLPanel>
+
+</ui:UiBinder> 
