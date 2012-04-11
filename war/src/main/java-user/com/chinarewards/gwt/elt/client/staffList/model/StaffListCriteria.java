@@ -46,7 +46,16 @@ public class StaffListCriteria implements IsSerializable {
 	private String departmentId;
 
 	private String staffNameorNo;
+	private String staffEmail;
 	private boolean colleaguePage;
+
+	public String getStaffEmail() {
+		return staffEmail;
+	}
+
+	public void setStaffEmail(String staffEmail) {
+		this.staffEmail = staffEmail;
+	}
 
 	public String getDepartmentId() {
 		return departmentId;

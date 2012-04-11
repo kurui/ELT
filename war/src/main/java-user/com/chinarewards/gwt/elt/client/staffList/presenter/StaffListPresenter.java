@@ -26,6 +26,7 @@ public interface StaffListPresenter extends Presenter<StaffListPresenter.StaffLi
 		String getSttaffRole();
 	
 		HasValue<String> getStaffNameorNo();
+		HasValue<String> getStaffEmail();
 
 		void setDataCount(String text);
 		void setBreadCrumbs(Widget breadCrumbs);

@@ -304,7 +304,8 @@ public class StaffLogicImpl implements StaffLogic {
 		}
 		if (!StringUtil.isEmptyString(criteria.getDepartmentId()))
 			searchVo.setDeptId(criteria.getDepartmentId());
-		
+		if (!StringUtil.isEmptyString(criteria.getStaffEmail()))
+			searchVo.setStaffEmail(criteria.getStaffEmail());
 		searchVo.setPaginationDetail(criteria.getPaginationDetail());
 		searchVo.setSortingDetail(criteria.getSortingDetail());
 

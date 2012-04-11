@@ -167,6 +167,10 @@ public class StaffDao extends BaseDao<Staff> {
 			param.put("keywords", "%"
 					+ searchVo.getKeywords().trim().toUpperCase() + "%");
 		}
+		if (!StringUtil.isEmptyString(searchVo.getStaffEmail())) {
+			hql.append(" AND upper(staff.email) like upper(:staffemail) "); 
+			param.put("staffemail", "%"+searchVo.getStaffEmail()+"%");
+		}
 		if (!StringUtil.isEmptyString(searchVo.getDeptId())) {
 			hql.append(" AND staff.department.id = :deptId ");
 			param.put("deptId", searchVo.getDeptId());

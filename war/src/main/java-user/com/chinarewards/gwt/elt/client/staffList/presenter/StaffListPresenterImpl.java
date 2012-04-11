@@ -251,6 +251,7 @@ public class StaffListPresenterImpl extends
 	private void doSearch() {
 		StaffListCriteria criteria = new StaffListCriteria();
 		criteria.setStaffNameorNo(display.getStaffNameorNo().getValue());
+		criteria.setStaffEmail(display.getStaffEmail().getValue());
 		if(!"ALL".equals(display.getSttaffStatus()))
 			criteria.setStaffStatus(StaffStatus.valueOf(display.getSttaffStatus()));
 		if(!"ALL".equals(display.getSttaffRole()))
