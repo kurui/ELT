@@ -137,6 +137,32 @@ public class StaffDao extends BaseDao<Staff> {
 
 		return result;
 	}
+	public List<Staff> queryStaffListExport(StaffSearchVo searchVo) {
+
+		logger.debug(" Process in queryStaffPageAction, searchVo:{}", searchVo);
+
+		StaffSearchVo finalVo = searchVo;
+
+		if (searchVo.getDeptParam() != null) {
+			if (searchVo.getDeptParam() instanceof OneIdParam) {
+				OneIdParam param = (OneIdParam) searchVo.getDeptParam();
+				// convert to department IDs
+				Set<String> deptIds = findSiblingIds(param.getDeptId(), true);
+				try {
+					finalVo = (StaffSearchVo) BeanUtils.cloneBean(searchVo);
+				} catch (Exception e) {
+					logger.error("clone bean error.", e);
+				}
+				finalVo.setDeptParam(new MultipleIdParam(deptIds));
+			}
+		}
+		logger.debug("finalVo:{}", finalVo.toString());
+		
+		List<Staff> result=  getStaffExport(finalVo);
+		
+
+		return result;
+	}
 
 	@SuppressWarnings("unchecked")
 	private List<Staff> queryStaffPageActionData(StaffSearchVo searchVo) {
@@ -242,6 +268,79 @@ public class StaffDao extends BaseDao<Staff> {
 				corporationId).getSingleResult().toString());
 		logger.debug("total num:{}", total);
 		return total;
+	}
+   
+	@SuppressWarnings("unchecked")
+	private List<Staff> getStaffExport(StaffSearchVo searchVo) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		StringBuffer hql = new StringBuffer();
+		hql.append(" SELECT staff FROM Staff staff WHERE 1=1 ");
+		
+		// 关键字 姓名/编号
+		if (!StringUtil.isEmptyString(searchVo.getKeywords())) {
+			hql.append(" AND (UPPER(staff.name) LIKE :keywords "
+			// + " OR UPPER(staff.department.name) LIKE :keywords "
+			// + " OR UPPER(staff.email) LIKE :keywords "
+					+ " OR UPPER(staff.jobNo) LIKE :keywords "
+					// + " OR UPPER(staff.memberCardNumber) LIKE :keywords)"
+					+ ") ");
+			param.put("keywords", "%"
+					+ searchVo.getKeywords().trim().toUpperCase() + "%");
+		}
+		if (!StringUtil.isEmptyString(searchVo.getDeptId())) {
+			hql.append(" AND staff.department.id = :deptId ");
+			param.put("deptId", searchVo.getDeptId());
+		}
+		if (searchVo.getStatus() != null) {
+			hql.append(" AND staff.status = :status ");
+			param.put("status", searchVo.getStatus());
+		}
+		if (searchVo.getEnterpriseId() != null) {
+			hql.append(" AND staff.corporation.id =:corporationId");
+			param.put("corporationId", searchVo.getEnterpriseId());
+		}
+		if (searchVo.getStaffids() != null && searchVo.getStaffids().size() > 0) {
+			hql.append(" AND staff.id IN (:staffids)");
+			param.put("staffids", searchVo.getStaffids());
+		}
+		// department
+		if (searchVo.getDeptParam() != null) {
+
+			if (searchVo.getDeptParam() instanceof OneIdParam) {
+				hql.append(" AND staff.department.id = :deptId ");
+				OneIdParam idParam = (OneIdParam) searchVo.getDeptParam();
+				param.put("deptId", idParam.getDeptId());
+			} else if (searchVo.getDeptParam() instanceof MultipleIdParam) {
+				hql.append(" AND staff.department.id IN (:deptIds) ");
+				MultipleIdParam idParam = (MultipleIdParam) searchVo
+						.getDeptParam();
+				param.put("deptIds", idParam.getIds());
+			}
+
+		}
+		hql.append(" AND staff.deleted = :deleted ");
+		param.put("deleted", 0);
+
+		// ORDER BY
+		
+		if (searchVo.getSortingDetail() != null
+					&& searchVo.getSortingDetail().getSort() != null
+					&& searchVo.getSortingDetail().getDirection() != null) {
+				hql.append(" ORDER BY staff."
+						+ searchVo.getSortingDetail().getSort() + " "
+						+ searchVo.getSortingDetail().getDirection());
+			} else {
+				hql.append(" ORDER BY staff.entryDate DESC ");
+		}
+			
+		Query query = getEm().createQuery(hql.toString());
+		if (param.size() > 0) {
+			Set<String> key = param.keySet();
+			for (String s : key) {
+				query.setParameter(s, param.get(s));
+			}
+		}
+		return query.getResultList();
 	}
 
 	@SuppressWarnings("unchecked")

@@ -20,7 +20,7 @@ public interface StaffListPresenter extends Presenter<StaffListPresenter.StaffLi
 		public HasClickHandlers getCreateSysUserBtnClickHandlers();
 		public HasClickHandlers getPrintBtnClickHandlers();
 		public HasClickHandlers getSendMailAllBtnClickHandlers();
-
+        public HasClickHandlers getExportBtnClickHandlers();
 		void initStaffStatus();
 		String getSttaffStatus();
 		String getSttaffRole();
@@ -34,7 +34,7 @@ public interface StaffListPresenter extends Presenter<StaffListPresenter.StaffLi
 		Panel getResultpage();
 
 		void displayBtn();
-
+       
 		ListBox getPageNumber();
 		ListBox getDepartment();
 	}

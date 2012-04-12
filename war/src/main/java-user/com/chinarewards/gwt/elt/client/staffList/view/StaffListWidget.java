@@ -38,6 +38,8 @@ public class StaffListWidget extends Composite implements StaffListDisplay {
 	@UiField
 	Button printBtn;
 	@UiField
+	Button exportBtn;
+	@UiField
 	Button sendMailAll;
 	@UiField
 	InlineLabel dataCount;
@@ -162,6 +164,9 @@ public class StaffListWidget extends Composite implements StaffListDisplay {
 	public ListBox getDepartment() {
 		return department;
 	}
-
+	@Override
+	public HasClickHandlers getExportBtnClickHandlers() {
+		return exportBtn;
+	}
 
 }

@@ -29,6 +29,8 @@ import com.chinarewards.gwt.elt.client.staffList.request.DeleteStaffRequest;
 import com.chinarewards.gwt.elt.client.staffList.request.DeleteStaffResponse;
 import com.chinarewards.gwt.elt.client.staffList.request.StaffGenerateUserRequest;
 import com.chinarewards.gwt.elt.client.staffList.request.StaffGenerateUserResponse;
+import com.chinarewards.gwt.elt.client.staffList.request.StaffListExportRequest;
+import com.chinarewards.gwt.elt.client.staffList.request.StaffListExportResponse;
 import com.chinarewards.gwt.elt.client.staffList.request.UpdateUserPwdRequest;
 import com.chinarewards.gwt.elt.client.staffList.request.UpdateUserPwdResponse;
 import com.chinarewards.gwt.elt.client.staffView.plugin.StaffViewConstants;
@@ -46,10 +48,12 @@ import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -178,8 +182,48 @@ public class StaffListPresenterImpl extends
 	
 					}
 				}));
+		  registerHandler(display.getExportBtnClickHandlers().addClickHandler(new ClickHandler() {
+						@Override
+						public void onClick(ClickEvent event) {
+							win.confirm("提示", "确定导出员工资料?",new ConfirmHandler() {
+								
+								@Override
+								public void confirm() {
+									StaffListCriteria criteria = new StaffListCriteria();
+									String data = "name="+display.getStaffNameorNo().getValue();
+									//criteria.setStaffNameorNo(display.getStaffNameorNo().getValue());
+									if(!"ALL".equals(display.getSttaffStatus())){
+										//criteria.setStaffStatus(StaffStatus.valueOf(display.getSttaffStatus()));
+									    data=data+"&staffStatus="+StaffStatus.valueOf(display.getSttaffStatus());
+									    
+									}else{
+										data=data+"&staffStatus=";
+									}
+									if(!"ALL".equals(display.getSttaffRole())){
+										//criteria.setStaffRole(UserRoleVo.valueOf(display.getSttaffRole()));
+									    data = data+"&role="+ UserRoleVo.valueOf(display.getSttaffRole());
+									}else{
+										data=data+"&role=";
+									}
+									if(!"ALL".equals(display.getDepartment().getValue(display.getDepartment().getSelectedIndex()))){
+										//criteria.setDepartmentId(display.getDepartment().getValue(display.getDepartment().getSelectedIndex()));
+									   data = data+"&departmentId="+ display.getDepartment().getValue(display.getDepartment().getSelectedIndex());
+									
+									}else{
+										data=data+"&departmentId=";
+									}
+									   doExport( data,  "导出员工数据");
+								}
+							});
+						}
+					}));
 	}
-	
+	private void doExport(String data, String title) {
+		String url = GWT.getModuleBaseURL() + "servlet.export";
+		//String data = "batchId=" + batchId + "&action=" + action;
+		String wholeUrl = url + "?" + data + "&radom=" + Math.random();
+		Window.open(wholeUrl, title,"menubar=yes,location=no,resizable=yes,scrollbars=yes,status=yes");
+	}
 	private void init() {	
 		display.initStaffStatus();
 		initDepartmentList(null);

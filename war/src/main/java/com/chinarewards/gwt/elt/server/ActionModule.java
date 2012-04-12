@@ -92,6 +92,7 @@ import com.chinarewards.gwt.elt.client.staffIntegral.request.StaffIntegralReques
 import com.chinarewards.gwt.elt.client.staffList.request.DeleteStaffRequest;
 import com.chinarewards.gwt.elt.client.staffList.request.SearchStaffListRequest;
 import com.chinarewards.gwt.elt.client.staffList.request.StaffGenerateUserRequest;
+import com.chinarewards.gwt.elt.client.staffList.request.StaffListExportRequest;
 import com.chinarewards.gwt.elt.client.staffList.request.UpdateUserPwdRequest;
 import com.chinarewards.gwt.elt.client.staffView.request.StaffViewRequest;
 import com.chinarewards.gwt.elt.client.staffView.request.StaffWinRequest;
@@ -191,6 +192,7 @@ import com.chinarewards.gwt.elt.server.staff.SearchStaffWinActionHandler;
 import com.chinarewards.gwt.elt.server.staff.StaffAddActionHandler;
 import com.chinarewards.gwt.elt.server.staff.StaffDeleteActionHandler;
 import com.chinarewards.gwt.elt.server.staff.StaffGenerateUserActionHandler;
+import com.chinarewards.gwt.elt.server.staff.StaffListExportActionHandler;
 import com.chinarewards.gwt.elt.server.staffHeavenIndex.StaffHeavenIndexActionHandler;
 import com.chinarewards.gwt.elt.server.staffPassword.UpdateStaffPwdActionHandler;
 import com.chinarewards.gwt.elt.server.team.SearchTeamByIdHandler;
@@ -429,6 +431,8 @@ public class ActionModule extends ActionHandlerModule {
 		bindHandler(DeleteBroadcastingRequest.class,DeleteBroadcastingActionHandler.class);
 		//员工删除
 		bindHandler(DeleteStaffRequest.class,StaffDeleteActionHandler.class);
+		//导出员工
+		bindHandler(StaffListExportRequest.class,StaffListExportActionHandler.class);
 
 
 	}
