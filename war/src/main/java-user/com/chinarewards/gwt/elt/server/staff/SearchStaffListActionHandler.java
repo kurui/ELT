@@ -68,6 +68,8 @@ public class SearchStaffListActionHandler extends
 		}
 		if(request.getCriteria().getStaffNameorNo()!=null)
 			criteria.setStaffNameorNo(request.getCriteria().getStaffNameorNo());
+		if(request.getCriteria().getStaffEmail()!=null)
+			criteria.setStaffEmail(request.getCriteria().getStaffEmail());
 		if(request.getCriteria().getStaffStatus()!=null)
 			criteria.setStaffStatus(com.chinarewards.elt.model.staff.StaffStatus.valueOf(request.getCriteria().getStaffStatus().toString()));
 		if(request.getCriteria().getStaffRole()!=null)

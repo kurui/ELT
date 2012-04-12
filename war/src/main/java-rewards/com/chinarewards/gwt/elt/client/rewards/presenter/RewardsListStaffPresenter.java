@@ -36,6 +36,8 @@ public interface RewardsListStaffPresenter extends
 		ListBox getPageNumber();
 
 		public void setBreadCrumbs(Widget breadCrumbs);
+		
+		HasClickHandlers getFirst();
 
 	}
 }

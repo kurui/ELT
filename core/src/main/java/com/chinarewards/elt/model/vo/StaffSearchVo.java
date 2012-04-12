@@ -110,6 +110,15 @@ public class StaffSearchVo {
 	private String departmentname;
 
 	private StaffStatus status;
+	private String staffEmail;
+
+	public String getStaffEmail() {
+		return staffEmail;
+	}
+
+	public void setStaffEmail(String staffEmail) {
+		this.staffEmail = staffEmail;
+	}
 
 	public StaffStatus getStatus() {
 		return status;

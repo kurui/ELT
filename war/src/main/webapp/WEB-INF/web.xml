@@ -92,13 +92,27 @@
 		<url-pattern>/appinfo</url-pattern>
 	</servlet-mapping>
 	
+
 	<servlet>
 		<servlet-name>exportStaffServlet</servlet-name>
-		<servlet-class>com.chinarewards.gwt.elt.util.ExcelServlet</servlet-class>
+		<servlet-class>com.chinarewards.gwt.elt.sevlet.ExcelServlet</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>exportStaffServlet</servlet-name>
 		<url-pattern>*.export</url-pattern>
 	</servlet-mapping>
+
+	
+	<servlet>
+		<servlet-name>importStaffServlet</servlet-name>
+		<servlet-class>com.chinarewards.gwt.elt.sevlet.ImportStaffServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>importStaffServlet</servlet-name>
+		<url-pattern>*.iss</url-pattern>
+	</servlet-mapping>
+	
+
 </web-app>

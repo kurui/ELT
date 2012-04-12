@@ -3,6 +3,7 @@ package com.chinarewards.gwt.elt.client.enterprise.presenter;
 import com.chinarewards.gwt.elt.client.enterprise.model.LicenseVo;
 import com.chinarewards.gwt.elt.client.mvp.Display;
 import com.chinarewards.gwt.elt.client.mvp.Presenter;
+import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.FileUpload;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -22,6 +23,8 @@ public interface LicensePresenter extends
 		FormPanel getLicenseForm();
 
 		FileUpload getLicenseUpload();
+
+	public	HasClickHandlers getBackHandlers();
 
 
 	}

@@ -4,8 +4,10 @@ import com.chinarewards.gwt.elt.client.enterprise.model.LicenseVo;
 import com.chinarewards.gwt.elt.client.enterprise.presenter.LicensePresenter.LicenseDisplay;
 import com.chinarewards.gwt.elt.util.DateTool;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FileUpload;
 import com.google.gwt.user.client.ui.FormPanel;
@@ -40,6 +42,8 @@ public class LicenseWidget extends Composite implements LicenseDisplay {
 	@UiField
 	FileUpload licenseUpload;
 	
+	@UiField
+	Button back;
 
 	@UiField
 	Panel breadCrumbs;
@@ -87,6 +91,11 @@ public class LicenseWidget extends Composite implements LicenseDisplay {
 	@Override
 	public FileUpload getLicenseUpload() {
 		return licenseUpload;
+	}
+	
+	@Override
+	public HasClickHandlers getBackHandlers() {
+		return back;
 	}
 
 }

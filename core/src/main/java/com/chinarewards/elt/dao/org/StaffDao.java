@@ -193,6 +193,10 @@ public class StaffDao extends BaseDao<Staff> {
 			param.put("keywords", "%"
 					+ searchVo.getKeywords().trim().toUpperCase() + "%");
 		}
+		if (!StringUtil.isEmptyString(searchVo.getStaffEmail())) {
+			hql.append(" AND upper(staff.email) like upper(:staffemail) "); 
+			param.put("staffemail", "%"+searchVo.getStaffEmail()+"%");
+		}
 		if (!StringUtil.isEmptyString(searchVo.getDeptId())) {
 			hql.append(" AND staff.department.id = :deptId ");
 			param.put("deptId", searchVo.getDeptId());
@@ -480,5 +484,16 @@ public class StaffDao extends BaseDao<Staff> {
 				.createQuery(
 						"SELECT count(*) FROM Staff s WHERE s.corporation.id = :corporationId and s.status= :status  and s.deleted=0 ")
 				.setParameter("corporationId", corporationId).setParameter("status", StaffStatus.JOB).getSingleResult().toString());
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Staff> findStaffsByStaffNo(String staffNo) {
+		return getEm().createQuery("FROM Staff s WHERE upper(s.jobNo) = upper(:staffNo) ")
+				.setParameter("staffNo", staffNo).getResultList();
+	}
+	@SuppressWarnings("unchecked")
+	public List<Staff> findStaffsByEmail(String staffEmail) {
+		return getEm().createQuery("FROM Staff s WHERE upper(s.email) like upper(:staffEmail) ")
+				.setParameter("staffEmail", staffEmail+"%").getResultList();
 	}
 }

@@ -6,7 +6,10 @@
 	<inherits name="com.google.gwt.xml.XML" />
 
 	<inherits name="net.customware.gwt.dispatch.Dispatch" />
-
+	<inherits name="gwtupload.GWTUpload"/>
+	<inherits name="com.google.gwt.widgetideas.WidgetIdeas"/>
+	
+	<stylesheet src="Upload.css"/>
 	<source path="client" />
 	<source path="model" />
 	<source path="util" />
@@ -16,11 +19,12 @@
 <!--
 	<set-property name="user.agent" value="gecko1_8,safari,opera,ie8,ie9" />
 -->
-	<!--
+	<!-- 
 	<set-property name="user.agent" value="gecko1_8" />
-  -->
+ -->
 	<stylesheet src="elt.css" />     
-	
+	<extend-property name="locale" values="zh"/>
+	<set-property-fallback name="locale" value="zh"/>
 	<!-- test -->                 
 	
 	<!-- 指定编译输出 geck01_8:firefox -->

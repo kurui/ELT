@@ -43,7 +43,7 @@ public class StaffAddWidget extends Composite implements StaffAddDisplay {
 	TextBox phone;
 	@UiField
 	TextBox email;
-	
+
 	DateBox dob;
 	@UiField
 	Panel dobpanel;
@@ -71,12 +71,17 @@ public class StaffAddWidget extends Composite implements StaffAddDisplay {
 	Button photoUploadBtn;
 	@UiField
 	TextBox photo;
-	
+
 	@UiField
 	CheckBox admin;
 	@UiField
 	CheckBox gift;
-	
+
+	@UiField
+	InlineLabel staffEmailMessage;
+	@UiField
+	InlineLabel staffNoMessage;
+
 	DateTimeFormat dateFormat = DateTimeFormat
 			.getFormat(ViewConstants.date_format);
 	private static StaffAddWidgetUiBinder uiBinder = GWT
@@ -89,7 +94,8 @@ public class StaffAddWidget extends Composite implements StaffAddDisplay {
 
 		initWidget(uiBinder.createAndBindUi(this));
 		dob=new DateBox(new DatePickerWithYearSelector(), null,new DateBox.DefaultFormat(dateFormat));
-		dob.setStyleName("fromtext");
+		dob.setStyleName("formtext");
+
 		dobpanel.add(dob);
 	}
 
@@ -119,7 +125,6 @@ public class StaffAddWidget extends Composite implements StaffAddDisplay {
 	public String getStaffName() {
 		return this.staffName.getValue();
 	}
-
 
 	@Override
 	public String getJobPosition() {
@@ -191,8 +196,6 @@ public class StaffAddWidget extends Composite implements StaffAddDisplay {
 		this.staffName.setText(text);
 	}
 
-
-	
 	@Override
 	public void setJobPosition(String text) {
 		this.jobPosition.setText(text);
@@ -255,5 +258,30 @@ public class StaffAddWidget extends Composite implements StaffAddDisplay {
 	@Override
 	public CheckBox getGift() {
 		return gift;
+	}
+
+	@Override
+	public TextBox getStaffNoTextBox() {
+		return staffNo;
+	}
+
+	@Override
+	public TextBox getStaffEmailTextBox() {
+		return email;
+	}
+
+	@Override
+	public void setStaffEmailMessage(String text) {
+		staffEmailMessage.setText(text);
+	}
+
+	@Override
+	public void setStaffNoMessage(String text) {
+		staffNoMessage.setText(text);
+	}
+
+	@Override
+	public Button getAddBtn() {
+		return addBtn;
 	}
 }

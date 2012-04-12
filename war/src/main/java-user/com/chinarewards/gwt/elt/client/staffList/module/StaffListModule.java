@@ -1,12 +1,16 @@
 package com.chinarewards.gwt.elt.client.staffList.module;
 
 
+import com.chinarewards.gwt.elt.client.staffList.presenter.ImportStaffPresenter;
+import com.chinarewards.gwt.elt.client.staffList.presenter.ImportStaffPresenter.ImportStaffDisplay;
+import com.chinarewards.gwt.elt.client.staffList.presenter.ImportStaffPresenterImpl;
 import com.chinarewards.gwt.elt.client.staffList.presenter.StaffListPresenter;
 import com.chinarewards.gwt.elt.client.staffList.presenter.StaffListPresenter.StaffListDisplay;
 import com.chinarewards.gwt.elt.client.staffList.presenter.StaffListPresenterImpl;
 import com.chinarewards.gwt.elt.client.staffList.presenter.StaffListPrintPresenter;
 import com.chinarewards.gwt.elt.client.staffList.presenter.StaffListPrintPresenter.StaffListPrintDisplay;
 import com.chinarewards.gwt.elt.client.staffList.presenter.StaffListPrintPresenterImpl;
+import com.chinarewards.gwt.elt.client.staffList.view.ImportStaffWidget;
 import com.chinarewards.gwt.elt.client.staffList.view.StaffListPrintWidget;
 import com.chinarewards.gwt.elt.client.staffList.view.StaffListWidget;
 import com.google.gwt.inject.client.AbstractGinModule;
@@ -19,6 +23,9 @@ public class StaffListModule extends AbstractGinModule {
 		bind(StaffListDisplay.class).to(StaffListWidget.class);
 		bind(StaffListPrintPresenter.class).to(StaffListPrintPresenterImpl.class);
 		bind(StaffListPrintDisplay.class).to(StaffListPrintWidget.class);
+		
+		bind(ImportStaffPresenter.class).to(ImportStaffPresenterImpl.class);
+		bind(ImportStaffDisplay.class).to(ImportStaffWidget.class);
 	}
 
 }

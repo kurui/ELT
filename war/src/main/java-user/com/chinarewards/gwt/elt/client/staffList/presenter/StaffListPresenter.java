@@ -20,12 +20,18 @@ public interface StaffListPresenter extends Presenter<StaffListPresenter.StaffLi
 		public HasClickHandlers getCreateSysUserBtnClickHandlers();
 		public HasClickHandlers getPrintBtnClickHandlers();
 		public HasClickHandlers getSendMailAllBtnClickHandlers();
+
         public HasClickHandlers getExportBtnClickHandlers();
+
+		public HasClickHandlers getImportStaffBtnClickHandlers();
+
+
 		void initStaffStatus();
 		String getSttaffStatus();
 		String getSttaffRole();
 	
 		HasValue<String> getStaffNameorNo();
+		HasValue<String> getStaffEmail();
 
 		void setDataCount(String text);
 		void setBreadCrumbs(Widget breadCrumbs);

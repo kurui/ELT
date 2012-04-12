@@ -7,6 +7,7 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasValue;
@@ -44,6 +45,9 @@ public class RewardsListStaffWidget extends Composite implements
 	
 	@UiField
 	ListBox pageNumber;
+	
+	@UiField
+	Anchor first;
 
 	// @UiField
 	// Panel breadCrumbs;
@@ -113,5 +117,9 @@ public class RewardsListStaffWidget extends Composite implements
 	@Override
 	public ListBox getPageNumber() {
 		return pageNumber;
+	}
+	@Override
+	public HasClickHandlers getFirst() {
+		return first;
 	}
 }

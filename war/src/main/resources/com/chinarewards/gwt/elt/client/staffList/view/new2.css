@@ -111,7 +111,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .footer .copyright p{line-height:20px;}
 /*-------------------------------------iframe页面------------------------------------------------------*/
 
-.frame-wrapdialog{background-color:#F4F4F4;width:99%;padding-top:15px; min-width: 700px;  padding-bottom: 25px;  border-bottom: 2px solid #333333;   border-left: 2px solid #333333;  border-right: 2px solid #333333;}
+.frame-wrapdialog{background-color:#F4F4F4;width:99%;padding-top:15px; min-width: 700px;height:400px;  padding-bottom: 25px;  border-bottom: 2px solid #333333;   border-left: 2px solid #333333;  border-right: 2px solid #333333;}
 
 .frame-wrap{background-color:#F4F4F4;width:99%;padding-top:15px; min-width: 1010px;}
 .frame-wrap .breadcrumb-wrap:after{content:".";display:block;clear:both;height:0;visibility:hidden;}
@@ -129,3 +129,11 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .divtext{float:left;color:#999999;padding-bottom:3px;}
 .divfont{color:red;}
 .divend{clear:both}
+.fmdiv {
+    background-color: #FFFFFF;
+    border: 1px solid #9BB1BE;
+    height: 400px;
+
+
+}
+.setDetail{ width:97%; margin:15px auto; position:relative}
