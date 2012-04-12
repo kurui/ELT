@@ -167,6 +167,10 @@ public class StaffDao extends BaseDao<Staff> {
 			param.put("keywords", "%"
 					+ searchVo.getKeywords().trim().toUpperCase() + "%");
 		}
+		if (!StringUtil.isEmptyString(searchVo.getStaffEmail())) {
+			hql.append(" AND upper(staff.email) like upper(:staffemail) "); 
+			param.put("staffemail", "%"+searchVo.getStaffEmail()+"%");
+		}
 		if (!StringUtil.isEmptyString(searchVo.getDeptId())) {
 			hql.append(" AND staff.department.id = :deptId ");
 			param.put("deptId", searchVo.getDeptId());
@@ -392,5 +396,13 @@ public class StaffDao extends BaseDao<Staff> {
 	public List<Staff> findStaffsByEmail(String staffEmail) {
 		return getEm().createQuery("FROM Staff s WHERE upper(s.email) like upper(:staffEmail) ")
 				.setParameter("staffEmail", staffEmail+"%").getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Staff> findNotDeleteStaffsBycorporationId(String corporationId) {
+		return getEm()
+				.createQuery(
+						"FROM Staff s WHERE s.corporation.id = :corporationId  and s.deleted=0 ")
+				.setParameter("corporationId", corporationId).getResultList();
 	}
 }

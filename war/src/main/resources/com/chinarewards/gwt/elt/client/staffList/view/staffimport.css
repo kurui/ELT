@@ -1,0 +1,91 @@
+@CHARSET "UTF-8";
+@external .button-search,.button-reset,.button-add,.button-delpe,.button-ok,.button-back,.button-modp,.button-mod,.soso,.select,.button-next,.button-inclu,.button-pre,.importStepone,.importSteptwo,.importStepthree,.importStepfour,.importStepfive,.importStepsix;
+	
+@sprite .button-search{ padding-left:10px;gwt-image:"button_search"; border:1px solid #9eb5c2; background-color:#e4f6ff; font-size:12px; color:#123b5e; width:70px; height:22px; line-height:22px; cursor:pointer}
+@sprite .button-reset{ padding-left:10px;gwt-image:"button_reset"; border:1px solid #9eb5c2; background-color:#e4f6ff; font-size:12px; color:#123b5e; width:70px; height:22px; line-height:22px; cursor:pointer}
+@sprite .button-delpe{ padding-left:10px;gwt-image:"button_delpe"; border:1px solid #9eb5c2; background-color:#e4f6ff; font-size:12px; color:#123b5e; width:70px; height:22px; line-height:22px; cursor:pointer}
+@sprite .button-add{ padding-left:10px;gwt-image:"button_add"; border:1px solid #9eb5c2; background-color:#e4f6ff; font-size:12px; color:#123b5e; width:70px; height:22px; line-height:22px; cursor:pointer}
+@sprite .button-back{ padding-left:10px;gwt-image:"button_back"; border:1px solid #9eb5c2; background-color:#e4f6ff; font-size:12px; color:#123b5e; width:60px; height:22px; line-height:22px; cursor:pointer}
+@sprite .button-ok{ padding-left:10px;gwt-image:"button_ok"; border:1px solid #9eb5c2; background-color:#e4f6ff; font-size:12px; color:#123b5e; width:60px; height:22px; line-height:22px; cursor:pointer}
+@sprite .button-mod{ padding-left:10px;gwt-image:"button_mod"; border:1px solid #9eb5c2; background-color:#e4f6ff; font-size:12px; color:#123b5e; width:60px; height:22px; line-height:22px; cursor:pointer}
+/*员工信息导入*/
+@sprite .button-modp{ padding-left:10px;gwt-image:"button_mod"; border:1px solid #9eb5c2; background-color:#e4f6ff; font-size:12px; color:#123b5e; width:100px; height:22px; line-height:22px; cursor:pointer}
+/*下一步 */
+@sprite .button-next{ padding-left:10px;gwt-image:"button_next"; border:1px solid #9eb5c2; background-color:#e4f6ff; font-size:12px; color:#123b5e; width:100px; height:22px; line-height:22px; cursor:pointer}
+/* 上一步*/
+@sprite .button-pre{ padding-left:10px;gwt-image:"button_pre"; border:1px solid #9eb5c2; background-color:#e4f6ff; font-size:12px; color:#123b5e; width:100px; height:22px; line-height:22px; cursor:pointer}
+/* 下载文件*/
+@sprite .button-inclu{ padding-left:10px;gwt-image:"button_inclu"; border:1px solid #9eb5c2; background-color:#e4f6ff; font-size:12px; color:#123b5e; width:100px; height:22px; line-height:22px; cursor:pointer}
+/* 导入6个步骤*/
+@sprite .importStepone{ padding-left:10px;gwt-image:"importStepone"; border:1px solid #9eb5c2; background-color:#e4f6ff; font-size: 14px;font-weight: bold;font-weight: bold; color:#123b5e; width: 823px;  height: 40px; line-height:18px; cursor:pointer;  border: none; background-repeat: no-repea;}
+@sprite .importSteptwo{ padding-left:10px;gwt-image:"importSteptwo"; border:1px solid #9eb5c2; background-color:#e4f6ff; font-size: 14px;font-weight: bold;font-weight: bold; color:#123b5e; width: 823px;  height: 40px; line-height:18px; cursor:pointer;  border: none; background-repeat: no-repea;}
+@sprite .importStepthree{ padding-left:10px;gwt-image:"importStepthree"; border:1px solid #9eb5c2; background-color:#e4f6ff; font-size: 14px;font-weight: bold;font-weight: bold; color:#123b5e; width: 823px;  height: 40px; line-height:18px; cursor:pointer;  border: none; background-repeat: no-repea;}
+@sprite .importStepfour{ padding-left:10px;gwt-image:"importStepfour"; border:1px solid #9eb5c2; background-color:#e4f6ff; font-size: 14px;font-weight: bold;font-weight: bold; color:#123b5e; width: 823px;  height: 40px; line-height:18px; cursor:pointer;  border: none; background-repeat: no-repea;}
+@sprite .importStepfive{ padding-left:10px;gwt-image:"importStepfive"; border:1px solid #9eb5c2; background-color:#e4f6ff; font-size: 14px;font-weight: bold;font-weight: bold; color:#123b5e; width: 823px;  height: 40px; line-height:18px; cursor:pointer;  border: none; background-repeat: no-repea;}
+@sprite .importStepsix{ padding-left:10px;gwt-image:"importStepsix"; border:1px solid #9eb5c2; background-color:#e4f6ff; font-size: 14px;font-weight: bold;font-weight: bold; color:#123b5e; width: 823px;  height: 40px; line-height:18px; cursor:pointer;  border: none; background-repeat: no-repea;}
+
+
+
+.fmtable{ width:97%; margin:5px auto; border:1px solid #ccccff; background-color:#f4f6f9;}
+.fmtable td{color:#444; height:25px; padding:4px 0px; font-size:12px;}
+.fmtable td.title{ text-align:right; margin-right:5px; }
+.fmtable td.intext{ text-align:left;}
+.fmtable td.caozuo{ text-align:center;}
+.fmtable td.caozuo input{ margin-right:5px;}
+@sprite .soso{ border:1px solid #b4c6d0; gwt-image:"input_bg"; line-height:18px; height:20px; width:180px;}
+@sprite .select{ border:1px solid #b4c6d0; gwt-image:"input_bg"; line-height:18px; height:22px; width:100px;}
+@sprite #post{ width:97%; height:36px; padding:10px 0px 0px 0px; border:1px solid #ccccff; margin:0 auto; gwt-image:"post_bg"; margin-bottom:5px;}
+.listtable{width:97%; margin:5px auto 0 auto;}
+ sprite div.post{ width:428px; height:26px; border-top:1px solid #9bb1be; padding:10px;gwt-image:"post_bg"; }
+
+div.center{ width:428px;border-bottom:none; padding:10px; background-color:#fff; color:#444; font-size:14px; line-height:18px;}
+div.center td{height: 28px}
+div.center input{width: 200px}
+div.center textarea{width: 200px}
+
+#checkbox1 input{width: 20px;}
+#post button{ margin-left:15px;}
+.post button{ margin-left:15px;}
+div#fmdiv{ background-color:#FFF; border:1px solid #9bb1be; border-top:none; overflow-y:scroll; position:relative }
+.detail_content{width:97%; min-height:380px; height:auto!important; heigt:380px; padding:0px; border:1px solid #ccccff; margin:0 auto; background:#fbfdff; margin-top:8px; position:relative; clear:both}
+.detail_content .border{ border:1px solid #ccccff; background-color:#fff}
+.detail_content .upExcel{ font-size:12px; text-align:left; padding:10px; line-height:22px;}
+.detail_content .upExcel input{ margin-right:10px;}
+.detail_content .upExcel input.text,.detail_content .upExcel input.mintext{ margin:0px;}
+.detail_content .upExcel.downloadTem{color:#00ffee;}
+
+.detail_content .upExcel h2{ font-size:16px; font-weight:bold; margin-bottom:5px;}
+.detail_content .upExcel h3{ font-size:16px; font-weight:normal; margin-bottom:5px;}
+.detail_content .upExcel span.red{ color:#f00;}
+.detail_content div a{ font-size: 12px; line-height:22px;}
+.detail_content div a:link{color:#007cff;text-decoration:underline;}
+.detail_content div a:visited {color:#007cff;text-decoration:underline;}
+.detail_content div a:hover{ color:#FF3300;text-decoration:none;}
+.detail_content div a:active{color:#FF3300;text-decoration:none;}
+
+
+#radioTd input{width:12px;}
+@sprite .top{ gwt-image:"trbg";}
+/*
+分页
+*/
+div#pagediv{  width:97%; height:25px; border:1px solid #ccccff; border-top:none; margin:0 auto; text-align:center; padding-top:5px;background-color:white}
+div#pagediv div.pagedown{ width:200px; float:left; margin-left:0px; padding-left:15px;}
+div#pagediv div.pagedown a{width:21px; height:19px; border:none; display:block; float:left; margin-right:2px;}
+@sprite div#pagediv div.pagedown a.firstPage{ gwt-image:"page_first"; }
+@sprite div#pagediv div.pagedown a.prePage{ gwt-image:"page_pre";}
+div#pagediv div.pagedown a.nowPage{ width:80px; color:#444; background:none; text-decoration:none}
+@sprite div#pagediv div.pagedown a.nextPage{ gwt-image:"page_next"; }
+@sprite div#pagediv div.pagedown a.lastPage{ height:19px; gwt-image:"page_last"; }
+div#pagediv div.pagesel{ width:180px; float:right}
+
+
+.listtable{width:97%; margin:5px auto 0 auto; border:1px solid #ccccff; border-bottom:none;}
+div.picShow{ text-align:center; color:#444; font-weight:bold;width:97%; margin:5px auto 0 auto; border:1px solid #ccccff; border-bottom:none;}
+.listtable th{ color:#336633; height:24px; padding-top:3px; padding-left:5px; text-align:left; font-size:12px; line-height:22px; font-weight:bold; border-bottom:1px solid #ccccff}
+.listtable th.no{ background:none}
+.listtable td{ color:#555; height:22px; padding-top:3px; padding-left:5px; text-align:left; font-size:12px; line-height:22px;  border-top:1px solid #fff; border-bottom:1px solid #e8e8e8; background-color:#fafafa}
+.listtable td a{ color:#007cff; text-decoration:underline}
+div#zhudiv{width:97%; min-height:300px; height:auto!important; heigt:380px; padding:0px; border:1px solid #ccccff; margin:0 auto; background:#fbfdff; margin-top:8px; position:relative; clear:both}
+.setDetail{ width:97%; margin:15px auto; position:relative}
+

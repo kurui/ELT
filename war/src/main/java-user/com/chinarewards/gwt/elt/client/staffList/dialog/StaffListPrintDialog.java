@@ -24,7 +24,7 @@ public class StaffListPrintDialog extends AbstractDialog {
 	}
 
 	public void init() {
-		setTitle("全部员工帐号");
+		setTitle("帐号资料");
 		presenter.bind();
 	}
 

@@ -21,6 +21,7 @@ import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.staffAdd.plugin.StaffAddConstants;
 import com.chinarewards.gwt.elt.client.staffList.dataprovider.StaffListViewAdapter;
+import com.chinarewards.gwt.elt.client.staffList.dialog.ImportStaffDialog;
 import com.chinarewards.gwt.elt.client.staffList.dialog.StaffListPrintDialog;
 import com.chinarewards.gwt.elt.client.staffList.model.StaffListClient;
 import com.chinarewards.gwt.elt.client.staffList.model.StaffListCriteria;
@@ -66,6 +67,7 @@ public class StaffListPresenterImpl extends
 	ListCellTable<StaffListClient> cellTable;
 	StaffListViewAdapter listViewAdapter;
 	private final Provider<StaffListPrintDialog> staffListPrintDialogProvider;
+	private final Provider<ImportStaffDialog> importStaffDialogProvider;
 	private final BreadCrumbsPresenter breadCrumbs;
 	final Provider<MailSendDialog> mailSendDialog;
 	final Provider<MailSendAllDialog> mailSendAllDialog;
@@ -73,7 +75,7 @@ public class StaffListPresenterImpl extends
 	@Inject
 	public StaffListPresenterImpl(EventBus eventBus,Provider<MailSendDialog> mailSendDialog,Provider<MailSendAllDialog> mailSendAllDialog,
 			StaffListDisplay display, DispatchAsync dispatch,SessionManager sessionManager,Win win,BreadCrumbsPresenter breadCrumbs,
-			ErrorHandler errorHandler,Provider<StaffListPrintDialog> staffListPrintDialogProvider) {
+			ErrorHandler errorHandler,Provider<StaffListPrintDialog> staffListPrintDialogProvider,Provider<ImportStaffDialog> importStaffDialogProvider) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.sessionManager = sessionManager;
@@ -83,6 +85,7 @@ public class StaffListPresenterImpl extends
 		this.staffListPrintDialogProvider=staffListPrintDialogProvider;
 		this.mailSendDialog = mailSendDialog;
 		this.mailSendAllDialog = mailSendAllDialog;
+		this.importStaffDialogProvider=importStaffDialogProvider;
 	}
 
 	@Override
@@ -135,6 +138,25 @@ public class StaffListPresenterImpl extends
 						
 						StaffListPrintDialog dialog = staffListPrintDialogProvider.get();
 						Platform.getInstance().getSiteManager().openDialog(dialog,null);
+
+	
+					}
+				}));
+		registerHandler(display.getImportStaffBtnClickHandlers().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						
+						ImportStaffDialog dialog = importStaffDialogProvider.get();
+						Platform.getInstance().getSiteManager().openDialog(dialog,new DialogCloseListener() {
+							
+							@Override
+							public void onClose(String dialogId, String instanceId) {
+								buildTable();
+								doSearch();
+								
+							}
+						});
 
 	
 					}
@@ -251,6 +273,7 @@ public class StaffListPresenterImpl extends
 	private void doSearch() {
 		StaffListCriteria criteria = new StaffListCriteria();
 		criteria.setStaffNameorNo(display.getStaffNameorNo().getValue());
+		criteria.setStaffEmail(display.getStaffEmail().getValue());
 		if(!"ALL".equals(display.getSttaffStatus()))
 			criteria.setStaffStatus(StaffStatus.valueOf(display.getSttaffStatus()));
 		if(!"ALL".equals(display.getSttaffRole()))
@@ -309,13 +332,13 @@ public class StaffListPresenterImpl extends
 						return staff.getJobPosition();
 					}
 				}, ref, "jobPosition");
-		cellTable.addColumn("电话", new TextCell(),
+		cellTable.addColumn("邮箱", new TextCell(),
 				new GetValue<StaffListClient, String>() {
 					@Override
 					public String getValue(StaffListClient staff) {
-						return staff.getPhone();
+						return staff.getEmail();
 					}
-				}, ref, "phone");
+				}, ref, "email");
 		cellTable.addColumn("员工状态", new TextCell(),
 				new GetValue<StaffListClient, String>() {
 					@Override

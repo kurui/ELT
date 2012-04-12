@@ -6,6 +6,10 @@ package com.chinarewards.elt.guice.sub;
 import com.chinarewards.elt.dao.org.CorporationDao;
 import com.chinarewards.elt.dao.org.DepartmentDao;
 import com.chinarewards.elt.dao.org.DepartmentManagerDao;
+import com.chinarewards.elt.dao.org.ImportStaffBatchDao;
+import com.chinarewards.elt.dao.org.ImportStaffCodeDao;
+import com.chinarewards.elt.dao.org.ImportStaffRawCodeDao;
+import com.chinarewards.elt.dao.org.ImportStaffRawDao;
 import com.chinarewards.elt.dao.org.IndustryDao;
 import com.chinarewards.elt.dao.org.OrganizationDao;
 import com.chinarewards.elt.service.license.LicenseLogic;
@@ -35,6 +39,10 @@ import com.chinarewards.elt.service.org.impl.Organizationfactory;
 import com.chinarewards.elt.service.org.impl.OrganizationfactoryImpl;
 import com.chinarewards.elt.service.org.impl.StaffProcessor;
 import com.chinarewards.elt.service.org.impl.TeamProcessor;
+import com.chinarewards.elt.service.staff.ImportStaffLogic;
+import com.chinarewards.elt.service.staff.ImportStaffService;
+import com.chinarewards.elt.service.staff.impl.ImportStaffLogicImpl;
+import com.chinarewards.elt.service.staff.impl.ImportStaffServiceImpl;
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 import com.google.inject.name.Names;
@@ -49,6 +57,12 @@ public class OrgModule extends AbstractModule {
 
 	@Override
 	protected void configure() {
+		bind(ImportStaffBatchDao.class).in(Singleton.class);
+		bind(ImportStaffCodeDao.class).in(Singleton.class);
+		bind(ImportStaffRawCodeDao.class).in(Singleton.class);
+		bind(ImportStaffRawDao.class).in(Singleton.class);
+		
+		
 		bind(DepartmentDao.class).in(Singleton.class);
 
 		bind(OrganizationDao.class).in(Singleton.class);
@@ -79,7 +93,8 @@ public class OrgModule extends AbstractModule {
 		bind(LicenseLogic.class).to(LicenseLogicImpl.class).in(Singleton.class);
 		bind(LicenseService.class).to(LicenseServiceImpl.class).in(Singleton.class);
 		
-	
+		bind(ImportStaffLogic.class).to(ImportStaffLogicImpl.class);
+		bind(ImportStaffService.class).to(ImportStaffServiceImpl.class);
 	}
 
 }

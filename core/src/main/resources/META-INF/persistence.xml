@@ -70,6 +70,11 @@
 		<class>com.chinarewards.elt.domain.information.OrgObject</class>
 		<class>com.chinarewards.elt.domain.information.TeamObject</class>
 		
+		<class>com.chinarewards.elt.domain.org.ImportStaffBatch</class>
+		<class>com.chinarewards.elt.domain.org.ImportStaffCode</class>
+		<class>com.chinarewards.elt.domain.org.ImportStaffRaw</class>
+		<class>com.chinarewards.elt.domain.org.ImportStaffRawCode</class>
+		
 		<properties>
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver" />

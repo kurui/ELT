@@ -16,6 +16,9 @@
 					<label for="">员工编号或姓名:</label>
 					<g:TextBox maxLength="30" ui:field="staffNameorNo" styleName="{new2.text2}" />
 					<span class="{new2.nbspbig}" ></span>
+					<label for="">邮箱:</label>
+					<g:TextBox maxLength="30" ui:field="staffEmail" styleName="{new2.text2}" />
+					<span class="{new2.nbspbig}" ></span>
 					<label for="">部门:</label>
 					<g:ListBox ui:field="department" styleName="{new2.select}" /> 
 					<span class="{new2.nbspbig}"></span> 
@@ -52,6 +55,9 @@
 						</span>
 						<span class="{new2.btn}">
 								<g:Button ui:field="sendMailAll">群发邮件</g:Button>
+						</span>
+						<span class="{new2.btn}">
+								<g:Button ui:field="importStaff">导入员工</g:Button>
 						</span>
 					</div>
 			</p>
