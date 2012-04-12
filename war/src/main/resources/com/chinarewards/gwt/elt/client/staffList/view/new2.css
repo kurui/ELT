@@ -133,6 +133,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
     background-color: #FFFFFF;
     border: 1px solid #9BB1BE;
     height: 400px;
-    overflow-y: scroll;
-    width: 900px;
+
+
 }
+.setDetail{ width:97%; margin:15px auto; position:relative}
