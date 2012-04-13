@@ -137,6 +137,19 @@ public class StaffListPresenterImpl extends
 					public void onClick(ClickEvent event) {
 						
 						StaffListPrintDialog dialog = staffListPrintDialogProvider.get();
+						
+						StaffListCriteria criteria = new StaffListCriteria();
+						criteria.setStaffNameorNo(display.getStaffNameorNo().getValue());
+						criteria.setStaffEmail(display.getStaffEmail().getValue());
+						if(!"ALL".equals(display.getSttaffStatus()))
+							criteria.setStaffStatus(StaffStatus.valueOf(display.getSttaffStatus()));
+						if(!"ALL".equals(display.getSttaffRole()))
+							criteria.setStaffRole(UserRoleVo.valueOf(display.getSttaffRole()));
+						if(!"ALL".equals(display.getDepartment().getValue(display.getDepartment().getSelectedIndex())))
+							criteria.setDepartmentId(display.getDepartment().getValue(display.getDepartment().getSelectedIndex()));
+						
+						dialog.initPrintQuery(criteria);
+						dialog.init();
 						Platform.getInstance().getSiteManager().openDialog(dialog,null);
 
 	
