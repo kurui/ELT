@@ -40,6 +40,7 @@ import com.chinarewards.elt.service.staff.ImportStaffCodeLogic;
 import com.chinarewards.elt.service.staff.ImportStaffLogic;
 import com.chinarewards.elt.service.staff.StaffLogic;
 import com.chinarewards.elt.service.user.UserLogic;
+import com.chinarewards.elt.util.DateUtil;
 import com.google.inject.Inject;
 
 /**
@@ -590,7 +591,7 @@ public class ImportStaffLogicImpl implements ImportStaffLogic {
 					sp.setStaffName(raw.getName());
 					sp.setPhone(raw.getMobileTelephoneNumber());
 					sp.setEmail(raw.getEmailAddress());
-//					sp.setDob();
+					sp.setDob(DateUtil.dTStringtoDate(raw.getDob()));
 					sp.setStatus(StaffStatus.JOB);
 					List<UserRole> roles=new ArrayList<UserRole>();
 					roles.add(UserRole.STAFF);			
@@ -606,7 +607,7 @@ public class ImportStaffLogicImpl implements ImportStaffLogic {
 					logger.debug("prepare to create staff ");
 //					Staff staff = staffLogic
 //							.saveStaffAndCreateMember(staffPersistence);
-					if(staffId!=null)
+					if(staffId!=null && !"ERROR".equals(staffId))
 					{
 						isSuccess = true;
 						finalSuccessNum++;

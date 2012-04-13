@@ -3,6 +3,7 @@
  */
 package com.chinarewards.elt.util;
 
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -184,4 +185,19 @@ public class DateUtil {
 		long s2 = s + s1;
 		return new Date(s2);
 	}
+	
+	public static Date dTStringtoDate(String dtToDate){
+		  
+		   SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日");
+		   ParsePosition pos = new ParsePosition(0);   
+		   java.util.Date datetime = formatter.parse(dtToDate, pos); 
+		   java.sql.Timestamp ts = null;  
+		  
+		   if(datetime != null){ 
+		   
+		    ts = new java.sql.Timestamp(datetime.getTime());
+		   }
+		  
+		   return ts; 
+		}
 }

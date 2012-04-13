@@ -1222,7 +1222,7 @@ public class ImportStaffPresenterImpl extends
 
 	private void doExport(String action, String title) {
 		String url = GWT.getModuleBaseURL() + "servlet.export";
-		String data = "batchId=" + batchId + "&action=" + action;
+		String data = "&content=false";
 		String wholeUrl = url + "?" + data + "&radom=" + Math.random();
 		Window.open(wholeUrl, title,
 				"menubar=yes,location=no,resizable=yes,scrollbars=yes,status=yes");
