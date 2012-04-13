@@ -393,46 +393,56 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 						new ClickHandler() {
 							@Override
 							public void onClick(ClickEvent event) {
-								openRewardMoreWidget();
+								win.alert("--111---");
+								openRewardItemMoreWidget();
 							}
 						}));
 
 		
 	}
 	
+	//奖励---全部---上
 	private void openRewardMoreWidget(){
 		RewardsGridClient gridClient=new RewardsGridClient();
 		String thisAction=display.getRewardWidgetAction().getValue();
 		gridClient.setThisAction(thisAction);
-		if ("Rewards_STAFF_GETED".equals(thisAction)) {
+		if ("RewardsItem_STAFF_GETED".equals(thisAction)) {
 			Platform.getInstance()
 			.getEditorRegistry()
 			.openEditor(
 					RewardsListStaffConstants.EDITOR_REWARDSLIST_STAFF_SEARCH,
 					"EDITOR_REWARDSLIST_STAFF_SEARCH_DO_ID",
 					null);//
-		} else if ("Rewards_ALL".equals(thisAction)) {
+		} else if ("RewardsItem_COMPANY_GETED".equals(thisAction)) {
 			Platform.getInstance()
 					.getEditorRegistry()
 					.openEditor(
 							GloryBroadcastConstants.EDITOR_GLORYBROADCAST_SEARCH,
 							"EDITOR_GLORYBROADCAST_SEARCH_DO_ID",
 							null);// 光荣榜
-		} else if ("RewardsItem_STAFF_RUSH".equals(thisAction)) {
-			Platform.getInstance()
-			.getEditorRegistry()
-			.openEditor(
-					RewardsItemConstants.EDITOR_REWARDSITEM_COMPANYOTHER_LIST,
-					"EDITOR_REWARDSITEM_COMPANYOTHER_LIST_DO_ID",gridClient);//
-		} else if ("RewardsItem_ALL".equals(thisAction)) {
-			Platform.getInstance()
-			.getEditorRegistry()
-			.openEditor(
-					RewardsItemConstants.EDITOR_REWARDSITEM_COMPANYOTHER_LIST,
-					"EDITOR_REWARDSITEM_COMPANYOTHER_LIST_DO_ID",
-					gridClient);//
-		}
+		} 
 	}
+	
+	//全部--奖项---下
+		private void openRewardItemMoreWidget(){
+			RewardsGridClient gridClient=new RewardsGridClient();
+			String thisAction=display.getRewardItemWidgetAction().getValue();
+			gridClient.setThisAction(thisAction);
+		 if ("RewardsItem_STAFF_RUSH".equals(thisAction)) {
+				Platform.getInstance()
+				.getEditorRegistry()
+				.openEditor(
+						RewardsItemConstants.EDITOR_REWARDSITEM_COMPANYOTHER_LIST,
+						"EDITOR_REWARDSITEM_COMPANYOTHER_LIST_DO_ID",gridClient);//
+			} else if ("RewardsItem_ALL".equals(thisAction)) {
+				Platform.getInstance()
+				.getEditorRegistry()
+				.openEditor(
+						RewardsItemConstants.EDITOR_REWARDSITEM_COMPANYOTHER_LIST,
+						"EDITOR_REWARDSITEM_COMPANYOTHER_LIST_DO_ID",
+						gridClient);//
+			}
+		}
 
 	void init()
 	{
@@ -660,10 +670,11 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 				});
 	}
 	
+	
 	private void loadRewardItemALLPanel(){
 		RewardsGridCriteria criteria = new RewardsGridCriteria();
 		criteria.setThisAction("RewardsItem_ALL");
-		display.getRewardWidgetAction().setValue(criteria.getThisAction());
+		display.getRewardItemWidgetAction().setValue(criteria.getThisAction());
 		// 查询参数....待添加
 		dispatchAsync.execute(new SearchRewardsGridRequest(criteria,sessionManager
 				.getSession()),
@@ -708,11 +719,12 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 
 				});
 	}
-	
+	//努力冲
 	private void loadRewardItemSTAFFPanel(){
 		RewardsGridCriteria criteria = new RewardsGridCriteria();
 		criteria.setThisAction("RewardsItem_STAFF_RUSH");
-		display.getRewardWidgetAction().setValue(criteria.getThisAction());
+		
+		display.getRewardItemWidgetAction().setValue(criteria.getThisAction());
 		// 查询参数....待添加
 		dispatchAsync.execute(new SearchRewardsGridRequest(criteria,sessionManager
 				.getSession()),

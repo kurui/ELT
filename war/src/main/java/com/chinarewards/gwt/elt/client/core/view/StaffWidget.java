@@ -36,6 +36,8 @@ public class StaffWidget extends Composite implements StaffDisplay {
 	Anchor rewardItemMore;
 	@UiField
 	Hidden rewardWidgetAction;
+	@UiField
+	Hidden rewardItemWidgetAction;
 	
 	@UiField
 	Anchor logBtn;
@@ -545,10 +547,6 @@ public class StaffWidget extends Composite implements StaffDisplay {
 		return rewardItemMore;
 	}
 
-	@Override
-	public Hidden getRewardWidgetAction() {
-		return rewardWidgetAction;
-	}
 
 	@Override
 	public void setIntegralMessage(String message) {
@@ -564,5 +562,15 @@ public class StaffWidget extends Composite implements StaffDisplay {
 	public void displayMore() {
 		more.setVisible(false);
 		
+	}
+
+	@Override
+	public Hidden getRewardItemWidgetAction() {
+		return rewardItemWidgetAction;
+	}
+	
+	@Override
+	public Hidden getRewardWidgetAction() {
+		return rewardWidgetAction;
 	}
 }
