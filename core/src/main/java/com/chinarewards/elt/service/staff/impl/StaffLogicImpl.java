@@ -344,6 +344,79 @@ public class StaffLogicImpl implements StaffLogic {
 		}
 		return staffDao.queryStaffPageAction(searchVo);
 	}
+	
+	@SuppressWarnings("rawtypes")
+	@Override
+	public List queryStaffListExport(StaffSearchCriteria criteria, UserContext context) {
+		StaffSearchVo searchVo = new StaffSearchVo();
+		// 待添加查询条件
+		if (!StringUtil.isEmptyString(criteria.getStaffNameorNo()))
+			searchVo.setKeywords(criteria.getStaffNameorNo());
+		if (criteria.getStaffStatus() != null)
+			searchVo.setStatus(criteria.getStaffStatus());
+		if (context.getCorporationId() != null)
+			searchVo.setEnterpriseId(context.getCorporationId());
+		if (criteria.getStaffRole() != null) {
+			List<String> qstaffIds = new ArrayList<String>();
+			List<String> staffIds = userRoleDao.findStaffIdsByRole(criteria
+					.getStaffRole());
+			if (staffIds != null && staffIds.size() > 0) {
+				qstaffIds = staffIds;
+			} else {
+				qstaffIds.add("notStaffId");
+			}
+			searchVo.setStaffids(qstaffIds);
+		}
+		if (!StringUtil.isEmptyString(criteria.getDepartmentId()))
+			searchVo.setDeptId(criteria.getDepartmentId());
+		
+		searchVo.setPaginationDetail(criteria.getPaginationDetail());
+		searchVo.setSortingDetail(criteria.getSortingDetail());
+
+		// 如果员工界面..不过滤
+		if (!criteria.isColleaguePage()) {
+			// 处理部门管理员..进入..只查询本部门数据
+			boolean fal = false;
+			for (UserRole role : context.getUserRoles()) {
+				if (role == UserRole.CORP_ADMIN) {
+					fal = true;
+				}
+			}
+			if (fal == false) {
+				SysUser user = userDao.findUserById(context.getUserId());
+				if (user != null && user.getStaff() != null) {
+					List<String> departmentIds = deptMgrDao
+							.findDepartmentIdsManagedByStaffId(user.getStaff()
+									.getId());
+					if (departmentIds.size() > 0) {
+						Set<String> allDepartmentIds = new HashSet<String>();
+						for (String id : departmentIds) {
+							allDepartmentIds.addAll(departmentLogic
+									.getWholeChildrenIds(id, true));
+						}
+						searchVo.setDeptParam(new MultipleIdParam(
+								allDepartmentIds));
+					}
+
+				}
+
+			}
+		}
+		List<Staff> staffs= staffDao.queryStaffListExport(searchVo);
+		List lists = new ArrayList();
+		for(Staff staff: staffs){
+			List list = new ArrayList();
+			list.add(staff.getJobNo());
+			list.add(staff.getName());
+			list.add(staff.getEmail());
+			list.add(staff.getPhone());
+			list.add(staff.getDob());
+			lists.add(list);
+			
+		}
+		
+		return lists;
+	}
 
 	@Override
 	public String createOrUpdateStaff(StaffProcess staff, UserContext context) {

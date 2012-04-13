@@ -114,5 +114,10 @@ public interface IStaffService {
 	 * @return
 	 */
 	public String deleteStaff(String staffId,UserContext context);
+	/*
+	 * 导出员工资料
+	 */
+	@SuppressWarnings("rawtypes")
+	public List queryStaffListExport(StaffSearchCriteria criteria, UserContext context);
 	
 }

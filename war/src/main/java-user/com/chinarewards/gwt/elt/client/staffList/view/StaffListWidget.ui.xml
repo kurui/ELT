@@ -58,6 +58,10 @@
 						</span>
 						<span class="{new2.btn}">
 								<g:Button ui:field="importStaff">导入员工</g:Button>
+
+						</span>
+						<span class="{new2.btn}">
+								<g:Button ui:field="exportBtn">导出员工资料</g:Button>
 						</span>
 					</div>
 			</p>

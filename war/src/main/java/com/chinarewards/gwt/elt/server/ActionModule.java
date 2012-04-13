@@ -433,10 +433,15 @@ public class ActionModule extends ActionHandlerModule {
 		bindHandler(DeleteBroadcastingRequest.class,DeleteBroadcastingActionHandler.class);
 		//员工删除
 		bindHandler(DeleteStaffRequest.class,StaffDeleteActionHandler.class);
+
+		
+
 		//员工验证
 		bindHandler(StaffVaildRequest.class,StaffVaildActionHandler.class);
+
 		//导入员工
 		bindHandler(ImportStaffAjaxRequest.class,ImportStaffAjaxActionHandler.class);
+
 
 
 	}
