@@ -1,6 +1,6 @@
 package com.chinarewards.gwt.elt.sevlet;
 
-import com.chinarewards.elt.service.staff.IStaffService;
+import com.chinarewards.elt.service.staff.ImportStaffService;
 import com.chinarewards.gwt.elt.server.InitServlet;
 
 /**
@@ -17,7 +17,7 @@ public abstract class ServiceLocatorUtil {
 	 * 
 	 * @return
 	 */
-	public static IStaffService getServiceLocator() {
+	public static ImportStaffService getServiceLocator() {
 		return InitServlet.getServiceLocator();
 	}
 
