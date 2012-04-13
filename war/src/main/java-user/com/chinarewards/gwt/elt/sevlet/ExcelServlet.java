@@ -52,22 +52,28 @@ public class ExcelServlet extends HttpServlet {
 		String role = request.getParameter("role");
 		String departmentId = request.getParameter("departmentId");
 		StaffSearchCriteria criteria=new StaffSearchCriteria();
+		if(name !=null)
 		criteria.setStaffNameorNo(name);
+		if(staffStatus !=null)
 		criteria.setStaffStatus(StaffStatus.valueOf(staffStatus));
-		if(!role.equals(""))
+		if(role !=null&&!role.equals(""))
 		criteria.setStaffRole(UserRole.valueOf(role));
+		if(departmentId !=null)
 		criteria.setDepartmentId(departmentId);
+		if(request.getParameter("email") !=null)
 		criteria.setStaffEmail(request.getParameter("email"));
 		UserContext context=new UserContext();
+		if(request.getParameter("corpid") !=null)
 		context.setCorporationId(request.getParameter("corpid"));
 		
 		String userRole = request.getParameter("userRole");
-		UserRole.valueOf(userRole);
+		if(userRole !=null){
+		
 		List<UserRole> cli = new ArrayList<UserRole>();
 		cli.add(UserRole.valueOf(userRole));
 		UserRole[] userRoles = cli.toArray(new UserRole[0]);
 		context.setUserRoles(userRoles);
-		
+		}
 	
 		WritableWorkbook workbook = null;
 		WritableSheet sheet = null;
