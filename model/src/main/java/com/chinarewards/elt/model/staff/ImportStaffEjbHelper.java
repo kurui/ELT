@@ -2,10 +2,8 @@ package com.chinarewards.elt.model.staff;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * 有些信息在model层不能检查是否违反规则，需要ejb层帮助实现
@@ -26,19 +24,12 @@ public class ImportStaffEjbHelper {
 	 * 出生日期格式字符
 	 */
 	private String dobFormat;
-	/**
-	 * 入职日期格式字符
-	 */
-	private String doeFormat;
 
 	/**
 	 * 当前日期
 	 */
 	private Date now;
-	/**
-	 * CRM已经派发的卡号
-	 */
-   private List<String> usedMemberCardNumbersInChannel;
+
 	/**
 	 * 现有员工编号
 	 */
@@ -66,31 +57,7 @@ public class ImportStaffEjbHelper {
 	/**
 	 * 同一上传批次员工编号
 	 */
-	private List<String> desiredStaffNumber;
-	/**
-	 * CRM派发的卡长度
-	 */
-	private int memberCardNumberLenghtInChannel;
-	/**
-	 * CRM派发的卡号前缀
-	 */
-	private String memberCardNumberPrefixInChannel;
-	/**
-	 * 分配企业开始的数字
-	 */
-	private String memberCardNumberStartInChannel;
-	/**
-	 * 分配企业最后的数字
-	 */
-	private String memberCardNumberEndInChannel;
-	/**
-	 * 当前要自动分配的卡号计数
-	 */
-	private String memberCardNumberCurrentInChannel;
-	/**
-	 * 预导入数据中指定的卡号
-	 */
-	private List<String> desiredMemberCardNumbers;
+
 	/**
 	 * the staff raw position in current uploaded file 
 	 */
@@ -107,32 +74,8 @@ public class ImportStaffEjbHelper {
 	 * department parent and child is invalid
 	 */
 	private Boolean isDepartmentInvalid;
-	// TODO add other necessary tool inside
-	/**
-	 * the fist card number in channel
-	 */
-	private Long firstCardNumberInChannel;
-	/**
-	 * the last card number in channel
-	 */
-	private Long lastCardNumberInChannel;
-	/**
-	 * the current card number in channel for auto assigned
-	 */
-	private Long currentCardNumberInChannel;
-	/**
-	 * @return the usedMemberCardNumbers
-	 */
-	public List<String> getUsedMemberCardNumbersInChannel() {
-		return usedMemberCardNumbersInChannel;
-	}
 
-	/**
-	 * @param usedMemberCardNumbersInChannel the usedMemberCardNumbers to set
-	 */
-	public void setUsedMemberCardNumbersInChannel(List<String> usedMemberCardNumbersInChannel) {
-		this.usedMemberCardNumbersInChannel = usedMemberCardNumbersInChannel;
-	}
+
 
 	/**
 	 * @return the existingStaffNumbers
@@ -164,101 +107,8 @@ public class ImportStaffEjbHelper {
 		this.desiredMobileNos = desiredMobileNos;
 	}
 
-	public List<String> getDesiredStaffNumber() {
-		return desiredStaffNumber;
-	}
+	
 
-	public void setDesiredStaffNumber(List<String> desiredStaffNumber) {
-		this.desiredStaffNumber = desiredStaffNumber;
-	}
-
-	/**
-	 * @return the memberCardNumberLenghtInChannel
-	 */
-	public int getMemberCardNumberLenghtInChannel() {
-		return memberCardNumberLenghtInChannel;
-	}
-
-	/**
-	 * @param memberCardNumberLenghtInChannel the memberCardNumberLenghtInChannel to set
-	 */
-	public void setMemberCardNumberLenghtInChannel(
-			int memberCardNumberLenghtInChannel) {
-		this.memberCardNumberLenghtInChannel = memberCardNumberLenghtInChannel;
-	}
-
-	/**
-	 * @return the memberCardNumberPrefixInChannel
-	 */
-	public String getMemberCardNumberPrefixInChannel() {
-		return memberCardNumberPrefixInChannel;
-	}
-
-	/**
-	 * @param memberCardNumberPrefixInChannel the memberCardNumberPrefixInChannel to set
-	 */
-	public void setMemberCardNumberPrefixInChannel(
-			String memberCardNumberPrefixInChannel) {
-		this.memberCardNumberPrefixInChannel = memberCardNumberPrefixInChannel;
-	}
-
-	/**
-	 * @return the memberCardNumberStartInChannel
-	 */
-	public String getMemberCardNumberStartInChannel() {
-		return memberCardNumberStartInChannel;
-	}
-
-	/**
-	 * @param memberCardNumberStartInChannel the memberCardNumberStartInChannel to set
-	 */
-	public void setMemberCardNumberStartInChannel(
-			String memberCardNumberStartInChannel) {
-		this.memberCardNumberStartInChannel = memberCardNumberStartInChannel;
-	}
-
-	/**
-	 * @return the memberCardNumberEndInChannel
-	 */
-	public String getMemberCardNumberEndInChannel() {
-		return memberCardNumberEndInChannel;
-	}
-
-	/**
-	 * @param memberCardNumberEndInChannel the memberCardNumberEndInChannel to set
-	 */
-	public void setMemberCardNumberEndInChannel(String memberCardNumberEndInChannel) {
-		this.memberCardNumberEndInChannel = memberCardNumberEndInChannel;
-	}
-
-	/**
-	 * @return the memberCardNumberCurrentInChannel
-	 */
-	public String getMemberCardNumberCurrentInChannel() {
-		return memberCardNumberCurrentInChannel;
-	}
-
-	/**
-	 * @param memberCardNumberCurrentInChannel the memberCardNumberCurrentInChannel to set
-	 */
-	public void setMemberCardNumberCurrentInChannel(
-			String memberCardNumberCurrentInChannel) {
-		this.memberCardNumberCurrentInChannel = memberCardNumberCurrentInChannel;
-	}
-
-	/**
-	 * @return the desiredMemberCardNumbers
-	 */
-	public List<String> getDesiredMemberCardNumbers() {
-		return desiredMemberCardNumbers;
-	}
-
-	/**
-	 * @param desiredMemberCardNumbers the desiredMemberCardNumbers to set
-	 */
-	public void setDesiredMemberCardNumbers(List<String> desiredMemberCardNumbers) {
-		this.desiredMemberCardNumbers = desiredMemberCardNumbers;
-	}
 
 	/**
 	 * @return the assignedCardNumber
@@ -306,13 +156,7 @@ public class ImportStaffEjbHelper {
 		this.isAllPassed = isAllPassed;
 	}
 
-	public String getDoeFormat() {
-		return doeFormat;
-	}
-
-	public void setDoeFormat(String doeFormat) {
-		this.doeFormat = doeFormat;
-	}
+	
 
 	/**
 	 * @return the existingMemberCardNumbers
@@ -384,82 +228,5 @@ public class ImportStaffEjbHelper {
 		this.isDepartmentInvalid = isDepartmentInvalid;
 	}
 
-	/**
-	 * @return the firstCardNumberInChannel
-	 */
-	public Long getFirstCardNumberInChannel() {
-		return firstCardNumberInChannel;
-	}
-
-	/**
-	 * @param firstCardNumberInChannel the firstCardNumberInChannel to set
-	 */
-	public void setFirstCardNumberInChannel(Long firstCardNumberInChannel) {
-		this.firstCardNumberInChannel = firstCardNumberInChannel;
-	}
-
-	/**
-	 * @return the lastCardNumberInChannel
-	 */
-	public Long getLastCardNumberInChannel() {
-		return lastCardNumberInChannel;
-	}
-
-	/**
-	 * @param lastCardNumberInChannel the lastCardNumberInChannel to set
-	 */
-	public void setLastCardNumberInChannel(Long lastCardNumberInChannel) {
-		this.lastCardNumberInChannel = lastCardNumberInChannel;
-	}
-
-	/**
-	 * @return the currentCardNumberInChannel
-	 */
-	public Long getCurrentCardNumberInChannel() {
-		return currentCardNumberInChannel;
-	}
-
-	/**
-	 * @param currentCardNumberInChannel the currentCardNumberInChannel to set
-	 */
-	public void setCurrentCardNumberInChannel(Long currentCardNumberInChannel) {
-		this.currentCardNumberInChannel = currentCardNumberInChannel;
-	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "ImportStaffEjbHelper [isAllPassed=" + isAllPassed
-				+ ", dobFormat=" + dobFormat + ", doeFormat=" + doeFormat
-				+ ", now=" + now + ", usedMemberCardNumbersInChannel="
-				+ usedMemberCardNumbersInChannel + ", existingStaffNumbers="
-				+ existingStaffNumbers + ", existingMemberCardNumbers="
-				+ existingMemberCardNumbers + ", existingEmailAddress="
-				+ existingEmailAddress + ", existingMobileNos="
-				+ existingMobileNos + ", desiredEmailAddress="
-				+ desiredEmailAddress + ", desiredMobileNos="
-				+ desiredMobileNos + ", desiredStaffNumber="
-				+ desiredStaffNumber + ", memberCardNumberLenghtInChannel="
-				+ memberCardNumberLenghtInChannel
-				+ ", memberCardNumberPrefixInChannel="
-				+ memberCardNumberPrefixInChannel
-				+ ", memberCardNumberStartInChannel="
-				+ memberCardNumberStartInChannel
-				+ ", memberCardNumberEndInChannel="
-				+ memberCardNumberEndInChannel
-				+ ", memberCardNumberCurrentInChannel="
-				+ memberCardNumberCurrentInChannel
-				+ ", desiredMemberCardNumbers=" + desiredMemberCardNumbers
-				+ ", assignedCardNumber=" + assignedCardNumber
-				+ ", isEmailFormatInvalid=" + isEmailFormatInvalid
-				+ ", existingDepartmentMap=" + existingDepartmentMap
-				+ ", isDepartmentInvalid=" + isDepartmentInvalid
-				+ ", firstCardNumberInChannel=" + firstCardNumberInChannel
-				+ ", lastCardNumberInChannel=" + lastCardNumberInChannel
-				+ ", currentCardNumberInChannel=" + currentCardNumberInChannel
-				+ "]";
-	}
-
+	
 }

@@ -496,4 +496,12 @@ public class StaffDao extends BaseDao<Staff> {
 		return getEm().createQuery("FROM Staff s WHERE upper(s.email) like upper(:staffEmail) ")
 				.setParameter("staffEmail", staffEmail+"%").getResultList();
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Staff> findNotDeleteStaffsBycorporationId(String corporationId) {
+		return getEm()
+				.createQuery(
+						"FROM Staff s WHERE s.corporation.id = :corporationId  and s.deleted=0 ")
+				.setParameter("corporationId", corporationId).getResultList();
+	}
 }

@@ -45,6 +45,7 @@ import com.chinarewards.elt.service.org.DepartmentLogic;
 import com.chinarewards.elt.service.org.DepartmentManagerLogic;
 import com.chinarewards.elt.service.sendmail.SendMailService;
 import com.chinarewards.elt.service.staff.StaffLogic;
+import com.chinarewards.elt.service.user.UserLogic;
 import com.chinarewards.elt.tx.model.Unit;
 import com.chinarewards.elt.tx.service.TransactionService;
 import com.chinarewards.elt.util.DateUtil;
@@ -70,6 +71,8 @@ public class StaffLogicImpl implements StaffLogic {
 	private final DepartmentManagerDao deptMgrDao;
 	private final DepartmentLogic departmentLogic;
 	private final SendMailService sendMailService;
+	private final UserLogic userLogic;
+	
 	MD5 md5 = new MD5();
 
 	@Inject
@@ -79,7 +82,7 @@ public class StaffLogicImpl implements StaffLogic {
 			SendMailService sendMailService,
 			DepartmentManagerLogic departmentManagerLogic, UserDao userDao,
 			WinnerDao winnerDao, UserRoleDao userRoleDao, RoleDao roleDao,
-			DepartmentManagerDao deptMgrDao, DepartmentLogic departmentLogic) {
+			DepartmentManagerDao deptMgrDao, DepartmentLogic departmentLogic,UserLogic userLogic) {
 		this.staffDao = staffDao;
 		this.deptLogic = deptLogic;
 		this.corporationLogic = corporationLogic;
@@ -93,6 +96,7 @@ public class StaffLogicImpl implements StaffLogic {
 		this.deptMgrDao = deptMgrDao;
 		this.departmentLogic = departmentLogic;
 		this.sendMailService = sendMailService;
+		this.userLogic=userLogic;
 	}
 
 	@Override
@@ -420,6 +424,19 @@ public class StaffLogicImpl implements StaffLogic {
 		SysUser nowuser = userDao.findUserById(context.getUserId());
 		if (StringUtil.isEmptyString(staff.getStaffId())) {
 			ff = new Staff();
+			
+			//验证编号
+			if(StringUtil.isEmptyString(staff.getStaffNo()) || !userLogic.vaildStaffNo(staff.getStaffNo()))
+			{
+				return "ERROR";
+			}
+			//验证邮箱
+			if(StringUtil.isEmptyString(staff.getStaffNo()) || !userLogic.vaildStaffEmail(staff.getEmail().substring(0,staff.getEmail().indexOf("@")+1)))
+			{
+				return "ERROR";
+			}
+			
+			
 		} else {
 			ff = staffDao.findById(Staff.class, staff.getStaffId());
 		}
@@ -758,5 +775,10 @@ public class StaffLogicImpl implements StaffLogic {
 			userDao.update(user);
 		}
 		return "success";
+	}
+
+	@Override
+	public List<Staff> findNotDeleteStaff(String corporationId) {
+		return staffDao.findNotDeleteStaffsBycorporationId(corporationId);
 	}
 }
