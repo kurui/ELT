@@ -393,7 +393,6 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 						new ClickHandler() {
 							@Override
 							public void onClick(ClickEvent event) {
-								win.alert("--111---");
 								openRewardItemMoreWidget();
 							}
 						}));
