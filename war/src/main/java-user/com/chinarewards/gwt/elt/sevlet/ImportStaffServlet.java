@@ -24,12 +24,13 @@ import org.apache.commons.fileupload.FileItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.chinarewards.elt.common.LogicContext;
-import com.chinarewards.elt.common.UserContextProvider;
 import com.chinarewards.elt.domain.org.ImportStaffBatch;
 import com.chinarewards.elt.model.staff.ImportStaffRawParameter;
 import com.chinarewards.elt.model.staff.ImportStaffRequest;
 import com.chinarewards.elt.service.exception.ImportStaffNotFoundException;
+import com.chinarewards.elt.service.staff.ImportStaffService;
+import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.google.inject.Inject;
 
 /**
  * This is a servlet to upload a designated formatted excel, and then save into
@@ -51,7 +52,10 @@ public class ImportStaffServlet extends UploadAction {
 	private final static int INSTRUCTION_END_ROW = 10;
 	private final static int INSTRUCTION_START_COL = 0;
 	private final static int INSTRUCTION_END_COL = 17;
-
+	@Inject
+	ImportStaffService importStaffService;
+	@Inject
+	SessionManager sessionManager;
 	/**
 	 * Override executeAction to save the received files in a custom place and
 	 * delete this items from session.
@@ -183,21 +187,20 @@ public class ImportStaffServlet extends UploadAction {
 			// 关闭文件
 			wb.close();
 
-			if (ServiceLocatorUtil.getServiceLocator() != null) {
+			if (importStaffService != null) {
 				// make sure there is ejb service available for gwt host mode
 				// debug
 				ImportStaffRequest importRequest = new ImportStaffRequest();
 				importRequest.setFileName(item.getName());
 				importRequest.setContentType(item.getContentType());
 				importRequest.setStaffRawList(pStaffRaws);
-				LogicContext ctx = UserContextProvider.get();
-				String corporationId = ctx.getPrincipal().getCorporationId();
-				logger.debug("corporationId - corporationId = " + corporationId);
-				responseSection.append("<corporationId>").append(corporationId)
+
+				logger.debug("corporationId - corporationId = " + sessionManager.getSession().getCorporationId());
+				responseSection.append("<corporationId>").append(sessionManager.getSession().getCorporationId())
 						.append("</corporationId>\n");
-				importRequest.setCorporationId(corporationId);
-//				importRequest.se
-				ImportStaffBatch batch = ServiceLocatorUtil.getServiceLocator().createImportStaffBatch(importRequest);
+				importRequest.setCorporationId(sessionManager.getSession().getCorporationId());
+				importRequest.setNowUserId(sessionManager.getSession().getToken());
+				ImportStaffBatch batch = importStaffService.createImportStaffBatch(importRequest);
 
 				responseSection.append("<batch-id>").append(batch.getId()).append("</batch-id>\n");
 			}

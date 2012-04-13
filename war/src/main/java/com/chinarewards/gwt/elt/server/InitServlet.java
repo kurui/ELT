@@ -13,7 +13,6 @@ import com.chinarewards.elt.service.order.OrderService;
 import com.chinarewards.elt.service.reward.RewardItemService;
 import com.chinarewards.elt.service.reward.RewardService;
 import com.chinarewards.elt.service.reward.rule.JudgeLogic;
-import com.chinarewards.elt.service.staff.ImportStaffService;
 import com.chinarewards.elt.util.DateUtil;
 import com.google.inject.Inject;
 
@@ -35,8 +34,7 @@ public class InitServlet extends HttpServlet {
 
 	private static Timer batchTimer = new Timer();
 
-	@Inject
-	static ImportStaffService importStaffService;
+
 	@Inject
 	RewardItemService rewardItemService;
 	@Inject
@@ -127,10 +125,7 @@ public class InitServlet extends HttpServlet {
 			logger.error("Auto run SendNominatorToMessage,", e);
 		}
 	}
-	
-	public static ImportStaffService getServiceLocator() {
-		return importStaffService;
-	}
+
 
 
 }

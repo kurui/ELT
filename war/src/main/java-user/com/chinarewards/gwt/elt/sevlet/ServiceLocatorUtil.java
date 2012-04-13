@@ -1,7 +1,5 @@
 package com.chinarewards.gwt.elt.sevlet;
 
-import com.chinarewards.elt.service.staff.ImportStaffService;
-import com.chinarewards.gwt.elt.server.InitServlet;
 
 /**
  * Utility class to provide a centralized method to obtain an session bean
@@ -17,8 +15,6 @@ public abstract class ServiceLocatorUtil {
 	 * 
 	 * @return
 	 */
-	public static ImportStaffService getServiceLocator() {
-		return InitServlet.getServiceLocator();
-	}
+
 
 }
