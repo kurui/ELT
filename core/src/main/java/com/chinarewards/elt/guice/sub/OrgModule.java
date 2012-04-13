@@ -39,8 +39,10 @@ import com.chinarewards.elt.service.org.impl.Organizationfactory;
 import com.chinarewards.elt.service.org.impl.OrganizationfactoryImpl;
 import com.chinarewards.elt.service.org.impl.StaffProcessor;
 import com.chinarewards.elt.service.org.impl.TeamProcessor;
+import com.chinarewards.elt.service.staff.ImportStaffCodeLogic;
 import com.chinarewards.elt.service.staff.ImportStaffLogic;
 import com.chinarewards.elt.service.staff.ImportStaffService;
+import com.chinarewards.elt.service.staff.impl.ImportStaffCodeLogicImpl;
 import com.chinarewards.elt.service.staff.impl.ImportStaffLogicImpl;
 import com.chinarewards.elt.service.staff.impl.ImportStaffServiceImpl;
 import com.google.inject.AbstractModule;
@@ -95,6 +97,10 @@ public class OrgModule extends AbstractModule {
 		
 		bind(ImportStaffLogic.class).to(ImportStaffLogicImpl.class);
 		bind(ImportStaffService.class).to(ImportStaffServiceImpl.class);
+		
+		bind(ImportStaffCodeLogic.class).to(ImportStaffCodeLogicImpl.class);
+
+	
 	}
 
 }

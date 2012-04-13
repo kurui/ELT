@@ -29,7 +29,7 @@ import com.chinarewards.elt.model.staff.ImportStaffRawParameter;
 import com.chinarewards.elt.model.staff.ImportStaffRequest;
 import com.chinarewards.elt.service.exception.ImportStaffNotFoundException;
 import com.chinarewards.elt.service.staff.ImportStaffService;
-import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.inject.Inject;
 
 /**
@@ -54,8 +54,6 @@ public class ImportStaffServlet extends UploadAction {
 	private final static int INSTRUCTION_END_COL = 17;
 	@Inject
 	ImportStaffService importStaffService;
-	@Inject
-	SessionManager sessionManager;
 	/**
 	 * Override executeAction to save the received files in a custom place and
 	 * delete this items from session.
@@ -186,8 +184,10 @@ public class ImportStaffServlet extends UploadAction {
 			logger.debug("============================================================");
 			// 关闭文件
 			wb.close();
-
-			if (importStaffService != null) {
+			String nowUserId=request.getParameter("nowUserId");
+			String corporationId=request.getParameter("corporationId");
+			
+			if (importStaffService != null && !StringUtil.isEmpty(nowUserId) && !StringUtil.isEmpty(corporationId)) {
 				// make sure there is ejb service available for gwt host mode
 				// debug
 				ImportStaffRequest importRequest = new ImportStaffRequest();
@@ -195,11 +195,13 @@ public class ImportStaffServlet extends UploadAction {
 				importRequest.setContentType(item.getContentType());
 				importRequest.setStaffRawList(pStaffRaws);
 
-				logger.debug("corporationId - corporationId = " + sessionManager.getSession().getCorporationId());
-				responseSection.append("<corporationId>").append(sessionManager.getSession().getCorporationId())
+
+
+				logger.debug("corporationId - corporationId = " + corporationId);
+				responseSection.append("<corporationId>").append(corporationId)
 						.append("</corporationId>\n");
-				importRequest.setCorporationId(sessionManager.getSession().getCorporationId());
-				importRequest.setNowUserId(sessionManager.getSession().getToken());
+				importRequest.setCorporationId(corporationId);
+				importRequest.setNowUserId(nowUserId);
 				ImportStaffBatch batch = importStaffService.createImportStaffBatch(importRequest);
 
 				responseSection.append("<batch-id>").append(batch.getId()).append("</batch-id>\n");

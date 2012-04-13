@@ -18,7 +18,8 @@ import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.staff.model.ImportStaffAjaxRequestVo;
 import com.chinarewards.gwt.elt.client.staff.model.ImportStaffAjaxResponseVo;
-import com.chinarewards.gwt.elt.client.staff.model.ImportStaffRawVo;
+import com.chinarewards.gwt.elt.client.staff.request.ImportStaffAjaxRequest;
+import com.chinarewards.gwt.elt.client.staff.request.ImportStaffAjaxResponse;
 import com.chinarewards.gwt.elt.client.staff.ui.ImportStaffSingleUploader;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.win.Win;
@@ -34,6 +35,7 @@ import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.ListBox;
@@ -268,7 +270,7 @@ public class ImportStaffPresenterImpl extends
 							return;
 						}
 						display.getStaffFileUploader().setServletPath(
-								ImportStaffSingleUploader.SERVLET_PATH);
+								ImportStaffSingleUploader.SERVLET_PATH+"?nowUserId="+sessionManager.getSession().getToken()+"&corporationId="+sessionManager.getSession().getCorporationId());
 						String confirmMessage = "确定开始上传文档吗?";
 						if (rowNum > 0) {
 							confirmMessage = "上次上传的文档将被覆盖，确定开始上传文档吗?";
@@ -585,7 +587,7 @@ public class ImportStaffPresenterImpl extends
 
 	private void refreshPanelStep4(ImportStaffAjaxResponseVo vo) {
 		int totalStaff = 0;
-		int totalStaffFailed = 0;
+//		int totalStaffFailed = 0;
 	//	int totalStaffWarn = 0;
 		List<String> warnIssues = new ArrayList<String>();
 		Map<String, Long> warnIssueCounts = new HashMap<String, Long>();
@@ -602,7 +604,7 @@ public class ImportStaffPresenterImpl extends
 			for (Long code : rawCode) {
 				if ("严重问题".equals(vo.getAllImportStaffCodeTypes().get(code))) {
 					if (!isFatalStaffRaw) {
-						totalStaffFailed++;
+//						totalStaffFailed++;
 						isFatalStaffRaw = true;
 					}
 					if (!fatalIssues.contains(vo.getAllImportStaffCodeInfos()
@@ -645,23 +647,23 @@ public class ImportStaffPresenterImpl extends
 		String result = "";
 		result += "<br/>你已经准备好导入员工资料<br/><br/>";
 		result += "<b>" + totalStaff + "</b>笔资料<br/><br/>";
-		result += "<span style='color:red'>" + totalStaffFailed
-				+ "</span>笔资料有下列严重问题, 将被忽略<br/><br/>";
-		for (String fatalIssue : fatalIssues) {
-			result += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-<span style='color:black'>"
-					+ fatalIssueCounts.get(fatalIssue)
-					+ "</span>笔资料"
-					+ fatalIssue + "<br/>";
-		}
-		result += "<br/><span style='color:black'>"
-				+ (totalStaff - totalStaffFailed) + "</span>>笔资料中:<br/>";
-		for (String warnIssue : warnIssues) {
-			result += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-<span style='color:black'>"
-					+ warnIssueCounts.get(warnIssue)
-					+ "</span>>笔资料"
-					+ warnIssue
-					+ "<br/>";
-		}
+//		result += "<span style='color:red'>" + totalStaffFailed
+//				+ "</span>笔资料有下列严重问题, 将被忽略<br/><br/>";
+//		for (String fatalIssue : fatalIssues) {
+//			result += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-<span style='color:black'>"
+//					+ fatalIssueCounts.get(fatalIssue)
+//					+ "</span>笔资料"
+//					+ fatalIssue + "<br/>";
+//		}
+//		result += "<br/><span style='color:black'>"
+//				+ (totalStaff - totalStaffFailed) + "</span>>笔资料中:<br/>";
+//		for (String warnIssue : warnIssues) {
+//			result += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-<span style='color:black'>"
+//					+ warnIssueCounts.get(warnIssue)
+//					+ "</span>>笔资料"
+//					+ warnIssue
+//					+ "<br/>";
+//		}
 
 		result += "<br/><b>预计成功导入员工数：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:blue'><b>"
 				+ vo.getEstimateSuccessNum() + "</b></span><br/>";
@@ -753,65 +755,65 @@ public class ImportStaffPresenterImpl extends
 	//	long totalStaff = toLong(vo.getFinalFailedNum())+ toLong(vo.getFinalSuccessNum());
 		int totalStaffFailed = 0;
 
-		List<String> fatalIssues = new ArrayList<String>();
-		Map<String, Long> fatalIssueCounts = new HashMap<String, Long>();
-		if (vo.getImportStaffRawCode() != null) {
-			for (List<Long> rawCode : vo.getImportStaffRawCode()) {
-				boolean isFatalStaffRaw = false;
-				for (Long code : rawCode) {
-					if ("严重问题"
-							.equals(vo.getAllImportStaffCodeTypes().get(code))) {
-						if (!isFatalStaffRaw) {
-							totalStaffFailed++;
-							isFatalStaffRaw = true;
-						}
-						if (!fatalIssues.contains(vo
-								.getAllImportStaffCodeInfos().get(code))) {
-							fatalIssues.add(vo.getAllImportStaffCodeInfos()
-									.get(code));
-						}
-						Long count = fatalIssueCounts.get(vo
-								.getAllImportStaffCodeInfos().get(code));
-						GWT.log("fatal count = " + count + " for "
-								+ vo.getAllImportStaffCodeInfos().get(code));
-						if (count == null) {
-							count = new Long(0);
-						}
-						fatalIssueCounts.put(vo.getAllImportStaffCodeInfos()
-								.get(code), count + 1);
-					}
-				}
-			}
-		}
+//		List<String> fatalIssues = new ArrayList<String>();
+//		Map<String, Long> fatalIssueCounts = new HashMap<String, Long>();
+//		if (vo.getImportStaffRawCode() != null) {
+//			for (List<Long> rawCode : vo.getImportStaffRawCode()) {
+//				boolean isFatalStaffRaw = false;
+//				for (Long code : rawCode) {
+//					if ("严重问题"
+//							.equals(vo.getAllImportStaffCodeTypes().get(code))) {
+//						if (!isFatalStaffRaw) {
+//							totalStaffFailed++;
+//							isFatalStaffRaw = true;
+//						}
+//						if (!fatalIssues.contains(vo
+//								.getAllImportStaffCodeInfos().get(code))) {
+//							fatalIssues.add(vo.getAllImportStaffCodeInfos()
+//									.get(code));
+//						}
+//						Long count = fatalIssueCounts.get(vo
+//								.getAllImportStaffCodeInfos().get(code));
+//						GWT.log("fatal count = " + count + " for "
+//								+ vo.getAllImportStaffCodeInfos().get(code));
+//						if (count == null) {
+//							count = new Long(0);
+//						}
+//						fatalIssueCounts.put(vo.getAllImportStaffCodeInfos()
+//								.get(code), count + 1);
+//					}
+//				}
+//			}
+//		}
 
 		display.getSuccessImportMessage().setText(
-				toLong(vo.getFinalSuccessNum()) + "筆員工資料已成功被導入");
+				toLong(vo.getFinalSuccessNum()) + "笔员工资料已成功被导入");
 
 		String fatalSummary = "";
-		for (String fatalIssue : fatalIssues) {
-			fatalSummary += "<span style='color:black'>"
-					+ fatalIssueCounts.get(fatalIssue) + "</span>筆資料"
-					+ fatalIssue + "<br/>";
-		}
+//		for (String fatalIssue : fatalIssues) {
+//			fatalSummary += "<span style='color:black'>"
+//					+ fatalIssueCounts.get(fatalIssue) + "</span>笔资料"
+//					+ fatalIssue + "<br/>";
+//		}
 		long unknownFatalNum = toLong(vo.getFinalFailedNum())
 				- totalStaffFailed;
 		if (unknownFatalNum > 0) {
 			fatalSummary += "<span style='color:black'>" + unknownFatalNum
-					+ "</span>筆資料由于系统或网络问题<br/>";
+					+ "</span>笔资料由于系统或网络问题<br/>";
 		}
 
 		String detailSummary = "";
-		detailSummary += "<span style='color:black'>总共使用了"
-				+ (toLong(vo.getFinalNewAssignCardNum()) + toLong(vo
-						.getFinalNewAutoCardNum())) + "</span>个卡号：<br/>";
-		detailSummary += " - <span style='color:black'>其中"
-				+ toLong(vo.getFinalNewAutoCardNum()) + "</span>个为自动分配，<br/>";
-		detailSummary += " - <span style='color:black'>其中"
-				+ toLong(vo.getFinalNewAssignCardNum()) + "</span>个为手动分配，<br/>";
-		// detailSummary += " - <span style='color:black'>其中"
-		// + vo.getFinalOldAssignCardNum() + "</span>个为旧卡分配。<br/>";
-		detailSummary += "<br/><span style='color:black'>建立了"
-				+ toLong(vo.getFinalSuccessDeptNum()) + "</span>个新部门。<br/>";
+//		detailSummary += "<span style='color:black'>总共使用了"
+//				+ (toLong(vo.getFinalNewAssignCardNum()) + toLong(vo
+//						.getFinalNewAutoCardNum())) + "</span>个卡号：<br/>";
+//		detailSummary += " - <span style='color:black'>其中"
+//				+ toLong(vo.getFinalNewAutoCardNum()) + "</span>个为自动分配，<br/>";
+//		detailSummary += " - <span style='color:black'>其中"
+//				+ toLong(vo.getFinalNewAssignCardNum()) + "</span>个为手动分配，<br/>";
+//		// detailSummary += " - <span style='color:black'>其中"
+//		// + vo.getFinalOldAssignCardNum() + "</span>个为旧卡分配。<br/>";
+//		detailSummary += "<br/><span style='color:black'>建立了"
+//				+ toLong(vo.getFinalSuccessDeptNum()) + "</span>个新部门。<br/>";
 		detailSummary += "<br/><span style='color:black'>共导入"
 				+ toLong(vo.getFinalSuccessNum()) + "</span>个新员工。<br/><br/>";
 
@@ -1078,144 +1080,144 @@ public class ImportStaffPresenterImpl extends
 			request.setDobFormat(dobFormat);
 
 
-//			dispatch.execute(
-//					new ImportStaffAjaxRequest(request, sessionManager
-//							.getSession()),
-//					new AsyncCallback<ImportStaffAjaxResponse>() {
-//						@Override
-//						public void onFailure(Throwable e) {
-//							errorHandler.alert(e.getMessage());
-//							win.endWait();
-//						}
-//
-//						@Override
-//						public void onSuccess(ImportStaffAjaxResponse response) {
-//							ImportStaffAjaxResponseVo vo = response
-//									.getResponse();
-//							refreshPanelStep4(vo);
-//							win.endWait();
-//						}
-//
-//					});
+			dispatch.execute(
+					new ImportStaffAjaxRequest(request, sessionManager
+							.getSession()),
+					new AsyncCallback<ImportStaffAjaxResponse>() {
+						@Override
+						public void onFailure(Throwable e) {
+							errorHandler.alert(e.getMessage());
+							win.endWait();
+						}
+
+						@Override
+						public void onSuccess(ImportStaffAjaxResponse response) {
+							ImportStaffAjaxResponseVo vo = response
+									.getResponse();
+							refreshPanelStep4(vo);
+							win.endWait();
+						}
+
+					});
 //		}
 	}
 
 	private void doFinalImport() {
-		if (!GWT.isScript()) {
-			List<ImportStaffRawVo> list = new ArrayList<ImportStaffRawVo>();
-			List<List<Long>> rawCodes = new ArrayList<List<Long>>();
-			Map<Long, String> codes = new HashMap<Long, String>();
-			Map<Long, String> types = new HashMap<Long, String>();
-			codes.put(new Long(0), "成功");
-			codes.put(new Long(1), "身份证不是15或18位");
-			codes.put(new Long(2), "入职日期在未来");
-			codes.put(new Long(3), "手机号为空");
-			codes.put(new Long(4), "企业卡号段不足分配");
-			types.put(new Long(0), "成功");
-			types.put(new Long(1), "警告");
-			types.put(new Long(2), "警告");
-			types.put(new Long(3), "严重错误");
-			types.put(new Long(4), "严重错误");
-			for (int i = 0; i < 500; i++) {
-				ImportStaffRawVo raw = new ImportStaffRawVo();
-				if (i >= 100) {
-					raw.setStaffNumber("1001" + i);
-				} else if (i >= 10) {
-					raw.setStaffNumber("10010" + i);
-				} else {
-					raw.setStaffNumber("100100" + i);
-				}
-				raw.setLastName("测");
-				raw.setFirstName("试" + i);
-				raw.setForeignLastName("elt");
-				raw.setForeignFirstName("test" + i);
-				raw.setEmailAddress("a" + i + "@b.c");
-				raw.setDateOfEmployment("2008-08-08");
-				raw.setDepartment("IT|Development");
-				raw.setDob("1988-08-08");
-				raw.setGender("男");
-				if (i >= 100) {
-					raw.setIdNo("321256198808081" + i);
-				} else if (i >= 10) {
-					raw.setIdNo("3212561988080810" + i);
-				} else {
-					raw.setIdNo("32125619880808100" + i);
-				}
-				raw.setLocation("tester location " + i);
-				raw.setMemberCardNumber("");
-				raw.setMinorityNationality("test minority nationality " + i);
-				if (i >= 100) {
-					raw.setMobileTelephoneNumber("13488885" + i);
-				} else if (i >= 10) {
-					raw.setMobileTelephoneNumber("134888850" + i);
-				} else {
-					raw.setMobileTelephoneNumber("1348888500" + i);
-				}
-				raw.setNativePlace("test native place " + i);
-				list.add(raw);
-				List<Long> rawCode = new ArrayList<Long>();
-				if (i % 5 == 0) {
-					rawCode.add(new Long(0));
-				} else if (i % 10 == 1) {
-					rawCode.add(new Long(1));
-				} else if (i % 10 == 2) {
-					rawCode.add(new Long(1));
-					rawCode.add(new Long(2));
-				} else if (i % 10 == 3) {
-					rawCode.add(new Long(1));
-					rawCode.add(new Long(2));
-					rawCode.add(new Long(3));
-				} else if (i % 10 == 4) {
-					rawCode.add(new Long(4));
-				}
-				rawCodes.add(rawCode);
-			}
-
-			ImportStaffAjaxResponseVo resp = new ImportStaffAjaxResponseVo();
-			resp.setAllImportStaffCodeInfos(codes);
-			resp.setAllImportStaffCodeTypes(types);
-			resp.setId(batchId);
-			resp.setImportStaffRawCode(rawCodes);
-			resp.setFinalSuccessDeptNum((long) 10);
-			resp.setFinalSuccessNum((long) 500);
-			resp.setFinalNewAssignCardNum((long) 100);
-			resp.setFinalNewAutoCardNum((long) 100);
-			resp.setFinalOldAssignCardNum((long) 100);
-			resp.setImportBatchNo((long) 8);
-			refreshPanelStep6(resp);
-			display.showPanelStep6();
-		} else {
+//		if (!GWT.isScript()) {
+//			List<ImportStaffRawVo> list = new ArrayList<ImportStaffRawVo>();
+//			List<List<Long>> rawCodes = new ArrayList<List<Long>>();
+//			Map<Long, String> codes = new HashMap<Long, String>();
+//			Map<Long, String> types = new HashMap<Long, String>();
+//			codes.put(new Long(0), "成功");
+//			codes.put(new Long(1), "身份证不是15或18位");
+//			codes.put(new Long(2), "入职日期在未来");
+//			codes.put(new Long(3), "手机号为空");
+//			codes.put(new Long(4), "企业卡号段不足分配");
+//			types.put(new Long(0), "成功");
+//			types.put(new Long(1), "警告");
+//			types.put(new Long(2), "警告");
+//			types.put(new Long(3), "严重错误");
+//			types.put(new Long(4), "严重错误");
+//			for (int i = 0; i < 500; i++) {
+//				ImportStaffRawVo raw = new ImportStaffRawVo();
+//				if (i >= 100) {
+//					raw.setStaffNumber("1001" + i);
+//				} else if (i >= 10) {
+//					raw.setStaffNumber("10010" + i);
+//				} else {
+//					raw.setStaffNumber("100100" + i);
+//				}
+//				raw.setLastName("测");
+//				raw.setFirstName("试" + i);
+//				raw.setForeignLastName("elt");
+//				raw.setForeignFirstName("test" + i);
+//				raw.setEmailAddress("a" + i + "@b.c");
+//				raw.setDateOfEmployment("2008-08-08");
+//				raw.setDepartment("IT|Development");
+//				raw.setDob("1988-08-08");
+//				raw.setGender("男");
+//				if (i >= 100) {
+//					raw.setIdNo("321256198808081" + i);
+//				} else if (i >= 10) {
+//					raw.setIdNo("3212561988080810" + i);
+//				} else {
+//					raw.setIdNo("32125619880808100" + i);
+//				}
+//				raw.setLocation("tester location " + i);
+//				raw.setMemberCardNumber("");
+//				raw.setMinorityNationality("test minority nationality " + i);
+//				if (i >= 100) {
+//					raw.setMobileTelephoneNumber("13488885" + i);
+//				} else if (i >= 10) {
+//					raw.setMobileTelephoneNumber("134888850" + i);
+//				} else {
+//					raw.setMobileTelephoneNumber("1348888500" + i);
+//				}
+//				raw.setNativePlace("test native place " + i);
+//				list.add(raw);
+//				List<Long> rawCode = new ArrayList<Long>();
+//				if (i % 5 == 0) {
+//					rawCode.add(new Long(0));
+//				} else if (i % 10 == 1) {
+//					rawCode.add(new Long(1));
+//				} else if (i % 10 == 2) {
+//					rawCode.add(new Long(1));
+//					rawCode.add(new Long(2));
+//				} else if (i % 10 == 3) {
+//					rawCode.add(new Long(1));
+//					rawCode.add(new Long(2));
+//					rawCode.add(new Long(3));
+//				} else if (i % 10 == 4) {
+//					rawCode.add(new Long(4));
+//				}
+//				rawCodes.add(rawCode);
+//			}
+//
+//			ImportStaffAjaxResponseVo resp = new ImportStaffAjaxResponseVo();
+//			resp.setAllImportStaffCodeInfos(codes);
+//			resp.setAllImportStaffCodeTypes(types);
+//			resp.setId(batchId);
+//			resp.setImportStaffRawCode(rawCodes);
+//			resp.setFinalSuccessDeptNum((long) 10);
+//			resp.setFinalSuccessNum((long) 500);
+//			resp.setFinalNewAssignCardNum((long) 100);
+//			resp.setFinalNewAutoCardNum((long) 100);
+//			resp.setFinalOldAssignCardNum((long) 100);
+//			resp.setImportBatchNo((long) 8);
+//			refreshPanelStep6(resp);
+//			display.showPanelStep6();
+//		} else {
 			ImportStaffAjaxRequestVo request = new ImportStaffAjaxRequestVo();
 
 			request.setAction("import");
 			request.setId(batchId);
 
-//			dispatch.execute(
-//					new ImportStaffAjaxRequest(request, sessionManager
-//							.getSession()),
-//					new AsyncCallback<ImportStaffAjaxResponse>() {
-//						@Override
-//						public void onFailure(Throwable e) {
-//							if (progressTimer != null) {
-//								progressTimer.cancel();
-//								progressTimer = null;
-//								currentProgress = 0;
-//							}
-//							errorHandler.alert(e.getMessage());
-//							display.showPanelStep6();
-//						}
-//
-//						@Override
-//						public void onSuccess(ImportStaffAjaxResponse response) {
-//							ImportStaffAjaxResponseVo vo = response
-//									.getResponse();
-//							GWT.log("do final import result = " + vo);
-//							refreshPanelStep6(vo);
-//							display.showPanelStep6();
-//						}
-//
-//					});
-		}
+			dispatch.execute(
+					new ImportStaffAjaxRequest(request, sessionManager
+							.getSession()),
+					new AsyncCallback<ImportStaffAjaxResponse>() {
+						@Override
+						public void onFailure(Throwable e) {
+							if (progressTimer != null) {
+								progressTimer.cancel();
+								progressTimer = null;
+								currentProgress = 0;
+							}
+							errorHandler.alert(e.getMessage());
+							display.showPanelStep6();
+						}
+
+						@Override
+						public void onSuccess(ImportStaffAjaxResponse response) {
+							ImportStaffAjaxResponseVo vo = response
+									.getResponse();
+							GWT.log("do final import result = " + vo);
+							refreshPanelStep6(vo);
+							display.showPanelStep6();
+						}
+
+					});
+//		}
 	}
 
 	private void doExport(String action, String title) {

@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,6 +16,7 @@ import com.chinarewards.elt.dao.org.ImportStaffBatchDao;
 import com.chinarewards.elt.dao.org.ImportStaffRawCodeDao;
 import com.chinarewards.elt.dao.org.ImportStaffRawDao;
 import com.chinarewards.elt.domain.org.ImportStaffBatch;
+import com.chinarewards.elt.domain.org.ImportStaffCode;
 import com.chinarewards.elt.domain.org.ImportStaffRaw;
 import com.chinarewards.elt.domain.org.ImportStaffRawCode;
 import com.chinarewards.elt.domain.org.Staff;
@@ -26,14 +25,18 @@ import com.chinarewards.elt.model.org.Gender;
 import com.chinarewards.elt.model.staff.ImportCodeType;
 import com.chinarewards.elt.model.staff.ImportStaffEjbHelper;
 import com.chinarewards.elt.model.staff.ImportStaffHavingTitle;
-import com.chinarewards.elt.model.staff.ImportStaffParser;
 import com.chinarewards.elt.model.staff.ImportStaffRawParameter;
 import com.chinarewards.elt.model.staff.ImportStaffRequest;
 import com.chinarewards.elt.model.staff.ImportStaffResponse;
 import com.chinarewards.elt.model.staff.ImportStaffResultType;
+import com.chinarewards.elt.model.staff.StaffProcess;
+import com.chinarewards.elt.model.staff.StaffStatus;
+import com.chinarewards.elt.model.user.UserContext;
+import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.service.exception.ImportStaffNotFoundException;
 import com.chinarewards.elt.service.org.CorporationLogic;
 import com.chinarewards.elt.service.org.DepartmentLogic;
+import com.chinarewards.elt.service.staff.ImportStaffCodeLogic;
 import com.chinarewards.elt.service.staff.ImportStaffLogic;
 import com.chinarewards.elt.service.staff.StaffLogic;
 import com.chinarewards.elt.service.user.UserLogic;
@@ -56,15 +59,16 @@ public class ImportStaffLogicImpl implements ImportStaffLogic {
 	final DepartmentLogic departmentLogic;
 	final CorporationLogic corporationLogic;
 	final CorporationDao corporationDao;
-
+	final ImportStaffCodeLogic importCodeLogic;
+	
 	@Inject
-	public ImportStaffLogicImpl(EntityManager em,
+	public ImportStaffLogicImpl(
 			CorporationDao corporationDao,
 			ImportStaffBatchDao importStaffBatchDao,
 			ImportStaffRawDao importStaffRawDao,
 			ImportStaffRawCodeDao importStaffRawCodeDao, UserLogic userLogic,
 			StaffLogic staffLogic, DepartmentLogic departmentLogic,
-			CorporationLogic corporationLogic) {
+			CorporationLogic corporationLogic,ImportStaffCodeLogic importCodeLogic) {
 
 		this.importStaffBatchDao = importStaffBatchDao;
 		this.importStaffRawDao = importStaffRawDao;
@@ -74,6 +78,7 @@ public class ImportStaffLogicImpl implements ImportStaffLogic {
 		this.departmentLogic = departmentLogic;
 		this.corporationLogic = corporationLogic;
 		this.corporationDao = corporationDao;
+		this.importCodeLogic=importCodeLogic;
 
 	}
 
@@ -223,42 +228,43 @@ public class ImportStaffLogicImpl implements ImportStaffLogic {
 			throw new ImportStaffNotFoundException("没有可预处理的员工");
 		}
 
-		ImportStaffEjbHelper helper = prepareEjbHelper(request.getCorporationId(), request, staffRaws);
+//		ImportStaffEjbHelper helper = prepareEjbHelper(request.getCorporationId(), request, staffRaws);
 
 		ImportStaffResponse response = new ImportStaffResponse(request);
+		
+		List<ImportStaffCode> codes = importCodeLogic.getAll();
 //屏蔽验证
 //
 //		EmailValidator validator = new EmailValidator("emailAddress", "EMAIL");
 //
-//		List<List<Long>> importStaffRawCodes = new ArrayList<List<Long>>();
+		List<List<Long>> importStaffRawCodes = new ArrayList<List<Long>>();
 //
 //		long newAssignCardNum = 0;
 //		long newAutoCardNum = 0;
 //		long oldAssignCardNum = 0;
-//		long estimateSuccessNum = 0;
+		long estimateSuccessNum = 0;
 //		List<List<String>> validDepartmentRawList = new ArrayList<List<String>>();
-//
-//
-//
-//
-//		for (ImportStaffRaw staffRaw : staffRaws) {
-//			ImportStaffRawParameter pStaffRaw = new ImportStaffRawParameter();
-//			toImportStaffRawParameter(staffRaw, pStaffRaw);
-//			logger.debug("calculatePretreatmentImportStaff - start parse staff raw : "
-//					+ pStaffRaw);
-//
+
+
+
+
+		for (ImportStaffRaw staffRaw : staffRaws) {
+			ImportStaffRawParameter pStaffRaw = new ImportStaffRawParameter();
+			toImportStaffRawParameter(staffRaw, pStaffRaw);
+			
+			logger.debug("calculatePretreatmentImportStaff - start parse staff raw : "+ pStaffRaw);
+
 //			this.getEntityManager()
 //					.createQuery(
 //							"DELETE FROM ImportStaffRawCode isrc WHERE isrc.importStaffRaw.id=:rawId")
 //					.setParameter("rawId", staffRaw.getId()).executeUpdate();
-//
-//			List<Long> parseRawResult = new ArrayList<Long>();
-//			if (ImportStaffHavingTitle.HAVING_TITLE.equals(batch
-//					.getHavingTitle())
-//					&& staffRaw.getRowPos().compareTo(new Long(1)) == 0) {
-//				// ignore title
-//				continue;
-//			}
+			
+
+			List<Long> parseRawResult = new ArrayList<Long>();
+			if (ImportStaffHavingTitle.HAVING_TITLE.equals(batch.getHavingTitle())	&& staffRaw.getRowPos().compareTo(new Long(1)) == 0) {
+				// ignore title
+				continue;
+			}
 //
 //		
 //
@@ -275,16 +281,16 @@ public class ImportStaffLogicImpl implements ImportStaffLogic {
 //					helper);
 //
 //			helper.setAllPassed(true);
-//			boolean isFailed = false;
-//			for (ImportStaffCode code : codes) {
-//				// logger.debug("method = " + code);
+			boolean isFailed = false;
+			for (ImportStaffCode code : codes) {
+				 logger.debug("method = " + code);
 //
 //				Object[] args = { pStaffRaw, helper };
 //
 //				// if rule is against, result is true
 //				Boolean result = (Boolean) ImportStaffParser
 //						.getParserMethodResult(code.getParserMethod(), args);
-//
+
 //				if (result) {
 //					logger.debug("calculatePretreatmentImportStaff - checking staff raw on the rule "
 //							+ code.getParserMethod()
@@ -292,12 +298,12 @@ public class ImportStaffLogicImpl implements ImportStaffLogic {
 //							+ code.getCode() + " true");
 //
 //					// parse result is true
-//					parseRawResult.add(code.getCode());
+					parseRawResult.add(code.getCode());
 //
 //					ImportStaffRawCode rawCode = new ImportStaffRawCode();
 //					rawCode.setImportStaffRaw(staffRaw);
 //					rawCode.setImportCode(code);
-//					importStaffRawCodeDao.insert(rawCode);
+//					importStaffRawCodeDao.save(rawCode);
 //
 //					if (code.getType().equals(ImportCodeType.FATAL)) {
 //						if (!isFailed) {
@@ -315,20 +321,20 @@ public class ImportStaffLogicImpl implements ImportStaffLogic {
 //					// parse failed
 //					helper.setAllPassed(false);
 //				}
-//			}
+			}
 //
-//			if (!isFailed) {
-//				estimateSuccessNum++;
+			if (!isFailed) {
+				estimateSuccessNum++;
 //				
 //				validDepartmentRawList.add(ImportStaffParser
 //						.convertRaw2Department(pStaffRaw.getDepartment()));
 //				
-//			} 
+			} 
 
-//			importStaffRawCodes.add(parseRawResult);
+			importStaffRawCodes.add(parseRawResult);
 //
 //			importStaffRawDao.update(staffRaw);
-//		}
+		}
 //
 //		logger.debug(
 //				"calculatePretreatmentImportStaff - validDepartmentRawList - {}",
@@ -345,7 +351,7 @@ public class ImportStaffLogicImpl implements ImportStaffLogic {
 //				importStaffRawCodes);
 //
 //
-//		response.setImportStaffRawCode(importStaffRawCodes);
+		response.setImportStaffRawCode(importStaffRawCodes);
 //
 //		response.setFinalSuccessDeptNum(null);
 //		response.setEstNewAutoCardNum(newAutoCardNum);
@@ -354,7 +360,7 @@ public class ImportStaffLogicImpl implements ImportStaffLogic {
 //		response.setFinalNewAssignCardNum(null);
 //		response.setEstOldAssignCardNum(oldAssignCardNum);
 //		response.setFinalOldAssignCardNum(null);
-//		response.setEstimateSuccessNum(estimateSuccessNum);
+		response.setEstimateSuccessNum(estimateSuccessNum);
 //		response.setFinalSuccessNum(null);
 //		response.setImportBatchNo(importStaffBatchDao.getLastImportBatch(batch
 //				.getCorporation().getId()) + 1);
@@ -391,6 +397,7 @@ public class ImportStaffLogicImpl implements ImportStaffLogic {
 		staffRaw.setEmailAddress(pStaffRaw.getEmail());
 		staffRaw.setMobileTelephoneNumber(pStaffRaw.getPhone());
 		staffRaw.setStaffNumber(pStaffRaw.getJobNo());
+		staffRaw.setName(pStaffRaw.getName());
 
 	}
 
@@ -404,6 +411,7 @@ public class ImportStaffLogicImpl implements ImportStaffLogic {
 		pStaffRaw.setJobNo(staffRaw.getStaffNumber());
 		pStaffRaw.setDob(staffRaw.getDob());
 		pStaffRaw.setResult(staffRaw.getResult());
+		pStaffRaw.setName(staffRaw.getName());
 	}
 
 //	protected StaffPersistence processImportStaffRawByInstruction(
@@ -529,34 +537,29 @@ public class ImportStaffLogicImpl implements ImportStaffLogic {
 		ImportStaffBatch batch = importStaffBatchDao.findById(ImportStaffBatch.class,request.getId());
 
 		long finalSuccessNum = 0;
-		long newAutoCardNum = 0;
-		long newAssignCardNum = 0;
-		long oldAssignCardNum = 0;
-		long finalSuccessDeptNum = 0;
-		List<ImportStaffRaw> rawList = this.importStaffBatchDao
-				.getOutstandingStaffRawInSameBatch(request.getId());
+//		long newAutoCardNum = 0;
+//		long newAssignCardNum = 0;
+//		long oldAssignCardNum = 0;
+//		long finalSuccessDeptNum = 0;
+		List<ImportStaffRaw> rawList = this.importStaffBatchDao	.getOutstandingStaffRawInSameBatch(request.getId());
 
 		logger.debug("outstanding staff raw record number = " + rawList.size());
 
 		// create staff one by one, exit if one was finished
 		for (ImportStaffRaw raw : rawList) {
 
-			if (raw.getRowPos().compareTo(new Long(1)) == 0
-					&& batch.getHavingTitle().equals(
-							ImportStaffHavingTitle.HAVING_TITLE)) {
+			if (raw.getRowPos().compareTo(new Long(1)) == 0 	&& batch.getHavingTitle().equals(ImportStaffHavingTitle.HAVING_TITLE)) {
 				raw.setResult(ImportStaffResultType.SUCCESS);
 				break;
 			}
 
 			logger.debug("start prepare staff raw = " + raw);
-			List<ImportStaffRawCode> rawCodes = importStaffRawCodeDao
-					.getImportStaffRawCodeByRawId(raw.getId());
+			List<ImportStaffRawCode> rawCodes = importStaffRawCodeDao.getImportStaffRawCodeByRawId(raw.getId());
 
 			boolean isIgnore = false;
 			for (ImportStaffRawCode rawCode : rawCodes) {
 				// any raw code is fatal, ignore import current record
-				if (rawCode.getImportCode().getType()
-						.compareTo(ImportCodeType.FATAL) == 0) {
+				if (rawCode.getImportCode().getType().compareTo(ImportCodeType.FATAL) == 0) {
 					isIgnore = true;
 					break;
 				}
@@ -570,10 +573,10 @@ public class ImportStaffLogicImpl implements ImportStaffLogic {
 				boolean isSuccess = false;
 //				DepartmentImportResult result = null;
 				try {
-					List<String> currDeptList = ImportStaffParser
-							.convertRaw2Department(raw.getDepartment());
-					String[] currDeptArray = currDeptList
-							.toArray(new String[] {});
+//					List<String> currDeptList = ImportStaffParser
+//							.convertRaw2Department(raw.getDepartment());
+//					String[] currDeptArray = currDeptList
+//							.toArray(new String[] {});
 //					result = departmentLogic.batchImportDepartment(batch
 //							.getCorporation().getId(), currDeptArray);
 
@@ -581,19 +584,33 @@ public class ImportStaffLogicImpl implements ImportStaffLogic {
 //							.getDepts().get(result.getDepts().size() - 1);
 
 					// populate staff parameter and save into db
-//					StaffPersistence staffPersistence = processImportStaffRawByInstruction(
-//							batch, raw, currDepartment, batch.getCorporation()
-//									.getId());
+//					StaffPersistence staffPersistence = processImportStaffRawByInstruction(	batch, raw, currDepartment, batch.getCorporation().getId());
+					StaffProcess sp=new StaffProcess();
+					sp.setStaffNo(raw.getStaffNumber());
+					sp.setStaffName(raw.getName());
+					sp.setPhone(raw.getMobileTelephoneNumber());
+					sp.setEmail(raw.getEmailAddress());
+//					sp.setDob();
+					sp.setStatus(StaffStatus.JOB);
+					List<UserRole> roles=new ArrayList<UserRole>();
+					roles.add(UserRole.STAFF);			
+					sp.setUserRoleVos(roles);
+					
+					UserContext context=new UserContext();
+					context.setCorporationId(request.getCorporationId());
+					context.setUserId(request.getNowUserId());
+					
+					String staffId=staffLogic.createOrUpdateStaff(sp, context);
 					
 					//加员工--------------------------------------------------
-//					logger.debug(
-//							"prepare to create staff with staffPersistence={}",
-//							staffPersistence);
+					logger.debug("prepare to create staff ");
 //					Staff staff = staffLogic
 //							.saveStaffAndCreateMember(staffPersistence);
-
-					isSuccess = true;
-					finalSuccessNum++;
+					if(staffId!=null)
+					{
+						isSuccess = true;
+						finalSuccessNum++;
+					}
 //					if (raw.getAssignCardType().compareTo(
 //							MemberCardAssignType.AUTOMATIC_NEW) == 0) {
 //						newAutoCardNum++;

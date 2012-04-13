@@ -34,7 +34,7 @@
 					<div class="{new2.fmdiv}">
 						<div id="zhudiv">
 						  <div class="{new2.setDetail}">
-						  <table width="984" border="0">
+						  <table  border="0">
 							  <tr>
 							   <td>导入步骤：</td>
 							   <td><g:Label styleName="importStepone"/></td>
@@ -60,7 +60,7 @@
 					<div class="{new2.fmdiv}">
 						<div id="zhudiv">
 						<div class="{new2.setDetail}">
-							<table width="984"  border="0">
+							<table   border="0">
 							    <tr>
 							   <td>导入步骤：</td>
 							      <td> <g:Label styleName="importSteptwo"/></td>
@@ -69,7 +69,7 @@
 					      </div>
                         <hr color="#D4D4FF" size="0.05"/>
 						<div class="detail_content">
-						<table width="984" border="0" cellspacing="0">
+						<table  border="0" cellspacing="0">
 							<tr>
 								<td colspan="5">
 									<g:HTML ui:field="totalStaff"></g:HTML>
@@ -112,7 +112,7 @@
 					<div class="{new2.fmdiv}">
 					  <div id="zhudiv">
 					  <div class="{new2.setDetail}">
-						<table width="984"  border="0">
+						<table   border="0">
 						    <tr>
 						      <td>导入步骤：</td>
 						      <td> <g:Label styleName="importStepthree"/></td>
@@ -138,7 +138,7 @@
 					<div class="{new2.fmdiv}">
 						<div id="zhudiv">
 						<div class="{new2.setDetail}">
-						<table width="984"  border="0">
+						<table   border="0">
 					    <tr>
 					      <td>导入步骤：</td>
 					      <td> <g:Label styleName="importStepfour"/></td>
@@ -166,7 +166,7 @@
 					<div class="{new2.fmdiv}">
 						<div id="zhudiv">
 						<div class="{new2.setDetail}">
-				<table width="984"  border="0">
+				<table   border="0">
 					    <tr>
 					      <td>导入步骤：</td>
 					      <td> <g:Label styleName="importStepfive"/></td>
