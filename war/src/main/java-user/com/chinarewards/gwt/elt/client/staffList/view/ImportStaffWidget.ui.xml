@@ -43,7 +43,7 @@
 					       </div>
 					        <hr color="#D4D4FF" size="0.05"/>
 							  <div>
-								<g:Hyperlink ui:field="downloadTemplete" >　提示：上传的文件只支持Microsoft Excel (95, 97, 2000, 2003)，没有正确格式，请下载模板再上传档案</g:Hyperlink>
+								<g:Anchor ui:field="downloadTemplete" styleName="{new2.newa}" >　提示：上传的文件只支持Microsoft Excel (95, 97, 2000, 2003)，没有正确格式，请下载模板再上传档案</g:Anchor>
 									<g:VerticalPanel ui:field="panelUpload"></g:VerticalPanel>
 									<g:Label ui:field="resultMsg" />
 		  				  </div>	

@@ -1221,7 +1221,7 @@ public class ImportStaffPresenterImpl extends
 	}
 
 	private void doExport(String action, String title) {
-		String url = GWT.getModuleBaseURL() + "servlet.isrs";
+		String url = GWT.getModuleBaseURL() + "servlet.export";
 		String data = "batchId=" + batchId + "&action=" + action;
 		String wholeUrl = url + "?" + data + "&radom=" + Math.random();
 		Window.open(wholeUrl, title,
