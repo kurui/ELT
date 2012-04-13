@@ -30,8 +30,6 @@ import com.chinarewards.gwt.elt.client.staffList.request.DeleteStaffRequest;
 import com.chinarewards.gwt.elt.client.staffList.request.DeleteStaffResponse;
 import com.chinarewards.gwt.elt.client.staffList.request.StaffGenerateUserRequest;
 import com.chinarewards.gwt.elt.client.staffList.request.StaffGenerateUserResponse;
-import com.chinarewards.gwt.elt.client.staffList.request.StaffListExportRequest;
-import com.chinarewards.gwt.elt.client.staffList.request.StaffListExportResponse;
 import com.chinarewards.gwt.elt.client.staffList.request.UpdateUserPwdRequest;
 import com.chinarewards.gwt.elt.client.staffList.request.UpdateUserPwdResponse;
 import com.chinarewards.gwt.elt.client.staffView.plugin.StaffViewConstants;
@@ -211,8 +209,19 @@ public class StaffListPresenterImpl extends
 								
 								@Override
 								public void confirm() {
-									StaffListCriteria criteria = new StaffListCriteria();
+									
 									String data = "name="+display.getStaffNameorNo().getValue();
+									data=data+"&corpid="+sessionManager.getSession().getCorporationId();
+									UserRoleVo[] userRoleVos =sessionManager.getSession().getUserRoles();
+									for (UserRoleVo role : userRoleVos) {
+									    String s = role.toString();
+										if(s.equals("CORP_ADMIN")){
+											data=data+"&userRole=CORP_ADMIN";
+										}else if(s.equals("DEPT_MGR"))
+											data=data+"&userRole=DEPT_MGR";
+											
+									}
+									
 									//criteria.setStaffNameorNo(display.getStaffNameorNo().getValue());
 									if(!"ALL".equals(display.getSttaffStatus())){
 										//criteria.setStaffStatus(StaffStatus.valueOf(display.getSttaffStatus()));

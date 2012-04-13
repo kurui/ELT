@@ -341,8 +341,9 @@ public class StaffLogicImpl implements StaffLogic {
 		return staffDao.queryStaffPageAction(searchVo);
 	}
 	
+	@SuppressWarnings("rawtypes")
 	@Override
-	public List<Staff> queryStaffListExport(StaffSearchCriteria criteria, UserContext context) {
+	public List queryStaffListExport(StaffSearchCriteria criteria, UserContext context) {
 		StaffSearchVo searchVo = new StaffSearchVo();
 		// 待添加查询条件
 		if (!StringUtil.isEmptyString(criteria.getStaffNameorNo()))
@@ -397,7 +398,20 @@ public class StaffLogicImpl implements StaffLogic {
 
 			}
 		}
-		return staffDao.queryStaffListExport(searchVo);
+		List<Staff> staffs= staffDao.queryStaffListExport(searchVo);
+		List lists = new ArrayList();
+		for(Staff staff: staffs){
+			List list = new ArrayList();
+			list.add(staff.getJobNo());
+			list.add(staff.getName());
+			list.add(staff.getEmail());
+			list.add(staff.getPhone());
+			list.add(staff.getDob());
+			lists.add(list);
+			
+		}
+		
+		return lists;
 	}
 
 	@Override

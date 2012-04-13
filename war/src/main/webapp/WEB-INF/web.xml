@@ -93,16 +93,7 @@
 	</servlet-mapping>
 	
 
-	<servlet>
-		<servlet-name>exportStaffServlet</servlet-name>
-		<servlet-class>com.chinarewards.gwt.elt.sevlet.ExcelServlet</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>exportStaffServlet</servlet-name>
-		<url-pattern>*.export</url-pattern>
-	</servlet-mapping>
-
+	
 	
 	<servlet>
 		<servlet-name>importStaffServlet</servlet-name>

@@ -117,6 +117,7 @@ public interface IStaffService {
 	/*
 	 * 导出员工资料
 	 */
-	public List<Staff> queryStaffListExport(StaffSearchCriteria criteria, UserContext context);
+	@SuppressWarnings("rawtypes")
+	public List queryStaffListExport(StaffSearchCriteria criteria, UserContext context);
 	
 }

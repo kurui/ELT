@@ -12,9 +12,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import jxl.Workbook;
+import jxl.format.Alignment;
+import jxl.format.VerticalAlignment;
 import jxl.write.Label;
+import jxl.write.WritableCellFormat;
+import jxl.write.WritableFont;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
+import jxl.write.WriteException;
 
 import com.chinarewards.elt.common.LogicContext;
 import com.chinarewards.elt.common.UserContextProvider;
@@ -22,8 +27,11 @@ import com.chinarewards.elt.model.staff.StaffSearchCriteria;
 import com.chinarewards.elt.model.staff.StaffStatus;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.user.UserRole;
+import com.chinarewards.elt.service.staff.IStaffService;
+import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.chinarewards.gwt.elt.sevlet.ServiceLocatorUtil;
 import com.chinarewards.gwt.elt.util.UserRoleTool;
+import com.google.inject.Inject;
 
 /**
  * @author yanrui
@@ -31,7 +39,8 @@ import com.chinarewards.gwt.elt.util.UserRoleTool;
  * */
 public class ExcelServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	@Inject
+   IStaffService staffService;
 	public void init() throws ServletException {
 	}
 
@@ -45,16 +54,21 @@ public class ExcelServlet extends HttpServlet {
 		StaffSearchCriteria criteria=new StaffSearchCriteria();
 		criteria.setStaffNameorNo(name);
 		criteria.setStaffStatus(StaffStatus.valueOf(staffStatus));
+		if(!role.equals(""))
 		criteria.setStaffRole(UserRole.valueOf(role));
 		criteria.setDepartmentId(departmentId);
-		LogicContext ctx = UserContextProvider.get();
 		
 		UserContext context=new UserContext();
-		context.setCorporationId(ctx.getPrincipal().getCorporationId());
-		context.setUserId(ctx.getPrincipal().getUserId());
-		context.setLoginName(ctx.getPrincipal().getLoginName());
-		context.setUserRoles(ctx.getPrincipal().getUserRoles());
-		List list = ServiceLocatorUtil.getServiceLocator().queryStaffListExport(criteria, context);
+		context.setCorporationId(request.getParameter("corpid"));
+		
+		String userRole = request.getParameter("userRole");
+		UserRole.valueOf(userRole);
+		List<UserRole> cli = new ArrayList<UserRole>();
+		cli.add(UserRole.valueOf(userRole));
+		UserRole[] userRoles = cli.toArray(new UserRole[0]);
+		context.setUserRoles(userRoles);
+		
+	
 		WritableWorkbook workbook = null;
 		WritableSheet sheet = null;
 		Label label = null;
@@ -64,31 +78,25 @@ public class ExcelServlet extends HttpServlet {
 			
 		//workbook = Workbook.createWorkbook(new File("e:/output.xls"));
 			Date date = new Date();
-			java.text.SimpleDateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd-hh-mm-ss");
-			String filename = format.format(date.getTime())+"-"+Math.round((Math.random()*1000));
+			java.text.SimpleDateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd");
+			String filename = "Staff";//format.format(date.getTime())+"-"+Math.round((Math.random()*1000));
 			OutputStream os=response.getOutputStream();//获取输出流
    			response.reset();
    			response.setHeader("Content-disposition", "attachment; filename=" + filename + ".xls");//设定输出文件头
+   			
    			response.setContentType("application/msexcel");//设定输出类型
 		    workbook = Workbook.createWorkbook(os);
 		
 		// 创建Excel表中的sheet
 		   sheet = workbook.createSheet("staffs", 0);
+		   sheet.setColumnView(2, 30);
+		   sheet.setColumnView(3, 20);
+		   sheet.setColumnView(4, 20);
 		   ArrayList labels = new ArrayList();
-					
-		   labels.add("街道办ID");labels.add("居委会ID");labels.add("房间ID");labels.add("姓名");
-		   labels.add("性别(男1,女0)");labels.add("身份证");labels.add("出生日期");labels.add("户籍所在地");
-		   labels.add("特殊属性");labels.add("编号");labels.add("曾用名");labels.add("签发机关");
-		   labels.add("签发日期");labels.add("出生地");labels.add("身高");labels.add("血型");
-		   labels.add("健康状况");labels.add("户籍类型");labels.add("民族");
-		   labels.add("藉贯");labels.add("住址");labels.add("联系电话");labels.add("其他住址");
-		   labels.add("文化程度");labels.add("婚姻状况");labels.add("兵役状况");labels.add("宗教信仰");
-		   labels.add("政治面貌");labels.add("职业");labels.add("服务住所");labels.add("备注");
-		   labels.add("迁入日期");labels.add("原住址");labels.add("迁入类别");labels.add("迁入原因");
-		   labels.add("迁出日期");labels.add("迁出住址");labels.add("迁出类别");labels.add("迁出原因");
-		   labels.add("死亡日期");labels.add("死亡原因");labels.add("死亡状态(1死亡)");
-		   labels.add("注销日期");labels.add("注销原因");labels.add("注销状态(1注销)");labels.add("登记时间");labels.add("登记人");
-		   
+		   labels.add("员工编号");labels.add("姓名");  labels.add("邮箱"); labels.add("电话");labels.add("生日");
+		  
+		  
+		   	   
 ////		// 添加标题
 		for (int i = 0; i < labels.size(); i++) {
 		String colName = labels.get(i).toString();
@@ -98,13 +106,20 @@ public class ExcelServlet extends HttpServlet {
 		sheet.addCell(label);
 		}
 		System.out.println("写入标题成功");
-		//WritableCellFormat columnFormat = setFormat();
+		
+		List list = staffService.queryStaffListExport(criteria, context);
+		if(list.size()>0)
 		for (int i = 0; i < list.size(); i++){
 			List lista =(List) list.get(i);
-		for (int j = 0; j< lista.size(); j++) {
-			 label = new Label(j, i+1,lista.get(j).toString());
-		     sheet.addCell(label);
-		}
+			if(lista.size()>0)
+			for (int j = 0; j< lista.size(); j++) {
+				 if(lista.get(j)==null)
+					  label = new Label(j, i+1,"");
+				 else
+					 label = new Label(j, i+1,lista.get(j).toString());
+				
+			     sheet.addCell(label);
+			}
 		}
 		System.out.println("写入内容成功");
 		
@@ -125,9 +140,9 @@ public class ExcelServlet extends HttpServlet {
 		}
 		
 	}
-
 	
 
+	
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doPost(request, response);

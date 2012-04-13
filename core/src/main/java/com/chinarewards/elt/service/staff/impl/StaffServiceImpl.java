@@ -176,7 +176,7 @@ public class StaffServiceImpl implements IStaffService {
 		return staffLogic.deleteStaff(staffId, context);
 	}
 	
-	public List<Staff> queryStaffListExport(StaffSearchCriteria criteria, UserContext context){
+	public List queryStaffListExport(StaffSearchCriteria criteria, UserContext context){
 		return staffLogic.queryStaffListExport(criteria, context);
 	}
 }

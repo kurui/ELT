@@ -274,8 +274,8 @@ public class StaffDao extends BaseDao<Staff> {
 		return total;
 	}
    
-	@SuppressWarnings("unchecked")
-	private List<Staff> getStaffExport(StaffSearchVo searchVo) {
+	@SuppressWarnings({ "rawtypes" })
+	private List getStaffExport(StaffSearchVo searchVo) {
 		Map<String, Object> param = new HashMap<String, Object>();
 		StringBuffer hql = new StringBuffer();
 		hql.append(" SELECT staff FROM Staff staff WHERE 1=1 ");
