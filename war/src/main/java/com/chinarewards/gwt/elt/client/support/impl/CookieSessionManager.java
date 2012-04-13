@@ -249,10 +249,10 @@ public class CookieSessionManager implements SessionManager {
 	}
 
 	public UserSession getSession() {
-		if(session!=null && session.getToken()!=null)
+		String token = Cookies.getCookie("token");
+		if(null != token && !token.trim().equals(""))
 			return session;
-		else
-		{
+		else{
 			eventBus.fireEvent(new PlatformInitEvent(false));
 			return null;
 		}
