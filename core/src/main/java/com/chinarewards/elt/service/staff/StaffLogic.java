@@ -130,6 +130,14 @@ public interface StaffLogic {
 	 */
 	public Integer findNotDeleteStaffNumber(UserContext context);
 	
+	
+	/**
+	 * 查询所有(未删除)员工
+	 * @param staffId
+	 * @return
+	 */
+	public List<Staff> findNotDeleteStaff(String corporationId);
+	
 	/**
 	 *	删除员工
 	 * @param staffId

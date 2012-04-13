@@ -228,7 +228,7 @@
 				<artifactId>gwt-maven-plugin</artifactId>
 				 <version>2.4.0</version>
 				<configuration>
-					<extraJvmArgs>-Xmx1G</extraJvmArgs>
+					<extraJvmArgs>-Xmx2G</extraJvmArgs>
 					<modules>
 						<module>com.chinarewards.gwt.elt.elt</module>
 					</modules>

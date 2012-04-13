@@ -95,15 +95,6 @@
 
 	
 	
-	<servlet>
-		<servlet-name>importStaffServlet</servlet-name>
-		<servlet-class>com.chinarewards.gwt.elt.sevlet.ImportStaffServlet</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>importStaffServlet</servlet-name>
-		<url-pattern>*.iss</url-pattern>
-	</servlet-mapping>
 	
 
 </web-app>

@@ -9,7 +9,7 @@
 	<inherits name="gwtupload.GWTUpload"/>
 	<inherits name="com.google.gwt.widgetideas.WidgetIdeas"/>
 	
-	<stylesheet src="Upload.css"/>
+
 	<source path="client" />
 	<source path="model" />
 	<source path="util" />

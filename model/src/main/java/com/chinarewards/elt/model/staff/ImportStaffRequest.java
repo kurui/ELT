@@ -47,6 +47,16 @@ public class ImportStaffRequest {
 	 * 导入员工列表
 	 */
 	private List<ImportStaffRawParameter> staffRawList = new ArrayList<ImportStaffRawParameter>();
+	
+	private String nowUserId;
+
+	public String getNowUserId() {
+		return nowUserId;
+	}
+
+	public void setNowUserId(String nowUserId) {
+		this.nowUserId = nowUserId;
+	}
 
 	/**
 	 * @return
