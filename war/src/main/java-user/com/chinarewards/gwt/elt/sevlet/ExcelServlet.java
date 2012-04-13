@@ -105,7 +105,7 @@ public class ExcelServlet extends HttpServlet {
 		sheet.addCell(label);
 		}
 		//System.out.println("写入标题成功");
-		
+	if(request.getParameter("content").equals("true")){//是否要内容
 		List list = staffService.queryStaffListExport(criteria, context);
 		if(list.size()>0)
 		for (int i = 0; i < list.size(); i++){
@@ -119,6 +119,7 @@ public class ExcelServlet extends HttpServlet {
 				
 			     sheet.addCell(label);
 			}
+		 }
 		}
 		//System.out.println("写入内容成功");
 		

@@ -213,6 +213,7 @@ public class StaffListPresenterImpl extends
 									String data = "name="+display.getStaffNameorNo().getValue();
 									data = data+"&corpid="+sessionManager.getSession().getCorporationId();
 									data = data+"&email="+display.getStaffEmail().getValue();
+									data = data+"&content=true";
 									UserRoleVo[] userRoleVos =sessionManager.getSession().getUserRoles();
 									for (UserRoleVo role : userRoleVos) {
 									    String s = role.toString();
