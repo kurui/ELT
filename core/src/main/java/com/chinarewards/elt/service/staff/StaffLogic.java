@@ -136,4 +136,7 @@ public interface StaffLogic {
 	 * @return
 	 */
 	public String deleteStaff(String staffId,UserContext context);
+	
+	@SuppressWarnings("rawtypes")
+	public List queryStaffListExport(StaffSearchCriteria criteria, UserContext context);
 }
