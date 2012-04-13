@@ -211,7 +211,8 @@ public class StaffListPresenterImpl extends
 								public void confirm() {
 									
 									String data = "name="+display.getStaffNameorNo().getValue();
-									data=data+"&corpid="+sessionManager.getSession().getCorporationId();
+									data = data+"&corpid="+sessionManager.getSession().getCorporationId();
+									data = data+"&email="+display.getStaffEmail().getValue();
 									UserRoleVo[] userRoleVos =sessionManager.getSession().getUserRoles();
 									for (UserRoleVo role : userRoleVos) {
 									    String s = role.toString();
@@ -222,22 +223,21 @@ public class StaffListPresenterImpl extends
 											
 									}
 									
-									//criteria.setStaffNameorNo(display.getStaffNameorNo().getValue());
+									
 									if(!"ALL".equals(display.getSttaffStatus())){
-										//criteria.setStaffStatus(StaffStatus.valueOf(display.getSttaffStatus()));
-									    data=data+"&staffStatus="+StaffStatus.valueOf(display.getSttaffStatus());
+										 data=data+"&staffStatus="+StaffStatus.valueOf(display.getSttaffStatus());
 									    
 									}else{
 										data=data+"&staffStatus=";
 									}
 									if(!"ALL".equals(display.getSttaffRole())){
-										//criteria.setStaffRole(UserRoleVo.valueOf(display.getSttaffRole()));
+										
 									    data = data+"&role="+ UserRoleVo.valueOf(display.getSttaffRole());
 									}else{
 										data=data+"&role=";
 									}
 									if(!"ALL".equals(display.getDepartment().getValue(display.getDepartment().getSelectedIndex()))){
-										//criteria.setDepartmentId(display.getDepartment().getValue(display.getDepartment().getSelectedIndex()));
+										
 									   data = data+"&departmentId="+ display.getDepartment().getValue(display.getDepartment().getSelectedIndex());
 									
 									}else{

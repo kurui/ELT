@@ -57,7 +57,7 @@ public class ExcelServlet extends HttpServlet {
 		if(!role.equals(""))
 		criteria.setStaffRole(UserRole.valueOf(role));
 		criteria.setDepartmentId(departmentId);
-		
+		criteria.setStaffEmail(request.getParameter("email"));
 		UserContext context=new UserContext();
 		context.setCorporationId(request.getParameter("corpid"));
 		
@@ -93,10 +93,9 @@ public class ExcelServlet extends HttpServlet {
 		   sheet.setColumnView(3, 20);
 		   sheet.setColumnView(4, 20);
 		   ArrayList labels = new ArrayList();
-		   labels.add("员工编号");labels.add("姓名");  labels.add("邮箱"); labels.add("电话");labels.add("生日");
-		  
-		  
-		   	   
+		   labels.add("员工编号");labels.add("姓名");  labels.add("邮箱"); labels.add("电话");labels.add("生日");	
+
+		 			   	   
 ////		// 添加标题
 		for (int i = 0; i < labels.size(); i++) {
 		String colName = labels.get(i).toString();
@@ -105,7 +104,7 @@ public class ExcelServlet extends HttpServlet {
 		// log.debug("标题:"+i+"---"+row +"---"+colName);
 		sheet.addCell(label);
 		}
-		System.out.println("写入标题成功");
+		//System.out.println("写入标题成功");
 		
 		List list = staffService.queryStaffListExport(criteria, context);
 		if(list.size()>0)
@@ -121,12 +120,12 @@ public class ExcelServlet extends HttpServlet {
 			     sheet.addCell(label);
 			}
 		}
-		System.out.println("写入内容成功");
+		//System.out.println("写入内容成功");
 		
 		// 关闭文件
 		workbook.write();
 		workbook.close();
-		System.out.println("数据成功写入Excel");
+		//System.out.println("数据成功写入Excel");
 		
 		} catch (Exception e) {
 		System.out.println(e.getMessage());
