@@ -601,6 +601,10 @@ public class StaffLogicImpl implements StaffLogic {
 			Date now = DateUtil.getTime();
 			SysUser u = new SysUser();
 			// check duplicate username
+			if(StringUtil.isEmptyString(staff.getEmail()) || staff.getEmail().indexOf("@")==-1)
+			{
+				return "用户"+staff.getName()+"邮箱不正确";
+			}
 			String username = staff.getEmail().substring(0,
 					staff.getEmail().indexOf("@"));
 			if (userDao.findUserByUserName(username).size() > 0) {
