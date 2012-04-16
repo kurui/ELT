@@ -604,7 +604,7 @@ public class StaffLogicImpl implements StaffLogic {
 			String username = staff.getEmail().substring(0,
 					staff.getEmail().indexOf("@"));
 			if (userDao.findUserByUserName(username).size() > 0) {
-				return "用户"+username+",名字重复!";
+				return "用户帐号"+username+"已重复";
 			} else {
 				// 创建交易系统ID
 				String accountId = transactionService.createNewAccount();
