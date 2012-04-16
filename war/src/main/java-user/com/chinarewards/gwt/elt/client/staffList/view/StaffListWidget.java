@@ -20,8 +20,7 @@ public class StaffListWidget extends Composite implements StaffListDisplay {
 
 	@UiField
 	TextBox staffNameorNo;
-	@UiField
-	TextBox staffEmail;
+
 	@UiField
 	ListBox staffStatus;
 	@UiField
@@ -175,14 +174,16 @@ public class StaffListWidget extends Composite implements StaffListDisplay {
 	}
 
 
-	@Override
-	public HasValue<String> getStaffEmail() {
-		return staffEmail;
-	}
+
 
 	@Override
 	public HasClickHandlers getImportStaffBtnClickHandlers() {
 		return importStaff;
+	}
+
+	@Override
+	public TextBox getQueryKey() {
+		return staffNameorNo;
 	}
 
 

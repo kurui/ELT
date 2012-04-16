@@ -187,6 +187,7 @@ public class StaffDao extends BaseDao<Staff> {
 			hql.append(" AND (UPPER(staff.name) LIKE :keywords "
 			// + " OR UPPER(staff.department.name) LIKE :keywords "
 			// + " OR UPPER(staff.email) LIKE :keywords "
+					+ " OR UPPER(staff.email) LIKE :keywords "
 					+ " OR UPPER(staff.jobNo) LIKE :keywords "
 					// + " OR UPPER(staff.memberCardNumber) LIKE :keywords)"
 					+ ") ");
@@ -285,6 +286,7 @@ public class StaffDao extends BaseDao<Staff> {
 			hql.append(" AND (UPPER(staff.name) LIKE :keywords "
 			// + " OR UPPER(staff.department.name) LIKE :keywords "
 			// + " OR UPPER(staff.email) LIKE :keywords "
+					+ " OR UPPER(staff.email) LIKE :keywords "
 					+ " OR UPPER(staff.jobNo) LIKE :keywords "
 					// + " OR UPPER(staff.memberCardNumber) LIKE :keywords)"
 					+ ") ");

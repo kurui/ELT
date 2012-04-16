@@ -7,6 +7,7 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
 public interface StaffListPresenter extends Presenter<StaffListPresenter.StaffListDisplay> {
@@ -31,7 +32,6 @@ public interface StaffListPresenter extends Presenter<StaffListPresenter.StaffLi
 		String getSttaffRole();
 	
 		HasValue<String> getStaffNameorNo();
-		HasValue<String> getStaffEmail();
 
 		void setDataCount(String text);
 		void setBreadCrumbs(Widget breadCrumbs);
@@ -43,5 +43,7 @@ public interface StaffListPresenter extends Presenter<StaffListPresenter.StaffLi
        
 		ListBox getPageNumber();
 		ListBox getDepartment();
+		
+		TextBox getQueryKey();
 	}
 }
