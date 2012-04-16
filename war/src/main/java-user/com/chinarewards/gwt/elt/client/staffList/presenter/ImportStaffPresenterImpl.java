@@ -789,7 +789,7 @@ public class ImportStaffPresenterImpl extends
 		display.getSuccessImportMessage().setText(
 				toLong(vo.getFinalSuccessNum()) + "笔员工资料已成功被导入");
 
-		String fatalSummary = "";
+		String fatalSummary = "<span style='color:black'> </span>资料"+ "编号或邮箱重复" + "<br/>";
 //		for (String fatalIssue : fatalIssues) {
 //			fatalSummary += "<span style='color:black'>"
 //					+ fatalIssueCounts.get(fatalIssue) + "</span>笔资料"
