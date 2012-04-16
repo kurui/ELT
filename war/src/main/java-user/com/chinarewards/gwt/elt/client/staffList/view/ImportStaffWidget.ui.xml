@@ -36,7 +36,7 @@
 						  <div class="{new2.setDetail}">
 						  <table  border="0">
 							  <tr>
-							   <td>导入步骤：</td>
+							   <td></td>
 							   <td><g:Label styleName="importStepone"/></td>
 							   </tr>
 							</table>
