@@ -407,24 +407,26 @@ public class EltNewPager extends AbstractPager {
 			});
 		}
 		
-		
-		if(currentPage>(5*indexpage))
+		if(currentPage>0)
 		{
-			indexpage=indexpage+1;
-			onePage.setText((((indexpage-1)*5)+1)+"");
-			twoPage.setText((((indexpage-1)*5)+2)+"");
-			threePage.setText((((indexpage-1)*5)+3)+"");
-			fourPage.setText((((indexpage-1)*5)+4)+"");
-			fivePage.setText((((indexpage-1)*5)+5)+"");
-		}
-		else if(currentPage<=((5*indexpage)-5))
-		{
-			indexpage=indexpage-1;
-			onePage.setText((((indexpage-1)*5)+1)+"");
-			twoPage.setText((((indexpage-1)*5)+2)+"");
-			threePage.setText((((indexpage-1)*5)+3)+"");
-			fourPage.setText((((indexpage-1)*5)+4)+"");
-			fivePage.setText((((indexpage-1)*5)+5)+"");
+			if(currentPage>(5*indexpage))
+			{
+				indexpage=indexpage+1;
+				onePage.setText((((indexpage-1)*5)+1)+"");
+				twoPage.setText((((indexpage-1)*5)+2)+"");
+				threePage.setText((((indexpage-1)*5)+3)+"");
+				fourPage.setText((((indexpage-1)*5)+4)+"");
+				fivePage.setText((((indexpage-1)*5)+5)+"");
+			}
+			else if(currentPage<=((5*indexpage)-5))
+			{
+				indexpage=indexpage-1;
+				onePage.setText((((indexpage-1)*5)+1)+"");
+				twoPage.setText((((indexpage-1)*5)+2)+"");
+				threePage.setText((((indexpage-1)*5)+3)+"");
+				fourPage.setText((((indexpage-1)*5)+4)+"");
+				fivePage.setText((((indexpage-1)*5)+5)+"");
+			}
 		}
 		setButtonStyle(currentPage, totalPage);
 		
