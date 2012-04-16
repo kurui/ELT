@@ -94,6 +94,7 @@ public class MessageListViewAdapter extends BaseDataProvider<MessageListClient> 
 						display.getResultPanel().clear();
 						display.getResultPanel().add(grid);
 						display.setDataCount(response.getTotal() + "");
+						updateRowCount(response.getTotal(),true);
 					}
 
 				});

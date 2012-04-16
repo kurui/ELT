@@ -65,6 +65,7 @@ String styleno="";
 									String instanceId) {
 								display.getReceivedMessage().getElement().getParentElement().setClassName(styleno);
 								display.getSendMessage().getElement().getParentElement().setClassName(styleon);
+								buildTable();
 								doSearch(sessionManager.getSession().getToken());
 							}
 						});
@@ -77,6 +78,7 @@ String styleno="";
 					public void onClick(ClickEvent event) {
 						display.getReceivedMessage().getElement().getParentElement().setClassName(styleon);
 						display.getSendMessage().getElement().getParentElement().setClassName(styleno);
+						buildTable();
 						doSearch(null);
 					}
 				}));
@@ -86,6 +88,7 @@ String styleno="";
 					public void onClick(ClickEvent event) {
 						display.getReceivedMessage().getElement().getParentElement().setClassName(styleno);
 						display.getSendMessage().getElement().getParentElement().setClassName(styleon);
+						buildTable();
 						doSearch(sessionManager.getSession().getToken());
 					}
 				}));
