@@ -24,7 +24,14 @@ public class ImportStaffResponse extends ImportStaffRequest {
 		this.setHavingTitle(request.isHavingTitle());
 		this.setStaffRawList(request.getStaffRawList());
 	}
+	private String LicenseMessage;
+	public String getLicenseMessage() {
+		return LicenseMessage;
+	}
 
+	public void setLicenseMessage(String licenseMessage) {
+		LicenseMessage = licenseMessage;
+	}
 	/**
 	 * 成功导入编号
 	 */

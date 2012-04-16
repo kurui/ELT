@@ -155,7 +155,7 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 		departmentDao.update(oldDepartment);
 		departmentDao.update(thisParent);
 		departmentDao.update(targetParent);
-		
+				
 		return oldDepartment;
 	}
 	
@@ -230,6 +230,8 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 
 		// maintain index
 		departmentDao.maintainIndexAfterDeleteNode(index, corpId);
+		
+		departmentDao.checkNoChildNode();
 
 		return department.getId();
 	}

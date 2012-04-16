@@ -98,6 +98,8 @@ public interface StaffPresenter extends Presenter<StaffPresenter.StaffDisplay> {
 
 		Hidden getRewardWidgetAction();
 
+		Hidden getRewardItemWidgetAction();
+
 	}
 
 }

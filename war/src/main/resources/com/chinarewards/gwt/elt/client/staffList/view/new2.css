@@ -54,7 +54,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .form .select{border:1px solid #CCCCCC;width:120px;height:22px;}
 .form .short-text{height:18px;width:30px;border:1px solid #CCCCCC;line-height:18px}
 .form .text{height:22px;width:200px;border:1px solid #CCCCCC;line-height:22px}
-.form .text2{height:22px;width:150px;border:1px solid #CCCCCC;line-height:22px;}
+.form .text2{height:22px;width:185px;border:1px solid #CCCCCC;line-height:22px;color: #999999;}
 .form .long-text{width:371px;}
 .form .textarea{width:420px;height:50px;border:1px solid #CCCCCC;}
 .form .form-line-btn{margin-top:0px;}
@@ -114,7 +114,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .footer .copyright p{line-height:20px;}
 /*-------------------------------------iframe页面------------------------------------------------------*/
 
-.frame-wrapdialog{background-color:#F4F4F4;width:99%;padding-top:15px; min-width: 700px;height:400px;  padding-bottom: 25px;  border-bottom: 2px solid #333333;   border-left: 2px solid #333333;  border-right: 2px solid #333333;}
+.frame-wrapdialog{ overflow: auto;background-color:#F4F4F4;width:99%;padding-top:15px; min-width: 800px;height:400px;  padding-bottom: 25px;  border-bottom: 2px solid #333333;   border-left: 2px solid #333333;  border-right: 2px solid #333333;}
 
 .frame-wrap{background-color:#F4F4F4;width:99%;padding-top:15px; min-width: 1010px;}
 .frame-wrap .breadcrumb-wrap:after{content:".";display:block;clear:both;height:0;visibility:hidden;}
@@ -135,8 +135,8 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .fmdiv {
     background-color: #FFFFFF;
     border: 1px solid #9BB1BE;
-    height: 400px;
+    width: 870px;
 
 
 }
-.setDetail{ width:97%; margin:15px auto; position:relative}
+.setDetail{ width:99%; margin:15px auto; position:relative}

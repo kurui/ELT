@@ -52,6 +52,8 @@ import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.FocusEvent;
+import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
@@ -133,6 +135,16 @@ public class StaffListPresenterImpl extends
 	
 					}
 				}));
+		registerHandler(display.getQueryKey().addFocusHandler(new FocusHandler() {
+			
+			@Override
+			public void onFocus(FocusEvent event) {
+				display.getQueryKey().setValue("");
+				display.getQueryKey().setStyleName("textcss");
+				
+				
+			}
+		}));
 		registerHandler(display.getPrintBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
 					@Override
@@ -141,8 +153,9 @@ public class StaffListPresenterImpl extends
 						StaffListPrintDialog dialog = staffListPrintDialogProvider.get();
 						
 						StaffListCriteria criteria = new StaffListCriteria();
+						if(!"请输入员工编号、姓名或邮箱地址".equals(display.getStaffNameorNo().getValue()))
 						criteria.setStaffNameorNo(display.getStaffNameorNo().getValue());
-						criteria.setStaffEmail(display.getStaffEmail().getValue());
+
 						if(!"ALL".equals(display.getSttaffStatus()))
 							criteria.setStaffStatus(StaffStatus.valueOf(display.getSttaffStatus()));
 						if(!"ALL".equals(display.getSttaffRole()))
@@ -222,10 +235,11 @@ public class StaffListPresenterImpl extends
 								
 								@Override
 								public void confirm() {
-									
-									String data = "name="+display.getStaffNameorNo().getValue();
+									String keyStr="";
+									if(!"请输入员工编号、姓名或邮箱地址".equals(display.getStaffNameorNo().getValue()))
+										keyStr=display.getStaffNameorNo().getValue();
+									String data = "name="+keyStr;
 									data = data+"&corpid="+sessionManager.getSession().getCorporationId();
-									data = data+"&email="+display.getStaffEmail().getValue();
 									data = data+"&content=true";
 									UserRoleVo[] userRoleVos =sessionManager.getSession().getUserRoles();
 									for (UserRoleVo role : userRoleVos) {
@@ -339,8 +353,8 @@ public class StaffListPresenterImpl extends
 
 	private void doSearch() {
 		StaffListCriteria criteria = new StaffListCriteria();
+		if(!"请输入员工编号、姓名或邮箱地址".equals(display.getStaffNameorNo().getValue()))
 		criteria.setStaffNameorNo(display.getStaffNameorNo().getValue());
-		criteria.setStaffEmail(display.getStaffEmail().getValue());
 		if(!"ALL".equals(display.getSttaffStatus()))
 			criteria.setStaffStatus(StaffStatus.valueOf(display.getSttaffStatus()));
 		if(!"ALL".equals(display.getSttaffRole()))

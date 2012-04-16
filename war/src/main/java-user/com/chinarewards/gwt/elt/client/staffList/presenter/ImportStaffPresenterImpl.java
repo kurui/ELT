@@ -667,6 +667,12 @@ public class ImportStaffPresenterImpl extends
 
 		result += "<br/><b>预计成功导入员工数：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:blue'><b>"
 				+ vo.getEstimateSuccessNum() + "</b></span><br/>";
+		
+		if(!StringUtil.isEmpty(vo.getLicenseMessage()))
+		{
+			result +="<br/><span style='color:red'><b>"+vo.getLicenseMessage()+"</b></span><br/>";
+			display.importStaffButtonEnable(false);
+		}
 
 		//result += "<br/>" + vo.getEstimateSuccessDeptNum() + "个部门将被创建<br/>";
 
@@ -789,7 +795,7 @@ public class ImportStaffPresenterImpl extends
 		display.getSuccessImportMessage().setText(
 				toLong(vo.getFinalSuccessNum()) + "笔员工资料已成功被导入");
 
-		String fatalSummary = "";
+		String fatalSummary = "<span style='color:black'> </span>资料"+ "编号或邮箱重复" + "<br/>";
 //		for (String fatalIssue : fatalIssues) {
 //			fatalSummary += "<span style='color:black'>"
 //					+ fatalIssueCounts.get(fatalIssue) + "</span>笔资料"
