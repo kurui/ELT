@@ -26,15 +26,18 @@
 					<g:Anchor text="部门预算详细"  ui:field="viewBudget" />
 					</span>
 				</div>
-			</p>
+			   </p>
+			   <p><g:InlineLabel styleName="{new2.color-red}" ui:field="mess"></g:InlineLabel></p>
+			  
 		        <div class="{new2.table}">
 				   <g:FlowPanel ui:field="resultPanel" />
-				   <p><g:InlineLabel styleName="{new2.color-red}" ui:field="mess"></g:InlineLabel></p>
+				   
 			    </div>
+			   
 		         <!--分页 [[ -->
 				<div id="rewardlist_page" class="{new2.pager}">
 					<div class="{new2.pager-left}">
-						每页显示条数
+						 <g:InlineLabel ui:field="pageText" text="每页显示条数"/>
 						<g:ListBox ui:field="pageNumber" styleName="{new2.select}" /> 
 					</div>
 	
@@ -42,6 +45,7 @@
 						<g:FlowPanel ui:field="resultpage" />
 					</div>
 				</div> 
+				
 		        <div class="{new2.inbox-section}">
 		          <h3>待颁奖信息</h3>
 		          <p>本月待颁奖奖项数共 <g:InlineLabel ui:field="send" styleName="{new2.color-red}"  /><g:Anchor styleName="{new2.color-red}" ui:field="sends" /> 个</p>

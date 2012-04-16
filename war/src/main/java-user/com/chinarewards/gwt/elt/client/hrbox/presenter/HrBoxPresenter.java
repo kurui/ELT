@@ -22,7 +22,7 @@ public interface HrBoxPresenter extends Presenter<HrBoxPresenter.HrBoxDisplay> {
 		public HasClickHandlers getViewBudget() ;
 		public Panel getRewardWindow();
 		ListBox getPageNumber();
-		
+		public void setVisible();
 		void setHrSends(String text);
 		void setTms(String text);	
 		
