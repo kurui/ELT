@@ -476,7 +476,7 @@ public class StaffDao extends BaseDao<Staff> {
 	@SuppressWarnings("unchecked")
 	public List<Staff> findStaffsByNotUser(List<String> staffIds) {
 		return getEm().createQuery(
-				"SELECT s FROM Staff s WHERE s.id  not IN (:staffIds)").setParameter("staffIds",staffIds)
+				"SELECT s FROM Staff s WHERE s.deleted !=1 AND  s.id  not IN (:staffIds)").setParameter("staffIds",staffIds)
 				.getResultList();
 	}
 	public Integer findNotDeleteStaffsNumberBycorporationId(String corporationId) {
