@@ -20,7 +20,7 @@
 	          <g:TextBox maxLength="30" ui:field="enterpriseName" styleName="{new2.text}" />
 	          <span class="{new2.field-wrap}">
 	           <label class="{new2.label}">企业网站：</label>
-	            <g:TextBox maxLength="30" ui:field="web" styleName="{new2.text}" />
+	            <g:TextBox maxLength="50" ui:field="web" styleName="{new2.text}" />
 	          </span>
 	        </div>
 	      </div>
