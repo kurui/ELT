@@ -269,7 +269,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 /*----------------------------------------- 光荣榜 -------------------------------------------------------*/
 .employee .glorylist-wrap{background-image:none;}
 .employee .glorylist-wrap .content-info{margin-right:218px;}
-.employee .glorylist-wrap .glorylist-content{text-align:center;padding:20px 12px;}
+.employee .glorylist-wrap .glorylist-content{text-align:center;padding:20px 12px;border-top: 1px solid #CCCCCC;}
 .employee .glorylist-wrap .glorylist-content .glorylist-logo{margin:0 auto 20px;width:441px;}
 .employee .glorylist-wrap .glorylist-content .news-list{text-align:left;padding:0;border-top:1px solid #E5E5E5;}
 .employee .glorylist-wrap .glorylist-content .award-wrap{float:left;border:1px solid #CACACA;padding:2px;margin-right:10px;width:60px;text-align:center;}
