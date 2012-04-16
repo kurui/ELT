@@ -667,6 +667,12 @@ public class ImportStaffPresenterImpl extends
 
 		result += "<br/><b>预计成功导入员工数：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:blue'><b>"
 				+ vo.getEstimateSuccessNum() + "</b></span><br/>";
+		
+		if(!StringUtil.isEmpty(vo.getLicenseMessage()))
+		{
+			result +="<br/><span style='color:red'><b>"+vo.getLicenseMessage()+"</b></span><br/>";
+			display.importStaffButtonEnable(false);
+		}
 
 		//result += "<br/>" + vo.getEstimateSuccessDeptNum() + "个部门将被创建<br/>";
 

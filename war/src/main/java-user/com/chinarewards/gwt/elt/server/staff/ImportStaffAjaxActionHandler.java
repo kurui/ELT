@@ -53,6 +53,7 @@ public class ImportStaffAjaxActionHandler extends
 			ImportStaffAjaxRequestVo reqvo = req.getRequest();
 			ImportStaffRequest request = toImportStaffRequest(reqvo);
 			request.setNowUserId(req.getUserSession().getToken());
+			request.setCorporationId(req.getUserSession().getCorporationId());
 			ImportStaffResponse response = new ImportStaffResponse();
 			if ("pretreatment".equals(reqvo.getAction())) {
 				response = importStaffService.pretreatmentImportStaff(request);
@@ -148,6 +149,7 @@ public class ImportStaffAjaxActionHandler extends
 		vo.setEstimateSuccessNum(response.getEstimateSuccessNum());
 		vo.setFinalSuccessNum(response.getFinalSuccessNum());
 		vo.setFinalFailedNum(response.getFinalFailedNum());
+		vo.setLicenseMessage(response.getLicenseMessage());
 		// this.setStaffRawList(response.getStaffRawList()); -- raw list is for
 		// report
 		vo.setImportStaffRawCode(response.getImportStaffRawCode());

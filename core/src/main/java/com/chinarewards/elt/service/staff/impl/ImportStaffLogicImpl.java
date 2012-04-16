@@ -33,9 +33,12 @@ import com.chinarewards.elt.model.staff.StaffProcess;
 import com.chinarewards.elt.model.staff.StaffStatus;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.user.UserRole;
+import com.chinarewards.elt.model.vo.LicenseBo;
 import com.chinarewards.elt.service.exception.ImportStaffNotFoundException;
+import com.chinarewards.elt.service.license.LicenseService;
 import com.chinarewards.elt.service.org.CorporationLogic;
 import com.chinarewards.elt.service.org.DepartmentLogic;
+import com.chinarewards.elt.service.staff.IStaffService;
 import com.chinarewards.elt.service.staff.ImportStaffCodeLogic;
 import com.chinarewards.elt.service.staff.ImportStaffLogic;
 import com.chinarewards.elt.service.staff.StaffLogic;
@@ -61,7 +64,8 @@ public class ImportStaffLogicImpl implements ImportStaffLogic {
 	final CorporationLogic corporationLogic;
 	final CorporationDao corporationDao;
 	final ImportStaffCodeLogic importCodeLogic;
-	
+	final LicenseService licenseService;
+	final IStaffService staffService;
 	@Inject
 	public ImportStaffLogicImpl(
 			CorporationDao corporationDao,
@@ -69,7 +73,7 @@ public class ImportStaffLogicImpl implements ImportStaffLogic {
 			ImportStaffRawDao importStaffRawDao,
 			ImportStaffRawCodeDao importStaffRawCodeDao, UserLogic userLogic,
 			StaffLogic staffLogic, DepartmentLogic departmentLogic,
-			CorporationLogic corporationLogic,ImportStaffCodeLogic importCodeLogic) {
+			CorporationLogic corporationLogic,ImportStaffCodeLogic importCodeLogic,LicenseService licenseService,IStaffService staffService) {
 
 		this.importStaffBatchDao = importStaffBatchDao;
 		this.importStaffRawDao = importStaffRawDao;
@@ -80,6 +84,8 @@ public class ImportStaffLogicImpl implements ImportStaffLogic {
 		this.corporationLogic = corporationLogic;
 		this.corporationDao = corporationDao;
 		this.importCodeLogic=importCodeLogic;
+		this.licenseService=licenseService;
+		this.staffService=staffService;
 
 	}
 
@@ -365,6 +371,28 @@ public class ImportStaffLogicImpl implements ImportStaffLogic {
 //		response.setFinalSuccessNum(null);
 //		response.setImportBatchNo(importStaffBatchDao.getLastImportBatch(batch
 //				.getCorporation().getId()) + 1);
+		
+		
+		//查询 license信息
+		try {
+			UserContext context=new UserContext();
+			context.setCorporationId(request.getCorporationId());
+			
+			LicenseBo licensebo=licenseService.queryLicenseContent();
+			int number=staffService.findNotDeleteStaffNumber(context);
+			if(number+estimateSuccessNum>licensebo.getStaffNumber())
+			{
+				response.setLicenseMessage("当前在职用户数"+number+",预计加入用户数"+estimateSuccessNum+",已经超过软件License最大用户数 "+licensebo.getStaffNumber()+" !请重新申请!");
+			}
+		} catch (Exception e) {
+			response.setLicenseMessage("License异常,请重新申请!");
+		}
+
+		
+		
+		
+		
+	
 		return response;
 	}
 

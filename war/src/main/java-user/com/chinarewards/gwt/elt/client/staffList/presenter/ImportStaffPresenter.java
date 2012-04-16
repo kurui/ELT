@@ -112,5 +112,7 @@ public interface ImportStaffPresenter extends DialogPresenter<ImportStaffPresent
 		HasText getImportStaffBatchNo();
 		
 		HasClickHandlers getDownloadTemplete();
+		
+		void importStaffButtonEnable(boolean fal);
 	}
 }

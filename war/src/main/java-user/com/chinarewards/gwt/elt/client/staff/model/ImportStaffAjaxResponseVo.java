@@ -8,14 +8,17 @@ import java.util.Map;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
-/**
- * @author sunhongliang
- * @since 0.2.0 2011-01-05
- */
+
 public class ImportStaffAjaxResponseVo extends ImportStaffAjaxRequestVo implements IsSerializable {
 
-	private static final long serialVersionUID = 1329978070568965424L;
+	private String LicenseMessage;
+	public String getLicenseMessage() {
+		return LicenseMessage;
+	}
 
+	public void setLicenseMessage(String licenseMessage) {
+		LicenseMessage = licenseMessage;
+	}
 	/**
 	 * batch id
 	 */

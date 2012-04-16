@@ -529,5 +529,11 @@ public class ImportStaffWidget extends Composite implements ImportStaffDisplay {
 	public HasClickHandlers getDownloadTemplete() {
 		return downloadTemplete;
 	}
+
+	@Override
+	public void importStaffButtonEnable(boolean fal) {
+		importStaffButton.setEnabled(fal);
+		
+	}
 	
 }
