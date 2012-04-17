@@ -45,6 +45,7 @@ public class ExcelServlet extends HttpServlet {
 	}
 
 	// 处理post请求
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
 		
 		String name = request.getParameter("name");
@@ -100,7 +101,7 @@ public class ExcelServlet extends HttpServlet {
 		   sheet.setColumnView(4, 20);
 		   ArrayList labels = new ArrayList();
 		   labels.add("员工编号");labels.add("姓名");  labels.add("邮箱"); labels.add("电话");labels.add("生日");	
-
+		   labels.add("部门"); labels.add("职位"); labels.add("直属领导");
 		 			   	   
 ////		// 添加标题
 		for (int i = 0; i < labels.size(); i++) {
