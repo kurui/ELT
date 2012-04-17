@@ -10,6 +10,7 @@ import com.chinarewards.elt.model.org.exception.DepartmentDeleteException;
 import com.chinarewards.elt.model.org.search.DepartmentListVo;
 import com.chinarewards.elt.model.org.search.DepartmentManageVo;
 import com.chinarewards.elt.model.user.UserContext;
+import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.service.org.DepartmentLogic;
 import com.chinarewards.elt.service.org.DepartmentManagerLogic;
 import com.chinarewards.elt.service.org.DepartmentService;
@@ -66,15 +67,15 @@ public class DepartmentServiceImpl implements DepartmentService {
 	}
 
 	@Override
-	public Department saveDepartment(UserContext uc, Department department,List<String> staffIds,List<String> preLeaderIds) {
+	public Department saveDepartment(UserContext uc, Department department,List<String> leaderIds,List<String> preLeaderIds) {
 		SysUser caller = userLogic.findUserById(uc.getUserId());
 		department= departmentLogic.saveDepartment(caller, department);
 		
 		departmentManagerLogic.deleteManager(department.getId(), preLeaderIds);
 		
-		if (staffIds!=null) {
-			for (int i = 0; i < staffIds.size(); i++) {
-				String staffId=staffIds.get(i);
+		if (leaderIds!=null) {
+			for (int i = 0; i < leaderIds.size(); i++) {
+				String staffId=leaderIds.get(i);
 				if (!StringUtil.isEmptyString(staffId)) {
 					SysUser sysUser=userLogic.findUserByStaffId(staffId);
 					if (sysUser==null) {
@@ -87,13 +88,39 @@ public class DepartmentServiceImpl implements DepartmentService {
 			}
 		
 			
-			departmentManagerLogic.createManager(department.getId(), staffIds);
+			departmentManagerLogic.createManager(department.getId(), leaderIds);
 		}
 	
 		
 		
+		updateUserRoleAsEditDepartment(leaderIds, preLeaderIds);
+		
+		
 		
 		return department;
+	}
+	
+	/**
+	 * 更新部门管理员角色
+	 * */
+	private void updateUserRoleAsEditDepartment(List<String> leaderIds,List<String> preLeaderIds){
+		if (preLeaderIds!=null) {
+			for (int i = 0; i < preLeaderIds.size(); i++) {
+				String staffId=preLeaderIds.get(i);
+				if (!StringUtil.isEmptyString(staffId)) {
+					List<Department> departmentList=departmentManagerLogic.findDepartmentsManagedByStaffId(staffId);
+					if (departmentList!=null&&departmentList.size()>0) {
+						//如果该staff还是其它部门的Leader，则不删其部门管理角色
+					}else{
+						userLogic.deleteUserRole(UserRole.DEPT_MGR.toString(),staffId);
+					}
+			
+				}
+			}			
+			
+		}
+		
+			userLogic.createUserRole(UserRole.DEPT_MGR.toString(),leaderIds);
 	}
 
 	@Override

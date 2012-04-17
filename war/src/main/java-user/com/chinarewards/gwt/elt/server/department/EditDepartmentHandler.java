@@ -71,8 +71,8 @@ public class EditDepartmentHandler extends
 		Department AdddItem = departmentService.saveDepartment(uc, department,leaderIds,preLeaderIds);
 
 	
-		userService.deleteUserRole(UserRole.DEPT_MGR.toString(),preLeaderIds);
-		userService.createUserRole(UserRole.DEPT_MGR.toString(),leaderIds);
+//		userService.deleteUserRole(UserRole.DEPT_MGR.toString(),preLeaderIds);
+//		userService.createUserRole(UserRole.DEPT_MGR.toString(),leaderIds);
 
 		
 		return new EditDepartmentResponse(AdddItem.getId());
