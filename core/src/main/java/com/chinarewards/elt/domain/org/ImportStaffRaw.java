@@ -79,6 +79,24 @@ public class ImportStaffRaw implements Serializable {
 	 */
 	@Enumerated(EnumType.STRING)
 	private ImportStaffResultType result;
+	private String jobPosition;
+	private String leadership;
+	
+	public String getJobPosition() {
+		return jobPosition;
+	}
+
+	public void setJobPosition(String jobPosition) {
+		this.jobPosition = jobPosition;
+	}
+
+	public String getLeadership() {
+		return leadership;
+	}
+
+	public void setLeadership(String leadership) {
+		this.leadership = leadership;
+	}
 
 	public String getId() {
 		return id;

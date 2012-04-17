@@ -158,6 +158,12 @@ public class ImportStaffServlet extends UploadAction {
 						pStaffRaw.setPhone(c);
 					} else if (col == 4) {
 						pStaffRaw.setDob(c);
+					} else if (col == 5) {
+						pStaffRaw.setDepartment(c);
+					} else if (col == 6) {
+						pStaffRaw.setJobPosition(c);
+					} else if (col == 7) {
+						pStaffRaw.setLeadership(c);
 					} 
 					if (instructionRow >= INSTRUCTION_START_ROW
 							&& instructionRow <= INSTRUCTION_END_ROW) {

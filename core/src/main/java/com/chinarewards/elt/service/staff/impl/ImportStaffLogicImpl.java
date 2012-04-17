@@ -15,6 +15,7 @@ import com.chinarewards.elt.dao.org.CorporationDao;
 import com.chinarewards.elt.dao.org.ImportStaffBatchDao;
 import com.chinarewards.elt.dao.org.ImportStaffRawCodeDao;
 import com.chinarewards.elt.dao.org.ImportStaffRawDao;
+import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.org.ImportStaffBatch;
 import com.chinarewards.elt.domain.org.ImportStaffCode;
 import com.chinarewards.elt.domain.org.ImportStaffRaw;
@@ -44,6 +45,7 @@ import com.chinarewards.elt.service.staff.ImportStaffLogic;
 import com.chinarewards.elt.service.staff.StaffLogic;
 import com.chinarewards.elt.service.user.UserLogic;
 import com.chinarewards.elt.util.DateUtil;
+import com.chinarewards.elt.util.StringUtil;
 import com.google.inject.Inject;
 
 /**
@@ -427,6 +429,8 @@ public class ImportStaffLogicImpl implements ImportStaffLogic {
 		staffRaw.setMobileTelephoneNumber(pStaffRaw.getPhone());
 		staffRaw.setStaffNumber(pStaffRaw.getJobNo());
 		staffRaw.setName(pStaffRaw.getName());
+		staffRaw.setJobPosition(pStaffRaw.getJobPosition());
+		staffRaw.setLeadership(pStaffRaw.getLeadership());
 
 	}
 
@@ -441,6 +445,8 @@ public class ImportStaffLogicImpl implements ImportStaffLogic {
 		pStaffRaw.setDob(staffRaw.getDob());
 		pStaffRaw.setResult(staffRaw.getResult());
 		pStaffRaw.setName(staffRaw.getName());
+		pStaffRaw.setJobPosition(staffRaw.getJobPosition());
+		pStaffRaw.setLeadership(staffRaw.getLeadership());
 	}
 
 //	protected StaffPersistence processImportStaffRawByInstruction(
@@ -621,6 +627,23 @@ public class ImportStaffLogicImpl implements ImportStaffLogic {
 					sp.setEmail(raw.getEmailAddress());
 					sp.setDob(DateUtil.dTStringtoDate(raw.getDob()));
 					sp.setStatus(StaffStatus.JOB);
+					sp.setJobPosition(raw.getJobPosition());
+					sp.setLeadership(raw.getLeadership());
+
+					
+					//查询是否有该部门
+					if(!StringUtil.isEmptyString(raw.getDepartment()))
+					{
+						Department dept=departmentLogic.findDepartmentByName(raw.getDepartment().trim());
+						if(dept!=null)
+						{
+							sp.setDepartmentId(dept.getId());
+						}
+					}
+					
+					
+					
+					
 					List<UserRole> roles=new ArrayList<UserRole>();
 					roles.add(UserRole.STAFF);			
 					sp.setUserRoleVos(roles);

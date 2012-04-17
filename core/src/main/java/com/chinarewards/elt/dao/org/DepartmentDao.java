@@ -235,5 +235,13 @@ public class DepartmentDao extends BaseDao<Department> {
 
 		return query.getResultList();
 	}
-
+	public Department findDepartmentsByName(String name) {
+		try {
+			return (Department) getEm()
+					.createQuery("FROM Department d WHERE d.name =:name AND d.deleted =:deleted")
+					.setParameter("name", name).setParameter("deleted", false).getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
 }

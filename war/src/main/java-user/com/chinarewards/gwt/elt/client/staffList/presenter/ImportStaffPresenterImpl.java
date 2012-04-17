@@ -49,8 +49,8 @@ public class ImportStaffPresenterImpl extends
 		ImportStaffPresenter {
 
 	private final static int TITLE_INSTRUCTION_DISPLAY_ROW = 6;
-	private final static int TITLE_INSTRUCTION_DISPLAY_COL = 5;
-	private final static int CONTENT_INSTRUCTION_DISPLAY_COL = 5;
+	private final static int TITLE_INSTRUCTION_DISPLAY_COL = 8;
+	private final static int CONTENT_INSTRUCTION_DISPLAY_COL = 8;
 	private final static int CONTENT_INSTRUCTION_DISPLAY_ROW = 11;
 
 	final DispatchAsync dispatch;
@@ -70,7 +70,7 @@ public class ImportStaffPresenterImpl extends
 	List<HTML> formaterWaningLabels = new ArrayList<HTML>();
 
 	String[] correctHeaderSorting = { "jobNo", "name", "email",
-			"phone", "dob"};
+			"phone", "dob","department","jobPosition","leadership"};
 
 	@Inject
 	public ImportStaffPresenterImpl(EventBus eventBus,

@@ -196,5 +196,10 @@ public interface DepartmentLogic {
 	 * @return
 	 */
 	public List<Department> getDepartmentsOfCorporationAndKey(String corporationId,String key);
-	
+	/**
+	 * 根据部门名称查询部门
+	 * @param name
+	 * @return
+	 */
+	public Department findDepartmentByName(String name);
 }
