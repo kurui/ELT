@@ -92,6 +92,7 @@ import com.chinarewards.gwt.elt.client.staffAdd.request.StaffVaildRequest;
 import com.chinarewards.gwt.elt.client.staffHeavenIndex.request.StaffHeavenIndexRequest;
 import com.chinarewards.gwt.elt.client.staffIntegral.request.StaffIntegralRequest;
 import com.chinarewards.gwt.elt.client.staffList.request.DeleteStaffRequest;
+import com.chinarewards.gwt.elt.client.staffList.request.ImportStaffListRequest;
 import com.chinarewards.gwt.elt.client.staffList.request.SearchStaffListRequest;
 import com.chinarewards.gwt.elt.client.staffList.request.StaffGenerateUserRequest;
 import com.chinarewards.gwt.elt.client.staffList.request.UpdateUserPwdRequest;
@@ -184,6 +185,7 @@ import com.chinarewards.gwt.elt.server.rewards.SearchRewardsGridHandler;
 import com.chinarewards.gwt.elt.server.rewards.SearchRewardsHandler;
 import com.chinarewards.gwt.elt.server.shopWindow.SearchShopWindowHandler;
 import com.chinarewards.gwt.elt.server.staff.HrRegisterActionHandler;
+import com.chinarewards.gwt.elt.server.staff.ImportSearchStaffListActionHandler;
 import com.chinarewards.gwt.elt.server.staff.ImportStaffAjaxActionHandler;
 import com.chinarewards.gwt.elt.server.staff.JudgeStaffAccountHandler;
 import com.chinarewards.gwt.elt.server.staff.LeadTimeActionHandler;
@@ -441,6 +443,7 @@ public class ActionModule extends ActionHandlerModule {
 
 		//导入员工
 		bindHandler(ImportStaffAjaxRequest.class,ImportStaffAjaxActionHandler.class);
+		bindHandler(ImportStaffListRequest.class,ImportSearchStaffListActionHandler.class);
 
 
 

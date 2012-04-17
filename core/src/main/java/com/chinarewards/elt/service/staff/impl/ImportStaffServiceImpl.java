@@ -3,8 +3,11 @@ package com.chinarewards.elt.service.staff.impl;
 import java.lang.reflect.InvocationTargetException;
 
 import com.chinarewards.elt.domain.org.ImportStaffBatch;
+import com.chinarewards.elt.domain.org.ImportStaffRaw;
+import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.staff.ImportStaffRequest;
 import com.chinarewards.elt.model.staff.ImportStaffResponse;
+import com.chinarewards.elt.model.vo.ImportStaffSearchVo;
 import com.chinarewards.elt.service.exception.ImportStaffNotFoundException;
 import com.chinarewards.elt.service.staff.ImportStaffLogic;
 import com.chinarewards.elt.service.staff.ImportStaffService;
@@ -53,6 +56,11 @@ public class ImportStaffServiceImpl   implements ImportStaffService {
 	@Override
 	public boolean removeAllInBatchById(String batchId) {
 		return importStaffLogic.removeAllInBatchById(batchId);
+	}
+
+	@Override
+	public PageStore<ImportStaffRaw> findImportStaffList(ImportStaffSearchVo searchVo) {
+		return importStaffLogic.findImportStaffList(searchVo);
 	}
 
 }

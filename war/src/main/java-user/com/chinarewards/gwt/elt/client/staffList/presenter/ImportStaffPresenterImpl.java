@@ -6,6 +6,7 @@ import gwtupload.client.IUploader.UploadedInfo;
 import gwtupload.client.IUploader.Utils;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.Map;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.mvp.BaseDialogPresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
@@ -21,10 +23,19 @@ import com.chinarewards.gwt.elt.client.staff.model.ImportStaffAjaxResponseVo;
 import com.chinarewards.gwt.elt.client.staff.request.ImportStaffAjaxRequest;
 import com.chinarewards.gwt.elt.client.staff.request.ImportStaffAjaxResponse;
 import com.chinarewards.gwt.elt.client.staff.ui.ImportStaffSingleUploader;
+import com.chinarewards.gwt.elt.client.staffList.dataprovider.ImportStaffListAdapter;
+import com.chinarewards.gwt.elt.client.staffList.model.ImportStaffListClient;
+import com.chinarewards.gwt.elt.client.staffList.model.ImportStaffListCriteria;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.chinarewards.gwt.elt.client.widget.EltNewPager;
+import com.chinarewards.gwt.elt.client.widget.EltNewPager.TextLocation;
+import com.chinarewards.gwt.elt.client.widget.GetValue;
+import com.chinarewards.gwt.elt.client.widget.ListCellTable;
+import com.chinarewards.gwt.elt.client.widget.Sorting;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.client.win.confirm.ConfirmHandler;
 import com.chinarewards.gwt.elt.util.StringUtil;
+import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -71,7 +82,11 @@ public class ImportStaffPresenterImpl extends
 
 	String[] correctHeaderSorting = { "jobNo", "name", "email",
 			"phone", "dob","department","jobPosition","leadership"};
-
+	
+	EltNewPager pager;
+	ListCellTable<ImportStaffListClient> cellTable;
+	ImportStaffListAdapter listViewAdapter;
+	
 	@Inject
 	public ImportStaffPresenterImpl(EventBus eventBus,
 			ImportStaffDisplay display, DispatchAsync dispatch,
@@ -486,6 +501,7 @@ public class ImportStaffPresenterImpl extends
 			}
 
 			display.getTitlePreviewPanel().setWidget(layout);
+			initTable();
 		}
 	}
 
@@ -729,9 +745,9 @@ public class ImportStaffPresenterImpl extends
 	}
 
 	private void refreshCurrentProgress() {
-		if (!GWT.isScript()) {
+	//	if (!GWT.isScript()) {
 			currentProgress += 0.5;
-		} else {
+	//	} else {
 //			dispatch.execute(new ImportStaffProgressAjaxRequest(batchId),
 //					new AsyncCallback<ImportStaffProgressAjaxResponse>() {
 //						@Override
@@ -746,7 +762,7 @@ public class ImportStaffPresenterImpl extends
 //						}
 //
 //					});
-		}
+//		}
 	}
 
 	private Long toLong(Long p) {
@@ -1238,5 +1254,102 @@ public class ImportStaffPresenterImpl extends
 	}
 	
 
+	private void initTable() {	
+		buildTable();
+		doSearch();
+	}
 
+	private void buildTable() {
+		// create a CellTable
+		cellTable = new ListCellTable<ImportStaffListClient>();
+
+		initTableColumns();
+		pager = new EltNewPager(TextLocation.CENTER);
+		pager.setDisplay(cellTable);
+		cellTable.setWidth(ViewConstants.page_width);
+		cellTable.setPageSize(500);
+	//	cellTable.getColumn(0).setCellStyleNames("divTextLeft");
+		display.getResultPanel().clear();
+		display.getResultPanel().add(cellTable);
+
+		
+	}
+
+	private void doSearch() {
+		
+		ImportStaffListCriteria criteria = new ImportStaffListCriteria();
+		criteria.setBatchId(batchId);
+		criteria.setTitlefal(isHavingTitle);
+		listViewAdapter = new ImportStaffListAdapter(dispatch, criteria,
+				errorHandler, sessionManager,display);
+		listViewAdapter.addDataDisplay(cellTable);
+
+	}
+
+	private void initTableColumns() {
+		Sorting<ImportStaffListClient> ref = new Sorting<ImportStaffListClient>() {
+			@Override
+			public void sortingCurrentPage(Comparator<ImportStaffListClient> comparator) {
+				// listViewAdapter.sortCurrentPage(comparator);
+			}
+
+			@Override
+			public void sortingAll(String sorting, String direction) {
+				listViewAdapter.sortFromDateBase(sorting, direction);
+
+			}
+		};
+
+		cellTable.addColumn("员工编号", new TextCell(),
+				new GetValue<ImportStaffListClient, String>() {
+					@Override
+					public String getValue(ImportStaffListClient staff) {
+						return staff.getStaffNo();
+					}
+				}, ref, "staffNumber");
+		cellTable.addColumn("员工姓名", new TextCell(),
+				new GetValue<ImportStaffListClient, String>() {
+					@Override
+					public String getValue(ImportStaffListClient staff) {
+						return staff.getStaffName();
+					}
+				}, ref, "name");
+		cellTable.addColumn("邮箱", new TextCell(),
+				new GetValue<ImportStaffListClient, String>() {
+					@Override
+					public String getValue(ImportStaffListClient staff) {
+						return staff.getEmail();
+					}
+				}, ref, "emailAddress");
+		cellTable.addColumn("电话", new TextCell(),
+				new GetValue<ImportStaffListClient, String>() {
+					@Override
+					public String getValue(ImportStaffListClient staff) {
+						return staff.getPhone();
+					}
+				}, ref, "mobileTelephoneNumber");
+		cellTable.addColumn("部门", new TextCell(),
+				new GetValue<ImportStaffListClient, String>() {
+					@Override
+					public String getValue(ImportStaffListClient staff) {
+						return staff.getDepartmentName();
+					}
+				}, ref, "department");
+		cellTable.addColumn("职位", new TextCell(),
+				new GetValue<ImportStaffListClient, String>() {
+					@Override
+					public String getValue(ImportStaffListClient staff) {
+						return staff.getJobPosition();
+					}
+				}, ref, "jobPosition");
+		cellTable.addColumn("直属领导", new TextCell(),
+				new GetValue<ImportStaffListClient, String>() {
+					@Override
+					public String getValue(ImportStaffListClient staff) {
+						return staff.getLeadership();
+					}
+				}, ref, "leadership");
+	
+	
+	}
 }

@@ -22,6 +22,7 @@ import com.chinarewards.elt.domain.org.ImportStaffRaw;
 import com.chinarewards.elt.domain.org.ImportStaffRawCode;
 import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.domain.user.SysUser;
+import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.org.Gender;
 import com.chinarewards.elt.model.staff.ImportCodeType;
 import com.chinarewards.elt.model.staff.ImportStaffEjbHelper;
@@ -34,6 +35,7 @@ import com.chinarewards.elt.model.staff.StaffProcess;
 import com.chinarewards.elt.model.staff.StaffStatus;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.user.UserRole;
+import com.chinarewards.elt.model.vo.ImportStaffSearchVo;
 import com.chinarewards.elt.model.vo.LicenseBo;
 import com.chinarewards.elt.service.exception.ImportStaffNotFoundException;
 import com.chinarewards.elt.service.license.LicenseService;
@@ -872,5 +874,11 @@ public class ImportStaffLogicImpl implements ImportStaffLogic {
 	public String getImportStaffBackupDir() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+	@Override
+	public PageStore<ImportStaffRaw> findImportStaffList(ImportStaffSearchVo searchVo) {
+		return importStaffRawDao.queryImportStaffPageAction(searchVo);
 	}
 }

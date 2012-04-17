@@ -91,7 +91,28 @@
 						</table>
 						     <div >
 							    <g:DecoratorPanel ui:field="titlePreviewPanel" />
+						  	 </div>
+						  <div>
+  			<div class="{new2.divtext}">共有 <g:InlineLabel ui:field="dataCount" styleName="{new2.divfont}"></g:InlineLabel> 位员工</div><div  class="{new2.divend}"></div>
+			<div class="{new2.table}">
+				<g:FlowPanel ui:field="resultPanel" />
+			</div>
+
+
+			<!--分页 [[ -->
+			<div id="rewardlist_page" class="{new2.pager}">
+				<div class="{new2.pager-left}">
+					每页显示条数
+					<g:ListBox ui:field="pageNumber" styleName="{new2.select}" /> 
+				</div>
+
+				<div class="{new2.pager-right}">
+					<g:FlowPanel ui:field="resultpage" />
+				</div>
+			</div>
+			<!--分页 ]] -->
 						  </div>
+						  
 						  </div>
 					  </div>
 								<div id="post">
