@@ -17,8 +17,10 @@ public interface GiftListPresenter extends
 
 		public HasClickHandlers getAddBtnClickHandlers();
 
-		public HasClickHandlers getimportingBtnClickHandlers();
+		public HasClickHandlers getImportBtnClickHandlers();
+		public HasClickHandlers getExportBtnClickHandlers();
 
+		
 		void setDataCount(String text);
 
 		HasValue<String> getKeyName();

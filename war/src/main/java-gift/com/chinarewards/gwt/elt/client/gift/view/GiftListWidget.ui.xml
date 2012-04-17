@@ -38,7 +38,11 @@
 					</span>
 					<span class="{new2.nbsp}"></span>
 					<span class="{new2.btn}">
-						<g:Button ui:field="importingBtn" text="导入" visible="false"/>
+						<g:Button ui:field="importBtn" text="导入礼品信息" />
+					</span>
+					<span class="{new2.nbsp}"></span>
+					<span class="{new2.btn}">
+						<g:Button ui:field="exportBtn" text="导出礼品信息" />
 					</span>
 				</div>
 			</p>

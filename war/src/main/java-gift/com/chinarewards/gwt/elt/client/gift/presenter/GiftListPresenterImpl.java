@@ -15,6 +15,8 @@ import com.chinarewards.gwt.elt.client.gift.plugin.GiftConstants;
 import com.chinarewards.gwt.elt.client.gift.presenter.GiftListPresenter.GiftListDisplay;
 import com.chinarewards.gwt.elt.client.gift.request.DeleteGiftRequest;
 import com.chinarewards.gwt.elt.client.gift.request.DeleteGiftResponse;
+import com.chinarewards.gwt.elt.client.gift.request.ExportGiftRequest;
+import com.chinarewards.gwt.elt.client.gift.request.ExportGiftResponse;
 import com.chinarewards.gwt.elt.client.gift.request.UpdateGiftStatusRequest;
 import com.chinarewards.gwt.elt.client.gift.request.UpdateGiftStatusResponse;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
@@ -94,13 +96,21 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 										GiftConstants.ACTION_GIFT_ADD,client);
 					}
 				}));
-		registerHandler(display.getimportingBtnClickHandlers().addClickHandler(
+		registerHandler(display.getImportBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
 						win.alert("导入礼品...待实现~");
 					}
 				}));
-
+		
+		registerHandler(display.getExportBtnClickHandlers().addClickHandler(
+				new ClickHandler() {
+					public void onClick(ClickEvent paramClickEvent) {
+						win.alert("导出礼品..");
+						doExport();						
+					}
+				}));
+		
 		
 
 	registerHandler(display.getPageNumber().addChangeHandler(new ChangeHandler() {			
@@ -150,6 +160,29 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 				errorHandler, sessionManager, display);
 		listViewAdapter.addDataDisplay(cellTable);
 	}
+	
+	private void doExport(){
+		GiftCriteria criteria = new GiftCriteria();
+		if (!StringUtil.isEmpty(display.getKeyName().getValue()))
+			criteria.setName(display.getKeyName().getValue());
+		if (!StringUtil.isEmpty(display.getStatus()))
+			criteria.setStatus(GiftStatus.valueOf(display.getStatus()));
+		
+		dispatch.execute(new ExportGiftRequest(criteria),
+				new AsyncCallback<ExportGiftResponse>() {
+
+					@Override
+					public void onFailure(Throwable t) {
+						win.alert("查询部门列表异常："+t.getMessage());
+					}
+		
+					@Override
+					public void onSuccess(ExportGiftResponse resp) {
+						
+					}
+		});
+	}
+	
 
 	private void initTableColumns() {
 		Sorting<GiftClient> ref = new Sorting<GiftClient>() {

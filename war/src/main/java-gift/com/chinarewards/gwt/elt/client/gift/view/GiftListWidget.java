@@ -31,7 +31,10 @@ public class GiftListWidget extends Composite implements GiftListDisplay {
 	@UiField
 	Button addBtn;
 	@UiField
-	Button importingBtn;
+	Button importBtn;
+	@UiField
+	Button exportBtn;
+	
 
 	@UiField
 	TextBox keyName;
@@ -114,10 +117,17 @@ public class GiftListWidget extends Composite implements GiftListDisplay {
 	}
 
 	@Override
-	public HasClickHandlers getimportingBtnClickHandlers() {
-		importingBtn.setWidth("88px");
-		return importingBtn;
+	public HasClickHandlers getImportBtnClickHandlers() {
+		importBtn.setWidth("88px");
+		return importBtn;
 	}
+	
+	@Override
+	public HasClickHandlers getExportBtnClickHandlers() {
+		exportBtn.setWidth("88px");
+		return exportBtn;
+	}
+	
 
 	@Override
 	public void setDataCount(String text) {
