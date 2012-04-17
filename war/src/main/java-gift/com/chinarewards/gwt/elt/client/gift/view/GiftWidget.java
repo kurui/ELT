@@ -61,6 +61,8 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	@UiField
 	TextBox integral;
 	@UiField
+	TextBox price;
+	@UiField
 	TextBox stock;
 	@UiField
 	RadioButton supplyinner;
@@ -146,7 +148,7 @@ public class GiftWidget extends Composite implements GiftDisplay {
 		notes.setText(giftVo.getNotes());
 		initTypeSelect(giftVo.getType());
 		initStatusSelect(giftVo.getStatus().toString());
-
+        price.setText(giftVo.getPrice());
 		brand.setText(giftVo.getBrand());
 		photo.setText(giftVo.getPhoto());
 		if (giftVo.getPhoto().indexOf(".") > 0) {
@@ -251,7 +253,10 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	public HasValue<String> getName() {
 		return name;
 	}
-
+	@Override
+	public HasValue<String> getPrice() {
+		return price;
+	}
 	@Override
 	public void clear() {
 

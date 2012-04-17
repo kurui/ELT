@@ -88,7 +88,14 @@
 							visible="false" />
 					</div>
 				</div>
-
+                 <div class="{new2.form-line}">
+					<label class="{new2.label}">
+						进货价格：
+					</label>
+					<div class="{new2.element}">
+						<g:Label text="等待数据加载..." ui:field="price" />
+					</div>
+				</div>
 				<div class="{new2.form-line}">
 					<label class="{new2.label}">
 						兑换积分：

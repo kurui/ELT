@@ -58,7 +58,7 @@ public class SearchGiftByIdHandler extends
 		giftVo.setPhoto(gift.getPhoto());
 		giftVo.setIndate(gift.getIndate());
 		giftVo.setRecorduser(gift.getRecorduser());
-
+        giftVo.setPrice(gift.getPrice()); 
 		return giftVo;
 	}
 
