@@ -21,7 +21,9 @@ import com.chinarewards.gwt.elt.client.remote.login.LoginServiceAsync;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.support.UserSession;
 import com.chinarewards.gwt.elt.client.ui.DialogBox;
+import com.chinarewards.gwt.elt.model.ClientException;
 import com.chinarewards.gwt.elt.model.user.UserRoleVo;
+import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -247,14 +249,18 @@ public class CookieSessionManager implements SessionManager {
 		this.session.setToken(null);
 		eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGOUT));
 	}
-
+	public void relogout() {
+		this.session.setToken(null);
+		eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.RELOGOUT));
+	}
 	public UserSession getSession() {
-		if(session!=null && session.getToken()!=null)
+		String token = Cookies.getCookie("token");
+		if(!StringUtil.isEmpty(token))
 			return session;
-		else
-		{
-			eventBus.fireEvent(new PlatformInitEvent(false));
-			return null;
+		else{
+		
+			relogout();
+		    throw new ClientException("登录失效,请重新登录!");
 		}
 	}
 

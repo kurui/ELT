@@ -13,8 +13,8 @@
 			<!--查询条件 [[ -->
 			<div class="{new2.query-wrap}">
 				<div class="{new2.form}">
-					<label for="">员工编号或姓名:</label>
-					<g:TextBox maxLength="30" ui:field="staffNameorNo" styleName="{new2.text2}" />
+					<label for="">关键字:</label>
+					<g:TextBox maxLength="30" ui:field="staffNameorNo" styleName="{new2.text2}" text="请输入员工编号、姓名或邮箱地址"  title="请输入员工编号、姓名或邮箱地址" />
 					<span class="{new2.nbspbig}" ></span>
 					<label for="">部门:</label>
 					<g:ListBox ui:field="department" styleName="{new2.select}" /> 
@@ -52,6 +52,13 @@
 						</span>
 						<span class="{new2.btn}">
 								<g:Button ui:field="sendMailAll">群发邮件</g:Button>
+						</span>
+						<span class="{new2.btn}">
+								<g:Button ui:field="importStaff">导入员工</g:Button>
+
+						</span>
+						<span class="{new2.btn}">
+								<g:Button ui:field="exportBtn">导出员工资料</g:Button>
 						</span>
 					</div>
 			</p>

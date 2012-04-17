@@ -1,0 +1,47 @@
+@CHARSET "UTF-8";
+
+@external .text, .button-addpe, .listtable, .min-button-add, .button-reset, .button-cancel;
+
+@sprite .text{ border:1px solid #b4c6d0; gwt-image:"input_bg"; line-height:18px;}
+
+.detail-content{width:97%; min-height:380px; height:auto!important; heigt:380px; padding:0px; border:1px solid #ccccff; margin:0 auto; background:#fbfdff; margin-top:8px; position:relative; clear:both}
+.detail-content .setDetail{ width:97%; margin:15px auto; position:relative;}
+.detail-content .setDetail h3{ font-size:14px; font-weight:bold; color:#444; display:block; height:22px; line-height:22px;}
+.detail-content .setDetail div.mmdiv{ border:1px solid #ccccff; background-color:#fff; position:relative; width:100%; padding:10px 0px; }
+.detail-content .setDetail table.mmtable{ border:1px solid #ccccff; background-color:#fff; position:relative;}
+.detail-content .setDetail table.mmtable td{ height:25px; line-height:25px; font-size:12px; padding-top:3px; padding-bottom:3px;}
+.detail-content .setDetail table.mmtable .title{ background-color:#eaf4ff; text-align:right; width:52px;}
+.detail-content .setDetail table.mmtable .title span{ color:#F00;}
+.detail-content .setDetail table.mmtable .intext{ text-align:left; padding-left:5px;}
+
+table.minfmtable{ border:1px solid #ccccff; background-color:#fff; position:relative;}
+table.minfmtable td{ /*height:25px;*/ line-height:25px; font-size:12px; padding-top:3px; padding-bottom:3px;}
+table.minfmtable .title{ background-color:#eaf4ff; text-align:right; width:120px;}
+table.minfmtable .tips{ background-color:#eaf4ff; text-align:center; width:100%;}
+table.minfmtable .title span{ color:#F00;}
+table.minfmtable .intext{ text-align:left; padding-left:5px; width: 460px;}
+table.minfmtable .intext input.text{ width:300px;}
+table.minfmtable .intext textarea.text{ width:300px; height: auto!important;}
+table.minfmtable .intext select.text{ width:302px;}
+
+/* 选择奖励员工 */
+@sprite .button-addpe{ padding-left:18px;padding-right:5px;gwt-image:"button_addpe"; border:1px solid #9eb5c2; background-color:#e4f6ff; font-size:12px; color:#123b5e; width:82px; height:22px; line-height:22px; cursor:pointer;}
+
+@sprite .listtable{width:97%; height:375px; margin:5px auto 0 auto; border:1px solid #ccccff; gwt-image: "trbg";}
+
+/*部门*/
+/* 树状*/
+.Tree{ width:auto; min-height:368px; height:auto!important; border:1px solid #ccccff; background-color:#FFF;}
+.Tree .toptitle{ width:auto; height:22px; background-color:#f4f6f9; color:#174a77; padding:6px 0px 0px 10px; border:1px solid #fff;}
+.Tree .toptitle span{ float:right; margin-top:-2px;}
+.Tree .dTree{ width:auto; height:auto; max-height: 573px; font-size:12px; background-color:#fff; color:#444; padding:5px; overflow:auto; text-align:left;}
+
+/* 新增 */
+@sprite .min-button-add{ padding-left:10px;padding-right:5px;gwt-image: "button_add"; border:1px solid #9eb5c2; background-color:#e4f6ff; width:21px; height:21px; cursor:pointer; margin-right:5px;}
+
+/* 重置 */
+@sprite .button-reset{ padding-left:10px;gwt-image: "button_reset"; border:1px solid #9eb5c2; background-color:#e4f6ff; font-size:12px; color:#123b5e; width:60px; height:22px; line-height:22px; cursor:pointer}
+@sprite .button-cancel{ padding-left:10px;gwt-image: "button_cancel"; border:1px solid #9eb5c2; background-color:#e4f6ff; font-size:12px; color:#123b5e; width:70px; height:22px; line-height:22px; cursor:pointer}
+
+@sprite #post-unTop-dept{ width:100%; height:36px; padding:10px 0px 0px 0px; border:1px solid #ccccff; margin:0 auto; gwt-image:"post_bg"; margin-bottom:5px; border-top: 0}
+#post-unTop-dept button{ margin-left:15px;}

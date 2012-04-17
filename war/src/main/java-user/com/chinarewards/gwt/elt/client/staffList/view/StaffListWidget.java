@@ -20,6 +20,7 @@ public class StaffListWidget extends Composite implements StaffListDisplay {
 
 	@UiField
 	TextBox staffNameorNo;
+
 	@UiField
 	ListBox staffStatus;
 	@UiField
@@ -38,6 +39,8 @@ public class StaffListWidget extends Composite implements StaffListDisplay {
 	@UiField
 	Button printBtn;
 	@UiField
+	Button exportBtn;
+	@UiField
 	Button sendMailAll;
 	@UiField
 	InlineLabel dataCount;
@@ -49,6 +52,8 @@ public class StaffListWidget extends Composite implements StaffListDisplay {
 	Panel breadCrumbs;
 	@UiField
 	ListBox pageNumber;
+	@UiField
+	Button importStaff;
 	
 	private static StaffListWidgetUiBinder uiBinder = GWT
 			.create(StaffListWidgetUiBinder.class);
@@ -162,6 +167,25 @@ public class StaffListWidget extends Composite implements StaffListDisplay {
 	public ListBox getDepartment() {
 		return department;
 	}
+
+	@Override
+	public HasClickHandlers getExportBtnClickHandlers() {
+		return exportBtn;
+	}
+
+
+
+
+	@Override
+	public HasClickHandlers getImportStaffBtnClickHandlers() {
+		return importStaff;
+	}
+
+	@Override
+	public TextBox getQueryKey() {
+		return staffNameorNo;
+	}
+
 
 
 }

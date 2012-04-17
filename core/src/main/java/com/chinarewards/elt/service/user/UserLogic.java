@@ -118,4 +118,18 @@ public interface UserLogic {
 	 * @return
 	 */
 	public SysUser findUserByStaffId(String staffId);
+	
+	
+	/**
+	 * 验证编号
+	 * @param staffNo
+	 * @return
+	 */
+	public boolean vaildStaffNo(String staffNo);
+	/**
+	 * 验证邮箱
+	 * @param staffEmail
+	 * @return
+	 */
+	public boolean vaildStaffEmail(String staffEmail);
 }

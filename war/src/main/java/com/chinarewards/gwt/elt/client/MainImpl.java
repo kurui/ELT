@@ -142,6 +142,19 @@ public class MainImpl implements Main, PlatformInitHandler, LoginHandler {
 			// login.bind();
 			// rootLayoutPanel.add(login.getDisplay().asWidget());
 			break;
+		case RELOGOUT:
+			// if (!GWT.isScript()) {
+			// break;
+			// }
+			// win.alert("Logout event received");
+			// sessionManager.logout();
+			Window.alert("登录失效,请重新登录！");
+			sessionManager.resetLogin();
+			Window.Location.reload();
+			// rootLayoutPanel.clear();
+			// login.bind();
+			// rootLayoutPanel.add(login.getDisplay().asWidget());
+			break;
 
 		}
 	}

@@ -21,6 +21,7 @@ import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.staffAdd.plugin.StaffAddConstants;
 import com.chinarewards.gwt.elt.client.staffList.dataprovider.StaffListViewAdapter;
+import com.chinarewards.gwt.elt.client.staffList.dialog.ImportStaffDialog;
 import com.chinarewards.gwt.elt.client.staffList.dialog.StaffListPrintDialog;
 import com.chinarewards.gwt.elt.client.staffList.model.StaffListClient;
 import com.chinarewards.gwt.elt.client.staffList.model.StaffListCriteria;
@@ -46,10 +47,14 @@ import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.FocusEvent;
+import com.google.gwt.event.dom.client.FocusHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -66,6 +71,7 @@ public class StaffListPresenterImpl extends
 	ListCellTable<StaffListClient> cellTable;
 	StaffListViewAdapter listViewAdapter;
 	private final Provider<StaffListPrintDialog> staffListPrintDialogProvider;
+	private final Provider<ImportStaffDialog> importStaffDialogProvider;
 	private final BreadCrumbsPresenter breadCrumbs;
 	final Provider<MailSendDialog> mailSendDialog;
 	final Provider<MailSendAllDialog> mailSendAllDialog;
@@ -73,7 +79,7 @@ public class StaffListPresenterImpl extends
 	@Inject
 	public StaffListPresenterImpl(EventBus eventBus,Provider<MailSendDialog> mailSendDialog,Provider<MailSendAllDialog> mailSendAllDialog,
 			StaffListDisplay display, DispatchAsync dispatch,SessionManager sessionManager,Win win,BreadCrumbsPresenter breadCrumbs,
-			ErrorHandler errorHandler,Provider<StaffListPrintDialog> staffListPrintDialogProvider) {
+			ErrorHandler errorHandler,Provider<StaffListPrintDialog> staffListPrintDialogProvider,Provider<ImportStaffDialog> importStaffDialogProvider) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.sessionManager = sessionManager;
@@ -83,6 +89,7 @@ public class StaffListPresenterImpl extends
 		this.staffListPrintDialogProvider=staffListPrintDialogProvider;
 		this.mailSendDialog = mailSendDialog;
 		this.mailSendAllDialog = mailSendAllDialog;
+		this.importStaffDialogProvider=importStaffDialogProvider;
 	}
 
 	@Override
@@ -128,13 +135,56 @@ public class StaffListPresenterImpl extends
 	
 					}
 				}));
+		registerHandler(display.getQueryKey().addFocusHandler(new FocusHandler() {
+			
+			@Override
+			public void onFocus(FocusEvent event) {
+				display.getQueryKey().setValue("");
+				display.getQueryKey().setStyleName("textcss");
+				
+				
+			}
+		}));
 		registerHandler(display.getPrintBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
 						
 						StaffListPrintDialog dialog = staffListPrintDialogProvider.get();
+						
+						StaffListCriteria criteria = new StaffListCriteria();
+						if(!"请输入员工编号、姓名或邮箱地址".equals(display.getStaffNameorNo().getValue()))
+						criteria.setStaffNameorNo(display.getStaffNameorNo().getValue());
+
+						if(!"ALL".equals(display.getSttaffStatus()))
+							criteria.setStaffStatus(StaffStatus.valueOf(display.getSttaffStatus()));
+						if(!"ALL".equals(display.getSttaffRole()))
+							criteria.setStaffRole(UserRoleVo.valueOf(display.getSttaffRole()));
+						if(!"ALL".equals(display.getDepartment().getValue(display.getDepartment().getSelectedIndex())))
+							criteria.setDepartmentId(display.getDepartment().getValue(display.getDepartment().getSelectedIndex()));
+						
+						dialog.initPrintQuery(criteria);
+						dialog.init();
 						Platform.getInstance().getSiteManager().openDialog(dialog,null);
+
+	
+					}
+				}));
+		registerHandler(display.getImportStaffBtnClickHandlers().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						
+						ImportStaffDialog dialog = importStaffDialogProvider.get();
+						Platform.getInstance().getSiteManager().openDialog(dialog,new DialogCloseListener() {
+							
+							@Override
+							public void onClose(String dialogId, String instanceId) {
+								buildTable();
+								doSearch();
+								
+							}
+						});
 
 	
 					}
@@ -178,8 +228,61 @@ public class StaffListPresenterImpl extends
 	
 					}
 				}));
+		  registerHandler(display.getExportBtnClickHandlers().addClickHandler(new ClickHandler() {
+						@Override
+						public void onClick(ClickEvent event) {
+							win.confirm("提示", "确定导出员工资料?",new ConfirmHandler() {
+								
+								@Override
+								public void confirm() {
+									String keyStr="";
+									if(!"请输入员工编号、姓名或邮箱地址".equals(display.getStaffNameorNo().getValue()))
+										keyStr=display.getStaffNameorNo().getValue();
+									String data = "name="+keyStr;
+									data = data+"&corpid="+sessionManager.getSession().getCorporationId();
+									data = data+"&content=true";
+									UserRoleVo[] userRoleVos =sessionManager.getSession().getUserRoles();
+									for (UserRoleVo role : userRoleVos) {
+									    String s = role.toString();
+										if(s.equals("CORP_ADMIN")){
+											data=data+"&userRole=CORP_ADMIN";
+										}else if(s.equals("DEPT_MGR"))
+											data=data+"&userRole=DEPT_MGR";
+											
+									}
+									
+									
+									if(!"ALL".equals(display.getSttaffStatus())){
+										 data=data+"&staffStatus="+StaffStatus.valueOf(display.getSttaffStatus());
+									    
+									}else{
+										data=data+"&staffStatus=";
+									}
+									if(!"ALL".equals(display.getSttaffRole())){
+										
+									    data = data+"&role="+ UserRoleVo.valueOf(display.getSttaffRole());
+									}else{
+										data=data+"&role=";
+									}
+									if(!"ALL".equals(display.getDepartment().getValue(display.getDepartment().getSelectedIndex()))){
+										
+									   data = data+"&departmentId="+ display.getDepartment().getValue(display.getDepartment().getSelectedIndex());
+									
+									}else{
+										data=data+"&departmentId=";
+									}
+									   doExport( data,  "导出员工数据");
+								}
+							});
+						}
+					}));
 	}
-	
+	private void doExport(String data, String title) {
+		String url = GWT.getModuleBaseURL() + "servlet.export";
+		//String data = "batchId=" + batchId + "&action=" + action;
+		String wholeUrl = url + "?" + data + "&radom=" + Math.random();
+		Window.open(wholeUrl, title,"menubar=yes,location=no,resizable=yes,scrollbars=yes,status=yes");
+	}
 	private void init() {	
 		display.initStaffStatus();
 		initDepartmentList(null);
@@ -250,6 +353,7 @@ public class StaffListPresenterImpl extends
 
 	private void doSearch() {
 		StaffListCriteria criteria = new StaffListCriteria();
+		if(!"请输入员工编号、姓名或邮箱地址".equals(display.getStaffNameorNo().getValue()))
 		criteria.setStaffNameorNo(display.getStaffNameorNo().getValue());
 		if(!"ALL".equals(display.getSttaffStatus()))
 			criteria.setStaffStatus(StaffStatus.valueOf(display.getSttaffStatus()));
@@ -309,13 +413,13 @@ public class StaffListPresenterImpl extends
 						return staff.getJobPosition();
 					}
 				}, ref, "jobPosition");
-		cellTable.addColumn("电话", new TextCell(),
+		cellTable.addColumn("邮箱", new TextCell(),
 				new GetValue<StaffListClient, String>() {
 					@Override
 					public String getValue(StaffListClient staff) {
-						return staff.getPhone();
+						return staff.getEmail();
 					}
-				}, ref, "phone");
+				}, ref, "email");
 		cellTable.addColumn("员工状态", new TextCell(),
 				new GetValue<StaffListClient, String>() {
 					@Override

@@ -201,7 +201,7 @@ a:active {
 .gwt-DialogBox2 .Caption2 {
 	background: url() no-repeat;
 	background-color: #333333;
-	color: #174a77;
+	color: #DDDDDD;
 	font-size: 12px;
 	position: relative;
 	padding: 0px 0px 0px 0px;
@@ -2001,7 +2001,9 @@ ul.token-input-list-facebook3 li input {
 .gwt-TreeItem{
 	padding-left: 5px;
 }
-.fromtext{height:22px;width:200px;border:1px solid #CCCCCC;}
+.formtext{height:22px;width:200px;border:1px solid #CCCCCC;}
+.formtextdisable{height:22px;width:200px;border:1px solid #CCCCCC;background: #E9E9E9}
 .width60{width:50%;}
 .width29{width:29%;}
 .width12{width:12%;}
+.textcss{height:22px;width:185px;border:1px solid #CCCCCC;line-height:22px;}

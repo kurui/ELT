@@ -29,9 +29,17 @@ public class StaffSearchCriteria implements Serializable {
 	private String staffNameorNo;
 	private String departmentId;
 	private UserRole staffRole;
-	
+	private String staffEmail;
 	private boolean colleaguePage;
 	
+	public String getStaffEmail() {
+		return staffEmail;
+	}
+
+	public void setStaffEmail(String staffEmail) {
+		this.staffEmail = staffEmail;
+	}
+
 	public String getDepartmentId() {
 		return departmentId;
 	}

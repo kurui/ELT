@@ -171,7 +171,9 @@
 			           <p><g:Anchor ui:field="rewardItemMore" text="更多&gt;&gt;"></g:Anchor></p>
 			        </div>
 			      </div>
+			      
 			      <g:Hidden ui:field="rewardWidgetAction"/>
+			      <g:Hidden ui:field="rewardItemWidgetAction"/>
 	   </div>
 						<div class="{new2.footer}" id="footer">
 						<div class="{new2.footer-line}"></div>

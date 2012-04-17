@@ -45,6 +45,7 @@ import com.chinarewards.elt.service.org.DepartmentLogic;
 import com.chinarewards.elt.service.org.DepartmentManagerLogic;
 import com.chinarewards.elt.service.sendmail.SendMailService;
 import com.chinarewards.elt.service.staff.StaffLogic;
+import com.chinarewards.elt.service.user.UserLogic;
 import com.chinarewards.elt.tx.model.Unit;
 import com.chinarewards.elt.tx.service.TransactionService;
 import com.chinarewards.elt.util.DateUtil;
@@ -70,6 +71,8 @@ public class StaffLogicImpl implements StaffLogic {
 	private final DepartmentManagerDao deptMgrDao;
 	private final DepartmentLogic departmentLogic;
 	private final SendMailService sendMailService;
+	private final UserLogic userLogic;
+	
 	MD5 md5 = new MD5();
 
 	@Inject
@@ -79,7 +82,7 @@ public class StaffLogicImpl implements StaffLogic {
 			SendMailService sendMailService,
 			DepartmentManagerLogic departmentManagerLogic, UserDao userDao,
 			WinnerDao winnerDao, UserRoleDao userRoleDao, RoleDao roleDao,
-			DepartmentManagerDao deptMgrDao, DepartmentLogic departmentLogic) {
+			DepartmentManagerDao deptMgrDao, DepartmentLogic departmentLogic,UserLogic userLogic) {
 		this.staffDao = staffDao;
 		this.deptLogic = deptLogic;
 		this.corporationLogic = corporationLogic;
@@ -93,6 +96,7 @@ public class StaffLogicImpl implements StaffLogic {
 		this.deptMgrDao = deptMgrDao;
 		this.departmentLogic = departmentLogic;
 		this.sendMailService = sendMailService;
+		this.userLogic=userLogic;
 	}
 
 	@Override
@@ -304,7 +308,8 @@ public class StaffLogicImpl implements StaffLogic {
 		}
 		if (!StringUtil.isEmptyString(criteria.getDepartmentId()))
 			searchVo.setDeptId(criteria.getDepartmentId());
-		
+		if (!StringUtil.isEmptyString(criteria.getStaffEmail()))
+			searchVo.setStaffEmail(criteria.getStaffEmail());
 		searchVo.setPaginationDetail(criteria.getPaginationDetail());
 		searchVo.setSortingDetail(criteria.getSortingDetail());
 
@@ -339,6 +344,79 @@ public class StaffLogicImpl implements StaffLogic {
 		}
 		return staffDao.queryStaffPageAction(searchVo);
 	}
+	
+	@SuppressWarnings("rawtypes")
+	@Override
+	public List queryStaffListExport(StaffSearchCriteria criteria, UserContext context) {
+		StaffSearchVo searchVo = new StaffSearchVo();
+		// 待添加查询条件
+		if (!StringUtil.isEmptyString(criteria.getStaffNameorNo()))
+			searchVo.setKeywords(criteria.getStaffNameorNo());
+		if (criteria.getStaffStatus() != null)
+			searchVo.setStatus(criteria.getStaffStatus());
+		if (context.getCorporationId() != null)
+			searchVo.setEnterpriseId(context.getCorporationId());
+		if (criteria.getStaffRole() != null) {
+			List<String> qstaffIds = new ArrayList<String>();
+			List<String> staffIds = userRoleDao.findStaffIdsByRole(criteria
+					.getStaffRole());
+			if (staffIds != null && staffIds.size() > 0) {
+				qstaffIds = staffIds;
+			} else {
+				qstaffIds.add("notStaffId");
+			}
+			searchVo.setStaffids(qstaffIds);
+		}
+		if (!StringUtil.isEmptyString(criteria.getDepartmentId()))
+			searchVo.setDeptId(criteria.getDepartmentId());
+		
+		searchVo.setPaginationDetail(criteria.getPaginationDetail());
+		searchVo.setSortingDetail(criteria.getSortingDetail());
+
+		// 如果员工界面..不过滤
+		if (!criteria.isColleaguePage()) {
+			// 处理部门管理员..进入..只查询本部门数据
+			boolean fal = false;
+			for (UserRole role : context.getUserRoles()) {
+				if (role == UserRole.CORP_ADMIN) {
+					fal = true;
+				}
+			}
+			if (fal == false) {
+				SysUser user = userDao.findUserById(context.getUserId());
+				if (user != null && user.getStaff() != null) {
+					List<String> departmentIds = deptMgrDao
+							.findDepartmentIdsManagedByStaffId(user.getStaff()
+									.getId());
+					if (departmentIds.size() > 0) {
+						Set<String> allDepartmentIds = new HashSet<String>();
+						for (String id : departmentIds) {
+							allDepartmentIds.addAll(departmentLogic
+									.getWholeChildrenIds(id, true));
+						}
+						searchVo.setDeptParam(new MultipleIdParam(
+								allDepartmentIds));
+					}
+
+				}
+
+			}
+		}
+		List<Staff> staffs= staffDao.queryStaffListExport(searchVo);
+		List lists = new ArrayList();
+		for(Staff staff: staffs){
+			List list = new ArrayList();
+			list.add(staff.getJobNo());
+			list.add(staff.getName());
+			list.add(staff.getEmail());
+			list.add(staff.getPhone());
+			list.add(staff.getDob());
+			lists.add(list);
+			
+		}
+		
+		return lists;
+	}
 
 	@Override
 	public String createOrUpdateStaff(StaffProcess staff, UserContext context) {
@@ -346,6 +424,19 @@ public class StaffLogicImpl implements StaffLogic {
 		SysUser nowuser = userDao.findUserById(context.getUserId());
 		if (StringUtil.isEmptyString(staff.getStaffId())) {
 			ff = new Staff();
+			
+			//验证编号
+			if(StringUtil.isEmptyString(staff.getStaffNo()) || !userLogic.vaildStaffNo(staff.getStaffNo()))
+			{
+				return "ERROR";
+			}
+			//验证邮箱
+			if(StringUtil.isEmptyString(staff.getStaffNo()) || !userLogic.vaildStaffEmail(staff.getEmail().substring(0,staff.getEmail().indexOf("@")+1)))
+			{
+				return "ERROR";
+			}
+			
+			
 		} else {
 			ff = staffDao.findById(Staff.class, staff.getStaffId());
 		}
@@ -510,10 +601,14 @@ public class StaffLogicImpl implements StaffLogic {
 			Date now = DateUtil.getTime();
 			SysUser u = new SysUser();
 			// check duplicate username
+			if(StringUtil.isEmptyString(staff.getEmail()) || staff.getEmail().indexOf("@")==-1)
+			{
+				return "用户"+staff.getName()+"邮箱不正确";
+			}
 			String username = staff.getEmail().substring(0,
 					staff.getEmail().indexOf("@"));
 			if (userDao.findUserByUserName(username).size() > 0) {
-				return "用户"+username+",名字重复!";
+				return "用户帐号"+username+"已重复";
 			} else {
 				// 创建交易系统ID
 				String accountId = transactionService.createNewAccount();
@@ -684,5 +779,10 @@ public class StaffLogicImpl implements StaffLogic {
 			userDao.update(user);
 		}
 		return "success";
+	}
+
+	@Override
+	public List<Staff> findNotDeleteStaff(String corporationId) {
+		return staffDao.findNotDeleteStaffsBycorporationId(corporationId);
 	}
 }

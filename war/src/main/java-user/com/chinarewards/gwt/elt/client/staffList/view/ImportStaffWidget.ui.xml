@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+		<ui:image field="button_search" resource="button_search.jpg"></ui:image>
+	<ui:image field="button_reset" resource="button_reset.jpg"></ui:image>
+	<ui:image field="button_add" resource="button_add.jpg"></ui:image>
+	<ui:image field="button_delpe" resource="button_delpe.jpg"></ui:image>
+	<ui:image field="button_ok" resource="button_ok.jpg"></ui:image>
+	<ui:image field="button_back" resource="button_back.jpg"></ui:image>
+	<ui:image field="button_mod" resource="button_mod.jpg"></ui:image>
+	<ui:image field="input_bg" resource="input_bg.jpg" repeatStyle="Horizontal"></ui:image>
+	<ui:image field="post_bg" resource="post_bg.jpg" repeatStyle="Horizontal"></ui:image>
+	<ui:image field="trbg" resource="trbg.jpg" repeatStyle="Horizontal"></ui:image>
+	<ui:image field="page_first" resource="page_first.jpg"></ui:image>
+	<ui:image field="page_last" resource="page_last.jpg"></ui:image>
+	<ui:image field="page_pre" resource="page_pre.jpg"></ui:image>
+	<ui:image field="page_next" resource="page_next.jpg"></ui:image>
+	<ui:image field="button_next" resource="button_next.jpg"></ui:image>
+	<ui:image field="button_pre" resource="button_pre.jpg"></ui:image>
+	<ui:image field="button_inclu" resource="button_inclu.jpg"></ui:image>
+	<ui:image field="importStepone" resource="importStepone.jpg"></ui:image>
+	<ui:image field="importSteptwo" resource="importSteptwo.jpg"></ui:image>
+	<ui:image field="importStepthree" resource="importStepthree.jpg"></ui:image>
+	<ui:image field="importStepfour" resource="importStepfour.jpg"></ui:image>
+	<ui:image field="importStepfive" resource="importStepfive.jpg"></ui:image>
+	<ui:image field="importStepsix" resource="importStepsix.jpg"></ui:image>
+	<ui:style src="staffimport.css" field="other"></ui:style>
+	<ui:style src="new2.css" field="new2"></ui:style>
+
+<g:HTMLPanel>
+		<g:VerticalPanel ui:field="panelV" >
+			<g:DecoratorPanel ui:field="panelStep1">
+				<g:HTMLPanel>
+					<div class="{new2.fmdiv}">
+						<div id="zhudiv">
+						  <div class="{new2.setDetail}">
+						  <table  border="0">
+							  <tr>
+							   
+							   <td><g:Label styleName="importStepone"/></td>
+							   </tr>
+							</table>
+					       </div>
+					        <hr color="#D4D4FF" size="0.05"/>
+							  <div>
+								<g:Anchor ui:field="downloadTemplete" styleName="{new2.newa}" >　提示：上传的文件只支持Microsoft Excel (95, 97, 2000, 2003)，没有正确格式，请下载模板再上传档案</g:Anchor>
+									<g:VerticalPanel ui:field="panelUpload"></g:VerticalPanel>
+									<g:Label ui:field="resultMsg" />
+		  				  </div>	
+		  			</div>
+						<div id="post">
+							<g:Button ui:field="goStep2Button" styleName="button-next">下一步</g:Button>
+							 <g:Button ui:field="cancelImport" styleName="button-back">取消</g:Button>
+						</div>
+					</div>
+				</g:HTMLPanel>
+			</g:DecoratorPanel>
+			<g:DecoratorPanel ui:field="panelStep2">
+				<g:HTMLPanel>
+					<div class="{new2.fmdiv}">
+						<div id="zhudiv">
+						<div class="{new2.setDetail}">
+							<table   border="0">
+							    <tr>
+							   
+							      <td> <g:Label styleName="importSteptwo"/></td>
+					          </tr>
+					      </table>
+					      </div>
+                        <hr color="#D4D4FF" size="0.05"/>
+						<div class="detail_content">
+						<table  border="0" cellspacing="0">
+							<tr>
+								<td colspan="5">
+									<g:HTML ui:field="totalStaff"></g:HTML>
+								</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>
+									<g:RadioButton ui:field="hasTitleValue" name="titleValue">有标题列
+									</g:RadioButton>
+								</td>
+								<td></td>
+								<td>
+									<g:RadioButton ui:field="noHasTitleValue" name="titleValue">无标题列
+									</g:RadioButton>
+								</td>
+								<td colspan="3"></td>
+							</tr>
+						</table>
+						     <div >
+							    <g:DecoratorPanel ui:field="titlePreviewPanel" />
+						  </div>
+						  </div>
+					  </div>
+								<div id="post">
+								<div>
+										<g:Button ui:field="backStep1Button" styleName="button-pre" >上一步</g:Button>
+									
+										<g:Button ui:field="goStep3Button" styleName="button-next">下一步</g:Button>
+								</div>
+								</div>
+							
+						
+					</div>
+				</g:HTMLPanel>
+
+			</g:DecoratorPanel>
+			<g:DecoratorPanel ui:field="panelStep3">
+		  <g:HTMLPanel>
+					<div class="{new2.fmdiv}">
+					  <div id="zhudiv">
+					  <div class="{new2.setDetail}">
+						<table   border="0">
+						    <tr>
+						      
+						      <td> <g:Label styleName="importStepthree"/></td>
+					        </tr>
+					      </table>
+					    </div>
+				      <hr color="#D4D4FF" size="0.05"/>
+						<div class="detail_content">
+						<g:DecoratorPanel ui:field="contentPreviewPanel" />
+						</div>
+						</div>
+						    <div id="post">
+                             <div>
+								<g:Button ui:field="backStep2Button" styleName="button-pre" >上一步</g:Button>
+								<g:Button ui:field="goStep4Button" styleName="button-next">下一步</g:Button>
+							</div>
+						</div>
+					</div>
+				</g:HTMLPanel>
+			</g:DecoratorPanel>
+			<g:DecoratorPanel ui:field="panelStep4">
+				<g:HTMLPanel>
+					<div class="{new2.fmdiv}">
+						<div id="zhudiv">
+						<div class="{new2.setDetail}">
+						<table   border="0">
+					    <tr>
+					      
+					      <td> <g:Label styleName="importStepfour"/></td>
+				        </tr>
+				      </table>
+				      </div>
+				      <hr color="#D4D4FF" size="0.05"/>
+						<div class="detail_content">
+						<g:HTML ui:field="pretreatmentResult">
+                        </g:HTML>
+                        </div>
+                        </div>
+						<div id ="post">
+                            <div>
+								   <g:Button ui:field="pretreatmentReportButton" styleName="button-inclu" visible="false" >详细</g:Button>
+									<g:Button ui:field="backStep3Button" styleName="button-pre" >上一步</g:Button>
+									<g:Button ui:field="importStaffButton" styleName="button-inclu">导入</g:Button>
+							</div>
+						</div>
+					</div>
+			  </g:HTMLPanel>
+		  </g:DecoratorPanel>
+			<g:DecoratorPanel ui:field="panelStep5">
+				<g:HTMLPanel>
+					<div class="{new2.fmdiv}">
+						<div id="zhudiv">
+						<div class="{new2.setDetail}">
+				<table   border="0">
+					    <tr>
+					      
+					      <td> <g:Label styleName="importStepfive"/></td>
+				        </tr>
+				      </table>
+				      </div>
+				      <hr color="#D4D4FF" size="0.05"/>
+						<div>
+						<g:Label ui:field="importStaffBatchNo"></g:Label>
+						
+						<P/>
+						<P style="text-align:center;vertical-align:middle;width:80%">
+						<table width="834">
+							<tr>
+					      <td width="106">进度：</td>
+					      <td width="716"><g:HorizontalPanel ui:field="panelProgressBar"/></td>
+				        </tr>
+						</table>
+						</P>
+						</div>
+					</div>
+					</div>
+				</g:HTMLPanel>
+
+		  </g:DecoratorPanel>
+			<g:DecoratorPanel ui:field="panelStep6">
+				<g:HTMLPanel>
+					<div class="{new2.fmdiv}">
+						<div id="zhudiv">
+						<div class="{new2.setDetail}">
+					<table  border="0">
+					    <tr>
+					      
+					      <td> <g:Label styleName="importStepsix"/></td>
+				        </tr>
+				      </table>
+				  	</div>
+				      <hr color="#D4D4FF" size="0.05"/>
+						<div class="detail_content">
+						<P/>
+						<g:Label ui:field="importBatchNo"></g:Label>
+						<P/>
+						<P/>
+						<g:Label ui:field="successImportMessage"></g:Label>
+						<P/>
+						<g:VerticalPanel ui:field="contentPanel"></g:VerticalPanel>
+						</div>
+						</div>
+						<div id="post">
+
+							<div>
+								<g:Button ui:field="finalReportButton" styleName="button-inclu" visible="false" >下载失败记录</g:Button>
+							    <g:Button ui:field="closeButton" styleName="button-ok">完成</g:Button>
+							</div>
+						</div>
+					</div>
+				</g:HTMLPanel>
+			</g:DecoratorPanel>
+  </g:VerticalPanel>
+	</g:HTMLPanel>
+
+</ui:UiBinder> 

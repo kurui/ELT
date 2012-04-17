@@ -17,17 +17,17 @@
 	                            企业名称：
 	         </label>
 	        <div class="{new2.element}">
-	          <g:TextBox maxLength="30" ui:field="enterpriseName" styleName="{new2.text}" />
+	          <g:TextBox maxLength="50" ui:field="enterpriseName" styleName="{new2.text}" />
 	          <span class="{new2.field-wrap}">
 	           <label class="{new2.label}">企业网站：</label>
-	            <g:TextBox maxLength="30" ui:field="web" styleName="{new2.text}" />
+	            <g:TextBox maxLength="50" ui:field="web" styleName="{new2.text}" />
 	          </span>
 	        </div>
 	      </div>
 		 <div class="{new2.form-line}">
 	        <label class="{new2.label}">企业地址：</label>
 	        <div class="{new2.element}">
-	          <g:TextBox maxLength="30" ui:field="address" styleName="{new2.long-text}" />
+	          <g:TextBox maxLength="50" ui:field="address" styleName="{new2.long-text}" />
 	        </div>
 	      </div>
 		
@@ -43,7 +43,7 @@
 	          <g:TextBox maxLength="20" ui:field="linkman" styleName="{new2.text}" />
 	          <span class="{new2.field-wrap}">
 	           <label class="{new2.label}">联系电话：</label>
-	            <g:TextBox maxLength="20" ui:field="tell" styleName="{new2.text}" />
+	            <g:TextBox maxLength="30" ui:field="tell" styleName="{new2.text}" />
 	          </span>
 	        </div>
 	      </div>

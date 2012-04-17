@@ -42,7 +42,7 @@
 					企业地址：
 				</label>
 				<div class="{new2.element}">
-					<g:TextBox maxLength="20" ui:field="address" styleName="{new2.text}" />
+					<g:TextBox maxLength="30" ui:field="address" styleName="{new2.text}" />
 				</div>
 			</div>
 			<div class="{new2.form-line}">
@@ -83,7 +83,7 @@
 				网站：
 				</label>
 				<div class="{new2.element}">
-					<g:TextBox maxLength="20" ui:field="web" styleName="{new2.text}" />
+					<g:TextBox maxLength="30" ui:field="web" styleName="{new2.text}" />
 				</div>
 			</div>
 			

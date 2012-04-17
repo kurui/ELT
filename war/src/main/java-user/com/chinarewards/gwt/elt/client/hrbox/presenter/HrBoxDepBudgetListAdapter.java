@@ -64,6 +64,7 @@ public class HrBoxDepBudgetListAdapter extends BaseDataProvider<DepBudgetVo> {
 						updateRowCount(response.getTotal(), true);
 						if(response.getTotal()==0)
 							display.setMess("当前没有部门超支");
+						    display.setVisible();
 					}
 
 				});

@@ -442,17 +442,19 @@ public class RewardGridLogicImpl implements RewardGridLogic {
 				rewardGridVo.setAwardName(reward.getCreatedBy().getStaff()
 						.getName());// 颁奖人
 
-				if (RewardStatus.NEW.equals(reward.getStatus())
-						|| RewardStatus.PENDING_NOMINATE.equals(reward
-								.getStatus())
-						|| RewardStatus.PENDING_APPLICATION.equals(reward
-								.getStatus())) {
-					rewardGridVo.setRewardStatusName("努力冲奖项");
-				} else if (RewardStatus.REWARDED.equals(reward.getStatus())) {
-					rewardGridVo.setRewardStatusName("已获得奖项");
-				} else {
-					rewardGridVo.setRewardStatusName(reward.getStatus().name());
-				}
+//				if (RewardStatus.NEW.equals(reward.getStatus())
+//						|| RewardStatus.PENDING_NOMINATE.equals(reward
+//								.getStatus())
+//						|| RewardStatus.PENDING_APPLICATION.equals(reward
+//								.getStatus())) {
+//					rewardGridVo.setRewardStatusName("努力冲奖项");
+//				} else if (RewardStatus.REWARDED.equals(reward.getStatus())) {
+//					rewardGridVo.setRewardStatusName("已获得奖项");
+//				} else {
+//					rewardGridVo.setRewardStatusName(reward.getStatus().name());
+//				}
+				
+				rewardGridVo.setRewardStatusName(reward.getStatus().getDisplayName());
 
 				// 提名人
 				List<NomineeLot> nomineeLots = nomineeLogic

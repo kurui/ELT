@@ -1,0 +1,30 @@
+@CHARSET "UTF-8";
+
+@external .button-search,.button-reset,.button-add,.button-delpe,.button-ok,.button-back,.button-modp,.button-mod,.soso,.select;
+	
+@sprite .button-search{ padding-left:10px;gwt-image:"button_search"; border:1px solid #9eb5c2; background-color:#e4f6ff; font-size:12px; color:#123b5e; width:70px; height:22px; line-height:22px; cursor:pointer}
+@sprite .button-reset{ padding-left:10px;gwt-image:"button_reset"; border:1px solid #9eb5c2; background-color:#e4f6ff; font-size:12px; color:#123b5e; width:70px; height:22px; line-height:22px; cursor:pointer}
+@sprite .button-delpe{ padding-left:10px;gwt-image:"button_delpe"; border:1px solid #9eb5c2; background-color:#e4f6ff; font-size:12px; color:#123b5e; width:70px; height:22px; line-height:22px; cursor:pointer}
+@sprite .button-add{ padding-left:10px;gwt-image:"button_add"; border:1px solid #9eb5c2; background-color:#e4f6ff; font-size:12px; color:#123b5e; width:70px; height:22px; line-height:22px; cursor:pointer}
+@sprite .button-back{ padding-left:10px;gwt-image:"button_back"; border:1px solid #9eb5c2; background-color:#e4f6ff; font-size:12px; color:#123b5e; width:60px; height:22px; line-height:22px; cursor:pointer}
+@sprite .button-ok{ padding-left:10px;gwt-image:"button_ok"; border:1px solid #9eb5c2; background-color:#e4f6ff; font-size:12px; color:#123b5e; width:60px; height:22px; line-height:22px; cursor:pointer}
+@sprite .button-mod{ padding-left:10px;gwt-image:"button_mod"; border:1px solid #9eb5c2; background-color:#e4f6ff; font-size:12px; color:#123b5e; width:60px; height:22px; line-height:22px; cursor:pointer}
+/*员工信息导入*/
+@sprite .button-modp{ padding-left:10px;gwt-image:"button_mod"; border:1px solid #9eb5c2; background-color:#e4f6ff; font-size:12px; color:#123b5e; width:100px; height:22px; line-height:22px; cursor:pointer}
+@sprite .soso{ border:1px solid #b4c6d0; gwt-image:"input_bg"; line-height:18px; height:20px; width:300px;}
+@sprite .select{ border:1px solid #b4c6d0; gwt-image:"input_bg"; line-height:18px; height:22px; width:100px;}
+@sprite #post{ width:97%; height:36px; padding:10px 0px 0px 0px; border:1px solid #ccccff; margin:0 auto; gwt-image:"post_bg"; margin-bottom:5px;}
+.listtable{width:97%; margin:5px auto 0 auto;}
+ sprite div.post{ width:428px; height:26px; border-top:1px solid #9bb1be; padding:10px;gwt-image:"post_bg"; }
+.fmtable{ width:97%; margin:5px auto; border:1px solid #ccccff; background-color:#f4f6f9;}
+.fmtable td{color:#444; height:25px; padding:4px 0px; font-size:12px;}
+.fmtable td.title{ text-align:right; margin-right:5px; }
+.fmtable td.intext{ text-align:left;}
+.fmtable td.caozuo{ text-align:center;}
+.fmtable td.caozuo input{ margin-right:5px;}
+#post button{ margin-left:15px;}
+.post button{ margin-left:15px;}
+#radioTd input{width:12px;}
+@sprite .top{ gwt-image:"trbg";}
+
+

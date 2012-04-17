@@ -15,6 +15,8 @@ import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.staffAdd.request.StaffAddRequest;
 import com.chinarewards.gwt.elt.client.staffAdd.request.StaffAddResponse;
+import com.chinarewards.gwt.elt.client.staffAdd.request.StaffVaildRequest;
+import com.chinarewards.gwt.elt.client.staffAdd.request.StaffVaildResponse;
 import com.chinarewards.gwt.elt.client.staffList.model.StaffListCriteria.StaffStatus;
 import com.chinarewards.gwt.elt.client.staffList.plugin.StaffListConstants;
 import com.chinarewards.gwt.elt.client.staffView.request.StaffViewRequest;
@@ -25,6 +27,8 @@ import com.chinarewards.gwt.elt.client.view.constant.CssStyleConstants;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.chinarewards.gwt.elt.util.XmlUtil_GWT;
+import com.google.gwt.event.dom.client.BlurEvent;
+import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -44,6 +48,8 @@ public class StaffAddPresenterImpl extends
 	final ErrorHandler errorHandler;
 	String staffId = null;
 	private final BreadCrumbsPresenter breadCrumbs;
+	private boolean falNo;
+	private boolean falEmail;
 	String imageCss=display.getDob().getElement().getParentElement().getParentElement().getClassName();
 	@Inject
 	public StaffAddPresenterImpl(EventBus eventBus, StaffAddDisplay display,
@@ -78,7 +84,12 @@ public class StaffAddPresenterImpl extends
 
 					@Override
 					public void onClick(ClickEvent event) {
-						if(StringUtil.isEmpty(display.getStaffName()))
+						 if(StringUtil.isEmpty(display.getStaffNo()))
+						{
+							win.alert("请填写员工编号!");
+							return;
+						}
+						else if(StringUtil.isEmpty(display.getStaffName()))
 						{
 							win.alert("请填写员工姓名!");
 							return;
@@ -93,7 +104,16 @@ public class StaffAddPresenterImpl extends
 							win.alert("Email格式不正确,请重新填写Email!");
 							return;
 						}
-						
+						else if(!falNo)
+						{
+							win.alert("员工编号重复,请重新填写编号!");
+							return;
+						}
+						else if(!falEmail)
+						{
+							win.alert("员工邮箱重复,请重新填写邮箱!");
+							return;
+						}
 						StaffAddRequest request = new StaffAddRequest();
 						if (staffId != null)
 							request.setStaffId(staffId);
@@ -208,7 +228,79 @@ public class StaffAddPresenterImpl extends
 		}
 		
 		
-
+		// 验证员工编号
+		registerHandler(display.getStaffNoTextBox().addBlurHandler(new BlurHandler() {
+			
+			@Override
+			public void onBlur(BlurEvent event) {
+				if(!StringUtil.isEmpty(display.getStaffNoTextBox().getValue()))
+				{
+					StaffVaildRequest request=new StaffVaildRequest();
+					request.setStaffNo(display.getStaffNoTextBox().getValue());
+					dispatch.execute(request,
+							new AsyncCallback<StaffVaildResponse>() {
+	
+								@Override
+								public void onFailure(Throwable t) {
+									win.alert(t.getMessage());
+								}
+	
+								@Override
+								public void onSuccess(StaffVaildResponse resp) {
+									if(!resp.isFal())
+									{
+									     display.setStaffNoMessage("员工编号重复!");
+									     falNo=false;
+									}
+									else
+									{
+										  display.setStaffNoMessage("");
+										  falNo=true;
+									}
+									
+								}
+							});
+				}
+				
+			}
+		}));
+		// 验证员工邮箱
+		registerHandler(display.getStaffEmailTextBox().addBlurHandler(new BlurHandler() {
+			
+			@Override
+			public void onBlur(BlurEvent event) {
+				if(!StringUtil.isEmpty(display.getStaffEmailTextBox().getValue()) && StringUtil.isValidEmail(display.getEmail()))
+				{
+					StaffVaildRequest request=new StaffVaildRequest();
+					request.setStaffEmail(display.getStaffEmailTextBox().getValue().substring(0,display.getStaffEmailTextBox().getValue().indexOf("@")+1));
+					dispatch.execute(request,
+							new AsyncCallback<StaffVaildResponse>() {
+	
+								@Override
+								public void onFailure(Throwable t) {
+									win.alert(t.getMessage());
+								}
+	
+								@Override
+								public void onSuccess(StaffVaildResponse resp) {
+									if(!resp.isFal())
+									{
+									     display.setStaffEmailMessage("员工邮箱重复!");
+									    falEmail=false;
+									}
+									else
+									{
+										 display.setStaffEmailMessage("");
+										 falEmail=true;
+									}
+									
+								}
+							});
+				}
+				
+			}
+		}));
+		
 		// 浏览即上传事件
 		registerHandler(display.getPhotoUpload().addChangeHandler(
 				new ChangeHandler() {

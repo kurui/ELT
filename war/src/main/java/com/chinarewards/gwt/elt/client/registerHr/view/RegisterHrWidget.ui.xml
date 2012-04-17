@@ -22,7 +22,7 @@
 					<div class="{new2.form-line}">
 						<label class="{new2.label}">账号：</label>
 						<div class="{new2.element}">
-							<g:TextBox maxLength="10" ui:field="username"
+							<g:TextBox maxLength="20" ui:field="username"
 								styleName="{new2.text}" />
 						</div>
 					</div>
@@ -50,7 +50,7 @@
 					<div class="{new2.form-line}">
 						<label class="{new2.label}">联系电话：</label>
 						<div class="{new2.element}">
-							<g:TextBox maxLength="11" ui:field="tell" styleName="{new2.text}" />
+							<g:TextBox maxLength="30" ui:field="tell" styleName="{new2.text}" />
 						</div>
 					</div>
 					<div class="{new2.form-line}">

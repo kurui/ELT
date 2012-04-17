@@ -1,6 +1,7 @@
 package com.chinarewards.gwt.elt.client.staffList.dialog;
 
 import com.chinarewards.gwt.elt.client.core.ui.impl.AbstractDialog;
+import com.chinarewards.gwt.elt.client.staffList.model.StaffListCriteria;
 import com.chinarewards.gwt.elt.client.staffList.presenter.StaffListPrintPresenter;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
@@ -24,7 +25,7 @@ public class StaffListPrintDialog extends AbstractDialog {
 	}
 
 	public void init() {
-		setTitle("全部员工帐号");
+		setTitle("帐号资料");
 		presenter.bind();
 	}
 
@@ -38,6 +39,10 @@ public class StaffListPrintDialog extends AbstractDialog {
 		presenter.unbind();
 		return true;
 	}
+	public void initPrintQuery(StaffListCriteria criteria) {
+		presenter.initPrintQuery(criteria);
+	}
+	
 //
 //	public void initChooseList(InitChooseListParam initChooseListParam) {
 //		presenter.initChooseList(initChooseListParam);

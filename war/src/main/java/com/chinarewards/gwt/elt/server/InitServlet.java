@@ -125,4 +125,7 @@ public class InitServlet extends HttpServlet {
 			logger.error("Auto run SendNominatorToMessage,", e);
 		}
 	}
+
+
+
 }

@@ -63,7 +63,7 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .form .text{height:22px;width:200px;border:1px solid #CCCCCC;line-height:22px}
 .form .text2{height:22px;width:150px;border:1px solid #CCCCCC;line-height:22px;}
 
-.form .text-disable{height:22px;width:200px;border:1px solid #CCCCCC;border-color: #CCCCCC;background: #E9E9E9 }
+.form .text-disable{height:22px;width:200px;border:1px solid #CCCCCC;background: #E9E9E9 }
 
 .form .long-text{width:371px;}
 .form .textarea{width:420px;height:50px;border:1px solid #CCCCCC;}

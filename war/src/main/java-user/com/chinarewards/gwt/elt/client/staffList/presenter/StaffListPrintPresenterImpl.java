@@ -40,7 +40,7 @@ public class StaffListPrintPresenterImpl extends
 	EltNewPager pager;
 	ListCellTable<StaffListClient> cellTable;
 	StaffListPrintAdapter listViewAdapter;
-
+	StaffListCriteria criteria = new StaffListCriteria();
 
 	@Inject
 	public StaffListPrintPresenterImpl(EventBus eventBus,
@@ -89,7 +89,7 @@ public class StaffListPrintPresenterImpl extends
 	}
 
 	private void doSearch() {
-		StaffListCriteria criteria = new StaffListCriteria();
+		
 
 		listViewAdapter = new StaffListPrintAdapter(dispatch, criteria,
 				errorHandler, sessionManager,display);
@@ -188,5 +188,11 @@ public class StaffListPrintPresenterImpl extends
 						}
 					});
 	   }
+
+	@Override
+	public void initPrintQuery(StaffListCriteria criteria) {
+		this.criteria=criteria;
+		
+	}
 
 }

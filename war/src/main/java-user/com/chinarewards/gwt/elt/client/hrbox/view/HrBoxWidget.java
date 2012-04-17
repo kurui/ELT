@@ -23,7 +23,8 @@ public class HrBoxWidget extends Composite implements	HrBoxDisplay {
 	Panel resultPanel;
 	@UiField
 	Panel resultpage;	
-	
+	@UiField
+	InlineLabel pageText;
 	@UiField
 	InlineLabel send;
 	@UiField
@@ -128,5 +129,11 @@ public class HrBoxWidget extends Composite implements	HrBoxDisplay {
 	@Override
 	public ListBox getPageNumber() {
 		return pageNumber;
+	}
+	public void setVisible(){
+		this.pageText.setVisible(false);
+		this.resultpage.setVisible(false);
+		this.resultPanel.setVisible(false);
+		this.pageNumber.setVisible(false);
 	}
 }
