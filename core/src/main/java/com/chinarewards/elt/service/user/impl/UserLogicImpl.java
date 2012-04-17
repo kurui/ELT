@@ -351,8 +351,8 @@ public class UserLogicImpl implements UserLogic {
 	}
 
 	@Override
-	public boolean vaildStaffNo(String staffNo) {
-		List<Staff> list=staffDao.findStaffsByStaffNo(staffNo);
+	public boolean vaildStaffNo(String staffNo,String nowStaffId) {
+		List<Staff> list=staffDao.findStaffsByStaffNo(staffNo,nowStaffId);
 		if(list!=null && list.size()>0)
 		{
 			return false;
@@ -365,8 +365,8 @@ public class UserLogicImpl implements UserLogic {
 	}
 
 	@Override
-	public boolean vaildStaffEmail(String staffEmail) {
-		List<Staff> list=staffDao.findStaffsByEmail(staffEmail);
+	public boolean vaildStaffEmail(String staffEmail,String nowStaffId) {
+		List<Staff> list=staffDao.findStaffsByEmail(staffEmail,nowStaffId);
 		if(list!=null && list.size()>0)
 		{
 			return false;

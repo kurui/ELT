@@ -86,12 +86,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean vaildStaffNo(String staffNo) {
-		return userLogic.vaildStaffNo(staffNo);
+	public boolean vaildStaffNo(String staffNo,String nowStaffId) {
+		return userLogic.vaildStaffNo(staffNo,nowStaffId);
 	}
 
 	@Override
-	public boolean vaildStaffEmail(String staffEmail) {
-		return userLogic.vaildStaffEmail(staffEmail);
+	public boolean vaildStaffEmail(String staffEmail,String nowStaffId) {
+		return userLogic.vaildStaffEmail(staffEmail,nowStaffId);
 	}
 }

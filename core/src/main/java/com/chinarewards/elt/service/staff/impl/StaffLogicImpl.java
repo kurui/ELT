@@ -426,12 +426,12 @@ public class StaffLogicImpl implements StaffLogic {
 			ff = new Staff();
 			
 			//验证编号
-			if(StringUtil.isEmptyString(staff.getStaffNo()) || !userLogic.vaildStaffNo(staff.getStaffNo()))
+			if(StringUtil.isEmptyString(staff.getStaffNo()) || !userLogic.vaildStaffNo(staff.getStaffNo(),null))
 			{
 				return "ERROR";
 			}
 			//验证邮箱
-			if(StringUtil.isEmptyString(staff.getStaffNo()) || !userLogic.vaildStaffEmail(staff.getEmail().substring(0,staff.getEmail().indexOf("@")+1)))
+			if(StringUtil.isEmptyString(staff.getStaffNo()) || !userLogic.vaildStaffEmail(staff.getEmail().substring(0,staff.getEmail().indexOf("@")+1),null))
 			{
 				return "ERROR";
 			}
