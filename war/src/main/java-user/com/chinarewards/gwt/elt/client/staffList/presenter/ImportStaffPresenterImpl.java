@@ -909,6 +909,9 @@ public class ImportStaffPresenterImpl extends
 		listBox.addItem("邮箱", "email");
 		listBox.addItem("电话", "phone");
 		listBox.addItem("生日", "dob");
+		listBox.addItem("部门", "department");
+		listBox.addItem("职位", "jobPosition");
+		listBox.addItem("直属领导", "leadership");
 
 		listBox.addChangeHandler(staffColumnListBoxChangeHandler);
 		listBox.setEnabled(false);
