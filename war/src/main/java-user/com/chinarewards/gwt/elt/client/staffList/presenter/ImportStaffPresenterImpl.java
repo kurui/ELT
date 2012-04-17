@@ -35,6 +35,7 @@ import com.chinarewards.gwt.elt.client.widget.Sorting;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.client.win.confirm.ConfirmHandler;
 import com.chinarewards.gwt.elt.util.StringUtil;
+import com.google.gwt.cell.client.CheckboxCell;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
@@ -59,7 +60,7 @@ public class ImportStaffPresenterImpl extends
 		BaseDialogPresenter<ImportStaffPresenter.ImportStaffDisplay> implements
 		ImportStaffPresenter {
 
-	private final static int TITLE_INSTRUCTION_DISPLAY_ROW = 6;
+//	private final static int TITLE_INSTRUCTION_DISPLAY_ROW = 6;
 	private final static int TITLE_INSTRUCTION_DISPLAY_COL = 8;
 	private final static int CONTENT_INSTRUCTION_DISPLAY_COL = 8;
 	private final static int CONTENT_INSTRUCTION_DISPLAY_ROW = 11;
@@ -465,44 +466,45 @@ public class ImportStaffPresenterImpl extends
 	private void refreshPanelStep2() {
 		display.getHasTitleValue().setValue(isHavingTitle);
 		display.getNoHasTitleValue().setValue(!isHavingTitle);
-		int recordNum = rowNum;
-		if (isHavingTitle) {
-			recordNum = rowNum - 1;
-		}
-		display.getTotalStaff().setHTML("这个档案共有<b>" + recordNum + "</b>条记录:");
-
-		display.getTitlePreviewPanel().clear();
-
-		if (getInstructionStaffNum() > 0) {
-			int displayRows = TITLE_INSTRUCTION_DISPLAY_ROW > getInstructionStaffNum() ? getInstructionStaffNum()
-					: TITLE_INSTRUCTION_DISPLAY_ROW;
-			int displayColumns = TITLE_INSTRUCTION_DISPLAY_COL > xlsContent
-					.get(0).size() ? xlsContent.get(0).size()
-					: TITLE_INSTRUCTION_DISPLAY_COL;
-
-			// Create a table to layout the form options
-			FlexTable layout = new FlexTable();
-			layout.setCellSpacing(0);
-			layout.setBorderWidth(1);
-
-			for (int i = 0; i < displayRows; i++) {
-				List<String> titleContentRow = xlsContent.get(i);
-				for (int j = 0; j < titleContentRow.size(); j++) {
-					if (j < displayColumns) {
-						// Add cell content here
-						if (titleContentRow.get(j) == null
-								|| titleContentRow.get(j).trim().equals("")) {
-							layout.setHTML(i, j, "&nbsp;");
-						} else {
-							layout.setText(i, j, titleContentRow.get(j));
-						}
-					}
-				}
-			}
-
-			display.getTitlePreviewPanel().setWidget(layout);
-			initTable();
-		}
+		initTable();
+//		int recordNum = rowNum;
+//		if (isHavingTitle) {
+//			recordNum = rowNum - 1;
+//		}
+//		display.getTotalStaff().setHTML("这个档案共有<b>" + recordNum + "</b>条记录:");
+//
+//		display.getTitlePreviewPanel().clear();
+//
+//		if (getInstructionStaffNum() > 0) {
+//			int displayRows = TITLE_INSTRUCTION_DISPLAY_ROW > getInstructionStaffNum() ? getInstructionStaffNum()
+//					: TITLE_INSTRUCTION_DISPLAY_ROW;
+//			int displayColumns = TITLE_INSTRUCTION_DISPLAY_COL > xlsContent
+//					.get(0).size() ? xlsContent.get(0).size()
+//					: TITLE_INSTRUCTION_DISPLAY_COL;
+//
+//			// Create a table to layout the form options
+//			FlexTable layout = new FlexTable();
+//			layout.setCellSpacing(0);
+//			layout.setBorderWidth(1);
+//
+//			for (int i = 0; i < displayRows; i++) {
+//				List<String> titleContentRow = xlsContent.get(i);
+//				for (int j = 0; j < titleContentRow.size(); j++) {
+//					if (j < displayColumns) {
+//						// Add cell content here
+//						if (titleContentRow.get(j) == null
+//								|| titleContentRow.get(j).trim().equals("")) {
+//							layout.setHTML(i, j, "&nbsp;");
+//						} else {
+//							layout.setText(i, j, titleContentRow.get(j));
+//						}
+//					}
+//				}
+//			}
+//
+//			display.getTitlePreviewPanel().setWidget(layout);
+//			initTable();
+//		}
 	}
 
 	private void refreshPanelStep3() {
@@ -1299,7 +1301,13 @@ public class ImportStaffPresenterImpl extends
 
 			}
 		};
-
+		cellTable.addColumn("选择", new CheckboxCell(),
+				new GetValue<ImportStaffListClient, Boolean>() {
+					@Override
+					public Boolean getValue(ImportStaffListClient staff) {
+						return true;
+					}
+				});
 		cellTable.addColumn("员工编号", new TextCell(),
 				new GetValue<ImportStaffListClient, String>() {
 					@Override

@@ -135,8 +135,9 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .fmdiv {
     background-color: #FFFFFF;
     border: 1px solid #9BB1BE;
-    width: 870px;
-
+    max-height: 500px;
+    overflow: auto;
+    width: 885px;
 
 }
 .setDetail{ width:99%; margin:15px auto; position:relative}

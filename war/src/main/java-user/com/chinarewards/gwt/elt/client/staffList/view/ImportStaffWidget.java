@@ -20,7 +20,6 @@ import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -38,10 +37,7 @@ public class ImportStaffWidget extends Composite implements ImportStaffDisplay {
 	public ImportStaffWidget() {
 		initWidget(uiBinder.createAndBindUi(this));
 		init();
-		pageNumber.clear();
-		pageNumber.addItem("10","10");
-		pageNumber.addItem("20","20");
-		pageNumber.addItem("50","50");
+
 	}
 
 
@@ -166,12 +162,10 @@ public class ImportStaffWidget extends Composite implements ImportStaffDisplay {
 	VerticalPanel contentPanel;
 	@UiField
 	Panel resultPanel;
-	@UiField
-	Panel resultpage;
+
 	@UiField
 	InlineLabel dataCount;
-	@UiField
-	ListBox pageNumber;
+
 	@Override
 	public void init() {
 
@@ -554,14 +548,7 @@ public class ImportStaffWidget extends Composite implements ImportStaffDisplay {
 		return this.resultPanel;
 	}
 
-	@Override
-	public Panel getResultpage() {
-		return this.resultpage;
-	}
-	@Override
-	public ListBox getPageNumber() {
-		return pageNumber;
-	}
+
 
 	@Override
 	public void setDataCount(String text) {
