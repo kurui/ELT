@@ -1,4 +1,4 @@
-package com.chinarewards.gwt.elt.sevlet;
+package com.chinarewards.gwt.elt.server.order;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -12,35 +12,33 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import jxl.Workbook;
-import jxl.format.Alignment;
-import jxl.format.VerticalAlignment;
 import jxl.write.Label;
-import jxl.write.WritableCellFormat;
-import jxl.write.WritableFont;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
-import jxl.write.WriteException;
 
-import com.chinarewards.elt.common.LogicContext;
-import com.chinarewards.elt.common.UserContextProvider;
-import com.chinarewards.elt.model.staff.StaffSearchCriteria;
-import com.chinarewards.elt.model.staff.StaffStatus;
+import com.chinarewards.elt.model.common.PageStore;
+import com.chinarewards.elt.model.gift.search.GiftListVo;
+import com.chinarewards.elt.model.order.search.OrderListVo;
+import com.chinarewards.elt.model.order.search.OrderStatus;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.user.UserRole;
+import com.chinarewards.elt.service.order.OrderService;
 import com.chinarewards.elt.service.staff.IStaffService;
-import com.chinarewards.gwt.elt.model.user.UserRoleVo;
-import com.chinarewards.gwt.elt.sevlet.ServiceLocatorUtil;
-import com.chinarewards.gwt.elt.util.UserRoleTool;
+
+
 import com.google.inject.Inject;
 
 /**
- * @author yanrui
+ * @author lw
  * 
  * */
-public class ExcelServlet extends HttpServlet {
+public class OrderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
 	@Inject
-   IStaffService staffService;
+	IStaffService staffService;
+	@Inject
+    OrderService orderService;
 	public void init() throws ServletException {
 	}
 
@@ -49,33 +47,26 @@ public class ExcelServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
 		
 		String name = request.getParameter("name");
-		String staffStatus = request.getParameter("staffStatus");
-		String role = request.getParameter("role");
-		String departmentId = request.getParameter("departmentId");
-		StaffSearchCriteria criteria=new StaffSearchCriteria();
+		String status = request.getParameter("status");
+		String staffid = request.getParameter("staffid");
+		String source = request.getParameter("source");
+		OrderListVo orderVo = new OrderListVo();
+		GiftListVo giftVo = new GiftListVo();
 		if(name !=null)
-		criteria.setStaffNameorNo(name);
-		if(staffStatus !=null)
-		criteria.setStaffStatus(StaffStatus.valueOf(staffStatus));
-		if(role !=null&&!role.equals(""))
-		criteria.setStaffRole(UserRole.valueOf(role));
-		if(departmentId !=null)
-		criteria.setDepartmentId(departmentId);
-		if(request.getParameter("email") !=null)
-		criteria.setStaffEmail(request.getParameter("email"));
+			orderVo.setName(name);
+		if(status !=null)
+			orderVo.setStatus(OrderStatus.valueOf(status));
+		
+		if(source !=null)
+			giftVo.setSource(source);
+			
+		orderVo.setGiftvo(giftVo);
+		orderVo.setDeleted(0);
 		UserContext context=new UserContext();
-		if(request.getParameter("corpid") !=null)
-		context.setCorporationId(request.getParameter("corpid"));
-		
-		String userRole = request.getParameter("userRole");
-		if(userRole !=null){
-		
-		List<UserRole> cli = new ArrayList<UserRole>();
-		cli.add(UserRole.valueOf(userRole));
-		UserRole[] userRoles = cli.toArray(new UserRole[0]);
+		List<UserRole> roles = staffService.findUserRoles(staffid);
+		UserRole[] userRoles = roles.toArray(new UserRole[0]);
 		context.setUserRoles(userRoles);
-		}
-	
+		context.setUserId(request.getParameter("userid"));
 		WritableWorkbook workbook = null;
 		WritableSheet sheet = null;
 		Label label = null;
@@ -86,7 +77,7 @@ public class ExcelServlet extends HttpServlet {
 		//workbook = Workbook.createWorkbook(new File("e:/output.xls"));
 			Date date = new Date();
 			java.text.SimpleDateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd");
-			String filename = "Staff";//format.format(date.getTime())+"-"+Math.round((Math.random()*1000));
+			String filename = "Orders";//format.format(date.getTime())+"-"+Math.round((Math.random()*1000));
 			OutputStream os=response.getOutputStream();//获取输出流
    			response.reset();
    			response.setHeader("Content-disposition", "attachment; filename=" + filename + ".xls");//设定输出文件头
@@ -100,8 +91,8 @@ public class ExcelServlet extends HttpServlet {
 		   sheet.setColumnView(3, 20);
 		   sheet.setColumnView(4, 20);
 		   ArrayList labels = new ArrayList();
-		   labels.add("员工编号");labels.add("姓名");  labels.add("邮箱"); labels.add("电话");labels.add("生日");	
-		   labels.add("部门"); labels.add("职位"); labels.add("直属领导");
+		   labels.add("订单编号");labels.add("礼品名称");  labels.add("数量"); labels.add("积分");labels.add("兑换日期");labels.add("来源");	
+		 
 		 			   	   
 ////		// 添加标题
 		for (int i = 0; i < labels.size(); i++) {
@@ -112,8 +103,27 @@ public class ExcelServlet extends HttpServlet {
 		sheet.addCell(label);
 		}
 		//System.out.println("写入标题成功");
-	if(request.getParameter("content").equals("true")){//是否要内容
-		List list = staffService.queryStaffListExport(criteria, context);
+	
+		PageStore<OrderListVo> orderList = orderService.OrderList(context,orderVo );
+		
+		List<OrderListVo> orderlist = orderList.getResultList();
+		List list = new ArrayList();
+		if(orderlist.size()>0){
+			for(int a=0;a<orderlist.size();a++){//加入要导出的字段
+				List lista = new ArrayList();
+				OrderListVo ordervo = orderlist.get(a);
+				lista.add(ordervo.getOrderCode());
+				lista.add(ordervo.getName());
+				lista.add(ordervo.getAmount());
+				lista.add(ordervo.getIntegral());
+				lista.add(ordervo.getExchangeDate());
+				if(ordervo.getGiftvo().getSource().equals("outter"))
+				    lista.add("外部公司提供");
+				else
+					lista.add("内部直接提供");
+				list.add(lista);
+			}
+		}
 		if(list.size()>0)
 		for (int i = 0; i < list.size(); i++){
 			List lista =(List) list.get(i);
@@ -127,7 +137,7 @@ public class ExcelServlet extends HttpServlet {
 			     sheet.addCell(label);
 			}
 		 }
-		}
+	
 		//System.out.println("写入内容成功");
 		
 		// 关闭文件

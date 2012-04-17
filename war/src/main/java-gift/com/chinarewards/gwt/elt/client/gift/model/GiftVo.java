@@ -22,6 +22,15 @@ public class GiftVo implements Serializable {
 	private String brand;// 品牌
 	private String photo; // 图片
 	private String source; //  供货方式
+	private String price;//进货价格
+	public String getPrice() {
+		return price;
+	}
+
+	public void setPrice(String price) {
+		this.price = price;
+	}
+
 	private int integral; // 积分
 	private int stock; // 库存
 	private String business; // 供应商名称

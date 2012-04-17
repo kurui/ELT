@@ -8,7 +8,11 @@ import org.slf4j.LoggerFactory;
 import com.chinarewards.elt.guice.EltModule;
 import com.chinarewards.gwt.elt.client.Elt;
 import com.chinarewards.gwt.elt.server.login.LoginServiceImpl;
+<<<<<<< HEAD
 import com.chinarewards.gwt.elt.servlet.ExportGiftServlet;
+=======
+import com.chinarewards.gwt.elt.server.order.OrderServlet;
+>>>>>>> refs/remotes/origin/1.5.2
 import com.chinarewards.gwt.elt.sevlet.ExcelServlet;
 import com.chinarewards.gwt.elt.sevlet.ImportStaffServlet;
 import com.google.inject.Singleton;
@@ -43,9 +47,14 @@ public class EltServletModule extends ServletModule {
 		bind(ExcelServlet.class).in(Singleton.class);
 		serve(Elt.GWT_MODULE_PATH +"/servlet.export").with(ExcelServlet.class);
 		
+<<<<<<< HEAD
 		bind(ExportGiftServlet.class).in(Singleton.class);
 		serve(Elt.GWT_MODULE_PATH +"/servlet.exportGift").with(ExportGiftServlet.class);
 		
+=======
+		bind(OrderServlet.class).in(Singleton.class);
+		serve(Elt.GWT_MODULE_PATH +"/orderServlet.export").with(OrderServlet.class);
+>>>>>>> refs/remotes/origin/1.5.2
 		install(new EltModule());
 
 		logger.info("Configuring servlet modules completed.");

@@ -345,7 +345,7 @@ public class StaffLogicImpl implements StaffLogic {
 		return staffDao.queryStaffPageAction(searchVo);
 	}
 	
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public List queryStaffListExport(StaffSearchCriteria criteria, UserContext context) {
 		StaffSearchVo searchVo = new StaffSearchVo();
@@ -410,7 +410,13 @@ public class StaffLogicImpl implements StaffLogic {
 			list.add(staff.getName());
 			list.add(staff.getEmail());
 			list.add(staff.getPhone());
-			list.add(staff.getDob());
+			String date="";
+			if(staff.getDob()!=null)
+			 date= DateUtil.formatData("yyyy-MM-dd",staff.getDob());
+			list.add(date);
+			list.add(staff.getDepartment().getName());
+			list.add(staff.getJobPosition());
+			list.add(staff.getLeadership());
 			lists.add(list);
 			
 		}

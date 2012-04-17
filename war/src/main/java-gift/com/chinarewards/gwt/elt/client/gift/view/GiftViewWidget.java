@@ -44,7 +44,8 @@ public class GiftViewWidget extends Composite implements GiftViewDisplay {
 	Label integral;
 	@UiField
 	Label stock;
-
+	@UiField
+	Label price;
 	@UiField
 	Label business;
 	@UiField
@@ -127,7 +128,7 @@ public class GiftViewWidget extends Composite implements GiftViewDisplay {
 
 		integral.setText(giftVo.getIntegral() + "");
 		stock.setText(giftVo.getStock() + "");
-
+        price.setText(giftVo.getPrice());
 		source.setText(giftVo.getSourceText());
 
 		business.setText(giftVo.getBusiness());
