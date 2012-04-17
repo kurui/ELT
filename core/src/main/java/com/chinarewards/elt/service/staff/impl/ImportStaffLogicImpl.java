@@ -881,4 +881,18 @@ public class ImportStaffLogicImpl implements ImportStaffLogic {
 	public PageStore<ImportStaffRaw> findImportStaffList(ImportStaffSearchVo searchVo) {
 		return importStaffRawDao.queryImportStaffPageAction(searchVo);
 	}
+
+
+	@Override
+	public boolean updateImportfal(String rawId, int importfal) {
+		try {
+			ImportStaffRaw raw=importStaffRawDao.findById(ImportStaffRaw.class, rawId);
+			raw.setImportfal(importfal);
+			importStaffRawDao.update(raw);
+		} catch (Exception e) {
+			return false;
+		}
+	
+		return false;
+	}
 }

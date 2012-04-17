@@ -97,4 +97,12 @@ public interface ImportStaffLogic {
 	 * @return
 	 */
 	public PageStore<ImportStaffRaw> findImportStaffList(ImportStaffSearchVo searchVo);
+	
+	/**
+	 * 修改预导入数据的标志
+	 * @param rawId
+	 * @param importfal
+	 * @return
+	 */
+	public boolean updateImportfal(String rawId,int importfal);
 }

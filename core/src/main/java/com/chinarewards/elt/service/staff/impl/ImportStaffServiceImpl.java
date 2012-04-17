@@ -63,4 +63,9 @@ public class ImportStaffServiceImpl   implements ImportStaffService {
 		return importStaffLogic.findImportStaffList(searchVo);
 	}
 
+	@Override
+	public boolean updateImportfal(String rawId, int importfal) {
+		return importStaffLogic.updateImportfal(rawId, importfal);
+	}
+
 }

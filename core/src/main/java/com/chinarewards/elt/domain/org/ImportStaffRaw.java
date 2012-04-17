@@ -79,9 +79,22 @@ public class ImportStaffRaw implements Serializable {
 	 */
 	@Enumerated(EnumType.STRING)
 	private ImportStaffResultType result;
+	
 	private String jobPosition;
 	private String leadership;
+	/**
+	 * 预导入标志-默认0,--修改1为pass掉
+	 */
+	private Integer importfal;
 	
+	public Integer getImportfal() {
+		return importfal;
+	}
+
+	public void setImportfal(Integer importfal) {
+		this.importfal = importfal;
+	}
+
 	public String getJobPosition() {
 		return jobPosition;
 	}
