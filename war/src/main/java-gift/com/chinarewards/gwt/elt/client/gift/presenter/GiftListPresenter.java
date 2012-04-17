@@ -25,7 +25,7 @@ public interface GiftListPresenter extends
 
 		HasValue<String> getKeyName();
 
-		String getStatus();
+		ListBox getStatus();
 
 		Panel getResultPanel();
 

@@ -81,8 +81,8 @@ public class GiftListWidget extends Composite implements GiftListDisplay {
 	}
 
 	@Override
-	public String getStatus() {
-		return status.getValue(status.getSelectedIndex());
+	public ListBox getStatus() {
+		return status;
 	}
 
 	@Override

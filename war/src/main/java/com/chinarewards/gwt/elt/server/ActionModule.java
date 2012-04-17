@@ -41,7 +41,6 @@ import com.chinarewards.gwt.elt.client.enterprise.request.EnterpriseRequest;
 import com.chinarewards.gwt.elt.client.enterprise.request.SearchLicenseRequest;
 import com.chinarewards.gwt.elt.client.gift.request.DeleteGiftRequest;
 import com.chinarewards.gwt.elt.client.gift.request.EditGiftRequest;
-import com.chinarewards.gwt.elt.client.gift.request.ExportGiftRequest;
 import com.chinarewards.gwt.elt.client.gift.request.SearchGiftByIdRequest;
 import com.chinarewards.gwt.elt.client.gift.request.SearchGiftRequest;
 import com.chinarewards.gwt.elt.client.gift.request.UpdateGiftStatusRequest;
@@ -143,7 +142,6 @@ import com.chinarewards.gwt.elt.server.enterprise.EnterpriseInitActionHandler;
 import com.chinarewards.gwt.elt.server.enterprise.SearchLicenseHandler;
 import com.chinarewards.gwt.elt.server.gift.DeleteGiftHandler;
 import com.chinarewards.gwt.elt.server.gift.EditGiftHandler;
-import com.chinarewards.gwt.elt.server.gift.ExportGiftHandler;
 import com.chinarewards.gwt.elt.server.gift.SearchGiftByIdHandler;
 import com.chinarewards.gwt.elt.server.gift.SearchGiftHandler;
 import com.chinarewards.gwt.elt.server.gift.UpdateGiftStatusHandler;
@@ -309,7 +307,6 @@ public class ActionModule extends ActionHandlerModule {
 		
 		//礼品列表
 		bindHandler(SearchGiftRequest.class, SearchGiftHandler.class);	   
-		bindHandler(ExportGiftRequest.class, ExportGiftHandler.class);	   
 		
 		bindHandler(SearchGiftByIdRequest.class,SearchGiftByIdHandler.class);		
 		//礼品编辑

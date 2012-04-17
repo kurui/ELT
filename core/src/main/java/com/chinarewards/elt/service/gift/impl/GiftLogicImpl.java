@@ -130,8 +130,8 @@ public class GiftLogicImpl implements GiftLogic{
 	@Override
 	public List<GiftListVo> exportGiftList(SysUser caller, GiftListVo giftVo) {
 		
-		PageStore<Gift> pageStore = new PageStore<Gift>();
-		pageStore.setResultCount(giftDao.countGift(giftVo));
+//		PageStore<Gift> pageStore = new PageStore<Gift>();
+//		pageStore.setResultCount(giftDao.countGift(giftVo));
 		List<Gift> giftList = giftDao.giftList(giftVo);
 		List<GiftListVo> giftVoList = new ArrayList<GiftListVo>();
 		for (Gift gift : giftList) {
