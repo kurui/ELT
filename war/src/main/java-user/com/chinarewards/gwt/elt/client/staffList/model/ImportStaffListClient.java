@@ -18,6 +18,15 @@ public class ImportStaffListClient implements Serializable,
 	private String phone;
 	private String dob;
 	private String Leadership;
+	private Integer importfal;
+	
+	public Integer getImportfal() {
+		return importfal;
+	}
+
+	public void setImportfal(Integer importfal) {
+		this.importfal = importfal;
+	}
 
 	public String getId() {
 		return id;

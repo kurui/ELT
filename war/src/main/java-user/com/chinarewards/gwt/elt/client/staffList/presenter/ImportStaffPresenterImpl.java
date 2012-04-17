@@ -36,6 +36,7 @@ import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.client.win.confirm.ConfirmHandler;
 import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.cell.client.CheckboxCell;
+import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
@@ -1305,7 +1306,17 @@ public class ImportStaffPresenterImpl extends
 				new GetValue<ImportStaffListClient, Boolean>() {
 					@Override
 					public Boolean getValue(ImportStaffListClient staff) {
-						return true;
+						if(staff.getImportfal()!=null && staff.getImportfal()==1)
+							return false;
+						else
+							return true;
+					}
+				},new FieldUpdater<ImportStaffListClient, Boolean>() {
+					@Override
+					public void update(int index, ImportStaffListClient o,
+							Boolean value) {
+						Window.alert(o.getId()+"=="+value);
+						
 					}
 				});
 		cellTable.addColumn("员工编号", new TextCell(),
