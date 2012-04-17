@@ -177,6 +177,8 @@ public class StaffAddPresenterImpl extends
 		
 		if (staffId != null) {
 			// 修改加载数据
+			 falEmail=true;
+			 falNo=true;
 			dispatch.execute(new StaffViewRequest(staffId),
 					new AsyncCallback<StaffViewResponse>() {
 
@@ -237,6 +239,7 @@ public class StaffAddPresenterImpl extends
 				{
 					StaffVaildRequest request=new StaffVaildRequest();
 					request.setStaffNo(display.getStaffNoTextBox().getValue());
+					request.setNowStaffId(staffId);
 					dispatch.execute(request,
 							new AsyncCallback<StaffVaildResponse>() {
 	
@@ -273,6 +276,7 @@ public class StaffAddPresenterImpl extends
 				{
 					StaffVaildRequest request=new StaffVaildRequest();
 					request.setStaffEmail(display.getStaffEmailTextBox().getValue().substring(0,display.getStaffEmailTextBox().getValue().indexOf("@")+1));
+					request.setNowStaffId(staffId);
 					dispatch.execute(request,
 							new AsyncCallback<StaffVaildResponse>() {
 	

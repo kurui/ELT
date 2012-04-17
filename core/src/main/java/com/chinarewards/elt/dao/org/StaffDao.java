@@ -489,14 +489,22 @@ public class StaffDao extends BaseDao<Staff> {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Staff> findStaffsByStaffNo(String staffNo) {
-		return getEm().createQuery("FROM Staff s WHERE upper(s.jobNo) = upper(:staffNo) ")
+	public List<Staff> findStaffsByStaffNo(String staffNo,String nowStaffId) {
+		if(StringUtil.isEmptyString(nowStaffId))
+			return getEm().createQuery("FROM Staff s WHERE upper(s.jobNo) = upper(:staffNo) ")
 				.setParameter("staffNo", staffNo).getResultList();
+		else
+			return getEm().createQuery("FROM Staff s WHERE upper(s.jobNo) = upper(:staffNo) AND s.id !=:nowStaffId ")
+					.setParameter("staffNo", staffNo).setParameter("nowStaffId", nowStaffId).getResultList();	
 	}
 	@SuppressWarnings("unchecked")
-	public List<Staff> findStaffsByEmail(String staffEmail) {
-		return getEm().createQuery("FROM Staff s WHERE upper(s.email) like upper(:staffEmail) ")
+	public List<Staff> findStaffsByEmail(String staffEmail,String nowStaffId) {
+		if(StringUtil.isEmptyString(nowStaffId))
+			return getEm().createQuery("FROM Staff s WHERE upper(s.email) like upper(:staffEmail) ")
 				.setParameter("staffEmail", staffEmail+"%").getResultList();
+		else
+			return getEm().createQuery("FROM Staff s WHERE upper(s.email) like upper(:staffEmail) AND s.id !=:nowStaffId ")
+					.setParameter("staffEmail", staffEmail+"%").setParameter("nowStaffId", nowStaffId).getResultList();
 	}
 	
 	@SuppressWarnings("unchecked")

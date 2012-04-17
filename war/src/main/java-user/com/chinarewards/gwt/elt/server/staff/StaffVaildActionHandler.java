@@ -34,11 +34,11 @@ public class StaffVaildActionHandler extends
 		boolean fal=false;
 		if(!StringUtil.isEmpty(request.getStaffNo()))
 		{
-			fal=userService.vaildStaffNo(request.getStaffNo());
+			fal=userService.vaildStaffNo(request.getStaffNo(),request.getNowStaffId());
 		}
 		if(!StringUtil.isEmpty(request.getStaffEmail()))
 		{
-			fal=userService.vaildStaffEmail(request.getStaffEmail());
+			fal=userService.vaildStaffEmail(request.getStaffEmail(),request.getNowStaffId());
 		}
 		return new StaffVaildResponse(fal);
 	}
