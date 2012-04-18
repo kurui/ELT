@@ -72,7 +72,7 @@ public class ExportGiftServlet extends HttpServlet {
 			list.add(client.getName());
 			list.add(client.getSourceText());
 			list.add(client.getIntegral()+"");
-			list.add("采购价");
+			list.add(client.getPrice());
 			list.add(client.getInventory());
 			list.add(client.getStatus().getDisplayName());
 			

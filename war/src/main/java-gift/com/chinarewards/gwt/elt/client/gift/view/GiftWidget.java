@@ -196,6 +196,8 @@ public class GiftWidget extends Composite implements GiftDisplay {
 		initStatusSelect("SHELVES");
 		supplyinner.setValue(false);
 		supplyoutter.setValue(true);
+		
+		price.setValue("0");
 
 	}
 

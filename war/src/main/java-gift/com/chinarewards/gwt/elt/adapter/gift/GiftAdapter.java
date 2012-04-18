@@ -26,8 +26,10 @@ public class GiftAdapter {
 		result.setSource(gift.getSource());
 		result.setInventory(gift.getStock() + "");
 		result.setIntegral(gift.getIntegral());
+		result.setPrice(gift.getPrice());
 		result.setIndate(gift.getIndate());
 		result.setPhoto(gift.getPhoto());
+		
 
 		if (gift.getStatus() != null) {
 			result.setStatus(GiftStatus.valueOf(gift.getStatus().toString()));
