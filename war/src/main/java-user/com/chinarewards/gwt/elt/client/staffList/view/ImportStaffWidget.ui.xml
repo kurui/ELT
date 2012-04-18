@@ -106,7 +106,7 @@
 					<g:ListBox ui:field="pageNumber" styleName="{new2.select}" /> 
 				</div>
 
-				<div class="{new2.pager-right}">
+				<div class="{new2.pager-right2}">
 					<g:FlowPanel ui:field="resultpage" />
 				</div>
 			</div>

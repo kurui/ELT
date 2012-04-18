@@ -371,7 +371,11 @@ public class ImportStaffPresenterImpl extends
 							win.alert("导入文件格式不正确，请修改后重新上传！");
 							return;
 						}
-
+						if(display.getSelectDataCount()<=0)
+						{
+							win.alert("没有选择任何上传数据,请重新选择！");
+							return;
+						}
 						refreshPanelStep3();
 						display.showPanelStep3();
 
