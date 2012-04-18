@@ -895,4 +895,10 @@ public class ImportStaffLogicImpl implements ImportStaffLogic {
 		}
 
 	}
+
+
+	@Override
+	public int findImportStaffCount(ImportStaffSearchVo searchVo) {
+		return importStaffRawDao.getAllStaffRawInSameBatchCount(searchVo);
+	}
 }

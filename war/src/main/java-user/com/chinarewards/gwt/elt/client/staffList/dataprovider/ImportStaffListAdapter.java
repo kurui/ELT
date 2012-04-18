@@ -64,6 +64,8 @@ public class ImportStaffListAdapter extends BaseDataProvider<ImportStaffListClie
 				updateRowData(start, response.getResult());
 				updateRowCount(response.getTotal(), true);
 				display.setDataCount(response.getTotal()+"");
+				display.setSelectDataCount(response.getSelectTotal()+"");
+				
 			}
 
 		});

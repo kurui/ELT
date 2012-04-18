@@ -118,7 +118,8 @@ public interface ImportStaffPresenter extends DialogPresenter<ImportStaffPresent
 		void importStaffButtonEnable(boolean fal);
 		
 		void setDataCount(String text);
-
+		void setSelectDataCount(String text);
+		int getSelectDataCount();
 		
 		Panel getResultPanel();
 		ListBox getPageNumber();

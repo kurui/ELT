@@ -68,4 +68,9 @@ public class ImportStaffServiceImpl   implements ImportStaffService {
 		return importStaffLogic.updateImportfal(rawId, importfal);
 	}
 
+	@Override
+	public int findImportStaffCount(ImportStaffSearchVo searchVo) {
+		return importStaffLogic.findImportStaffCount(searchVo);
+	}
+
 }

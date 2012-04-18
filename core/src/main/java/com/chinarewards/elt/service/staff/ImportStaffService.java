@@ -72,6 +72,13 @@ public interface ImportStaffService {
 	 * @return
 	 */
 	public PageStore<ImportStaffRaw> findImportStaffList(ImportStaffSearchVo searchVo);
+	
+	/**
+	 * 查询预导入选中的count
+	 * @param batchId
+	 * @return
+	 */
+	public int findImportStaffCount(ImportStaffSearchVo searchVo);
 	/**
 	 * 修改预导入数据的标志
 	 * @param rawId

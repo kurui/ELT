@@ -16,6 +16,19 @@ public class ImportStaffListResponse implements Result {
 
 	private List<ImportStaffListClient> result;
 	private int total;
+	private int selectTotal;
+
+
+
+	public int getSelectTotal() {
+		return selectTotal;
+	}
+
+
+
+	public void setSelectTotal(int selectTotal) {
+		this.selectTotal = selectTotal;
+	}
 
 
 
@@ -46,10 +59,10 @@ public class ImportStaffListResponse implements Result {
 	public ImportStaffListResponse() {
 
 	}
-	public ImportStaffListResponse(List<ImportStaffListClient> result,int total) {
+	public ImportStaffListResponse(List<ImportStaffListClient> result,int total,int selectTotal) {
 		this.result=result;
 		this.total=total;
-
+		this.selectTotal=selectTotal;
 	}
 	
 

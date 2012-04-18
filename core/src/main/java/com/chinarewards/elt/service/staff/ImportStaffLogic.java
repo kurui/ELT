@@ -105,4 +105,10 @@ public interface ImportStaffLogic {
 	 * @return
 	 */
 	public boolean updateImportfal(String rawId,int importfal);
+	/**
+	 * 查询预导入选中的count
+	 * @param batchId
+	 * @return
+	 */
+	public int findImportStaffCount(ImportStaffSearchVo searchVo);
 }

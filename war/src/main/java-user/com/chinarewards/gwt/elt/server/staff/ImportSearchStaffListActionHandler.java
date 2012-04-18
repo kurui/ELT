@@ -72,7 +72,6 @@ public class ImportSearchStaffListActionHandler extends
 		context.setUserRoles(UserRoleTool.adaptToRole(request.getSession().getUserRoles()));
 		
 		PageStore<ImportStaffRaw> result=importStaffService.findImportStaffList(criteria);
-		
 		List<ImportStaffListClient> lt=new ArrayList<ImportStaffListClient>();
 		for (ImportStaffRaw staff:result.getResultList()) {
 			ImportStaffListClient client=new ImportStaffListClient();
@@ -86,9 +85,11 @@ public class ImportSearchStaffListActionHandler extends
 			client.setDepartmentName(staff.getDepartment());
 			client.setImportfal(staff.getImportfal());
 			lt.add(client);
+
 		}
 		staffResponse.setResult(lt);
 		staffResponse.setTotal(result.getResultCount());
+		staffResponse.setSelectTotal(importStaffService.findImportStaffCount(criteria));
 		
 		return staffResponse;
 	}

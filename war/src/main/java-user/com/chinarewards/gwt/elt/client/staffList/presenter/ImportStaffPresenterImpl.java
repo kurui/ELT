@@ -1329,9 +1329,15 @@ public class ImportStaffPresenterImpl extends
 						//Window.alert(o.getId()+"=="+value);
 						int fal=0;
 						if(value==false)
+						{
 							fal=1;
+							display.setSelectDataCount((display.getSelectDataCount()-1)+"");
+						}
 						else
+						{
 							fal=0;
+							display.setSelectDataCount((display.getSelectDataCount()+1)+"");
+						}
 						
 						dispatch.execute(
 								new UpdateImportStaffRequest(sessionManager

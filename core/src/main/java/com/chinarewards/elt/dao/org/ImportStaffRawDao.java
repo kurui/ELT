@@ -89,4 +89,20 @@ public class ImportStaffRawDao extends BaseDao<ImportStaffRaw> {
 		}
 		return query;
 	}
+	
+
+	public int getAllStaffRawInSameBatchCount(ImportStaffSearchVo searchVo) {
+		String whereString="";
+		if (searchVo.isTitlefal()) {
+			whereString=" AND isr.rowPos != 1 ";
+		}
+		Query q = this
+				.getEm()
+				.createQuery(
+						"SELECT count(isr) FROM ImportStaffRaw isr WHERE isr.importStaffBatch.id = :id AND (isr.importfal=0 OR isr.importfal is null) "+whereString  );
+		q.setParameter("id", searchVo.getBatchId());
+		
+
+		return Integer.parseInt(q.getSingleResult().toString()) ;
+	}
 }

@@ -93,7 +93,9 @@
 							    <g:DecoratorPanel ui:field="titlePreviewPanel" />
 						  	 </div>
 						  <div>
-  			<div class="{new2.divtext}">这个档案共有<g:InlineLabel ui:field="dataCount" styleName="{new2.divfont}"></g:InlineLabel> 条记录</div><div  class="{new2.divend}"></div>
+						  
+  			<div class="{new2.divtext2}">这个档案共有<g:InlineLabel ui:field="dataCount" styleName="{new2.divfont}" /> 条记录, 当前已选<g:InlineLabel ui:field="selectdataCount" styleName="{new2.divfont}" />条<div  class="{new2.divend}"/></div>
+		
 			<div class="{new2.table}">
 				<g:FlowPanel ui:field="resultPanel" />
 			</div>

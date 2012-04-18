@@ -171,6 +171,10 @@ public class ImportStaffWidget extends Composite implements ImportStaffDisplay {
 	Panel resultpage;
 	@UiField
 	ListBox pageNumber;
+	
+	
+	@UiField
+	InlineLabel selectdataCount;
 	@Override
 	public void init() {
 
@@ -570,6 +574,16 @@ public class ImportStaffWidget extends Composite implements ImportStaffDisplay {
 	public void setDataCount(String text) {
 		dataCount.setText(text);
 		
+	}
+
+	@Override
+	public void setSelectDataCount(String text) {
+		selectdataCount.setText(text);
+	}
+
+	@Override
+	public int getSelectDataCount() {
+		return Integer.parseInt(selectdataCount.getText());
 	}
 
 }
