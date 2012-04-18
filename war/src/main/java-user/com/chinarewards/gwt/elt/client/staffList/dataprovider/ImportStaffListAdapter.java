@@ -46,8 +46,8 @@ public class ImportStaffListAdapter extends BaseDataProvider<ImportStaffListClie
 		// updateRowCount(100, true);
 		// } else {
 		PaginationDetailClient pagination = new PaginationDetailClient();
-		pagination.setStart(0);
-		pagination.setLimit(0);
+		pagination.setStart(start);
+		pagination.setLimit(length);
 		getCriteria().setPagination(pagination);
 		if (getSorting() != null) {
 			getCriteria().setSorting(getSorting());

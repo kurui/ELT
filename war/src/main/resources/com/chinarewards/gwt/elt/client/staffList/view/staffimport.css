@@ -86,6 +86,6 @@ div.picShow{ text-align:center; color:#444; font-weight:bold;width:97%; margin:5
 .listtable th.no{ background:none}
 .listtable td{ color:#555; height:22px; padding-top:3px; padding-left:5px; text-align:left; font-size:12px; line-height:22px;  border-top:1px solid #fff; border-bottom:1px solid #e8e8e8; background-color:#fafafa}
 .listtable td a{ color:#007cff; text-decoration:underline}
-div#zhudiv{width:97%; min-height:300px; height:auto!important; heigt:380px; padding:0px; border:1px solid #ccccff; margin:0 auto; background:#fbfdff; margin-top:8px; position:relative; clear:both}
+div#zhudiv{width:97%; min-height:300px; height:auto!important; heigt:380px; padding:0px; border:1px solid #ccccff;border-bottom:0px; margin:0 auto; background:#fbfdff; margin-top:8px; position:relative; clear:both}
 .setDetail{ width:97%; margin:15px auto; position:relative}
 

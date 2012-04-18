@@ -8,9 +8,7 @@ import gwtupload.client.IUploader.Utils;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
@@ -26,6 +24,8 @@ import com.chinarewards.gwt.elt.client.staff.ui.ImportStaffSingleUploader;
 import com.chinarewards.gwt.elt.client.staffList.dataprovider.ImportStaffListAdapter;
 import com.chinarewards.gwt.elt.client.staffList.model.ImportStaffListClient;
 import com.chinarewards.gwt.elt.client.staffList.model.ImportStaffListCriteria;
+import com.chinarewards.gwt.elt.client.staffList.request.UpdateImportStaffRequest;
+import com.chinarewards.gwt.elt.client.staffList.request.UpdateImportStaffResponse;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager.TextLocation;
@@ -88,7 +88,7 @@ public class ImportStaffPresenterImpl extends
 	EltNewPager pager;
 	ListCellTable<ImportStaffListClient> cellTable;
 	ImportStaffListAdapter listViewAdapter;
-	
+	int pageSize=ViewConstants.per_page_number_in_dialog;
 	@Inject
 	public ImportStaffPresenterImpl(EventBus eventBus,
 			ImportStaffDisplay display, DispatchAsync dispatch,
@@ -190,7 +190,17 @@ public class ImportStaffPresenterImpl extends
 
 
 	public void bind() {
-
+		
+		registerHandler(display.getPageNumber().addChangeHandler(new ChangeHandler() {
+			
+			@Override
+			public void onChange(ChangeEvent event) {
+				pageSize=Integer.parseInt(display.getPageNumber().getValue(display.getPageNumber().getSelectedIndex()));
+				buildTable();
+				doSearch();
+			}
+		}));
+		
 		display.getStaffFileUploader().addOnFinishUploadHandler(
 				onFinishUploaderHandler);
 		/** 取消 **/
@@ -605,64 +615,64 @@ public class ImportStaffPresenterImpl extends
 	}
 
 	private void refreshPanelStep4(ImportStaffAjaxResponseVo vo) {
-		int totalStaff = 0;
+		int totalStaff = vo.getImportStaffRawCode().size();
 //		int totalStaffFailed = 0;
-	//	int totalStaffWarn = 0;
-		List<String> warnIssues = new ArrayList<String>();
-		Map<String, Long> warnIssueCounts = new HashMap<String, Long>();
-		List<String> fatalIssues = new ArrayList<String>();
-		Map<String, Long> fatalIssueCounts = new HashMap<String, Long>();
-		GWT.log("vo.getImportStaffRawCode().size() = "
-				+ vo.getImportStaffRawCode().size());
-		GWT.log("vo.getImportStaffRawCode().get(0).size() = "
-				+ vo.getImportStaffRawCode().get(0).size());
-		for (List<Long> rawCode : vo.getImportStaffRawCode()) {
-			totalStaff++;
-			boolean isFatalStaffRaw = false;
-			boolean isWarnStaffRaw = false;
-			for (Long code : rawCode) {
-				if ("严重问题".equals(vo.getAllImportStaffCodeTypes().get(code))) {
-					if (!isFatalStaffRaw) {
-//						totalStaffFailed++;
-						isFatalStaffRaw = true;
-					}
-					if (!fatalIssues.contains(vo.getAllImportStaffCodeInfos()
-							.get(code))) {
-						fatalIssues.add(vo.getAllImportStaffCodeInfos().get(
-								code));
-					}
-					Long count = fatalIssueCounts.get(vo
-							.getAllImportStaffCodeInfos().get(code));
-					GWT.log("fatal count = " + count + " for "
-							+ vo.getAllImportStaffCodeInfos().get(code));
-					if (count == null) {
-						count = new Long(0);
-					}
-					fatalIssueCounts.put(
-							vo.getAllImportStaffCodeInfos().get(code),
-							count + 1);
-				} else if ("警告".equals(vo.getAllImportStaffCodeTypes()
-						.get(code))) {
-					if (!isWarnStaffRaw) {
-					//	totalStaffWarn++;
-						isWarnStaffRaw = true;
-					}
-					if (!warnIssues.contains(vo.getAllImportStaffCodeInfos()
-							.get(code))) {
-						warnIssues.add(vo.getAllImportStaffCodeInfos()
-								.get(code));
-					}
-					Long count = warnIssueCounts.get(vo
-							.getAllImportStaffCodeInfos().get(code));
-					if (count == null) {
-						count = new Long(0);
-					}
-					warnIssueCounts.put(
-							vo.getAllImportStaffCodeInfos().get(code),
-							count + 1);
-				}
-			}
-		}
+//		int totalStaffWarn = 0;
+//		List<String> warnIssues = new ArrayList<String>();
+//		Map<String, Long> warnIssueCounts = new HashMap<String, Long>();
+//		List<String> fatalIssues = new ArrayList<String>();
+//		Map<String, Long> fatalIssueCounts = new HashMap<String, Long>();
+//		GWT.log("vo.getImportStaffRawCode().size() = "
+//				+ vo.getImportStaffRawCode().size());
+//		GWT.log("vo.getImportStaffRawCode().get(0).size() = "
+//				+ vo.getImportStaffRawCode().get(0).size());
+//		for (List<Long> rawCode : vo.getImportStaffRawCode()) {
+//			totalStaff++;
+//			boolean isFatalStaffRaw = false;
+//			boolean isWarnStaffRaw = false;
+//			for (Long code : rawCode) {
+//				if ("严重问题".equals(vo.getAllImportStaffCodeTypes().get(code))) {
+//					if (!isFatalStaffRaw) {
+////						totalStaffFailed++;
+//						isFatalStaffRaw = true;
+//					}
+//					if (!fatalIssues.contains(vo.getAllImportStaffCodeInfos()
+//							.get(code))) {
+//						fatalIssues.add(vo.getAllImportStaffCodeInfos().get(
+//								code));
+//					}
+//					Long count = fatalIssueCounts.get(vo
+//							.getAllImportStaffCodeInfos().get(code));
+//					GWT.log("fatal count = " + count + " for "
+//							+ vo.getAllImportStaffCodeInfos().get(code));
+//					if (count == null) {
+//						count = new Long(0);
+//					}
+//					fatalIssueCounts.put(
+//							vo.getAllImportStaffCodeInfos().get(code),
+//							count + 1);
+//				} else if ("警告".equals(vo.getAllImportStaffCodeTypes()
+//						.get(code))) {
+//					if (!isWarnStaffRaw) {
+//					//	totalStaffWarn++;
+//						isWarnStaffRaw = true;
+//					}
+//					if (!warnIssues.contains(vo.getAllImportStaffCodeInfos()
+//							.get(code))) {
+//						warnIssues.add(vo.getAllImportStaffCodeInfos()
+//								.get(code));
+//					}
+//					Long count = warnIssueCounts.get(vo
+//							.getAllImportStaffCodeInfos().get(code));
+//					if (count == null) {
+//						count = new Long(0);
+//					}
+//					warnIssueCounts.put(
+//							vo.getAllImportStaffCodeInfos().get(code),
+//							count + 1);
+//				}
+//			}
+//		}
 		String result = "";
 		result += "<br/>你已经准备好导入员工资料<br/><br/>";
 		result += "<b>" + totalStaff + "</b>笔资料<br/><br/>";
@@ -1270,11 +1280,12 @@ public class ImportStaffPresenterImpl extends
 		pager = new EltNewPager(TextLocation.CENTER);
 		pager.setDisplay(cellTable);
 		cellTable.setWidth(ViewConstants.page_width);
-		cellTable.setPageSize(500);
+		cellTable.setPageSize(pageSize);
 	//	cellTable.getColumn(0).setCellStyleNames("divTextLeft");
 		display.getResultPanel().clear();
 		display.getResultPanel().add(cellTable);
-
+		display.getResultpage().clear();
+		display.getResultpage().add(pager);
 		
 	}
 
@@ -1315,8 +1326,30 @@ public class ImportStaffPresenterImpl extends
 					@Override
 					public void update(int index, ImportStaffListClient o,
 							Boolean value) {
-						Window.alert(o.getId()+"=="+value);
+						//Window.alert(o.getId()+"=="+value);
+						int fal=0;
+						if(value==false)
+							fal=1;
+						else
+							fal=0;
 						
+						dispatch.execute(
+								new UpdateImportStaffRequest(sessionManager
+										.getSession(),o.getId(),fal),
+								new AsyncCallback<UpdateImportStaffResponse>() {
+									@Override
+									public void onFailure(Throwable e) {
+										win.alert("失败");
+									}
+
+									@Override
+									public void onSuccess(UpdateImportStaffResponse response) {
+//										if(response.getFal()!=1)
+//											win.alert("失败");
+											
+									}
+
+								});
 					}
 				});
 		cellTable.addColumn("员工编号", new TextCell(),

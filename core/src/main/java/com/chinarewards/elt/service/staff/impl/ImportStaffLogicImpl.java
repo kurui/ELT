@@ -889,10 +889,10 @@ public class ImportStaffLogicImpl implements ImportStaffLogic {
 			ImportStaffRaw raw=importStaffRawDao.findById(ImportStaffRaw.class, rawId);
 			raw.setImportfal(importfal);
 			importStaffRawDao.update(raw);
+			return true;
 		} catch (Exception e) {
 			return false;
 		}
-	
-		return false;
+
 	}
 }
