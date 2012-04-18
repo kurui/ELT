@@ -126,6 +126,7 @@ public class OrderLogicImpl implements OrderLogic{
         giftVo.setRecorddate(gift.getRecorddate());
         giftVo.setRecorduser(gift.getRecorduser());
         giftVo.setUpdatetime(gift.getUpdatetime());
+        giftVo.setPrice(gift.getPrice());
      	orderVo.setGiftvo(giftVo);
      	
 		return orderVo;

@@ -36,7 +36,7 @@ public class Gift implements Serializable {
 	private String type; // 礼品类型
 	private String brand;// 品牌
 	private String photo; // 图片
-	private String price;//进货价格
+	private String price;//采购价格
 	public String getPrice() {
 		return price;
 	}

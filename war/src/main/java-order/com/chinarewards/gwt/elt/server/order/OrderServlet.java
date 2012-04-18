@@ -87,11 +87,11 @@ public class OrderServlet extends HttpServlet {
 		
 		// 创建Excel表中的sheet
 		   sheet = workbook.createSheet("staffs", 0);
-		   sheet.setColumnView(2, 30);
+		   sheet.setColumnView(0, 30);
 		   sheet.setColumnView(3, 20);
 		   sheet.setColumnView(4, 20);
 		   ArrayList labels = new ArrayList();
-		   labels.add("订单编号");labels.add("礼品名称");  labels.add("数量"); labels.add("积分");labels.add("兑换日期");labels.add("来源");	
+		   labels.add("订单编号");labels.add("礼品名称");  labels.add("数量"); labels.add("积分");labels.add("兑换日期");labels.add("采购价格");	
 		 
 		 			   	   
 ////		// 添加标题
@@ -117,10 +117,8 @@ public class OrderServlet extends HttpServlet {
 				lista.add(ordervo.getAmount());
 				lista.add(ordervo.getIntegral());
 				lista.add(ordervo.getExchangeDate());
-				if(ordervo.getGiftvo().getSource().equals("outter"))
-				    lista.add("外部公司提供");
-				else
-					lista.add("内部直接提供");
+				lista.add(ordervo.getGiftvo().getPrice());
+			
 				list.add(lista);
 			}
 		}
