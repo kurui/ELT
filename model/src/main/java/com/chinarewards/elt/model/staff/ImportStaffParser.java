@@ -23,7 +23,7 @@ public class ImportStaffParser {
 	public final static Object[] CODE10 = { new Long(10), "isEmailAddressEmpty" };//邮件为空
 	public final static Object[] CODE11 = { new Long(11),	"isMobileTelephoneNumberInvalid" };//手机号错误
 	public final static Object[] CODE12 = { new Long(12),	"isMobileTelephoneNumberEmpty" };//手机号为空
-	public final static Object[] CODE13 = { new Long(13), "isDepartmentInvalid" };//部门错误
+//	public final static Object[] CODE13 = { new Long(13), "isDepartmentInvalid" };//部门错误
 	public final static Object[] CODE17 = { new Long(17),	"isEmailAddressDuplicated" };//邮件地址重复
 	public final static Object[] CODE18 = { new Long(18),	"isMobileTelephoneNumberDuplicated" };//手机号码重复
 	public final static Object[] CODE19 = { new Long(19),	"isMobileTelephoneNumberDuplicatedInBatch" };//本批次中有相同手机号
@@ -246,7 +246,7 @@ public class ImportStaffParser {
 	 * @param pStaffRaw
 	 * @return
 	 */
-	public static boolean isLastNameEmpty(ImportStaffRawParameter pStaffRaw,
+	public static boolean isNameEmpty(ImportStaffRawParameter pStaffRaw,
 			final ImportStaffEjbHelper helper) {
 		if (pStaffRaw.getName() == null
 				|| pStaffRaw.getName().trim().equals("")) {

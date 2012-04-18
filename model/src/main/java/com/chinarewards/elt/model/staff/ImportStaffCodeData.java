@@ -26,22 +26,22 @@ public class ImportStaffCodeData {
 		new Long(10), "电邮不能为空", new Long(5000), ImportCodeType.FATAL
 };
 	public final static Object[] CODE11 = {
-		new Long(11), "手机号码必须是1开头的数字且为11位", new Long(5000), ImportCodeType.FATAL
+		new Long(11), "手机号码必须是1开头的数字且为11位", new Long(5000), ImportCodeType.WARN
 };
 	public final static Object[] CODE12 = {
-		new Long(12), "手机号码不能为空", new Long(5000), ImportCodeType.FATAL
+		new Long(12), "手机号码不能为空", new Long(5000), ImportCodeType.WARN
 };
-	public final static Object[] CODE13 = {
-		new Long(13), "部门列格式有误", new Long(1500), ImportCodeType.FATAL
-};
+//	public final static Object[] CODE13 = {
+//		new Long(13), "部门列格式有误", new Long(1500), ImportCodeType.FATAL
+//};
 	public final static Object[] CODE17 = {
 		new Long(17), "邮箱已经被注册", new Long(1000), ImportCodeType.FATAL
 };
 	public final static Object[] CODE18 = {
-		new Long(18), "手机号已经被注册", new Long(1000), ImportCodeType.FATAL
+		new Long(18), "手机号已经被注册", new Long(1000), ImportCodeType.WARN
 };
 	public final static Object[] CODE19 = {
-		new Long(19), "文档中存在相同手机号", new Long(1000), ImportCodeType.FATAL
+		new Long(19), "文档中存在相同手机号", new Long(1000), ImportCodeType.WARN
 };
 	public final static Object[] CODE20 = {
 		new Long(20), "文档中存在相同邮箱", new Long(1000), ImportCodeType.FATAL
