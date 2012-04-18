@@ -1405,6 +1405,13 @@ public class ImportStaffPresenterImpl extends
 						return staff.getPhone();
 					}
 				}, ref, "mobileTelephoneNumber");
+		cellTable.addColumn("生日", new TextCell(),
+				new GetValue<ImportStaffListClient, String>() {
+					@Override
+					public String getValue(ImportStaffListClient staff) {
+						return staff.getDob();
+					}
+				}, ref, "dob");
 		cellTable.addColumn("部门", new TextCell(),
 				new GetValue<ImportStaffListClient, String>() {
 					@Override
@@ -1433,7 +1440,6 @@ public class ImportStaffPresenterImpl extends
 	private void updateShowData() {
 		ImportStaffListCriteria criteria = new ImportStaffListCriteria();
 		criteria.setBatchId(batchId);
-		criteria.setTitlefal(isHavingTitle);
 		criteria.setImportfal(true);
 		PaginationDetailClient pagination = new PaginationDetailClient();
 		pagination.setStart(0);

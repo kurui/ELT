@@ -82,6 +82,7 @@ public class ImportSearchStaffListActionHandler extends
 			client.setEmail(staff.getEmailAddress());
 			client.setJobPosition(staff.getJobPosition());
 			client.setLeadership(staff.getLeadership());
+			client.setDob(staff.getDob());
 			client.setDepartmentName(staff.getDepartment());
 			client.setImportfal(staff.getImportfal());
 			lt.add(client);
