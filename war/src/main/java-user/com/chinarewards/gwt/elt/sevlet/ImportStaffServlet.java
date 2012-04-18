@@ -197,7 +197,7 @@ public class ImportStaffServlet extends UploadAction {
 				// make sure there is ejb service available for gwt host mode
 				// debug
 				ImportStaffRequest importRequest = new ImportStaffRequest();
-				importRequest.setFileName(item.getName());
+				importRequest.setFileName(item.getFieldName());
 				importRequest.setContentType(item.getContentType());
 				importRequest.setStaffRawList(pStaffRaws);
 

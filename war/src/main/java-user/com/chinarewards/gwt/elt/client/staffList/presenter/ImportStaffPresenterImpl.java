@@ -154,13 +154,13 @@ public class ImportStaffPresenterImpl extends
 						+ (xlsContent == null ? 0 : xlsContent.size()));
 				win.alert("档案成功上传！");
 				display.getResultMessage().setText(
-						"档案 " + info.name + " (" + info.size + "bytes) "
+						"档案 "  + " (" + info.size + "bytes) "
 								+ "已经上传。");
 				refreshPanelStep2();
 				display.showPanelStep2();
 			} else {
 				display.getResultMessage().setText(
-						"档案 " + info.name + " (" + info.size + "bytes) "
+						"档案 "  + " (" + info.size + "bytes) "
 								+ "上传失败！");
 				win.alert(errorMsg);
 			}
@@ -264,18 +264,18 @@ public class ImportStaffPresenterImpl extends
 //									}
 //
 //								});
-						display.getContentPreviewPanel().clear();
-						display.getTitlePreviewPanel().clear();
-						display.getImportDetails().setHTML("");
-						display.getImportFailure().setHTML("");
-						display.getImportBatchNo().setText("");
-						display.getImportStaffBatchNo().setText("");
-						display.getPretreatmentResult().setHTML("");
-						display.getResultMessage().setText("");
-						display.getSuccessImportMessage().setText("");
-						batchId = null;
-						xlsContent = new ArrayList<List<String>>();
-						errorCodes = new ArrayList<List<Long>>();
+//						display.getContentPreviewPanel().clear();
+//						display.getTitlePreviewPanel().clear();
+//						display.getImportDetails().setHTML("");
+//						display.getImportFailure().setHTML("");
+//						display.getImportBatchNo().setText("");
+//						display.getImportStaffBatchNo().setText("");
+//						display.getPretreatmentResult().setHTML("");
+//						display.getResultMessage().setText("");
+//						display.getSuccessImportMessage().setText("");
+//						batchId = null;
+//						xlsContent = new ArrayList<List<String>>();
+//						errorCodes = new ArrayList<List<Long>>();
 						display.showPanelStep1();
 					}
 
@@ -286,31 +286,40 @@ public class ImportStaffPresenterImpl extends
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent arg0) {
-						if ("".equals(display.getStaffFileUploader()
-								.getFileName())
-								|| (!display.getStaffFileUploader()
-										.getFileName().toLowerCase().trim()
-										.endsWith(".xls") && !display
-										.getStaffFileUploader().getFileName()
-										.toLowerCase().trim().endsWith(".xlsx"))) {
-							win.alert("请选中一个符合标准的EXCEL文件上传！");
-							return;
+						if("".equals(display.getStaffFileUploader()
+								.getFileName()) && batchId!=null)
+						{
+							refreshPanelStep2();
+							display.showPanelStep2();
 						}
-						display.getStaffFileUploader().setServletPath(
-								ImportStaffSingleUploader.SERVLET_PATH+"?nowUserId="+sessionManager.getSession().getToken()+"&corporationId="+sessionManager.getSession().getCorporationId());
-						String confirmMessage = "确定开始上传文档吗?";
-						if (rowNum > 0) {
-							confirmMessage = "上次上传的文档将被覆盖，确定开始上传文档吗?";
-						}
-						win.confirm("员工文档上传", confirmMessage,
-								new ConfirmHandler() {
-									@Override
-									public void confirm() {
-										display.getResultMessage().setText(
-												"正在处理中，请稍后……");
-										display.getStaffFileUploader().submit();
-									}
-								});
+						else
+						{
+							if ("".equals(display.getStaffFileUploader()
+									.getFileName())
+									|| (!display.getStaffFileUploader()
+											.getFileName().toLowerCase().trim()
+											.endsWith(".xls") && !display
+											.getStaffFileUploader().getFileName()
+											.toLowerCase().trim().endsWith(".xlsx"))) {
+								win.alert("请选中一个符合标准的EXCEL文件上传！");
+								return;
+							}
+							display.getStaffFileUploader().setServletPath(
+									ImportStaffSingleUploader.SERVLET_PATH+"?nowUserId="+sessionManager.getSession().getToken()+"&corporationId="+sessionManager.getSession().getCorporationId());
+							String confirmMessage = "确定开始上传文档吗?";
+							if (rowNum > 0) {
+								confirmMessage = "上次上传的文档将被覆盖，确定开始上传文档吗?";
+							}
+							win.confirm("员工文档上传", confirmMessage,
+									new ConfirmHandler() {
+										@Override
+										public void confirm() {
+											display.getResultMessage().setText(
+													"正在处理中，请稍后……");
+											display.getStaffFileUploader().submit();
+										}
+									});
+						}	
 					}
 				}));
 
