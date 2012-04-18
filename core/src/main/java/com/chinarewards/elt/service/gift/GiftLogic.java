@@ -1,5 +1,7 @@
 package com.chinarewards.elt.service.gift;
 
+import java.util.List;
+
 import com.chinarewards.elt.domain.gift.Gift;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
@@ -34,13 +36,17 @@ public interface GiftLogic {
 	 * @return
 	 */
 	public PageStore<GiftListVo> giftList(SysUser caller,GiftListVo giftVo);
-
+	
+	public List<GiftListVo> exportGiftList(SysUser caller, GiftListVo giftVo);
+	
 	/**
 	 * 上下架
 	 * @param id
 	 * @return
 	 */
 	public String updateStatus(String id,GiftStatus status);
+
+
 	
 	
 }

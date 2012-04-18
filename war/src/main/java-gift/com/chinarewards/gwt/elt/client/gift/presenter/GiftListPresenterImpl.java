@@ -29,9 +29,11 @@ import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.widget.Sorting;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.client.win.confirm.ConfirmHandler;
+import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -94,13 +96,20 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 										GiftConstants.ACTION_GIFT_ADD,client);
 					}
 				}));
-		registerHandler(display.getimportingBtnClickHandlers().addClickHandler(
+		registerHandler(display.getImportBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
 						win.alert("导入礼品...待实现~");
 					}
 				}));
-
+		
+		registerHandler(display.getExportBtnClickHandlers().addClickHandler(
+				new ClickHandler() {
+					public void onClick(ClickEvent paramClickEvent) {
+						doExport();						
+					}
+				}));
+		
 		
 
 	registerHandler(display.getPageNumber().addChangeHandler(new ChangeHandler() {			
@@ -143,13 +152,46 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 		GiftCriteria criteria = new GiftCriteria();
 		if (!StringUtil.isEmpty(display.getKeyName().getValue()))
 			criteria.setName(display.getKeyName().getValue());
-		if (!StringUtil.isEmpty(display.getStatus()))
-			criteria.setStatus(GiftStatus.valueOf(display.getStatus()));
-
+		
+			
+		int selectedStatusIndex = display.getStatus().getSelectedIndex();
+		String status=display.getStatus().getValue(selectedStatusIndex);
+//		criteria.setStatus(GiftStatus.valueOf(status));
+		
+		
 		listViewAdapter = new GiftListViewAdapter(dispatch, criteria,
 				errorHandler, sessionManager, display);
 		listViewAdapter.addDataDisplay(cellTable);
 	}
+	
+	private void doExport(){
+		String title="导出礼品信息";
+		
+		String data = "name="+display.getKeyName().getValue();
+		
+		int selectedStatusIndex = display.getStatus().getSelectedIndex();
+		String status=display.getStatus().getValue(selectedStatusIndex);
+		data=data+"&status="+status;
+		
+		String userdata ="&corporationId="+sessionManager.getSession().getCorporationId();
+		userdata =userdata+"&userId="+sessionManager.getSession().getToken();
+		
+//		data = data+"&content=true";
+		UserRoleVo[] userRoleVos =sessionManager.getSession().getUserRoles();
+		for (UserRoleVo role : userRoleVos) {
+		    String s = role.toString();
+			if(s.equals("CORP_ADMIN")){
+				userdata=userdata+"&userRole=CORP_ADMIN";
+			}else if(s.equals("DEPT_MGR")){
+				userdata=userdata+"&userRole=DEPT_MGR";
+			}
+		}	
+		
+		String url = GWT.getModuleBaseURL() + "servlet.exportGift";
+		String wholeUrl = url + "?" + data+userdata + "&radom=" + Math.random();
+		Window.open(wholeUrl, title,"menubar=yes,location=no,resizable=yes,scrollbars=yes,status=yes");
+	}
+	
 
 	private void initTableColumns() {
 		Sorting<GiftClient> ref = new Sorting<GiftClient>() {
