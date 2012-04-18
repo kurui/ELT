@@ -85,6 +85,7 @@ public class GiftLogicImpl implements GiftLogic{
 			tempGift.setTell(gift.getTell());
 			tempGift.setServicetell(gift.getServicetell());
 			tempGift.setIntegral(gift.getIntegral());
+			tempGift.setPrice(gift.getPrice());
 			tempGift.setStock(gift.getStock());
 			tempGift.setPhoto(gift.getPhoto());
 			tempGift.setIndate(gift.getIndate());
@@ -166,6 +167,7 @@ public class GiftLogicImpl implements GiftLogic{
         giftVo.setRecorduser(gift.getRecorduser());
         giftVo.setUpdatetime(gift.getUpdatetime());
         giftVo.setIntegral(gift.getIntegral());
+        giftVo.setPrice(gift.getPrice());
 		return giftVo;
 	}
 	@Override

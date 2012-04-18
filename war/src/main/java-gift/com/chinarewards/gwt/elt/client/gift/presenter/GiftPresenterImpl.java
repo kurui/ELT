@@ -294,6 +294,12 @@ public class GiftPresenterImpl extends BasePresenter<GiftPresenter.GiftDisplay>
 			flag = false;
 		}
 
+		if (display.getPrice() == null
+				|| StringUtil.valueOf(display.getPrice().getValue()) == null
+				|| StringUtil.valueOf(display.getPrice().getValue()) < 0) {
+			errorMsg.append("请填写礼品采购价格!<br>");
+			flag = false;
+		}
 		if (display.getStock() == null
 				|| StringUtil.valueOf(display.getStock().getValue()) == null
 				|| StringUtil.valueOf(display.getStock().getValue()) < 0) {

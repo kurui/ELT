@@ -118,13 +118,13 @@ public class GiftListWidget extends Composite implements GiftListDisplay {
 
 	@Override
 	public HasClickHandlers getImportBtnClickHandlers() {
-		importBtn.setWidth("88px");
+		importBtn.setWidth("94px");
 		return importBtn;
 	}
 	
 	@Override
 	public HasClickHandlers getExportBtnClickHandlers() {
-		exportBtn.setWidth("88px");
+		exportBtn.setWidth("94px");
 		return exportBtn;
 	}
 	
