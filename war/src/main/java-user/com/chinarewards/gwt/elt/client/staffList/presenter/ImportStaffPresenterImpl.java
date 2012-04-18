@@ -24,6 +24,8 @@ import com.chinarewards.gwt.elt.client.staff.ui.ImportStaffSingleUploader;
 import com.chinarewards.gwt.elt.client.staffList.dataprovider.ImportStaffListAdapter;
 import com.chinarewards.gwt.elt.client.staffList.model.ImportStaffListClient;
 import com.chinarewards.gwt.elt.client.staffList.model.ImportStaffListCriteria;
+import com.chinarewards.gwt.elt.client.staffList.request.ImportStaffListRequest;
+import com.chinarewards.gwt.elt.client.staffList.request.ImportStaffListResponse;
 import com.chinarewards.gwt.elt.client.staffList.request.UpdateImportStaffRequest;
 import com.chinarewards.gwt.elt.client.staffList.request.UpdateImportStaffResponse;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
@@ -34,6 +36,7 @@ import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.widget.Sorting;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.client.win.confirm.ConfirmHandler;
+import com.chinarewards.gwt.elt.model.PaginationDetailClient;
 import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.cell.client.CheckboxCell;
 import com.google.gwt.cell.client.FieldUpdater;
@@ -376,10 +379,13 @@ public class ImportStaffPresenterImpl extends
 							win.alert("没有选择任何上传数据,请重新选择！");
 							return;
 						}
-						refreshPanelStep3();
-						display.showPanelStep3();
+						updateShowData();
+						
+
 
 					}
+
+					
 				}));
 
 		/** 回退第三步panel **/
@@ -1422,5 +1428,50 @@ public class ImportStaffPresenterImpl extends
 				}, ref, "leadership");
 	
 	
+	}
+	
+	private void updateShowData() {
+		ImportStaffListCriteria criteria = new ImportStaffListCriteria();
+		criteria.setBatchId(batchId);
+		criteria.setTitlefal(isHavingTitle);
+		criteria.setImportfal(true);
+		PaginationDetailClient pagination = new PaginationDetailClient();
+		pagination.setStart(0);
+		pagination.setLimit(10);
+		criteria.setPagination(pagination);
+		
+		dispatch.execute(new ImportStaffListRequest(criteria, sessionManager
+				.getSession()), new AsyncCallback<ImportStaffListResponse>() {
+			@Override
+			public void onFailure(Throwable e) {
+				errorHandler.alert(e.getMessage());
+			}
+
+			@Override
+			public void onSuccess(ImportStaffListResponse response) {
+
+				List<List<String>> result = new ArrayList<List<String>>();
+				for (int i = 0; i < response.getResult().size(); i++) {
+					ImportStaffListClient client=response.getResult().get(i);
+					
+					List<String> staffCells = new ArrayList<String>();
+					staffCells.add(client.getStaffNo());
+					staffCells.add(client.getStaffName());
+					staffCells.add(client.getEmail());
+					staffCells.add(client.getPhone());
+					staffCells.add(client.getDob());
+					staffCells.add(client.getDepartmentName());
+					staffCells.add(client.getJobPosition());
+					staffCells.add(client.getLeadership());
+				
+					result.add(staffCells);
+				}
+				xlsContent=result;
+				refreshPanelStep3();
+				display.showPanelStep3();
+			}
+
+		});
+		
 	}
 }

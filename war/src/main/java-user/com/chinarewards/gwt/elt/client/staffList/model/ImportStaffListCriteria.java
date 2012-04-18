@@ -20,6 +20,15 @@ public class ImportStaffListCriteria implements IsSerializable {
 	private SortingDetailClient sorting;
 	private String batchId;
 	private boolean titlefal;
+	private boolean importfal;
+	
+	
+	public boolean isImportfal() {
+		return importfal;
+	}
+	public void setImportfal(boolean importfal) {
+		this.importfal = importfal;
+	}
 	public PaginationDetailClient getPagination() {
 		return pagination;
 	}

@@ -53,7 +53,9 @@ public class ImportStaffRawDao extends BaseDao<ImportStaffRaw> {
 		if (searchVo.isTitlefal()) {
 			hql.append(" AND s.rowPos != 1 ");
 		}
-
+		if (searchVo.isImportfal()) {
+			hql.append(" AND (s.importfal=0 or s.importfal is null) ");
+		}
 		// ORDER BY
 		if (SEARCH.equals(type)) {
 			if (searchVo.getSortingDetail() != null

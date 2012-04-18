@@ -11,6 +11,15 @@ public class ImportStaffSearchVo {
 	
 	private String batchId;
 	private boolean titlefal;
+	private boolean importfal;
+
+	public boolean isImportfal() {
+		return importfal;
+	}
+
+	public void setImportfal(boolean importfal) {
+		this.importfal = importfal;
+	}
 
 	public boolean isTitlefal() {
 		return titlefal;

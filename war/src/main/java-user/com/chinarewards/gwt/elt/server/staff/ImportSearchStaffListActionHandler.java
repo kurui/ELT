@@ -64,7 +64,7 @@ public class ImportSearchStaffListActionHandler extends
 		}
 		criteria.setBatchId(request.getCriteria().getBatchId());
 		criteria.setTitlefal(request.getCriteria().isTitlefal());
-		
+		criteria.setImportfal(request.getCriteria().isImportfal());
 		UserContext context=new UserContext();
 		context.setCorporationId(request.getSession().getCorporationId());
 		context.setUserId(request.getSession().getToken());
