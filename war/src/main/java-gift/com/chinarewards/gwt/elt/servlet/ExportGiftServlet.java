@@ -81,8 +81,8 @@ public class ExportGiftServlet extends HttpServlet {
 
 		if ("XLS".equals(exportFileType)) {
 			FileExcelUtil.createXLSFile(title, lists, sheetName, response);
-		}else if("CVS".equals(exportFileType)){
-			FileExcelUtil.createXLSFile(title, lists, sheetName, response);
+		}else if("CSV".equals(exportFileType)){
+			FileExcelUtil.createCSVFile(sheetName+".csv", title,lists,response);
 		}
 		
 

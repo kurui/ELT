@@ -40,7 +40,7 @@ public class ChooseExportTypeWidget extends Composite implements
 	private void initWidget() {
 		exportFileType.clear();
 		exportFileType.addItem("XLS", "XLS");
-		exportFileType.addItem("CVS", "CVS");
+		exportFileType.addItem("CSV", "CSV");
 
 	}
 

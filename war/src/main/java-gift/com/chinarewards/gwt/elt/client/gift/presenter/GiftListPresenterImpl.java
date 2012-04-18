@@ -162,7 +162,10 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 
 		int selectedStatusIndex = display.getStatus().getSelectedIndex();
 		String status = display.getStatus().getValue(selectedStatusIndex);
-		criteria.setStatus(GiftStatus.valueOf(status));
+		if(!StringUtil.isEmpty(status)){
+			criteria.setStatus(GiftStatus.valueOf(status));
+		}
+		
 
 		listViewAdapter = new GiftListViewAdapter(dispatch, criteria,
 				errorHandler, sessionManager, display);
