@@ -27,7 +27,6 @@ import com.chinarewards.elt.model.org.Gender;
 import com.chinarewards.elt.model.staff.ImportCodeType;
 import com.chinarewards.elt.model.staff.ImportStaffEjbHelper;
 import com.chinarewards.elt.model.staff.ImportStaffHavingTitle;
-import com.chinarewards.elt.model.staff.ImportStaffParser;
 import com.chinarewards.elt.model.staff.ImportStaffRawParameter;
 import com.chinarewards.elt.model.staff.ImportStaffRequest;
 import com.chinarewards.elt.model.staff.ImportStaffResponse;
@@ -295,46 +294,46 @@ public class ImportStaffLogicImpl implements ImportStaffLogic {
 			helper.setAllPassed(true);
 			
 			boolean isFailed = false;
-			for (ImportStaffCode code : codes) {
-				 logger.debug("method = " + code);
-
-				Object[] args = { pStaffRaw, helper };
+//			for (ImportStaffCode code : codes) {
+//				 logger.debug("method = " + code);
+//
+//				Object[] args = { pStaffRaw, helper };
 
 				// if rule is against, result is true
-				Boolean result = (Boolean) ImportStaffParser.getParserMethodResult(code.getParserMethod(), args);
+			//	Boolean result = (Boolean) ImportStaffParser.getParserMethodResult(code.getParserMethod(), args);
 
-				if (result) {
-					logger.debug("calculatePretreatmentImportStaff - checking staff raw on the rule "
-							+ code.getParserMethod()
-							+ " with code "
-							+ code.getCode() + " true");
-
-					// parse result is true
-					parseRawResult.add(code.getCode());
-
-					ImportStaffRawCode rawCode = new ImportStaffRawCode();
-					rawCode.setImportStaffRaw(staffRaw);
-					rawCode.setImportCode(code);
-					importStaffRawCodeDao.save(rawCode);
-
-					if (code.getType().equals(ImportCodeType.FATAL)) {
-						if (!isFailed) {
-							isFailed = true;
-						}
-					}
-				} else {
-						 
-					 logger.debug("calculatePretreatmentImportStaff - checking staff raw on the rule "
-					 + code.getParserMethod()
-					 + " with code "
-					 + code.getCode() + " false");
-				}
-
-				if (helper.isAllPassed() && result) {
-					// parse failed
-					helper.setAllPassed(false);
-				}
-			}
+//				if (result) {
+//					logger.debug("calculatePretreatmentImportStaff - checking staff raw on the rule "
+//							+ code.getParserMethod()
+//							+ " with code "
+//							+ code.getCode() + " true");
+//
+//					// parse result is true
+//					parseRawResult.add(code.getCode());
+//
+//					ImportStaffRawCode rawCode = new ImportStaffRawCode();
+//					rawCode.setImportStaffRaw(staffRaw);
+//					rawCode.setImportCode(code);
+//					importStaffRawCodeDao.save(rawCode);
+//
+//					if (code.getType().equals(ImportCodeType.FATAL)) {
+//						if (!isFailed) {
+//							isFailed = true;
+//						}
+//					}
+//				} else {
+//						 
+//					 logger.debug("calculatePretreatmentImportStaff - checking staff raw on the rule "
+//					 + code.getParserMethod()
+//					 + " with code "
+//					 + code.getCode() + " false");
+//				}
+//
+//				if (helper.isAllPassed() && result) {
+//					// parse failed
+//					helper.setAllPassed(false);
+//				}
+//			}
 //
 			if (!isFailed) {
 				estimateSuccessNum++;

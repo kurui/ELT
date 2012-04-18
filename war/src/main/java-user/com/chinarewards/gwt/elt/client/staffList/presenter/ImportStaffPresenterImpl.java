@@ -8,9 +8,7 @@ import gwtupload.client.IUploader.Utils;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
@@ -637,83 +635,83 @@ public class ImportStaffPresenterImpl extends
 
 	private void refreshPanelStep4(ImportStaffAjaxResponseVo vo) {
 		int totalStaff = vo.getImportStaffRawCode().size();
-		int totalStaffFailed = 0;
-	//	int totalStaffWarn = 0;
-		List<String> warnIssues = new ArrayList<String>();
-		Map<String, Long> warnIssueCounts = new HashMap<String, Long>();
-		List<String> fatalIssues = new ArrayList<String>();
-		Map<String, Long> fatalIssueCounts = new HashMap<String, Long>();
-		GWT.log("vo.getImportStaffRawCode().size() = "
-				+ vo.getImportStaffRawCode().size());
-		GWT.log("vo.getImportStaffRawCode().get(0).size() = "
-				+ vo.getImportStaffRawCode().get(0).size());
-		for (List<Long> rawCode : vo.getImportStaffRawCode()) {
-			totalStaff++;
-			boolean isFatalStaffRaw = false;
-			boolean isWarnStaffRaw = false;
-			for (Long code : rawCode) {
-				if ("严重问题".equals(vo.getAllImportStaffCodeTypes().get(code))) {
-					if (!isFatalStaffRaw) {
-//						totalStaffFailed++;
-						isFatalStaffRaw = true;
-					}
-					if (!fatalIssues.contains(vo.getAllImportStaffCodeInfos()
-							.get(code))) {
-						fatalIssues.add(vo.getAllImportStaffCodeInfos().get(
-								code));
-					}
-					Long count = fatalIssueCounts.get(vo
-							.getAllImportStaffCodeInfos().get(code));
-					GWT.log("fatal count = " + count + " for "
-							+ vo.getAllImportStaffCodeInfos().get(code));
-					if (count == null) {
-						count = new Long(0);
-					}
-					fatalIssueCounts.put(
-							vo.getAllImportStaffCodeInfos().get(code),
-							count + 1);
-				} else if ("警告".equals(vo.getAllImportStaffCodeTypes()
-						.get(code))) {
-					if (!isWarnStaffRaw) {
-					//	totalStaffWarn++;
-						isWarnStaffRaw = true;
-					}
-					if (!warnIssues.contains(vo.getAllImportStaffCodeInfos()
-							.get(code))) {
-						warnIssues.add(vo.getAllImportStaffCodeInfos()
-								.get(code));
-					}
-					Long count = warnIssueCounts.get(vo
-							.getAllImportStaffCodeInfos().get(code));
-					if (count == null) {
-						count = new Long(0);
-					}
-					warnIssueCounts.put(
-							vo.getAllImportStaffCodeInfos().get(code),
-							count + 1);
-				}
-			}
-		}
+//		int totalStaffFailed = 0;
+//		int totalStaffWarn = 0;
+//		List<String> warnIssues = new ArrayList<String>();
+//		Map<String, Long> warnIssueCounts = new HashMap<String, Long>();
+//		List<String> fatalIssues = new ArrayList<String>();
+//		Map<String, Long> fatalIssueCounts = new HashMap<String, Long>();
+//		GWT.log("vo.getImportStaffRawCode().size() = "
+//				+ vo.getImportStaffRawCode().size());
+//		GWT.log("vo.getImportStaffRawCode().get(0).size() = "
+//				+ vo.getImportStaffRawCode().get(0).size());
+//		for (List<Long> rawCode : vo.getImportStaffRawCode()) {
+//			totalStaff++;
+//			boolean isFatalStaffRaw = false;
+//			boolean isWarnStaffRaw = false;
+//			for (Long code : rawCode) {
+//				if ("严重问题".equals(vo.getAllImportStaffCodeTypes().get(code))) {
+//					if (!isFatalStaffRaw) {
+////						totalStaffFailed++;
+//						isFatalStaffRaw = true;
+//					}
+//					if (!fatalIssues.contains(vo.getAllImportStaffCodeInfos()
+//							.get(code))) {
+//						fatalIssues.add(vo.getAllImportStaffCodeInfos().get(
+//								code));
+//					}
+//					Long count = fatalIssueCounts.get(vo
+//							.getAllImportStaffCodeInfos().get(code));
+//					GWT.log("fatal count = " + count + " for "
+//							+ vo.getAllImportStaffCodeInfos().get(code));
+//					if (count == null) {
+//						count = new Long(0);
+//					}
+//					fatalIssueCounts.put(
+//							vo.getAllImportStaffCodeInfos().get(code),
+//							count + 1);
+//				} else if ("警告".equals(vo.getAllImportStaffCodeTypes()
+//						.get(code))) {
+//					if (!isWarnStaffRaw) {
+//					//	totalStaffWarn++;
+//						isWarnStaffRaw = true;
+//					}
+//					if (!warnIssues.contains(vo.getAllImportStaffCodeInfos()
+//							.get(code))) {
+//						warnIssues.add(vo.getAllImportStaffCodeInfos()
+//								.get(code));
+//					}
+//					Long count = warnIssueCounts.get(vo
+//							.getAllImportStaffCodeInfos().get(code));
+//					if (count == null) {
+//						count = new Long(0);
+//					}
+//					warnIssueCounts.put(
+//							vo.getAllImportStaffCodeInfos().get(code),
+//							count + 1);
+//				}
+//			}
+//		}
 		String result = "";
 		result += "<br/>你已经准备好导入员工资料<br/><br/>";
 		result += "<b>" + totalStaff + "</b>笔资料<br/><br/>";
-		result += "<span style='color:red'>" + totalStaffFailed
-				+ "</span>笔资料有下列严重问题, 将被忽略<br/><br/>";
-		for (String fatalIssue : fatalIssues) {
-			result += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-<span style='color:black'>"
-					+ fatalIssueCounts.get(fatalIssue)
-					+ "</span>笔资料"
-					+ fatalIssue + "<br/>";
-		}
-		result += "<br/><span style='color:black'>"
-				+ (totalStaff - totalStaffFailed) + "</span>>笔资料中:<br/>";
-		for (String warnIssue : warnIssues) {
-			result += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-<span style='color:black'>"
-					+ warnIssueCounts.get(warnIssue)
-					+ "</span>>笔资料"
-					+ warnIssue
-					+ "<br/>";
-		}
+//		result += "<span style='color:red'>" + totalStaffFailed
+//				+ "</span>笔资料有下列严重问题, 将被忽略<br/><br/>";
+//		for (String fatalIssue : fatalIssues) {
+//			result += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-<span style='color:black'>"
+//					+ fatalIssueCounts.get(fatalIssue)
+//					+ "</span>笔资料"
+//					+ fatalIssue + "<br/>";
+//		}
+//		result += "<br/><span style='color:black'>"
+//				+ (totalStaff - totalStaffFailed) + "</span>>笔资料中:<br/>";
+//		for (String warnIssue : warnIssues) {
+//			result += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-<span style='color:black'>"
+//					+ warnIssueCounts.get(warnIssue)
+//					+ "</span>>笔资料"
+//					+ warnIssue
+//					+ "<br/>";
+//		}
 
 		result += "<br/><b>预计成功导入员工数：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:blue'><b>"
 				+ vo.getEstimateSuccessNum() + "</b></span><br/>";
