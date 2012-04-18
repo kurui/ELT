@@ -345,8 +345,8 @@ public class ImportStaffLogicImpl implements ImportStaffLogic {
 			}
 
 			importStaffRawCodes.add(parseRawResult);
-
-//			importStaffRawDao.update(staffRaw);
+			
+		//	importStaffRawDao.update(staffRaw);
 		}
 
 //		logger.debug(
