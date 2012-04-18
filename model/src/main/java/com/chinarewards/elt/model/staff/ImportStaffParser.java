@@ -16,83 +16,61 @@ import java.util.StringTokenizer;
  */
 public class ImportStaffParser {
 
-	public final static Object[] CODE1 = { new Long(1),
-			"isStaffNumberDuplicated" };
-	public final static Object[] CODE2 = { new Long(2), "isDobFuture" };
-	public final static Object[] CODE3 = { new Long(3), "isMemberCardNumerUsed" };
-	public final static Object[] CODE4 = { new Long(4),
-			"isMemberCardNumberNotInChannel" };
-	public final static Object[] CODE5 = { new Long(5),
-			"isMemberCardNotDigit10" };
-	public final static Object[] CODE6 = { new Long(6), "isLastNameEmpty" };
-	public final static Object[] CODE7 = { new Long(7), "isFirstNameEmpty" };
-	public final static Object[] CODE8 = { new Long(8), "isEmployedDateFuture" };
-	public final static Object[] CODE9 = { new Long(9),
-			"isEmailAddressFormatInvalid" };
-	public final static Object[] CODE10 = { new Long(10), "isEmailAddressEmpty" };
-	public final static Object[] CODE11 = { new Long(11),
-			"isMobileTelephoneNumberInvalid" };
-	public final static Object[] CODE12 = { new Long(12),
-			"isMobileTelephoneNumberEmpty" };
-	public final static Object[] CODE13 = { new Long(13), "isDepartmentInvalid" };
-	public final static Object[] CODE14 = { new Long(14),
-			"isIdNoDigitNot15or18" };
-	public final static Object[] CODE015 = { new Long(15),
-			"isMemberCardNumberNotEnough" };
-	public final static Object[] CODE016 = { new Long(16),
-			"isDesiredMemberCardNumberDuplicated" };
-	public final static Object[] CODE17 = { new Long(17),
-			"isEmailAddressDuplicated" };
-	public final static Object[] CODE18 = { new Long(18),
-			"isMobileTelephoneNumberDuplicated" };
-	public final static Object[] CODE19 = { new Long(19),
-			"isMobileTelephoneNumberDuplicatedInBatch" };
-	public final static Object[] CODE20 = { new Long(20),
-			"isEmailAddressDuplicatedInBatch" };
-	public final static Object[] CODE21 = { new Long(21),
-			"isStaffNumberDuplicatedInBatch" };
+	public final static Object[] CODE1 = { new Long(1),"isStaffNumberDuplicated" };//编号重复
+	public final static Object[] CODE2 = { new Long(2), "isDobFuture" };//生日错位
+	public final static Object[] CODE6 = { new Long(6), "isNameEmpty" };//名字为空
+	public final static Object[] CODE9 = { new Long(9),"isEmailAddressFormatInvalid" };//邮件地址错误
+	public final static Object[] CODE10 = { new Long(10), "isEmailAddressEmpty" };//邮件为空
+	public final static Object[] CODE11 = { new Long(11),	"isMobileTelephoneNumberInvalid" };//手机号错误
+	public final static Object[] CODE12 = { new Long(12),	"isMobileTelephoneNumberEmpty" };//手机号为空
+	public final static Object[] CODE13 = { new Long(13), "isDepartmentInvalid" };//部门错误
+	public final static Object[] CODE17 = { new Long(17),	"isEmailAddressDuplicated" };//邮件地址重复
+	public final static Object[] CODE18 = { new Long(18),	"isMobileTelephoneNumberDuplicated" };//手机号码重复
+	public final static Object[] CODE19 = { new Long(19),	"isMobileTelephoneNumberDuplicatedInBatch" };//本批次中有相同手机号
+	public final static Object[] CODE20 = { new Long(20),	"isEmailAddressDuplicatedInBatch" };//本批次中有相同邮件地址
+	public final static Object[] CODE21 = { new Long(21),	"isStaffNumberDuplicatedInBatch" };//本批次中有相同员工编号
 
-//	/**
-//	 * 
-//	 * 手机号是否在当前上传批次中存在，存在返回true
-//	 * 
-//	 * @param pStaffRaw
-//	 * @param helper
-//	 * @return
-//	 */
-//	public static boolean isStaffNumberDuplicatedInBatch(
-//			ImportStaffRawParameter pStaffRaw, final ImportStaffEjbHelper helper) {
-//		if (pStaffRaw.getStaffNumber() != null
-//				&& helper.getDesiredStaffNumber() != null
-//				&& helper.getDesiredStaffNumber().indexOf(
-//						pStaffRaw.getStaffNumber()) != helper
-//						.getDesiredStaffNumber().lastIndexOf(
-//								pStaffRaw.getStaffNumber())) {
-//			return true;
-//		}
-//		return false;
-//	}
-//
-//	/**
-//	 * 
-//	 * 手机号是否在当前上传批次中存在，存在返回true
-//	 * 
-//	 * @param pStaffRaw
-//	 * @param helper
-//	 * @return
-//	 */
-//	public static boolean isMobileTelephoneNumberDuplicatedInBatch(
-//			ImportStaffRawParameter pStaffRaw, final ImportStaffEjbHelper helper) {
-//		if (pStaffRaw.getMobileTelephoneNumber() != null
-//				&& helper.getDesiredMobileNos() != null
-//				&& helper.getDesiredMobileNos().indexOf(
-//						pStaffRaw.getMobileTelephoneNumber()) != helper
-//						.getDesiredMobileNos().lastIndexOf(
-//								pStaffRaw.getMobileTelephoneNumber())) {
-//			return true;
-//		}
-//		return false;
-//	}
+	/**
+	 * 
+	 * 员工编号是否在当前上传批次中存在，存在返回true
+	 * 
+	 * @param pStaffRaw
+	 * @param helper
+	 * @return
+	 */
+	public static boolean isStaffNumberDuplicatedInBatch(
+			ImportStaffRawParameter pStaffRaw, final ImportStaffEjbHelper helper) {
+		if (pStaffRaw.getJobNo() != null
+				&& helper.getDesiredStaffNumber() != null
+				&& helper.getDesiredStaffNumber().indexOf(
+						pStaffRaw.getJobNo()) != helper
+						.getDesiredStaffNumber().lastIndexOf(
+								pStaffRaw.getJobNo())) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * 
+	 * 手机号是否在当前上传批次中存在，存在返回true
+	 * 
+	 * @param pStaffRaw
+	 * @param helper
+	 * @return
+	 */
+	public static boolean isMobileTelephoneNumberDuplicatedInBatch(
+			ImportStaffRawParameter pStaffRaw, final ImportStaffEjbHelper helper) {
+		if (pStaffRaw.getPhone() != null
+				&& helper.getDesiredMobileNos() != null
+				&& helper.getDesiredMobileNos().indexOf(
+						pStaffRaw.getPhone()) != helper
+						.getDesiredMobileNos().lastIndexOf(
+								pStaffRaw.getPhone())) {
+			return true;
+		}
+		return false;
+	}
 
 	/**
 	 * 
@@ -134,24 +112,24 @@ public class ImportStaffParser {
 		return false;
 	}
 
-//	/**
-//	 * 
-//	 * 手机号已经存在，存在返回true
-//	 * 
-//	 * @param pStaffRaw
-//	 * @param helper
-//	 * @return
-//	 */
-//	public static boolean isMobileTelephoneNumberDuplicated(
-//			ImportStaffRawParameter pStaffRaw, final ImportStaffEjbHelper helper) {
-//		if (pStaffRaw.getMobileTelephoneNumber() != null
-//				&& helper.getExistingEmailAddress() != null
-//				&& helper.getExistingMobileNos().contains(
-//						pStaffRaw.getMobileTelephoneNumber())) {
-//			return true;
-//		}
-//		return false;
-//	}
+	/**
+	 * 
+	 * 手机号已经存在，存在返回true
+	 * 
+	 * @param pStaffRaw
+	 * @param helper
+	 * @return
+	 */
+	public static boolean isMobileTelephoneNumberDuplicated(
+			ImportStaffRawParameter pStaffRaw, final ImportStaffEjbHelper helper) {
+		if (pStaffRaw.getPhone() != null
+				&& helper.getExistingEmailAddress() != null
+				&& helper.getExistingMobileNos().contains(
+						pStaffRaw.getPhone())) {
+			return true;
+		}
+		return false;
+	}
 
 	/**
 	 * 
@@ -166,28 +144,6 @@ public class ImportStaffParser {
 		return helper.isAllPassed();
 	}
 
-//	/**
-//	 * 
-//	 * 判断导入的员工身份证不是18位或者15位，返回true
-//	 * 
-//	 * @param pStaffRaw
-//	 * @param helper
-//	 * @return
-//	 */
-//	public static boolean isIdNoDigitNot15or18(
-//			ImportStaffRawParameter pStaffRaw, final ImportStaffEjbHelper helper) {
-//
-//		if (pStaffRaw.getIdNo() != null) {
-//			if (pStaffRaw.getIdNo().length() == 18
-//					|| pStaffRaw.getIdNo().length() == 15) {
-//				return false;
-//			} else {
-//				return true;
-//			}
-//		}
-//
-//		return false;
-//	}
 
 	/**
 	 * 
@@ -246,81 +202,42 @@ public class ImportStaffParser {
 
 		return false;
 	}
-//
-//	/**
-//	 * 就职日期在未来，返回true
-//	 */
-//	public static boolean isEmployedDateFuture(
-//			ImportStaffRawParameter pStaffRaw, final ImportStaffEjbHelper helper) {
-//		if (pStaffRaw.getDateOfEmployment() != null
-//				&& !pStaffRaw.getDateOfEmployment().equals("")) {
-//			if (helper.getDoeFormat() != null && helper.getNow() != null) {
-//				SimpleDateFormat format = new SimpleDateFormat(
-//						helper.getDoeFormat());
-//				Date src;
-//				try {
-//					src = format.parse(pStaffRaw.getDateOfEmployment());
-//					if (src.compareTo(helper.getNow()) > 0) {
-//						return true;
-//					}
-//				} catch (ParseException e) {
-//					// e.printStackTrace();
-//				}
-//
-//			}
-//		}
-//
-//		return false;
-//	}
-//
-//	/**
-//	 * 
-//	 * 手机号码为空，返回true
-//	 * 
-//	 * @param pStaffRaw
-//	 * @return
-//	 */
-//	public static boolean isMobileTelephoneNumberEmpty(
-//			ImportStaffRawParameter pStaffRaw, final ImportStaffEjbHelper helper) {
-//		if (pStaffRaw.getMobileTelephoneNumber() == null
-//				|| pStaffRaw.getMobileTelephoneNumber().equals("")) {
-//			return true;
-//		}
-//		return false;
-//	}
-//
-//	/**
-//	 * 
-//	 * 手机号码不是13、15、18开头的数字并且为11位，非法手机号返回true
-//	 * 
-//	 * @param pStaffRaw
-//	 * @return
-//	 */
-//	public static boolean isMobileTelephoneNumberInvalid(
-//			ImportStaffRawParameter pStaffRaw, final ImportStaffEjbHelper helper) {
-//		String reg = "^[1][358][0-9]{9}$";
-//		if (!isMobileTelephoneNumberEmpty(pStaffRaw, null)) {
-//			if (!pStaffRaw.getMobileTelephoneNumber().matches(reg)) {
-//				return true;
-//			}
-//		}
-//		return false;
-////	}
-//
-//	/**
-//	 * 判断中文姓为空，返回true
-//	 * 
-//	 * @param pStaffRaw
-//	 * @return
-//	 */
-//	public static boolean isFirstNameEmpty(ImportStaffRawParameter pStaffRaw,
-//			final ImportStaffEjbHelper helper) {
-//		if (pStaffRaw.getFirstName() == null
-//				|| pStaffRaw.getFirstName().trim().equals("")) {
-//			return true;
-//		}
-//		return false;
-//	}
+
+
+	/**
+	 * 
+	 * 手机号码为空，返回true
+	 * 
+	 * @param pStaffRaw
+	 * @return
+	 */
+	public static boolean isMobileTelephoneNumberEmpty(
+			ImportStaffRawParameter pStaffRaw, final ImportStaffEjbHelper helper) {
+		if (pStaffRaw.getPhone() == null
+				|| pStaffRaw.getPhone().equals("")) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * 
+	 * 手机号码不是13、15、18开头的数字并且为11位，非法手机号返回true
+	 * 
+	 * @param pStaffRaw
+	 * @return
+	 */
+	public static boolean isMobileTelephoneNumberInvalid(
+			ImportStaffRawParameter pStaffRaw, final ImportStaffEjbHelper helper) {
+		String reg = "^[1][358][0-9]{9}$";
+		if (!isMobileTelephoneNumberEmpty(pStaffRaw, null)) {
+			if (!pStaffRaw.getPhone().matches(reg)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 
 	/**
 	 * 
@@ -338,27 +255,27 @@ public class ImportStaffParser {
 		return false;
 	}
 
-	/**
-	 * 
-	 * 部门格式有误(部门不能为空、父子不能同名，否则)返回true
-	 * 
-	 * @param pStaffRaw
-	 * @return
-	 */
-	public static boolean isDepartmentInvalid(
-			ImportStaffRawParameter pStaffRaw, final ImportStaffEjbHelper helper) {
-		if (pStaffRaw.getDepartment() == null
-				|| pStaffRaw.getDepartment().trim().equals("")) {
-			return true;
-		} else {
-			if (parseStringByDelimiter(pStaffRaw.getDepartment(),
-					helper.IMPORT_STAFF_DEPARTMENT_DELIMITER,
-					helper.IMPORT_STAFF_DEPARTMENT_ESCAPE_CHAR) == null) {
-				return true;
-			}
-		}
-		return false;
-	}
+//	/**
+//	 * 
+//	 * 部门格式有误(部门不能为空、父子不能同名，否则)返回true
+//	 * 
+//	 * @param pStaffRaw
+//	 * @return
+//	 */
+//	public static boolean isDepartmentInvalid(
+//			ImportStaffRawParameter pStaffRaw, final ImportStaffEjbHelper helper) {
+//		if (pStaffRaw.getDepartment() == null
+//				|| pStaffRaw.getDepartment().trim().equals("")) {
+//			return true;
+//		} else {
+//			if (parseStringByDelimiter(pStaffRaw.getDepartment(),
+//					helper.IMPORT_STAFF_DEPARTMENT_DELIMITER,
+//					helper.IMPORT_STAFF_DEPARTMENT_ESCAPE_CHAR) == null) {
+//				return true;
+//			}
+//		}
+//		return false;
+//	}
 
 	/**
 	 * 
@@ -379,120 +296,6 @@ public class ImportStaffParser {
 
 		return false;
 	}
-
-//	/**
-//	 * 验证卡号不属于本企业卡号段，返回true
-//	 * 
-//	 * @param pStaffRaw
-//	 * @param PreCode
-//	 * @return
-//	 */
-//	public static boolean isMemberCardNumberNotInChannel(
-//			ImportStaffRawParameter pStaffRaw, final ImportStaffEjbHelper helper) {
-//		if (// ignore current checking if card number is not digit 10
-//		!ImportStaffParser.isMemberCardNotDigit10(pStaffRaw, null)
-//		// ignore not input member card, namely, automatic dispatch
-//				&& pStaffRaw.getMemberCardNumber() != null) {
-//			try {
-//				Long inputCardNumber = Long.parseLong(pStaffRaw
-//						.getMemberCardNumber());
-//				if (inputCardNumber > helper.getLastCardNumberInChannel()
-//						|| inputCardNumber < helper
-//								.getFirstCardNumberInChannel()) {
-//					return true;
-//				}
-//			} catch (Exception e) {
-//				return true;
-//			}
-//		}
-//
-//		return false;
-//	}
-//
-//	/**
-//	 * 
-//	 * 员工卡号不是10位的卡号，返回true
-//	 * 
-//	 * @param pStaffRaw
-//	 * @return
-//	 */
-//	public static boolean isMemberCardNotDigit10(
-//			ImportStaffRawParameter pStaffRaw, final ImportStaffEjbHelper helper) {
-//		if (pStaffRaw.getMemberCardNumber() != null
-//				&& !pStaffRaw.getMemberCardNumber().equals("")) {
-//			if (pStaffRaw.getMemberCardNumber().length() != 10) {
-//				return true;
-//			}
-//
-//		}
-//		return false;
-//	}
-//
-//	/**
-//	 * 
-//	 * 如果指定卡号已经被企业现有员工使用，返回true
-//	 * 
-//	 * @param pStaffRaw
-//	 * @param usedCard
-//	 * @return
-//	 */
-//	public static boolean isMemberCardNumerUsed(
-//			ImportStaffRawParameter pStaffRaw, final ImportStaffEjbHelper helper) {
-//		if (// ignore current checking if card number is not digit 10
-//		!isMemberCardNotDigit10(pStaffRaw, null)
-//		// ignore not input member card, namely, automatic dispatch
-//				&& pStaffRaw.getMemberCardNumber() != null) {
-//			if (helper.getExistingMemberCardNumbers() != null
-//					&& helper.getExistingMemberCardNumbers().contains(
-//							pStaffRaw.getMemberCardNumber())) {
-//				return true;
-//			}
-//		}
-//		return false;
-//	}
-//
-//	/**
-//	 * 
-//	 * 自动分配卡号，但卡号段已经没有可分配卡号，返回true
-//	 * 
-//	 * @param pStaffRaw
-//	 * @param usedCard
-//	 * @param strSrc
-//	 * @param temp
-//	 * @return
-//	 */
-//	public static boolean isMemberCardNumberNotEnough(
-//			ImportStaffRawParameter pStaffRaw, final ImportStaffEjbHelper helper) {
-//
-//		return helper.getAssignedCardNumber() == null;
-//	}
-//
-//	/**
-//	 * 
-//	 * 手工指定的会员卡号在上传文件里重复，返回true
-//	 * 
-//	 * @param pStaffRaw
-//	 * @param helper
-//	 * @return
-//	 */
-//	public static boolean isDesiredMemberCardNumberDuplicated(
-//			ImportStaffRawParameter pStaffRaw, final ImportStaffEjbHelper helper) {
-//		if (// ignore once digit 10 checking failed
-//		!isMemberCardNotDigit10(pStaffRaw, helper)
-//		// ignore once card already used checking failed
-//				&& !isMemberCardNumerUsed(pStaffRaw, helper)
-//				// ignore not input member card, namely, automatic dispatch
-//				&& pStaffRaw.getMemberCardNumber() != null) {
-//			if (helper.getDesiredMemberCardNumbers().indexOf(
-//					pStaffRaw.getMemberCardNumber()) != helper
-//					.getDesiredMemberCardNumbers().lastIndexOf(
-//							pStaffRaw.getMemberCardNumber())) {
-//				return true;
-//			}
-//
-//		}
-//		return false;
-//	}
 
 	public class ParserMethod {
 		private Long code;
