@@ -17,7 +17,7 @@ public class GiftAdapterClient {
 		// // 基本信息
 		giftVo.setName(display.getName().getValue().trim());
 		giftVo.setSummary(display.getSummary().getValue().trim());
-		
+		giftVo.setPrice(display.getPrice().getValue().trim());
 		giftVo.setDispatchcycle(display.getDispatchcycle().getValue().trim());
 		giftVo.setExplains(display.getExplains().getValue().trim());
 		giftVo.setNotes(display.getNotes().getValue().trim());

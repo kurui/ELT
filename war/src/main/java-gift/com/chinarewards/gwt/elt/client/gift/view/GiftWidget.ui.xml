@@ -93,7 +93,16 @@
 								visible="false" />
 						</div>
 					</div>
-
+                   <div class="{new2.form-line}">
+						<label class="{new2.label2}">
+							<span style="color:red">*</span>
+							进货价格：
+						</label>
+						<div class="{new2.element}">
+							<g:TextBox maxLength="20" ui:field="price" styleName="{new2.text}" />
+							
+						</div>
+					</div>
 					<div class="{new2.form-line}">
 						<label class="{new2.label2}">
 							<span style="color:red">*</span>

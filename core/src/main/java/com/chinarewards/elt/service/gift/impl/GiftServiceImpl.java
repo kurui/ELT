@@ -1,5 +1,7 @@
 package com.chinarewards.elt.service.gift.impl;
 
+import java.util.List;
+
 import com.chinarewards.elt.domain.gift.Gift;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
@@ -46,6 +48,12 @@ public class GiftServiceImpl implements GiftService {
 	public PageStore<GiftListVo> giftList(UserContext context, GiftListVo giftVo) {
 		SysUser caller = userLogic.findUserById(context.getUserId());
 		return giftLogic.giftList(caller, giftVo);
+	}
+	
+	@Override
+	public List<GiftListVo> exportGiftList(UserContext context, GiftListVo giftVo) {
+		SysUser caller = userLogic.findUserById(context.getUserId());
+		return giftLogic.exportGiftList(caller, giftVo);
 	}
 
 	@Override

@@ -35,7 +35,16 @@ public class GiftListVo implements Serializable {
     private boolean deleted;   //删除状态
     private Date    indate ;      //有效截止期
     private Date    recorddate;   //录入时间
-    private String  recorduser; //录入人
+    private String  price;//采购价格
+    public String getPrice() {
+		return price;
+	}
+
+	public void setPrice(String price) {
+		this.price = price;
+	}
+
+	private String  recorduser; //录入人
     private Date    updatetime;  //修改时间
     private int    integral;  //积分
 	

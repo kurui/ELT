@@ -67,7 +67,7 @@ public class EditGiftHandler extends
 		gift.setSummary(giftVo.getSummary());
 		gift.setDispatchcycle(giftVo.getDispatchcycle());
 		gift.setNotes(giftVo.getNotes());
-
+        gift.setPrice(giftVo.getPrice());
 		gift.setExplains(giftVo.getExplains());
 		gift.setType(giftVo.getType().trim());
 		gift.setBrand(giftVo.getBrand().trim());

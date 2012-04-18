@@ -311,6 +311,7 @@ public class ActionModule extends ActionHandlerModule {
 		
 		//礼品列表
 		bindHandler(SearchGiftRequest.class, SearchGiftHandler.class);	   
+		
 		bindHandler(SearchGiftByIdRequest.class,SearchGiftByIdHandler.class);		
 		//礼品编辑
 		bindHandler(EditGiftRequest.class, EditGiftHandler.class); 		
