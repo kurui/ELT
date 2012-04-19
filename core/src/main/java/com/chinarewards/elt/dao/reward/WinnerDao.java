@@ -19,7 +19,6 @@ import com.chinarewards.elt.domain.reward.person.Candidate;
 import com.chinarewards.elt.domain.reward.person.Winner;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.reward.base.WinnerProcessFlag;
-import com.chinarewards.elt.model.reward.search.RewardGridSearchVo;
 import com.chinarewards.elt.model.reward.search.RewardItemSearchVo;
 import com.chinarewards.elt.model.reward.search.RewardSearchVo;
 import com.chinarewards.elt.model.reward.vo.WinerRewardItemVo;

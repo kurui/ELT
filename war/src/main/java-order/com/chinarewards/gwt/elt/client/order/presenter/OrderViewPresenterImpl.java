@@ -16,7 +16,6 @@ import com.chinarewards.gwt.elt.client.order.request.OrderViewRequest;
 import com.chinarewards.gwt.elt.client.order.request.OrderViewResponse;
 import com.chinarewards.gwt.elt.client.order.request.SearchOrderByIdRequest;
 import com.chinarewards.gwt.elt.client.order.request.SearchOrderByIdResponse;
-import com.chinarewards.gwt.elt.client.orderHistory.plugin.OrderHistoryConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.model.ChoosePanel.InitChoosePanelParam;

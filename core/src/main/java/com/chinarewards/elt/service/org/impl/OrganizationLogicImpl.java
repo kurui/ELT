@@ -4,13 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.persistence.EntityManager;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.chinarewards.elt.common.Principal;
-import com.chinarewards.elt.common.UserContextProvider;
 import com.chinarewards.elt.dao.org.OrganizationDao;
 import com.chinarewards.elt.domain.org.Organization;
 import com.chinarewards.elt.model.vo.StaffAndDeptmentAutoCompile;

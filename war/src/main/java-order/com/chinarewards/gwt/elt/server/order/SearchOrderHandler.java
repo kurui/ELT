@@ -77,8 +77,8 @@ public class SearchOrderHandler extends
 			vo.setStatus(OrderStatus.valueOf(criteria.getStatus().toString()));
 		}
 		
-		if(!StringUtil.isEmpty(criteria.getGiftvo().getSource())){
-			giftvo.setSource(criteria.getGiftvo().getSource());
+		if(!StringUtil.isEmpty(criteria.getGiftVo().getSource())){
+			giftvo.setSource(criteria.getGiftVo().getSource());
 			
 		}
 		vo.setGiftvo(giftvo);

@@ -216,14 +216,14 @@ public class DepartmentWidget extends Composite implements DepartmentDisplay {
 
 	}
 
-	private static String getDepartmentParentName(String parentName) {
-		if (parentName != null) {
-			if (parentName.indexOf("ROOT_DEPT") > -1) {
-				return "";
-			}
-		}
-		return parentName;
-	}
+//	private static String getDepartmentParentName(String parentName) {
+//		if (parentName != null) {
+//			if (parentName.indexOf("ROOT_DEPT") > -1) {
+//				return "";
+//			}
+//		}
+//		return parentName;
+//	}
 
 	@Override
 	public void setBreadCrumbs(Widget breadCrumbs) {

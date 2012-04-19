@@ -15,13 +15,11 @@ import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.order.OrderService;
 import com.chinarewards.gwt.elt.adapter.order.OrderAdapter;
 import com.chinarewards.gwt.elt.client.order.model.OrderSearchVo;
-import com.chinarewards.gwt.elt.client.order.request.SearchOrderResponse;
 import com.chinarewards.gwt.elt.client.orderHistory.request.SearchOrderHistoryRequest;
 import com.chinarewards.gwt.elt.client.orderHistory.request.SearchOrderHistoryResponse;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
 import com.chinarewards.gwt.elt.server.logger.InjectLogger;
 import com.chinarewards.gwt.elt.util.StringUtil;
-import com.chinarewards.gwt.elt.util.UserRoleTool;
 import com.google.inject.Inject;
 
 /**
@@ -78,10 +76,13 @@ public class SearchOrderHistoryHandler extends
 			vo.setStatus(OrderStatus.valueOf(criteria.getStatus().toString()));
 		}
 		
-		if(!StringUtil.isEmpty(criteria.getGiftvo().getSource())){
-			giftvo.setSource(criteria.getGiftvo().getSource());
-			
+		if(criteria.getGiftVo()!=null){
+			if(!StringUtil.isEmpty(criteria.getGiftVo().getSource())){
+				giftvo.setSource(criteria.getGiftVo().getSource());
+			}
 		}
+		
+	
 		vo.setGiftvo(giftvo);
 		
 		if (criteria.getPagination() != null) {

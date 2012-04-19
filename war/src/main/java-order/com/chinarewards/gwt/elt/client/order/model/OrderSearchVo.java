@@ -120,10 +120,10 @@ public class OrderSearchVo implements Serializable, Comparable<OrderSearchVo> {
 		this.recorddate = recorddate;
 	}
 	
-	public GiftClient getGiftvo() {
+	public GiftClient getGiftVo() {
 		return giftvo;
 	}
-	public void setGiftvo(GiftClient giftvo) {
+	public void setGiftVo(GiftClient giftvo) {
 		this.giftvo = giftvo;
 	}
 	@Override
