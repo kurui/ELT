@@ -93,7 +93,7 @@
 				</div>
 			</div>
 			<span class="{new2.cutline}"></span>
-			<div class="{new2.nav} {new2.clearfix}">
+			<div class="{new2.nav}">
 				<ul>
 					<li>
 						<g:Anchor styleName="{new2.menu}" ui:field="btnIntegral">
@@ -111,7 +111,7 @@
 					</li>
 				</ul>
 			</div>
-
+			
 			<div class="{new2.divtext}">
 				共有
 				<g:InlineLabel ui:field="dataCount" styleName="{new2.divfont}"></g:InlineLabel>

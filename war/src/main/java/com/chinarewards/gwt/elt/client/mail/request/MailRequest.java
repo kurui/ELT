@@ -2,7 +2,6 @@ package com.chinarewards.gwt.elt.client.mail.request;
 
 import net.customware.gwt.dispatch.shared.Action;
 
-import com.chinarewards.gwt.elt.client.enterprise.model.EnterpriseVo;
 import com.chinarewards.gwt.elt.client.mail.model.MailVo;
 import com.chinarewards.gwt.elt.client.support.UserSession;
 
