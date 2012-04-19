@@ -140,4 +140,14 @@ public class UserDao extends BaseDao<SysUser> {
 
 		return q;
 	}
+	/**
+	 * 物理删除
+	 * @param staffId
+	 * @return
+	 */
+	public int deleteSysUserByStaffId(String staffId) {
+		return getEmNoFlush()
+				.createQuery("DELETE FROM SysUser win WHERE win.staff.id=:staffId ")
+				.setParameter("staffId", staffId).executeUpdate();
+	}
 }

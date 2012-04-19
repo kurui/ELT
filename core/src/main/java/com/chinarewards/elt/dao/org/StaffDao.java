@@ -523,4 +523,14 @@ public class StaffDao extends BaseDao<Staff> {
 						"FROM Staff s WHERE s.corporation.id = :corporationId  and s.deleted=0 ")
 				.setParameter("corporationId", corporationId).getResultList();
 	}
+	/**
+	 * 物理删除
+	 * @param staffId
+	 * @return
+	 */
+	public int deleteStaffByStaffId(String staffId) {
+		return getEmNoFlush()
+				.createQuery("DELETE FROM Staff win WHERE win.id=:staffId ")
+				.setParameter("staffId", staffId).executeUpdate();
+	}
 }
