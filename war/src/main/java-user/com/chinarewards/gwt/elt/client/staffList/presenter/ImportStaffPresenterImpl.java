@@ -422,7 +422,7 @@ public class ImportStaffPresenterImpl extends
 					@Override
 					public void onClick(ClickEvent arg0) {
 
-						doExport("preview", "导入预览报告");
+						doExportToo("preview", "导入预览报告");
 
 					}
 				}));
@@ -446,7 +446,7 @@ public class ImportStaffPresenterImpl extends
 					@Override
 					public void onClick(ClickEvent arg0) {
 
-						doExport("fatal", "下载失败纪录");
+						doExportToo("fatal", "下载失败纪录");
 
 					}
 				}));
@@ -1286,7 +1286,13 @@ public class ImportStaffPresenterImpl extends
 		Window.open(wholeUrl, title,
 				"menubar=yes,location=no,resizable=yes,scrollbars=yes,status=yes");
 	}
-	
+	private void doExportToo(String action, String title) {
+		String url = GWT.getModuleBaseURL() + "servlet.isrs";
+		String data = "batchId=" + batchId + "&action=" + action;
+		String wholeUrl = url + "?" + data + "&radom=" + Math.random();
+		Window.open(wholeUrl, title,
+				"menubar=yes,location=no,resizable=yes,scrollbars=yes,status=yes");
+	}
 
 	private void initTable() {	
 		buildTable();

@@ -176,7 +176,7 @@
                         </div>
 						<div id ="post">
                             <div>
-								   <g:Button ui:field="pretreatmentReportButton" styleName="button-inclu" visible="false" >详细</g:Button>
+								   <g:Button ui:field="pretreatmentReportButton" styleName="button-inclu" >详细</g:Button>
 									<g:Button ui:field="backStep3Button" styleName="button-pre" >上一步</g:Button>
 									<g:Button ui:field="importStaffButton" styleName="button-inclu">导入</g:Button>
 							</div>
@@ -241,7 +241,7 @@
 						<div id="post">
 
 							<div>
-								<g:Button ui:field="finalReportButton" styleName="button-inclu" visible="false" >下载失败记录</g:Button>
+								<g:Button ui:field="finalReportButton" styleName="button-inclu" >下载失败记录</g:Button>
 							    <g:Button ui:field="closeButton" styleName="button-ok">完成</g:Button>
 							</div>
 						</div>
