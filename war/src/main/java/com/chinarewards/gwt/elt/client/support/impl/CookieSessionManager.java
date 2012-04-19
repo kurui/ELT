@@ -132,7 +132,6 @@ public class CookieSessionManager implements SessionManager {
 			
 			@Override
 			public void onSuccess(final UserSession resp) {
-				// TODO Auto-generated method stub
 				tokenObtained(resp);
 
 				UserRoleVo role = resp.getLastLoginRole();
@@ -514,6 +513,8 @@ public class CookieSessionManager implements SessionManager {
 								{
 									if (role == UserRoleVo.CORP_ADMIN)
 									{
+										if(roleslt.contains(UserRoleVo.DEPT_MGR))
+										{
 										 UserRoleVo [] tempRole=session.getUserRoles();
 										 UserRoleVo [] tempRoleNew=new UserRoleVo[tempRole.length-1];
 											if(tempRole.length>0)
@@ -527,11 +528,15 @@ public class CookieSessionManager implements SessionManager {
 													}
 												}
 											}
+										
 										 session.setUserRoles(tempRoleNew);
+										}
 										 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK));
 									}
 									else if (role == UserRoleVo.DEPT_MGR)
 									{
+										if(roleslt.contains(UserRoleVo.CORP_ADMIN))
+										{
 										 UserRoleVo [] tempRole=session.getUserRoles();
 										 UserRoleVo [] tempRoleNew=new UserRoleVo[tempRole.length-1];
 											if(tempRole.length>0)
@@ -546,6 +551,7 @@ public class CookieSessionManager implements SessionManager {
 												}
 											}
 										 session.setUserRoles(tempRoleNew);
+										}
 										 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_DEPT));
 										 
 									}

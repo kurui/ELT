@@ -8,6 +8,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Image;
@@ -46,6 +47,14 @@ public class StaffViewWidget extends Composite implements StaffViewDisplay {
 	Panel breadCrumbs;
 	@UiField
 	Image staffImage;
+	
+	@UiField
+	Anchor btnIntegral;//积分信息
+	@UiField
+	Anchor btnRewardHistory;//获奖历史
+	@UiField
+	Anchor btnExchangeHistory;//兑换历史
+    
 	@UiField
 	InlineLabel dataCount;
 	@UiField
@@ -153,6 +162,21 @@ public class StaffViewWidget extends Composite implements StaffViewDisplay {
 	@Override
 	public InlineLabel getStaffRoles() {
 		return staffRoles;
+	}
+
+	@Override
+	public Anchor getBtnIntegral() {
+		return btnIntegral;
+	}
+
+	@Override
+	public Anchor getBtnExchangeHistory() {
+		return btnExchangeHistory;
+	}
+
+	@Override
+	public Anchor getBtnRewardHistory() {
+		return btnRewardHistory;
 	}
 
 }

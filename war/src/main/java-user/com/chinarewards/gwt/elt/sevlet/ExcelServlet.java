@@ -12,25 +12,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import jxl.Workbook;
-import jxl.format.Alignment;
-import jxl.format.VerticalAlignment;
 import jxl.write.Label;
-import jxl.write.WritableCellFormat;
-import jxl.write.WritableFont;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
-import jxl.write.WriteException;
 
-import com.chinarewards.elt.common.LogicContext;
-import com.chinarewards.elt.common.UserContextProvider;
 import com.chinarewards.elt.model.staff.StaffSearchCriteria;
 import com.chinarewards.elt.model.staff.StaffStatus;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.service.staff.IStaffService;
-import com.chinarewards.gwt.elt.model.user.UserRoleVo;
-import com.chinarewards.gwt.elt.sevlet.ServiceLocatorUtil;
-import com.chinarewards.gwt.elt.util.UserRoleTool;
 import com.google.inject.Inject;
 
 /**

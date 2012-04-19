@@ -9,7 +9,6 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 import org.slf4j.Logger;
 
 import com.chinarewards.elt.domain.org.Members;
-import com.chinarewards.elt.domain.reward.person.Judge;
 import com.chinarewards.elt.model.vo.TeamListVo;
 import com.chinarewards.elt.service.org.TeamService;
 import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;

@@ -35,7 +35,7 @@ public class OrderAdapter {
 			client.setOrderCode(item.getOrderCode());
 			client.setRecorddate(item.getRecorddate());
 			client.setExchangeDate(item.getExchangeDate());
-			client.setGiftvo(adapter(item.getGiftvo()));
+			client.setGiftVo(adapter(item.getGiftvo()));
 			resultList.add(client);
 		}
 

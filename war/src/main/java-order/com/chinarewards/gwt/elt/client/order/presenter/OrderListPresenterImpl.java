@@ -19,7 +19,6 @@ import com.chinarewards.gwt.elt.client.order.plugin.OrderViewConstants;
 import com.chinarewards.gwt.elt.client.order.presenter.OrderListPresenter.OrderListDisplay;
 import com.chinarewards.gwt.elt.client.order.request.OrderViewRequest;
 import com.chinarewards.gwt.elt.client.order.request.OrderViewResponse;
-import com.chinarewards.gwt.elt.client.staffList.model.StaffListCriteria.StaffStatus;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
 import com.chinarewards.gwt.elt.client.ui.UniversalCell;
@@ -30,7 +29,6 @@ import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.widget.Sorting;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.client.win.confirm.ConfirmHandler;
-import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
@@ -159,7 +157,7 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 		
 		if (!StringUtil.isEmpty(display.getSource()))
 			giftVo.setSource(display.getSource());
-		criteria.setGiftvo(giftVo);
+		criteria.setGiftVo(giftVo);
        
 		listViewAdapter = new OrderListViewAdapter(dispatch, criteria,
 				errorHandler, sessionManager, display);
@@ -191,7 +189,7 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 				new GetValue<OrderSearchVo, String>() {
 					@Override
 					public String getValue(OrderSearchVo order) {
-						return order.getGiftvo().getName();
+						return order.getGiftVo().getName();
 					}
 				}, ref, "name");
 
@@ -228,15 +226,7 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 				new GetValue<OrderSearchVo, String>() {
 					@Override
 					public String getValue(OrderSearchVo order) {
-						if (order.getGiftvo().getSource() != null) {
-							if (StringUtil.trim(order.getGiftvo().getSource()).equals("inner")) {
-								return "内部直接提供";
-							}
-							if (StringUtil.trim(order.getGiftvo().getSource()).equals("outter")) {
-								return "外部货品公司提供";
-							}
-						}
-						return "";
+						return order.getGiftVo().getSourceText();
 					}
 				});   
 		
