@@ -774,7 +774,7 @@ public class StaffLogicImpl implements StaffLogic {
 		staff.setDeleted(1);
 		staff.setLastModifiedAt(new Date());
 		staff.setLastModifiedBy(nowuser);
-	
+		staff.setStatus(StaffStatus.HIDE);
 		staffDao.update(staff);
 		SysUser user=userDao.findUserByStaffId(staff.getId());	
 		if(user!=null)
@@ -790,5 +790,37 @@ public class StaffLogicImpl implements StaffLogic {
 	@Override
 	public List<Staff> findNotDeleteStaff(String corporationId) {
 		return staffDao.findNotDeleteStaffsBycorporationId(corporationId);
+	}
+
+	@Override
+	public String restorationStaff(String staffId, UserContext context) {
+		SysUser nowuser=userDao.findUserById(context.getUserId());
+		Staff staff=staffDao.findById(Staff.class, staffId);
+		staff.setDeleted(0);
+		staff.setLastModifiedAt(new Date());
+		staff.setLastModifiedBy(nowuser);
+		staff.setStatus(StaffStatus.ENTRY);
+		staffDao.update(staff);
+		SysUser user=userDao.findUserByStaffId(staff.getId());	
+		if(user!=null)
+		{
+			user.setStatus(UserStatus.Active);
+			user.setLastModifiedAt(new Date());
+			user.setLastModifiedBy(nowuser);
+			userDao.update(user);
+		}
+		return "success";
+	}
+
+	@Override
+	public String physicalDeleteStaff(String staffId, UserContext context) {
+		Staff staff=staffDao.findById(Staff.class, staffId);
+		staffDao.delete(staff);
+		SysUser user=userDao.findUserByStaffId(staff.getId());	
+		if(user!=null)
+		{
+			userDao.delete(user);
+		}
+		return "success";
 	}
 }

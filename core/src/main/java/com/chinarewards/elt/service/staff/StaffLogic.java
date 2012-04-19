@@ -144,7 +144,18 @@ public interface StaffLogic {
 	 * @return
 	 */
 	public String deleteStaff(String staffId,UserContext context);
-	
+	/**
+	 *	物理删除员工
+	 * @param staffId
+	 * @return
+	 */
+	public String physicalDeleteStaff(String staffId,UserContext context);
+	/**
+	 *	恢复员工
+	 * @param staffId
+	 * @return
+	 */
+	public String restorationStaff(String staffId,UserContext context);
 	@SuppressWarnings("rawtypes")
 	public List queryStaffListExport(StaffSearchCriteria criteria, UserContext context);
 }

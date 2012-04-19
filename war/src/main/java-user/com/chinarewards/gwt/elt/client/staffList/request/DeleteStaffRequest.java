@@ -19,6 +19,17 @@ public class DeleteStaffRequest implements Action<DeleteStaffResponse> {
 
 	private UserSession session;
 
+	private String fal;
+	
+	public String getFal() {
+		return fal;
+	}
+
+
+	public void setFal(String fal) {
+		this.fal = fal;
+	}
+
 
 	public UserSession getSession() {
 		return session;
@@ -44,10 +55,10 @@ public class DeleteStaffRequest implements Action<DeleteStaffResponse> {
 	}
 
 
-	public DeleteStaffRequest(String staffId,UserSession session) {
+	public DeleteStaffRequest(String staffId,UserSession session,String fal) {
 		this.staffId = staffId;
 		this.session=session;
-	
+		this.fal=fal;
 	}
 
 

@@ -202,7 +202,7 @@ public class StaffDao extends BaseDao<Staff> {
 			hql.append(" AND staff.department.id = :deptId ");
 			param.put("deptId", searchVo.getDeptId());
 		}
-		if (searchVo.getStatus() != null) {
+		if (searchVo.getStatus() != null && searchVo.getStatus() !=StaffStatus.HIDE) {
 			hql.append(" AND staff.status = :status ");
 			param.put("status", searchVo.getStatus());
 		}
@@ -229,8 +229,17 @@ public class StaffDao extends BaseDao<Staff> {
 			}
 
 		}
-		hql.append(" AND staff.deleted = :deleted ");
-		param.put("deleted", 0);
+		
+		if(searchVo.getStatus()!=null && searchVo.getStatus() ==StaffStatus.HIDE)
+		{
+			hql.append(" AND staff.deleted = :deleted ");
+			param.put("deleted", 1);
+		}
+		else
+		{
+			hql.append(" AND staff.deleted = :deleted ");
+			param.put("deleted", 0);
+		}
 
 		// ORDER BY
 		if (SEARCH.equals(type)) {

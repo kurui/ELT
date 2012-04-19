@@ -42,8 +42,14 @@ public class StaffDeleteActionHandler extends
 		context.setUserId(request.getSession().getToken());
 		context.setLoginName(request.getSession().getLoginName());
 		context.setUserRoles(UserRoleTool.adaptToRole(request.getSession().getUserRoles()));
+		String message="";
+		if("HIDE".equals(request.getFal()))
+			message=staffService.deleteStaff(request.getStaffId(), context);
+		else if("REST".equals(request.getFal()))
+			message=staffService.restorationStaff(request.getStaffId(), context);
+		else if("DELETE".equals(request.getFal()))
+			message=staffService.physicalDeleteStaff(request.getStaffId(), context);
 		
-		String message=staffService.deleteStaff(request.getStaffId(), context);
 		return  new DeleteStaffResponse(message);
 	}
 

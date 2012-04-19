@@ -23,8 +23,9 @@ public class StaffListCriteria implements IsSerializable {
 		JOB("在职"),
 
 		/* 已离职 */
-		DEPARTURE("已离职");
-
+		DEPARTURE("已离职"),
+		/*已隐藏 */
+		HIDE("已隐藏");
 		private final String displayName;
 
 		StaffStatus(String displayName) {
