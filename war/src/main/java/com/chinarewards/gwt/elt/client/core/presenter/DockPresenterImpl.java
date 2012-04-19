@@ -72,7 +72,8 @@ public class DockPresenterImpl extends BasePresenter<DockDisplay> implements
 			if (!roleslt.contains(UserRoleVo.STAFF)) {
 				display.disableStaffCorner();
 			}
-			if(roleslt.contains(UserRoleVo.DEPT_MGR) && !roleslt.contains(UserRoleVo.CORP_ADMIN))
+			
+			if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.DEPT_MGR)
 			{
 				display.displayDeptMgrMenu();
 			}

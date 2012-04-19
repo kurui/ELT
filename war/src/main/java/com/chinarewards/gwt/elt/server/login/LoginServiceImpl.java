@@ -1,6 +1,5 @@
 package com.chinarewards.gwt.elt.server.login;
 
-import java.util.Calendar;
 import java.util.Date;
 
 import javax.servlet.http.HttpSession;
