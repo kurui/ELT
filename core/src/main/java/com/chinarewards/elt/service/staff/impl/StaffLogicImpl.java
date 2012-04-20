@@ -821,15 +821,25 @@ public class StaffLogicImpl implements StaffLogic {
 	@Override
 	public String physicalDeleteStaff(String staffId, UserContext context) {
 		
-//				delete from ORGANIZATION where id='8a83834536c4c1750136c4db692a0042'--44
-//				delete from PREWINNER where staff_id='8a83834536c4c1750136c4db692a0042'--22
-//				delete from WINNER where staff_id='8a83834536c4c1750136c4db692a0042'--11
+//				delete from ORGANIZATION where id='8a83834536c4c1750136c4db69550043'--66
+//				delete from PREWINNER where staff_id='8a83834536c4c1750136c4db69550043'--22
+//				delete from WINNER where staff_id='8a83834536c4c1750136c4db69550043'--11
 //
-//				delete from CANDIDATE where staff_id='8a83834536c4c1750136c4db692a0042'--33
+//				delete from CANDIDATE where staff_id='8a83834536c4c1750136c4db69550043'--33
+//
+//
+//				delete from SYSUSERROLE where user_id='8a83834536c9b9520136c9be987e0002'--44
+//
+//				delete from SYSUSER where staff_id='8a83834536c4c1750136c4db69550043'--55
 		winnerDao.deleteWinnersByStaffId(staffId);
 		preWinnerDao.deletePreWinnerByStaffId(staffId);
 		candidateDao.deleteCandidateByStaffId(staffId);
-		userDao.deleteSysUserByStaffId(staffId);
+		SysUser user=userDao.findUserByStaffId(staffId);
+		if(user!=null)
+		{
+			userRoleDao.deleteSysUserRoleByUserId(user.getId());
+			userDao.deleteSysUserByStaffId(staffId);
+		}
 		staffDao.deleteStaffByStaffId(staffId);
 
 		return "success";
