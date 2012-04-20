@@ -15,7 +15,7 @@ public interface StaffViewPresenter extends
 	public void initStaffView_Colleague(String staffId,boolean colleague);
 	public static interface StaffViewDisplay extends Display {
 
-		public HasClickHandlers getupadateBtnClickHandlers();
+		public HasClickHandlers getUpadateBtnClickHandlers();
 
 		void setBreadCrumbs(Widget breadCrumbs);
 
@@ -39,6 +39,8 @@ public interface StaffViewPresenter extends
 
 		void setStaffImage(String url);
 		void setDataCount(String text);
+		InlineLabel getDataCount();
+		
 		Panel getResultPanel();
 		Panel getResultpage();
 		void displayUpdateBtn(boolean colleague);
@@ -46,6 +48,12 @@ public interface StaffViewPresenter extends
 		public Anchor getBtnIntegral();
 		public Anchor getBtnExchangeHistory();
 		public Anchor getBtnRewardHistory();
+
+		public InlineLabel getHistoryIntegral();
+
+		public InlineLabel getConsumptionIntegral();
+
+		public InlineLabel getBalanceIntegral();
 		
 	}
 }

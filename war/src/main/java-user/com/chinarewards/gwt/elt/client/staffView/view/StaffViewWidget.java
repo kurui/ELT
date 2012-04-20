@@ -41,6 +41,13 @@ public class StaffViewWidget extends Composite implements StaffViewDisplay {
 	InlineLabel staffRoles;
 	
 	@UiField
+	InlineLabel historyIntegral;
+	@UiField
+	InlineLabel consumptionIntegral;
+	@UiField
+	InlineLabel  balanceIntegral;
+	
+	@UiField
 	Button updateBtn;
 
 	@UiField
@@ -61,6 +68,7 @@ public class StaffViewWidget extends Composite implements StaffViewDisplay {
 	Panel resultPanel;
 	@UiField
 	Panel resultpage;
+
 	private static StaffViewWidgetUiBinder uiBinder = GWT
 			.create(StaffViewWidgetUiBinder.class);
 
@@ -79,7 +87,7 @@ public class StaffViewWidget extends Composite implements StaffViewDisplay {
 	}
 
 	@Override
-	public HasClickHandlers getupadateBtnClickHandlers() {
+	public HasClickHandlers getUpadateBtnClickHandlers() {
 		return updateBtn;
 	}
 
@@ -177,6 +185,26 @@ public class StaffViewWidget extends Composite implements StaffViewDisplay {
 	@Override
 	public Anchor getBtnRewardHistory() {
 		return btnRewardHistory;
+	}
+
+	@Override
+	public InlineLabel getDataCount() {
+		return dataCount;
+	}
+
+	@Override
+	public InlineLabel getHistoryIntegral() {
+		return historyIntegral;
+	}
+
+	@Override
+	public InlineLabel getConsumptionIntegral() {
+		return consumptionIntegral;
+	}
+
+	@Override
+	public InlineLabel getBalanceIntegral() {
+		return balanceIntegral;
 	}
 
 }

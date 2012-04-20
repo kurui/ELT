@@ -12,6 +12,8 @@ import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.order.model.OrderSearchVo;
 import com.chinarewards.gwt.elt.client.staffAdd.plugin.StaffAddConstants;
+import com.chinarewards.gwt.elt.client.staffIntegral.request.StaffIntegralRequest;
+import com.chinarewards.gwt.elt.client.staffIntegral.request.StaffIntegralResponse;
 import com.chinarewards.gwt.elt.client.staffView.dataprovider.ExchangeHistoryDataAdapter;
 import com.chinarewards.gwt.elt.client.staffView.dataprovider.StaffWinAdapter;
 import com.chinarewards.gwt.elt.client.staffView.model.StaffWinClient;
@@ -55,6 +57,12 @@ public class StaffViewPresenterImpl extends
 	ListCellTable<OrderSearchVo> cellTableExchange;
 	ExchangeHistoryDataAdapter exchangeHistoryDataAdapter;
 	
+	private String tabCloseClass="";
+	private String tabSelectedClass="";
+	private String normalListPagePanelClass="";
+	private String normalIntegralPanelClass="";
+	
+	
 	@Inject
 	public StaffViewPresenterImpl(EventBus eventBus, StaffViewDisplay display,
 			DispatchAsync dispatch, SessionManager sessionManager, Win win,
@@ -74,7 +82,7 @@ public class StaffViewPresenterImpl extends
 		
 		initWidget();
 		
-		registerHandler(display.getupadateBtnClickHandlers().addClickHandler(
+		registerHandler(display.getUpadateBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
@@ -85,6 +93,16 @@ public class StaffViewPresenterImpl extends
 								"EDITOR_STAFFADD_SEARCH_DO_ID", staffId);
 					}
 				}));
+		registerHandler(display.getBtnIntegral().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						buildIntegralTable();
+						display.getBtnIntegral().setStyleName(tabSelectedClass);
+						display.getBtnRewardHistory().setStyleName(tabCloseClass);
+						display.getBtnExchangeHistory().setStyleName(tabCloseClass);
+					}
+				}));
 		
 		registerHandler(display.getBtnRewardHistory().addClickHandler(
 				new ClickHandler() {
@@ -92,8 +110,9 @@ public class StaffViewPresenterImpl extends
 					public void onClick(ClickEvent event) {
 						buildRewardHistoryTable();
 						doRewardHistorySearch();
-						display.getBtnRewardHistory().setStyleName("menu-link menu-selected");
-						display.getBtnExchangeHistory().setStyleName("menu-link");
+						display.getBtnIntegral().setStyleName(tabCloseClass);
+						display.getBtnRewardHistory().setStyleName(tabSelectedClass);
+						display.getBtnExchangeHistory().setStyleName(tabCloseClass);
 					}
 				}));
 		
@@ -103,8 +122,9 @@ public class StaffViewPresenterImpl extends
 					public void onClick(ClickEvent event) {
 						buildExchangeHistoryTable();
 						doExchangeSearch();
-						display.getBtnRewardHistory().setStyleName("menu-link");
-						display.getBtnExchangeHistory().setStyleName("menu-link menu-selected");
+						display.getBtnIntegral().setStyleName(tabCloseClass);
+						display.getBtnRewardHistory().setStyleName(tabCloseClass);
+						display.getBtnExchangeHistory().setStyleName(tabSelectedClass);
 						
 					}
 				}));
@@ -123,9 +143,18 @@ public class StaffViewPresenterImpl extends
 		
 		initStatff();
 
-		buildRewardHistoryTable();
-		doRewardHistorySearch();
+//		buildRewardHistoryTable();
+//		doRewardHistorySearch();
 		
+		buildIntegralTable();
+		
+		tabSelectedClass=display.getBtnIntegral().getStyleName();
+		tabCloseClass=display.getBtnRewardHistory().getStyleName();
+		normalListPagePanelClass=display.getDataCount().getElement().getParentElement().getParentElement().getClassName();
+		
+		normalIntegralPanelClass=display.getHistoryIntegral().getElement().getParentElement().getParentElement().getParentElement().getClassName();
+		System.out.println("================normalPanelClass========="+normalListPagePanelClass);
+		System.out.println("================normalIntegralPanelClass========="+normalIntegralPanelClass);
 		
 	}
 
@@ -188,10 +217,41 @@ public class StaffViewPresenterImpl extends
 						}
 					}
 				});
+		
+		String staffId = sessionManager.getSession().getStaffId();
+		dispatch.execute(new StaffIntegralRequest(staffId),
+				new AsyncCallback<StaffIntegralResponse>() {
+
+					@Override
+					public void onFailure(Throwable t) {
+						win.alert(t.getMessage());
+					}
+
+					@Override
+					public void onSuccess(StaffIntegralResponse resp) {
+						display.getHistoryIntegral().setText(StringUtil.subZeroAndDot(resp.getHistoryIntegral()));
+						display.getConsumptionIntegral().setText(StringUtil.subZeroAndDot(resp.getConsumptionIntegral()));
+						display.getBalanceIntegral().setText(StringUtil.subZeroAndDot(resp.getBalanceIntegral()));
+
+					}
+				});
 	}
 
+	
+	private void buildIntegralTable() {		
+		display.getResultPanel().clear();
+		display.getResultpage().clear();
+		
+		display.getHistoryIntegral().getElement().getParentElement().getParentElement().setClassName(normalIntegralPanelClass);
+		display.getDataCount().getElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);		
+		
+		
+	}
 
 	private void buildRewardHistoryTable() {
+		display.getDataCount().getElement().getParentElement().getParentElement().setClassName(normalIntegralPanelClass);	
+		display.getHistoryIntegral().getElement().getParentElement().getParentElement().setClassName(CssStyleConstants.hidden);
+		
 		// create a CellTable
 		cellTable = new ListCellTable<StaffWinClient>();
 
@@ -207,9 +267,13 @@ public class StaffViewPresenterImpl extends
 		display.getResultpage().clear();
 		display.getResultpage().add(pager);
 		
+		
 	}
 	
 	private void buildExchangeHistoryTable() {
+		display.getDataCount().getElement().getParentElement().getParentElement().setClassName(normalIntegralPanelClass);
+		display.getHistoryIntegral().getElement().getParentElement().getParentElement().setClassName(CssStyleConstants.hidden);
+		
 		cellTableExchange = new ListCellTable<OrderSearchVo>();
 
 		initExchangeHistoryTableColumns();
@@ -245,6 +309,7 @@ public class StaffViewPresenterImpl extends
 				errorHandler, sessionManager,display);
 		exchangeHistoryDataAdapter.addDataDisplay(cellTableExchange);
 
+		
 	}
 
 	private void initRewardHistoryTableColumns() {
