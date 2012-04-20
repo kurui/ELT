@@ -106,6 +106,9 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 		else if (pageType == RewardPageType.AWARDREWARDPAGE) {
 			display.changeClassNumber(5);
 		}
+		else if (pageType == RewardPageType.DETERMINEWINNERS) {
+			display.changeClassNumber(4);
+		}
 		else
 		{
 			display.changeClassNumber(6);
@@ -311,6 +314,35 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 							}
 							
 
+						}
+
+					});
+		}
+		if (pageType == RewardPageType.DETERMINEWINNERS) {
+			cellTable.addColumn("操作", new HyperLinkCell(),
+					new GetValue<RewardsClient, String>() {
+						@Override
+						public String getValue(RewardsClient rewards) {
+							return "确定获奖人";
+						}
+					}, new FieldUpdater<RewardsClient, String>() {
+
+						@Override
+						public void update(int index, RewardsClient o,
+								String value) {
+							if ("NEW".equals(o.getStatus().name())
+									|| "PENDING_NOMINATE".equals(o.getStatus()
+											.name())) {
+								Platform.getInstance()
+										.getEditorRegistry()
+										.openEditor(
+												AwardRewardConstants.EDITOR_AWARDREWARD_SEARCH,
+												AwardRewardConstants.EDITOR_AWARDREWARD_SEARCH
+														+ o.getId(), o);
+							} else {
+								win.alert("已经颁奖");
+								return;
+							}
 						}
 
 					});

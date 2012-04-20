@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.chinarewards.gwt.elt.client.awardReward.plugin;
+package com.chinarewards.gwt.elt.client.awardRewardDetermine.plugin;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -25,17 +25,17 @@ import com.google.inject.Inject;
  * @author Cream
  * @since 0.0.1 2010-09-19
  */
-public class AwardRewardPluginDescriptor implements PluginDescriptor {
+public class AwardRewardDeterminePluginDescriptor implements PluginDescriptor {
 
 	final static Set<Extension> ext = new HashSet<Extension>();
-	final AwardRewardPlugin awardRewardPlugin;
+	final AwardRewardDeterminePlugin awardRewardPlugin;
 	final AwardRewardEditorDescriptor awardRewardEditorDescriptor;
 
 	@Inject
-	public AwardRewardPluginDescriptor(
+	public AwardRewardDeterminePluginDescriptor(
 			final AwardRewardEditorDescriptor awardRewardEditorDescriptor) {
 		this.awardRewardEditorDescriptor = awardRewardEditorDescriptor;
-		awardRewardPlugin = new AwardRewardPlugin(this);
+		awardRewardPlugin = new AwardRewardDeterminePlugin(this);
 
 		/**
 		 * Search user menu
@@ -53,12 +53,12 @@ public class AwardRewardPluginDescriptor implements PluginDescriptor {
 
 					@Override
 					public int getOrder() {
-						return MenuConstants.MENU_ORDER_DETERMINEWINNERS_SEARCH;
+						return MenuConstants.MENU_ORDER_AWARDREWARD_SEARCH;
 					}
 
 					@Override
 					public String getMenuId() {
-						return AwardRewardConstants.MENU_AWARDREWARD_SEARCH;
+						return AwardRewardDetermineConstants.MENU_AWARDREWARDDETERMINE_SEARCH;
 					}
 
 					@Override
@@ -68,14 +68,14 @@ public class AwardRewardPluginDescriptor implements PluginDescriptor {
 
 					@Override
 					public String getTitle() {
-						return "确定获奖人";
+						return "待颁奖奖项";
 					}
 
 					@Override
 					public void execute() {
 						RewardsPageClient rpc=new RewardsPageClient();
-						rpc.setTitleName("确定获奖人");
-						rpc.setPageType(RewardPageType.DETERMINEWINNERS);
+						rpc.setTitleName("待颁奖奖项");
+						rpc.setPageType(RewardPageType.AWARDREWARDPAGE);
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(
@@ -93,7 +93,7 @@ public class AwardRewardPluginDescriptor implements PluginDescriptor {
 
 			@Override
 			public PluginDescriptor getPluginDescriptor() {
-				return AwardRewardPluginDescriptor.this;
+				return AwardRewardDeterminePluginDescriptor.this;
 			}
 
 		});
@@ -112,7 +112,7 @@ public class AwardRewardPluginDescriptor implements PluginDescriptor {
 
 			@Override
 			public PluginDescriptor getPluginDescriptor() {
-				return AwardRewardPluginDescriptor.this;
+				return AwardRewardDeterminePluginDescriptor.this;
 			}
 
 		});
@@ -120,7 +120,7 @@ public class AwardRewardPluginDescriptor implements PluginDescriptor {
 
 	@Override
 	public String getPluginId() {
-		return AwardRewardConstants.PLUGIN_AWARDREWARD;
+		return AwardRewardDetermineConstants.PLUGIN_AWARDREWARDDETERMINE;
 	}
 
 	@Override
