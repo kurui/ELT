@@ -327,7 +327,7 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 					new GetValue<RewardsClient, String>() {
 						@Override
 						public String getValue(RewardsClient rewards) {
-							return "确定获奖人";
+							return "评选";
 						}
 					}, new FieldUpdater<RewardsClient, String>() {
 
@@ -344,7 +344,7 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 												AwardRewardConstants.EDITOR_AWARDREWARD_SEARCH
 														+ o.getId(), o);
 							} else {
-								win.alert("已经确定获奖人!");
+								win.alert("已经确定了获奖人!");
 								return;
 							}
 						}
@@ -409,7 +409,7 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 							if (rewards.getStatus() == RewardsStatus.NEW)
 								return  "<a style=\"color:bule;\" href=\"javascript:void(0);\">颁奖</a>";
 							else if (rewards.getStatus() == RewardsStatus.DETERMINE_WINNER)
-								return  "<a style=\"color:bule;\" href=\"javascript:void(0);\">确定获奖人</a>";
+								return  "<a style=\"color:bule;\" href=\"javascript:void(0);\">评选</a>";
 							else if (rewards.getStatus() == RewardsStatus.PENDING_NOMINATE)
 								{
 								for (JudgeModelClient judge:rewards.getJudgeList()) {

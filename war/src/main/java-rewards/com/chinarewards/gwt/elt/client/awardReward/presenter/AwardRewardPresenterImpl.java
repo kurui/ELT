@@ -112,8 +112,52 @@ public class AwardRewardPresenterImpl extends
 
 					}
 				}));
-	}
+		
+		registerHandler(display.getNotWinClickHandlers().addClickHandler(
+				new ClickHandler() {
+					public void onClick(ClickEvent paramClickEvent) {
 
+		
+						win.confirm("提示", "确定无人获奖?"
+							, new ConfirmHandler() {
+
+							@Override
+							public void confirm() {
+								addAwardRewardDataNotStaff(awardsId);
+
+							}
+						});
+
+					}
+				}));
+	}
+	/**
+	 * 颁奖数据添加(无人获奖)
+	 */
+	private void addAwardRewardDataNotStaff(String rewardId) {
+		dispatcher.execute(new AwardRewardAddRequest(null, rewardId,
+				sessionManager.getSession().getToken(),"AWARDREWARDPAGE"),
+				new AsyncCallback<AwardRewardAddResponse>() {
+					public void onFailure(Throwable t) {
+						win.alert(t.getMessage());
+					}
+
+					@Override
+					public void onSuccess(AwardRewardAddResponse response) {
+						win.alert("成功!");
+						RewardsPageClient rpc = new RewardsPageClient();
+						rpc.setTitleName("确定获奖人");
+						rpc.setPageType(RewardPageType.DETERMINEWINNERS);
+						Platform.getInstance()
+								.getEditorRegistry()
+								.openEditor(
+										RewardsListConstants.EDITOR_REWARDSLIST_SEARCH,
+										"EDITOR_REWARDSLIST_"
+												+ RewardPageType.DETERMINEWINNERS,
+										rpc);
+					}
+				});
+	}
 	/**
 	 * 颁奖数据添加
 	 */

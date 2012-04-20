@@ -114,7 +114,10 @@
 					<div class="{new2.form-line} {new2.form-line-btn}">
 						<div class="{new2.element}">
 							<span class="{new2.btn}">
-								<g:Button ui:field="nominatebutton" text="提交" />
+								<g:Button ui:field="nominatebutton" text="确定获奖人" />
+							</span>
+							<span class="{new2.btn}">
+								<g:Button ui:field="notWinbutton" text="无人获奖" />
 							</span>
 						</div>
 					</div>

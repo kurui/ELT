@@ -16,6 +16,7 @@ public interface AwardRewardPresenter extends
 	public static interface AwardRewardDisplay extends Display {
 
 		public HasClickHandlers getNominateClickHandlers();
+		public HasClickHandlers getNotWinClickHandlers();
 
 		public void setName(String name);
 

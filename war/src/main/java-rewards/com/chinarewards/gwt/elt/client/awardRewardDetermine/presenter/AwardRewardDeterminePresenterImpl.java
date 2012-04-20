@@ -7,7 +7,6 @@ import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardAddRespons
 import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardInitRequest;
 import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardInitResponse;
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
-import com.chinarewards.gwt.elt.client.chooseStaff.presenter.ChooseStaffPanelPresenter;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
@@ -30,19 +29,18 @@ public class AwardRewardDeterminePresenterImpl extends
 	private final DispatchAsync dispatcher;
 	private String awardsId;
 	// private String instanceId;
-	private int headcount;
+//	private int headcount;
 	private SessionManager sessionManager;
 	final Win win;
-	private final ChooseStaffPanelPresenter staffPanel;
+
 	private final BreadCrumbsPresenter breadCrumbs;
 	@Inject
 	public AwardRewardDeterminePresenterImpl(EventBus eventBus,
 			AwardRewardDetermineDisplay display, DispatchAsync dispatcher,
-			ChooseStaffPanelPresenter staffPanel,
 			SessionManager sessionManager, Win win,BreadCrumbsPresenter breadCrumbs) {
 		super(eventBus, display);
 		this.dispatcher = dispatcher;
-		this.staffPanel = staffPanel;
+		
 		this.sessionManager = sessionManager;
 		this.win = win;
 		this.breadCrumbs=breadCrumbs;
@@ -138,6 +136,7 @@ public class AwardRewardDeterminePresenterImpl extends
 						display.setExpectNominateDate(DateTool
 								.dateToString(response.getExpectNominateDate()));
 						display.setAwardName(response.getAwardingStaffName());
+						if(response.getWinnerList()!=null && response.getWinnerList().size()>0)
 						display.setWinners(response.getWinnerList());
 
 					}
@@ -149,7 +148,7 @@ public class AwardRewardDeterminePresenterImpl extends
 		// 加载数据
 		this.awardsId = rewardId;
 		// this.instanceId = instanceId;
-		this.headcount = headcount;
+
 	}
 
 }

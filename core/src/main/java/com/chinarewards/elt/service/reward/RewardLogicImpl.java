@@ -711,6 +711,10 @@ public class RewardLogicImpl implements RewardLogic {
 
 			return lot.get(0).getId();
 		} else
+		{
+			reward.setStatus(RewardStatus.REWARDED);
+			rewardDao.update(reward);
 			return null;
+		}
 	}
 }
