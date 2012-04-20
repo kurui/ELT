@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import com.chinarewards.elt.common.LogicContext;
 import com.chinarewards.elt.common.UserContextProvider;
+import com.chinarewards.elt.dao.broadcast.BroadcastingReceivingDao;
 import com.chinarewards.elt.dao.broadcast.StaffObjectDao;
 import com.chinarewards.elt.dao.org.DepartmentDao;
 import com.chinarewards.elt.dao.org.DepartmentManagerDao;
@@ -84,6 +85,7 @@ public class StaffLogicImpl implements StaffLogic {
 	private final MembersDao membersDao;
 	private final JudgeDao judgeDao;
 	private final NomineeDao nomineeDao;
+	private final BroadcastingReceivingDao broadcastingReceivingDao;
 	
 	
 	
@@ -97,7 +99,7 @@ public class StaffLogicImpl implements StaffLogic {
 			DepartmentManagerLogic departmentManagerLogic, UserDao userDao,
 			WinnerDao winnerDao, UserRoleDao userRoleDao, RoleDao roleDao,
 			DepartmentManagerDao deptMgrDao, DepartmentLogic departmentLogic,UserLogic userLogic,PreWinnerDao preWinnerDao,CandidateDao candidateDao,
-			StaffObjectDao staffObjectDao,MembersDao membersDao,JudgeDao judgeDao,NomineeDao nomineeDao) {
+			StaffObjectDao staffObjectDao,MembersDao membersDao,JudgeDao judgeDao,NomineeDao nomineeDao,BroadcastingReceivingDao broadcastingReceivingDao) {
 		this.staffDao = staffDao;
 		this.deptLogic = deptLogic;
 		this.corporationLogic = corporationLogic;
@@ -118,6 +120,7 @@ public class StaffLogicImpl implements StaffLogic {
 		this.membersDao=membersDao;
 		this.judgeDao=judgeDao;
 		this.nomineeDao=nomineeDao;
+		this.broadcastingReceivingDao=broadcastingReceivingDao;
 	}
 
 	@Override
@@ -851,6 +854,10 @@ public class StaffLogicImpl implements StaffLogic {
 		winnerDao.deleteWinnersByStaffId(staffId);
 		preWinnerDao.deletePreWinnerByStaffId(staffId);
 		candidateDao.deleteCandidateByStaffId(staffId);
+		
+		List<String> objectList=staffObjectDao.findStaffObjectByStaffId(staffId);
+		if(objectList.size()>0)
+			broadcastingReceivingDao.deleteBroadcastingReceivingByReceivingId(objectList);
 		staffObjectDao.deleteStaffObjectByStaffId(staffId);
 		membersDao.deleteMembersByStaffId(staffId);
 		deptMgrDao.deleteDepartmentManagerByStaffId(staffId);

@@ -456,7 +456,7 @@ public class StaffListPresenterImpl extends
 				new GetValue<StaffListClient, String>() {
 					@Override
 					public String getValue(StaffListClient rewards) {
-						if(StringUtil.isEmpty(rewards.getUserId()))
+						if(StringUtil.isEmpty(rewards.getUserId()) && rewards.getStaffStatus()==StaffStatus.JOB)
 						return "<a style=\"color:bule;\" href=\"javascript:void(0);\">生成账户</a>";
 						else
 						return "<span  style='color: rgb(221, 221, 221);'>生成账户</span>";
@@ -466,7 +466,7 @@ public class StaffListPresenterImpl extends
 					@Override
 					public void update(int index, final StaffListClient o,
 							String value) {
-						if(StringUtil.isEmpty(o.getUserId()))
+						if(StringUtil.isEmpty(o.getUserId()) && o.getStaffStatus()==StaffStatus.JOB)
 						{
 						win.confirm("提示", "确定生成 <font color='blue'>"+o.getStaffName()+"</font> 的账户",new ConfirmHandler() {
 							
@@ -493,18 +493,21 @@ public class StaffListPresenterImpl extends
 					}}
 
 				});
-		cellTable.addColumn("操作", new HyperLinkCell(),
+		cellTable.addColumn("操作", new UniversalCell(),
 				new GetValue<StaffListClient, String>() {
 					@Override
 					public String getValue(StaffListClient rewards) {
-						return "重置密码";
+						if(!StringUtil.isEmpty(rewards.getUserId()) && rewards.getStaffStatus()!=StaffStatus.HIDE)
+						return "<a style=\"color:bule;\" href=\"javascript:void(0);\">重置密码</a>";
+						else
+						return "<span  style='color: rgb(221, 221, 221);'>重置密码</span>";
 					}
 				}, new FieldUpdater<StaffListClient, String>() {
 
 					@Override
 					public void update(int index, final StaffListClient o,
 							String value) {
-						
+						if(!StringUtil.isEmpty(o.getUserId()) && o.getStaffStatus()!=StaffStatus.HIDE)
 						win.confirm("提示", "确定重置 <font color='blue'>"+o.getStaffName()+"</font> 的密码", new ConfirmHandler() {
 							
 							@Override
