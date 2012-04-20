@@ -658,7 +658,14 @@ public class StaffListPresenterImpl extends
 					@Override
 					public void update(int index, final StaffListClient o,String value) {
 						if(o.getStaffStatus()==StaffStatus.HIDE)
-							win.confirm("提示", "确定删除员工:"+o.getStaffName()+"!(删除后无法恢复)",new ConfirmHandler() {
+							win.confirm("提示", "确定删除员工:"+o.getStaffName()+"!删除后无法恢复,将会删除以下信息:" +
+									"<br>1.获奖历史" +
+									"<br>2.广播" +
+									"<br>3.小组成员信息" +
+									"<br>4.管理的部门信息" +
+									"<br>5.提名人信息" +
+									"<br>6.被提名人信息" +
+									"<br>7.账户",new ConfirmHandler() {
 								
 								@Override
 								public void confirm() {
