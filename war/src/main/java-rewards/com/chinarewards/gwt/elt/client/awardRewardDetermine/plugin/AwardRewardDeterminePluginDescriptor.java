@@ -6,7 +6,7 @@ package com.chinarewards.gwt.elt.client.awardRewardDetermine.plugin;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.chinarewards.gwt.elt.client.awardReward.editor.AwardRewardEditorDescriptor;
+import com.chinarewards.gwt.elt.client.awardRewardDetermine.editor.AwardRewardDetermineEditorDescriptor;
 import com.chinarewards.gwt.elt.client.core.Extension;
 import com.chinarewards.gwt.elt.client.core.ExtensionPoint;
 import com.chinarewards.gwt.elt.client.core.Platform;
@@ -29,12 +29,12 @@ public class AwardRewardDeterminePluginDescriptor implements PluginDescriptor {
 
 	final static Set<Extension> ext = new HashSet<Extension>();
 	final AwardRewardDeterminePlugin awardRewardPlugin;
-	final AwardRewardEditorDescriptor awardRewardEditorDescriptor;
+	final AwardRewardDetermineEditorDescriptor awardRewardDetermineEditorDescriptor;
 
 	@Inject
 	public AwardRewardDeterminePluginDescriptor(
-			final AwardRewardEditorDescriptor awardRewardEditorDescriptor) {
-		this.awardRewardEditorDescriptor = awardRewardEditorDescriptor;
+			final AwardRewardDetermineEditorDescriptor awardRewardDetermineEditorDescriptor) {
+		this.awardRewardDetermineEditorDescriptor = awardRewardDetermineEditorDescriptor;
 		awardRewardPlugin = new AwardRewardDeterminePlugin(this);
 
 		/**
@@ -107,7 +107,7 @@ public class AwardRewardDeterminePluginDescriptor implements PluginDescriptor {
 
 			@Override
 			public Object getInstance() {
-				return awardRewardEditorDescriptor;
+				return awardRewardDetermineEditorDescriptor;
 			}
 
 			@Override

@@ -6,6 +6,7 @@ import java.util.Date;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.awardReward.plugin.AwardRewardConstants;
+import com.chinarewards.gwt.elt.client.awardRewardDetermine.plugin.AwardRewardDetermineConstants;
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
@@ -144,10 +145,13 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 		if (pageType == RewardPageType.NOMINATEPAGE) {
 			criteria.setStatus(RewardsStatus.PENDING_NOMINATE);
 		}
-		if (pageType == RewardPageType.AWARDREWARDPAGE) {
+		else if (pageType == RewardPageType.DETERMINEWINNERS) {
+			criteria.setStatus(RewardsStatus.DETERMINE_WINNER);
+		}
+		else if (pageType == RewardPageType.AWARDREWARDPAGE) {
 			criteria.setStatus(RewardsStatus.NEW);
 		}
-		if (pageType == RewardPageType.DETAILSOFAWARDPAGE) {
+		else if (pageType == RewardPageType.DETAILSOFAWARDPAGE) {
 			criteria.setStatus(RewardsStatus.REWARDED);
 		}
 		listViewAdapter = new RewardsListViewAdapter(dispatch, criteria,
@@ -330,7 +334,7 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 						@Override
 						public void update(int index, RewardsClient o,
 								String value) {
-							if ("NEW".equals(o.getStatus().name())
+							if ("DETERMINE_WINNER".equals(o.getStatus().name())
 									|| "PENDING_NOMINATE".equals(o.getStatus()
 											.name())) {
 								Platform.getInstance()
@@ -340,7 +344,7 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 												AwardRewardConstants.EDITOR_AWARDREWARD_SEARCH
 														+ o.getId(), o);
 							} else {
-								win.alert("已经颁奖");
+								win.alert("已经确定获奖人!");
 								return;
 							}
 						}
@@ -359,17 +363,15 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 						@Override
 						public void update(int index, RewardsClient o,
 								String value) {
-							if ("NEW".equals(o.getStatus().name())
-									|| "PENDING_NOMINATE".equals(o.getStatus()
-											.name())) {
+							if ("NEW".equals(o.getStatus().name())) {
 								Platform.getInstance()
 										.getEditorRegistry()
 										.openEditor(
-												AwardRewardConstants.EDITOR_AWARDREWARD_SEARCH,
-												AwardRewardConstants.EDITOR_AWARDREWARD_SEARCH
+												AwardRewardDetermineConstants.EDITOR_AWARDREWARDDETERMINE_SEARCH,
+												AwardRewardDetermineConstants.EDITOR_AWARDREWARDDETERMINE_SEARCH
 														+ o.getId(), o);
 							} else {
-								win.alert("已经颁奖");
+								win.alert("已经颁奖!");
 								return;
 							}
 						}
@@ -406,6 +408,8 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 						public String getValue(RewardsClient rewards) {
 							if (rewards.getStatus() == RewardsStatus.NEW)
 								return  "<a style=\"color:bule;\" href=\"javascript:void(0);\">颁奖</a>";
+							else if (rewards.getStatus() == RewardsStatus.DETERMINE_WINNER)
+								return  "<a style=\"color:bule;\" href=\"javascript:void(0);\">确定获奖人</a>";
 							else if (rewards.getStatus() == RewardsStatus.PENDING_NOMINATE)
 								{
 								for (JudgeModelClient judge:rewards.getJudgeList()) {
@@ -432,9 +436,16 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 						public void update(int index, RewardsClient o,
 								String value) {
 							String pageUrl = "";
-							if (o.getStatus() == RewardsStatus.NEW)
+							if (o.getStatus() == RewardsStatus.DETERMINE_WINNER)
 							{
 								pageUrl = AwardRewardConstants.EDITOR_AWARDREWARD_SEARCH;
+								Platform.getInstance()
+								.getEditorRegistry()
+								.openEditor(pageUrl, pageUrl + o.getId(), o);
+							}
+							else if (o.getStatus() == RewardsStatus.NEW)
+							{
+								pageUrl = AwardRewardDetermineConstants.EDITOR_AWARDREWARDDETERMINE_SEARCH;
 								Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(pageUrl, pageUrl + o.getId(), o);

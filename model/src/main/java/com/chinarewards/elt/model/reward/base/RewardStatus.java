@@ -1,7 +1,8 @@
 package com.chinarewards.elt.model.reward.base;
 
 public enum RewardStatus {
-
+	/* 确定获奖人 */
+	DETERMINE_WINNER("确定获奖人"),
 	/* 待颁奖 */
 	NEW("待颁奖"),
 
@@ -10,7 +11,7 @@ public enum RewardStatus {
 
 	/* 待审批 */
 	PENDING_APPLICATION("待审批"),
-
+	
 	/* 已完成 */
 	REWARDED("已完成"),
 

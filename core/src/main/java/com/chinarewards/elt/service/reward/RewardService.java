@@ -57,7 +57,24 @@ public interface RewardService {
 	 */
 	public String awardReward(String nowUserId, String rewardId,
 			List<String> staffIds);
-
+	/**
+	 * 确定获奖人方法
+	 * 
+	 * @param caller
+	 * @param rewardId
+	 * @param staffIds
+	 * @return
+	 */
+	public String determineWinner(String nowUserId, String rewardId,List<String> staffIds);
+	/**
+	 * 颁奖方法
+	 * 
+	 * @param caller
+	 * @param rewardId
+	 * @param staffIds
+	 * @return
+	 */
+	public String awardRewardWinner(String nowUserId, String rewardId);
 	/**
 	 * Approve a Reward means it would award really. The result is generate
 	 * {@link Winner} from {@link PreWinner}.

@@ -119,7 +119,7 @@ public class AwardRewardPresenterImpl extends
 	 */
 	private void addAwardRewardData(List<String> staffidList, String rewardId) {
 		dispatcher.execute(new AwardRewardAddRequest(staffidList, rewardId,
-				sessionManager.getSession().getToken()),
+				sessionManager.getSession().getToken(),"DETERMINEWINNERS"),
 				new AsyncCallback<AwardRewardAddResponse>() {
 					public void onFailure(Throwable t) {
 						win.alert(t.getMessage());
@@ -127,16 +127,16 @@ public class AwardRewardPresenterImpl extends
 
 					@Override
 					public void onSuccess(AwardRewardAddResponse response) {
-						win.alert("颁奖成功!");
+						win.alert("确定获奖人成功!");
 						RewardsPageClient rpc = new RewardsPageClient();
-						rpc.setTitleName("颁奖列表");
-						rpc.setPageType(RewardPageType.AWARDREWARDPAGE);
+						rpc.setTitleName("确定获奖人");
+						rpc.setPageType(RewardPageType.DETERMINEWINNERS);
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(
 										RewardsListConstants.EDITOR_REWARDSLIST_SEARCH,
 										"EDITOR_REWARDSLIST_"
-												+ RewardPageType.AWARDREWARDPAGE,
+												+ RewardPageType.DETERMINEWINNERS,
 										rpc);
 					}
 				});

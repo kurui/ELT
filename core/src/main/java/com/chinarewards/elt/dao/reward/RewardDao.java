@@ -165,9 +165,9 @@ public class RewardDao extends BaseDao<Reward> {
 		if (criteria.getStatus() != null) {
 			List<RewardStatus> rstatus = new ArrayList<RewardStatus>();
 			if (criteria.getStatus() == RewardStatus.PENDING_NOMINATE
-					|| criteria.getStatus() == RewardStatus.NEW) {
+					|| criteria.getStatus() == RewardStatus.DETERMINE_WINNER) {
 				rstatus.add(RewardStatus.PENDING_NOMINATE);
-				rstatus.add(RewardStatus.NEW);
+				rstatus.add(RewardStatus.DETERMINE_WINNER);
 				hql.append(" AND rew.status IN (:status)");
 				param.put("status", rstatus);
 			} else {

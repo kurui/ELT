@@ -156,4 +156,23 @@ public interface RewardLogic {
 	public List<RewardVo> getRewardsByHrBox(UserContext context,RewardSearchVo criteria);
 	
 	public void toMessageForReward();
+	
+	/**
+	 * 确定获奖人方法
+	 * 
+	 * @param caller
+	 * @param rewardId
+	 * @param staffIds
+	 * @return
+	 */
+	public String determineWinner(String nowUserId, String rewardId,List<String> staffIds);
+	/**
+	 * 颁奖方法
+	 * 
+	 * @param caller
+	 * @param rewardId
+	 * @param staffIds
+	 * @return
+	 */
+	public String awardRewardWinner(String nowUserId, String rewardId);
 }

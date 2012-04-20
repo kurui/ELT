@@ -11,7 +11,7 @@ import net.customware.gwt.dispatch.shared.Action;
  * An action which perform request to search user.
  * 
  * @author nicho
- * @since 2011年12月12日 
+ * @since 2011年12月12日
  */
 public class AwardRewardAddRequest implements Action<AwardRewardAddResponse> {
 
@@ -19,7 +19,16 @@ public class AwardRewardAddRequest implements Action<AwardRewardAddResponse> {
 
 	String rewardId;
 	String nowUserId;
-	
+	String fal;
+
+	public String getFal() {
+		return fal;
+	}
+
+	public void setFal(String fal) {
+		this.fal = fal;
+	}
+
 	public String getNowUserId() {
 		return nowUserId;
 	}
@@ -50,10 +59,12 @@ public class AwardRewardAddRequest implements Action<AwardRewardAddResponse> {
 		this.staffIds = staffIds;
 	}
 
-	public AwardRewardAddRequest(List<String> staffIds,String rewardId,String nowUserId) {
-		this.staffIds=staffIds;
-	this.nowUserId=nowUserId;
-		this.rewardId=rewardId;
+	public AwardRewardAddRequest(List<String> staffIds, String rewardId,
+			String nowUserId, String fal) {
+		this.staffIds = staffIds;
+		this.nowUserId = nowUserId;
+		this.rewardId = rewardId;
+		this.fal = fal;
 	}
 
 }

@@ -1,8 +1,5 @@
 package com.chinarewards.gwt.elt.client.awardRewardDetermine.presenter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardAddRequest;
@@ -14,14 +11,10 @@ import com.chinarewards.gwt.elt.client.chooseStaff.presenter.ChooseStaffPanelPre
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
-import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
-import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient;
-import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient.SomeoneClient;
 import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.client.win.confirm.ConfirmHandler;
-import com.chinarewards.gwt.elt.model.ChoosePanel.InitChoosePanelParam;
 import com.chinarewards.gwt.elt.model.rewards.RewardPageType;
 import com.chinarewards.gwt.elt.model.rewards.RewardsPageClient;
 import com.chinarewards.gwt.elt.util.DateTool;
@@ -60,52 +53,18 @@ public class AwardRewardDeterminePresenterImpl extends
 		breadCrumbs.loadChildPage("颁奖");
 		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
 		init();
-		InitChoosePanelParam initChooseParam = new InitChoosePanelParam();
-		initChooseParam.setTopName("获奖人：");
-		staffPanel.initChoosePanel(initChooseParam);
-		staffPanel.setRewardId(awardsId);
-		// 候选人面板显示
-		staffPanel.bind();
-		display.initStaffPanel(staffPanel.getDisplay().asWidget());
 
 		registerHandler(display.getNominateClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
 
-						ParticipateInfoClient participate = staffPanel
-								.getparticipateInfo();
-						final List<String> staffIds = new ArrayList<String>();
-						String nominateName = "";
-						if (participate instanceof SomeoneClient) {
-							List<OrganicationClient> staffs = ((SomeoneClient) participate)
-									.getOrganizations();
-							for (OrganicationClient staff : staffs) {
-								staffIds.add(staff.getId());
-								nominateName += staff.getName() + ";";
-							}
-						}
-
-						if (staffIds.size() <= 0) {
-							win.alert("没有选人，需要选人并颁奖~");
-							return;
 					
-						}
-						if (staffIds.size() > headcount) {
-							win.alert("颁奖人数超过奖励名额，请重新选择!");
-							return;
-						}
-						String winStr = "";
-						if (staffIds.size() < headcount) {
-							winStr = "<font color='red'>只选了" + staffIds.size()
-									+ "人，还可以选择" + (headcount - staffIds.size())
-									+ "个名额，继续颁奖还是返回选人?</font>";
-						}
-						win.confirm("提示", "确定获奖人:" + nominateName + "?<br>"
-								+ winStr, new ConfirmHandler() {
+					
+						win.confirm("提示", "确定颁奖?<br>", new ConfirmHandler() {
 
 							@Override
 							public void confirm() {
-								addAwardRewardData(staffIds, awardsId);
+								addAwardRewardData(awardsId);
 
 							}
 						});
@@ -117,9 +76,9 @@ public class AwardRewardDeterminePresenterImpl extends
 	/**
 	 * 颁奖数据添加
 	 */
-	private void addAwardRewardData(List<String> staffidList, String rewardId) {
-		dispatcher.execute(new AwardRewardAddRequest(staffidList, rewardId,
-				sessionManager.getSession().getToken()),
+	private void addAwardRewardData(String rewardId) {
+		dispatcher.execute(new AwardRewardAddRequest(null, rewardId,
+				sessionManager.getSession().getToken(),"AWARDREWARDPAGE"),
 				new AsyncCallback<AwardRewardAddResponse>() {
 					public void onFailure(Throwable t) {
 						win.alert(t.getMessage());
@@ -179,6 +138,7 @@ public class AwardRewardDeterminePresenterImpl extends
 						display.setExpectNominateDate(DateTool
 								.dateToString(response.getExpectNominateDate()));
 						display.setAwardName(response.getAwardingStaffName());
+						display.setWinners(response.getWinnerList());
 
 					}
 				});

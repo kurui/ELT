@@ -89,7 +89,7 @@ public class NomineeLogicImpl implements NomineeLogic {
 		}
 		
 		//提名..修改状态
-		reward.setStatus(RewardStatus.NEW);
+		reward.setStatus(RewardStatus.DETERMINE_WINNER);
 		rewardDao.update(reward);
 		
 		return lot;

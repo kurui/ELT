@@ -38,22 +38,28 @@ public class AwardRewardAddActionHandler extends
 	public AwardRewardAddResponse execute(AwardRewardAddRequest request,
 			ExecutionContext response) throws DispatchException {
 		AwardRewardAddResponse awardresponse = new AwardRewardAddResponse();
-
-		List<String> deleteStaffNameList = rewardService
-				.getIsDeleteStaff(request.getStaffIds());
-		if (deleteStaffNameList.size() > 0) {
-			String message = "";
-			for (String name : deleteStaffNameList) {
-				message += name + "已经离职;";
+		String lot ="";
+		if("DETERMINEWINNERS".equals(request.getFal()))
+		{
+			List<String> deleteStaffNameList = rewardService.getIsDeleteStaff(request.getStaffIds());
+			if (deleteStaffNameList.size() > 0) {
+				String message = "";
+				for (String name : deleteStaffNameList) {
+					message += name + "已经离职;";
+				}
+				message += "请重新选择获奖人!";
+				throw new ClientException(message);
 			}
-			message += "请重新选择获奖人!";
-			throw new ClientException(message);
+
+			 lot = rewardService.determineWinner(request.getNowUserId(), request.getRewardId(),request.getStaffIds());
+			
 		}
-
-		String lot = rewardService.awardReward(request.getNowUserId(), request.getRewardId(),
-				request.getStaffIds());
-
+		else if("AWARDREWARDPAGE".equals(request.getFal()))
+		{
+			 lot = rewardService.awardRewardWinner(request.getNowUserId(), request.getRewardId());
+		}
 		awardresponse.setLotId(lot);
+		
 
 		return awardresponse;
 	}

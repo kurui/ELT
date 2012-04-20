@@ -12,7 +12,7 @@
 			<!--面包屑 ]] -->
 
 
-			<h3>请为奖项选择获奖人并颁奖
+			<h3>请为奖项获奖人颁奖
 			</h3>
 			<span class="{new2.cutline}"></span>
 			<!--面包屑 ]] -->
@@ -66,7 +66,10 @@
 						</div>
 					</div>
 					<div class="{new2.form-line}">
-						<g:FlowPanel ui:field="staffPanel" />
+						<label class="{new2.label}">获奖人：</label>
+						<div class="{new2.element}">
+							<g:VerticalPanel ui:field="winners" />
+						</div>
 					</div>
 
 					<div class="{new2.form-line}">
@@ -109,7 +112,7 @@
 					<div class="{new2.form-line} {new2.form-line-btn}">
 						<div class="{new2.element}">
 							<span class="{new2.btn}">
-								<g:Button ui:field="nominatebutton" text="提交" />
+								<g:Button ui:field="nominatebutton" text="确定颁奖" />
 							</span>
 						</div>
 					</div>

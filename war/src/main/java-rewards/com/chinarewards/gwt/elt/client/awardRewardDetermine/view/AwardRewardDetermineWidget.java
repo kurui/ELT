@@ -3,6 +3,7 @@ package com.chinarewards.gwt.elt.client.awardRewardDetermine.view;
 import java.util.List;
 
 import com.chinarewards.gwt.elt.client.awardRewardDetermine.presenter.AwardRewardDeterminePresenter.AwardRewardDetermineDisplay;
+import com.chinarewards.gwt.elt.model.awardReward.WinnerParamVo;
 import com.chinarewards.gwt.elt.model.nominate.JudgeParamVo;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -52,10 +53,9 @@ public class AwardRewardDetermineWidget extends Composite implements AwardReward
 	@UiField
 	InlineLabel awardAmt;
 	
-	
-	// 选人模块
 	@UiField
-	Panel staffPanel;
+	VerticalPanel winners;
+
 	@UiField
 	Panel breadCrumbs;
 	
@@ -169,14 +169,22 @@ public class AwardRewardDetermineWidget extends Composite implements AwardReward
 	}
 
 	
-	@Override
-	public void initStaffPanel(Widget w) {
-		staffPanel.add(w);
-	}
+
 	@Override
 	public void setBreadCrumbs(Widget breadCrumbs) {
 		this.breadCrumbs.clear();
 		this.breadCrumbs.add(breadCrumbs);
 		
+	}
+	@Override
+	public void setWinners(List<WinnerParamVo> winners) {
+		String winnersStr = "";
+		for (int i = 0; i < winners.size(); i++) {
+			winnersStr += winners.get(i).getName() + ",";
+
+		}
+		InlineLabel winnerlab = new InlineLabel(winnersStr);
+		this.winners.add(winnerlab);
+
 	}
 }
