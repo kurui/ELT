@@ -84,5 +84,14 @@ public class BroadcastReplyDao extends BaseDao<BroadcastReply> {
 		}
 		return query;
 	}
-
+	/**
+	 * 物理删除
+	 * @param staffId
+	 * @return
+	 */
+	public int deleteBroadcastReplyByUserId(String userId) {
+		return getEmNoFlush()
+				.createQuery("DELETE FROM BroadcastReply b WHERE b.replyUser.id=:userId or b.lastModifiedBy.id=:userId ")
+				.setParameter("userId", userId).executeUpdate();
+	}
 }

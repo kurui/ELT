@@ -11,11 +11,15 @@ import org.slf4j.LoggerFactory;
 
 import com.chinarewards.elt.common.LogicContext;
 import com.chinarewards.elt.common.UserContextProvider;
+import com.chinarewards.elt.dao.broadcast.StaffObjectDao;
 import com.chinarewards.elt.dao.org.DepartmentDao;
 import com.chinarewards.elt.dao.org.DepartmentManagerDao;
+import com.chinarewards.elt.dao.org.MembersDao;
 import com.chinarewards.elt.dao.org.StaffDao;
 import com.chinarewards.elt.dao.org.StaffDao.QueryStaffPageActionResult;
 import com.chinarewards.elt.dao.reward.CandidateDao;
+import com.chinarewards.elt.dao.reward.JudgeDao;
+import com.chinarewards.elt.dao.reward.NomineeDao;
 import com.chinarewards.elt.dao.reward.PreWinnerDao;
 import com.chinarewards.elt.dao.reward.WinnerDao;
 import com.chinarewards.elt.dao.user.RoleDao;
@@ -76,6 +80,12 @@ public class StaffLogicImpl implements StaffLogic {
 	private final UserLogic userLogic;
 	private final PreWinnerDao preWinnerDao;
 	private final CandidateDao candidateDao;
+	private final StaffObjectDao staffObjectDao;
+	private final MembersDao membersDao;
+	private final JudgeDao judgeDao;
+	private final NomineeDao nomineeDao;
+	
+	
 	
 	MD5 md5 = new MD5();
 
@@ -86,7 +96,8 @@ public class StaffLogicImpl implements StaffLogic {
 			SendMailService sendMailService,
 			DepartmentManagerLogic departmentManagerLogic, UserDao userDao,
 			WinnerDao winnerDao, UserRoleDao userRoleDao, RoleDao roleDao,
-			DepartmentManagerDao deptMgrDao, DepartmentLogic departmentLogic,UserLogic userLogic,PreWinnerDao preWinnerDao,CandidateDao candidateDao) {
+			DepartmentManagerDao deptMgrDao, DepartmentLogic departmentLogic,UserLogic userLogic,PreWinnerDao preWinnerDao,CandidateDao candidateDao,
+			StaffObjectDao staffObjectDao,MembersDao membersDao,JudgeDao judgeDao,NomineeDao nomineeDao) {
 		this.staffDao = staffDao;
 		this.deptLogic = deptLogic;
 		this.corporationLogic = corporationLogic;
@@ -103,6 +114,10 @@ public class StaffLogicImpl implements StaffLogic {
 		this.userLogic=userLogic;
 		this.preWinnerDao=preWinnerDao;
 		this.candidateDao=candidateDao;
+		this.staffObjectDao=staffObjectDao;
+		this.membersDao=membersDao;
+		this.judgeDao=judgeDao;
+		this.nomineeDao=nomineeDao;
 	}
 
 	@Override
@@ -831,9 +846,17 @@ public class StaffLogicImpl implements StaffLogic {
 //				delete from SYSUSERROLE where user_id='8a83834536c9b9520136c9be987e0002'--44
 //
 //				delete from SYSUSER where staff_id='8a83834536c4c1750136c4db69550043'--55
+		
+
 		winnerDao.deleteWinnersByStaffId(staffId);
 		preWinnerDao.deletePreWinnerByStaffId(staffId);
 		candidateDao.deleteCandidateByStaffId(staffId);
+		staffObjectDao.deleteStaffObjectByStaffId(staffId);
+		membersDao.deleteMembersByStaffId(staffId);
+		deptMgrDao.deleteDepartmentManagerByStaffId(staffId);
+		judgeDao.deleteJudgeByStaffId(staffId);
+		nomineeDao.deleteNomineeByStaffId(staffId);
+		
 		SysUser user=userDao.findUserByStaffId(staffId);
 		if(user!=null)
 		{
