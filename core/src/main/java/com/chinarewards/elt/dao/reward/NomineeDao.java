@@ -41,4 +41,14 @@ public class NomineeDao extends BaseDao<Nominee> {
 						"FROM Nominee n WHERE n.nomineeLot.id =:nomineeLotId")
 				.setParameter("nomineeLotId", nomineeLotId).getResultList();
 	}
+	/**
+	 * 物理删除
+	 * @param staffId
+	 * @return
+	 */
+	public int deleteNomineeByStaffId(String staffId) {
+		return getEmNoFlush()
+				.createQuery("DELETE FROM Nominee win WHERE win.staff.id=:staffId ")
+				.setParameter("staffId", staffId).executeUpdate();
+	}
 }

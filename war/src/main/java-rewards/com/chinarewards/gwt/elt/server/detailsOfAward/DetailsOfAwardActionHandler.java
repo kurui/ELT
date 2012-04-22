@@ -99,16 +99,17 @@ public class DetailsOfAwardActionHandler
 		awardresponse.setCandidateList(candidateVoList);
 
 		// 设置获奖人信息
-
-		List<WinnerParamVo> winnerList = new ArrayList<WinnerParamVo>();
-		for (WinnerParam wp : rewardQueryVo.getWinnerList()) {
-			WinnerParamVo wpv = new WinnerParamVo();
-			wpv.setId(wp.getId());
-			wpv.setName(wp.getName());
-			winnerList.add(wpv);
+		if(rewardQueryVo.getWinnerList()!=null && rewardQueryVo.getWinnerList().size()>0)
+		{
+				List<WinnerParamVo> winnerList = new ArrayList<WinnerParamVo>();
+				for (WinnerParam wp : rewardQueryVo.getWinnerList()) {
+					WinnerParamVo wpv = new WinnerParamVo();
+					wpv.setId(wp.getId());
+					wpv.setName(wp.getName());
+					winnerList.add(wpv);
+				}
+				awardresponse.setWinnerList(winnerList);
 		}
-		awardresponse.setWinnerList(winnerList);
-
 		return awardresponse;
 	}
 

@@ -164,4 +164,14 @@ public class DepartmentManagerDao extends BaseDao<DepartmentManager> {
 			}
 		}
 	}
+	/**
+	 * 物理删除
+	 * @param staffId
+	 * @return
+	 */
+	public int deleteDepartmentManagerByStaffId(String staffId) {
+		return getEmNoFlush()
+				.createQuery("DELETE FROM DepartmentManager win WHERE win.staff.id=:staffId ")
+				.setParameter("staffId", staffId).executeUpdate();
+	}
 }

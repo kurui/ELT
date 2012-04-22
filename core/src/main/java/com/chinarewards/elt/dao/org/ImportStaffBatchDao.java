@@ -66,4 +66,14 @@ public class ImportStaffBatchDao extends BaseDao<ImportStaffBatch> {
 		q.setParameter("resultType", ImportStaffResultType.PENDING);
 		return (Long) q.getSingleResult();
 	}
+	/**
+	 * 物理删除
+	 * @param staffId
+	 * @return
+	 */
+	public int deleteImportStaffRawByUserId(String userId) {
+		return getEmNoFlush()
+				.createQuery("DELETE FROM ImportStaffBatch b WHERE b.createBy.id=:userId or b.lastUpdateBy.id=:userId ")
+				.setParameter("userId", userId).executeUpdate();
+	}
 }

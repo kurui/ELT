@@ -178,4 +178,14 @@ public class BroadcastDao  extends BaseDao<Broadcasting>{
 		Query query = getEm().createQuery(hql.toString()).setParameter("broadcastMessagetype", broadcastMessage);
 		return query.getSingleResult().toString();
 	}
+	/**
+	 * 物理删除
+	 * @param staffId
+	 * @return
+	 */
+	public int deleteBroadcastingByUserId(String userId) {
+		return getEmNoFlush()
+				.createQuery("DELETE FROM Broadcasting b WHERE b.createdBy.id=:userId or b.lastModifiedBy.id=:userId ")
+				.setParameter("userId", userId).executeUpdate();
+	}
 }

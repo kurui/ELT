@@ -127,6 +127,7 @@ public class DetailsOfAwardPresenterImpl extends
 						display.setExpectNominateDate(DateTool
 								.dateToString(response.getExpectNominateDate()));
 						display.setAwardName(response.getAwardingStaffName());
+						if(response.getWinnerList()!=null && response.getWinnerList().size()>0)
 						display.setWinners(response.getWinnerList());
 						display.setCandidate(response.getCandidateList());
 

@@ -60,4 +60,26 @@ public class BroadcastingReceivingDao  extends BaseDao<BroadcastingReceiving>{
 		}
 		return query.getResultList();
 	}
+	
+	/**
+	 * 物理删除
+	 * @param staffId
+	 * @return
+	 */
+	public int deleteBroadcastingReceivingByUserId(String userId) {
+		return getEmNoFlush()
+				.createQuery("DELETE FROM BroadcastingReceiving b WHERE b.createdBy.id=:userId or b.lastModifiedBy.id=:userId ")
+				.setParameter("userId", userId).executeUpdate();
+	}
+	
+	/**
+	 * 物理删除
+	 * @param staffId
+	 * @return
+	 */
+	public int deleteBroadcastingReceivingByReceivingId(List<String> receivingId) {
+		return getEmNoFlush()
+				.createQuery("DELETE FROM BroadcastingReceiving b WHERE b.receiving.id IN (:receivingId) ")
+				.setParameter("receivingId", receivingId).executeUpdate();
+	}
 }

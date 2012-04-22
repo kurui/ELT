@@ -538,4 +538,14 @@ public class WinnerDao extends BaseDao<Winner> {
 		}
 		return query;
 	}
+	/**
+	 * 物理删除获奖人
+	 * @param staffId
+	 * @return
+	 */
+	public int deleteWinnersByStaffId(String staffId) {
+		return getEmNoFlush()
+				.createQuery("DELETE FROM Winner win WHERE win.staff.id=:staffId ")
+				.setParameter("staffId", staffId).executeUpdate();
+	}
 }
