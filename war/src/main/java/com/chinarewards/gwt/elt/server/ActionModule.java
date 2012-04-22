@@ -64,6 +64,7 @@ import com.chinarewards.gwt.elt.client.orderConfirmation.request.OrderConfirmati
 import com.chinarewards.gwt.elt.client.orderConfirmation.request.OrderConfirmationRequest;
 import com.chinarewards.gwt.elt.client.orderHistory.request.OrderHistoryViewRequest;
 import com.chinarewards.gwt.elt.client.orderHistory.request.SearchOrderHistoryRequest;
+import com.chinarewards.gwt.elt.client.orderHistory.request.SearchOrderHistoryStaffRequest;
 import com.chinarewards.gwt.elt.client.orderSubmit.request.OrderSubmitRequest;
 import com.chinarewards.gwt.elt.client.password.request.PasswordRequest;
 import com.chinarewards.gwt.elt.client.register.request.RegisterInitRequest;
@@ -167,6 +168,7 @@ import com.chinarewards.gwt.elt.server.orderConfirmation.AddOrderConfirmationHan
 import com.chinarewards.gwt.elt.server.orderConfirmation.SearchOrderConfirmationHandler;
 import com.chinarewards.gwt.elt.server.orderHistory.OrderHistoryViewHandler;
 import com.chinarewards.gwt.elt.server.orderHistory.SearchOrderHistoryHandler;
+import com.chinarewards.gwt.elt.server.orderHistory.SearchOrderHistoryStaffHandler;
 import com.chinarewards.gwt.elt.server.orderSubmit.AddOrderSubmitHandler;
 import com.chinarewards.gwt.elt.server.register.RegisterActionHandler;
 import com.chinarewards.gwt.elt.server.register.RegisterHrActionHandler;
@@ -355,6 +357,9 @@ public class ActionModule extends ActionHandlerModule {
 		bindHandler(LastLoginRoleRequest.class, UpdatelastLoginRoleActionHandler.class);
 		//兑换历史列表
 		bindHandler(SearchOrderHistoryRequest.class, SearchOrderHistoryHandler.class);
+		
+		bindHandler(SearchOrderHistoryStaffRequest.class, SearchOrderHistoryStaffHandler.class);
+		
 		//兑换历史查看
 		bindHandler(OrderHistoryViewRequest.class, OrderHistoryViewHandler.class);
 

@@ -13,6 +13,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.InlineLabel;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -61,6 +62,9 @@ public class StaffViewWidget extends Composite implements StaffViewDisplay {
 	Anchor btnRewardHistory;//获奖历史
 	@UiField
 	Anchor btnExchangeHistory;//兑换历史
+	
+	@UiField
+	InlineLabel detailTitle;
     
 	@UiField
 	InlineLabel dataCount;
@@ -68,6 +72,9 @@ public class StaffViewWidget extends Composite implements StaffViewDisplay {
 	Panel resultPanel;
 	@UiField
 	Panel resultpage;
+	
+	@UiField
+	 ListBox pageNumber;
 
 	private static StaffViewWidgetUiBinder uiBinder = GWT
 			.create(StaffViewWidgetUiBinder.class);
@@ -205,6 +212,16 @@ public class StaffViewWidget extends Composite implements StaffViewDisplay {
 	@Override
 	public InlineLabel getBalanceIntegral() {
 		return balanceIntegral;
+	}
+
+	@Override
+	public InlineLabel getDetailTitle() {
+		return detailTitle;
+	}
+
+	@Override
+	public ListBox getPageNumber() {
+		return pageNumber;
 	}
 
 }

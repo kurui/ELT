@@ -5,6 +5,7 @@ import com.chinarewards.gwt.elt.client.mvp.Presenter;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.InlineLabel;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -54,6 +55,10 @@ public interface StaffViewPresenter extends
 		public InlineLabel getConsumptionIntegral();
 
 		public InlineLabel getBalanceIntegral();
+		
+		public InlineLabel getDetailTitle();
+
+		public ListBox getPageNumber();
 		
 	}
 }
