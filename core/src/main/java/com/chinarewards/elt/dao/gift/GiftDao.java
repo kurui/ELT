@@ -101,4 +101,13 @@ public class GiftDao extends BaseDao<Gift> {
 
 		return query;
 	}
+	@SuppressWarnings("unchecked")
+	public List<Gift> findNotDeleteGift(String corporationId) {
+		return getEm()
+				.createQuery(
+						"FROM Gift s WHERE s.corporation.id = :corporationId  and s.deleted=false ")
+				.setParameter("corporationId", corporationId).getResultList();
+	}
+	
+
 }

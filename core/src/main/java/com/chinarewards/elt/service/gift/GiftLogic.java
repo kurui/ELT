@@ -5,8 +5,10 @@ import java.util.List;
 import com.chinarewards.elt.domain.gift.Gift;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
+import com.chinarewards.elt.model.gift.GiftProcess;
 import com.chinarewards.elt.model.gift.search.GiftListVo;
 import com.chinarewards.elt.model.gift.search.GiftStatus;
+import com.chinarewards.elt.model.user.UserContext;
 
 public interface GiftLogic {
 	/**
@@ -45,6 +47,10 @@ public interface GiftLogic {
 	 * @return
 	 */
 	public String updateStatus(String id,GiftStatus status);
+
+	public List<Gift> findNotDeleteGift(String corporationId);
+
+	public String createOrUpdateGift(GiftProcess sp, UserContext context);
 
 
 	
