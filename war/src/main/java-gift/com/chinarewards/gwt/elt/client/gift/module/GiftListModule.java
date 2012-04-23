@@ -7,8 +7,12 @@ import com.chinarewards.gwt.elt.client.gift.presenter.ChooseExportTypePresenterI
 import com.chinarewards.gwt.elt.client.gift.presenter.GiftListPresenter;
 import com.chinarewards.gwt.elt.client.gift.presenter.GiftListPresenter.GiftListDisplay;
 import com.chinarewards.gwt.elt.client.gift.presenter.GiftListPresenterImpl;
+import com.chinarewards.gwt.elt.client.gift.presenter.ImportGiftPresenter;
+import com.chinarewards.gwt.elt.client.gift.presenter.ImportGiftPresenter.ImportGiftDisplay;
+import com.chinarewards.gwt.elt.client.gift.presenter.ImportGiftPresenterImpl;
 import com.chinarewards.gwt.elt.client.gift.view.ChooseExportTypeWidget;
 import com.chinarewards.gwt.elt.client.gift.view.GiftListWidget;
+import com.chinarewards.gwt.elt.client.gift.view.ImportGiftWidget;
 import com.google.gwt.inject.client.AbstractGinModule;
 
 public class GiftListModule extends AbstractGinModule {
@@ -21,6 +25,9 @@ public class GiftListModule extends AbstractGinModule {
 		bind(ChooseExportTypePresenter.class).to(
 				ChooseExportTypePresenterImpl.class);
 		bind(ChooseExportTypeDisplay.class).to(ChooseExportTypeWidget.class);
+		
+		bind(ImportGiftPresenter.class).to(ImportGiftPresenterImpl.class);
+		bind(ImportGiftDisplay.class).to(ImportGiftWidget.class);
 	}
 
 }

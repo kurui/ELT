@@ -141,5 +141,16 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .nbspbig{padding-left:32px;}
 
 .divtext{float:left;color:#999999;padding-bottom:3px;}
+.divtext2{color:#999999;padding-bottom:3px;}
 .divfont{color:red;}
 .divend{clear:both}
+.fmdiv {
+    background-color: #FFFFFF;
+    border: 1px solid #9BB1BE;
+    max-height: 500px;
+    overflow: auto;
+    width: 885px;
+
+}
+.setDetail{width:99%; margin:15px auto; position:relative}
+
