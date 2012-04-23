@@ -658,7 +658,7 @@ public class StaffListPresenterImpl extends
 					@Override
 					public void update(int index, final StaffListClient o,String value) {
 						if(o.getStaffStatus()==StaffStatus.HIDE)
-							win.confirm("提示", "确定删除员工:"+o.getStaffName()+"? 删除后无法恢复,将会删除以下信息:" +
+							win.confirm("提示", "您确认要删除<font color='blue'>'"+o.getStaffName()+"'</font>这条员工记录吗？ 删除后无法恢复,将会删除以下信息:" +
 									"<br>1.获奖历史" +
 									"<br>2.广播" +
 									"<br>3.小组成员信息" +
@@ -674,7 +674,7 @@ public class StaffListPresenterImpl extends
 
 												@Override
 												public void onFailure(Throwable t) {
-													win.alert(t.getMessage());
+													win.alert("有关联奖项数据,无法删除!");
 												}
 
 												@Override
