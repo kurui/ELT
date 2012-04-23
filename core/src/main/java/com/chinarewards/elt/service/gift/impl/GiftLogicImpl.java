@@ -13,7 +13,6 @@ import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.broadcast.BroadcastingVo;
 import com.chinarewards.elt.model.broadcast.OrganType;
 import com.chinarewards.elt.model.common.PageStore;
-import com.chinarewards.elt.model.gift.GiftProcess;
 import com.chinarewards.elt.model.gift.search.GiftListVo;
 import com.chinarewards.elt.model.gift.search.GiftStatus;
 import com.chinarewards.elt.model.information.BroadcastingCategory;
@@ -26,6 +25,7 @@ import com.google.inject.Inject;
 
 public class GiftLogicImpl implements GiftLogic{
 	private GiftDao giftDao;
+	
 	private BroadcastService broadcastService;
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Inject
@@ -185,132 +185,6 @@ public class GiftLogicImpl implements GiftLogic{
 	}
 	
 	
-	@Override
-	public String createOrUpdateGift(GiftProcess gift, UserContext context) {
-		Gift ff = null;
-//		SysUser nowuser = userDao.findUserById(context.getUserId());
-//		if (StringUtil.isEmptyString(gift.getStaffId())) {
-//			ff = new Staff();
-//			
-//			//验证编号
-//			if(StringUtil.isEmptyString(gift.getStaffNo()) || !userLogic.vaildStaffNo(gift.getStaffNo(),null))
-//			{
-//				return "ERROR";
-//			}
-//			//验证邮箱
-//			if(StringUtil.isEmptyString(gift.getStaffNo()) || !userLogic.vaildStaffEmail(gift.getEmail().substring(0,gift.getEmail().indexOf("@")+1),null))
-//			{
-//				return "ERROR";
-//			}
-//			
-//			
-//		} else {
-//			ff = giftDao.findById(Staff.class, gift.getStaffId());
-//		}
 
-		
-//		if (gift.getStatus() != null)
-//			ff.setStatus(gift.getStatus());
-////		if (gift.getStaffNo() != null)
-////			ff.setJobNo(gift.getStaffNo());
-//		if (gift.getPhoto() != null)
-//			ff.setPhoto(gift.getPhoto());
-//		if (gift.getPhone() != null)
-//			ff.setPhone(gift.getPhone());
-//		if (gift.getJobPosition() != null)
-//			ff.setJobPosition(gift.getJobPosition());
-//		if (gift.getLeadership() != null)
-//			ff.setLeadership(gift.getLeadership());
-//		if (gift.getEmail() != null)
-//			ff.setEmail(gift.getEmail());
-//		if (gift.getDob() != null)
-//			ff.setDob(gift.getDob());
-//		if (gift.getName() != null)
-//			ff.setName(gift.getName());
-
-		// ff.setTxAccountId(gift.getTxAccountId());---放到激活账户在做
-//
-//		if (StringUtil.isEmptyString(gift.getStaffId())) {
-//			// Create a new gift
-//			ff.setCorporation(nowuser.getCorporation());
-//			ff.setCreatedBy(nowuser);
-//			ff.setCreatedAt(DateUtil.getTime());
-//			ff.setDeleted(0);
-//			giftDao.save(ff);
-//		} else {
-//			ff.setId(gift.getStaffId());
-//			ff.setLastModifiedAt(DateUtil.getTime());
-//			ff.setLastModifiedBy(nowuser);
-//
-//			giftDao.update(ff);
-//		}
-//		// 判断用户离职..
-//		if (gift.getStatus() == StaffStatus.DEPARTURE) {
-//			SysUser u = userDao.findUserByStaffId(ff.getId());
-//			if (u != null) {
-//				u.setStatus(UserStatus.Inactive);
-//				userDao.update(u);
-//			}
-//		} else if (gift.getStatus() == StaffStatus.JOB) {
-//			SysUser u = userDao.findUserByStaffId(ff.getId());
-//			if (u != null) {
-//				u.setStatus(UserStatus.Active);
-//				userDao.update(u);
-//			}
-//		}
-//
-//		if (gift.getUserRoleVos() != null && gift.getUserRoleVos().size() > 0) {
-//			SysUser u = userDao.findUserByStaffId(ff.getId());
-//			if (u != null) {
-//				// 清除角色(除开用户,部门管理员)
-//				List<SysUserRole> lt = userRoleDao.findUserRoleByUserId(u
-//						.getId());
-//				if (lt.size() > 0) {
-//					for (SysUserRole r : lt) {
-//						if (r.getRole().getName() != UserRole.STAFF
-//								&& r.getRole().getName() != UserRole.DEPT_MGR)
-//							userRoleDao.delete(r);
-//					}
-//				}
-//
-//				// 创建角色--
-//				for (UserRole role : gift.getUserRoleVos()) {
-//					SysUserRole userRole = new SysUserRole();
-//					userRole.setRole(roleDao.findRoleByRoleName(role));
-//					userRole.setCreatedBy(nowuser);
-//					userRole.setCreatedAt(DateUtil.getTime());
-//					userRole.setLastModifiedAt(DateUtil.getTime());
-//					userRole.setLastModifiedBy(nowuser);
-//					userRole.setUser(u);
-//					userRoleDao.createUserRole(userRole);
-//				}
-//
-//			}
-//		} else if (gift.getUserRoleVos() != null) {
-//			SysUser u = userDao.findUserByStaffId(ff.getId());
-//			if (u != null) {
-//				// 清除角色(除开用户,部门管理员)
-//				List<SysUserRole> lt = userRoleDao.findUserRoleByUserId(u
-//						.getId());
-//				if (lt.size() > 0) {
-//					for (SysUserRole r : lt) {
-//						if (r.getRole().getName() != UserRole.STAFF
-//								&& r.getRole().getName() != UserRole.DEPT_MGR)
-//							userRoleDao.delete(r);
-//					}
-//				}
-//			}
-//		}
-//
-//		// 通过邮箱修改登录账户名称
-//		SysUser u = userDao.findUserByStaffId(ff.getId());
-//		if (u != null) {
-//			u.setUserName(ff.getEmail()
-//					.substring(0, ff.getEmail().indexOf("@")));
-//			userDao.update(u);
-//		}
-		return ff.getId();
-		
-	}
 
 }

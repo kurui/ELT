@@ -513,28 +513,6 @@ public class ImportGiftLogicImpl implements ImportGiftLogic {
 		logger.debug("removeAllInBatchById - " + batchId);
 		ImportGiftBatch batch = importGiftBatchDao.findById(
 				ImportGiftBatch.class, batchId);
-		// List<ImportGiftRaw> raws = importGiftBatchDao
-		// .getAllGiftRawInSameBatch(batchId);
-		// for (ImportGiftRaw raw : raws) {
-		// this.getEntityManager()
-		// .createQuery(
-		// "delete from ImportGiftRawCode rawCode"
-		// + " where rawCode.importGiftRaw = :importGiftRaw")
-		// .setParameter("importGiftRaw", raw).executeUpdate();
-		//
-		// }
-		//
-		// this.getEntityManager()
-		// .createQuery(
-		// "delete from ImportGiftDepartment isd"
-		// + " where isd.importGiftBatch = :importGiftBatch")
-		// .setParameter("importGiftBatch", batch).executeUpdate();
-		//
-		// this.getEntityManager()
-		// .createQuery(
-		// "delete from ImportGiftRaw raw"
-		// + " where raw.importGiftBatch = :importGiftBatch")
-		// .setParameter("importGiftBatch", batch).executeUpdate();
 
 		importGiftBatchDao.delete(batch);
 		return true;
@@ -587,23 +565,7 @@ public class ImportGiftLogicImpl implements ImportGiftLogic {
 				logger.debug("import Gift ignored");
 			} else {
 				boolean isSuccess = false;
-				// DepartmentImportResult result = null;
 				try {
-					// List<String> currDeptList = ImportGiftParser
-					// .convertRaw2Department(raw.getDepartment());
-					// String[] currDeptArray = currDeptList
-					// .toArray(new String[] {});
-					// result = departmentLogic.batchImportDepartment(batch
-					// .getCorporation().getId(), currDeptArray);
-
-					// com.chinarewards.hr.model.rewards.dataimport.Department
-					// currDepartment = result
-					// .getDepts().get(result.getDepts().size() - 1);
-
-					// populate Gift parameter and save into db
-					// GiftPersistence GiftPersistence =
-					// processImportGiftRawByInstruction( batch, raw,
-					// currDepartment, batch.getCorporation().getId());
 					GiftProcess sp = new GiftProcess();
 
 					sp.setName(raw.getName());
@@ -622,13 +584,17 @@ public class ImportGiftLogicImpl implements ImportGiftLogic {
 					context.setCorporationId(request.getCorporationId());
 					context.setUserId(request.getNowUserId());
 
-					String GiftId = giftLogic.createOrUpdateGift(sp, context);
+					Gift gift=assembleGift(sp);
+					String giftId="";
+//					gift=giftLogic.save(caller, gift);
+//					giftId = gift.getId();					
+					
 
 					// 加员工--------------------------------------------------
 					logger.debug("prepare to create Gift ");
 					// Gift Gift = giftLogic
 					// .saveGiftAndCreateMember(GiftPersistence);
-					if (GiftId != null && !"ERROR".equals(GiftId)) {
+					if (giftId != null && !"ERROR".equals(giftId)) {
 						isSuccess = true;
 						finalSuccessNum++;
 					}
@@ -691,6 +657,38 @@ public class ImportGiftLogicImpl implements ImportGiftLogic {
 		logger.debug("finalImportOneGift method end with response = "
 				+ response);
 		return response;
+	}
+	
+	/**
+	 * Convert from GiftVo to GeneratorGiftModel.
+	 */
+	public static Gift assembleGift(GiftProcess giftVo) {
+		Gift gift = new Gift();
+		gift.setId(giftVo.getGiftId());
+		gift.setName(giftVo.getName());
+        gift.setPrice(giftVo.getPrice());	
+		gift.setSource(giftVo.getSource());
+
+//		gift.setIntegral(giftVo.getIntegral());
+//		gift.setStock(giftVo.getStock());
+		
+//		gift.setIndate(giftVo.getIndate());//有效截止期
+
+		GiftStatus updateStatus=null;
+		if(GiftStatus.valueOf(giftVo.getStatusValue())==GiftStatus.SHELVES){
+			updateStatus=GiftStatus.SHELVES;
+		}else if(GiftStatus.valueOf(giftVo.getStatusValue())==GiftStatus.SHELF){
+			updateStatus=GiftStatus.SHELF;
+	    }
+		
+		if(updateStatus!=null){
+			gift.setStatus(updateStatus);	
+		}
+		// gift.setIndate(getIndate());
+		// private boolean deleted; //删除状态
+		// private Date indate ; //有效截止期
+
+		return gift;
 	}
 
 	protected void setImportGiftDepartmentForResponse(

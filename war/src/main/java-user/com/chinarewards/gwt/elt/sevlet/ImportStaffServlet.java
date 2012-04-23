@@ -261,7 +261,7 @@ public class ImportStaffServlet extends UploadAction {
 			DateCell dateCell = (DateCell) cell;
 			Date date = dateCell.getDate();
 			try {
-				c = new SimpleDateFormat("yyyy-MM-dd").format(date);
+				c = new SimpleDateFormat("yyyy年MM月dd日").format(date);
 			} catch (Exception e) {
 			}
 		} else {
@@ -269,7 +269,7 @@ public class ImportStaffServlet extends UploadAction {
 				long tempTimeLong = Long.parseLong(c);
 				long ss = (tempTimeLong - 70 * 365 - 17 - 2) * 24 * 3600 * 1000;
 				Date date = new Date(ss);
-				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");//yyyy年MM月dd日
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日");
 				c = formatter.format(date);
 			} catch (Exception e) {
 			}

@@ -7,26 +7,28 @@ import com.chinarewards.elt.model.user.UserRole;
 
 public class GiftProcess {
 
-	private String giftid;
+	private String giftId;
 	private String name;
 	private String source;
 	private String sourceText;
 	private String price;
 	private String integral;
 	private String stock;
-	// private String status;
+	 private String statusValue;
 	private String statusText;
 
 	GiftStatus status;
 
 	private List<UserRole> UserRoleVos;
 
-	public String getGiftid() {
-		return giftid;
+
+
+	public String getGiftId() {
+		return giftId;
 	}
 
-	public void setGiftid(String giftid) {
-		this.giftid = giftid;
+	public void setGiftId(String giftId) {
+		this.giftId = giftId;
 	}
 
 	public String getName() {
@@ -75,6 +77,16 @@ public class GiftProcess {
 
 	public void setStock(String stock) {
 		this.stock = stock;
+	}
+	
+	
+
+	public String getStatusValue() {
+		return statusValue;
+	}
+
+	public void setStatusValue(String statusValue) {
+		this.statusValue = statusValue;
 	}
 
 	public String getStatusText() {
