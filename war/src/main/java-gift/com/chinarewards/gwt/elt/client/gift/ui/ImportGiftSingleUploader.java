@@ -5,12 +5,13 @@ import gwtupload.client.IUploadStatus;
 import gwtupload.client.IUploadStatus.Status;
 import gwtupload.client.Uploader;
 
+import com.chinarewards.gwt.elt.client.Elt;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FormPanel;
 
 public class ImportGiftSingleUploader extends Uploader {
 
-  public final static String SERVLET_PATH = "servlet.iss";
+  public final static String SERVLET_PATH =Elt.GWT_MODULE_PATH+ "/servlet.importGift";
 
   private Button button;
 
@@ -129,18 +130,13 @@ public class ImportGiftSingleUploader extends Uploader {
     button.setEnabled(b);
   }
 
-  /* (non-Javadoc)
-   * @see gwtupload.client.Uploader#setI18Constants(gwtupload.client.IUploader.UploaderConstants)
-   */
+ 
   @Override
   public void setI18Constants(UploaderConstants strs) {
     super.setI18Constants(strs);
     button.setText(strs.uploaderSend());
   }
 
-  /* (non-Javadoc)
-   * @see gwtupload.client.Uploader#onChangeInput()
-   */
   @Override
   protected void onChangeInput() {
     super.onChangeInput();
@@ -148,9 +144,7 @@ public class ImportGiftSingleUploader extends Uploader {
     button.setFocus(true);
   }
 
-  /* (non-Javadoc)
-   * @see gwtupload.client.Uploader#onFinishUpload()
-   */
+
   @Override
   protected void onFinishUpload() {
     super.onFinishUpload();
@@ -167,9 +161,7 @@ public class ImportGiftSingleUploader extends Uploader {
     }
   }
   
-  /* (non-Javadoc)
-   * @see gwtupload.client.Uploader#onStartUpload()
-   */
+
   @Override
   protected void onStartUpload() {
     super.onStartUpload();
@@ -177,9 +169,7 @@ public class ImportGiftSingleUploader extends Uploader {
     button.removeStyleName("changed");
   }
   
-  /* (non-Javadoc)
-   * @see gwtupload.client.Uploader#setAutoSubmit(boolean)
-   */
+ 
   @Override
   public void setAutoSubmit(boolean b) {
     button.setVisible(!b);

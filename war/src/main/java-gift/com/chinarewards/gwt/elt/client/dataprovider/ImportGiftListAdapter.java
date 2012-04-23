@@ -37,19 +37,6 @@ public class ImportGiftListAdapter extends
 	}
 
 	public void fetchData(final int start, final int length) {
-		// if (!GWT.isScript()) {
-		// List<GiftListClient> list = new ArrayList<GiftListClient>();
-		// for (int i = start; i < start + length; i++) {
-		// GiftListClient item = new GiftListClient();
-		// item.setId("id" + i);
-		// item.setName("rewards" + i);
-		// //item.setStatus(GiftListStatus.TO_BE_ISSUE);
-		// list.add(item);
-		// }
-		//
-		// updateRowData(start, list);
-		// updateRowCount(100, true);
-		// } else {
 		PaginationDetailClient pagination = new PaginationDetailClient();
 		pagination.setStart(start);
 		pagination.setLimit(length);

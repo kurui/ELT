@@ -149,7 +149,7 @@ import com.chinarewards.gwt.elt.server.enterprise.SearchLicenseHandler;
 import com.chinarewards.gwt.elt.server.gift.DeleteGiftHandler;
 import com.chinarewards.gwt.elt.server.gift.EditGiftHandler;
 import com.chinarewards.gwt.elt.server.gift.ImportGiftAjaxActionHandler;
-import com.chinarewards.gwt.elt.server.gift.ImportSearchGiftListActionHandler;
+import com.chinarewards.gwt.elt.server.gift.ImportGiftListActionHandler;
 import com.chinarewards.gwt.elt.server.gift.SearchGiftByIdHandler;
 import com.chinarewards.gwt.elt.server.gift.SearchGiftHandler;
 import com.chinarewards.gwt.elt.server.gift.UpdateGiftStatusHandler;
@@ -462,7 +462,7 @@ public class ActionModule extends ActionHandlerModule {
 
 		//导入礼品
 		bindHandler(ImportGiftAjaxRequest.class,ImportGiftAjaxActionHandler.class);
-		bindHandler(ImportGiftListRequest.class,ImportSearchGiftListActionHandler.class);
+		bindHandler(ImportGiftListRequest.class,ImportGiftListActionHandler.class);
 		bindHandler(UpdateImportGiftRequest.class,UpdateImportGiftActionHandler.class);
 
 		

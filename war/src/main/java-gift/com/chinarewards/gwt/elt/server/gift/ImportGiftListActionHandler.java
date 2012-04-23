@@ -26,10 +26,10 @@ import com.google.inject.Inject;
 /**
  * The handler to correspond the ImportGiftListRequest.
  * 
- * @author nicho
- * @since 2011年12月7日 09:41:42
+ * @author yanrui
+ * @since 1.5.2
  */
-public class ImportSearchGiftListActionHandler extends
+public class ImportGiftListActionHandler extends
 		BaseActionHandler<ImportGiftListRequest, ImportGiftListResponse> {
 
 	@InjectLogger
@@ -38,7 +38,7 @@ public class ImportSearchGiftListActionHandler extends
 	ImportGiftService importGiftService;
 
 	@Inject
-	public ImportSearchGiftListActionHandler(ImportGiftService importGiftService) {
+	public ImportGiftListActionHandler(ImportGiftService importGiftService) {
 		this.importGiftService = importGiftService;
 	}
 
