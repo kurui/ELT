@@ -4,7 +4,7 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.gift.model.ImportGiftListClient;
 import com.chinarewards.gwt.elt.client.gift.model.ImportGiftListCriteria;
-import com.chinarewards.gwt.elt.client.gift.presenter.ImportGiftPresenter.ImportGiftDisplay;
+import com.chinarewards.gwt.elt.client.gift.presenter.GiftImportPresenter.GiftImportDisplay;
 import com.chinarewards.gwt.elt.client.gift.request.ImportGiftListRequest;
 import com.chinarewards.gwt.elt.client.gift.request.ImportGiftListResponse;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
@@ -21,14 +21,14 @@ public class ImportGiftListAdapter extends
 		BaseDataProvider<ImportGiftListClient> {
 
 	final DispatchAsync dispatch;
-	final ImportGiftDisplay display;
+	final GiftImportDisplay display;
 	ImportGiftListCriteria criteria;
 	final ErrorHandler errorHandler;
 	final SessionManager sessionManager;
 
 	public ImportGiftListAdapter(DispatchAsync dispatch,
 			ImportGiftListCriteria criteria, ErrorHandler errorHandler,
-			SessionManager sessionManager, ImportGiftDisplay display) {
+			SessionManager sessionManager, GiftImportDisplay display) {
 		this.dispatch = dispatch;
 		this.criteria = criteria;
 		this.errorHandler = errorHandler;

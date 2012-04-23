@@ -3,7 +3,7 @@ package com.chinarewards.gwt.elt.client.gift.view;
 import gwtupload.client.IFileInput.FileInputType;
 import gwtupload.client.IUploader;
 
-import com.chinarewards.gwt.elt.client.gift.presenter.ImportGiftPresenter.ImportGiftDisplay;
+import com.chinarewards.gwt.elt.client.gift.presenter.GiftImportPresenter.GiftImportDisplay;
 import com.chinarewards.gwt.elt.client.gift.ui.ImportGiftSingleUploader;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -26,21 +26,22 @@ import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-public class ImportGiftWidget extends Composite implements ImportGiftDisplay {
+public class GiftImportWidget extends Composite implements GiftImportDisplay {
 
+
+
+	interface GiftImportWidgetUiBinder extends
+			UiBinder<Widget, GiftImportWidget> {
+	}
+	
 	private static GiftImportWidgetUiBinder uiBinder = GWT
 			.create(GiftImportWidgetUiBinder.class);
 
-	interface GiftImportWidgetUiBinder extends
-			UiBinder<Widget, ImportGiftWidget> {
-	}
-
-	public ImportGiftWidget() {
+	public GiftImportWidget() {
 		initWidget(uiBinder.createAndBindUi(this));
 		init();
 
 	}
-
 
 	@UiField
 	VerticalPanel panelV;
@@ -79,8 +80,8 @@ public class ImportGiftWidget extends Composite implements ImportGiftDisplay {
 
 	@UiField
 	Button goStep2Button;
-    @UiField
-    Button cancelImport;
+	@UiField
+	Button cancelImport;
 	/**
 	 * 
 	 * panel2
@@ -124,12 +125,12 @@ public class ImportGiftWidget extends Composite implements ImportGiftDisplay {
 	Button importGiftButton;
 	@UiField
 	HTML pretreatmentResult;
-	
+
 	/**
 	 * 
 	 * panel5
 	 */
-	
+
 	@UiField
 	Label importGiftBatchNo;
 	/**
@@ -137,7 +138,7 @@ public class ImportGiftWidget extends Composite implements ImportGiftDisplay {
 	 */
 	@UiField
 	HorizontalPanel panelProgressBar;
-	
+
 	/**
 	 * panel6
 	 * 
@@ -166,15 +167,15 @@ public class ImportGiftWidget extends Composite implements ImportGiftDisplay {
 
 	@UiField
 	InlineLabel dataCount;
-	
+
 	@UiField
 	Panel resultpage;
 	@UiField
 	ListBox pageNumber;
-	
-	
+
 	@UiField
 	InlineLabel selectdataCount;
+
 	@Override
 	public void init() {
 
@@ -184,8 +185,9 @@ public class ImportGiftWidget extends Composite implements ImportGiftDisplay {
 		panelStep5.setVisible(false);
 		panelStep6.setVisible(false);
 
-		giftFileUploader = new ImportGiftSingleUploader(FileInputType.BROWSER_INPUT,
-				null, this.getGoStep2Button(), null);
+		giftFileUploader = new ImportGiftSingleUploader(
+				FileInputType.BROWSER_INPUT, null, this.getGoStep2Button(),
+				null);
 		giftFileUploader.setAutoSubmit(false);
 		giftFileUploader.setServletPath(ImportGiftSingleUploader.SERVLET_PATH);
 
@@ -197,27 +199,27 @@ public class ImportGiftWidget extends Composite implements ImportGiftDisplay {
 		importDetailsPanel.setOpen(true);
 		importDetails = new HTML();
 		importDetailsPanel.add(importDetails);
-		
+
 		importFailurePanel = new DisclosurePanel("失败总结");
 		importFailurePanel.setAnimationEnabled(true);
 		importFailurePanel.setVisible(true);
 		importFailurePanel.setOpen(true);
 		importFailure = new HTML();
 		importFailurePanel.add(importFailure);
-		
-	    contentPanel.setSpacing(8);
-	    contentPanel.add(importDetailsPanel);
-	    contentPanel.add(importFailurePanel);
-	    
-	    panelProgressBar.setWidth("80%");
-	    panelProgressBar.setHeight("20px");
-	    
+
+		contentPanel.setSpacing(8);
+		contentPanel.add(importDetailsPanel);
+		contentPanel.add(importFailurePanel);
+
+		panelProgressBar.setWidth("80%");
+		panelProgressBar.setHeight("20px");
+
 		clear();
-		
+
 		pageNumber.clear();
-		pageNumber.addItem("10","10");
-		pageNumber.addItem("20","20");
-		pageNumber.addItem("50","50");
+		pageNumber.addItem("10", "10");
+		pageNumber.addItem("20", "20");
+		pageNumber.addItem("50", "50");
 	}
 
 	@Override
@@ -277,7 +279,7 @@ public class ImportGiftWidget extends Composite implements ImportGiftDisplay {
 		hideAllPanelSteps();
 		importBatchNo.setText("");
 		importBatchNo.setVisible(true);
-		
+
 		panelStep5.setVisible(true);
 	}
 
@@ -453,7 +455,7 @@ public class ImportGiftWidget extends Composite implements ImportGiftDisplay {
 	 */
 	@Override
 	public Button getImportProgressButton() {
-		return null;//importProgressBar;
+		return null;// importProgressBar;
 	}
 
 	/**
@@ -527,6 +529,7 @@ public class ImportGiftWidget extends Composite implements ImportGiftDisplay {
 	public HasText getSuccessImportMessage() {
 		return successImportMessage;
 	}
+
 	/**
 	 * @return the panelProgessBar
 	 */
@@ -537,7 +540,7 @@ public class ImportGiftWidget extends Composite implements ImportGiftDisplay {
 
 	@Override
 	public HasText getImportGiftBatchNo() {
-		
+
 		return importGiftBatchNo;
 	}
 
@@ -554,17 +557,19 @@ public class ImportGiftWidget extends Composite implements ImportGiftDisplay {
 	@Override
 	public void importGiftButtonEnable(boolean fal) {
 		importGiftButton.setEnabled(fal);
-		
+
 	}
 
 	@Override
 	public Panel getResultPanel() {
 		return this.resultPanel;
 	}
+
 	@Override
 	public Panel getResultpage() {
 		return this.resultpage;
 	}
+
 	@Override
 	public ListBox getPageNumber() {
 		return pageNumber;
@@ -573,7 +578,7 @@ public class ImportGiftWidget extends Composite implements ImportGiftDisplay {
 	@Override
 	public void setDataCount(String text) {
 		dataCount.setText(text);
-		
+
 	}
 
 	@Override

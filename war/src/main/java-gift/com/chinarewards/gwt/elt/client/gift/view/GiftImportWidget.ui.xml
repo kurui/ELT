@@ -73,7 +73,7 @@
 						<table  border="0" cellspacing="0">
 							<tr>
 								<td colspan="5">
-									<g:HTML ui:field="totalStaff"></g:HTML>
+									<g:HTML ui:field="totalGift"></g:HTML>
 								</td>
 								<td></td>
 							</tr>
@@ -179,7 +179,7 @@
                             <div>
 								   <g:Button ui:field="pretreatmentReportButton" styleName="button-inclu" >详细</g:Button>
 									<g:Button ui:field="backStep3Button" styleName="button-pre" >上一步</g:Button>
-									<g:Button ui:field="importStaffButton" styleName="button-inclu">导入</g:Button>
+									<g:Button ui:field="importGiftButton" styleName="button-inclu">导入</g:Button>
 							</div>
 						</div>
 					</div>
@@ -199,7 +199,7 @@
 				      </div>
 				      <hr color="#D4D4FF" size="0.05"/>
 						<div>
-						<g:Label ui:field="importStaffBatchNo"></g:Label>
+						<g:Label ui:field="importGiftBatchNo"></g:Label>
 						
 						<P/>
 						<P style="text-align:center;vertical-align:middle;width:80%">

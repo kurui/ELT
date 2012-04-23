@@ -1,7 +1,7 @@
 package com.chinarewards.gwt.elt.client.dialog;
 
 import com.chinarewards.gwt.elt.client.core.ui.impl.AbstractDialog;
-import com.chinarewards.gwt.elt.client.gift.presenter.ImportGiftPresenter;
+import com.chinarewards.gwt.elt.client.gift.presenter.GiftImportPresenter;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -13,12 +13,12 @@ import com.google.inject.Provider;
  * **/
 public class ImportGiftDialog extends AbstractDialog {
 
-	final Provider<ImportGiftPresenter> presenterProvider;
+	final Provider<GiftImportPresenter> presenterProvider;
 
-	ImportGiftPresenter presenter;
+	GiftImportPresenter presenter;
 
 	@Inject
-	public ImportGiftDialog(Provider<ImportGiftPresenter> presenterProvider) {
+	public ImportGiftDialog(Provider<GiftImportPresenter> presenterProvider) {
 		super("Organization.choosee", "Organization.choosee");
 		this.presenterProvider = presenterProvider;
 		presenter = presenterProvider.get();

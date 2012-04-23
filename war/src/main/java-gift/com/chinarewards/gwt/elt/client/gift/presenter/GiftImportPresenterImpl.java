@@ -62,9 +62,9 @@ import com.google.gwt.xml.client.Document;
 import com.google.gwt.xml.client.XMLParser;
 import com.google.inject.Inject;
 
-public class ImportGiftPresenterImpl extends
-		BaseDialogPresenter<ImportGiftPresenter.ImportGiftDisplay> implements
-		ImportGiftPresenter {
+public class GiftImportPresenterImpl extends
+		BaseDialogPresenter<GiftImportPresenter.GiftImportDisplay> implements
+		GiftImportPresenter {
 
 //	private final static int TITLE_INSTRUCTION_DISPLAY_ROW = 6;
 	private final static int TITLE_INSTRUCTION_DISPLAY_COL = 8;
@@ -95,8 +95,8 @@ public class ImportGiftPresenterImpl extends
 	ImportGiftListAdapter listViewAdapter;
 	int pageSize=ViewConstants.per_page_number_in_dialog;
 	@Inject
-	public ImportGiftPresenterImpl(EventBus eventBus,
-			ImportGiftDisplay display, DispatchAsync dispatch,
+	public GiftImportPresenterImpl(EventBus eventBus,
+			GiftImportDisplay display, DispatchAsync dispatch,
 			ErrorHandler errorHandler, SessionManager sessionManager, Win win) {
 		super(eventBus, display);
 		this.dispatch = dispatch;

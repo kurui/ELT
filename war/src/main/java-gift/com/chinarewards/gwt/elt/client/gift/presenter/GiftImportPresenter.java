@@ -16,10 +16,10 @@ import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-public interface ImportGiftPresenter extends DialogPresenter<ImportGiftPresenter.ImportGiftDisplay> {
+public interface GiftImportPresenter extends DialogPresenter<GiftImportPresenter.GiftImportDisplay> {
 	
 
-	public static interface ImportGiftDisplay extends Display {
+	public static interface GiftImportDisplay extends Display {
 
 		public IUploader getGiftFileUploader();
 
