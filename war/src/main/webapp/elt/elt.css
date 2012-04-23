@@ -1833,6 +1833,7 @@ li.token-input-input-token-facebook {
 }
 
 /*menu-link*/
+
 .menu-link {
 	display: block;
 	border-bottom: 1px solid #EAEAEA;
@@ -1855,6 +1856,7 @@ li.token-input-input-token-facebook {
 	color: #FFFFFF;
 	text-decoration: none;
 }
+
 
 #rewardlist_page .pageon {
 	text-decoration: none;

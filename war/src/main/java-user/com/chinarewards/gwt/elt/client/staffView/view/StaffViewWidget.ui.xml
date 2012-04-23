@@ -92,47 +92,72 @@
 					<span class="{new2.cutline}"></span>
 				</div>
 			</div>
-			<span class="{new2.cutline}"></span>
-			<div class="{new2.nav}">
-				<ul>
-					<li>
-						<g:Anchor styleName="{new2.menu}" ui:field="btnIntegral">
-							<span>积分信息</span>
-						</g:Anchor></li>
+			<div class="{new2.index} {new2.headInner}" id="head">
+				<div class="{new2.nav}">
+					<ul>
 						<li>
-						<g:Anchor styleName="{new2.menu} {new2.menu-on}"
-							ui:field="btnRewardHistory">
-							<span>获奖历史</span>
-						</g:Anchor></li>
+							<g:Anchor styleName="{new2.menu} {new2.menu-on}"
+								ui:field="btnIntegral">
+								<span>积分信息</span>
+							</g:Anchor>
+						</li>
 						<li>
-						<g:Anchor styleName="{new2.menu}" ui:field="btnExchangeHistory">
-							<span>兑换历史</span>
-						</g:Anchor>
-					</li>
-				</ul>
-			</div>
-			
-			<div class="{new2.divtext}">
-				共有
-				<g:InlineLabel ui:field="dataCount" styleName="{new2.divfont}"></g:InlineLabel>
-			</div>
-			<div class="{new2.divend}"></div>
-			<div class="{new2.table}">
-				<g:FlowPanel ui:field="resultPanel" />
+							<g:Anchor styleName="{new2.menu}" ui:field="btnRewardHistory">
+								<span>获奖历史</span>
+							</g:Anchor>
+						</li>
+						<li>
+							<g:Anchor styleName="{new2.menu}" ui:field="btnExchangeHistory">
+								<span>兑换历史</span>
+							</g:Anchor>
+						</li>
+					</ul>
+				</div>
 			</div>
 
-			<!--分页 [[ -->
-			<div id="rewardlist_page" class="{new2.pager}">
-				<div class="{new2.pager-left}">
-					每页显示条数
-					<select class="{new2.select}">
-						<option>4</option>
-					</select>
-				</div>
-				<div class="{new2.pager-right}">
-					<g:FlowPanel ui:field="resultpage" />
+			<div class="{new2.divend}"></div>
+			<div class="{new2.form}">
+				<h3><g:InlineLabel ui:field="detailTitle"></g:InlineLabel></h3>
+				<span class="{new2.cutline}"></span>
+				<div class="{new2.form-line}">
+					<div class="{new2.element}">
+						<label class="{new2.label}">已获得的总积分：</label>
+						<g:InlineLabel ui:field="historyIntegral" />
+						<span class="{new2.nbsp}"></span>
+									<span class="{new2.nbsp}"></span>
+									<span class="{new2.nbsp}"></span>
+						<label class="{new2.label}">已消费总积分：</label>
+						<g:InlineLabel ui:field="consumptionIntegral" />
+						<span class="{new2.nbsp}"></span>
+									<span class="{new2.nbsp}"></span>
+									<span class="{new2.nbsp}"></span>
+						<label class="{new2.label}">还剩余积分：</label>
+						<g:InlineLabel ui:field="balanceIntegral" />
+					</div>
 				</div>
 			</div>
+
+			<div class="">
+				<div class="{new2.divend}"></div>
+				<div class="{new2.table}">
+					<g:FlowPanel ui:field="resultPanel" />
+				</div>
+				<!--分页 [[ -->
+				<div id="rewardlist_page" class="{new2.pager}">
+					<div class="{new2.pager-left}">
+						每页显示条数
+						<g:ListBox ui:field="pageNumber" styleName="{new2.select}" /> 
+					</div>
+
+					共有
+					<g:InlineLabel ui:field="dataCount" styleName="{new2.divfont}"></g:InlineLabel>
+
+					<div class="{new2.pager-right}">
+						<g:FlowPanel ui:field="resultpage" />
+					</div>
+				</div>
+			</div>
+
 		</div>
 	</g:HTMLPanel>
 </ui:UiBinder> 

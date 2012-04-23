@@ -105,6 +105,7 @@ public class OrderLogicImpl implements OrderLogic{
 		orderVo.setExchangeDate(order.getExchangeDate());
 		orderVo.setStatus(order.getStatus());
 		orderVo.setUserId(order.getUserId());
+	
 		//================下面为礼品的信息
 		Gift gift = giftDao.findById(Gift.class,order.getGiftId());
 		giftVo.setAddress(gift.getAddress());
