@@ -22,6 +22,7 @@ import com.chinarewards.elt.dao.reward.CandidateDao;
 import com.chinarewards.elt.dao.reward.JudgeDao;
 import com.chinarewards.elt.dao.reward.NomineeDao;
 import com.chinarewards.elt.dao.reward.PreWinnerDao;
+import com.chinarewards.elt.dao.reward.RewardDao;
 import com.chinarewards.elt.dao.reward.WinnerDao;
 import com.chinarewards.elt.dao.user.RoleDao;
 import com.chinarewards.elt.dao.user.UserDao;
@@ -85,6 +86,7 @@ public class StaffLogicImpl implements StaffLogic {
 	private final MembersDao membersDao;
 	private final JudgeDao judgeDao;
 	private final NomineeDao nomineeDao;
+	private final RewardDao rewardDao;
 	private final BroadcastingReceivingDao broadcastingReceivingDao;
 	
 	
@@ -99,7 +101,7 @@ public class StaffLogicImpl implements StaffLogic {
 			DepartmentManagerLogic departmentManagerLogic, UserDao userDao,
 			WinnerDao winnerDao, UserRoleDao userRoleDao, RoleDao roleDao,
 			DepartmentManagerDao deptMgrDao, DepartmentLogic departmentLogic,UserLogic userLogic,PreWinnerDao preWinnerDao,CandidateDao candidateDao,
-			StaffObjectDao staffObjectDao,MembersDao membersDao,JudgeDao judgeDao,NomineeDao nomineeDao,BroadcastingReceivingDao broadcastingReceivingDao) {
+			StaffObjectDao staffObjectDao,MembersDao membersDao,JudgeDao judgeDao,NomineeDao nomineeDao,BroadcastingReceivingDao broadcastingReceivingDao,RewardDao rewardDao) {
 		this.staffDao = staffDao;
 		this.deptLogic = deptLogic;
 		this.corporationLogic = corporationLogic;
@@ -121,6 +123,7 @@ public class StaffLogicImpl implements StaffLogic {
 		this.judgeDao=judgeDao;
 		this.nomineeDao=nomineeDao;
 		this.broadcastingReceivingDao=broadcastingReceivingDao;
+		this.rewardDao=rewardDao;
 	}
 
 	@Override
@@ -849,6 +852,7 @@ public class StaffLogicImpl implements StaffLogic {
 //				delete from SYSUSERROLE where user_id='8a83834536c9b9520136c9be987e0002'--44
 //
 //				delete from SYSUSER where staff_id='8a83834536c4c1750136c4db69550043'--55
+		//查询员工是否涉及奖励内容
 		
 
 		winnerDao.deleteWinnersByStaffId(staffId);
