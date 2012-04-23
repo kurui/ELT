@@ -352,11 +352,20 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 					});
 		}
 		if (pageType == RewardPageType.AWARDREWARDPAGE) {
-			cellTable.addColumn("操作", new HyperLinkCell(),
+			cellTable.addColumn("操作", new UniversalCell(),
 					new GetValue<RewardsClient, String>() {
 						@Override
 						public String getValue(RewardsClient rewards) {
-							return "颁奖";
+				
+							if(rewards.getCreatedByStaffId().equals(sessionManager.getSession().getStaffId()))
+							{
+								return "<a style=\"color:bule;\" href=\"javascript:void(0);\">颁奖</a>";
+								
+							}
+							else
+							{
+								return "<span style='color: rgb(221, 221, 221);'>颁奖</span>";
+							}
 						}
 					}, new FieldUpdater<RewardsClient, String>() {
 
@@ -364,12 +373,20 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 						public void update(int index, RewardsClient o,
 								String value) {
 							if ("NEW".equals(o.getStatus().name())) {
-								Platform.getInstance()
+								if(o.getCreatedByStaffId().equals(sessionManager.getSession().getStaffId()))
+								{
+									Platform.getInstance()
 										.getEditorRegistry()
 										.openEditor(
 												AwardRewardDetermineConstants.EDITOR_AWARDREWARDDETERMINE_SEARCH,
 												AwardRewardDetermineConstants.EDITOR_AWARDREWARDDETERMINE_SEARCH
 														+ o.getId(), o);
+								}
+								else
+								{
+									win.alert("不是颁奖人!");
+									return;
+								}
 							} else {
 								win.alert("已经颁奖!");
 								return;
@@ -407,7 +424,18 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 						@Override
 						public String getValue(RewardsClient rewards) {
 							if (rewards.getStatus() == RewardsStatus.NEW)
-								return  "<a style=\"color:bule;\" href=\"javascript:void(0);\">颁奖</a>";
+							{
+								if(rewards.getCreatedByStaffId().equals(sessionManager.getSession().getStaffId()))
+								{
+									return "<a style=\"color:bule;\" href=\"javascript:void(0);\">颁奖</a>";
+									
+								}
+								else
+								{
+									return "<span style='color: rgb(221, 221, 221);'>颁奖</span>";
+								}
+
+							}
 							else if (rewards.getStatus() == RewardsStatus.DETERMINE_WINNER)
 								return  "<a style=\"color:bule;\" href=\"javascript:void(0);\">评选</a>";
 							else if (rewards.getStatus() == RewardsStatus.PENDING_NOMINATE)
@@ -445,10 +473,19 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 							}
 							else if (o.getStatus() == RewardsStatus.NEW)
 							{
-								pageUrl = AwardRewardDetermineConstants.EDITOR_AWARDREWARDDETERMINE_SEARCH;
-								Platform.getInstance()
-								.getEditorRegistry()
-								.openEditor(pageUrl, pageUrl + o.getId(), o);
+
+								if(o.getCreatedByStaffId().equals(sessionManager.getSession().getStaffId()))
+								{
+									pageUrl = AwardRewardDetermineConstants.EDITOR_AWARDREWARDDETERMINE_SEARCH;
+									Platform.getInstance()
+									.getEditorRegistry()
+									.openEditor(pageUrl, pageUrl + o.getId(), o);
+								}
+								else
+								{
+									win.alert("不是颁奖人!");
+									return;
+								}
 							}
 							else if (o.getStatus() == RewardsStatus.PENDING_NOMINATE)
 							{
