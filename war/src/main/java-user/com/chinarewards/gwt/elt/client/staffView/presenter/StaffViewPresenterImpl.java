@@ -154,7 +154,7 @@ public class StaffViewPresenterImpl extends
 			display.displayUpdateBtn(true);
 		}
 		
-		initStatff();
+		initStaff();
 
 //		buildRewardHistoryTable();
 //		doRewardHistorySearch();
@@ -176,7 +176,7 @@ public class StaffViewPresenterImpl extends
 
 	}
 
-	private void initStatff(){
+	private void initStaff(){
 		dispatch.execute(new StaffViewRequest(staffId),
 				new AsyncCallback<StaffViewResponse>() {
 
@@ -238,8 +238,7 @@ public class StaffViewPresenterImpl extends
 		inistIntegral();
 	
 	}
-	private void inistIntegral(){
-		String staffId = sessionManager.getSession().getStaffId();
+	private void inistIntegral(){	
 		dispatch.execute(new StaffIntegralRequest(staffId),
 				new AsyncCallback<StaffIntegralResponse>() {
 
