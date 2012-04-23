@@ -48,7 +48,7 @@ public interface GiftLogic {
 	 */
 	public String updateStatus(String id,GiftStatus status);
 
-	public List<Gift> findNotDeleteGift(String corporationId);
+	public List<Gift> findNotDeleteGift();
 
 	public String createOrUpdateGift(GiftProcess sp, UserContext context);
 

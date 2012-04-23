@@ -151,7 +151,7 @@ public class ImportGiftLogicImpl implements ImportGiftLogic {
 		ejbHelper.setDesiredName(desiredNames);
 		ejbHelper.setDesiredMobileNos(desiredMobileNos);
 
-		List<Gift> existingGifts = giftLogic.findNotDeleteGift(corporationId);
+		List<Gift> existingGifts = giftLogic.findNotDeleteGift();
 
 		List<String> existingMobileNos = new ArrayList<String>();
 		List<String> existingName = new ArrayList<String>();

@@ -24,11 +24,11 @@ import org.apache.commons.fileupload.FileItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.chinarewards.elt.domain.org.ImportStaffBatch;
-import com.chinarewards.elt.model.staff.ImportStaffRawParameter;
-import com.chinarewards.elt.model.staff.ImportStaffRequest;
-import com.chinarewards.elt.service.exception.ImportStaffNotFoundException;
-import com.chinarewards.elt.service.staff.ImportStaffService;
+import com.chinarewards.elt.domain.gift.ImportGiftBatch;
+import com.chinarewards.elt.model.gift.dataexchange.ImportGiftRawParameter;
+import com.chinarewards.elt.model.gift.dataexchange.ImportGiftRequest;
+import com.chinarewards.elt.service.exception.ImportGiftNotFoundException;
+import com.chinarewards.elt.service.gift.ImportGiftService;
 import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.inject.Inject;
 
@@ -40,7 +40,7 @@ import com.google.inject.Inject;
  * @author sunhongliang
  * 
  */
-public class ImportStaffServlet extends UploadAction {
+public class ImportGiftServlet extends UploadAction {
 
 	private static final long serialVersionUID = 8472033750097764394L;
 
@@ -53,7 +53,7 @@ public class ImportStaffServlet extends UploadAction {
 	private final static int INSTRUCTION_START_COL = 0;
 	private final static int INSTRUCTION_END_COL = 17;
 	@Inject
-	ImportStaffService importStaffService;
+	ImportGiftService importGiftService;
 	/**
 	 * Override executeAction to save the received files in a custom place and
 	 * delete this items from session.
@@ -124,15 +124,13 @@ public class ImportStaffServlet extends UploadAction {
 			item.write(f);
 			Workbook wb = Workbook.getWorkbook(f);
 			Sheet sheet = wb.getSheet(0);
-//			System.out.println("sheet name: " + sheet.getName());
-//			System.out
-//					.println("============================================================");
-			List<ImportStaffRawParameter> pStaffRaws = new ArrayList<ImportStaffRawParameter>();
+
+			List<ImportGiftRawParameter> pGiftRaws = new ArrayList<ImportGiftRawParameter>();
 			int instructionRow = 0;
 			for (int row = 0; row < sheet.getRows(); row++) {
 				int col = 0;
 				List<String> t = new ArrayList<String>();
-				ImportStaffRawParameter pStaffRaw = new ImportStaffRawParameter();
+				ImportGiftRawParameter pGiftRaw = new ImportGiftRawParameter();
 				boolean isBlankRow = true;
 				for (Cell cell : sheet.getRow(row)) {
 					String c = cell.getContents();
@@ -141,29 +139,25 @@ public class ImportStaffServlet extends UploadAction {
 							isBlankRow = false;
 						}
 						c = c.trim();
-						if (col == 4) {
-							// dob and doe column
-							c = manufactureDateCell(c, cell);
-						}
+//						if (col == 4) {//第4列为日期格式解析
+//							// dob and doe column
+//							c = manufactureDateCell(c, cell);
+//						}
 					}
-					pStaffRaw.setRowPos(new Long(row + 1));
+					pGiftRaw.setRowPos(new Long(row + 1));
 					// header column sorting is designated
 					if (col == 0) {
-						pStaffRaw.setJobNo(c);
+						pGiftRaw.setName(c);
 					} else if (col == 1) {
-						pStaffRaw.setName(c);
+						pGiftRaw.setSourceText(c);
 					} else if (col == 2) {
-						pStaffRaw.setEmail(c);
+						pGiftRaw.setIntegral(c);
 					} else if (col == 3) {
-						pStaffRaw.setPhone(c);
+						pGiftRaw.setPrice(c);
 					} else if (col == 4) {
-						pStaffRaw.setDob(c);
+						pGiftRaw.setStock(c);
 					} else if (col == 5) {
-						pStaffRaw.setDepartment(c);
-					} else if (col == 6) {
-						pStaffRaw.setJobPosition(c);
-					} else if (col == 7) {
-						pStaffRaw.setLeadership(c);
+						pGiftRaw.setStatusText(c);
 					} 
 					if (instructionRow >= INSTRUCTION_START_ROW
 							&& instructionRow <= INSTRUCTION_END_ROW) {
@@ -183,8 +177,8 @@ public class ImportStaffServlet extends UploadAction {
 						list.add(t);
 						instructionRow++;
 					}
-//					System.out.println(pStaffRaw.toString());
-					pStaffRaws.add(pStaffRaw);
+//					System.out.println(pGiftRaw.toString());
+					pGiftRaws.add(pGiftRaw);
 				}
 			}
 			logger.debug("============================================================");
@@ -193,13 +187,13 @@ public class ImportStaffServlet extends UploadAction {
 			String nowUserId=request.getParameter("nowUserId");
 			String corporationId=request.getParameter("corporationId");
 			
-			if (importStaffService != null && !StringUtil.isEmpty(nowUserId) && !StringUtil.isEmpty(corporationId)) {
+			if (importGiftService != null && !StringUtil.isEmpty(nowUserId) && !StringUtil.isEmpty(corporationId)) {
 				// make sure there is ejb service available for gwt host mode
 				// debug
-				ImportStaffRequest importRequest = new ImportStaffRequest();
+				ImportGiftRequest importRequest = new ImportGiftRequest();
 				importRequest.setFileName(item.getFieldName());
 				importRequest.setContentType(item.getContentType());
-				importRequest.setStaffRawList(pStaffRaws);
+				importRequest.setGiftRawList(pGiftRaws);
 
 
 
@@ -208,12 +202,12 @@ public class ImportStaffServlet extends UploadAction {
 						.append("</corporationId>\n");
 				importRequest.setCorporationId(corporationId);
 				importRequest.setNowUserId(nowUserId);
-				ImportStaffBatch batch = importStaffService.createImportStaffBatch(importRequest);
+				ImportGiftBatch batch = importGiftService.createImportGiftBatch(importRequest);
 
 				responseSection.append("<batch-id>").append(batch.getId()).append("</batch-id>\n");
 			}
 
-			responseSection.append("<raw-count>").append(pStaffRaws.size())
+			responseSection.append("<raw-count>").append(pGiftRaws.size())
 					.append("</raw-count>\n");
 
 			int row = 0;
@@ -242,7 +236,7 @@ public class ImportStaffServlet extends UploadAction {
 					e);
 			responseSection
 					.append("<error-msg>不兼容的Excel文件，请上传一个与Excel 97-2003 完全兼容的文件簿！</error-msg>\n");
-		} catch (ImportStaffNotFoundException e) {
+		} catch (ImportGiftNotFoundException e) {
 			logger.debug(
 					"bad excel file, please make sure uploaded file should be a 97 - 2003 excel file",
 					e);
@@ -261,7 +255,7 @@ public class ImportStaffServlet extends UploadAction {
 			DateCell dateCell = (DateCell) cell;
 			Date date = dateCell.getDate();
 			try {
-				c = new SimpleDateFormat("yyyy-MM-dd").format(date);
+				c = new SimpleDateFormat("yyyy年MM月dd日").format(date);
 			} catch (Exception e) {
 			}
 		} else {
@@ -269,7 +263,7 @@ public class ImportStaffServlet extends UploadAction {
 				long tempTimeLong = Long.parseLong(c);
 				long ss = (tempTimeLong - 70 * 365 - 17 - 2) * 24 * 3600 * 1000;
 				Date date = new Date(ss);
-				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");//yyyy年MM月dd日
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日");
 				c = formatter.format(date);
 			} catch (Exception e) {
 			}

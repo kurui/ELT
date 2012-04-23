@@ -180,8 +180,8 @@ public class GiftLogicImpl implements GiftLogic{
 	}
 
 	@Override
-	public List<Gift> findNotDeleteGift(String corporationId) {
-		return giftDao.findNotDeleteGift(corporationId);
+	public List<Gift> findNotDeleteGift() {
+		return giftDao.findNotDeleteGift();
 	}
 	
 	

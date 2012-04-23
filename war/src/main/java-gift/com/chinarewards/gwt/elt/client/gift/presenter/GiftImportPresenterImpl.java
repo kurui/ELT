@@ -67,8 +67,8 @@ public class GiftImportPresenterImpl extends
 		GiftImportPresenter {
 
 //	private final static int TITLE_INSTRUCTION_DISPLAY_ROW = 6;
-	private final static int TITLE_INSTRUCTION_DISPLAY_COL = 8;
-	private final static int CONTENT_INSTRUCTION_DISPLAY_COL = 8;
+	private final static int TITLE_INSTRUCTION_DISPLAY_COL = 6;
+	private final static int CONTENT_INSTRUCTION_DISPLAY_COL = 6;
 	private final static int CONTENT_INSTRUCTION_DISPLAY_ROW = 11;
 
 	final DispatchAsync dispatch;
@@ -381,13 +381,8 @@ public class GiftImportPresenterImpl extends
 							win.alert("没有选择任何上传数据,请重新选择！");
 							return;
 						}
-						updateShowData();
-						
-
-
-					}
-
-					
+						updateShowData();			
+					}					
 				}));
 
 		/** 回退第三步panel **/
@@ -413,7 +408,6 @@ public class GiftImportPresenterImpl extends
 						doPretreatment();
 						display.showPanelStep4();
 					}
-
 				}));
 
 		/** 导入预览报告button **/
@@ -421,9 +415,7 @@ public class GiftImportPresenterImpl extends
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent arg0) {
-
 						doExportToo("preview", "导入预览报告");
-
 					}
 				}));
 
@@ -432,11 +424,9 @@ public class GiftImportPresenterImpl extends
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent arg0) {
-
 						doFinalImport();
 						display.showPanelStep5();
 						refreshPanelStep5();
-
 					}
 				}));
 
@@ -445,9 +435,7 @@ public class GiftImportPresenterImpl extends
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent arg0) {
-
 						doExportToo("fatal", "下载失败纪录");
-
 					}
 				}));
 
@@ -457,16 +445,13 @@ public class GiftImportPresenterImpl extends
 					@Override
 					public void onClick(ClickEvent arg0) {
 						closeDialog();
-
 					}
 				}));
-
 	}
 
 	@Override
 	public void unbind() {
 		super.unbind();
-
 	}
 
 	private boolean uploadedFileTitleFormatInvalid() {
@@ -949,15 +934,21 @@ public class GiftImportPresenterImpl extends
 	private boolean isDateColumn(int col) {
 		String columnValue = contentInstructionListBoxes.get(col).getValue(
 				contentInstructionListBoxes.get(col).getSelectedIndex());
-		return "dob".equals(columnValue);
+		boolean result= "dateColumnName".equals(columnValue);
+		
+		if(result){
+			System.out.println("==========columnValue:"+columnValue);
+		}
+		
+		return result;
 	}
 
 	private ListBox getGiftColumnListBox() {
 		ListBox listBox = new ListBox();
 		listBox.addItem("名称", "name");
 		listBox.addItem("来源", "sourceText");
-		listBox.addItem("兑换缤纷", "phone");
-		listBox.addItem("采购价", "integral");
+		listBox.addItem("兑换缤纷", "integral");
+		listBox.addItem("采购价", "price");
 		listBox.addItem("库存", "stock");
 		listBox.addItem("状态", "statusText");
 

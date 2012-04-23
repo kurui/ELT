@@ -255,29 +255,7 @@ public class ImportGiftParser {
 		return method.invoke(null, args);
 	}
 
-	public static void main(String[] stra) throws Exception {
-		String source = "部门1\\|\\\\|部门2|部门3|\\|部门4";
-		String test = "技术部||开发部";
-		source = test;
-		StringTokenizer st = new StringTokenizer(source, "|", true);
-		while (st.hasMoreTokens()) {
-			System.out.println(st.nextToken());
-		}
-		System.out.println();
-		List<String> result = convertRaw2Department(source);
-		// parseStringByDelimiter(test,
-		// "|",
-		// '\\', false);
-		for (String token : result) {
-			System.out.println(token);
-		}
-		// System.out.println();
-		// for (Object token : result.toArray()) {
-		// System.out.println(token);
-		// }
-		System.out.println();
-		System.out.println(convertDepartment2Raw(result));
-	}
+
 
 	public static int countAppointedCharAtEnd(String src, char ch) {
 		int result = 0;
