@@ -73,18 +73,26 @@ public class ImportSearchGiftListActionHandler extends
 		
 		PageStore<ImportGiftRaw> result=importGiftService.findImportGiftList(criteria);
 		List<ImportGiftListClient> lt=new ArrayList<ImportGiftListClient>();
-		for (ImportGiftRaw staff:result.getResultList()) {
+		for (ImportGiftRaw raw:result.getResultList()) {
 			ImportGiftListClient client=new ImportGiftListClient();
-			client.setId(staff.getId());
-			client.setGiftNo(staff.getGiftNumber());
-			client.setGiftName(staff.getName());
-			client.setPhone(staff.getMobileTelephoneNumber());
-			client.setEmail(staff.getEmailAddress());
-			client.setJobPosition(staff.getJobPosition());
-			client.setLeadership(staff.getLeadership());
-			client.setDob(staff.getDob());
-			client.setDepartmentName(staff.getDepartment());
-			client.setImportfal(staff.getImportfal());
+			client.setId(raw.getId());
+			
+			client.setName(raw.getName());
+			client.setSourceText(raw.getSourceText());
+			client.setPrice(raw.getPrice());
+			client.setIntegral(raw.getIntegral());
+			client.setStock(raw.getStock());
+			client.setStatusText(raw.getStatusText());
+//			private String name;
+//			private String source;
+//			private String sourceText;
+//			private String price;
+//			private String integral;
+//			private String stock;
+//			private String status;
+//			private String statusText;
+			
+			client.setImportfal(raw.getImportfal());
 			lt.add(client);
 
 		}

@@ -1,7 +1,10 @@
 package com.chinarewards.gwt.elt.client.gift.model;
 
 import java.io.Serializable;
-
+/**
+ * @author yanrui
+ * @since 1.5.2
+ */
 public class ImportGiftListClient implements Serializable,
 		Comparable<ImportGiftListClient> {
 
@@ -10,16 +13,87 @@ public class ImportGiftListClient implements Serializable,
 	 */
 	private static final long serialVersionUID = 4934837755724342679L;
 	private String id;
-	private String staffNo;
-	private String staffName;
-	private String email;
-	private String departmentName;
-	private String jobPosition;
-	private String phone;
-	private String dob;
-	private String Leadership;
+	private String name;
+	private String source;
+	private String sourceText;
+	private String price;
+	private String integral;
+	private String stock;
+	private String status;
+	private String statusText;
+
 	private Integer importfal;
-	
+
+	public ImportGiftListClient() {
+
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getSource() {
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source;
+	}
+
+	public String getSourceText() {
+		return sourceText;
+	}
+
+	public void setSourceText(String sourceText) {
+		this.sourceText = sourceText;
+	}
+
+
+
+	public String getPrice() {
+		return price;
+	}
+
+	public void setPrice(String price) {
+		this.price = price;
+	}
+
+	public String getIntegral() {
+		return integral;
+	}
+
+	public void setIntegral(String integral) {
+		this.integral = integral;
+	}
+
+	public String getStock() {
+		return stock;
+	}
+
+	public void setStock(String stock) {
+		this.stock = stock;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getStatusText() {
+		return statusText;
+	}
+
+	public void setStatusText(String statusText) {
+		this.statusText = statusText;
+	}
+
 	public Integer getImportfal() {
 		return importfal;
 	}
@@ -34,74 +108,6 @@ public class ImportGiftListClient implements Serializable,
 
 	public void setId(String id) {
 		this.id = id;
-	}
-
-	public String getGiftNo() {
-		return staffNo;
-	}
-
-	public void setGiftNo(String staffNo) {
-		this.staffNo = staffNo;
-	}
-
-	public String getGiftName() {
-		return staffName;
-	}
-
-	public void setGiftName(String staffName) {
-		this.staffName = staffName;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getDepartmentName() {
-		return departmentName;
-	}
-
-	public void setDepartmentName(String departmentName) {
-		this.departmentName = departmentName;
-	}
-
-	public String getJobPosition() {
-		return jobPosition;
-	}
-
-	public void setJobPosition(String jobPosition) {
-		this.jobPosition = jobPosition;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
-	public String getDob() {
-		return dob;
-	}
-
-	public void setDob(String dob) {
-		this.dob = dob;
-	}
-
-	public String getLeadership() {
-		return Leadership;
-	}
-
-	public void setLeadership(String leadership) {
-		Leadership = leadership;
-	}
-
-	public ImportGiftListClient() {
-
 	}
 
 	@Override

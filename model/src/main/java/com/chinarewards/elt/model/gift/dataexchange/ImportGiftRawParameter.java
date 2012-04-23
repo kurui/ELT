@@ -14,71 +14,26 @@ public class ImportGiftRawParameter {
 	 */
 	private String importGiftBatchId;
 
-	/**
-	 * 
-	 */
-	private String id;
-	
+
 	/**
 	 * 行数
 	 */
 	private Long rowPos;
 	
 	/**
-	 * 部门（用|分隔符分隔部门及其子部门，例如：技术部|开发部）
-	 */
-	private String department;
-	private String jobPosition;
-	private String leadership;
-	/**
-	 * 手机号码
-	 */
-	private String phone;
-
-	/**
-	 * 邮箱
-	 */
-	private String email;
-
-	
-	/**
-	 * 员工编号
-	 */
-	private String jobNo;
-	/**
-	 * 员工名称
-	 */
-	private String name;
-	/**
-	 * 出生日期
-	 */
-	private String dob;
-
-	
-	public String getJobPosition() {
-		return jobPosition;
-	}
-
-
-	public void setJobPosition(String jobPosition) {
-		this.jobPosition = jobPosition;
-	}
-
-
-	public String getLeadership() {
-		return leadership;
-	}
-
-
-	public void setLeadership(String leadership) {
-		this.leadership = leadership;
-	}
-
-
-	/**
 	 * 导入结果：成功、失败、未知
 	 */
 	private ImportGiftResultType result;
+	
+	private String id;
+	private String name;
+	private String source;
+	private String sourceText;
+	private String price;
+	private String integral;
+	private String stock;
+	private String status;
+	private String statusText;
 
 
 	public String getName() {
@@ -88,6 +43,78 @@ public class ImportGiftRawParameter {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	
+
+
+	public String getSource() {
+		return source;
+	}
+
+
+	public void setSource(String source) {
+		this.source = source;
+	}
+
+
+	public String getSourceText() {
+		return sourceText;
+	}
+
+
+	public void setSourceText(String sourceText) {
+		this.sourceText = sourceText;
+	}
+
+
+	public String getPrice() {
+		return price;
+	}
+
+
+	public void setPrice(String price) {
+		this.price = price;
+	}
+
+
+	public String getIntegral() {
+		return integral;
+	}
+
+
+	public void setIntegral(String integral) {
+		this.integral = integral;
+	}
+
+
+	public String getStock() {
+		return stock;
+	}
+
+
+	public void setStock(String stock) {
+		this.stock = stock;
+	}
+
+
+	public String getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+
+	public String getStatusText() {
+		return statusText;
+	}
+
+
+	public void setStatusText(String statusText) {
+		this.statusText = statusText;
 	}
 
 
@@ -118,56 +145,6 @@ public class ImportGiftRawParameter {
 
 	public void setRowPos(Long rowPos) {
 		this.rowPos = rowPos;
-	}
-
-
-	public String getDepartment() {
-		return department;
-	}
-
-
-	public void setDepartment(String department) {
-		this.department = department;
-	}
-
-
-	public String getPhone() {
-		return phone;
-	}
-
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
-
-	public String getEmail() {
-		return email;
-	}
-
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-
-	public String getJobNo() {
-		return jobNo;
-	}
-
-
-	public void setJobNo(String jobNo) {
-		this.jobNo = jobNo;
-	}
-
-
-	public String getDob() {
-		return dob;
-	}
-
-
-	public void setDob(String dob) {
-		this.dob = dob;
 	}
 
 

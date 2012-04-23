@@ -9,7 +9,7 @@ import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.ui.DialogCloseListener;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.dataprovider.GiftListViewAdapter;
-import com.chinarewards.gwt.elt.client.dialog.ImportGiftDialog;
+import com.chinarewards.gwt.elt.client.dialog.GiftImportDialog;
 import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
 import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria;
 import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria.GiftStatus;
@@ -59,7 +59,7 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 	GiftListViewAdapter listViewAdapter;
 	
 	private final Provider<ChooseExportTypeDialog> chooseExportTypeDialogProvider;
-	private final Provider<ImportGiftDialog> importGiftDialogProvider;
+	private final Provider<GiftImportDialog> importGiftDialogProvider;
 
 	private final BreadCrumbsPresenter breadCrumbs;
 
@@ -68,7 +68,7 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 	@Inject
 	public GiftListPresenterImpl(EventBus eventBus, DispatchAsync dispatch,
 			ErrorHandler errorHandler, SessionManager sessionManager,
-			GiftListDisplay display, Win win, BreadCrumbsPresenter breadCrumbs,Provider<ChooseExportTypeDialog> chooseExportTypeDialogProvider,Provider<ImportGiftDialog> importGiftDialogProvider) {
+			GiftListDisplay display, Win win, BreadCrumbsPresenter breadCrumbs,Provider<ChooseExportTypeDialog> chooseExportTypeDialogProvider,Provider<GiftImportDialog> importGiftDialogProvider) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.errorHandler = errorHandler;
@@ -107,7 +107,7 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 		registerHandler(display.getImportBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
-						ImportGiftDialog dialog = importGiftDialogProvider.get();
+						GiftImportDialog dialog = importGiftDialogProvider.get();
 						Platform.getInstance().getSiteManager().openDialog(dialog,new DialogCloseListener() {
 							
 							@Override

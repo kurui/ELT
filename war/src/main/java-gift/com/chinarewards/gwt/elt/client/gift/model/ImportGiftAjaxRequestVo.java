@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.chinarewards.gwt.elt.client.gift.model;
 
 import java.util.ArrayList;
@@ -9,12 +6,10 @@ import java.util.List;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 /**
- * @author sunhongliang
- * @since 0.2.0 2011-01-05
+ * @author yanrui
+ * @since 1.5.2
  */
 public class ImportGiftAjaxRequestVo implements IsSerializable {
-
-	private static final long serialVersionUID = 1329978070568965425L;
 
 	/**
 	 * current request is do pretreatment or do final import?
@@ -66,7 +61,8 @@ public class ImportGiftAjaxRequestVo implements IsSerializable {
 	}
 
 	/**
-	 * @param action the action to set
+	 * @param action
+	 *            the action to set
 	 */
 	public void setAction(String action) {
 		this.action = action;
@@ -95,7 +91,8 @@ public class ImportGiftAjaxRequestVo implements IsSerializable {
 	}
 
 	/**
-	 * @param corporationId the corporationId to set
+	 * @param corporationId
+	 *            the corporationId to set
 	 */
 	public void setCorporationId(String corporationId) {
 		this.corporationId = corporationId;
@@ -191,7 +188,9 @@ public class ImportGiftAjaxRequestVo implements IsSerializable {
 		this.doeFormat = doeFormat;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

@@ -7,11 +7,11 @@ import java.util.Map;
 
 /**
  * @author yanrui
- * @since 1.5.2 
- *
+ * @since 1.5.2
+ * 
  */
 public class ImportGiftEjbHelper {
-	
+
 	public final static String IMPORT_Gift_DEPARTMENT_DELIMITER = "|";
 
 	public final static char IMPORT_Gift_DEPARTMENT_ESCAPE_CHAR = '\\';
@@ -31,22 +31,18 @@ public class ImportGiftEjbHelper {
 	private Date now;
 
 	/**
-	 * 现有员工编号
-	 */
-	private List<String> existingGiftNumbers;
-
-	/**
 	 * 现有员工email
 	 */
-	private List<String> existingEmailAddress;
+	private List<String> existingName;
 	/**
 	 * 现有员工手机号
 	 */
 	private List<String> existingMobileNos;
+
 	/**
 	 * 同一上传批次员工email
 	 */
-	private List<String> desiredEmailAddress;
+	private List<String> desiredName;
 	/**
 	 * 同一上传批次员工手机号
 	 */
@@ -54,9 +50,9 @@ public class ImportGiftEjbHelper {
 	/**
 	 * 同一上传批次员工编号
 	 */
-	private List<String> desiredGiftNumber; 
+	private List<String> desiredGiftNumber;
 	/**
-	 * the Gift raw position in current uploaded file 
+	 * the Gift raw position in current uploaded file
 	 */
 	private String assignedCardNumber;
 	/**
@@ -72,8 +68,6 @@ public class ImportGiftEjbHelper {
 	 */
 	private Boolean isDepartmentInvalid;
 
-
-
 	public List<String> getDesiredGiftNumber() {
 		return desiredGiftNumber;
 	}
@@ -82,26 +76,12 @@ public class ImportGiftEjbHelper {
 		this.desiredGiftNumber = desiredGiftNumber;
 	}
 
-	/**
-	 * @return the existingGiftNumbers
-	 */
-	public List<String> getExistingGiftNumbers() {
-		return existingGiftNumbers;
+	public List<String> getDesiredName() {
+		return desiredName;
 	}
 
-	/**
-	 * @param existingGiftNumbers the existingGiftNumbers to set
-	 */
-	public void setExistingGiftNumbers(List<String> existingGiftNumbers) {
-		this.existingGiftNumbers = existingGiftNumbers;
-	}
-
-	public List<String> getDesiredEmailAddress() {
-		return desiredEmailAddress;
-	}
-
-	public void setDesiredEmailAddress(List<String> desiredEmailAddress) {
-		this.desiredEmailAddress = desiredEmailAddress;
+	public void setDesiredName(List<String> desiredName) {
+		this.desiredName = desiredName;
 	}
 
 	public List<String> getDesiredMobileNos() {
@@ -112,9 +92,6 @@ public class ImportGiftEjbHelper {
 		this.desiredMobileNos = desiredMobileNos;
 	}
 
-	
-
-
 	/**
 	 * @return the assignedCardNumber
 	 */
@@ -123,7 +100,8 @@ public class ImportGiftEjbHelper {
 	}
 
 	/**
-	 * @param assignedCardNumber the assignedCardNumber to set
+	 * @param assignedCardNumber
+	 *            the assignedCardNumber to set
 	 */
 	public void setAssignedCardNumber(String assignedCardNumber) {
 		this.assignedCardNumber = assignedCardNumber;
@@ -161,22 +139,19 @@ public class ImportGiftEjbHelper {
 		this.isAllPassed = isAllPassed;
 	}
 
-	
-
-
-
 	/**
-	 * @return the existingEmailAddress
+	 * @return the existingName
 	 */
-	public List<String> getExistingEmailAddress() {
-		return existingEmailAddress;
+	public List<String> getExistingName() {
+		return existingName;
 	}
 
 	/**
-	 * @param existingEmailAddress the existingEmailAddress to set
+	 * @param existingName
+	 *            the existingName to set
 	 */
-	public void setExistingEmailAddress(List<String> existingEmailAddress) {
-		this.existingEmailAddress = existingEmailAddress;
+	public void setExistingName(List<String> existingName) {
+		this.existingName = existingName;
 	}
 
 	/**
@@ -187,7 +162,8 @@ public class ImportGiftEjbHelper {
 	}
 
 	/**
-	 * @param existingMobileNos the existingMobileNos to set
+	 * @param existingMobileNos
+	 *            the existingMobileNos to set
 	 */
 	public void setExistingMobileNos(List<String> existingMobileNos) {
 		this.existingMobileNos = existingMobileNos;
@@ -201,9 +177,11 @@ public class ImportGiftEjbHelper {
 	}
 
 	/**
-	 * @param existingDepartmentMap the existingDepartmentMap to set
+	 * @param existingDepartmentMap
+	 *            the existingDepartmentMap to set
 	 */
-	public void setExistingDepartmentMap(Map<String, Object[]> existingDepartmentMap) {
+	public void setExistingDepartmentMap(
+			Map<String, Object[]> existingDepartmentMap) {
 		this.existingDepartmentMap = existingDepartmentMap;
 	}
 
@@ -215,11 +193,11 @@ public class ImportGiftEjbHelper {
 	}
 
 	/**
-	 * @param isDepartmentInvalid the isDepartmentInvalid to set
+	 * @param isDepartmentInvalid
+	 *            the isDepartmentInvalid to set
 	 */
 	public void setDepartmentInvalid(Boolean isDepartmentInvalid) {
 		this.isDepartmentInvalid = isDepartmentInvalid;
 	}
 
-	
 }

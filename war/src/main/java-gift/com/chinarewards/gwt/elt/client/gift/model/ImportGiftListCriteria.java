@@ -1,7 +1,3 @@
-/**
-  * @author yanrui
- * @since 1.5.2
- */
 package com.chinarewards.gwt.elt.client.gift.model;
 
 import com.chinarewards.gwt.elt.model.PaginationDetailClient;
@@ -9,8 +5,8 @@ import com.chinarewards.gwt.elt.model.SortingDetailClient;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 /**
- * @author nicho
- * @since 2012年2月14日 11:29:59
+ * @author yanrui
+ * @since 1.5.2
  */
 public class ImportGiftListCriteria implements IsSerializable {
 

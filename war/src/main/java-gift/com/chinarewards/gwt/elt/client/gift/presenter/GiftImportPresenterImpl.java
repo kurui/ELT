@@ -87,8 +87,8 @@ public class GiftImportPresenterImpl extends
 	List<ListBox> formaterListBoxes = new ArrayList<ListBox>();
 	List<HTML> formaterWaningLabels = new ArrayList<HTML>();
 
-	String[] correctHeaderSorting = { "jobNo", "name", "email",
-			"phone", "dob","department","jobPosition","leadership"};
+	String[] correctHeaderSorting = { "name", "sourceText", "integral",
+			"price", "stock","statusText"};
 	
 	EltNewPager pager;
 	ListCellTable<ImportGiftListClient> cellTable;
@@ -954,14 +954,12 @@ public class GiftImportPresenterImpl extends
 
 	private ListBox getGiftColumnListBox() {
 		ListBox listBox = new ListBox();
-		listBox.addItem("员工编号", "jobNo");
-		listBox.addItem("员工姓名", "name");
-		listBox.addItem("邮箱", "email");
-		listBox.addItem("电话", "phone");
-		listBox.addItem("生日", "dob");
-		listBox.addItem("部门", "department");
-		listBox.addItem("职位", "jobPosition");
-		listBox.addItem("直属领导", "leadership");
+		listBox.addItem("名称", "name");
+		listBox.addItem("来源", "sourceText");
+		listBox.addItem("兑换缤纷", "phone");
+		listBox.addItem("采购价", "integral");
+		listBox.addItem("库存", "stock");
+		listBox.addItem("状态", "statusText");
 
 		listBox.addChangeHandler(staffColumnListBoxChangeHandler);
 		listBox.setEnabled(false);
@@ -1385,62 +1383,49 @@ public class GiftImportPresenterImpl extends
 								});
 					}
 				});
-		cellTable.addColumn("员工编号", new TextCell(),
+		
+		cellTable.addColumn("名称", new TextCell(),
 				new GetValue<ImportGiftListClient, String>() {
 					@Override
-					public String getValue(ImportGiftListClient staff) {
-						return staff.getGiftNo();
-					}
-				}, ref, "staffNumber");
-		cellTable.addColumn("员工姓名", new TextCell(),
-				new GetValue<ImportGiftListClient, String>() {
-					@Override
-					public String getValue(ImportGiftListClient staff) {
-						return staff.getGiftName();
+					public String getValue(ImportGiftListClient client) {
+						return client.getName();
 					}
 				}, ref, "name");
-		cellTable.addColumn("邮箱", new TextCell(),
+		cellTable.addColumn("来源", new TextCell(),
 				new GetValue<ImportGiftListClient, String>() {
 					@Override
-					public String getValue(ImportGiftListClient staff) {
-						return staff.getEmail();
+					public String getValue(ImportGiftListClient client) {
+						return client.getSourceText();
 					}
-				}, ref, "emailAddress");
-		cellTable.addColumn("电话", new TextCell(),
+				}, ref, "source");
+		cellTable.addColumn("兑换缤纷", new TextCell(),
 				new GetValue<ImportGiftListClient, String>() {
 					@Override
-					public String getValue(ImportGiftListClient staff) {
-						return staff.getPhone();
+					public String getValue(ImportGiftListClient client) {
+						return client.getIntegral();
 					}
-				}, ref, "mobileTelephoneNumber");
-		cellTable.addColumn("生日", new TextCell(),
+				}, ref, "integral");
+		cellTable.addColumn("采购价", new TextCell(),
 				new GetValue<ImportGiftListClient, String>() {
 					@Override
-					public String getValue(ImportGiftListClient staff) {
-						return staff.getDob();
+					public String getValue(ImportGiftListClient client) {
+						return client.getPrice();
 					}
-				}, ref, "dob");
-		cellTable.addColumn("部门", new TextCell(),
+				}, ref, "price");
+		cellTable.addColumn("库存", new TextCell(),
 				new GetValue<ImportGiftListClient, String>() {
 					@Override
-					public String getValue(ImportGiftListClient staff) {
-						return staff.getDepartmentName();
+					public String getValue(ImportGiftListClient client) {
+						return client.getStock();
 					}
-				}, ref, "department");
-		cellTable.addColumn("职位", new TextCell(),
+				}, ref, "stock");
+		cellTable.addColumn("状态", new TextCell(),
 				new GetValue<ImportGiftListClient, String>() {
 					@Override
-					public String getValue(ImportGiftListClient staff) {
-						return staff.getJobPosition();
+					public String getValue(ImportGiftListClient client) {
+						return client.getStatusText();
 					}
-				}, ref, "jobPosition");
-		cellTable.addColumn("直属领导", new TextCell(),
-				new GetValue<ImportGiftListClient, String>() {
-					@Override
-					public String getValue(ImportGiftListClient staff) {
-						return staff.getLeadership();
-					}
-				}, ref, "leadership");
+				}, ref, "status");
 	
 	
 	}
@@ -1469,14 +1454,13 @@ public class GiftImportPresenterImpl extends
 					ImportGiftListClient client=response.getResult().get(i);
 					
 					List<String> staffCells = new ArrayList<String>();
-					staffCells.add(client.getGiftNo());
-					staffCells.add(client.getGiftName());
-					staffCells.add(client.getEmail());
-					staffCells.add(client.getPhone());
-					staffCells.add(client.getDob());
-					staffCells.add(client.getDepartmentName());
-					staffCells.add(client.getJobPosition());
-					staffCells.add(client.getLeadership());
+									
+					staffCells.add(client.getName());
+					staffCells.add(client.getSourceText());
+					staffCells.add(client.getIntegral());
+					staffCells.add(client.getPrice());
+					staffCells.add(client.getStock());
+					staffCells.add(client.getStatusText());
 				
 					result.add(staffCells);
 				}

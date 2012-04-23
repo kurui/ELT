@@ -1,17 +1,11 @@
-/**
- * 
- */
 package com.chinarewards.gwt.elt.server.gift;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.DispatchException;
-
 import org.slf4j.Logger;
-
 import com.chinarewards.elt.model.gift.dataexchange.ImportGiftCodeData;
 import com.chinarewards.elt.model.gift.dataexchange.ImportGiftCodeData.ParserCode;
 import com.chinarewards.elt.model.gift.dataexchange.ImportGiftRequest;
@@ -26,15 +20,14 @@ import com.chinarewards.gwt.elt.server.BaseActionHandler;
 import com.chinarewards.gwt.elt.server.logger.InjectLogger;
 import com.google.inject.Inject;
 
-
 public class ImportGiftAjaxActionHandler extends
 		BaseActionHandler<ImportGiftAjaxRequest, ImportGiftAjaxResponse> {
 
 	@InjectLogger
 	Logger logger;
-	
+
 	ImportGiftService importGiftService;
-	
+
 	@Inject
 	public ImportGiftAjaxActionHandler(ImportGiftService importGiftService) {
 		this.importGiftService = importGiftService;
@@ -43,8 +36,7 @@ public class ImportGiftAjaxActionHandler extends
 	@Override
 	public ImportGiftAjaxResponse execute(ImportGiftAjaxRequest req,
 			ExecutionContext ctx) throws DispatchException {
-		logger.debug(
-				" Process in ImportGiftAjaxActionHandler, req.request:{}",
+		logger.debug(" Process in ImportGiftAjaxActionHandler, req.request:{}",
 				req.getRequest());
 
 		ImportGiftAjaxResponse resp = new ImportGiftAjaxResponse();
@@ -70,7 +62,7 @@ public class ImportGiftAjaxActionHandler extends
 						Thread.sleep(100);
 						breakNum = 0;
 					} else {
-						breakNum ++;
+						breakNum++;
 					}
 				}
 			}
@@ -83,8 +75,7 @@ public class ImportGiftAjaxActionHandler extends
 
 			Map<Long, String> allImportGiftCodeInfos = new HashMap<Long, String>();
 			Map<Long, String> allImportGiftCodeTypes = new HashMap<Long, String>();
-			List<ParserCode> codes = ImportGiftCodeData
-					.getAllImportGiftCode();
+			List<ParserCode> codes = ImportGiftCodeData.getAllImportGiftCode();
 			for (ParserCode code : codes) {
 				allImportGiftCodeInfos.put(code.getCode(), code.getMessage());
 				allImportGiftCodeTypes.put(code.getCode(), code.getType()
@@ -100,7 +91,7 @@ public class ImportGiftAjaxActionHandler extends
 
 		} catch (Exception e) {
 			logger.error("failed to perform loop of import staff!", e);
-			throw new ClientException("导入员工失败，请联系系统管理员！");
+			throw new ClientException("导入礼品信息失败，请联系系统管理员！");
 		}
 
 		return resp;

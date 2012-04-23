@@ -1,13 +1,14 @@
-/**
- * 
- */
+
 package com.chinarewards.gwt.elt.client.gift.model;
 
 import java.util.List;
 import java.util.Map;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
-
+/**
+ * @author yanrui
+ * @since 1.5.2
+ */
 
 public class ImportGiftAjaxResponseVo extends ImportGiftAjaxRequestVo implements IsSerializable {
 

@@ -11,14 +11,14 @@ import com.google.inject.Provider;
  * 
  * @since 1.5.2
  * **/
-public class ImportGiftDialog extends AbstractDialog {
+public class GiftImportDialog extends AbstractDialog {
 
 	final Provider<GiftImportPresenter> presenterProvider;
 
 	GiftImportPresenter presenter;
 
 	@Inject
-	public ImportGiftDialog(Provider<GiftImportPresenter> presenterProvider) {
+	public GiftImportDialog(Provider<GiftImportPresenter> presenterProvider) {
 		super("Organization.choosee", "Organization.choosee");
 		this.presenterProvider = presenterProvider;
 		presenter = presenterProvider.get();
@@ -28,7 +28,7 @@ public class ImportGiftDialog extends AbstractDialog {
 	}
 
 	public void init() {
-		setTitle("导入员工");
+		setTitle("导入礼品信息");
 		presenter.bind();
 	}
 
