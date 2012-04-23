@@ -674,7 +674,7 @@ public class StaffListPresenterImpl extends
 
 												@Override
 												public void onFailure(Throwable t) {
-													win.alert(t.getMessage());
+													win.alert("有关联奖项数据,无法删除!");
 												}
 
 												@Override

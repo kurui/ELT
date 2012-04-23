@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory;
 
 import com.chinarewards.elt.common.LogicContext;
 import com.chinarewards.elt.common.UserContextProvider;
+import com.chinarewards.elt.dao.broadcast.BroadcastDao;
+import com.chinarewards.elt.dao.broadcast.BroadcastReplyDao;
 import com.chinarewards.elt.dao.broadcast.BroadcastingReceivingDao;
 import com.chinarewards.elt.dao.broadcast.StaffObjectDao;
 import com.chinarewards.elt.dao.org.DepartmentDao;
@@ -22,7 +24,6 @@ import com.chinarewards.elt.dao.reward.CandidateDao;
 import com.chinarewards.elt.dao.reward.JudgeDao;
 import com.chinarewards.elt.dao.reward.NomineeDao;
 import com.chinarewards.elt.dao.reward.PreWinnerDao;
-import com.chinarewards.elt.dao.reward.RewardDao;
 import com.chinarewards.elt.dao.reward.WinnerDao;
 import com.chinarewards.elt.dao.user.RoleDao;
 import com.chinarewards.elt.dao.user.UserDao;
@@ -86,8 +87,9 @@ public class StaffLogicImpl implements StaffLogic {
 	private final MembersDao membersDao;
 	private final JudgeDao judgeDao;
 	private final NomineeDao nomineeDao;
-	private final RewardDao rewardDao;
+	private final BroadcastReplyDao broadcastReplyDao;
 	private final BroadcastingReceivingDao broadcastingReceivingDao;
+	private final BroadcastDao broadcastDao;
 	
 	
 	
@@ -101,7 +103,9 @@ public class StaffLogicImpl implements StaffLogic {
 			DepartmentManagerLogic departmentManagerLogic, UserDao userDao,
 			WinnerDao winnerDao, UserRoleDao userRoleDao, RoleDao roleDao,
 			DepartmentManagerDao deptMgrDao, DepartmentLogic departmentLogic,UserLogic userLogic,PreWinnerDao preWinnerDao,CandidateDao candidateDao,
-			StaffObjectDao staffObjectDao,MembersDao membersDao,JudgeDao judgeDao,NomineeDao nomineeDao,BroadcastingReceivingDao broadcastingReceivingDao,RewardDao rewardDao) {
+			StaffObjectDao staffObjectDao,MembersDao membersDao,
+			JudgeDao judgeDao,NomineeDao nomineeDao,BroadcastingReceivingDao broadcastingReceivingDao,BroadcastReplyDao broadcastReplyDao,
+			BroadcastDao broadcastDao) {
 		this.staffDao = staffDao;
 		this.deptLogic = deptLogic;
 		this.corporationLogic = corporationLogic;
@@ -123,7 +127,8 @@ public class StaffLogicImpl implements StaffLogic {
 		this.judgeDao=judgeDao;
 		this.nomineeDao=nomineeDao;
 		this.broadcastingReceivingDao=broadcastingReceivingDao;
-		this.rewardDao=rewardDao;
+		this.broadcastReplyDao=broadcastReplyDao;
+		this.broadcastDao=broadcastDao;
 	}
 
 	@Override
@@ -872,6 +877,9 @@ public class StaffLogicImpl implements StaffLogic {
 		if(user!=null)
 		{
 			userRoleDao.deleteSysUserRoleByUserId(user.getId());
+			broadcastReplyDao.deleteBroadcastReplyByUserId(user.getId());
+			broadcastingReceivingDao.deleteBroadcastingReceivingByUserId(user.getId());
+			broadcastDao.deleteBroadcastingByUserId(user.getId());
 			userDao.deleteSysUserByStaffId(staffId);
 		}
 		staffDao.deleteStaffByStaffId(staffId);
