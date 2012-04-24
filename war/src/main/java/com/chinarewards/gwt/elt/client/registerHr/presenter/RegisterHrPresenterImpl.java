@@ -5,7 +5,6 @@ import java.util.List;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
-import com.chinarewards.gwt.elt.client.EltGinjector;
 import com.chinarewards.gwt.elt.client.login.presenter.AlertErrorWidget;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
@@ -16,7 +15,6 @@ import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.ui.DialogBox;
 import com.chinarewards.gwt.elt.client.util.StringUtil;
 import com.chinarewards.gwt.elt.model.user.UserRoleVo;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
@@ -28,7 +26,7 @@ public class RegisterHrPresenterImpl extends
 		RegisterHrPresenter {
 
 	private final DispatchAsync dispatcher;
-	private final EltGinjector injector = GWT.create(EltGinjector.class);
+
 	final SessionManager sessionManager;
 	@Inject
 	public RegisterHrPresenterImpl(EventBus eventBus,SessionManager sessionManager,

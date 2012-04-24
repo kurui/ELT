@@ -7,8 +7,6 @@ import org.slf4j.Logger;
 
 import com.chinarewards.elt.service.sendmail.SendMailService;
 import com.chinarewards.gwt.elt.client.mail.model.MailVo;
-import com.chinarewards.gwt.elt.client.mail.request.MailRequest;
-import com.chinarewards.gwt.elt.client.mail.request.MailResponse;
 import com.chinarewards.gwt.elt.client.mail.request.MailSendAllRequest;
 import com.chinarewards.gwt.elt.client.mail.request.MailSendAllResponse;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;

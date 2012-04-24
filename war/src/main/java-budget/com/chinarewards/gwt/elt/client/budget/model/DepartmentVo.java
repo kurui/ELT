@@ -1,10 +1,6 @@
 package com.chinarewards.gwt.elt.client.budget.model;
 
 import java.io.Serializable;
-import java.util.Date;
-
-import com.chinarewards.gwt.elt.model.PaginationDetailClient;
-import com.chinarewards.gwt.elt.model.SortingDetailClient;
 
 public class DepartmentVo implements Serializable {
 
