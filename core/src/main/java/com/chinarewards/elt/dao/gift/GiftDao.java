@@ -104,7 +104,7 @@ public class GiftDao extends BaseDao<Gift> {
 
 	@SuppressWarnings("unchecked")
 	public List<Gift> findNotDeleteGift() {
-		return getEm().createQuery("FROM Gift s WHERE   and s.deleted=false ")
+		return getEm().createQuery("FROM Gift s WHERE   s.deleted=false ")
 				.getResultList();
 	}
 

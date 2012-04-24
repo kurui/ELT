@@ -22,7 +22,6 @@ import com.chinarewards.elt.domain.gift.ImportGiftRaw;
 import com.chinarewards.elt.domain.gift.ImportGiftRawCode;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
-import com.chinarewards.elt.model.gift.GiftProcess;
 import com.chinarewards.elt.model.gift.dataexchange.ImportCodeType;
 import com.chinarewards.elt.model.gift.dataexchange.ImportGiftEjbHelper;
 import com.chinarewards.elt.model.gift.dataexchange.ImportGiftHavingTitle;
@@ -145,7 +144,7 @@ public class ImportGiftLogicImpl implements ImportGiftLogic {
 		for (ImportGiftRaw GiftRaw : GiftRaws) {
 			desiredNames.add(GiftRaw.getName());
 			// desiredMobileNos.add(GiftRaw.getMobileTelephoneNumber());
-		
+
 		}
 		ejbHelper.setDobFormat(request.getDobFormat());
 		ejbHelper.setDesiredName(desiredNames);
@@ -400,7 +399,7 @@ public class ImportGiftLogicImpl implements ImportGiftLogic {
 		giftRaw.setPrice(pGiftRaw.getPrice());
 		giftRaw.setIntegral(pGiftRaw.getIntegral());
 		giftRaw.setStock(pGiftRaw.getStock());
-		giftRaw.setStatus(pGiftRaw.getStatus());
+		giftRaw.setStatusValue(pGiftRaw.getStatusValue());
 		giftRaw.setStatusText(pGiftRaw.getSourceText());
 
 	}
@@ -417,7 +416,7 @@ public class ImportGiftLogicImpl implements ImportGiftLogic {
 		pGiftRaw.setPrice(giftRaw.getPrice());
 		pGiftRaw.setIntegral(giftRaw.getIntegral());
 		pGiftRaw.setStock(giftRaw.getStock());
-		pGiftRaw.setStatus(giftRaw.getStatus());
+		pGiftRaw.setStatusValue(giftRaw.getStatusValue());
 		pGiftRaw.setStatusText(giftRaw.getSourceText());
 
 	}
@@ -562,38 +561,22 @@ public class ImportGiftLogicImpl implements ImportGiftLogic {
 			if (isIgnore) {
 				raw.setResult(ImportGiftResultType.FAILURE);
 				importGiftRawDao.update(raw);
-				logger.debug("import Gift ignored");
 			} else {
 				boolean isSuccess = false;
 				try {
-					GiftProcess sp = new GiftProcess();
-
-					sp.setName(raw.getName());
-
-					sp.setSource(raw.getSource());
-					sp.setSourceText(raw.getSourceText());
-					sp.setPrice(raw.getPrice());
-					sp.setIntegral(raw.getIntegral());
-					sp.setStock(raw.getStock());
-
-					sp.setStatusText(raw.getSourceText());
-					// sp.setStatus(raw.getStatus());
-					sp.setStatus(GiftStatus.SHELF);
-
 					UserContext context = new UserContext();
 					context.setCorporationId(request.getCorporationId());
 					context.setUserId(request.getNowUserId());
 
-					Gift gift=assembleGift(sp);
-					String giftId="";
-//					gift=giftLogic.save(caller, gift);
-//					giftId = gift.getId();					
+					SysUser caller=userLogic.findUserById(request.getNowUserId());
 					
+					Gift gift = assembleGift(raw);
+					String giftId = "";
+					 gift=giftLogic.save(caller, gift);
+					 giftId = gift.getId();
 
 					// 加员工--------------------------------------------------
 					logger.debug("prepare to create Gift ");
-					// Gift Gift = giftLogic
-					// .saveGiftAndCreateMember(GiftPersistence);
 					if (giftId != null && !"ERROR".equals(giftId)) {
 						isSuccess = true;
 						finalSuccessNum++;
@@ -658,35 +641,38 @@ public class ImportGiftLogicImpl implements ImportGiftLogic {
 				+ response);
 		return response;
 	}
-	
+
 	/**
 	 * Convert from GiftVo to GeneratorGiftModel.
 	 */
-	public static Gift assembleGift(GiftProcess giftVo) {
+	public static Gift assembleGift(ImportGiftRaw raw) {
 		Gift gift = new Gift();
-		gift.setId(giftVo.getGiftId());
-		gift.setName(giftVo.getName());
-        gift.setPrice(giftVo.getPrice());	
-		gift.setSource(giftVo.getSource());
+		gift.setName(raw.getName());
 
-//		gift.setIntegral(giftVo.getIntegral());
-//		gift.setStock(giftVo.getStock());
-		
-//		gift.setIndate(giftVo.getIndate());//有效截止期
-
-		GiftStatus updateStatus=null;
-		if(GiftStatus.valueOf(giftVo.getStatusValue())==GiftStatus.SHELVES){
-			updateStatus=GiftStatus.SHELVES;
-		}else if(GiftStatus.valueOf(giftVo.getStatusValue())==GiftStatus.SHELF){
-			updateStatus=GiftStatus.SHELF;
-	    }
-		
-		if(updateStatus!=null){
-			gift.setStatus(updateStatus);	
+		String source = "";
+		if ("内部直接提供".equals(raw.getSourceText())) {
+			source = "inner";
+		} else if ("外部货品公司提供".equals(raw.getSourceText())) {
+			source = "outter";
 		}
-		// gift.setIndate(getIndate());
-		// private boolean deleted; //删除状态
-		// private Date indate ; //有效截止期
+		gift.setSource(source);
+
+		gift.setIntegral(Integer.parseInt(raw.getIntegral()));
+		gift.setPrice(raw.getPrice());
+		gift.setStock(Integer.parseInt(raw.getStock()));
+
+		GiftStatus updateStatus = null;
+		if ("上架".equals(raw.getStatusText())) {
+			updateStatus = GiftStatus.SHELVES;
+		} else if ("下架".equals(raw.getStatusText())) {
+			updateStatus = GiftStatus.SHELF;
+		}
+		if (updateStatus != null) {
+			gift.setStatus(updateStatus);
+		}
+		
+		// gift.setIndate(getIndate());//有效截止期
+		gift.setDeleted(false);
 
 		return gift;
 	}

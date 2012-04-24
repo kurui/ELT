@@ -16,8 +16,8 @@ import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.vo.ImportGiftSearchVo;
 import com.chinarewards.elt.service.gift.ImportGiftService;
 import com.chinarewards.gwt.elt.client.gift.model.ImportGiftListClient;
-import com.chinarewards.gwt.elt.client.gift.request.ImportGiftListRequest;
-import com.chinarewards.gwt.elt.client.gift.request.ImportGiftListResponse;
+import com.chinarewards.gwt.elt.client.gift.request.SearchGiftImportListRequest;
+import com.chinarewards.gwt.elt.client.gift.request.SearchGiftImportListResponse;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
 import com.chinarewards.gwt.elt.server.logger.InjectLogger;
 import com.chinarewards.gwt.elt.util.UserRoleTool;
@@ -29,8 +29,8 @@ import com.google.inject.Inject;
  * @author yanrui
  * @since 1.5.2
  */
-public class ImportGiftListActionHandler extends
-		BaseActionHandler<ImportGiftListRequest, ImportGiftListResponse> {
+public class SearchGiftImportListHandler extends
+		BaseActionHandler<SearchGiftImportListRequest, SearchGiftImportListResponse> {
 
 	@InjectLogger
 	Logger logger;
@@ -38,15 +38,15 @@ public class ImportGiftListActionHandler extends
 	ImportGiftService importGiftService;
 
 	@Inject
-	public ImportGiftListActionHandler(ImportGiftService importGiftService) {
+	public SearchGiftImportListHandler(ImportGiftService importGiftService) {
 		this.importGiftService = importGiftService;
 	}
 
 	@Override
-	public ImportGiftListResponse execute(ImportGiftListRequest request,
+	public SearchGiftImportListResponse execute(SearchGiftImportListRequest request,
 			ExecutionContext response) throws DispatchException {
 
-		ImportGiftListResponse staffResponse = new ImportGiftListResponse();
+		SearchGiftImportListResponse staffResponse = new SearchGiftImportListResponse();
 		ImportGiftSearchVo criteria=new ImportGiftSearchVo();
 		if (request.getCriteria().getPagination() != null) {
 			PaginationDetail detail = new PaginationDetail();
@@ -104,13 +104,13 @@ public class ImportGiftListActionHandler extends
 	}
 
 	@Override
-	public Class<ImportGiftListRequest> getActionType() {
-		return ImportGiftListRequest.class;
+	public Class<SearchGiftImportListRequest> getActionType() {
+		return SearchGiftImportListRequest.class;
 	}
 
 	@Override
-	public void rollback(ImportGiftListRequest request,
-			ImportGiftListResponse response, ExecutionContext context)
+	public void rollback(SearchGiftImportListRequest request,
+			SearchGiftImportListResponse response, ExecutionContext context)
 			throws DispatchException {
 	}
 

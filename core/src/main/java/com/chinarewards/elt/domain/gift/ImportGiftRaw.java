@@ -61,7 +61,7 @@ public class ImportGiftRaw implements Serializable {
 	private String price;
 	private String integral;
 	private String stock;
-	private String status;
+	private String statusValue;
 	private String statusText;
 
 	public String getName() {
@@ -112,12 +112,13 @@ public class ImportGiftRaw implements Serializable {
 		this.stock = stock;
 	}
 
-	public String getStatus() {
-		return status;
+
+	public String getStatusValue() {
+		return statusValue;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setStatusValue(String statusValue) {
+		this.statusValue = statusValue;
 	}
 
 	public String getStatusText() {

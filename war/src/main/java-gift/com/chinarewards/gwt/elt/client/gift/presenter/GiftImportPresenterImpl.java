@@ -22,8 +22,8 @@ import com.chinarewards.gwt.elt.client.gift.model.ImportGiftListClient;
 import com.chinarewards.gwt.elt.client.gift.model.ImportGiftListCriteria;
 import com.chinarewards.gwt.elt.client.gift.request.ImportGiftAjaxRequest;
 import com.chinarewards.gwt.elt.client.gift.request.ImportGiftAjaxResponse;
-import com.chinarewards.gwt.elt.client.gift.request.ImportGiftListRequest;
-import com.chinarewards.gwt.elt.client.gift.request.ImportGiftListResponse;
+import com.chinarewards.gwt.elt.client.gift.request.SearchGiftImportListRequest;
+import com.chinarewards.gwt.elt.client.gift.request.SearchGiftImportListResponse;
 import com.chinarewards.gwt.elt.client.gift.request.UpdateImportGiftRequest;
 import com.chinarewards.gwt.elt.client.gift.request.UpdateImportGiftResponse;
 import com.chinarewards.gwt.elt.client.gift.ui.ImportGiftSingleUploader;
@@ -1009,102 +1009,6 @@ public class GiftImportPresenterImpl extends
 
 	private void doPretreatment() {
 		win.beginWait("导入数据分析中……");
-//		if (!GWT.isScript()) {
-//			Timer t = new Timer() {
-//				int i = 0;
-//				public void run() {
-//					i ++;
-//					if (i > 3) {
-//						cancel();
-//					}
-//				}
-//			};
-//			t.scheduleRepeating(2000);
-//			Window.alert("导入数据分析中");
-//			List<ImportGiftRawVo> list = new ArrayList<ImportGiftRawVo>();
-//			List<List<Long>> rawCodes = new ArrayList<List<Long>>();
-//			Map<Long, String> codes = new HashMap<Long, String>();
-//			Map<Long, String> types = new HashMap<Long, String>();
-//			codes.put(new Long(0), "成功");
-//			codes.put(new Long(1), "身份证不是15或18位");
-//			codes.put(new Long(2), "入职日期在未来");
-//			codes.put(new Long(3), "手机号为空");
-//			codes.put(new Long(4), "企业卡号段不足分配");
-//			types.put(new Long(0), "成功");
-//			types.put(new Long(1), "警告");
-//			types.put(new Long(2), "警告");
-//			types.put(new Long(3), "严重错误");
-//			types.put(new Long(4), "严重错误");
-//			for (int i = 0; i < 500; i++) {
-//				ImportGiftRawVo raw = new ImportGiftRawVo();
-//				if (i >= 100) {
-//					raw.setGiftNumber("1001" + i);
-//				} else if (i >= 10) {
-//					raw.setGiftNumber("10010" + i);
-//				} else {
-//					raw.setGiftNumber("100100" + i);
-//				}
-//				raw.setLastName("测");
-//				raw.setFirstName("试" + i);
-//				raw.setForeignLastName("elt");
-//				raw.setForeignFirstName("test" + i);
-//				raw.setEmailAddress("a" + i + "@b.c");
-//				raw.setDateOfEmployment("2008-08-08");
-//				raw.setDepartment("IT|Development");
-//				raw.setDob("1988-08-08");
-//				raw.setGender("男");
-//				if (i >= 100) {
-//					raw.setIdNo("321256198808081" + i);
-//				} else if (i >= 10) {
-//					raw.setIdNo("3212561988080810" + i);
-//				} else {
-//					raw.setIdNo("32125619880808100" + i);
-//				}
-//				raw.setLocation("tester location " + i);
-//				raw.setMemberCardNumber("");
-//				raw.setMinorityNationality("test minority nationality " + i);
-//				if (i >= 100) {
-//					raw.setMobileTelephoneNumber("13488885" + i);
-//				} else if (i >= 10) {
-//					raw.setMobileTelephoneNumber("134888850" + i);
-//				} else {
-//					raw.setMobileTelephoneNumber("1348888500" + i);
-//				}
-//				raw.setNativePlace("test native place " + i);
-//				list.add(raw);
-//				List<Long> rawCode = new ArrayList<Long>();
-//				if (i % 5 == 0) {
-//					rawCode.add(new Long(0));
-//				} else if (i % 10 == 1) {
-//					rawCode.add(new Long(1));
-//				} else if (i % 10 == 2) {
-//					rawCode.add(new Long(1));
-//					rawCode.add(new Long(2));
-//				} else if (i % 10 == 3) {
-//					rawCode.add(new Long(1));
-//					rawCode.add(new Long(2));
-//					rawCode.add(new Long(3));
-//				} else if (i % 10 == 4) {
-//					rawCode.add(new Long(4));
-//				}
-//				rawCodes.add(rawCode);
-//			}
-//
-//			ImportGiftAjaxResponseVo resp = new ImportGiftAjaxResponseVo();
-//			resp.setGiftRawList(list);
-//			resp.setAllImportGiftCodeInfos(codes);
-//			resp.setAllImportGiftCodeTypes(types);
-//			resp.setImportBatchNo(new Long(106));
-//			resp.setId(batchId);
-//			resp.setImportGiftRawCode(rawCodes);
-//			resp.setEstimateSuccessDeptNum((long) 10);
-//			resp.setEstimateSuccessNum((long) 500);
-//			resp.setEstNewAssignCardNum((long) 100);
-//			resp.setEstNewAutoCardNum((long) 100);
-//			resp.setEstOldAssignCardNum((long) 100);
-//			refreshPanelStep4(resp);
-//			win.endWait();
-//		} else {
 			ImportGiftAjaxRequestVo request = new ImportGiftAjaxRequestVo();
 
 			request.setAction("pretreatment");
@@ -1115,9 +1019,6 @@ public class GiftImportPresenterImpl extends
 
 			for (int j = 0; j < xlsContent.get(0).size(); j++) {
 				if (formaterListBoxes.get(j).isVisible()) {
-					// use correctHeaderSorting to obtain correct column
-					// index because correctHeaderSorting must be ensure
-					// in instruction steps
 					if (correctHeaderSorting[j].equals("dob")) {
 						dobFormat = formaterListBoxes.get(j).getValue(
 								formaterListBoxes.get(j).getSelectedIndex());
@@ -1147,94 +1048,10 @@ public class GiftImportPresenterImpl extends
 						}
 
 					});
-//		}
+
 	}
 
 	private void doFinalImport() {
-//		if (!GWT.isScript()) {
-//			List<ImportGiftRawVo> list = new ArrayList<ImportGiftRawVo>();
-//			List<List<Long>> rawCodes = new ArrayList<List<Long>>();
-//			Map<Long, String> codes = new HashMap<Long, String>();
-//			Map<Long, String> types = new HashMap<Long, String>();
-//			codes.put(new Long(0), "成功");
-//			codes.put(new Long(1), "身份证不是15或18位");
-//			codes.put(new Long(2), "入职日期在未来");
-//			codes.put(new Long(3), "手机号为空");
-//			codes.put(new Long(4), "企业卡号段不足分配");
-//			types.put(new Long(0), "成功");
-//			types.put(new Long(1), "警告");
-//			types.put(new Long(2), "警告");
-//			types.put(new Long(3), "严重错误");
-//			types.put(new Long(4), "严重错误");
-//			for (int i = 0; i < 500; i++) {
-//				ImportGiftRawVo raw = new ImportGiftRawVo();
-//				if (i >= 100) {
-//					raw.setGiftNumber("1001" + i);
-//				} else if (i >= 10) {
-//					raw.setGiftNumber("10010" + i);
-//				} else {
-//					raw.setGiftNumber("100100" + i);
-//				}
-//				raw.setLastName("测");
-//				raw.setFirstName("试" + i);
-//				raw.setForeignLastName("elt");
-//				raw.setForeignFirstName("test" + i);
-//				raw.setEmailAddress("a" + i + "@b.c");
-//				raw.setDateOfEmployment("2008-08-08");
-//				raw.setDepartment("IT|Development");
-//				raw.setDob("1988-08-08");
-//				raw.setGender("男");
-//				if (i >= 100) {
-//					raw.setIdNo("321256198808081" + i);
-//				} else if (i >= 10) {
-//					raw.setIdNo("3212561988080810" + i);
-//				} else {
-//					raw.setIdNo("32125619880808100" + i);
-//				}
-//				raw.setLocation("tester location " + i);
-//				raw.setMemberCardNumber("");
-//				raw.setMinorityNationality("test minority nationality " + i);
-//				if (i >= 100) {
-//					raw.setMobileTelephoneNumber("13488885" + i);
-//				} else if (i >= 10) {
-//					raw.setMobileTelephoneNumber("134888850" + i);
-//				} else {
-//					raw.setMobileTelephoneNumber("1348888500" + i);
-//				}
-//				raw.setNativePlace("test native place " + i);
-//				list.add(raw);
-//				List<Long> rawCode = new ArrayList<Long>();
-//				if (i % 5 == 0) {
-//					rawCode.add(new Long(0));
-//				} else if (i % 10 == 1) {
-//					rawCode.add(new Long(1));
-//				} else if (i % 10 == 2) {
-//					rawCode.add(new Long(1));
-//					rawCode.add(new Long(2));
-//				} else if (i % 10 == 3) {
-//					rawCode.add(new Long(1));
-//					rawCode.add(new Long(2));
-//					rawCode.add(new Long(3));
-//				} else if (i % 10 == 4) {
-//					rawCode.add(new Long(4));
-//				}
-//				rawCodes.add(rawCode);
-//			}
-//
-//			ImportGiftAjaxResponseVo resp = new ImportGiftAjaxResponseVo();
-//			resp.setAllImportGiftCodeInfos(codes);
-//			resp.setAllImportGiftCodeTypes(types);
-//			resp.setId(batchId);
-//			resp.setImportGiftRawCode(rawCodes);
-//			resp.setFinalSuccessDeptNum((long) 10);
-//			resp.setFinalSuccessNum((long) 500);
-//			resp.setFinalNewAssignCardNum((long) 100);
-//			resp.setFinalNewAutoCardNum((long) 100);
-//			resp.setFinalOldAssignCardNum((long) 100);
-//			resp.setImportBatchNo((long) 8);
-//			refreshPanelStep6(resp);
-//			display.showPanelStep6();
-//		} else {
 			ImportGiftAjaxRequestVo request = new ImportGiftAjaxRequestVo();
 
 			request.setAction("import");
@@ -1265,7 +1082,6 @@ public class GiftImportPresenterImpl extends
 						}
 
 					});
-//		}
 	}
 
 	private void doExport(String action, String title) {
@@ -1430,15 +1246,15 @@ public class GiftImportPresenterImpl extends
 		pagination.setLimit(10);
 		criteria.setPagination(pagination);
 		
-		dispatch.execute(new ImportGiftListRequest(criteria, sessionManager
-				.getSession()), new AsyncCallback<ImportGiftListResponse>() {
+		dispatch.execute(new SearchGiftImportListRequest(criteria, sessionManager
+				.getSession()), new AsyncCallback<SearchGiftImportListResponse>() {
 			@Override
 			public void onFailure(Throwable e) {
 				errorHandler.alert(e.getMessage());
 			}
 
 			@Override
-			public void onSuccess(ImportGiftListResponse response) {
+			public void onSuccess(SearchGiftImportListResponse response) {
 
 				List<List<String>> result = new ArrayList<List<String>>();
 				for (int i = 0; i < response.getResult().size(); i++) {

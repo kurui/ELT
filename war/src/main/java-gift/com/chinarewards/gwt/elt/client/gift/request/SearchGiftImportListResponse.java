@@ -12,7 +12,7 @@ import com.chinarewards.gwt.elt.client.gift.model.ImportGiftListClient;
  * @author yanrui
  * @since 1.5.2
  */
-public class ImportGiftListResponse implements Result {
+public class SearchGiftImportListResponse implements Result {
 
 	private List<ImportGiftListClient> result;
 	private int total;
@@ -56,10 +56,10 @@ public class ImportGiftListResponse implements Result {
 
 
 
-	public ImportGiftListResponse() {
+	public SearchGiftImportListResponse() {
 
 	}
-	public ImportGiftListResponse(List<ImportGiftListClient> result,int total,int selectTotal) {
+	public SearchGiftImportListResponse(List<ImportGiftListClient> result,int total,int selectTotal) {
 		this.result=result;
 		this.total=total;
 		this.selectTotal=selectTotal;

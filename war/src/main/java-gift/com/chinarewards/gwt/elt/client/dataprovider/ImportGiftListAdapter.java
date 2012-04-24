@@ -5,8 +5,8 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 import com.chinarewards.gwt.elt.client.gift.model.ImportGiftListClient;
 import com.chinarewards.gwt.elt.client.gift.model.ImportGiftListCriteria;
 import com.chinarewards.gwt.elt.client.gift.presenter.GiftImportPresenter.GiftImportDisplay;
-import com.chinarewards.gwt.elt.client.gift.request.ImportGiftListRequest;
-import com.chinarewards.gwt.elt.client.gift.request.ImportGiftListResponse;
+import com.chinarewards.gwt.elt.client.gift.request.SearchGiftImportListRequest;
+import com.chinarewards.gwt.elt.client.gift.request.SearchGiftImportListResponse;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.model.PaginationDetailClient;
@@ -44,16 +44,16 @@ public class ImportGiftListAdapter extends
 		if (getSorting() != null) {
 			getCriteria().setSorting(getSorting());
 		}
-		dispatch.execute(new ImportGiftListRequest(getCriteria(),
+		dispatch.execute(new SearchGiftImportListRequest(getCriteria(),
 				sessionManager.getSession()),
-				new AsyncCallback<ImportGiftListResponse>() {
+				new AsyncCallback<SearchGiftImportListResponse>() {
 					@Override
 					public void onFailure(Throwable e) {
 						errorHandler.alert(e.getMessage());
 					}
 
 					@Override
-					public void onSuccess(ImportGiftListResponse response) {
+					public void onSuccess(SearchGiftImportListResponse response) {
 						updateRowData(start, response.getResult());
 						updateRowCount(response.getTotal(), true);
 						display.setDataCount(response.getTotal() + "");
@@ -63,7 +63,6 @@ public class ImportGiftListAdapter extends
 					}
 
 				});
-		// }
 	}
 
 	public void setCriteria(ImportGiftListCriteria criteria) {

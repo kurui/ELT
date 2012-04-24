@@ -11,13 +11,13 @@ import com.chinarewards.gwt.elt.client.support.UserSession;
  * @author yanrui
  * @since 1.5.2
  */
-public class ImportGiftListRequest implements Action<ImportGiftListResponse> {
+public class SearchGiftImportListRequest implements Action<SearchGiftImportListResponse> {
 
 	private ImportGiftListCriteria criteria;
 	private UserSession session;
 
 
-	public ImportGiftListRequest() {
+	public SearchGiftImportListRequest() {
 	}
 
 	public ImportGiftListCriteria getCriteria() {
@@ -40,7 +40,7 @@ public class ImportGiftListRequest implements Action<ImportGiftListResponse> {
 	 * 
 	 * @param GiftListVo
 	 */
-	public ImportGiftListRequest(ImportGiftListCriteria criteria,UserSession session) {
+	public SearchGiftImportListRequest(ImportGiftListCriteria criteria,UserSession session) {
 		this.criteria = criteria;
 		this.session=session;
 	}

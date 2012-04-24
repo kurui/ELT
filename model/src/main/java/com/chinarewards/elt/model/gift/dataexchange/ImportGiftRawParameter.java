@@ -32,7 +32,7 @@ public class ImportGiftRawParameter {
 	private String price;
 	private String integral;
 	private String stock;
-	private String status;
+	private String statusValue;
 	private String statusText;
 
 
@@ -98,13 +98,13 @@ public class ImportGiftRawParameter {
 	}
 
 
-	public String getStatus() {
-		return status;
+	public String getStatusValue() {
+		return statusValue;
 	}
 
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setStatusValue(String statusValue) {
+		this.statusValue = statusValue;
 	}
 
 
