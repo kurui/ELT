@@ -400,7 +400,7 @@ public class ImportGiftLogicImpl implements ImportGiftLogic {
 		giftRaw.setIntegral(pGiftRaw.getIntegral());
 		giftRaw.setStock(pGiftRaw.getStock());
 		giftRaw.setStatusValue(pGiftRaw.getStatusValue());
-		giftRaw.setStatusText(pGiftRaw.getSourceText());
+		giftRaw.setStatusText(pGiftRaw.getStatusText());
 
 	}
 
@@ -417,7 +417,7 @@ public class ImportGiftLogicImpl implements ImportGiftLogic {
 		pGiftRaw.setIntegral(giftRaw.getIntegral());
 		pGiftRaw.setStock(giftRaw.getStock());
 		pGiftRaw.setStatusValue(giftRaw.getStatusValue());
-		pGiftRaw.setStatusText(giftRaw.getSourceText());
+		pGiftRaw.setStatusText(giftRaw.getStatusText());
 
 	}
 

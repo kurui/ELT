@@ -10,6 +10,8 @@ import org.apache.commons.io.*;
 
 /**
  * java图片压缩处理
+ * @author yanrui
+ * @since 1.5.1
  * */
 public class ImageDisposeUtil {
 	private static final Log logger = LogFactory.getLog(ImageDisposeUtil.class);
