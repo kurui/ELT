@@ -5,7 +5,6 @@ import java.util.List;
 import com.chinarewards.elt.domain.reward.base.Reward;
 import com.chinarewards.elt.domain.reward.person.NomineeLot;
 import com.chinarewards.elt.domain.reward.person.PreWinner;
-import com.chinarewards.elt.domain.reward.person.PreWinnerLot;
 import com.chinarewards.elt.domain.reward.person.Winner;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
@@ -15,6 +14,7 @@ import com.chinarewards.elt.model.reward.exception.NominateRewardException;
 import com.chinarewards.elt.model.reward.search.RewardQueryVo;
 import com.chinarewards.elt.model.reward.search.RewardSearchVo;
 import com.chinarewards.elt.model.reward.vo.RewardVo;
+import com.chinarewards.elt.model.reward.vo.RewardWinVo;
 import com.chinarewards.elt.model.user.UserContext;
 
 /**
@@ -75,7 +75,7 @@ public interface RewardService {
 	 * @param staffIds
 	 * @return
 	 */
-	public PreWinnerLot awardRewardWinner(String nowUserId, String rewardId);
+	public RewardWinVo awardRewardWinner(String nowUserId, String rewardId);
 	/**
 	 * Approve a Reward means it would award really. The result is generate
 	 * {@link Winner} from {@link PreWinner}.

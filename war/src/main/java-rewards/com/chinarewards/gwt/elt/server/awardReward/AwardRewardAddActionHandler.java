@@ -7,8 +7,8 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 
 import org.slf4j.Logger;
 
-import com.chinarewards.elt.domain.reward.person.PreWinner;
-import com.chinarewards.elt.domain.reward.person.PreWinnerLot;
+import com.chinarewards.elt.domain.reward.person.Winner;
+import com.chinarewards.elt.model.reward.vo.RewardWinVo;
 import com.chinarewards.elt.service.reward.RewardService;
 import com.chinarewards.elt.service.sendmail.SendMailService;
 import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardAddRequest;
@@ -16,6 +16,7 @@ import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardAddRespons
 import com.chinarewards.gwt.elt.model.ClientException;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
 import com.chinarewards.gwt.elt.server.logger.InjectLogger;
+import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.inject.Inject;
 
 /**
@@ -60,29 +61,37 @@ public class AwardRewardAddActionHandler extends
 		}
 		else if("AWARDREWARDPAGE".equals(request.getFal()))
 		{
-			PreWinnerLot lotPre = rewardService.awardRewardWinner(request.getNowUserId(), request.getRewardId());
-			lot=lotPre.getId();
-			String winStaffName="";
-			List<PreWinner> preStaff=lotPre.getPreWinners();
-
-			for (int i = 0; i < preStaff.size(); i++) {
-				winStaffName+=preStaff.get(i).getStaff().getName()+";";
-			}
+			RewardWinVo lotPre = rewardService.awardRewardWinner(request.getNowUserId(), request.getRewardId());
 			
-			 if(request.isEmailBox())
-			 {
-				 //邮件提醒
-				 if(request.getMessageStaffId()!=null && request.getMessageStaffId().size()>0)
-				 {
-					 for (String staffId:request.getMessageStaffId()) {
-						 sendMailService.sendMail("通知电贺提醒",lotPre.getReward().getName()+"已经颁奖,获奖人:"+winStaffName, staffId);
-					}
-				 }
-			 }
-			 else if(request.isMessageBox())
-			 {
-				 //短信提醒(未实现)
-			 }
+			try {
+				
+				lot=lotPre.getReward().getId();
+				String winStaffName="";
+				List<Winner> preStaff=lotPre.getWinner();
+	
+				for (int i = 0; i < preStaff.size(); i++) {
+					winStaffName+=preStaff.get(i).getStaff().getName()+";";
+				}
+				if(!StringUtil.isEmpty(winStaffName))
+				{
+					 if(request.isEmailBox())
+					 {
+						 //邮件提醒
+						 if(request.getMessageStaffId()!=null && request.getMessageStaffId().size()>0)
+						 {
+							 for (String staffId:request.getMessageStaffId()) {
+								 sendMailService.sendMail("通知电贺提醒",lotPre.getReward().getName()+"已经颁奖,获奖人:"+winStaffName, staffId);
+							}
+						 }
+					 }
+					 else if(request.isMessageBox())
+					 {
+						 //短信提醒(未实现)
+					 }
+				}
+			} catch (Exception e) {
+				logger.debug("邮件发送失败............");
+			}
 		}
 		awardresponse.setLotId(lot);
 		

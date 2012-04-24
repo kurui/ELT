@@ -17,6 +17,7 @@ import com.chinarewards.elt.model.reward.search.RewardQueryVo;
 import com.chinarewards.elt.model.reward.search.RewardSearchVo;
 import com.chinarewards.elt.model.reward.search.WinnerParam;
 import com.chinarewards.elt.model.reward.vo.RewardVo;
+import com.chinarewards.elt.model.reward.vo.RewardWinVo;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.reward.rule.JudgeLogic;
 import com.chinarewards.elt.service.reward.rule.PreWinnerLogic;
@@ -211,7 +212,7 @@ public class RewardServiceImpl implements RewardService {
 	}
 
 	@Override
-	public PreWinnerLot awardRewardWinner(String nowUserId, String rewardId) {
+	public RewardWinVo awardRewardWinner(String nowUserId, String rewardId) {
 		return rewardLogic.awardRewardWinner(nowUserId, rewardId);
 	}
 
