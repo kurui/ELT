@@ -419,6 +419,7 @@ public class CookieSessionManager implements SessionManager {
 			session.setUserRoles(rep.getUserRoles());
 			session.setDepartmentId(rep.getDepartmentId());
 			session.setStaffId(rep.getStaffId());
+			session.setStaffName(rep.getStaffName());
 			session.setLastLoginRole(rep.getLastLoginRole());
 			session.setCorporationName(rep.getCorporationName());
 			session.setPhoto(rep.getPhoto());
@@ -430,25 +431,7 @@ public class CookieSessionManager implements SessionManager {
 			Cookies.removeCookie("token");
 		}
 	}
-	protected void tokenObtaineds(LoginResponse rep) {
-		if (rep != null && rep.getToken() != null) {
-			session.setToken(rep.getToken());
-			session.setLoginName(rep.getLoginName());
-			session.setCorporationId(rep.getCorporationId());
-			session.setUserRoles(rep.getUserRoles());
-			session.setDepartmentId(rep.getDepartmentId());
-			session.setStaffId(rep.getStaffId());
-			session.setLastLoginRole(rep.getLastLoginRole());
-			session.setCorporationName(rep.getCorporationName());
-			session.setPhoto(rep.getPhoto());
-			Date expires = new Date((new Date()).getTime() + COOKIE_TIMEOUT);
-			Cookies.setCookie("token", rep.getToken(), expires);
 
-		} else {
-			session.setToken(null);
-			Cookies.removeCookie("token");
-		}
-	}
 
 	protected void tokenObtainedToo(TokenValidResponse rep) {
 		if (rep != null && rep.getToken() != null) {
@@ -458,6 +441,7 @@ public class CookieSessionManager implements SessionManager {
 			session.setUserRoles(rep.getUserRoles());
 			session.setDepartmentId(rep.getDepartmentId());
 			session.setStaffId(rep.getStaffId());
+			session.setStaffName(rep.getStaffName());
 			session.setLastLoginRole(rep.getLastLoginRole());
 			session.setCorporationName(rep.getCorporationName());
 			session.setPhoto(rep.getPhoto());
