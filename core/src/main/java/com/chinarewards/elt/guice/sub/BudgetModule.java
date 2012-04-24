@@ -3,6 +3,7 @@
  */
 package com.chinarewards.elt.guice.sub;
 
+import com.chinarewards.elt.dao.budget.AskBudgetDao;
 import com.chinarewards.elt.dao.budget.CorpBudgetDao;
 import com.chinarewards.elt.dao.budget.DepartmentBudgetDao;
 import com.chinarewards.elt.service.budget.BudgetLogic;
@@ -31,7 +32,7 @@ public class BudgetModule extends AbstractModule {
 		//  bind
 		bind(CorpBudgetDao.class).in(Singleton.class);
 		bind(DepartmentBudgetDao.class).in(Singleton.class);
-
+		bind(AskBudgetDao.class).in(Singleton.class);
 		bind(BudgetLogic.class).to(BudgetLogicImpl.class).in(Singleton.class);
 
 		bind(BudgetService.class).to(BudgetServiceImpl.class).in(Singleton.class);

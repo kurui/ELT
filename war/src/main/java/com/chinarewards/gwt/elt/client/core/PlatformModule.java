@@ -7,6 +7,9 @@ import com.chinarewards.gwt.elt.client.box.plugin.UserBoxPluginDescriptor;
 import com.chinarewards.gwt.elt.client.broadcastReply.plugin.BroadcastReplyPluginDescriptor;
 import com.chinarewards.gwt.elt.client.broadcastSave.plugin.BroadcastSavePluginDescriptor;
 import com.chinarewards.gwt.elt.client.broadcasting.plugin.BroadcastingListPluginDescriptor;
+import com.chinarewards.gwt.elt.client.budget.plugin.AskBudgetAddPluginDescriptor;
+import com.chinarewards.gwt.elt.client.budget.plugin.AskBudgetListPluginDescriptor;
+import com.chinarewards.gwt.elt.client.budget.plugin.AskBudgetViewPluginDescriptor;
 import com.chinarewards.gwt.elt.client.budget.plugin.BudgetPluginDescriptor;
 import com.chinarewards.gwt.elt.client.budget.plugin.CorpBudgetPluginDescriptor;
 import com.chinarewards.gwt.elt.client.colleague.plugin.ColleagueListPluginDescriptor;
@@ -140,6 +143,9 @@ public class PlatformModule extends AbstractGinModule {
 			DetailsOfGiftPluginDescriptor detailsOfGift,
 			CorpBudgetPluginDescriptor corpBudget,
 			BudgetPluginDescriptor depBudget,
+			AskBudgetListPluginDescriptor askListBudget,
+			AskBudgetAddPluginDescriptor askAddBudget,
+			AskBudgetViewPluginDescriptor askViewBudget,
 			IntegralManagementPluginDescriptor integralManagement,
 			StaffListPluginDescriptor staffList,
 			StaffAddPluginDescriptor staffAdd,
@@ -192,6 +198,8 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(detailsOfGift);
 			pluginSet.registerPlugin(integralManagement);
 			pluginSet.registerPlugin(depBudget);
+			pluginSet.registerPlugin(askListBudget);
+			pluginSet.registerPlugin(askAddBudget);
 			pluginSet.registerPlugin(corpBudget);
 			pluginSet.registerPlugin(staffList);
 			pluginSet.registerPlugin(staffAdd);
@@ -204,8 +212,10 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(BroadcastReply);
 			pluginSet.registerPlugin(leadTime);
 			pluginSet.registerPlugin(mailset);
+			pluginSet.registerPlugin(askViewBudget);
 			pluginSet.registerPlugin(awardRewardDetermine);
 		
+
 			
 		}
 
@@ -222,6 +232,9 @@ public class PlatformModule extends AbstractGinModule {
 			PeriodPluginDescriptor period, UserPluginDescriptor user,
 			DepartmentLeaderPluginDescriptor departmentLeader,
 			DepartmentPluginDescriptor department,
+			AskBudgetListPluginDescriptor askListBudget,
+			AskBudgetAddPluginDescriptor askAddBudget,
+			AskBudgetViewPluginDescriptor askViewBudget,
 			HrRegisterPluginDescriptor hrregister,
 			NominatePluginDescriptor nominate,
 			RewardsItemPluginDescriptor rewardsItem,
@@ -257,13 +270,16 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(awardreward);
 			pluginSet.registerPlugin(detailsAward);
 			pluginSet.registerPlugin(rewardsItemView);
-		//	pluginSet.registerPlugin(integralManagement);
+			pluginSet.registerPlugin(askListBudget);
+			pluginSet.registerPlugin(askAddBudget);
 			pluginSet.registerPlugin(depBudget);
 			pluginSet.registerPlugin(staffList);
 			pluginSet.registerPlugin(staffView);
 			pluginSet.registerPlugin(leadTime);
 			pluginSet.registerPlugin(leadBox);
+			pluginSet.registerPlugin(askViewBudget);
 			pluginSet.registerPlugin(awardRewardDetermine);
+
 		}
 
 		return pluginSet;

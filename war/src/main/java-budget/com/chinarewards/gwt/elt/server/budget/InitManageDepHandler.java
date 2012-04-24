@@ -10,11 +10,10 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 import org.slf4j.Logger;
 
 import com.chinarewards.elt.domain.org.Department;
-import com.chinarewards.elt.model.org.search.DepartmentManageVo;
 import com.chinarewards.elt.service.org.DepartmentService;
 import com.chinarewards.gwt.elt.client.budget.model.DepartmentVo;
-import com.chinarewards.gwt.elt.client.budget.request.InitDepartmentRequest;
-import com.chinarewards.gwt.elt.client.budget.request.InitDepartmentResponse;
+import com.chinarewards.gwt.elt.client.budget.request.InitManageDepRequest;
+import com.chinarewards.gwt.elt.client.budget.request.InitManageDepResponse;
 import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
 import com.chinarewards.gwt.elt.server.logger.InjectLogger;
@@ -23,42 +22,33 @@ import com.google.inject.Inject;
 /**
  * @author lw
  * */
-public class InitDepartmentHandler extends	BaseActionHandler<InitDepartmentRequest, InitDepartmentResponse> {
+public class InitManageDepHandler extends	BaseActionHandler<InitManageDepRequest, InitManageDepResponse> {
 
 	@InjectLogger
 	Logger logger;
 	DepartmentService departmentService;
 
 	@Inject
-	public InitDepartmentHandler(DepartmentService departmentService) {
+	public InitManageDepHandler(DepartmentService departmentService) {
 		this.departmentService = departmentService;
 	}
 
 	@Override
-	public Class<InitDepartmentRequest> getActionType() {
-		return InitDepartmentRequest.class;
+	public Class<InitManageDepRequest> getActionType() {
+		return InitManageDepRequest.class;
 	}
 
 	@Override
-	public InitDepartmentResponse execute(InitDepartmentRequest action,
+	public InitManageDepResponse execute(InitManageDepRequest action,
 			ExecutionContext context) throws DispatchException {
 		List<UserRoleVo> roleList = Arrays.asList(action.getUserSession().getUserRoles());
-		InitDepartmentResponse resp = new InitDepartmentResponse();
-		List<Department> listVo;
-		if (roleList.contains(UserRoleVo.CORP_ADMIN)) {	//得到一级部门
-		    listVo = departmentService.getImmediacyDepartmentsOfCorporation(action.getUserSession().getCorporationId());
-		    resp.setResult(adapterToClient(listVo));//从服务端转为客户端
-		 } else if (roleList.contains(UserRoleVo.DEPT_MGR)) {//得到主管的子部门
+		InitManageDepResponse resp = new InitManageDepResponse();
+		
+	   if (roleList.contains(UserRoleVo.DEPT_MGR)) {//得到主管的子部门
 			// listVo = departmentService.getImmediacyChildren(action.getUserSession().getDepartmentId());
 			 List<Department> listManagedDep= departmentService.findDepartmentsManagedByStaffId(action.getUserSession().getStaffId());
-			 List<Department> listchildDep= new ArrayList<Department>();
-			 for (Department item : listManagedDep) {
-				 List<Department> sonDepList = departmentService.getImmediacyChildren(item.getId());
-				 for (Department son : sonDepList){
-					 listchildDep.add(son);
-				 }
-			 }
-			 resp.setResult(adapterToClient(listchildDep));//从服务端转为客户端
+			 
+			 resp.setResult(adapterToClient(listManagedDep));//从服务端转为客户端
 		 }
 		return resp;
 	   }
@@ -78,7 +68,7 @@ public class InitDepartmentHandler extends	BaseActionHandler<InitDepartmentReque
 		}	
 
 	@Override
-	public void rollback(InitDepartmentRequest arg0,InitDepartmentResponse arg1, ExecutionContext arg2)
+	public void rollback(InitManageDepRequest arg0,InitManageDepResponse arg1, ExecutionContext arg2)
 			throws DispatchException {
 		// TODO Auto-generated method stub
 		

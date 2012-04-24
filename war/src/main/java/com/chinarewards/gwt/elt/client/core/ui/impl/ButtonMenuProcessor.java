@@ -11,6 +11,7 @@ import com.chinarewards.gwt.elt.client.awardRewardDetermine.plugin.AwardRewardDe
 import com.chinarewards.gwt.elt.client.box.plugin.UserBoxConstants;
 import com.chinarewards.gwt.elt.client.breadCrumbs.ui.BreadCrumbsMenu;
 import com.chinarewards.gwt.elt.client.broadcasting.plugin.BroadcastingListConstants;
+import com.chinarewards.gwt.elt.client.budget.plugin.AskBudgetConstants;
 import com.chinarewards.gwt.elt.client.budget.plugin.CorpBudgetConstants;
 import com.chinarewards.gwt.elt.client.budget.plugin.CreateBudgetConstants;
 import com.chinarewards.gwt.elt.client.core.ui.MenuItem;
@@ -225,6 +226,7 @@ public class ButtonMenuProcessor implements MenuProcessor {
 			items.add(EnterpriseConstants.MENU_PERIOD_EDIT);
 			items.add(IntegralManagementConstants.MENU_INTEGRALMANAGEMENT_SEARCH);
 			items.add(CreateBudgetConstants.MENU_CREATE_BUDGET);
+			items.add(AskBudgetConstants.MENU_LIST_BUDGET);
 		}else if("Broadcasting".equals(keyname))
 		{
 			items.add(BroadcastingListConstants.MENU_BROADCASTINGLIST_SEARCH);
