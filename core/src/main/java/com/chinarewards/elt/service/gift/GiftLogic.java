@@ -46,8 +46,8 @@ public interface GiftLogic {
 	 */
 	public String updateStatus(String id,GiftStatus status);
 
+	public List<Gift> findNotDeleteGift();
 
-	
 	
 }
 

@@ -48,11 +48,11 @@ public class GiftDao extends BaseDao<Gift> {
 			eql.append(" SELECT COUNT(g) FROM Gift g WHERE 1 = 1 and  g.deleted= :deleted");
 			param.put("deleted", false);
 		}
-		if (criteria.getStatus()!=null) {
+		if (criteria.getStatus() != null) {
 			eql.append(" AND UPPER(g.status) = :status ");
 			param.put("status", criteria.getStatus());
 		}
-		if (criteria.getIntegral()!=0) {
+		if (criteria.getIntegral() != 0) {
 			eql.append(" AND g.integral <= :integral ");
 			param.put("integral", criteria.getIntegral());
 		}
@@ -73,11 +73,11 @@ public class GiftDao extends BaseDao<Gift> {
 					+ criteria.getExplains().trim().toUpperCase() + "%");
 		}
 		if (SEARCH.equals(type)) {
-		if (criteria.getSortingDetail() != null) {
-			eql.append(" ORDER BY g."
-					+ criteria.getSortingDetail().getSort() + " "
-					+ criteria.getSortingDetail().getDirection());
-		}
+			if (criteria.getSortingDetail() != null) {
+				eql.append(" ORDER BY g."
+						+ criteria.getSortingDetail().getSort() + " "
+						+ criteria.getSortingDetail().getDirection());
+			}
 		}
 		System.out.println("EQL : " + eql);
 		Query query = getEm().createQuery(eql.toString());
@@ -101,4 +101,11 @@ public class GiftDao extends BaseDao<Gift> {
 
 		return query;
 	}
+
+	@SuppressWarnings("unchecked")
+	public List<Gift> findNotDeleteGift() {
+		return getEm().createQuery("FROM Gift s WHERE   s.deleted=false ")
+				.getResultList();
+	}
+
 }

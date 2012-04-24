@@ -11,6 +11,7 @@ import com.chinarewards.gwt.elt.server.login.LoginServiceImpl;
 import com.chinarewards.gwt.elt.server.order.OrderServlet;
 import com.chinarewards.gwt.elt.servlet.ExportGiftServlet;
 import com.chinarewards.gwt.elt.sevlet.ExcelServlet;
+import com.chinarewards.gwt.elt.sevlet.ImportGiftServlet;
 import com.chinarewards.gwt.elt.sevlet.ImportStaffReportServlet;
 import com.chinarewards.gwt.elt.sevlet.ImportStaffServlet;
 import com.google.inject.Singleton;
@@ -50,6 +51,9 @@ public class EltServletModule extends ServletModule {
 
 		bind(ExportGiftServlet.class).in(Singleton.class);
 		serve(Elt.GWT_MODULE_PATH +"/servlet.exportGift").with(ExportGiftServlet.class);
+		
+		bind(ImportGiftServlet.class).in(Singleton.class);
+		serve(Elt.GWT_MODULE_PATH +"/servlet.importGift").with(ImportGiftServlet.class);
 		
 
 		bind(OrderServlet.class).in(Singleton.class);

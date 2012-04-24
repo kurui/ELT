@@ -41,9 +41,12 @@ import com.chinarewards.gwt.elt.client.enterprise.request.EnterpriseRequest;
 import com.chinarewards.gwt.elt.client.enterprise.request.SearchLicenseRequest;
 import com.chinarewards.gwt.elt.client.gift.request.DeleteGiftRequest;
 import com.chinarewards.gwt.elt.client.gift.request.EditGiftRequest;
+import com.chinarewards.gwt.elt.client.gift.request.ImportGiftAjaxRequest;
+import com.chinarewards.gwt.elt.client.gift.request.SearchGiftImportListRequest;
 import com.chinarewards.gwt.elt.client.gift.request.SearchGiftByIdRequest;
 import com.chinarewards.gwt.elt.client.gift.request.SearchGiftRequest;
 import com.chinarewards.gwt.elt.client.gift.request.UpdateGiftStatusRequest;
+import com.chinarewards.gwt.elt.client.gift.request.UpdateImportGiftRequest;
 import com.chinarewards.gwt.elt.client.hrbox.request.HrBoxRewardsRequest;
 import com.chinarewards.gwt.elt.client.integralManagement.request.IntegralManagementRequest;
 import com.chinarewards.gwt.elt.client.login.LastLoginRoleRequest;
@@ -146,9 +149,12 @@ import com.chinarewards.gwt.elt.server.enterprise.EnterpriseInitActionHandler;
 import com.chinarewards.gwt.elt.server.enterprise.SearchLicenseHandler;
 import com.chinarewards.gwt.elt.server.gift.DeleteGiftHandler;
 import com.chinarewards.gwt.elt.server.gift.EditGiftHandler;
+import com.chinarewards.gwt.elt.server.gift.ImportGiftAjaxActionHandler;
+import com.chinarewards.gwt.elt.server.gift.SearchGiftImportListHandler;
 import com.chinarewards.gwt.elt.server.gift.SearchGiftByIdHandler;
 import com.chinarewards.gwt.elt.server.gift.SearchGiftHandler;
 import com.chinarewards.gwt.elt.server.gift.UpdateGiftStatusHandler;
+import com.chinarewards.gwt.elt.server.gift.UpdateImportGiftActionHandler;
 import com.chinarewards.gwt.elt.server.hrbox.HrBoxRewardsHandler;
 import com.chinarewards.gwt.elt.server.integralManagement.IntegralManagementHandler;
 import com.chinarewards.gwt.elt.server.login.LoginActionHandler;
@@ -457,7 +463,12 @@ public class ActionModule extends ActionHandlerModule {
 		bindHandler(UpdateImportStaffRequest.class,UpdateImportStaffActionHandler.class);
 		bindHandler(UpdateRewardsAwardUserRequest.class,UpdateRewardsAwardUserHandler.class);
 
+		//导入礼品
+		bindHandler(ImportGiftAjaxRequest.class,ImportGiftAjaxActionHandler.class);
+		bindHandler(SearchGiftImportListRequest.class,SearchGiftImportListHandler.class);
+		bindHandler(UpdateImportGiftRequest.class,UpdateImportGiftActionHandler.class);
 
+		
 
 	}
 }

@@ -34,7 +34,7 @@ import jxl.write.WritableWorkbook;
  * 
  * @author yanrui
  * @since 2012年4月17日 16:09:07
- * 
+ * 1.5.2
  * */
 public class FileExcelUtil {
 

@@ -25,6 +25,7 @@ import com.google.inject.Inject;
 
 public class GiftLogicImpl implements GiftLogic{
 	private GiftDao giftDao;
+	
 	private BroadcastService broadcastService;
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Inject
@@ -177,5 +178,13 @@ public class GiftLogicImpl implements GiftLogic{
 		gift= giftDao.update(gift);
 		return gift.getId();
 	}
+
+	@Override
+	public List<Gift> findNotDeleteGift() {
+		return giftDao.findNotDeleteGift();
+	}
+	
+	
+
 
 }

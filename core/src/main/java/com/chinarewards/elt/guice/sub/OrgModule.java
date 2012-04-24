@@ -100,6 +100,7 @@ public class OrgModule extends AbstractModule {
 		
 		bind(ImportStaffCodeLogic.class).to(ImportStaffCodeLogicImpl.class);
 
+
 	
 	}
 
