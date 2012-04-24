@@ -214,4 +214,10 @@ public class RewardServiceImpl implements RewardService {
 	public String awardRewardWinner(String nowUserId, String rewardId) {
 		return rewardLogic.awardRewardWinner(nowUserId, rewardId);
 	}
+
+	@Override
+	public String updateRewardAwardUser(String rewardId, UserContext context,
+			String updateUserId) {
+		return rewardLogic.updateRewardAwardUser(rewardId, context, updateUserId);
+	}
 }

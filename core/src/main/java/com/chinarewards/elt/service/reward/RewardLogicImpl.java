@@ -591,22 +591,25 @@ public class RewardLogicImpl implements RewardLogic {
 		List<Reward> list = rewardDao.getRewardsForReward();
 		if (list.size() > 0) {
 			for (Reward reward : list) {
-				Staff staff = reward.getCreatedBy().getStaff();
-				int leadTime = staff.getLeadTime();
-				if (DateUtil.formatData(
-						"yyyy-MM-dd",
-						DateUtil.addSomeDay(reward.getExpectAwardDate(),
-								-(leadTime))).equals(
-						DateUtil.formatData("yyyy-MM-dd", DateUtil.getTime()))) {
-					System.out.println(staff.getName() + "==============要颁奖了");
-					List<String[]> organList = new ArrayList<String[]>();
-					String[] nameAndId = new String[3];
-					nameAndId[0] = staff.getId();
-					nameAndId[1] = staff.getName();
-					nameAndId[2] = OrganType.STAFF.toString();
-					organList.add(nameAndId);
-					sendMessage(organList, staff.getCorporation().getId(),
-							reward.getCreatedBy().getId(), reward.getName());
+				if(reward.getCreatedBy()!=null)
+				{
+					Staff staff = reward.getCreatedBy().getStaff();
+					int leadTime = staff.getLeadTime();
+					if (DateUtil.formatData(
+							"yyyy-MM-dd",
+							DateUtil.addSomeDay(reward.getExpectAwardDate(),
+									-(leadTime))).equals(
+							DateUtil.formatData("yyyy-MM-dd", DateUtil.getTime()))) {
+						System.out.println(staff.getName() + "==============要颁奖了");
+						List<String[]> organList = new ArrayList<String[]>();
+						String[] nameAndId = new String[3];
+						nameAndId[0] = staff.getId();
+						nameAndId[1] = staff.getName();
+						nameAndId[2] = OrganType.STAFF.toString();
+						organList.add(nameAndId);
+						sendMessage(organList, staff.getCorporation().getId(),
+								reward.getCreatedBy().getId(), reward.getName());
+					}
 				}
 			}
 		}
@@ -716,5 +719,18 @@ public class RewardLogicImpl implements RewardLogic {
 			rewardDao.update(reward);
 			return null;
 		}
+	}
+
+	@Override
+	public String updateRewardAwardUser(String rewardId, UserContext context,
+			String updateUserId) {
+		SysUser nowUser = userLogic.findUserById(context.getUserId());
+		SysUser updateUser = userLogic.findUserByStaffId(updateUserId);
+
+		Reward reward = rewardDao.findById(Reward.class, rewardId);
+		reward.setCreatedBy(updateUser);
+		reward.setLastModifiedBy(nowUser);
+		rewardDao.update(reward);
+		return reward.getId();
 	}
 }
