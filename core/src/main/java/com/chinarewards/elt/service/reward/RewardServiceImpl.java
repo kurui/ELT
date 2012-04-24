@@ -211,7 +211,7 @@ public class RewardServiceImpl implements RewardService {
 	}
 
 	@Override
-	public String awardRewardWinner(String nowUserId, String rewardId) {
+	public PreWinnerLot awardRewardWinner(String nowUserId, String rewardId) {
 		return rewardLogic.awardRewardWinner(nowUserId, rewardId);
 	}
 

@@ -20,6 +20,33 @@ public class AwardRewardAddRequest implements Action<AwardRewardAddResponse> {
 	String rewardId;
 	String nowUserId;
 	String fal;
+	private boolean emailBox;
+	private boolean messageBox;
+	private List<String> messageStaffId;
+	
+	public boolean isEmailBox() {
+		return emailBox;
+	}
+
+	public void setEmailBox(boolean emailBox) {
+		this.emailBox = emailBox;
+	}
+
+	public boolean isMessageBox() {
+		return messageBox;
+	}
+
+	public void setMessageBox(boolean messageBox) {
+		this.messageBox = messageBox;
+	}
+
+	public List<String> getMessageStaffId() {
+		return messageStaffId;
+	}
+
+	public void setMessageStaffId(List<String> messageStaffId) {
+		this.messageStaffId = messageStaffId;
+	}
 
 	public String getFal() {
 		return fal;

@@ -6,6 +6,7 @@ import java.util.List;
 import com.chinarewards.elt.domain.reward.base.Reward;
 import com.chinarewards.elt.domain.reward.person.NomineeLot;
 import com.chinarewards.elt.domain.reward.person.PreWinner;
+import com.chinarewards.elt.domain.reward.person.PreWinnerLot;
 import com.chinarewards.elt.domain.reward.person.Winner;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.common.PageStore;
@@ -174,7 +175,7 @@ public interface RewardLogic {
 	 * @param staffIds
 	 * @return
 	 */
-	public String awardRewardWinner(String nowUserId, String rewardId);
+	public PreWinnerLot awardRewardWinner(String nowUserId, String rewardId);
 	/**
 	 * 修改颁奖人
 	 * @param rewardId

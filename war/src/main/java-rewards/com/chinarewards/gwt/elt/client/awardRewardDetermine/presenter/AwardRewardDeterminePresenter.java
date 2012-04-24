@@ -4,9 +4,12 @@ import java.util.List;
 
 import com.chinarewards.gwt.elt.client.mvp.Display;
 import com.chinarewards.gwt.elt.client.mvp.Presenter;
+import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
+import com.chinarewards.gwt.elt.client.widget.SpecialTextArea;
 import com.chinarewards.gwt.elt.model.awardReward.WinnerParamVo;
 import com.chinarewards.gwt.elt.model.nominate.JudgeParamVo;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Widget;
 
 public interface AwardRewardDeterminePresenter extends
@@ -52,5 +55,14 @@ public interface AwardRewardDeterminePresenter extends
 		void setBreadCrumbs(Widget breadCrumbs);
 
 		public void setWinners(List<WinnerParamVo> winners);
+		
+		
+		CheckBox getEmailCheckbox();
+		
+		CheckBox getMessageCheckbox();
+		HasClickHandlers getChooseStaffBtnClick();
+		SpecialTextArea<OrganicationClient> getSpecialTextArea();
+		// 得到候选人的id
+		List<String> getRealOrginzationIds();
 	}
 }

@@ -7,7 +7,10 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 
 import org.slf4j.Logger;
 
+import com.chinarewards.elt.domain.reward.person.PreWinner;
+import com.chinarewards.elt.domain.reward.person.PreWinnerLot;
 import com.chinarewards.elt.service.reward.RewardService;
+import com.chinarewards.elt.service.sendmail.SendMailService;
 import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardAddRequest;
 import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardAddResponse;
 import com.chinarewards.gwt.elt.model.ClientException;
@@ -28,10 +31,11 @@ public class AwardRewardAddActionHandler extends
 	Logger logger;
 
 	RewardService rewardService;
-
+	SendMailService sendMailService;
 	@Inject
-	public AwardRewardAddActionHandler(RewardService rewardService) {
+	public AwardRewardAddActionHandler(RewardService rewardService,SendMailService sendMailService) {
 		this.rewardService = rewardService;
+		this.sendMailService=sendMailService;
 	}
 
 	@Override
@@ -56,7 +60,29 @@ public class AwardRewardAddActionHandler extends
 		}
 		else if("AWARDREWARDPAGE".equals(request.getFal()))
 		{
-			 lot = rewardService.awardRewardWinner(request.getNowUserId(), request.getRewardId());
+			PreWinnerLot lotPre = rewardService.awardRewardWinner(request.getNowUserId(), request.getRewardId());
+			lot=lotPre.getId();
+			String winStaffName="";
+			List<PreWinner> preStaff=lotPre.getPreWinners();
+
+			for (int i = 0; i < preStaff.size(); i++) {
+				winStaffName+=preStaff.get(i).getStaff().getName()+";";
+			}
+			
+			 if(request.isEmailBox())
+			 {
+				 //邮件提醒
+				 if(request.getMessageStaffId()!=null && request.getMessageStaffId().size()>0)
+				 {
+					 for (String staffId:request.getMessageStaffId()) {
+						 sendMailService.sendMail("通知电贺提醒",lotPre.getReward().getName()+"已经颁奖,获奖人:"+winStaffName, staffId);
+					}
+				 }
+			 }
+			 else if(request.isMessageBox())
+			 {
+				 //短信提醒(未实现)
+			 }
 		}
 		awardresponse.setLotId(lot);
 		

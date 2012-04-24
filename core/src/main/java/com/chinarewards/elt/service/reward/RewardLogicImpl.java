@@ -643,7 +643,7 @@ public class RewardLogicImpl implements RewardLogic {
 	}
 
 	@Override
-	public String awardRewardWinner(String nowUserId, String rewardId) {
+	public PreWinnerLot awardRewardWinner(String nowUserId, String rewardId) {
 		SysUser caller = userLogic.findUserById(nowUserId);
 		Reward reward = rewardDao.findById(Reward.class, rewardId);
 		List<PreWinnerLot> lot = preWinnerLogic
@@ -712,7 +712,7 @@ public class RewardLogicImpl implements RewardLogic {
 			broadcastService.createOrUpdateBroadcast(vo, context,
 					BroadcastingCategory.REWARDBROADCAST);
 
-			return lot.get(0).getId();
+			return lot.get(0);
 		} else
 		{
 			reward.setStatus(RewardStatus.REWARDED);
