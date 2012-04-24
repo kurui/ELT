@@ -3,7 +3,6 @@ package com.chinarewards.gwt.elt.client.register.request;
 import net.customware.gwt.dispatch.shared.Action;
 
 import com.chinarewards.gwt.elt.client.enterprise.model.EnterpriseVo;
-import com.chinarewards.gwt.elt.client.register.model.OrgInitVo;
 
 public class RegisterRequest implements Action<RegisterResponse> {
 

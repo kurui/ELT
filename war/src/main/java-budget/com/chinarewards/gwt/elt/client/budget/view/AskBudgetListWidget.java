@@ -133,5 +133,11 @@ public class AskBudgetListWidget extends Composite implements AskBudgetListDispl
 	public ListBox getPageNumber() {
 		return pageNumber;
 	}
+
+	@Override
+	public void setAddBtnShow() {
+		addBtn.setVisible(false);
+		
+	}
 	
 }

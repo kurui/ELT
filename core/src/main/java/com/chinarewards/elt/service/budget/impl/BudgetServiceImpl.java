@@ -7,6 +7,7 @@ import java.util.List;
 import com.chinarewards.elt.domain.budget.AskBudget;
 import com.chinarewards.elt.domain.budget.CorpBudget;
 import com.chinarewards.elt.domain.budget.DepartmentBudget;
+import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.budget.search.AskBudgetVo;
 import com.chinarewards.elt.model.budget.search.DepartmentBudgetVo;
@@ -67,9 +68,16 @@ public class BudgetServiceImpl implements BudgetService {
 	public PageStore<DepartmentBudgetVo> deptBudgetList(UserContext context, DepartmentBudgetVo deptBudgetVo) {
 		SysUser caller = userLogic.findUserById(context.getUserId());
 		List<UserRole> roles =Arrays.asList(context.getUserRoles());
-		//如果是部门管理员，在查看全部时只可以查看下级部门记录，
-		if (roles.contains(UserRole.DEPT_MGR)&& !roles.contains(UserRole.CORP_ADMIN)&& (deptBudgetVo.getDepartmentId()==null||deptBudgetVo.getDepartmentId().equals(""))){
-			List<String> deptIds = null;
+		//如果是管理员，在查看全部时只可以查看一级部门记录，
+		if (roles.contains(UserRole.CORP_ADMIN)&& (deptBudgetVo.getDepartmentId()==null||deptBudgetVo.getDepartmentId().equals(""))){
+			List<Department> depts = departmentLogic.getImmediacyDepartmentsOfCorporation(caller.getCorporation().getId());
+			List<String> list = new ArrayList<String>();
+			for (Department dept : depts) {
+				list.add(dept.getId());
+			}
+			deptBudgetVo.setDeptIds(new ArrayList<String>(list));
+		}else if (roles.contains(UserRole.DEPT_MGR)&& !roles.contains(UserRole.CORP_ADMIN)&& (deptBudgetVo.getDepartmentId()==null||deptBudgetVo.getDepartmentId().equals(""))){
+			List<String> deptIds = null;//如果是部门管理员，在查看全部时只可以查看下级部门记录，
 			deptIds = departmentLogic.getWholeChildrenIds(caller.getStaff().getDepartment().getId(), false);
 			if(deptIds!=null&&deptIds.size()>0)
 			   deptBudgetVo.setDeptIds(new ArrayList<String>(deptIds));
@@ -129,9 +137,16 @@ public class BudgetServiceImpl implements BudgetService {
 	public PageStore<AskBudgetVo> askBudgetList(UserContext context,AskBudgetVo askBudgetVo) {
 		SysUser caller = userLogic.findUserById(context.getUserId());
 		List<UserRole> roles =Arrays.asList(context.getUserRoles());
-		//如果是部门管理员，在查看全部时只可以查看本部门及下级部门记录，
-		if (roles.contains(UserRole.DEPT_MGR)&& !roles.contains(UserRole.CORP_ADMIN)&& (askBudgetVo.getDepartmentId()==null||askBudgetVo.getDepartmentId().equals(""))){
-			List<String> deptIds = null;
+		//如果是HR管理员，在查看全部时只可以查看一级部门记录，
+		if (roles.contains(UserRole.CORP_ADMIN)&& (askBudgetVo.getDepartmentId()==null||askBudgetVo.getDepartmentId().equals(""))){
+			List<Department> depts = departmentLogic.getImmediacyDepartmentsOfCorporation(caller.getCorporation().getId());
+			List<String> list = new ArrayList<String>();
+			for (Department dept : depts) {
+				list.add(dept.getId());
+			}
+			askBudgetVo.setDeptIds(new ArrayList<String>(list));
+		}else if (roles.contains(UserRole.DEPT_MGR)&& !roles.contains(UserRole.CORP_ADMIN)&& (askBudgetVo.getDepartmentId()==null||askBudgetVo.getDepartmentId().equals(""))){
+			List<String> deptIds = null;//leader可看一级
 			deptIds = departmentLogic.getWholeChildrenIds(caller.getStaff().getDepartment().getId(), true);
 			if(deptIds!=null&&deptIds.size()>0)//二级部门
 				   askBudgetVo.setDeptIds(new ArrayList<String>(deptIds));
