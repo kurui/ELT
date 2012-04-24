@@ -10,6 +10,7 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 import org.slf4j.Logger;
 
 import com.chinarewards.elt.domain.org.Department;
+import com.chinarewards.elt.model.org.search.DepartmentManageVo;
 import com.chinarewards.elt.service.org.DepartmentService;
 import com.chinarewards.gwt.elt.client.budget.model.DepartmentVo;
 import com.chinarewards.gwt.elt.client.budget.request.InitDepartmentRequest;
@@ -47,9 +48,17 @@ public class InitDepartmentHandler extends	BaseActionHandler<InitDepartmentReque
 		if (roleList.contains(UserRoleVo.CORP_ADMIN)) {	//得到一级部门
 		    listVo = departmentService.getImmediacyDepartmentsOfCorporation(action.getUserSession().getCorporationId());
 		    resp.setResult(adapterToClient(listVo));//从服务端转为客户端
-		 } else if (roleList.contains(UserRoleVo.DEPT_MGR)) {//得到子部门
-			 listVo = departmentService.getImmediacyChildren(action.getUserSession().getDepartmentId());
-			 resp.setResult(adapterToClient(listVo));//从服务端转为客户端
+		 } else if (roleList.contains(UserRoleVo.DEPT_MGR)) {//得到主管的子部门
+			// listVo = departmentService.getImmediacyChildren(action.getUserSession().getDepartmentId());
+			 List<Department> listManagedDep= departmentService.findDepartmentsManagedByStaffId(action.getUserSession().getStaffId());
+			 List<Department> listchildDep= new ArrayList<Department>();
+			 for (Department item : listManagedDep) {
+				 List<Department> sonDepList = departmentService.getImmediacyChildren(item.getId());
+				 for (Department son : sonDepList){
+					 listchildDep.add(son);
+				 }
+			 }
+			 resp.setResult(adapterToClient(listchildDep));//从服务端转为客户端
 		 }
 		return resp;
 	   }

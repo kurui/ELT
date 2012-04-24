@@ -376,7 +376,7 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 
 		return volist;
 	}
-
+   
 	@Override
 	public List<DepartmentManageVo> getDepartmentLeaderList(String leaderId,
 			String corporcationId) {

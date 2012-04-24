@@ -13,10 +13,14 @@ import com.chinarewards.gwt.elt.client.broadcastSave.request.BroadcastUpdateRequ
 import com.chinarewards.gwt.elt.client.broadcasting.request.DeleteBroadcastingRequest;
 import com.chinarewards.gwt.elt.client.broadcasting.request.SearchBroadcastingListRequest;
 import com.chinarewards.gwt.elt.client.budget.request.AddDepartmentBudgetRequest;
+import com.chinarewards.gwt.elt.client.budget.request.AskBudgetAddRequest;
 import com.chinarewards.gwt.elt.client.budget.request.EditCorpBudgetRequest;
 import com.chinarewards.gwt.elt.client.budget.request.InitCorpBudgetByCorpIdRequest;
 import com.chinarewards.gwt.elt.client.budget.request.InitCorpBudgetRequest;
 import com.chinarewards.gwt.elt.client.budget.request.InitDepartmentRequest;
+import com.chinarewards.gwt.elt.client.budget.request.InitManageDepRequest;
+import com.chinarewards.gwt.elt.client.budget.request.SearchAskBudgetByIdRequest;
+import com.chinarewards.gwt.elt.client.budget.request.SearchAskBudgetRequest;
 import com.chinarewards.gwt.elt.client.budget.request.SearchCorpBudgetByCorpIdRequest;
 import com.chinarewards.gwt.elt.client.budget.request.SearchDepBudgetRequest;
 import com.chinarewards.gwt.elt.client.chooseOrganization.request.ChooseOrganizationRequest;
@@ -86,6 +90,7 @@ import com.chinarewards.gwt.elt.client.rewardItem.request.SearchStaffRequest;
 import com.chinarewards.gwt.elt.client.rewards.request.DeleteRewardsRequest;
 import com.chinarewards.gwt.elt.client.rewards.request.SearchRewardsGridRequest;
 import com.chinarewards.gwt.elt.client.rewards.request.SearchRewardsRequest;
+import com.chinarewards.gwt.elt.client.rewards.request.UpdateRewardsAwardUserRequest;
 import com.chinarewards.gwt.elt.client.shopWindow.request.ShopWindowRequest;
 import com.chinarewards.gwt.elt.client.staff.request.HrRegisterRequest;
 import com.chinarewards.gwt.elt.client.staff.request.ImportStaffAjaxRequest;
@@ -119,11 +124,15 @@ import com.chinarewards.gwt.elt.server.broadcastSave.BroadcastUpdateActionHandle
 import com.chinarewards.gwt.elt.server.broadcastSave.BroadcastingSaveActionHandler;
 import com.chinarewards.gwt.elt.server.broadcasting.DeleteBroadcastingActionHandler;
 import com.chinarewards.gwt.elt.server.broadcasting.SearchBroadcastingListActionHandler;
+import com.chinarewards.gwt.elt.server.budget.AddAskBudgetHandler;
 import com.chinarewards.gwt.elt.server.budget.AddDepBudgetHandler;
 import com.chinarewards.gwt.elt.server.budget.EditCorpBudgetHandler;
 import com.chinarewards.gwt.elt.server.budget.InitCorpBudgetByCorpIdHandler;
 import com.chinarewards.gwt.elt.server.budget.InitCorpBudgetHandler;
 import com.chinarewards.gwt.elt.server.budget.InitDepartmentHandler;
+import com.chinarewards.gwt.elt.server.budget.InitManageDepHandler;
+import com.chinarewards.gwt.elt.server.budget.SearchAskBudgetByIdHandler;
+import com.chinarewards.gwt.elt.server.budget.SearchAskBudgetHandler;
 import com.chinarewards.gwt.elt.server.budget.SearchCorpBudgetByCorpIdHandler;
 import com.chinarewards.gwt.elt.server.budget.SearchDepBudgetHandler;
 import com.chinarewards.gwt.elt.server.chooseOrganization.ChooseOrganizationListActionHandler;
@@ -192,6 +201,7 @@ import com.chinarewards.gwt.elt.server.rewardItem.SearchStaffHandler;
 import com.chinarewards.gwt.elt.server.rewards.DeleteRewardsHandler;
 import com.chinarewards.gwt.elt.server.rewards.SearchRewardsGridHandler;
 import com.chinarewards.gwt.elt.server.rewards.SearchRewardsHandler;
+import com.chinarewards.gwt.elt.server.rewards.UpdateRewardsAwardUserHandler;
 import com.chinarewards.gwt.elt.server.shopWindow.SearchShopWindowHandler;
 import com.chinarewards.gwt.elt.server.staff.HrRegisterActionHandler;
 import com.chinarewards.gwt.elt.server.staff.ImportSearchStaffListActionHandler;
@@ -382,7 +392,15 @@ public class ActionModule extends ActionHandlerModule {
 		bindHandler(InitDepartmentRequest.class, InitDepartmentHandler.class);
 		//新增部门预算
 		bindHandler(AddDepartmentBudgetRequest.class, AddDepBudgetHandler.class);
-
+		//部门预算申请列表
+		bindHandler(SearchAskBudgetRequest.class, SearchAskBudgetHandler.class);
+		
+		//部门预算申请
+		bindHandler(AskBudgetAddRequest.class, AddAskBudgetHandler.class);
+		//部门预算申请时初始化得到所管理的部门
+		bindHandler(InitManageDepRequest.class, InitManageDepHandler.class);
+		//部门预算申请查看
+		bindHandler(SearchAskBudgetByIdRequest.class, SearchAskBudgetByIdHandler.class);
 		bindHandler(EditCorpBudgetRequest.class, EditCorpBudgetHandler.class);
 		bindHandler(SearchCorpBudgetByCorpIdRequest.class,SearchCorpBudgetByCorpIdHandler.class);
 		bindHandler(InitCorpBudgetByCorpIdRequest.class,InitCorpBudgetByCorpIdHandler.class);
@@ -459,6 +477,7 @@ public class ActionModule extends ActionHandlerModule {
 		bindHandler(ImportStaffAjaxRequest.class,ImportStaffAjaxActionHandler.class);
 		bindHandler(ImportStaffListRequest.class,ImportSearchStaffListActionHandler.class);
 		bindHandler(UpdateImportStaffRequest.class,UpdateImportStaffActionHandler.class);
+		bindHandler(UpdateRewardsAwardUserRequest.class,UpdateRewardsAwardUserHandler.class);
 
 		//导入礼品
 		bindHandler(ImportGiftAjaxRequest.class,ImportGiftAjaxActionHandler.class);
