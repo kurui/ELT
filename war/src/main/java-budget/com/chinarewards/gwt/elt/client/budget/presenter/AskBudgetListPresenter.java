@@ -32,5 +32,6 @@ public interface AskBudgetListPresenter extends Presenter<AskBudgetListPresenter
 		String getDepart();
 		void setBreadCrumbs(Widget breadCrumbs);
 		ListBox getPageNumber();
+		void setAddBtnShow();
 	}
 }

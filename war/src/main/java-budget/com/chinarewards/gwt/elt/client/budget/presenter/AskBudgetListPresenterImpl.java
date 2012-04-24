@@ -1,4 +1,5 @@
 package com.chinarewards.gwt.elt.client.budget.presenter;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -22,9 +23,7 @@ import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
-import com.chinarewards.gwt.elt.client.order.plugin.OrderViewConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
-import com.chinarewards.gwt.elt.client.team.plugin.TeamConstants;
 import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
 import com.chinarewards.gwt.elt.client.ui.UniversalCell;
 import com.chinarewards.gwt.elt.client.widget.EltNewPager;
@@ -34,6 +33,7 @@ import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.widget.Sorting;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.client.win.confirm.ConfirmHandler;
+import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.chinarewards.gwt.elt.util.DateTool;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
@@ -109,7 +109,9 @@ public class AskBudgetListPresenterImpl extends BasePresenter<AskBudgetListDispl
 		buildTable();
 		initDeparts();
 		initYear();
-		
+		List<UserRoleVo> roles =Arrays.asList(sessionManager.getSession().getUserRoles());
+		if(roles.contains(UserRoleVo.CORP_ADMIN))//HR时隐藏申请按钮
+			display.setAddBtnShow();
 	}
   
 	      

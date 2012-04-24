@@ -76,7 +76,7 @@ import com.google.inject.Inject;
 	
 	private void init() {
 	// 保存事件
-	display.setName(sessionManager.getSession().getLoginName());
+	display.setName(sessionManager.getSession().getStaffName());
 	registerHandler(display.getSaveClick().addClickHandler(
 			new ClickHandler() {
 				@Override
