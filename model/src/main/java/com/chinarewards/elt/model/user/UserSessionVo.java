@@ -8,10 +8,19 @@ public class UserSessionVo {
 	private String corporationId;
 	private String departmentId;
 	private String staffId;
+	private String staffName;
 	private UserRole lastLoginRole;
 	private String photo;
 	private String corporationName;
 	private UserStatus userStatus;
+
+	public String getStaffName() {
+		return staffName;
+	}
+
+	public void setStaffName(String staffName) {
+		this.staffName = staffName;
+	}
 
 	public UserStatus getUserStatus() {
 		return userStatus;

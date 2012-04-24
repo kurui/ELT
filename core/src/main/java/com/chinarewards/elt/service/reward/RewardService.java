@@ -168,4 +168,13 @@ public interface RewardService {
 	public void toMessageForReward();
 	//查到要提名的人短信通知
 	public void getNominatorToMessage();
+	
+	/**
+	 * 修改颁奖人
+	 * @param rewardId
+	 * @param context
+	 * @param updateUserId
+	 * @return
+	 */
+	public String updateRewardAwardUser(String rewardId,UserContext context,String updateUserId);
 }

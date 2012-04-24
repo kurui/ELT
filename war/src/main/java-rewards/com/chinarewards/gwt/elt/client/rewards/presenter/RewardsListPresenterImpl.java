@@ -2,6 +2,7 @@ package com.chinarewards.gwt.elt.client.rewards.presenter;
 
 import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
@@ -9,6 +10,7 @@ import com.chinarewards.gwt.elt.client.awardReward.plugin.AwardRewardConstants;
 import com.chinarewards.gwt.elt.client.awardRewardDetermine.plugin.AwardRewardDetermineConstants;
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.core.Platform;
+import com.chinarewards.gwt.elt.client.core.ui.DialogCloseListener;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.dataprovider.RewardsListViewAdapter;
 import com.chinarewards.gwt.elt.client.detailsOfAward.plugin.DetailsOfAwardConstants;
@@ -16,13 +18,19 @@ import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.nominate.plugin.NominateConstants;
+import com.chinarewards.gwt.elt.client.rewardItem.dialog.ChooseStaffWinDialog;
+import com.chinarewards.gwt.elt.client.rewardItem.event.ChooseStaffEvent;
+import com.chinarewards.gwt.elt.client.rewardItem.handler.ChooseStaffHandler;
 import com.chinarewards.gwt.elt.client.rewards.model.JudgeModelClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsCriteria;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsCriteria.RewardsStatus;
+import com.chinarewards.gwt.elt.client.rewards.model.StaffClient;
 import com.chinarewards.gwt.elt.client.rewards.presenter.RewardsListPresenter.RewardsListDisplay;
 import com.chinarewards.gwt.elt.client.rewards.request.DeleteRewardsRequest;
 import com.chinarewards.gwt.elt.client.rewards.request.DeleteRewardsResponse;
+import com.chinarewards.gwt.elt.client.rewards.request.UpdateRewardsAwardUserRequest;
+import com.chinarewards.gwt.elt.client.rewards.request.UpdateRewardsAwardUserResponse;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.ui.HyperLinkCell;
 import com.chinarewards.gwt.elt.client.ui.UniversalCell;
@@ -41,9 +49,11 @@ import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 		implements RewardsListPresenter {
@@ -58,19 +68,20 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 	EltNewPager pager;
 	ListCellTable<RewardsClient> cellTable;
 	RewardsListViewAdapter listViewAdapter;
-
+	private final Provider<ChooseStaffWinDialog> chooseStaffDialogProvider;
 	private final BreadCrumbsPresenter breadCrumbs;
 	int pageSize=ViewConstants.per_page_number_in_dialog;
 	@Inject
 	public RewardsListPresenterImpl(EventBus eventBus, DispatchAsync dispatch,
 			ErrorHandler errorHandler, SessionManager sessionManager,
-			RewardsListDisplay display, Win win,BreadCrumbsPresenter breadCrumbs) {
+			RewardsListDisplay display, Win win,BreadCrumbsPresenter breadCrumbs,Provider<ChooseStaffWinDialog> chooseStaffDialogProvider) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
 		this.win = win;
 		this.breadCrumbs=breadCrumbs;
+		this.chooseStaffDialogProvider=chooseStaffDialogProvider;
 
 	}
 
@@ -357,7 +368,7 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 						@Override
 						public String getValue(RewardsClient rewards) {
 				
-							if(rewards.getCreatedByStaffId().equals(sessionManager.getSession().getStaffId()))
+							if(rewards.getCreatedByStaffId()!=null && rewards.getCreatedByStaffId().equals(sessionManager.getSession().getStaffId()))
 							{
 								return "<a style=\"color:bule;\" href=\"javascript:void(0);\">颁奖</a>";
 								
@@ -373,7 +384,7 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 						public void update(int index, RewardsClient o,
 								String value) {
 							if ("NEW".equals(o.getStatus().name())) {
-								if(o.getCreatedByStaffId().equals(sessionManager.getSession().getStaffId()))
+								if(o.getCreatedByStaffId()!=null && o.getCreatedByStaffId().equals(sessionManager.getSession().getStaffId()))
 								{
 									Platform.getInstance()
 										.getEditorRegistry()
@@ -390,6 +401,74 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 							} else {
 								win.alert("已经颁奖!");
 								return;
+							}
+						}
+
+					});
+			cellTable.addColumn("操作", new UniversalCell(),
+					new GetValue<RewardsClient, String>() {
+						@Override
+						public String getValue(RewardsClient rewards) {
+				
+						//	if(rewards.getCreatedByStaffId().equals(sessionManager.getSession().getStaffId()))
+						//	{
+								return "<a style=\"color:bule;\" href=\"javascript:void(0);\">邀请颁奖</a>";
+								
+//							}
+//							else
+//							{
+//								return "<span style='color: rgb(221, 221, 221);'>邀请颁奖</span>";
+//							}
+						}
+					}, new FieldUpdater<RewardsClient, String>() {
+
+						@Override
+						public void update(int index, final RewardsClient o,
+								String value) {
+							if ("NEW".equals(o.getStatus().name())) {
+							//	 && o.getCreatedByStaffId().equals(sessionManager.getSession().getStaffId())
+								final ChooseStaffWinDialog dialog = chooseStaffDialogProvider.get();
+								dialog.setNominee(false, true, null);
+								dialog.setStaffOnly(true);
+								final HandlerRegistration registration = eventBus.addHandler(ChooseStaffEvent.getType(),new ChooseStaffHandler() {
+													@Override
+													public void chosenStaff(final List<StaffClient> list) {
+														if(list!=null && list.size()>0)
+														{
+															win.confirm("提示","确定邀请:<font color='blue'>"+list.get(0).getName()+"</font>,进行颁奖?",new ConfirmHandler() {
+																
+																@Override
+																public void confirm() {
+																	
+																	dispatch.execute(new UpdateRewardsAwardUserRequest(o.getId(), sessionManager
+																			.getSession().getToken(),list.get(0).getId()),
+																			new AsyncCallback<UpdateRewardsAwardUserResponse>() {
+
+																				@Override
+																				public void onFailure(Throwable t) {
+																					win.alert("邀请失败!");
+																				}
+
+																				@Override
+																				public void onSuccess(UpdateRewardsAwardUserResponse resp) {
+																					win.alert("邀请成功!");
+																					doSearch();
+																				}
+																			});
+																}
+															});
+														}
+													}
+												});
+
+								       Platform.getInstance().getSiteManager()
+										.openDialog(dialog, new DialogCloseListener() {
+											public void onClose(String dialogId,
+													String instanceId) {
+												registration.removeHandler();
+											}
+										});
+								
 							}
 						}
 
@@ -413,7 +492,7 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 											DetailsOfAwardConstants.EDITOR_DETAILSOFAWARD_SEARCH,
 											DetailsOfAwardConstants.EDITOR_DETAILSOFAWARD_SEARCH
 													+ o.getId(), o);
-
+					
 						}
 
 					});

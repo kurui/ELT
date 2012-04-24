@@ -175,4 +175,12 @@ public interface RewardLogic {
 	 * @return
 	 */
 	public String awardRewardWinner(String nowUserId, String rewardId);
+	/**
+	 * 修改颁奖人
+	 * @param rewardId
+	 * @param context
+	 * @param updateUserId
+	 * @return
+	 */
+	public String updateRewardAwardUser(String rewardId,UserContext context,String updateUserId);
 }
