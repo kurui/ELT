@@ -1,7 +1,6 @@
 package com.chinarewards.gwt.elt.client.mail.model;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class MailVo implements Serializable {
 	

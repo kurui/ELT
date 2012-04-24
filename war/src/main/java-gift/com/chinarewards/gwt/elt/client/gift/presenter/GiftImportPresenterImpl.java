@@ -484,44 +484,6 @@ public class GiftImportPresenterImpl extends
 		display.getHasTitleValue().setValue(isHavingTitle);
 		display.getNoHasTitleValue().setValue(!isHavingTitle);
 		initTable();
-//		int recordNum = rowNum;
-//		if (isHavingTitle) {
-//			recordNum = rowNum - 1;
-//		}
-//		display.getTotalGift().setHTML("这个档案共有<b>" + recordNum + "</b>条记录:");
-//
-//		display.getTitlePreviewPanel().clear();
-//
-//		if (getInstructionGiftNum() > 0) {
-//			int displayRows = TITLE_INSTRUCTION_DISPLAY_ROW > getInstructionGiftNum() ? getInstructionGiftNum()
-//					: TITLE_INSTRUCTION_DISPLAY_ROW;
-//			int displayColumns = TITLE_INSTRUCTION_DISPLAY_COL > xlsContent
-//					.get(0).size() ? xlsContent.get(0).size()
-//					: TITLE_INSTRUCTION_DISPLAY_COL;
-//
-//			// Create a table to layout the form options
-//			FlexTable layout = new FlexTable();
-//			layout.setCellSpacing(0);
-//			layout.setBorderWidth(1);
-//
-//			for (int i = 0; i < displayRows; i++) {
-//				List<String> titleContentRow = xlsContent.get(i);
-//				for (int j = 0; j < titleContentRow.size(); j++) {
-//					if (j < displayColumns) {
-//						// Add cell content here
-//						if (titleContentRow.get(j) == null
-//								|| titleContentRow.get(j).trim().equals("")) {
-//							layout.setHTML(i, j, "&nbsp;");
-//						} else {
-//							layout.setText(i, j, titleContentRow.get(j));
-//						}
-//					}
-//				}
-//			}
-//
-//			display.getTitlePreviewPanel().setWidget(layout);
-//			initTable();
-//		}
 	}
 
 	private void refreshPanelStep3() {
@@ -680,28 +642,28 @@ public class GiftImportPresenterImpl extends
 			}
 		}
 		String result = "";
-		result += "<br/>你已经准备好导入员工资料<br/><br/>";
-		result += "<b>" + totalGift + "</b>笔资料<br/><br/>";
+		result += "<br/>你已经准备好导入信息<br/><br/>";
+		result += "<b>" + totalGift + "</b>笔信息<br/><br/>";
 		
 		if(totalGiftFailed>0)
 		{
 			result += "<span style='color:red'>" + totalGiftFailed
-					+ "</span>笔资料有下列严重问题, 将被忽略<br/><br/>";
+					+ "</span>笔信息有下列严重问题, 将被忽略<br/><br/>";
 			for (String fatalIssue : fatalIssues) {
 				result += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-<span style='color:black'>"
 						+ fatalIssueCounts.get(fatalIssue)
-						+ "</span>笔资料"
+						+ "</span>笔信息"
 						+ fatalIssue + "<br/>";
 			}
 		}
 		if(totalGiftWarn>0)
 		{
 			result += "<br/><span style='color:black'>"
-					+ (totalGiftWarn) + "</span>笔资料中有下列警告问题:<br/>";
+					+ (totalGiftWarn) + "</span>笔信息中有下列警告问题:<br/>";
 			for (String warnIssue : warnIssues) {
 				result += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-<span style='color:black'>"
 						+ warnIssueCounts.get(warnIssue)
-						+ "</span>笔资料"
+						+ "</span>笔信息"
 						+ warnIssue
 						+ "<br/>";
 			}
@@ -764,24 +726,7 @@ public class GiftImportPresenterImpl extends
 	}
 
 	private void refreshCurrentProgress() {
-	//	if (!GWT.isScript()) {
-			currentProgress += 0.5;
-	//	} else {
-//			dispatch.execute(new ImportGiftProgressAjaxRequest(batchId),
-//					new AsyncCallback<ImportGiftProgressAjaxResponse>() {
-//						@Override
-//						public void onFailure(Throwable e) {
-//							currentProgress += 0.5;
-//						}
-//
-//						@Override
-//						public void onSuccess(
-//								ImportGiftProgressAjaxResponse response) {
-//							currentProgress = response.getProcessedNum();
-//						}
-//
-//					});
-//		}
+		currentProgress += 0.5;
 	}
 
 	private Long toLong(Long p) {
@@ -796,65 +741,20 @@ public class GiftImportPresenterImpl extends
 	//	long totalGift = toLong(vo.getFinalFailedNum())+ toLong(vo.getFinalSuccessNum());
 		int totalGiftFailed = 0;
 
-//		List<String> fatalIssues = new ArrayList<String>();
-//		Map<String, Long> fatalIssueCounts = new HashMap<String, Long>();
-//		if (vo.getImportGiftRawCode() != null) {
-//			for (List<Long> rawCode : vo.getImportGiftRawCode()) {
-//				boolean isFatalGiftRaw = false;
-//				for (Long code : rawCode) {
-//					if ("严重问题"
-//							.equals(vo.getAllImportGiftCodeTypes().get(code))) {
-//						if (!isFatalGiftRaw) {
-//							totalGiftFailed++;
-//							isFatalGiftRaw = true;
-//						}
-//						if (!fatalIssues.contains(vo
-//								.getAllImportGiftCodeInfos().get(code))) {
-//							fatalIssues.add(vo.getAllImportGiftCodeInfos()
-//									.get(code));
-//						}
-//						Long count = fatalIssueCounts.get(vo
-//								.getAllImportGiftCodeInfos().get(code));
-//						GWT.log("fatal count = " + count + " for "
-//								+ vo.getAllImportGiftCodeInfos().get(code));
-//						if (count == null) {
-//							count = new Long(0);
-//						}
-//						fatalIssueCounts.put(vo.getAllImportGiftCodeInfos()
-//								.get(code), count + 1);
-//					}
-//				}
-//			}
-//		}
-
 		display.getSuccessImportMessage().setText(
-				toLong(vo.getFinalSuccessNum()) + "笔员工资料已成功被导入");
+				toLong(vo.getFinalSuccessNum()) + "笔信息已成功被导入");
 
-		String fatalSummary = "<span style='color:black'> </span>资料"+ "编号或邮箱重复" + "<br/>";
-//		for (String fatalIssue : fatalIssues) {
-//			fatalSummary += "<span style='color:black'>"
-//					+ fatalIssueCounts.get(fatalIssue) + "</span>笔资料"
-//					+ fatalIssue + "<br/>";
-//		}
+		String fatalSummary = "<span style='color:black'> </span>信息"+ "编号或邮箱重复" + "<br/>";
+
 		long unknownFatalNum = toLong(vo.getFinalFailedNum())
 				- totalGiftFailed;
 		if (unknownFatalNum > 0) {
 			fatalSummary += "<span style='color:black'>" + unknownFatalNum
-					+ "</span>笔资料由于系统或网络问题<br/>";
+					+ "</span>笔信息由于系统或网络问题<br/>";
 		}
 
 		String detailSummary = "";
-//		detailSummary += "<span style='color:black'>总共使用了"
-//				+ (toLong(vo.getFinalNewAssignCardNum()) + toLong(vo
-//						.getFinalNewAutoCardNum())) + "</span>个卡号：<br/>";
-//		detailSummary += " - <span style='color:black'>其中"
-//				+ toLong(vo.getFinalNewAutoCardNum()) + "</span>个为自动分配，<br/>";
-//		detailSummary += " - <span style='color:black'>其中"
-//				+ toLong(vo.getFinalNewAssignCardNum()) + "</span>个为手动分配，<br/>";
-//		// detailSummary += " - <span style='color:black'>其中"
-//		// + vo.getFinalOldAssignCardNum() + "</span>个为旧卡分配。<br/>";
-//		detailSummary += "<br/><span style='color:black'>建立了"
-//				+ toLong(vo.getFinalSuccessDeptNum()) + "</span>个新部门。<br/>";
+
 		detailSummary += "<br/><span style='color:black'>共导入"
 				+ toLong(vo.getFinalSuccessNum()) + "</span>个新员工。<br/><br/>";
 
@@ -935,10 +835,6 @@ public class GiftImportPresenterImpl extends
 		String columnValue = contentInstructionListBoxes.get(col).getValue(
 				contentInstructionListBoxes.get(col).getSelectedIndex());
 		boolean result= "dateColumnName".equals(columnValue);
-		
-		if(result){
-			System.out.println("==========columnValue:"+columnValue);
-		}
 		
 		return result;
 	}
@@ -1260,16 +1156,16 @@ public class GiftImportPresenterImpl extends
 				for (int i = 0; i < response.getResult().size(); i++) {
 					ImportGiftListClient client=response.getResult().get(i);
 					
-					List<String> staffCells = new ArrayList<String>();
+					List<String> giftCells = new ArrayList<String>();
 									
-					staffCells.add(client.getName());
-					staffCells.add(client.getSourceText());
-					staffCells.add(client.getIntegral());
-					staffCells.add(client.getPrice());
-					staffCells.add(client.getStock());
-					staffCells.add(client.getStatusText());
+					giftCells.add(client.getName());
+					giftCells.add(client.getSourceText());
+					giftCells.add(client.getIntegral());
+					giftCells.add(client.getPrice());
+					giftCells.add(client.getStock());
+					giftCells.add(client.getStatusText());
 				
-					result.add(staffCells);
+					result.add(giftCells);
 				}
 				xlsContent=result;
 				refreshPanelStep3();

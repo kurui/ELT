@@ -246,14 +246,6 @@ public class ImportGiftLogicImpl implements ImportGiftLogic {
 			ImportGiftRawParameter pGiftRaw = new ImportGiftRawParameter();
 			toImportGiftRawParameter(GiftRaw, pGiftRaw);
 
-			logger.debug("calculatePretreatmentImportGift - start parse Gift raw : "
-					+ pGiftRaw);
-
-			// this.getEntityManager()
-			// .createQuery(
-			// "DELETE FROM ImportGiftRawCode isrc WHERE isrc.importGiftRaw.id=:rawId")
-			// .setParameter("rawId", GiftRaw.getId()).executeUpdate();
-
 			List<Long> parseRawResult = new ArrayList<Long>();
 			if (ImportGiftHavingTitle.HAVING_TITLE.equals(batch
 					.getHavingTitle())
@@ -261,19 +253,6 @@ public class ImportGiftLogicImpl implements ImportGiftLogic {
 				// ignore title
 				continue;
 			}
-			//
-			//
-			//
-			// email validation on current Gift raw
-			// try {
-			// boolean fal= StringUtil.isValidEmail(pGiftRaw.getEmail());
-			// if(fal)
-			// helper.setEmailFormatInvalid(false);
-			// else
-			// helper.setEmailFormatInvalid(true);
-			// } catch (Exception e) {
-			// helper.setEmailFormatInvalid(true);
-			// }
 
 			logger.debug(
 					"calculatePretreatmentImportGift - helper result = {}",
@@ -292,11 +271,6 @@ public class ImportGiftLogicImpl implements ImportGiftLogic {
 						.getParserMethodResult(code.getParserMethod(), args);
 
 				if (result) {
-					logger.debug("calculatePretreatmentImportGift - checking Gift raw on the rule "
-							+ code.getParserMethod()
-							+ " with code "
-							+ code.getCode() + " true");
-
 					// parse result is true
 					parseRawResult.add(code.getCode());
 
@@ -311,7 +285,6 @@ public class ImportGiftLogicImpl implements ImportGiftLogic {
 						}
 					}
 				} else {
-
 					logger.debug("calculatePretreatmentImportGift - checking Gift raw on the rule "
 							+ code.getParserMethod()
 							+ " with code "
@@ -319,17 +292,11 @@ public class ImportGiftLogicImpl implements ImportGiftLogic {
 				}
 
 				if (helper.isAllPassed() && result) {
-					// parse failed
 					helper.setAllPassed(false);
 				}
 			}
-			//
 			if (!isFailed) {
 				estimateSuccessNum++;
-				//
-				// validDepartmentRawList.add(ImportGiftParser
-				// .convertRaw2Department(pGiftRaw.getDepartment()));
-				//
 			}
 
 			importGiftRawCodes.add(parseRawResult);
@@ -337,31 +304,16 @@ public class ImportGiftLogicImpl implements ImportGiftLogic {
 			// importGiftRawDao.update(GiftRaw);
 		}
 
-		// logger.debug(
-		// "calculatePretreatmentImportGift - validDepartmentRawList - {}",
-		// validDepartmentRawList);
 
 		batch.setEstimateSuccessNum(estimateSuccessNum);
 		batch.setFinalSuccessNum(null);
 		batch.setImportBatchNo(null);
 		batch = importGiftBatchDao.update(batch);
-		//
-		// logger.debug(
-		// "calculatePretreatmentImportGift - import Gift raw codes = {}",
-		// importGiftRawCodes);
-		//
-		//
+
 		response.setImportGiftRawCode(importGiftRawCodes);
-		//
-		// response.setFinalSuccessDeptNum(null);
-		// response.setEstNewAutoCardNum(newAutoCardNum);
-		// response.setFinalNewAutoCardNum(null);
-		// response.setEstNewAssignCardNum(newAssignCardNum);
-		// response.setFinalNewAssignCardNum(null);
-		// response.setEstOldAssignCardNum(oldAssignCardNum);
-		// response.setFinalOldAssignCardNum(null);
+
 		response.setEstimateSuccessNum(estimateSuccessNum);
-		// response.setFinalSuccessNum(null);
+
 		response.setImportBatchNo(importGiftBatchDao.getLastImportBatch(batch
 				.getCorporation().getId()) + 1);
 
@@ -421,48 +373,6 @@ public class ImportGiftLogicImpl implements ImportGiftLogic {
 
 	}
 
-	// protected GiftPersistence processImportGiftRawByInstruction(
-	// ImportGiftBatch batch, ImportGiftRaw importGiftRaw,
-	// com.chinarewards.hr.model.rewards.dataimport.Department department,
-	// String targetCorporationId) {
-	// GiftPersistence GiftPersistence = new GiftPersistence();
-	// GiftPersistence.setImportGiftBatchId(batch.getId());
-	// GiftPersistence.setCorporationId(targetCorporationId);
-	// GiftPersistence.setDepartmentId(department.getId());
-	// if (importGiftRaw.getMemberCardNumber() == null
-	// || "".equals(importGiftRaw.getMemberCardNumber().trim())) {
-	// GiftPersistence.setMemberCardNumber(null);
-	// GiftPersistence.setAutoCreateCardNumber(true);
-	// } else {
-	// GiftPersistence.setMemberCardNumber(importGiftRaw
-	// .getMemberCardNumber());
-	// GiftPersistence.setAutoCreateCardNumber(false);
-	// }
-	// GiftPersistence.setMobileTelephoneNumber(importGiftRaw
-	// .getMobileTelephoneNumber());
-	// GiftPersistence.setEmailAddress(importGiftRaw.getEmailAddress());
-	// GiftPersistence
-	// .setNotificationMethodConstant(NotificationMethod.EMAIL);
-	// GiftPersistence.setFirstName(importGiftRaw.getFirstName());
-	// GiftPersistence.setLastName(importGiftRaw.getLastName());
-	// GiftPersistence
-	// .setForeignLastName(importGiftRaw.getForeignLastName());
-	// GiftPersistence.setForeignFirstName(importGiftRaw
-	// .getForeignFirstName());
-	// GiftPersistence.setGiftNumber(importGiftRaw.getGiftNumber());
-	// GiftPersistence.setDob(convertDate(importGiftRaw.getDob(),
-	// batch.getDobFormat()));
-	// GiftPersistence.setDateOfEmployment(convertDate(
-	// importGiftRaw.getDateOfEmployment(), batch.getDoeFormat()));
-	// GiftPersistence.setPosition(importGiftRaw.getGiftPosition());
-	// GiftPersistence.setGender(convertGender(importGiftRaw.getGender()));
-	// GiftPersistence.setNativePlace(importGiftRaw.getNativePlace());
-	// GiftPersistence.setMinorityNationality(importGiftRaw
-	// .getMinorityNationality());
-	// GiftPersistence.setIdNo(importGiftRaw.getIdNo());
-	// GiftPersistence.setLocation(importGiftRaw.getLocation());
-	// return GiftPersistence;
-	// }
 
 	protected Gender convertGender(String src) {
 		if (Gender.MALE.getMessage().equals(src))

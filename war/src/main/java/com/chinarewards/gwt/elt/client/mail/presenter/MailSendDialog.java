@@ -1,7 +1,6 @@
 package com.chinarewards.gwt.elt.client.mail.presenter;
 
 import com.chinarewards.gwt.elt.client.core.ui.impl.AbstractDialog;
-import com.chinarewards.gwt.elt.client.mailSave.presenter.MailSavePresenter;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.google.inject.Provider;

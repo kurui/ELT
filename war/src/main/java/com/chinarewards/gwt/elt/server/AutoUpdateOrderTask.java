@@ -1,14 +1,11 @@
 package com.chinarewards.gwt.elt.server;
 
-import java.util.Date;
 import java.util.TimerTask;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.chinarewards.elt.service.order.OrderService;
-import com.chinarewards.elt.service.reward.RewardItemService;
-import com.chinarewards.elt.util.DateUtil;
 
 public class AutoUpdateOrderTask extends TimerTask {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
