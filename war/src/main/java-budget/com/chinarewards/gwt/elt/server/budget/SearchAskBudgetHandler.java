@@ -8,13 +8,17 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 
 import org.slf4j.Logger;
 
+import com.chinarewards.elt.model.budget.search.AskBudgetVo;
 import com.chinarewards.elt.model.budget.search.DepartmentBudgetVo;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.common.PaginationDetail;
 import com.chinarewards.elt.model.common.SortingDetail;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.budget.BudgetService;
+import com.chinarewards.gwt.elt.client.budget.model.AskBudgetClientVo;
 import com.chinarewards.gwt.elt.client.budget.model.DepBudgetVo;
+import com.chinarewards.gwt.elt.client.budget.request.SearchAskBudgetRequest;
+import com.chinarewards.gwt.elt.client.budget.request.SearchAskBudgetResponse;
 import com.chinarewards.gwt.elt.client.budget.request.SearchDepBudgetRequest;
 import com.chinarewards.gwt.elt.client.budget.request.SearchDepBudgetResponse;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
@@ -26,8 +30,8 @@ import com.google.inject.Inject;
  * @author lw
  * @since 2012年1月10日 16:09:07
  */
-public class SearchDepBudgetHandler extends
-		BaseActionHandler<SearchDepBudgetRequest, SearchDepBudgetResponse> {
+public class SearchAskBudgetHandler extends
+		BaseActionHandler<SearchAskBudgetRequest, SearchAskBudgetResponse> {
 
 	@InjectLogger
 	Logger logger;
@@ -35,51 +39,45 @@ public class SearchDepBudgetHandler extends
 	BudgetService budgetService;
    
 	@Inject
-	public SearchDepBudgetHandler(BudgetService budgetService) {
+	public SearchAskBudgetHandler(BudgetService budgetService) {
 		this.budgetService = budgetService;
 
 	}
 
 	@Override
-	public SearchDepBudgetResponse execute(SearchDepBudgetRequest request,
+	public SearchAskBudgetResponse execute(SearchAskBudgetRequest request,
 			ExecutionContext context) throws DispatchException {
 
-		SearchDepBudgetResponse resp = new SearchDepBudgetResponse();
+		SearchAskBudgetResponse resp = new SearchAskBudgetResponse();
 
-		DepBudgetVo clientVo = request.getBudgetVo();
-		DepartmentBudgetVo serviceVo = adapter(clientVo);//从客户端转到model
-		PageStore<DepartmentBudgetVo> budgetPage = null;
+		AskBudgetClientVo clientVo = request.getBudgetVo();
+		AskBudgetVo serviceVo = adapter(clientVo);//从客户端转到model
+		PageStore<AskBudgetVo> budgetPage = null;
 
 		UserContext uc = new UserContext();
 		uc.setCorporationId(request.getUserSession().getCorporationId());
 		uc.setLoginName(request.getUserSession().getLoginName());
 		uc.setUserRoles(UserRoleTool.adaptToRole(request.getUserSession().getUserRoles()));
 		uc.setUserId(request.getUserSession().getToken());
-		String type = request.getType();//all是显示全部的，pass显示超支的部门
-		budgetPage = budgetService.deptBudgetList(uc, serviceVo);
-		if(budgetPage!=null){
-		List<DepBudgetVo> listVo = adapterToClient(budgetPage.getResultList(),type);//从服务端转为客户端
+	
+		budgetPage = budgetService.askBudgetList(uc, serviceVo);
+		List<AskBudgetClientVo> listVo = adapterToClient(budgetPage.getResultList());//从服务端转为客户端
 		resp.setTotal(listVo.size());
 		resp.setResult(listVo);
-	   }
+
 		return resp;
 	}
 
-	private DepartmentBudgetVo adapter(DepBudgetVo criteria) {
-		DepartmentBudgetVo vo = new DepartmentBudgetVo();
-			vo.setId(criteria.getId());
-			vo.setBudgetIntegral(criteria.getBudgetIntegral());
-			vo.setCorpBudgetId(criteria.getCorpBudgetId());
-			vo.setDepartmentName(criteria.getDepartmentName());
+	private AskBudgetVo adapter(AskBudgetClientVo criteria) {
+		   AskBudgetVo vo = new AskBudgetVo();
 			
+			vo.setCorpBudgetId(criteria.getCorpBudgetId());
 			vo.setDepartmentId(criteria.getDepartmentId());
-		    vo.setUseIntegeral(criteria.getUseIntegeral());
-		    vo.setDeleted(0);//查没有删除的数据
+		     vo.setDeleted(0);//查没有删除的数据
 		if (criteria.getPagination() != null) {
 			PaginationDetail detail = new PaginationDetail();
 			detail.setLimit(criteria.getPagination().getLimit());
 			detail.setStart(criteria.getPagination().getStart());
-
 			vo.setPaginationDetail(detail);
 		}
 
@@ -92,35 +90,36 @@ public class SearchDepBudgetHandler extends
 		return vo;
 	}
 	//从服务端得到的数据到客户端在列表显示的数据
-		public static List<DepBudgetVo> adapterToClient(List<DepartmentBudgetVo> service,String type) {
-			List<DepBudgetVo> resultList = new ArrayList<DepBudgetVo>();
+		public static List<AskBudgetClientVo> adapterToClient(List<AskBudgetVo> service) {
+			List<AskBudgetClientVo> resultList = new ArrayList<AskBudgetClientVo>();
 
-			for (DepartmentBudgetVo item : service) {
-				DepBudgetVo client = new DepBudgetVo();
+			for (AskBudgetVo item : service) {
+				AskBudgetClientVo client = new AskBudgetClientVo();
+				client.setApprovedate(item.getApprovedate());
+				client.setApproveIntegeral(item.getApproveIntegeral());
+				client.setApproveuser(item.getApproveuser());
+				client.setAskIntegral(item.getAskIntegral());
 				client.setId(item.getId());
-				client.setBudgetIntegral(item.getBudgetIntegral());
-				client.setCorpBudgetId(item.getCorpBudgetId());
-				client.setDepartmentName(item.getDepartmentName());
-				client.setUseIntegeral(item.getUseIntegeral());
-				client.setPeople(item.getPeople());
-				if(type.equals("pass")){
-					if(client.getUseIntegeral()>client.getBudgetIntegral()){
-						resultList.add(client);//超支的
-					}
-				}else{
-				    resultList.add(client);//全部的
-				}
+				client.setReason(item.getReason());
+				client.setRecorddate(item.getRecorddate());
+				client.setRecorduser(item.getRecorduser());
+				client.setRecordname(item.getRecordname());
+				client.setStatus(item.getStatus());
+				client.setView(item.getView());
+				client.setDepName(item.getDepName());
+				client.setCorpBudget(item.getCorpBudget());
+				resultList.add(client);
 			}
            
 			return resultList;
 		}
 	@Override
-	public Class<SearchDepBudgetRequest> getActionType() {
-		return SearchDepBudgetRequest.class;
+	public Class<SearchAskBudgetRequest> getActionType() {
+		return SearchAskBudgetRequest.class;
 	}
 
 	@Override
-	public void rollback(SearchDepBudgetRequest req, SearchDepBudgetResponse resp,
+	public void rollback(SearchAskBudgetRequest req, SearchAskBudgetResponse resp,
 			ExecutionContext cxt) throws DispatchException {
 	}
 

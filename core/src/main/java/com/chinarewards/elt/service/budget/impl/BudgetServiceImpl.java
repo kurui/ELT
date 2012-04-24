@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.chinarewards.elt.domain.budget.AskBudget;
 import com.chinarewards.elt.domain.budget.CorpBudget;
 import com.chinarewards.elt.domain.budget.DepartmentBudget;
 import com.chinarewards.elt.domain.user.SysUser;
+import com.chinarewards.elt.model.budget.search.AskBudgetVo;
 import com.chinarewards.elt.model.budget.search.DepartmentBudgetVo;
 import com.chinarewards.elt.model.budget.search.IntegralManagementVo;
 import com.chinarewards.elt.model.common.PageStore;
@@ -47,17 +49,34 @@ public class BudgetServiceImpl implements BudgetService {
 		return   budgetLogic.saveDepartmentBudget(context, departmentBudget);
 		
 	}
-
-	
+	/**
+	 * 部门申请预算
+	 * @param context
+	 * @param order
+	 * @return
+	 */
+	@Override
+	public AskBudget saveAskBudget(UserContext context, AskBudget budget){
+		return   budgetLogic.saveAskBudget(context, budget);
+	}
+	@Override
+	public AskBudget approveBudget(UserContext context, AskBudget budget){
+		return   budgetLogic.approveBudget(context, budget);
+	}
 	@Override
 	public PageStore<DepartmentBudgetVo> deptBudgetList(UserContext context, DepartmentBudgetVo deptBudgetVo) {
 		SysUser caller = userLogic.findUserById(context.getUserId());
 		List<UserRole> roles =Arrays.asList(context.getUserRoles());
-		//如果是部门管理员，在查看全部时只可以查看本部门及下级部门记录，
+		//如果是部门管理员，在查看全部时只可以查看下级部门记录，
 		if (roles.contains(UserRole.DEPT_MGR)&& !roles.contains(UserRole.CORP_ADMIN)&& (deptBudgetVo.getDepartmentId()==null||deptBudgetVo.getDepartmentId().equals(""))){
 			List<String> deptIds = null;
-			deptIds = departmentLogic.getWholeChildrenIds(caller.getStaff().getDepartment().getId(), true);
-			deptBudgetVo.setDeptIds(new ArrayList<String>(deptIds));
+			deptIds = departmentLogic.getWholeChildrenIds(caller.getStaff().getDepartment().getId(), false);
+			if(deptIds!=null&&deptIds.size()>0)
+			   deptBudgetVo.setDeptIds(new ArrayList<String>(deptIds));
+			else{
+				deptIds.add("NO");
+				deptBudgetVo.setDeptIds(new ArrayList<String>(deptIds));
+			 }
 		}
 		return budgetLogic.deptBudgetList(caller, deptBudgetVo);
 	}
@@ -100,5 +119,27 @@ public class BudgetServiceImpl implements BudgetService {
 	@Override
 	public DepartmentBudget findDepartmentBudgetByDepartmentId(String departmentId,String corpBudgetId){
 		return budgetLogic.findDepartmentBudgetByDepartmentId(departmentId, corpBudgetId);
+	}
+	@Override
+	public AskBudget findAskBudgetById(String id) {
+		// TODO Auto-generated method stub
+		return budgetLogic.findAskBudgetById(id);
+	}
+	@Override
+	public PageStore<AskBudgetVo> askBudgetList(UserContext context,AskBudgetVo askBudgetVo) {
+		SysUser caller = userLogic.findUserById(context.getUserId());
+		List<UserRole> roles =Arrays.asList(context.getUserRoles());
+		//如果是部门管理员，在查看全部时只可以查看本部门及下级部门记录，
+		if (roles.contains(UserRole.DEPT_MGR)&& !roles.contains(UserRole.CORP_ADMIN)&& (askBudgetVo.getDepartmentId()==null||askBudgetVo.getDepartmentId().equals(""))){
+			List<String> deptIds = null;
+			deptIds = departmentLogic.getWholeChildrenIds(caller.getStaff().getDepartment().getId(), true);
+			if(deptIds!=null&&deptIds.size()>0)//二级部门
+				   askBudgetVo.setDeptIds(new ArrayList<String>(deptIds));
+				else{
+					deptIds.add("NO");//第三级部门
+					askBudgetVo.setDeptIds(new ArrayList<String>(deptIds));
+				 }
+		}
+		return budgetLogic.askBudgetList(caller, askBudgetVo);
 	}
 }

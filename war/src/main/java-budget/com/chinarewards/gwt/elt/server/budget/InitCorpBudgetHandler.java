@@ -11,7 +11,9 @@ import org.slf4j.Logger;
 
 import com.chinarewards.elt.domain.budget.CorpBudget;
 import com.chinarewards.elt.domain.budget.DepartmentBudget;
+import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.service.budget.BudgetService;
+import com.chinarewards.elt.service.org.DepartmentService;
 import com.chinarewards.gwt.elt.client.budget.model.CorpBudgetVo;
 import com.chinarewards.gwt.elt.client.budget.request.InitCorpBudgetRequest;
 import com.chinarewards.gwt.elt.client.budget.request.InitCorpBudgetResponse;
@@ -29,10 +31,11 @@ public class InitCorpBudgetHandler extends	BaseActionHandler<InitCorpBudgetReque
 	@InjectLogger
 	Logger logger;
 	BudgetService corpBudgetService;
-
+	DepartmentService departmentService;
 	@Inject
-	public InitCorpBudgetHandler(BudgetService corpBudgetService) {
+	public InitCorpBudgetHandler(BudgetService corpBudgetService,DepartmentService departmentService) {
 		this.corpBudgetService = corpBudgetService;
+		this.departmentService = departmentService;
 	}
 
 	@Override
@@ -52,8 +55,11 @@ public class InitCorpBudgetHandler extends	BaseActionHandler<InitCorpBudgetReque
 			resp.setResult(adapterToClient(listVo));//从服务端转为客户端
 		 
 		 } else if (roleList.contains(UserRoleVo.DEPT_MGR)) {
-			 List<DepartmentBudget> listVo = corpBudgetService.findDepartBudget(action.getUserSession().getDepartmentId());
+			 List<Department> listManagedDep= departmentService.findDepartmentsManagedByStaffId(action.getUserSession().getStaffId());
+			if(listManagedDep.size()>0){
+			 List<DepartmentBudget> listVo = corpBudgetService.findDepartBudget(listManagedDep.get(0).getId());
 			 resp.setResult(adapterToDepClient(listVo));//从服务端转为客户端
+			}
 		 }
 		
 
@@ -81,7 +87,7 @@ public class InitCorpBudgetHandler extends	BaseActionHandler<InitCorpBudgetReque
                   
 					for (DepartmentBudget item : service) {
 						CorpBudgetVo client = new CorpBudgetVo();
-						client.setId(item.getId());
+						client.setId(item.getCorpBudgetId());
 						client.setBudgetIntegral(item.getBudgetIntegral());
 						client.setUseIntegeral(item.getUseIntegeral());
 						CorpBudget corpVo = corpBudgetService.findCorpBudgetById(item.getCorpBudgetId());
