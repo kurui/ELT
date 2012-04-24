@@ -19,7 +19,6 @@ import com.chinarewards.elt.domain.reward.person.Candidate;
 import com.chinarewards.elt.domain.reward.person.Winner;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.reward.base.WinnerProcessFlag;
-import com.chinarewards.elt.model.reward.search.RewardGridSearchVo;
 import com.chinarewards.elt.model.reward.search.RewardItemSearchVo;
 import com.chinarewards.elt.model.reward.search.RewardSearchVo;
 import com.chinarewards.elt.model.reward.vo.WinerRewardItemVo;
@@ -538,5 +537,15 @@ public class WinnerDao extends BaseDao<Winner> {
 			}
 		}
 		return query;
+	}
+	/**
+	 * 物理删除获奖人
+	 * @param staffId
+	 * @return
+	 */
+	public int deleteWinnersByStaffId(String staffId) {
+		return getEmNoFlush()
+				.createQuery("DELETE FROM Winner win WHERE win.staff.id=:staffId ")
+				.setParameter("staffId", staffId).executeUpdate();
 	}
 }

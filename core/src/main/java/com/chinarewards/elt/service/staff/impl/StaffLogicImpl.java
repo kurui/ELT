@@ -11,10 +11,19 @@ import org.slf4j.LoggerFactory;
 
 import com.chinarewards.elt.common.LogicContext;
 import com.chinarewards.elt.common.UserContextProvider;
+import com.chinarewards.elt.dao.broadcast.BroadcastDao;
+import com.chinarewards.elt.dao.broadcast.BroadcastReplyDao;
+import com.chinarewards.elt.dao.broadcast.BroadcastingReceivingDao;
+import com.chinarewards.elt.dao.broadcast.StaffObjectDao;
 import com.chinarewards.elt.dao.org.DepartmentDao;
 import com.chinarewards.elt.dao.org.DepartmentManagerDao;
+import com.chinarewards.elt.dao.org.MembersDao;
 import com.chinarewards.elt.dao.org.StaffDao;
 import com.chinarewards.elt.dao.org.StaffDao.QueryStaffPageActionResult;
+import com.chinarewards.elt.dao.reward.CandidateDao;
+import com.chinarewards.elt.dao.reward.JudgeDao;
+import com.chinarewards.elt.dao.reward.NomineeDao;
+import com.chinarewards.elt.dao.reward.PreWinnerDao;
 import com.chinarewards.elt.dao.reward.WinnerDao;
 import com.chinarewards.elt.dao.user.RoleDao;
 import com.chinarewards.elt.dao.user.UserDao;
@@ -72,6 +81,17 @@ public class StaffLogicImpl implements StaffLogic {
 	private final DepartmentLogic departmentLogic;
 	private final SendMailService sendMailService;
 	private final UserLogic userLogic;
+	private final PreWinnerDao preWinnerDao;
+	private final CandidateDao candidateDao;
+	private final StaffObjectDao staffObjectDao;
+	private final MembersDao membersDao;
+	private final JudgeDao judgeDao;
+	private final NomineeDao nomineeDao;
+	private final BroadcastReplyDao broadcastReplyDao;
+	private final BroadcastingReceivingDao broadcastingReceivingDao;
+	private final BroadcastDao broadcastDao;
+	
+	
 	
 	MD5 md5 = new MD5();
 
@@ -82,7 +102,10 @@ public class StaffLogicImpl implements StaffLogic {
 			SendMailService sendMailService,
 			DepartmentManagerLogic departmentManagerLogic, UserDao userDao,
 			WinnerDao winnerDao, UserRoleDao userRoleDao, RoleDao roleDao,
-			DepartmentManagerDao deptMgrDao, DepartmentLogic departmentLogic,UserLogic userLogic) {
+			DepartmentManagerDao deptMgrDao, DepartmentLogic departmentLogic,UserLogic userLogic,PreWinnerDao preWinnerDao,CandidateDao candidateDao,
+			StaffObjectDao staffObjectDao,MembersDao membersDao,
+			JudgeDao judgeDao,NomineeDao nomineeDao,BroadcastingReceivingDao broadcastingReceivingDao,BroadcastReplyDao broadcastReplyDao,
+			BroadcastDao broadcastDao) {
 		this.staffDao = staffDao;
 		this.deptLogic = deptLogic;
 		this.corporationLogic = corporationLogic;
@@ -97,6 +120,15 @@ public class StaffLogicImpl implements StaffLogic {
 		this.departmentLogic = departmentLogic;
 		this.sendMailService = sendMailService;
 		this.userLogic=userLogic;
+		this.preWinnerDao=preWinnerDao;
+		this.candidateDao=candidateDao;
+		this.staffObjectDao=staffObjectDao;
+		this.membersDao=membersDao;
+		this.judgeDao=judgeDao;
+		this.nomineeDao=nomineeDao;
+		this.broadcastingReceivingDao=broadcastingReceivingDao;
+		this.broadcastReplyDao=broadcastReplyDao;
+		this.broadcastDao=broadcastDao;
 	}
 
 	@Override
@@ -432,12 +464,12 @@ public class StaffLogicImpl implements StaffLogic {
 			ff = new Staff();
 			
 			//验证编号
-			if(StringUtil.isEmptyString(staff.getStaffNo()) || !userLogic.vaildStaffNo(staff.getStaffNo()))
+			if(StringUtil.isEmptyString(staff.getStaffNo()) || !userLogic.vaildStaffNo(staff.getStaffNo(),null))
 			{
 				return "ERROR";
 			}
 			//验证邮箱
-			if(StringUtil.isEmptyString(staff.getStaffNo()) || !userLogic.vaildStaffEmail(staff.getEmail().substring(0,staff.getEmail().indexOf("@")+1)))
+			if(StringUtil.isEmptyString(staff.getStaffNo()) || !userLogic.vaildStaffEmail(staff.getEmail().substring(0,staff.getEmail().indexOf("@")+1),null))
 			{
 				return "ERROR";
 			}
@@ -774,7 +806,7 @@ public class StaffLogicImpl implements StaffLogic {
 		staff.setDeleted(1);
 		staff.setLastModifiedAt(new Date());
 		staff.setLastModifiedBy(nowuser);
-	
+		staff.setStatus(StaffStatus.HIDE);
 		staffDao.update(staff);
 		SysUser user=userDao.findUserByStaffId(staff.getId());	
 		if(user!=null)
@@ -791,4 +823,69 @@ public class StaffLogicImpl implements StaffLogic {
 	public List<Staff> findNotDeleteStaff(String corporationId) {
 		return staffDao.findNotDeleteStaffsBycorporationId(corporationId);
 	}
+
+	@Override
+	public String restorationStaff(String staffId, UserContext context) {
+		SysUser nowuser=userDao.findUserById(context.getUserId());
+		Staff staff=staffDao.findById(Staff.class, staffId);
+		staff.setDeleted(0);
+		staff.setLastModifiedAt(new Date());
+		staff.setLastModifiedBy(nowuser);
+		staff.setStatus(StaffStatus.ENTRY);
+		staffDao.update(staff);
+		SysUser user=userDao.findUserByStaffId(staff.getId());	
+		if(user!=null)
+		{
+			user.setStatus(UserStatus.Active);
+			user.setLastModifiedAt(new Date());
+			user.setLastModifiedBy(nowuser);
+			userDao.update(user);
+		}
+		return "success";
+	}
+
+	@Override
+	public String physicalDeleteStaff(String staffId, UserContext context) {
+		
+//				delete from ORGANIZATION where id='8a83834536c4c1750136c4db69550043'--66
+//				delete from PREWINNER where staff_id='8a83834536c4c1750136c4db69550043'--22
+//				delete from WINNER where staff_id='8a83834536c4c1750136c4db69550043'--11
+//
+//				delete from CANDIDATE where staff_id='8a83834536c4c1750136c4db69550043'--33
+//
+//
+//				delete from SYSUSERROLE where user_id='8a83834536c9b9520136c9be987e0002'--44
+//
+//				delete from SYSUSER where staff_id='8a83834536c4c1750136c4db69550043'--55
+		//查询员工是否涉及奖励内容
+		
+
+		winnerDao.deleteWinnersByStaffId(staffId);
+		preWinnerDao.deletePreWinnerByStaffId(staffId);
+		candidateDao.deleteCandidateByStaffId(staffId);
+		
+		List<String> objectList=staffObjectDao.findStaffObjectByStaffId(staffId);
+		if(objectList.size()>0)
+			broadcastingReceivingDao.deleteBroadcastingReceivingByReceivingId(objectList);
+		staffObjectDao.deleteStaffObjectByStaffId(staffId);
+		membersDao.deleteMembersByStaffId(staffId);
+		deptMgrDao.deleteDepartmentManagerByStaffId(staffId);
+		judgeDao.deleteJudgeByStaffId(staffId);
+		nomineeDao.deleteNomineeByStaffId(staffId);
+		
+		SysUser user=userDao.findUserByStaffId(staffId);
+		if(user!=null)
+		{
+			userRoleDao.deleteSysUserRoleByUserId(user.getId());
+			broadcastReplyDao.deleteBroadcastReplyByUserId(user.getId());
+			broadcastingReceivingDao.deleteBroadcastingReceivingByUserId(user.getId());
+			broadcastDao.deleteBroadcastingByUserId(user.getId());
+			userDao.deleteSysUserByStaffId(staffId);
+		}
+		staffDao.deleteStaffByStaffId(staffId);
+
+		return "success";
+	}
+	
+	
 }

@@ -11,9 +11,11 @@ import org.slf4j.Logger;
 import com.chinarewards.elt.model.reward.search.CandidateParam;
 import com.chinarewards.elt.model.reward.search.JudgeParam;
 import com.chinarewards.elt.model.reward.search.RewardQueryVo;
+import com.chinarewards.elt.model.reward.search.WinnerParam;
 import com.chinarewards.elt.service.reward.RewardService;
 import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardInitRequest;
 import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardInitResponse;
+import com.chinarewards.gwt.elt.model.awardReward.WinnerParamVo;
 import com.chinarewards.gwt.elt.model.nominate.CandidateParamVo;
 import com.chinarewards.gwt.elt.model.nominate.JudgeParamVo;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
@@ -93,7 +95,18 @@ public class AwardRewardActionHandler extends
 
 		awardresponse.setJudgeList(judgeVoList);
 		awardresponse.setCandidateList(candidateVoList);
-
+		// 设置获奖人信息
+		if (rewardQueryVo.getWinnerList() != null
+				&& rewardQueryVo.getWinnerList().size() > 0) {
+			List<WinnerParamVo> winnerList = new ArrayList<WinnerParamVo>();
+			for (WinnerParam wp : rewardQueryVo.getWinnerList()) {
+				WinnerParamVo wpv = new WinnerParamVo();
+				wpv.setId(wp.getId());
+				wpv.setName(wp.getName());
+				winnerList.add(wpv);
+			}
+			awardresponse.setWinnerList(winnerList);
+		}
 		return awardresponse;
 	}
 

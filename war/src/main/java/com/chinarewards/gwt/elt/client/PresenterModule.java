@@ -2,6 +2,7 @@ package com.chinarewards.gwt.elt.client;
 
 
 import com.chinarewards.gwt.elt.client.awardReward.module.AwardRewardModule;
+import com.chinarewards.gwt.elt.client.awardRewardDetermine.module.AwardRewardDetermineModule;
 import com.chinarewards.gwt.elt.client.awardShop.module.AwardShopListModule;
 import com.chinarewards.gwt.elt.client.awardShopLattice.module.AwardShopLatticeModule;
 import com.chinarewards.gwt.elt.client.box.module.UserBoxModule;
@@ -124,6 +125,7 @@ public class PresenterModule extends AbstractGinModule {
 		install(new StaffInfoModule());
 		install(new MailSaveModule());
 		install(new MailSendModule());
+		install(new AwardRewardDetermineModule());
 		
 	}
 

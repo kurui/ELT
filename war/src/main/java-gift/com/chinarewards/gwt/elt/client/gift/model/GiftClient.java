@@ -36,6 +36,8 @@ public class GiftClient implements Serializable, Comparable<GiftClient> {
 	 * 积分
 	 */
 	private int integral;
+	
+	private String price;//采购价
 
 	/**
 	 * 有效期
@@ -48,6 +50,15 @@ public class GiftClient implements Serializable, Comparable<GiftClient> {
 	
 	
 	
+	
+
+	public String getPrice() {
+		return price;
+	}
+
+	public void setPrice(String price) {
+		this.price = price;
+	}
 
 	public boolean isFromMenu() {
 		return fromMenu;

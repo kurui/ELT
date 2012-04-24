@@ -21,6 +21,31 @@ public class OrderSearchVo implements Serializable, Comparable<OrderSearchVo> {
 
 	private SortingDetailClient sorting;
 	private String  id;
+
+	private String  orderCode;       //订单编号
+    private String    giftId;   //礼品ID
+    private String  userId;      //订单用户
+    private int     amount;     //数量
+    private double integral;   //积分
+    private String  name;      //订单用户姓名
+	private OrderStatus status;//订单执行状态
+	private int deleted;   //删除状态(0 存在,1已删删除)
+	private Date    exchangeDate;////交易时间
+    private Date    recorddate;   //记录时间
+    private Date    exchangeDateEnd;   //交易时间止
+    
+	private GiftClient giftvo;//订单的VO
+	
+	private String staffId;
+	
+	
+    
+	public String getStaffId() {
+		return staffId;
+	}
+	public void setStaffId(String staffId) {
+		this.staffId = staffId;
+	}
 	public PaginationDetailClient getPagination() {
 		return pagination;
 	}
@@ -33,17 +58,6 @@ public class OrderSearchVo implements Serializable, Comparable<OrderSearchVo> {
 	public void setSorting(SortingDetailClient sorting) {
 		this.sorting = sorting;
 	}
-	private String  orderCode;       //订单编号
-    private String    giftId;   //礼品ID
-    private String  userId;      //订单用户
-    private int     amount;     //数量
-    private double integral;   //积分
-    private String  name;      //订单用户姓名
-	private OrderStatus status;//订单执行状态
-	private int deleted;   //删除状态(0 存在,1已删删除)
-	private Date    exchangeDate;////交易时间
-    private Date    recorddate;   //记录时间
-    private Date    exchangeDateEnd;   //交易时间止
   
 	public Date getExchangeDate() {
 		return exchangeDate;
@@ -57,7 +71,7 @@ public class OrderSearchVo implements Serializable, Comparable<OrderSearchVo> {
 	public void setExchangeDateEnd(Date exchangeDateEnd) {
 		this.exchangeDateEnd = exchangeDateEnd;
 	}
-	private GiftClient giftvo;//订单的VO
+
    
 	public String getId() {
 		return id;
@@ -120,10 +134,10 @@ public class OrderSearchVo implements Serializable, Comparable<OrderSearchVo> {
 		this.recorddate = recorddate;
 	}
 	
-	public GiftClient getGiftvo() {
+	public GiftClient getGiftVo() {
 		return giftvo;
 	}
-	public void setGiftvo(GiftClient giftvo) {
+	public void setGiftVo(GiftClient giftvo) {
 		this.giftvo = giftvo;
 	}
 	@Override

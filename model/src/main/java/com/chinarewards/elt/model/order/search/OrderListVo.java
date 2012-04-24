@@ -10,6 +10,7 @@ import com.chinarewards.elt.model.order.search.OrderListVo;
 public class OrderListVo {
 	
 	private GiftListVo giftvo;//订单的VO
+	
 	public GiftListVo getGiftvo() {
 		return giftvo;
 	}

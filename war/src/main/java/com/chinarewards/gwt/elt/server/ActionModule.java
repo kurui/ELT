@@ -45,9 +45,12 @@ import com.chinarewards.gwt.elt.client.enterprise.request.EnterpriseRequest;
 import com.chinarewards.gwt.elt.client.enterprise.request.SearchLicenseRequest;
 import com.chinarewards.gwt.elt.client.gift.request.DeleteGiftRequest;
 import com.chinarewards.gwt.elt.client.gift.request.EditGiftRequest;
+import com.chinarewards.gwt.elt.client.gift.request.ImportGiftAjaxRequest;
+import com.chinarewards.gwt.elt.client.gift.request.SearchGiftImportListRequest;
 import com.chinarewards.gwt.elt.client.gift.request.SearchGiftByIdRequest;
 import com.chinarewards.gwt.elt.client.gift.request.SearchGiftRequest;
 import com.chinarewards.gwt.elt.client.gift.request.UpdateGiftStatusRequest;
+import com.chinarewards.gwt.elt.client.gift.request.UpdateImportGiftRequest;
 import com.chinarewards.gwt.elt.client.hrbox.request.HrBoxRewardsRequest;
 import com.chinarewards.gwt.elt.client.integralManagement.request.IntegralManagementRequest;
 import com.chinarewards.gwt.elt.client.login.LastLoginRoleRequest;
@@ -68,6 +71,7 @@ import com.chinarewards.gwt.elt.client.orderConfirmation.request.OrderConfirmati
 import com.chinarewards.gwt.elt.client.orderConfirmation.request.OrderConfirmationRequest;
 import com.chinarewards.gwt.elt.client.orderHistory.request.OrderHistoryViewRequest;
 import com.chinarewards.gwt.elt.client.orderHistory.request.SearchOrderHistoryRequest;
+import com.chinarewards.gwt.elt.client.orderHistory.request.SearchOrderHistoryStaffRequest;
 import com.chinarewards.gwt.elt.client.orderSubmit.request.OrderSubmitRequest;
 import com.chinarewards.gwt.elt.client.password.request.PasswordRequest;
 import com.chinarewards.gwt.elt.client.register.request.RegisterInitRequest;
@@ -96,8 +100,10 @@ import com.chinarewards.gwt.elt.client.staffAdd.request.StaffVaildRequest;
 import com.chinarewards.gwt.elt.client.staffHeavenIndex.request.StaffHeavenIndexRequest;
 import com.chinarewards.gwt.elt.client.staffIntegral.request.StaffIntegralRequest;
 import com.chinarewards.gwt.elt.client.staffList.request.DeleteStaffRequest;
+import com.chinarewards.gwt.elt.client.staffList.request.ImportStaffListRequest;
 import com.chinarewards.gwt.elt.client.staffList.request.SearchStaffListRequest;
 import com.chinarewards.gwt.elt.client.staffList.request.StaffGenerateUserRequest;
+import com.chinarewards.gwt.elt.client.staffList.request.UpdateImportStaffRequest;
 import com.chinarewards.gwt.elt.client.staffList.request.UpdateUserPwdRequest;
 import com.chinarewards.gwt.elt.client.staffView.request.StaffViewRequest;
 import com.chinarewards.gwt.elt.client.staffView.request.StaffWinRequest;
@@ -150,9 +156,12 @@ import com.chinarewards.gwt.elt.server.enterprise.EnterpriseInitActionHandler;
 import com.chinarewards.gwt.elt.server.enterprise.SearchLicenseHandler;
 import com.chinarewards.gwt.elt.server.gift.DeleteGiftHandler;
 import com.chinarewards.gwt.elt.server.gift.EditGiftHandler;
+import com.chinarewards.gwt.elt.server.gift.ImportGiftAjaxActionHandler;
+import com.chinarewards.gwt.elt.server.gift.SearchGiftImportListHandler;
 import com.chinarewards.gwt.elt.server.gift.SearchGiftByIdHandler;
 import com.chinarewards.gwt.elt.server.gift.SearchGiftHandler;
 import com.chinarewards.gwt.elt.server.gift.UpdateGiftStatusHandler;
+import com.chinarewards.gwt.elt.server.gift.UpdateImportGiftActionHandler;
 import com.chinarewards.gwt.elt.server.hrbox.HrBoxRewardsHandler;
 import com.chinarewards.gwt.elt.server.integralManagement.IntegralManagementHandler;
 import com.chinarewards.gwt.elt.server.login.LoginActionHandler;
@@ -173,6 +182,7 @@ import com.chinarewards.gwt.elt.server.orderConfirmation.AddOrderConfirmationHan
 import com.chinarewards.gwt.elt.server.orderConfirmation.SearchOrderConfirmationHandler;
 import com.chinarewards.gwt.elt.server.orderHistory.OrderHistoryViewHandler;
 import com.chinarewards.gwt.elt.server.orderHistory.SearchOrderHistoryHandler;
+import com.chinarewards.gwt.elt.server.orderHistory.SearchOrderHistoryStaffHandler;
 import com.chinarewards.gwt.elt.server.orderSubmit.AddOrderSubmitHandler;
 import com.chinarewards.gwt.elt.server.register.RegisterActionHandler;
 import com.chinarewards.gwt.elt.server.register.RegisterHrActionHandler;
@@ -192,6 +202,7 @@ import com.chinarewards.gwt.elt.server.rewards.SearchRewardsGridHandler;
 import com.chinarewards.gwt.elt.server.rewards.SearchRewardsHandler;
 import com.chinarewards.gwt.elt.server.shopWindow.SearchShopWindowHandler;
 import com.chinarewards.gwt.elt.server.staff.HrRegisterActionHandler;
+import com.chinarewards.gwt.elt.server.staff.ImportSearchStaffListActionHandler;
 import com.chinarewards.gwt.elt.server.staff.ImportStaffAjaxActionHandler;
 import com.chinarewards.gwt.elt.server.staff.JudgeStaffAccountHandler;
 import com.chinarewards.gwt.elt.server.staff.LeadTimeActionHandler;
@@ -203,6 +214,7 @@ import com.chinarewards.gwt.elt.server.staff.StaffAddActionHandler;
 import com.chinarewards.gwt.elt.server.staff.StaffDeleteActionHandler;
 import com.chinarewards.gwt.elt.server.staff.StaffGenerateUserActionHandler;
 import com.chinarewards.gwt.elt.server.staff.StaffVaildActionHandler;
+import com.chinarewards.gwt.elt.server.staff.UpdateImportStaffActionHandler;
 import com.chinarewards.gwt.elt.server.staffHeavenIndex.StaffHeavenIndexActionHandler;
 import com.chinarewards.gwt.elt.server.staffPassword.UpdateStaffPwdActionHandler;
 import com.chinarewards.gwt.elt.server.team.SearchTeamByIdHandler;
@@ -359,6 +371,9 @@ public class ActionModule extends ActionHandlerModule {
 		bindHandler(LastLoginRoleRequest.class, UpdatelastLoginRoleActionHandler.class);
 		//兑换历史列表
 		bindHandler(SearchOrderHistoryRequest.class, SearchOrderHistoryHandler.class);
+		
+		bindHandler(SearchOrderHistoryStaffRequest.class, SearchOrderHistoryStaffHandler.class);
+		
 		//兑换历史查看
 		bindHandler(OrderHistoryViewRequest.class, OrderHistoryViewHandler.class);
 
@@ -458,8 +473,15 @@ public class ActionModule extends ActionHandlerModule {
 
 		//导入员工
 		bindHandler(ImportStaffAjaxRequest.class,ImportStaffAjaxActionHandler.class);
+		bindHandler(ImportStaffListRequest.class,ImportSearchStaffListActionHandler.class);
+		bindHandler(UpdateImportStaffRequest.class,UpdateImportStaffActionHandler.class);
 
+		//导入礼品
+		bindHandler(ImportGiftAjaxRequest.class,ImportGiftAjaxActionHandler.class);
+		bindHandler(SearchGiftImportListRequest.class,SearchGiftImportListHandler.class);
+		bindHandler(UpdateImportGiftRequest.class,UpdateImportGiftActionHandler.class);
 
+		
 
 	}
 }

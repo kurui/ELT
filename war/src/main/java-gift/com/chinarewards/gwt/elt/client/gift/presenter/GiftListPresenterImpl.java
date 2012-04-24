@@ -6,8 +6,10 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.core.Platform;
+import com.chinarewards.gwt.elt.client.core.ui.DialogCloseListener;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.dataprovider.GiftListViewAdapter;
+import com.chinarewards.gwt.elt.client.dialog.GiftImportDialog;
 import com.chinarewards.gwt.elt.client.gift.model.GiftClient;
 import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria;
 import com.chinarewards.gwt.elt.client.gift.model.GiftCriteria.GiftStatus;
@@ -38,9 +40,11 @@ import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 		implements GiftListPresenter {
@@ -53,22 +57,26 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 	EltNewPager pager;
 	ListCellTable<GiftClient> cellTable;
 	GiftListViewAdapter listViewAdapter;
+	
+	private final Provider<ChooseExportTypeDialog> chooseExportTypeDialogProvider;
+	private final Provider<GiftImportDialog> importGiftDialogProvider;
 
 	private final BreadCrumbsPresenter breadCrumbs;
 
-	int pageSize=ViewConstants.per_page_number_in_dialog;
+	int pageSize = ViewConstants.per_page_number_in_dialog;
 
 	@Inject
 	public GiftListPresenterImpl(EventBus eventBus, DispatchAsync dispatch,
 			ErrorHandler errorHandler, SessionManager sessionManager,
-			GiftListDisplay display, Win win,BreadCrumbsPresenter breadCrumbs) {
+			GiftListDisplay display, Win win, BreadCrumbsPresenter breadCrumbs,Provider<ChooseExportTypeDialog> chooseExportTypeDialogProvider,Provider<GiftImportDialog> importGiftDialogProvider) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.errorHandler = errorHandler;
 		this.sessionManager = sessionManager;
 		this.win = win;
-		this.breadCrumbs=breadCrumbs;
-
+		this.breadCrumbs = breadCrumbs;
+		this.chooseExportTypeDialogProvider=chooseExportTypeDialogProvider;
+		this.importGiftDialogProvider=importGiftDialogProvider;
 	}
 
 	@Override
@@ -86,48 +94,58 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
 
-						GiftClient client=new GiftClient();
+						GiftClient client = new GiftClient();
 						client.setThisAction(GiftConstants.ACTION_GIFT_ADD);
 						client.setFromMenu(false);
 
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(GiftConstants.EDITOR_GIFT_EDIT,
-										GiftConstants.ACTION_GIFT_ADD,client);
+										GiftConstants.ACTION_GIFT_ADD, client);
 					}
 				}));
 		registerHandler(display.getImportBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
-						win.alert("导入礼品...待实现~");
+						GiftImportDialog dialog = importGiftDialogProvider.get();
+						Platform.getInstance().getSiteManager().openDialog(dialog,new DialogCloseListener() {
+							
+							@Override
+							public void onClose(String dialogId, String instanceId) {
+								buildTable();
+								doSearch();
+								
+							}
+						});
 					}
 				}));
-		
+
 		registerHandler(display.getExportBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
-						doExport();						
+//						doExport();
+						openChooseExportTypeWindow();
 					}
 				}));
-		
-		
 
-	registerHandler(display.getPageNumber().addChangeHandler(new ChangeHandler() {			
+		registerHandler(display.getPageNumber().addChangeHandler(
+				new ChangeHandler() {
 
-			@Override
-			public void onChange(ChangeEvent event) {
-				pageSize=Integer.parseInt(display.getPageNumber().getValue(display.getPageNumber().getSelectedIndex()));
-				buildTable();
-				doSearch();
-			}
-		}));
+					@Override
+					public void onChange(ChangeEvent event) {
+						pageSize = Integer.parseInt(display.getPageNumber()
+								.getValue(
+										display.getPageNumber()
+												.getSelectedIndex()));
+						buildTable();
+						doSearch();
+					}
+				}));
 	}
 
 	private void init() {
 		display.initWidget();
-		
-		
-		
+
 		buildTable();
 		doSearch();
 	}
@@ -141,7 +159,7 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 		pager.setDisplay(cellTable);
 		cellTable.setWidth(ViewConstants.page_width);
 		cellTable.setPageSize(pageSize);
-			cellTable.getColumn(0).setCellStyleNames("divTextLeft");//第一列左对齐
+		cellTable.getColumn(0).setCellStyleNames("divTextLeft");// 第一列左对齐
 		display.getResultPanel().clear();
 		display.getResultPanel().add(cellTable);
 		display.getResultpage().clear();
@@ -152,46 +170,77 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 		GiftCriteria criteria = new GiftCriteria();
 		if (!StringUtil.isEmpty(display.getKeyName().getValue()))
 			criteria.setName(display.getKeyName().getValue());
-		
-			
+
 		int selectedStatusIndex = display.getStatus().getSelectedIndex();
-		String status=display.getStatus().getValue(selectedStatusIndex);
-//		criteria.setStatus(GiftStatus.valueOf(status));
+		String status = display.getStatus().getValue(selectedStatusIndex);
+		if(!StringUtil.isEmpty(status)){
+			criteria.setStatus(GiftStatus.valueOf(status));
+		}
 		
-		
+
 		listViewAdapter = new GiftListViewAdapter(dispatch, criteria,
 				errorHandler, sessionManager, display);
 		listViewAdapter.addDataDisplay(cellTable);
 	}
-	
-	private void doExport(){
-		String title="导出礼品信息";
-		
-		String data = "name="+display.getKeyName().getValue();
-		
-		int selectedStatusIndex = display.getStatus().getSelectedIndex();
-		String status=display.getStatus().getValue(selectedStatusIndex);
-		data=data+"&status="+status;
-		
-		String userdata ="&corporationId="+sessionManager.getSession().getCorporationId();
-		userdata =userdata+"&userId="+sessionManager.getSession().getToken();
-		
-//		data = data+"&content=true";
-		UserRoleVo[] userRoleVos =sessionManager.getSession().getUserRoles();
-		for (UserRoleVo role : userRoleVos) {
-		    String s = role.toString();
-			if(s.equals("CORP_ADMIN")){
-				userdata=userdata+"&userRole=CORP_ADMIN";
-			}else if(s.equals("DEPT_MGR")){
-				userdata=userdata+"&userRole=DEPT_MGR";
-			}
-		}	
-		
-		String url = GWT.getModuleBaseURL() + "servlet.exportGift";
-		String wholeUrl = url + "?" + data+userdata + "&radom=" + Math.random();
-		Window.open(wholeUrl, title,"menubar=yes,location=no,resizable=yes,scrollbars=yes,status=yes");
+
+	private void openChooseExportTypeWindow() {
+		final HandlerRegistration registration = eventBus.addHandler(
+				ChooseExportTypeEvent.getType(), new ChooseExportTypeHandler() {				
+
+					@Override
+					public void chooseExportType(String exportFileType) {
+						if (StringUtil.isEmpty(exportFileType)) {
+							win.alert("请选择导出文件类型");
+						}else{
+							doExport(exportFileType);
+						}
+						
+						
+					}
+				});
+		//
+		final ChooseExportTypeDialog dialog = chooseExportTypeDialogProvider.get();
+		//
+		Platform.getInstance().getSiteManager()
+				.openDialog(dialog, new DialogCloseListener() {
+					public void onClose(String dialogId, String instanceId) {
+						registration.removeHandler();
+					}
+				});
 	}
-	
+
+	private void doExport(String exportFileType) {
+		String title = "导出礼品信息";
+
+		String data = "name=" + display.getKeyName().getValue();
+
+		int selectedStatusIndex = display.getStatus().getSelectedIndex();
+		String status = display.getStatus().getValue(selectedStatusIndex);
+		data = data + "&status=" + status;
+		data=data+"&exportFileType="+exportFileType;
+
+		String userdata = "&corporationId="
+				+ sessionManager.getSession().getCorporationId();
+		userdata = userdata + "&userId="
+				+ sessionManager.getSession().getToken();
+
+		// data = data+"&content=true";
+		UserRoleVo[] userRoleVos = sessionManager.getSession().getUserRoles();
+		for (UserRoleVo role : userRoleVos) {
+			String s = role.toString();
+			if (s.equals("CORP_ADMIN")) {
+				userdata = userdata + "&userRole=CORP_ADMIN";
+			} else if (s.equals("DEPT_MGR")) {
+				userdata = userdata + "&userRole=DEPT_MGR";
+			}
+		}
+
+		String url = GWT.getModuleBaseURL() + "servlet.exportGift";
+		String wholeUrl = url + "?" + data + userdata + "&radom="
+				+ Math.random();
+		Window.open(wholeUrl, title,
+				"menubar=yes,location=no,resizable=yes,scrollbars=yes,status=yes");
+	}
 
 	private void initTableColumns() {
 		Sorting<GiftClient> ref = new Sorting<GiftClient>() {
@@ -272,7 +321,7 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 						});
 					}
 				});
-		
+
 		cellTable.addColumn("操作", new HyperLinkCell(),
 				new GetValue<GiftClient, String>() {
 					@Override
@@ -283,16 +332,18 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 					@Override
 					public void update(int index, GiftClient giftClient,
 							String value) {
-						giftClient.setThisAction(GiftConstants.ACTION_GIFT_VIEW);
+						giftClient
+								.setThisAction(GiftConstants.ACTION_GIFT_VIEW);
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(
 										GiftConstants.EDITOR_GIFT_VIEW,
 										GiftConstants.EDITOR_GIFT_VIEW
-												+ giftClient.getId(), giftClient);
+												+ giftClient.getId(),
+										giftClient);
 					}
 				});
-		
+
 		cellTable.addColumn("操作", new HyperLinkCell(),
 				new GetValue<GiftClient, String>() {
 					@Override
@@ -303,17 +354,17 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 					@Override
 					public void update(int index, final GiftClient giftClient,
 							String value) {
-						giftClient.setThisAction(GiftConstants.ACTION_GIFT_EDIT);
+						giftClient
+								.setThisAction(GiftConstants.ACTION_GIFT_EDIT);
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(
 										GiftConstants.EDITOR_GIFT_EDIT,
 										GiftConstants.EDITOR_GIFT_EDIT
-												+ giftClient.getId(), giftClient);
+												+ giftClient.getId(),
+										giftClient);
 					}
 				});
-
-		
 
 		cellTable.addColumn("操作", new HyperLinkCell(),
 				new GetValue<GiftClient, String>() {
@@ -331,8 +382,7 @@ public class GiftListPresenterImpl extends BasePresenter<GiftListDisplay>
 					}
 
 				});
-		
-		
+
 	}
 
 	public void delteGift(String gifId) {

@@ -174,4 +174,14 @@ public class PreWinnerDao extends BaseDao<PreWinner> {
 		}
 		return query;
 	}
+	/**
+	 * 物理删除
+	 * @param staffId
+	 * @return
+	 */
+	public int deletePreWinnerByStaffId(String staffId) {
+		return getEmNoFlush()
+				.createQuery("DELETE FROM PreWinner win WHERE win.staff.id=:staffId ")
+				.setParameter("staffId", staffId).executeUpdate();
+	}
 }

@@ -202,7 +202,7 @@ public class StaffDao extends BaseDao<Staff> {
 			hql.append(" AND staff.department.id = :deptId ");
 			param.put("deptId", searchVo.getDeptId());
 		}
-		if (searchVo.getStatus() != null) {
+		if (searchVo.getStatus() != null && searchVo.getStatus() !=StaffStatus.HIDE) {
 			hql.append(" AND staff.status = :status ");
 			param.put("status", searchVo.getStatus());
 		}
@@ -229,8 +229,17 @@ public class StaffDao extends BaseDao<Staff> {
 			}
 
 		}
-		hql.append(" AND staff.deleted = :deleted ");
-		param.put("deleted", 0);
+		
+		if(searchVo.getStatus()!=null && searchVo.getStatus() ==StaffStatus.HIDE)
+		{
+			hql.append(" AND staff.deleted = :deleted ");
+			param.put("deleted", 1);
+		}
+		else
+		{
+			hql.append(" AND staff.deleted = :deleted ");
+			param.put("deleted", 0);
+		}
 
 		// ORDER BY
 		if (SEARCH.equals(type)) {
@@ -478,7 +487,7 @@ public class StaffDao extends BaseDao<Staff> {
 	@SuppressWarnings("unchecked")
 	public List<Staff> findStaffsByNotUser(List<String> staffIds) {
 		return getEm().createQuery(
-				"SELECT s FROM Staff s WHERE s.deleted !=1 AND  s.id  not IN (:staffIds)").setParameter("staffIds",staffIds)
+				"SELECT s FROM Staff s WHERE s.deleted !=1 AND s.status= (:staffStatus) AND  s.id  not IN (:staffIds)").setParameter("staffIds",staffIds).setParameter("staffStatus", StaffStatus.JOB)
 				.getResultList();
 	}
 	public Integer findNotDeleteStaffsNumberBycorporationId(String corporationId) {
@@ -489,14 +498,22 @@ public class StaffDao extends BaseDao<Staff> {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Staff> findStaffsByStaffNo(String staffNo) {
-		return getEm().createQuery("FROM Staff s WHERE upper(s.jobNo) = upper(:staffNo) ")
+	public List<Staff> findStaffsByStaffNo(String staffNo,String nowStaffId) {
+		if(StringUtil.isEmptyString(nowStaffId))
+			return getEm().createQuery("FROM Staff s WHERE upper(s.jobNo) = upper(:staffNo) ")
 				.setParameter("staffNo", staffNo).getResultList();
+		else
+			return getEm().createQuery("FROM Staff s WHERE upper(s.jobNo) = upper(:staffNo) AND s.id !=:nowStaffId ")
+					.setParameter("staffNo", staffNo).setParameter("nowStaffId", nowStaffId).getResultList();	
 	}
 	@SuppressWarnings("unchecked")
-	public List<Staff> findStaffsByEmail(String staffEmail) {
-		return getEm().createQuery("FROM Staff s WHERE upper(s.email) like upper(:staffEmail) ")
+	public List<Staff> findStaffsByEmail(String staffEmail,String nowStaffId) {
+		if(StringUtil.isEmptyString(nowStaffId))
+			return getEm().createQuery("FROM Staff s WHERE upper(s.email) like upper(:staffEmail) ")
 				.setParameter("staffEmail", staffEmail+"%").getResultList();
+		else
+			return getEm().createQuery("FROM Staff s WHERE upper(s.email) like upper(:staffEmail) AND s.id !=:nowStaffId ")
+					.setParameter("staffEmail", staffEmail+"%").setParameter("nowStaffId", nowStaffId).getResultList();
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -505,5 +522,15 @@ public class StaffDao extends BaseDao<Staff> {
 				.createQuery(
 						"FROM Staff s WHERE s.corporation.id = :corporationId  and s.deleted=0 ")
 				.setParameter("corporationId", corporationId).getResultList();
+	}
+	/**
+	 * 物理删除
+	 * @param staffId
+	 * @return
+	 */
+	public int deleteStaffByStaffId(String staffId) {
+		return getEmNoFlush()
+				.createQuery("DELETE FROM Staff win WHERE win.id=:staffId ")
+				.setParameter("staffId", staffId).executeUpdate();
 	}
 }

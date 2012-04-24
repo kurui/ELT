@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.chinarewards.gwt.elt.client.awardReward.plugin.AwardRewardConstants;
+import com.chinarewards.gwt.elt.client.awardRewardDetermine.plugin.AwardRewardDetermineConstants;
 import com.chinarewards.gwt.elt.client.box.plugin.UserBoxConstants;
 import com.chinarewards.gwt.elt.client.breadCrumbs.ui.BreadCrumbsMenu;
 import com.chinarewards.gwt.elt.client.broadcasting.plugin.BroadcastingListConstants;
@@ -197,6 +198,7 @@ public class ButtonMenuProcessor implements MenuProcessor {
 		} else if ("Reward".equals(keyname)) {
 			items.add(NominateConstants.MENU_NOMINATE_SEARCH);
 			items.add(AwardRewardConstants.MENU_AWARDREWARD_SEARCH);
+			items.add(AwardRewardDetermineConstants.MENU_AWARDREWARDDETERMINE_SEARCH);
 			items.add(DetailsOfAwardConstants.MENU_DETAILSOFAWARD_SEARCH);
 			items.add(RewardsListConstants.MENU_REWARDSLIST_SEARCH);
 		} else if ("Staff".equals(keyname)) {

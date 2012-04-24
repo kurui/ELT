@@ -3,8 +3,11 @@ package com.chinarewards.elt.service.staff;
 import java.lang.reflect.InvocationTargetException;
 
 import com.chinarewards.elt.domain.org.ImportStaffBatch;
+import com.chinarewards.elt.domain.org.ImportStaffRaw;
+import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.staff.ImportStaffRequest;
 import com.chinarewards.elt.model.staff.ImportStaffResponse;
+import com.chinarewards.elt.model.vo.ImportStaffSearchVo;
 import com.chinarewards.elt.service.exception.ImportStaffNotFoundException;
 
 
@@ -63,4 +66,24 @@ public interface ImportStaffService {
 	 * @return
 	 */
 	public boolean removeAllInBatchById(String batchId);
+	/**
+	 * 查询导入的列表信息.分页显示
+	 * @param batchId
+	 * @return
+	 */
+	public PageStore<ImportStaffRaw> findImportStaffList(ImportStaffSearchVo searchVo);
+	
+	/**
+	 * 查询预导入选中的count
+	 * @param batchId
+	 * @return
+	 */
+	public int findImportStaffCount(ImportStaffSearchVo searchVo);
+	/**
+	 * 修改预导入数据的标志
+	 * @param rawId
+	 * @param importfal
+	 * @return
+	 */
+	public boolean updateImportfal(String rawId,int importfal);
 }

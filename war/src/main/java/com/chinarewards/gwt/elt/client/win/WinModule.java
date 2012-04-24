@@ -16,6 +16,11 @@ import com.chinarewards.gwt.elt.client.win.confirm.ConfirmPresenter;
 import com.chinarewards.gwt.elt.client.win.confirm.ConfirmPresenter.ConfirmDisplay;
 import com.chinarewards.gwt.elt.client.win.confirm.ConfirmPresenterImpl;
 import com.chinarewards.gwt.elt.client.win.confirm.ConfirmWidget;
+import com.chinarewards.gwt.elt.client.win.loginconfirm.LoginConfirmDialog;
+import com.chinarewards.gwt.elt.client.win.loginconfirm.LoginConfirmPresenter;
+import com.chinarewards.gwt.elt.client.win.loginconfirm.LoginConfirmPresenter.LoginConfirmDisplay;
+import com.chinarewards.gwt.elt.client.win.loginconfirm.LoginConfirmPresenterImpl;
+import com.chinarewards.gwt.elt.client.win.loginconfirm.LoginConfirmWidget;
 import com.google.gwt.inject.client.AbstractGinModule;
 
 public class WinModule extends AbstractGinModule {
@@ -35,6 +40,11 @@ public class WinModule extends AbstractGinModule {
 		bind(StaffAlertPresenter.class).to(StaffAlertPresenterImpl.class);
 		bind(StaffAlertDisplay.class).to(StaffAlertWidget.class);
 		bind(StaffAlertDialog.class);
+		
+		
+		bind(LoginConfirmPresenter.class).to(LoginConfirmPresenterImpl.class);
+		bind(LoginConfirmDisplay.class).to(LoginConfirmWidget.class);
+		bind(LoginConfirmDialog.class);
 	}
 
 }

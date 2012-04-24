@@ -23,14 +23,6 @@ public class GiftVo implements Serializable {
 	private String photo; // 图片
 	private String source; //  供货方式
 	private String price;//采购价格
-	public String getPrice() {
-		return price;
-	}
-
-	public void setPrice(String price) {
-		this.price = price;
-	}
-
 	private int integral; // 积分
 	private int stock; // 库存
 	private String business; // 供应商名称
@@ -80,6 +72,17 @@ public class GiftVo implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public String getPrice() {
+		if(StringUtil.isEmpty(price)){
+			return "0";
+		}
+		return price;
+	}
+
+	public void setPrice(String price) {
+		this.price = price;
 	}
 	
 	

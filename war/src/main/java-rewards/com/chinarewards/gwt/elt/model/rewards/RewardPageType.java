@@ -16,5 +16,10 @@ public enum RewardPageType {
 	/**
 	 * 应用奖项列表
 	 */
-	APPLYREWARDLIST
+	APPLYREWARDLIST,
+	
+	/**
+	 * 确定获奖者
+	 */
+	DETERMINEWINNERS;
 }

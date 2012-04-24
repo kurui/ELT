@@ -8,10 +8,12 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.InlineLabel;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -40,18 +42,40 @@ public class StaffViewWidget extends Composite implements StaffViewDisplay {
 	InlineLabel staffRoles;
 	
 	@UiField
+	InlineLabel historyIntegral;
+	@UiField
+	InlineLabel consumptionIntegral;
+	@UiField
+	InlineLabel  balanceIntegral;
+	
+	@UiField
 	Button updateBtn;
 
 	@UiField
 	Panel breadCrumbs;
 	@UiField
 	Image staffImage;
+	
+	@UiField
+	Anchor btnIntegral;//积分信息
+	@UiField
+	Anchor btnRewardHistory;//获奖历史
+	@UiField
+	Anchor btnExchangeHistory;//兑换历史
+	
+	@UiField
+	InlineLabel detailTitle;
+    
 	@UiField
 	InlineLabel dataCount;
 	@UiField
 	Panel resultPanel;
 	@UiField
 	Panel resultpage;
+	
+	@UiField
+	 ListBox pageNumber;
+
 	private static StaffViewWidgetUiBinder uiBinder = GWT
 			.create(StaffViewWidgetUiBinder.class);
 
@@ -70,7 +94,7 @@ public class StaffViewWidget extends Composite implements StaffViewDisplay {
 	}
 
 	@Override
-	public HasClickHandlers getupadateBtnClickHandlers() {
+	public HasClickHandlers getUpadateBtnClickHandlers() {
 		return updateBtn;
 	}
 
@@ -153,6 +177,51 @@ public class StaffViewWidget extends Composite implements StaffViewDisplay {
 	@Override
 	public InlineLabel getStaffRoles() {
 		return staffRoles;
+	}
+
+	@Override
+	public Anchor getBtnIntegral() {
+		return btnIntegral;
+	}
+
+	@Override
+	public Anchor getBtnExchangeHistory() {
+		return btnExchangeHistory;
+	}
+
+	@Override
+	public Anchor getBtnRewardHistory() {
+		return btnRewardHistory;
+	}
+
+	@Override
+	public InlineLabel getDataCount() {
+		return dataCount;
+	}
+
+	@Override
+	public InlineLabel getHistoryIntegral() {
+		return historyIntegral;
+	}
+
+	@Override
+	public InlineLabel getConsumptionIntegral() {
+		return consumptionIntegral;
+	}
+
+	@Override
+	public InlineLabel getBalanceIntegral() {
+		return balanceIntegral;
+	}
+
+	@Override
+	public InlineLabel getDetailTitle() {
+		return detailTitle;
+	}
+
+	@Override
+	public ListBox getPageNumber() {
+		return pageNumber;
 	}
 
 }

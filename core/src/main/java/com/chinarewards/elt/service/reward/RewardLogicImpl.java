@@ -18,6 +18,7 @@ import com.chinarewards.elt.domain.reward.base.RewardItem;
 import com.chinarewards.elt.domain.reward.person.Candidate;
 import com.chinarewards.elt.domain.reward.person.Judge;
 import com.chinarewards.elt.domain.reward.person.NomineeLot;
+import com.chinarewards.elt.domain.reward.person.PreWinner;
 import com.chinarewards.elt.domain.reward.person.PreWinnerLot;
 import com.chinarewards.elt.domain.reward.person.Winner;
 import com.chinarewards.elt.domain.reward.rule.CandidateRule;
@@ -52,6 +53,7 @@ import com.chinarewards.elt.service.reward.rule.NomineeLogic;
 import com.chinarewards.elt.service.reward.rule.PreWinnerLogic;
 import com.chinarewards.elt.service.reward.rule.WinnerLogic;
 import com.chinarewards.elt.service.staff.StaffLogic;
+import com.chinarewards.elt.service.user.UserLogic;
 import com.chinarewards.elt.util.DateUtil;
 import com.chinarewards.elt.util.StringUtil;
 import com.google.inject.Inject;
@@ -81,6 +83,7 @@ public class RewardLogicImpl implements RewardLogic {
 	private final RewardAclProcessorFactory rewardAclProcessorFactory;
 	private final BroadcastService broadcastService;
 	private final StaffLogic staffLogic;
+	private final UserLogic userLogic;
 
 	@Inject
 	public RewardLogicImpl(RewardDao rewardDao, RewardItemDao rewardItemDao,
@@ -91,7 +94,9 @@ public class RewardLogicImpl implements RewardLogic {
 			NomineeLogic nomineeLogic,
 			AwardApprovalDeterminer awardApprovalDeterminer,
 			FrequencyLogic frequencyLogic,
-			RewardAclProcessorFactory rewardAclProcessorFactory,BroadcastService broadcastService,StaffLogic staffLogic) {
+			RewardAclProcessorFactory rewardAclProcessorFactory,
+			BroadcastService broadcastService, StaffLogic staffLogic,
+			UserLogic userLogic) {
 		this.rewardDao = rewardDao;
 		this.rewardItemDao = rewardItemDao;
 		this.deptDao = deptDao;
@@ -105,8 +110,9 @@ public class RewardLogicImpl implements RewardLogic {
 		this.awardApprovalDeterminer = awardApprovalDeterminer;
 		this.frequencyLogic = frequencyLogic;
 		this.rewardAclProcessorFactory = rewardAclProcessorFactory;
-		this.broadcastService=broadcastService;
-		this.staffLogic=staffLogic;
+		this.broadcastService = broadcastService;
+		this.staffLogic = staffLogic;
+		this.userLogic = userLogic;
 
 	}
 
@@ -286,19 +292,19 @@ public class RewardLogicImpl implements RewardLogic {
 			winnerLogic.processWinnerAward(reward.getId());
 			rewardDao.update(reward);
 		}
-		//获奖加入发送广播
-		UserContext context=new UserContext();
+		// 获奖加入发送广播
+		UserContext context = new UserContext();
 		context.setCorporationId(reward.getCorporation().getId());
 		context.setUserId(caller.getId());
-		
-		List<String[]> organList=new ArrayList<String[]>();
-		
-		String staffNames="";
-		List <Staff> staffList=staffLogic.findStaffsByStaffIds(staffIds);
-		if(staffList.size()>0){
-			for (Staff f:staffList) {
-				staffNames+=f.getName()+",";
-				
+
+		List<String[]> organList = new ArrayList<String[]>();
+
+		String staffNames = "";
+		List<Staff> staffList = staffLogic.findStaffsByStaffIds(staffIds);
+		if (staffList.size() > 0) {
+			for (Staff f : staffList) {
+				staffNames += f.getName() + ",";
+
 				String[] nameAndId = new String[3];
 				nameAndId[0] = f.getId();
 				nameAndId[1] = f.getName();
@@ -306,32 +312,33 @@ public class RewardLogicImpl implements RewardLogic {
 				organList.add(nameAndId);
 			}
 		}
-		//对获奖人.发送消息
-		BroadcastingVo messagevo=new BroadcastingVo();
+		// 对获奖人.发送消息
+		BroadcastingVo messagevo = new BroadcastingVo();
 		messagevo.setOrganList(organList);
-		messagevo.setContent("恭喜您,您获得"+reward.getName()+"，获得奖金"+((int)reward.getAwardAmt())+"积分！");
+		messagevo.setContent("恭喜您,您获得" + reward.getName() + "，获得奖金"
+				+ ((int) reward.getAwardAmt()) + "积分！");
 		broadcastService.createOrUpdateMessage(messagevo, context);
-		
-		
 
-		
-		BroadcastingVo vo=new BroadcastingVo();
+		BroadcastingVo vo = new BroadcastingVo();
 		vo.setBroadcastingTimeStart(DateUtil.getTime());
 		vo.setBroadcastingTimeEnd(DateUtil.getTime());
 		vo.setAllowreplies(true);
-		vo.setContent("恭喜 "+staffNames.substring(0,staffNames.length()-1)+" 获得"+reward.getName()+"，获得"+((int)reward.getAwardAmt())+"积分。大家赶快去打劫TA吧");
-		
-		//接收对象为当前人机构(接收人加入获奖人)
-		
+		vo.setContent("恭喜 " + staffNames.substring(0, staffNames.length() - 1)
+				+ " 获得" + reward.getName() + "，获得"
+				+ ((int) reward.getAwardAmt()) + "积分。大家赶快去打劫TA吧");
+
+		// 接收对象为当前人机构(接收人加入获奖人)
+
 		String[] nameAndId = new String[3];
 		nameAndId[0] = reward.getCorporation().getId();
 		nameAndId[1] = reward.getCorporation().getName();
 		nameAndId[2] = OrganType.ORG.toString();
 		organList.add(nameAndId);
-		
+
 		vo.setOrganList(organList);
-		broadcastService.createOrUpdateBroadcast(vo, context, BroadcastingCategory.REWARDBROADCAST);
-		
+		broadcastService.createOrUpdateBroadcast(vo, context,
+				BroadcastingCategory.REWARDBROADCAST);
+
 		return lotId;
 	}
 
@@ -509,8 +516,6 @@ public class RewardLogicImpl implements RewardLogic {
 
 		return rewardVo;
 	}
-	
-
 
 	@Override
 	public PageStore<RewardVo> fetchRewards(UserContext context,
@@ -522,7 +527,7 @@ public class RewardLogicImpl implements RewardLogic {
 		List<Reward> list = pageStore.getResultList();
 		// post-process and convert
 		List<RewardVo> rewardVoList = new ArrayList<RewardVo>();
-		if (list!=null && list.size() > 0) {
+		if (list != null && list.size() > 0) {
 			for (Reward reward : list) {
 				rewardVoList.add(convertFromRewardToVo(reward, true));
 			}
@@ -542,7 +547,6 @@ public class RewardLogicImpl implements RewardLogic {
 			return storeVo;
 		}
 	}
-
 
 	@Override
 	public String deleteReward(String rewardId, UserContext context) {
@@ -567,9 +571,12 @@ public class RewardLogicImpl implements RewardLogic {
 		// TODO Auto-generated method stub
 		return rewardDao.getRewardsByStaffId(staffId);
 	}
+
 	@Override
-	public List<RewardVo> getRewardsByHrBox(UserContext context,RewardSearchVo criteria){
-		List<Reward> list =rewardDao.hrBoxRewards(context.getCorporationId(),criteria);
+	public List<RewardVo> getRewardsByHrBox(UserContext context,
+			RewardSearchVo criteria) {
+		List<Reward> list = rewardDao.hrBoxRewards(context.getCorporationId(),
+				criteria);
 		List<RewardVo> rewardVoList = new ArrayList<RewardVo>();
 		if (list.size() > 0) {
 			for (Reward reward : list) {
@@ -581,33 +588,133 @@ public class RewardLogicImpl implements RewardLogic {
 
 	@Override
 	public void toMessageForReward() {
-		List<Reward> list =rewardDao.getRewardsForReward();
+		List<Reward> list = rewardDao.getRewardsForReward();
 		if (list.size() > 0) {
 			for (Reward reward : list) {
-				Staff staff = reward.getCreatedBy().getStaff(); 
-				int leadTime =staff.getLeadTime();
-				if(DateUtil.formatData("yyyy-MM-dd", DateUtil.addSomeDay(reward.getExpectAwardDate(), -(leadTime))).equals(DateUtil.formatData("yyyy-MM-dd", DateUtil.getTime()))){
-					System.out.println(staff.getName()+"==============要颁奖了");
+				Staff staff = reward.getCreatedBy().getStaff();
+				int leadTime = staff.getLeadTime();
+				if (DateUtil.formatData(
+						"yyyy-MM-dd",
+						DateUtil.addSomeDay(reward.getExpectAwardDate(),
+								-(leadTime))).equals(
+						DateUtil.formatData("yyyy-MM-dd", DateUtil.getTime()))) {
+					System.out.println(staff.getName() + "==============要颁奖了");
 					List<String[]> organList = new ArrayList<String[]>();
 					String[] nameAndId = new String[3];
 					nameAndId[0] = staff.getId();
 					nameAndId[1] = staff.getName();
 					nameAndId[2] = OrganType.STAFF.toString();
 					organList.add(nameAndId);
-					sendMessage(organList,staff.getCorporation().getId(),reward.getCreatedBy().getId(),reward.getName());
+					sendMessage(organList, staff.getCorporation().getId(),
+							reward.getCreatedBy().getId(), reward.getName());
 				}
 			}
 		}
-		
+
 	}
-	private void sendMessage(List<String[]> organList,String corpId,String userId,String rewardname){
+
+	private void sendMessage(List<String[]> organList, String corpId,
+			String userId, String rewardname) {
 		UserContext context = new UserContext();
 		context.setCorporationId(corpId);
 		context.setUserId(userId);
 		// 对颁奖人提前发送消息
 		BroadcastingVo messagevo = new BroadcastingVo();
 		messagevo.setOrganList(organList);
-		messagevo.setContent("系统提示："+rewardname+"奖颁奖期限将至，请参加颁奖");
+		messagevo.setContent("系统提示：" + rewardname + "奖颁奖期限将至，请参加颁奖");
 		broadcastService.createOrUpdateMessage(messagevo, context);
+	}
+
+	@Override
+	public String determineWinner(String nowUserId, String rewardId,
+			List<String> staffIds) {
+		SysUser caller = userLogic.findUserById(nowUserId);
+
+		Reward reward = rewardDao.findById(Reward.class, rewardId);
+		String lotId = preWinnerLogic.addPreWinnerFromOuter(caller, rewardId,
+				staffIds);
+
+		reward.setStatus(RewardStatus.NEW);
+		rewardDao.update(reward);
+		return lotId;
+	}
+
+	@Override
+	public String awardRewardWinner(String nowUserId, String rewardId) {
+		SysUser caller = userLogic.findUserById(nowUserId);
+		Reward reward = rewardDao.findById(Reward.class, rewardId);
+		List<PreWinnerLot> lot = preWinnerLogic
+				.getPreWinnerLotsFromReward(rewardId);
+		if (lot != null && lot.size() > 0) {
+			// if not require, Add winner record
+			winnerLogic.approveWinnerFromEffectivePreWinnerLotOfReward(caller,lot.get(0).getId(), "不需要审核");
+			reward.setStatus(RewardStatus.REWARDED);
+			// process transaction
+			winnerLogic.processWinnerAward(reward.getId());
+			rewardDao.update(reward);
+
+			// 获奖加入发送广播
+			UserContext context = new UserContext();
+			context.setCorporationId(reward.getCorporation().getId());
+			context.setUserId(caller.getId());
+
+			List<String[]> organList = new ArrayList<String[]>();
+
+			
+			List<Staff> staffList = new ArrayList<Staff>();
+			List<PreWinner> preStaff=lot.get(0).getPreWinners();
+
+			for (int i = 0; i < preStaff.size(); i++) {
+				staffList.add(preStaff.get(i).getStaff());
+			}
+			
+			String staffNames = "";
+			
+			if (staffList.size() > 0) {
+				for (Staff f : staffList) {
+					staffNames += f.getName() + ",";
+
+					String[] nameAndId = new String[3];
+					nameAndId[0] = f.getId();
+					nameAndId[1] = f.getName();
+					nameAndId[2] = OrganType.STAFF.toString();
+					organList.add(nameAndId);
+				}
+			}
+			// 对获奖人.发送消息
+			BroadcastingVo messagevo = new BroadcastingVo();
+			messagevo.setOrganList(organList);
+			messagevo.setContent("恭喜您,您获得" + reward.getName() + "，获得奖金"
+					+ ((int) reward.getAwardAmt()) + "积分！");
+			broadcastService.createOrUpdateMessage(messagevo, context);
+
+			BroadcastingVo vo = new BroadcastingVo();
+			vo.setBroadcastingTimeStart(DateUtil.getTime());
+			vo.setBroadcastingTimeEnd(DateUtil.getTime());
+			vo.setAllowreplies(true);
+			vo.setContent("恭喜 "
+					+ staffNames.substring(0, staffNames.length() - 1) + " 获得"
+					+ reward.getName() + "，获得" + ((int) reward.getAwardAmt())
+					+ "积分。大家赶快去打劫TA吧");
+
+			// 接收对象为当前人机构(接收人加入获奖人)
+
+			String[] nameAndId = new String[3];
+			nameAndId[0] = reward.getCorporation().getId();
+			nameAndId[1] = reward.getCorporation().getName();
+			nameAndId[2] = OrganType.ORG.toString();
+			organList.add(nameAndId);
+
+			vo.setOrganList(organList);
+			broadcastService.createOrUpdateBroadcast(vo, context,
+					BroadcastingCategory.REWARDBROADCAST);
+
+			return lot.get(0).getId();
+		} else
+		{
+			reward.setStatus(RewardStatus.REWARDED);
+			rewardDao.update(reward);
+			return null;
+		}
 	}
 }

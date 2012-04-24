@@ -68,13 +68,13 @@ public interface UserService {
 	 * @param staffNo
 	 * @return
 	 */
-	public boolean vaildStaffNo(String staffNo);
+	public boolean vaildStaffNo(String staffNo,String nowStaffId);
 	/**
 	 * 验证邮箱
 	 * @param staffEmail
 	 * @return
 	 */
-	public boolean vaildStaffEmail(String staffEmail);
+	public boolean vaildStaffEmail(String staffEmail,String nowStaffId);
 	
 	
 }

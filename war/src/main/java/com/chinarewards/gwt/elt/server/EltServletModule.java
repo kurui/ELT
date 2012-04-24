@@ -8,9 +8,11 @@ import org.slf4j.LoggerFactory;
 import com.chinarewards.elt.guice.EltModule;
 import com.chinarewards.gwt.elt.client.Elt;
 import com.chinarewards.gwt.elt.server.login.LoginServiceImpl;
-import com.chinarewards.gwt.elt.servlet.ExportGiftServlet;
 import com.chinarewards.gwt.elt.server.order.OrderServlet;
+import com.chinarewards.gwt.elt.servlet.ExportGiftServlet;
 import com.chinarewards.gwt.elt.sevlet.ExcelServlet;
+import com.chinarewards.gwt.elt.sevlet.ImportGiftServlet;
+import com.chinarewards.gwt.elt.sevlet.ImportStaffReportServlet;
 import com.chinarewards.gwt.elt.sevlet.ImportStaffServlet;
 import com.google.inject.Singleton;
 import com.google.inject.servlet.ServletModule;
@@ -37,6 +39,8 @@ public class EltServletModule extends ServletModule {
 		bind(ImportStaffServlet.class).in(Singleton.class);
 		serve("/servlet.iss").with(ImportStaffServlet.class);
 		
+		bind(ImportStaffReportServlet.class).in(Singleton.class);
+		serve(Elt.GWT_MODULE_PATH +"/servlet.isrs").with(ImportStaffReportServlet.class);
 		
 		bind(LoginServiceImpl.class).in(Singleton.class);
 		serve(Elt.GWT_MODULE_PATH + "/loginService").with(LoginServiceImpl.class);
@@ -47,6 +51,9 @@ public class EltServletModule extends ServletModule {
 
 		bind(ExportGiftServlet.class).in(Singleton.class);
 		serve(Elt.GWT_MODULE_PATH +"/servlet.exportGift").with(ExportGiftServlet.class);
+		
+		bind(ImportGiftServlet.class).in(Singleton.class);
+		serve(Elt.GWT_MODULE_PATH +"/servlet.importGift").with(ImportGiftServlet.class);
 		
 
 		bind(OrderServlet.class).in(Singleton.class);

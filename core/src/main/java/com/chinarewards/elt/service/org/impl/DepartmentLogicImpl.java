@@ -421,4 +421,9 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 				key);
 	}
 
+	@Override
+	public Department findDepartmentByName(String name) {
+		return departmentDao.findDepartmentsByName(name);
+	}
+
 }

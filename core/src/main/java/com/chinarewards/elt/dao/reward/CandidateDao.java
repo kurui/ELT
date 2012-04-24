@@ -102,4 +102,14 @@ public class CandidateDao extends BaseDao<Candidate> {
 				.setParameter("rewardId", rewardId)
 				.setParameter("staffIds", staffIds).executeUpdate();
 	}
+	/**
+	 * 物理删除
+	 * @param staffId
+	 * @return
+	 */
+	public int deleteCandidateByStaffId(String staffId) {
+		return getEmNoFlush()
+				.createQuery("DELETE FROM Candidate win WHERE win.staff.id=:staffId ")
+				.setParameter("staffId", staffId).executeUpdate();
+	}
 }

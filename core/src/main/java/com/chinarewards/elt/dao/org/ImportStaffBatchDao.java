@@ -41,7 +41,7 @@ public class ImportStaffBatchDao extends BaseDao<ImportStaffBatch> {
 		Query q = this
 				.getEm()
 				.createQuery(
-						"SELECT isr FROM ImportStaffRaw isr WHERE isr.importStaffBatch.id = :id ORDER BY isr.rowPos");
+						"SELECT isr FROM ImportStaffRaw isr WHERE isr.importStaffBatch.id = :id AND (isr.importfal=0 OR isr.importfal is null) ORDER BY isr.rowPos");
 		q.setParameter("id", batchId);
 		return q.getResultList();
 	}
@@ -51,7 +51,7 @@ public class ImportStaffBatchDao extends BaseDao<ImportStaffBatch> {
 		Query q = this
 				.getEm()
 				.createQuery(
-						"SELECT isr FROM ImportStaffRaw isr WHERE isr.importStaffBatch.id = :id and isr.result = :resultType ORDER BY isr.rowPos");
+						"SELECT isr FROM ImportStaffRaw isr WHERE isr.importStaffBatch.id = :id and isr.result = :resultType AND (isr.importfal=0 OR isr.importfal is null) ORDER BY isr.rowPos");
 		q.setParameter("id", batchId);
 		q.setParameter("resultType", ImportStaffResultType.PENDING);
 		return q.getResultList();
@@ -65,5 +65,15 @@ public class ImportStaffBatchDao extends BaseDao<ImportStaffBatch> {
 		q.setParameter("id", batchId);
 		q.setParameter("resultType", ImportStaffResultType.PENDING);
 		return (Long) q.getSingleResult();
+	}
+	/**
+	 * 物理删除
+	 * @param staffId
+	 * @return
+	 */
+	public int deleteImportStaffRawByUserId(String userId) {
+		return getEmNoFlush()
+				.createQuery("DELETE FROM ImportStaffBatch b WHERE b.createBy.id=:userId or b.lastUpdateBy.id=:userId ")
+				.setParameter("userId", userId).executeUpdate();
 	}
 }

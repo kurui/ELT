@@ -25,6 +25,7 @@ import com.google.inject.Inject;
 
 public class GiftLogicImpl implements GiftLogic{
 	private GiftDao giftDao;
+	
 	private BroadcastService broadcastService;
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Inject
@@ -85,6 +86,7 @@ public class GiftLogicImpl implements GiftLogic{
 			tempGift.setTell(gift.getTell());
 			tempGift.setServicetell(gift.getServicetell());
 			tempGift.setIntegral(gift.getIntegral());
+			tempGift.setPrice(gift.getPrice());
 			tempGift.setStock(gift.getStock());
 			tempGift.setPhoto(gift.getPhoto());
 			tempGift.setIndate(gift.getIndate());
@@ -166,6 +168,7 @@ public class GiftLogicImpl implements GiftLogic{
         giftVo.setRecorduser(gift.getRecorduser());
         giftVo.setUpdatetime(gift.getUpdatetime());
         giftVo.setIntegral(gift.getIntegral());
+        giftVo.setPrice(gift.getPrice());
 		return giftVo;
 	}
 	@Override
@@ -175,5 +178,13 @@ public class GiftLogicImpl implements GiftLogic{
 		gift= giftDao.update(gift);
 		return gift.getId();
 	}
+
+	@Override
+	public List<Gift> findNotDeleteGift() {
+		return giftDao.findNotDeleteGift();
+	}
+	
+	
+
 
 }

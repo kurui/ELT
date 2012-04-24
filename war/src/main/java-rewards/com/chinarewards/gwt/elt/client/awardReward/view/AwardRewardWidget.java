@@ -21,6 +21,9 @@ public class AwardRewardWidget extends Composite implements AwardRewardDisplay {
 	@UiField
 	Button nominatebutton;
 	@UiField
+	Button notWinbutton;
+	
+	@UiField
 	Label name;
 	@UiField
 	Label explain;
@@ -178,5 +181,10 @@ public class AwardRewardWidget extends Composite implements AwardRewardDisplay {
 		this.breadCrumbs.clear();
 		this.breadCrumbs.add(breadCrumbs);
 		
+	}
+
+	@Override
+	public HasClickHandlers getNotWinClickHandlers() {
+		return notWinbutton;
 	}
 }

@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,47 +34,10 @@ import jxl.write.WritableWorkbook;
  * 
  * @author yanrui
  * @since 2012年4月17日 16:09:07
- * 
+ * 1.5.2
  * */
 public class FileExcelUtil {
-	// private Log
-	public static void main(String[] args) {
-		// String filePath = "";
-		// filePath = "D:" + File.separator
-		// + Constant.PROJECT_PLATFORMREPORTS_PATH + File.separator
-		// + "129162010120681.xls";
-		// parseXLSFile(filePath, 0);
-		// testJxlExample();
 
-		ArrayList<Object> title = new ArrayList<Object>();
-		title.add("titleA");
-		title.add("titleB");
-		title.add("titleC");
-
-		ArrayList<ArrayList<Object>> lists = new ArrayList<ArrayList<Object>>();
-		ArrayList<Object> list1 = new ArrayList<Object>();
-		list1.add("a1");
-		list1.add("a2");
-		list1.add("a2");
-		lists.add(list1);
-		ArrayList<Object> list2 = new ArrayList<Object>();
-		list2.add("b1");
-		list2.add("b2");
-		lists.add(list2);
-		ArrayList<Object> list3 = new ArrayList<Object>();
-		list3.add("b1");
-		list3.add("c2");
-		lists.add(list3);
-
-		ArrayList<Object> list4 = new ArrayList<Object>();
-		list4.add("d1");
-		list4.add("d2");
-		lists.add(list4);
-
-		String sheetName = "管理费用报表";
-		String filePath = "e:\\liveReport.xls";
-		createXLSFile(title, lists, sheetName, filePath);
-	}
 
 	/**
 	 * 创建XLS文件
@@ -253,6 +217,39 @@ public class FileExcelUtil {
 				WritableFont.createFont("隶书"), 20);
 		WritableCellFormat font = new WritableCellFormat(wfont);
 		return font;
+	}
+	
+	/**
+	 * 另存为为CSV文件
+	 */
+	public static void createCSVFile(String fileName,ArrayList<Object> titles,
+			ArrayList<ArrayList<Object>> lists,HttpServletResponse response) {
+		try {
+			//***** output strout to response ******
+			response.reset(); // reset the response
+			response.setContentType("application/octet-stream"); // the encoding 
+			response.setHeader("content-disposition","attachment; filename=" + fileName);
+			response.setCharacterEncoding("GBK");
+			
+			PrintWriter out = response.getWriter();
+			
+			for (int i = 0; i < titles.size(); i++) {
+				Object obj = titles.get(i);
+				out.write(obj + ",");			
+			}
+			out.write("\r\n");
+
+			for (int i = 0; i < lists.size(); i++) {
+				ArrayList<Object> objList = lists.get(i);
+				for (int j = 0; j < objList.size(); j++) {
+					out.write(objList.get(j) + ",");
+				}
+				out.write("\r\n");
+			}
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -479,5 +476,44 @@ public class FileExcelUtil {
 			System.out.println("---出现异常---");
 			e.printStackTrace();
 		}
+	}
+	
+	// private Log
+	public static void main(String[] args) {
+		// String filePath = "";
+		// filePath = "D:" + File.separator
+		// + Constant.PROJECT_PLATFORMREPORTS_PATH + File.separator
+		// + "129162010120681.xls";
+		// parseXLSFile(filePath, 0);
+		// testJxlExample();
+
+		ArrayList<Object> title = new ArrayList<Object>();
+		title.add("titleA");
+		title.add("titleB");
+		title.add("titleC");
+
+		ArrayList<ArrayList<Object>> lists = new ArrayList<ArrayList<Object>>();
+		ArrayList<Object> list1 = new ArrayList<Object>();
+		list1.add("a1");
+		list1.add("a2");
+		list1.add("a2");
+		lists.add(list1);
+		ArrayList<Object> list2 = new ArrayList<Object>();
+		list2.add("b1");
+		list2.add("b2");
+		lists.add(list2);
+		ArrayList<Object> list3 = new ArrayList<Object>();
+		list3.add("b1");
+		list3.add("c2");
+		lists.add(list3);
+
+		ArrayList<Object> list4 = new ArrayList<Object>();
+		list4.add("d1");
+		list4.add("d2");
+		lists.add(list4);
+
+		String sheetName = "管理费用报表";
+		String filePath = "e:\\liveReport.xls";
+		createXLSFile(title, lists, sheetName, filePath);
 	}
 }

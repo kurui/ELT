@@ -17,7 +17,6 @@ import com.chinarewards.elt.service.org.DepartmentService;
 import com.chinarewards.gwt.elt.client.budget.model.CorpBudgetVo;
 import com.chinarewards.gwt.elt.client.budget.request.InitCorpBudgetRequest;
 import com.chinarewards.gwt.elt.client.budget.request.InitCorpBudgetResponse;
-import com.chinarewards.gwt.elt.client.support.UserSession;
 import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
 import com.chinarewards.gwt.elt.server.logger.InjectLogger;

@@ -34,10 +34,7 @@ public class ImportStaffEjbHelper {
 	 * 现有员工编号
 	 */
 	private List<String> existingStaffNumbers;
-	/**
-	 * 现有员工卡号
-	 */
-	private List<String> existingMemberCardNumbers;
+
 	/**
 	 * 现有员工email
 	 */
@@ -57,7 +54,7 @@ public class ImportStaffEjbHelper {
 	/**
 	 * 同一上传批次员工编号
 	 */
-
+	private List<String> desiredStaffNumber; 
 	/**
 	 * the staff raw position in current uploaded file 
 	 */
@@ -76,6 +73,14 @@ public class ImportStaffEjbHelper {
 	private Boolean isDepartmentInvalid;
 
 
+
+	public List<String> getDesiredStaffNumber() {
+		return desiredStaffNumber;
+	}
+
+	public void setDesiredStaffNumber(List<String> desiredStaffNumber) {
+		this.desiredStaffNumber = desiredStaffNumber;
+	}
 
 	/**
 	 * @return the existingStaffNumbers
@@ -158,19 +163,7 @@ public class ImportStaffEjbHelper {
 
 	
 
-	/**
-	 * @return the existingMemberCardNumbers
-	 */
-	public List<String> getExistingMemberCardNumbers() {
-		return existingMemberCardNumbers;
-	}
 
-	/**
-	 * @param existingCardMembers the existingCardMembers to set
-	 */
-	public void setExistingMemberCardNumbers(List<String> existingMemberCardNumbers) {
-		this.existingMemberCardNumbers = existingMemberCardNumbers;
-	}
 
 	/**
 	 * @return the existingEmailAddress

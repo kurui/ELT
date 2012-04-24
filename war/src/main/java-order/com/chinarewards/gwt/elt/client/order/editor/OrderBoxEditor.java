@@ -1,7 +1,6 @@
 package com.chinarewards.gwt.elt.client.order.editor;
 
 import com.chinarewards.gwt.elt.client.core.ui.impl.AbstractEditor;
-import com.chinarewards.gwt.elt.client.order.model.OrderSearchVo;
 import com.chinarewards.gwt.elt.client.order.presenter.OrderBoxPresenter;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;

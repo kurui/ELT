@@ -179,4 +179,14 @@ public class StaffServiceImpl implements IStaffService {
 	public List queryStaffListExport(StaffSearchCriteria criteria, UserContext context){
 		return staffLogic.queryStaffListExport(criteria, context);
 	}
+
+	@Override
+	public String restorationStaff(String staffId, UserContext context) {
+		return staffLogic.restorationStaff(staffId, context);
+	}
+
+	@Override
+	public String physicalDeleteStaff(String staffId, UserContext context) {
+		return staffLogic.physicalDeleteStaff(staffId, context);
+	}
 }

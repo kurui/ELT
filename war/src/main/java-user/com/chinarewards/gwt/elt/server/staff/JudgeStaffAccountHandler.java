@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 
 import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.domain.user.SysUser;
-import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.staff.IStaffService;
 import com.chinarewards.elt.service.user.UserService;
 import com.chinarewards.elt.util.StringUtil;
@@ -18,7 +17,6 @@ import com.chinarewards.gwt.elt.client.staff.request.JudgeStaffAccountRequest;
 import com.chinarewards.gwt.elt.client.staff.request.JudgeStaffAccountResponse;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
 import com.chinarewards.gwt.elt.server.logger.InjectLogger;
-import com.chinarewards.gwt.elt.util.UserRoleTool;
 import com.google.inject.Inject;
 
 /**

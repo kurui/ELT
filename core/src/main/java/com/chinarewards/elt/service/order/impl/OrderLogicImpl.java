@@ -11,14 +11,11 @@ import com.chinarewards.elt.dao.gift.GiftDao;
 import com.chinarewards.elt.dao.order.OrderDao;
 import com.chinarewards.elt.domain.gift.Gift;
 import com.chinarewards.elt.domain.order.Orders;
-import com.chinarewards.elt.domain.org.Staff;
-import com.chinarewards.elt.domain.reward.base.Reward;
 import com.chinarewards.elt.domain.user.SysUser;
-import com.chinarewards.elt.model.broadcast.OrganType;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.gift.search.GiftListVo;
-import com.chinarewards.elt.model.order.search.OrderStatus;
 import com.chinarewards.elt.model.order.search.OrderListVo;
+import com.chinarewards.elt.model.order.search.OrderStatus;
 import com.chinarewards.elt.service.order.OrderLogic;
 import com.chinarewards.elt.util.DateUtil;
 import com.chinarewards.elt.util.StringUtil;
@@ -108,6 +105,7 @@ public class OrderLogicImpl implements OrderLogic{
 		orderVo.setExchangeDate(order.getExchangeDate());
 		orderVo.setStatus(order.getStatus());
 		orderVo.setUserId(order.getUserId());
+	
 		//================下面为礼品的信息
 		Gift gift = giftDao.findById(Gift.class,order.getGiftId());
 		giftVo.setAddress(gift.getAddress());

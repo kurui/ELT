@@ -21,17 +21,25 @@ import com.chinarewards.gwt.elt.client.remote.login.LoginServiceAsync;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.support.UserSession;
 import com.chinarewards.gwt.elt.client.ui.DialogBox;
+import com.chinarewards.gwt.elt.client.win.confirm.WinEvent;
+import com.chinarewards.gwt.elt.client.win.confirm.WinHandler;
+import com.chinarewards.gwt.elt.client.win.loginconfirm.LoginConfirmDialog;
 import com.chinarewards.gwt.elt.model.ClientException;
 import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.logical.shared.CloseEvent;
+import com.google.gwt.event.logical.shared.CloseHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.PopupPanel;
+import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 /**
  * Provide LoginEvent
@@ -45,18 +53,18 @@ public class CookieSessionManager implements SessionManager {
 	final EventBus eventBus;
 	final DispatchAsync dispatchAsync;
 	private final LoginServiceAsync loginService;
-
+	final Provider<LoginConfirmDialog> logindialogProvider;
 	private static final int COOKIE_TIMEOUT = 1000 * 60 * 60;
 	List<HandlerRegistration> handlerRegistrations = new ArrayList<HandlerRegistration>();
 
 	@Inject
 	public CookieSessionManager(UserSession session, final EventBus eventBus,
-			DispatchAsync dispatchAsync,LoginServiceAsync loginService) {
+			DispatchAsync dispatchAsync,LoginServiceAsync loginService,Provider<LoginConfirmDialog> logindialogProvider) {
 		this.session = session;
 		this.eventBus = eventBus;
 		this.dispatchAsync = dispatchAsync;
 		this.loginService=loginService;
-
+		this.logindialogProvider=logindialogProvider;
 	}
 
 	public void authenticate(String username, String password, String verifyCode) {
@@ -123,8 +131,7 @@ public class CookieSessionManager implements SessionManager {
 		loginService.authLogin(username, password, verifyCode,new AsyncCallback<UserSession>() {
 			
 			@Override
-			public void onSuccess(UserSession resp) {
-				// TODO Auto-generated method stub
+			public void onSuccess(final UserSession resp) {
 				tokenObtained(resp);
 
 				UserRoleVo role = resp.getLastLoginRole();
@@ -136,69 +143,177 @@ public class CookieSessionManager implements SessionManager {
 					for (UserRoleVo r:roles) {
 						roleslt.add(r);
 					}
-					
-					if(role!=null && roleslt.contains(role))
+					if(roleslt.contains(UserRoleVo.CORP_ADMIN) && roleslt.contains(UserRoleVo.DEPT_MGR))
 					{
-						if (role == UserRoleVo.CORP_ADMIN)
-							 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK));
-						else if (role == UserRoleVo.DEPT_MGR)
-							 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_DEPT));
-						else if (role == UserRoleVo.STAFF)
-							 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_STAFF));
-						else if (role == UserRoleVo.GIFT)
-							eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_GIFT));	
-					}
-					else
-					{
-							if(roleslt.contains(UserRoleVo.CORP_ADMIN))
-							{		
-								 role=UserRoleVo.CORP_ADMIN;
-								 session.setLastLoginRole(role);
-								 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK));
-							}
-							else if(roleslt.contains(UserRoleVo.DEPT_MGR))
-							{
-								 role=UserRoleVo.DEPT_MGR;
-								 session.setLastLoginRole(role);
-								 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_DEPT));
-							}
-							else if(roleslt.contains(UserRoleVo.GIFT))
-							{
-								 role=UserRoleVo.GIFT;
-								 session.setLastLoginRole(role);
-								 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_GIFT));							 
-							}
-							else if(roleslt.contains(UserRoleVo.STAFF))
-							{
-								 role=UserRoleVo.STAFF;
-								 session.setLastLoginRole(role);
-								 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_STAFF));
-							}
-							else 
-								Window.alert("没有角色");
-					}
-					
-					if(role!=null)
-					{
-						dispatchAsync.execute(new LastLoginRoleRequest(resp.getToken(),role),
-								new AsyncCallback<LastLoginRoleResponse>() {
-	
+						final DialogBox dialogBox = new DialogBox();
+						final LoginConfirmDialog dialog = logindialogProvider.get();
+						dialog.setTitle("权限选择");
+						final HandlerRegistration registration = eventBus.addHandler(
+								WinEvent.getType(), new WinHandler() {
 									@Override
-									public void onFailure(Throwable e) {
-										tokenObtained(null);
-										eventBus.fireEvent(new PlatformInitEvent(false));
-									}
-	
-									@Override
-									public void onSuccess(LastLoginRoleResponse resp) {
-										//成功
-										if("success".equals(resp.getFal()))
-											GWT.log("success update last login role ");
+									public void confirm() {
+										
+										dialogBox.hide();
+
+										if (UserRoleVo.valueOf(dialog.getLoginType()) == UserRoleVo.CORP_ADMIN)
+										{		
+											 session.setLastLoginRole(UserRoleVo.CORP_ADMIN);
+											 
+											 UserRoleVo [] tempRole=session.getUserRoles();
+											 UserRoleVo [] tempRoleNew=new UserRoleVo[tempRole.length-1];
+												if(tempRole.length>0)
+												{
+													int index=0;
+													for (int i = 0; i < tempRole.length; i++) {
+														if(tempRole[i]!= UserRoleVo.DEPT_MGR)
+														{
+															tempRoleNew[index]=tempRole[i];
+															index++;
+														}
+													}
+												}
+											 session.setUserRoles(tempRoleNew);
+											 
+											 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK));
+											 
+
+										}
+										else if (UserRoleVo.valueOf(dialog.getLoginType()) == UserRoleVo.DEPT_MGR)
+										{
+											 session.setLastLoginRole(UserRoleVo.DEPT_MGR);
+											 
+											 UserRoleVo [] tempRole=session.getUserRoles();
+											 UserRoleVo [] tempRoleNew=new UserRoleVo[tempRole.length-1];
+												if(tempRole.length>0)
+												{
+													int index=0;
+													for (int i = 0; i < tempRole.length; i++) {
+														if(tempRole[i]!= UserRoleVo.CORP_ADMIN)
+														{
+															tempRoleNew[index]=tempRole[i];
+															index++;
+														}
+													}
+												}
+											 session.setUserRoles(tempRoleNew);
+											 
+											 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_DEPT));
+										}
+										dispatchAsync.execute(new LastLoginRoleRequest(resp.getToken(),session.getLastLoginRole()),
+												new AsyncCallback<LastLoginRoleResponse>() {
+					
+													@Override
+													public void onFailure(Throwable e) {
+														tokenObtained(null);
+														eventBus.fireEvent(new PlatformInitEvent(false));
+													}
+					
+													@Override
+													public void onSuccess(LastLoginRoleResponse resp) {
+														//成功
+														if("success".equals(resp.getFal()))
+															GWT.log("success update last login role ");
+														
+													}
+												});
 										
 									}
 								});
 						
+						
+						ScrollPanel panel = new ScrollPanel();
+						panel.add(dialog.asWidget());
+						dialogBox.setWidget(panel);
+						dialogBox.setGlassEnabled(true);
+						dialogBox.setAnimationEnabled(true);
+						dialogBox.setText(dialog.getTitle());
+						dialogBox.setDialog(dialog);				
+						dialogBox.center();
+						dialogBox.setPopupPosition(Window.getClientWidth()/4, Window.getClientHeight()/4);
+						dialogBox.show();
+						dialogBox.addCloseHandler(new CloseHandler<PopupPanel>() {
+							
+							@Override
+							public void onClose(CloseEvent<PopupPanel> event) {
+								registration.removeHandler();
+								dialogBox.hide();
+							}
+						});
 					}
+					else
+					{
+						if(role!=null && roleslt.contains(role))
+						{
+								if (role == UserRoleVo.CORP_ADMIN)
+									 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK));
+								else if (role == UserRoleVo.DEPT_MGR)
+									 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_DEPT));
+								else if (role == UserRoleVo.STAFF)
+									 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_STAFF));
+								else if (role == UserRoleVo.GIFT)
+									eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_GIFT));	
+						}
+						else
+						{
+									if(roleslt.contains(UserRoleVo.CORP_ADMIN))
+									{		
+										 role=UserRoleVo.CORP_ADMIN;
+										 session.setLastLoginRole(role);
+										 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK));
+									}
+									else if(roleslt.contains(UserRoleVo.DEPT_MGR))
+									{
+										 role=UserRoleVo.DEPT_MGR;
+										 session.setLastLoginRole(role);
+										 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_DEPT));
+									}
+									else if(roleslt.contains(UserRoleVo.GIFT))
+									{
+										 role=UserRoleVo.GIFT;
+										 session.setLastLoginRole(role);
+										 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_GIFT));							 
+									}
+									else if(roleslt.contains(UserRoleVo.STAFF))
+									{
+										 role=UserRoleVo.STAFF;
+										 session.setLastLoginRole(role);
+										 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_STAFF));
+									}
+									else 
+										Window.alert("没有角色");
+								
+						}
+						if(role!=null)
+						{
+							dispatchAsync.execute(new LastLoginRoleRequest(resp.getToken(),role),
+									new AsyncCallback<LastLoginRoleResponse>() {
+		
+										@Override
+										public void onFailure(Throwable e) {
+											tokenObtained(null);
+											eventBus.fireEvent(new PlatformInitEvent(false));
+										}
+		
+										@Override
+										public void onSuccess(LastLoginRoleResponse resp) {
+											//成功
+											if("success".equals(resp.getFal()))
+												GWT.log("success update last login role ");
+											
+										}
+									});
+							
+						}
+					}
+					
+					
+					
+					
+					
+					
+
+					
+					
 				
 				}
 			}
@@ -378,7 +493,7 @@ public class CookieSessionManager implements SessionManager {
 						}
 
 						@Override
-						public void onSuccess(TokenValidResponse resp) {
+						public void onSuccess(final TokenValidResponse resp) {
 							tokenObtainedToo(resp);
 
 							UserRoleVo role = resp.getLastLoginRole();
@@ -391,12 +506,55 @@ public class CookieSessionManager implements SessionManager {
 									roleslt.add(r);
 								}
 								
+								
+								
+								
 								if(role!=null && roleslt.contains(role))
 								{
 									if (role == UserRoleVo.CORP_ADMIN)
+									{
+										if(roleslt.contains(UserRoleVo.DEPT_MGR))
+										{
+										 UserRoleVo [] tempRole=session.getUserRoles();
+										 UserRoleVo [] tempRoleNew=new UserRoleVo[tempRole.length-1];
+											if(tempRole.length>0)
+											{
+												int index=0;
+												for (int i = 0; i < tempRole.length; i++) {
+													if(tempRole[i]!= UserRoleVo.DEPT_MGR)
+													{
+														tempRoleNew[index]=tempRole[i];
+														index++;
+													}
+												}
+											}
+										
+										 session.setUserRoles(tempRoleNew);
+										}
 										 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK));
+									}
 									else if (role == UserRoleVo.DEPT_MGR)
+									{
+										if(roleslt.contains(UserRoleVo.CORP_ADMIN))
+										{
+										 UserRoleVo [] tempRole=session.getUserRoles();
+										 UserRoleVo [] tempRoleNew=new UserRoleVo[tempRole.length-1];
+											if(tempRole.length>0)
+											{
+												int index=0;
+												for (int i = 0; i < tempRole.length; i++) {
+													if(tempRole[i]!= UserRoleVo.CORP_ADMIN)
+													{
+														tempRoleNew[index]=tempRole[i];
+														index++;
+													}
+												}
+											}
+										 session.setUserRoles(tempRoleNew);
+										}
 										 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_DEPT));
+										 
+									}
 									else if (role == UserRoleVo.STAFF)
 										 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_STAFF));
 									else if (role == UserRoleVo.GIFT)
@@ -404,32 +562,9 @@ public class CookieSessionManager implements SessionManager {
 								}
 								else
 								{
-										if(roleslt.contains(UserRoleVo.CORP_ADMIN))
-										{		
-											 role=UserRoleVo.CORP_ADMIN;
-											 session.setLastLoginRole(role);
-											 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK));
-										}
-										else if(roleslt.contains(UserRoleVo.DEPT_MGR))
-										{
-											 role=UserRoleVo.DEPT_MGR;
-											 session.setLastLoginRole(role);
-											 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_DEPT));
-										}
-										else if(roleslt.contains(UserRoleVo.GIFT))
-										{
-											 role=UserRoleVo.GIFT;
-											 session.setLastLoginRole(role);
-											 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_GIFT));							 
-										}
-										else if(roleslt.contains(UserRoleVo.STAFF))
-										{
-											 role=UserRoleVo.STAFF;
-											 session.setLastLoginRole(role);
-											 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_STAFF));
-										}
-										else 
-											Window.alert("没有角色");
+									
+									eventBus.fireEvent(new PlatformInitEvent(false));
+									
 								}
 								
 								if(role!=null)

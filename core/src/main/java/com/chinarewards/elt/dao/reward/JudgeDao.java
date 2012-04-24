@@ -88,4 +88,15 @@ public class JudgeDao extends BaseDao<Judge> {
 		.getResultList();
 	 	return judgeList;
 	}
+	
+	/**
+	 * 物理删除
+	 * @param staffId
+	 * @return
+	 */
+	public int deleteJudgeByStaffId(String staffId) {
+		return getEmNoFlush()
+				.createQuery("DELETE FROM Judge win WHERE win.staff.id=:staffId ")
+				.setParameter("staffId", staffId).executeUpdate();
+	}
 }

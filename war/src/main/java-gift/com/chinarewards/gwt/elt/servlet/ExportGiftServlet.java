@@ -22,7 +22,7 @@ import com.google.inject.Inject;
 
 /**
  * @author yanrui
- * 
+ * @since 2012-4-17
  * */
 public class ExportGiftServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -32,23 +32,27 @@ public class ExportGiftServlet extends HttpServlet {
 	public void init() throws ServletException {
 	}
 
-	// 处理post请求
+	
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		GiftListVo giftListVo = buildGiftListVo(request);
 
 		UserContext uc = buildUserContext(request);
+		
+		String exportFileType=request.getParameter("exportFileType");
 
 		List<GiftListVo> giftVoList = giftService
 				.exportGiftList(uc, giftListVo);
+		
 		List<GiftClient> clientList=GiftAdapter.adapter(giftVoList);
-		doExportFile(clientList, response);
+		
+		doExportFile(clientList,exportFileType, response);
 
 	}
 
 	private void doExportFile(List<GiftClient> clientList,
-			HttpServletResponse response) {
+			String exportFileType,HttpServletResponse response) {
 		ArrayList<Object> title = new ArrayList<Object>();
 		title.add("名称");
 		title.add("来源");
@@ -57,7 +61,7 @@ public class ExportGiftServlet extends HttpServlet {
 		title.add("库存");
 		title.add("状态");
 
-		String sheetName = "礼品清单";
+		String sheetName = "GIFT";
 		ArrayList<ArrayList<Object>> lists = new ArrayList<ArrayList<Object>>();
 		
 		for (int i = 0; i < clientList.size(); i++) {
@@ -68,14 +72,19 @@ public class ExportGiftServlet extends HttpServlet {
 			list.add(client.getName());
 			list.add(client.getSourceText());
 			list.add(client.getIntegral()+"");
-			list.add("采购价");
+			list.add(client.getPrice());
 			list.add(client.getInventory());
 			list.add(client.getStatus().getDisplayName());
 			
 			lists.add(list);
 		}
 
-		FileExcelUtil.createXLSFile(title, lists, sheetName, response);
+		if ("XLS".equals(exportFileType)) {
+			FileExcelUtil.createXLSFile(title, lists, sheetName, response);
+		}else if("CSV".equals(exportFileType)){
+			FileExcelUtil.createCSVFile(sheetName+".csv", title,lists,response);
+		}
+		
 
 	}
 

@@ -6,6 +6,7 @@ import gwtupload.client.IUploader.UploadedInfo;
 import gwtupload.client.IUploader.Utils;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.Map;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.mvp.BaseDialogPresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
@@ -21,10 +23,26 @@ import com.chinarewards.gwt.elt.client.staff.model.ImportStaffAjaxResponseVo;
 import com.chinarewards.gwt.elt.client.staff.request.ImportStaffAjaxRequest;
 import com.chinarewards.gwt.elt.client.staff.request.ImportStaffAjaxResponse;
 import com.chinarewards.gwt.elt.client.staff.ui.ImportStaffSingleUploader;
+import com.chinarewards.gwt.elt.client.staffList.dataprovider.ImportStaffListAdapter;
+import com.chinarewards.gwt.elt.client.staffList.model.ImportStaffListClient;
+import com.chinarewards.gwt.elt.client.staffList.model.ImportStaffListCriteria;
+import com.chinarewards.gwt.elt.client.staffList.request.ImportStaffListRequest;
+import com.chinarewards.gwt.elt.client.staffList.request.ImportStaffListResponse;
+import com.chinarewards.gwt.elt.client.staffList.request.UpdateImportStaffRequest;
+import com.chinarewards.gwt.elt.client.staffList.request.UpdateImportStaffResponse;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.chinarewards.gwt.elt.client.widget.EltNewPager;
+import com.chinarewards.gwt.elt.client.widget.EltNewPager.TextLocation;
+import com.chinarewards.gwt.elt.client.widget.GetValue;
+import com.chinarewards.gwt.elt.client.widget.ListCellTable;
+import com.chinarewards.gwt.elt.client.widget.Sorting;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.client.win.confirm.ConfirmHandler;
+import com.chinarewards.gwt.elt.model.PaginationDetailClient;
 import com.chinarewards.gwt.elt.util.StringUtil;
+import com.google.gwt.cell.client.CheckboxCell;
+import com.google.gwt.cell.client.FieldUpdater;
+import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -48,9 +66,9 @@ public class ImportStaffPresenterImpl extends
 		BaseDialogPresenter<ImportStaffPresenter.ImportStaffDisplay> implements
 		ImportStaffPresenter {
 
-	private final static int TITLE_INSTRUCTION_DISPLAY_ROW = 6;
-	private final static int TITLE_INSTRUCTION_DISPLAY_COL = 5;
-	private final static int CONTENT_INSTRUCTION_DISPLAY_COL = 5;
+//	private final static int TITLE_INSTRUCTION_DISPLAY_ROW = 6;
+	private final static int TITLE_INSTRUCTION_DISPLAY_COL = 8;
+	private final static int CONTENT_INSTRUCTION_DISPLAY_COL = 8;
 	private final static int CONTENT_INSTRUCTION_DISPLAY_ROW = 11;
 
 	final DispatchAsync dispatch;
@@ -70,8 +88,12 @@ public class ImportStaffPresenterImpl extends
 	List<HTML> formaterWaningLabels = new ArrayList<HTML>();
 
 	String[] correctHeaderSorting = { "jobNo", "name", "email",
-			"phone", "dob"};
-
+			"phone", "dob","department","jobPosition","leadership"};
+	
+	EltNewPager pager;
+	ListCellTable<ImportStaffListClient> cellTable;
+	ImportStaffListAdapter listViewAdapter;
+	int pageSize=ViewConstants.per_page_number_in_dialog;
 	@Inject
 	public ImportStaffPresenterImpl(EventBus eventBus,
 			ImportStaffDisplay display, DispatchAsync dispatch,
@@ -137,13 +159,13 @@ public class ImportStaffPresenterImpl extends
 						+ (xlsContent == null ? 0 : xlsContent.size()));
 				win.alert("档案成功上传！");
 				display.getResultMessage().setText(
-						"档案 " + info.name + " (" + info.size + "bytes) "
+						"档案 "  + " (" + info.size + "bytes) "
 								+ "已经上传。");
 				refreshPanelStep2();
 				display.showPanelStep2();
 			} else {
 				display.getResultMessage().setText(
-						"档案 " + info.name + " (" + info.size + "bytes) "
+						"档案 "  + " (" + info.size + "bytes) "
 								+ "上传失败！");
 				win.alert(errorMsg);
 			}
@@ -173,7 +195,17 @@ public class ImportStaffPresenterImpl extends
 
 
 	public void bind() {
-
+		
+		registerHandler(display.getPageNumber().addChangeHandler(new ChangeHandler() {
+			
+			@Override
+			public void onChange(ChangeEvent event) {
+				pageSize=Integer.parseInt(display.getPageNumber().getValue(display.getPageNumber().getSelectedIndex()));
+				buildTable();
+				doSearch();
+			}
+		}));
+		
 		display.getStaffFileUploader().addOnFinishUploadHandler(
 				onFinishUploaderHandler);
 		/** 取消 **/
@@ -237,18 +269,18 @@ public class ImportStaffPresenterImpl extends
 //									}
 //
 //								});
-						display.getContentPreviewPanel().clear();
-						display.getTitlePreviewPanel().clear();
-						display.getImportDetails().setHTML("");
-						display.getImportFailure().setHTML("");
-						display.getImportBatchNo().setText("");
-						display.getImportStaffBatchNo().setText("");
-						display.getPretreatmentResult().setHTML("");
-						display.getResultMessage().setText("");
-						display.getSuccessImportMessage().setText("");
-						batchId = null;
-						xlsContent = new ArrayList<List<String>>();
-						errorCodes = new ArrayList<List<Long>>();
+//						display.getContentPreviewPanel().clear();
+//						display.getTitlePreviewPanel().clear();
+//						display.getImportDetails().setHTML("");
+//						display.getImportFailure().setHTML("");
+//						display.getImportBatchNo().setText("");
+//						display.getImportStaffBatchNo().setText("");
+//						display.getPretreatmentResult().setHTML("");
+//						display.getResultMessage().setText("");
+//						display.getSuccessImportMessage().setText("");
+//						batchId = null;
+//						xlsContent = new ArrayList<List<String>>();
+//						errorCodes = new ArrayList<List<Long>>();
 						display.showPanelStep1();
 					}
 
@@ -259,31 +291,40 @@ public class ImportStaffPresenterImpl extends
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent arg0) {
-						if ("".equals(display.getStaffFileUploader()
-								.getFileName())
-								|| (!display.getStaffFileUploader()
-										.getFileName().toLowerCase().trim()
-										.endsWith(".xls") && !display
-										.getStaffFileUploader().getFileName()
-										.toLowerCase().trim().endsWith(".xlsx"))) {
-							win.alert("请选中一个符合标准的EXCEL文件上传！");
-							return;
+						if("".equals(display.getStaffFileUploader()
+								.getFileName()) && batchId!=null)
+						{
+							refreshPanelStep2();
+							display.showPanelStep2();
 						}
-						display.getStaffFileUploader().setServletPath(
-								ImportStaffSingleUploader.SERVLET_PATH+"?nowUserId="+sessionManager.getSession().getToken()+"&corporationId="+sessionManager.getSession().getCorporationId());
-						String confirmMessage = "确定开始上传文档吗?";
-						if (rowNum > 0) {
-							confirmMessage = "上次上传的文档将被覆盖，确定开始上传文档吗?";
-						}
-						win.confirm("员工文档上传", confirmMessage,
-								new ConfirmHandler() {
-									@Override
-									public void confirm() {
-										display.getResultMessage().setText(
-												"正在处理中，请稍后……");
-										display.getStaffFileUploader().submit();
-									}
-								});
+						else
+						{
+							if ("".equals(display.getStaffFileUploader()
+									.getFileName())
+									|| (!display.getStaffFileUploader()
+											.getFileName().toLowerCase().trim()
+											.endsWith(".xls") && !display
+											.getStaffFileUploader().getFileName()
+											.toLowerCase().trim().endsWith(".xlsx"))) {
+								win.alert("请选中一个符合标准的EXCEL文件上传！");
+								return;
+							}
+							display.getStaffFileUploader().setServletPath(
+									ImportStaffSingleUploader.SERVLET_PATH+"?nowUserId="+sessionManager.getSession().getToken()+"&corporationId="+sessionManager.getSession().getCorporationId());
+							String confirmMessage = "确定开始上传文档吗?";
+							if (rowNum > 0) {
+								confirmMessage = "上次上传的文档将被覆盖，确定开始上传文档吗?";
+							}
+							win.confirm("员工文档上传", confirmMessage,
+									new ConfirmHandler() {
+										@Override
+										public void confirm() {
+											display.getResultMessage().setText(
+													"正在处理中，请稍后……");
+											display.getStaffFileUploader().submit();
+										}
+									});
+						}	
 					}
 				}));
 
@@ -335,11 +376,18 @@ public class ImportStaffPresenterImpl extends
 							win.alert("导入文件格式不正确，请修改后重新上传！");
 							return;
 						}
+						if(display.getSelectDataCount()<=0)
+						{
+							win.alert("没有选择任何上传数据,请重新选择！");
+							return;
+						}
+						updateShowData();
+						
 
-						refreshPanelStep3();
-						display.showPanelStep3();
 
 					}
+
+					
 				}));
 
 		/** 回退第三步panel **/
@@ -374,7 +422,7 @@ public class ImportStaffPresenterImpl extends
 					@Override
 					public void onClick(ClickEvent arg0) {
 
-						doExport("preview", "导入预览报告");
+						doExportToo("preview", "导入预览报告");
 
 					}
 				}));
@@ -398,7 +446,7 @@ public class ImportStaffPresenterImpl extends
 					@Override
 					public void onClick(ClickEvent arg0) {
 
-						doExport("fatal", "下载失败纪录");
+						doExportToo("fatal", "下载失败纪录");
 
 					}
 				}));
@@ -450,43 +498,45 @@ public class ImportStaffPresenterImpl extends
 	private void refreshPanelStep2() {
 		display.getHasTitleValue().setValue(isHavingTitle);
 		display.getNoHasTitleValue().setValue(!isHavingTitle);
-		int recordNum = rowNum;
-		if (isHavingTitle) {
-			recordNum = rowNum - 1;
-		}
-		display.getTotalStaff().setHTML("这个档案共有<b>" + recordNum + "</b>条记录:");
-
-		display.getTitlePreviewPanel().clear();
-
-		if (getInstructionStaffNum() > 0) {
-			int displayRows = TITLE_INSTRUCTION_DISPLAY_ROW > getInstructionStaffNum() ? getInstructionStaffNum()
-					: TITLE_INSTRUCTION_DISPLAY_ROW;
-			int displayColumns = TITLE_INSTRUCTION_DISPLAY_COL > xlsContent
-					.get(0).size() ? xlsContent.get(0).size()
-					: TITLE_INSTRUCTION_DISPLAY_COL;
-
-			// Create a table to layout the form options
-			FlexTable layout = new FlexTable();
-			layout.setCellSpacing(0);
-			layout.setBorderWidth(1);
-
-			for (int i = 0; i < displayRows; i++) {
-				List<String> titleContentRow = xlsContent.get(i);
-				for (int j = 0; j < titleContentRow.size(); j++) {
-					if (j < displayColumns) {
-						// Add cell content here
-						if (titleContentRow.get(j) == null
-								|| titleContentRow.get(j).trim().equals("")) {
-							layout.setHTML(i, j, "&nbsp;");
-						} else {
-							layout.setText(i, j, titleContentRow.get(j));
-						}
-					}
-				}
-			}
-
-			display.getTitlePreviewPanel().setWidget(layout);
-		}
+		initTable();
+//		int recordNum = rowNum;
+//		if (isHavingTitle) {
+//			recordNum = rowNum - 1;
+//		}
+//		display.getTotalStaff().setHTML("这个档案共有<b>" + recordNum + "</b>条记录:");
+//
+//		display.getTitlePreviewPanel().clear();
+//
+//		if (getInstructionStaffNum() > 0) {
+//			int displayRows = TITLE_INSTRUCTION_DISPLAY_ROW > getInstructionStaffNum() ? getInstructionStaffNum()
+//					: TITLE_INSTRUCTION_DISPLAY_ROW;
+//			int displayColumns = TITLE_INSTRUCTION_DISPLAY_COL > xlsContent
+//					.get(0).size() ? xlsContent.get(0).size()
+//					: TITLE_INSTRUCTION_DISPLAY_COL;
+//
+//			// Create a table to layout the form options
+//			FlexTable layout = new FlexTable();
+//			layout.setCellSpacing(0);
+//			layout.setBorderWidth(1);
+//
+//			for (int i = 0; i < displayRows; i++) {
+//				List<String> titleContentRow = xlsContent.get(i);
+//				for (int j = 0; j < titleContentRow.size(); j++) {
+//					if (j < displayColumns) {
+//						// Add cell content here
+//						if (titleContentRow.get(j) == null
+//								|| titleContentRow.get(j).trim().equals("")) {
+//							layout.setHTML(i, j, "&nbsp;");
+//						} else {
+//							layout.setText(i, j, titleContentRow.get(j));
+//						}
+//					}
+//				}
+//			}
+//
+//			display.getTitlePreviewPanel().setWidget(layout);
+//			initTable();
+//		}
 	}
 
 	private void refreshPanelStep3() {
@@ -587,8 +637,8 @@ public class ImportStaffPresenterImpl extends
 
 	private void refreshPanelStep4(ImportStaffAjaxResponseVo vo) {
 		int totalStaff = 0;
-//		int totalStaffFailed = 0;
-	//	int totalStaffWarn = 0;
+		int totalStaffFailed = 0;
+		int totalStaffWarn = 0;
 		List<String> warnIssues = new ArrayList<String>();
 		Map<String, Long> warnIssueCounts = new HashMap<String, Long>();
 		List<String> fatalIssues = new ArrayList<String>();
@@ -604,7 +654,7 @@ public class ImportStaffPresenterImpl extends
 			for (Long code : rawCode) {
 				if ("严重问题".equals(vo.getAllImportStaffCodeTypes().get(code))) {
 					if (!isFatalStaffRaw) {
-//						totalStaffFailed++;
+						totalStaffFailed++;
 						isFatalStaffRaw = true;
 					}
 					if (!fatalIssues.contains(vo.getAllImportStaffCodeInfos()
@@ -625,7 +675,7 @@ public class ImportStaffPresenterImpl extends
 				} else if ("警告".equals(vo.getAllImportStaffCodeTypes()
 						.get(code))) {
 					if (!isWarnStaffRaw) {
-					//	totalStaffWarn++;
+						totalStaffWarn++;
 						isWarnStaffRaw = true;
 					}
 					if (!warnIssues.contains(vo.getAllImportStaffCodeInfos()
@@ -647,23 +697,30 @@ public class ImportStaffPresenterImpl extends
 		String result = "";
 		result += "<br/>你已经准备好导入员工资料<br/><br/>";
 		result += "<b>" + totalStaff + "</b>笔资料<br/><br/>";
-//		result += "<span style='color:red'>" + totalStaffFailed
-//				+ "</span>笔资料有下列严重问题, 将被忽略<br/><br/>";
-//		for (String fatalIssue : fatalIssues) {
-//			result += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-<span style='color:black'>"
-//					+ fatalIssueCounts.get(fatalIssue)
-//					+ "</span>笔资料"
-//					+ fatalIssue + "<br/>";
-//		}
-//		result += "<br/><span style='color:black'>"
-//				+ (totalStaff - totalStaffFailed) + "</span>>笔资料中:<br/>";
-//		for (String warnIssue : warnIssues) {
-//			result += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-<span style='color:black'>"
-//					+ warnIssueCounts.get(warnIssue)
-//					+ "</span>>笔资料"
-//					+ warnIssue
-//					+ "<br/>";
-//		}
+		
+		if(totalStaffFailed>0)
+		{
+			result += "<span style='color:red'>" + totalStaffFailed
+					+ "</span>笔资料有下列严重问题, 将被忽略<br/><br/>";
+			for (String fatalIssue : fatalIssues) {
+				result += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-<span style='color:black'>"
+						+ fatalIssueCounts.get(fatalIssue)
+						+ "</span>笔资料"
+						+ fatalIssue + "<br/>";
+			}
+		}
+		if(totalStaffWarn>0)
+		{
+			result += "<br/><span style='color:black'>"
+					+ (totalStaffWarn) + "</span>笔资料中有下列警告问题:<br/>";
+			for (String warnIssue : warnIssues) {
+				result += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-<span style='color:black'>"
+						+ warnIssueCounts.get(warnIssue)
+						+ "</span>笔资料"
+						+ warnIssue
+						+ "<br/>";
+			}
+		}
 
 		result += "<br/><b>预计成功导入员工数：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:blue'><b>"
 				+ vo.getEstimateSuccessNum() + "</b></span><br/>";
@@ -676,13 +733,6 @@ public class ImportStaffPresenterImpl extends
 
 		//result += "<br/>" + vo.getEstimateSuccessDeptNum() + "个部门将被创建<br/>";
 
-//		result += "<br/>共有"
-//				+ (vo.getEstNewAssignCardNum() + vo.getEstNewAutoCardNum() + vo
-//						.getEstOldAssignCardNum()) + "个卡号将被指定，其中"
-//				+ vo.getEstNewAutoCardNum() + "个新卡号将会自动分配，其中"
-//				+ vo.getEstNewAssignCardNum() + "个新卡号将会手动分配。<br/>";
-		// + vo.getEstNewAssignCardNum() + "个新卡号将会手动分配，其中"
-		// + vo.getEstOldAssignCardNum() + "个旧卡号将会手动分配。<br/>";
 
 		display.getPretreatmentResult().setHTML(result);
 
@@ -729,9 +779,9 @@ public class ImportStaffPresenterImpl extends
 	}
 
 	private void refreshCurrentProgress() {
-		if (!GWT.isScript()) {
+	//	if (!GWT.isScript()) {
 			currentProgress += 0.5;
-		} else {
+	//	} else {
 //			dispatch.execute(new ImportStaffProgressAjaxRequest(batchId),
 //					new AsyncCallback<ImportStaffProgressAjaxResponse>() {
 //						@Override
@@ -746,7 +796,7 @@ public class ImportStaffPresenterImpl extends
 //						}
 //
 //					});
-		}
+//		}
 	}
 
 	private Long toLong(Long p) {
@@ -909,6 +959,9 @@ public class ImportStaffPresenterImpl extends
 		listBox.addItem("邮箱", "email");
 		listBox.addItem("电话", "phone");
 		listBox.addItem("生日", "dob");
+		listBox.addItem("部门", "department");
+		listBox.addItem("职位", "jobPosition");
+		listBox.addItem("直属领导", "leadership");
 
 		listBox.addChangeHandler(staffColumnListBoxChangeHandler);
 		listBox.setEnabled(false);
@@ -1233,7 +1286,206 @@ public class ImportStaffPresenterImpl extends
 		Window.open(wholeUrl, title,
 				"menubar=yes,location=no,resizable=yes,scrollbars=yes,status=yes");
 	}
+	private void doExportToo(String action, String title) {
+		String url = GWT.getModuleBaseURL() + "servlet.isrs";
+		String data = "batchId=" + batchId + "&action=" + action;
+		String wholeUrl = url + "?" + data + "&radom=" + Math.random();
+		Window.open(wholeUrl, title,
+				"menubar=yes,location=no,resizable=yes,scrollbars=yes,status=yes");
+	}
+
+	private void initTable() {	
+		buildTable();
+		doSearch();
+	}
+
+	private void buildTable() {
+		// create a CellTable
+		cellTable = new ListCellTable<ImportStaffListClient>();
+
+		initTableColumns();
+		pager = new EltNewPager(TextLocation.CENTER);
+		pager.setDisplay(cellTable);
+		cellTable.setWidth(ViewConstants.page_width);
+		cellTable.setPageSize(pageSize);
+	//	cellTable.getColumn(0).setCellStyleNames("divTextLeft");
+		display.getResultPanel().clear();
+		display.getResultPanel().add(cellTable);
+		display.getResultpage().clear();
+		display.getResultpage().add(pager);
+		
+	}
+
+	private void doSearch() {
+		
+		ImportStaffListCriteria criteria = new ImportStaffListCriteria();
+		criteria.setBatchId(batchId);
+		criteria.setTitlefal(isHavingTitle);
+		listViewAdapter = new ImportStaffListAdapter(dispatch, criteria,
+				errorHandler, sessionManager,display);
+		listViewAdapter.addDataDisplay(cellTable);
+
+	}
+
+	private void initTableColumns() {
+		Sorting<ImportStaffListClient> ref = new Sorting<ImportStaffListClient>() {
+			@Override
+			public void sortingCurrentPage(Comparator<ImportStaffListClient> comparator) {
+				// listViewAdapter.sortCurrentPage(comparator);
+			}
+
+			@Override
+			public void sortingAll(String sorting, String direction) {
+				listViewAdapter.sortFromDateBase(sorting, direction);
+
+			}
+		};
+		cellTable.addColumn("选择", new CheckboxCell(),
+				new GetValue<ImportStaffListClient, Boolean>() {
+					@Override
+					public Boolean getValue(ImportStaffListClient staff) {
+						if(staff.getImportfal()!=null && staff.getImportfal()==1)
+							return false;
+						else
+							return true;
+					}
+				},new FieldUpdater<ImportStaffListClient, Boolean>() {
+					@Override
+					public void update(int index, ImportStaffListClient o,
+							Boolean value) {
+						//Window.alert(o.getId()+"=="+value);
+						int fal=0;
+						if(value==false)
+						{
+							fal=1;
+							display.setSelectDataCount((display.getSelectDataCount()-1)+"");
+						}
+						else
+						{
+							fal=0;
+							display.setSelectDataCount((display.getSelectDataCount()+1)+"");
+						}
+						
+						dispatch.execute(
+								new UpdateImportStaffRequest(sessionManager
+										.getSession(),o.getId(),fal),
+								new AsyncCallback<UpdateImportStaffResponse>() {
+									@Override
+									public void onFailure(Throwable e) {
+										win.alert("失败");
+									}
+
+									@Override
+									public void onSuccess(UpdateImportStaffResponse response) {
+//										if(response.getFal()!=1)
+//											win.alert("失败");
+											
+									}
+
+								});
+					}
+				});
+		cellTable.addColumn("员工编号", new TextCell(),
+				new GetValue<ImportStaffListClient, String>() {
+					@Override
+					public String getValue(ImportStaffListClient staff) {
+						return staff.getStaffNo();
+					}
+				}, ref, "staffNumber");
+		cellTable.addColumn("员工姓名", new TextCell(),
+				new GetValue<ImportStaffListClient, String>() {
+					@Override
+					public String getValue(ImportStaffListClient staff) {
+						return staff.getStaffName();
+					}
+				}, ref, "name");
+		cellTable.addColumn("邮箱", new TextCell(),
+				new GetValue<ImportStaffListClient, String>() {
+					@Override
+					public String getValue(ImportStaffListClient staff) {
+						return staff.getEmail();
+					}
+				}, ref, "emailAddress");
+		cellTable.addColumn("电话", new TextCell(),
+				new GetValue<ImportStaffListClient, String>() {
+					@Override
+					public String getValue(ImportStaffListClient staff) {
+						return staff.getPhone();
+					}
+				}, ref, "mobileTelephoneNumber");
+		cellTable.addColumn("生日", new TextCell(),
+				new GetValue<ImportStaffListClient, String>() {
+					@Override
+					public String getValue(ImportStaffListClient staff) {
+						return staff.getDob();
+					}
+				}, ref, "dob");
+		cellTable.addColumn("部门", new TextCell(),
+				new GetValue<ImportStaffListClient, String>() {
+					@Override
+					public String getValue(ImportStaffListClient staff) {
+						return staff.getDepartmentName();
+					}
+				}, ref, "department");
+		cellTable.addColumn("职位", new TextCell(),
+				new GetValue<ImportStaffListClient, String>() {
+					@Override
+					public String getValue(ImportStaffListClient staff) {
+						return staff.getJobPosition();
+					}
+				}, ref, "jobPosition");
+		cellTable.addColumn("直属领导", new TextCell(),
+				new GetValue<ImportStaffListClient, String>() {
+					@Override
+					public String getValue(ImportStaffListClient staff) {
+						return staff.getLeadership();
+					}
+				}, ref, "leadership");
 	
+	
+	}
+	
+	private void updateShowData() {
+		ImportStaffListCriteria criteria = new ImportStaffListCriteria();
+		criteria.setBatchId(batchId);
+		criteria.setImportfal(true);
+		PaginationDetailClient pagination = new PaginationDetailClient();
+		pagination.setStart(0);
+		pagination.setLimit(10);
+		criteria.setPagination(pagination);
+		
+		dispatch.execute(new ImportStaffListRequest(criteria, sessionManager
+				.getSession()), new AsyncCallback<ImportStaffListResponse>() {
+			@Override
+			public void onFailure(Throwable e) {
+				errorHandler.alert(e.getMessage());
+			}
 
+			@Override
+			public void onSuccess(ImportStaffListResponse response) {
 
+				List<List<String>> result = new ArrayList<List<String>>();
+				for (int i = 0; i < response.getResult().size(); i++) {
+					ImportStaffListClient client=response.getResult().get(i);
+					
+					List<String> staffCells = new ArrayList<String>();
+					staffCells.add(client.getStaffNo());
+					staffCells.add(client.getStaffName());
+					staffCells.add(client.getEmail());
+					staffCells.add(client.getPhone());
+					staffCells.add(client.getDob());
+					staffCells.add(client.getDepartmentName());
+					staffCells.add(client.getJobPosition());
+					staffCells.add(client.getLeadership());
+				
+					result.add(staffCells);
+				}
+				xlsContent=result;
+				refreshPanelStep3();
+				display.showPanelStep3();
+			}
+
+		});
+		
+	}
 }

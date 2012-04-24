@@ -81,6 +81,12 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .pager .pager-right a:hover,.pager .pager-right .on{text-decoration:none;background-color:#569B01;color:#FFFFFF;}
 .pager .pager-right .edge{background-color:#E8E8E8}
 
+
+.pager .pager-right2{float:right;text-align:right; margin-bottom: 1px;}
+.pager .pager-right2 a{border:1px solid #C7C7C7;padding:2px 8px;color:#569B01;display:inline-block;vertical-align:middle;text-decoration:none;margin-right:5px;}
+.pager .pager-right2 a:hover,.pager .pager-right .on{text-decoration:none;background-color:#569B01;color:#FFFFFF;}
+.pager .pager-right2 .edge{background-color:#E8E8E8}
+
 /*-------------------------------------- 框架布局 --------------------------------------------------*/
 .index{background-color:#E6E6E6;}
 .head{position:relative;height:83px;overflow:hidden;background-color:#FFFFFF;}
@@ -130,13 +136,15 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .nbspbig{padding-left:32px;}
 
 .divtext{float:left;color:#999999;padding-bottom:3px;}
+.divtext2{color:#999999;padding-bottom:3px;}
 .divfont{color:red;}
 .divend{clear:both}
 .fmdiv {
     background-color: #FFFFFF;
     border: 1px solid #9BB1BE;
-    width: 870px;
-
+    max-height: 500px;
+    overflow: auto;
+    width: 885px;
 
 }
 .setDetail{ width:99%; margin:15px auto; position:relative}

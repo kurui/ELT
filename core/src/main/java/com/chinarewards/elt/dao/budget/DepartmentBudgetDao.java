@@ -9,7 +9,6 @@ import java.util.Set;
 import javax.persistence.Query;
 
 import com.chinarewards.elt.common.BaseDao;
-import com.chinarewards.elt.domain.budget.CorpBudget;
 import com.chinarewards.elt.domain.budget.DepartmentBudget;
 import com.chinarewards.elt.model.budget.search.DepartmentBudgetVo;
 import com.chinarewards.elt.util.StringUtil;

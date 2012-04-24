@@ -28,7 +28,8 @@ public class ImportStaffRawParameter {
 	 * 部门（用|分隔符分隔部门及其子部门，例如：技术部|开发部）
 	 */
 	private String department;
-
+	private String jobPosition;
+	private String leadership;
 	/**
 	 * 手机号码
 	 */
@@ -54,6 +55,26 @@ public class ImportStaffRawParameter {
 	private String dob;
 
 	
+	public String getJobPosition() {
+		return jobPosition;
+	}
+
+
+	public void setJobPosition(String jobPosition) {
+		this.jobPosition = jobPosition;
+	}
+
+
+	public String getLeadership() {
+		return leadership;
+	}
+
+
+	public void setLeadership(String leadership) {
+		this.leadership = leadership;
+	}
+
+
 	/**
 	 * 导入结果：成功、失败、未知
 	 */

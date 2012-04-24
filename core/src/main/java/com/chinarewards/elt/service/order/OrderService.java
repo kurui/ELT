@@ -47,6 +47,10 @@ public interface OrderService {
     * 订单历史
     */
 	PageStore<OrderListVo> OrderHistoryList(UserContext context, OrderListVo OrderVo);
+	
+	public PageStore<OrderListVo> OrderHistoryListByStaff(UserContext context,
+			OrderListVo OrderVo);
+	
 	/**
 	 * 执行状态改变
 	 * @param orderId 
@@ -66,4 +70,6 @@ public interface OrderService {
 	public int  getOrderByStatus(UserContext context,OrderStatus status);
 	
 	public void AutoUpdateStatusForOrder(int day,String status);
+
+
 }

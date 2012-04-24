@@ -18,7 +18,10 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHTML;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -35,6 +38,7 @@ public class ImportStaffWidget extends Composite implements ImportStaffDisplay {
 	public ImportStaffWidget() {
 		initWidget(uiBinder.createAndBindUi(this));
 		init();
+
 	}
 
 
@@ -157,8 +161,20 @@ public class ImportStaffWidget extends Composite implements ImportStaffDisplay {
 	DisclosurePanel importFailurePanel;
 	@UiField
 	VerticalPanel contentPanel;
+	@UiField
+	Panel resultPanel;
 
-
+	@UiField
+	InlineLabel dataCount;
+	
+	@UiField
+	Panel resultpage;
+	@UiField
+	ListBox pageNumber;
+	
+	
+	@UiField
+	InlineLabel selectdataCount;
 	@Override
 	public void init() {
 
@@ -197,6 +213,11 @@ public class ImportStaffWidget extends Composite implements ImportStaffDisplay {
 	    panelProgressBar.setHeight("20px");
 	    
 		clear();
+		
+		pageNumber.clear();
+		pageNumber.addItem("10","10");
+		pageNumber.addItem("20","20");
+		pageNumber.addItem("50","50");
 	}
 
 	@Override
@@ -535,5 +556,34 @@ public class ImportStaffWidget extends Composite implements ImportStaffDisplay {
 		importStaffButton.setEnabled(fal);
 		
 	}
-	
+
+	@Override
+	public Panel getResultPanel() {
+		return this.resultPanel;
+	}
+	@Override
+	public Panel getResultpage() {
+		return this.resultpage;
+	}
+	@Override
+	public ListBox getPageNumber() {
+		return pageNumber;
+	}
+
+	@Override
+	public void setDataCount(String text) {
+		dataCount.setText(text);
+		
+	}
+
+	@Override
+	public void setSelectDataCount(String text) {
+		selectdataCount.setText(text);
+	}
+
+	@Override
+	public int getSelectDataCount() {
+		return Integer.parseInt(selectdataCount.getText());
+	}
+
 }

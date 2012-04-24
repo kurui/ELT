@@ -36,6 +36,13 @@ public class GiftListVo implements Serializable {
     private Date    indate ;      //有效截止期
     private Date    recorddate;   //录入时间
     private String  price;//采购价格
+	private String  recorduser; //录入人
+    private Date    updatetime;  //修改时间
+    private int    integral;  //积分
+    
+	public GiftListVo() {
+	}
+    
     public String getPrice() {
 		return price;
 	}
@@ -43,10 +50,7 @@ public class GiftListVo implements Serializable {
 	public void setPrice(String price) {
 		this.price = price;
 	}
-
-	private String  recorduser; //录入人
-    private Date    updatetime;  //修改时间
-    private int    integral;  //积分
+    
 	
 	public int getIntegral() {
 		return integral;
@@ -56,8 +60,7 @@ public class GiftListVo implements Serializable {
 		this.integral = integral;
 	}
 
-	public GiftListVo() {
-	}
+
 
 	public String getName() {
 		return name;

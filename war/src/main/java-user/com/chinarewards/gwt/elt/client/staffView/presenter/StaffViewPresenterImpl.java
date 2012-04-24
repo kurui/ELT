@@ -10,7 +10,11 @@ import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
+import com.chinarewards.gwt.elt.client.order.model.OrderSearchVo;
 import com.chinarewards.gwt.elt.client.staffAdd.plugin.StaffAddConstants;
+import com.chinarewards.gwt.elt.client.staffIntegral.request.StaffIntegralRequest;
+import com.chinarewards.gwt.elt.client.staffIntegral.request.StaffIntegralResponse;
+import com.chinarewards.gwt.elt.client.staffView.dataprovider.StaffExchangeHistoryDataAdapter;
 import com.chinarewards.gwt.elt.client.staffView.dataprovider.StaffWinAdapter;
 import com.chinarewards.gwt.elt.client.staffView.model.StaffWinClient;
 import com.chinarewards.gwt.elt.client.staffView.model.StaffWinCriteria;
@@ -28,6 +32,8 @@ import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.chinarewards.gwt.elt.util.DateTool;
 import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.cell.client.TextCell;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -47,7 +53,21 @@ public class StaffViewPresenterImpl extends
 	boolean colleague=false;
 	EltNewPager pager;
 	ListCellTable<StaffWinClient> cellTable;
-	StaffWinAdapter listViewAdapter;
+	
+	StaffWinAdapter rewardlistViewAdapter;
+	
+	ListCellTable<OrderSearchVo> cellTableExchange;
+	StaffExchangeHistoryDataAdapter exchangeHistoryDataAdapter;
+	
+	private String tabCloseClass="";
+	private String tabSelectedClass="";
+	private String normalListPagePanelClass="";
+	private String normalIntegralPanelClass="";
+	
+	private String thisAction="";
+	
+	int pageSize=ViewConstants.per_page_number_in_entry;
+	
 	@Inject
 	public StaffViewPresenterImpl(EventBus eventBus, StaffViewDisplay display,
 			DispatchAsync dispatch, SessionManager sessionManager, Win win,
@@ -64,8 +84,10 @@ public class StaffViewPresenterImpl extends
 	public void bind() {
 		breadCrumbs.loadChildPage("员工详细信息");
 		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
-		init();
-		registerHandler(display.getupadateBtnClickHandlers().addClickHandler(
+		
+		initWidget();
+		
+		registerHandler(display.getUpadateBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
@@ -76,10 +98,53 @@ public class StaffViewPresenterImpl extends
 								"EDITOR_STAFFADD_SEARCH_DO_ID", staffId);
 					}
 				}));
+		registerHandler(display.getBtnIntegral().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						buildIntegralTable();
+						display.getBtnIntegral().setStyleName(tabSelectedClass);
+						display.getBtnRewardHistory().setStyleName(tabCloseClass);
+						display.getBtnExchangeHistory().setStyleName(tabCloseClass);
+					}
+				}));
+		
+		registerHandler(display.getBtnRewardHistory().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						buildRewardHistoryTable();
+						doRewardHistorySearch();
+						display.getBtnIntegral().setStyleName(tabCloseClass);
+						display.getBtnRewardHistory().setStyleName(tabSelectedClass);
+						display.getBtnExchangeHistory().setStyleName(tabCloseClass);
+					}
+				}));
+		
+		registerHandler(display.getBtnExchangeHistory().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						buildExchangeHistoryTable();
+						doExchangeSearch();
+						display.getBtnIntegral().setStyleName(tabCloseClass);
+						display.getBtnRewardHistory().setStyleName(tabCloseClass);
+						display.getBtnExchangeHistory().setStyleName(tabSelectedClass);
+						
+					}
+				}));
+		
+		registerHandler(display.getPageNumber().addChangeHandler(new ChangeHandler() {			
+			@Override
+			public void onChange(ChangeEvent event) {
+				pageSize=Integer.parseInt(display.getPageNumber().getValue(display.getPageNumber().getSelectedIndex()));
+				
+			}
+		}));
 
 	}
 
-	void init() {
+	private void initWidget() {
 		if(colleague==true)
 		{
 			display.displayUpdateBtn(colleague);
@@ -88,6 +153,30 @@ public class StaffViewPresenterImpl extends
 		{
 			display.displayUpdateBtn(true);
 		}
+		
+		initStaff();
+
+//		buildRewardHistoryTable();
+//		doRewardHistorySearch();
+		
+		buildIntegralTable();
+		
+		tabSelectedClass=display.getBtnIntegral().getStyleName();
+		tabCloseClass=display.getBtnRewardHistory().getStyleName();
+		normalListPagePanelClass=display.getDataCount().getElement().getParentElement().getParentElement().getClassName();
+		
+		normalIntegralPanelClass=display.getHistoryIntegral().getElement().getParentElement().getParentElement().getParentElement().getClassName();
+
+		
+	}
+
+	@Override
+	public void initStaffView(String staffId) {
+		this.staffId = staffId;
+
+	}
+
+	private void initStaff(){
 		dispatch.execute(new StaffViewRequest(staffId),
 				new AsyncCallback<StaffViewResponse>() {
 
@@ -140,46 +229,117 @@ public class StaffViewPresenterImpl extends
 						}
 					}
 				});
-		buildTable();
-		doSearch();
+		
+		display.getPageNumber().clear();
+		display.getPageNumber().addItem("5", "5");
+		display.getPageNumber().addItem("20", "20");
+		display.getPageNumber().addItem("50", "50");
+		
+		inistIntegral();
+	
+	}
+	private void inistIntegral(){	
+		dispatch.execute(new StaffIntegralRequest(staffId),
+				new AsyncCallback<StaffIntegralResponse>() {
+
+					@Override
+					public void onFailure(Throwable t) {
+						win.alert(t.getMessage());
+					}
+
+					@Override
+					public void onSuccess(StaffIntegralResponse resp) {
+						display.getHistoryIntegral().setText(StringUtil.subZeroAndDot(resp.getHistoryIntegral()));
+						display.getConsumptionIntegral().setText(StringUtil.subZeroAndDot(resp.getConsumptionIntegral()));
+						display.getBalanceIntegral().setText(StringUtil.subZeroAndDot(resp.getBalanceIntegral()));
+
+					}
+				});
+	}
+	
+	private void buildIntegralTable() {		
+		display.getDetailTitle().setText("积分信息");
+		display.getResultPanel().clear();
+		display.getResultpage().clear();
+		
+		display.getHistoryIntegral().getElement().getParentElement().getParentElement().setClassName(normalIntegralPanelClass);
+		display.getDataCount().getElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);		
+		
+		inistIntegral();
+		
+		thisAction="searchIntegral";
 	}
 
-	@Override
-	public void initStaffView(String staffId) {
-		this.staffId = staffId;
-
-	}
-
-
-
-	private void buildTable() {
+	private void buildRewardHistoryTable() {
+		display.getDataCount().getElement().getParentElement().getParentElement().setClassName(normalIntegralPanelClass);	
+		display.getHistoryIntegral().getElement().getParentElement().getParentElement().setClassName(CssStyleConstants.hidden);
+		
+		display.getDetailTitle().setText("获奖历史");
+		
 		// create a CellTable
 		cellTable = new ListCellTable<StaffWinClient>();
 
-		initTableColumns();
+		initRewardHistoryTableColumns();
+		
 		pager = new EltNewPager(TextLocation.CENTER);
 		pager.setDisplay(cellTable);
 		cellTable.setWidth(ViewConstants.page_width);
-		cellTable.setPageSize(ViewConstants.per_page_number_in_StaffWin);
+		cellTable.setPageSize(pageSize);
 		cellTable.getColumn(0).setCellStyleNames("divTextLeft");
 		display.getResultPanel().clear();
 		display.getResultPanel().add(cellTable);
 		display.getResultpage().clear();
 		display.getResultpage().add(pager);
 		
+		thisAction="searchRewardHistory";
+	}
+	
+	private void buildExchangeHistoryTable() {
+		display.getDataCount().getElement().getParentElement().getParentElement().setClassName(normalIntegralPanelClass);
+		display.getHistoryIntegral().getElement().getParentElement().getParentElement().setClassName(CssStyleConstants.hidden);
+		
+		display.getDetailTitle().setText("兑换历史");
+		
+		cellTableExchange = new ListCellTable<OrderSearchVo>();
+
+		initExchangeHistoryTableColumns();
+		
+		pager = new EltNewPager(TextLocation.CENTER);
+		pager.setDisplay(cellTable);
+		cellTableExchange.setWidth(ViewConstants.page_width);
+		cellTableExchange.setPageSize(pageSize);
+		cellTableExchange.getColumn(0).setCellStyleNames("divTextLeft");
+		display.getResultPanel().clear();
+		display.getResultPanel().add(cellTableExchange);
+		display.getResultpage().clear();
+		display.getResultpage().add(pager);
+		
+		thisAction="searchExchangeHistory";
+		
 	}
 
-	private void doSearch() {
+	private void doRewardHistorySearch() {
 		StaffWinCriteria criteria = new StaffWinCriteria();
 		criteria.setStaffId(staffId);
 
-		listViewAdapter = new StaffWinAdapter(dispatch, criteria,
+		rewardlistViewAdapter = new StaffWinAdapter(dispatch, criteria,
 				errorHandler, sessionManager,display);
-		listViewAdapter.addDataDisplay(cellTable);
+		rewardlistViewAdapter.addDataDisplay(cellTable);
 
 	}
+	
 
-	private void initTableColumns() {
+	private void doExchangeSearch() {
+		OrderSearchVo criteria = new OrderSearchVo();
+		criteria.setStaffId(staffId);
+		exchangeHistoryDataAdapter = new StaffExchangeHistoryDataAdapter(dispatch, criteria,
+				errorHandler, sessionManager,display);
+		exchangeHistoryDataAdapter.addDataDisplay(cellTableExchange);
+
+		
+	}
+
+	private void initRewardHistoryTableColumns() {
 		Sorting<StaffWinClient> ref = new Sorting<StaffWinClient>() {
 			@Override
 			public void sortingCurrentPage(Comparator<StaffWinClient> comparator) {
@@ -188,7 +348,7 @@ public class StaffViewPresenterImpl extends
 
 			@Override
 			public void sortingAll(String sorting, String direction) {
-				listViewAdapter.sortFromDateBase(sorting, direction);
+				rewardlistViewAdapter.sortFromDateBase(sorting, direction);
 
 			}
 		};
@@ -217,6 +377,71 @@ public class StaffViewPresenterImpl extends
 				});
 		
 	}
+	
+	private void initExchangeHistoryTableColumns() {
+		Sorting<StaffWinClient> ref = new Sorting<StaffWinClient>() {
+			@Override
+			public void sortingCurrentPage(Comparator<StaffWinClient> comparator) {
+				// listViewAdapter.sortCurrentPage(comparator);
+			}
+			@Override
+			public void sortingAll(String sorting, String direction) {
+				exchangeHistoryDataAdapter.sortFromDateBase(sorting, direction);
+			}
+		};
+
+		cellTableExchange.addColumn("订单编号", new TextCell(),
+				new GetValue<OrderSearchVo, String>() {
+					@Override
+					public String getValue(OrderSearchVo searchVo) {
+						return searchVo.getOrderCode();
+					}
+				});
+		cellTableExchange.addColumn("礼品名称", new TextCell(),
+				new GetValue<OrderSearchVo, String>() {
+					@Override
+					public String getValue(OrderSearchVo searchVo) {
+						return searchVo.getGiftVo().getName();
+					}
+				});
+		cellTableExchange.addColumn("兑换积分", new TextCell(),
+				new GetValue<OrderSearchVo, String>() {
+					@Override
+					public String getValue(OrderSearchVo searchVo) {
+						return searchVo.getIntegral()+"";
+					}
+				});
+		cellTableExchange.addColumn("兑换数量", new TextCell(),
+				new GetValue<OrderSearchVo, String>() {
+					@Override
+					public String getValue(OrderSearchVo searchVo) {
+						return searchVo.getAmount()+"";
+					}
+				});
+		cellTableExchange.addColumn("礼品来源", new TextCell(),
+				new GetValue<OrderSearchVo, String>() {
+					@Override
+					public String getValue(OrderSearchVo searchVo) {
+						return searchVo.getGiftVo().getSourceText();
+					}
+				});
+		cellTableExchange.addColumn("员工名称", new TextCell(),
+				new GetValue<OrderSearchVo, String>() {
+					@Override
+					public String getValue(OrderSearchVo searchVo) {
+						return searchVo.getName();
+					}
+				});
+		cellTableExchange.addColumn("状态", new TextCell(),
+				new GetValue<OrderSearchVo, String>() {
+					@Override
+					public String getValue(OrderSearchVo searchVo) {
+						return searchVo.getStatus().getDisplayName();
+					}
+				});
+		
+	}
+
 
 	@Override
 	public void initStaffView_Colleague(String staffId,boolean colleague) {

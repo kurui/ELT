@@ -5,7 +5,6 @@ package com.chinarewards.gwt.elt.client.budget.request;
 
 import net.customware.gwt.dispatch.shared.Action;
 
-import com.chinarewards.gwt.elt.client.budget.model.DepBudgetVo;
 import com.chinarewards.gwt.elt.client.support.UserSession;
 
 /**
