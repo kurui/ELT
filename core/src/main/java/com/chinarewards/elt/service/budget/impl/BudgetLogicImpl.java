@@ -13,10 +13,12 @@ import com.chinarewards.elt.dao.budget.CorpBudgetDao;
 import com.chinarewards.elt.dao.budget.DepartmentBudgetDao;
 import com.chinarewards.elt.dao.org.DepartmentDao;
 import com.chinarewards.elt.dao.org.StaffDao;
+import com.chinarewards.elt.dao.reward.RewardDao;
 import com.chinarewards.elt.domain.budget.AskBudget;
 import com.chinarewards.elt.domain.budget.CorpBudget;
 import com.chinarewards.elt.domain.budget.DepartmentBudget;
 import com.chinarewards.elt.domain.org.Department;
+import com.chinarewards.elt.domain.reward.base.Reward;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.budget.search.AskBudgetVo;
 import com.chinarewards.elt.model.budget.search.DepartmentBudgetVo;
@@ -27,6 +29,7 @@ import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.model.vo.StaffSearchVo;
 import com.chinarewards.elt.service.budget.BudgetLogic;
 import com.chinarewards.elt.service.org.DepartmentLogic;
+import com.chinarewards.elt.service.staff.StaffLogic;
 import com.chinarewards.elt.service.user.UserLogic;
 import com.chinarewards.elt.util.DateUtil;
 import com.chinarewards.elt.util.StringUtil;
@@ -40,12 +43,14 @@ public class BudgetLogicImpl implements BudgetLogic {
 	private DepartmentLogic departmentLogic;
 	private UserLogic userLogic;
 	private StaffDao   staffDao;
+	private RewardDao rewardDao;
+	private StaffLogic   staffLogic;
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
-
+ 
 	@Inject
-	protected BudgetLogicImpl(DepartmentBudgetDao departmentBudgetDao,UserLogic userLogic,
+	protected BudgetLogicImpl(DepartmentBudgetDao departmentBudgetDao,UserLogic userLogic,RewardDao rewardDao,
 			DepartmentDao departmentDao, CorpBudgetDao corpBudgetDao,StaffDao   staffDao,AskBudgetDao askBudgetDao,
-			DepartmentLogic departmentLogic) {
+			DepartmentLogic departmentLogic,StaffLogic   staffLogic) {
 		this.departmentBudgetDao = departmentBudgetDao;
 		this.departmentDao = departmentDao;
 		this.corpBudgetDao = corpBudgetDao;
@@ -53,6 +58,8 @@ public class BudgetLogicImpl implements BudgetLogic {
 		this.staffDao  = staffDao;
 		this.userLogic = userLogic;
 		this.askBudgetDao = askBudgetDao;
+		this.rewardDao = rewardDao;
+		this.staffLogic = staffLogic;
 	}
 
 	@Override
@@ -367,5 +374,28 @@ public class BudgetLogicImpl implements BudgetLogic {
 		return departmentBudgetDao
 				.findDepartmentBudgetByDepartmentId(departmentId,corpBudgetId);
 	}
+	@Override
+	public String updateBudget(String rewardId,double integral) {
+		
+		String bakcStr = "fail";
+		Reward reward = rewardDao.findById(Reward.class, rewardId);
+		SysUser user = reward.getCreatedBy();  
+		List<UserRole> roleList = staffLogic.findUserRoles(user.getStaff().getId());//得到角色是HR还是leader
+		
+	 if (roleList.contains(UserRole.CORP_ADMIN)){//是HR就更新企业的财年已用预算
+		CorpBudget corpBudget= corpBudgetDao.findByCorpId(reward.getCorporation().getId(),reward.getExpectAwardDate());
+	    corpBudget.setUseIntegeral(corpBudget.getUseIntegeral()+integral);//修改财年的已使用的积分
+	    corpBudgetDao.update(corpBudget);
+	    bakcStr = "success";
+	  }else if (roleList.contains(UserRole.DEPT_MGR)){
+		DepartmentBudget depBudget = departmentBudgetDao.findById(DepartmentBudget.class, reward.getBuilderDept().getId());
+    	//更新奖项创建部门财年的已用积分
+		 depBudget.setUseIntegeral(depBudget.getUseIntegeral()+integral);
+    	 departmentBudgetDao.update(depBudget);
+    	 bakcStr = "success";
+	  }
+		
 
+		return bakcStr;
+	}
 }

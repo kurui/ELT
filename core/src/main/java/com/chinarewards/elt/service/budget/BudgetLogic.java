@@ -5,6 +5,7 @@ import java.util.List;
 import com.chinarewards.elt.domain.budget.AskBudget;
 import com.chinarewards.elt.domain.budget.CorpBudget;
 import com.chinarewards.elt.domain.budget.DepartmentBudget;
+import com.chinarewards.elt.domain.reward.base.Reward;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.budget.search.AskBudgetVo;
 import com.chinarewards.elt.model.budget.search.DepartmentBudgetVo;
@@ -117,8 +118,8 @@ public interface BudgetLogic {
 	 */
 	public DepartmentBudget findDepartmentBudgetByDepartmentId(String departmentId,String corpBudgetId);
 	
-	
-
+	//颁奖扣预算积分
+	public String updateBudget(String rewardId,double integral);
 
 }
 
