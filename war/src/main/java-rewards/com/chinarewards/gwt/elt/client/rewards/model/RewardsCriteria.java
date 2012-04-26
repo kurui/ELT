@@ -29,7 +29,10 @@ public class RewardsCriteria implements IsSerializable {
 		
 		/* 已完成 */
 		REWARDED("已完成"),
-
+        
+		/* 已过期 */
+		PAST("已过期"),
+		
 		/* 已否决 */
 		DENIED("已否决");
 

@@ -32,6 +32,7 @@ public class AutoSendMessageToNominatorTask extends TimerTask {
 		//Date now = DateUtil.getTime();
 		rewardService.getNominatorToMessage();//给提名人发消息
 		rewardService.toMessageForReward();// 给颁奖人发消息
+		rewardService.toMessageForConfirmReward();//确认颁奖人和变更过期奖
 	}
 
 
