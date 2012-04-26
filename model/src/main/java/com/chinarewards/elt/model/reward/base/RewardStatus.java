@@ -16,8 +16,10 @@ public enum RewardStatus {
 	REWARDED("已完成"),
 
 	/* 已否决 */
-	DENIED(" 已否决 ");
+	DENIED("已否决 "),
 	
+	/* 已过期 */
+	PAST("已过期");
 	private RewardStatus(String displayName) {
 		this.displayName = displayName;
 	}
