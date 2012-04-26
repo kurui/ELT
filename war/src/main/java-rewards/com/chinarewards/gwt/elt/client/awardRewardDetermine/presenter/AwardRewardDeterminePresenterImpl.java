@@ -1,6 +1,8 @@
 package com.chinarewards.gwt.elt.client.awardRewardDetermine.presenter;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
@@ -9,6 +11,9 @@ import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardAddRespons
 import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardInitRequest;
 import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardInitResponse;
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
+import com.chinarewards.gwt.elt.client.budget.model.CorpBudgetVo;
+import com.chinarewards.gwt.elt.client.budget.request.InitCorpBudgetRequest;
+import com.chinarewards.gwt.elt.client.budget.request.InitCorpBudgetResponse;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.ui.DialogCloseListener;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
@@ -24,6 +29,7 @@ import com.chinarewards.gwt.elt.client.win.confirm.ConfirmHandler;
 import com.chinarewards.gwt.elt.model.rewards.RewardPageType;
 import com.chinarewards.gwt.elt.model.rewards.RewardsPageClient;
 import com.chinarewards.gwt.elt.util.DateTool;
+import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
@@ -45,6 +51,8 @@ public class AwardRewardDeterminePresenterImpl extends
 	final Win win;
 	private final Provider<ChooseStaffWinDialog> chooseStaffDialogProvider;
 	private final BreadCrumbsPresenter breadCrumbs;
+	private int oneamt=0;
+	private int winSize=0;
 	@Inject
 	public AwardRewardDeterminePresenterImpl(EventBus eventBus,
 			AwardRewardDetermineDisplay display, DispatchAsync dispatcher,
@@ -73,8 +81,45 @@ public class AwardRewardDeterminePresenterImpl extends
 
 							@Override
 							public void confirm() {
-								addAwardRewardData(awardsId);
+							
+								dispatcher.execute(new InitCorpBudgetRequest(sessionManager.getSession()),
+										new AsyncCallback<InitCorpBudgetResponse>() {
+								          	@Override
+											public void onFailure(Throwable arg0) {
+												win.alert("查询财年周期出错!");
+												
+											}
 
+											@Override
+											public void onSuccess(InitCorpBudgetResponse response) {
+												 double remainCount=0;
+												 List<CorpBudgetVo> list = response.getResult();
+												 Map<String, String> map = new HashMap<String, String>();
+												 map.clear();
+												 CorpBudgetVo vo = new CorpBudgetVo();
+												 if(list.size()>0){
+													 for(int i=0;i<list.size();i++){
+														   vo = list.get(i);
+														   map.put(vo.getId(), vo.getBudgetTitle());
+													 }
+													 vo = list.get(0);
+													
+													 remainCount = vo.getBudgetIntegral()-vo.getUseIntegeral();
+														
+												 }
+												 if(remainCount==0 || remainCount-(oneamt*winSize)<0)
+												 {
+													win.alert("抱歉，您的预算积分<font color='red'>"+StringUtil.subZeroAndDot(remainCount+"")+"</font>,本次需<font color='red'>"+(oneamt*winSize)+"</font>积分,<font color='blue'>您的预算积分不足!</font>");
+													return;
+												 }
+												 else
+												 {
+													addAwardRewardData(awardsId);
+												 }
+												
+											}
+
+										});
 							}
 						});
 
@@ -193,6 +238,10 @@ public class AwardRewardDeterminePresenterImpl extends
 						display.setAwardName(response.getAwardingStaffName());
 						if(response.getWinnerList()!=null && response.getWinnerList().size()>0)
 						display.setWinners(response.getWinnerList());
+						
+						oneamt=amt;
+						if(response.getWinnerList()!=null)
+						winSize=response.getWinnerList().size();
 
 					}
 				});
