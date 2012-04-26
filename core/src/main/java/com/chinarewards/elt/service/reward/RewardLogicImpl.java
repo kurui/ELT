@@ -216,6 +216,7 @@ public class RewardLogicImpl implements RewardLogic {
 		reward.setExpectNominateDate(item.getNominateDate());
 		reward.setCreatedAt(now);
 		reward.setCreatedBy(caller);
+		reward.setAwardsUser(caller);//颁奖人加入,默认创建人
 		reward.setLastModifiedAt(now);
 		reward.setLastModifiedBy(caller);
 		rewardDao.save(reward);
@@ -427,8 +428,8 @@ public class RewardLogicImpl implements RewardLogic {
 			awardMode = "nothing";
 		}
 		rewardQueryVo.setAwardMode(awardMode);
-		rewardQueryVo.setAwardingStaffName(reward.getCreatedBy().getStaff()
-				.getName());// wanting.......same CreateStaff
+		if(reward.getAwardsUser()!=null)
+		rewardQueryVo.setAwardingStaffName(reward.getAwardsUser().getStaff().getName());// 2012年4月26日 14:50:08 加入颁奖人字段
 
 		List<CandidateParam> candidateListParam = new ArrayList<CandidateParam>();
 		for (int i = 0; i < candidateList.size(); i++) {
@@ -731,7 +732,7 @@ public class RewardLogicImpl implements RewardLogic {
 		SysUser updateUser = userLogic.findUserByStaffId(updateUserId);
 
 		Reward reward = rewardDao.findById(Reward.class, rewardId);
-		reward.setCreatedBy(updateUser);
+		reward.setAwardsUser(updateUser);
 		reward.setLastModifiedBy(nowUser);
 		rewardDao.update(reward);
 		return reward.getId();

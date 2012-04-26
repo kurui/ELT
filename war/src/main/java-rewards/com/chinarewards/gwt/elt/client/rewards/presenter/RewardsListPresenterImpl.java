@@ -366,9 +366,9 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 			cellTable.addColumn("操作", new UniversalCell(),
 					new GetValue<RewardsClient, String>() {
 						@Override
-						public String getValue(RewardsClient rewards) {
+						public String getValue(RewardsClient o) {
 				
-							if(rewards.getCreatedByStaffId()!=null && rewards.getCreatedByStaffId().equals(sessionManager.getSession().getStaffId()))
+							if(o.getAwardsUserId()!=null && o.getAwardsUserId().equals(sessionManager.getSession().getToken()))
 							{
 								return "<a style=\"color:bule;\" href=\"javascript:void(0);\">颁奖</a>";
 								
@@ -384,7 +384,7 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 						public void update(int index, RewardsClient o,
 								String value) {
 							if ("NEW".equals(o.getStatus().name())) {
-								if(o.getCreatedByStaffId()!=null && o.getCreatedByStaffId().equals(sessionManager.getSession().getStaffId()))
+								if(o.getAwardsUserId()!=null && o.getAwardsUserId().equals(sessionManager.getSession().getToken()))
 								{
 									Platform.getInstance()
 										.getEditorRegistry()
@@ -410,23 +410,23 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 						@Override
 						public String getValue(RewardsClient rewards) {
 				
-						//	if(rewards.getCreatedByStaffId().equals(sessionManager.getSession().getStaffId()))
-						//	{
+							if(rewards.getCreatedByStaffId().equals(sessionManager.getSession().getStaffId()))
+							{
 								return "<a style=\"color:bule;\" href=\"javascript:void(0);\">邀请颁奖</a>";
 								
-//							}
-//							else
-//							{
-//								return "<span style='color: rgb(221, 221, 221);'>邀请颁奖</span>";
-//							}
+							}
+							else
+							{
+								return "<span style='color: rgb(221, 221, 221);'>邀请颁奖</span>";
+							}
 						}
 					}, new FieldUpdater<RewardsClient, String>() {
 
 						@Override
 						public void update(int index, final RewardsClient o,
 								String value) {
-							if ("NEW".equals(o.getStatus().name())) {
-							//	 && o.getCreatedByStaffId().equals(sessionManager.getSession().getStaffId())
+							if ("NEW".equals(o.getStatus().name())  && o.getCreatedByStaffId().equals(sessionManager.getSession().getStaffId())) {
+						
 								final ChooseStaffWinDialog dialog = chooseStaffDialogProvider.get();
 								dialog.setNominee(false, true, null);
 								dialog.setStaffOnly(true);
@@ -501,10 +501,10 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 			cellTable.addColumn("操作", new UniversalCell(),
 					new GetValue<RewardsClient, String>() {
 						@Override
-						public String getValue(RewardsClient rewards) {
-							if (rewards.getStatus() == RewardsStatus.NEW)
+						public String getValue(RewardsClient o) {
+							if (o.getStatus() == RewardsStatus.NEW)
 							{
-								if(rewards.getCreatedByStaffId().equals(sessionManager.getSession().getStaffId()))
+								if(o.getAwardsUserId()!=null && o.getAwardsUserId().equals(sessionManager.getSession().getToken()))
 								{
 									return "<a style=\"color:bule;\" href=\"javascript:void(0);\">颁奖</a>";
 									
@@ -515,11 +515,11 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 								}
 
 							}
-							else if (rewards.getStatus() == RewardsStatus.DETERMINE_WINNER)
+							else if (o.getStatus() == RewardsStatus.DETERMINE_WINNER)
 								return  "<a style=\"color:bule;\" href=\"javascript:void(0);\">评选</a>";
-							else if (rewards.getStatus() == RewardsStatus.PENDING_NOMINATE)
+							else if (o.getStatus() == RewardsStatus.PENDING_NOMINATE)
 								{
-								for (JudgeModelClient judge:rewards.getJudgeList()) {
+								for (JudgeModelClient judge:o.getJudgeList()) {
 									if(judge.getStaffId().equals(sessionManager.getSession().getStaffId()))
 									{
 										if("NOMINATED".equals(judge.getStatus()))
@@ -553,7 +553,7 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 							else if (o.getStatus() == RewardsStatus.NEW)
 							{
 
-								if(o.getCreatedByStaffId().equals(sessionManager.getSession().getStaffId()))
+								if(o.getAwardsUserId()!=null && o.getAwardsUserId().equals(sessionManager.getSession().getToken()))
 								{
 									pageUrl = AwardRewardDetermineConstants.EDITOR_AWARDREWARDDETERMINE_SEARCH;
 									Platform.getInstance()

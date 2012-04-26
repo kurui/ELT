@@ -48,6 +48,10 @@ public class RewardsAdapter {
 			result.setCreatedBy(rewards.getCreatedBy().getStaff().getName());
 			result.setCreatedByStaffId(rewards.getCreatedBy().getStaff().getId());
 		}
+		if (rewards.getReward().getAwardsUser() != null && rewards.getReward().getAwardsUser().getStaff()!=null){
+			result.setAwardsUserName(rewards.getReward().getAwardsUser().getStaff().getName());
+			result.setAwardsUserId(rewards.getReward().getAwardsUser().getId());
+		}
 		result.setTotalAmtLimit(rewards.getTotalAmtLimit());
 		result.setExpectNominateDate(rewards.getExpectNominateDate());
 		
