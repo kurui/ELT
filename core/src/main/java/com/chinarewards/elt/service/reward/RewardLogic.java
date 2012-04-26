@@ -16,6 +16,7 @@ import com.chinarewards.elt.model.reward.exception.NominateRewardException;
 import com.chinarewards.elt.model.reward.search.RewardQueryVo;
 import com.chinarewards.elt.model.reward.search.RewardSearchVo;
 import com.chinarewards.elt.model.reward.vo.RewardVo;
+import com.chinarewards.elt.model.reward.vo.RewardWinVo;
 import com.chinarewards.elt.model.user.UserContext;
 
 /**
@@ -176,7 +177,7 @@ public interface RewardLogic {
 	 * @param staffIds
 	 * @return
 	 */
-	public String awardRewardWinner(String nowUserId, String rewardId);
+	public RewardWinVo awardRewardWinner(String nowUserId, String rewardId);
 	/**
 	 * 修改颁奖人
 	 * @param rewardId

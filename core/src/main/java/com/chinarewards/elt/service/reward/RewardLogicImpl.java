@@ -41,6 +41,7 @@ import com.chinarewards.elt.model.reward.search.JudgeParam;
 import com.chinarewards.elt.model.reward.search.RewardQueryVo;
 import com.chinarewards.elt.model.reward.search.RewardSearchVo;
 import com.chinarewards.elt.model.reward.vo.RewardVo;
+import com.chinarewards.elt.model.reward.vo.RewardWinVo;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.service.broadcast.BroadcastService;
@@ -674,7 +675,7 @@ public class RewardLogicImpl implements RewardLogic {
 	}
 
 	@Override
-	public String awardRewardWinner(String nowUserId, String rewardId) {
+	public RewardWinVo awardRewardWinner(String nowUserId, String rewardId) {
 		SysUser caller = userLogic.findUserById(nowUserId);
 		Reward reward = rewardDao.findById(Reward.class, rewardId);
 		List<PreWinnerLot> lot = preWinnerLogic
@@ -742,13 +743,15 @@ public class RewardLogicImpl implements RewardLogic {
 			vo.setOrganList(organList);
 			broadcastService.createOrUpdateBroadcast(vo, context,
 					BroadcastingCategory.REWARDBROADCAST);
-
-			return lot.get(0).getId();
+			List<Winner> winner=winnerLogic.getWinnersOfReward(rewardId);
+			return new RewardWinVo(reward, winner);
 		} else
 		{
+			
 			reward.setStatus(RewardStatus.REWARDED);
 			rewardDao.update(reward);
-			return null;
+			List<Winner> winner=winnerLogic.getWinnersOfReward(rewardId);
+			return new RewardWinVo(reward, winner);
 		}
 	}
 
