@@ -68,15 +68,12 @@ public class ImportGiftServlet extends UploadAction {
 		}
 
 		String response = "";
-	//	int cont = 0;
 		for (FileItem item : sessionFiles) {
 			if (false == item.isFormField()) {
-	//			cont++;
 				try {
 					// compose a xml message with the full file information
 					response = obtainUploadedFileTitleInstruction(request, item)
 							.toString();
-
 					logger.debug(response);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -92,30 +89,12 @@ public class ImportGiftServlet extends UploadAction {
 		return "<response>\n" + response + "</response>\n";
 	}
 
-	/**
-	 * Get the content of an uploaded file from client.
-	 */
-	@Override
-	public void getUploadedFile(HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
-		renderXmlResponse(request, response, ERROR_ITEM_NOT_FOUND);
-	}
-
-	/**
-	 * Remove a file when the user sends a delete request.
-	 */
-	@Override
-	public void removeItem(HttpServletRequest request, String fieldName)
-			throws UploadActionException {
-
-	}
+	
 
 	private StringBuffer obtainUploadedFileTitleInstruction(
 			HttpServletRequest request, FileItem item) {
 		logger.debug("prepare to save session file item into a temp file");
-		// Create a temporary file placed in the default system temp folder
-		logger.debug("the temp file was just created");
-		logger.debug("prepare to obtain the title instruction from uploaded temp file ...");
+		
 		StringBuffer responseSection = new StringBuffer();
 		List<List<String>> list = new ArrayList<List<String>>();
 		try {
@@ -133,12 +112,12 @@ public class ImportGiftServlet extends UploadAction {
 				ImportGiftRawParameter pGiftRaw = new ImportGiftRawParameter();
 				boolean isBlankRow = true;
 				for (Cell cell : sheet.getRow(row)) {
-					String c = cell.getContents();
-					if (c != null && !"".equals(c)) {
+					String cellContent = cell.getContents();
+					if (cellContent != null && !"".equals(cellContent)) {
 						if (isBlankRow) {
 							isBlankRow = false;
 						}
-						c = c.trim();
+						cellContent = cellContent.trim();
 //						if (col == 4) {//第4列为日期格式解析
 //							// dob and doe column
 //							c = manufactureDateCell(c, cell);
@@ -147,25 +126,23 @@ public class ImportGiftServlet extends UploadAction {
 					pGiftRaw.setRowPos(new Long(row + 1));
 					// header column sorting is designated
 					if (col == 0) {
-						pGiftRaw.setName(c);
+						pGiftRaw.setName(cellContent);
 					} else if (col == 1) {
-						pGiftRaw.setSourceText(c);
+						pGiftRaw.setSourceText(cellContent);
 					} else if (col == 2) {
-						pGiftRaw.setIntegral(c);
+						pGiftRaw.setIntegral(cellContent);
 					} else if (col == 3) {
-						pGiftRaw.setPrice(c);
+						pGiftRaw.setPrice(cellContent);
 					} else if (col == 4) {
-						pGiftRaw.setStock(c);
+						pGiftRaw.setStock(cellContent);
 					} else if (col == 5) {
-						pGiftRaw.setStatusText(c);
+						pGiftRaw.setStatusText(cellContent);
 					} 
 					if (instructionRow >= INSTRUCTION_START_ROW
 							&& instructionRow <= INSTRUCTION_END_ROW) {
 						if (col >= INSTRUCTION_START_COL
 								&& col <= INSTRUCTION_END_COL) {
-							t.add(c == null || c.trim().equals("") ? " " : c);
-//							System.out.println("\t" + row + "\t" + col + "\t"
-//									+ t.get(col));
+							t.add(cellContent == null || cellContent.trim().equals("") ? " " : cellContent);
 						}
 					}
 					col++;
@@ -177,25 +154,21 @@ public class ImportGiftServlet extends UploadAction {
 						list.add(t);
 						instructionRow++;
 					}
-//					System.out.println(pGiftRaw.toString());
 					pGiftRaws.add(pGiftRaw);
 				}
 			}
-			logger.debug("============================================================");
 			// 关闭文件
 			wb.close();
+			
 			String nowUserId=request.getParameter("nowUserId");
 			String corporationId=request.getParameter("corporationId");
 			
 			if (importGiftService != null && !StringUtil.isEmpty(nowUserId) && !StringUtil.isEmpty(corporationId)) {
-				// make sure there is ejb service available for gwt host mode
-				// debug
+
 				ImportGiftRequest importRequest = new ImportGiftRequest();
 				importRequest.setFileName(item.getFieldName());
 				importRequest.setContentType(item.getContentType());
 				importRequest.setGiftRawList(pGiftRaws);
-
-
 
 				logger.debug("corporationId - corporationId = " + corporationId);
 				responseSection.append("<corporationId>").append(corporationId)
@@ -270,6 +243,25 @@ public class ImportGiftServlet extends UploadAction {
 		}
 //		System.out.println("parse date result = " + c);
 		return c;
+	}
+	
+	
+	/**
+	 * Get the content of an uploaded file from client.
+	 */
+	@Override
+	public void getUploadedFile(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		renderXmlResponse(request, response, ERROR_ITEM_NOT_FOUND);
+	}
+
+	/**
+	 * Remove a file when the user sends a delete request.
+	 */
+	@Override
+	public void removeItem(HttpServletRequest request, String fieldName)
+			throws UploadActionException {
+
 	}
 
 }
