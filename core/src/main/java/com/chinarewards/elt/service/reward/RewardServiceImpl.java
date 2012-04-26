@@ -220,4 +220,10 @@ public class RewardServiceImpl implements RewardService {
 			String updateUserId) {
 		return rewardLogic.updateRewardAwardUser(rewardId, context, updateUserId);
 	}
+
+	@Override
+	public void toMessageForConfirmReward() {
+		rewardLogic.toMessageForConfirmReward();
+		
+	}
 }

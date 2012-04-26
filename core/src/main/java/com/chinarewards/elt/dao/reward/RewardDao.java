@@ -549,4 +549,12 @@ public class RewardDao extends BaseDao<Reward> {
 				.createQuery(" FROM Reward r WHERE r.status = :status")
 				.setParameter("status", RewardStatus.NEW).getResultList();
 	}
+	
+	//得到待确定的奖励
+	@SuppressWarnings("unchecked")
+	public List<Reward> getConfirmForReward() {
+			return getEm()
+					.createQuery(" FROM Reward r WHERE r.status = :status")
+					.setParameter("status", RewardStatus.DETERMINE_WINNER).getResultList();
+		}
 }

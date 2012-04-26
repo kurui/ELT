@@ -157,6 +157,8 @@ public interface RewardLogic {
 	
 	public void toMessageForReward();
 	
+	//通知确定获胜者
+	public void toMessageForConfirmReward();
 	/**
 	 * 确定获奖人方法
 	 * 
