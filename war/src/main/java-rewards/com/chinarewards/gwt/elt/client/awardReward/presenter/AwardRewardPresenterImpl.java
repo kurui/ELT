@@ -1,7 +1,9 @@
 package com.chinarewards.gwt.elt.client.awardReward.presenter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
@@ -10,8 +12,16 @@ import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardAddRespons
 import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardInitRequest;
 import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardInitResponse;
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
+import com.chinarewards.gwt.elt.client.budget.model.AskBudgetClientVo;
+import com.chinarewards.gwt.elt.client.budget.model.CorpBudgetVo;
+import com.chinarewards.gwt.elt.client.budget.plugin.AskBudgetConstants;
+import com.chinarewards.gwt.elt.client.budget.plugin.CorpBudgetConstants;
+import com.chinarewards.gwt.elt.client.budget.request.InitCorpBudgetRequest;
+import com.chinarewards.gwt.elt.client.budget.request.InitCorpBudgetResponse;
 import com.chinarewards.gwt.elt.client.chooseStaff.presenter.ChooseStaffPanelPresenter;
 import com.chinarewards.gwt.elt.client.core.Platform;
+import com.chinarewards.gwt.elt.client.core.presenter.DockPresenter;
+import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
 import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
@@ -24,6 +34,7 @@ import com.chinarewards.gwt.elt.client.win.confirm.ConfirmHandler;
 import com.chinarewards.gwt.elt.model.ChoosePanel.InitChoosePanelParam;
 import com.chinarewards.gwt.elt.model.rewards.RewardPageType;
 import com.chinarewards.gwt.elt.model.rewards.RewardsPageClient;
+import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.chinarewards.gwt.elt.util.DateTool;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -42,17 +53,22 @@ public class AwardRewardPresenterImpl extends
 	final Win win;
 	private final ChooseStaffPanelPresenter staffPanel;
 	private final BreadCrumbsPresenter breadCrumbs;
+	private int oneamt=0;
+	final DockPresenter dockPresenter;
+	final MenuProcessor menuProcessor;
 	@Inject
 	public AwardRewardPresenterImpl(EventBus eventBus,
 			AwardRewardDisplay display, DispatchAsync dispatcher,
 			ChooseStaffPanelPresenter staffPanel,
-			SessionManager sessionManager, Win win,BreadCrumbsPresenter breadCrumbs) {
+			SessionManager sessionManager, Win win,BreadCrumbsPresenter breadCrumbs,MenuProcessor menuProcessor,DockPresenter dockPresenter) {
 		super(eventBus, display);
 		this.dispatcher = dispatcher;
 		this.staffPanel = staffPanel;
 		this.sessionManager = sessionManager;
 		this.win = win;
 		this.breadCrumbs=breadCrumbs;
+		this.menuProcessor=menuProcessor;
+		this.dockPresenter=dockPresenter;
 	}
 
 	@Override
@@ -105,14 +121,93 @@ public class AwardRewardPresenterImpl extends
 
 							@Override
 							public void confirm() {
-								addAwardRewardData(staffIds, awardsId);
+								
+								dispatcher.execute(new InitCorpBudgetRequest(sessionManager.getSession()),
+											new AsyncCallback<InitCorpBudgetResponse>() {
+									          	@Override
+												public void onFailure(Throwable arg0) {
+													win.alert("查询财年周期出错!");
+													
+												}
+
+												@Override
+												public void onSuccess(InitCorpBudgetResponse response) {
+													 double remainCount=0;
+													 List<CorpBudgetVo> list = response.getResult();
+													 Map<String, String> map = new HashMap<String, String>();
+													 map.clear();
+													 CorpBudgetVo vo = new CorpBudgetVo();
+													 if(list.size()>0){
+														 for(int i=0;i<list.size();i++){
+															   vo = list.get(i);
+															   map.put(vo.getId(), vo.getBudgetTitle());
+														 }
+														 vo = list.get(0);
+														
+														 remainCount = vo.getBudgetIntegral()-vo.getUseIntegeral();
+															
+													 }
+													 if(remainCount==0 || remainCount-(oneamt*staffIds.size())<0)
+													 {
+														 
+														// 
+														 if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.CORP_ADMIN)
+														 {
+															 win.confirm("提示", "抱歉，您的预算积分<font color='red'>"+remainCount+"</font>,本次需<font color='red'>"+(oneamt*staffIds.size())+"</font>积分,<font color='blue'>您的预算积分不足，是否需要修改今年财年预算？</font>", new ConfirmHandler() {
+																	
+																	@Override
+																	public void confirm() {
+																		dockPresenter.getDisplay().changeTopMenu("Integral");
+																		dockPresenter.getDisplay().setMenuTitle("积分管理");
+																		menuProcessor.initrender(dockPresenter.getDisplay().getMenu(), "Integral");
+																		Platform.getInstance()
+																		.getEditorRegistry()
+																		.openEditor(
+																				CorpBudgetConstants.EDITOR_CORPBUDGET_EDIT,
+																				CorpBudgetConstants.ACTION_CORPBUDGET_EDIT,
+																				null);
+																		menuProcessor.changItemColor("整体预算");
+																		
+																	}
+																});
+														 }
+														 else if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.DEPT_MGR)
+														 {
+															 win.confirm("提示", "抱歉，您的预算积分<font color='red'>"+remainCount+"</font>,本次需<font color='red'>"+(oneamt*staffIds.size())+"</font>积分,<font color='blue'>您的预算积分不足，是否需要申请追加预算？</font>", new ConfirmHandler() {
+																	
+																	@Override
+																	public void confirm() {
+																		dockPresenter.getDisplay().changeTopMenu("Integral");
+																		dockPresenter.getDisplay().setMenuTitle("积分管理");
+																		menuProcessor.initrender(dockPresenter.getDisplay().getMenu(), "Integral");
+																		AskBudgetClientVo vo = new AskBudgetClientVo();
+																		Platform.getInstance()
+																		.getEditorRegistry()
+																		.openEditor(AskBudgetConstants.EDITOR_ADD_BUDGET,
+																				AskBudgetConstants.ACTION_ASKBUDGET_ADD, vo);
+																		menuProcessor.changItemColor("预算申请");
+																		
+																	}
+																});
+														 }
+														 
+														
+													 }
+													 else
+													 {
+														 addAwardRewardData(staffIds, awardsId);
+													 }
+													
+												}
+
+											});
 
 							}
 						});
 
 					}
 				}));
-		
+
 		registerHandler(display.getNotWinClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
@@ -209,6 +304,7 @@ public class AwardRewardPresenterImpl extends
 						display.setRecordName(response.getCreatedStaffName());
 						display.setNumber(response.getHeadcountLimit() + "");
 						int amt = (int) (response.getAwardAmt() );
+						oneamt=amt;
 						display.setAwardAmt(amt + "");
 						display.setJudge(response.getJudgeList());
 
