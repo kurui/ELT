@@ -36,6 +36,7 @@ import com.chinarewards.gwt.elt.model.rewards.RewardPageType;
 import com.chinarewards.gwt.elt.model.rewards.RewardsPageClient;
 import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.chinarewards.gwt.elt.util.DateTool;
+import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -153,7 +154,7 @@ public class AwardRewardPresenterImpl extends
 														// 
 														 if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.CORP_ADMIN)
 														 {
-															 win.confirm("提示", "抱歉，您的预算积分<font color='red'>"+remainCount+"</font>,本次需<font color='red'>"+(oneamt*staffIds.size())+"</font>积分,<font color='blue'>您的预算积分不足，是否需要修改今年财年预算？</font>", new ConfirmHandler() {
+															 win.confirm("提示", "抱歉，您的预算积分<font color='red'>"+StringUtil.subZeroAndDot(remainCount+"")+"</font>,本次需<font color='red'>"+(oneamt*staffIds.size())+"</font>积分,<font color='blue'>您的预算积分不足，是否需要修改今年财年预算？</font>", new ConfirmHandler() {
 																	
 																	@Override
 																	public void confirm() {
@@ -173,7 +174,7 @@ public class AwardRewardPresenterImpl extends
 														 }
 														 else if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.DEPT_MGR)
 														 {
-															 win.confirm("提示", "抱歉，您的预算积分<font color='red'>"+remainCount+"</font>,本次需<font color='red'>"+(oneamt*staffIds.size())+"</font>积分,<font color='blue'>您的预算积分不足，是否需要申请追加预算？</font>", new ConfirmHandler() {
+															 win.confirm("提示", "抱歉，您的预算积分<font color='red'>"+StringUtil.subZeroAndDot(remainCount+"")+"</font>,本次需<font color='red'>"+(oneamt*staffIds.size())+"</font>积分,<font color='blue'>您的预算积分不足，是否需要申请追加预算？</font>", new ConfirmHandler() {
 																	
 																	@Override
 																	public void confirm() {
