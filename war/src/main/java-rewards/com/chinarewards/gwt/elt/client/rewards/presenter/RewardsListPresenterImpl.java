@@ -107,6 +107,8 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 				doSearch();
 			}
 		}));
+		if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.AWARD)
+			display.hiddenNowJudge();
 	}
 
 	private void init() {	
