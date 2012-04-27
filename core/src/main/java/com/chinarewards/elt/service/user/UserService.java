@@ -3,6 +3,7 @@ package com.chinarewards.elt.service.user;
 import java.util.List;
 
 import com.chinarewards.elt.domain.user.SysUser;
+import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.model.user.UserSearchCriteria;
 import com.chinarewards.elt.model.user.UserSearchResult;
@@ -75,6 +76,23 @@ public interface UserService {
 	 * @return
 	 */
 	public boolean vaildStaffEmail(String staffEmail,String nowStaffId);
+	
+	/**
+	 * 用户添加颁奖权限.如有.不增加
+	 * @param staffId
+	 * @param context
+	 * @return
+	 */
+	public boolean addUserAwardRole(String staffId,UserContext context);
+	
+	
+	/**
+	 * 删除用户颁奖权限.如有.不增加
+	 * @param staffId
+	 * @param context
+	 * @return
+	 */
+	public boolean deleteUserAwardRole(String staffId,UserContext context);
 	
 	
 }

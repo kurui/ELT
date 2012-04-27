@@ -37,6 +37,7 @@ public interface DockPresenter extends Presenter<DockPresenter.DockDisplay> {
 		
 		void changeTopMenu(String key);
 		void displayDeptMgrMenu();
+		void displayAwardMgrMenu();
 	}
 	
 	

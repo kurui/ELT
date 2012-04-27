@@ -14,6 +14,7 @@ import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.domain.user.SysUserRole;
 import com.chinarewards.elt.model.user.SearchUserInfo;
+import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.model.user.UserSearchCriteria;
 import com.chinarewards.elt.model.user.UserSearchResult;
@@ -376,6 +377,53 @@ public class UserLogicImpl implements UserLogic {
 		{
 			return true;
 		}
+	}
+
+	@Override
+	public boolean addUserAwardRole(String staffId, UserContext context) {
+		SysUser user=userDao.findUserByStaffId(staffId);
+		if(user!=null)
+		{
+			List<SysUserRole> userrole=userRoleDao.findUserRoleByUserId(user.getId());
+			boolean fal=true;
+			if (userrole.size() > 0) {
+				for (SysUserRole r : userrole) {
+					if (r.getRole().getName() == UserRole.AWARD)
+						fal=false;
+				}
+			}
+			if(fal)
+			{
+				SysUser nowuser=userDao.findUserById(context.getUserId());
+				
+				SysUserRole userRole = new SysUserRole();
+				userRole.setRole(roleDao.findRoleByRoleName(UserRole.AWARD));
+				userRole.setCreatedBy(nowuser);
+				userRole.setCreatedAt(DateUtil.getTime());
+				userRole.setLastModifiedAt(DateUtil.getTime());
+				userRole.setLastModifiedBy(nowuser);
+				userRole.setUser(user);
+				userRoleDao.createUserRole(userRole);
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public boolean deleteUserAwardRole(String staffId, UserContext context) {
+		SysUser user=userDao.findUserByStaffId(staffId);
+		if(user!=null)
+		{
+			// 清除颁奖角色
+			List<SysUserRole> lt = userRoleDao.findUserRoleByUserId(user.getId());
+			if (lt.size() > 0) {
+				for (SysUserRole r : lt) {
+					if (r.getRole().getName() == UserRole.AWARD)
+						userRoleDao.delete(r);
+				}
+			}
+		}
+		return false;
 	}
 
 }

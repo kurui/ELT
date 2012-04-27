@@ -49,6 +49,7 @@ public enum UserRoleVo {
 	/**
 	 * Ordinary staff.
 	 */
-	STAFF
+	STAFF,
+	AWARD
 
 }

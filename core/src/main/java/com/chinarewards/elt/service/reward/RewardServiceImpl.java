@@ -219,7 +219,10 @@ public class RewardServiceImpl implements RewardService {
 	@Override
 	public String updateRewardAwardUser(String rewardId, UserContext context,
 			String updateUserId) {
-		return rewardLogic.updateRewardAwardUser(rewardId, context, updateUserId);
+		String rewardid=rewardLogic.updateRewardAwardUser(rewardId, context, updateUserId);
+		userLogic.addUserAwardRole(updateUserId, context);
+
+		 return rewardid;
 	}
 
 	@Override

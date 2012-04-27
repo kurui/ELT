@@ -252,6 +252,8 @@ public class CookieSessionManager implements SessionManager {
 									 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_STAFF));
 								else if (role == UserRoleVo.GIFT)
 									eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_GIFT));	
+								else if (role == UserRoleVo.AWARD)
+									eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_AWARD));	
 						}
 						else
 						{
@@ -272,6 +274,12 @@ public class CookieSessionManager implements SessionManager {
 										 role=UserRoleVo.GIFT;
 										 session.setLastLoginRole(role);
 										 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_GIFT));							 
+									}
+									else if(roleslt.contains(UserRoleVo.AWARD))
+									{
+										 role=UserRoleVo.AWARD;
+										 session.setLastLoginRole(role);
+										 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_AWARD));
 									}
 									else if(roleslt.contains(UserRoleVo.STAFF))
 									{
@@ -543,6 +551,9 @@ public class CookieSessionManager implements SessionManager {
 										 eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_STAFF));
 									else if (role == UserRoleVo.GIFT)
 										eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_GIFT));	
+									else if (role == UserRoleVo.AWARD)
+										eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_AWARD));	
+		
 								}
 								else
 								{

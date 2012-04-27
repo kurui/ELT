@@ -126,7 +126,7 @@ public class PlatformModule extends AbstractGinModule {
 			RewardsItemListPluginDescriptor rewardsItemList,
 			RewardsItemViewPluginDescriptor rewardsItemView,
 			RewardsListPluginDescriptor rewardsList,
-			
+
 			AwardRewardPluginDescriptor awardreward,
 			DetailsOfAwardPluginDescriptor detailsAward,
 			GiftPluginDescriptor gift, GiftListPluginDescriptor giftList,
@@ -149,18 +149,15 @@ public class PlatformModule extends AbstractGinModule {
 			IntegralManagementPluginDescriptor integralManagement,
 			StaffListPluginDescriptor staffList,
 			StaffAddPluginDescriptor staffAdd,
-			TeamListPluginDescriptor teamList,
-			TeamAddPluginDescriptor teamAdd,
+			TeamListPluginDescriptor teamList, TeamAddPluginDescriptor teamAdd,
 			StaffViewPluginDescriptor staffView,
 			BroadcastingListPluginDescriptor broadcasting,
 			BroadcastSavePluginDescriptor BroadcastSave,
 			DetailsOfBroadcastPluginDescriptor dtailsOfBroadcast,
 			BroadcastReplyPluginDescriptor BroadcastReply,
-			HrBoxPluginDescriptor hrBox,
-			MailSetPluginDescriptor mailset,
+			HrBoxPluginDescriptor hrBox, MailSetPluginDescriptor mailset,
 			LeadTimePluginDescriptor leadTime,
 			AwardRewardDeterminePluginDescriptor awardRewardDetermine) {
-
 
 		if (pluginSet == null) {
 			pluginSet = new InMemoryPluginSet();
@@ -179,7 +176,7 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(nominate);
 			pluginSet.registerPlugin(rewardsItem);
 			pluginSet.registerPlugin(rewardsList);
-			
+
 			pluginSet.registerPlugin(awardreward);
 			pluginSet.registerPlugin(detailsAward);
 			pluginSet.registerPlugin(rewardsItemView);
@@ -214,9 +211,7 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(mailset);
 			pluginSet.registerPlugin(askViewBudget);
 			pluginSet.registerPlugin(awardRewardDetermine);
-		
 
-			
 		}
 
 		return pluginSet;
@@ -248,16 +243,15 @@ public class PlatformModule extends AbstractGinModule {
 			IntegralManagementPluginDescriptor integralManagement,
 			StaffListPluginDescriptor staffList,
 			StaffViewPluginDescriptor staffView,
-			LeadTimePluginDescriptor leadTime,
-			UserBoxPluginDescriptor leadBox,
+			LeadTimePluginDescriptor leadTime, UserBoxPluginDescriptor leadBox,
 			AwardRewardDeterminePluginDescriptor awardRewardDetermine) {
 
 		if (pluginSet == null) {
 			pluginSet = new InMemoryPluginSet();
 			pluginSet.registerPlugin(core);
-		//	pluginSet.registerPlugin(enterprise);
-		//	pluginSet.registerPlugin(integralPrice);
-		//	pluginSet.registerPlugin(period);
+			// pluginSet.registerPlugin(enterprise);
+			// pluginSet.registerPlugin(integralPrice);
+			// pluginSet.registerPlugin(period);
 			pluginSet.registerPlugin(user);
 			pluginSet.registerPlugin(departmentLeader);
 			pluginSet.registerPlugin(department);
@@ -292,9 +286,9 @@ public class PlatformModule extends AbstractGinModule {
 			CorePluginDescriptor core, // core
 			StaffIntegralPluginDescriptor staffIntegral,
 			RewardsListStaffPluginDescriptor rewardsListStaff,
-			RewardsItemListStaffPluginDescriptor rewardsItemListStaff,	
-			RewardsItemViewStaffPluginDescriptor rewardsItemViewStaff,	
-			RewardsItemListCompanyOtherPluginDescriptor rewardsItemListCompanyOther,	
+			RewardsItemListStaffPluginDescriptor rewardsItemListStaff,
+			RewardsItemViewStaffPluginDescriptor rewardsItemViewStaff,
+			RewardsItemListCompanyOtherPluginDescriptor rewardsItemListCompanyOther,
 			GiftPluginDescriptor gift, GiftListPluginDescriptor giftList,
 			GiftViewPluginDescriptor giftView,
 			OrderListPluginDescriptor orderList,
@@ -317,7 +311,6 @@ public class PlatformModule extends AbstractGinModule {
 			ColleagueListPluginDescriptor colleague,
 			StaffInfoPluginDescriptor StaffInfo,
 			ColleagueParticularPluginDescriptor colleagueParticular) {
-
 
 		if (pluginSet == null) {
 			pluginSet = new InMemoryPluginSet();
@@ -396,6 +389,25 @@ public class PlatformModule extends AbstractGinModule {
 			pluginSet.registerPlugin(orderConfirmation);
 			pluginSet.registerPlugin(orderSubmit);
 			pluginSet.registerPlugin(detailsOfGift);
+
+		}
+
+		return pluginSet;
+	}
+
+	@Provides
+	@Named("award")
+	PluginSet providePluginSetAward(
+	// ---- PLUGINS DEFINE BELOW (2) ----
+			CorePluginDescriptor core, // core
+			RewardsListPluginDescriptor rewardsList,
+			AwardRewardDeterminePluginDescriptor awardRewardDetermine) {
+
+		if (pluginSet == null) {
+			pluginSet = new InMemoryPluginSet();
+			pluginSet.registerPlugin(core);
+			pluginSet.registerPlugin(rewardsList);
+			pluginSet.registerPlugin(awardRewardDetermine);
 
 		}
 
