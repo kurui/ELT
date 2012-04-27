@@ -189,7 +189,11 @@ public class RewardDao extends BaseDao<Reward> {
 			hql.append(" AND ( Upper(rew.definition) LIKE Upper(:definition))");
 			param.put("definition", "%" + criteria.getDefinition() + "%");
 		}
-
+		
+		if (!StringUtil.isEmptyString(criteria.getAwardUserId())) {
+			hql.append(" AND rew.awardsUser.id = :awardUserId");
+			param.put("awardUserId", criteria.getAwardUserId());
+		}
 		// hql.append(" AND 0 <> (SELECT COUNT(*) FROM Winners win WHERE win.rewards=rew) ");
 		// hql.append(" AND rew.status = :status");
 		// param.put("status", RewardsStatus.REWARDED);

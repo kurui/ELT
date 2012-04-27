@@ -401,13 +401,15 @@ public class PlatformModule extends AbstractGinModule {
 	// ---- PLUGINS DEFINE BELOW (2) ----
 			CorePluginDescriptor core, // core
 			RewardsListPluginDescriptor rewardsList,
-			AwardRewardDeterminePluginDescriptor awardRewardDetermine) {
+			AwardRewardDeterminePluginDescriptor awardRewardDetermine,
+			DetailsOfAwardPluginDescriptor detailsAward) {
 
 		if (pluginSet == null) {
 			pluginSet = new InMemoryPluginSet();
 			pluginSet.registerPlugin(core);
 			pluginSet.registerPlugin(rewardsList);
 			pluginSet.registerPlugin(awardRewardDetermine);
+			pluginSet.registerPlugin(detailsAward);
 
 		}
 

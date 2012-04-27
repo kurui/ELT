@@ -83,7 +83,19 @@ public class RewardSearchVo {
 	 * Unit to award
 	 */
 	private TransactionUnit awardUnit;
+	/**
+	 * 颁奖人用户ID
+	 */
+	private String awardUserId;
 	
+
+	public String getAwardUserId() {
+		return awardUserId;
+	}
+
+	public void setAwardUserId(String awardUserId) {
+		this.awardUserId = awardUserId;
+	}
 
 	public Date getRewardsTime() {
 		return rewardsTime;
