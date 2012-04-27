@@ -42,7 +42,9 @@ import com.chinarewards.gwt.elt.model.PaginationDetailClient;
 import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.cell.client.CheckboxCell;
 import com.google.gwt.cell.client.FieldUpdater;
+import com.google.gwt.cell.client.SelectionCell;
 import com.google.gwt.cell.client.TextCell;
+import com.google.gwt.cell.client.TextInputCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -1101,20 +1103,7 @@ public class GiftImportPresenterImpl extends
 						return client.getSourceText();
 					}
 				}, ref, "source");
-		cellTable.addColumn("兑换缤纷", new TextCell(),
-				new GetValue<ImportGiftListClient, String>() {
-					@Override
-					public String getValue(ImportGiftListClient client) {
-						return client.getIntegral();
-					}
-				}, ref, "integral");
-		cellTable.addColumn("采购价", new TextCell(),
-				new GetValue<ImportGiftListClient, String>() {
-					@Override
-					public String getValue(ImportGiftListClient client) {
-						return client.getPrice();
-					}
-				}, ref, "price");
+		
 		cellTable.addColumn("库存", new TextCell(),
 				new GetValue<ImportGiftListClient, String>() {
 					@Override
@@ -1122,18 +1111,56 @@ public class GiftImportPresenterImpl extends
 						return client.getStock();
 					}
 				}, ref, "stock");
-		cellTable.addColumn("状态", new TextCell(),
+		cellTable.addColumn("采购价格", new TextCell(),
+				new GetValue<ImportGiftListClient, String>() {
+					@Override
+					public String getValue(ImportGiftListClient client) {
+						return client.getPrice();
+					}
+				}, ref, "price");
+		
+		/*cellTable.addColumn("兑换缤纷", new TextCell(),
+				new GetValue<ImportGiftListClient, String>() {
+					@Override
+					public String getValue(ImportGiftListClient client) {
+						return client.getIntegral();
+					}
+				}, ref, "integral");
+*/
+		cellTable.addColumn("兑换缤纷", new TextInputCell(),
+				new GetValue<ImportGiftListClient, String>() {
+					@Override
+					public String getValue(ImportGiftListClient client) {
+						return client.getIntegral();
+					}
+				}, ref, "integral");
+		/*cellTable.addColumn("状态", new TextCell(),
 				new GetValue<ImportGiftListClient, String>() {
 					@Override
 					public String getValue(ImportGiftListClient client) {
 						return client.getStatusText();
 					}
 				}, ref, "status");
-	
-	
+	*/
+		List<String> statusList=new ArrayList<String>();
+		statusList.add("不限");
+		statusList.add("上架");
+		statusList.add("未上架");
+		
+		cellTable.addColumn("状态", new SelectionCell(statusList),
+				new GetValue<ImportGiftListClient, String>() {
+					@Override
+					public String getValue(ImportGiftListClient client) {
+						return client.getStatusText();
+					}
+				}, ref, "status");
 	}
 	
 	private void updateShowData() {
+		
+		System.out.println(cellTable);
+		
+		
 		ImportGiftListCriteria criteria = new ImportGiftListCriteria();
 		criteria.setBatchId(batchId);
 		criteria.setImportfal(true);

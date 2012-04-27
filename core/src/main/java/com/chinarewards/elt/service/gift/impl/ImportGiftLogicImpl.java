@@ -123,10 +123,10 @@ public class ImportGiftLogicImpl implements ImportGiftLogic {
 
 		// add import Gift raw
 		for (ImportGiftRawParameter pGiftRaw : request.getGiftRawList()) {
-			ImportGiftRaw GiftRaw = new ImportGiftRaw();
-			toImportGiftRaw(GiftRaw, pGiftRaw, batch);
-			GiftRaw.setResult(ImportGiftResultType.PENDING);
-			GiftRaw = importGiftRawDao.save(GiftRaw);
+			ImportGiftRaw giftRaw = new ImportGiftRaw();
+			toImportGiftRaw(giftRaw, pGiftRaw, batch);
+			giftRaw.setResult(ImportGiftResultType.PENDING);
+			giftRaw = importGiftRawDao.save(giftRaw);
 		}
 
 		logger.debug("createImportGiftBatch method end with batch = " + batch);
