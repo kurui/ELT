@@ -138,7 +138,12 @@ public class RewardsClient implements Serializable, Comparable<RewardsClient> {
 	public Date getRewardsDate() {
 		return rewardsDate;
 	}
-
+	public String getAwardsUserName() {
+		return baseInfo.getAwardsUserName();
+	}
+	public String getAwardsUserId() {
+		return baseInfo.getAwardsUserId();
+	}
 	public void setRewardsDate(Date rewardsDate) {
 		this.rewardsDate = rewardsDate;
 	}
@@ -319,6 +324,13 @@ public class RewardsClient implements Serializable, Comparable<RewardsClient> {
 		this.expectNominateDate = expectNominateDate;
 	}
 
+	public void setAwardsUserName(String awardsUserName) {
+		baseInfo.setAwardsUserName(awardsUserName);
+	}
 
+
+	public void setAwardsUserId(String awardsUserId) {
+		baseInfo.setAwardsUserId(awardsUserId);
+	}
 
 }

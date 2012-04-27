@@ -6,6 +6,7 @@ import java.util.List;
 import com.chinarewards.elt.domain.budget.AskBudget;
 import com.chinarewards.elt.domain.budget.CorpBudget;
 import com.chinarewards.elt.domain.budget.DepartmentBudget;
+import com.chinarewards.elt.domain.reward.base.Reward;
 import com.chinarewards.elt.model.budget.search.AskBudgetVo;
 import com.chinarewards.elt.model.budget.search.DepartmentBudgetVo;
 import com.chinarewards.elt.model.budget.search.IntegralManagementVo;
@@ -136,9 +137,14 @@ public interface BudgetService {
 	 * @param corpBudgetId
 	 * @return
 	 */
-	public DepartmentBudget findDepartmentBudgetByDepartmentId(String departmentId,
-			String corpBudgetId);
-
-	
+	public DepartmentBudget findDepartmentBudgetByDepartmentId(String departmentId,	String corpBudgetId);
+   //颁奖扣预算积分
+	/**
+	 * 
+	 * @param rewardId  奖励ID
+	 * @param integral  消用的积分
+	 * @return    success =成功  fail =失败
+	 */
+	public String updateBudget(String rewardId,double integral);
 
 }

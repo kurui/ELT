@@ -8,6 +8,7 @@ import com.chinarewards.elt.domain.budget.AskBudget;
 import com.chinarewards.elt.domain.budget.CorpBudget;
 import com.chinarewards.elt.domain.budget.DepartmentBudget;
 import com.chinarewards.elt.domain.org.Department;
+import com.chinarewards.elt.domain.reward.base.Reward;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.budget.search.AskBudgetVo;
 import com.chinarewards.elt.model.budget.search.DepartmentBudgetVo;
@@ -156,5 +157,9 @@ public class BudgetServiceImpl implements BudgetService {
 				 }
 		}
 		return budgetLogic.askBudgetList(caller, askBudgetVo);
+	}
+	@Override
+	 public String updateBudget(String rewardId,double integral){
+		return budgetLogic.updateBudget(rewardId,  integral);
 	}
 }

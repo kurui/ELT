@@ -1,5 +1,6 @@
 package com.chinarewards.elt.dao.budget;
 
+import java.util.Date;
 import java.util.List;
 
 import com.chinarewards.elt.common.BaseDao;
@@ -44,5 +45,19 @@ public class CorpBudgetDao extends BaseDao<CorpBudget> {
 		return resultList;
 
 	}
+	//颁奖时扣除哪个财年的预算
+	@SuppressWarnings("unchecked")
+	public CorpBudget findByCorpId(String corporationId,Date rewardDate) {
+		String sql = "FROM CorpBudget c WHERE c.corporationId = :corporationId and "+rewardDate+" between c.beginDate and c.endDate ";
+		logger.debug(" findByCorpId==" + corporationId + "--" + sql);
+		List<CorpBudget> resultList = getEm().createQuery(sql)
+				.setParameter("corporationId", corporationId)
+				.getResultList();
+		if (resultList != null && resultList.size() > 0) {
+			return resultList.get(0);
+		} else {
+			return null;
+		}
 
+	}
 }

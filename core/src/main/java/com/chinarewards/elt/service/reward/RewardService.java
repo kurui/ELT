@@ -169,7 +169,8 @@ public interface RewardService {
 	public void toMessageForReward();
 	//查到要提名的人短信通知
 	public void getNominatorToMessage();
-	
+	//通知确定获胜者
+	public void toMessageForConfirmReward();
 	/**
 	 * 修改颁奖人
 	 * @param rewardId
