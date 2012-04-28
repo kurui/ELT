@@ -139,7 +139,7 @@ public class ButtonMenuProcessor implements MenuProcessor {
 					|| menuId.equals(OrderViewConstants.MENU_ORDERBOX_SEARCH)
 					|| menuId.equals(UserBoxConstants.MENU_USERBOX_SEARCH)
 					|| menuId.equals(HrBoxConstants.MENU_HRBOX_SEARCH)
-					|| menuId.equals(AwardRewardDetermineConstants.MENU_AWARDREWARDDETERMINE_SEARCH)) {
+					||( menuId.equals(AwardRewardDetermineConstants.MENU_AWARDREWARDDETERMINE_SEARCH) && sessionManager.getSession().getLastLoginRole()==UserRoleVo.AWARD)) {
 
 				button.setStyleName("menu-link menu-selected");
 				breadCrumbsMenu.cleanBreadCrumbsItemTop();
