@@ -113,8 +113,9 @@ public class BudgetLogicImpl implements BudgetLogic {
 			  corpBudget.setUseIntegeral(corpBudget.getUseIntegeral()+departmentBudget.getBudgetIntegral());
 			  corpBudgetDao.update(corpBudget);
 		     }else if (roleList.contains(UserRole.DEPT_MGR)){
-		    	  //得到父部门的预算,getCorpBudgetId得到的是父部门的ID
-		    	  DepartmentBudget ParentdepartmentBudget= departmentBudgetDao.findDepartmentBudgetByDepartmentId(caller.getStaff().getDepartment().getId(),departmentBudget.getCorpBudgetId());
+		    	  //得到的是所增加的子部门的父部门ID再得到父部门的预算,
+		    	  Department depart = departmentDao.findById(Department.class, departmentBudget.getDepartmentId());
+		    	  DepartmentBudget ParentdepartmentBudget= departmentBudgetDao.findDepartmentBudgetByDepartmentId(depart.getParent().getId(),departmentBudget.getCorpBudgetId());
 		    	  ParentdepartmentBudget.setUseIntegeral(ParentdepartmentBudget.getUseIntegeral()+departmentBudget.getBudgetIntegral());
 		    	//更新父部门财年的已用积分
 		    	  departmentBudgetDao.update(ParentdepartmentBudget);
@@ -134,8 +135,9 @@ public class BudgetLogicImpl implements BudgetLogic {
 			   corpBudget.setUseIntegeral(corpBudget.getUseIntegeral()-sc);//修改财年的已使用的积分
 			   corpBudgetDao.update(corpBudget);
 			}else if (roleList.contains(UserRole.DEPT_MGR)){
-		    	  //得到父部门的预算,得到的是父部门的ID
-				 DepartmentBudget ParentdepartmentBudget= departmentBudgetDao.findDepartmentBudgetByDepartmentId(caller.getStaff().getDepartment().getId(),departmentBudget.getCorpBudgetId());
+				 //得到的是所增加的子部门的父部门ID再得到父部门的预算,
+				  Department depart = departmentDao.findById(Department.class, departmentBudget.getDepartmentId());
+		    	  DepartmentBudget ParentdepartmentBudget= departmentBudgetDao.findDepartmentBudgetByDepartmentId(depart.getParent().getId(),departmentBudget.getCorpBudgetId());
 		    	  ParentdepartmentBudget.setUseIntegeral(ParentdepartmentBudget.getUseIntegeral()-sc);
 		    	//更新父部门财年的已用积分
 		    	  departmentBudgetDao.update(ParentdepartmentBudget);
@@ -178,8 +180,9 @@ public class BudgetLogicImpl implements BudgetLogic {
 					    departmentBudget.setBudgetIntegral(departmentBudget.getBudgetIntegral()+askBudget.getApproveIntegeral());//修改申请部门的预算,增加审批额
 						departmentBudgetDao.update(departmentBudget);//更新申请部预算
 					}else if (roleList.contains(UserRole.DEPT_MGR)){
-				    	  //得到父部门的预算,
-						  DepartmentBudget ParentdepartmentBudget= departmentBudgetDao.findDepartmentBudgetByDepartmentId(caller.getStaff().getDepartment().getId(),tempaskBudget.getCorpBudgetId());
+						//得到的是所增加的子部门的父部门ID再得到父部门的预算,
+						  Department depart = departmentDao.findById(Department.class, tempaskBudget.getDepartmentId());
+				    	  DepartmentBudget ParentdepartmentBudget= departmentBudgetDao.findDepartmentBudgetByDepartmentId(depart.getParent().getId(),tempaskBudget.getCorpBudgetId());
 				    	  ParentdepartmentBudget.setUseIntegeral(ParentdepartmentBudget.getUseIntegeral()+askBudget.getApproveIntegeral());//增加审批人所在部门的预算
 				    	//更新父部门财年的已用积分
 				    	  departmentBudgetDao.update(ParentdepartmentBudget);

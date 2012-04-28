@@ -3,15 +3,21 @@ package com.chinarewards.gwt.elt.client.rewardItem.presenter;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
 import com.chinarewards.gwt.elt.client.budget.model.CorpBudgetVo;
+import com.chinarewards.gwt.elt.client.budget.model.DepartmentVo;
 import com.chinarewards.gwt.elt.client.budget.request.InitCorpBudgetRequest;
 import com.chinarewards.gwt.elt.client.budget.request.InitCorpBudgetResponse;
+import com.chinarewards.gwt.elt.client.budget.request.InitDepartmentRequest;
+import com.chinarewards.gwt.elt.client.budget.request.InitDepartmentResponse;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.ui.DialogCloseListener;
 import com.chinarewards.gwt.elt.client.frequency.CalculatorSelectFactory;
@@ -51,7 +57,10 @@ import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.client.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.client.win.confirm.ConfirmHandler;
+import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.chinarewards.gwt.elt.util.DateTool;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -133,7 +142,7 @@ public class RewardsItemCreatePresenterImpl extends
 	public void bind() {
 		//绑定事件
 		 init();
-		 initBudget();
+	 
 		//候选人面板显示
 		staffBlock.bind();
 		display.initStaffBlock(staffBlock.getDisplay().asWidget());
@@ -150,7 +159,13 @@ public class RewardsItemCreatePresenterImpl extends
 			display.setRewardBackButtonDisplay(true);
 		}
 		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
-		
+		List<UserRoleVo> roles = Arrays.asList(sessionManager.getSession().getUserRoles());
+		if(roles.contains(UserRoleVo.CORP_ADMIN)){
+			display.setDisplay();
+			initDeparts("0");//顶级
+		}else
+			initDeparts("2"); //得到所管部门
+			
 		
 	}
 	private void init(){
@@ -293,7 +308,7 @@ public class RewardsItemCreatePresenterImpl extends
 							rewardsItem.setSizeLimit(Integer.parseInt(display.getPeopleSizeLimit().getValue()));
 							
 							//定义设置奖项和入帐的部门，现为同一部门，从session中得到
-							rewardsItem.setBuilderDept(sessionManager.getSession().getDepartmentId());
+							rewardsItem.setBuilderDept(display.getDepart());
 							rewardsItem.setAccountDept(sessionManager.getSession().getDepartmentId());
 	
 							// 候选人信息
@@ -377,7 +392,7 @@ public class RewardsItemCreatePresenterImpl extends
 								rewardsItemStore.setSizeLimit(Integer.parseInt(display.getPeopleSizeLimit().getValue()));
 								
 								//定义设置奖项和入帐的部门，现为同一部门，从session中得到
-								rewardsItemStore.setBuilderDept(sessionManager.getSession().getDepartmentId());
+								rewardsItemStore.setBuilderDept(display.getDepart());
 								rewardsItemStore.setAccountDept(sessionManager.getSession().getDepartmentId());
 
 								// 候选人信息
@@ -465,6 +480,13 @@ public class RewardsItemCreatePresenterImpl extends
 				               }
 			
 			    }));
+				 registerHandler(display.getManageDep().addChangeHandler(new ChangeHandler() {
+						
+						@Override
+						public void onChange(ChangeEvent event) {
+							initBudget();
+						}
+					}));
 	     }
 		public ParticipateInfoClient getNominateInfo(){
 			ParticipateInfoClient nominateInfo = null;
@@ -479,7 +501,7 @@ public class RewardsItemCreatePresenterImpl extends
 		 }
 		private void initBudget(){
 			   
-			dispatcher.execute(new InitCorpBudgetRequest(sessionManager.getSession()),
+			dispatcher.execute(new InitCorpBudgetRequest(sessionManager.getSession(),display.getManageDep().getValue(display.getManageDep().getSelectedIndex())),
 						new AsyncCallback<InitCorpBudgetResponse>() {
 				          	@Override
 							public void onFailure(Throwable arg0) {
@@ -945,4 +967,33 @@ public class RewardsItemCreatePresenterImpl extends
 					this.rewardsItemId = id;
 					isEditPage = true;
 				}
+				
+				private void initDeparts(String type){
+					dispatcher.execute(new InitDepartmentRequest(sessionManager.getSession(),type),
+								new AsyncCallback<InitDepartmentResponse>() {
+						          	@Override
+									public void onFailure(Throwable arg0) {
+										errorHandler.alert("查询部门出错!");
+										
+									}
+
+									@Override
+									public void onSuccess(InitDepartmentResponse response) {
+										 List<DepartmentVo> list = response.getResult();
+										 Map<String, String> map = new HashMap<String, String>();
+										 DepartmentVo vo = new DepartmentVo();
+										 if(list.size()>0){
+											 for(int i=0;i<list.size();i++){
+												   vo = list.get(i);
+												   map.put(vo.getId(), vo.getDepartmentName());
+											 }
+										 }
+											
+											display.initDepart(map);
+											initBudget();
+									}
+
+								});
+						
+				   }
 }

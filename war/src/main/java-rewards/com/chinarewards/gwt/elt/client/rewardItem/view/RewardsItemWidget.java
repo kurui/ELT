@@ -2,11 +2,15 @@ package com.chinarewards.gwt.elt.client.rewardItem.view;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.frequency.FrequencyCalculator;
+import com.chinarewards.gwt.elt.client.gift.model.GiftType;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.rewardItem.presenter.RewardsItemCreatePresenter.RewardsItemDisplay;
 import com.chinarewards.gwt.elt.client.rewards.model.DayFrequencyClient;
@@ -39,6 +43,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.TextArea;
@@ -141,6 +146,10 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 		@UiField
 		InlineLabel title;
 		SpecialTextArea<OrganicationClient> staffArea;
+		@UiField
+		Label departLabel;
+		@UiField
+		ListBox depart;
 		// is inject
 	//	final DepartmentComboTree buildDept;
 	//	final DepartmentComboTree accountDept;
@@ -723,7 +732,7 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 			  rewardsDefinition.setText(rewardsItem.getDefinition());
 			  standard.setText(rewardsItem.getStandard());
 			  rewardsUnit = rewardsItem.getRewardsUnit();
-	
+			  
 			  showJudgeInfo(rewardsItem);//显示要修改的提名人
 			  startTime.setValue(rewardsItem.getStartTime());
 			  nextRewardsTime.setValue(rewardsItem.getNextTime());
@@ -763,5 +772,26 @@ public class RewardsItemWidget extends Composite implements RewardsItemDisplay {
 		public void setRewardBackButtonDisplay(boolean status) {
 			back.setVisible(status);		
 		}	
-	
+		@Override
+		public String getDepart() {
+			return depart.getValue(depart.getSelectedIndex());
+		}
+		@Override
+		public void initDepart(Map<String, String> map) {
+			depart.clear();
+			Iterator<Entry<String, String>> it = map.entrySet().iterator();
+			while (it.hasNext()) {
+				Entry<String, String> entry = it.next();
+				depart.addItem(entry.getValue(), entry.getKey());
+			}
+		}
+		@Override
+	    public void setDisplay(){
+			this.departLabel.setVisible(false);
+			this.depart.setVisible(false);
+		}
+		@Override
+		public ListBox getManageDep() {
+			return depart;
+		}
     }

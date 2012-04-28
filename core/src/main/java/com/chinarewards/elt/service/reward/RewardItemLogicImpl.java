@@ -408,8 +408,8 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 	
 	@Override
 	public RewardItemVo fetchEntireRewardItemById(String rewardItemId) {
-		RewardItem rewardItem = rewardItemDao.findById(RewardItem.class,
-				rewardItemId);
+		RewardItem rewardItem = rewardItemDao.findByIdNoFlush(RewardItem.class,rewardItemId);
+		System.out.print(rewardItem.getBuilderDept().getId());
 		RewardItemVo itemVo = convertFromRewardItemToVo(rewardItem, true);
 		return itemVo;
 	}

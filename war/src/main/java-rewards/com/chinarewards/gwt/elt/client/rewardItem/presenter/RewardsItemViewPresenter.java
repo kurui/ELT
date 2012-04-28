@@ -36,6 +36,6 @@ public interface RewardsItemViewPresenter extends Presenter<RewardsItemViewPrese
 		public HasClickHandlers getBackStoreClick() ;	
 		public HasClickHandlers getUpdateStoreClick() ;	
 			
-		
+		 public void setDisplay();
 	}
 }

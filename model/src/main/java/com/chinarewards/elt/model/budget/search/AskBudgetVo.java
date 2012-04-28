@@ -36,7 +36,14 @@ public class AskBudgetVo {
 		this.depName = depName;
 	}
 
+	private String manageDepId;//管理的主部门ID
+	public String getManageDepId() {
+		return manageDepId;
+	}
 
+	public void setManageDepId(String manageDepId) {
+		this.manageDepId = manageDepId;
+	}
 	private double askIntegral;     //申请预算积分
     private double approveIntegeral;    //审批积分
     private String reason;         //申请原因

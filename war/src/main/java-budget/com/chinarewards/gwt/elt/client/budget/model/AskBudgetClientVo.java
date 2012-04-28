@@ -39,6 +39,14 @@ public class AskBudgetClientVo implements Serializable {
 	private String departmentId;    //申请部门ID	
 	private String depName;         //申请部门名称
 	private double remainCount ;   //剩余的积分，在审批时查找一下是否够用
+	private String manageDepId;//管理的主部门ID
+	public String getManageDepId() {
+		return manageDepId;
+	}
+
+	public void setManageDepId(String manageDepId) {
+		this.manageDepId = manageDepId;
+	}
 	public double getRemainCount() {
 		return remainCount;
 	}

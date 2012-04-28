@@ -140,7 +140,7 @@ public class RewardsItemStoreListPresenterImpl extends
 		initDeparts();
 	}
 	private void initDeparts(){
-		   dispatch.execute(new InitDepartmentRequest(sessionManager.getSession()),
+		   dispatch.execute(new InitDepartmentRequest(sessionManager.getSession(),"2"),
 					new AsyncCallback<InitDepartmentResponse>() {
 			          	@Override
 						public void onFailure(Throwable arg0) {

@@ -71,7 +71,7 @@ public class SearchDepBudgetHandler extends
 			vo.setBudgetIntegral(criteria.getBudgetIntegral());
 			vo.setCorpBudgetId(criteria.getCorpBudgetId());
 			vo.setDepartmentName(criteria.getDepartmentName());
-			
+			vo.setManageDepId(criteria.getManageDepId());
 			vo.setDepartmentId(criteria.getDepartmentId());
 		    vo.setUseIntegeral(criteria.getUseIntegeral());
 		    vo.setDeleted(0);//查没有删除的数据

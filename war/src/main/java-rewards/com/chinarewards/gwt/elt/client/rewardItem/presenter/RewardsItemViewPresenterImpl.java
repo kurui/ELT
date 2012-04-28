@@ -2,6 +2,9 @@ package com.chinarewards.gwt.elt.client.rewardItem.presenter;
 
 
 
+import java.util.Arrays;
+import java.util.List;
+
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.breadCrumbs.presenter.BreadCrumbsPresenter;
@@ -14,6 +17,7 @@ import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsItemByIdR
 import com.chinarewards.gwt.elt.client.rewardItem.request.SearchRewardsItemByIdResponse;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsItemClient;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -28,6 +32,7 @@ public class RewardsItemViewPresenterImpl extends
 	private final ErrorHandler errorHandler;
 	private final BreadCrumbsPresenter breadCrumbs;
 	String rewardId ;
+	SessionManager sessionManager;
 	RewardsItemClient param = new RewardsItemClient();
 	@Inject
 	public RewardsItemViewPresenterImpl(EventBus eventBus,
@@ -37,9 +42,14 @@ public class RewardsItemViewPresenterImpl extends
 		this.dispatcher=dispatcher;
 		this.errorHandler = errorHandler;
 		this.breadCrumbs = breadCrumbs;
+		this.sessionManager = sessionManager;
 	}
 	 @Override
 	 public void bind() {
+		 List<UserRoleVo> roles = Arrays.asList(sessionManager.getSession().getUserRoles());
+			if(roles.contains(UserRoleVo.CORP_ADMIN)){
+				display.setDisplay();
+			}
 		 registerHandler(display.getBackClick().addClickHandler(
 					new ClickHandler() {
 						@Override

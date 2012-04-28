@@ -15,17 +15,26 @@ public class InitDepartmentRequest implements Action<InitDepartmentResponse> {
 
 	
 	private UserSession userSession;
-	
-
+	private String type;//得到的是几级部门
+    
 	public InitDepartmentRequest() {
 	}
 
-	public InitDepartmentRequest(UserSession userSession) {
+	public InitDepartmentRequest(UserSession userSession,String type) {
 		
 		this.userSession = userSession;
+		this.type = type;
 	}
 
 	
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 
 	public UserSession getUserSession() {
 		return userSession;

@@ -8,7 +8,6 @@ import com.chinarewards.elt.domain.budget.AskBudget;
 import com.chinarewards.elt.domain.budget.CorpBudget;
 import com.chinarewards.elt.domain.budget.DepartmentBudget;
 import com.chinarewards.elt.domain.org.Department;
-import com.chinarewards.elt.domain.reward.base.Reward;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.model.budget.search.AskBudgetVo;
 import com.chinarewards.elt.model.budget.search.DepartmentBudgetVo;
@@ -19,6 +18,7 @@ import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.service.budget.BudgetLogic;
 import com.chinarewards.elt.service.budget.BudgetService;
 import com.chinarewards.elt.service.org.DepartmentLogic;
+import com.chinarewards.elt.service.org.DepartmentService;
 import com.chinarewards.elt.service.user.UserLogic;
 import com.chinarewards.elt.tx.service.TransactionService;
 import com.google.inject.Inject;
@@ -29,14 +29,15 @@ public class BudgetServiceImpl implements BudgetService {
 	private final DepartmentLogic departmentLogic;
 	private final UserLogic userLogic;
     private final TransactionService tx;
+    private final DepartmentService departmentService;
 	@Inject
 	public BudgetServiceImpl(BudgetLogic budgetLogic,UserLogic userLogic,DepartmentLogic departmentLogic
-			,TransactionService tx) {
+			,TransactionService tx,DepartmentService departmentService) {
 		this.userLogic = userLogic;
 		this.budgetLogic = budgetLogic;
 		this.departmentLogic = departmentLogic;
 		this.tx = tx;
-		
+		this.departmentService = departmentService;
 	}
 	@Override
 	public CorpBudget saveCorpBudget(UserContext context, CorpBudget corpBudget) {
@@ -78,8 +79,27 @@ public class BudgetServiceImpl implements BudgetService {
 			}
 			deptBudgetVo.setDeptIds(new ArrayList<String>(list));
 		}else if (roles.contains(UserRole.DEPT_MGR)&& !roles.contains(UserRole.CORP_ADMIN)&& (deptBudgetVo.getDepartmentId()==null||deptBudgetVo.getDepartmentId().equals(""))){
-			List<String> deptIds = null;//如果是部门管理员，在查看全部时只可以查看下级部门记录，
-			deptIds = departmentLogic.getWholeChildrenIds(caller.getStaff().getDepartment().getId(), false);
+			List<String> deptIds = new ArrayList<String>();//如果是部门管理员，在查看全部时只可以查看下级部门记录，
+			List<Department> deptId = new ArrayList<Department>();
+			//得到所管理的部门
+			if(deptBudgetVo.getManageDepId()==null||deptBudgetVo.getManageDepId().equals("")){
+				List<Department> listManagedDep= departmentService.findDepartmentsManagedByStaffId(caller.getStaff().getId());
+				for(Department dep:listManagedDep){
+					deptId = departmentLogic.getImmediacyChildren(dep.getId());
+					if(deptId!=null&&deptId.size()>0){
+						for(int i=0;i<deptId.size();i++){
+							deptIds.add(deptId.get(i).getId());
+						}
+					}
+			  }
+			}else{
+				deptId = departmentLogic.getImmediacyChildren(deptBudgetVo.getManageDepId());
+				if(deptId!=null&&deptId.size()>0){
+					for(int i=0;i<deptId.size();i++){
+						deptIds.add(deptId.get(i).getId());
+					}
+				}
+			}
 			if(deptIds!=null&&deptIds.size()>0)
 			   deptBudgetVo.setDeptIds(new ArrayList<String>(deptIds));
 			else{
@@ -147,8 +167,12 @@ public class BudgetServiceImpl implements BudgetService {
 			}
 			askBudgetVo.setDeptIds(new ArrayList<String>(list));
 		}else if (roles.contains(UserRole.DEPT_MGR)&& !roles.contains(UserRole.CORP_ADMIN)&& (askBudgetVo.getDepartmentId()==null||askBudgetVo.getDepartmentId().equals(""))){
+			//得到所管理的部门
 			List<String> deptIds = null;//leader可看一级
-			deptIds = departmentLogic.getWholeChildrenIds(caller.getStaff().getDepartment().getId(), true);
+			if(askBudgetVo.getManageDepId()==null||askBudgetVo.getManageDepId().equals(""))//没有指定的主部门
+			    deptIds = departmentLogic.getWholeChildrenIds(caller.getStaff().getDepartment().getId(), true);
+			else
+				deptIds = departmentLogic.getWholeChildrenIds(askBudgetVo.getManageDepId(), true);
 			if(deptIds!=null&&deptIds.size()>0)//二级部门
 				   askBudgetVo.setDeptIds(new ArrayList<String>(deptIds));
 				else{
