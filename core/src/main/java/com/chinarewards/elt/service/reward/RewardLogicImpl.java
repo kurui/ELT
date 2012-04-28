@@ -815,4 +815,10 @@ public class RewardLogicImpl implements RewardLogic {
 		rewardDao.update(reward);
 		return reward.getId();
 	}
+
+	@Override
+	public int findRewardByAwardUserId(String awardUserId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

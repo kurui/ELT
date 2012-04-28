@@ -11,6 +11,7 @@ import com.chinarewards.elt.domain.reward.person.Winner;
 import com.chinarewards.elt.model.reward.vo.RewardWinVo;
 import com.chinarewards.elt.service.reward.RewardService;
 import com.chinarewards.elt.service.sendmail.SendMailService;
+import com.chinarewards.elt.service.user.UserService;
 import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardAddRequest;
 import com.chinarewards.gwt.elt.client.awardReward.request.AwardRewardAddResponse;
 import com.chinarewards.gwt.elt.model.ClientException;
@@ -33,10 +34,12 @@ public class AwardRewardAddActionHandler extends
 
 	RewardService rewardService;
 	SendMailService sendMailService;
+	UserService userService;
 	@Inject
-	public AwardRewardAddActionHandler(RewardService rewardService,SendMailService sendMailService) {
+	public AwardRewardAddActionHandler(RewardService rewardService,SendMailService sendMailService,UserService userService) {
 		this.rewardService = rewardService;
 		this.sendMailService=sendMailService;
+		this.userService=userService;
 	}
 
 	@Override
@@ -91,6 +94,14 @@ public class AwardRewardAddActionHandler extends
 				}
 			} catch (Exception e) {
 				logger.debug("邮件发送失败............");
+			}
+			
+			//判断是否还有颁奖数据.无没有清除颁奖角色
+			int rewardSize=rewardService.findRewardByAwardUserId(request.getNowUserId());
+			if(rewardSize>0)
+			{
+				boolean fal= userService.deleteUserAwardRole(request.getNowUserId());
+				logger.debug("delete awardRole fal="+fal);
 			}
 		}
 		awardresponse.setLotId(lot);

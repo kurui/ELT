@@ -87,12 +87,12 @@ public interface UserService {
 	
 	
 	/**
-	 * 删除用户颁奖权限.如有.不增加
+	 * 删除用户颁奖权限.
 	 * @param staffId
 	 * @param context
 	 * @return
 	 */
-	public boolean deleteUserAwardRole(String staffId,UserContext context);
+	public boolean deleteUserAwardRole(String userId);
 	
 	
 }

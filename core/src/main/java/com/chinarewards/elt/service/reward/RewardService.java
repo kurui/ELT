@@ -179,4 +179,10 @@ public interface RewardService {
 	 * @return
 	 */
 	public String updateRewardAwardUser(String rewardId,UserContext context,String updateUserId);
+	/**
+	 * 查询奖项--根据颁奖人
+	 * @param awardUserId
+	 * @return
+	 */
+	public int findRewardByAwardUserId(String awardUserId);
 }

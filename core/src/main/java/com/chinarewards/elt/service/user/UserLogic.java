@@ -148,5 +148,5 @@ public interface UserLogic {
 	 * @param context
 	 * @return
 	 */
-	public boolean deleteUserAwardRole(String staffId,UserContext context);
+	public boolean deleteUserAwardRole(String userId);
 }

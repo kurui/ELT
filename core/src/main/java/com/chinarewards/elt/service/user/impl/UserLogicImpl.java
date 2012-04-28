@@ -410,19 +410,20 @@ public class UserLogicImpl implements UserLogic {
 	}
 
 	@Override
-	public boolean deleteUserAwardRole(String staffId, UserContext context) {
-		SysUser user=userDao.findUserByStaffId(staffId);
-		if(user!=null)
-		{
+	public boolean deleteUserAwardRole(String userId) {
+
 			// 清除颁奖角色
-			List<SysUserRole> lt = userRoleDao.findUserRoleByUserId(user.getId());
-			if (lt.size() > 0) {
+			List<SysUserRole> lt = userRoleDao.findUserRoleByUserId(userId);
+			if (lt!=null && lt.size() > 0) {
 				for (SysUserRole r : lt) {
 					if (r.getRole().getName() == UserRole.AWARD)
-						userRoleDao.delete(r);
+					{
+						userRoleDao.delete(r);						
+					}
 				}
+				return true;
 			}
-		}
+		
 		return false;
 	}
 

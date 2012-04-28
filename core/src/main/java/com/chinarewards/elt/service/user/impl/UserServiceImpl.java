@@ -102,7 +102,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean deleteUserAwardRole(String staffId, UserContext context) {
-		return userLogic.deleteUserAwardRole(staffId, context);
+	public boolean deleteUserAwardRole(String userId) {
+		return userLogic.deleteUserAwardRole(userId);
 	}
 }

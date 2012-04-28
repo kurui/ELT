@@ -230,4 +230,9 @@ public class RewardServiceImpl implements RewardService {
 		rewardLogic.toMessageForConfirmReward();
 		
 	}
+
+	@Override
+	public int findRewardByAwardUserId(String awardUserId) {
+		return rewardLogic.findRewardByAwardUserId(awardUserId);
+	}
 }

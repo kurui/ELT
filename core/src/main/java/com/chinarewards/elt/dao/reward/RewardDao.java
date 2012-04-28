@@ -561,4 +561,15 @@ public class RewardDao extends BaseDao<Reward> {
 					.createQuery(" FROM Reward r WHERE r.status = :status")
 					.setParameter("status", RewardStatus.DETERMINE_WINNER).getResultList();
 		}
+
+	public int getRewardsByAwardUserId(String awardUserId) {
+		try {	
+			return (Integer) getEm()
+					.createQuery("SELECT count(r) FROM Reward r WHERE r.deleted = :deleted AND r.status = :status AND r.awardsUser.id= :awardUserId")
+					.setParameter("deleted",false).setParameter("status",RewardStatus.NEW).setParameter("awardUserId",awardUserId).getSingleResult();
+		} catch (Exception e) {
+			return 0;
+		}
+	}
+
 }
