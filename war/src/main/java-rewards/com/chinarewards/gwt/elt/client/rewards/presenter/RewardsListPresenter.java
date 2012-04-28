@@ -28,5 +28,6 @@ public interface RewardsListPresenter extends Presenter<RewardsListPresenter.Rew
 		ListBox getPageNumber();
 		
 		void changeClassNumber(int number);
+		void hiddenNowJudge();
 	}
 }

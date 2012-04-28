@@ -189,7 +189,11 @@ public class RewardDao extends BaseDao<Reward> {
 			hql.append(" AND ( Upper(rew.definition) LIKE Upper(:definition))");
 			param.put("definition", "%" + criteria.getDefinition() + "%");
 		}
-
+		
+		if (!StringUtil.isEmptyString(criteria.getAwardUserId())) {
+			hql.append(" AND rew.awardsUser.id = :awardUserId");
+			param.put("awardUserId", criteria.getAwardUserId());
+		}
 		// hql.append(" AND 0 <> (SELECT COUNT(*) FROM Winners win WHERE win.rewards=rew) ");
 		// hql.append(" AND rew.status = :status");
 		// param.put("status", RewardsStatus.REWARDED);
@@ -557,4 +561,15 @@ public class RewardDao extends BaseDao<Reward> {
 					.createQuery(" FROM Reward r WHERE r.status = :status")
 					.setParameter("status", RewardStatus.DETERMINE_WINNER).getResultList();
 		}
+
+	public int getRewardsByAwardUserId(String awardUserId) {
+		try {	
+			return (Integer) getEm()
+					.createQuery("SELECT count(r) FROM Reward r WHERE r.deleted = :deleted AND r.status = :status AND r.awardsUser.id= :awardUserId")
+					.setParameter("deleted",false).setParameter("status",RewardStatus.NEW).setParameter("awardUserId",awardUserId).getSingleResult();
+		} catch (Exception e) {
+			return 0;
+		}
+	}
+
 }

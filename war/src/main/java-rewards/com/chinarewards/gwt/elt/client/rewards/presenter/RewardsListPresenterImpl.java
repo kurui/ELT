@@ -42,6 +42,7 @@ import com.chinarewards.gwt.elt.client.widget.Sorting;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.client.win.confirm.ConfirmHandler;
 import com.chinarewards.gwt.elt.model.rewards.RewardPageType;
+import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.google.gwt.cell.client.DateCell;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
@@ -106,6 +107,8 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 				doSearch();
 			}
 		}));
+		if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.AWARD)
+			display.hiddenNowJudge();
 	}
 
 	private void init() {	
@@ -405,6 +408,8 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 						}
 
 					});
+			if(sessionManager.getSession().getLastLoginRole()!=UserRoleVo.AWARD)
+			{
 			cellTable.addColumn("操作", new UniversalCell(),
 					new GetValue<RewardsClient, String>() {
 						@Override
@@ -473,6 +478,7 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 						}
 
 					});
+			}
 		}
 		if (pageType == RewardPageType.DETAILSOFAWARDPAGE) {
 			cellTable.addColumn("操作", new HyperLinkCell(),
@@ -620,34 +626,36 @@ public class RewardsListPresenterImpl extends BasePresenter<RewardsListDisplay>
 						}
 
 					});
-		cellTable.addColumn("操作", new UniversalCell(),
-				new GetValue<RewardsClient, String>() {
-					@Override
-					public String getValue(RewardsClient rewards) {
-						if(sessionManager.getSession().getStaffId().equals(rewards.getCreatedByStaffId()))
-							return "<a style=\"color:bule;\" href=\"javascript:void(0);\">删除</a>";
-						else 
-						return "<span style='color: rgb(221, 221, 221);'>删除</span>";
-					}
-				}, new FieldUpdater<RewardsClient, String>() {
-
-					@Override
-					public void update(int index, final RewardsClient o,
-							String value) {
-						if(sessionManager.getSession().getStaffId().equals(o.getCreatedByStaffId()))
-							
-						win.confirm("提示", "确定删除?", new ConfirmHandler() {
-
+			if(sessionManager.getSession().getLastLoginRole()!=UserRoleVo.AWARD)
+			{
+				cellTable.addColumn("操作", new UniversalCell(),
+						new GetValue<RewardsClient, String>() {
 							@Override
-							public void confirm() {
-								delteReward(o.getId());
-
+							public String getValue(RewardsClient rewards) {
+								if(sessionManager.getSession().getStaffId().equals(rewards.getCreatedByStaffId()))
+									return "<a style=\"color:bule;\" href=\"javascript:void(0);\">删除</a>";
+								else 
+								return "<span style='color: rgb(221, 221, 221);'>删除</span>";
 							}
+						}, new FieldUpdater<RewardsClient, String>() {
+		
+							@Override
+							public void update(int index, final RewardsClient o,
+									String value) {
+								if(sessionManager.getSession().getStaffId().equals(o.getCreatedByStaffId()))
+									
+								win.confirm("提示", "确定删除?", new ConfirmHandler() {
+		
+									@Override
+									public void confirm() {
+										delteReward(o.getId());
+		
+									}
+								});
+							}
+		
 						});
-					}
-
-				});
-		}
+				}}
 	}
 
 	public void delteReward(String rewardsId) {

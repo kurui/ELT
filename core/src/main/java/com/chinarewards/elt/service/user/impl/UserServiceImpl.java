@@ -3,6 +3,7 @@ package com.chinarewards.elt.service.user.impl;
 import java.util.List;
 
 import com.chinarewards.elt.domain.user.SysUser;
+import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.model.user.UserSearchCriteria;
 import com.chinarewards.elt.model.user.UserSearchResult;
@@ -93,5 +94,15 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean vaildStaffEmail(String staffEmail,String nowStaffId) {
 		return userLogic.vaildStaffEmail(staffEmail,nowStaffId);
+	}
+
+	@Override
+	public boolean addUserAwardRole(String staffId, UserContext context) {
+		return userLogic.addUserAwardRole(staffId, context);
+	}
+
+	@Override
+	public boolean deleteUserAwardRole(String userId) {
+		return userLogic.deleteUserAwardRole(userId);
 	}
 }

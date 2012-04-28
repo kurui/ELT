@@ -36,6 +36,8 @@ public class RewardsListWidget extends Composite implements RewardsListDisplay {
 	CheckBox nowJudge;
 	@UiField
 	InlineLabel dataCount;
+	@UiField
+	InlineLabel nowJudgeLable;
 	
 	@UiField
 	ListBox pageNumber;
@@ -123,6 +125,13 @@ public class RewardsListWidget extends Composite implements RewardsListDisplay {
 			this.class1.getElement().getParentElement().setClassName(class5.getStyleName());
 		else
 			this.class1.getElement().getParentElement().getParentElement().getParentElement().addClassName(CssStyleConstants.hidden);
+	}
+
+	@Override
+	public void hiddenNowJudge() {
+		nowJudge.setVisible(false);
+		nowJudgeLable.setVisible(false);
+		
 	}
 
 

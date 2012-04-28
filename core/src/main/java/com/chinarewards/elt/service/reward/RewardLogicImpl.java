@@ -597,7 +597,7 @@ public class RewardLogicImpl implements RewardLogic {
 		List<Reward> list = rewardDao.getRewardsForReward();
 		if (list.size() > 0) {
 			for (Reward reward : list) {
-				if(reward.getCreatedBy()!=null)
+				if(reward.getAwardsUser()!=null)
 				{
 					
 					Staff staff =reward.getAwardsUser().getStaff();
@@ -814,5 +814,11 @@ public class RewardLogicImpl implements RewardLogic {
 		reward.setLastModifiedBy(nowUser);
 		rewardDao.update(reward);
 		return reward.getId();
+	}
+
+	@Override
+	public int findRewardByAwardUserId(String awardUserId) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
