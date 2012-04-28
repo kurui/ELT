@@ -98,7 +98,7 @@ public class AwardRewardAddActionHandler extends
 			
 			//判断是否还有颁奖数据.无没有清除颁奖角色
 			int rewardSize=rewardService.findRewardByAwardUserId(request.getNowUserId());
-			if(rewardSize>0)
+			if(rewardSize<=0)
 			{
 				boolean fal= userService.deleteUserAwardRole(request.getNowUserId());
 				logger.debug("delete awardRole fal="+fal);
