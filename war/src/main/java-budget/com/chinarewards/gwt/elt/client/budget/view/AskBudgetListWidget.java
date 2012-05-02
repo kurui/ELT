@@ -162,5 +162,6 @@ public class AskBudgetListWidget extends Composite implements AskBudgetListDispl
 	public void setDisplay() {
 	   this.managedepart.setVisible(false);
 	   this.lbldep.setVisible(false);	
+	   this.addBtn.setVisible(false);
 	}
 }
