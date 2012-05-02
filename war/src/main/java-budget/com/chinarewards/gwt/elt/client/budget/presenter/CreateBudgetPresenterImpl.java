@@ -133,7 +133,8 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 			          	@Override
 						public void onFailure(Throwable arg0) {
 							errorHandler.alert("保存部门预算出错!");
-							toRefresh();
+							String depId =display.getManageDep().getValue(display.getManageDep().getSelectedIndex());
+							toSearch(depId);
 						}
 
 						@Override
@@ -143,7 +144,8 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 							}
 							if(response.getMessage().equals("1")){
 							  win.alert("保存成功");
-							  toRefresh();
+							  String depId =display.getManageDep().getValue(display.getManageDep().getSelectedIndex());
+								toSearch(depId);
 							}
 							if(response.getMessage().equals("update")){
 								oldCount = response.getOldJf();
@@ -156,7 +158,8 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 							}
 							 if(response.getMessage().equals("2")){
 								 win.alert("修改成功");
-								 toRefresh();
+								 String depId =display.getManageDep().getValue(display.getManageDep().getSelectedIndex());
+									toSearch(depId);
 							 }
 							 
 							 
@@ -385,12 +388,12 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 							    display.setTotalCount(vo.getBudgetIntegral()+"");
 							    display.setRemainCount((vo.getBudgetIntegral()-vo.getUseIntegeral())+"");
 							    remainCount = vo.getBudgetIntegral()-vo.getUseIntegeral();
-							    List<UserRoleVo> roles = Arrays.asList(sessionManager.getSession().getUserRoles());
-								if(roles.contains(UserRoleVo.CORP_ADMIN)){
-									initDeparts("1");//HR得到一级部门
-									display.setDisplay();
-								}else
-									initDeparts(display.getManageDep().getValue(display.getManageDep().getSelectedIndex())); //得到所管部门
+//							    List<UserRoleVo> roles = Arrays.asList(sessionManager.getSession().getUserRoles());
+//								if(roles.contains(UserRoleVo.CORP_ADMIN)){
+//									initDeparts("1");//HR得到一级部门
+//									display.setDisplay();
+//								}else
+//									initDeparts(display.getManageDep().getValue(display.getManageDep().getSelectedIndex())); //得到所管部门
 								
 								DepBudgetVo criteria = new DepBudgetVo();
 								criteria.setManageDepId(depId);
