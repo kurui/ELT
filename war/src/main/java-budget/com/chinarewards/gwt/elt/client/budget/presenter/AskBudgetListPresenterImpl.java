@@ -203,11 +203,11 @@ public class AskBudgetListPresenterImpl extends BasePresenter<AskBudgetListDispl
 							    display.setRemainCount((vo.getBudgetIntegral()-vo.getUseIntegeral())+"");
 							    remainCount = vo.getBudgetIntegral()-vo.getUseIntegeral();
 							    List<UserRoleVo> roles = Arrays.asList(sessionManager.getSession().getUserRoles());
-								if(roles.contains(UserRoleVo.CORP_ADMIN)){
-									initDeparts("1");//HR得到一级部门
-									display.setDisplay();
-								}else
-									initDeparts(display.getManageDep().getValue(display.getManageDep().getSelectedIndex())); //得到所管部门
+//								if(roles.contains(UserRoleVo.CORP_ADMIN)){
+//									initDeparts("1");//HR得到一级部门
+//									display.setDisplay();
+//								}else
+//									initDeparts(display.getManageDep().getValue(display.getManageDep().getSelectedIndex())); //得到所管部门
 								
 								AskBudgetClientVo criteria = new AskBudgetClientVo();
 								criteria.setManageDepId(depId);
