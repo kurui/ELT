@@ -76,7 +76,7 @@ public class AwardRewardDeterminePresenterImpl extends
 							@Override
 							public void confirm() {
 							
-								dispatcher.execute(new InitCorpBudgetRequest(sessionManager.getSession()),
+								dispatcher.execute(new InitCorpBudgetRequest(sessionManager.getSession(),""),
 										new AsyncCallback<InitCorpBudgetResponse>() {
 								          	@Override
 											public void onFailure(Throwable arg0) {

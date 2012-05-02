@@ -48,17 +48,32 @@ public class InitCorpBudgetHandler extends	BaseActionHandler<InitCorpBudgetReque
 		
          List<UserRoleVo> roleList = Arrays.asList(action.getUserSession().getUserRoles());
          InitCorpBudgetResponse resp = new InitCorpBudgetResponse();
+         String manageDepId = action.getManageDepId();
 		 if (roleList.contains(UserRoleVo.CORP_ADMIN)) {
 		    List<CorpBudget> listVo = corpBudgetService.findCorpBudget(action.getUserSession().getCorporationId());
 			
 			resp.setResult(adapterToClient(listVo));//从服务端转为客户端
 		 
 		 } else if (roleList.contains(UserRoleVo.DEPT_MGR)) {
-			 List<Department> listManagedDep= departmentService.findDepartmentsManagedByStaffId(action.getUserSession().getStaffId());
-			if(listManagedDep.size()>0){
-			 List<DepartmentBudget> listVo = corpBudgetService.findDepartBudget(listManagedDep.get(0).getId());
-			 resp.setResult(adapterToDepClient(listVo));//从服务端转为客户端
-			}
+			 if(manageDepId.equals("")){//没有指定查找哪个部门的预算
+				List<Department> listManagedDep= departmentService.findDepartmentsManagedByStaffId(action.getUserSession().getStaffId());
+				if(listManagedDep.size()>0){
+					List<DepartmentBudget> departmentBudgetList = new ArrayList<DepartmentBudget>();
+				 for(Department dep:listManagedDep){	
+				    List<DepartmentBudget> listVo = corpBudgetService.findDepartBudget(dep.getId());//得到所管部门的预算
+				    for(DepartmentBudget depBudget:listVo){
+				    	departmentBudgetList.add(depBudget);
+				    }
+				 
+				  }
+				  resp.setResult(adapterToDepClient(departmentBudgetList));//从服务端转为客户端
+				 }
+			 }
+			 if(!manageDepId.equals("")){//指定查找的部门预算
+				  List<DepartmentBudget> listVo = corpBudgetService.findDepartBudget(manageDepId);//得到指定部门的预算
+				  resp.setResult(adapterToDepClient(listVo));//从服务端转为客户端
+					
+				 }
 		 }
 		
 
@@ -90,6 +105,9 @@ public class InitCorpBudgetHandler extends	BaseActionHandler<InitCorpBudgetReque
 						client.setBudgetIntegral(item.getBudgetIntegral());
 						client.setUseIntegeral(item.getUseIntegeral());
 						CorpBudget corpVo = corpBudgetService.findCorpBudgetById(item.getCorpBudgetId());
+						Department dep = departmentService.findDepartmentById(item.getDepartmentId());
+						client.setDepartmentId(dep.getId());
+						client.setDepartmentName(dep.getName());
 						client.setBudgetTitle(corpVo.getBudgetTitle());
 						resultList.add(client);
 					

@@ -14,6 +14,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.InlineLabel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TextBox;
@@ -43,6 +44,10 @@ public class CreateBudgetWidget extends Composite implements CreateBudgetDisplay
 	Panel breadCrumbs;
 	@UiField
 	ListBox pageNumber;
+	@UiField
+	ListBox managedepart;
+	@UiField
+	InlineLabel lbldep;
 	private static OrderWidgetUiBinder uiBinder = GWT
 			.create(OrderWidgetUiBinder.class);
 
@@ -107,8 +112,9 @@ public class CreateBudgetWidget extends Composite implements CreateBudgetDisplay
 	
 	@Override
 	public void initDepart(Map<String, String> map) {
-
-		depart.addItem("选择", "");
+        
+		depart.clear();
+		depart.addItem("请选择","");
 		Iterator<Entry<String, String>> it = map.entrySet().iterator();
 		while (it.hasNext()) {
 			Entry<String, String> entry = it.next();
@@ -116,7 +122,16 @@ public class CreateBudgetWidget extends Composite implements CreateBudgetDisplay
 		}
 	}
 
+	@Override
+	public void initManageDepart(Map<String, String> map) {
 
+		managedepart.clear();
+		Iterator<Entry<String, String>> it = map.entrySet().iterator();
+		while (it.hasNext()) {
+			Entry<String, String> entry = it.next();
+			managedepart.addItem(entry.getValue(), entry.getKey());
+		}
+	}
 	
 
 	@Override
@@ -141,5 +156,14 @@ public class CreateBudgetWidget extends Composite implements CreateBudgetDisplay
 	public ListBox getPageNumber() {
 		return pageNumber;
 	}
-	
+	@Override
+	public ListBox getManageDep() {
+		return managedepart;
+	}
+
+	@Override
+	public void setDisplay() {
+	   this.managedepart.setVisible(false);
+	   this.lbldep.setVisible(false);
+	}
 }

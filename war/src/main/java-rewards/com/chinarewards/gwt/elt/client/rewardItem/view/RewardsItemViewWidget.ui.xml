@@ -113,7 +113,11 @@
                         </div>
                       </div>
                       </div>
-                      
+                      <div class="{newitem.form-line}">
+                        <label class="{newitem.label}"><g:Label ui:field="departLabel" text="出账部门"/></label>
+                        <div  class="{newitem.element}" ><g:Label ui:field="depart" />
+                        </div>
+                      </div>
                       
                       
                    <span class="{newitem.cutline}"></span>

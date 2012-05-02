@@ -26,6 +26,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.Widget;
@@ -115,6 +116,10 @@ public class RewardsItemViewWidget extends Composite implements RewardsItemViewD
 	Button backStore;
 	@UiField
 	Button updateStore;
+	@UiField
+	Label departLabel;
+	@UiField
+	Label depart;
 	@Override
 	public HasClickHandlers getBackClick() {
 		return back;
@@ -246,7 +251,7 @@ public class RewardsItemViewWidget extends Composite implements RewardsItemViewD
 		 peopleSizeLimit.setText(StringUtil.valueOf(rewardsItem.getSizeLimit()));
 		  startTime.setText(DateTool.dateToString(rewardsItem.getStartTime()));
 		  nextRewardsTime.setText(DateTool.dateToString(rewardsItem.getNextTime()));
-		   
+		   depart.setText(rewardsItem.getBuilderDept());
 	      rewardsFrom.setText(StringUtil.valueOf(rewardsItem.getRewardsFrom()));
 	      tmday.setText(StringUtil.valueOf(rewardsItem.getTmdays()));
 		  tmdays.setText(StringUtil.valueOf(rewardsItem.getTmdays()));
@@ -280,6 +285,10 @@ public class RewardsItemViewWidget extends Composite implements RewardsItemViewD
 	}
 
 
-		
+	@Override
+    public void setDisplay(){
+		this.departLabel.setVisible(false);
+		this.depart.setVisible(false);
+	}	
 	
 }

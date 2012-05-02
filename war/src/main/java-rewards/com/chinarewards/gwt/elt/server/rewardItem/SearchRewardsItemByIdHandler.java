@@ -82,7 +82,7 @@ public class SearchRewardsItemByIdHandler
 		client.setTmdays(item.getItem().getNominateAheadDays());
 		//client.setHasSpecialCondition(item.getItem().g)
 		client.setNextPublishTime(item.getItem().getPublishDate());
-		
+		client.setBuilderDept(item.getBuilderDept().getName());
 		client.setEnabled(item.getItem().isEnabled());
 		client.setTotalJF((int)item.getItem().getTotalAmtLimit());
 		client.setRewardsFrom((int)item.getItem().getAwardAmt());
@@ -154,7 +154,7 @@ public class SearchRewardsItemByIdHandler
 		client.setTmdays(item.getItemStore().getNominateAheadDays());
 		//client.setHasSpecialCondition(item.getItem().g)
 		client.setNextPublishTime(item.getItemStore().getPublishDate());
-		
+		client.setBuilderDept(item.getBuilderDept().getName());
 		client.setTotalJF((int)item.getItemStore().getTotalAmtLimit());
 		client.setRewardsFrom((int)item.getItemStore().getAwardAmt());
 		client.setSizeLimit(item.getItemStore().getHeadcountLimit());

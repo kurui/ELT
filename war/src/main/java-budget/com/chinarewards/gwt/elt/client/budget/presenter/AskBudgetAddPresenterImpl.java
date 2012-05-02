@@ -175,7 +175,7 @@ import com.google.inject.Inject;
 	return flag;
 	}
 	 private void initYear(){
-		 dispatcher.execute(new InitCorpBudgetRequest(sessionManager.getSession()),
+		 dispatcher.execute(new InitCorpBudgetRequest(sessionManager.getSession(),""),
 					new AsyncCallback<InitCorpBudgetResponse>() {
 			          	@Override
 						public void onFailure(Throwable arg0) {

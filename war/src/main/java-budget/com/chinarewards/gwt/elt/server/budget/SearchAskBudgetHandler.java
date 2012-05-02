@@ -70,7 +70,7 @@ public class SearchAskBudgetHandler extends
 
 	private AskBudgetVo adapter(AskBudgetClientVo criteria) {
 		   AskBudgetVo vo = new AskBudgetVo();
-			
+			vo.setManageDepId(criteria.getManageDepId());
 			vo.setCorpBudgetId(criteria.getCorpBudgetId());
 			vo.setDepartmentId(criteria.getDepartmentId());
 		     vo.setDeleted(0);//查没有删除的数据

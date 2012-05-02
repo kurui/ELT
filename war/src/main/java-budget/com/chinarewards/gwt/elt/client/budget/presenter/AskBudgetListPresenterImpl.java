@@ -77,19 +77,24 @@ public class AskBudgetListPresenterImpl extends BasePresenter<AskBudgetListDispl
 		breadCrumbs.loadListPage();
 		display.setBreadCrumbs(breadCrumbs.getDisplay().asWidget());
         registerHandler(display.getPageNumber().addChangeHandler(new ChangeHandler() {
-			
 		@Override
 		public void onChange(ChangeEvent event) {
 			pageSize=Integer.parseInt(display.getPageNumber().getValue(display.getPageNumber().getSelectedIndex()));
 			buildTable();
-			toSearch();
+			toSearch(display.getManageDep().getValue(display.getManageDep().getSelectedIndex()));
 		}
 		}));
-		
+         registerHandler(display.getManageDep().addChangeHandler(new ChangeHandler() {
+			
+			@Override
+			public void onChange(ChangeEvent event) {
+				toPrush();
+			}
+		}));
 		registerHandler(display.getSearchBtnClickHandlers().addClickHandler(
 				new ClickHandler() {
 					public void onClick(ClickEvent paramClickEvent) {
-							toSearch();
+						toSearch(display.getManageDep().getValue(display.getManageDep().getSelectedIndex()));
 					}
 		}));
 		registerHandler(display.getAddBtnClickHandlers().addClickHandler(new ClickHandler() {
@@ -107,63 +112,72 @@ public class AskBudgetListPresenterImpl extends BasePresenter<AskBudgetListDispl
 
 	private void init() {
 		buildTable();
-		initDeparts();
 		initYear();
-		List<UserRoleVo> roles =Arrays.asList(sessionManager.getSession().getUserRoles());
-		if(roles.contains(UserRoleVo.CORP_ADMIN))//HR时隐藏申请按钮
-			display.setAddBtnShow();
+			
 	}
   
 	      
 	
-   private void initYear(){
-	   dispatch.execute(new InitCorpBudgetRequest(sessionManager.getSession()),
-				new AsyncCallback<InitCorpBudgetResponse>() {
-		          	@Override
-					public void onFailure(Throwable arg0) {
-						errorHandler.alert("查询财年周期出错!");
-						
-					}
-
-					@Override
-					public void onSuccess(InitCorpBudgetResponse response) {
-						 List<CorpBudgetVo> list = response.getResult();
-						 Map<String, String> map = new HashMap<String, String>();
-						 map.clear();
-						 CorpBudgetVo vo = new CorpBudgetVo();
-						 if(list.size()>0){
-							 for(int i=0;i<list.size();i++){
-								   vo = list.get(i);
-								   map.put(vo.getId(), vo.getBudgetTitle());
-							 }
-							   vo = list.get(0);
-							   corpBudgetId = vo.getId();
-							  
-							   display.setTotalCount(vo.getBudgetIntegral()+"");
-							   display.setRemainCount((vo.getBudgetIntegral()-vo.getUseIntegeral())+"");
-							   remainCount = vo.getBudgetIntegral()-vo.getUseIntegeral();
-								
-								
-						 }else{
-							 display.setTotalCount("0");
-							 display.setRemainCount("0");
-							 map.put(vo.getId(), "");
+	 private void initYear(){
+		   
+		   dispatch.execute(new InitCorpBudgetRequest(sessionManager.getSession(),""),
+					new AsyncCallback<InitCorpBudgetResponse>() {
+			          	@Override
+						public void onFailure(Throwable arg0) {
+							errorHandler.alert("查询财年周期出错!");
 							
-						 }
-						    AskBudgetClientVo criteria = new AskBudgetClientVo();
-							criteria.setCorpBudgetId(corpBudgetId);
-							listViewAdapter = new AskBudgetListAdapter(dispatch, criteria,errorHandler, sessionManager, display);
-							listViewAdapter.addDataDisplay(cellTable);	
-						    display.initYear(map);	
-						
-					}
+						}
 
-				});
-	 
-   }
+						@Override
+						public void onSuccess(InitCorpBudgetResponse response) {
+							 List<CorpBudgetVo> list = response.getResult();
+							 Map<String, String> map = new HashMap<String, String>();
+							 Map<String, String> depmap = new HashMap<String, String>();
+							 map.clear(); depmap.clear();
+							 CorpBudgetVo vo = new CorpBudgetVo();
+							 if(list.size()>0){
+								 for(int i=0;i<list.size();i++){
+									   vo = list.get(i);
+									   map.put(vo.getId(), vo.getBudgetTitle());
+									   depmap.put(vo.getDepartmentId(), vo.getDepartmentName());
+									   corpBudgetId = vo.getId();
+										  
+									   display.setTotalCount(vo.getBudgetIntegral()+"");
+									   display.setRemainCount((vo.getBudgetIntegral()-vo.getUseIntegeral())+"");
+									   remainCount = vo.getBudgetIntegral()-vo.getUseIntegeral();
+								 }
+								  							  
+									
+									
+							 }else{
+								 display.setTotalCount("0");
+								 display.setRemainCount("0");
+								 map.put(vo.getId(), "");
+								
+							 }
+							    
+							    display.initYear(map);	
+							    display.initManageDepart(depmap);
+							    AskBudgetClientVo criteria = new AskBudgetClientVo();
+								criteria.setCorpBudgetId(corpBudgetId);
+								criteria.setManageDepId(display.getManageDep().getValue(display.getManageDep().getSelectedIndex()));
+								listViewAdapter = new AskBudgetListAdapter(dispatch, criteria,errorHandler, sessionManager, display);
+								listViewAdapter.addDataDisplay(cellTable);
+								List<UserRoleVo> roles = Arrays.asList(sessionManager.getSession().getUserRoles());
+								if(roles.contains(UserRoleVo.CORP_ADMIN)){
+									initDeparts("1");//HR得到一级部门
+									display.setDisplay();
+								}else
+									initDeparts(display.getManageDep().getValue(display.getManageDep().getSelectedIndex())); //得到所管部门
+								
+						}
+
+					});
+		 
+	   }
   
-   private void toSearch(){
-	   dispatch.execute(new InitCorpBudgetRequest(sessionManager.getSession()),
+   private void toSearch(final String depId){
+	   dispatch.execute(new InitCorpBudgetRequest(sessionManager.getSession(),depId),
 				new AsyncCallback<InitCorpBudgetResponse>() {
 		          	@Override
 					public void onFailure(Throwable arg0) {
@@ -188,10 +202,18 @@ public class AskBudgetListPresenterImpl extends BasePresenter<AskBudgetListDispl
 							    display.setTotalCount(vo.getBudgetIntegral()+"");
 							    display.setRemainCount((vo.getBudgetIntegral()-vo.getUseIntegeral())+"");
 							    remainCount = vo.getBudgetIntegral()-vo.getUseIntegeral();
-								AskBudgetClientVo criteria = new AskBudgetClientVo();
-								criteria.setCorpBudgetId(corpBudgetId);
-								criteria.setDepartmentId(display.getDepart());
+							    List<UserRoleVo> roles = Arrays.asList(sessionManager.getSession().getUserRoles());
+								if(roles.contains(UserRoleVo.CORP_ADMIN)){
+									initDeparts("1");//HR得到一级部门
+									display.setDisplay();
+								}else
+									initDeparts(display.getManageDep().getValue(display.getManageDep().getSelectedIndex())); //得到所管部门
 								
+								AskBudgetClientVo criteria = new AskBudgetClientVo();
+								criteria.setManageDepId(depId);
+								criteria.setCorpBudgetId(corpBudgetId);
+								criteria.setManageDepId(depId);
+								criteria.setDepartmentId(display.getDepart());
 								listViewAdapter = new AskBudgetListAdapter(dispatch, criteria,errorHandler, sessionManager, display);
 								listViewAdapter.addDataDisplay(cellTable);
 
@@ -208,8 +230,56 @@ public class AskBudgetListPresenterImpl extends BasePresenter<AskBudgetListDispl
 				});
 	   
    }
-   private void initDeparts(){
-	   dispatch.execute(new InitDepartmentRequest(sessionManager.getSession()),
+   private void toPrush(){
+	   String manageDepId = display.getManageDep().getValue(display.getManageDep().getSelectedIndex());
+	   dispatch.execute(new InitCorpBudgetRequest(sessionManager.getSession(),manageDepId),
+				new AsyncCallback<InitCorpBudgetResponse>() {
+		          	@Override
+					public void onFailure(Throwable arg0) {
+						errorHandler.alert("查询财年周期出错!");
+						
+					}
+
+					@Override
+					public void onSuccess(InitCorpBudgetResponse response) {
+						
+						  List<CorpBudgetVo> list = response.getResult();
+						  CorpBudgetVo vo = new CorpBudgetVo();
+						 if(list.size()>0){//得到下拉框所选择的财年周期
+							 for(int i=0;i<list.size();i++){
+								 if(list.get(i).getId().equals(display.getYear())){
+								   vo = list.get(i);
+								 }
+								  
+							 }
+							 //刷新列表和预算总数
+							    corpBudgetId = vo.getId();
+							    display.setTotalCount(vo.getBudgetIntegral()+"");
+							    display.setRemainCount((vo.getBudgetIntegral()-vo.getUseIntegeral())+"");
+							    remainCount = vo.getBudgetIntegral()-vo.getUseIntegeral();
+							    
+							    List<UserRoleVo> roles = Arrays.asList(sessionManager.getSession().getUserRoles());
+								if(roles.contains(UserRoleVo.CORP_ADMIN)){
+									initDeparts("1");//HR得到一级部门
+									display.setDisplay();
+								}else
+									initDeparts(display.getManageDep().getValue(display.getManageDep().getSelectedIndex())); //得到所管部门
+
+						 }else{
+							 display.setTotalCount("0");
+							 display.setRemainCount("0");
+							
+						 }
+							
+							
+						
+					}
+
+				});
+	   
+   }
+   private void initDeparts(String type){
+	   dispatch.execute(new InitDepartmentRequest(sessionManager.getSession(),type),
 				new AsyncCallback<InitDepartmentResponse>() {
 		          	@Override
 					public void onFailure(Throwable arg0) {

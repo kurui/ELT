@@ -293,7 +293,7 @@ public class HrBoxPresenterImpl extends BasePresenter<HrBoxDisplay>
 	}
 	 private void initYear(){
 		   
-		   dispatch.execute(new InitCorpBudgetRequest(sessionManager.getSession()),
+		   dispatch.execute(new InitCorpBudgetRequest(sessionManager.getSession(),""),
 					new AsyncCallback<InitCorpBudgetResponse>() {
 			          	@Override
 						public void onFailure(Throwable arg0) {
