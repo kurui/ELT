@@ -7,7 +7,7 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 
 import org.slf4j.Logger;
 
-import com.chinarewards.elt.domain.reward.person.Winner;
+import com.chinarewards.elt.domain.org.Staff;
 import com.chinarewards.elt.model.reward.vo.RewardWinVo;
 import com.chinarewards.elt.service.reward.RewardService;
 import com.chinarewards.elt.service.sendmail.SendMailService;
@@ -59,42 +59,43 @@ public class AwardRewardAddActionHandler extends
 				throw new ClientException(message);
 			}
 
-			 lot = rewardService.determineWinner(request.getNowUserId(), request.getRewardId(),request.getStaffIds());
-			
+			RewardWinVo winvo = rewardService.determineWinner(request.getNowUserId(), request.getRewardId(),request.getStaffIds());
+			 
+				try {
+					
+					lot=winvo.getReward().getId();
+					String winStaffName="";
+					List<Staff> preStaff=winvo.getStaffs();
+		
+					for (int i = 0; i < preStaff.size(); i++) {
+						winStaffName+=preStaff.get(i).getName()+";";
+					}
+					if(!StringUtil.isEmpty(winStaffName))
+					{
+						 if(request.isEmailBox())
+						 {
+							 //邮件提醒
+							 if(request.getMessageStaffId()!=null && request.getMessageStaffId().size()>0)
+							 {
+								 for (String staffId:request.getMessageStaffId()) {
+									 sendMailService.sendMail("通知电贺提醒",winvo.getReward().getName()+"已经颁奖,获奖人:"+winStaffName, staffId);
+								}
+							 }
+						 }
+						 else if(request.isMessageBox())
+						 {
+							 //短信提醒(未实现)
+						 }
+					}
+				} catch (Exception e) {
+					logger.debug("邮件发送失败............");
+				}
 		}
 		else if("AWARDREWARDPAGE".equals(request.getFal()))
 		{
-			RewardWinVo lotPre = rewardService.awardRewardWinner(request.getNowUserId(), request.getRewardId());
+			 rewardService.awardRewardWinner(request.getNowUserId(), request.getRewardId());
 			
-			try {
-				
-				lot=lotPre.getReward().getId();
-				String winStaffName="";
-				List<Winner> preStaff=lotPre.getWinner();
-	
-				for (int i = 0; i < preStaff.size(); i++) {
-					winStaffName+=preStaff.get(i).getStaff().getName()+";";
-				}
-				if(!StringUtil.isEmpty(winStaffName))
-				{
-					 if(request.isEmailBox())
-					 {
-						 //邮件提醒
-						 if(request.getMessageStaffId()!=null && request.getMessageStaffId().size()>0)
-						 {
-							 for (String staffId:request.getMessageStaffId()) {
-								 sendMailService.sendMail("通知电贺提醒",lotPre.getReward().getName()+"已经颁奖,获奖人:"+winStaffName, staffId);
-							}
-						 }
-					 }
-					 else if(request.isMessageBox())
-					 {
-						 //短信提醒(未实现)
-					 }
-				}
-			} catch (Exception e) {
-				logger.debug("邮件发送失败............");
-			}
+		
 			
 			//判断是否还有颁奖数据.无没有清除颁奖角色
 			int rewardSize=rewardService.findRewardByAwardUserId(request.getNowUserId());

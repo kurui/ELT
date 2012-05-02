@@ -21,11 +21,16 @@ import com.chinarewards.gwt.elt.client.budget.request.InitCorpBudgetResponse;
 import com.chinarewards.gwt.elt.client.chooseStaff.presenter.ChooseStaffPanelPresenter;
 import com.chinarewards.gwt.elt.client.core.Platform;
 import com.chinarewards.gwt.elt.client.core.presenter.DockPresenter;
+import com.chinarewards.gwt.elt.client.core.ui.DialogCloseListener;
 import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
+import com.chinarewards.gwt.elt.client.rewardItem.dialog.ChooseStaffWinDialog;
+import com.chinarewards.gwt.elt.client.rewardItem.event.ChooseStaffEvent;
+import com.chinarewards.gwt.elt.client.rewardItem.handler.ChooseStaffHandler;
 import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
 import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient;
+import com.chinarewards.gwt.elt.client.rewards.model.StaffClient;
 import com.chinarewards.gwt.elt.client.rewards.model.ParticipateInfoClient.SomeoneClient;
 import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
@@ -39,8 +44,10 @@ import com.chinarewards.gwt.elt.util.DateTool;
 import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 public class AwardRewardPresenterImpl extends
 		BasePresenter<AwardRewardPresenter.AwardRewardDisplay> implements
@@ -57,16 +64,20 @@ public class AwardRewardPresenterImpl extends
 	private int oneamt=0;
 	final DockPresenter dockPresenter;
 	final MenuProcessor menuProcessor;
+	private boolean emailBox;
+	private boolean messageBox;
+	private final Provider<ChooseStaffWinDialog> chooseStaffDialogProvider;
 	@Inject
 	public AwardRewardPresenterImpl(EventBus eventBus,
 			AwardRewardDisplay display, DispatchAsync dispatcher,
 			ChooseStaffPanelPresenter staffPanel,
-			SessionManager sessionManager, Win win,BreadCrumbsPresenter breadCrumbs,MenuProcessor menuProcessor,DockPresenter dockPresenter) {
+			SessionManager sessionManager, Win win,BreadCrumbsPresenter breadCrumbs,MenuProcessor menuProcessor,DockPresenter dockPresenter,Provider<ChooseStaffWinDialog> chooseStaffDialogProvider) {
 		super(eventBus, display);
 		this.dispatcher = dispatcher;
 		this.staffPanel = staffPanel;
 		this.sessionManager = sessionManager;
 		this.win = win;
+		this.chooseStaffDialogProvider=chooseStaffDialogProvider;
 		this.breadCrumbs=breadCrumbs;
 		this.menuProcessor=menuProcessor;
 		this.dockPresenter=dockPresenter;
@@ -226,6 +237,47 @@ public class AwardRewardPresenterImpl extends
 
 					}
 				}));
+		
+		registerHandler(display.getEmailCheckbox().addClickHandler(
+				new ClickHandler() {
+					public void onClick(ClickEvent paramClickEvent) {
+						emailBox=display.getEmailCheckbox().getValue();
+
+					}
+				}));
+		registerHandler(display.getMessageCheckbox().addClickHandler(
+				new ClickHandler() {
+					public void onClick(ClickEvent paramClickEvent) {
+						messageBox=display.getMessageCheckbox().getValue();
+
+					}
+				}));
+		registerHandler(display.getChooseStaffBtnClick().addClickHandler(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent arg0) {
+						final ChooseStaffWinDialog dialog = chooseStaffDialogProvider.get();
+						dialog.setNominee(false, true, null);
+						final HandlerRegistration registration = eventBus.addHandler(ChooseStaffEvent.getType(),new ChooseStaffHandler() {
+											@Override
+											public void chosenStaff(List<StaffClient> list) {
+												for (StaffClient r : list) {									
+													if (!display.getSpecialTextArea().containsItem(r)) {	
+														display.getSpecialTextArea().addItem(r);
+													}
+												}
+											}
+										});
+
+						       Platform.getInstance().getSiteManager()
+								.openDialog(dialog, new DialogCloseListener() {
+									public void onClose(String dialogId,
+											String instanceId) {
+										registration.removeHandler();
+									}
+								});
+					}
+				}));
 	}
 	/**
 	 * 颁奖数据添加(无人获奖)
@@ -258,8 +310,12 @@ public class AwardRewardPresenterImpl extends
 	 * 颁奖数据添加
 	 */
 	private void addAwardRewardData(List<String> staffidList, String rewardId) {
-		dispatcher.execute(new AwardRewardAddRequest(staffidList, rewardId,
-				sessionManager.getSession().getToken(),"DETERMINEWINNERS"),
+		AwardRewardAddRequest request=new AwardRewardAddRequest(staffidList, rewardId,sessionManager.getSession().getToken(),"DETERMINEWINNERS");
+		request.setEmailBox(emailBox);
+		request.setMessageBox(messageBox);
+		request.setMessageStaffId(display.getRealOrginzationIds());
+		
+		dispatcher.execute(request,
 				new AsyncCallback<AwardRewardAddResponse>() {
 					public void onFailure(Throwable t) {
 						win.alert(t.getMessage());

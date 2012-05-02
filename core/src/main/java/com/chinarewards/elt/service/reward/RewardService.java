@@ -66,7 +66,7 @@ public interface RewardService {
 	 * @param staffIds
 	 * @return
 	 */
-	public String determineWinner(String nowUserId, String rewardId,List<String> staffIds);
+	public RewardWinVo determineWinner(String nowUserId, String rewardId,List<String> staffIds);
 	/**
 	 * 颁奖方法
 	 * 
