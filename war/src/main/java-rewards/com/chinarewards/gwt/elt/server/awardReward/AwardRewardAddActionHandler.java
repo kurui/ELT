@@ -78,7 +78,7 @@ public class AwardRewardAddActionHandler extends
 							 if(request.getMessageStaffId()!=null && request.getMessageStaffId().size()>0)
 							 {
 								 for (String staffId:request.getMessageStaffId()) {
-									 sendMailService.sendMail("通知电贺提醒",winvo.getReward().getName()+"已经颁奖,获奖人:"+winStaffName, staffId);
+									 sendMailService.sendMail("通知电贺提醒",winvo.getReward().getName()+"已经确定获奖人:"+winStaffName, staffId);
 								}
 							 }
 						 }
