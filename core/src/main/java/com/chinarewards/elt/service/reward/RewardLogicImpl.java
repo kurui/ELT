@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.chinarewards.elt.dao.org.DepartmentDao;
+import com.chinarewards.elt.dao.org.StaffDao;
 import com.chinarewards.elt.dao.reward.RewardDao;
 import com.chinarewards.elt.dao.reward.RewardItemDao;
 import com.chinarewards.elt.dao.user.UserDao;
@@ -87,6 +88,7 @@ public class RewardLogicImpl implements RewardLogic {
 	private final BroadcastService broadcastService;
 	private final StaffLogic staffLogic;
 	private final UserLogic userLogic;
+	private final StaffDao staffDao;
     private final DepartmentManagerLogic departmentManagerLogic;
 	@Inject
 	public RewardLogicImpl(RewardDao rewardDao, RewardItemDao rewardItemDao,
@@ -100,7 +102,7 @@ public class RewardLogicImpl implements RewardLogic {
 			RewardAclProcessorFactory rewardAclProcessorFactory,
 			BroadcastService broadcastService, StaffLogic staffLogic,
 			UserLogic userLogic,
-			DepartmentManagerLogic departmentManagerLogic
+			DepartmentManagerLogic departmentManagerLogic,StaffDao staffDao
 			) {
 		this.rewardDao = rewardDao;
 		this.rewardItemDao = rewardItemDao;
@@ -119,6 +121,7 @@ public class RewardLogicImpl implements RewardLogic {
 		this.staffLogic = staffLogic;
 		this.userLogic = userLogic;
         this.departmentManagerLogic = departmentManagerLogic;
+        this.staffDao=staffDao;
 	}
 
 	/**
@@ -709,17 +712,20 @@ public class RewardLogicImpl implements RewardLogic {
 	}
 
 	@Override
-	public String determineWinner(String nowUserId, String rewardId,
+	public RewardWinVo determineWinner(String nowUserId, String rewardId,
 			List<String> staffIds) {
 		SysUser caller = userLogic.findUserById(nowUserId);
 
 		Reward reward = rewardDao.findById(Reward.class, rewardId);
-		String lotId = preWinnerLogic.addPreWinnerFromOuter(caller, rewardId,
-				staffIds);
+	//	String lotId = 
+		preWinnerLogic.addPreWinnerFromOuter(caller, rewardId,staffIds);
 
 		reward.setStatus(RewardStatus.NEW);
 		rewardDao.update(reward);
-		return lotId;
+		RewardWinVo winvo=new RewardWinVo(reward, null);
+		List<Staff> staffList=staffDao.findStaffsByStaffIds(staffIds);
+		winvo.setStaffs(staffList);
+		return winvo;
 	}
 
 	@Override

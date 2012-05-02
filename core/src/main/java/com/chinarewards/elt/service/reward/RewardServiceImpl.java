@@ -206,7 +206,7 @@ public class RewardServiceImpl implements RewardService {
 	}
 
 	@Override
-	public String determineWinner(String nowUserId, String rewardId,
+	public RewardWinVo determineWinner(String nowUserId, String rewardId,
 			List<String> staffIds) {
 		return rewardLogic.determineWinner(nowUserId, rewardId, staffIds);
 	}
