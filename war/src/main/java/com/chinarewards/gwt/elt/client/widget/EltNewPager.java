@@ -479,11 +479,11 @@ public class EltNewPager extends AbstractPager {
 		lastPage.setStyleName("pagedisable");
 
 		
-		if (totalPage >= ((indexpage-1)*2)+1) {
+		if (totalPage >= ((indexpage-1)*2)+1 && ((indexpage-1)*2)+1>0) {
 			onePage.setStyleName("");
 			onePage.setVisible(true);
 		}
-		if (totalPage >= ((indexpage-1)*2)+2) {
+		if (totalPage >= ((indexpage-1)*2)+2 && ((indexpage-1)*2)+2>0) {
 			twoPage.setStyleName("");
 			firstPage.setStyleName("");
 			nextPage.setStyleName("");
@@ -492,15 +492,15 @@ public class EltNewPager extends AbstractPager {
 			twoPage.setVisible(true);
 
 		}
-		if (totalPage >= ((indexpage-1)*2)+3) {
+		if (totalPage >= ((indexpage-1)*2)+3 && ((indexpage-1)*2)+3>0) {
 			threePage.setStyleName("");
 			threePage.setVisible(true);
 		}
-		if (totalPage >= ((indexpage-1)*2)+4) {
+		if (totalPage >= ((indexpage-1)*2)+4 && ((indexpage-1)*2)+4>0) {
 			fourPage.setStyleName("");
 			fourPage.setVisible(true);
 		}
-		if (totalPage >= ((indexpage-1)*2)+5) {
+		if (totalPage >= ((indexpage-1)*2)+5 && ((indexpage-1)*2)+5>0) {
 			fivePage.setStyleName("");
 			fivePage.setVisible(true);
 		}
