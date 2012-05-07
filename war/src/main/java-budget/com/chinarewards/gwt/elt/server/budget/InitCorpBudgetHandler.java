@@ -20,6 +20,7 @@ import com.chinarewards.gwt.elt.client.budget.request.InitCorpBudgetResponse;
 import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.chinarewards.gwt.elt.server.BaseActionHandler;
 import com.chinarewards.gwt.elt.server.logger.InjectLogger;
+import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.inject.Inject;
 
 /**
@@ -55,7 +56,7 @@ public class InitCorpBudgetHandler extends	BaseActionHandler<InitCorpBudgetReque
 			resp.setResult(adapterToClient(listVo));//从服务端转为客户端
 		 
 		 } else if (roleList.contains(UserRoleVo.DEPT_MGR)) {
-			 if(manageDepId.equals("")){//没有指定查找哪个部门的预算
+			 if(StringUtil.isEmpty(manageDepId)){//没有指定查找哪个部门的预算
 				List<Department> listManagedDep= departmentService.findDepartmentsManagedByStaffId(action.getUserSession().getStaffId());
 				if(listManagedDep.size()>0){
 					List<DepartmentBudget> departmentBudgetList = new ArrayList<DepartmentBudget>();
@@ -69,7 +70,7 @@ public class InitCorpBudgetHandler extends	BaseActionHandler<InitCorpBudgetReque
 				  resp.setResult(adapterToDepClient(departmentBudgetList));//从服务端转为客户端
 				 }
 			 }
-			 if(!manageDepId.equals("")){//指定查找的部门预算
+			 else{//指定查找的部门预算
 				  List<DepartmentBudget> listVo = corpBudgetService.findDepartBudget(manageDepId);//得到指定部门的预算
 				  resp.setResult(adapterToDepClient(listVo));//从服务端转为客户端
 					

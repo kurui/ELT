@@ -47,6 +47,7 @@ public class AwardRewardDeterminePresenterImpl extends
 	private final BreadCrumbsPresenter breadCrumbs;
 	private int oneamt=0;
 	private int winSize=0;
+	private String accountDeptId;
 	@Inject
 	public AwardRewardDeterminePresenterImpl(EventBus eventBus,
 			AwardRewardDetermineDisplay display, DispatchAsync dispatcher,
@@ -76,7 +77,7 @@ public class AwardRewardDeterminePresenterImpl extends
 							@Override
 							public void confirm() {
 							
-								dispatcher.execute(new InitCorpBudgetRequest(sessionManager.getSession(),""),
+								dispatcher.execute(new InitCorpBudgetRequest(sessionManager.getSession(),accountDeptId),
 										new AsyncCallback<InitCorpBudgetResponse>() {
 								          	@Override
 											public void onFailure(Throwable arg0) {
@@ -195,6 +196,8 @@ public class AwardRewardDeterminePresenterImpl extends
 						oneamt=amt;
 						if(response.getWinnerList()!=null)
 						winSize=response.getWinnerList().size();
+						
+						accountDeptId=response.getAccountDeptId();
 
 					}
 				});
