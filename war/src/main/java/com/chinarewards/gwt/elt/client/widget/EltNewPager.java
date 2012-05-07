@@ -443,7 +443,7 @@ public class EltNewPager extends AbstractPager {
 				fourPage.setText((((indexpage-1)*2)+4)+"");
 				fivePage.setText((((indexpage-1)*2)+5)+"");
 			}
-			if(currentPage==totalPage)
+			else if(currentPage==totalPage)
 			{
 				indexpage=totalPage/2-1;
 				onePage.setText((((indexpage-1)*2)+1)+"");
