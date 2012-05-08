@@ -113,7 +113,7 @@ public class OrderServlet extends HttpServlet {
 				List lista = new ArrayList();
 				OrderListVo ordervo = orderlist.get(a);
 				lista.add(ordervo.getOrderCode());
-				lista.add(ordervo.getName());
+				lista.add(ordervo.getGiftvo().getName());
 				lista.add(ordervo.getAmount());
 				lista.add(ordervo.getIntegral());
 				lista.add(ordervo.getExchangeDate());
