@@ -422,9 +422,11 @@ public class RewardLogicImpl implements RewardLogic {
 		rewardQueryVo.setCreatedAt(reward.getCreatedAt());
 		rewardQueryVo.setExpectAwardDate(reward.getExpectAwardDate());
 		rewardQueryVo.setExpectNominateDate(reward.getExpectNominateDate());
-		rewardQueryVo.setCreatedStaffName(reward.getCreatedBy().getStaff()
-				.getName());
-
+		rewardQueryVo.setCreatedStaffName(reward.getCreatedBy().getStaff().getName());
+		
+		if(reward.getAccountDept()!=null)
+			rewardQueryVo.setAccountDeptId(reward.getAccountDept().getId());
+		
 		String awardMode = "";
 		RequireAutoGenerate rag = reward.getRewardItem().getAutoGenerate();
 		if (rag == RequireAutoGenerate.requireCyclic) {

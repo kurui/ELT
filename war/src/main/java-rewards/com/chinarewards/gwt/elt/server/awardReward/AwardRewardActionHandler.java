@@ -66,6 +66,7 @@ public class AwardRewardActionHandler extends
 		awardresponse.setAwardMode(rewardQueryVo.getAwardMode());
 		awardresponse
 				.setAwardingStaffName(rewardQueryVo.getAwardingStaffName());
+		awardresponse.setAccountDeptId(rewardQueryVo.getAccountDeptId());
 
 		List<CandidateParamVo> candidateVoList = new ArrayList<CandidateParamVo>();
 		List<JudgeParamVo> judgeVoList = new ArrayList<JudgeParamVo>();

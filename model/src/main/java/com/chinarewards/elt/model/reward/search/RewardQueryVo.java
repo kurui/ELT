@@ -71,6 +71,18 @@ public class RewardQueryVo {
 	 * 获奖人List
 	 */
 	List<WinnerParam> winnerList;
+/**
+ * 付账部门ID
+ */
+	String accountDeptId;
+	
+	public String getAccountDeptId() {
+	return accountDeptId;
+}
+
+public void setAccountDeptId(String accountDeptId) {
+	this.accountDeptId = accountDeptId;
+}
 
 	public List<WinnerParam> getWinnerList() {
 		return winnerList;

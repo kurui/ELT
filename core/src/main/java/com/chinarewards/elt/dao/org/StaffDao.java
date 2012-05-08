@@ -103,7 +103,7 @@ public class StaffDao extends BaseDao<Staff> {
 				new Object[] { corpId, lft, rgt });
 		return getEm()
 				.createQuery(
-						"FROM Staff s WHERE s.corporation.id =:corpId AND s.department.lft = :lft AND s.department.rgt = :rgt")
+						"FROM Staff s WHERE s.corporation.id =:corpId AND s.department.lft >= :lft AND s.department.rgt <= :rgt")
 				.setParameter("corpId", corpId).setParameter("lft", lft)
 				.setParameter("rgt", rgt).getResultList();
 	}
