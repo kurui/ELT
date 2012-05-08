@@ -94,7 +94,18 @@ public class AwardRewardInitResponse implements Result {
 	 * 获取提名人List
 	 */
 	List<JudgeParamVo> judgeList;
+	/**
+	 * 付账部门ID
+	 */
+		String accountDeptId;
+		
+	public String getAccountDeptId() {
+		return accountDeptId;
+	}
 
+	public void setAccountDeptId(String accountDeptId) {
+		this.accountDeptId = accountDeptId;
+	}
 	public String getRewardId() {
 		return rewardId;
 	}
