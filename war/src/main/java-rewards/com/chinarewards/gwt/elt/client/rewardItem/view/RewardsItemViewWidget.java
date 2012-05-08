@@ -26,7 +26,6 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.Widget;
@@ -287,7 +286,7 @@ public class RewardsItemViewWidget extends Composite implements RewardsItemViewD
 
 	@Override
     public void setDisplay(){
-		this.departLabel.setVisible(false);
+		this.departLabel.setVisible(true);
 		this.depart.setVisible(false);
 	}	
 	
