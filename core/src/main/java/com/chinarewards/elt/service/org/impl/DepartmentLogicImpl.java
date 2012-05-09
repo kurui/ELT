@@ -293,6 +293,45 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 		return list;
 	}
 	
+	
+	@Override
+	public List<Department> getAllChildren(String deptId,
+			boolean containItSelf) {
+		Department dept = departmentDao.findById(Department.class, deptId);
+	
+		List<Department> depts = departmentDao.findDepartmentsByParentId(deptId);
+		
+		if(depts!=null&&depts.size()>0){
+			for (int i = 0; i <depts.size(); i++) {
+				Department child=depts.get(i);
+				if(child!=null){
+					List<Department> tempChilds=departmentDao.findDepartmentsByParentId(child.getId());
+					if(tempChilds!=null&&tempChilds.size()>0){
+						depts.addAll(tempChilds);
+						
+							for (int j = 0; j <depts.size(); j++) {
+								Department child2=tempChilds.get(j);
+								if(child2!=null){
+									List<Department> tempChilds2=departmentDao.findDepartmentsByParentId(child2.getId());
+									if(tempChilds2!=null){
+										depts.addAll(tempChilds2);
+									}
+								}
+							}
+						
+					}
+				}
+			}
+		}
+		
+		if (containItSelf) {
+			depts.add(dept);
+		}		
+		
+		
+		return depts;
+	}
+	
 //	@Override
 //	public List<Department> getWholeChildren(String deptId,
 //			boolean containItSelf) {
