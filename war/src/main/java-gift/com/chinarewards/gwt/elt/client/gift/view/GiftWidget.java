@@ -152,12 +152,16 @@ public class GiftWidget extends Composite implements GiftDisplay {
 		initStatusSelect(giftVo.getStatus().toString());
         price.setText(giftVo.getPrice());
 		brand.setText(giftVo.getBrand());
+		model.setText(giftVo.getModel());
 		photo.setText(giftVo.getPhoto());
 		model.setText(giftVo.getModel());
-		if (giftVo.getPhoto().indexOf(".") > 0) {
-			giftImage.setUrl("imageshow?imageName=" + giftVo.getPhoto());
-			giftImage.setVisible(true);
+		if(!StringUtil.isEmpty(giftVo.getPhoto())){
+			if (giftVo.getPhoto().indexOf(".") > 0) {
+				giftImage.setUrl("imageshow?imageName=" + giftVo.getPhoto());
+				giftImage.setVisible(true);
+			}
 		}
+		
 		integral.setText(giftVo.getIntegral() + "");
 		stock.setText(giftVo.getStock() + "");
 
