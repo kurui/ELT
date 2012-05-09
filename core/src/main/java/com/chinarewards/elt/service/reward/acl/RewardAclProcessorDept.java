@@ -51,8 +51,9 @@ public class RewardAclProcessorDept extends AbstractRewardAclProcessor {
 
 		Set<String> allDepartmentIds = new HashSet<String>();
 		for (String id : departmentIds) {
-			allDepartmentIds.addAll(departmentLogic.getWholeChildrenIds(id,
-					true));
+//			allDepartmentIds.addAll(departmentLogic.getWholeChildrenIds(id,
+//					true));
+			allDepartmentIds.addAll(departmentLogic.getImmediacyChildrenIds(id,true));
 		}
 		departmentIds.clear();
 		departmentIds.addAll(allDepartmentIds);
@@ -88,8 +89,10 @@ public class RewardAclProcessorDept extends AbstractRewardAclProcessor {
 			logger.debug("criteria.isSubDepartmentChoose: {}",
 					criteria.isSubDepartmentChosen());
 			if (criteria.isSubDepartmentChosen()) {
-				deptIds = departmentLogic.getWholeChildrenIds(
-						criteria.getDepartmentId(), true);
+//				deptIds = departmentLogic.getWholeChildrenIds(
+//						criteria.getDepartmentId(), true);
+				deptIds = departmentLogic.getImmediacyChildrenIds(criteria.getDepartmentId(),true);
+				
 				logger.debug("Siblings dept IDs of {}: {}",
 						criteria.getDepartmentId(), deptIds);
 			} else {
@@ -160,8 +163,9 @@ public class RewardAclProcessorDept extends AbstractRewardAclProcessor {
 		} else if (!StringUtil.isEmptyString(criteria.getDepartmentId())) {
 			List<String> deptIds = null;
 			if (criteria.isSubDepartmentChosen()) {
-				deptIds = departmentLogic.getWholeChildrenIds(
-						criteria.getDepartmentId(), true);
+//				deptIds = departmentLogic.getWholeChildrenIds(
+//						criteria.getDepartmentId(), true);
+				deptIds = departmentLogic.getImmediacyChildrenIds(criteria.getDepartmentId(),true);
 			} else {
 				deptIds = new ArrayList<String>();
 				deptIds.add(criteria.getDepartmentId());
@@ -228,8 +232,10 @@ public class RewardAclProcessorDept extends AbstractRewardAclProcessor {
 		if (departmentIds.size() > 0) {
 			Set<String> allDepartmentIds = new HashSet<String>();
 			for (String id : departmentIds) {
-				allDepartmentIds.addAll(departmentLogic.getWholeChildrenIds(id,
-						true));
+//				allDepartmentIds.addAll(departmentLogic.getWholeChildrenIds(id,
+//						true));
+				
+				allDepartmentIds.addAll(departmentLogic.getImmediacyChildrenIds(id,true));
 			}
 			departmentIds.clear();
 			departmentIds.addAll(allDepartmentIds);

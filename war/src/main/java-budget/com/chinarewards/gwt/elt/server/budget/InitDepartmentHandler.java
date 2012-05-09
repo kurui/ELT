@@ -63,7 +63,7 @@ public class InitDepartmentHandler extends	BaseActionHandler<InitDepartmentReque
 			 List<Department> listManagedDep= departmentService.findDepartmentsManagedByStaffId(action.getUserSession().getStaffId());
 			 List<Department> listchildDep= new ArrayList<Department>();
 			 for (Department item : listManagedDep) {
-				 List<Department> sonDepList = departmentService.getImmediacyChildren(item.getId());
+				 List<Department> sonDepList = departmentService.getImmediacyChildren(item.getId(),true);
 				 for (Department son : sonDepList){
 					 listchildDep.add(son);
 				 }
@@ -71,7 +71,7 @@ public class InitDepartmentHandler extends	BaseActionHandler<InitDepartmentReque
 			 resp.setResult(adapterToClient(listchildDep));//从服务端转为客户端
 		 }else if (roleList.contains(UserRoleVo.DEPT_MGR)&&!type.equals("")) {//得到主管的一个部门的子部门
 			
-			 List<Department> sonDepList = departmentService.getImmediacyChildren(type);//type这里为传过来的所选主部门的ID
+			 List<Department> sonDepList = departmentService.getImmediacyChildren(type,false);//type这里为传过来的所选主部门的ID
 			 resp.setResult(adapterToClient(sonDepList));//从服务端转为客户端
 		 }
 		

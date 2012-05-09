@@ -84,7 +84,8 @@ public class SearchDepartmentByIdHandler
 			}
 
 		//下一级部门
-		List<String> childNames=departmentService.getWholeChildrenNames(departmentVo.getId(),false);
+//		List<String> childNames=departmentService.getWholeChildrenNames(departmentVo.getId(),false);
+		List<String> childNames=departmentService.getImmediacyChildrenNames(departmentVo.getId(),false);
 		departmentVo.setChildNames(childNames);
 	    
 		//部门人数

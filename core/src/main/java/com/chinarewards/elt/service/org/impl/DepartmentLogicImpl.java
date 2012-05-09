@@ -255,47 +255,80 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 		return dept;
 	}
 
+	/**
+	 * 获取直接下级
+	 * */
 	@Override
-	public List<Department> getImmediacyChildren(String deptId) {
-
-		return departmentDao.findDepartmentsByParentId(deptId);
-	}
-
-	@Override
-	public List<Department> getWholeChildren(String deptId,
-			boolean containItSelf) {
-		Department dept = departmentDao.findById(Department.class, deptId);
-		logger.debug("Prepare to search by lft={} and rgt={}", new Object[] {
-				dept.getLft(), dept.getRgt() });
-		List<Department> depts = departmentDao.findDepartmentsByLefRgt(
-				dept.getLft(), dept.getRgt());
+	public List<Department> getImmediacyChildren(String deptId,boolean containItSelf) {
+		Department rootdept = departmentDao.findById(Department.class, deptId);
+		
+		List<Department> depts=departmentDao.findDepartmentsByParentId(deptId);
 		if (containItSelf) {
-			depts.add(dept);
+			depts.add(rootdept);
 		}
 		return depts;
 	}
-
+	
 	@Override
-	public List<String> getWholeChildrenIds(String deptId, boolean containItSelf) {
+	public List<String> getImmediacyChildrenNames(String deptId,boolean containItSelf) {
 		List<String> list = new ArrayList<String>();
-		List<Department> depts = getWholeChildren(deptId, containItSelf);
-		for (Department dept : depts) {
-			list.add(dept.getId());
-		}
-		return list;
-	}
+		List<Department> depts=getImmediacyChildren(deptId,containItSelf);
 
-	@Override
-	public List<String> getWholeChildrenNames(String deptId,
-			boolean containItSelf) {
-		List<String> list = new ArrayList<String>();
-//		List<Department> depts = getWholeChildren(deptId, containItSelf);
-		List<Department> depts=getImmediacyChildren(deptId);
 		for (Department dept : depts) {
 			list.add(dept.getName());
 		}
 		return list;
 	}
+
+	@Override
+	public List<String> getImmediacyChildrenIds(String deptId,boolean containItSelf) {
+		List<String> list = new ArrayList<String>();
+			
+		List<Department> depts = getImmediacyChildren(deptId,containItSelf);
+		
+		for (Department dept : depts) {
+			list.add(dept.getId());
+		}
+		
+		return list;
+	}
+	
+//	@Override
+//	public List<Department> getWholeChildren(String deptId,
+//			boolean containItSelf) {
+//		Department dept = departmentDao.findById(Department.class, deptId);
+//		logger.debug("Prepare to search by lft={} and rgt={}", new Object[] {
+//				dept.getLft(), dept.getRgt() });
+//		List<Department> depts = departmentDao.findDepartmentsByLefRgt(
+//				dept.getLft(), dept.getRgt());
+//		if (containItSelf) {
+//			depts.add(dept);
+//		}
+//		return depts;
+//	}
+
+//	@Override
+//	public List<String> getWholeChildrenIds(String deptId, boolean containItSelf) {
+//		List<String> list = new ArrayList<String>();
+//		List<Department> depts = getWholeChildren(deptId, containItSelf);
+//		for (Department dept : depts) {
+//			list.add(dept.getId());
+//		}
+//		return list;
+//	}
+
+//	@Override
+//	public List<String> getWholeChildrenNames(String deptId,
+//			boolean containItSelf) {
+//		List<String> list = new ArrayList<String>();
+//		List<Department> depts = getWholeChildren(deptId, containItSelf);
+//		for (Department dept : depts) {
+//			list.add(dept.getName());
+//		}
+//		return list;
+//	}
+	
+	
 
 	@Override
 	public List<Department> getImmediacyDepartmentsOfCorporation(

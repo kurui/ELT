@@ -85,7 +85,7 @@ public class BudgetServiceImpl implements BudgetService {
 			if(deptBudgetVo.getManageDepId()==null||deptBudgetVo.getManageDepId().equals("")){
 				List<Department> listManagedDep= departmentService.findDepartmentsManagedByStaffId(caller.getStaff().getId());
 				for(Department dep:listManagedDep){
-					deptId = departmentLogic.getImmediacyChildren(dep.getId());
+					deptId = departmentLogic.getImmediacyChildren(dep.getId(),false);
 					if(deptId!=null&&deptId.size()>0){
 						for(int i=0;i<deptId.size();i++){
 							deptIds.add(deptId.get(i).getId());
@@ -93,7 +93,7 @@ public class BudgetServiceImpl implements BudgetService {
 					}
 			  }
 			}else{
-				deptId = departmentLogic.getImmediacyChildren(deptBudgetVo.getManageDepId());
+				deptId = departmentLogic.getImmediacyChildren(deptBudgetVo.getManageDepId(),false);
 				if(deptId!=null&&deptId.size()>0){
 					for(int i=0;i<deptId.size();i++){
 						deptIds.add(deptId.get(i).getId());
@@ -170,9 +170,13 @@ public class BudgetServiceImpl implements BudgetService {
 			//得到所管理的部门
 			List<String> deptIds = null;//leader可看一级
 			if(askBudgetVo.getManageDepId()==null||askBudgetVo.getManageDepId().equals(""))//没有指定的主部门
-			    deptIds = departmentLogic.getWholeChildrenIds(caller.getStaff().getDepartment().getId(), true);
+//			    deptIds = departmentLogic.getWholeChildrenIds(caller.getStaff().getDepartment().getId(), true);
+		    deptIds = departmentLogic.getImmediacyChildrenIds(caller.getStaff().getDepartment().getId(),true);
+			
 			else
-				deptIds = departmentLogic.getWholeChildrenIds(askBudgetVo.getManageDepId(), true);
+//				deptIds = departmentLogic.getWholeChildrenIds(askBudgetVo.getManageDepId(), true);
+				deptIds = departmentLogic.getImmediacyChildrenIds(askBudgetVo.getManageDepId(),true);
+				
 			if(deptIds!=null&&deptIds.size()>0)//二级部门
 				   askBudgetVo.setDeptIds(new ArrayList<String>(deptIds));
 				else{

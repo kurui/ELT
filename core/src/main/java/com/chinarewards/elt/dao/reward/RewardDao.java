@@ -64,8 +64,11 @@ public class RewardDao extends BaseDao<Reward> {
 		// 是否查某部门所有子部门下的数据
 		if (!StringUtil.isEmptyString(criteria.getBuilderDeptId())
 				&& criteria.isSubDepartmentChosen()) {
-			List<String> childrenIds = departmentLogic.getWholeChildrenIds(
-					criteria.getBuilderDeptId(), true);
+//			List<String> childrenIds = departmentLogic.getWholeChildrenIds(
+//					criteria.getBuilderDeptId(), true);
+			List<String> childrenIds = departmentLogic.getImmediacyChildrenIds(criteria.getBuilderDeptId(),true);
+			
+			
 			criteria.setDeptIds(new ArrayList<String>(childrenIds));
 		}
 		PageStore<Reward> res = new PageStore<Reward>();
@@ -414,8 +417,11 @@ public class RewardDao extends BaseDao<Reward> {
 			hql.append(" AND w.reward.organization.id = :corporationId");
 			params.put("corporationId", org.getId());
 		} else if (org instanceof Department) {
-			List<String> childrenIds = departmentLogic.getWholeChildrenIds(
-					org.getId(), true);
+//			List<String> childrenIds = departmentLogic.getWholeChildrenIds(
+//					org.getId(), true);
+			List<String> childrenIds = departmentLogic.getImmediacyChildrenIds(
+					org.getId(),true);	
+			
 			hql.append(" AND w.reward.accountDept.id IN (:departmentIds)");
 			params.put("departmentIds", childrenIds);
 		} else if (org instanceof Staff) {
@@ -484,8 +490,10 @@ public class RewardDao extends BaseDao<Reward> {
 			hql.append(" AND w.reward.organization.id = :corporationId");
 			params.put("corporationId", org.getId());
 		} else if (org instanceof Department) {
-			List<String> childrenIds = departmentLogic.getWholeChildrenIds(
-					org.getId(), true);
+//			List<String> childrenIds = departmentLogic.getWholeChildrenIds(
+//			org.getId(), true);
+	List<String> childrenIds = departmentLogic.getImmediacyChildrenIds(
+			org.getId(),true);	
 			logger.debug("childrenIds = {}", childrenIds);
 			hql.append(" AND w.reward.accountDept.id IN (:departmentIds)");
 			params.put("departmentIds", childrenIds);
