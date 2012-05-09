@@ -289,7 +289,8 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 	public List<String> getWholeChildrenNames(String deptId,
 			boolean containItSelf) {
 		List<String> list = new ArrayList<String>();
-		List<Department> depts = getWholeChildren(deptId, containItSelf);
+//		List<Department> depts = getWholeChildren(deptId, containItSelf);
+		List<Department> depts=getImmediacyChildren(deptId);
 		for (Department dept : depts) {
 			list.add(dept.getName());
 		}
