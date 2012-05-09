@@ -315,6 +315,18 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 									List<Department> tempChilds2=departmentDao.findDepartmentsByParentId(child2.getId());
 									if(tempChilds2!=null){
 										depts.addAll(tempChilds2);
+										
+										for (int k = 0; k <tempChilds2.size(); k++) {
+											Department child3=tempChilds.get(k);
+											if(child3!=null){
+												List<Department> tempChilds3=departmentDao.findDepartmentsByParentId(child3.getId());
+												if(tempChilds3!=null){
+													depts.addAll(tempChilds3);
+													
+													
+												}
+											}
+										}
 									}
 								}
 							}
