@@ -309,7 +309,7 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 					if(tempChilds!=null&&tempChilds.size()>0){
 						depts.addAll(tempChilds);
 						
-							for (int j = 0; j <depts.size(); j++) {
+							for (int j = 0; j <tempChilds.size(); j++) {
 								Department child2=tempChilds.get(j);
 								if(child2!=null){
 									List<Department> tempChilds2=departmentDao.findDepartmentsByParentId(child2.getId());
