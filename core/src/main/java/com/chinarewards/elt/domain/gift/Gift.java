@@ -35,6 +35,8 @@ public class Gift implements Serializable {
 	private String explains; // 兑换说明
 	private String notes; // 注意事项
 	private String type; // 礼品类型
+	
+	private String model;//产品型号
 	private String brand;// 品牌
 	private String photo; // 图片
 	private String price;//采购价格
@@ -55,6 +57,14 @@ public class Gift implements Serializable {
 	private String recorduser; // 录入人
 	private Date updatetime; // 修改时间
 	
+	public String getModel() {
+		return model;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
+	}
+
 	public String getPrice() {
 		if(StringUtil.isEmptyString(price)){
 			return "0";
