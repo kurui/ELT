@@ -53,7 +53,7 @@ public class RewardAclProcessorDept extends AbstractRewardAclProcessor {
 		for (String id : departmentIds) {
 //			allDepartmentIds.addAll(departmentLogic.getWholeChildrenIds(id,
 //					true));
-			allDepartmentIds.addAll(departmentLogic.getImmediacyChildrenIds(id,true));
+			allDepartmentIds.addAll(departmentLogic.getAllChildrenIds(id,true));
 		}
 		departmentIds.clear();
 		departmentIds.addAll(allDepartmentIds);
@@ -91,7 +91,7 @@ public class RewardAclProcessorDept extends AbstractRewardAclProcessor {
 			if (criteria.isSubDepartmentChosen()) {
 //				deptIds = departmentLogic.getWholeChildrenIds(
 //						criteria.getDepartmentId(), true);
-				deptIds = departmentLogic.getImmediacyChildrenIds(criteria.getDepartmentId(),true);
+				deptIds = departmentLogic.getAllChildrenIds(criteria.getDepartmentId(),true);
 				
 				logger.debug("Siblings dept IDs of {}: {}",
 						criteria.getDepartmentId(), deptIds);
@@ -165,7 +165,7 @@ public class RewardAclProcessorDept extends AbstractRewardAclProcessor {
 			if (criteria.isSubDepartmentChosen()) {
 //				deptIds = departmentLogic.getWholeChildrenIds(
 //						criteria.getDepartmentId(), true);
-				deptIds = departmentLogic.getImmediacyChildrenIds(criteria.getDepartmentId(),true);
+				deptIds = departmentLogic.getAllChildrenIds(criteria.getDepartmentId(),true);
 			} else {
 				deptIds = new ArrayList<String>();
 				deptIds.add(criteria.getDepartmentId());
@@ -235,7 +235,7 @@ public class RewardAclProcessorDept extends AbstractRewardAclProcessor {
 //				allDepartmentIds.addAll(departmentLogic.getWholeChildrenIds(id,
 //						true));
 				
-				allDepartmentIds.addAll(departmentLogic.getImmediacyChildrenIds(id,true));
+				allDepartmentIds.addAll(departmentLogic.getAllChildrenIds(id,true));
 			}
 			departmentIds.clear();
 			departmentIds.addAll(allDepartmentIds);

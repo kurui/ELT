@@ -306,7 +306,7 @@ public class BudgetLogicImpl implements BudgetLogic {
 		StaffSearchVo searchVo = new StaffSearchVo ();
 		int people =0;
 //		List<Department>  list=departmentLogic.getWholeChildren(departmentBudget.getDepartmentId(),true);//得到子部门及本身
-		List<Department>  list=departmentLogic.getImmediacyChildren(departmentBudget.getDepartmentId(),true);
+		List<Department>  list=departmentLogic.getAllChildren(departmentBudget.getDepartmentId(),true);
 		list.add(department);
 		
 		if(list.size()>0){

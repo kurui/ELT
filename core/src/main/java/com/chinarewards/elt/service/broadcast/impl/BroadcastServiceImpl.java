@@ -154,7 +154,7 @@ public class BroadcastServiceImpl implements BroadcastService {
 					receivingObj = departmentObjectDao.save(dept);
 					//查询下级所有部门...全部发送
 //					List<Department> treeDept=departmentLogic.getWholeChildren(organ[0], false);
-					List<Department> treeDept=departmentLogic.getImmediacyChildren(organ[0],false);
+					List<Department> treeDept=departmentLogic.getAllChildren(organ[0],false);
 					
 					if(treeDept!=null && treeDept.size()>0)
 					{

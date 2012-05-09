@@ -66,7 +66,7 @@ public class RewardDao extends BaseDao<Reward> {
 				&& criteria.isSubDepartmentChosen()) {
 //			List<String> childrenIds = departmentLogic.getWholeChildrenIds(
 //					criteria.getBuilderDeptId(), true);
-			List<String> childrenIds = departmentLogic.getImmediacyChildrenIds(criteria.getBuilderDeptId(),true);
+			List<String> childrenIds = departmentLogic.getAllChildrenIds(criteria.getBuilderDeptId(),true);
 			
 			
 			criteria.setDeptIds(new ArrayList<String>(childrenIds));
@@ -419,7 +419,7 @@ public class RewardDao extends BaseDao<Reward> {
 		} else if (org instanceof Department) {
 //			List<String> childrenIds = departmentLogic.getWholeChildrenIds(
 //					org.getId(), true);
-			List<String> childrenIds = departmentLogic.getImmediacyChildrenIds(
+			List<String> childrenIds = departmentLogic.getAllChildrenIds(
 					org.getId(),true);	
 			
 			hql.append(" AND w.reward.accountDept.id IN (:departmentIds)");
@@ -492,7 +492,7 @@ public class RewardDao extends BaseDao<Reward> {
 		} else if (org instanceof Department) {
 //			List<String> childrenIds = departmentLogic.getWholeChildrenIds(
 //			org.getId(), true);
-	List<String> childrenIds = departmentLogic.getImmediacyChildrenIds(
+	List<String> childrenIds = departmentLogic.getAllChildrenIds(
 			org.getId(),true);	
 			logger.debug("childrenIds = {}", childrenIds);
 			hql.append(" AND w.reward.accountDept.id IN (:departmentIds)");

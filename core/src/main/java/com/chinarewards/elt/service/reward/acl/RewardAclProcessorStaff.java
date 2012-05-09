@@ -55,7 +55,7 @@ public class RewardAclProcessorStaff extends AbstractRewardAclProcessor {
 			if (criteria.isSubDepartmentChosen()) {
 //				deptIds = departmentLogic.getWholeChildrenIds(
 //						criteria.getDepartmentId(), true);
-				deptIds = departmentLogic.getImmediacyChildrenIds(
+				deptIds = departmentLogic.getAllChildrenIds(
 						criteria.getDepartmentId(),true);
 			} else {
 				deptIds = new ArrayList<String>();
@@ -118,7 +118,7 @@ public class RewardAclProcessorStaff extends AbstractRewardAclProcessor {
 			if (criteria.isSubDepartmentChosen()) {
 //				deptIds = departmentLogic.getWholeChildrenIds(
 //						criteria.getDepartmentId(), true);
-				deptIds = departmentLogic.getImmediacyChildrenIds(
+				deptIds = departmentLogic.getAllChildrenIds(
 						criteria.getDepartmentId(),true);
 			} else {
 				deptIds = new ArrayList<String>();

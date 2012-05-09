@@ -186,4 +186,8 @@ public interface DepartmentLogic {
 	public List<String> getImmediacyChildrenIds(String deptId,boolean containItSelf);
 
 	public List<Department> getAllChildren(String deptId, boolean containItSelf);
+
+	public List<String> getAllChildrenIds(String deptId, boolean containItSelf);
+	public List<String> getAllChildrenNames(String deptId, boolean containItSelf);
+	
 }

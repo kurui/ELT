@@ -509,7 +509,7 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 			Set<String> deptIds = new HashSet<String>();
 			for (String id : criteria.getDeptIds()) {
 //				deptIds.addAll(deptLogic.getWholeChildrenIds(id, true));
-				deptIds.addAll(deptLogic.getImmediacyChildrenIds(id,true));
+				deptIds.addAll(deptLogic.getAllChildrenIds(id,true));
 				
 			}
 			// since we have resolved all sub-departments

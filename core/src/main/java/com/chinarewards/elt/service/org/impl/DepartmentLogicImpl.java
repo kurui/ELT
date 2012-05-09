@@ -367,6 +367,27 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 //		return list;
 //	}
 	
+	@Override
+	public List<String> getAllChildrenIds(String deptId, boolean containItSelf) {
+		List<String> list = new ArrayList<String>();
+		List<Department> depts = getAllChildren(deptId, containItSelf);
+		for (Department dept : depts) {
+			list.add(dept.getId());
+		}
+		return list;
+	}
+
+	@Override
+	public List<String> getAllChildrenNames(String deptId,
+			boolean containItSelf) {
+		List<String> list = new ArrayList<String>();
+		List<Department> depts = getAllChildren(deptId, containItSelf);
+		for (Department dept : depts) {
+			list.add(dept.getName());
+		}
+		return list;
+	}
+	
 	
 
 	@Override
