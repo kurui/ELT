@@ -363,8 +363,10 @@ public class StaffLogicImpl implements StaffLogic {
 					if (departmentIds.size() > 0) {
 						Set<String> allDepartmentIds = new HashSet<String>();
 						for (String id : departmentIds) {
-							allDepartmentIds.addAll(departmentLogic
-									.getWholeChildrenIds(id, true));
+//							allDepartmentIds.addAll(departmentLogic
+//									.getWholeChildrenIds(id, true));
+							allDepartmentIds.addAll(departmentLogic.getAllChildrenIds(id,true));
+							
 						}
 						searchVo.setDeptParam(new MultipleIdParam(
 								allDepartmentIds));
@@ -423,8 +425,9 @@ public class StaffLogicImpl implements StaffLogic {
 					if (departmentIds.size() > 0) {
 						Set<String> allDepartmentIds = new HashSet<String>();
 						for (String id : departmentIds) {
-							allDepartmentIds.addAll(departmentLogic
-									.getWholeChildrenIds(id, true));
+//							allDepartmentIds.addAll(departmentLogic
+//									.getWholeChildrenIds(id, true));
+							allDepartmentIds.addAll(departmentLogic.getAllChildrenIds(id,true));
 						}
 						searchVo.setDeptParam(new MultipleIdParam(
 								allDepartmentIds));

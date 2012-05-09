@@ -44,8 +44,11 @@ public class RewardAclProcessorHr extends AbstractRewardAclProcessor {
 				logger.debug("criteria.isSubDepartmentChoose: {}",
 						criteria.isSubDepartmentChosen());
 				if (criteria.isSubDepartmentChosen()) {
-					deptIds = departmentLogic.getWholeChildrenIds(
-							criteria.getDepartmentId(), true);
+//					deptIds = departmentLogic.getWholeChildrenIds(
+//							criteria.getDepartmentId(), true);
+					deptIds = departmentLogic.getAllChildrenIds(
+							criteria.getDepartmentId(),true);
+					
 					logger.debug("Siblings dept IDs of {}: {}",
 							criteria.getDepartmentId(), deptIds);
 				} else {
@@ -89,8 +92,11 @@ public class RewardAclProcessorHr extends AbstractRewardAclProcessor {
 			logger.debug("criteria.isSubDepartmentChoose: {}",
 					criteria.isSubDepartmentChosen());
 			if (criteria.isSubDepartmentChosen()) {
-				deptIds = departmentLogic.getWholeChildrenIds(
-						criteria.getDepartmentId(), true);
+//				deptIds = departmentLogic.getWholeChildrenIds(
+//						criteria.getDepartmentId(), true);
+				deptIds = departmentLogic.getAllChildrenIds(
+						criteria.getDepartmentId(),true);
+				
 				logger.debug("Siblings dept IDs of {}: {}",
 						criteria.getDepartmentId(), deptIds);
 			} else {
