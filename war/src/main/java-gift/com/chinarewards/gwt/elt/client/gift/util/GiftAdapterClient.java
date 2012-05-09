@@ -21,7 +21,7 @@ public class GiftAdapterClient {
 		giftVo.setDispatchcycle(display.getDispatchcycle().getValue().trim());
 		giftVo.setExplains(display.getExplains().getValue().trim());
 		giftVo.setNotes(display.getNotes().getValue().trim());
-
+        giftVo.setModel(display.getModel().getValue());
 		int selectedIndex = display.getType().getSelectedIndex();
 		giftVo.setType(display.getType().getValue(selectedIndex));
 		

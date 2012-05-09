@@ -57,6 +57,8 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	@UiField
 	TextBox brand;
 	@UiField
+	TextBox model;
+	@UiField
 	TextBox photo;
 	@UiField
 	TextBox integral;
@@ -151,6 +153,7 @@ public class GiftWidget extends Composite implements GiftDisplay {
         price.setText(giftVo.getPrice());
 		brand.setText(giftVo.getBrand());
 		photo.setText(giftVo.getPhoto());
+		model.setText(giftVo.getModel());
 		if (giftVo.getPhoto().indexOf(".") > 0) {
 			giftImage.setUrl("imageshow?imageName=" + giftVo.getPhoto());
 			giftImage.setVisible(true);
@@ -291,7 +294,11 @@ public class GiftWidget extends Composite implements GiftDisplay {
 		// return null;
 		return address;
 	}
-
+	@Override
+	public HasValue<String> getModel() {
+		// return null;
+		return model;
+	}
 	@Override
 	public HasValue<String> getTell() {
 		return tell;
