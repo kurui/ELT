@@ -94,7 +94,17 @@ public class CorePlugin extends AbstractPlugin {
 							RewardsListConstants.EDITOR_REWARDSLIST_SEARCH,
 							"EDITOR_REWARDSLIST_"+RewardPageType.AWARDREWARDPAGE,rpc);
 		}
-
+		else if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.NOMINATE)
+		{
+			RewardsPageClient rpc=new RewardsPageClient();
+			rpc.setTitleName("待提名奖项");
+			rpc.setPageType(RewardPageType.NOMINATEPAGE);
+			Platform.getInstance()
+					.getEditorRegistry()
+					.openEditor(
+							RewardsListConstants.EDITOR_REWARDSLIST_SEARCH,
+							"EDITOR_REWARDSLIST_"+RewardPageType.NOMINATEPAGE,rpc);
+		}
 		else if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.GIFT)
 		{
 			 Platform.getInstance()
