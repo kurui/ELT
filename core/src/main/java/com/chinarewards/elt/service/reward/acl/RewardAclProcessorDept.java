@@ -219,7 +219,7 @@ public class RewardAclProcessorDept extends AbstractRewardAclProcessor {
 		PageStore<Reward> res = new PageStore<Reward>();
 
 		SysUser hrUser = userDao.findById(SysUser.class, context.getUserId());
-
+		criteria.setNowUserId(hrUser.getId());
 		List<UserRole> roles = new ArrayList<UserRole>(Arrays.asList(context
 				.getUserRoles()));
 
