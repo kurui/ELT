@@ -124,7 +124,7 @@ public class StaffDao extends BaseDao<Staff> {
 		
 		return getEm()
 				.createQuery(
-						"FROM Staff s WHERE s.corporation.id =:corpId AND s.department.id in(:deptIds)")
+						"FROM Staff s WHERE  s.department.id in(:deptIds)")
 				.setParameter("deptIds", deptIds).getResultList();
 	}
 

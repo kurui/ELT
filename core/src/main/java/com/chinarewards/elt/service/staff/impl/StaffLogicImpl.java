@@ -143,7 +143,7 @@ public class StaffLogicImpl implements StaffLogic {
 //			List<Staff> result = staffDao.findStaffsByDepartmentLftRgt(corpId,
 //					dept.getLft(), dept.getRgt());
 			
-			List<Staff> result = staffDao.findStaffsByDeptId(deptId,false);
+			List<Staff> result = staffDao.findStaffsByDeptId(deptId,true);
 			
 			
 			logger.debug("The gotten staff size={}", result.size());
