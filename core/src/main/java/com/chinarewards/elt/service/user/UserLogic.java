@@ -141,12 +141,25 @@ public interface UserLogic {
 	 */
 	public boolean addUserAwardRole(String staffId,UserContext context);
 	
-	
 	/**
-	 * 删除用户颁奖权限.如有.不增加
+	 * 用户添加提名权限.如有.不增加
+	 * @param staffId
+	 * @param context
+	 * @return
+	 */
+	public boolean addUserNominateRole(String staffId,UserContext context);
+	/**
+	 * 删除用户颁奖权限.
 	 * @param staffId
 	 * @param context
 	 * @return
 	 */
 	public boolean deleteUserAwardRole(String userId);
+	/**
+	 * 删除用户提名权限.
+	 * @param staffId
+	 * @param context
+	 * @return
+	 */
+	public boolean deleteUserNominateRole(String userId);
 }

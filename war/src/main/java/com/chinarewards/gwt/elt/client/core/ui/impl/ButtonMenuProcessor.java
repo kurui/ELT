@@ -139,13 +139,14 @@ public class ButtonMenuProcessor implements MenuProcessor {
 					|| menuId.equals(OrderViewConstants.MENU_ORDERBOX_SEARCH)
 					|| menuId.equals(UserBoxConstants.MENU_USERBOX_SEARCH)
 					|| menuId.equals(HrBoxConstants.MENU_HRBOX_SEARCH)
-					||( menuId.equals(AwardRewardDetermineConstants.MENU_AWARDREWARDDETERMINE_SEARCH) && sessionManager.getSession().getLastLoginRole()==UserRoleVo.AWARD)) {
+					||( menuId.equals(AwardRewardDetermineConstants.MENU_AWARDREWARDDETERMINE_SEARCH) && sessionManager.getSession().getLastLoginRole()==UserRoleVo.AWARD)
+					||( menuId.equals(NominateConstants.MENU_NOMINATE_SEARCH) && sessionManager.getSession().getLastLoginRole()==UserRoleVo.NOMINATE)) {
 
 				button.setStyleName("menu-link menu-selected");
 				breadCrumbsMenu.cleanBreadCrumbsItemTop();
 				if (menuId.equals(RewardsItemConstants.MENU_REWARDSITEM_List))
 					breadCrumbsMenu.addBreadCrumbsItemTop("奖项", menuItem,"我的奖项");
-				else if (menuId	.equals(RewardsListConstants.MENU_REWARDSLIST_SEARCH) || menuId	.equals(AwardRewardDetermineConstants.MENU_AWARDREWARDDETERMINE_SEARCH))
+				else if (menuId	.equals(RewardsListConstants.MENU_REWARDSLIST_SEARCH) || menuId	.equals(AwardRewardDetermineConstants.MENU_AWARDREWARDDETERMINE_SEARCH) || menuId.equals(NominateConstants.MENU_NOMINATE_SEARCH))
 					breadCrumbsMenu.addBreadCrumbsItemTop("应用奖项", menuItem,"应用奖项列表");
 				else if (menuId.equals(StaffListConstants.MENU_STAFFLIST_SEARCH))
 					breadCrumbsMenu.addBreadCrumbsItemTop("员工数据", menuItem,"员工列表");
@@ -237,6 +238,8 @@ public class ButtonMenuProcessor implements MenuProcessor {
 			items.add(HrBoxConstants.MENU_HRBOX_SEARCH);  
 		}else if ("Award".equals(keyname)) {
 			items.add(AwardRewardDetermineConstants.MENU_AWARDREWARDDETERMINE_SEARCH);
+		}else if ("Nominate".equals(keyname)) {
+			items.add(NominateConstants.MENU_NOMINATE_SEARCH);
 		}
 		return items;
 	}

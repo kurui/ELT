@@ -99,4 +99,10 @@ public class JudgeDao extends BaseDao<Judge> {
 				.createQuery("DELETE FROM Judge win WHERE win.staff.id=:staffId ")
 				.setParameter("staffId", staffId).executeUpdate();
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Judge> findJudgesFromJudgeend(String staffId) {
+		return getEm().createQuery("FROM Judge j WHERE j.staff.id =:staffId and j.status =:jstatus and (j.reward.status =:rstatus or j.reward.status =:xstatus)")
+				.setParameter("staffId", staffId).setParameter("jstatus", JudgeStatus.NONE).setParameter("rstatus", RewardStatus.PENDING_NOMINATE).setParameter("xstatus", RewardStatus.DETERMINE_WINNER).getResultList();
+	}
 }

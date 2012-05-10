@@ -19,9 +19,9 @@
 <!-- 
 	<set-property name="user.agent" value="gecko1_8,safari,opera,ie8,ie9" />
 -->
-	<!-- 
+	<!-- -->
 	<set-property name="user.agent" value="gecko1_8" />
--->
+
 
 	<stylesheet src="elt.css" />     
 	<extend-property name="locale" values="zh"/>

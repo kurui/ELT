@@ -50,6 +50,10 @@ public enum UserRoleVo {
 	 * Ordinary staff.
 	 */
 	STAFF,
-	AWARD
+	AWARD,
+	/**
+	 * 提名权限
+	 */
+	NOMINATE
 
 }

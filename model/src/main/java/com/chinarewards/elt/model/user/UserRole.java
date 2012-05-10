@@ -53,6 +53,10 @@ public enum UserRole {
 	/**
 	 * 颁奖权限
 	 */
-	AWARD
+	AWARD,
+	/**
+	 * 提名权限
+	 */
+	NOMINATE
 
 }
