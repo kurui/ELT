@@ -130,6 +130,8 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 
 		departmentDao.checkNoChildNode();
 		
+		departmentDao.refactorDepartmentTree(corporation.getId());
+		
 		return department;
 	}
 	
@@ -188,9 +190,9 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 			throw new IllegalArgumentException("Can not find the root parent.");
 		}
 
-		int index = parent.getRgt();
-		// maintain index
-		departmentDao.maintainIndexAfterAddNode(index, corporation.getId());
+//		int index = parent.getRgt();
+//		// maintain index
+//		departmentDao.maintainIndexAfterAddNode(index, corporation.getId());
 
 		Date now = DateUtil.getTime();
 		Department dept = new Department();
@@ -300,40 +302,6 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 		return departmentDao.getAllChildren(deptId, containItSelf);
 	}
 	
-//	@Override
-//	public List<Department> getWholeChildren(String deptId,
-//			boolean containItSelf) {
-//		Department dept = departmentDao.findById(Department.class, deptId);
-//		logger.debug("Prepare to search by lft={} and rgt={}", new Object[] {
-//				dept.getLft(), dept.getRgt() });
-//		List<Department> depts = departmentDao.findDepartmentsByLefRgt(
-//				dept.getLft(), dept.getRgt());
-//		if (containItSelf) {
-//			depts.add(dept);
-//		}
-//		return depts;
-//	}
-
-//	@Override
-//	public List<String> getWholeChildrenIds(String deptId, boolean containItSelf) {
-//		List<String> list = new ArrayList<String>();
-//		List<Department> depts = getWholeChildren(deptId, containItSelf);
-//		for (Department dept : depts) {
-//			list.add(dept.getId());
-//		}
-//		return list;
-//	}
-
-//	@Override
-//	public List<String> getWholeChildrenNames(String deptId,
-//			boolean containItSelf) {
-//		List<String> list = new ArrayList<String>();
-//		List<Department> depts = getWholeChildren(deptId, containItSelf);
-//		for (Department dept : depts) {
-//			list.add(dept.getName());
-//		}
-//		return list;
-//	}
 	
 	@Override
 	public List<String> getAllChildrenIds(String deptId, boolean containItSelf) {
@@ -375,7 +343,6 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 
 	@Override
 	public Department save(SysUser caller, Department department) {
-		Date currTime = DateUtil.getTime();
 
 		if (StringUtil.isEmptyString(department.getId())) {
 			// Create

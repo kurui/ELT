@@ -138,12 +138,12 @@ public class StaffLogicImpl implements StaffLogic {
 				"Invoking method getStaffsFromDeptId, param[deptId={}, includeChildren={}]",
 				new Object[] { deptId, includeChildren });
 		if (includeChildren) {
-//			Department dept = deptLogic.findDepartmentById(deptId);
-//			String corpId = dept.getCorporation().getId();
-//			List<Staff> result = staffDao.findStaffsByDepartmentLftRgt(corpId,
-//					dept.getLft(), dept.getRgt());
+			Department dept = deptLogic.findDepartmentById(deptId);
+			String corpId = dept.getCorporation().getId();
+			List<Staff> result = staffDao.findStaffsByDepartmentLftRgt(corpId,
+					dept.getLft(), dept.getRgt());
 			
-			List<Staff> result = staffDao.findStaffsByDeptId(deptId,true);
+//			List<Staff> result = staffDao.findStaffsByDeptId(deptId,true);
 			
 			
 			logger.debug("The gotten staff size={}", result.size());

@@ -39,7 +39,8 @@ public class DepartmentDao extends BaseDao<Department> {
 					.createQuery(
 							"FROM Department d WHERE d.name = :name AND d.corporation.id = :corpId AND d.deleted =:deleted")
 					.setParameter("name", name)
-					.setParameter("corpId", corporationId).setParameter("deleted", false).getSingleResult();
+					.setParameter("corpId", corporationId)
+					.setParameter("deleted", false).getSingleResult();
 			return dept;
 		} catch (NoResultException e) {
 			return null;
@@ -51,7 +52,7 @@ public class DepartmentDao extends BaseDao<Department> {
 		Date now = DateUtil.getTime();
 		Department dept = new Department();
 		dept.setCorporation(corp);
-	    dept.setName(name);
+		dept.setName(name);
 		dept.setLft(1);
 		dept.setRgt(2);
 		dept.setCreatedAt(now);
@@ -73,12 +74,12 @@ public class DepartmentDao extends BaseDao<Department> {
 				new Object[] { index, corpId });
 		getEm().createQuery(
 				"UPDATE Department d SET d.lft = (d.lft+2) WHERE d.lft >= :index AND d.corporation.id =:corpId AND d.deleted =:deleted")
-				.setParameter("index", index).setParameter("corpId", corpId).setParameter("deleted",false)
-				.executeUpdate();
+				.setParameter("index", index).setParameter("corpId", corpId)
+				.setParameter("deleted", false).executeUpdate();
 		getEm().createQuery(
 				"UPDATE Department d SET d.rgt = (d.rgt+2) WHERE d.rgt >= :index AND d.corporation.id =:corpId AND d.deleted =:deleted")
-				.setParameter("index", index).setParameter("corpId", corpId).setParameter("deleted",false)
-				.executeUpdate();
+				.setParameter("index", index).setParameter("corpId", corpId)
+				.setParameter("deleted", false).executeUpdate();
 	}
 
 	/**
@@ -90,86 +91,204 @@ public class DepartmentDao extends BaseDao<Department> {
 	public void maintainIndexAfterDeleteNode(int index, String corpId) {
 		getEm().createQuery(
 				"UPDATE Department d SET d.lft = (d.lft-2) WHERE d.lft >= :index AND d.corporation.id =:corpId AND d.deleted =:deleted")
-				.setParameter("index", index).setParameter("corpId", corpId).setParameter("deleted",false)
-				.executeUpdate();
+				.setParameter("index", index).setParameter("corpId", corpId)
+				.setParameter("deleted", false).executeUpdate();
 		getEm().createQuery(
 				"UPDATE Department d SET d.rgt = (d.rgt-2) WHERE d.rgt >= :index AND d.corporation.id =:corpId AND d.deleted =:deleted")
-				.setParameter("index", index).setParameter("corpId", corpId).setParameter("deleted",false)
-				.executeUpdate();
+				.setParameter("index", index).setParameter("corpId", corpId)
+				.setParameter("deleted", false).executeUpdate();
 	}
-	
-	public  void  checkNoChildNode(){
-		List<String> deptIdList= getEm().createQuery("select parent.id from Department  where deleted =:deleted").setParameter("deleted",false).getResultList();
-		getEm()
-				.createQuery("UPDATE  Department  set rgt=(lft+1) WHERE id not in(:deptIdList) ").setParameter("deptIdList", deptIdList).executeUpdate();
+
+	public void checkNoChildNode() {
+		List<String> deptIdList = getEm()
+				.createQuery(
+						"select parent.id from Department  where deleted =:deleted")
+				.setParameter("deleted", false).getResultList();
+		getEm().createQuery(
+				"UPDATE  Department  set rgt=(lft+1) WHERE id not in(:deptIdList) ")
+				.setParameter("deptIdList", deptIdList).executeUpdate();
 	}
-	
-	
-	public List<Department> getAllChildredByCorpId(String corpId){
-		Department department=getRootDepartmentOfCorp(corpId);
-		String deptId=department.getId();
-		return getAllChildren(deptId,false);
+
+	public void refactorDepartmentTree(String corporationId) {
+
+		Department root = getRootDepartmentOfCorp(corporationId);
+		root.setLft(1);
+		root.setRgt(2);
+		update(root);
+		
+		List<Department> childList = findDepartmentsByParentId(root.getId());
+
+		refactorDepartment(root, childList);
+
 	}
-	
+
+	public int refactorDepartment(Department root, List<Department> childList) {
+		int thislft = root.getRgt() + 1;
+		
+		
+		boolean isSuperRoot=false;
+		int index=root.getName().indexOf("ROOT_DEPT");
+		if(index>-1){
+			isSuperRoot=true;
+		}
+		
+		if(childList!=null&&childList.size()>0){
+			int childListsize=childList.size();
+			for (int i = 0; i < childList.size(); i++) {
+				System.out.println("-------------for i:" + i);
+				Department child = childList.get(i);
+
+				child.setLft(thislft);
+				child.setRgt(thislft + 1);
+				child = update(child);
+
+				thislft = thislft + 2;
+
+				List<Department> newchildList = findDepartmentsByParentId(child.getId());
+
+				if (newchildList != null && newchildList.size() > 0) {
+					thislft=refactorDepartment(child, newchildList);
+					child.setRgt(thislft);
+					update(child);
+					
+					thislft=thislft+1;
+					
+					
+				} 
+				
+				if(isSuperRoot&&i==childListsize-1){
+					root.setRgt(thislft);
+					update(root);
+				}
+			}
+		}
+		
+		return thislft;
+	}
+
+	private List<Department> refactorChildren(List<Department> deptList) {
+		List<Department> sameLevenChildList = new ArrayList<Department>();
+		int thislft = 0;
+		int lastRgt = 0;
+
+		for (int k = 0; k < deptList.size(); k++) {
+			Department root = deptList.get(k);
+
+			thislft = root.getLft() + 1;
+			lastRgt = root.getRgt();
+			List<Department> childList = getAllChildren(root.getId(), false);
+			sameLevenChildList.addAll(childList);
+
+			if (childList != null && childList.size() > 0) {
+				for (int i = 0; i < childList.size(); i++) {
+					Department child = childList.get(i);
+					if (child != null) {
+						logger.debug("================refresh lft rgt===============");
+						child.setLft(thislft);
+						child.setRgt(thislft + 1);
+
+						update(child);
+
+						List tempList = findDepartmentsByParentId(child.getId());
+						if (tempList != null) {
+							refactorChildren(tempList);
+						} else {
+							thislft = thislft + 2;
+
+							lastRgt = child.getRgt() + 1;
+						}
+					}
+				}
+			}
+			root.setRgt(lastRgt);
+			update(root);
+		}
+
+		return sameLevenChildList;
+	}
+
+	public List<Department> getAllChildrenByCorpId(String corpId) {
+		Department department = getRootDepartmentOfCorp(corpId);
+		String deptId = department.getId();
+		return getAllChildren(deptId, false);
+	}
+
 	public List<String> getAllChildrenIdsByCorpId(String corpId) {
 		List<String> list = new ArrayList<String>();
-		List<Department> depts = getAllChildredByCorpId(corpId);
+		List<Department> depts = getAllChildrenByCorpId(corpId);
 		for (Department dept : depts) {
 			list.add(dept.getId());
 		}
 		return list;
 	}
 	
-	
-	public List<Department> getAllChildren(String deptId,
-			boolean containItSelf) {
+	public List<Department> getAllChildren(String deptId, boolean containItSelf) {
 		Department dept = findById(Department.class, deptId);
-	
-		List<Department> depts = findDepartmentsByParentId(deptId);
 		
-		if(depts!=null&&depts.size()>0){
-			for (int i = 0; i <depts.size(); i++) {
-				Department child=depts.get(i);
-				if(child!=null){
-					List<Department> tempChilds=findDepartmentsByParentId(child.getId());
-					if(tempChilds!=null&&tempChilds.size()>0){
+		List<Department> depts=new ArrayList<Department>();
+
+		if(dept!=null){
+			depts =findDepartmentsByLefRgt(dept.getLft(),dept.getRgt());
+		}
+		
+		if(containItSelf){
+			depts.add(dept);
+		}
+		
+		
+		return depts;
+	}
+
+	public List<Department> getAllChildren_backup(String deptId, boolean containItSelf) {
+		Department dept = findById(Department.class, deptId);
+
+		List<Department> depts = findDepartmentsByParentId(deptId);
+
+		if (depts != null && depts.size() > 0) {
+			for (int i = 0; i < depts.size(); i++) {
+				Department child = depts.get(i);
+				if (child != null) {
+					List<Department> tempChilds = findDepartmentsByParentId(child
+							.getId());
+					if (tempChilds != null && tempChilds.size() > 0) {
 						depts.addAll(tempChilds);
-						
-							for (int j = 0; j <tempChilds.size(); j++) {
-								Department child2=tempChilds.get(j);
-								if(child2!=null){
-									List<Department> tempChilds2=findDepartmentsByParentId(child2.getId());
-									if(tempChilds2!=null){
-										depts.addAll(tempChilds2);
-										
-										for (int k = 0; k <tempChilds2.size(); k++) {
-											Department child3=tempChilds.get(k);
-											if(child3!=null){
-												List<Department> tempChilds3=findDepartmentsByParentId(child3.getId());
-												if(tempChilds3!=null){
-													depts.addAll(tempChilds3);
-													
-													
-												}
+
+						for (int j = 0; j < tempChilds.size(); j++) {
+							Department child2 = tempChilds.get(j);
+							if (child2 != null) {
+								List<Department> tempChilds2 = findDepartmentsByParentId(child2
+										.getId());
+								if (tempChilds2 != null
+										&& tempChilds2.size() > 0) {
+									depts.addAll(tempChilds2);
+
+									for (int k = 0; k < tempChilds2.size(); k++) {
+										Department child3 = tempChilds.get(k);
+										if (child3 != null) {
+											List<Department> tempChilds3 = findDepartmentsByParentId(child3
+													.getId());
+											if (tempChilds3 != null
+													&& tempChilds3.size() > 0) {
+												depts.addAll(tempChilds3);
+
 											}
 										}
 									}
 								}
 							}
-						
+						}
 					}
 				}
 			}
 		}
-		
+
 		if (containItSelf) {
 			depts.add(dept);
-		}		
-		
-		
+		}
+
 		return depts;
 	}
-	
+
 	public List<String> getAllChildrenIds(String deptId, boolean containItSelf) {
 		List<String> list = new ArrayList<String>();
 		List<Department> depts = getAllChildren(deptId, containItSelf);
@@ -179,8 +298,7 @@ public class DepartmentDao extends BaseDao<Department> {
 		return list;
 	}
 
-	public List<String> getAllChildrenNames(String deptId,
-			boolean containItSelf) {
+	public List<String> getAllChildrenNames(String deptId, boolean containItSelf) {
 		List<String> list = new ArrayList<String>();
 		List<Department> depts = getAllChildren(deptId, containItSelf);
 		for (Department dept : depts) {
@@ -198,8 +316,10 @@ public class DepartmentDao extends BaseDao<Department> {
 	@SuppressWarnings("unchecked")
 	public List<Department> findDepartmentsByParentId(String deptId) {
 		return getEm()
-				.createQuery("FROM Department d WHERE d.parent.id =:deptId AND d.deleted =:deleted")
-				.setParameter("deptId", deptId).setParameter("deleted", false).getResultList();
+				.createQuery(
+						"FROM Department d WHERE d.parent.id =:deptId AND d.deleted =:deleted")
+				.setParameter("deptId", deptId).setParameter("deleted", false)
+				.getResultList();
 	}
 
 	/**
@@ -214,7 +334,8 @@ public class DepartmentDao extends BaseDao<Department> {
 		return getEm()
 				.createQuery(
 						"FROM Department d WHERE d.corporation.id =:corpId  AND d.deleted =:deleted ")
-				.setParameter("corpId", corporationId).setParameter("deleted", false).getResultList();
+				.setParameter("corpId", corporationId)
+				.setParameter("deleted", false).getResultList();
 	}
 
 	/**
@@ -230,10 +351,9 @@ public class DepartmentDao extends BaseDao<Department> {
 				.createQuery(
 						"FROM Department d WHERE d.parent.id =:deptId AND d.corporation.id =:corpId AND d.deleted =:deleted")
 				.setParameter("deptId", deptId)
-				.setParameter("corpId", corporationId).setParameter("deleted", false).getResultList();
+				.setParameter("corpId", corporationId)
+				.setParameter("deleted", false).getResultList();
 	}
-
-
 
 	/**
 	 * Find list of department by index(lft and rgt).
@@ -247,8 +367,8 @@ public class DepartmentDao extends BaseDao<Department> {
 		return getEm()
 				.createQuery(
 						"FROM Department d WHERE d.lft > :lft AND d.rgt < :rgt AND d.deleted =:deleted")
-				.setParameter("lft", lft).setParameter("rgt", rgt).setParameter("deleted", false)
-				.getResultList();
+				.setParameter("lft", lft).setParameter("rgt", rgt)
+				.setParameter("deleted", false).getResultList();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -268,8 +388,8 @@ public class DepartmentDao extends BaseDao<Department> {
 
 		while (true) {
 			Query query = getEm().createQuery(eql.toString());
-			currectList = query.setParameter("parentIds", currectList).setParameter("deleted", false)
-					.getResultList();
+			currectList = query.setParameter("parentIds", currectList)
+					.setParameter("deleted", false).getResultList();
 			logger.trace("currectList:{}", currectList);
 			if (currectList == null || currectList.size() == 0) {
 				break;
@@ -289,11 +409,9 @@ public class DepartmentDao extends BaseDao<Department> {
 	 * @param departmentIds
 	 * @return
 	 */
-	public String mergeDepartment(String departmentIds,String departmentName,String leaderId) {
-		
-		
+	public String mergeDepartment(String departmentIds, String departmentName,
+			String leaderId) {
 
-		
 		return "";
 	}
 
@@ -311,7 +429,7 @@ public class DepartmentDao extends BaseDao<Department> {
 			hql.append(" AND d.name LIKE :name  ");
 			param.put("name", "%" + name + "%");
 		}
-		param.put("deleted",false);
+		param.put("deleted", false);
 		Query query = getEm().createQuery(hql.toString());
 		for (String key : param.keySet()) {
 			query.setParameter(key, param.get(key));
@@ -319,15 +437,17 @@ public class DepartmentDao extends BaseDao<Department> {
 
 		return query.getResultList();
 	}
+
 	public Department findDepartmentsByName(String name) {
 		try {
 			return (Department) getEm()
-					.createQuery("FROM Department d WHERE d.name =:name AND d.deleted =:deleted")
-					.setParameter("name", name).setParameter("deleted", false).getSingleResult();
+					.createQuery(
+							"FROM Department d WHERE d.name =:name AND d.deleted =:deleted")
+					.setParameter("name", name).setParameter("deleted", false)
+					.getSingleResult();
 		} catch (NoResultException e) {
 			return null;
 		}
 	}
-
 
 }

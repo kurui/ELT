@@ -4,7 +4,6 @@ import com.chinarewards.elt.dao.org.StaffDao;
 import com.chinarewards.elt.dao.org.StaffDao.QueryStaffPageActionResult;
 import com.chinarewards.elt.domain.org.Department;
 import com.chinarewards.elt.domain.org.Organization;
-import com.chinarewards.elt.model.user.DeleteMarkConstant;
 import com.chinarewards.elt.model.vo.StaffAndDeptmentAutoCompile;
 import com.chinarewards.elt.model.vo.StaffSearchVo;
 import com.google.inject.Inject;

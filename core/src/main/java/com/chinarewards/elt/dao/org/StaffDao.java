@@ -119,14 +119,14 @@ public class StaffDao extends BaseDao<Staff> {
 				.setParameter("rgt", rgt).getResultList();
 	}
 	
-	public List<Staff> findStaffsByDeptId(String deptId,boolean containItSelf) {
-		List<String> deptIds=departmentDao.getAllChildrenIds(deptId, containItSelf);
-		
-		return getEm()
-				.createQuery(
-						"FROM Staff s WHERE  s.department.id in(:deptIds)")
-				.setParameter("deptIds", deptIds).getResultList();
-	}
+//	public List<Staff> findStaffsByDeptId(String deptId,boolean containItSelf) {
+//		List<String> deptIds=departmentDao.getAllChildrenIds(deptId, containItSelf);
+//		
+//		return getEm()
+//				.createQuery(
+//						"FROM Staff s WHERE  s.department.id in(:deptIds)")
+//				.setParameter("deptIds", deptIds).getResultList();
+//	}
 
 	public QueryStaffPageActionResult queryStaffPageAction(
 			StaffSearchVo searchVo) {
