@@ -305,7 +305,10 @@ public class BudgetLogicImpl implements BudgetLogic {
 		Department department = departmentDao.findById(Department.class,departmentBudget.getDepartmentId());
 		StaffSearchVo searchVo = new StaffSearchVo ();
 		int people =0;
-		List<Department>  list=departmentLogic.getWholeChildren(departmentBudget.getDepartmentId(),true);//得到子部门及本身
+//		List<Department>  list=departmentLogic.getWholeChildren(departmentBudget.getDepartmentId(),true);//得到子部门及本身
+		List<Department>  list=departmentLogic.getAllChildren(departmentBudget.getDepartmentId(),true);
+		list.add(department);
+		
 		if(list.size()>0){
 			Department depar = new Department();
 			for(int i=0;i<list.size();i++){

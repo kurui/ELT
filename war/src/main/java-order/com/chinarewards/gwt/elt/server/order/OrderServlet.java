@@ -91,7 +91,8 @@ public class OrderServlet extends HttpServlet {
 		   sheet.setColumnView(3, 20);
 		   sheet.setColumnView(4, 20);
 		   ArrayList labels = new ArrayList();
-		   labels.add("订单编号");labels.add("礼品名称");  labels.add("数量"); labels.add("积分");labels.add("兑换日期");labels.add("采购价格");	
+		   labels.add("订单编号");labels.add("礼品名称"); labels.add("礼品型号"); labels.add("数量"); labels.add("积分");labels.add("兑换日期");labels.add("采购价格");
+		   labels.add("供应商名称"); labels.add("供应商地址"); labels.add("供应商电话");
 		 
 		 			   	   
 ////		// 添加标题
@@ -114,11 +115,14 @@ public class OrderServlet extends HttpServlet {
 				OrderListVo ordervo = orderlist.get(a);
 				lista.add(ordervo.getOrderCode());
 				lista.add(ordervo.getGiftvo().getName());
+				lista.add(ordervo.getGiftvo().getModel());
 				lista.add(ordervo.getAmount());
 				lista.add(ordervo.getIntegral());
 				lista.add(ordervo.getExchangeDate());
 				lista.add(ordervo.getGiftvo().getPrice());
-			
+			    lista.add(ordervo.getGiftvo().getBusiness());
+			    lista.add(ordervo.getGiftvo().getAddress());
+			    lista.add(ordervo.getGiftvo().getTell());
 				list.add(lista);
 			}
 		}

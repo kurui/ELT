@@ -72,7 +72,7 @@ public class EditGiftHandler extends
 		gift.setType(giftVo.getType().trim());
 		gift.setBrand(giftVo.getBrand().trim());
 		gift.setSource(giftVo.getSource());
-		System.out.println("assembleGift(giftVo):" + giftVo.getSummary());
+		gift.setModel(giftVo.getModel().trim());
 
 		gift.setPhoto(giftVo.getPhoto());
 		gift.setIntegral(giftVo.getIntegral());

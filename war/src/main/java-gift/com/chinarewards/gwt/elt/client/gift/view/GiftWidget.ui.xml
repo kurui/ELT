@@ -57,6 +57,12 @@
 							<g:ListBox ui:field="type" styleName="{new2.text}" />
 						</div>
 					</div>
+					<div class="{new2.form-line}">
+						<label class="{new2.label2}">礼品型号：</label>
+						<div class="{new2.element}">
+							<g:TextBox ui:field="model" styleName="{new2.text}" />
+						</div>
+					</div>
 						<div class="{new2.form-line}">
 						<label class="{new2.label2}">状态：</label>
 						<div class="{new2.element}">

@@ -53,8 +53,10 @@ public class RewardAclProcessorStaff extends AbstractRewardAclProcessor {
 		} else if (!StringUtil.isEmptyString(criteria.getDepartmentId())) {
 			List<String> deptIds = null;
 			if (criteria.isSubDepartmentChosen()) {
-				deptIds = departmentLogic.getWholeChildrenIds(
-						criteria.getDepartmentId(), true);
+//				deptIds = departmentLogic.getWholeChildrenIds(
+//						criteria.getDepartmentId(), true);
+				deptIds = departmentLogic.getAllChildrenIds(
+						criteria.getDepartmentId(),true);
 			} else {
 				deptIds = new ArrayList<String>();
 				deptIds.add(criteria.getDepartmentId());
@@ -114,8 +116,10 @@ public class RewardAclProcessorStaff extends AbstractRewardAclProcessor {
 		} else if (!StringUtil.isEmptyString(criteria.getDepartmentId())) {
 			List<String> deptIds = null;
 			if (criteria.isSubDepartmentChosen()) {
-				deptIds = departmentLogic.getWholeChildrenIds(
-						criteria.getDepartmentId(), true);
+//				deptIds = departmentLogic.getWholeChildrenIds(
+//						criteria.getDepartmentId(), true);
+				deptIds = departmentLogic.getAllChildrenIds(
+						criteria.getDepartmentId(),true);
 			} else {
 				deptIds = new ArrayList<String>();
 				deptIds.add(criteria.getDepartmentId());

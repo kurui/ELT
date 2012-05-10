@@ -244,4 +244,6 @@ public class DepartmentDao extends BaseDao<Department> {
 			return null;
 		}
 	}
+
+
 }
