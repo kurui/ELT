@@ -104,6 +104,90 @@ public class DepartmentDao extends BaseDao<Department> {
 				.createQuery("UPDATE  Department  set rgt=(lft+1) WHERE id not in(:deptIdList) ").setParameter("deptIdList", deptIdList).executeUpdate();
 	}
 	
+	
+	public List<Department> getAllChildredByCorpId(String corpId){
+		Department department=getRootDepartmentOfCorp(corpId);
+		String deptId=department.getId();
+		return getAllChildren(deptId,false);
+	}
+	
+	public List<String> getAllChildrenIdsByCorpId(String corpId) {
+		List<String> list = new ArrayList<String>();
+		List<Department> depts = getAllChildredByCorpId(corpId);
+		for (Department dept : depts) {
+			list.add(dept.getId());
+		}
+		return list;
+	}
+	
+	
+	public List<Department> getAllChildren(String deptId,
+			boolean containItSelf) {
+		Department dept = findById(Department.class, deptId);
+	
+		List<Department> depts = findDepartmentsByParentId(deptId);
+		
+		if(depts!=null&&depts.size()>0){
+			for (int i = 0; i <depts.size(); i++) {
+				Department child=depts.get(i);
+				if(child!=null){
+					List<Department> tempChilds=findDepartmentsByParentId(child.getId());
+					if(tempChilds!=null&&tempChilds.size()>0){
+						depts.addAll(tempChilds);
+						
+							for (int j = 0; j <tempChilds.size(); j++) {
+								Department child2=tempChilds.get(j);
+								if(child2!=null){
+									List<Department> tempChilds2=findDepartmentsByParentId(child2.getId());
+									if(tempChilds2!=null){
+										depts.addAll(tempChilds2);
+										
+										for (int k = 0; k <tempChilds2.size(); k++) {
+											Department child3=tempChilds.get(k);
+											if(child3!=null){
+												List<Department> tempChilds3=findDepartmentsByParentId(child3.getId());
+												if(tempChilds3!=null){
+													depts.addAll(tempChilds3);
+													
+													
+												}
+											}
+										}
+									}
+								}
+							}
+						
+					}
+				}
+			}
+		}
+		
+		if (containItSelf) {
+			depts.add(dept);
+		}		
+		
+		
+		return depts;
+	}
+	
+	public List<String> getAllChildrenIds(String deptId, boolean containItSelf) {
+		List<String> list = new ArrayList<String>();
+		List<Department> depts = getAllChildren(deptId, containItSelf);
+		for (Department dept : depts) {
+			list.add(dept.getId());
+		}
+		return list;
+	}
+
+	public List<String> getAllChildrenNames(String deptId,
+			boolean containItSelf) {
+		List<String> list = new ArrayList<String>();
+		List<Department> depts = getAllChildren(deptId, containItSelf);
+		for (Department dept : depts) {
+			list.add(dept.getName());
+		}
+		return list;
+	}
 
 	/**
 	 * Find list of department by parent id.
