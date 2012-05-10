@@ -80,6 +80,7 @@ public class GiftLogicImpl implements GiftLogic{
 			tempGift.setType(gift.getType());
 			tempGift.setStatus(gift.getStatus());
 			tempGift.setBrand(gift.getBrand());
+			tempGift.setModel(gift.getModel());
 			tempGift.setSource(gift.getSource());
 			tempGift.setBusiness(gift.getBusiness());
 			tempGift.setAddress(gift.getAddress());
@@ -91,6 +92,7 @@ public class GiftLogicImpl implements GiftLogic{
 			tempGift.setPhoto(gift.getPhoto());
 			tempGift.setIndate(gift.getIndate());
 		    tempGift.setUpdatetime(currTime);
+		  
 			giftDao.update(tempGift);
 		}
 
@@ -163,6 +165,7 @@ public class GiftLogicImpl implements GiftLogic{
 		giftVo.setStock(gift.getStock());
 		giftVo.setTell(gift.getTell());
 		giftVo.setType(gift.getType());
+		giftVo.setModel(gift.getModel());
 
         giftVo.setRecorddate(gift.getRecorddate());
         giftVo.setRecorduser(gift.getRecorduser());

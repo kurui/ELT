@@ -161,7 +161,7 @@ public class RewardsItemStoreListPresenterImpl extends
 							 List<DepartmentVo> list = response.getResult();
 							 Map<String, String> map = new HashMap<String, String>();
 							 DepartmentVo vo = new DepartmentVo();
-							 if(list.size()>0){
+							 if(list!=null&&list.size()>0){
 								 for(int i=0;i<list.size();i++){
 									   vo = list.get(i);
 									   map.put(vo.getId(), vo.getDepartmentName());
