@@ -10,12 +10,12 @@ import com.chinarewards.gwt.elt.client.core.PluginManager;
 import com.chinarewards.gwt.elt.client.core.presenter.GiftPresenter.GiftDisplay;
 import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
 import com.chinarewards.gwt.elt.client.core.ui.event.MenuClickEvent;
-import com.chinarewards.gwt.elt.client.gift.plugin.GiftListConstants;
 import com.chinarewards.gwt.elt.client.login.LastLoginRoleRequest;
 import com.chinarewards.gwt.elt.client.login.LastLoginRoleResponse;
 import com.chinarewards.gwt.elt.client.login.event.LoginEvent;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
+import com.chinarewards.gwt.elt.client.order.plugin.OrderListConstants;
 import com.chinarewards.gwt.elt.client.order.plugin.OrderViewConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
 import com.chinarewards.gwt.elt.model.user.UserRoleVo;
@@ -99,7 +99,7 @@ public class GiftPresenterImpl extends BasePresenter<GiftDisplay> implements
 						menuProcessor.initrender(display.getMenu(), "Gift");
 						eventBus.fireEvent(new MenuClickEvent(
 								menuProcessor
-										.getMenuItem(GiftListConstants.MENU_GIFTLIST_SEARCH)));
+										.getMenuItem(OrderListConstants.MENU_ORDERLIST_SEARCH)));
 					}
 				}));
 		registerHandler(display.getManagementCenter().addClickHandler(
