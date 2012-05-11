@@ -19,7 +19,9 @@ import com.chinarewards.elt.model.vo.StaffSearchVo.MultipleIdParam;
 import com.chinarewards.elt.model.vo.StaffSearchVo.OneIdParam;
 import com.chinarewards.elt.model.vo.WinnersRecordQueryResult;
 import com.chinarewards.elt.model.vo.WinnersRecordQueryVo;
+import com.chinarewards.elt.tx.service.TransactionService;
 import com.chinarewards.elt.util.StringUtil;
+import com.google.inject.Inject;
 
 /**
  * Dao of {@link Staff}
@@ -28,6 +30,15 @@ import com.chinarewards.elt.util.StringUtil;
  * @since 1.0
  */
 public class StaffDao extends BaseDao<Staff> {
+	
+	DepartmentDao departmentDao;
+	
+	@Inject
+	public StaffDao(DepartmentDao departmentDao) {
+		this.departmentDao = departmentDao;
+	}
+
+	
 	public class QueryStaffPageActionResult {
 
 		private int total;
@@ -107,6 +118,15 @@ public class StaffDao extends BaseDao<Staff> {
 				.setParameter("corpId", corpId).setParameter("lft", lft)
 				.setParameter("rgt", rgt).getResultList();
 	}
+	
+//	public List<Staff> findStaffsByDeptId(String deptId,boolean containItSelf) {
+//		List<String> deptIds=departmentDao.getAllChildrenIds(deptId, containItSelf);
+//		
+//		return getEm()
+//				.createQuery(
+//						"FROM Staff s WHERE  s.department.id in(:deptIds)")
+//				.setParameter("deptIds", deptIds).getResultList();
+//	}
 
 	public QueryStaffPageActionResult queryStaffPageAction(
 			StaffSearchVo searchVo) {

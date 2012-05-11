@@ -142,6 +142,10 @@ public class StaffLogicImpl implements StaffLogic {
 			String corpId = dept.getCorporation().getId();
 			List<Staff> result = staffDao.findStaffsByDepartmentLftRgt(corpId,
 					dept.getLft(), dept.getRgt());
+			
+//			List<Staff> result = staffDao.findStaffsByDeptId(deptId,true);
+			
+			
 			logger.debug("The gotten staff size={}", result.size());
 			return result;
 		} else {
@@ -744,6 +748,9 @@ public class StaffLogicImpl implements StaffLogic {
 		SysRole role4 = new SysRole();
 		role4.setName(UserRole.STAFF);
 		roleDao.save(role4);
+		SysRole role5 = new SysRole();
+		role4.setName(UserRole.AWARD);
+		roleDao.save(role5);
 		// 创建用户角色
 		for (int i = 0; i < staffProcess.getRoles().size(); i++) {
 			SysUserRole userRole = new SysUserRole();
