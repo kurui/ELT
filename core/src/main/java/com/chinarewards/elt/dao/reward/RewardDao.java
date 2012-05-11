@@ -161,8 +161,21 @@ public class RewardDao extends BaseDao<Reward> {
 			hql.append(" AND rew.corporation.id=:corporationId ");
 			param.put("corporationId", corporationId);
 		} else {
-			hql.append(" AND rew.builderDept.id IN (:departmentIds) ");
-			param.put("departmentIds", departmentIds);
+
+			
+			if (criteria.getStatus() == RewardStatus.PENDING_NOMINATE && !StringUtil.isEmptyString(criteria.getNowUserId())) {
+				hql.append(" AND (rew.builderDept.id IN (:departmentIds) OR rew.id IN(SELECT w.reward.id FROM Judge w WHERE w.staff.id = :nowUserId) )");
+				param.put("departmentIds", departmentIds);
+			
+				String staffid = userDao.findById(SysUser.class, criteria.getNowUserId()).getStaff().getId();
+				param.put("nowUserId", staffid);
+			}
+			else
+			{
+				hql.append(" AND rew.builderDept.id IN (:departmentIds) ");
+				param.put("departmentIds", departmentIds);
+			}
+			
 		}
 
 		if (criteria.getStatus() != null) {

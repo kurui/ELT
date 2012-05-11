@@ -415,4 +415,24 @@ public class PlatformModule extends AbstractGinModule {
 
 		return pluginSet;
 	}
+	@Provides
+	@Named("nominate")
+	PluginSet providePluginSetNominate(
+	// ---- PLUGINS DEFINE BELOW (2) ----
+			CorePluginDescriptor core, // core
+			RewardsListPluginDescriptor rewardsList,
+			NominatePluginDescriptor nominate,
+			DetailsOfAwardPluginDescriptor detailsAward) {
+
+		if (pluginSet == null) {
+			pluginSet = new InMemoryPluginSet();
+			pluginSet.registerPlugin(core);
+			pluginSet.registerPlugin(rewardsList);
+			pluginSet.registerPlugin(nominate);
+			pluginSet.registerPlugin(detailsAward);
+
+		}
+
+		return pluginSet;
+	}
 }

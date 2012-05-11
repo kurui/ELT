@@ -83,13 +83,14 @@ public class RewardAclProcessorStaff extends AbstractRewardAclProcessor {
 		String corporationId = context.getCorporationId();
 		PageStore<Reward> res = new PageStore<Reward>();
 		
-		//设置只查颁奖的用户数据
+		//设置只查颁奖的用户数据---提名的数据
 		if(context.getUserRoles()!=null && context.getUserRoles().length>0)
 		{
 			for (int i = 0; i < context.getUserRoles().length; i++) {
 				if(context.getUserRoles()[i]==UserRole.AWARD)
 					criteria.setAwardUserId(context.getUserId());
-					
+				else if(context.getUserRoles()[i]==UserRole.NOMINATE)
+					criteria.setNowUserId(context.getUserId());
 			}
 		}
 		

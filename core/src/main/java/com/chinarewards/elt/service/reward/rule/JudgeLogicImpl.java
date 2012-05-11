@@ -20,6 +20,7 @@ import com.chinarewards.elt.model.broadcast.OrganType;
 import com.chinarewards.elt.model.reward.base.JudgeStatus;
 import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.service.broadcast.BroadcastService;
+import com.chinarewards.elt.service.user.UserLogic;
 import com.chinarewards.elt.util.DateUtil;
 import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
@@ -39,18 +40,20 @@ public class JudgeLogicImpl implements JudgeLogic {
 	private final StaffDao staffDao;
 	private final RewardItemStoreDao rewardItemStoreDao;
 	private final BroadcastService broadcastService;
+	private final UserLogic userLogic;
 
 	@Inject
 	public JudgeLogicImpl(JudgeDao judgeDao, RewardItemDao rewardItemDao,
 			RewardDao rewardDao, StaffDao staffDao,
 			RewardItemStoreDao rewardItemStoreDao,
-			BroadcastService broadcastService) {
+			BroadcastService broadcastService,UserLogic userLogic) {
 		this.judgeDao = judgeDao;
 		this.rewardItemDao = rewardItemDao;
 		this.rewardDao = rewardDao;
 		this.staffDao = staffDao;
 		this.rewardItemStoreDao = rewardItemStoreDao;
 		this.broadcastService = broadcastService;
+		this.userLogic=userLogic;
 	}
 
 	@Override
@@ -140,6 +143,10 @@ public class JudgeLogicImpl implements JudgeLogic {
 			newJudge.setLastModifiedBy(caller);
 			newJudge.setStatus(JudgeStatus.NONE);
 			judgeDao.save(newJudge);
+			
+			UserContext uc=new UserContext();
+			uc.setUserId(caller.getId());
+			userLogic.addUserNominateRole(j.getStaff().getId(), uc);
 		}
 	}
 

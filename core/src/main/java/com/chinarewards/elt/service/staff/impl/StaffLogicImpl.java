@@ -782,6 +782,7 @@ public class StaffLogicImpl implements StaffLogic {
 			if (userRole != null && userRole.size() > 0) {
 				List<UserRole> roles = new ArrayList<UserRole>();
 				for (SysUserRole r : userRole) {
+					if(r.getRole()!=null)
 					roles.add(r.getRole().getName());
 				}
 				return roles;

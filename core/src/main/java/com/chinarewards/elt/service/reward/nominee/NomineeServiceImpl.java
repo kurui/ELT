@@ -34,9 +34,6 @@ public class NomineeServiceImpl implements NomineeService {
 	public NomineeLot addNomineeLotToReward(String rewardId,
 			List<String> staffIds, String nowUserId) throws JudgeException {
 
-		// if (em.getTransaction().isActive() != true) {
-		// em.getTransaction().begin();
-		// }
 		SysUser caller = userLogic.findUserById(nowUserId);
 
 		NomineeLot lot = nomineeLogic.addNomineeLotToReward(caller, rewardId,
@@ -45,8 +42,8 @@ public class NomineeServiceImpl implements NomineeService {
 		// 被提名者,提名次数的调整
 		candidateLogic.updateCandidatesCount(staffIds, rewardId);
 
-		// em.getTransaction().commit();
-
+		
+		userLogic.deleteUserNominateRole(caller.getId());
 		return lot;
 	}
 
