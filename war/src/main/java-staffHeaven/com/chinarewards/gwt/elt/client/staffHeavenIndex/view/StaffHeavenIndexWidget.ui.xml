@@ -25,7 +25,7 @@
 						</div>
         </div>
         <div class="{new2.news-select}">
-        	<a class="{new2.refeshxx}">刷新</a>
+        	<g:Anchor text="刷新" ui:field="refeshxx" styleName="{new2.refeshxx}" />
         <g:Anchor text="全部信息" ui:field="allInformation" styleName="{new2.onselecta}" />|
         <g:Anchor text="同事说" ui:field="staffInformation" />|
          <g:Anchor text="悄悄话" ui:field="quietlyInformation" />|

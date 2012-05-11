@@ -50,6 +50,7 @@ public class StaffHeavenIndexPresenterImpl extends
 	EltNewPager pager;
 	ListCellTable<StaffHeavenIndexClient> cellTable;
 	StaffHeavenIndexViewAdapter listViewAdapter;
+	BroadcastingCategory indexBroadcastingCategory=null;
 	String ruietlyCss=display.getReceiveQuietly().getElement().getParentElement().getParentElement().getParentElement().getClassName();
 	@Inject
 	public StaffHeavenIndexPresenterImpl(EventBus eventBus,
@@ -223,6 +224,7 @@ public class StaffHeavenIndexPresenterImpl extends
 				display.getQuietlyInformation().setStyleName(noStyle);
 				buildTable();
 				doSearch(null,sessionManager.getSession().getToken(),false);
+				indexBroadcastingCategory=null;
 			}
 		});
 		display.getStaffInformation().addClickHandler(new ClickHandler() {
@@ -237,6 +239,7 @@ public class StaffHeavenIndexPresenterImpl extends
 				display.getQuietlyInformation().setStyleName(noStyle);
 				buildTable();
 				doSearch(BroadcastingCategory.STAFFBROADCAST,null,false);
+				indexBroadcastingCategory=BroadcastingCategory.STAFFBROADCAST;
 			}
 		});
 		display.getSysInformation().addClickHandler(new ClickHandler() {
@@ -251,6 +254,7 @@ public class StaffHeavenIndexPresenterImpl extends
 				display.getQuietlyInformation().setStyleName(noStyle);
 				buildTable();
 				doSearch(BroadcastingCategory.SYSBROADCAST,null,false);
+				indexBroadcastingCategory=BroadcastingCategory.SYSBROADCAST;
 			}
 		});
 		display.getThemeInformation().addClickHandler(new ClickHandler() {
@@ -265,6 +269,7 @@ public class StaffHeavenIndexPresenterImpl extends
 				display.getQuietlyInformation().setStyleName(noStyle);
 				buildTable();
 				doSearch(BroadcastingCategory.THEMEBROADCAST,null,false);
+				indexBroadcastingCategory=BroadcastingCategory.THEMEBROADCAST;
 			}
 		});
 		display.getQuietlyInformation().addClickHandler(new ClickHandler() {
@@ -282,6 +287,7 @@ public class StaffHeavenIndexPresenterImpl extends
 				display.getQuietlyInformation().setStyleName(onStyle);
 				buildTable();
 				doSearch(BroadcastingCategory.QUIETLYINFORMATION,null,false);
+				indexBroadcastingCategory=BroadcastingCategory.QUIETLYINFORMATION;
 			}
 		});
 		
@@ -294,6 +300,7 @@ public class StaffHeavenIndexPresenterImpl extends
 				display.getMyquietly().getElement().getParentElement().setClassName(noStylex);
 				buildTable();
 				doSearch(BroadcastingCategory.QUIETLYINFORMATION,null,false);
+				indexBroadcastingCategory=BroadcastingCategory.QUIETLYINFORMATION;
 			}
 		});
 		display.getMyquietly().addClickHandler(new ClickHandler() {
@@ -304,6 +311,16 @@ public class StaffHeavenIndexPresenterImpl extends
 				display.getMyquietly().getElement().getParentElement().setClassName(onStylex);
 				buildTable();
 				doSearch(BroadcastingCategory.QUIETLYINFORMATION,sessionManager.getSession().getToken(),true);
+				indexBroadcastingCategory=BroadcastingCategory.QUIETLYINFORMATION;
+			}
+		});
+		display.getRefeshxx().addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				buildTable();
+				doSearch(indexBroadcastingCategory,sessionManager.getSession().getToken(),false);
+
 			}
 		});
 		buildTable();
