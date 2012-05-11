@@ -10,6 +10,7 @@ import com.chinarewards.gwt.elt.client.broadcastSave.request.BroadcastSaveReques
 import com.chinarewards.gwt.elt.client.broadcastSave.request.BroadcastSaveResponse;
 import com.chinarewards.gwt.elt.client.broadcasting.model.BroadcastingListCriteria.BroadcastingCategory;
 import com.chinarewards.gwt.elt.client.chooseOrganization.model.OrganSearchCriteria.OrganType;
+import com.chinarewards.gwt.elt.client.core.presenter.StaffPresenter;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.message.model.MessageListClient;
 import com.chinarewards.gwt.elt.client.message.model.MessageListCriteria;
@@ -44,6 +45,7 @@ public class StaffHeavenIndexPresenterImpl extends
 	private final DispatchAsync dispatch;
 	private final SessionManager sessionManager;
 	private final Win win;
+	private final StaffPresenter staffPresenter;
 	final ErrorHandler errorHandler;
 	EltNewPager pager;
 	ListCellTable<StaffHeavenIndexClient> cellTable;
@@ -52,12 +54,13 @@ public class StaffHeavenIndexPresenterImpl extends
 	@Inject
 	public StaffHeavenIndexPresenterImpl(EventBus eventBus,
 			StaffHeavenIndexDisplay display, DispatchAsync dispatch,
-			SessionManager sessionManager, ErrorHandler errorHandler, Win win) {
+			SessionManager sessionManager, ErrorHandler errorHandler, Win win,StaffPresenter staffPresenter) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.sessionManager = sessionManager;
 		this.errorHandler = errorHandler;
 		this.win = win;
+		this.staffPresenter=staffPresenter;
 
 	}
 
@@ -91,7 +94,7 @@ public class StaffHeavenIndexPresenterImpl extends
 									 
 									 if(t>=list.size())
 										t=0;
-									 display.setTopBroadcast(list.get(t).getContent());
+									 staffPresenter.setTopBroadcast(list.get(t).getContent());
 									 t++;
 								}
 							};

@@ -208,10 +208,8 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .employee .content-info .textarea{width:99%;height:80px;border:1px solid #CBCBCB;padding:5px;overflow:auto;}
 .employee .content-info .checkBox{float: left;}
 .employee .content-info .checkBox label{padding-left: 5px;}
-.employee .content-info .news-select{background-color:#F1F2F1;text-align:right;padding:5px 0;color:#7A9BBA;padding-right:10px;}
-.employee .content-info .news-select a{color:#7A9BBA;}
-.employee .content-info .news-select .onselecta{color:#565656;}
-.employee .content-info .news-select span{color:#292A29;}
+
+
 
 .employee .news-list .news{position:relative;padding:10px 0 5px 10px;border-bottom:1px solid #EDEEED;}
 .employee .news-list .news .news-icon{background-position:-41px -35px;float:left;width:16px;height:13px;position:absolute;left:9px;top:14px;\_left:0px;}
@@ -219,6 +217,24 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .employee .news-list .news .news-info a{color:#336CA4}
 .employee .news-list .news .news-info strong{font-weight:normal;color:#346BA8;}
 .employee .news-list .news .news-info p{padding-bottom:5px;}
+
+
+
+.employee .content-info .mybroadcast{background:url(elt/images/elt_bg.jpg) repeat-x 0px 0px #f1f1f1; border:1px solid #ccc; padding:10px; margin-bottom:8px; height:auto!important; min-height:140px; height:140px; }
+.employee .content-info .mybroadcast h2{ padding-bottom:3px;}
+.employee .content-info .mybroadcast textarea{ float:left; width:99%; height:80px; margin-bottom:5px;}
+.employee .content-info .mybroadcast span.check{float:left}
+.employee .content-info .mybroadcast .postdiv{padding-right: 10px; overflow: hidden; float:right;}
+.employee .content-info .note{background-color:#fff3cd;border:1px solid #fdca79;padding:6px 8px;color:#ff0000;position:relative;margin-bottom:10px;}
+.employee .content-info .note em{color:#ff6600; padding:1px 25px; font-style:normal; background:url(elt/images/e_icon.gif) no-repeat}
+.employee .content-info .note .close{background-position:-32px -35px;width:8px;height:9px;position:absolute;right:8px;top:9px;cursor:pointer;}
+
+.employee .content-info .news-select{background:url(elt/images/elt_bg.jpg) repeat-x 0 -164px #F1F2F1;text-align:left;color:#7A9BBA;border:1px solid #dddddd; height:26px; line-height:26px; padding:4px 5px 0px 5px; font-weight:bold;}
+.employee .content-info .news-select a{color:#555;}
+.employee .content-info .news-select .onselecta{ width:66px; height:26px; display:inline-block; text-align:center;color:#fff; background:url(elt/images/elt_bg.jpg) repeat-x 0 -194px #48a6e3; }
+.employee .content-info .news-select .refeshxx{background:url(elt/images/e_icon.gif) no-repeat 0px -20px; color:#336699; text-align:left; padding-left:18px; width:30px; float:right;display:inline-block; cursor:pointer}
+
+
 
 /*----------------------------------------- 奖品商城 -------------------------------------------------------*/
 .employee .content-info .breadcrumb{background-color:#ECECEC;color:#666666;padding:8px 10px;}

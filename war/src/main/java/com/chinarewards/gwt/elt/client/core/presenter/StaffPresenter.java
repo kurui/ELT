@@ -9,7 +9,7 @@ import com.google.gwt.user.client.ui.Panel;
 public interface StaffPresenter extends Presenter<StaffPresenter.StaffDisplay> {
 
 	public void reOnloadStaffInfo();
-
+	void setTopBroadcast(String text);
 	public static interface StaffDisplay extends Display {
 
 		HasClickHandlers getlogBtn();
@@ -99,7 +99,7 @@ public interface StaffPresenter extends Presenter<StaffPresenter.StaffDisplay> {
 		Hidden getRewardWidgetAction();
 
 		Hidden getRewardItemWidgetAction();
-
+		void setTopBroadcast(String text);
 	}
 
 }

@@ -34,8 +34,7 @@ public class StaffHeavenIndexWidget extends Composite implements
 	Anchor sysInformation;
 	@UiField
 	Anchor themeInformation;
-	@UiField
-	InlineLabel topBroadcast;
+
 	@UiField
 	Anchor closeMessageBtn;
 	@UiField
@@ -107,11 +106,7 @@ public class StaffHeavenIndexWidget extends Composite implements
 		return themeInformation;
 	}
 
-	@Override
-	public void setTopBroadcast(String text) {
-		topBroadcast.setText(text);
-		
-	}
+
 
 	@Override
 	public Anchor getCloseMessageBtn() {
