@@ -254,7 +254,7 @@ public class CookieSessionManager implements SessionManager {
 									eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_GIFT));	
 								else if (role == UserRoleVo.AWARD)
 									eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_AWARD));	
-								else if (role == UserRoleVo.AWARD)
+								else if (role == UserRoleVo.NOMINATE)
 									eventBus.fireEvent(new LoginEvent(LoginEvent.LoginStatus.LOGIN_OK_NOMINATE));	
 								
 						}
