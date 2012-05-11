@@ -118,7 +118,7 @@
 					</div>
                    
                 <div class="{new2.form-line}">
-				        <label class="{new2.label12}"> 通知人：</label>
+				        <label class="{new2.label12}"> 被通知领导：</label>
 				        <div class="{new2.element}">
 				          <g:FlowPanel ui:field="staffAreaPanel" styleName="{new2.element12}"/>
 				          <span class="{new2.btn}">

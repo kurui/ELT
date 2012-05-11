@@ -13,7 +13,7 @@ public interface StaffHeavenIndexPresenter extends
 	public static interface StaffHeavenIndexDisplay extends Display {
 
 		void setDataCount(String text);
-		void setTopBroadcast(String text);
+
 
 		Panel getResultPanel();
 
@@ -25,6 +25,7 @@ public interface StaffHeavenIndexPresenter extends
 		Anchor getThemeInformation();
 		Anchor getCloseMessageBtn();
 		Anchor getQuietlyInformation();
+		Anchor getRefeshxx();
 		
 		void setTopMessage(String text);
 		

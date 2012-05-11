@@ -10,7 +10,7 @@ import com.chinarewards.gwt.elt.client.core.PluginDescriptor;
 import com.chinarewards.gwt.elt.client.core.ui.EditorDescriptor;
 import com.chinarewards.gwt.elt.client.core.ui.MenuItem;
 import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
-import com.chinarewards.gwt.elt.client.gift.plugin.GiftConstants;
+import com.chinarewards.gwt.elt.client.order.plugin.OrderListConstants;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemConstants;
 import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListConstants;
 import com.chinarewards.gwt.elt.client.staffHeavenIndex.plugin.StaffHeavenIndexConstants;
@@ -109,8 +109,8 @@ public class CorePlugin extends AbstractPlugin {
 		{
 			 Platform.getInstance()
 			 .getEditorRegistry()
-			 .openEditor(GiftConstants.EDITOR_GIFTLIST_SEARCH,
-			 "EDITOR_GIFTLIST_SEARCH_List", null);
+			 .openEditor(OrderListConstants.EDITOR_ORDERLIST_SEARCH,
+			 "EDITOR_ORDERLIST_SEARCH_List", null);
 		}
 		else if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.STAFF)
 		{

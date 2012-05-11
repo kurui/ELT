@@ -170,6 +170,13 @@ public class RewardDao extends BaseDao<Reward> {
 				String staffid = userDao.findById(SysUser.class, criteria.getNowUserId()).getStaff().getId();
 				param.put("nowUserId", staffid);
 			}
+			else if (criteria.getStatus() == RewardStatus.NEW && !StringUtil.isEmptyString(criteria.getNowUserId())) {
+				hql.append(" AND (rew.builderDept.id IN (:departmentIds) OR  rew.awardsUser.id = :deptawardUserId )");
+				param.put("departmentIds", departmentIds);
+				
+				param.put("deptawardUserId", criteria.getNowUserId());
+
+			}
 			else
 			{
 				hql.append(" AND rew.builderDept.id IN (:departmentIds) ");
