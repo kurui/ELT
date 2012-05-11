@@ -749,8 +749,11 @@ public class StaffLogicImpl implements StaffLogic {
 		role4.setName(UserRole.STAFF);
 		roleDao.save(role4);
 		SysRole role5 = new SysRole();
-		role4.setName(UserRole.AWARD);
+		role5.setName(UserRole.AWARD);
 		roleDao.save(role5);
+		SysRole role6 = new SysRole();
+		role6.setName(UserRole.NOMINATE);
+		roleDao.save(role6);
 		// 创建用户角色
 		for (int i = 0; i < staffProcess.getRoles().size(); i++) {
 			SysUserRole userRole = new SysUserRole();
