@@ -1,5 +1,8 @@
 package com.chinarewards.elt.dao.reward;
 
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
+
 import com.chinarewards.elt.common.BaseDao;
 import com.chinarewards.elt.domain.reward.rule.CandidateRule;
 
@@ -36,9 +39,14 @@ public class CandidateRuleDao extends BaseDao<CandidateRule> {
 				.setParameter("rewardItemStoreId", rewardItemStoreId).getSingleResult();
 	}
 	public CandidateRule findCandidateRuleByRewardId(String rewardId) {
-		return (CandidateRule) getEmNoFlush()
+		Query query=getEmNoFlush()
 				.createQuery(
 						"SELECT r.candidateRule FROM Reward r WHERE r.id=:rewardId ")
-				.setParameter("rewardId", rewardId).getSingleResult();
+				.setParameter("rewardId", rewardId);
+		try {
+            return (CandidateRule) query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
 	}
 }

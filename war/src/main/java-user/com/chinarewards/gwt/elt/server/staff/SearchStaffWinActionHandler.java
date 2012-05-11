@@ -71,6 +71,7 @@ public class SearchStaffWinActionHandler extends
 		for (Winner win:result.getResultList()) {
 			StaffWinClient client=new StaffWinClient();
 			client.setRewardName(win.getReward().getName());
+			client.setIntegral(win.getReward().getAwardAmt());
 			client.setWinTime(win.getWinTime());
 			client.setPresentedName(win.getCreatedBy().getStaff().getName());
 			lt.add(client);
