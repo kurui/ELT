@@ -97,6 +97,8 @@ public class ButtonMenuProcessor implements MenuProcessor {
 			indexMenu="Gift";
 		else if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.AWARD)
 			indexMenu="Award";
+		else if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.NOMINATE)
+			indexMenu="Nominate";
 		ScrollPanel menuWrapper = new ScrollPanel(createButtonMenuWidget(indexMenu));
 		container.add(menuWrapper);
 	}
