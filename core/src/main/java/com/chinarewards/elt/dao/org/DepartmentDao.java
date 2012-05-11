@@ -62,52 +62,42 @@ public class DepartmentDao extends BaseDao<Department> {
 		return dept;
 	}
 
-	/**
-	 * Maintain index of Department after adding a new Department node.Every
-	 * corporation maintain a series of independent index.
-	 * 
-	 * @param index
-	 */
-	public void maintainIndexAfterAddNode(int index, String corpId) {
-		logger.debug(
-				"Invoking method maintainIndexAfterAddNode, param[index={}, corpId={}]",
-				new Object[] { index, corpId });
-		getEm().createQuery(
-				"UPDATE Department d SET d.lft = (d.lft+2) WHERE d.lft >= :index AND d.corporation.id =:corpId AND d.deleted =:deleted")
-				.setParameter("index", index).setParameter("corpId", corpId)
-				.setParameter("deleted", false).executeUpdate();
-		getEm().createQuery(
-				"UPDATE Department d SET d.rgt = (d.rgt+2) WHERE d.rgt >= :index AND d.corporation.id =:corpId AND d.deleted =:deleted")
-				.setParameter("index", index).setParameter("corpId", corpId)
-				.setParameter("deleted", false).executeUpdate();
-	}
 
-	/**
-	 * Maintain index of Department after a leaf Department node.Every
-	 * corporation maintain a series of independent index.
-	 * 
-	 * @param index
-	 */
-	public void maintainIndexAfterDeleteNode(int index, String corpId) {
-		getEm().createQuery(
-				"UPDATE Department d SET d.lft = (d.lft-2) WHERE d.lft >= :index AND d.corporation.id =:corpId AND d.deleted =:deleted")
-				.setParameter("index", index).setParameter("corpId", corpId)
-				.setParameter("deleted", false).executeUpdate();
-		getEm().createQuery(
-				"UPDATE Department d SET d.rgt = (d.rgt-2) WHERE d.rgt >= :index AND d.corporation.id =:corpId AND d.deleted =:deleted")
-				.setParameter("index", index).setParameter("corpId", corpId)
-				.setParameter("deleted", false).executeUpdate();
-	}
+//	public void maintainIndexAfterAddNode(int index, String corpId) {
+//		logger.debug(
+//				"Invoking method maintainIndexAfterAddNode, param[index={}, corpId={}]",
+//				new Object[] { index, corpId });
+//		getEm().createQuery(
+//				"UPDATE Department d SET d.lft = (d.lft+2) WHERE d.lft >= :index AND d.corporation.id =:corpId AND d.deleted =:deleted")
+//				.setParameter("index", index).setParameter("corpId", corpId)
+//				.setParameter("deleted", false).executeUpdate();
+//		getEm().createQuery(
+//				"UPDATE Department d SET d.rgt = (d.rgt+2) WHERE d.rgt >= :index AND d.corporation.id =:corpId AND d.deleted =:deleted")
+//				.setParameter("index", index).setParameter("corpId", corpId)
+//				.setParameter("deleted", false).executeUpdate();
+//	}
 
-	public void checkNoChildNode() {
-		List<String> deptIdList = getEm()
-				.createQuery(
-						"select parent.id from Department  where deleted =:deleted")
-				.setParameter("deleted", false).getResultList();
-		getEm().createQuery(
-				"UPDATE  Department  set rgt=(lft+1) WHERE id not in(:deptIdList) ")
-				.setParameter("deptIdList", deptIdList).executeUpdate();
-	}
+
+//	public void maintainIndexAfterDeleteNode(int index, String corpId) {
+//		getEm().createQuery(
+//				"UPDATE Department d SET d.lft = (d.lft-2) WHERE d.lft >= :index AND d.corporation.id =:corpId AND d.deleted =:deleted")
+//				.setParameter("index", index).setParameter("corpId", corpId)
+//				.setParameter("deleted", false).executeUpdate();
+//		getEm().createQuery(
+//				"UPDATE Department d SET d.rgt = (d.rgt-2) WHERE d.rgt >= :index AND d.corporation.id =:corpId AND d.deleted =:deleted")
+//				.setParameter("index", index).setParameter("corpId", corpId)
+//				.setParameter("deleted", false).executeUpdate();
+//	}
+//
+//	public void checkNoChildNode() {
+//		List<String> deptIdList = getEm()
+//				.createQuery(
+//						"select parent.id from Department  where deleted =:deleted")
+//				.setParameter("deleted", false).getResultList();
+//		getEm().createQuery(
+//				"UPDATE  Department  set rgt=(lft+1) WHERE id not in(:deptIdList) ")
+//				.setParameter("deptIdList", deptIdList).executeUpdate();
+//	}
 
 	public void refactorDepartmentTree(String corporationId) {
 
@@ -135,7 +125,7 @@ public class DepartmentDao extends BaseDao<Department> {
 		if(childList!=null&&childList.size()>0){
 			int childListsize=childList.size();
 			for (int i = 0; i < childList.size(); i++) {
-				System.out.println("-------------for i:" + i);
+//				System.out.println("-------------for i:" + i);
 				Department child = childList.get(i);
 
 				child.setLft(thislft);

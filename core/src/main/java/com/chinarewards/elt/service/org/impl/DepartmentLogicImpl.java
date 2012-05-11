@@ -97,16 +97,16 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 		}
 
 		if (StringUtil.isEmptyString(department.getId())) {
-			department.setLft(parent.getRgt());
-			department.setRgt(parent.getRgt() + 1);
+//			department.setLft(parent.getRgt());
+//			department.setRgt(parent.getRgt() + 1);
 
 			department.setCreatedAt(DateUtil.getTime());
 			department.setCreatedBy(caller);
 			department.setDeleted(false);
 			departmentDao.save(department);
 
-			int index = parent.getRgt();
-			departmentDao.maintainIndexAfterAddNode(index, corporation.getId());// maintain
+//			int index = parent.getRgt();
+//			departmentDao.maintainIndexAfterAddNode(index, corporation.getId());// maintain
 																				// index
 		} else {
 			Department tempDepartment = departmentDao.findById(
@@ -128,7 +128,7 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 			}			
 		}
 
-		departmentDao.checkNoChildNode();
+//		departmentDao.checkNoChildNode();
 		
 		departmentDao.refactorDepartmentTree(corporation.getId());
 		
@@ -231,9 +231,11 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 		departmentManagerDao.deleteManager(deptId);
 
 		// maintain index
-		departmentDao.maintainIndexAfterDeleteNode(index, corpId);
+//		departmentDao.maintainIndexAfterDeleteNode(index, corpId);
+//		
+//		departmentDao.checkNoChildNode();
 		
-		departmentDao.checkNoChildNode();
+		departmentDao.refactorDepartmentTree(corpId);
 
 		return department.getId();
 	}
