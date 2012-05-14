@@ -52,6 +52,7 @@ public class StaffHeavenIndexPresenterImpl extends
 	StaffHeavenIndexViewAdapter listViewAdapter;
 	BroadcastingCategory indexBroadcastingCategory=null;
 	String ruietlyCss=display.getReceiveQuietly().getElement().getParentElement().getParentElement().getParentElement().getClassName();
+	String heSayCss=display.getHeSay().getElement().getParentElement().getParentElement().getParentElement().getClassName();
 	@Inject
 	public StaffHeavenIndexPresenterImpl(EventBus eventBus,
 			StaffHeavenIndexDisplay display, DispatchAsync dispatch,
@@ -68,6 +69,7 @@ public class StaffHeavenIndexPresenterImpl extends
 	@Override
 	public void bind() {
 		display.getReceiveQuietly().getElement().getParentElement().getParentElement().getParentElement().setClassName(CssStyleConstants.hidden);
+		display.getHeSay().getElement().getParentElement().getParentElement().getParentElement().setClassName(CssStyleConstants.hidden);
 		init();
 
 	     StaffHeavenIndexCriteria  criteria = new StaffHeavenIndexCriteria();
@@ -193,7 +195,7 @@ public class StaffHeavenIndexPresenterImpl extends
 								win.alertStaff("保存成功");
 								display.successClean();
 								buildTable();
-								doSearch(null,sessionManager.getSession().getToken(),false);
+								doSearch(indexBroadcastingCategory,sessionManager.getSession().getToken(),false);
 							}
 						});
 			
@@ -217,6 +219,7 @@ public class StaffHeavenIndexPresenterImpl extends
 			@Override
 			public void onClick(ClickEvent event) {
 				display.getReceiveQuietly().getElement().getParentElement().getParentElement().getParentElement().setClassName(CssStyleConstants.hidden);
+				display.getHeSay().getElement().getParentElement().getParentElement().getParentElement().setClassName(CssStyleConstants.hidden);
 				display.getAllInformation().setStyleName(onStyle);
 				display.getStaffInformation().setStyleName(noStyle);
 				display.getSysInformation().setStyleName(noStyle);
@@ -231,6 +234,10 @@ public class StaffHeavenIndexPresenterImpl extends
 
 			@Override
 			public void onClick(ClickEvent event) {
+				display.getHeSay().getElement().getParentElement().getParentElement().getParentElement().setClassName(heSayCss);
+				display.getHeSay().getElement().getParentElement().setClassName(onStylex);
+				
+				
 				display.getReceiveQuietly().getElement().getParentElement().getParentElement().getParentElement().setClassName(CssStyleConstants.hidden);
 				display.getAllInformation().setStyleName(noStyle);
 				display.getStaffInformation().setStyleName(onStyle);
@@ -247,6 +254,7 @@ public class StaffHeavenIndexPresenterImpl extends
 			@Override
 			public void onClick(ClickEvent event) {
 				display.getReceiveQuietly().getElement().getParentElement().getParentElement().getParentElement().setClassName(CssStyleConstants.hidden);
+				display.getHeSay().getElement().getParentElement().getParentElement().getParentElement().setClassName(CssStyleConstants.hidden);
 				display.getAllInformation().setStyleName(noStyle);
 				display.getStaffInformation().setStyleName(noStyle);
 				display.getSysInformation().setStyleName(onStyle);
@@ -262,6 +270,7 @@ public class StaffHeavenIndexPresenterImpl extends
 			@Override
 			public void onClick(ClickEvent event) {
 				display.getReceiveQuietly().getElement().getParentElement().getParentElement().getParentElement().setClassName(CssStyleConstants.hidden);
+				display.getHeSay().getElement().getParentElement().getParentElement().getParentElement().setClassName(CssStyleConstants.hidden);
 				display.getAllInformation().setStyleName(noStyle);
 				display.getStaffInformation().setStyleName(noStyle);
 				display.getSysInformation().setStyleName(noStyle);
@@ -276,7 +285,7 @@ public class StaffHeavenIndexPresenterImpl extends
 
 			@Override
 			public void onClick(ClickEvent event) {
-				
+				display.getHeSay().getElement().getParentElement().getParentElement().getParentElement().setClassName(CssStyleConstants.hidden);
 				display.getReceiveQuietly().getElement().getParentElement().getParentElement().getParentElement().setClassName(ruietlyCss);
 				display.getReceiveQuietly().getElement().getParentElement().setClassName(onStylex);
 				display.getMyquietly().getElement().getParentElement().setClassName(noStylex);
@@ -314,6 +323,35 @@ public class StaffHeavenIndexPresenterImpl extends
 				indexBroadcastingCategory=BroadcastingCategory.QUIETLYINFORMATION;
 			}
 		});
+		
+		display.getHeSay().addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				
+				display.getHeSay().getElement().getParentElement().setClassName(onStylex);
+				display.getMySay().getElement().getParentElement().setClassName(noStylex);
+
+
+				buildTable();
+				doSearch(BroadcastingCategory.STAFFBROADCAST,null,false);
+				indexBroadcastingCategory=BroadcastingCategory.STAFFBROADCAST;
+			}
+		});
+		display.getMySay().addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+
+				display.getHeSay().getElement().getParentElement().setClassName(noStylex);
+				display.getMySay().getElement().getParentElement().setClassName(onStylex);
+				buildTable();
+				doSearch(BroadcastingCategory.STAFFBROADCAST,sessionManager.getSession().getToken(),true);
+				indexBroadcastingCategory=BroadcastingCategory.STAFFBROADCAST;
+			}
+		});
+		
+		
 		display.getRefeshxx().addClickHandler(new ClickHandler() {
 
 			@Override

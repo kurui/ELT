@@ -56,7 +56,10 @@ public class StaffHeavenIndexWidget extends Composite implements
 	Anchor myquietly;
 	@UiField
 	Anchor refeshxx;
-	
+	@UiField
+	Anchor heSay;
+	@UiField
+	Anchor mySay;
 	
 	DateTimeFormat dateFormat = DateTimeFormat
 			.getFormat(ViewConstants.date_format);
@@ -159,6 +162,16 @@ public class StaffHeavenIndexWidget extends Composite implements
 	@Override
 	public Anchor getRefeshxx() {
 		return refeshxx;
+	}
+
+	@Override
+	public Anchor getHeSay() {
+		return heSay;
+	}
+
+	@Override
+	public Anchor getMySay() {
+		return mySay;
 	}
 
 }

@@ -37,5 +37,8 @@ public interface StaffHeavenIndexPresenter extends
 		
 		Anchor getReceiveQuietly();
 		Anchor getMyquietly();
+		
+		Anchor getHeSay();
+		Anchor getMySay();
 	}
 }
