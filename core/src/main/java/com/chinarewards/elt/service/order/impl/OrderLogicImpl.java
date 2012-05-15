@@ -12,11 +12,16 @@ import com.chinarewards.elt.dao.order.OrderDao;
 import com.chinarewards.elt.domain.gift.Gift;
 import com.chinarewards.elt.domain.order.Orders;
 import com.chinarewards.elt.domain.user.SysUser;
+import com.chinarewards.elt.model.broadcast.BroadcastingVo;
+import com.chinarewards.elt.model.broadcast.OrganType;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.gift.search.GiftListVo;
 import com.chinarewards.elt.model.order.search.OrderListVo;
 import com.chinarewards.elt.model.order.search.OrderStatus;
+import com.chinarewards.elt.model.user.UserContext;
+import com.chinarewards.elt.service.broadcast.BroadcastService;
 import com.chinarewards.elt.service.order.OrderLogic;
+import com.chinarewards.elt.service.user.UserService;
 import com.chinarewards.elt.util.DateUtil;
 import com.chinarewards.elt.util.StringUtil;
 import com.google.inject.Inject;
@@ -24,11 +29,15 @@ import com.google.inject.Inject;
 public class OrderLogicImpl implements OrderLogic{
 	private OrderDao orderDao;
 	private GiftDao giftDao;
+	private BroadcastService broadcastService;
+	private UserService userService;
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Inject
-	protected OrderLogicImpl(OrderDao orderDao,GiftDao giftDao){
+	protected OrderLogicImpl(OrderDao orderDao,GiftDao giftDao,BroadcastService broadcastService,UserService userService){
 		this.orderDao = orderDao;
 		this.giftDao = giftDao;
+		this.broadcastService = broadcastService;
+		this. userService = userService;
 	}
 	
 	@Override
@@ -137,13 +146,35 @@ public class OrderLogicImpl implements OrderLogic{
 		order.setStatus(status);
 		order.setRecorddate(currTime);
 		order.setRecorduser(caller.getUserName());
-		if(status.equals(OrderStatus.ERRORORDER))
+		SysUser user = userService.findUserById(order.getUserId());
+		Gift gift = giftDao.findById(Gift.class,order.getGiftId());
+		List<String[]> organList = new ArrayList<String[]>();
+		String[] nameAndId = new String[3];
+		nameAndId[0] = user.getStaff().getId();
+		nameAndId[1] = user.getStaff().getName();
+		nameAndId[2] = OrganType.STAFF.toString();
+		organList.add(nameAndId);
+		if(status.equals(OrderStatus.ERRORORDER)){
 			order.setRemarks(order.getRemarks()+"（退回备注：被"+caller.getUserName()+"在"+DateUtil.formatData("", currTime)+"退回）");
-		
+			sendMessage(organList, user.getCorporation().getId(),caller.getId(), "您兑换的"+gift.getName()+"订单被退回了，详细原因请咨询相关人员");
+		}
+		if(status.equals(OrderStatus.SHIPMENTS)){
+			sendMessage(organList, user.getCorporation().getId(),caller.getId(), "您兑换的"+gift.getName()+"已经发货，请注意查收");
+		}
 		order= orderDao.update(order);
+		
 		return order.getId();
 	}
-
+	private void sendMessage(List<String[]> organList, String corpId,String userId, String info) {
+		UserContext context = new UserContext();
+		context.setCorporationId(corpId);
+		context.setUserId(userId);
+		// 对订单发送消息
+		BroadcastingVo messagevo = new BroadcastingVo();
+		messagevo.setOrganList(organList);
+		messagevo.setContent(info);
+		broadcastService.createOrUpdateMessage(messagevo, context);
+	}
 	@Override
 	public int getOrderByStatus(OrderListVo orderVo){
 		return orderDao.countOrder( orderVo);
@@ -156,7 +187,6 @@ public class OrderLogicImpl implements OrderLogic{
 		if (list.size() > 0) {
 			for (Orders order : list) {
 					if(DateUtil.formatData("yyyy-MM-dd", DateUtil.addSomeDay(order.getExchangeDate(), day)).equals(DateUtil.formatData("yyyy-MM-dd", DateUtil.getTime()))){
-					System.out.println("定单已过期了");
 					Date currTime = DateUtil.getTime();
 					order.setStatus(OrderStatus.ERRORORDER);
 					order.setRecorddate(currTime);
@@ -172,7 +202,6 @@ public class OrderLogicImpl implements OrderLogic{
 			if (list.size() > 0) {
 				for (Orders order : list) {
 						if(DateUtil.formatData("yyyy-MM-dd", DateUtil.addSomeDay(order.getRecorddate(), day)).equals(DateUtil.formatData("yyyy-MM-dd", DateUtil.getTime()))){
-						System.out.println("定单已过确定时间，要改为已发货");
 						Date currTime = DateUtil.getTime();
 						order.setStatus(OrderStatus.AFFIRM);
 						order.setRecorddate(currTime);
