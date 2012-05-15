@@ -63,42 +63,6 @@ public class DepartmentDao extends BaseDao<Department> {
 	}
 
 
-//	public void maintainIndexAfterAddNode(int index, String corpId) {
-//		logger.debug(
-//				"Invoking method maintainIndexAfterAddNode, param[index={}, corpId={}]",
-//				new Object[] { index, corpId });
-//		getEm().createQuery(
-//				"UPDATE Department d SET d.lft = (d.lft+2) WHERE d.lft >= :index AND d.corporation.id =:corpId AND d.deleted =:deleted")
-//				.setParameter("index", index).setParameter("corpId", corpId)
-//				.setParameter("deleted", false).executeUpdate();
-//		getEm().createQuery(
-//				"UPDATE Department d SET d.rgt = (d.rgt+2) WHERE d.rgt >= :index AND d.corporation.id =:corpId AND d.deleted =:deleted")
-//				.setParameter("index", index).setParameter("corpId", corpId)
-//				.setParameter("deleted", false).executeUpdate();
-//	}
-
-
-//	public void maintainIndexAfterDeleteNode(int index, String corpId) {
-//		getEm().createQuery(
-//				"UPDATE Department d SET d.lft = (d.lft-2) WHERE d.lft >= :index AND d.corporation.id =:corpId AND d.deleted =:deleted")
-//				.setParameter("index", index).setParameter("corpId", corpId)
-//				.setParameter("deleted", false).executeUpdate();
-//		getEm().createQuery(
-//				"UPDATE Department d SET d.rgt = (d.rgt-2) WHERE d.rgt >= :index AND d.corporation.id =:corpId AND d.deleted =:deleted")
-//				.setParameter("index", index).setParameter("corpId", corpId)
-//				.setParameter("deleted", false).executeUpdate();
-//	}
-//
-//	public void checkNoChildNode() {
-//		List<String> deptIdList = getEm()
-//				.createQuery(
-//						"select parent.id from Department  where deleted =:deleted")
-//				.setParameter("deleted", false).getResultList();
-//		getEm().createQuery(
-//				"UPDATE  Department  set rgt=(lft+1) WHERE id not in(:deptIdList) ")
-//				.setParameter("deptIdList", deptIdList).executeUpdate();
-//	}
-
 	public void refactorDepartmentTree(String corporationId) {
 
 		Department root = getRootDepartmentOfCorp(corporationId);
@@ -156,46 +120,7 @@ public class DepartmentDao extends BaseDao<Department> {
 		return thislft;
 	}
 
-	private List<Department> refactorChildren(List<Department> deptList) {
-		List<Department> sameLevenChildList = new ArrayList<Department>();
-		int thislft = 0;
-		int lastRgt = 0;
 
-		for (int k = 0; k < deptList.size(); k++) {
-			Department root = deptList.get(k);
-
-			thislft = root.getLft() + 1;
-			lastRgt = root.getRgt();
-			List<Department> childList = getAllChildren(root.getId(), false);
-			sameLevenChildList.addAll(childList);
-
-			if (childList != null && childList.size() > 0) {
-				for (int i = 0; i < childList.size(); i++) {
-					Department child = childList.get(i);
-					if (child != null) {
-						logger.debug("================refresh lft rgt===============");
-						child.setLft(thislft);
-						child.setRgt(thislft + 1);
-
-						update(child);
-
-						List tempList = findDepartmentsByParentId(child.getId());
-						if (tempList != null) {
-							refactorChildren(tempList);
-						} else {
-							thislft = thislft + 2;
-
-							lastRgt = child.getRgt() + 1;
-						}
-					}
-				}
-			}
-			root.setRgt(lastRgt);
-			update(root);
-		}
-
-		return sameLevenChildList;
-	}
 
 	public List<Department> getAllChildrenByCorpId(String corpId) {
 		Department department = getRootDepartmentOfCorp(corpId);

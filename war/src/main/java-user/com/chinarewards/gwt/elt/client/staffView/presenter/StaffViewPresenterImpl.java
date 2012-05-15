@@ -357,22 +357,30 @@ public class StaffViewPresenterImpl extends
 		cellTable.addColumn("奖项名称", new TextCell(),
 				new GetValue<StaffWinClient, String>() {
 					@Override
-					public String getValue(StaffWinClient staff) {
-						return staff.getRewardName();
+					public String getValue(StaffWinClient client) {
+						return client.getRewardName();
 					}
 				}, ref, "reward.name");
+		cellTable.addColumn("奖项积分", new TextCell(),
+				new GetValue<StaffWinClient, String>() {
+					@Override
+					public String getValue(StaffWinClient client) {
+						return (int)client.getIntegral()+"";
+					}
+				}, ref, "reward.awardAmt");
+				
 		cellTable.addColumn("获奖时间", new TextCell(),
 				new GetValue<StaffWinClient, String>() {
 					@Override
-					public String getValue(StaffWinClient staff) {
-						return DateTool.dateToStringChina(staff.getWinTime());
+					public String getValue(StaffWinClient client) {
+						return DateTool.dateToStringChina(client.getWinTime());
 					}
 				}, ref, "winTime");
 		cellTable.addColumn("颁奖人", new TextCell(),
 				new GetValue<StaffWinClient, String>() {
 					@Override
-					public String getValue(StaffWinClient staff) {
-						return staff.getPresentedName();
+					public String getValue(StaffWinClient client) {
+						return client.getPresentedName();
 					}
 				});
 		

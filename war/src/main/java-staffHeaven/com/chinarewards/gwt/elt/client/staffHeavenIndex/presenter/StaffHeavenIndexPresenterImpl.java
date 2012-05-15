@@ -10,6 +10,7 @@ import com.chinarewards.gwt.elt.client.broadcastSave.request.BroadcastSaveReques
 import com.chinarewards.gwt.elt.client.broadcastSave.request.BroadcastSaveResponse;
 import com.chinarewards.gwt.elt.client.broadcasting.model.BroadcastingListCriteria.BroadcastingCategory;
 import com.chinarewards.gwt.elt.client.chooseOrganization.model.OrganSearchCriteria.OrganType;
+import com.chinarewards.gwt.elt.client.core.presenter.StaffPresenter;
 import com.chinarewards.gwt.elt.client.core.view.constant.ViewConstants;
 import com.chinarewards.gwt.elt.client.message.model.MessageListClient;
 import com.chinarewards.gwt.elt.client.message.model.MessageListCriteria;
@@ -44,26 +45,31 @@ public class StaffHeavenIndexPresenterImpl extends
 	private final DispatchAsync dispatch;
 	private final SessionManager sessionManager;
 	private final Win win;
+	private final StaffPresenter staffPresenter;
 	final ErrorHandler errorHandler;
 	EltNewPager pager;
 	ListCellTable<StaffHeavenIndexClient> cellTable;
 	StaffHeavenIndexViewAdapter listViewAdapter;
+	BroadcastingCategory indexBroadcastingCategory=null;
 	String ruietlyCss=display.getReceiveQuietly().getElement().getParentElement().getParentElement().getParentElement().getClassName();
+	String heSayCss=display.getHeSay().getElement().getParentElement().getParentElement().getParentElement().getClassName();
 	@Inject
 	public StaffHeavenIndexPresenterImpl(EventBus eventBus,
 			StaffHeavenIndexDisplay display, DispatchAsync dispatch,
-			SessionManager sessionManager, ErrorHandler errorHandler, Win win) {
+			SessionManager sessionManager, ErrorHandler errorHandler, Win win,StaffPresenter staffPresenter) {
 		super(eventBus, display);
 		this.dispatch = dispatch;
 		this.sessionManager = sessionManager;
 		this.errorHandler = errorHandler;
 		this.win = win;
+		this.staffPresenter=staffPresenter;
 
 	}
 
 	@Override
 	public void bind() {
 		display.getReceiveQuietly().getElement().getParentElement().getParentElement().getParentElement().setClassName(CssStyleConstants.hidden);
+		display.getHeSay().getElement().getParentElement().getParentElement().getParentElement().setClassName(CssStyleConstants.hidden);
 		init();
 
 	     StaffHeavenIndexCriteria  criteria = new StaffHeavenIndexCriteria();
@@ -91,7 +97,7 @@ public class StaffHeavenIndexPresenterImpl extends
 									 
 									 if(t>=list.size())
 										t=0;
-									 display.setTopBroadcast(list.get(t).getContent());
+									 staffPresenter.setTopBroadcast(list.get(t).getContent());
 									 t++;
 								}
 							};
@@ -189,7 +195,7 @@ public class StaffHeavenIndexPresenterImpl extends
 								win.alertStaff("保存成功");
 								display.successClean();
 								buildTable();
-								doSearch(null,sessionManager.getSession().getToken(),false);
+								doSearch(indexBroadcastingCategory,sessionManager.getSession().getToken(),false);
 							}
 						});
 			
@@ -213,6 +219,7 @@ public class StaffHeavenIndexPresenterImpl extends
 			@Override
 			public void onClick(ClickEvent event) {
 				display.getReceiveQuietly().getElement().getParentElement().getParentElement().getParentElement().setClassName(CssStyleConstants.hidden);
+				display.getHeSay().getElement().getParentElement().getParentElement().getParentElement().setClassName(CssStyleConstants.hidden);
 				display.getAllInformation().setStyleName(onStyle);
 				display.getStaffInformation().setStyleName(noStyle);
 				display.getSysInformation().setStyleName(noStyle);
@@ -220,12 +227,17 @@ public class StaffHeavenIndexPresenterImpl extends
 				display.getQuietlyInformation().setStyleName(noStyle);
 				buildTable();
 				doSearch(null,sessionManager.getSession().getToken(),false);
+				indexBroadcastingCategory=null;
 			}
 		});
 		display.getStaffInformation().addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
+				display.getHeSay().getElement().getParentElement().getParentElement().getParentElement().setClassName(heSayCss);
+				display.getHeSay().getElement().getParentElement().setClassName(onStylex);
+				
+				
 				display.getReceiveQuietly().getElement().getParentElement().getParentElement().getParentElement().setClassName(CssStyleConstants.hidden);
 				display.getAllInformation().setStyleName(noStyle);
 				display.getStaffInformation().setStyleName(onStyle);
@@ -234,6 +246,7 @@ public class StaffHeavenIndexPresenterImpl extends
 				display.getQuietlyInformation().setStyleName(noStyle);
 				buildTable();
 				doSearch(BroadcastingCategory.STAFFBROADCAST,null,false);
+				indexBroadcastingCategory=BroadcastingCategory.STAFFBROADCAST;
 			}
 		});
 		display.getSysInformation().addClickHandler(new ClickHandler() {
@@ -241,6 +254,7 @@ public class StaffHeavenIndexPresenterImpl extends
 			@Override
 			public void onClick(ClickEvent event) {
 				display.getReceiveQuietly().getElement().getParentElement().getParentElement().getParentElement().setClassName(CssStyleConstants.hidden);
+				display.getHeSay().getElement().getParentElement().getParentElement().getParentElement().setClassName(CssStyleConstants.hidden);
 				display.getAllInformation().setStyleName(noStyle);
 				display.getStaffInformation().setStyleName(noStyle);
 				display.getSysInformation().setStyleName(onStyle);
@@ -248,6 +262,7 @@ public class StaffHeavenIndexPresenterImpl extends
 				display.getQuietlyInformation().setStyleName(noStyle);
 				buildTable();
 				doSearch(BroadcastingCategory.SYSBROADCAST,null,false);
+				indexBroadcastingCategory=BroadcastingCategory.SYSBROADCAST;
 			}
 		});
 		display.getThemeInformation().addClickHandler(new ClickHandler() {
@@ -255,6 +270,7 @@ public class StaffHeavenIndexPresenterImpl extends
 			@Override
 			public void onClick(ClickEvent event) {
 				display.getReceiveQuietly().getElement().getParentElement().getParentElement().getParentElement().setClassName(CssStyleConstants.hidden);
+				display.getHeSay().getElement().getParentElement().getParentElement().getParentElement().setClassName(CssStyleConstants.hidden);
 				display.getAllInformation().setStyleName(noStyle);
 				display.getStaffInformation().setStyleName(noStyle);
 				display.getSysInformation().setStyleName(noStyle);
@@ -262,13 +278,14 @@ public class StaffHeavenIndexPresenterImpl extends
 				display.getQuietlyInformation().setStyleName(noStyle);
 				buildTable();
 				doSearch(BroadcastingCategory.THEMEBROADCAST,null,false);
+				indexBroadcastingCategory=BroadcastingCategory.THEMEBROADCAST;
 			}
 		});
 		display.getQuietlyInformation().addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				
+				display.getHeSay().getElement().getParentElement().getParentElement().getParentElement().setClassName(CssStyleConstants.hidden);
 				display.getReceiveQuietly().getElement().getParentElement().getParentElement().getParentElement().setClassName(ruietlyCss);
 				display.getReceiveQuietly().getElement().getParentElement().setClassName(onStylex);
 				display.getMyquietly().getElement().getParentElement().setClassName(noStylex);
@@ -279,6 +296,7 @@ public class StaffHeavenIndexPresenterImpl extends
 				display.getQuietlyInformation().setStyleName(onStyle);
 				buildTable();
 				doSearch(BroadcastingCategory.QUIETLYINFORMATION,null,false);
+				indexBroadcastingCategory=BroadcastingCategory.QUIETLYINFORMATION;
 			}
 		});
 		
@@ -291,6 +309,7 @@ public class StaffHeavenIndexPresenterImpl extends
 				display.getMyquietly().getElement().getParentElement().setClassName(noStylex);
 				buildTable();
 				doSearch(BroadcastingCategory.QUIETLYINFORMATION,null,false);
+				indexBroadcastingCategory=BroadcastingCategory.QUIETLYINFORMATION;
 			}
 		});
 		display.getMyquietly().addClickHandler(new ClickHandler() {
@@ -301,6 +320,45 @@ public class StaffHeavenIndexPresenterImpl extends
 				display.getMyquietly().getElement().getParentElement().setClassName(onStylex);
 				buildTable();
 				doSearch(BroadcastingCategory.QUIETLYINFORMATION,sessionManager.getSession().getToken(),true);
+				indexBroadcastingCategory=BroadcastingCategory.QUIETLYINFORMATION;
+			}
+		});
+		
+		display.getHeSay().addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				
+				display.getHeSay().getElement().getParentElement().setClassName(onStylex);
+				display.getMySay().getElement().getParentElement().setClassName(noStylex);
+
+
+				buildTable();
+				doSearch(BroadcastingCategory.STAFFBROADCAST,null,false);
+				indexBroadcastingCategory=BroadcastingCategory.STAFFBROADCAST;
+			}
+		});
+		display.getMySay().addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+
+				display.getHeSay().getElement().getParentElement().setClassName(noStylex);
+				display.getMySay().getElement().getParentElement().setClassName(onStylex);
+				buildTable();
+				doSearch(BroadcastingCategory.STAFFBROADCAST,sessionManager.getSession().getToken(),true);
+				indexBroadcastingCategory=BroadcastingCategory.STAFFBROADCAST;
+			}
+		});
+		
+		
+		display.getRefeshxx().addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				buildTable();
+				doSearch(indexBroadcastingCategory,sessionManager.getSession().getToken(),false);
+
 			}
 		});
 		buildTable();

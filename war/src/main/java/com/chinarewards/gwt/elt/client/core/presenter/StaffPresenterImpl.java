@@ -782,4 +782,10 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 		
 	}
 
+	@Override
+	public void setTopBroadcast(String text) {
+		display.setTopBroadcast(text);
+		
+	}
+
 }

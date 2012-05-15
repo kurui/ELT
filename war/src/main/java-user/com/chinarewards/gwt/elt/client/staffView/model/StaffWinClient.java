@@ -13,6 +13,8 @@ public class StaffWinClient implements Serializable, Comparable<StaffWinClient> 
 	String rewardName;
 	Date winTime;
 	String presentedName;
+	double integral;
+	
 
 	public String getRewardName() {
 		return rewardName;
@@ -31,6 +33,14 @@ public class StaffWinClient implements Serializable, Comparable<StaffWinClient> 
 	}
 	public void setPresentedName(String presentedName) {
 		this.presentedName = presentedName;
+	}
+	
+	
+	public double getIntegral() {
+		return integral;
+	}
+	public void setIntegral(double integral) {
+		this.integral = integral;
 	}
 	public StaffWinClient() {
 

@@ -112,6 +112,8 @@ public class StaffWidget extends Composite implements StaffDisplay {
 	Anchor allRewardItem;
 	@UiField
 	InlineLabel integralMessage;
+	@UiField
+	InlineLabel topBroadcast;
 	
 	// Set the format of datepicker.
 	DateTimeFormat dateFormat = DateTimeFormat
@@ -572,5 +574,11 @@ public class StaffWidget extends Composite implements StaffDisplay {
 	@Override
 	public Hidden getRewardWidgetAction() {
 		return rewardWidgetAction;
+	}
+
+	@Override
+	public void setTopBroadcast(String text) {
+		topBroadcast.setText(text);
+		
 	}
 }

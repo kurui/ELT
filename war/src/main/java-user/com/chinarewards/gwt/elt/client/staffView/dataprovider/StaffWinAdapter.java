@@ -32,19 +32,6 @@ public class StaffWinAdapter extends BaseDataProvider<StaffWinClient> {
 	}
 
 	public void fetchData(final int start, final int length) {
-		// if (!GWT.isScript()) {
-		// List<StaffWinClient> list = new ArrayList<StaffWinClient>();
-		// for (int i = start; i < start + length; i++) {
-		// StaffWinClient item = new StaffWinClient();
-		// item.setId("id" + i);
-		// item.setName("rewards" + i);
-		// //item.setStatus(StaffListStatus.TO_BE_ISSUE);
-		// list.add(item);
-		// }
-		//
-		// updateRowData(start, list);
-		// updateRowCount(100, true);
-		// } else {
 		PaginationDetailClient pagination = new PaginationDetailClient();
 		pagination.setStart(start);
 		pagination.setLimit(length);

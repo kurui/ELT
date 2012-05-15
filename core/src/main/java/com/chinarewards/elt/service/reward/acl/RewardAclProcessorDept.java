@@ -241,6 +241,9 @@ public class RewardAclProcessorDept extends AbstractRewardAclProcessor {
 			departmentIds.addAll(allDepartmentIds);
 
 			logger.debug(" This Hruser manager department.id:" + departmentIds);
+			
+		
+			
 			res = rewardsDao
 					.searchRewards_departmentId(departmentIds, criteria);
 		}
