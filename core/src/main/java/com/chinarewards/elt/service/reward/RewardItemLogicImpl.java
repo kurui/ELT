@@ -578,7 +578,7 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 		List<RewardItem> autoItems = fetchAutoGenerateRewardItem(flagTime);
 		logger.debug("This time will run {} rewardItems total automatic!",
 				autoItems.size());
-		SysUser caller = userLogic.getDefaultUser();
+	//	SysUser caller = userLogic.getDefaultUser();
 		for (RewardItem item : autoItems) {
 			// this time to run
 			Date thisRunTime = item.getNexRunBatchTime();
@@ -587,8 +587,8 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 			boolean isRunnable = true;
 			while (flagTime.after(thisRunTime) && errorTimes < 3 && isRunnable) {
 				try {
-					Date nextRunTime = calNextRunBatchTime(item.getId());
-					rewardLogic.awardFromRewardItem(caller, item.getId(),
+					Date nextRunTime = calNextRunBatchTime(item.getId());		
+					rewardLogic.awardFromRewardItem(item.getCreatedBy(), item.getId(),
 							flagTime);
 					// update next run batch date
 					item.setNexRunBatchTime(nextRunTime);
@@ -678,7 +678,7 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 	public void runAutoRewardGeneratorByRewardItem(Date flagTime,
 			String RewardItemid) {
 
-		SysUser caller = userLogic.getDefaultUser();
+	//	SysUser caller = userLogic.getDefaultUser();
 		RewardItem item = rewardItemDao
 				.findById(RewardItem.class, RewardItemid);
 		// this time to run
@@ -689,7 +689,7 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 		while (flagTime.after(thisRunTime) && errorTimes < 3 && isRunnable) {
 			try {
 				Date nextRunTime = calNextRunBatchTime(item.getId());
-				rewardLogic.awardFromRewardItem(caller, item.getId(), flagTime);
+				rewardLogic.awardFromRewardItem(item.getCreatedBy(), item.getId(), flagTime);
 				// update next run batch date
 				item.setNexRunBatchTime(nextRunTime);
 				// update publish date and expect award date
