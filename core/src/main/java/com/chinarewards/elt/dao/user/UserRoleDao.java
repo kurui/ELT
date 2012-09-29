@@ -27,5 +27,14 @@ public class UserRoleDao extends BaseDao<SysUserRole> {
 				.setParameter("UserRoleName", UserRoleName).getResultList();
 	}
 
-	
+	/**
+	 * 物理删除
+	 * @param staffId
+	 * @return
+	 */
+	public int deleteSysUserRoleByUserId(String userId) {
+		return getEmNoFlush()
+				.createQuery("DELETE FROM SysUserRole win WHERE win.user.id=:userId ")
+				.setParameter("userId", userId).executeUpdate();
+	}
 }

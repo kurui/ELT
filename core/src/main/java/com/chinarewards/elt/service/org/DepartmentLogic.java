@@ -67,29 +67,9 @@ public interface DepartmentLogic {
 	 */
 	public boolean isLeaf(Department department);
 
-	/**
-	 * Get the immediacy children departments.It means if A has son B and C and
-	 * B has son D, you just get the list containing A and B. If you want to get
-	 * the whole children containing D. You should use
-	 * {@link #getWholeChildren(String)}.
-	 * 
-	 * @param deptId
-	 * @return
-	 */
-	public List<Department> getImmediacyChildren(String deptId);
 
-	/**
-	 * Get the whole children departments. It is not only contain the immediacy
-	 * departments and the every sub nodes.
-	 * 
-	 * @param deptId
-	 * @param containItSelf
-	 *            true - contain itself <br>
-	 *            false - contain no itself
-	 * @return
-	 */
-	public List<Department> getWholeChildren(String deptId,
-			boolean containItSelf);
+
+
 
 	/**
 	 * Get the whole children id.
@@ -100,7 +80,6 @@ public interface DepartmentLogic {
 	 * @param containItSelf
 	 * @return
 	 */
-	public List<String> getWholeChildrenIds(String deptId, boolean containItSelf);
 
 	/**
 	 * Get immediacy departments of the specified corporation. e.g. a
@@ -182,12 +161,7 @@ public interface DepartmentLogic {
 	public String mergeDepartment(UserContext uc, String departmentIds,String departmentName,String leaderId);
 
 
-	/**
-	 * @param deptId
-	 * @param containItSelf
-	 * @return
-	 */
-	public List<String> getWholeChildrenNames(String deptId, boolean containItSelf);
+
 	
 	/**
 	 *获取部门.查询.key(name).去掉根部门
@@ -196,5 +170,24 @@ public interface DepartmentLogic {
 	 * @return
 	 */
 	public List<Department> getDepartmentsOfCorporationAndKey(String corporationId,String key);
+	/**
+	 * 根据部门名称查询部门
+	 * @param name
+	 * @return
+	 */
+	public Department findDepartmentByName(String name);
+	
+//	public List<String> getWholeChildrenNames(String deptId, boolean containItSelf);
+//	public List<Department> getWholeChildren(String deptId,
+//	boolean containItSelf);
+//public List<String> getWholeChildrenIds(String deptId, boolean containItSelf);
+	public List<Department> getImmediacyChildren(String deptId,boolean containItSelf);
+	public List<String> getImmediacyChildrenNames(String deptId,boolean containItSelf);
+	public List<String> getImmediacyChildrenIds(String deptId,boolean containItSelf);
+
+	public List<Department> getAllChildren(String deptId, boolean containItSelf);
+
+	public List<String> getAllChildrenIds(String deptId, boolean containItSelf);
+	public List<String> getAllChildrenNames(String deptId, boolean containItSelf);
 	
 }

@@ -3,6 +3,7 @@ package com.chinarewards.gwt.elt.client.rewardItem.presenter;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import com.chinarewards.gwt.elt.client.mvp.Display;
 import com.chinarewards.gwt.elt.client.mvp.Presenter;
@@ -15,6 +16,7 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -137,5 +139,11 @@ public interface RewardsItemCreatePresenter extends Presenter<RewardsItemCreateP
 		List<String> getNominateIds();
 		void setRewardBackButtonDisplay(boolean status);
 		void setRewardButtonDisplay(boolean status);
+		
+		public void initDepart(Map<String, String> map);
+		String getDepart();
+		
+		void setDisplay();
+		public ListBox getManageDep();
 	}
 }

@@ -3,8 +3,11 @@ package com.chinarewards.elt.service.budget;
 
 import java.util.List;
 
+import com.chinarewards.elt.domain.budget.AskBudget;
 import com.chinarewards.elt.domain.budget.CorpBudget;
 import com.chinarewards.elt.domain.budget.DepartmentBudget;
+import com.chinarewards.elt.domain.reward.base.Reward;
+import com.chinarewards.elt.model.budget.search.AskBudgetVo;
 import com.chinarewards.elt.model.budget.search.DepartmentBudgetVo;
 import com.chinarewards.elt.model.budget.search.IntegralManagementVo;
 import com.chinarewards.elt.model.common.PageStore;
@@ -33,8 +36,22 @@ public interface BudgetService {
 	 * @return
 	 */
 	public DepartmentBudget saveDepartmentBudget(UserContext context, DepartmentBudget budget);
+	
+	/**
+	 * 部门申请预算
+	 * @param context
+	 * @param order
+	 * @return
+	 */
+	public AskBudget saveAskBudget(UserContext context, AskBudget budget);
 
-
+	/**
+	 * 部门申请预算审批
+	 * @param context
+	 * @param order
+	 * @return
+	 */
+	public AskBudget approveBudget(UserContext context, AskBudget budget);
 	/**
 	 * 查找根据企业财年预算ID
 	 * @param id
@@ -71,6 +88,12 @@ public interface BudgetService {
 	 * @return
 	 */
 	public DepartmentBudget findDepartmentBudgetById(String id);
+	/**
+	 * 根据ID得到申请预算内容
+	 * @param id
+	 * @return
+	 */
+	public AskBudget findAskBudgetById(String id);
 	
 	
 	/**
@@ -86,6 +109,13 @@ public interface BudgetService {
 	 * @return
 	 */
 	public PageStore<DepartmentBudgetVo> deptBudgetList(UserContext context,DepartmentBudgetVo deptBudgetVo);
+	/**
+	 * 部门申请预算列表
+	 * @param context
+	 * @param CorpBudget
+	 * @return
+	 */
+	public PageStore<AskBudgetVo> askBudgetList(UserContext context,AskBudgetVo askBudgetVo);
 
   /**
    * 是否存在同一财年和部门的数据,如果有就返回ID，没有返回空
@@ -107,9 +137,14 @@ public interface BudgetService {
 	 * @param corpBudgetId
 	 * @return
 	 */
-	public DepartmentBudget findDepartmentBudgetByDepartmentId(String departmentId,
-			String corpBudgetId);
-
-	
+	public DepartmentBudget findDepartmentBudgetByDepartmentId(String departmentId,	String corpBudgetId);
+   //颁奖扣预算积分
+	/**
+	 * 
+	 * @param rewardId  奖励ID
+	 * @param integral  消用的积分
+	 * @return    success =成功  fail =失败
+	 */
+	public String updateBudget(String rewardId,double integral);
 
 }

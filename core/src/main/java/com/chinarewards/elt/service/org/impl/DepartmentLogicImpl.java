@@ -97,69 +97,29 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 		}
 
 		if (StringUtil.isEmptyString(department.getId())) {
-			department.setLft(parent.getRgt());
-			department.setRgt(parent.getRgt() + 1);
-
 			department.setCreatedAt(DateUtil.getTime());
 			department.setCreatedBy(caller);
 			department.setDeleted(false);
 			departmentDao.save(department);
-
-			int index = parent.getRgt();
-			departmentDao.maintainIndexAfterAddNode(index, corporation.getId());// maintain
-																				// index
 		} else {
 			Department tempDepartment = departmentDao.findById(
 					Department.class, department.getId());
+			
+			tempDepartment.setParent(department.getParent());
 
 			tempDepartment.setName(department.getName());
 			tempDepartment.setLastModifiedAt(DateUtil.getTime());
-			tempDepartment.setLastModifiedBy(caller);			
-			tempDepartment=departmentDao.update(tempDepartment);
+			tempDepartment.setLastModifiedBy(caller);
 			
-			List<Department> childDepts = departmentDao.findDepartmentsByLefRgt(
-					tempDepartment.getLft(), tempDepartment.getRgt());
-			
-			tempDepartment=updateTreeAschangeParent(tempDepartment,department);
-			
-			for (int i = 0; i < childDepts.size(); i++) {
-				Department child=childDepts.get(i);
-				updateTreeAschangeParent(child, tempDepartment);
-			}			
+			tempDepartment=departmentDao.update(tempDepartment);	
 		}
-
-		departmentDao.checkNoChildNode();
+		
+		departmentDao.refactorDepartmentTree(corporation.getId());
 		
 		return department;
 	}
 	
 
-	/**
-	 * 更改上级部门
-	 * 
-	 * */
-	private Department updateTreeAschangeParent(Department oldDepartment,
-			Department thisDepartment) {
-		Department thisParent=oldDepartment.getParent();
-		
-		Department targetParent=thisDepartment.getParent();
-		
-		oldDepartment.setParent(targetParent);
-		oldDepartment.setLft(targetParent.getRgt()+1);
-		oldDepartment.setRgt(targetParent.getRgt()+3);
-		
-		thisParent.setRgt(thisParent.getRgt()-1);
-		
-		targetParent.setRgt(targetParent.getRgt()+3);
-		
-		departmentDao.update(oldDepartment);
-		departmentDao.update(thisParent);
-		departmentDao.update(targetParent);
-				
-		return oldDepartment;
-	}
-	
-	
 
 	@Override
 	public String mergeDepartment(UserContext uc, String departmentIds,
@@ -188,9 +148,9 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 			throw new IllegalArgumentException("Can not find the root parent.");
 		}
 
-		int index = parent.getRgt();
-		// maintain index
-		departmentDao.maintainIndexAfterAddNode(index, corporation.getId());
+//		int index = parent.getRgt();
+//		// maintain index
+//		departmentDao.maintainIndexAfterAddNode(index, corporation.getId());
 
 		Date now = DateUtil.getTime();
 		Department dept = new Department();
@@ -229,9 +189,11 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 		departmentManagerDao.deleteManager(deptId);
 
 		// maintain index
-		departmentDao.maintainIndexAfterDeleteNode(index, corpId);
+//		departmentDao.maintainIndexAfterDeleteNode(index, corpId);
+//		
+//		departmentDao.checkNoChildNode();
 		
-		departmentDao.checkNoChildNode();
+		departmentDao.refactorDepartmentTree(corpId);
 
 		return department.getId();
 	}
@@ -255,46 +217,63 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 		return dept;
 	}
 
+	/**
+	 * 获取直接下级
+	 * */
 	@Override
-	public List<Department> getImmediacyChildren(String deptId) {
-
-		return departmentDao.findDepartmentsByParentId(deptId);
-	}
-
-	@Override
-	public List<Department> getWholeChildren(String deptId,
-			boolean containItSelf) {
-		Department dept = departmentDao.findById(Department.class, deptId);
-		logger.debug("Prepare to search by lft={} and rgt={}", new Object[] {
-				dept.getLft(), dept.getRgt() });
-		List<Department> depts = departmentDao.findDepartmentsByLefRgt(
-				dept.getLft(), dept.getRgt());
+	public List<Department> getImmediacyChildren(String deptId,boolean containItSelf) {
+		Department rootdept = departmentDao.findById(Department.class, deptId);
+		
+		List<Department> depts=departmentDao.findDepartmentsByParentId(deptId);
 		if (containItSelf) {
-			depts.add(dept);
+			depts.add(rootdept);
 		}
 		return depts;
 	}
-
+	
 	@Override
-	public List<String> getWholeChildrenIds(String deptId, boolean containItSelf) {
+	public List<String> getImmediacyChildrenNames(String deptId,boolean containItSelf) {
 		List<String> list = new ArrayList<String>();
-		List<Department> depts = getWholeChildren(deptId, containItSelf);
-		for (Department dept : depts) {
-			list.add(dept.getId());
-		}
-		return list;
-	}
+		List<Department> depts=getImmediacyChildren(deptId,containItSelf);
 
-	@Override
-	public List<String> getWholeChildrenNames(String deptId,
-			boolean containItSelf) {
-		List<String> list = new ArrayList<String>();
-		List<Department> depts = getWholeChildren(deptId, containItSelf);
 		for (Department dept : depts) {
 			list.add(dept.getName());
 		}
 		return list;
 	}
+
+	@Override
+	public List<String> getImmediacyChildrenIds(String deptId,boolean containItSelf) {
+		List<String> list = new ArrayList<String>();
+			
+		List<Department> depts = getImmediacyChildren(deptId,containItSelf);
+		
+		for (Department dept : depts) {
+			list.add(dept.getId());
+		}
+		
+		return list;
+	}
+	
+	
+	@Override
+	public List<Department> getAllChildren(String deptId,
+			boolean containItSelf) {
+		return departmentDao.getAllChildren(deptId, containItSelf);
+	}
+	
+	
+	@Override
+	public List<String> getAllChildrenIds(String deptId, boolean containItSelf) {
+		return departmentDao.getAllChildrenIds(deptId, containItSelf);
+	}
+
+	@Override
+	public List<String> getAllChildrenNames(String deptId,
+			boolean containItSelf) {
+		return departmentDao.getAllChildrenNames(deptId, containItSelf);
+	}	
+	
 
 	@Override
 	public List<Department> getImmediacyDepartmentsOfCorporation(
@@ -324,7 +303,6 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 
 	@Override
 	public Department save(SysUser caller, Department department) {
-		Date currTime = DateUtil.getTime();
 
 		if (StringUtil.isEmptyString(department.getId())) {
 			// Create
@@ -376,7 +354,7 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 
 		return volist;
 	}
-
+   
 	@Override
 	public List<DepartmentManageVo> getDepartmentLeaderList(String leaderId,
 			String corporcationId) {
@@ -419,6 +397,11 @@ public class DepartmentLogicImpl implements DepartmentLogic {
 			String corporationId, String key) {
 		return departmentDao.getDepartmentsOfCorporationAndKey(corporationId,
 				key);
+	}
+
+	@Override
+	public Department findDepartmentByName(String name) {
+		return departmentDao.findDepartmentsByName(name);
 	}
 
 }

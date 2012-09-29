@@ -114,7 +114,10 @@ public class TreeItem extends Widget implements HasHTML {
 	      DOM.setStyleAttribute(item.getElement(), "marginLeft", (d * 16) + "px");
 	    }
 	    if (table != null) {
-	      table.insertItem(item, getRow() + getChildCount());
+	    	int index=getRow() + getChildCount();
+	    	if(index!=0 && table.getRowCount()!=0 && index<table.getRowCount())
+	    		index=table.getRowCount();
+	      table.insertItem(item, index);
 	      table.updateRowCache();
 	      table.updateVisibility(item);
 	    }

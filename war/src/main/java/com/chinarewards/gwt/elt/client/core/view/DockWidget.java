@@ -412,4 +412,22 @@ public class DockWidget extends Composite implements DockDisplay {
 		
 	}
 
+	@Override
+	public void displayAwardMgrMenu() {
+		btnGb.setVisible(false);
+		btnGb.getElement().getParentElement().addClassName(CssStyleConstants.hidden);
+		btnGift.setVisible(false);
+		btnGift.getElement().getParentElement().addClassName(CssStyleConstants.hidden);
+		btnRewardItem.setVisible(false);
+		btnRewardItem.getElement().getParentElement().addClassName(CssStyleConstants.hidden);
+		btnStaff.setVisible(false);
+		btnStaff.getElement().getParentElement().addClassName(CssStyleConstants.hidden);
+		btnSetting.setVisible(false);
+		btnSetting.getElement().getParentElement().addClassName(CssStyleConstants.hidden);
+		btnIntegral.setVisible(false);
+		btnIntegral.getElement().getParentElement().addClassName(CssStyleConstants.hidden);
+		btnEmail.setVisible(false);
+		btnEmail.getElement().getParentElement().addClassName(CssStyleConstants.hidden);
+	}
+
 }

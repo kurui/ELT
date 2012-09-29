@@ -1,5 +1,7 @@
 package com.chinarewards.elt.service.gift;
 
+import java.util.List;
+
 import com.chinarewards.elt.domain.gift.Gift;
 import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.gift.search.GiftListVo;
@@ -41,6 +43,8 @@ public interface GiftService {
 	 * @return
 	 */
 	public PageStore<GiftListVo> giftList(UserContext context,GiftListVo giftListVo);
+	
+	public List<GiftListVo> exportGiftList(UserContext context, GiftListVo giftVo);
 
 	/**
 	 * 上下架
@@ -48,4 +52,6 @@ public interface GiftService {
 	 * @return
 	 */
 	public String updateStatus(String id,GiftStatus status);
+
+
 }

@@ -139,6 +139,8 @@ public class ChooseStaffWinPresenterImpl extends
 			public void onSelectionChange(SelectionChangeEvent event) {
 				StaffClient staff = selectionModel.getSelectedObject();
 				if (!display.getSpecialTextBox().containsItem(staff)) {
+					if(staffOnly)
+						display.getSpecialTextBox().clear();
 					display.getSpecialTextBox().addItem(staff);
 				}
 			}

@@ -19,7 +19,9 @@ import com.chinarewards.elt.model.vo.StaffSearchVo.MultipleIdParam;
 import com.chinarewards.elt.model.vo.StaffSearchVo.OneIdParam;
 import com.chinarewards.elt.model.vo.WinnersRecordQueryResult;
 import com.chinarewards.elt.model.vo.WinnersRecordQueryVo;
+import com.chinarewards.elt.tx.service.TransactionService;
 import com.chinarewards.elt.util.StringUtil;
+import com.google.inject.Inject;
 
 /**
  * Dao of {@link Staff}
@@ -28,6 +30,15 @@ import com.chinarewards.elt.util.StringUtil;
  * @since 1.0
  */
 public class StaffDao extends BaseDao<Staff> {
+	
+	DepartmentDao departmentDao;
+	
+	@Inject
+	public StaffDao(DepartmentDao departmentDao) {
+		this.departmentDao = departmentDao;
+	}
+
+	
 	public class QueryStaffPageActionResult {
 
 		private int total;
@@ -103,10 +114,19 @@ public class StaffDao extends BaseDao<Staff> {
 				new Object[] { corpId, lft, rgt });
 		return getEm()
 				.createQuery(
-						"FROM Staff s WHERE s.corporation.id =:corpId AND s.department.lft = :lft AND s.department.rgt = :rgt")
+						"FROM Staff s WHERE s.corporation.id =:corpId AND s.department.lft >= :lft AND s.department.rgt <= :rgt")
 				.setParameter("corpId", corpId).setParameter("lft", lft)
 				.setParameter("rgt", rgt).getResultList();
 	}
+	
+//	public List<Staff> findStaffsByDeptId(String deptId,boolean containItSelf) {
+//		List<String> deptIds=departmentDao.getAllChildrenIds(deptId, containItSelf);
+//		
+//		return getEm()
+//				.createQuery(
+//						"FROM Staff s WHERE  s.department.id in(:deptIds)")
+//				.setParameter("deptIds", deptIds).getResultList();
+//	}
 
 	public QueryStaffPageActionResult queryStaffPageAction(
 			StaffSearchVo searchVo) {
@@ -202,7 +222,7 @@ public class StaffDao extends BaseDao<Staff> {
 			hql.append(" AND staff.department.id = :deptId ");
 			param.put("deptId", searchVo.getDeptId());
 		}
-		if (searchVo.getStatus() != null) {
+		if (searchVo.getStatus() != null && searchVo.getStatus() !=StaffStatus.HIDE) {
 			hql.append(" AND staff.status = :status ");
 			param.put("status", searchVo.getStatus());
 		}
@@ -229,8 +249,17 @@ public class StaffDao extends BaseDao<Staff> {
 			}
 
 		}
-		hql.append(" AND staff.deleted = :deleted ");
-		param.put("deleted", 0);
+		
+		if(searchVo.getStatus()!=null && searchVo.getStatus() ==StaffStatus.HIDE)
+		{
+			hql.append(" AND staff.deleted = :deleted ");
+			param.put("deleted", 1);
+		}
+		else
+		{
+			hql.append(" AND staff.deleted = :deleted ");
+			param.put("deleted", 0);
+		}
 
 		// ORDER BY
 		if (SEARCH.equals(type)) {
@@ -478,7 +507,7 @@ public class StaffDao extends BaseDao<Staff> {
 	@SuppressWarnings("unchecked")
 	public List<Staff> findStaffsByNotUser(List<String> staffIds) {
 		return getEm().createQuery(
-				"SELECT s FROM Staff s WHERE s.deleted !=1 AND  s.id  not IN (:staffIds)").setParameter("staffIds",staffIds)
+				"SELECT s FROM Staff s WHERE s.deleted !=1 AND s.status= (:staffStatus) AND  s.id  not IN (:staffIds)").setParameter("staffIds",staffIds).setParameter("staffStatus", StaffStatus.JOB)
 				.getResultList();
 	}
 	public Integer findNotDeleteStaffsNumberBycorporationId(String corporationId) {
@@ -513,5 +542,15 @@ public class StaffDao extends BaseDao<Staff> {
 				.createQuery(
 						"FROM Staff s WHERE s.corporation.id = :corporationId  and s.deleted=0 ")
 				.setParameter("corporationId", corporationId).getResultList();
+	}
+	/**
+	 * 物理删除
+	 * @param staffId
+	 * @return
+	 */
+	public int deleteStaffByStaffId(String staffId) {
+		return getEmNoFlush()
+				.createQuery("DELETE FROM Staff win WHERE win.id=:staffId ")
+				.setParameter("staffId", staffId).executeUpdate();
 	}
 }

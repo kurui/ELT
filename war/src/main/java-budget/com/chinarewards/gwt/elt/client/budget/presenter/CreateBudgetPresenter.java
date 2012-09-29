@@ -32,5 +32,8 @@ public interface CreateBudgetPresenter extends Presenter<CreateBudgetPresenter.C
 		String getDepart();
 		void setBreadCrumbs(Widget breadCrumbs);
 		ListBox getPageNumber();
+		ListBox getManageDep();
+		public void initManageDepart(Map<String, String> map);
+		void setDisplay();
 	}
 }

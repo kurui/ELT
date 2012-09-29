@@ -1,14 +1,19 @@
 package com.chinarewards.gwt.elt.client.awardReward.view;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.chinarewards.gwt.elt.client.awardReward.presenter.AwardRewardPresenter.AwardRewardDisplay;
+import com.chinarewards.gwt.elt.client.rewards.model.OrganicationClient;
+import com.chinarewards.gwt.elt.client.view.OrganizationSpecialTextArea;
+import com.chinarewards.gwt.elt.client.widget.SpecialTextArea;
 import com.chinarewards.gwt.elt.model.nominate.JudgeParamVo;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Label;
@@ -20,6 +25,9 @@ public class AwardRewardWidget extends Composite implements AwardRewardDisplay {
 
 	@UiField
 	Button nominatebutton;
+	@UiField
+	Button notWinbutton;
+	
 	@UiField
 	Label name;
 	@UiField
@@ -58,7 +66,18 @@ public class AwardRewardWidget extends Composite implements AwardRewardDisplay {
 	Panel staffPanel;
 	@UiField
 	Panel breadCrumbs;
+	@UiField
+	CheckBox emailCheckbox;
+	@UiField
+	CheckBox messageCheckbox;
+
+	@UiField
+	Button chooseBtns;
+
+	@UiField
+	Panel staffAreaPanel;
 	
+	SpecialTextArea<OrganicationClient> staffTextArea;
 	private static AwardRewardWidgetUiBinder uiBinder = GWT
 			.create(AwardRewardWidgetUiBinder.class);
 
@@ -67,6 +86,8 @@ public class AwardRewardWidget extends Composite implements AwardRewardDisplay {
 
 	public AwardRewardWidget() {
 		initWidget(uiBinder.createAndBindUi(this));
+		 staffTextArea = new OrganizationSpecialTextArea();		
+		 staffAreaPanel.add(staffTextArea);
 	}
 
 	@Override
@@ -178,5 +199,37 @@ public class AwardRewardWidget extends Composite implements AwardRewardDisplay {
 		this.breadCrumbs.clear();
 		this.breadCrumbs.add(breadCrumbs);
 		
+	}
+
+	@Override
+	public HasClickHandlers getNotWinClickHandlers() {
+		return notWinbutton;
+	}
+	@Override
+	public CheckBox getEmailCheckbox() {
+		return emailCheckbox;
+	}
+
+	@Override
+	public CheckBox getMessageCheckbox() {
+		return messageCheckbox;
+	}
+
+	@Override
+	public HasClickHandlers getChooseStaffBtnClick() {
+		return chooseBtns;
+	}
+	@Override
+	public SpecialTextArea<OrganicationClient> getSpecialTextArea() {
+		return staffTextArea;
+	}
+	@Override
+	public List<String> getRealOrginzationIds() {
+		List<String> realOrginzationIds = new ArrayList<String>();
+		List<OrganicationClient> existKeys = staffTextArea.getItemList();
+		for (OrganicationClient key : existKeys) {
+			realOrginzationIds.add(key.getId());
+		}
+		return realOrginzationIds;
 	}
 }

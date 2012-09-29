@@ -1,5 +1,6 @@
 package com.chinarewards.gwt.elt.client.rewardItem.presenter;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
@@ -34,6 +35,7 @@ import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.widget.Sorting;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.client.win.confirm.ConfirmHandler;
+import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.google.gwt.cell.client.DateCell;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
@@ -137,10 +139,16 @@ public class RewardsItemStoreListPresenterImpl extends
 	// init department name
 	private void init() {
 		
-		initDeparts();
+		
+		List<UserRoleVo> roles = Arrays.asList(sessionManager.getSession().getUserRoles());
+		if(roles.contains(UserRoleVo.CORP_ADMIN)){
+			
+			initDeparts("1");//一级部门
+		}else
+			initDeparts("2"); //得到所管部门
 	}
-	private void initDeparts(){
-		   dispatch.execute(new InitDepartmentRequest(sessionManager.getSession()),
+	private void initDeparts(String type){
+		   dispatch.execute(new InitDepartmentRequest(sessionManager.getSession(),type),
 					new AsyncCallback<InitDepartmentResponse>() {
 			          	@Override
 						public void onFailure(Throwable arg0) {
@@ -153,7 +161,7 @@ public class RewardsItemStoreListPresenterImpl extends
 							 List<DepartmentVo> list = response.getResult();
 							 Map<String, String> map = new HashMap<String, String>();
 							 DepartmentVo vo = new DepartmentVo();
-							 if(list.size()>0){
+							 if(list!=null&&list.size()>0){
 								 for(int i=0;i<list.size();i++){
 									   vo = list.get(i);
 									   map.put(vo.getId(), vo.getDepartmentName());

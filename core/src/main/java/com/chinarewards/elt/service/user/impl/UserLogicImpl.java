@@ -6,14 +6,17 @@ import java.util.List;
 
 import com.chinarewards.elt.dao.org.CorporationDao;
 import com.chinarewards.elt.dao.org.StaffDao;
+import com.chinarewards.elt.dao.reward.JudgeDao;
 import com.chinarewards.elt.dao.user.RoleDao;
 import com.chinarewards.elt.dao.user.UserDao;
 import com.chinarewards.elt.dao.user.UserRoleDao;
 import com.chinarewards.elt.domain.org.Corporation;
 import com.chinarewards.elt.domain.org.Staff;
+import com.chinarewards.elt.domain.reward.person.Judge;
 import com.chinarewards.elt.domain.user.SysUser;
 import com.chinarewards.elt.domain.user.SysUserRole;
 import com.chinarewards.elt.model.user.SearchUserInfo;
+import com.chinarewards.elt.model.user.UserContext;
 import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.model.user.UserSearchCriteria;
 import com.chinarewards.elt.model.user.UserSearchResult;
@@ -41,6 +44,7 @@ public class UserLogicImpl implements UserLogic {
 
 	UserDao userDao;
 	StaffDao staffDao;
+	JudgeDao judgeDao;
 	CorporationDao corporationDao;
 	RoleDao roleDao;
 	UserRoleDao userRoleDao;
@@ -48,13 +52,14 @@ public class UserLogicImpl implements UserLogic {
     MD5 md5 =new  MD5();
 	@Inject
 	public UserLogicImpl(UserDao userDao, CorporationDao corporationDao,RoleDao roleDao,
-			UserRoleDao userRoleDao, StaffDao staffDao,StaffLogic staffLogic) {
+			UserRoleDao userRoleDao, StaffDao staffDao,StaffLogic staffLogic,JudgeDao judgeDao) {
 		this.userDao = userDao;
 		this.corporationDao = corporationDao;
 		this.roleDao=roleDao;
 		this.userRoleDao = userRoleDao;
 		this.staffDao = staffDao;
 		this.staffLogic=staffLogic;
+		this.judgeDao=judgeDao;
 	}
 
 	@Override
@@ -181,6 +186,7 @@ public class UserLogicImpl implements UserLogic {
 		if(user.getStaff().getDepartment()!=null)
 		vo.setDepartmentId(user.getStaff().getDepartment().getId());
 		vo.setStaffId(user.getStaff().getId());
+		vo.setStaffName(user.getStaff().getName());
 		vo.setLastLoginRole(user.getLastLoginRole());
 		vo.setUserStatus(user.getStatus());
 		
@@ -375,6 +381,110 @@ public class UserLogicImpl implements UserLogic {
 		{
 			return true;
 		}
+	}
+
+	@Override
+	public boolean addUserAwardRole(String staffId, UserContext context) {
+		SysUser user=userDao.findUserByStaffId(staffId);
+		if(user!=null)
+		{
+			List<SysUserRole> userrole=userRoleDao.findUserRoleByUserId(user.getId());
+			boolean fal=true;
+			if (userrole.size() > 0) {
+				for (SysUserRole r : userrole) {
+					if (r.getRole().getName() == UserRole.AWARD)
+						fal=false;
+				}
+			}
+			if(fal)
+			{
+				SysUser nowuser=userDao.findUserById(context.getUserId());
+				
+				SysUserRole userRole = new SysUserRole();
+				userRole.setRole(roleDao.findRoleByRoleName(UserRole.AWARD));
+				userRole.setCreatedBy(nowuser);
+				userRole.setCreatedAt(DateUtil.getTime());
+				userRole.setLastModifiedAt(DateUtil.getTime());
+				userRole.setLastModifiedBy(nowuser);
+				userRole.setUser(user);
+				userRoleDao.createUserRole(userRole);
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public boolean deleteUserAwardRole(String userId) {
+
+			// 清除颁奖角色
+			List<SysUserRole> lt = userRoleDao.findUserRoleByUserId(userId);
+			if (lt!=null && lt.size() > 0) {
+				for (SysUserRole r : lt) {
+					if (r.getRole().getName() == UserRole.AWARD)
+					{
+						userRoleDao.delete(r);						
+					}
+				}
+				return true;
+			}
+		
+		return false;
+	}
+
+	@Override
+	public boolean addUserNominateRole(String staffId, UserContext context) {
+		SysUser user=userDao.findUserByStaffId(staffId);
+		if(user!=null)
+		{
+			List<SysUserRole> userrole=userRoleDao.findUserRoleByUserId(user.getId());
+			boolean fal=true;
+			if (userrole.size() > 0) {
+				for (SysUserRole r : userrole) {
+					if (r.getRole().getName() == UserRole.NOMINATE)
+						fal=false;
+				}
+			}
+			if(fal)
+			{
+				SysUser nowuser=userDao.findUserById(context.getUserId());
+				
+				SysUserRole userRole = new SysUserRole();
+				userRole.setRole(roleDao.findRoleByRoleName(UserRole.NOMINATE));
+				userRole.setCreatedBy(nowuser);
+				userRole.setCreatedAt(DateUtil.getTime());
+				userRole.setLastModifiedAt(DateUtil.getTime());
+				userRole.setLastModifiedBy(nowuser);
+				userRole.setUser(user);
+				userRoleDao.createUserRole(userRole);
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public boolean deleteUserNominateRole(String userId) {
+		
+		SysUser user=userDao.findUserById(userId);
+		if(user!=null)
+		{
+			List<Judge> ltj=judgeDao.findJudgesFromJudgeend(user.getStaff().getId());
+			if(ltj.size()<=0)
+			{
+				// 清除NOMINATE角色
+				List<SysUserRole> lt = userRoleDao.findUserRoleByUserId(userId);
+				if (lt!=null && lt.size() > 0) {
+					for (SysUserRole r : lt) {
+						if (r.getRole().getName() == UserRole.NOMINATE)
+						{
+							userRoleDao.delete(r);						
+						}
+					}
+					return true;
+				}
+			}
+		}
+	
+	return false;
 	}
 
 }

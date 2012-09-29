@@ -57,9 +57,13 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	@UiField
 	TextBox brand;
 	@UiField
+	TextBox model;
+	@UiField
 	TextBox photo;
 	@UiField
 	TextBox integral;
+	@UiField
+	TextBox price;
 	@UiField
 	TextBox stock;
 	@UiField
@@ -146,13 +150,18 @@ public class GiftWidget extends Composite implements GiftDisplay {
 		notes.setText(giftVo.getNotes());
 		initTypeSelect(giftVo.getType());
 		initStatusSelect(giftVo.getStatus().toString());
-
+        price.setText(giftVo.getPrice());
 		brand.setText(giftVo.getBrand());
+		model.setText(giftVo.getModel());
 		photo.setText(giftVo.getPhoto());
-		if (giftVo.getPhoto().indexOf(".") > 0) {
-			giftImage.setUrl("imageshow?imageName=" + giftVo.getPhoto());
-			giftImage.setVisible(true);
+		model.setText(giftVo.getModel());
+		if(!StringUtil.isEmpty(giftVo.getPhoto())){
+			if (giftVo.getPhoto().indexOf(".") > 0) {
+				giftImage.setUrl("imageshow?imageName=" + giftVo.getPhoto());
+				giftImage.setVisible(true);
+			}
 		}
+		
 		integral.setText(giftVo.getIntegral() + "");
 		stock.setText(giftVo.getStock() + "");
 
@@ -194,6 +203,8 @@ public class GiftWidget extends Composite implements GiftDisplay {
 		initStatusSelect("SHELVES");
 		supplyinner.setValue(false);
 		supplyoutter.setValue(true);
+		
+		price.setValue("0");
 
 	}
 
@@ -251,7 +262,10 @@ public class GiftWidget extends Composite implements GiftDisplay {
 	public HasValue<String> getName() {
 		return name;
 	}
-
+	@Override
+	public HasValue<String> getPrice() {
+		return price;
+	}
 	@Override
 	public void clear() {
 
@@ -284,7 +298,11 @@ public class GiftWidget extends Composite implements GiftDisplay {
 		// return null;
 		return address;
 	}
-
+	@Override
+	public HasValue<String> getModel() {
+		// return null;
+		return model;
+	}
 	@Override
 	public HasValue<String> getTell() {
 		return tell;

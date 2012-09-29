@@ -456,7 +456,7 @@ public class StaffListPresenterImpl extends
 				new GetValue<StaffListClient, String>() {
 					@Override
 					public String getValue(StaffListClient rewards) {
-						if(StringUtil.isEmpty(rewards.getUserId()))
+						if(StringUtil.isEmpty(rewards.getUserId()) && rewards.getStaffStatus()==StaffStatus.JOB)
 						return "<a style=\"color:bule;\" href=\"javascript:void(0);\">生成账户</a>";
 						else
 						return "<span  style='color: rgb(221, 221, 221);'>生成账户</span>";
@@ -466,7 +466,7 @@ public class StaffListPresenterImpl extends
 					@Override
 					public void update(int index, final StaffListClient o,
 							String value) {
-						if(StringUtil.isEmpty(o.getUserId()))
+						if(StringUtil.isEmpty(o.getUserId()) && o.getStaffStatus()==StaffStatus.JOB)
 						{
 						win.confirm("提示", "确定生成 <font color='blue'>"+o.getStaffName()+"</font> 的账户",new ConfirmHandler() {
 							
@@ -493,18 +493,21 @@ public class StaffListPresenterImpl extends
 					}}
 
 				});
-		cellTable.addColumn("操作", new HyperLinkCell(),
+		cellTable.addColumn("操作", new UniversalCell(),
 				new GetValue<StaffListClient, String>() {
 					@Override
 					public String getValue(StaffListClient rewards) {
-						return "重置密码";
+						if(!StringUtil.isEmpty(rewards.getUserId()) && rewards.getStaffStatus()!=StaffStatus.HIDE)
+						return "<a style=\"color:bule;\" href=\"javascript:void(0);\">重置密码</a>";
+						else
+						return "<span  style='color: rgb(221, 221, 221);'>重置密码</span>";
 					}
 				}, new FieldUpdater<StaffListClient, String>() {
 
 					@Override
 					public void update(int index, final StaffListClient o,
 							String value) {
-						
+						if(!StringUtil.isEmpty(o.getUserId()) && o.getStaffStatus()!=StaffStatus.HIDE)
 						win.confirm("提示", "确定重置 <font color='blue'>"+o.getStaffName()+"</font> 的密码", new ConfirmHandler() {
 							
 							@Override
@@ -555,26 +558,123 @@ public class StaffListPresenterImpl extends
 					}
 
 				});
-		cellTable.addColumn("操作", new HyperLinkCell(),
+		cellTable.addColumn("操作", new UniversalCell(),
 				new GetValue<StaffListClient, String>() {
 					@Override
 					public String getValue(StaffListClient rewards) {
-						return "删除";
+						if(rewards.getStaffStatus()!=StaffStatus.HIDE)
+						return "<a style=\"color:bule;\" href=\"javascript:void(0);\">隐藏</a>";
+						else
+						return "<span  style='color: rgb(221, 221, 221);'>隐藏</span>";
 					}
 				}, new FieldUpdater<StaffListClient, String>() {
 
 					@Override
 					public void update(int index, final StaffListClient o,String value) {
-							win.confirm("提示", "确定删除员工:"+o.getStaffName(),new ConfirmHandler() {
+						if(o.getStaffStatus()!=StaffStatus.HIDE)
+							win.confirm("提示", "确定隐藏员工:"+o.getStaffName()+"!(隐藏后自动离职)",new ConfirmHandler() {
 								
 								@Override
 								public void confirm() {
-									dispatch.execute(new DeleteStaffRequest(o.getStaffId(),sessionManager.getSession()),
+									dispatch.execute(new DeleteStaffRequest(o.getStaffId(),sessionManager.getSession(),"HIDE"),
 											new AsyncCallback<DeleteStaffResponse>() {
 
 												@Override
 												public void onFailure(Throwable t) {
 													win.alert(t.getMessage());
+												}
+
+												@Override
+												public void onSuccess(DeleteStaffResponse resp) {
+													if("success".equals(resp.getMessage()))
+													{
+														win.alert("隐藏成功!");
+														buildTable();
+														doSearch();
+													}
+													
+												}
+											});
+									
+								}
+							});
+					}
+
+				});
+		cellTable.addColumn("操作", new UniversalCell(),
+				new GetValue<StaffListClient, String>() {
+					@Override
+					public String getValue(StaffListClient rewards) {
+						if(rewards.getStaffStatus()==StaffStatus.HIDE)
+						return "<a style=\"color:bule;\" href=\"javascript:void(0);\">恢复</a>";
+						else
+						return "<span  style='color: rgb(221, 221, 221);'>恢复</span>";
+					}
+				}, new FieldUpdater<StaffListClient, String>() {
+
+					@Override
+					public void update(int index, final StaffListClient o,String value) {
+						if(o.getStaffStatus()==StaffStatus.HIDE)
+							win.confirm("提示", "确定恢复员工:"+o.getStaffName(),new ConfirmHandler() {
+								
+								@Override
+								public void confirm() {
+									dispatch.execute(new DeleteStaffRequest(o.getStaffId(),sessionManager.getSession(),"REST"),
+											new AsyncCallback<DeleteStaffResponse>() {
+
+												@Override
+												public void onFailure(Throwable t) {
+													win.alert(t.getMessage());
+												}
+
+												@Override
+												public void onSuccess(DeleteStaffResponse resp) {
+													if("success".equals(resp.getMessage()))
+													{
+														win.alert("恢复成功!");
+														buildTable();
+														doSearch();
+													}
+													
+												}
+											});
+									
+								}
+							});
+					}
+
+				});
+		cellTable.addColumn("操作", new UniversalCell(),
+				new GetValue<StaffListClient, String>() {
+					@Override
+					public String getValue(StaffListClient rewards) {
+						if(rewards.getStaffStatus()==StaffStatus.HIDE)
+						return "<a style=\"color:bule;\" href=\"javascript:void(0);\">删除</a>";
+						else
+						return "<span  style='color: rgb(221, 221, 221);'>删除</span>";
+					}
+				}, new FieldUpdater<StaffListClient, String>() {
+
+					@Override
+					public void update(int index, final StaffListClient o,String value) {
+						if(o.getStaffStatus()==StaffStatus.HIDE)
+							win.confirm("提示", "您确认要删除<font color='blue'>'"+o.getStaffName()+"'</font>这条员工记录吗？ 删除后无法恢复,将会删除以下信息:" +
+									"<br>1.获奖历史" +
+									"<br>2.广播" +
+									"<br>3.小组成员信息" +
+									"<br>4.管理的部门信息" +
+									"<br>5.提名人信息" +
+									"<br>6.被提名人信息" +
+									"<br>7.账户",new ConfirmHandler() {
+								
+								@Override
+								public void confirm() {
+									dispatch.execute(new DeleteStaffRequest(o.getStaffId(),sessionManager.getSession(),"DELETE"),
+											new AsyncCallback<DeleteStaffResponse>() {
+
+												@Override
+												public void onFailure(Throwable t) {
+													win.alert("有关联奖项数据,无法删除!");
 												}
 
 												@Override

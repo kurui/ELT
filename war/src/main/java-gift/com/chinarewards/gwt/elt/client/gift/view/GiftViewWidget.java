@@ -44,7 +44,8 @@ public class GiftViewWidget extends Composite implements GiftViewDisplay {
 	Label integral;
 	@UiField
 	Label stock;
-
+	@UiField
+	Label price;
 	@UiField
 	Label business;
 	@UiField
@@ -67,7 +68,8 @@ public class GiftViewWidget extends Composite implements GiftViewDisplay {
 	// @UiField
 	// DateBox updatetime;
 	// ---end vo
-
+	@UiField
+	Label model;
 	@UiField
 	Image giftImage;
 
@@ -121,13 +123,13 @@ public class GiftViewWidget extends Composite implements GiftViewDisplay {
 		notes.setText(giftVo.getNotes());
 		typeText.setText(giftVo.getTypeText());
 		brand.setText(giftVo.getBrand());
-
+        model.setText(giftVo.getModel());
 		giftImage.setUrl("imageshow?imageName=" + giftVo.getPhoto());
 		giftImage.setVisible(true);
 
 		integral.setText(giftVo.getIntegral() + "");
 		stock.setText(giftVo.getStock() + "");
-
+        price.setText(giftVo.getPrice());
 		source.setText(giftVo.getSourceText());
 
 		business.setText(giftVo.getBusiness());

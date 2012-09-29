@@ -2,7 +2,6 @@ package com.chinarewards.gwt.elt.client.mail.presenter;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
-import com.chinarewards.gwt.elt.client.broadcastSave.dialog.StaffChooseOrganizationListDialog;
 import com.chinarewards.gwt.elt.client.mail.model.MailVo;
 import com.chinarewards.gwt.elt.client.mail.request.MailRequest;
 import com.chinarewards.gwt.elt.client.mail.request.MailResponse;
@@ -18,7 +17,6 @@ import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
-import com.google.inject.Provider;
 
 public class MailSendPresenterImpl extends	BaseDialogPresenter<MailSendPresenter.MailSendDisplay> implements
 		MailSendPresenter {

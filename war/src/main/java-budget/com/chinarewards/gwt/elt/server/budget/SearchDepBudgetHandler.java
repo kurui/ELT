@@ -57,10 +57,11 @@ public class SearchDepBudgetHandler extends
 		uc.setUserId(request.getUserSession().getToken());
 		String type = request.getType();//all是显示全部的，pass显示超支的部门
 		budgetPage = budgetService.deptBudgetList(uc, serviceVo);
+		if(budgetPage!=null){
 		List<DepBudgetVo> listVo = adapterToClient(budgetPage.getResultList(),type);//从服务端转为客户端
 		resp.setTotal(listVo.size());
 		resp.setResult(listVo);
-
+	   }
 		return resp;
 	}
 
@@ -70,7 +71,7 @@ public class SearchDepBudgetHandler extends
 			vo.setBudgetIntegral(criteria.getBudgetIntegral());
 			vo.setCorpBudgetId(criteria.getCorpBudgetId());
 			vo.setDepartmentName(criteria.getDepartmentName());
-			
+			vo.setManageDepId(criteria.getManageDepId());
 			vo.setDepartmentId(criteria.getDepartmentId());
 		    vo.setUseIntegeral(criteria.getUseIntegeral());
 		    vo.setDeleted(0);//查没有删除的数据

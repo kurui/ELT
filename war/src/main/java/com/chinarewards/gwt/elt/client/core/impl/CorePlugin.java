@@ -10,10 +10,13 @@ import com.chinarewards.gwt.elt.client.core.PluginDescriptor;
 import com.chinarewards.gwt.elt.client.core.ui.EditorDescriptor;
 import com.chinarewards.gwt.elt.client.core.ui.MenuItem;
 import com.chinarewards.gwt.elt.client.core.ui.MenuProcessor;
-import com.chinarewards.gwt.elt.client.gift.plugin.GiftConstants;
+import com.chinarewards.gwt.elt.client.order.plugin.OrderListConstants;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemConstants;
+import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListConstants;
 import com.chinarewards.gwt.elt.client.staffHeavenIndex.plugin.StaffHeavenIndexConstants;
 import com.chinarewards.gwt.elt.client.support.SessionManager;
+import com.chinarewards.gwt.elt.model.rewards.RewardPageType;
+import com.chinarewards.gwt.elt.model.rewards.RewardsPageClient;
 import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.google.gwt.core.client.GWT;
 
@@ -72,7 +75,7 @@ public class CorePlugin extends AbstractPlugin {
 		}
 		
 		// open editor by default.
-		if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.CORP_ADMIN || sessionManager.getSession().getLastLoginRole()==UserRoleVo.DEPT_MGR)
+		if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.CORP_ADMIN || sessionManager.getSession().getLastLoginRole()==UserRoleVo.DEPT_MGR )
 		{
 			 Platform.getInstance()
 			 .getEditorRegistry()
@@ -80,12 +83,34 @@ public class CorePlugin extends AbstractPlugin {
 			 "EDITOR_REWARDSITEM_List", null);
 			 
 		}
+		else if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.AWARD)
+		{
+			RewardsPageClient rpc=new RewardsPageClient();
+			rpc.setTitleName("待颁奖奖项");
+			rpc.setPageType(RewardPageType.AWARDREWARDPAGE);
+			Platform.getInstance()
+					.getEditorRegistry()
+					.openEditor(
+							RewardsListConstants.EDITOR_REWARDSLIST_SEARCH,
+							"EDITOR_REWARDSLIST_"+RewardPageType.AWARDREWARDPAGE,rpc);
+		}
+		else if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.NOMINATE)
+		{
+			RewardsPageClient rpc=new RewardsPageClient();
+			rpc.setTitleName("待提名奖项");
+			rpc.setPageType(RewardPageType.NOMINATEPAGE);
+			Platform.getInstance()
+					.getEditorRegistry()
+					.openEditor(
+							RewardsListConstants.EDITOR_REWARDSLIST_SEARCH,
+							"EDITOR_REWARDSLIST_"+RewardPageType.NOMINATEPAGE,rpc);
+		}
 		else if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.GIFT)
 		{
 			 Platform.getInstance()
 			 .getEditorRegistry()
-			 .openEditor(GiftConstants.EDITOR_GIFTLIST_SEARCH,
-			 "EDITOR_GIFTLIST_SEARCH_List", null);
+			 .openEditor(OrderListConstants.EDITOR_ORDERLIST_SEARCH,
+			 "EDITOR_ORDERLIST_SEARCH_List", null);
 		}
 		else if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.STAFF)
 		{

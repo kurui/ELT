@@ -14,6 +14,7 @@ import com.chinarewards.elt.model.reward.exception.NominateRewardException;
 import com.chinarewards.elt.model.reward.search.RewardQueryVo;
 import com.chinarewards.elt.model.reward.search.RewardSearchVo;
 import com.chinarewards.elt.model.reward.vo.RewardVo;
+import com.chinarewards.elt.model.reward.vo.RewardWinVo;
 import com.chinarewards.elt.model.user.UserContext;
 
 /**
@@ -57,7 +58,24 @@ public interface RewardService {
 	 */
 	public String awardReward(String nowUserId, String rewardId,
 			List<String> staffIds);
-
+	/**
+	 * 确定获奖人方法
+	 * 
+	 * @param caller
+	 * @param rewardId
+	 * @param staffIds
+	 * @return
+	 */
+	public RewardWinVo determineWinner(String nowUserId, String rewardId,List<String> staffIds);
+	/**
+	 * 颁奖方法
+	 * 
+	 * @param caller
+	 * @param rewardId
+	 * @param staffIds
+	 * @return
+	 */
+	public RewardWinVo awardRewardWinner(String nowUserId, String rewardId);
 	/**
 	 * Approve a Reward means it would award really. The result is generate
 	 * {@link Winner} from {@link PreWinner}.
@@ -151,4 +169,20 @@ public interface RewardService {
 	public void toMessageForReward();
 	//查到要提名的人短信通知
 	public void getNominatorToMessage();
+	//通知确定获胜者
+	public void toMessageForConfirmReward();
+	/**
+	 * 修改颁奖人
+	 * @param rewardId
+	 * @param context
+	 * @param updateUserId
+	 * @return
+	 */
+	public String updateRewardAwardUser(String rewardId,UserContext context,String updateUserId);
+	/**
+	 * 查询奖项--根据颁奖人
+	 * @param awardUserId
+	 * @return
+	 */
+	public int findRewardByAwardUserId(String awardUserId);
 }

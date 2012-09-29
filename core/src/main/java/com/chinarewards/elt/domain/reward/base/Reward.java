@@ -137,6 +137,16 @@ public class Reward implements Serializable {
 
 	@ManyToOne
 	private SysUser lastModifiedBy;
+	@ManyToOne
+	private SysUser awardsUser;
+	
+	public SysUser getAwardsUser() {
+		return awardsUser;
+	}
+
+	public void setAwardsUser(SysUser awardsUser) {
+		this.awardsUser = awardsUser;
+	}
 
 	public String getId() {
 		return id;

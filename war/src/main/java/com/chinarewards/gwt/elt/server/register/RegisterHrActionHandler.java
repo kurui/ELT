@@ -12,7 +12,6 @@ import com.chinarewards.elt.domain.org.OrgInit;
 import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.service.org.OrgInitService;
 import com.chinarewards.elt.service.staff.IStaffService;
-import com.chinarewards.gwt.elt.client.register.model.OrgInitVo;
 import com.chinarewards.gwt.elt.client.registerHr.request.RegisterHrRequest;
 import com.chinarewards.gwt.elt.client.registerHr.request.RegisterHrResponse;
 import com.chinarewards.gwt.elt.model.staff.StaffUserProcess;

@@ -10,11 +10,20 @@ public class LoginResponse implements Result {
 	String corporationId;
 	String departmentId;
 	String staffId;
+	String staffName;
     UserRoleVo lastLoginRole;
     String photo;
     String corporationName;
     
     
+	public String getStaffName() {
+		return staffName;
+	}
+
+	public void setStaffName(String staffName) {
+		this.staffName = staffName;
+	}
+
 	public String getCorporationName() {
 		return corporationName;
 	}

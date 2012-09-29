@@ -30,10 +30,6 @@ public class XmlUtil_GWT {
 			NodeList nodeList = doc.getElementsByTagName(tagName);
 
 			for (int i = 0; i < nodeList.getLength(); i++) {
-				// System.out.println("node item:" + nodeList.item(i));
-				// System.out.println(nodeList.item(i).getFirstChild()
-				// .getNodeValue());
-				// System.out.println(nodeList.item(i).toString());
 				itemValue = nodeList.item(i).getFirstChild().getNodeValue();
 				return itemValue;
 			}

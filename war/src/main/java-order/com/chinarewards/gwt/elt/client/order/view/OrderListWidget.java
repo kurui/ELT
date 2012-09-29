@@ -28,7 +28,8 @@ public class OrderListWidget extends Composite implements OrderListDisplay {
 	
 	@UiField
 	Button searchBtn;
-	
+	@UiField
+	Button exportBtn;
 	@UiField
 	TextBox keyName;
 	@UiField
@@ -66,7 +67,10 @@ public class OrderListWidget extends Composite implements OrderListDisplay {
 	public HasClickHandlers getSearchBtnClickHandlers() {
 		return searchBtn;
 	}
-
+	@Override
+	public HasClickHandlers getExportBtnClickHandlers() {
+		return exportBtn;
+	}
 	@Override
 	public Panel getResultPanel() {
 		return resultPanel;

@@ -2,8 +2,6 @@ package com.chinarewards.gwt.elt.client.register.request;
 
 import net.customware.gwt.dispatch.shared.Result;
 
-import com.chinarewards.gwt.elt.client.enterprise.model.EnterpriseVo;
-
 public class RegisterResponse implements Result {
 	private String token;
 	private String corpId;

@@ -16,7 +16,8 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 public class RewardsCriteria implements IsSerializable {
 
 	public static enum RewardsStatus {
-
+		/* 确定获奖人 */
+		DETERMINE_WINNER("待评选"),
 		/* 待颁奖 */
 		NEW("待颁奖"),
 
@@ -28,7 +29,10 @@ public class RewardsCriteria implements IsSerializable {
 		
 		/* 已完成 */
 		REWARDED("已完成"),
-
+        
+		/* 已过期 */
+		PAST("已过期"),
+		
 		/* 已否决 */
 		DENIED("已否决");
 

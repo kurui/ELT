@@ -7,17 +7,12 @@ import com.chinarewards.gwt.elt.client.core.ui.Editor;
 import com.chinarewards.gwt.elt.client.core.ui.EditorDescriptor;
 import com.chinarewards.gwt.elt.client.order.plugin.OrderListConstants;
 import com.chinarewards.gwt.elt.model.rewards.RewardsPageClient;
-import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 /**
-<<<<<<< HEAD
  * @author nicho
  * @since 2012年1月9日 17:25:09
-=======
- * @author yanrui
->>>>>>> refs/remotes/origin/master
  */
 public class OrderListEditorDescriptor implements EditorDescriptor {
 

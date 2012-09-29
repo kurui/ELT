@@ -50,5 +50,14 @@ public class MembersDao extends BaseDao<Members> {
 				.setParameter("staffId", staffId)
 				.getResultList();
 	}
-
+	/**
+	 * 物理删除
+	 * @param staffId
+	 * @return
+	 */
+	public int deleteMembersByStaffId(String staffId) {
+		return getEmNoFlush()
+				.createQuery("DELETE FROM Members win WHERE win.staff.id=:staffId ")
+				.setParameter("staffId", staffId).executeUpdate();
+	}
 }

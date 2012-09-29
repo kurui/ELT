@@ -85,21 +85,6 @@ public interface DepartmentService {
 	public List<Department> getDepartmentsOfCorporationAndKey(String corporationId,String key);
 
 	
-	/**
-	 * @param deptId
-	 * @param containItSelf
-	 * @return
-	 */
-	public List<Department> getWholeChildren(String deptId, boolean containItSelf);
-
-	/**
-	 * @param deptId
-	 * @param containItSelf
-	 * @return
-	 */
-	public List<String> getWholeChildrenNames(String deptId, boolean containItSelf);
-
-
 	public List<Staff> findManagersByDepartmentId(String deptId);
 	
 	public List<Department> findDepartmentsManagedByStaffId(String staffId);
@@ -112,5 +97,11 @@ public interface DepartmentService {
    
 	public List<Department> getImmediacyDepartmentsOfCorporation(String corporationId);
 	
-	public List<Department> getImmediacyChildren(String deptId);
+	public List<Department> getImmediacyChildren(String deptId,boolean containItSelf);
+
+	public List<String> getImmediacyChildrenNames(String deptId,boolean containItSelf);
+	
+//	public List<Department> getWholeChildren(String deptId, boolean containItSelf);
+
+//	public List<String> getWholeChildrenNames(String deptId, boolean containItSelf);
 }

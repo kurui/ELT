@@ -37,7 +37,15 @@ public class DepartmentBudgetVo {
     private int    deleted   ;     //是否删除 
     private int people;  //部门总人数
     private List<String> deptIds;
-    
+    private String manageDepId;//管理的主部门ID
+	public String getManageDepId() {
+		return manageDepId;
+	}
+
+	public void setManageDepId(String manageDepId) {
+		this.manageDepId = manageDepId;
+	}
+
 	public List<String> getDeptIds() {
 		return deptIds;
 	}

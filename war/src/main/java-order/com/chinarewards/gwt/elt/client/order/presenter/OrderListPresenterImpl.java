@@ -32,10 +32,12 @@ import com.chinarewards.gwt.elt.client.win.confirm.ConfirmHandler;
 import com.chinarewards.gwt.elt.util.StringUtil;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
@@ -83,6 +85,35 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 				doSearch();
 			}
 		}));
+          registerHandler(display.getExportBtnClickHandlers().addClickHandler(new ClickHandler() {
+				@Override
+				public void onClick(ClickEvent event) {
+					win.confirm("提示", "确定导出订单?",new ConfirmHandler() {
+						
+						@Override
+						public void confirm() {
+							
+							String data = "staffid="+sessionManager.getSession().getStaffId()+"&userid="+sessionManager.getSession().getToken();
+							
+							if (!StringUtil.isEmpty(display.getKeyName().getValue()))
+								 data=data+"&name="+display.getKeyName().getValue();
+							if (!StringUtil.isEmpty(display.getStatus()))
+								 data=data+"&status="+OrderStatus.valueOf(display.getStatus());
+							
+							if (!StringUtil.isEmpty(display.getSource()))
+								 data=data+"&source="+display.getSource();
+													
+							 doExport( data,  "导出订单数据");
+						}
+					});
+				}
+			}));
+    }
+	private void doExport(String data, String title) {
+	String url = GWT.getModuleBaseURL() + "orderServlet.export";
+	//String data = "batchId=" + batchId + "&action=" + action;
+	String wholeUrl = url + "?" + data + "&radom=" + Math.random();
+	Window.open(wholeUrl, title,"menubar=yes,location=no,resizable=yes,scrollbars=yes,status=yes");
 	}
 
 	private void init() {
@@ -126,7 +157,7 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 		
 		if (!StringUtil.isEmpty(display.getSource()))
 			giftVo.setSource(display.getSource());
-		criteria.setGiftvo(giftVo);
+		criteria.setGiftVo(giftVo);
        
 		listViewAdapter = new OrderListViewAdapter(dispatch, criteria,
 				errorHandler, sessionManager, display);
@@ -158,7 +189,7 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 				new GetValue<OrderSearchVo, String>() {
 					@Override
 					public String getValue(OrderSearchVo order) {
-						return order.getGiftvo().getName();
+						return order.getGiftVo().getName();
 					}
 				}, ref, "name");
 
@@ -195,15 +226,7 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListDisplay>
 				new GetValue<OrderSearchVo, String>() {
 					@Override
 					public String getValue(OrderSearchVo order) {
-						if (order.getGiftvo().getSource() != null) {
-							if (StringUtil.trim(order.getGiftvo().getSource()).equals("inner")) {
-								return "内部直接提供";
-							}
-							if (StringUtil.trim(order.getGiftvo().getSource()).equals("outter")) {
-								return "外部货品公司提供";
-							}
-						}
-						return "";
+						return order.getGiftVo().getSourceText();
 					}
 				});   
 		

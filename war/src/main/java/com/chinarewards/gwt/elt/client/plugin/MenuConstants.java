@@ -105,6 +105,8 @@ public abstract class MenuConstants {
 	public static final int MENU_ORDER_CORPBUDGET_EDIT = order++;
 	// 新建部门预算
 	public static final int MENU_ORDER_CREATE_BUDGET = order++;
+	// 部门预算申请
+	public static final int MENU_ORDER_LIST_ASKBUDGET = order++;
 
 	// 奖项列表查询
 	public static final int MENU_ORDER_REWARDSITEM_List = order++;
@@ -121,6 +123,9 @@ public abstract class MenuConstants {
 		
 	// 提名
 	public static final int MENU_ORDER_MONINATE_SEARCH = order++;
+	// 获奖
+	public static final int MENU_ORDER_DETERMINEWINNERS_SEARCH = order++;
+	
 	// 获奖
 	public static final int MENU_ORDER_AWARDREWARD_SEARCH = order++;
 	// 获奖详细

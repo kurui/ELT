@@ -91,6 +91,11 @@ a:hover{color:#010DFF;text-decoration:underline;}
 .head .nav{border-bottom:4px solid #4F8D02;padding-left:260px;position:relative;top:-50px;margin-right:-100px;}
 .head .nav ul li{float:left;margin-right:10px;}
 
+.headInner{position:relative;background-color:#FFFFFF;}
+.headInner .nav{border-bottom:0px solid #4F8D02;position:relative;top:0px;margin-right:-100px;}
+.headInner .nav ul li{float:left;margin-right:10px;}
+
+
 .content{position:relative;padding-top:2px;background-color:#FFFFFF;}
 .content .sidebar{width:191px;overflow:hidden;position:absolute;top:2px;left:1px;border:1px solid #74944B;}
 .content .sidebar .title{background-position:0 -3px;height:28px;line-height:28px;font-size:14px;font-weight:bold;color:#000000;padding-left:35px;position:relative;}

@@ -64,8 +64,11 @@ public class RewardDao extends BaseDao<Reward> {
 		// 是否查某部门所有子部门下的数据
 		if (!StringUtil.isEmptyString(criteria.getBuilderDeptId())
 				&& criteria.isSubDepartmentChosen()) {
-			List<String> childrenIds = departmentLogic.getWholeChildrenIds(
-					criteria.getBuilderDeptId(), true);
+//			List<String> childrenIds = departmentLogic.getWholeChildrenIds(
+//					criteria.getBuilderDeptId(), true);
+			List<String> childrenIds = departmentLogic.getAllChildrenIds(criteria.getBuilderDeptId(),true);
+			
+			
 			criteria.setDeptIds(new ArrayList<String>(childrenIds));
 		}
 		PageStore<Reward> res = new PageStore<Reward>();
@@ -158,16 +161,36 @@ public class RewardDao extends BaseDao<Reward> {
 			hql.append(" AND rew.corporation.id=:corporationId ");
 			param.put("corporationId", corporationId);
 		} else {
-			hql.append(" AND rew.builderDept.id IN (:departmentIds) ");
-			param.put("departmentIds", departmentIds);
+
+			
+			if (criteria.getStatus() == RewardStatus.PENDING_NOMINATE && !StringUtil.isEmptyString(criteria.getNowUserId())) {
+				hql.append(" AND (rew.builderDept.id IN (:departmentIds) OR rew.id IN(SELECT w.reward.id FROM Judge w WHERE w.staff.id = :nowUserId) )");
+				param.put("departmentIds", departmentIds);
+			
+				String staffid = userDao.findById(SysUser.class, criteria.getNowUserId()).getStaff().getId();
+				param.put("nowUserId", staffid);
+			}
+			else if (criteria.getStatus() == RewardStatus.NEW && !StringUtil.isEmptyString(criteria.getNowUserId())) {
+				hql.append(" AND (rew.builderDept.id IN (:departmentIds) OR  rew.awardsUser.id = :deptawardUserId )");
+				param.put("departmentIds", departmentIds);
+				
+				param.put("deptawardUserId", criteria.getNowUserId());
+
+			}
+			else
+			{
+				hql.append(" AND rew.builderDept.id IN (:departmentIds) ");
+				param.put("departmentIds", departmentIds);
+			}
+			
 		}
 
 		if (criteria.getStatus() != null) {
 			List<RewardStatus> rstatus = new ArrayList<RewardStatus>();
 			if (criteria.getStatus() == RewardStatus.PENDING_NOMINATE
-					|| criteria.getStatus() == RewardStatus.NEW) {
+					|| criteria.getStatus() == RewardStatus.DETERMINE_WINNER) {
 				rstatus.add(RewardStatus.PENDING_NOMINATE);
-				rstatus.add(RewardStatus.NEW);
+				rstatus.add(RewardStatus.DETERMINE_WINNER);
 				hql.append(" AND rew.status IN (:status)");
 				param.put("status", rstatus);
 			} else {
@@ -189,7 +212,11 @@ public class RewardDao extends BaseDao<Reward> {
 			hql.append(" AND ( Upper(rew.definition) LIKE Upper(:definition))");
 			param.put("definition", "%" + criteria.getDefinition() + "%");
 		}
-
+		
+		if (!StringUtil.isEmptyString(criteria.getAwardUserId())) {
+			hql.append(" AND rew.awardsUser.id = :awardUserId");
+			param.put("awardUserId", criteria.getAwardUserId());
+		}
 		// hql.append(" AND 0 <> (SELECT COUNT(*) FROM Winners win WHERE win.rewards=rew) ");
 		// hql.append(" AND rew.status = :status");
 		// param.put("status", RewardsStatus.REWARDED);
@@ -410,8 +437,11 @@ public class RewardDao extends BaseDao<Reward> {
 			hql.append(" AND w.reward.organization.id = :corporationId");
 			params.put("corporationId", org.getId());
 		} else if (org instanceof Department) {
-			List<String> childrenIds = departmentLogic.getWholeChildrenIds(
-					org.getId(), true);
+//			List<String> childrenIds = departmentLogic.getWholeChildrenIds(
+//					org.getId(), true);
+			List<String> childrenIds = departmentLogic.getAllChildrenIds(
+					org.getId(),true);	
+			
 			hql.append(" AND w.reward.accountDept.id IN (:departmentIds)");
 			params.put("departmentIds", childrenIds);
 		} else if (org instanceof Staff) {
@@ -480,8 +510,10 @@ public class RewardDao extends BaseDao<Reward> {
 			hql.append(" AND w.reward.organization.id = :corporationId");
 			params.put("corporationId", org.getId());
 		} else if (org instanceof Department) {
-			List<String> childrenIds = departmentLogic.getWholeChildrenIds(
-					org.getId(), true);
+//			List<String> childrenIds = departmentLogic.getWholeChildrenIds(
+//			org.getId(), true);
+	List<String> childrenIds = departmentLogic.getAllChildrenIds(
+			org.getId(),true);	
 			logger.debug("childrenIds = {}", childrenIds);
 			hql.append(" AND w.reward.accountDept.id IN (:departmentIds)");
 			params.put("departmentIds", childrenIds);
@@ -549,4 +581,23 @@ public class RewardDao extends BaseDao<Reward> {
 				.createQuery(" FROM Reward r WHERE r.status = :status")
 				.setParameter("status", RewardStatus.NEW).getResultList();
 	}
+	
+	//得到待确定的奖励
+	@SuppressWarnings("unchecked")
+	public List<Reward> getConfirmForReward() {
+			return getEm()
+					.createQuery(" FROM Reward r WHERE r.status = :status")
+					.setParameter("status", RewardStatus.DETERMINE_WINNER).getResultList();
+		}
+
+	public int getRewardsByAwardUserId(String awardUserId) {
+		try {	
+			return (Integer) getEm()
+					.createQuery("SELECT count(r) FROM Reward r WHERE r.deleted = :deleted AND r.status = :status AND r.awardsUser.id= :awardUserId")
+					.setParameter("deleted",false).setParameter("status",RewardStatus.NEW).setParameter("awardUserId",awardUserId).getSingleResult();
+		} catch (Exception e) {
+			return 0;
+		}
+	}
+
 }

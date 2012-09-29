@@ -26,9 +26,6 @@ import com.chinarewards.gwt.elt.client.hrbox.view.RewardWindowWidget;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.ErrorHandler;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
-import com.chinarewards.gwt.elt.client.order.model.OrderStatus;
-import com.chinarewards.gwt.elt.client.order.request.OrderBoxRequest;
-import com.chinarewards.gwt.elt.client.order.request.OrderBoxResponse;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsClient;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsCriteria;
 import com.chinarewards.gwt.elt.client.rewards.model.RewardsCriteria.RewardsStatus;
@@ -296,7 +293,7 @@ public class HrBoxPresenterImpl extends BasePresenter<HrBoxDisplay>
 	}
 	 private void initYear(){
 		   
-		   dispatch.execute(new InitCorpBudgetRequest(sessionManager.getSession()),
+		   dispatch.execute(new InitCorpBudgetRequest(sessionManager.getSession(),""),
 					new AsyncCallback<InitCorpBudgetResponse>() {
 			          	@Override
 						public void onFailure(Throwable arg0) {

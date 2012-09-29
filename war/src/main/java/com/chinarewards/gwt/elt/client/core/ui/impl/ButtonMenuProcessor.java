@@ -7,9 +7,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.chinarewards.gwt.elt.client.awardReward.plugin.AwardRewardConstants;
+import com.chinarewards.gwt.elt.client.awardRewardDetermine.plugin.AwardRewardDetermineConstants;
 import com.chinarewards.gwt.elt.client.box.plugin.UserBoxConstants;
 import com.chinarewards.gwt.elt.client.breadCrumbs.ui.BreadCrumbsMenu;
 import com.chinarewards.gwt.elt.client.broadcasting.plugin.BroadcastingListConstants;
+import com.chinarewards.gwt.elt.client.budget.plugin.AskBudgetConstants;
 import com.chinarewards.gwt.elt.client.budget.plugin.CorpBudgetConstants;
 import com.chinarewards.gwt.elt.client.budget.plugin.CreateBudgetConstants;
 import com.chinarewards.gwt.elt.client.core.ui.MenuItem;
@@ -93,7 +95,10 @@ public class ButtonMenuProcessor implements MenuProcessor {
 			indexMenu="RewardItem";
 		else if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.GIFT)
 			indexMenu="Gift";
-		
+		else if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.AWARD)
+			indexMenu="Award";
+		else if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.NOMINATE)
+			indexMenu="Nominate";
 		ScrollPanel menuWrapper = new ScrollPanel(createButtonMenuWidget(indexMenu));
 		container.add(menuWrapper);
 	}
@@ -135,14 +140,15 @@ public class ButtonMenuProcessor implements MenuProcessor {
 					|| menuId.equals(BroadcastingListConstants.MENU_BROADCASTINGLIST_SEARCH)
 					|| menuId.equals(OrderViewConstants.MENU_ORDERBOX_SEARCH)
 					|| menuId.equals(UserBoxConstants.MENU_USERBOX_SEARCH)
-					|| menuId.equals(HrBoxConstants.MENU_HRBOX_SEARCH)) {
+					|| menuId.equals(HrBoxConstants.MENU_HRBOX_SEARCH)
+					||( menuId.equals(AwardRewardDetermineConstants.MENU_AWARDREWARDDETERMINE_SEARCH) && sessionManager.getSession().getLastLoginRole()==UserRoleVo.AWARD)
+					||( menuId.equals(NominateConstants.MENU_NOMINATE_SEARCH) && sessionManager.getSession().getLastLoginRole()==UserRoleVo.NOMINATE)) {
 
 				button.setStyleName("menu-link menu-selected");
 				breadCrumbsMenu.cleanBreadCrumbsItemTop();
 				if (menuId.equals(RewardsItemConstants.MENU_REWARDSITEM_List))
 					breadCrumbsMenu.addBreadCrumbsItemTop("奖项", menuItem,"我的奖项");
-				else if (menuId
-						.equals(RewardsListConstants.MENU_REWARDSLIST_SEARCH))
+				else if (menuId	.equals(RewardsListConstants.MENU_REWARDSLIST_SEARCH) || menuId	.equals(AwardRewardDetermineConstants.MENU_AWARDREWARDDETERMINE_SEARCH) || menuId.equals(NominateConstants.MENU_NOMINATE_SEARCH))
 					breadCrumbsMenu.addBreadCrumbsItemTop("应用奖项", menuItem,"应用奖项列表");
 				else if (menuId.equals(StaffListConstants.MENU_STAFFLIST_SEARCH))
 					breadCrumbsMenu.addBreadCrumbsItemTop("员工数据", menuItem,"员工列表");
@@ -196,6 +202,7 @@ public class ButtonMenuProcessor implements MenuProcessor {
 		} else if ("Reward".equals(keyname)) {
 			items.add(NominateConstants.MENU_NOMINATE_SEARCH);
 			items.add(AwardRewardConstants.MENU_AWARDREWARD_SEARCH);
+			items.add(AwardRewardDetermineConstants.MENU_AWARDREWARDDETERMINE_SEARCH);
 			items.add(DetailsOfAwardConstants.MENU_DETAILSOFAWARD_SEARCH);
 			items.add(RewardsListConstants.MENU_REWARDSLIST_SEARCH);
 		} else if ("Staff".equals(keyname)) {
@@ -223,6 +230,7 @@ public class ButtonMenuProcessor implements MenuProcessor {
 			items.add(EnterpriseConstants.MENU_PERIOD_EDIT);
 			items.add(IntegralManagementConstants.MENU_INTEGRALMANAGEMENT_SEARCH);
 			items.add(CreateBudgetConstants.MENU_CREATE_BUDGET);
+			items.add(AskBudgetConstants.MENU_LIST_BUDGET);
 		}else if("Broadcasting".equals(keyname))
 		{
 			items.add(BroadcastingListConstants.MENU_BROADCASTINGLIST_SEARCH);
@@ -230,6 +238,10 @@ public class ButtonMenuProcessor implements MenuProcessor {
 			items.add(OrderViewConstants.MENU_ORDERBOX_SEARCH);
 			items.add(UserBoxConstants.MENU_USERBOX_SEARCH);
 			items.add(HrBoxConstants.MENU_HRBOX_SEARCH);  
+		}else if ("Award".equals(keyname)) {
+			items.add(AwardRewardDetermineConstants.MENU_AWARDREWARDDETERMINE_SEARCH);
+		}else if ("Nominate".equals(keyname)) {
+			items.add(NominateConstants.MENU_NOMINATE_SEARCH);
 		}
 		return items;
 	}

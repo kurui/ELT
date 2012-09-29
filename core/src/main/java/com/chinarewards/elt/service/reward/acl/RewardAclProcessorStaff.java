@@ -6,7 +6,6 @@ import java.util.List;
 import com.chinarewards.elt.dao.reward.RewardDao;
 import com.chinarewards.elt.dao.reward.RewardItemDao;
 import com.chinarewards.elt.dao.reward.RewardItemStoreDao;
-import com.chinarewards.elt.dao.reward.WinnerDao;
 import com.chinarewards.elt.domain.reward.base.Reward;
 import com.chinarewards.elt.domain.reward.base.RewardItem;
 import com.chinarewards.elt.domain.reward.base.RewardItemStore;
@@ -14,6 +13,7 @@ import com.chinarewards.elt.model.common.PageStore;
 import com.chinarewards.elt.model.reward.search.RewardItemSearchVo;
 import com.chinarewards.elt.model.reward.search.RewardSearchVo;
 import com.chinarewards.elt.model.user.UserContext;
+import com.chinarewards.elt.model.user.UserRole;
 import com.chinarewards.elt.service.org.DepartmentLogic;
 import com.chinarewards.elt.util.StringUtil;
 import com.google.inject.Inject;
@@ -24,16 +24,16 @@ public class RewardAclProcessorStaff extends AbstractRewardAclProcessor {
 	private final RewardItemDao rewardsItemDao;
 	private final DepartmentLogic departmentLogic;
 	private final RewardItemStoreDao rewardsItemStoreDao;
-	private final WinnerDao winnerDao;
+//	private final WinnerDao winnerDao;
 	
 	@Inject
 	public RewardAclProcessorStaff(RewardDao rewardsDao,RewardItemStoreDao rewardsItemStoreDao,
-			RewardItemDao rewardsItemDao,WinnerDao winnerDao,DepartmentLogic departmentLogic) {
+			RewardItemDao rewardsItemDao,DepartmentLogic departmentLogic) {
 		this.rewardsDao = rewardsDao;
 		this.rewardsItemDao = rewardsItemDao;
 		this.departmentLogic = departmentLogic;
 		this.rewardsItemStoreDao = rewardsItemStoreDao;
-		this.winnerDao=winnerDao;
+	//	this.winnerDao=winnerDao;
 	}
 
 	@Override
@@ -53,8 +53,10 @@ public class RewardAclProcessorStaff extends AbstractRewardAclProcessor {
 		} else if (!StringUtil.isEmptyString(criteria.getDepartmentId())) {
 			List<String> deptIds = null;
 			if (criteria.isSubDepartmentChosen()) {
-				deptIds = departmentLogic.getWholeChildrenIds(
-						criteria.getDepartmentId(), true);
+//				deptIds = departmentLogic.getWholeChildrenIds(
+//						criteria.getDepartmentId(), true);
+				deptIds = departmentLogic.getAllChildrenIds(
+						criteria.getDepartmentId(),true);
 			} else {
 				deptIds = new ArrayList<String>();
 				deptIds.add(criteria.getDepartmentId());
@@ -80,6 +82,19 @@ public class RewardAclProcessorStaff extends AbstractRewardAclProcessor {
 				new Object[] { context.getCorporationId(), criteria.toString() });
 		String corporationId = context.getCorporationId();
 		PageStore<Reward> res = new PageStore<Reward>();
+		
+		//设置只查颁奖的用户数据---提名的数据
+		if(context.getUserRoles()!=null && context.getUserRoles().length>0)
+		{
+			for (int i = 0; i < context.getUserRoles().length; i++) {
+				if(context.getUserRoles()[i]==UserRole.AWARD)
+					criteria.setAwardUserId(context.getUserId());
+				else if(context.getUserRoles()[i]==UserRole.NOMINATE)
+					criteria.setNowUserId(context.getUserId());
+			}
+		}
+		
+		
 		res = rewardsDao.searchRewards_hrManager(corporationId, criteria);
 		return res;
 	}
@@ -102,8 +117,10 @@ public class RewardAclProcessorStaff extends AbstractRewardAclProcessor {
 		} else if (!StringUtil.isEmptyString(criteria.getDepartmentId())) {
 			List<String> deptIds = null;
 			if (criteria.isSubDepartmentChosen()) {
-				deptIds = departmentLogic.getWholeChildrenIds(
-						criteria.getDepartmentId(), true);
+//				deptIds = departmentLogic.getWholeChildrenIds(
+//						criteria.getDepartmentId(), true);
+				deptIds = departmentLogic.getAllChildrenIds(
+						criteria.getDepartmentId(),true);
 			} else {
 				deptIds = new ArrayList<String>();
 				deptIds.add(criteria.getDepartmentId());

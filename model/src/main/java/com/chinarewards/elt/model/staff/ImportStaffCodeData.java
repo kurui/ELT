@@ -16,23 +16,8 @@ public class ImportStaffCodeData {
 	public final static Object[] CODE2 = {
 		new Long(2), "出生日期在未来", new Long(3900), ImportCodeType.WARN
 };
-	public final static Object[] CODE3 = {
-		new Long(3), "指定卡号已经被使用", new Long(1000), ImportCodeType.FATAL
-};
-	public final static Object[] CODE4 = {
-		new Long(4), "卡号并非属于本企业", new Long(1000), ImportCodeType.FATAL
-};
-	public final static Object[] CODE5 = {
-		new Long(5), "卡号长度不对，请提供长度为10位的卡号", new Long(1000), ImportCodeType.FATAL
-};
 	public final static Object[] CODE6 = {
-		new Long(6), "员工中文姓不能为空", new Long(4000), ImportCodeType.FATAL
-};
-	public final static Object[] CODE7 = {
-		new Long(7), "员工中文名不能为空", new Long(4000), ImportCodeType.FATAL
-};
-	public final static Object[] CODE8 = {
-		new Long(8), "入职日期在未来", new Long(3900), ImportCodeType.WARN
+		new Long(6), "员工姓名不能为空", new Long(4000), ImportCodeType.FATAL
 };
 	public final static Object[] CODE9 = {
 		new Long(9), "电邮格式不正确", new Long(3900), ImportCodeType.FATAL
@@ -41,31 +26,22 @@ public class ImportStaffCodeData {
 		new Long(10), "电邮不能为空", new Long(5000), ImportCodeType.FATAL
 };
 	public final static Object[] CODE11 = {
-		new Long(11), "手机号码必须是1开头的数字且为11位", new Long(5000), ImportCodeType.FATAL
+		new Long(11), "手机号码必须是1开头的数字且为11位", new Long(5000), ImportCodeType.WARN
 };
 	public final static Object[] CODE12 = {
-		new Long(12), "手机号码不能为空", new Long(5000), ImportCodeType.FATAL
+		new Long(12), "手机号码不能为空", new Long(5000), ImportCodeType.WARN
 };
-	public final static Object[] CODE13 = {
-		new Long(13), "部门列格式有误", new Long(1500), ImportCodeType.FATAL
-};
-	public final static Object[] CODE14 = {
-		new Long(14), "身份证号码建议是15位或者18位", new Long(4000), ImportCodeType.WARN
-};
-	public final static Object[] CODE15 = {
-		new Long(15), "本企业卡号不足够", new Long(1000), ImportCodeType.FATAL
-};
-	public final static Object[] CODE16 ={
-		new Long(16), "指定会员卡号重复", new Long(1000), ImportCodeType.FATAL
-};
+//	public final static Object[] CODE13 = {
+//		new Long(13), "部门列格式有误", new Long(1500), ImportCodeType.FATAL
+//};
 	public final static Object[] CODE17 = {
 		new Long(17), "邮箱已经被注册", new Long(1000), ImportCodeType.FATAL
 };
 	public final static Object[] CODE18 = {
-		new Long(18), "手机号已经被注册", new Long(1000), ImportCodeType.FATAL
+		new Long(18), "手机号已经被注册", new Long(1000), ImportCodeType.WARN
 };
 	public final static Object[] CODE19 = {
-		new Long(19), "文档中存在相同手机号", new Long(1000), ImportCodeType.FATAL
+		new Long(19), "文档中存在相同手机号", new Long(1000), ImportCodeType.WARN
 };
 	public final static Object[] CODE20 = {
 		new Long(20), "文档中存在相同邮箱", new Long(1000), ImportCodeType.FATAL

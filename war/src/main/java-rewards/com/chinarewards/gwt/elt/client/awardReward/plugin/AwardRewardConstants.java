@@ -10,7 +10,7 @@ package com.chinarewards.gwt.elt.client.awardReward.plugin;
 public abstract class AwardRewardConstants {
 
 	// Plugin name
-	public static final String PLUGIN_AWARDREWARD = "PLUGIN_MONINATE";
+	public static final String PLUGIN_AWARDREWARD = "PLUGIN_AWARDREWARD";
 
 	// The menu and editor of finding user.
 	public static final String MENU_AWARDREWARD_SEARCH = "MENU_AWARDREWARD_SEARCH";

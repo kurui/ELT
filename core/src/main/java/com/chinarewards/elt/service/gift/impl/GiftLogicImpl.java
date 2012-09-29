@@ -25,6 +25,7 @@ import com.google.inject.Inject;
 
 public class GiftLogicImpl implements GiftLogic{
 	private GiftDao giftDao;
+	
 	private BroadcastService broadcastService;
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Inject
@@ -79,16 +80,19 @@ public class GiftLogicImpl implements GiftLogic{
 			tempGift.setType(gift.getType());
 			tempGift.setStatus(gift.getStatus());
 			tempGift.setBrand(gift.getBrand());
+			tempGift.setModel(gift.getModel());
 			tempGift.setSource(gift.getSource());
 			tempGift.setBusiness(gift.getBusiness());
 			tempGift.setAddress(gift.getAddress());
 			tempGift.setTell(gift.getTell());
 			tempGift.setServicetell(gift.getServicetell());
 			tempGift.setIntegral(gift.getIntegral());
+			tempGift.setPrice(gift.getPrice());
 			tempGift.setStock(gift.getStock());
 			tempGift.setPhoto(gift.getPhoto());
 			tempGift.setIndate(gift.getIndate());
 		    tempGift.setUpdatetime(currTime);
+		  
 			giftDao.update(tempGift);
 		}
 
@@ -126,6 +130,26 @@ public class GiftLogicImpl implements GiftLogic{
 
 		return storeVo;
 	}
+	
+	@Override
+	public List<GiftListVo> exportGiftList(SysUser caller, GiftListVo giftVo) {
+		
+//		PageStore<Gift> pageStore = new PageStore<Gift>();
+//		pageStore.setResultCount(giftDao.countGift(giftVo));
+		List<Gift> giftList = giftDao.giftList(giftVo);
+		List<GiftListVo> giftVoList = new ArrayList<GiftListVo>();
+		for (Gift gift : giftList) {
+			giftVoList.add(convertFromGiftToVo(gift));
+		}
+//		PageStore<GiftListVo> storeVo = new PageStore<GiftListVo>();
+//		storeVo.setResultCount(pageStore.getResultCount());
+//		storeVo.setResultList(giftVoList);
+
+//		return storeVo;
+		return giftVoList;
+	}
+	
+	
 	private GiftListVo convertFromGiftToVo(Gift gift) {
 		GiftListVo giftVo = new GiftListVo();
 		giftVo.setAddress(gift.getAddress());
@@ -141,11 +165,13 @@ public class GiftLogicImpl implements GiftLogic{
 		giftVo.setStock(gift.getStock());
 		giftVo.setTell(gift.getTell());
 		giftVo.setType(gift.getType());
+		giftVo.setModel(gift.getModel());
 
         giftVo.setRecorddate(gift.getRecorddate());
         giftVo.setRecorduser(gift.getRecorduser());
         giftVo.setUpdatetime(gift.getUpdatetime());
         giftVo.setIntegral(gift.getIntegral());
+        giftVo.setPrice(gift.getPrice());
 		return giftVo;
 	}
 	@Override
@@ -155,5 +181,13 @@ public class GiftLogicImpl implements GiftLogic{
 		gift= giftDao.update(gift);
 		return gift.getId();
 	}
+
+	@Override
+	public List<Gift> findNotDeleteGift() {
+		return giftDao.findNotDeleteGift();
+	}
+	
+	
+
 
 }

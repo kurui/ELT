@@ -26,6 +26,10 @@ public class RewardSearchVo {
 	 * 提名人-用户ID
 	 */
 	private String judgeUserId;
+	/**
+	 * 当前用户Id
+	 */
+	private String nowUserId;
 
 	/**
 	 * The staff who win a reward
@@ -83,7 +87,27 @@ public class RewardSearchVo {
 	 * Unit to award
 	 */
 	private TransactionUnit awardUnit;
+	/**
+	 * 颁奖人用户ID
+	 */
+	private String awardUserId;
 	
+
+	public String getNowUserId() {
+		return nowUserId;
+	}
+
+	public void setNowUserId(String nowUserId) {
+		this.nowUserId = nowUserId;
+	}
+
+	public String getAwardUserId() {
+		return awardUserId;
+	}
+
+	public void setAwardUserId(String awardUserId) {
+		this.awardUserId = awardUserId;
+	}
 
 	public Date getRewardsTime() {
 		return rewardsTime;

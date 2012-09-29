@@ -25,6 +25,7 @@ public class GiftListVo implements Serializable {
     private String name;       //礼品名
     private String explains;   //说明
     private String  type;      //礼品类型
+    private String model;
     private String source;     //来源
     private String business;   //供应商
     private String address;    //地址
@@ -35,9 +36,30 @@ public class GiftListVo implements Serializable {
     private boolean deleted;   //删除状态
     private Date    indate ;      //有效截止期
     private Date    recorddate;   //录入时间
-    private String  recorduser; //录入人
+    private String  price;//采购价格
+	private String  recorduser; //录入人
     private Date    updatetime;  //修改时间
     private int    integral;  //积分
+    
+	public GiftListVo() {
+	}
+    
+    public String getModel() {
+		return model;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
+	}
+
+	public String getPrice() {
+		return price;
+	}
+
+	public void setPrice(String price) {
+		this.price = price;
+	}
+    
 	
 	public int getIntegral() {
 		return integral;
@@ -47,8 +69,7 @@ public class GiftListVo implements Serializable {
 		this.integral = integral;
 	}
 
-	public GiftListVo() {
-	}
+
 
 	public String getName() {
 		return name;

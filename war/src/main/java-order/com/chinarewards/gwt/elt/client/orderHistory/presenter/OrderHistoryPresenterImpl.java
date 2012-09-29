@@ -148,7 +148,7 @@ public class OrderHistoryPresenterImpl extends
 		if (!StringUtil.isEmpty(display.getStatus()))
 			criteria.setStatus(OrderStatus.valueOf(display.getStatus()));
 
-		criteria.setGiftvo(giftVo);
+		criteria.setGiftVo(giftVo);
 		criteria.setExchangeDate(display.getCreateTime().getValue());
 		criteria.setExchangeDateEnd(display.getCreateTimeEnd().getValue());
 		listViewAdapter = new OrderHistoryDataAdapter(dispatch, criteria,
@@ -181,7 +181,7 @@ public class OrderHistoryPresenterImpl extends
 				new GetValue<OrderSearchVo, String>() {
 					@Override
 					public String getValue(OrderSearchVo order) {
-						return order.getGiftvo().getName();
+						return order.getGiftVo().getName();
 					}
 				}, ref, "name");
 

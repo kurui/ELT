@@ -22,6 +22,7 @@ public class GiftVo implements Serializable {
 	private String brand;// 品牌
 	private String photo; // 图片
 	private String source; //  供货方式
+	private String price;//采购价格
 	private int integral; // 积分
 	private int stock; // 库存
 	private String business; // 供应商名称
@@ -33,13 +34,21 @@ public class GiftVo implements Serializable {
 	private boolean deleted; // 删除状态
 	private Date indate; // 有效截止期
 	private String recorduser;//录入人
+	private String model;//产品型号
+	public String getModel() {
+		return model;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
+	}
 
 	public static String TYPE_1 = "1";// 实物
 	public static String TYPE_2 = "2";// 虚拟
 
 	public GiftVo() {
 	}
-
+    
 	public String getTypeText() {
 		if (type != null) {
 			if (type.equals(TYPE_1)) {
@@ -71,6 +80,17 @@ public class GiftVo implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public String getPrice() {
+		if(StringUtil.isEmpty(price)){
+			return "0";
+		}
+		return price;
+	}
+
+	public void setPrice(String price) {
+		this.price = price;
 	}
 	
 	

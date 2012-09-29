@@ -44,7 +44,7 @@
 					<g:TextBox maxLength="30" ui:field="definition" styleName="{new2.text2}" />
 					<span class="{new2.nbspbig}"></span>
 					<g:CheckBox ui:field="nowJudge" />
-					<label for="">当前用户数据</label>
+					<g:InlineLabel ui:field="nowJudgeLable" text="当前用户数据"/>
 					<span class="{new2.nbspbig}" ></span>
 					<span class="{new2.btn}">
 						<g:Button ui:field="searchBtn" text="查询"  />

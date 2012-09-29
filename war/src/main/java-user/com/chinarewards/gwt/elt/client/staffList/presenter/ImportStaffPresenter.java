@@ -12,6 +12,8 @@ import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public interface ImportStaffPresenter extends DialogPresenter<ImportStaffPresenter.ImportStaffDisplay> {
@@ -114,5 +116,13 @@ public interface ImportStaffPresenter extends DialogPresenter<ImportStaffPresent
 		HasClickHandlers getDownloadTemplete();
 		
 		void importStaffButtonEnable(boolean fal);
+		
+		void setDataCount(String text);
+		void setSelectDataCount(String text);
+		int getSelectDataCount();
+		
+		Panel getResultPanel();
+		ListBox getPageNumber();
+		Panel getResultpage();
 	}
 }

@@ -1,4 +1,5 @@
 package com.chinarewards.gwt.elt.client.budget.presenter;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -30,11 +31,13 @@ import com.chinarewards.gwt.elt.client.widget.ListCellTable;
 import com.chinarewards.gwt.elt.client.widget.Sorting;
 import com.chinarewards.gwt.elt.client.win.Win;
 import com.chinarewards.gwt.elt.client.win.confirm.ConfirmHandler;
+import com.chinarewards.gwt.elt.model.user.UserRoleVo;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
@@ -76,7 +79,14 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 			public void onChange(ChangeEvent event) {
 				pageSize=Integer.parseInt(display.getPageNumber().getValue(display.getPageNumber().getSelectedIndex()));
 				buildTable();
-				toSearch();
+				toSearch(display.getManageDep().getValue(display.getManageDep().getSelectedIndex()));
+			}
+		}));
+        registerHandler(display.getManageDep().addChangeHandler(new ChangeHandler() {
+			
+			@Override
+			public void onChange(ChangeEvent event) {
+				toPrush();
 			}
 		}));
 		registerHandler(display.getSaveBtnClickHandlers().addClickHandler(
@@ -91,7 +101,8 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 						if (!validateSearchSubmit()) {
 							return;
 						}
-						toSearch();
+						String depId =display.getManageDep().getValue(display.getManageDep().getSelectedIndex());
+						toSearch(depId);
 					}
 				}));
 		
@@ -99,10 +110,8 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 
 	private void init() {
 		buildTable();
-		
-		initDeparts();
 		initYear();
-		
+			
 	}
   
 	 private void saveDepartmentBudget(String operate){
@@ -124,7 +133,8 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 			          	@Override
 						public void onFailure(Throwable arg0) {
 							errorHandler.alert("保存部门预算出错!");
-							toRefresh();
+							String depId =display.getManageDep().getValue(display.getManageDep().getSelectedIndex());
+							toSearch(depId);
 						}
 
 						@Override
@@ -134,7 +144,8 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 							}
 							if(response.getMessage().equals("1")){
 							  win.alert("保存成功");
-							  toRefresh();
+							  String depId =display.getManageDep().getValue(display.getManageDep().getSelectedIndex());
+								toSearch(depId);
 							}
 							if(response.getMessage().equals("update")){
 								oldCount = response.getOldJf();
@@ -147,7 +158,8 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 							}
 							 if(response.getMessage().equals("2")){
 								 win.alert("修改成功");
-								 toRefresh();
+								 String depId =display.getManageDep().getValue(display.getManageDep().getSelectedIndex());
+									toSearch(depId);
 							 }
 							 
 							 
@@ -248,7 +260,7 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 
    private void initYear(){
 	   
-	   dispatch.execute(new InitCorpBudgetRequest(sessionManager.getSession()),
+	   dispatch.execute(new InitCorpBudgetRequest(sessionManager.getSession(),""),
 				new AsyncCallback<InitCorpBudgetResponse>() {
 		          	@Override
 					public void onFailure(Throwable arg0) {
@@ -260,19 +272,21 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 					public void onSuccess(InitCorpBudgetResponse response) {
 						 List<CorpBudgetVo> list = response.getResult();
 						 Map<String, String> map = new HashMap<String, String>();
-						 map.clear();
+						 Map<String, String> depmap = new HashMap<String, String>();
+						 map.clear(); depmap.clear();
 						 CorpBudgetVo vo = new CorpBudgetVo();
 						 if(list.size()>0){
 							 for(int i=0;i<list.size();i++){
 								   vo = list.get(i);
 								   map.put(vo.getId(), vo.getBudgetTitle());
+								   depmap.put(vo.getDepartmentId(), vo.getDepartmentName());
+								   corpBudgetId = vo.getId();
+									  
+								   display.setTotalCount(vo.getBudgetIntegral()+"");
+								   display.setRemainCount((vo.getBudgetIntegral()-vo.getUseIntegeral())+"");
+								   remainCount = vo.getBudgetIntegral()-vo.getUseIntegeral();
 							 }
-							   vo = list.get(0);
-							   corpBudgetId = vo.getId();
-							  
-							   display.setTotalCount(vo.getBudgetIntegral()+"");
-							   display.setRemainCount((vo.getBudgetIntegral()-vo.getUseIntegeral())+"");
-							   remainCount = vo.getBudgetIntegral()-vo.getUseIntegeral();
+							  							  
 								
 								
 						 }else{
@@ -281,19 +295,28 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 							 map.put(vo.getId(), "");
 							
 						 }
+						    
+						    display.initYear(map);	
+						    display.initManageDepart(depmap);
 						    DepBudgetVo criteria = new DepBudgetVo();
 							criteria.setCorpBudgetId(corpBudgetId);
+							criteria.setManageDepId(display.getManageDep().getValue(display.getManageDep().getSelectedIndex()));
 							listViewAdapter = new DepBudgetListAdapter(dispatch, criteria,errorHandler, sessionManager, display);
-							listViewAdapter.addDataDisplay(cellTable);	
-						 display.initYear(map);	
-						
+							listViewAdapter.addDataDisplay(cellTable);
+							List<UserRoleVo> roles = Arrays.asList(sessionManager.getSession().getUserRoles());
+							if(roles.contains(UserRoleVo.CORP_ADMIN)){
+								initDeparts("1");//HR得到一级部门
+								display.setDisplay();
+							}else
+								initDeparts(display.getManageDep().getValue(display.getManageDep().getSelectedIndex())); //得到所管部门
+							
 					}
 
 				});
 	 
    }
    private void toRefresh(){
-	   dispatch.execute(new InitCorpBudgetRequest(sessionManager.getSession()),
+	   dispatch.execute(new InitCorpBudgetRequest(sessionManager.getSession(),display.getManageDep().getValue(display.getManageDep().getSelectedIndex())),
 				new AsyncCallback<InitCorpBudgetResponse>() {
 		          	@Override
 					public void onFailure(Throwable arg0) {
@@ -319,10 +342,18 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 							    display.setRemainCount((vo.getBudgetIntegral()-vo.getUseIntegeral())+"");
 							    remainCount = vo.getBudgetIntegral()-vo.getUseIntegeral();
 								DepBudgetVo criteria = new DepBudgetVo();
+								criteria.setManageDepId(display.getManageDep().getValue(display.getManageDep().getSelectedIndex()));
 								criteria.setCorpBudgetId(corpBudgetId);
 								listViewAdapter = new DepBudgetListAdapter(dispatch, criteria,errorHandler, sessionManager, display);
 								listViewAdapter.addDataDisplay(cellTable);
-
+								
+								List<UserRoleVo> roles = Arrays.asList(sessionManager.getSession().getUserRoles());
+								if(roles.contains(UserRoleVo.CORP_ADMIN)){
+									initDeparts("1");//HR得到一级部门
+									display.setDisplay();
+								}else
+									initDeparts(display.getManageDep().getValue(display.getManageDep().getSelectedIndex())); //得到所管部门
+								
 						 }
 							
 													
@@ -331,8 +362,8 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 				});
 	   
    }
-   private void toSearch(){
-	   dispatch.execute(new InitCorpBudgetRequest(sessionManager.getSession()),
+   private void toSearch(final String depId){
+	   dispatch.execute(new InitCorpBudgetRequest(sessionManager.getSession(),depId),
 				new AsyncCallback<InitCorpBudgetResponse>() {
 		          	@Override
 					public void onFailure(Throwable arg0) {
@@ -356,14 +387,24 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 							    corpBudgetId = vo.getId();
 							    display.setTotalCount(vo.getBudgetIntegral()+"");
 							    display.setRemainCount((vo.getBudgetIntegral()-vo.getUseIntegeral())+"");
-							   
+							    remainCount = vo.getBudgetIntegral()-vo.getUseIntegeral();
+//							    List<UserRoleVo> roles = Arrays.asList(sessionManager.getSession().getUserRoles());
+//								if(roles.contains(UserRoleVo.CORP_ADMIN)){
+//									initDeparts("1");//HR得到一级部门
+//									display.setDisplay();
+//								}else
+//									initDeparts(display.getManageDep().getValue(display.getManageDep().getSelectedIndex())); //得到所管部门
+								
 								DepBudgetVo criteria = new DepBudgetVo();
+								criteria.setManageDepId(depId);
 								criteria.setCorpBudgetId(corpBudgetId);
 								criteria.setDepartmentId(display.getDepart());
 								if(!display.getJF().getValue().equals(""))
 								criteria.setBudgetIntegral(Double.parseDouble(display.getJF().getValue()));
 								listViewAdapter = new DepBudgetListAdapter(dispatch, criteria,errorHandler, sessionManager, display);
 								listViewAdapter.addDataDisplay(cellTable);
+								
+															
 
 						 }else{
 							 display.setTotalCount("0");
@@ -378,8 +419,56 @@ public class CreateBudgetPresenterImpl extends BasePresenter<CreateBudgetDisplay
 				});
 	   
    }
-   private void initDeparts(){
-	   dispatch.execute(new InitDepartmentRequest(sessionManager.getSession()),
+   private void toPrush(){
+	   String manageDepId = display.getManageDep().getValue(display.getManageDep().getSelectedIndex());
+	   dispatch.execute(new InitCorpBudgetRequest(sessionManager.getSession(),manageDepId),
+				new AsyncCallback<InitCorpBudgetResponse>() {
+		          	@Override
+					public void onFailure(Throwable arg0) {
+						errorHandler.alert("查询财年周期出错!");
+						
+					}
+
+					@Override
+					public void onSuccess(InitCorpBudgetResponse response) {
+						
+						  List<CorpBudgetVo> list = response.getResult();
+						  CorpBudgetVo vo = new CorpBudgetVo();
+						 if(list.size()>0){//得到下拉框所选择的财年周期
+							 for(int i=0;i<list.size();i++){
+								 if(list.get(i).getId().equals(display.getYear())){
+								   vo = list.get(i);
+								 }
+								  
+							 }
+							 //刷新列表和预算总数
+							    corpBudgetId = vo.getId();
+							    display.setTotalCount(vo.getBudgetIntegral()+"");
+							    display.setRemainCount((vo.getBudgetIntegral()-vo.getUseIntegeral())+"");
+							    remainCount = vo.getBudgetIntegral()-vo.getUseIntegeral();
+							    
+							    List<UserRoleVo> roles = Arrays.asList(sessionManager.getSession().getUserRoles());
+								if(roles.contains(UserRoleVo.CORP_ADMIN)){
+									initDeparts("1");//HR得到一级部门
+									display.setDisplay();
+								}else
+									initDeparts(display.getManageDep().getValue(display.getManageDep().getSelectedIndex())); //得到所管部门
+
+						 }else{
+							 display.setTotalCount("0");
+							 display.setRemainCount("0");
+							
+						 }
+							
+							
+						
+					}
+
+				});
+	   
+   }
+   private void initDeparts(String type){
+	   dispatch.execute(new InitDepartmentRequest(sessionManager.getSession(),type),
 				new AsyncCallback<InitDepartmentResponse>() {
 		          	@Override
 					public void onFailure(Throwable arg0) {

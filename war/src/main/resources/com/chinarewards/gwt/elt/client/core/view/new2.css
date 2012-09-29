@@ -178,7 +178,10 @@ a:hover{color:#010DFF;text-decoration:underline;}
 /*内容区布局*/
 .employee .content{position:relative;}
 .employee .menu-nav{float:left;}
-.employee .reward-area{width:200px;overflow:hidden;background-color:#F7F7F7;vertical-align:top;position:absolute;right:0;top:0;}
+.employee .reward-area{width:205px;overflow:hidden;background-color:#fff;vertical-align:top;position:absolute;right:0;top:0;}
+.employee .reward-area .broadcast{background-color:#f7f7f7; border:1px solid #ccc;padding:8px;margin:2px 0px 10px;}
+.employee .reward-area .broadcast h3{text-align:center;color:#FE0100;margin-bottom:5px;}
+
 .employee .reward-section{border-top:1px solid #77A5D3;padding-top:1px;margin-bottom:20px;}
 .employee .reward-section .reward-select li{float:left;width:100px;overflow:hidden;}
 .employee .reward-section .reward-select li a{background-color:#F7F7F7;text-align:center;padding:7px 0;display:block;font-size:13px;overflow:hidden;}

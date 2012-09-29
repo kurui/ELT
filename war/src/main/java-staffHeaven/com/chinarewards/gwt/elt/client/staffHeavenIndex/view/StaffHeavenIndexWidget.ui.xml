@@ -10,14 +10,11 @@
       <div class="{new2.content-info}">
         <div class="{new2.note}">
           <g:Anchor ui:field="closeMessageBtn" styleName="{new2.close}" />
-          <g:InlineLabel ui:field="topMessage" />
+          <em></em><g:InlineLabel ui:field="topMessage" />
         </div>
 
-        <div class="{new2.broadcast}">
-          <h3>公司广播</h3>
-          <p><g:InlineLabel ui:field="topBroadcast" /> </p>
-        </div>
-		<div class="{new2.broadcast}">
+
+		<div class="{new2.mybroadcast}">
           <h2>我要广播</h2>
 			<g:TextArea styleName="{new2.textarea}" ui:field="broadcastContent" />
 			<g:CheckBox styleName="{new2.checkBox}" ui:field="moot" >  发表为讨论帖</g:CheckBox>
@@ -28,7 +25,7 @@
 						</div>
         </div>
         <div class="{new2.news-select}">
-        	
+        	<g:Anchor text="刷新" ui:field="refeshxx" styleName="{new2.refeshxx}" />
         <g:Anchor text="全部信息" ui:field="allInformation" styleName="{new2.onselecta}" />|
         <g:Anchor text="同事说" ui:field="staffInformation" />|
          <g:Anchor text="悄悄话" ui:field="quietlyInformation" />|
@@ -42,7 +39,15 @@
 			        <li><g:Anchor text="我的悄悄话" styleName="{new2.newa}"  ui:field="myquietly" /> </li>
 			      </ul>
 			 </div>
-		 </div>
+		  </div>
+		   <div class="{new2.index} {new2.head}" id="head" >
+			 <div class="{new2.top-nav} {new2.clearfix}" >
+	              <ul>
+			        <li class="{new2.on}"><g:Anchor text="Ta说" styleName="{new2.newa}" ui:field="heSay" /> </li>
+			        <li><g:Anchor text="我说" styleName="{new2.newa}"  ui:field="mySay" /> </li>
+			      </ul>
+			 </div>
+		  </div>
         <div class="{new2.news-list}">
          
 

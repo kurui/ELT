@@ -139,11 +139,11 @@ public class DepartmentServiceImpl implements DepartmentService {
 	}
 
 
-	@Override
-	public List<Department> getWholeChildren(String deptId,
-			boolean containItSelf){
-		return departmentLogic.getWholeChildren(deptId, containItSelf);
-	}
+//	@Override
+//	public List<Department> getWholeChildren(String deptId,
+//			boolean containItSelf){
+//		return departmentLogic.getWholeChildren(deptId, containItSelf);
+//	}
 	
 	@Override
 	public List<Department> getWholeDepartmentsOfCorporation(
@@ -151,10 +151,15 @@ public class DepartmentServiceImpl implements DepartmentService {
 		return departmentLogic.getWholeDepartmentsOfCorporation(corporationId);
 	}
 	
+//	@Override
+//	public List<String> getWholeChildrenNames(String deptId, boolean containItSelf) {
+//		return departmentLogic.getWholeChildrenNames(deptId, containItSelf);
+//	}
+	
 	@Override
-	public List<String> getWholeChildrenNames(String deptId, boolean containItSelf) {
-		return departmentLogic.getWholeChildrenNames(deptId, containItSelf);
-	}
+	public List<String> getImmediacyChildrenNames(String deptId,boolean containItSelf) {
+		return departmentLogic.getImmediacyChildrenNames(deptId,containItSelf);
+	}	
 
 	@Override
 	public List<Department> getDepartmentsOfCorporationAndKey(String corporationId,String key)
@@ -175,13 +180,11 @@ public class DepartmentServiceImpl implements DepartmentService {
 	@Override
 	public List<Department> getImmediacyDepartmentsOfCorporation(
 			String corporationId) {
-		// TODO Auto-generated method stub
 		return departmentLogic.getImmediacyDepartmentsOfCorporation(corporationId);
 	}
 
 	@Override
-	public List<Department> getImmediacyChildren(String deptId) {
-		// TODO Auto-generated method stub
-		return departmentLogic.getImmediacyChildren(deptId);
+	public List<Department> getImmediacyChildren(String deptId,boolean containItSelf) {
+		return departmentLogic.getImmediacyChildren(deptId,containItSelf);
 	}
 }

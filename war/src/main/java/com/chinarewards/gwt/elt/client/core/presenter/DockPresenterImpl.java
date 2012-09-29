@@ -6,6 +6,7 @@ import java.util.List;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.chinarewards.gwt.elt.client.EltGinjector;
+import com.chinarewards.gwt.elt.client.awardRewardDetermine.plugin.AwardRewardDetermineConstants;
 import com.chinarewards.gwt.elt.client.box.plugin.UserBoxConstants;
 import com.chinarewards.gwt.elt.client.broadcasting.plugin.BroadcastingListConstants;
 import com.chinarewards.gwt.elt.client.budget.plugin.CreateBudgetConstants;
@@ -21,6 +22,7 @@ import com.chinarewards.gwt.elt.client.login.LastLoginRoleResponse;
 import com.chinarewards.gwt.elt.client.login.event.LoginEvent;
 import com.chinarewards.gwt.elt.client.mvp.BasePresenter;
 import com.chinarewards.gwt.elt.client.mvp.EventBus;
+import com.chinarewards.gwt.elt.client.nominate.plugin.NominateConstants;
 import com.chinarewards.gwt.elt.client.order.plugin.OrderListConstants;
 import com.chinarewards.gwt.elt.client.rewardItem.plugin.RewardsItemConstants;
 import com.chinarewards.gwt.elt.client.rewards.plugin.RewardsListConstants;
@@ -63,7 +65,7 @@ public class DockPresenterImpl extends BasePresenter<DockDisplay> implements
 			for (UserRoleVo r : roles) {
 				roleslt.add(r);
 			}
-			if (!roleslt.contains(UserRoleVo.CORP_ADMIN) && !roleslt.contains(UserRoleVo.DEPT_MGR)) {
+			if (!roleslt.contains(UserRoleVo.CORP_ADMIN) && !roleslt.contains(UserRoleVo.DEPT_MGR) && !roleslt.contains(UserRoleVo.AWARD) && !roleslt.contains(UserRoleVo.NOMINATE)) {
 				display.disableManagementCenter();
 			}
 			if (!roleslt.contains(UserRoleVo.GIFT)) {
@@ -72,9 +74,15 @@ public class DockPresenterImpl extends BasePresenter<DockDisplay> implements
 			if (!roleslt.contains(UserRoleVo.STAFF)) {
 				display.disableStaffCorner();
 			}
-			if(roleslt.contains(UserRoleVo.DEPT_MGR) && !roleslt.contains(UserRoleVo.CORP_ADMIN))
+			
+			if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.DEPT_MGR)
 			{
 				display.displayDeptMgrMenu();
+			}
+			if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.AWARD || sessionManager.getSession().getLastLoginRole()==UserRoleVo.NOMINATE)
+			{
+				display.changeTopMenu("Reward");
+				display.displayAwardMgrMenu();
 			}
 		}
 
@@ -132,10 +140,27 @@ public class DockPresenterImpl extends BasePresenter<DockDisplay> implements
 					@Override
 					public void onClick(ClickEvent event) {
 						display.setMenuTitle("应用奖项");
+						if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.AWARD)
+						{
+							menuProcessor.initrender(display.getMenu(), "Award");
+							eventBus.fireEvent(new MenuClickEvent(
+									menuProcessor
+											.getMenuItem(AwardRewardDetermineConstants.MENU_AWARDREWARDDETERMINE_SEARCH)));
+						}
+						else if(sessionManager.getSession().getLastLoginRole()==UserRoleVo.NOMINATE)
+						{
+							menuProcessor.initrender(display.getMenu(), "Nominate");
+							eventBus.fireEvent(new MenuClickEvent(
+									menuProcessor
+											.getMenuItem(NominateConstants.MENU_NOMINATE_SEARCH)));
+						}
+						else
+						{
 						menuProcessor.initrender(display.getMenu(), "Reward");
 						eventBus.fireEvent(new MenuClickEvent(
 								menuProcessor
 										.getMenuItem(RewardsListConstants.MENU_REWARDSLIST_SEARCH)));
+						}
 					}
 				}));
 		registerHandler(display.getBtnStaff().addClickHandler(

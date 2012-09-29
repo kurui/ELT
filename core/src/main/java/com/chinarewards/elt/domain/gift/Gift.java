@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.chinarewards.elt.model.gift.search.GiftStatus;
+import com.chinarewards.elt.util.StringUtil;
 
 /**
  * The persistent class for the gift database table.
@@ -34,8 +35,11 @@ public class Gift implements Serializable {
 	private String explains; // 兑换说明
 	private String notes; // 注意事项
 	private String type; // 礼品类型
+	
+	private String model;//产品型号
 	private String brand;// 品牌
 	private String photo; // 图片
+	private String price;//采购价格
 	private String source; // 供货方式
 	private int integral; // 积分
 	private int stock; // 库存
@@ -52,6 +56,25 @@ public class Gift implements Serializable {
 	private Date recorddate; // 录入时间
 	private String recorduser; // 录入人
 	private Date updatetime; // 修改时间
+	
+	public String getModel() {
+		return model;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
+	}
+
+	public String getPrice() {
+		if(StringUtil.isEmptyString(price)){
+			return "0";
+		}
+		return price;
+	}
+
+	public void setPrice(String price) {
+		this.price = price;
+	}
 
 	public String getName() {
 		return name;

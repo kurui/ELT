@@ -49,6 +49,14 @@ public enum UserRole {
 	/**
 	 * Ordinary gift.
 	 */
-	GIFT
+	GIFT,
+	/**
+	 * 颁奖权限
+	 */
+	AWARD,
+	/**
+	 * 提名权限
+	 */
+	NOMINATE
 
 }

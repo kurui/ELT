@@ -89,7 +89,7 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 				roleslt.add(r);
 			}
 			if (!roleslt.contains(UserRoleVo.CORP_ADMIN)
-					&& !roleslt.contains(UserRoleVo.DEPT_MGR)) {
+					&& !roleslt.contains(UserRoleVo.DEPT_MGR)  && !roleslt.contains(UserRoleVo.AWARD) && !roleslt.contains(UserRoleVo.NOMINATE)) {
 				display.disableManagementCenter();
 			}
 			if (!roleslt.contains(UserRoleVo.GIFT)) {
@@ -118,7 +118,7 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						UserRoleVo role = UserRoleVo.DEPT_MGR;
+						UserRoleVo role = null;
 
 						for (int i = 0; i < sessionManager.getSession()
 								.getUserRoles().length; i++) {
@@ -779,6 +779,12 @@ public class StaffPresenterImpl extends BasePresenter<StaffDisplay> implements
 	@Override
 	public void reOnloadStaffInfo() {
 		this.init();
+		
+	}
+
+	@Override
+	public void setTopBroadcast(String text) {
+		display.setTopBroadcast(text);
 		
 	}
 

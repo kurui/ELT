@@ -77,6 +77,12 @@ public class DetailsOfAwardPresenterImpl extends
 						RewardPageType pagetype;
 						if (rewardStatus == RewardsStatus.REWARDED)
 							pagetype = RewardPageType.DETAILSOFAWARDPAGE;
+						else if (rewardStatus == RewardsStatus.NEW)
+							pagetype = RewardPageType.AWARDREWARDPAGE;
+						else if (rewardStatus == RewardsStatus.PENDING_NOMINATE)
+							pagetype = RewardPageType.NOMINATEPAGE;
+						else if (rewardStatus == RewardsStatus.DETERMINE_WINNER)
+							pagetype = RewardPageType.DETERMINEWINNERS;
 						else
 							pagetype = RewardPageType.APPLYREWARDLIST;
 
@@ -127,6 +133,7 @@ public class DetailsOfAwardPresenterImpl extends
 						display.setExpectNominateDate(DateTool
 								.dateToString(response.getExpectNominateDate()));
 						display.setAwardName(response.getAwardingStaffName());
+						if(response.getWinnerList()!=null && response.getWinnerList().size()>0)
 						display.setWinners(response.getWinnerList());
 						display.setCandidate(response.getCandidateList());
 

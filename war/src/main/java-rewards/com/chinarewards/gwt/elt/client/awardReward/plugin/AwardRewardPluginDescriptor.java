@@ -53,7 +53,7 @@ public class AwardRewardPluginDescriptor implements PluginDescriptor {
 
 					@Override
 					public int getOrder() {
-						return MenuConstants.MENU_ORDER_AWARDREWARD_SEARCH;
+						return MenuConstants.MENU_ORDER_DETERMINEWINNERS_SEARCH;
 					}
 
 					@Override
@@ -68,14 +68,14 @@ public class AwardRewardPluginDescriptor implements PluginDescriptor {
 
 					@Override
 					public String getTitle() {
-						return "待颁奖奖项";
+						return "确定获奖人";
 					}
 
 					@Override
 					public void execute() {
 						RewardsPageClient rpc=new RewardsPageClient();
-						rpc.setTitleName("待颁奖奖项");
-						rpc.setPageType(RewardPageType.AWARDREWARDPAGE);
+						rpc.setTitleName("确定获奖人");
+						rpc.setPageType(RewardPageType.DETERMINEWINNERS);
 						Platform.getInstance()
 								.getEditorRegistry()
 								.openEditor(

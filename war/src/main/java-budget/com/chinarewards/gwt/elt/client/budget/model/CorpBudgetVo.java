@@ -21,6 +21,24 @@ public class CorpBudgetVo implements Serializable {
 	private Date recorddate; // 操作时间
 	private int deleted; // 是否删除
 	private String moneyType;
+	private String departmentId;    //部门ID	
+	private String departmentName;    //部门名  在部门预算初始化时用到	
+	public String getDepartmentId() {
+		return departmentId;
+	}
+
+	public void setDepartmentId(String departmentId) {
+		this.departmentId = departmentId;
+	}
+
+	public String getDepartmentName() {
+		return departmentName;
+	}
+
+	public void setDepartmentName(String departmentName) {
+		this.departmentName = departmentName;
+	}
+
 	public String getMoneyType() {
 		return moneyType;
 	}

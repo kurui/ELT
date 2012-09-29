@@ -87,7 +87,8 @@ public class StaffListWidget extends Composite implements StaffListDisplay {
 		staffStatus.addItem("不限", "ALL");
 		staffStatus.addItem("待入职", "ENTRY");	
 		staffStatus.addItem("已离职", "DEPARTURE");
-		
+		staffStatus.addItem("隐藏", "HIDE");
+
 		staffRole.addItem("不限", "ALL");
 		staffRole.addItem("HR管理员", UserRoleVo.CORP_ADMIN.toString());
 		staffRole.addItem("部门管理员", UserRoleVo.DEPT_MGR.toString());

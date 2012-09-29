@@ -28,9 +28,9 @@ public interface GiftPresenter extends Presenter<GiftPresenter.GiftDisplay> {
 		public HasValue<String> getSummary();
 
 		public HasValue<String> getDispatchcycle();
-
+		public HasValue<String> getModel();
 		public HasValue<String> getExplains();
-
+		HasValue<String> getPrice();
 		public HasValue<String> getNotes();
 
 		public ListBox getType();

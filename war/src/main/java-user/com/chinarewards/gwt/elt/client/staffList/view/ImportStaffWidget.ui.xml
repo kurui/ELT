@@ -91,7 +91,30 @@
 						</table>
 						     <div >
 							    <g:DecoratorPanel ui:field="titlePreviewPanel" />
+						  	 </div>
+						  <div>
+						  
+  			<div class="{new2.divtext2}">这个档案共有<g:InlineLabel ui:field="dataCount" styleName="{new2.divfont}" /> 条记录, 当前已选<g:InlineLabel ui:field="selectdataCount" styleName="{new2.divfont}" />条<div  class="{new2.divend}"/></div>
+		
+			<div class="{new2.table}">
+				<g:FlowPanel ui:field="resultPanel" />
+			</div>
+			<!--分页 [[ -->
+			<div id="rewardlist_page" class="{new2.pager}">
+				<div class="{new2.pager-left}">
+					每页显示条数
+					<g:ListBox ui:field="pageNumber" styleName="{new2.select}" /> 
+				</div>
+
+				<div class="{new2.pager-right2}">
+					<g:FlowPanel ui:field="resultpage" />
+				</div>
+			</div>
+			<!--分页 ]] -->
+
+
 						  </div>
+						  
 						  </div>
 					  </div>
 								<div id="post">
@@ -153,7 +176,7 @@
                         </div>
 						<div id ="post">
                             <div>
-								   <g:Button ui:field="pretreatmentReportButton" styleName="button-inclu" visible="false" >详细</g:Button>
+								   <g:Button ui:field="pretreatmentReportButton" styleName="button-inclu" >详细</g:Button>
 									<g:Button ui:field="backStep3Button" styleName="button-pre" >上一步</g:Button>
 									<g:Button ui:field="importStaffButton" styleName="button-inclu">导入</g:Button>
 							</div>
@@ -218,7 +241,7 @@
 						<div id="post">
 
 							<div>
-								<g:Button ui:field="finalReportButton" styleName="button-inclu" visible="false" >下载失败记录</g:Button>
+								<g:Button ui:field="finalReportButton" styleName="button-inclu" >下载失败记录</g:Button>
 							    <g:Button ui:field="closeButton" styleName="button-ok">完成</g:Button>
 							</div>
 						</div>

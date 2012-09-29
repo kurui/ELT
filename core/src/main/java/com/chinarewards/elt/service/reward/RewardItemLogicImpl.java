@@ -408,8 +408,8 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 	
 	@Override
 	public RewardItemVo fetchEntireRewardItemById(String rewardItemId) {
-		RewardItem rewardItem = rewardItemDao.findById(RewardItem.class,
-				rewardItemId);
+		RewardItem rewardItem = rewardItemDao.findByIdNoFlush(RewardItem.class,rewardItemId);
+		System.out.print(rewardItem.getBuilderDept().getId());
 		RewardItemVo itemVo = convertFromRewardItemToVo(rewardItem, true);
 		return itemVo;
 	}
@@ -508,7 +508,9 @@ public class RewardItemLogicImpl implements RewardItemLogic {
 						.isEmpty())) {
 			Set<String> deptIds = new HashSet<String>();
 			for (String id : criteria.getDeptIds()) {
-				deptIds.addAll(deptLogic.getWholeChildrenIds(id, true));
+//				deptIds.addAll(deptLogic.getWholeChildrenIds(id, true));
+				deptIds.addAll(deptLogic.getAllChildrenIds(id,true));
+				
 			}
 			// since we have resolved all sub-departments
 			criteria.setSubDepartmentChosen(false);

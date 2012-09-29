@@ -17,7 +17,11 @@
 					<span class="{new2.nbsp}"></span>
 					<g:ListBox ui:field="year"  styleName="{new2.select}"/>
 					<span class="{new2.nbspbig}"></span>
-                    <label for="">部门选择:</label>
+					<label for=""><g:InlineLabel ui:field="lbldep" text="主管部门:"></g:InlineLabel></label>
+					<span class="{new2.nbsp}"></span>
+					<g:ListBox ui:field="managedepart"  styleName="{new2.select}"/>
+					<span class="{new2.nbspbig}"></span>
+                    <label for="">预算部门:</label>
 					<span class="{new2.nbsp}"></span>
 					<g:ListBox ui:field="depart"  styleName="{new2.select}"/>
 					<span class="{new2.nbspbig}"></span>

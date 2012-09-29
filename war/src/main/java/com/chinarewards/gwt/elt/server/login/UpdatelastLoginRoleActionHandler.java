@@ -28,8 +28,11 @@ public class UpdatelastLoginRoleActionHandler extends
 	@Override
 	public LastLoginRoleResponse execute(LastLoginRoleRequest action,
 			ExecutionContext context) throws DispatchException {
-		String fal = userService.updateLastLoginRole(action.getUserId(),
-				UserRole.valueOf(action.getRole().toString()));
+		String fal ="";
+		if(action.getRole()!=null)	
+			fal = userService.updateLastLoginRole(action.getUserId(),UserRole.valueOf(action.getRole().toString()));
+		else
+			fal = userService.updateLastLoginRole(action.getUserId(),null);
 		return new LastLoginRoleResponse(fal);
 	}
 

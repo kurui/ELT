@@ -149,6 +149,12 @@
 	<g:FlowPanel ui:field="dock" />
 	
 				 <div class="{new2.reward-area}">
+				 
+				 	    	 <div class="{new2.broadcast}">
+					          <h3>公司广播</h3>
+					          <p><g:InlineLabel ui:field="topBroadcast" /> </p>
+					        </div>
+					        
 			        <div class="{new2.reward-section}">
 			          <ul class="{new2.reward-select}">
 			            <li class="{new2.on}"><g:Anchor ui:field="myWinReward" text="我获得的奖项" /> </li>
